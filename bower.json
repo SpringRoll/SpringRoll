@@ -1,0 +1,16 @@
+{
+    "name": "cloudkid-framework",
+    "version": "0.0.1",
+    "dependencies": {
+        "cloudkid-debug" : "*",
+        "cloudkid-namespace" : "*"
+    },
+    "ignore": [
+        "Gruntfile.js",
+        "build.json",
+        "tasks",
+        "examples",
+        "docs",
+        "src"
+    ]
+}
