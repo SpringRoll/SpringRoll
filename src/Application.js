@@ -22,19 +22,21 @@
 
 		/**
 		*  Initialization options/query string parameters, these properties are read-only
-		*  methods like raf, fps, don't haff any affect
+		*  Application properties like raf, fps, don't have any affect on the options object.
 		*  @property {Object} options
 		*  @readOnly
 		*/
-		this.options = options;
+		this.options = options || {};
 
 		/**
-		*  Primary renderer for the application, for accessing Application.instance.display.stage;
+		*  Primary renderer for the application, for simply accessing Application.instance.display.stage;
 		*  The first display added becomes the primary display automatically.
 		*  @property {Display} display
 		*  @public 
 		*/
 		this.display = null;
+
+		this._displays = {};
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
@@ -49,7 +51,7 @@
 	*  The collection of function references to call when initializing the application
 	*  these are registered by external libraries that need to setup, destroyed
 	*  for instance MediaLoader
-	*  @property {Array} _globaInit
+	*  @property {Array} _globalInit
 	*  @private
 	*  @static
 	*/
@@ -85,13 +87,6 @@
 	*  @property {int} _lastFPSUpdateTime
 	*/
 	_lastFPSUpdateTime = 0,
-	
-	/**
-	*  The calculated framerate
-	*  @private
-	*  @property {Number} _framerateValue
-	*/
-	_framerateValue = null,
 	
 	/**
 	*  The number of frames since the last fps update
@@ -153,11 +148,46 @@
 	_resizeElement = null,
 
 	/**
+	*  The aspect ratio of the primary display, as width / height.
+	*  @property {Number} _aspectRatio
+	*  @private
+	*/
+	_aspectRatio = 1;
+
+	/**
 	*  Rendering plugins, in a dictionary by canvas id
 	*  @property {dictionary} _displays
 	*  @private
 	*/
 	_displays = null,
+
+	/**
+	*  Default initialization options.
+	*  @property {dictionary} _defaultOptions
+	*  @private
+	*/
+	_defaultOptions = 
+	{
+		//application properties
+		raf: true,
+		fps: 60,
+		resizeElement: null,
+		queryStringParameters: false,
+		debug: false,
+		minLogLevel: 0,
+		ip: null,
+		//default display properties
+		canvasId: null,
+		display: null,
+		displayOptions: null
+	},
+
+	/**
+	*  A helper object to avoid object creation each resize event.
+	*  @property {Object} _resizeHelper
+	*  @private
+	*/
+	_resizeHelper = { width: 0, height: 0},
 
 	/**
 	*  Fired when initialization of the application is done
@@ -250,11 +280,56 @@
 	*/
 	p._internalInit = function()
 	{
+		//grab the query string parameters if we should be doing so
+		if(this.options.queryStringParameters)
+			parseQueryStringParams(this.options);
+		//set up default options
+		for(var key in _defaultOptions)
+		{
+			if(!this.options.hasOwnProperty(key))
+				this.options[key] = _defaultOptions[key];
+		}
+
 		// Call any global libraries to initialize
 		for(var i = 0; i < Application._globalInit.length; ++i)
 		{
 			Application._globalInit[i]();
 		}
+
+		_useRAF = this.options.raf;
+		this.fps = this.options.fps;
+		var framerate = this.options.framerate;
+		if(framerate)
+		{
+			if(typeof framerate == "string")
+				_framerate = document.getElementById(framerate);
+			else
+				_framerate = framerate;
+		}
+		var resizeElement = this.options.resizeElement;
+		if(resizeElement)
+		{
+			if(typeof resizeElement == "string")
+				_resizeElement = document.getElementById(framerate);
+			else
+				_resizeElement = framerate;
+			this._resize = this._resize.bind(this);
+			_resizeElement.addEventListener("resize", this._resize);
+		}
+
+		// Turn on debugging
+		if (this.options.debug !== undefined)
+			Debug.enabled = this.options.debug === true || this.options.debug === "true";
+		
+		if (this.options.minLogLevel !== undefined)
+			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+
+		//if we were supplied with an IP address, connect to it with the Debug class for logging
+		if(typeof this.options.ip == "string")
+			Debug.connect(this.options.ip);
+
+		if(this.options.canvasId && this.options.display)
+			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
 
 		// Call the init function
 		if (this.init) this.init();
@@ -267,6 +342,34 @@
 
 		//start update loop
 		this.paused = false;
+	};
+
+	/**
+	*  Define all of the query string parameters
+	*  @private
+	*  @method parseQueryStringParams
+	*  @param {object} output The object reference to update
+	*/
+	var parseQueryStringParams = function(output)
+	{
+		var href = window.location.search;
+		if(!href)//empty string is false
+			return output;
+		var vars = href.substr(href.indexOf("?")+1);
+		var pound = vars.indexOf('#');
+		vars = pound < 0 ? vars : vars.substring(0, pound);
+		var splitFlashVars = vars.split("&");
+		var myVar;
+		for (var i = 0; i < splitFlashVars.length; i++)
+		{
+			myVar = splitFlashVars[i].split("=");
+			if (DEBUG)
+			{
+				Debug.log(myVar[0] + " -> " + myVar[1]);
+			}
+			output[myVar[0]] = myVar[1];
+		}
+		return output;
 	};
 
 	/**
@@ -290,15 +393,71 @@
 			_paused = !!value;
 			this.trigger(PAUSE, _paused);
 			this.trigger(_paused ? PAUSED : RESUMED, _paused);
+
+			if(_paused)
+			{
+				if(_tickId != -1)
+				{
+					if(_useRAF)
+					{
+						cancelAnimationFrame(_tickId);
+					}
+					else
+						clearTimeout(_tickId);
+					_tickId = -1;
+				}
+			}
+			else
+			{
+				if(_tickId == -1)
+				{
+					_tickId = _useRAF ? 
+						requestAnimFrame(_tickCallback): 
+						setTargetedTimeout(_tickCallback);
+				}
+				_lastFPSUpdateTime = _lastFrameTime = cloudkid.FunctionUtils.now();
+			}
 		}
 	});
+
+	/**
+	*  Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
+	*  current tick.
+	*  @method setTargetedTimeout
+	*  @param {Function} callback The tick function to call.
+	*  @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
+	*  @private
+	*/
+	var setTargetedTimeout = function(callback, timeInFrame)
+	{
+		var timeToCall = _msPerFrame;
+		//subtract the time spent in the frame to actually hit the target fps
+		if(timeInFrame)
+			timeToCall = Math.max(0, _msPerFrame - timeInFrame);
+		return setTimeout(callback, timeToCall);
+	};
 
 	/**
 	*  Resize listener function, handles default resize behavior on all displays and dispatches a resize event
 	*  @method _resize
 	*  @private
 	*/
-	p._resize = function(){};
+	p._resize = function()
+	{
+		_resizeHelper.width = _resizeElement.innerWidth | 0;
+		_resizeHelper.height = _resizeElement.innerHeight | 0;
+		this.calculateDisplaySize(_resizeHelper);
+		//round down, as canvases require integer sizes
+		_resizeHelper.width |= 0;
+		_resizeHelper.height |= 0;
+		//resize the displays
+		for(var key in _displays)
+		{
+			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
+		}
+		//send out the resize event
+		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+	};
 
 	/**
 	*  Calculates the resizing of displays. By default, this limits the new size 
@@ -311,7 +470,19 @@
 	*  @param {int} [size.w] The width of the resized container.
 	*  @param {int} [size.h] The height of the resized container.
 	*/
-	p.calculateDisplaySize = function(size){};
+	p.calculateDisplaySize = function(size)
+	{
+		if(size.width / size.height < _aspectRatio)
+		{
+			//limit to the narrower width
+			size.height = size.width / _aspectRatio;
+		}
+		else
+		{
+			//limit to the shorter height
+			size.width = size.height * _aspectRatio;
+		}
+	};
 
 	/**
 	*  Add a display. If this is the first display added, then it will be stored as this.display.
@@ -325,7 +496,18 @@
 	*/
 	p.addDisplay = function(id, displayConstructor, options)
 	{
-
+		if(_displays[id])
+		{
+			if(DEBUG)
+				Debug.error("A display already exists with the id of " + id);
+			return;
+		}
+		var display = _displays[id] = new displayConstructor(id, options);
+		if(!this.display)
+		{
+			this.display = display;
+			_aspectRatio = display.width / display.height;
+		}
 	};
 
 	/**
@@ -336,7 +518,7 @@
 	*/
 	p.getDisplay = function(id)
 	{
-
+		return _displays[id];
 	};
 
 	/**
@@ -347,7 +529,10 @@
 	*/
 	p.getDisplays = function()
 	{
-
+		var output = [];
+		for(key in _displays)
+			output.push(_displays[key]);
+		return output;
 	};
 
 	/**
@@ -357,7 +542,12 @@
 	*/
 	p.removeDisplay = function(id)
 	{
-
+		var display = _displays[id];
+		if(display)
+		{
+			display.destroy();
+			delete _displays[id];
+		}
 	};
 
 	/**
@@ -372,7 +562,9 @@
 		},
 		set: function(value)
 		{
+			if(typeof value != "number") return;
 			_fps = value;
+			_msPerFrame = (1000 / _fps) | 0;
 		}
 	});
 
@@ -392,11 +584,6 @@
 		}
 	});
 
-	//update functions replaced by event - eg Application.instance.on("update", this.update.bind(this))
-
-	// Not here, but should be in the class - function that does 
-	// math to use setTimeout at a targeted framerate (like the current OS)
-
 	/**
 	*  _tick would be bound in _tickCallback
 	*  @method _tick
@@ -404,9 +591,44 @@
 	*/
 	p._tick = function()
 	{
-		//calculate framerate stuff
-		//do update functions in _updateFunctions
-		//then update all renderers
+		if (_paused)
+		{
+			_tickId = -1;
+			return;
+		}
+
+		var now = cloudkid.FunctionUtils.now();
+		var dTime = now - _lastFrameTime;
+		
+		// Only update the framerate every second
+		if(_framerate)
+		{
+			_frameCount++;
+			var elapsed = now - _lastFPSUpdateTime;
+			if (elapsed > 1000)
+			{
+				var framerateValue = 1000 / elapsed * _frameCount;
+				_framerate.innerHTML = "FPS: " + (Math.round(_framerateValue * 1000) / 1000);
+				_lastFPSUpdateTime = now;
+				_frameCount = 0;
+			}
+		}
+		_lastFrameTime = now;
+
+		//trigger the update event
+		this.trigger(UPDATE, dTime);
+
+		//then update all displays
+		for(var key in _displays)
+		{
+			_displays[key].render(dTime);
+		}
+
+		//request the next tick
+		//request the next animation frame
+		_tickId = _useRAF ? 
+			requestAnimFrame(_tickCallback) : 
+			setTargetedTimeout(_tickCallback, cloudkid.FunctionUtils.now() - _lastFrameTime);
 	};
 
 	/**
@@ -415,7 +637,18 @@
 	*/
 	p.destroy = function()
 	{
-
+		this.paused = true;
+		this.trigger(DESTROY);
+		for(var key in _displays)
+		{
+			_displays[key].destroy();
+		}
+		_displays = null;
+		for(var i = 0; i < Application._globalDestroy.length; ++i)
+			Application._globalDestroy[i]();
+		if(_resizeElement)
+			_resizeElement.removeEventListener("resize", this._resize);
+		_framerate = _resizeElement = null;
 	};
 
 	// Add to the name space
