@@ -70,7 +70,7 @@
 	*  @private
 	*  @property {DOMObject} _framerate
 	*/
-	_framerate = null,
+	var _framerate = null,
 	
 	/**
 	*  The number of ms since the last frame update
