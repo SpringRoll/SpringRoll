@@ -655,17 +655,36 @@
 		if(this.options.canvasId && this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
 
-		// Call the init function
-		if (this.init) this.init();
+		var versionsLoaded = function()
+		{
+			// Call the init function
+			if (this.init) this.init();
 
-		// Dispatch the init event
-		this.trigger(INIT);
+			// Dispatch the init event
+			this.trigger(INIT);
 
-		//do an initial resize to make sure everything is sized properly
-		this._resize();
+			//do an initial resize to make sure everything is sized properly
+			this._resize();
 
-		//start update loop
-		this.paused = false;
+			//start update loop
+			this.paused = false;
+		}.bind(this);
+
+		// Check to see if we should load a versions file
+		// The versions file keeps track of file versions to avoid cache issues
+		if (this.options.versionsFile !== undefined)
+		{
+			// Try to load the default versions file
+			// callback should be made with a scope in mind
+			cloudkid.MediaLoader.instance.cacheManager.addVersionsFile(
+				this.options.versionsFile, 
+				versionsLoaded
+			);
+		}
+		else
+		{
+			versionsLoaded();
+		}
 	};
 
 	/**
