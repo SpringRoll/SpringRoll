@@ -45,7 +45,7 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(EventDispatcher.prototype);
+	var p = Application.prototype = Object.create(cloudkid.EventDispatcher.prototype);
 
 	/**
 	*  The collection of function references to call when initializing the application
