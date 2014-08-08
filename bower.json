@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "dependencies": {
         "cloudkid-debug" : "*",
-        "cloudkid-namespace" : "*"
+        "cloudkid-namespace" : "*",
+        "preloadjs": "https://github.com/CloudKidStudio/PreloadJS.git"
     },
     "ignore": [
         "Gruntfile.js",
