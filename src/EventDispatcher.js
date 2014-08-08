@@ -44,7 +44,7 @@
 	};
 	
 	/**
-	*  Add an event listener
+	*  Add an event listener. The parameters for the listener functions depend on the event.
 	*  
 	*  @method on
 	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 

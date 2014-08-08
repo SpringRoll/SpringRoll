@@ -6,8 +6,8 @@
 	"use strict";
 
 	/**
-	*  [CreateJS only] Designed to provide utility related to functions and polyfills
-	*  @class FunctionUtils (CreateJS)
+	*  Designed to provide utility related to functions and polyfills
+	*  @class FunctionUtils
 	*/
 	var FunctionUtils = {};
 	
