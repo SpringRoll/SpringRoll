@@ -475,6 +475,8 @@
 	*/
 	p._resize = function()
 	{
+		if(!_resizeElement) return;
+		
 		_resizeHelper.width = _resizeElement.innerWidth | 0;
 		_resizeHelper.height = _resizeElement.innerHeight | 0;
 		this.calculateDisplaySize(_resizeHelper);
