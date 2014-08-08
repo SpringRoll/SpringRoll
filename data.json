@@ -1,0 +1,2438 @@
+{
+    "project": {
+        "name": "CloudKidFramework",
+        "description": "An application framework for building HTML5 Canvas games and applications",
+        "version": "0.0.1",
+        "url": "http://github.com/CloudKidStudio/CloudKidFramework"
+    },
+    "files": {
+        "src/loaders/CacheManager.js": {
+            "name": "src/loaders/CacheManager.js",
+            "modules": {
+                "cloudkid": 1
+            },
+            "classes": {
+                "CacheManager": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/loaders/LoaderQueueItem.js": {
+            "name": "src/loaders/LoaderQueueItem.js",
+            "modules": {},
+            "classes": {
+                "LoaderQueueItem": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/loaders/MediaLoader.js": {
+            "name": "src/loaders/MediaLoader.js",
+            "modules": {},
+            "classes": {
+                "MediaLoader": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/loaders/MediaLoaderResult.js": {
+            "name": "src/loaders/MediaLoaderResult.js",
+            "modules": {},
+            "classes": {
+                "MediaLoaderResult": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Application.js": {
+            "name": "src/Application.js",
+            "modules": {},
+            "classes": {
+                "Application": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/CombinedCallback.js": {
+            "name": "src/CombinedCallback.js",
+            "modules": {},
+            "classes": {
+                "CombinedCallback": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/DelayedCall.js": {
+            "name": "src/DelayedCall.js",
+            "modules": {},
+            "classes": {
+                "DelayedCall": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/EventDispatcher.js": {
+            "name": "src/EventDispatcher.js",
+            "modules": {},
+            "classes": {
+                "EventDispatcher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/FunctionUtils.js": {
+            "name": "src/FunctionUtils.js",
+            "modules": {},
+            "classes": {
+                "FunctionUtils": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/PageVisibility.js": {
+            "name": "src/PageVisibility.js",
+            "modules": {},
+            "classes": {
+                "PageVisibility": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/SavedData.js": {
+            "name": "src/SavedData.js",
+            "modules": {},
+            "classes": {
+                "SavedData": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Worker.js": {
+            "name": "src/Worker.js",
+            "modules": {},
+            "classes": {
+                "Worker": 1,
+                "SubWorker": 1,
+                "FallbackWorker": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "cloudkid": {
+            "name": "cloudkid",
+            "submodules": {},
+            "classes": {
+                "CacheManager": 1,
+                "LoaderQueueItem": 1,
+                "MediaLoader": 1,
+                "MediaLoaderResult": 1,
+                "Application": 1,
+                "CombinedCallback": 1,
+                "DelayedCall": 1,
+                "EventDispatcher": 1,
+                "FunctionUtils": 1,
+                "PageVisibility": 1,
+                "SavedData": 1,
+                "Worker": 1,
+                "SubWorker": 1,
+                "FallbackWorker": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/Worker.js",
+            "line": 133
+        }
+    },
+    "classes": {
+        "CacheManager": {
+            "name": "CacheManager",
+            "shortname": "CacheManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/loaders/CacheManager.js",
+            "line": 8,
+            "description": "Used for managing the browser cache of loading external elements\ncan easily load version manifest and apply it to the media loader\nsupports cache busting all media load requests\nuses the query string to bust browser versions."
+        },
+        "LoaderQueueItem": {
+            "name": "LoaderQueueItem",
+            "shortname": "LoaderQueueItem",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 8,
+            "description": "Represents a single item in the loader queue"
+        },
+        "MediaLoader": {
+            "name": "MediaLoader",
+            "shortname": "MediaLoader",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/loaders/MediaLoader.js",
+            "line": 8,
+            "description": "The MediaLoader is the singleton loader for loading all assets\nincluding images, data, code and sounds. MediaLoader supports cache-busting\nin the browser using dynamic query string parameters."
+        },
+        "MediaLoaderResult": {
+            "name": "MediaLoaderResult",
+            "shortname": "MediaLoaderResult",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 8,
+            "description": "The return result of the MediaLoader load",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "content",
+                    "description": "The dynamic content loaded",
+                    "type": "*"
+                },
+                {
+                    "name": "url",
+                    "description": "The url that was loaded",
+                    "type": "String"
+                },
+                {
+                    "name": "loader",
+                    "description": "The LoadQueue that performed the load",
+                    "type": "createjs.LoadQueue"
+                }
+            ]
+        },
+        "Application": {
+            "name": "Application",
+            "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Application.js",
+            "line": 6,
+            "description": "Creates a new application, for example (HappyCamel extends Application)\nmanages displays, update loop controlling, handles resizing\nvar app = new Application({fps:60, resizeObject:window});",
+            "extends": "EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "",
+                    "type": "Object"
+                }
+            ]
+        },
+        "CombinedCallback": {
+            "name": "CombinedCallback",
+            "shortname": "CombinedCallback",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/CombinedCallback.js",
+            "line": 8,
+            "description": "A function that is used as a normal callback, but checks an object for a property in order to combine two\ncallbacks into one. For example usage:\n\nvar voPlayer = new cloudkid.VOPlayer();\nvar callback = cloudkid.CombinedCallback.create(myFunc.bind(this), voPlayer, \"playing\", \"_callback\");\nAnimator.play(myClip, \"myAnim\", callback);\n\nIn this example, when Animator calls 'callback', if voPlayer[\"playing\"] is false, 'myFunc' is called immediately.\nIf voPlayer[\"playing\"] is true, then voPlayer[\"_callback\"] is set to 'myFunc' so that it will be called when voPlayer completes.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "call",
+                    "description": "The callback to call when everything is complete.",
+                    "type": "Function"
+                },
+                {
+                    "name": "obj",
+                    "description": "The object to check as an additional completion dependency.",
+                    "type": "*"
+                },
+                {
+                    "name": "prop",
+                    "description": "The property to check on obj. If obj[prop] is false, then it is considered complete.",
+                    "type": "String"
+                },
+                {
+                    "name": "callProp",
+                    "description": "The property to set on obj if obj[prop] is true when the CombinedCallback is called.",
+                    "type": "String"
+                }
+            ]
+        },
+        "DelayedCall": {
+            "name": "DelayedCall",
+            "shortname": "DelayedCall",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/DelayedCall.js",
+            "line": 8,
+            "description": "A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "The function to call when the delay has completed.",
+                    "type": "Function"
+                },
+                {
+                    "name": "delay",
+                    "description": "The time to delay the call, in milliseconds.",
+                    "type": "Int"
+                },
+                {
+                    "name": "repeat=false",
+                    "description": "If the DelayedCall should automatically repeat itself when completed.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "autoDestroy=true",
+                    "description": "If the DelayedCall should clean itself up when completed.",
+                    "type": "Boolean"
+                }
+            ]
+        },
+        "EventDispatcher": {
+            "name": "EventDispatcher",
+            "shortname": "EventDispatcher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/EventDispatcher.js",
+            "line": 8,
+            "description": "The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, \nbut is more robust in terms of inputs for the `on()` and `off()` methods.",
+            "is_constructor": 1
+        },
+        "FunctionUtils": {
+            "name": "FunctionUtils",
+            "shortname": "FunctionUtils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/FunctionUtils.js",
+            "line": 8,
+            "description": "Designed to provide utility related to functions and polyfills"
+        },
+        "PageVisibility": {
+            "name": "PageVisibility",
+            "shortname": "PageVisibility",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/PageVisibility.js",
+            "line": 8,
+            "description": "Handle the page visiblity change, if supported. Application uses one of these to\nmonitor page visibility. It is suggested that you listen to \"pause\", \"paused\", \nor \"unpaused\" events on the application instead of using one of these yourself.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "onFocus",
+                    "description": "Callback when the page becomes visible",
+                    "type": "Function"
+                },
+                {
+                    "name": "onBlur",
+                    "description": "Callback when the page loses visibility",
+                    "type": "Function"
+                }
+            ]
+        },
+        "SavedData": {
+            "name": "SavedData",
+            "shortname": "SavedData",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/SavedData.js",
+            "line": 8,
+            "description": "The SavedData functions use localStorage and sessionStorage, with a cookie fallback."
+        },
+        "Worker": {
+            "name": "Worker",
+            "shortname": "Worker",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Worker.js",
+            "line": 14,
+            "description": "The Web Workers specification defines an API for spawning background scripts in your web \napplication. Web Workers allow you to do things like fire up long-running scripts to \nhandle computationally intensive tasks, but without blocking the UI or other scripts \nto handle user interactions. Because Workers aren't available on all browsers, we provide\na helpful polyfill for backward compatibility.\n\n\tvar workerCode = \"this.initialVariable = 10;\" +\n\t\"this.onmessage = function(event)\" +\n\t\"{\" +\n\t\t\"var data = event.data;\" +\n\t\t\"var returnVal = this.initialVariable + data.addValue;\" +\n\t\t\"this.postMessage(returnVal);\" +\n\t\"};\";\n\n\t// Create the worker\n\tvar worker = cloudkid.Worker.init(workerCode);\n\tworker.onmessage = function(e) {\n\t\t// e.data is the returnVal\n\t};\n\t\n\t// Start the worker.\n\tworker.postMessage();"
+        },
+        "SubWorker": {
+            "name": "SubWorker",
+            "shortname": "SubWorker",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Worker.js",
+            "line": 94,
+            "description": "Internal class that pretends to be a Web Worker's context.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "codeString",
+                    "description": "A string to evaluate into worker code.",
+                    "type": "String"
+                },
+                {
+                    "name": "parent",
+                    "description": "The FallbackWorker that owns this SubWorker.",
+                    "type": "FallbackWorker"
+                }
+            ]
+        },
+        "FallbackWorker": {
+            "name": "FallbackWorker",
+            "shortname": "FallbackWorker",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "cloudkid",
+            "namespace": "",
+            "file": "src/Worker.js",
+            "line": 133,
+            "description": "An internal class that duplicates the Worker API as a fallback when WebWorkers are not supported.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "codeString",
+                    "description": "A string to evaluate into worker code.",
+                    "type": "String"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 21,
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 24,
+            "description": "The collection of version numbers",
+            "access": "protected",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_versions",
+            "type": "Dictionary",
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 31,
+            "description": "If we are suppose to cache bust every file",
+            "itemtype": "property",
+            "name": "cacheBust",
+            "type": "Bool",
+            "access": "public",
+            "tagname": "",
+            "default": "false",
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 39,
+            "description": "The constructor for the Cache manager",
+            "access": "public",
+            "tagname": "",
+            "is_constructor": 1,
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 58,
+            "description": "Destroy the cache manager, don't use after this",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 68,
+            "description": "Add the versions",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "addVersionsFile",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url of the versions file",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "Callback when the url has been laoded",
+                    "type": "Function"
+                },
+                {
+                    "name": "baseUrl",
+                    "description": "A base url to prepend all lines of the file",
+                    "type": "String"
+                }
+            ],
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 126,
+            "description": "Add a version number for a file",
+            "itemtype": "method",
+            "name": "addVersion",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url of the object",
+                    "type": "String"
+                },
+                {
+                    "name": "version",
+                    "description": "Version number or has of file",
+                    "type": "String"
+                }
+            ],
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 140,
+            "description": "Search for a version number by url",
+            "itemtype": "method",
+            "name": "_getVersionByUrl",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to search",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The version number as a string or null",
+                "type": "String"
+            },
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 160,
+            "description": "Prepare a URL with the necessary cache busting and/or versioning\nas well as the base directoryr",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "prepare",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to prepare",
+                    "type": "String"
+                },
+                {
+                    "name": "applyBasePath",
+                    "description": "If the global base path should be applied to the url. This defaults to false because it can \n\t\t\t\t\t\t\t\tpotentially interfere with later regular expression checks, particularly with PreloadJS",
+                    "type": "Bool"
+                }
+            ],
+            "return": {
+                "description": "The final url with version/cache and basePath added",
+                "type": "String"
+            },
+            "class": "CacheManager",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 15,
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 18,
+            "description": "Highest priority",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "itemtype": "property",
+            "name": "PRIORITY_HIGH",
+            "type": "Int",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 27,
+            "description": "Normal priority, the default",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "itemtype": "property",
+            "name": "PRIORITY_NORMAL",
+            "type": "Int",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 36,
+            "description": "Lowest priority",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "final": 1,
+            "itemtype": "property",
+            "name": "PRIORITY_LOW",
+            "type": "Int",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 45,
+            "description": "The url of the load",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "url",
+            "type": "String",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 52,
+            "description": "Data associate with the load",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "data",
+            "type": "*",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 59,
+            "description": "The callback function of the load, to call when \nthe load as finished, takes one argument as result",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "callback",
+            "type": "Function",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 67,
+            "description": "The priority of this item",
+            "itemtype": "property",
+            "name": "priority",
+            "type": "Int",
+            "access": "public",
+            "tagname": "",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 74,
+            "description": "The amount we've loaded so far, from 0 to 1",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "progress",
+            "type": "Number",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 81,
+            "description": "The progress callback",
+            "access": "public",
+            "tagname": "",
+            "proprty": "{function} updateCallback",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 92,
+            "description": "Represent this object as a string",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "The string representation of this object",
+                "type": "String"
+            },
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/LoaderQueueItem.js",
+            "line": 103,
+            "description": "Destroy this result",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "LoaderQueueItem",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 17,
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 20,
+            "description": "Reference to the private instance object",
+            "static": 1,
+            "access": "protected",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 27,
+            "description": "The collection of LoaderQueueItems",
+            "access": "private",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 33,
+            "description": "The collection of LoaderQueueItems by url",
+            "access": "private",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 39,
+            "description": "The collection of loaders",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "loaders",
+            "type": "Object",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 50,
+            "description": "The current number of items loading",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "numLoads",
+            "type": "Int",
+            "default": "0",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 60,
+            "description": "If we can load",
+            "access": "private",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 66,
+            "description": "The maximum number of simulaneous loads",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "maxSimultaneousLoads",
+            "type": "Int",
+            "default": "2",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 74,
+            "description": "The reference to the cache manager",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "cacheManager",
+            "type": "cloudkid.CacheManager",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 81,
+            "description": "Static constructor creating the singleton",
+            "itemtype": "method",
+            "name": "init",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 102,
+            "description": "Static function for getting the singleton instance",
+            "static": 1,
+            "readonly": "",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "instance",
+            "type": "MediaLoader",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 120,
+            "description": "Destroy the MediaLoader singleton, don't use after this",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 157,
+            "description": "Initilize the object",
+            "access": "protected",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_initialize",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 174,
+            "description": "Load a file",
+            "itemtype": "method",
+            "name": "load",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The file path to load",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function when completed",
+                    "type": "Function"
+                },
+                {
+                    "name": "updateCallback",
+                    "description": "The callback for load progress update, passes 0-1 as param",
+                    "type": "Function*"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the load",
+                    "type": "Int*"
+                },
+                {
+                    "name": "data",
+                    "description": "optional data",
+                    "type": "*"
+                }
+            ],
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 211,
+            "description": "There was an error loading the file",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_onLoadFailed",
+            "params": [
+                {
+                    "name": "qi",
+                    "description": "The loader queue item",
+                    "type": "cloudkid.LoaderQueueItem"
+                }
+            ],
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 243,
+            "description": "The file load progress event",
+            "itemtype": "method",
+            "name": "_onLoadProgress",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "qi",
+                    "description": "The loader queue item",
+                    "type": "cloudkid.LoaderQueueItem"
+                },
+                {
+                    "name": "event",
+                    "description": "The progress event",
+                    "type": "Object"
+                }
+            ],
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 258,
+            "description": "The file was loaded successfully",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_onLoadCompleted",
+            "params": [
+                {
+                    "name": "qi",
+                    "description": "The loader queue item",
+                    "type": "cloudkid.LoaderQueueItem"
+                },
+                {
+                    "name": "ev",
+                    "description": "The load event",
+                    "type": "Object"
+                }
+            ],
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 281,
+            "description": "Attempt to do the next load",
+            "itemtype": "method",
+            "name": "_tryNextLoad",
+            "access": "private",
+            "tagname": "",
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 313,
+            "description": "Alert that the loading is finished",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_loadDone",
+            "params": [
+                {
+                    "name": "qi",
+                    "description": "The loader queue item",
+                    "type": "cloudkid.LoaderQueueItem"
+                },
+                {
+                    "name": "result",
+                    "description": "The event from preloadjs or null",
+                    "type": "Object"
+                }
+            ],
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoader.js",
+            "line": 331,
+            "description": "Cancel a load that's currently in progress",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "cancel",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "If canceled returns true, false if not canceled",
+                "type": "Bool"
+            },
+            "class": "MediaLoader",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 23,
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 26,
+            "description": "The contents of the load",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "content",
+            "type": "*",
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 33,
+            "description": "The url of the load",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "url",
+            "type": "String",
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 40,
+            "description": "Reference to the preloader object",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "loader",
+            "type": "createjs.LoaderQueue",
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 47,
+            "description": "A to string method",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "toString",
+            "return": {
+                "description": "A string rep of the object",
+                "type": "String"
+            },
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/loaders/MediaLoaderResult.js",
+            "line": 58,
+            "description": "Destroy this result",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "MediaLoaderResult",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 23,
+            "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
+            "itemtype": "property",
+            "name": "options",
+            "type": "Object",
+            "readonly": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 31,
+            "description": "Primary renderer for the application, for simply accessing Application.instance.display.stage;\nThe first display added becomes the primary display automatically.",
+            "itemtype": "property",
+            "name": "display",
+            "type": "Display",
+            "access": "public",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 50,
+            "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance MediaLoader",
+            "itemtype": "property",
+            "name": "_globalInit",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 60,
+            "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance MediaLoader",
+            "itemtype": "property",
+            "name": "_globalDestroy",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 70,
+            "description": "The frame rate object",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_framerate",
+            "type": "DOMObject",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 77,
+            "description": "The number of ms since the last frame update",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_lastFrameTime",
+            "type": "Int",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 84,
+            "description": "The last time since the last fps update",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_lastFPSUpdateTime",
+            "type": "Int",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 91,
+            "description": "The number of frames since the last fps update",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_frameCount",
+            "type": "Int",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 98,
+            "description": "The bound callback for listening to tick events",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_tickCallback",
+            "type": "Function",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 105,
+            "description": "If the current application is paushed",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_paused",
+            "type": "Boolean",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 112,
+            "description": "The id of the active requestAnimationFrame or setTimeout call.",
+            "itemtype": "property",
+            "name": "_tickId",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 119,
+            "description": "If requestionAnimationFrame should be used",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_useRAF",
+            "type": "Bool",
+            "default": "false",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 127,
+            "description": "The current internal frames per second",
+            "itemtype": "property",
+            "name": "_fps",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "default": "0",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 135,
+            "description": "The number of milliseconds per frame",
+            "itemtype": "property",
+            "name": "_msPerFrame",
+            "type": "Int",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 142,
+            "description": "Dom element (or the window) to attach resize listeners and read the size from",
+            "itemtype": "property",
+            "name": "_resizeElement",
+            "type": "DOMElement|Window|null",
+            "access": "private",
+            "tagname": "",
+            "default": "null",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 150,
+            "description": "The aspect ratio of the primary display, as width / height.",
+            "itemtype": "property",
+            "name": "_aspectRatio",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 157,
+            "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
+            "itemtype": "property",
+            "name": "_pageVisibility",
+            "type": "PageVisibility",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 165,
+            "description": "Rendering plugins, in a dictionary by canvas id",
+            "itemtype": "property",
+            "name": "_displays",
+            "type": "Dictionary",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 172,
+            "description": "Default initialization options.",
+            "itemtype": "property",
+            "name": "_defaultOptions",
+            "type": "Dictionary",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 193,
+            "description": "A helper object to avoid object creation each resize event.",
+            "itemtype": "property",
+            "name": "_resizeHelper",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 200,
+            "description": "Fired when initialization of the application is done",
+            "itemtype": "event",
+            "name": "init",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 206,
+            "description": "Fired when an update is called, every frame update",
+            "itemtype": "event",
+            "name": "update",
+            "params": [
+                {
+                    "name": "elasped",
+                    "description": "The number of milliseconds since the last frame update",
+                    "type": "Int"
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 213,
+            "description": "Fired when a resize is called",
+            "itemtype": "event",
+            "name": "resize",
+            "params": [
+                {
+                    "name": "width",
+                    "description": "The width of the resize element",
+                    "type": "Int"
+                },
+                {
+                    "name": "height",
+                    "description": "The height of the resize element",
+                    "type": "Int"
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 221,
+            "description": "Fired when the pause state is toggled",
+            "itemtype": "event",
+            "name": "pause",
+            "params": [
+                {
+                    "name": "paused",
+                    "description": "If the application is paused",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 228,
+            "description": "Fired when the application becomes paused",
+            "itemtype": "event",
+            "name": "paused",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 234,
+            "description": "Fired when the application resumes from a paused state",
+            "itemtype": "event",
+            "name": "paused",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 240,
+            "description": "Fired when the application is destroyed",
+            "itemtype": "event",
+            "name": "destroy",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 246,
+            "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(MediaLoader.init);",
+            "itemtype": "method",
+            "name": "registerInit",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 258,
+            "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(MediaLoader.instance.destroy.bind(MediaLoader.instance));",
+            "itemtype": "method",
+            "name": "registerDestroy",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "",
+                    "type": "Function"
+                }
+            ],
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 271,
+            "description": "Get the singleton instance of the application",
+            "itemtype": "property",
+            "name": "instance",
+            "type": "Application",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 284,
+            "description": "The internal initialization",
+            "itemtype": "method",
+            "name": "_internalInit",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 358,
+            "description": "Define all of the query string parameters",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "parseQueryStringParams",
+            "params": [
+                {
+                    "name": "output",
+                    "description": "The object reference to update",
+                    "type": "Object"
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 386,
+            "description": "Override this to do post constructor initialization",
+            "itemtype": "method",
+            "name": "init",
+            "access": "protected",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 393,
+            "description": "Private listener for when the page is hidden.",
+            "itemtype": "method",
+            "name": "_onHidden",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 403,
+            "description": "Private listener for when the page is shown.",
+            "itemtype": "method",
+            "name": "_onVisible",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 413,
+            "description": "Pause updates at the application level",
+            "itemtype": "property",
+            "name": "paused",
+            "type": "Boolean",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 454,
+            "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
+            "itemtype": "method",
+            "name": "setTargetedTimeout",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "The tick function to call.",
+                    "type": "Function"
+                },
+                {
+                    "name": "timeInFrame=0",
+                    "description": "The amount of time spent in the current tick in milliseconds.",
+                    "type": "Int"
+                }
+            ],
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 471,
+            "description": "Resize listener function, handles default resize behavior on all displays and dispatches a resize event",
+            "itemtype": "method",
+            "name": "_resize",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 493,
+            "description": "Calculates the resizing of displays. By default, this limits the new size \nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
+            "itemtype": "method",
+            "name": "calculateDisplaySize",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "size",
+                    "description": "A size object containing the width and height of the resized container.\n \t\t\t\tThe size parameter is also the output of the function, so the size properties are edited in place.",
+                    "type": "Object",
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "w",
+                            "description": "The width of the resized container.",
+                            "type": "Int",
+                            "optional": true
+                        },
+                        {
+                            "name": "h",
+                            "description": "The height of the resized container.",
+                            "type": "Int",
+                            "optional": true
+                        }
+                    ]
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 518,
+            "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
+            "itemtype": "method",
+            "name": "addDisplay",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id of the canvas element, this will be used to grab the Display later\n              also the Display should be the one to called document.getElementById(id)\n              and not the application sinc we don't care about the DOMElement as this point",
+                    "type": "String"
+                },
+                {
+                    "name": "displayConstructor",
+                    "description": "The function to call to create the display instance",
+                    "type": "Function"
+                },
+                {
+                    "name": "options",
+                    "description": "Optional Display specific options",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The created display.",
+                "type": "Display"
+            },
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 544,
+            "description": "Gets a specific renderer by the canvas id.",
+            "itemtype": "method",
+            "name": "getDisplay",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The id of the canvas",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The requested display.",
+                "type": "Display"
+            },
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 555,
+            "description": "Gets a specific renderer by the canvas id.",
+            "itemtype": "method",
+            "name": "getDisplays",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "The collection of Display objects",
+                "type": "Array"
+            },
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 569,
+            "description": "Removes and destroys a display",
+            "itemtype": "method",
+            "name": "removeDisplay",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The Display's id (also the canvas ID)",
+                    "type": "String"
+                }
+            ],
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 584,
+            "description": "Property for getting/setting the target fps (when not using RAF)",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "fps",
+            "type": "Number",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 602,
+            "description": "Getter and setting for using Request Animation Frame",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "raf",
+            "type": "Boolean",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 618,
+            "description": "_tick would be bound in _tickCallback",
+            "itemtype": "method",
+            "name": "_tick",
+            "access": "private",
+            "tagname": "",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 665,
+            "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "Application",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/CombinedCallback.js",
+            "line": 34,
+            "description": "Creates a CombinedCallback for use.",
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
+            "params": [
+                {
+                    "name": "call",
+                    "description": "The callback to call when everything is complete.",
+                    "type": "Function"
+                },
+                {
+                    "name": "obj",
+                    "description": "The object to check as an additional completion dependency.",
+                    "type": "*"
+                },
+                {
+                    "name": "prop",
+                    "description": "The property to check on obj. If obj[prop] is false, then it is considered complete.",
+                    "type": "String"
+                },
+                {
+                    "name": "callProp",
+                    "description": "The property to set on obj if obj[prop] is true when the CombinedCallback is called.",
+                    "type": "String"
+                }
+            ],
+            "class": "CombinedCallback",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 20,
+            "description": "The function to call when the delay is completed.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_callback",
+            "type": "Function",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 26,
+            "description": "The delay time, in milliseconds.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_delay",
+            "type": "Int",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 32,
+            "description": "The timer counting down from _delay, in milliseconds.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_timer",
+            "type": "Int",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 38,
+            "description": "If the DelayedCall should repeat itself automatically.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_repeat",
+            "type": "Boolean",
+            "default": "false",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 45,
+            "description": "If the DelayedCall should destroy itself after completing",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_autoDestroy",
+            "type": "Boolean",
+            "default": "true",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 52,
+            "description": "If the DelayedCall is currently paused (not stopped).",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_paused",
+            "type": "Boolean",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 67,
+            "description": "The callback supplied to the Application for an update each frame.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "_update",
+            "params": [
+                {
+                    "name": "elapsed",
+                    "description": "The time elapsed since the previous frame.",
+                    "type": "Int"
+                }
+            ],
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 94,
+            "description": "Restarts the DelayedCall, whether it is running or not.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "restart",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 109,
+            "description": "Stops the DelayedCall, without destroying it.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 120,
+            "description": "If the DelayedCall is paused or not.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "paused",
+            "type": "Boolean",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/DelayedCall.js",
+            "line": 148,
+            "description": "Stops and cleans up the DelayedCall. Do not use it after calling\ndestroy().",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "DelayedCall",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 20,
+            "description": "The collection of listeners",
+            "itemtype": "property",
+            "name": "_listeners",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 27,
+            "description": "Dispatch an event",
+            "itemtype": "method",
+            "name": "trigger",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The event string name,",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "Additional parameters",
+                    "type": "*"
+                }
+            ],
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 46,
+            "description": "Add an event listener. The parameters for the listener functions depend on the event.",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The type of event (can be multiple events separated by spaces), \n        or a map of events to handlers",
+                    "type": "String|object"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function when event is fired or an array of callbacks.",
+                    "type": "Function|Array*"
+                }
+            ],
+            "return": {
+                "description": "Return this EventDispatcher for chaining calls.",
+                "type": "EventDispatcher"
+            },
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 94,
+            "description": "Remove the event listener",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The type of event string separated by spaces, if no name is specifed remove all listeners.",
+                    "type": "String*"
+                },
+                {
+                    "name": "callback",
+                    "description": "The listener function or collection of callback functions",
+                    "type": "Function|Array*"
+                }
+            ],
+            "return": {
+                "description": "Return this EventDispatcher for chaining calls.",
+                "type": "EventDispatcher"
+            },
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 143,
+            "description": "Checks if the EventDispatcher has a specific listener.",
+            "itemtype": "method",
+            "name": "has",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the single event type to check for",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "The listener function to check for",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "If the EventDispatcher has the specified listener.",
+                "type": "Boolean"
+            },
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/EventDispatcher.js",
+            "line": 160,
+            "description": "Return type of the value.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "type",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The type",
+                "type": "String"
+            },
+            "class": "EventDispatcher",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/FunctionUtils.js",
+            "line": 17,
+            "description": "Add the bind functionality to the Function prototype\nthis allows passing a reference in the function callback \n\n\tvar callback = function(){};\n\tcloudkid.MediaLoader.instance.load('something.json', callback.bind(this));",
+            "itemtype": "method",
+            "name": "bind",
+            "static": 1,
+            "params": [
+                {
+                    "name": "that",
+                    "description": "The reference to the function",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "The bound function",
+                "type": "Function"
+            },
+            "class": "FunctionUtils",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/FunctionUtils.js",
+            "line": 95,
+            "description": "A polyfill for requestAnimationFrame, this also gets assigned to the window if it doesn't exist\nalso window.requestAnimFrame is a redundant and short way to access this property",
+            "static": 1,
+            "itemtype": "method",
+            "name": "requestAnimationFrame",
+            "class": "FunctionUtils",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/FunctionUtils.js",
+            "line": 104,
+            "description": "A polyfill for cancelAnimationFrame, this also gets assigned to the window if it doesn't exist",
+            "static": 1,
+            "itemtype": "method",
+            "name": "cancelAnimationFrame",
+            "class": "FunctionUtils",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/FunctionUtils.js",
+            "line": 117,
+            "description": "A polyfill for performance.now(), with a fallback of using Date.now().",
+            "static": 1,
+            "itemtype": "method",
+            "name": "now",
+            "class": "FunctionUtils",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 26,
+            "description": "The name of the visibility change event for the browser",
+            "itemtype": "property",
+            "name": "_visibilityChange",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 34,
+            "description": "Callback when the page becomes visible",
+            "itemtype": "property",
+            "name": "_onFocus",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 41,
+            "description": "Callback when the page loses visibility",
+            "itemtype": "property",
+            "name": "_onBlur",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 48,
+            "description": "The visibility toggle function",
+            "itemtype": "property",
+            "name": "_onToggle",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 73,
+            "description": "Create new Page visibility",
+            "itemtype": "method",
+            "name": "initialize",
+            "params": [
+                {
+                    "name": "onFocus",
+                    "description": "The callback when the page comes into focus",
+                    "type": "Function"
+                },
+                {
+                    "name": "onBlur",
+                    "description": "The callback when the page loses focus",
+                    "type": "Function"
+                }
+            ],
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/PageVisibility.js",
+            "line": 111,
+            "description": "Disable the detection",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "PageVisibility",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/SavedData.js",
+            "line": 15,
+            "class": "SavedData",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/SavedData.js",
+            "line": 18,
+            "class": "SavedData",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/SavedData.js",
+            "line": 35,
+            "description": "Remove a saved variable by name.",
+            "itemtype": "method",
+            "name": "remove",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the value to remove",
+                    "type": "String"
+                }
+            ],
+            "class": "SavedData",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/SavedData.js",
+            "line": 52,
+            "description": "Save a variable.",
+            "itemtype": "method",
+            "name": "write",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the value to save",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The value to save. This will be run through JSON.stringify().",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "tempOnly",
+                    "description": "If the value should be saved only in the current browser session.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
+                }
+            ],
+            "class": "SavedData",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/SavedData.js",
+            "line": 86,
+            "description": "Read the value of a saved variable",
+            "itemtype": "method",
+            "name": "read",
+            "static": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the variable",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The value (run through `JSON.parse()`) or null if it doesn't exist",
+                "type": "Mixed"
+            },
+            "class": "SavedData",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 42,
+            "description": "Initialize the worker, this is how you create a Worker or FallbackWorker object.",
+            "itemtype": "method",
+            "name": "init",
+            "static": 1,
+            "params": [
+                {
+                    "name": "codeString",
+                    "description": "The code in string form to make the worker from. As a string, fallback support is easier.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "Either a Web Worker or a fallback with the same API to use.",
+                "type": "FallbackWorker|window.Worker"
+            },
+            "class": "Worker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 109,
+            "description": "see https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage",
+            "itemtype": "property",
+            "name": "onmessage",
+            "type": "Function",
+            "class": "SubWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 115,
+            "description": "The FallbackWorker that is controlls by this SubWorker.",
+            "itemtype": "property",
+            "name": "_wParent",
+            "type": "FallbackWorker",
+            "access": "private",
+            "tagname": "",
+            "class": "SubWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 122,
+            "description": "See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage",
+            "itemtype": "method",
+            "name": "postMessage",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to send.",
+                    "type": "*"
+                }
+            ],
+            "class": "SubWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 146,
+            "description": "See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage",
+            "itemtype": "method",
+            "name": "postMessage",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to send.",
+                    "type": "*"
+                }
+            ],
+            "class": "FallbackWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 157,
+            "description": "See https://developer.mozilla.org/en-US/docs/Web/API/Worker.terminate",
+            "itemtype": "method",
+            "name": "terminate",
+            "class": "FallbackWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 170,
+            "description": "See https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage",
+            "itemtype": "property",
+            "name": "onmessage",
+            "type": "Function",
+            "class": "FallbackWorker",
+            "module": "cloudkid"
+        },
+        {
+            "file": "src/Worker.js",
+            "line": 176,
+            "description": "The SubWorker that is controlled by this FallbackWorker.",
+            "itemtype": "property",
+            "name": "_wChild",
+            "type": "SubWorker",
+            "access": "private",
+            "tagname": "",
+            "class": "FallbackWorker",
+            "module": "cloudkid"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "unknown tag: proprty",
+            "line": " src/loaders/LoaderQueueItem.js:81"
+        },
+        {
+            "message": "replacing incorrect tag: extend with extends",
+            "line": " src/Application.js:6"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/loaders/CacheManager.js:21"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/loaders/LoaderQueueItem.js:15"
+        },
+        {
+            "message": "Missing item type\nThe progress callback",
+            "line": " src/loaders/LoaderQueueItem.js:81"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/loaders/MediaLoader.js:17"
+        },
+        {
+            "message": "Missing item type\nReference to the private instance object",
+            "line": " src/loaders/MediaLoader.js:20"
+        },
+        {
+            "message": "Missing item type\nThe collection of LoaderQueueItems",
+            "line": " src/loaders/MediaLoader.js:27"
+        },
+        {
+            "message": "Missing item type\nThe collection of LoaderQueueItems by url",
+            "line": " src/loaders/MediaLoader.js:33"
+        },
+        {
+            "message": "Missing item type\nIf we can load",
+            "line": " src/loaders/MediaLoader.js:60"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/loaders/MediaLoaderResult.js:23"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/SavedData.js:15"
+        },
+        {
+            "message": "Missing item type",
+            "line": " src/SavedData.js:18"
+        }
+    ]
+}

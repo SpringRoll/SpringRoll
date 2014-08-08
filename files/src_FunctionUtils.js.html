@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.1 API Documentation : src/FunctionUtils.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/CloudKidStudio/CloudKidFramework"><img src="../assets/css/logo.png" title="CloudKidFramework"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Namespaces</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/CacheManager.html">CacheManager</a></li>
+            
+                <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
+            
+                <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/FallbackWorker.html">FallbackWorker</a></li>
+            
+                <li><a href="../classes/FunctionUtils.html">FunctionUtils</a></li>
+            
+                <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
+            
+                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
+            
+                <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
+            
+                <li><a href="../classes/SavedData.html">SavedData</a></li>
+            
+                <li><a href="../classes/SubWorker.html">SubWorker</a></li>
+            
+                <li><a href="../classes/Worker.html">Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/cloudkid.html">cloudkid</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = src/FunctionUtils.js      
+</script>
+<h1 class="file-heading">File:FunctionUtils.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module cloudkid
+*/
+(function(window){
+	
+	&quot;use strict&quot;;
+
+	/**
+	*  Designed to provide utility related to functions and polyfills
+	*  @class FunctionUtils
+	*/
+	var FunctionUtils = {};
+	
+	// If there&#x27;s already a bind, ignore
+	if (!Function.prototype.bind)
+	{
+		/**
+		*  Add the bind functionality to the Function prototype
+		*  this allows passing a reference in the function callback 
+		*
+		*	var callback = function(){};
+		*	cloudkid.MediaLoader.instance.load(&#x27;something.json&#x27;, callback.bind(this));
+		*
+		*  @method bind
+		*  @static
+		*  @param {function} that The reference to the function
+		*  @return {function} The bound function
+		*/
+		FunctionUtils.bind = Function.prototype.bind = function bind(that) 
+		{
+			var target = this;
+
+			if (typeof target != &quot;function&quot;) 
+			{
+				throw new TypeError();
+			}
+
+			var args = Array.prototype.slice.call(arguments, 1),
+			bound = function()
+			{
+				if (this instanceof bound) 
+				{
+					var F = function(){};
+					F.prototype = target.prototype;
+					var self = new F();
+
+					var result = target.apply(self, args.concat(Array.prototype.slice.call(arguments)));
+				
+					if (Object(result) === result)
+					{
+						return result;
+					}
+					return self;
+				}
+				else 
+				{
+					return target.apply(that, args.concat(Array.prototype.slice.call(arguments)));
+				}
+			};
+			return bound;
+		};
+	}
+	
+	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+	// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+	// MIT license
+	var vendors = [&#x27;ms&#x27;, &#x27;moz&#x27;, &#x27;webkit&#x27;, &#x27;o&#x27;];
+	for(var x = 0; x &lt; vendors.length &amp;&amp; !window.requestAnimationFrame; ++x)
+	{
+		window.requestAnimationFrame = window[vendors[x]+&#x27;RequestAnimationFrame&#x27;];
+		window.cancelAnimationFrame = window[vendors[x]+&#x27;CancelAnimationFrame&#x27;] || window[vendors[x]+&#x27;CancelRequestAnimationFrame&#x27;];
+	}
+
+	// create a setTimeout based fallback if there wasn&#x27;t an official or prefixed version
+	if (!window.requestAnimationFrame)
+	{
+		var lastTime = 0;
+		// Create the polyfill
+		window.requestAnimationFrame = function(callback)
+		{
+			var currTime = nowFunc();//use the now function from down below
+			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+			var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+			lastTime = currTime + timeToCall;
+			return id;
+		};
+
+		// Only set this up if the corresponding requestAnimationFrame was set up
+		window.cancelAnimationFrame = function(id) {
+			clearTimeout(id);
+		};
+	}
+
+	/**
+	*  A polyfill for requestAnimationFrame, this also gets assigned to the window if it doesn&#x27;t exist
+	*  also window.requestAnimFrame is a redundant and short way to access this property
+	*  @static
+	*  @method requestAnimationFrame
+	*/
+	FunctionUtils.requestAnimationFrame = window.requestAnimationFrame;
+	window.requestAnimFrame = window.requestAnimationFrame;
+
+	/**
+	*  A polyfill for cancelAnimationFrame, this also gets assigned to the window if it doesn&#x27;t exist
+	*  @static
+	*  @method cancelAnimationFrame
+	*/
+	FunctionUtils.cancelAnimationFrame = window.cancelAnimationFrame;
+
+	var nowFunc = window.performance &amp;&amp; (performance.now || performance.mozNow || performance.msNow || performance.oNow || performance.webkitNow);
+	if(nowFunc)
+		nowFunc = nowFunc.bind(performance);
+	else//apparently in Chrome this is extremely inaccurate (triple framerate or something silly)
+		nowFunc = Date.now ? Date.now.bind(Date) : function() { return new Date().getTime(); };
+
+	/**
+	*  A polyfill for performance.now(), with a fallback of using Date.now().
+	*  @static
+	*  @method now
+	*/
+	FunctionUtils.now = nowFunc;
+
+	// Assign to namespace
+	namespace(&#x27;cloudkid&#x27;).FunctionUtils = FunctionUtils;
+	
+}(window));
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
