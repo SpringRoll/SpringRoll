@@ -349,6 +349,7 @@
 		this.display = null;
 
 		_displays = {};
+		_tickCallback = this._tick.bind(this);
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
@@ -788,7 +789,7 @@
 	p._resize = function()
 	{
 		if(!_resizeElement) return;
-		
+
 		_resizeHelper.width = _resizeElement.innerWidth | 0;
 		_resizeHelper.height = _resizeElement.innerHeight | 0;
 		this.calculateDisplaySize(_resizeHelper);
@@ -997,6 +998,7 @@
 		_pageVisibility.destroy();
 		_pageVisibility = null;
 		this._listeners = null;
+		_tickCallback = null;
 	};
 
 	// Add to the name space
