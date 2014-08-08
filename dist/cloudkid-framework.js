@@ -348,7 +348,7 @@
 		*/
 		this.display = null;
 
-		this._displays = {};
+		_displays = {};
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
