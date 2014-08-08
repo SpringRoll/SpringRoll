@@ -1136,3 +1136,1340 @@
 	namespace('cloudkid').PageVisibility = PageVisibility;
 	
 }(window, document));
+/**
+*  @module cloudkid
+*/
+(function(undefined){
+	
+	"use strict";
+	
+	/**
+	*  Used for managing the browser cache of loading external elements
+	*  can easily load version manifest and apply it to the media loader
+	*  supports cache busting all media load requests
+	*  uses the query string to bust browser versions.
+	* 
+	*  @class CacheManager
+	*/
+	var CacheManager = function()
+	{
+		this.initialize();
+	};
+	
+	/** Easy access to the prototype */
+	var p = CacheManager.prototype = {};
+	
+	/**
+	*  The collection of version numbers
+	*  @protected
+	*  @property {Dictionary} _versions
+	*/
+	p._versions = null;
+	
+	/**
+	*  If we are suppose to cache bust every file
+	*  @property {bool} cacheBust
+	*  @public
+	*  @default false
+	*/
+	p.cacheBust = false;
+	
+	/**
+	* The constructor for the Cache manager
+	* @public
+	* @constructor
+	* @method initialize
+	*/
+	p.initialize = function()
+	{
+		this._versions = [];
+				
+		var cb = cloudkid.Application.instance.options.cacheBust;
+		this.cacheBust = cb ? (cb === "true" || cb === true) : false;
+		
+		if(true)
+		{
+			if (this.cacheBust) Debug.log("CacheBust all files is on.");
+		}
+	};
+	
+	/**
+	*  Destroy the cache manager, don't use after this
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this._versions = null;
+	};
+	
+	/**
+	*  Add the versions
+	*  @public
+	*  @method addVersionsFile
+	*  @param {string} url The url of the versions file
+	*  @param {function} callback Callback when the url has been laoded
+	*  @param {string} baseUrl A base url to prepend all lines of the file
+	*/
+	p.addVersionsFile = function(url, callback, baseUrl)
+	{		
+		Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
+				
+		var ml = cloudkid.MediaLoader.instance;
+		
+		// If we already cache busting, we can ignore this
+		if (this.cacheBust)
+		{
+			if (callback) callback();
+			return;
+		}
+		
+		// Add a random version number to never cache the text file
+		this.addVersion(url, Math.round(Math.random()*100000));
+		
+		var cm = this;
+		
+		// Load the version
+		ml.load(url, 
+			function(result)
+			{				
+				// check for a valid result content
+				if (result && result.content)
+				{
+					// Remove carrage returns and split on newlines
+					var lines = result.content.replace(/\r/g, '').split("\n");
+					var i, parts;
+
+					// Go line by line
+					for(i = 0; i < lines.length; i++)
+					{	
+						// Check for a valid line
+						if (!lines[i]) continue;
+
+						// Split lines
+						parts = lines[i].split(' ');
+
+						// Add the parts
+						if (parts.length != 2) continue;
+
+						// Add the versioning
+						cm.addVersion((baseUrl || "") + parts[0], parts[1]);
+					}
+				}
+				if (callback) callback();
+			}
+		);
+	};
+	
+	/**
+	*  Add a version number for a file
+	*  @method addVersion
+	*  @public
+	*  @param {string} url The url of the object
+	*  @param {string} version Version number or has of file
+	*/
+	p.addVersion = function(url, version)
+	{
+		var ver = this._getVersionByUrl(url);
+		if (!ver)
+			this._versions.push({'url': url, 'version': version});
+	};
+	
+	/**
+	*  Search for a version number by url
+	*  @method _getVersionByUrl
+	*  @private
+	*  @param {string} url The url to search
+	*  @return {string} The version number as a string or null
+	*/
+	p._getVersionByUrl = function(url)
+	{
+		var i, len = this._versions.length;
+		for(i = 0; i < len; i++)
+		{
+			if (url == this._versions[i].url)
+			{
+				return this._versions[i];
+			}
+		}
+		return null;
+	};
+	
+	/**
+	*  Prepare a URL with the necessary cache busting and/or versioning
+	*  as well as the base directoryr
+	*  @public
+	*  @method prepare
+	*  @param {string} url The url to prepare
+	*  @param {bool} applyBasePath If the global base path should be applied to the url. This defaults to false because it can 
+	*								potentially interfere with later regular expression checks, particularly with PreloadJS
+	*  @return {string} The final url with version/cache and basePath added
+	*/
+	p.prepare = function(url, applyBasePath)
+	{
+		var ver = this._getVersionByUrl(url);
+		
+		if (this.cacheBust && /(\?|\&)cb\=[0-9]*/.test(url) === false)
+		{
+			if(!this._cbVal)
+				this._cbVal = new Date().getTime().toString();
+			url = url + (url.indexOf("?") < 0 ? "?" : "&") + "cb=" + this._cbVal;
+		} 
+		else if (ver && /(\?|\&)v\=[0-9]*/.test(url) === false)
+		{
+			url = url + (url.indexOf("?") < 0 ? "?" : "&") + "v=" + ver.version;
+		}
+		if(applyBasePath)
+		{
+			var basePath = cloudkid.Application.instance.options.basePath;
+			if (/^http(s)?\:/.test(url) === false && basePath !== undefined && url.search(basePath) == -1)
+			{
+				url = basePath + url;
+			}
+		}
+		return url;
+	};
+	
+	namespace('cloudkid').CacheManager = CacheManager;
+	
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+
+	/**
+	*  Represents a single item in the loader queue 
+	*
+	*  @class LoaderQueueItem
+	*/
+	var LoaderQueueItem = function(){};
+	
+	/** Reference to the prototype */
+	var p = LoaderQueueItem.prototype;
+	
+	/** 
+	* Highest priority
+	* @static
+	* @public
+	* @final
+	* @property {int} PRIORITY_HIGH
+	*/
+	LoaderQueueItem.PRIORITY_HIGH = 1;
+	
+	/** 
+	* Normal priority, the default
+	* @static
+	* @public
+	* @final
+	* @property {int} PRIORITY_NORMAL
+	*/
+	LoaderQueueItem.PRIORITY_NORMAL = 0;
+	
+	/** 
+	* Lowest priority
+	* @static
+	* @public
+	* @final
+	* @property {int} PRIORITY_LOW
+	*/
+	LoaderQueueItem.PRIORITY_LOW = -1;
+	
+	/**
+	*  The url of the load
+	*  @public
+	*  @property {string} url
+	*/
+	p.url = null;
+	
+	/**
+	*  Data associate with the load
+	*  @public
+	*  @property {*} data
+	*/
+	p.data = null;
+	
+	/**
+	*  The callback function of the load, to call when 
+	*  the load as finished, takes one argument as result
+	*  @public
+	*  @property {function} callback
+	*/
+	p.callback = null;
+	
+	/**
+	*  The priority of this item
+	*  @property {int} priority
+	*  @public
+	*/
+	p.priority = 0;
+	
+	/**
+	*  The amount we've loaded so far, from 0 to 1
+	*  @public
+	*  @property {Number} progress
+	*/
+	p.progress = 0;
+	
+	/**
+	*  The progress callback
+	*  @public
+	*  @proprty {function} updateCallback
+	*/
+	p.updateCallback = null;
+	
+	p._boundFail = null;
+	p._boundProgress = null;
+	p._boundComplete = null;
+	
+	/**
+	*  Represent this object as a string
+	*  @public
+	*  @method toString
+	*  @return {string} The string representation of this object
+	*/
+	p.toString = function()
+	{
+		return "[LoaderQueueItem(url:'"+this.url+"', priority:"+this.priority+")]";
+	};
+	
+	/**
+	*  Destroy this result
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this.callback = null;
+		this.updateCallback = null;
+		this.data = null;
+		this._boundFail = null;
+		this._boundProgress = null;
+		this._boundComplete = null;
+	};
+	
+	// Assign to the name space
+	namespace('cloudkid').LoaderQueueItem = LoaderQueueItem;
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+	
+	/**
+	*  The MediaLoader is the singleton loader for loading all assets
+	*  including images, data, code and sounds. MediaLoader supports cache-busting
+	*  in the browser using dynamic query string parameters.
+	* 
+	*  @class MediaLoader
+	*/
+	var MediaLoader = function(){};
+	
+	/** The prototype */
+	var p = MediaLoader.prototype;
+	
+	/**
+	* Reference to the private instance object
+	* @static
+	* @protected
+	*/
+	MediaLoader._instance = null;
+	
+	/**
+	*  The collection of LoaderQueueItems
+	*  @private
+	*/
+	var queue = null;
+	
+	/**
+	*  The collection of LoaderQueueItems by url
+	*  @private
+	*/
+	var queueItems = null;
+	
+	/**
+	*  The collection of loaders
+	*  @private
+	*  @property {object} loaders
+	*/
+	var loaders = null;
+	
+	var qiPool = null;
+	var loaderPool = null;
+	var resultPool = null;
+	
+	/**
+	*  The current number of items loading
+	*  @private
+	*  @property {int} numLoads
+	*  @default 0
+	*/
+	var numLoads = 0;
+	
+	var retries = null;
+	
+	/**
+	*  If we can load
+	*  @private
+	*/
+	p._canLoad = true;
+	
+	/**
+	*  The maximum number of simulaneous loads
+	*  @public
+	*  @property {int} maxSimultaneousLoads
+	*  @default 2
+	*/
+	p.maxSimultaneousLoads = 2;
+	
+	/**
+	*  The reference to the cache manager
+	*  @public
+	*  @property {cloudkid.CacheManager} cacheManager
+	*/
+	p.cacheManager = null;
+	
+	/**
+	*  Static constructor creating the singleton
+	*  @method init
+	*  @static
+	*  @public
+	*/
+	MediaLoader.init = function()
+	{
+		if (!MediaLoader._instance)
+		{
+			MediaLoader._instance = new MediaLoader();
+			MediaLoader._instance._initialize();
+			//register the destroy function
+			cloudkid.Application.registerDestroy(MediaLoader._instance.destroy.bind(MediaLoader._instance));
+		}
+		return MediaLoader._instance;
+	};
+
+	//register the global init function
+	cloudkid.Application.registerInit(MediaLoader.init);
+		
+	/**
+	*  Static function for getting the singleton instance
+	*  @static
+	*  @readOnly
+	*  @public
+	*  @property {MediaLoader} instance
+	*/
+	Object.defineProperty(MediaLoader, "instance", {
+		get:function()
+		{
+			if (!MediaLoader._instance)
+			{
+				throw 'Call cloudkid.MediaLoader.init()';
+			}
+			return MediaLoader._instance;
+		}
+	});
+	
+	/**
+	*  Destroy the MediaLoader singleton, don't use after this
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		var i, len, key, arr = this.queue;
+		if(arr)
+		{
+			for(i = 0, len = arr.length; i < i; ++i)
+				arr[i].destroy();
+			arr = qiPool;
+			for(i = 0, len = arr.length; i < i; ++i)
+				arr[i].destroy();
+			arr = resultPool;
+			for(i = 0, len = arr.length; i < i; ++i)
+				arr[i].destroy();
+			for(key in loaders)
+			{
+				queueItems[key].destroy();
+				loaders[key].close();
+			}
+		}
+		MediaLoader._instance = null;
+		if (this.cacheManager)
+			this.cacheManager.destroy();
+		this.cacheManager = null;
+		queue = null;
+		resultPool = null;
+		loaderPool = null;
+		qiPool = null;
+		queueItems = null;
+		retries = null;
+		loaders = null;
+	};
+	
+	/**
+	*  Initilize the object
+	*  @protected
+	*  @method _initialize
+	*/
+	p._initialize = function()
+	{
+		qiPool = [];
+		loaderPool = [];
+		resultPool = [];
+		queue = [];
+		queueItems = {};
+		loaders = {};
+		retries = {};
+		this.cacheManager = new cloudkid.CacheManager();
+	};
+	
+	/**
+	*  Load a file 
+	*  @method load
+	*  @public
+	*  @param {string} url The file path to load
+	*  @param {function} callback The callback function when completed
+	*  @param {function*} updateCallback The callback for load progress update, passes 0-1 as param
+	*  @param {int*} priority The priority of the load
+	*  @param {*} data optional data
+	*/
+	p.load = function(url, callback, updateCallback, priority, data)
+	{
+		var qi = this._getQI();
+		
+		var basePath = cloudkid.Application.instance.options.basePath;
+		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
+		{
+			qi.basePath = basePath;
+		}
+		
+		qi.url = url;
+		qi.callback = callback;
+		qi.updateCallback = updateCallback || null;
+		qi.priority = priority || cloudkid.LoaderQueueItem.PRIORITY_NORMAL;
+		qi.data = data || null;
+		
+		queue.push(qi);
+		
+		// Sory by priority
+		queue.sort(function(a, b){
+			return a.priority - b.priority;
+		});
+		
+		// Try to load the next queue item
+		this._tryNextLoad();
+	};
+	
+	/**
+	*  There was an error loading the file
+	*  @private
+	*  @method _onLoadFailed
+	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*/
+	p._onLoadFailed = function(qi, event)
+	{
+		Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
+		
+		var loader = loaders[qi.url];
+		loader.removeAllEventListeners();
+		loader.close();
+		this._poolLoader(loader);
+		
+		delete queueItems[qi.url];
+		delete loaders[qi.url];
+		
+		if(retries[qi.url])
+			retries[qi.url]++;
+		else
+			retries[qi.url] = 1;
+		if(retries[qi.url] > 3)
+			this._loadDone(qi, null);
+		else
+		{
+			numLoads--;
+			queue.push(qi);
+			this._tryNextLoad();
+		}
+	};
+	
+	/**
+	*  The file load progress event
+	*  @method _onLoadProgress
+	*  @private
+	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {object} event The progress event
+	*/
+	p._onLoadProgress = function(qi, event)
+	{
+		qi.progress = event.progress;
+		if (qi.updateCallback){
+			qi.updateCallback(qi.progress);
+		}	
+	};
+	
+	/**
+	*  The file was loaded successfully
+	*  @private
+	*  @method _onLoadCompleted
+	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {object} ev The load event
+	*/
+	p._onLoadCompleted = function(qi, ev)
+	{
+		if(true)
+		{
+			Debug.log("File loaded successfully from " + qi.url);
+		}
+		var loader = loaders[qi.url];
+		loader.removeAllEventListeners();
+		loader.close();
+		this._poolLoader(loader);
+		
+		delete queueItems[qi.url];
+		delete loaders[qi.url];
+		this._loadDone(qi, this._getResult(ev.result, qi.url, loader));
+	};
+	
+	/**
+	*  Attempt to do the next load
+	*  @method _tryNextLoad
+	*  @private
+	*/
+	p._tryNextLoad = function()
+	{
+		if (numLoads > this.maxSimultaneousLoads - 1 || queue.length === 0) return;
+		
+		numLoads++;
+		
+		var qi = queue.shift();
+		
+		if(true)
+		{
+			Debug.log("Attempting to load file '" + qi.url + "'");
+		}
+		
+		queueItems[qi.url] = qi;
+		
+		var loader = this._getLoader(qi.basePath);
+		
+		// Add to the list of loaders
+		loaders[qi.url] = loader;
+		
+		loader.addEventListener("fileload", qi._boundComplete);
+		loader.addEventListener("error", qi._boundFail);
+		loader.addEventListener("fileprogress", qi._boundProgress);
+		var url = this.cacheManager.prepare(qi.url);
+		loader.loadFile(qi.data ? {id:qi.data.id, src:url, data:qi.data} : url);
+	};
+	
+	/**
+	*  Alert that the loading is finished
+	*  @private 
+	*  @method _loadDone
+	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {object} result The event from preloadjs or null
+	*/
+	p._loadDone = function(qi, result)
+	{
+		numLoads--;
+		if(qi.data && result)//a way to keep track of load results without excessive function binding
+			result.id = qi.data.id;
+		qi.callback(result);
+		//qi.destroy();
+		this._poolQI(qi);
+		this._tryNextLoad();
+	};
+	
+	/**
+	*  Cancel a load that's currently in progress
+	*  @public
+	*  @method cancel
+	*  @param {string} url The url
+	*  @return {bool} If canceled returns true, false if not canceled
+	*/
+	p.cancel = function(url)
+	{
+		var qi = queueItems[url];
+		var loader = loaders[url];
+		
+		if (qi && loader)
+		{
+			loader.close();
+			delete loaders[url];
+			delete queueItems[qi.url];
+			numLoads--;
+			this._poolLoader(loader);
+			this._poolQI(qi);
+			return true;
+		}
+		
+		for(i = 0, len = queue.length; i < len; i++)
+		{
+			qi = queue[i];
+			if (qi.url == url){
+				queue.splice(i, 1);
+				this._poolQI(qi);
+				return true;
+			}
+		}
+		return false;		
+	};
+	
+	p._getQI = function()
+	{
+		var rtn;
+		if(qiPool.length)
+			rtn = qiPool.pop();
+		else
+		{
+			rtn = new cloudkid.LoaderQueueItem();
+			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
+			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
+			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
+		}
+		return rtn;
+	};
+	
+	p._poolQI = function(qi)
+	{
+		qiPool.push(qi);
+		qi.callback = qi.updateCallback = qi.data = qi.url = null;
+		qi.progress = 0;
+	};
+	
+	p._getLoader = function(basePath)
+	{
+		var rtn;
+		if(loaderPool.length)
+		{
+			rtn = loaderPool.pop();
+			rtn._basePath = basePath;//apparently they neglected to make this public
+		}
+		else
+			rtn = new createjs.LoadQueue(true, basePath);
+		//allow the loader to handle sound as well
+		if(createjs.Sound)
+			rtn.installPlugin(createjs.Sound);
+		return rtn;
+	};
+	
+	p._poolLoader = function(loader)
+	{
+		loader.removeAll();//clear the loader for reuse
+		loaderPool.push(loader);
+	};
+	
+	p._getResult = function(result, url, loader)
+	{
+		var rtn;
+		if(resultPool.length)
+		{
+			rtn = resultPool.pop();
+			rtn.content = result;
+			rtn.url = url;
+			rtn.loader = loader;
+		}
+		else
+			rtn = new cloudkid.MediaLoaderResult(result, url, loader);
+		return rtn;
+	};
+	
+	p._poolResult = function(result)
+	{
+		result.content = result.url = result.loader = result.id = null;
+		resultPool.push(result);
+	};
+	
+	namespace('cloudkid').MediaLoader = MediaLoader;
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+
+	/**
+	*  The return result of the MediaLoader load
+	*  @class MediaLoaderResult
+	*  @constructor
+	*  @param {*} content The dynamic content loaded
+	*  @param {string} url The url that was loaded
+	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
+	*/
+	var MediaLoaderResult = function(content, url, loader)
+	{
+		this.content = content;
+		this.url = url;
+		this.loader = loader;
+	};
+	
+	/** Reference to the prototype */
+	var p = MediaLoaderResult.prototype;
+	
+	/**
+	*  The contents of the load
+	*  @public
+	*  @property {*} content 
+	*/
+	p.content = null;
+	
+	/**
+	*  The url of the load
+	*  @public
+	*  @property {string} url
+	*/
+	p.url = null;
+	
+	/**
+	*  Reference to the preloader object
+	*  @public
+	*  @property {createjs.LoaderQueue} loader
+	*/
+	p.loader = null;
+	
+	/**
+	* A to string method
+	* @public
+	* @method toString
+	* @return {string} A string rep of the object
+	*/
+	p.toString = function()
+	{
+		return "[MediaLoaderResult('"+this.url+"')]";
+	};
+	
+	/**
+	* Destroy this result
+	* @public
+	* @method destroy
+	*/
+	p.destroy = function()
+	{
+		this.callback = null;
+		this.url = null;
+		this.content = null;
+	};
+	
+	// Assign to the name space
+	namespace('cloudkid').MediaLoaderResult = MediaLoaderResult;
+}());
+/**
+*  @module cloudkid
+*/
+(function() {
+	
+	"use strict";
+
+	/**
+	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
+	*  callbacks into one. For example usage:
+	*
+	*  var voPlayer = new cloudkid.VOPlayer();
+	*  var callback = cloudkid.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	*  Animator.play(myClip, "myAnim", callback);
+	*  
+	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
+	*  If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
+	*  
+	*  @class CombinedCallback
+	*  @constructor
+	*  @param {function} call The callback to call when everything is complete.
+	*  @param {*} obj The object to check as an additional completion dependency.
+	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	*/
+	var CombinedCallback = function(call, obj, prop, callProp)
+	{
+		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
+			call();
+		else
+			obj[callProp] = call;
+	};
+
+	/**
+	*  Creates a CombinedCallback for use.
+	*  
+	*  @method create
+	*  @static
+	*  @param {function} call The callback to call when everything is complete.
+	*  @param {*} obj The object to check as an additional completion dependency.
+	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	*/
+	CombinedCallback.create = function(call, obj, prop, callProp)
+	{
+		return CombinedCallback.bind(this, call, obj, prop, callProp);
+	};
+
+	namespace('cloudkid').CombinedCallback = CombinedCallback;
+}());
+/**
+*  @module cloudkid
+*/
+(function(undefined) {
+
+	"use strict";
+
+	/**
+	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
+	* 
+	*  @class DelayedCall
+	*  @constructor
+	*  @param {function} callback The function to call when the delay has completed.
+	*  @param {int} delay The time to delay the call, in milliseconds.
+	*  @param {Boolean} repeat=false If the DelayedCall should automatically repeat itself when completed.
+	*  @param {Boolean} autoDestroy=true If the DelayedCall should clean itself up when completed.
+	*/
+	var DelayedCall = function(callback, delay, repeat, autoDestroy)
+	{
+		/**
+		*  The function to call when the delay is completed.
+		*  @private
+		*  @property {function} _callback
+		*/
+		this._callback = callback;
+		/**
+		*  The delay time, in milliseconds.
+		*  @private
+		*  @property {int} _delay
+		*/
+		this._delay = delay;
+		/**
+		*  The timer counting down from _delay, in milliseconds.
+		*  @private
+		*  @property {int} _timer
+		*/
+		this._timer = delay;
+		/**
+		*  If the DelayedCall should repeat itself automatically.
+		*  @private
+		*  @property {Boolean} _repeat
+		*  @default false
+		*/
+		this._repeat = !!repeat;
+		/**
+		*  If the DelayedCall should destroy itself after completing
+		*  @private
+		*  @property {Boolean} _autoDestroy
+		*  @default true
+		*/
+		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+		/**
+		*  If the DelayedCall is currently paused (not stopped).
+		*  @private
+		*  @property {Boolean} _paused
+		*/
+		this._paused = false;
+
+		//save a bound version of the update function
+		this._update = this._update.bind(this);
+		//start the delay
+		cloudkid.Application.instance.on("update", this._update);
+	};
+
+	var p = DelayedCall.prototype;
+
+	/**
+	*  The callback supplied to the Application for an update each frame.
+	*  @private
+	*  @method _update
+	*  @param {int} elapsed The time elapsed since the previous frame.
+	*/
+	p._update = function(elapsed)
+	{
+		if(!this._callback)
+		{
+			this.destroy();
+			return;
+		}
+
+		this._timer -= elapsed;
+		if(this._timer <= 0)
+		{
+			this._callback();
+			if(this._repeat)
+				this._timer += this._delay;
+			else if(this._autoDestroy)
+				this.destroy();
+			else
+				cloudkid.Application.instance.off("update", this._update);
+		}
+	};
+
+	/**
+	*  Restarts the DelayedCall, whether it is running or not.
+	*  @public
+	*  @method restart
+	*/
+	p.restart = function()
+	{
+		if(!this._callback) return;
+		var app = cloudkid.Application.instance;
+		if(!app.has("update", this._update))
+			app.on("update", this._update);
+		this._timer = this._delay;
+		this._paused = false;
+	};
+
+	/**
+	*  Stops the DelayedCall, without destroying it.
+	*  @public
+	*  @method stop
+	*/
+	p.stop = function()
+	{
+		cloudkid.Application.instance.off("update", this._update);
+		this._paused = false;
+	};
+
+	/**
+	*  If the DelayedCall is paused or not.
+	*  @public
+	*  @property {Boolean} paused
+	*/
+	Object.defineProperty(p, "paused", {
+		get: function() { return this._paused; },
+		set: function(value)
+		{
+			if(!this._callback) return;
+			var app = cloudkid.Application.instance;
+			if(this._paused && !value)
+			{
+				this._paused = false;
+				if(!app.has("update", this._update))
+					app.on("update", this._update);
+			}
+			else if(value)
+			{
+				if(app.has("update", this._update))
+				{
+					this._paused = true;
+					app.off("update", this._update);
+				}
+			}
+		}
+	});
+
+	/**
+	*  Stops and cleans up the DelayedCall. Do not use it after calling
+	*  destroy().
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		cloudkid.Application.instance.removeUpdateCallback(this._updateId);
+		this._callback = null;
+	};
+
+	namespace('cloudkid').DelayedCall = DelayedCall;
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+	
+	/** 
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
+	*
+	*  @class SavedData
+	*/
+	var SavedData = {},
+	
+	/** A constant to determine if we can use localStorage and sessionStorage */
+	WEB_STORAGE_SUPPORT = typeof(window.Storage) !== "undefined",
+	
+	/** A constant for cookie fallback for SavedData.clear() */
+	ERASE_COOKIE = -1;
+
+	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
+	if(WEB_STORAGE_SUPPORT)
+	{
+		try
+		{
+			localStorage.setItem("LS_TEST", "test");
+			localStorage.removeItem("LS_TEST");
+		}
+		catch(e)
+		{
+			WEB_STORAGE_SUPPORT = false;
+		}
+	}
+	
+	/** 
+	*  Remove a saved variable by name.
+	*  @method remove
+	*  @static
+	*  @param {String} name The name of the value to remove
+	*/
+	SavedData.remove = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			localStorage.removeItem(name);
+			sessionStorage.removeItem(name);
+		}
+		else
+			SavedData.write(name,"",ERASE_COOKIE);
+	};
+	
+	/**
+	*  Save a variable.
+	*  @method write
+	*  @static
+	*  @param {String} name The name of the value to save
+	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
+	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	*/
+	SavedData.write = function(name, value, tempOnly)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			if(tempOnly)
+				sessionStorage.setItem(name, JSON.stringify(value));
+			else
+				localStorage.setItem(name, JSON.stringify(value));
+		}
+		else
+		{
+			var expires;
+			if (tempOnly)
+			{
+				if(tempOnly !== ERASE_COOKIE)
+					expires = "";//remove when browser is closed
+				else
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+			}
+			else
+				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+				
+			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+		}
+	};
+	
+	/**
+	*  Read the value of a saved variable
+	*  @method read
+	*  @static
+	*  @param {String} name The name of the variable
+	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	*/
+	SavedData.read = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+			if(value)
+				return JSON.parse(value);
+			else
+				return null;
+		}
+		else
+		{
+			var nameEQ = name + "=",
+				ca = document.cookie.split(';'),
+				i = 0, c;
+				
+			for(i=0;i < ca.length;i++)
+			{
+				c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)));
+			}
+			return null;
+		}
+	};
+	
+	// Assign to the global space
+	namespace('cloudkid').SavedData = SavedData;
+	
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+	
+	// Combine prefixed URL for createObjectURL from blobs.
+	window.URL = window.URL || window.webkitURL;
+
+	// Combine prefixed blob builder
+	window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+
+	/**
+	*  The Web Workers specification defines an API for spawning background scripts in your web 
+	*  application. Web Workers allow you to do things like fire up long-running scripts to 
+	*  handle computationally intensive tasks, but without blocking the UI or other scripts 
+	*  to handle user interactions. Because Workers aren't available on all browsers, we provide
+	*  a helpful polyfill for backward compatibility.
+	*
+	*	var workerCode = "this.initialVariable = 10;" +
+	*	"this.onmessage = function(event)" +
+	*	"{" +
+	*		"var data = event.data;" +
+	*		"var returnVal = this.initialVariable + data.addValue;" +
+	*		"this.postMessage(returnVal);" +
+	*	"};";
+	*
+	*	// Create the worker
+	*	var worker = cloudkid.Worker.init(workerCode);
+	*	worker.onmessage = function(e) {
+	*		// e.data is the returnVal
+	*	};
+	*	
+	*	// Start the worker.
+	*	worker.postMessage(); 
+	*
+	*  @class Worker
+	*/
+	var Worker = {};
+
+	/**
+	*  Initialize the worker, this is how you create a Worker or FallbackWorker object.
+	*  @method init
+	*  @static
+	*  @param {String} codeString The code in string form to make the worker from. As a string, fallback support is easier.
+	*  @return {FallbackWorker|window.Worker} Either a Web Worker or a fallback with the same API to use.
+	*/
+	Worker.init = function(codeString)
+	{
+		if(!window.URL || !window.Worker) return new FallbackWorker(codeString);
+
+		var blob;
+		try
+		{
+			blob = new Blob([codeString], {type: 'application/javascript'});
+		}
+		catch (e)
+		{
+			// try Backwards-compatibility with blob builders
+			if(!window.BlobBuilder) return new FallbackWorker(codeString);
+			try
+			{
+				blob = new BlobBuilder();
+				blob.append(codeString);
+				blob = blob.getBlob();
+			}
+			catch(error)
+			{
+				//no way of generating a blob to create the worker from
+				return new FallbackWorker(codeString);
+			}
+		}
+		if(!blob) return new FallbackWorker(codeString);//if somehow no blob was created, return a fallback worker
+		try
+		{
+			//IE 10 and 11, while supporting Blob and Workers, should throw an error here, so we should catch it and fall back
+			var worker = new Worker(URL.createObjectURL(blob));
+			return worker;
+		}
+		catch(e)
+		{
+			//can't create a worker
+			return new FallbackWorker(codeString);
+		}
+	};
+
+	// Deprecated implementation
+	namespace("cloudkid").createWorker = Worker.init;
+
+	// Assign to namespace
+	namespace("cloudkid").Worker = Worker;
+	
+	/**
+	*	Internal class that pretends to be a Web Worker's context.
+	*	@class SubWorker
+	*	@constructor
+	*	@param {String} codeString A string to evaluate into worker code.
+	*	@param {FallbackWorker} parent The FallbackWorker that owns this SubWorker.
+	*/
+	var SubWorker = function(codeString, parent)
+	{
+		this._wParent = parent;
+		eval(codeString); // jshint ignore:line
+	};
+
+	var p = SubWorker.prototype;
+
+	/**
+	*	see https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
+	*	@property {Function} onmessage
+	*/
+	p.onmessage = null;
+
+	/**
+	*	The FallbackWorker that is controlls by this SubWorker.
+	*	@property {FallbackWorker} _wParent
+	*	@private
+	*/
+	p._wParent = null;
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
+	*	@method postMessage
+	*	@param {*} data The data to send.
+	*/
+	p.postMessage = function(data)
+	{
+		var parent = this._wParent;
+		setTimeout(parent.onmessage.bind(parent, {data:data}), 1);
+	};
+	
+	/**
+	*	An internal class that duplicates the Worker API as a fallback when WebWorkers are not supported.
+	*	@class FallbackWorker
+	*	@constructor
+	*	@param {String} codeString A string to evaluate into worker code.
+	*/
+	var FallbackWorker = function(codeString)
+	{
+		this._wChild = new SubWorker(codeString, this);
+	};
+
+	p = FallbackWorker.prototype;
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
+	*	@method postMessage
+	*	@param {*} data The data to send.
+	*/
+	p.postMessage = function(data)
+	{
+		var child = this._wChild;
+		setTimeout(child.onmessage.bind(child, {data:data}), 1);
+	};
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.terminate
+	*	@method terminate
+	*/
+	p.terminate = function()
+	{
+		this.onmessage = null;
+		var child = this._wChild;
+		child._wParent = null;
+		child.onmessage = null;
+		this._wChild = null;
+	};
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
+	*	@property {Function} onmessage
+	*/
+	p.onmessage = null;
+	
+	/**
+	*	The SubWorker that is controlled by this FallbackWorker.
+	*	@property {SubWorker} _wChild
+	*	@private
+	*/
+	p._wChild = null;
+	
+}());

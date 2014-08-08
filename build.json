@@ -8,6 +8,14 @@
 		"src/FunctionUtils.js",
 		"src/EventDispatcher.js",
 		"src/Application.js",
-		"src/PageVisibility.js"
+		"src/PageVisibility.js",
+		"src/loaders/CacheManager.js",
+		"src/loaders/LoaderQueueItem.js",
+		"src/loaders/MediaLoader.js",
+		"src/loaders/MediaLoaderResult.js",
+		"src/CombinedCallback.js",
+		"src/DelayedCall.js",
+		"src/SavedData.js",
+		"src/Worker.js"
 	]
 }
