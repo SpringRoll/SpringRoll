@@ -642,7 +642,7 @@
 			if (elapsed > 1000)
 			{
 				var framerateValue = 1000 / elapsed * _frameCount;
-				_framerate.innerHTML = "FPS: " + (Math.round(_framerateValue * 1000) / 1000);
+				_framerate.innerHTML = "FPS: " + (Math.round(framerateValue * 1000) / 1000);
 				_lastFPSUpdateTime = now;
 				_frameCount = 0;
 			}
