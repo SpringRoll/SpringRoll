@@ -36,7 +36,7 @@
 		{	
 			var listeners = this._listeners[type];
 			
-			for(var i = 0; i < listeners.length; i++) 
+			for(var i = 0, l = listeners.length; i < l; i++) 
 			{
 				listeners[i](params);
 			}
@@ -50,7 +50,7 @@
 	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
 	*          or a map of events to handlers
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @return {EventDispatcher} Return this EventDispatcher
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
 	p.on = function(name, callback)
 	{
@@ -74,7 +74,7 @@
 				n = names[i];
 				this._listeners[n] = this._listeners[n] || [];
 				
-				if (this._callbackIndex(n, callback) === -1)
+				if (this._listeners[n].indexOf(callback) === -1)
 				{
 					this._listeners[n].push(callback);
 				}
@@ -96,7 +96,8 @@
 	*  
 	*  @method off
 	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
-	*  @param {function|Array*} callback The listener function or collection of callback functions
+	*  @param {Function|Array*} callback The listener function or collection of callback functions
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
 	p.off = function(name, callback)
 	{	
@@ -128,15 +129,32 @@
 				}
 				else
 				{
-					var index = this._callbackIndex(n, callback);
+					var index = this._listeners[n].indexOf(callback);
 					if (index !== -1)
 					{
-						this._listeners[name].splice(index, 1);
+						this._listeners[n].splice(index, 1);
 					}
 				}
 			}
 		}
 		return this;
+	};
+
+	/**
+	*  Checks if the EventDispatcher has a specific listener.
+	*  
+	*  @method has
+	*  @param {String} name The name of the single event type to check for
+	*  @param {Function} callback The listener function to check for
+	*  @return {Boolean} If the EventDispatcher has the specified listener.
+	*/
+	p.has = function(name, callback)
+	{
+		if(!name || !callback) return false;
+
+		var listeners = this._listeners[n];
+		if(!listeners) return false;
+		return listeners.indexOf(callback) >= 0;
 	};
 	
 	/**
@@ -159,27 +177,6 @@
 		}
 		return typeof value;
 	}
-	
-	/**
-	 * Returns callback array index.
-	 *
-	 * @method _callbackIndex
-	 * @private
-	 * @param  {String}   name Event name.
-	 * @param  {Function} callback   Function
-	 * @return {Int} Callback array index, or -1 if isn't registered.
-	 */
-	p._callbackIndex = function(name, callback)
-	{		
-		for (var i = 0, l = this._listeners[name].length; i < l; i++)
-		{
-			if (this._listeners[name][i] === callback)
-			{
-				return i;
-			}
-		}
-		return -1;
-	};
 	
 	// Assign to the global spacing
 	namespace('cloudkid').EventDispatcher = EventDispatcher;
