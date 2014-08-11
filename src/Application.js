@@ -561,6 +561,7 @@
 			this.display = display;
 			_aspectRatio = display.width / display.height;
 		}
+		return display;
 	};
 
 	/**
