@@ -351,7 +351,7 @@
 			return true;
 		}
 		
-		for(i = 0, len = queue.length; i < len; i++)
+		for(var i = 0, len = queue.length; i < len; i++)
 		{
 			qi = queue[i];
 			if (qi.url == url){

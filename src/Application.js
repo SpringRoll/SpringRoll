@@ -153,7 +153,7 @@
 	*  @property {Number} _aspectRatio
 	*  @private
 	*/
-	_aspectRatio = 1,
+	_aspectRatio = 0,
 
 	/**
 	*  A PageVisibility object to automatically pause Application when the page is hidden.
@@ -525,6 +525,7 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
+		if(!_aspectRatio) return;
 		if(size.width / size.height < _aspectRatio)
 		{
 			//limit to the narrower width
