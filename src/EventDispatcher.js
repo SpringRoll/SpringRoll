@@ -38,7 +38,7 @@
 
 			var args;
 			if(arguments.length > 1)
-				args = Array.prototype.slice(arguments, 1);
+				args = Array.prototype.slice.call(arguments, 1);
 			
 			for(var i = 0, l = listeners.length; i < l; i++) 
 			{
