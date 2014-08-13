@@ -168,7 +168,7 @@
 			if(arguments.length > 1)
 				args = Array.prototype.slice.call(arguments, 1);
 			
-			for(var i = 0, l = listeners.length; i < l; i++) 
+			for(var i = listeners.length - 1; i >= 0; --i) 
 			{
 				if(args)
 					listeners[i].apply(this, args);
