@@ -290,7 +290,7 @@
 	p._internalInit = function()
 	{
 		//grab the query string parameters if we should be doing so
-		if(this.options.queryStringParameters)
+		if(this.options.parseQueryString)
 			parseQueryStringParams(this.options);
 		//set up default options
 		for(var key in _defaultOptions)
