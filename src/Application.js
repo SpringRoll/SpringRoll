@@ -319,9 +319,9 @@
 		if(resizeElement)
 		{
 			if(typeof resizeElement == "string")
-				_resizeElement = document.getElementById(framerate);
+				_resizeElement = document.getElementById(resizeElement);
 			else
-				_resizeElement = framerate;
+				_resizeElement = resizeElement;
 			this._resize = this._resize.bind(this);
 			_resizeElement.addEventListener("resize", this._resize);
 		}
