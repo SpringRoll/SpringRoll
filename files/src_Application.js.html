@@ -151,7 +151,8 @@
 		*/
 		this.display = null;
 
-		this._displays = {};
+		_displays = {};
+		_tickCallback = this._tick.bind(this);
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
@@ -160,7 +161,7 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(EventDispatcher.prototype);
+	var p = Application.prototype = Object.create(cloudkid.EventDispatcher.prototype);
 
 	/**
 	*  The collection of function references to call when initializing the application
@@ -267,7 +268,7 @@
 	*  @property {Number} _aspectRatio
 	*  @private
 	*/
-	_aspectRatio = 1,
+	_aspectRatio = 0,
 
 	/**
 	*  A PageVisibility object to automatically pause Application when the page is hidden.
@@ -336,7 +337,7 @@
 	/**
 	*  Fired when the pause state is toggled
 	*  @event pause
-	*  @param {boolean} paused If the application is paused
+	*  @param {boolean} paused If the application is now paused
 	*/
 	PAUSE = &#x27;pause&#x27;,
 
@@ -348,7 +349,7 @@
 
 	/**
 	*  Fired when the application resumes from a paused state
-	*  @event paused
+	*  @event resumed
 	*/
 	RESUMED = &#x27;resumed&#x27;,
 
@@ -404,7 +405,7 @@
 	p._internalInit = function()
 	{
 		//grab the query string parameters if we should be doing so
-		if(this.options.queryStringParameters)
+		if(this.options.parseQueryString)
 			parseQueryStringParams(this.options);
 		//set up default options
 		for(var key in _defaultOptions)
@@ -433,9 +434,9 @@
 		if(resizeElement)
 		{
 			if(typeof resizeElement == &quot;string&quot;)
-				_resizeElement = document.getElementById(framerate);
+				_resizeElement = document.getElementById(resizeElement);
 			else
-				_resizeElement = framerate;
+				_resizeElement = resizeElement;
 			this._resize = this._resize.bind(this);
 			_resizeElement.addEventListener(&quot;resize&quot;, this._resize);
 		}
@@ -457,17 +458,36 @@
 		if(this.options.canvasId &amp;&amp; this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
 
-		// Call the init function
-		if (this.init) this.init();
+		var versionsLoaded = function()
+		{
+			// Call the init function
+			if (this.init) this.init();
 
-		// Dispatch the init event
-		this.trigger(INIT);
+			// Dispatch the init event
+			this.trigger(INIT);
 
-		//do an initial resize to make sure everything is sized properly
-		this._resize();
+			//do an initial resize to make sure everything is sized properly
+			this._resize();
 
-		//start update loop
-		this.paused = false;
+			//start update loop
+			this.paused = false;
+		}.bind(this);
+
+		// Check to see if we should load a versions file
+		// The versions file keeps track of file versions to avoid cache issues
+		if (this.options.versionsFile !== undefined)
+		{
+			// Try to load the default versions file
+			// callback should be made with a scope in mind
+			cloudkid.MediaLoader.instance.cacheManager.addVersionsFile(
+				this.options.versionsFile, 
+				versionsLoaded
+			);
+		}
+		else
+		{
+			versionsLoaded();
+		}
 	};
 
 	/**
@@ -590,6 +610,8 @@
 	*/
 	p._resize = function()
 	{
+		if(!_resizeElement) return;
+
 		_resizeHelper.width = _resizeElement.innerWidth | 0;
 		_resizeHelper.height = _resizeElement.innerHeight | 0;
 		this.calculateDisplaySize(_resizeHelper);
@@ -618,6 +640,7 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
+		if(!_aspectRatio) return;
 		if(size.width / size.height &lt; _aspectRatio)
 		{
 			//limit to the narrower width
@@ -654,6 +677,7 @@
 			this.display = display;
 			_aspectRatio = display.width / display.height;
 		}
+		return display;
 	};
 
 	/**
@@ -754,7 +778,7 @@
 			if (elapsed &gt; 1000)
 			{
 				var framerateValue = 1000 / elapsed * _frameCount;
-				_framerate.innerHTML = &quot;FPS: &quot; + (Math.round(_framerateValue * 1000) / 1000);
+				_framerate.innerHTML = &quot;FPS: &quot; + (Math.round(framerateValue * 1000) / 1000);
 				_lastFPSUpdateTime = now;
 				_frameCount = 0;
 			}
@@ -798,6 +822,7 @@
 		_pageVisibility.destroy();
 		_pageVisibility = null;
 		this._listeners = null;
+		_tickCallback = null;
 	};
 
 	// Add to the name space
