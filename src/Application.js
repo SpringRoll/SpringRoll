@@ -222,7 +222,7 @@
 	/**
 	*  Fired when the pause state is toggled
 	*  @event pause
-	*  @param {boolean} paused If the application is paused
+	*  @param {boolean} paused If the application is now paused
 	*/
 	PAUSE = 'pause',
 
@@ -234,7 +234,7 @@
 
 	/**
 	*  Fired when the application resumes from a paused state
-	*  @event paused
+	*  @event resumed
 	*/
 	RESUMED = 'resumed',
 
