@@ -518,10 +518,10 @@
 	*  if you need variable aspect ratios.
 	*  @method calculateDisplaySize
 	*  @protected
-	*  @param {Object} [size] A size object containing the width and height of the resized container.
+	*  @param {Object} size A size object containing the width and height of the resized container.
 	* 				The size parameter is also the output of the function, so the size properties are edited in place.
-	*  @param {int} [size.w] The width of the resized container.
-	*  @param {int} [size.h] The height of the resized container.
+	*  @param {int} size.w The width of the resized container.
+	*  @param {int} size.h The height of the resized container.
 	*/
 	p.calculateDisplaySize = function(size)
 	{
