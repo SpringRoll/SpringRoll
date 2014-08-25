@@ -1627,12 +1627,12 @@
                     "type": "Object",
                     "props": [
                         {
-                            "name": "w",
+                            "name": "width",
                             "description": "The width of the resized container.",
                             "type": "Int"
                         },
                         {
-                            "name": "h",
+                            "name": "height",
                             "description": "The height of the resized container.",
                             "type": "Int"
                         }
