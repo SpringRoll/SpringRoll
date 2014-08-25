@@ -307,14 +307,18 @@
                     "type": "Int"
                 },
                 {
-                    "name": "repeat=false",
+                    "name": "repeat",
                     "description": "If the DelayedCall should automatically repeat itself when completed.",
-                    "type": "Boolean"
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
                 },
                 {
-                    "name": "autoDestroy=true",
+                    "name": "autoDestroy",
                     "description": "If the DelayedCall should clean itself up when completed.",
-                    "type": "Boolean"
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
                 }
             ]
         },
@@ -1621,19 +1625,16 @@
                     "name": "size",
                     "description": "A size object containing the width and height of the resized container.\n \t\t\t\tThe size parameter is also the output of the function, so the size properties are edited in place.",
                     "type": "Object",
-                    "optional": true,
                     "props": [
                         {
                             "name": "w",
                             "description": "The width of the resized container.",
-                            "type": "Int",
-                            "optional": true
+                            "type": "Int"
                         },
                         {
                             "name": "h",
                             "description": "The height of the resized container.",
-                            "type": "Int",
-                            "optional": true
+                            "type": "Int"
                         }
                     ]
                 }
