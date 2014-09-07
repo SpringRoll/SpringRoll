@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.1 API Documentation : Application</title>  
+	<title>CloudKidFramework v0.0.2 API Documentation : Application</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.1</em>
+            <em>API Documentation for: 0.0.2</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -135,8 +135,8 @@
 
 <div class="box intro">
     <p>Creates a new application, for example (HappyCamel extends Application)
-manages displays, update loop controlling, handles resizing
-var app = new Application({fps:60, resizeObject:window});</p>
+manages displays, update loop controlling, handles resizing</p>
+<pre class="code prettyprint"><code>var app = new Application({fps:60, resizeElement:window});</code></pre>
 
 </div>
 
@@ -152,7 +152,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
                 <li class="arg">
                     
-                        <code>options</code>
+                        <code class="optional">[options]</code>
                     
                 </li>
             
@@ -207,16 +207,187 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
                 <li class="param">
                     
-                        <code class="param-name">options</code>
+                        <code class="param-name optional">[options]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                         
+                        <p>The options for creating the application</p>
+
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[fps=60]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The framerate to use for rendering the stage</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[raf=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Use request animation frame</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[resizeElement]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement | Window</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The element to resize the canvas to</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[uniformResize=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Whether to resize the displays to the original aspect ratio</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[queryStringParameters=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Parse the query string paramenters as options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[debug=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Enable the Debugger</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[minLogLevel=0]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The minimum log level to show debug messages for from 0 (general) to 4 (error)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[ip]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The host computer for IP remote debugging</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[canvasId]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The default display DOM ID name</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[display]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[displayOptions]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Display-specific options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
@@ -705,7 +876,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l285"><code>_internalInit:285</code></a>
+        <a href="../files/src_Application.js.html#l299"><code>_internalInit:299</code></a>
         
         </p>
 
@@ -762,7 +933,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l413"><code>_onHidden:413</code></a>
+        <a href="../files/src_Application.js.html#l427"><code>_onHidden:427</code></a>
         
         </p>
 
@@ -819,7 +990,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l423"><code>_onVisible:423</code></a>
+        <a href="../files/src_Application.js.html#l437"><code>_onVisible:437</code></a>
         
         </p>
 
@@ -876,7 +1047,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l491"><code>_resize:491</code></a>
+        <a href="../files/src_Application.js.html#l505"><code>_resize:505</code></a>
         
         </p>
 
@@ -933,7 +1104,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l642"><code>_tick:642</code></a>
+        <a href="../files/src_Application.js.html#l660"><code>_tick:660</code></a>
         
         </p>
 
@@ -1014,7 +1185,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l541"><code>addDisplay:541</code></a>
+        <a href="../files/src_Application.js.html#l559"><code>addDisplay:559</code></a>
         
         </p>
 
@@ -1154,7 +1325,7 @@ var app = new Application({fps:60, resizeObject:window});</p>
             
         
         
-        <a href="../files/src_Application.js.html#l515"><code>calculateDisplaySize:515</code></a>
+        <a href="../files/src_Application.js.html#l533"><code>calculateDisplaySize:533</code></a>
         
         </p>
 
@@ -1268,7 +1439,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l689"><code>destroy:689</code></a>
+        <a href="../files/src_Application.js.html#l707"><code>destroy:707</code></a>
         
         </p>
 
@@ -1337,7 +1508,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l568"><code>getDisplay:568</code></a>
+        <a href="../files/src_Application.js.html#l586"><code>getDisplay:586</code></a>
         
         </p>
 
@@ -1436,7 +1607,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l579"><code>getDisplays:579</code></a>
+        <a href="../files/src_Application.js.html#l597"><code>getDisplays:597</code></a>
         
         </p>
 
@@ -1633,7 +1804,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l406"><code>init:406</code></a>
+        <a href="../files/src_Application.js.html#l420"><code>init:420</code></a>
         
         </p>
 
@@ -1953,7 +2124,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l378"><code>parseQueryStringParams:378</code></a>
+        <a href="../files/src_Application.js.html#l392"><code>parseQueryStringParams:392</code></a>
         
         </p>
 
@@ -2046,7 +2217,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l259"><code>registerDestroy:259</code></a>
+        <a href="../files/src_Application.js.html#l273"><code>registerDestroy:273</code></a>
         
         </p>
 
@@ -2139,7 +2310,7 @@ Application.registerInit(MediaLoader.instance.destroy.bind(MediaLoader.instance)
             
         
         
-        <a href="../files/src_Application.js.html#l247"><code>registerInit:247</code></a>
+        <a href="../files/src_Application.js.html#l261"><code>registerInit:261</code></a>
         
         </p>
 
@@ -2228,7 +2399,7 @@ Application.registerInit(MediaLoader.init);</p>
             
         
         
-        <a href="../files/src_Application.js.html#l593"><code>removeDisplay:593</code></a>
+        <a href="../files/src_Application.js.html#l611"><code>removeDisplay:611</code></a>
         
         </p>
 
@@ -2325,7 +2496,7 @@ Application.registerInit(MediaLoader.init);</p>
             
         
         
-        <a href="../files/src_Application.js.html#l474"><code>setTargetedTimeout:474</code></a>
+        <a href="../files/src_Application.js.html#l488"><code>setTargetedTimeout:488</code></a>
         
         </p>
 
@@ -2635,7 +2806,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l151"><code>_aspectRatio:151</code></a>
+        <a href="../files/src_Application.js.html#l164"><code>_aspectRatio:164</code></a>
         
         </p>
 
@@ -2682,7 +2853,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l173"><code>_defaultOptions:173</code></a>
+        <a href="../files/src_Application.js.html#l186"><code>_defaultOptions:186</code></a>
         
         </p>
 
@@ -2729,7 +2900,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l166"><code>_displays:166</code></a>
+        <a href="../files/src_Application.js.html#l179"><code>_displays:179</code></a>
         
         </p>
 
@@ -2776,7 +2947,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l128"><code>_fps:128</code></a>
+        <a href="../files/src_Application.js.html#l141"><code>_fps:141</code></a>
         
         </p>
 
@@ -2825,7 +2996,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l92"><code>_frameCount:92</code></a>
+        <a href="../files/src_Application.js.html#l105"><code>_frameCount:105</code></a>
         
         </p>
 
@@ -2872,7 +3043,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l71"><code>_framerate:71</code></a>
+        <a href="../files/src_Application.js.html#l84"><code>_framerate:84</code></a>
         
         </p>
 
@@ -2921,7 +3092,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l61"><code>_globalDestroy:61</code></a>
+        <a href="../files/src_Application.js.html#l74"><code>_globalDestroy:74</code></a>
         
         </p>
 
@@ -2972,7 +3143,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l51"><code>_globalInit:51</code></a>
+        <a href="../files/src_Application.js.html#l64"><code>_globalInit:64</code></a>
         
         </p>
 
@@ -3021,7 +3192,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l85"><code>_lastFPSUpdateTime:85</code></a>
+        <a href="../files/src_Application.js.html#l98"><code>_lastFPSUpdateTime:98</code></a>
         
         </p>
 
@@ -3068,7 +3239,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l78"><code>_lastFrameTime:78</code></a>
+        <a href="../files/src_Application.js.html#l91"><code>_lastFrameTime:91</code></a>
         
         </p>
 
@@ -3159,7 +3330,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l136"><code>_msPerFrame:136</code></a>
+        <a href="../files/src_Application.js.html#l149"><code>_msPerFrame:149</code></a>
         
         </p>
 
@@ -3206,7 +3377,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l158"><code>_pageVisibility:158</code></a>
+        <a href="../files/src_Application.js.html#l171"><code>_pageVisibility:171</code></a>
         
         </p>
 
@@ -3253,7 +3424,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l106"><code>_paused:106</code></a>
+        <a href="../files/src_Application.js.html#l119"><code>_paused:119</code></a>
         
         </p>
 
@@ -3300,7 +3471,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l143"><code>_resizeElement:143</code></a>
+        <a href="../files/src_Application.js.html#l156"><code>_resizeElement:156</code></a>
         
         </p>
 
@@ -3349,7 +3520,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l194"><code>_resizeHelper:194</code></a>
+        <a href="../files/src_Application.js.html#l208"><code>_resizeHelper:208</code></a>
         
         </p>
 
@@ -3396,7 +3567,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l99"><code>_tickCallback:99</code></a>
+        <a href="../files/src_Application.js.html#l112"><code>_tickCallback:112</code></a>
         
         </p>
 
@@ -3443,7 +3614,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l113"><code>_tickId:113</code></a>
+        <a href="../files/src_Application.js.html#l126"><code>_tickId:126</code></a>
         
         </p>
 
@@ -3490,7 +3661,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l120"><code>_useRAF:120</code></a>
+        <a href="../files/src_Application.js.html#l133"><code>_useRAF:133</code></a>
         
         </p>
 
@@ -3539,7 +3710,7 @@ for instance MediaLoader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l31"><code>display:31</code></a>
+        <a href="../files/src_Application.js.html#l44"><code>display:44</code></a>
         
         </p>
 
@@ -3587,7 +3758,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l608"><code>fps:608</code></a>
+        <a href="../files/src_Application.js.html#l626"><code>fps:626</code></a>
         
         </p>
 
@@ -3636,7 +3807,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l272"><code>instance:272</code></a>
+        <a href="../files/src_Application.js.html#l286"><code>instance:286</code></a>
         
         </p>
 
@@ -3681,7 +3852,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l23"><code>options:23</code></a>
+        <a href="../files/src_Application.js.html#l36"><code>options:36</code></a>
         
         </p>
 
@@ -3727,7 +3898,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l433"><code>paused:433</code></a>
+        <a href="../files/src_Application.js.html#l447"><code>paused:447</code></a>
         
         </p>
 
@@ -3774,7 +3945,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l626"><code>raf:626</code></a>
+        <a href="../files/src_Application.js.html#l644"><code>raf:644</code></a>
         
         </p>
 
@@ -3829,7 +4000,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l241"><code>destroy:241</code></a>
+        <a href="../files/src_Application.js.html#l255"><code>destroy:255</code></a>
         
         </p>
 
@@ -3873,7 +4044,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l201"><code>init:201</code></a>
+        <a href="../files/src_Application.js.html#l215"><code>init:215</code></a>
         
         </p>
 
@@ -3917,7 +4088,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l222"><code>pause:222</code></a>
+        <a href="../files/src_Application.js.html#l236"><code>pause:236</code></a>
         
         </p>
 
@@ -3985,7 +4156,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l229"><code>paused:229</code></a>
+        <a href="../files/src_Application.js.html#l243"><code>paused:243</code></a>
         
         </p>
 
@@ -4029,7 +4200,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l214"><code>resize:214</code></a>
+        <a href="../files/src_Application.js.html#l228"><code>resize:228</code></a>
         
         </p>
 
@@ -4113,7 +4284,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l235"><code>resumed:235</code></a>
+        <a href="../files/src_Application.js.html#l249"><code>resumed:249</code></a>
         
         </p>
 
@@ -4157,7 +4328,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l207"><code>update:207</code></a>
+        <a href="../files/src_Application.js.html#l221"><code>update:221</code></a>
         
         </p>
 
