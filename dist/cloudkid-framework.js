@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.1 */
+/*! CloudKidFramework 0.0.2 */
 /**
 *  @module cloudkid
 */
@@ -325,11 +325,24 @@
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
 	*  manages displays, update loop controlling, handles resizing
-	*  var app = new Application({fps:60, resizeObject:window});
+	*
+	*	var app = new Application({fps:60, resizeElement:window});
+	*
 	*  @class Application
 	*  @extend EventDispatcher
 	*  @constructor
-	*  @param {Object} options
+	*  @param {Object} [options] The options for creating the application
+	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
+	*  @param {Boolean} [options.raf=true] Use request animation frame
+	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
+	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
+	*  @param {Boolean} [options.debug=false] Enable the Debugger
+	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error)
+	*  @param {String} [options.ip] The host computer for IP remote debugging
+	*  @param {String} [options.canvasId] The default display DOM ID name
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)
+	*  @param {Object} [options.displayOptions] Display-specific options
 	*/
 	var Application = function(options)
 	{
@@ -500,6 +513,7 @@
 		raf: true,
 		fps: 60,
 		resizeElement: null,
+		uniformResize: true,
 		queryStringParameters: false,
 		debug: false,
 		minLogLevel: 0,
@@ -642,7 +656,7 @@
 			else
 				_resizeElement = resizeElement;
 			this._resize = this._resize.bind(this);
-			_resizeElement.addEventListener("resize", this._resize);
+			window.addEventListener("resize", this._resize);
 		}
 
 		// Turn on debugging
@@ -816,12 +830,16 @@
 	{
 		if(!_resizeElement) return;
 
-		_resizeHelper.width = _resizeElement.innerWidth | 0;
-		_resizeHelper.height = _resizeElement.innerHeight | 0;
+		// window uses innerWidth, DOM elements clientWidth
+		_resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
+		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
+
 		this.calculateDisplaySize(_resizeHelper);
+		
 		//round down, as canvases require integer sizes
 		_resizeHelper.width |= 0;
 		_resizeHelper.height |= 0;
+
 		//resize the displays
 		for(var key in _displays)
 		{
@@ -837,14 +855,14 @@
 	*  if you need variable aspect ratios.
 	*  @method calculateDisplaySize
 	*  @protected
-	*  @param {Object} [size] A size object containing the width and height of the resized container.
+	*  @param {Object} size A size object containing the width and height of the resized container.
 	* 				The size parameter is also the output of the function, so the size properties are edited in place.
-	*  @param {int} [size.w] The width of the resized container.
-	*  @param {int} [size.h] The height of the resized container.
+	*  @param {int} size.width The width of the resized container.
+	*  @param {int} size.height The height of the resized container.
 	*/
 	p.calculateDisplaySize = function(size)
 	{
-		if(!_aspectRatio) return;
+		if(!_aspectRatio || !this.options.uniformResize) return;
 		if(size.width / size.height < _aspectRatio)
 		{
 			//limit to the narrower width
@@ -1021,7 +1039,7 @@
 		for(var i = 0; i < Application._globalDestroy.length; ++i)
 			Application._globalDestroy[i]();
 		if(_resizeElement)
-			_resizeElement.removeEventListener("resize", this._resize);
+			window.removeEventListener("resize", this._resize);
 		_framerate = _resizeElement = null;
 		_pageVisibility.destroy();
 		_pageVisibility = null;
@@ -2053,8 +2071,8 @@
 	*  @constructor
 	*  @param {function} callback The function to call when the delay has completed.
 	*  @param {int} delay The time to delay the call, in milliseconds.
-	*  @param {Boolean} repeat=false If the DelayedCall should automatically repeat itself when completed.
-	*  @param {Boolean} autoDestroy=true If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when completed.
+	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*/
 	var DelayedCall = function(callback, delay, repeat, autoDestroy)
 	{

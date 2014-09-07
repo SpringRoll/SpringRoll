@@ -6,11 +6,24 @@
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
 	*  manages displays, update loop controlling, handles resizing
-	*  var app = new Application({fps:60, resizeObject:window});
+	*
+	*	var app = new Application({fps:60, resizeElement:window});
+	*
 	*  @class Application
 	*  @extend EventDispatcher
 	*  @constructor
-	*  @param {Object} options
+	*  @param {Object} [options] The options for creating the application
+	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
+	*  @param {Boolean} [options.raf=true] Use request animation frame
+	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
+	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
+	*  @param {Boolean} [options.debug=false] Enable the Debugger
+	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error)
+	*  @param {String} [options.ip] The host computer for IP remote debugging
+	*  @param {String} [options.canvasId] The default display DOM ID name
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)
+	*  @param {Object} [options.displayOptions] Display-specific options
 	*/
 	var Application = function(options)
 	{
@@ -181,6 +194,7 @@
 		raf: true,
 		fps: 60,
 		resizeElement: null,
+		uniformResize: true,
 		queryStringParameters: false,
 		debug: false,
 		minLogLevel: 0,
@@ -323,7 +337,7 @@
 			else
 				_resizeElement = resizeElement;
 			this._resize = this._resize.bind(this);
-			_resizeElement.addEventListener("resize", this._resize);
+			window.addEventListener("resize", this._resize);
 		}
 
 		// Turn on debugging
@@ -497,12 +511,16 @@
 	{
 		if(!_resizeElement) return;
 
-		_resizeHelper.width = _resizeElement.innerWidth | 0;
-		_resizeHelper.height = _resizeElement.innerHeight | 0;
+		// window uses innerWidth, DOM elements clientWidth
+		_resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
+		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
+
 		this.calculateDisplaySize(_resizeHelper);
+		
 		//round down, as canvases require integer sizes
 		_resizeHelper.width |= 0;
 		_resizeHelper.height |= 0;
+
 		//resize the displays
 		for(var key in _displays)
 		{
@@ -525,7 +543,7 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
-		if(!_aspectRatio) return;
+		if(!_aspectRatio || !this.options.uniformResize) return;
 		if(size.width / size.height < _aspectRatio)
 		{
 			//limit to the narrower width
@@ -702,7 +720,7 @@
 		for(var i = 0; i < Application._globalDestroy.length; ++i)
 			Application._globalDestroy[i]();
 		if(_resizeElement)
-			_resizeElement.removeEventListener("resize", this._resize);
+			window.removeEventListener("resize", this._resize);
 		_framerate = _resizeElement = null;
 		_pageVisibility.destroy();
 		_pageVisibility = null;

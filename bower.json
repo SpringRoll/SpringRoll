@@ -1,18 +1,18 @@
 {
-    "name": "cloudkid-framework",
-    "version": "0.0.1",
-    "main": "dist/cloudkid-framework.min.js",
-    "dependencies": {
-        "cloudkid-debug" : "*",
-        "cloudkid-namespace" : "*",
-        "preloadjs": "https://github.com/CloudKidStudio/PreloadJS.git"
-    },
-    "ignore": [
-        "Gruntfile.js",
-        "build.json",
-        "tasks",
-        "examples",
-        "docs",
-        "src"
-    ]
+	"name": "cloudkid-framework",
+	"version": "0.0.2",
+	"main": "dist/cloudkid-framework.min.js",
+	"dependencies": {
+		"cloudkid-debug": "*",
+		"cloudkid-namespace": "*",
+		"preloadjs": "https://github.com/CloudKidStudio/PreloadJS.git"
+	},
+	"ignore": [
+		"Gruntfile.js",
+		"build.json",
+		"tasks",
+		"examples",
+		"docs",
+		"src"
+	]
 }
