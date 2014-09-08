@@ -153,7 +153,7 @@
 	*/
 	p.destroy = function()
 	{
-		cloudkid.Application.instance.removeUpdateCallback(this._updateId);
+		cloudkid.Application.instance.off("update", this._update);
 		this._callback = null;
 	};
 
