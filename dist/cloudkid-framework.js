@@ -1,67 +1,6 @@
-/*! CloudKidFramework 0.0.2 */
-/**
-*  @module cloudkid
-*/
-(function(window){
-	
-	"use strict";
+/*! CloudKidFramework 0.0.3 */
+(function(){
 
-	/**
-	*  Designed to provide utility related to functions and polyfills
-	*  @class FunctionUtils
-	*/
-	var FunctionUtils = {};
-	
-	// If there's already a bind, ignore
-	if (!Function.prototype.bind)
-	{
-		/**
-		*  Add the bind functionality to the Function prototype
-		*  this allows passing a reference in the function callback 
-		*
-		*	var callback = function(){};
-		*	cloudkid.MediaLoader.instance.load('something.json', callback.bind(this));
-		*
-		*  @method bind
-		*  @static
-		*  @param {function} that The reference to the function
-		*  @return {function} The bound function
-		*/
-		FunctionUtils.bind = Function.prototype.bind = function bind(that) 
-		{
-			var target = this;
-
-			if (typeof target != "function") 
-			{
-				throw new TypeError();
-			}
-
-			var args = Array.prototype.slice.call(arguments, 1),
-			bound = function()
-			{
-				if (this instanceof bound) 
-				{
-					var F = function(){};
-					F.prototype = target.prototype;
-					var self = new F();
-
-					var result = target.apply(self, args.concat(Array.prototype.slice.call(arguments)));
-				
-					if (Object(result) === result)
-					{
-						return result;
-					}
-					return self;
-				}
-				else 
-				{
-					return target.apply(that, args.concat(Array.prototype.slice.call(arguments)));
-				}
-			};
-			return bound;
-		};
-	}
-	
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
 	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
@@ -93,39 +32,191 @@
 		};
 	}
 
-	/**
-	*  A polyfill for requestAnimationFrame, this also gets assigned to the window if it doesn't exist
-	*  also window.requestAnimFrame is a redundant and short way to access this property
-	*  @static
-	*  @method requestAnimationFrame
-	*/
-	FunctionUtils.requestAnimationFrame = window.requestAnimationFrame;
+	// Short alias
 	window.requestAnimFrame = window.requestAnimationFrame;
 
-	/**
-	*  A polyfill for cancelAnimationFrame, this also gets assigned to the window if it doesn't exist
-	*  @static
-	*  @method cancelAnimationFrame
-	*/
-	FunctionUtils.cancelAnimationFrame = window.cancelAnimationFrame;
+}());
+/**
+*  @module cloudkid
+*/
+(function(){
+	
+	"use strict";
+	
+	// Combine prefixed URL for createObjectURL from blobs.
+	window.URL = window.URL || window.webkitURL;
 
-	var nowFunc = window.performance && (performance.now || performance.mozNow || performance.msNow || performance.oNow || performance.webkitNow);
-	if(nowFunc)
-		nowFunc = nowFunc.bind(performance);
-	else//apparently in Chrome this is extremely inaccurate (triple framerate or something silly)
-		nowFunc = Date.now ? Date.now.bind(Date) : function() { return new Date().getTime(); };
+	// Combine prefixed blob builder
+	window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
 
 	/**
-	*  A polyfill for performance.now(), with a fallback of using Date.now().
-	*  @static
-	*  @method now
+	*  The Web Workers specification defines an API for spawning background scripts in your web 
+	*  application. Web Workers allow you to do things like fire up long-running scripts to 
+	*  handle computationally intensive tasks, but without blocking the UI or other scripts 
+	*  to handle user interactions. Because Workers aren't available on all browsers, we provide
+	*  a helpful polyfill for backward compatibility. This worker is designed to run 
+	*  asyncronously instead of calling an external file.
+	*
+	*	var workerCode = "this.initialVariable = 10;" +
+	*	"this.onmessage = function(event)" +
+	*	"{" +
+	*		"var data = event.data;" +
+	*		"var returnVal = this.initialVariable + data.addValue;" +
+	*		"this.postMessage(returnVal);" +
+	*	"};";
+	*
+	*	// Create the worker
+	*	var worker = cloudkid.Worker.init(workerCode);
+	*	worker.onmessage = function(e) {
+	*		// e.data is the returnVal
+	*	};
+	*	
+	*	// Start the worker.
+	*	worker.postMessage(); 
+	*
+	*  @class Worker
 	*/
-	FunctionUtils.now = nowFunc;
+	var Worker = {};
+
+	/**
+	*  Initialize the worker, this is how you create a Worker or FallbackWorker object.
+	*  @method init
+	*  @static
+	*  @param {String} codeString The code in string form to make the worker from. As a string, fallback support is easier.
+	*  @return {FallbackWorker|window.Worker} Either a Web Worker or a fallback with the same API to use.
+	*/
+	Worker.init = function(codeString)
+	{
+		if(!window.URL || !window.Worker) return new FallbackWorker(codeString);
+
+		var blob;
+		try
+		{
+			blob = new Blob([codeString], {type: 'application/javascript'});
+		}
+		catch (e)
+		{
+			// try Backwards-compatibility with blob builders
+			if(!window.BlobBuilder) return new FallbackWorker(codeString);
+			try
+			{
+				blob = new BlobBuilder();
+				blob.append(codeString);
+				blob = blob.getBlob();
+			}
+			catch(error)
+			{
+				//no way of generating a blob to create the worker from
+				return new FallbackWorker(codeString);
+			}
+		}
+		if(!blob) return new FallbackWorker(codeString);//if somehow no blob was created, return a fallback worker
+		try
+		{
+			//IE 10 and 11, while supporting Blob and Workers, should throw an error here, so we should catch it and fall back
+			var worker = new Worker(URL.createObjectURL(blob));
+			return worker;
+		}
+		catch(e)
+		{
+			//can't create a worker
+			return new FallbackWorker(codeString);
+		}
+	};
 
 	// Assign to namespace
-	namespace('cloudkid').FunctionUtils = FunctionUtils;
+	namespace("cloudkid").Worker = Worker;
 	
-}(window));
+	/**
+	*	Internal class that pretends to be a Web Worker's context.
+	*	@class SubWorker
+	*	@constructor
+	*	@param {String} codeString A string to evaluate into worker code.
+	*	@param {FallbackWorker} parent The FallbackWorker that owns this SubWorker.
+	*/
+	var SubWorker = function(codeString, parent)
+	{
+		this._wParent = parent;
+		eval(codeString); // jshint ignore:line
+	};
+
+	var p = SubWorker.prototype;
+
+	/**
+	*	see https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
+	*	@property {Function} onmessage
+	*/
+	p.onmessage = null;
+
+	/**
+	*	The FallbackWorker that is controlls by this SubWorker.
+	*	@property {FallbackWorker} _wParent
+	*	@private
+	*/
+	p._wParent = null;
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
+	*	@method postMessage
+	*	@param {*} data The data to send.
+	*/
+	p.postMessage = function(data)
+	{
+		var parent = this._wParent;
+		setTimeout(parent.onmessage.bind(parent, {data:data}), 1);
+	};
+	
+	/**
+	*	An internal class that duplicates the Worker API as a fallback when WebWorkers are not supported.
+	*	@class FallbackWorker
+	*	@constructor
+	*	@param {String} codeString A string to evaluate into worker code.
+	*/
+	var FallbackWorker = function(codeString)
+	{
+		this._wChild = new SubWorker(codeString, this);
+	};
+
+	p = FallbackWorker.prototype;
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
+	*	@method postMessage
+	*	@param {*} data The data to send.
+	*/
+	p.postMessage = function(data)
+	{
+		var child = this._wChild;
+		setTimeout(child.onmessage.bind(child, {data:data}), 1);
+	};
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.terminate
+	*	@method terminate
+	*/
+	p.terminate = function()
+	{
+		this.onmessage = null;
+		var child = this._wChild;
+		child._wParent = null;
+		child.onmessage = null;
+		this._wChild = null;
+	};
+
+	/**
+	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
+	*	@property {Function} onmessage
+	*/
+	p.onmessage = null;
+	
+	/**
+	*	The SubWorker that is controlled by this FallbackWorker.
+	*	@property {SubWorker} _wChild
+	*	@private
+	*/
+	p._wChild = null;
+	
+}());
 /**
 *  @module cloudkid
 */
@@ -315,6 +406,185 @@
 	
 	// Assign to the global spacing
 	namespace('cloudkid').EventDispatcher = EventDispatcher;
+	
+}(window));
+/**
+*  @module cloudkid
+*/
+(function(global, doc, undefined){
+	
+	"use strict";
+	
+	/**
+	*  Handle the page visiblity change, if supported. Application uses one of these to
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused", 
+	*  or "unpaused" events on the application instead of using one of these yourself.
+	*  
+	*  @class PageVisibility
+	*  @constructor
+	*  @param {function} onFocus Callback when the page becomes visible
+	*  @param {function} onBlur Callback when the page loses visibility
+	*/
+	var PageVisibility = function(onFocus, onBlur)
+	{
+		this.initialize(onFocus, onBlur);
+	},
+	
+	// Reference to the prototype 
+	p = PageVisibility.prototype,
+	
+	/** 
+	* The name of the visibility change event for the browser
+	* 
+	* @property {String} _visibilityChange
+	* @private
+	*/
+	_visibilityChange = null;
+	
+	/**
+	* Callback when the page becomes visible
+	* @property {function} _onFocus
+	* @private
+	*/
+	p._onFocus = null;
+	
+	/**
+	* Callback when the page loses visibility
+	* @property {function} _onBlur
+	* @private
+	*/
+	p._onBlur = null;
+	
+	/**
+	* The visibility toggle function
+	* @property {function} _onToggle
+	* @private
+	*/
+	p._onToggle = null;
+	
+	// Select the visiblity change event name
+	if (doc.hidden !== undefined)
+	{
+		_visibilityChange = "visibilitychange";
+	} 
+	else if (doc.mozHidden !== undefined)
+	{
+		_visibilityChange = "mozvisibilitychange";
+	} 
+	else if (doc.msHidden !== undefined)
+	{
+		_visibilityChange = "msvisibilitychange";
+	} 
+	else if (doc.webkitHidden !== undefined)
+	{
+		_visibilityChange = "webkitvisibilitychange";
+	}
+	
+	/**
+	*  Create new Page visibility
+	*  
+	*  @method initialize
+	*  @param {function} onFocus The callback when the page comes into focus
+	*  @param {function} onBlur The callback when the page loses focus
+	*/
+	p.initialize = function(onFocus, onBlur)
+	{
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		this._onBlur = onBlur;
+		this._onFocus = onFocus;
+		
+		// The visibility toggle function
+		var onVisibilityChange = function() 
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				onBlur();
+			else 
+				onFocus();
+		};
+		
+		// Listen to visibility change
+		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
+		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
+		
+		// Listen for page events (when clicking the home button on iOS)
+		global.addEventListener("pagehide", onBlur);
+		global.addEventListener("pageshow", onFocus);
+		global.addEventListener("blur", onBlur);
+		global.addEventListener("focus", onFocus);
+		global.addEventListener("visibilitychange", onVisibilityChange, false);
+		
+		this._onToggle = onVisibilityChange;
+	};
+	
+	/**
+	*  Disable the detection
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		global.removeEventListener("pagehide", this._onBlur);
+		global.removeEventListener("pageshow", this._onFocus);
+		global.removeEventListener("blur", this._onBlur);
+		global.removeEventListener("focus", this._onFocus);
+		global.removeEventListener("visibilitychange", this._onToggle);
+		
+		doc.removeEventListener(_visibilityChange, this._onToggle, false);
+		
+		this._onFocus = null;
+		this._onBlur = null;
+	};
+	
+	// Assign to the global space
+	namespace('cloudkid').PageVisibility = PageVisibility;
+	
+}(window, document));
+/**
+*  @module cloudkid
+*/
+(function(window){
+	
+	"use strict";
+	
+	// See if we have performance.now or any of
+	// the brower-specific versions
+	var now = window.performance && (
+		performance.now || 
+		performance.mozNow || 
+		performance.msNow || 
+		performance.oNow || 
+		performance.webkitNow
+	);
+
+	// Browser prefix polyfill
+	if (now) performance.now = now;
+
+	/**
+	*  A collection of Time related utility functions
+	*  @class TimeUtils
+	*/
+	var TimeUtils = {};
+	
+	/**
+	*  This method gets timestamp in micromilliseconds for doing performance
+	*  intense operations. Fallback support is to `Date.now()`. We aren't overridding
+	*  `performance.now()` incase dependencies on this actually demand 
+	*  the optimization and accuracy that performance actually provides.
+	*  @static
+	*  @method now
+	*  @return {int} The number of micromilliseconds of the current timestamp
+	*/
+	TimeUtils.now = !now ? Date.now : function()
+	{ 
+		return performance.now(); 
+	};
+
+	// Assign to namespace
+	namespace('cloudkid').TimeUtils = TimeUtils;
 	
 }(window));
 /**
@@ -799,7 +1069,7 @@
 						requestAnimFrame(_tickCallback): 
 						setTargetedTimeout(_tickCallback);
 				}
-				_lastFPSUpdateTime = _lastFrameTime = cloudkid.FunctionUtils.now();
+				_lastFPSUpdateTime = _lastFrameTime = cloudkid.TimeUtils.now();
 			}
 		}
 	});
@@ -989,7 +1259,7 @@
 			return;
 		}
 
-		var now = cloudkid.FunctionUtils.now();
+		var now = cloudkid.TimeUtils.now();
 		var dTime = now - _lastFrameTime;
 		
 		// Only update the framerate every second
@@ -1020,7 +1290,7 @@
 		//request the next animation frame
 		_tickId = _useRAF ? 
 			requestAnimFrame(_tickCallback) : 
-			setTargetedTimeout(_tickCallback, cloudkid.FunctionUtils.now() - _lastFrameTime);
+			setTargetedTimeout(_tickCallback, cloudkid.TimeUtils.now() - _lastFrameTime);
 	};
 
 	/**
@@ -1051,141 +1321,6 @@
 	namespace('cloudkid').Application = Application;
 
 }());
-/**
-*  @module cloudkid
-*/
-(function(global, doc, undefined){
-	
-	"use strict";
-	
-	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused", 
-	*  or "unpaused" events on the application instead of using one of these yourself.
-	*  
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {function} onFocus Callback when the page becomes visible
-	*  @param {function} onBlur Callback when the page loses visibility
-	*/
-	var PageVisibility = function(onFocus, onBlur)
-	{
-		this.initialize(onFocus, onBlur);
-	},
-	
-	// Reference to the prototype 
-	p = PageVisibility.prototype,
-	
-	/** 
-	* The name of the visibility change event for the browser
-	* 
-	* @property {String} _visibilityChange
-	* @private
-	*/
-	_visibilityChange = null;
-	
-	/**
-	* Callback when the page becomes visible
-	* @property {function} _onFocus
-	* @private
-	*/
-	p._onFocus = null;
-	
-	/**
-	* Callback when the page loses visibility
-	* @property {function} _onBlur
-	* @private
-	*/
-	p._onBlur = null;
-	
-	/**
-	* The visibility toggle function
-	* @property {function} _onToggle
-	* @private
-	*/
-	p._onToggle = null;
-	
-	// Select the visiblity change event name
-	if (doc.hidden !== undefined)
-	{
-		_visibilityChange = "visibilitychange";
-	} 
-	else if (doc.mozHidden !== undefined)
-	{
-		_visibilityChange = "mozvisibilitychange";
-	} 
-	else if (doc.msHidden !== undefined)
-	{
-		_visibilityChange = "msvisibilitychange";
-	} 
-	else if (doc.webkitHidden !== undefined)
-	{
-		_visibilityChange = "webkitvisibilitychange";
-	}
-	
-	/**
-	*  Create new Page visibility
-	*  
-	*  @method initialize
-	*  @param {function} onFocus The callback when the page comes into focus
-	*  @param {function} onBlur The callback when the page loses focus
-	*/
-	p.initialize = function(onFocus, onBlur)
-	{
-		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
-		
-		this._onBlur = onBlur;
-		this._onFocus = onFocus;
-		
-		// The visibility toggle function
-		var onVisibilityChange = function() 
-		{
-			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				onBlur();
-			else 
-				onFocus();
-		};
-		
-		// Listen to visibility change
-		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
-		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
-		
-		// Listen for page events (when clicking the home button on iOS)
-		global.addEventListener("pagehide", onBlur);
-		global.addEventListener("pageshow", onFocus);
-		global.addEventListener("blur", onBlur);
-		global.addEventListener("focus", onFocus);
-		global.addEventListener("visibilitychange", onVisibilityChange, false);
-		
-		this._onToggle = onVisibilityChange;
-	};
-	
-	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
-		
-		global.removeEventListener("pagehide", this._onBlur);
-		global.removeEventListener("pageshow", this._onFocus);
-		global.removeEventListener("blur", this._onBlur);
-		global.removeEventListener("focus", this._onFocus);
-		global.removeEventListener("visibilitychange", this._onToggle);
-		
-		doc.removeEventListener(_visibilityChange, this._onToggle, false);
-		
-		this._onFocus = null;
-		this._onBlur = null;
-	};
-	
-	// Assign to the global space
-	namespace('cloudkid').PageVisibility = PageVisibility;
-	
-}(window, document));
 /**
 *  @module cloudkid
 */
@@ -1579,7 +1714,7 @@
 	/**
 	*  The reference to the cache manager
 	*  @public
-	*  @property {cloudkid.CacheManager} cacheManager
+	*  @property {CacheManager} cacheManager
 	*/
 	p.cacheManager = null;
 	
@@ -1596,7 +1731,9 @@
 			MediaLoader._instance = new MediaLoader();
 			MediaLoader._instance._initialize();
 			//register the destroy function
-			cloudkid.Application.registerDestroy(MediaLoader._instance.destroy.bind(MediaLoader._instance));
+			cloudkid.Application.registerDestroy(
+				MediaLoader._instance.destroy.bind(MediaLoader._instance)
+			);
 		}
 		return MediaLoader._instance;
 	};
@@ -1717,7 +1854,7 @@
 	*  There was an error loading the file
 	*  @private
 	*  @method _onLoadFailed
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*/
 	p._onLoadFailed = function(qi, event)
 	{
@@ -1749,7 +1886,7 @@
 	*  The file load progress event
 	*  @method _onLoadProgress
 	*  @private
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} event The progress event
 	*/
 	p._onLoadProgress = function(qi, event)
@@ -1764,7 +1901,7 @@
 	*  The file was loaded successfully
 	*  @private
 	*  @method _onLoadCompleted
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} ev The load event
 	*/
 	p._onLoadCompleted = function(qi, ev)
@@ -1819,7 +1956,7 @@
 	*  Alert that the loading is finished
 	*  @private 
 	*  @method _loadDone
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} result The event from preloadjs or null
 	*/
 	p._loadDone = function(qi, result)
@@ -2060,167 +2197,6 @@
 /**
 *  @module cloudkid
 */
-(function(undefined) {
-
-	"use strict";
-
-	/**
-	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
-	* 
-	*  @class DelayedCall
-	*  @constructor
-	*  @param {function} callback The function to call when the delay has completed.
-	*  @param {int} delay The time to delay the call, in milliseconds.
-	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when completed.
-	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*/
-	var DelayedCall = function(callback, delay, repeat, autoDestroy)
-	{
-		/**
-		*  The function to call when the delay is completed.
-		*  @private
-		*  @property {function} _callback
-		*/
-		this._callback = callback;
-		/**
-		*  The delay time, in milliseconds.
-		*  @private
-		*  @property {int} _delay
-		*/
-		this._delay = delay;
-		/**
-		*  The timer counting down from _delay, in milliseconds.
-		*  @private
-		*  @property {int} _timer
-		*/
-		this._timer = delay;
-		/**
-		*  If the DelayedCall should repeat itself automatically.
-		*  @private
-		*  @property {Boolean} _repeat
-		*  @default false
-		*/
-		this._repeat = !!repeat;
-		/**
-		*  If the DelayedCall should destroy itself after completing
-		*  @private
-		*  @property {Boolean} _autoDestroy
-		*  @default true
-		*/
-		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
-		/**
-		*  If the DelayedCall is currently paused (not stopped).
-		*  @private
-		*  @property {Boolean} _paused
-		*/
-		this._paused = false;
-
-		//save a bound version of the update function
-		this._update = this._update.bind(this);
-		//start the delay
-		cloudkid.Application.instance.on("update", this._update);
-	};
-
-	var p = DelayedCall.prototype;
-
-	/**
-	*  The callback supplied to the Application for an update each frame.
-	*  @private
-	*  @method _update
-	*  @param {int} elapsed The time elapsed since the previous frame.
-	*/
-	p._update = function(elapsed)
-	{
-		if(!this._callback)
-		{
-			this.destroy();
-			return;
-		}
-
-		this._timer -= elapsed;
-		if(this._timer <= 0)
-		{
-			this._callback();
-			if(this._repeat)
-				this._timer += this._delay;
-			else if(this._autoDestroy)
-				this.destroy();
-			else
-				cloudkid.Application.instance.off("update", this._update);
-		}
-	};
-
-	/**
-	*  Restarts the DelayedCall, whether it is running or not.
-	*  @public
-	*  @method restart
-	*/
-	p.restart = function()
-	{
-		if(!this._callback) return;
-		var app = cloudkid.Application.instance;
-		if(!app.has("update", this._update))
-			app.on("update", this._update);
-		this._timer = this._delay;
-		this._paused = false;
-	};
-
-	/**
-	*  Stops the DelayedCall, without destroying it.
-	*  @public
-	*  @method stop
-	*/
-	p.stop = function()
-	{
-		cloudkid.Application.instance.off("update", this._update);
-		this._paused = false;
-	};
-
-	/**
-	*  If the DelayedCall is paused or not.
-	*  @public
-	*  @property {Boolean} paused
-	*/
-	Object.defineProperty(p, "paused", {
-		get: function() { return this._paused; },
-		set: function(value)
-		{
-			if(!this._callback) return;
-			var app = cloudkid.Application.instance;
-			if(this._paused && !value)
-			{
-				this._paused = false;
-				if(!app.has("update", this._update))
-					app.on("update", this._update);
-			}
-			else if(value)
-			{
-				if(app.has("update", this._update))
-				{
-					this._paused = true;
-					app.off("update", this._update);
-				}
-			}
-		}
-	});
-
-	/**
-	*  Stops and cleans up the DelayedCall. Do not use it after calling
-	*  destroy().
-	*  @public
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		cloudkid.Application.instance.off("update", this._update);
-		this._callback = null;
-	};
-
-	namespace('cloudkid').DelayedCall = DelayedCall;
-}());
-/**
-*  @module cloudkid
-*/
 (function(){
 	
 	"use strict";
@@ -2343,183 +2319,163 @@
 /**
 *  @module cloudkid
 */
-(function(){
-	
+(function(undefined) {
+
 	"use strict";
-	
-	// Combine prefixed URL for createObjectURL from blobs.
-	window.URL = window.URL || window.webkitURL;
 
-	// Combine prefixed blob builder
-	window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+	var Application = cloudkid.Application;
 
 	/**
-	*  The Web Workers specification defines an API for spawning background scripts in your web 
-	*  application. Web Workers allow you to do things like fire up long-running scripts to 
-	*  handle computationally intensive tasks, but without blocking the UI or other scripts 
-	*  to handle user interactions. Because Workers aren't available on all browsers, we provide
-	*  a helpful polyfill for backward compatibility.
-	*
-	*	var workerCode = "this.initialVariable = 10;" +
-	*	"this.onmessage = function(event)" +
-	*	"{" +
-	*		"var data = event.data;" +
-	*		"var returnVal = this.initialVariable + data.addValue;" +
-	*		"this.postMessage(returnVal);" +
-	*	"};";
-	*
-	*	// Create the worker
-	*	var worker = cloudkid.Worker.init(workerCode);
-	*	worker.onmessage = function(e) {
-	*		// e.data is the returnVal
-	*	};
-	*	
-	*	// Start the worker.
-	*	worker.postMessage(); 
-	*
-	*  @class Worker
+	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
+	* 
+	*  @class DelayedCall
+	*  @constructor
+	*  @param {function} callback The function to call when the delay has completed.
+	*  @param {int} delay The time to delay the call, in milliseconds.
+	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when completed.
+	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*/
-	var Worker = {};
-
-	/**
-	*  Initialize the worker, this is how you create a Worker or FallbackWorker object.
-	*  @method init
-	*  @static
-	*  @param {String} codeString The code in string form to make the worker from. As a string, fallback support is easier.
-	*  @return {FallbackWorker|window.Worker} Either a Web Worker or a fallback with the same API to use.
-	*/
-	Worker.init = function(codeString)
+	var DelayedCall = function(callback, delay, repeat, autoDestroy)
 	{
-		if(!window.URL || !window.Worker) return new FallbackWorker(codeString);
+		/**
+		*  The function to call when the delay is completed.
+		*  @private
+		*  @property {function} _callback
+		*/
+		this._callback = callback;
+		/**
+		*  The delay time, in milliseconds.
+		*  @private
+		*  @property {int} _delay
+		*/
+		this._delay = delay;
+		/**
+		*  The timer counting down from _delay, in milliseconds.
+		*  @private
+		*  @property {int} _timer
+		*/
+		this._timer = delay;
+		/**
+		*  If the DelayedCall should repeat itself automatically.
+		*  @private
+		*  @property {Boolean} _repeat
+		*  @default false
+		*/
+		this._repeat = !!repeat;
+		/**
+		*  If the DelayedCall should destroy itself after completing
+		*  @private
+		*  @property {Boolean} _autoDestroy
+		*  @default true
+		*/
+		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+		/**
+		*  If the DelayedCall is currently paused (not stopped).
+		*  @private
+		*  @property {Boolean} _paused
+		*/
+		this._paused = false;
 
-		var blob;
-		try
+		//save a bound version of the update function
+		this._update = this._update.bind(this);
+		//start the delay
+		Application.instance.on("update", this._update);
+	};
+
+	var p = DelayedCall.prototype;
+
+	/**
+	*  The callback supplied to the Application for an update each frame.
+	*  @private
+	*  @method _update
+	*  @param {int} elapsed The time elapsed since the previous frame.
+	*/
+	p._update = function(elapsed)
+	{
+		if(!this._callback)
 		{
-			blob = new Blob([codeString], {type: 'application/javascript'});
+			this.destroy();
+			return;
 		}
-		catch (e)
+
+		this._timer -= elapsed;
+		if(this._timer <= 0)
 		{
-			// try Backwards-compatibility with blob builders
-			if(!window.BlobBuilder) return new FallbackWorker(codeString);
-			try
+			this._callback();
+			if(this._repeat)
+				this._timer += this._delay;
+			else if(this._autoDestroy)
+				this.destroy();
+			else
+				Application.instance.off("update", this._update);
+		}
+	};
+
+	/**
+	*  Restarts the DelayedCall, whether it is running or not.
+	*  @public
+	*  @method restart
+	*/
+	p.restart = function()
+	{
+		if(!this._callback) return;
+		var app = Application.instance;
+		if(!app.has("update", this._update))
+			app.on("update", this._update);
+		this._timer = this._delay;
+		this._paused = false;
+	};
+
+	/**
+	*  Stops the DelayedCall, without destroying it.
+	*  @public
+	*  @method stop
+	*/
+	p.stop = function()
+	{
+		Application.instance.off("update", this._update);
+		this._paused = false;
+	};
+
+	/**
+	*  If the DelayedCall is paused or not.
+	*  @public
+	*  @property {Boolean} paused
+	*/
+	Object.defineProperty(p, "paused", {
+		get: function() { return this._paused; },
+		set: function(value)
+		{
+			if(!this._callback) return;
+			var app = Application.instance;
+			if(this._paused && !value)
 			{
-				blob = new BlobBuilder();
-				blob.append(codeString);
-				blob = blob.getBlob();
+				this._paused = false;
+				if(!app.has("update", this._update))
+					app.on("update", this._update);
 			}
-			catch(error)
+			else if(value)
 			{
-				//no way of generating a blob to create the worker from
-				return new FallbackWorker(codeString);
+				if(app.has("update", this._update))
+				{
+					this._paused = true;
+					app.off("update", this._update);
+				}
 			}
 		}
-		if(!blob) return new FallbackWorker(codeString);//if somehow no blob was created, return a fallback worker
-		try
-		{
-			//IE 10 and 11, while supporting Blob and Workers, should throw an error here, so we should catch it and fall back
-			var worker = new Worker(URL.createObjectURL(blob));
-			return worker;
-		}
-		catch(e)
-		{
-			//can't create a worker
-			return new FallbackWorker(codeString);
-		}
-	};
+	});
 
-	// Deprecated implementation
-	namespace("cloudkid").createWorker = Worker.init;
-
-	// Assign to namespace
-	namespace("cloudkid").Worker = Worker;
-	
 	/**
-	*	Internal class that pretends to be a Web Worker's context.
-	*	@class SubWorker
-	*	@constructor
-	*	@param {String} codeString A string to evaluate into worker code.
-	*	@param {FallbackWorker} parent The FallbackWorker that owns this SubWorker.
+	*  Stops and cleans up the DelayedCall. Do not use it after calling
+	*  destroy().
+	*  @public
+	*  @method destroy
 	*/
-	var SubWorker = function(codeString, parent)
+	p.destroy = function()
 	{
-		this._wParent = parent;
-		eval(codeString); // jshint ignore:line
+		Application.instance.off("update", this._update);
+		this._callback = null;
 	};
 
-	var p = SubWorker.prototype;
-
-	/**
-	*	see https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
-	*	@property {Function} onmessage
-	*/
-	p.onmessage = null;
-
-	/**
-	*	The FallbackWorker that is controlls by this SubWorker.
-	*	@property {FallbackWorker} _wParent
-	*	@private
-	*/
-	p._wParent = null;
-
-	/**
-	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
-	*	@method postMessage
-	*	@param {*} data The data to send.
-	*/
-	p.postMessage = function(data)
-	{
-		var parent = this._wParent;
-		setTimeout(parent.onmessage.bind(parent, {data:data}), 1);
-	};
-	
-	/**
-	*	An internal class that duplicates the Worker API as a fallback when WebWorkers are not supported.
-	*	@class FallbackWorker
-	*	@constructor
-	*	@param {String} codeString A string to evaluate into worker code.
-	*/
-	var FallbackWorker = function(codeString)
-	{
-		this._wChild = new SubWorker(codeString, this);
-	};
-
-	p = FallbackWorker.prototype;
-
-	/**
-	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.postMessage
-	*	@method postMessage
-	*	@param {*} data The data to send.
-	*/
-	p.postMessage = function(data)
-	{
-		var child = this._wChild;
-		setTimeout(child.onmessage.bind(child, {data:data}), 1);
-	};
-
-	/**
-	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.terminate
-	*	@method terminate
-	*/
-	p.terminate = function()
-	{
-		this.onmessage = null;
-		var child = this._wChild;
-		child._wParent = null;
-		child.onmessage = null;
-		this._wChild = null;
-	};
-
-	/**
-	*	See https://developer.mozilla.org/en-US/docs/Web/API/Worker.onmessage
-	*	@property {Function} onmessage
-	*/
-	p.onmessage = null;
-	
-	/**
-	*	The SubWorker that is controlled by this FallbackWorker.
-	*	@property {SubWorker} _wChild
-	*	@private
-	*/
-	p._wChild = null;
-	
+	namespace('cloudkid').DelayedCall = DelayedCall;
 }());

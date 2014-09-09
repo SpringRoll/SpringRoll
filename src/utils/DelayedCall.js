@@ -5,6 +5,8 @@
 
 	"use strict";
 
+	var Application = cloudkid.Application;
+
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
 	* 
@@ -59,7 +61,7 @@
 		//save a bound version of the update function
 		this._update = this._update.bind(this);
 		//start the delay
-		cloudkid.Application.instance.on("update", this._update);
+		Application.instance.on("update", this._update);
 	};
 
 	var p = DelayedCall.prototype;
@@ -87,7 +89,7 @@
 			else if(this._autoDestroy)
 				this.destroy();
 			else
-				cloudkid.Application.instance.off("update", this._update);
+				Application.instance.off("update", this._update);
 		}
 	};
 
@@ -99,7 +101,7 @@
 	p.restart = function()
 	{
 		if(!this._callback) return;
-		var app = cloudkid.Application.instance;
+		var app = Application.instance;
 		if(!app.has("update", this._update))
 			app.on("update", this._update);
 		this._timer = this._delay;
@@ -113,7 +115,7 @@
 	*/
 	p.stop = function()
 	{
-		cloudkid.Application.instance.off("update", this._update);
+		Application.instance.off("update", this._update);
 		this._paused = false;
 	};
 
@@ -127,7 +129,7 @@
 		set: function(value)
 		{
 			if(!this._callback) return;
-			var app = cloudkid.Application.instance;
+			var app = Application.instance;
 			if(this._paused && !value)
 			{
 				this._paused = false;
@@ -153,7 +155,7 @@
 	*/
 	p.destroy = function()
 	{
-		cloudkid.Application.instance.off("update", this._update);
+		Application.instance.off("update", this._update);
 		this._callback = null;
 	};
 

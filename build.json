@@ -1,21 +1,22 @@
 {
 	"name" : "CloudKidFramework",
-	"version" : "0.0.2",
+	"version" : "0.0.3",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
 	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
 	"output" : "cloudkid-framework",
 	"main" : [
-		"src/FunctionUtils.js",
-		"src/EventDispatcher.js",
+		"src/polyfills/requestAnimationFrame.js",
+		"src/polyfills/Worker.js",
+		"src/events/EventDispatcher.js",
+		"src/utils/PageVisibility.js",
+		"src/utils/TimeUtils.js",
 		"src/Application.js",
-		"src/PageVisibility.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
 		"src/loaders/MediaLoader.js",
 		"src/loaders/MediaLoaderResult.js",
-		"src/CombinedCallback.js",
-		"src/DelayedCall.js",
-		"src/SavedData.js",
-		"src/Worker.js"
+		"src/utils/CombinedCallback.js",
+		"src/data/SavedData.js",
+		"src/utils/DelayedCall.js"
 	]
 }

@@ -480,7 +480,7 @@
 						requestAnimFrame(_tickCallback): 
 						setTargetedTimeout(_tickCallback);
 				}
-				_lastFPSUpdateTime = _lastFrameTime = cloudkid.FunctionUtils.now();
+				_lastFPSUpdateTime = _lastFrameTime = cloudkid.TimeUtils.now();
 			}
 		}
 	});
@@ -670,7 +670,7 @@
 			return;
 		}
 
-		var now = cloudkid.FunctionUtils.now();
+		var now = cloudkid.TimeUtils.now();
 		var dTime = now - _lastFrameTime;
 		
 		// Only update the framerate every second
@@ -701,7 +701,7 @@
 		//request the next animation frame
 		_tickId = _useRAF ? 
 			requestAnimFrame(_tickCallback) : 
-			setTargetedTimeout(_tickCallback, cloudkid.FunctionUtils.now() - _lastFrameTime);
+			setTargetedTimeout(_tickCallback, cloudkid.TimeUtils.now() - _lastFrameTime);
 	};
 
 	/**

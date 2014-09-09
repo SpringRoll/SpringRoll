@@ -16,7 +16,8 @@
 	*  application. Web Workers allow you to do things like fire up long-running scripts to 
 	*  handle computationally intensive tasks, but without blocking the UI or other scripts 
 	*  to handle user interactions. Because Workers aren't available on all browsers, we provide
-	*  a helpful polyfill for backward compatibility.
+	*  a helpful polyfill for backward compatibility. This worker is designed to run 
+	*  asyncronously instead of calling an external file.
 	*
 	*	var workerCode = "this.initialVariable = 10;" +
 	*	"this.onmessage = function(event)" +
@@ -84,9 +85,6 @@
 			return new FallbackWorker(codeString);
 		}
 	};
-
-	// Deprecated implementation
-	namespace("cloudkid").createWorker = Worker.init;
 
 	// Assign to namespace
 	namespace("cloudkid").Worker = Worker;

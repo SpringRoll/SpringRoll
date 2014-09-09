@@ -1,11 +1,19 @@
 {
 	"name": "cloudkid-framework",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"main": "dist/cloudkid-framework.min.js",
 	"dependencies": {
 		"cloudkid-debug": "*",
 		"cloudkid-namespace": "*",
 		"preloadjs": "https://github.com/CloudKidStudio/PreloadJS.git"
+	},
+	"devDependencies": {
+		"jquery": " ~1",
+		"modernizr": "*",
+		"pixi.js": "https://github.com/CloudKidStudio/pixi.js.git#~1.6.3",
+		"easeljs": "https://github.com/CloudKidStudio/EaselJS.git#~0.7.6",
+		"cloudkid-pixi-display": "https://github.com/CloudKidStudio/PixiDisplay.git",
+		"cloudkid-createjs-display": "https://github.com/CloudKidStudio/CreateJSDisplay.git"
 	},
 	"ignore": [
 		"Gruntfile.js",

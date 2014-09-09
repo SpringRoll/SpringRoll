@@ -74,7 +74,7 @@
 	/**
 	*  The reference to the cache manager
 	*  @public
-	*  @property {cloudkid.CacheManager} cacheManager
+	*  @property {CacheManager} cacheManager
 	*/
 	p.cacheManager = null;
 	
@@ -91,7 +91,9 @@
 			MediaLoader._instance = new MediaLoader();
 			MediaLoader._instance._initialize();
 			//register the destroy function
-			cloudkid.Application.registerDestroy(MediaLoader._instance.destroy.bind(MediaLoader._instance));
+			cloudkid.Application.registerDestroy(
+				MediaLoader._instance.destroy.bind(MediaLoader._instance)
+			);
 		}
 		return MediaLoader._instance;
 	};
@@ -212,7 +214,7 @@
 	*  There was an error loading the file
 	*  @private
 	*  @method _onLoadFailed
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*/
 	p._onLoadFailed = function(qi, event)
 	{
@@ -244,7 +246,7 @@
 	*  The file load progress event
 	*  @method _onLoadProgress
 	*  @private
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} event The progress event
 	*/
 	p._onLoadProgress = function(qi, event)
@@ -259,7 +261,7 @@
 	*  The file was loaded successfully
 	*  @private
 	*  @method _onLoadCompleted
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} ev The load event
 	*/
 	p._onLoadCompleted = function(qi, ev)
@@ -314,7 +316,7 @@
 	*  Alert that the loading is finished
 	*  @private 
 	*  @method _loadDone
-	*  @param {cloudkid.LoaderQueueItem} qi The loader queue item
+	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} result The event from preloadjs or null
 	*/
 	p._loadDone = function(qi, result)

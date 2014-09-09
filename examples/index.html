@@ -17,9 +17,7 @@
 		<script src="libs/easeljs/lib/easeljs.combined.js"></script>
 		<script src="libs/cloudkid-namespace/namespace.js"></script>
 		<script src="libs/cloudkid-debug/dist/cloudkid-debug.js"></script>
-
-		<script src="../dist/cloudkid-framework.js"></script>
-		
+		<script src="../dist/cloudkid-framework.js"></script>	
 		<script src="libs/cloudkid-pixi-display/dist/cloudkid-pixi-display.js"></script>
 		<script src="libs/cloudkid-createjs-display/dist/cloudkid-createjs-display.js"></script>
 
@@ -31,15 +29,12 @@
 			<canvas id="pixiStage" style="z-index:0;" width="800" height="500"></canvas>
 			<canvas id="createjsStage" style="z-index:0;" width="800" height="500"></canvas>
 			<script>
-				var app = new cloudkid.DrawingApp({
+				new cloudkid.DrawingApp({
 					framerate: "framerate",
-					fps: 60,
-					raf: true,
-					parseQueryString: true,
 					debug: true
 				});
 			</script>
 		</div>
-		<footer>CloudKid 2012</footer>
+		<footer>CloudKid 2014</footer>
     </body>
 </html>

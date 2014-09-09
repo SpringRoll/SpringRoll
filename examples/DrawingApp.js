@@ -55,7 +55,7 @@
 		pixiStage = this.getDisplay("pixiStage").stage;
 		createjsStage = this.getDisplay("createjsStage").stage;
 		
-		texture = new Texture.fromImage("cloudkid.png");//fromImage automatically loads stuff it it wasn't preloaded
+		texture = new Texture.fromImage("images/cloudkid.png");//fromImage automatically loads stuff it it wasn't preloaded
 		sprite = new Sprite(texture);		
 				
 		sprite.position.x = 0;
