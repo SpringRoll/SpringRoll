@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.2 API Documentation : src/Worker.js</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : src/polyfills/Worker.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.2</em>
+            <em>API Documentation for: 0.0.3</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -39,21 +39,51 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/Animator.html">Animator</a></li>
+            
+                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
+            
+                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
+            
                 <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
+            
+                <li><a href="../classes/BaseState.html">BaseState</a></li>
+            
+                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
+                <li><a href="../classes/Captions.html">Captions</a></li>
+            
+                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
+            
+                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
+            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
+                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+            
+                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+            
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
+            
+                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
                 <li><a href="../classes/FallbackWorker.html">FallbackWorker</a></li>
             
-                <li><a href="../classes/FunctionUtils.html">FunctionUtils</a></li>
+                <li><a href="../classes/FunctionTask.html">FunctionTask</a></li>
+            
+                <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
+            
+                <li><a href="../classes/ListTask.html">ListTask</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/LoadTask.html">LoadTask</a></li>
             
                 <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
             
@@ -61,9 +91,47 @@
             
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
+                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+            
+                <li><a href="../classes/PixiTask.html">PixiTask</a></li>
+            
+                <li><a href="../classes/Positioner.html">Positioner</a></li>
+            
                 <li><a href="../classes/SavedData.html">SavedData</a></li>
             
+                <li><a href="../classes/ScreenSettings.html">ScreenSettings</a></li>
+            
+                <li><a href="../classes/Sound.html">Sound</a></li>
+            
+                <li><a href="../classes/SoundContext.html">SoundContext</a></li>
+            
+                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+            
+                <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
+            
+                <li><a href="../classes/StateEvent.html">StateEvent</a></li>
+            
+                <li><a href="../classes/StateManager.html">StateManager</a></li>
+            
                 <li><a href="../classes/SubWorker.html">SubWorker</a></li>
+            
+                <li><a href="../classes/Task.html">Task</a></li>
+            
+                <li><a href="../classes/TaskEvent.html">TaskEvent</a></li>
+            
+                <li><a href="../classes/TaskManager.html">TaskManager</a></li>
+            
+                <li><a href="../classes/TimeUtils.html">TimeUtils</a></li>
+            
+                <li><a href="../classes/Translate.html">Translate</a></li>
+            
+                <li><a href="../classes/UIElement.html">UIElement</a></li>
+            
+                <li><a href="../classes/UIElementSettings.html">UIElementSettings</a></li>
+            
+                <li><a href="../classes/UIScaler.html">UIScaler</a></li>
+            
+                <li><a href="../classes/VOPlayer.html">VOPlayer</a></li>
             
                 <li><a href="../classes/Worker.html">Worker</a></li>
             
@@ -72,6 +140,10 @@
             <ul id="api-modules" class="apis modules">
             
                 <li><a href="../modules/cloudkid.html">cloudkid</a></li>
+            
+                <li><a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a></li>
+            
+                <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
             </ul>
         </div>
@@ -107,7 +179,7 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/Worker.js      
+	var name = src/polyfills/Worker.js      
 </script>
 <h1 class="file-heading">File:Worker.js</h1>
 
@@ -131,7 +203,8 @@
 	*  application. Web Workers allow you to do things like fire up long-running scripts to 
 	*  handle computationally intensive tasks, but without blocking the UI or other scripts 
 	*  to handle user interactions. Because Workers aren&#x27;t available on all browsers, we provide
-	*  a helpful polyfill for backward compatibility.
+	*  a helpful polyfill for backward compatibility. This worker is designed to run 
+	*  asyncronously instead of calling an external file.
 	*
 	*	var workerCode = &quot;this.initialVariable = 10;&quot; +
 	*	&quot;this.onmessage = function(event)&quot; +
@@ -199,9 +272,6 @@
 			return new FallbackWorker(codeString);
 		}
 	};
-
-	// Deprecated implementation
-	namespace(&quot;cloudkid&quot;).createWorker = Worker.init;
 
 	// Assign to namespace
 	namespace(&quot;cloudkid&quot;).Worker = Worker;

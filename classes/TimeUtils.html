@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.2 API Documentation : FunctionUtils</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : TimeUtils</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.2</em>
+            <em>API Documentation for: 0.0.3</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -39,21 +39,51 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
+                <li><a href="../classes/Animator.html">Animator</a></li>
+            
+                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
+            
+                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
+            
                 <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
+            
+                <li><a href="../classes/BaseState.html">BaseState</a></li>
+            
+                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
+                <li><a href="../classes/Captions.html">Captions</a></li>
+            
+                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
+            
+                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
+            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
+                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+            
+                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+            
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
+            
+                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
                 <li><a href="../classes/FallbackWorker.html">FallbackWorker</a></li>
             
-                <li><a href="../classes/FunctionUtils.html">FunctionUtils</a></li>
+                <li><a href="../classes/FunctionTask.html">FunctionTask</a></li>
+            
+                <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
+            
+                <li><a href="../classes/ListTask.html">ListTask</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/LoadTask.html">LoadTask</a></li>
             
                 <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
             
@@ -61,9 +91,47 @@
             
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
+                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+            
+                <li><a href="../classes/PixiTask.html">PixiTask</a></li>
+            
+                <li><a href="../classes/Positioner.html">Positioner</a></li>
+            
                 <li><a href="../classes/SavedData.html">SavedData</a></li>
             
+                <li><a href="../classes/ScreenSettings.html">ScreenSettings</a></li>
+            
+                <li><a href="../classes/Sound.html">Sound</a></li>
+            
+                <li><a href="../classes/SoundContext.html">SoundContext</a></li>
+            
+                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+            
+                <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
+            
+                <li><a href="../classes/StateEvent.html">StateEvent</a></li>
+            
+                <li><a href="../classes/StateManager.html">StateManager</a></li>
+            
                 <li><a href="../classes/SubWorker.html">SubWorker</a></li>
+            
+                <li><a href="../classes/Task.html">Task</a></li>
+            
+                <li><a href="../classes/TaskEvent.html">TaskEvent</a></li>
+            
+                <li><a href="../classes/TaskManager.html">TaskManager</a></li>
+            
+                <li><a href="../classes/TimeUtils.html">TimeUtils</a></li>
+            
+                <li><a href="../classes/Translate.html">Translate</a></li>
+            
+                <li><a href="../classes/UIElement.html">UIElement</a></li>
+            
+                <li><a href="../classes/UIElementSettings.html">UIElementSettings</a></li>
+            
+                <li><a href="../classes/UIScaler.html">UIScaler</a></li>
+            
+                <li><a href="../classes/VOPlayer.html">VOPlayer</a></li>
             
                 <li><a href="../classes/Worker.html">Worker</a></li>
             
@@ -72,6 +140,10 @@
             <ul id="api-modules" class="apis modules">
             
                 <li><a href="../modules/cloudkid.html">cloudkid</a></li>
+            
+                <li><a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a></li>
+            
+                <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
             </ul>
         </div>
@@ -106,7 +178,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>FunctionUtils Class</h1>
+                        <h1>TimeUtils Class</h1>
 <div class="box meta">
     
 
@@ -114,7 +186,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_FunctionUtils.js.html#l8"><code>FunctionUtils:8</code></a>
+            Defined in: <a href="../files/src_utils_TimeUtils.js.html#l21"><code>TimeUtils:21</code></a>
         </div>
     
 
@@ -130,7 +202,7 @@
 
 
 <div class="box intro">
-    <p>Designed to provide utility related to functions and polyfills</p>
+    <p>A collection of Time related utility functions</p>
 
 </div>
 
@@ -159,34 +231,7 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_bind">bind</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_cancelAnimationFrame">cancelAnimationFrame</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_now">now</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_requestAnimationFrame">requestAnimationFrame</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -210,26 +255,16 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_bind" class="method item">
-    <h3 class="name"><code>bind</code></h3>
+                    <div id="method_now" class="method item">
+    <h3 class="name"><code>now</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>that</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+            <span class="type">Int</span>
         </span>
     
 
@@ -258,7 +293,7 @@
             
         
         
-        <a href="../files/src_FunctionUtils.js.html#l17"><code>bind:17</code></a>
+        <a href="../files/src_utils_TimeUtils.js.html#l27"><code>now:27</code></a>
         
         </p>
 
@@ -269,37 +304,13 @@
     </div>
 
     <div class="description">
-        <p>Add the bind functionality to the Function prototype
-this allows passing a reference in the function callback </p>
-<pre class="code prettyprint"><code>var callback = function(){};
-cloudkid.MediaLoader.instance.load(&#39;something.json&#39;, callback.bind(this));</code></pre>
+        <p>This method gets timestamp in micromilliseconds for doing performance
+intense operations. Fallback support is to <code>Date.now()</code>. We aren&#39;t overridding
+<code>performance.now()</code> incase dependencies on this actually demand 
+the optimization and accuracy that performance actually provides.</p>
 
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">that</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The reference to the function</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -309,185 +320,13 @@ cloudkid.MediaLoader.instance.load(&#39;something.json&#39;, callback.bind(this)
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                        <span class="type">Int</span>:
                     
-                    <p>The bound function</p>
+                    <p>The number of micromilliseconds of the current timestamp</p>
 
                 
             </div>
         </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_cancelAnimationFrame" class="method item">
-    <h3 class="name"><code>cancelAnimationFrame</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_FunctionUtils.js.html#l104"><code>cancelAnimationFrame:104</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A polyfill for cancelAnimationFrame, this also gets assigned to the window if it doesn&#39;t exist</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_now" class="method item">
-    <h3 class="name"><code>now</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_FunctionUtils.js.html#l117"><code>now:117</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A polyfill for performance.now(), with a fallback of using Date.now().</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_requestAnimationFrame" class="method item">
-    <h3 class="name"><code>requestAnimationFrame</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_FunctionUtils.js.html#l95"><code>requestAnimationFrame:95</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A polyfill for requestAnimationFrame, this also gets assigned to the window if it doesn&#39;t exist
-also window.requestAnimFrame is a redundant and short way to access this property</p>
-
-    </div>
-
-    
-
     
 
     
