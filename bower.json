@@ -1,7 +1,7 @@
 {
 	"name": "cloudkid-framework",
 	"version": "0.0.3",
-	"main": "dist/cloudkid-framework.min.js",
+	"main": "dist/core.min.js",
 	"dependencies": {
 		"cloudkid-debug": "*",
 		"cloudkid-namespace": "*",

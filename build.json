@@ -3,10 +3,9 @@
 	"version" : "0.0.3",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
 	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
-	"output" : "cloudkid-framework",
+	"output" : "core",
 	"main" : [
 		"src/polyfills/requestAnimationFrame.js",
-		"src/polyfills/Worker.js",
 		"src/events/EventDispatcher.js",
 		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
@@ -18,5 +17,60 @@
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
 		"src/utils/DelayedCall.js"
-	]
+	],
+	"modules" : {
+		"worker" : [
+			"src/polyfills/Worker.js"
+		],
+		"displaygeneric" : [
+			"src/displays/generic/GenericDisplay.js"
+		],
+		"displaycreatejs" : [
+			"src/displays/createjs/CreateJSDisplay.js",
+			"src/displays/createjs/Animator.js",
+			"src/displays/createjs/AnimatorTimeline.js",
+			"src/displays/createjs/Button.js",
+			"src/displays/createjs/CharacterClip.js",
+			"src/displays/createjs/CharacterController.js",
+			"src/displays/createjs/DragManager.js",
+			"src/displays/createjs/scaling/Positioner.js",
+			"src/displays/createjs/scaling/ScreenSettings.js",
+			"src/displays/createjs/scaling/UIElement.js",
+			"src/displays/createjs/scaling/UIElementSettings.js",
+			"src/displays/createjs/scaling/UIScaler.js"
+		],
+		"displaypixi" : [
+			"src/displays/pixi/PixiDisplay.js",
+			"src/displays/pixi/Animator.js",
+			"src/displays/pixi/Button.js",
+			"src/displays/pixi/DragManager.js",
+			"src/displays/pixi/AssetManager.js",
+			"src/displays/pixi/scaling/Positioner.js",
+			"src/displays/pixi/scaling/ScreenSettings.js",
+			"src/displays/pixi/scaling/UIElement.js",
+			"src/displays/pixi/scaling/UIElementSettings.js",
+			"src/displays/pixi/scaling/UIScaler.js"
+		],
+		"tasks" : [
+			"src/tasks/TaskEvent.js",
+			"src/tasks/Task.js",
+			"src/tasks/FunctionTask.js",
+			"src/tasks/LoadTask.js",
+			"src/tasks/TaskManager.js",
+			"src/tasks/ListTask.js",
+			"src/tasks/PixiTask.js"
+		],
+		"states" : [
+			"src/states/BaseState.js",
+			"src/states/StateEvent.js",
+			"src/states/StateManager.js"
+		],
+		"sound" : [
+			"src/media/Sound.js",
+			"src/media/VOPlayer.js"
+		],
+		"captions" : ["src/media/Captions.js"],
+		"cutscene" : ["src/media/CreateJSCutscene.js"],
+		"translate" : ["src/utils/Translate.js"]
+	}
 }
