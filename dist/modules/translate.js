@@ -2,7 +2,7 @@
 /**
 *  @module cloudkid
 */
-(function(window, $, ){
+(function(window, $, undefined){
 
 	/**
 	*  Internationalization/translation object with convenient jquery plugin
@@ -17,7 +17,7 @@
 	*  @static
 	*  @readOnly
 	*/
-	Translate.VERSION = "${version}";
+	Translate.VERSION = "0.0.3";
 
 	/**
 	*  The full language dictionary containing all languages as keys
