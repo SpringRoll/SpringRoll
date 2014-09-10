@@ -1,3 +1,6 @@
+/**
+*  @module cloudkid.pixi
+*/
 (function() {
 	
 	"use strict";

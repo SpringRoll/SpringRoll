@@ -1,3 +1,6 @@
+/**
+*  @module cloudkid.createjs
+*/
 (function() {
 	
 	"use strict";

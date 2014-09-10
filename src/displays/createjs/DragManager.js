@@ -1,5 +1,5 @@
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function() {
 	

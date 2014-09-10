@@ -1,5 +1,5 @@
 /**
-*  @module cloudkid
+*  @module cloudkid.pixi
 */
 (function() {
 	
