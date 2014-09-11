@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : Animator.AnimTimeline</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : createjs.AnimatorTimeline</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -178,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Animator.AnimTimeline Class</h1>
+                        <h1>createjs.AnimatorTimeline Class</h1>
 <div class="box meta">
     
 
@@ -186,13 +202,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_displays_pixi_Animator.js.html#l465"><code>Animator.AnimTimeline:465</code></a>
+            Defined in: <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l6"><code>createjs.AnimatorTimeline:6</code></a>
         </div>
     
 
     
         
-            Namespace: <a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a>
+            Namespace: <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a>
         
     
 
@@ -202,41 +218,19 @@
 
 
 <div class="box intro">
-    <p>Internal Animator class for keeping track of animations. AnimTimelines are pooled internally,
-so please only keep references to them while they are actively playing an animation.</p>
+    <p>Animator Timeline is a class designed to provide
+base animation functionality</p>
 
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Animator.AnimTimeline" class="method item">
-    <h3 class="name"><code>Animator.AnimTimeline</code></h3>
+        <div id="method_createjs.AnimatorTimeline" class="method item">
+    <h3 class="name"><code>createjs.AnimatorTimeline</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>clip</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>callback</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>speed</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -264,7 +258,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l465"><code>Animator.AnimTimeline:465</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l6"><code>createjs.AnimatorTimeline:6</code></a>
         
         </p>
 
@@ -278,62 +272,6 @@ so please only keep references to them while they are actively playing an animat
         
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">clip</code>
-                        <span class="type">PIXI.MovieClip | Pixi.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The AnimTimeline&#39;s clip</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">callback</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The function to call when the clip is finished playing</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">speed</code>
-                        <span class="type">Int</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The speed at which the clip should be played</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -349,12 +287,12 @@ so please only keep references to them while they are actively playing an animat
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
         
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
         
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
+        
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
         
     </ul>
 
@@ -362,21 +300,6 @@ so please only keep references to them while they are actively playing an animat
         <div id="index" class="api-class-tabpanel index">
             <h2 class="off-left">Item Index</h2>
 
-            
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
             
 
             
@@ -393,28 +316,63 @@ so please only keep references to them while they are actively playing an animat
                             </li>
                         
                             <li class="index-item property public">
-                                <a href="#property_callback">callback</a>
+                                <a href="#property_duration">duration</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property public">
-                                <a href="#property_clip">clip</a>
+                            <li class="index-item property">
+                                <a href="#property_event">event</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property public">
-                                <a href="#property_isSpine">isSpine</a>
+                            <li class="index-item property">
+                                <a href="#property_firstFrame">firstFrame</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property public">
-                                <a href="#property_loop">loop</a>
+                            <li class="index-item property">
+                                <a href="#property_instance">instance</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_isLastFrame">isLastFrame</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_isLooping">isLooping</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_lastFrame">lastFrame</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_length">length</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_onCompleteParams">onCompleteParams</a>
 
                                 
                                 
@@ -470,7 +428,7 @@ so please only keep references to them while they are actively playing an animat
                             </li>
                         
                             <li class="index-item property public">
-                                <a href="#property_spineStates">spineStates</a>
+                                <a href="#property_startTime">startTime</a>
 
                                 
                                 
@@ -497,163 +455,23 @@ so please only keep references to them while they are actively playing an animat
             
 
             
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events">
+                        
+                            <li class="index-item event">
+                                <a href="#event_onComplete">onComplete</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
         </div>
 
-        
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>clip</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>callback</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>speed</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/Animator.AnimTimeline.html" class="crosslink">Animator.AnimTimeline</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l482"><code>init:482</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialize the AnimTimeline</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">clip</code>
-                        <span class="type">PIXI.MovieClip | Pixi.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The AnimTimeline&#39;s clip</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">callback</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The function to call when the clip is finished playing</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">speed</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The speed at which the clip should be played</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/Animator.AnimTimeline.html" class="crosslink">Animator.AnimTimeline</a></span>:
-                    
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-            </div>
         
 
         
@@ -686,7 +504,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l584"><code>_paused:584</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l89"><code>_paused:89</code></a>
         
         </p>
 
@@ -696,7 +514,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>If this animation is paused.</p>
+        <p>If the timeline is paused.</p>
 
     </div>
 
@@ -708,9 +526,9 @@ so please only keep references to them while they are actively playing an animat
 </div>
 
                 
-                    <div id="property_callback" class="property item public">
-    <h3 class="name"><code>callback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    <div id="property_duration" class="property item public">
+    <h3 class="name"><code>duration</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
     
 
@@ -733,7 +551,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l507"><code>callback:507</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l124"><code>duration:124</code></a>
         
         </p>
 
@@ -743,7 +561,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>The function to call when the clip is finished playing</p>
+        <p>The animation duration in seconds.</p>
 
     </div>
 
@@ -755,14 +573,12 @@ so please only keep references to them while they are actively playing an animat
 </div>
 
                 
-                    <div id="property_clip" class="property item public">
-    <h3 class="name"><code>clip</code></h3>
-    <span class="type">PIXI.MovieClip | PIXI.Spine</span>
+                    <div id="property_event" class="property item">
+    <h3 class="name"><code>event</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -780,7 +596,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l493"><code>clip:493</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l32"><code>event:32</code></a>
         
         </p>
 
@@ -790,7 +606,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>The clip for this AnimTimeLine</p>
+        <p>The event label</p>
 
     </div>
 
@@ -802,15 +618,103 @@ so please only keep references to them while they are actively playing an animat
 </div>
 
                 
-                    <div id="property_isSpine" class="property item public">
-    <h3 class="name"><code>isSpine</code></h3>
+                    <div id="property_firstFrame" class="property item">
+    <h3 class="name"><code>firstFrame</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l46"><code>firstFrame:46</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The frame number of the first frame</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_instance" class="property item">
+    <h3 class="name"><code>instance</code></h3>
+    <span class="type">AnimatorTimeline</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l39"><code>instance:39</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The instance of the timeline to animate</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_isLastFrame" class="property item">
+    <h3 class="name"><code>isLastFrame</code></h3>
     <span class="type">Bool</span>
 
     
 
     
-        <span class="flag public">public</span>
-    
 
     
 
@@ -827,7 +731,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l500"><code>isSpine:500</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l67"><code>isLastFrame:67</code></a>
         
         </p>
 
@@ -837,7 +741,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>Whether the clip is a PIXI.Spine</p>
+        <p>Ensure we show the last frame before looping</p>
 
     </div>
 
@@ -849,14 +753,12 @@ so please only keep references to them while they are actively playing an animat
 </div>
 
                 
-                    <div id="property_loop" class="property item public">
-    <h3 class="name"><code>loop</code></h3>
+                    <div id="property_isLooping" class="property item">
+    <h3 class="name"><code>isLooping</code></h3>
     <span class="type">Bool</span>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -874,7 +776,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l527"><code>loop:527</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l60"><code>isLooping:60</code></a>
         
         </p>
 
@@ -884,7 +786,142 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played</p>
+        <p>If the animation loops - determined by looking to see if it ends in " stop" or " loop"</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_lastFrame" class="property item">
+    <h3 class="name"><code>lastFrame</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l53"><code>lastFrame:53</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The frame number of the last frame</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_length" class="property item">
+    <h3 class="name"><code>length</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l74"><code>length:74</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>length of timeline in frames</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onCompleteParams" class="property item">
+    <h3 class="name"><code>onCompleteParams</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l25"><code>onCompleteParams:25</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The parameters to pass when completed</p>
 
     </div>
 
@@ -921,7 +958,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l594"><code>paused:594</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l97"><code>paused:97</code></a>
         
         </p>
 
@@ -968,7 +1005,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l555"><code>playSound:555</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l154"><code>playSound:154</code></a>
         
         </p>
 
@@ -978,7 +1015,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>If the timeline will, but has yet to, play a sound</p>
+        <p>If the timeline will, but has yet to play a sound.</p>
 
     </div>
 
@@ -1015,7 +1052,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l541"><code>soundAlias:541</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l142"><code>soundAlias:142</code></a>
         
         </p>
 
@@ -1062,7 +1099,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l569"><code>soundEnd:569</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l166"><code>soundEnd:166</code></a>
         
         </p>
 
@@ -1109,7 +1146,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l548"><code>soundInst:548</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l148"><code>soundInst:148</code></a>
         
         </p>
 
@@ -1156,7 +1193,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l562"><code>soundStart:562</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l160"><code>soundStart:160</code></a>
         
         </p>
 
@@ -1203,7 +1240,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l514"><code>speed:514</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l130"><code>speed:130</code></a>
         
         </p>
 
@@ -1213,7 +1250,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>The speed at which the clip should be played</p>
+        <p>The animation speed. Default is 1.</p>
 
     </div>
 
@@ -1225,9 +1262,9 @@ so please only keep references to them while they are actively playing an animat
 </div>
 
                 
-                    <div id="property_spineStates" class="property item public">
-    <h3 class="name"><code>spineStates</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                    <div id="property_startTime" class="property item public">
+    <h3 class="name"><code>startTime</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
     
 
@@ -1250,7 +1287,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l521"><code>spineStates:521</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l118"><code>startTime:118</code></a>
         
         </p>
 
@@ -1260,7 +1297,8 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        
+        <p>The animation start time in seconds on the movieclip&#39;s timeline.</p>
+
     </div>
 
     
@@ -1296,7 +1334,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l534"><code>time:534</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l136"><code>time:136</code></a>
         
         </p>
 
@@ -1306,7 +1344,7 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>The position of the animation in seconds</p>
+        <p>The position of the animation in seconds.</p>
 
     </div>
 
@@ -1341,7 +1379,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l576"><code>useCaptions:576</code></a>
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l81"><code>useCaptions:81</code></a>
         
         </p>
 
@@ -1368,6 +1406,56 @@ so please only keep references to them while they are actively playing an animat
 
         
 
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_onComplete" class="events item">
+    <h3 class="name"><code>onComplete</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_AnimatorTimeline.js.html#l18"><code>onComplete:18</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The event to callback when we&#39;re done</p>
+
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+            </div>
         
     </div>
 </div>

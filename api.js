@@ -1,22 +1,13 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Animator",
-        "Animator.AnimTimeline",
-        "AnimatorTimeline",
         "Application",
-        "AssetManager",
         "BaseState",
-        "Button",
         "CacheManager",
         "Captions",
-        "CharacterClip",
-        "CharacterController",
         "CombinedCallback",
-        "CreateJSCutscene",
-        "CreateJSDisplay",
+        "Debug",
         "DelayedCall",
-        "DragManager",
         "EventDispatcher",
         "FallbackWorker",
         "FunctionTask",
@@ -27,14 +18,13 @@ YUI.add("yuidoc-meta", function(Y) {
         "MediaLoader",
         "MediaLoaderResult",
         "PageVisibility",
-        "PixiDisplay",
         "PixiTask",
         "Positioner",
         "SavedData",
         "ScreenSettings",
         "Sound",
         "SoundContext",
-        "SoundInst",
+        "SoundInstance",
         "SoundListTask",
         "StateEvent",
         "StateManager",
@@ -48,12 +38,30 @@ YUI.add("yuidoc-meta", function(Y) {
         "UIElementSettings",
         "UIScaler",
         "VOPlayer",
-        "Worker"
+        "Worker",
+        "createjs.Animator",
+        "createjs.AnimatorTimeline",
+        "createjs.Button",
+        "createjs.CharacterClip",
+        "createjs.CharacterController",
+        "createjs.CreateJSDisplay",
+        "createjs.Cutscene",
+        "createjs.DisplayAdapter",
+        "createjs.DragManager",
+        "namespace",
+        "pixi.Animator",
+        "pixi.AnimatorTimeline",
+        "pixi.AssetManager",
+        "pixi.Button",
+        "pixi.DisplayAdapter",
+        "pixi.DragManager",
+        "pixi.PixiDisplay"
     ],
     "modules": [
         "cloudkid",
         "cloudkid.createjs",
-        "cloudkid.pixi"
+        "cloudkid.pixi",
+        "window"
     ],
     "allModules": [
         {
@@ -67,6 +75,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "cloudkid.pixi",
             "name": "cloudkid.pixi"
+        },
+        {
+            "displayName": "window",
+            "name": "window"
         }
     ]
 } };

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : src/displays/pixi/scaling/UIScaler.js</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : src/ui/UIScaler.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -179,41 +195,87 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/displays/pixi/scaling/UIScaler.js      
+	var name = src/ui/UIScaler.js      
 </script>
 <h1 class="file-heading">File:UIScaler.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-*  @module cloudkid.pixi
+*  @module cloudkid
 */
-(function() {
+(function(undefined) {
 	
-	&quot;use strict&quot;;
-
 	// Class imports
-	var UIElementSettings = cloudkid.pixi.UIElementSettings,
-		UIElement = cloudkid.pixi.UIElement,
-		ScreenSettings = cloudkid.pixi.ScreenSettings;
+	var UIElementSettings = cloudkid.UIElementSettings,
+		UIElement = cloudkid.UIElement,
+		Application = cloudkid.Application,
+		ScreenSettings = cloudkid.ScreenSettings;
 
 	/**
 	*   The UI scale is responsible for scaling UI components
 	*   to help easy the burden of different device aspect ratios
 	*
-	*  @module cloudkid
 	*  @class UIScaler
 	*  @constructor
-	*  @param {PIXI.DisplayObject} parent The UI display container
+	*  @param {object} parent The UI display container
 	*  @param {Number} designedWidth The designed width of the UI
 	*  @param {Number} designedHeight The designed height of the UI
 	*  @param {Number} designedPPI The designed PPI of the UI
+	*  @param {Display} [display=Application.instance.display] The display to use the UIScaler on
 	*/
-	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI)
+	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI, display)
 	{
+		/** 
+		*  The UI display object to update 
+		*  @property {DisplayObject} _parent
+		*  @private
+		*/
 		this._parent = parent;
+
+		/** 
+		*  The configuration for each items
+		*  @property {Array} _items
+		*  @private
+		*/
 		this._items = [];
+
+		/** 
+		*  The screen settings object, contains information about designed size 
+		*  @property {ScreenSettings} _designedScreen
+		*  @private
+		*/
 		this._designedScreen = new ScreenSettings(designedWidth, designedHeight, designedPPI);
+
+		/**
+		*  The adapter for universal scale, rotation size access
+		*  @property {Object} _adapter
+		*  @private
+		*/
+		this._adapter = UIScaler.getAdapter(display);
+	};
+
+	/**
+	*  Get the adapter by display
+	*  @method getAdapter
+	*  @private
+	*  @static
+	*  @param {object} display The canvas renderer display
+	*/
+	UIScaler.getAdapter = function(display)
+	{
+		if (display === undefined)
+		{
+			display = Application.instance.display;
+		}
+
+		// Check for a displayadpater, doesn&#x27;t work with generic display
+		if (!display.DisplayAdapter)
+		{
+			throw &quot;The display specified is incompatible with UIScaler&quot;;
+		}
+
+		return display.DisplayAdapter;
 	};
 	
 	// Reference to the prototype
@@ -234,27 +296,6 @@
 	*  @private
 	*/
 	var initialized = false;
-	
-	/** 
-	*  The UI display object to update 
-	*  @property {PIXI.DisplayObject} _parent
-	*  @private
-	*/
-	p._parent = null;
-	
-	/** 
-	*  The screen settings object, contains information about designed size 
-	*  @property {ScreenSettings} _designedScreen
-	*  @private
-	*/
-	p._designedScreen = null;
-	
-	/** 
-	*  The configuration for each items
-	*  @property {Array} _items
-	*  @private
-	*/
-	p._items = null;
 	
 	/**
 	*  Vertically align to the top
@@ -310,14 +351,15 @@
 	*  Create the scaler from JSON data
 	*  @method fromJSON
 	*  @static
-	*  @param {PIXI.DisplayObject} parent The UI display container
+	*  @param {DisplayObject} parent The UI display container
 	*  @param {Object} jsonSettings The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}
 	*  @param {Object} jsonItems The json items object where the keys are the name of the property on the parent and the value
 	*         is an object with keys of &quot;titleSafe&quot;, &quot;minScale&quot;, &quot;maxScale&quot;, &quot;centerHorizontally&quot;, &quot;align&quot;
 	*  @param {Boolean} [immediateDestroy=true] If we should immediately cleanup the UIScaler after scaling items
+	*  @param {Display} [display=Application.instance.display] The display which to use for the scaler
 	*  @return {UIScaler} The scaler object that can be reused
 	*/
-	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy)
+	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy, display)
 	{
 		if (typeof immediateDestroy != &quot;boolean&quot;) immediateDestroy = true;
 			
@@ -325,7 +367,8 @@
 			parent, 
 			jsonSettings.designedWidth,
 			jsonSettings.designedHeight,
-			jsonSettings.designedPPI
+			jsonSettings.designedPPI,
+			display
 		);
 		
 		// Temp variables
@@ -398,7 +441,7 @@
 	/**
 	*   Manually add an item 
 	*   @method add
-	*   @param {PIXI.DisplayObject} item The display object item to add
+	*   @param {object} item The display object item to add
 	*   @param {String} [vertAlign=&quot;center&quot;] The vertical align of the item (cefault is center)
 	*   @param {String} [horiAlign=&quot;center&quot;] The horizontal align of the item (default is center)
 	*   @param {Boolean} [titleSafe=false] If the item needs to be in the title safe area (default is false)
@@ -418,29 +461,30 @@
 		s.minScale = (typeof minScale != &quot;number&quot;) ? NaN : minScale;
 		s.centeredHorizontally = centeredHorizontally || false;
 				
-		this._items.push(new UIElement(item, s, this._designedScreen));
+		this._items.push(new UIElement(item, s, this._designedScreen, this._adapter));
 	};
 	
 	/**
 	*   Scale a single background image according to the UIScaler.width and height
 	*   @method resizeBackground
 	*   @static
-	*   @param {PIXI.Bitmap} The bitmap to scale
+	*   @param {Bitmap} The bitmap to scale
+	*   @param {Display} [display=Application.instance.display] The display which to use for the scaler
 	*/
-	UIScaler.resizeBackground = function(bitmap)
+	UIScaler.resizeBackground = function(bitmap, display)
 	{
 		if (!initialized) return;
-		
-		var h, w, scale;
-		h = bitmap.height / bitmap.scale.y;
-		w = bitmap.width / bitmap.scale.x;
+
+		var adapter = UIScaler.getAdapter(display),
+			size = adapter.getBitmapSize(bitmap), 
+			scale;
 
 		//scale the background
-		scale = currentScreen.height / h;
-		bitmap.scale.x = bitmap.scale.y = scale;
+		scale = currentScreen.height / size.h;
+		adapter.setScale(bitmap, scale);
 		
 		//center the background
-		bitmap.position.x = (currentScreen.width - bitmap.width) * 0.5;
+		adapter.setPosition(bitmap, (currentScreen.width - size.w * scale) * 0.5, &quot;x&quot;);
 	};
 	
 	/**
@@ -448,12 +492,13 @@
 	*  @method resizeBackgrounds
 	*  @static
 	*  @param {Array} bitmaps The collection of bitmap images
+	*  @param {object} [display=Application.instance.display] The display which to use for the scaler
 	*/
-	UIScaler.resizeBackgrounds = function(bitmaps)
+	UIScaler.resizeBackgrounds = function(bitmaps, display)
 	{
 		for(var i = 0, len = bitmaps.length; i &lt; len; ++i)
 		{
-			UIScaler.resizeBackground(bitmaps[i]);
+			UIScaler.resizeBackground(bitmaps[i], display);
 		}
 	};
 	
@@ -486,13 +531,14 @@
 			}
 		}
 		
+		this._adapter = null;
 		this._parent = null;
 		this._designedScreen = null;
 		this._items = null;
 	};
 	
 	namespace(&#x27;cloudkid&#x27;).UIScaler = UIScaler;
-	namespace(&#x27;cloudkid.pixi&#x27;).UIScaler = UIScaler;
+
 }());
     </pre>
 </div>

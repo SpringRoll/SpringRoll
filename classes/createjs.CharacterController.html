@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : SoundInst</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : createjs.CharacterController</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -178,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>SoundInst Class</h1>
+                        <h1>createjs.CharacterController Class</h1>
 <div class="box meta">
     
 
@@ -186,13 +202,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_media_Sound.js.html#l1009"><code>SoundInst:1009</code></a>
+            Defined in: <a href="../files/src_displays_createjs_CharacterController.js.html#l9"><code>createjs.CharacterController:9</code></a>
         </div>
     
 
     
         
-            Namespace: <a href="../modules/cloudkid.html">cloudkid</a>
+            Namespace: <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a>
         
     
 
@@ -202,8 +218,9 @@
 
 
 <div class="box intro">
-    <p>A playing instance of a sound (or promise to play as soon as it loads). These can only
-be created through cloudkid.Sound.instance.play().</p>
+    <p>Character Controller class is designed to play animated
+sequences on the timeline. This is a flexible way to
+animate characters on a timeline</p>
 
 </div>
 
@@ -233,29 +250,57 @@ be created through cloudkid.Sound.instance.play().</p>
 
                     <ul class="index-list methods">
                         
-                            <li class="index-item method public">
-                                <a href="#method_pause">pause</a>
+                            <li class="index-item method private">
+                                <a href="#method__animationComplete">_animationComplete</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_stop">stop</a>
+                            <li class="index-item method">
+                                <a href="#method_clear">clear</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_unpause">unpause</a>
+                            <li class="index-item method">
+                                <a href="#method_destroy">destroy</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_updateVolume">updateVolume</a>
+                            <li class="index-item method">
+                                <a href="#method_gotoFrameAndStop">gotoFrameAndStop</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_initialize">initialize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_playClips">playClips</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setCharacter">setCharacter</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_startNext">startNext</a>
 
                                 
                                 
@@ -272,105 +317,56 @@ be created through cloudkid.Sound.instance.play().</p>
                     <ul class="index-list properties">
                         
                             <li class="index-item property private">
-                                <a href="#property__channel">_channel</a>
+                                <a href="#property__allowFrameDropping">_allowFrameDropping</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__endCallback">_endCallback</a>
+                                <a href="#property__animationStack">_animationStack</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__endFunc">_endFunc</a>
+                                <a href="#property__callback">_callback</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__fDur">_fDur</a>
+                                <a href="#property__character">_character</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__fEnd">_fEnd</a>
+                                <a href="#property__currentAnimation">_currentAnimation</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__fEnd">_fEnd</a>
+                                <a href="#property__destroyed">_destroyed</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__fTime">_fTime</a>
+                                <a href="#property__interruptable">_interruptable</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__startFunc">_startFunc</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__startParams">_startParams</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_alias">alias</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_curVol">curVol</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_isValid">isValid</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_length">length</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_paused">paused</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_position">position</a>
+                                <a href="#property__loops">_loops</a>
 
                                 
                                 
@@ -390,8 +386,8 @@ be created through cloudkid.Sound.instance.play().</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_pause" class="method item public">
-    <h3 class="name"><code>pause</code></h3>
+                    <div id="method__animationComplete" class="method item private">
+    <h3 class="name"><code>_animationComplete</code></h3>
 
     
         <span class="paren">()</span>
@@ -402,7 +398,7 @@ be created through cloudkid.Sound.instance.play().</p>
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -424,7 +420,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1153"><code>pause:1153</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l199"><code>_animationComplete:199</code></a>
         
         </p>
 
@@ -435,7 +431,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Pauses this SoundInst.</p>
+        <p>When the animation has completed playing</p>
 
     </div>
 
@@ -447,8 +443,8 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="method_stop" class="method item public">
-    <h3 class="name"><code>stop</code></h3>
+                    <div id="method_clear" class="method item">
+    <h3 class="name"><code>clear</code></h3>
 
     
         <span class="paren">()</span>
@@ -458,8 +454,6 @@ be created through cloudkid.Sound.instance.play().</p>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -481,7 +475,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1116"><code>stop:1116</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l225"><code>clear:225</code></a>
         
         </p>
 
@@ -492,7 +486,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Stops this SoundInst.</p>
+        <p>Clear any animations for the current character</p>
 
     </div>
 
@@ -504,8 +498,8 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="method_unpause" class="method item public">
-    <h3 class="name"><code>unpause</code></h3>
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
 
     
         <span class="paren">()</span>
@@ -515,8 +509,6 @@ be created through cloudkid.Sound.instance.play().</p>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -538,7 +530,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1166"><code>unpause:1166</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l243"><code>destroy:243</code></a>
         
         </p>
 
@@ -549,7 +541,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Unpauses this SoundInst.</p>
+        <p>Don&#39;t use after this</p>
 
     </div>
 
@@ -561,8 +553,8 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="method_updateVolume" class="method item public">
-    <h3 class="name"><code>updateVolume</code></h3>
+                    <div id="method_gotoFrameAndStop" class="method item">
+    <h3 class="name"><code>gotoFrameAndStop</code></h3>
 
     
         <div class="args">
@@ -570,7 +562,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
                 <li class="arg">
                     
-                        <code>contextVol</code>
+                        <code>event</code>
                     
                 </li>
             
@@ -583,8 +575,6 @@ be created through cloudkid.Sound.instance.play().</p>
     
 
     
-        <span class="flag public">public</span>
-    
 
     
 
@@ -605,7 +595,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1129"><code>updateVolume:1129</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l114"><code>gotoFrameAndStop:114</code></a>
         
         </p>
 
@@ -616,7 +606,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Updates the volume of this SoundInst.</p>
+        <p>If we want to play a static frame</p>
 
     </div>
 
@@ -628,14 +618,14 @@ be created through cloudkid.Sound.instance.play().</p>
             
                 <li class="param">
                     
-                        <code class="param-name">contextVol</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <code class="param-name">event</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The volume of the sound context that the sound belongs to. If omitted, the volume is automatically collected.</p>
+                        <p>The frame label to stop on</p>
 
                     </div>
 
@@ -652,6 +642,384 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
+                    <div id="method_initialize" class="method item">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l87"><code>initialize:87</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initiliazes this Character controller</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_playClips" class="method item">
+    <h3 class="name"><code>playClips</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>clips</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>interruptable</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>cancelPreviousCallback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>allowFrameDropping</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l128"><code>playClips:128</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Will play a sequence of animations</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">clips</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>an array of CharacterClip objects</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Callback for when the animations are either done, or
+            have been interrupted. Will pass true is interrupted,
+            false if they completed</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">interruptable</code>
+                        <span class="type">Bool</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If calling this can interrupt the current animation(s)</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">cancelPreviousCallback</code>
+                        <span class="type">Bool</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Cancel the callback the last time this was called</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">allowFrameDropping</code>
+                        <span class="type">Bool</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If frame dropping is allowed for this frame, if the Animator is doing frame drop checks</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setCharacter" class="method item">
+    <h3 class="name"><code>setCharacter</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>character</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l97"><code>setCharacter:97</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Set the current character, setting to null clears character</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">character</code>
+                        <span class="type">createjs.MovieClip</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>MovieClip</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_startNext" class="method item">
+    <h3 class="name"><code>startNext</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l171"><code>startNext:171</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Start the next animation in the sequence</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
@@ -660,9 +1028,9 @@ be created through cloudkid.Sound.instance.play().</p>
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property__channel" class="property item private">
-    <h3 class="name"><code>_channel</code></h3>
-    <span class="type">createjs.SoundInstance</span>
+                    <div id="property__allowFrameDropping" class="property item private">
+    <h3 class="name"><code>_allowFrameDropping</code></h3>
+    <span class="type">Bool</span>
 
     
 
@@ -685,7 +1053,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1016"><code>_channel:1016</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l55"><code>_allowFrameDropping:55</code></a>
         
         </p>
 
@@ -695,7 +1063,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>SoundJS SoundInstance, essentially a sound channel.</p>
+        <p>If frame dropping is allowed for this animation set</p>
 
     </div>
 
@@ -707,337 +1075,8 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property__endCallback" class="property item private">
-    <h3 class="name"><code>_endCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1028"><code>_endCallback:1028</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>User&#39;s callback function for when the sound ends.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__endFunc" class="property item private">
-    <h3 class="name"><code>_endFunc</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1022"><code>_endFunc:1022</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Internal callback function for when the sound ends.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fDur" class="property item private">
-    <h3 class="name"><code>_fDur</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1059"><code>_fDur:1059</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The duration in milliseconds for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fEnd" class="property item private">
-    <h3 class="name"><code>_fEnd</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1071"><code>_fEnd:1071</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The ending volume for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fEnd" class="property item private">
-    <h3 class="name"><code>_fEnd</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1065"><code>_fEnd:1065</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The starting volume for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fTime" class="property item private">
-    <h3 class="name"><code>_fTime</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1053"><code>_fTime:1053</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The current time in milliseconds for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__startFunc" class="property item private">
-    <h3 class="name"><code>_startFunc</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1034"><code>_startFunc:1034</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>User&#39;s callback function for when the sound starts. This is only used if the sound wasn&#39;t loaded before play() was called.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__startParams" class="property item private">
-    <h3 class="name"><code>_startParams</code></h3>
+                    <div id="property__animationStack" class="property item private">
+    <h3 class="name"><code>_animationStack</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
     
@@ -1061,7 +1100,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1040"><code>_startParams:1040</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l23"><code>_animationStack:23</code></a>
         
         </p>
 
@@ -1071,7 +1110,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>An array of relevant parameters passed to play(). This is only used if the sound wasn&#39;t loaded before play() was called.</p>
+        <p>The current stack of animations to play</p>
 
     </div>
 
@@ -1083,14 +1122,14 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property_alias" class="property item public">
-    <h3 class="name"><code>alias</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    <div id="property__callback" class="property item private">
+    <h3 class="name"><code>_callback</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -1108,7 +1147,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1046"><code>alias:1046</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l71"><code>_callback:71</code></a>
         
         </p>
 
@@ -1118,7 +1157,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>The alias for the sound that this instance was created from.</p>
+        <p>Callback function for playing animation</p>
 
     </div>
 
@@ -1130,14 +1169,14 @@ be created through cloudkid.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property_curVol" class="property item public">
-    <h3 class="name"><code>curVol</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="property__character" class="property item private">
+    <h3 class="name"><code>_character</code></h3>
+    <span class="type">createjs.MovieClip</span>
 
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -1155,7 +1194,7 @@ be created through cloudkid.Sound.instance.play().</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1077"><code>curVol:1077</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l63"><code>_character:63</code></a>
         
         </p>
 
@@ -1165,8 +1204,7 @@ be created through cloudkid.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>The current sound volume (0 to 1). This is multiplied by the sound context&#39;s volume.
-Setting this won&#39;t take effect until updateVolume() is called.</p>
+        <p>The current character</p>
 
     </div>
 
@@ -1178,14 +1216,61 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
 </div>
 
                 
-                    <div id="property_isValid" class="property item public">
-    <h3 class="name"><code>isValid</code></h3>
+                    <div id="property__currentAnimation" class="property item private">
+    <h3 class="name"><code>_currentAnimation</code></h3>
+    <span class="type">CharacterClip</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l31"><code>_currentAnimation:31</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The currently playing animation</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__destroyed" class="property item private">
+    <h3 class="name"><code>_destroyed</code></h3>
     <span class="type">Bool</span>
 
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -1203,7 +1288,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1097"><code>isValid:1097</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l79"><code>_destroyed:79</code></a>
         
         </p>
 
@@ -1213,7 +1298,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
     </div>
 
     <div class="description">
-        <p>An active SoundInst should always be valid. This is primarily for compatability with cloudkid.Audio.</p>
+        <p>If this instance has been destroyed</p>
 
     </div>
 
@@ -1225,61 +1310,14 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
 </div>
 
                 
-                    <div id="property_length" class="property item public">
-    <h3 class="name"><code>length</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l1084"><code>length:1084</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The length of the sound in milliseconds. This is 0 if it hasn&#39;t finished loading.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_paused" class="property item public">
-    <h3 class="name"><code>paused</code></h3>
+                    <div id="property__interruptable" class="property item private">
+    <h3 class="name"><code>_interruptable</code></h3>
     <span class="type">Bool</span>
 
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -1297,7 +1335,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1090"><code>paused:1090</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l47"><code>_interruptable:47</code></a>
         
         </p>
 
@@ -1307,7 +1345,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
     </div>
 
     <div class="description">
-        <p>If the sound is currently paused. Setting this has no effect - use pause() and unpause().</p>
+        <p>If the current animation choreographies can&#39;t be interrupted</p>
 
     </div>
 
@@ -1319,14 +1357,14 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
 </div>
 
                 
-                    <div id="property_position" class="property item public">
-    <h3 class="name"><code>position</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="property__loops" class="property item private">
+    <h3 class="name"><code>_loops</code></h3>
+    <span class="type">Int</span>
 
     
 
     
-        <span class="flag public">public</span>
+        <span class="flag private">private</span>
     
 
     
@@ -1344,7 +1382,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l1106"><code>position:1106</code></a>
+        <a href="../files/src_displays_createjs_CharacterController.js.html#l39"><code>_loops:39</code></a>
         
         </p>
 
@@ -1354,7 +1392,7 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
     </div>
 
     <div class="description">
-        <p>The position of the sound playhead in milliseconds, or 0 if it hasn&#39;t started playing yet.</p>
+        <p>Current number of loops for the current animation</p>
 
     </div>
 

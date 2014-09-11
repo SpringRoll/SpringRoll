@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : Button</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : createjs.Button</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -178,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Button Class</h1>
+                        <h1>createjs.Button Class</h1>
 <div class="box meta">
     
 
@@ -190,13 +206,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_displays_pixi_Button.js.html#l8"><code>Button:8</code></a>
+            Defined in: <a href="../files/src_displays_createjs_Button.js.html#l6"><code>createjs.Button:6</code></a>
         </div>
     
 
     
         
-            Namespace: <a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a>
+            Namespace: <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a>
         
     
 
@@ -209,16 +225,16 @@
     <p>A Multipurpose button class. It is designed to have one image, and an optional text label.
 The button can be a normal button or a selectable button.
 The button functions similarly with both CreateJS and PIXI, but slightly differently in
-initialization and callbacks.
-Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.</p>
+initialization and callbacks. Add event listeners for click and mouseover to know about
+button clicks and mouse overs, respectively.</p>
 
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Button" class="method item">
-    <h3 class="name"><code>Button</code></h3>
+        <div id="method_createjs.Button" class="method item">
+    <h3 class="name"><code>createjs.Button</code></h3>
 
     
         <div class="args">
@@ -271,7 +287,7 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
             
         
         
-        <a href="../files/src_displays_pixi_Button.js.html#l8"><code>Button:8</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l6"><code>createjs.Button:6</code></a>
         
         </p>
 
@@ -854,21 +870,7 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__addProperty">_addProperty</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
                                 <a href="#method__onClick">_onClick</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__onDown">_onDown</a>
 
                                 
                                 
@@ -903,34 +905,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__onOut">_onOut</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__onOver">_onOver</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__onUp">_onUp</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__onUpOutside">_onUpOutside</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
                                 <a href="#method__updateState">_updateState</a>
 
                                 
@@ -949,13 +923,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
-
                                 
                                 
                             </li>
@@ -992,13 +959,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__currentLabelStyle">_currentLabelStyle</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
                                 <a href="#property__downCB">_downCB</a>
 
                                 
@@ -1007,13 +967,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                         
                             <li class="index-item property private">
                                 <a href="#property__height">_height</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__offset">_offset</a>
 
                                 
                                 
@@ -1048,28 +1001,7 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__stateData">_stateData</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
                                 <a href="#property__stateFlags">_stateFlags</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__stateFlags">_stateFlags</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__statePriority">_statePriority</a>
 
                                 
                                 
@@ -1084,13 +1016,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                         
                             <li class="index-item property private">
                                 <a href="#property__upCB">_upCB</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__upOutCB">_upOutCB</a>
 
                                 
                                 
@@ -1135,27 +1060,6 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
                         
                             <li class="index-item property public">
                                 <a href="#property_label">label</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_outCallback">outCallback</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_overCallback">overCallback</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_releaseCallback">releaseCallback</a>
 
                                 
                                 
@@ -1226,101 +1130,7 @@ Use releaseCallback and overCallback to know about button clicks and mouse overs
             
         
         
-        <a href="../files/src_displays_pixi_Button.js.html#l472"><code>_addProperty:472</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Adds a property to the button. Setting the property sets the value in
-_stateFlags and calls _updateState().</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">propertyName</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The property name to add to the button.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__addProperty" class="method item private">
-    <h3 class="name"><code>_addProperty</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>propertyName</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Button.js.html#l468"><code>_addProperty:468</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l465"><code>_addProperty:465</code></a>
         
         </p>
 
@@ -1395,8 +1205,6 @@ _stateFlags and calls _updateState().</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1404,7 +1212,7 @@ _stateFlags and calls _updateState().</p>
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l577"><code>_onClick:577</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l574"><code>_onClick:574</code></a>
         
         </p>
 
@@ -1418,63 +1226,6 @@ _stateFlags and calls _updateState().</p>
         <p>The callback for when the button the button is clicked or tapped on. This is
 the most reliable way of detecting mouse up/touch end events that are on this button
 while letting the pressup event handle the mouse up/touch ends on and outside the button.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__onDown" class="method item private">
-    <h3 class="name"><code>_onDown</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l604"><code>_onDown:604</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The callback for when the button receives a mouse down event.</p>
 
     </div>
 
@@ -1513,8 +1264,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1522,7 +1271,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l549"><code>_onMouseDown:549</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l546"><code>_onMouseDown:546</code></a>
         
         </p>
 
@@ -1572,8 +1321,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1581,7 +1328,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l600"><code>_onMouseOut:600</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l597"><code>_onMouseOut:597</code></a>
         
         </p>
 
@@ -1631,8 +1378,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1640,7 +1385,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l589"><code>_onMouseOver:589</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l586"><code>_onMouseOver:586</code></a>
         
         </p>
 
@@ -1690,8 +1435,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1699,7 +1442,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l562"><code>_onMouseUp:562</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l559"><code>_onMouseUp:559</code></a>
         
         </p>
 
@@ -1714,237 +1457,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
 <ul>
 <li>only when the button was held down initially.</li>
 </ul>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__onOut" class="method item private">
-    <h3 class="name"><code>_onOut</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l591"><code>_onOut:591</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The callback for when the mouse leaves the button area.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__onOver" class="method item private">
-    <h3 class="name"><code>_onOver</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l578"><code>_onOver:578</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The callback for when the button is moused over.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__onUp" class="method item private">
-    <h3 class="name"><code>_onUp</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l619"><code>_onUp:619</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The callback for when the button for when the mouse/touch is released on the button</p>
-<ul>
-<li>only when the button was held down initially.</li>
-</ul>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__onUpOutside" class="method item private">
-    <h3 class="name"><code>_onUpOutside</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l637"><code>_onUpOutside:637</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The callback for when the mouse/touch is released outside the button when the button was held down.</p>
 
     </div>
 
@@ -1983,8 +1495,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1992,7 +1502,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l494"><code>_updateState:494</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l491"><code>_updateState:491</code></a>
         
         </p>
 
@@ -2042,8 +1552,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2051,7 +1559,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l611"><code>destroy:611</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l608"><code>destroy:608</code></a>
         
         </p>
 
@@ -2123,8 +1631,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2132,7 +1638,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l631"><code>generateDefaultStates:631</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l628"><code>generateDefaultStates:628</code></a>
         
         </p>
 
@@ -2414,145 +1920,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_pixi_Button.js.html#l206"><code>initialize:206</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Constructor for the button when using PIXI.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[imageSettings]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Information about the art to be used for button states, as well as if the button is selectable or not.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[label=null]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Information about the text label on the button. Omitting this makes the button not use a label.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[enabled=true]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Whether or not the button is initially enabled.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code class="optional">[imageSettings]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[label=null]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[enabled=true]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Button.js.html#l204"><code>initialize:204</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l201"><code>initialize:201</code></a>
         
         </p>
 
@@ -2671,8 +2039,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2680,7 +2046,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l397"><code>setText:397</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l394"><code>setText:394</code></a>
         
         </p>
 
@@ -2753,8 +2119,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2762,7 +2126,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l130"><code>_clickCB:130</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l127"><code>_clickCB:127</code></a>
         
         </p>
 
@@ -2773,53 +2137,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
 
     <div class="description">
         <p>Callback for click, bound to this button.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__currentLabelStyle" class="property item private">
-    <h3 class="name"><code>_currentLabelStyle</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l127"><code>_currentLabelStyle:127</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The current style for the label, to avoid setting this if it is unchanged.</p>
 
     </div>
 
@@ -2849,8 +2166,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2858,7 +2173,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l116"><code>_downCB:116</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l113"><code>_downCB:113</code></a>
         
         </p>
 
@@ -2898,8 +2213,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2907,7 +2220,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l167"><code>_height:167</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l164"><code>_height:164</code></a>
         
         </p>
 
@@ -2918,53 +2231,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
 
     <div class="description">
         <p>The height of the button art, independent of the scaling of the button itself.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__offset" class="property item private">
-    <h3 class="name"><code>_offset</code></h3>
-    <span class="type">PIXI.Point</span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l134"><code>_offset:134</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>An offset to button positioning, generally used to adjust for a highlight around the button.</p>
 
     </div>
 
@@ -2994,8 +2260,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3003,7 +2267,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l174"><code>_offset:174</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l171"><code>_offset:171</code></a>
         
         </p>
 
@@ -3043,8 +2307,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3052,7 +2314,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l109"><code>_outCB:109</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l106"><code>_outCB:106</code></a>
         
         </p>
 
@@ -3092,8 +2354,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3101,7 +2361,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l102"><code>_overCB:102</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l99"><code>_overCB:99</code></a>
         
         </p>
 
@@ -3141,8 +2401,6 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3150,56 +2408,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l151"><code>_stateData:151</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A dictionary of state graphic data, keyed by state name.
-Each object contains the sourceRect (src) and optionally &#39;trim&#39;, another Rectangle.
-Additionally, each object will contain a &#39;label&#39; object if the button has a text label.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__stateData" class="property item private">
-    <h3 class="name"><code>_stateData</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l118"><code>_stateData:118</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l148"><code>_stateData:148</code></a>
         
         </p>
 
@@ -3241,8 +2450,6 @@ Additionally, each object will contain a &#39;label&#39; object if the button ha
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3250,54 +2457,7 @@ Additionally, each object will contain a &#39;label&#39; object if the button ha
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l137"><code>_stateFlags:137</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A dictionary of state booleans, keyed by state name.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__stateFlags" class="property item private">
-    <h3 class="name"><code>_stateFlags</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l104"><code>_stateFlags:104</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l134"><code>_stateFlags:134</code></a>
         
         </p>
 
@@ -3337,8 +2497,6 @@ Additionally, each object will contain a &#39;label&#39; object if the button ha
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3346,55 +2504,7 @@ Additionally, each object will contain a &#39;label&#39; object if the button ha
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l143"><code>_statePriority:143</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>An array of state names (Strings), in their order of priority.
-The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__statePriority" class="property item private">
-    <h3 class="name"><code>_statePriority</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l110"><code>_statePriority:110</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l140"><code>_statePriority:140</code></a>
         
         </p>
 
@@ -3435,8 +2545,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3444,7 +2552,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l123"><code>_upCB:123</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l120"><code>_upCB:120</code></a>
         
         </p>
 
@@ -3455,53 +2563,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
 
     <div class="description">
         <p>Callback for press up, bound to this button.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__upOutCB" class="property item private">
-    <h3 class="name"><code>_upOutCB</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l170"><code>_upOutCB:170</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Callback for mouse up outside, bound to this button.</p>
 
     </div>
 
@@ -3531,8 +2592,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3540,7 +2599,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l160"><code>_width:160</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l157"><code>_width:157</code></a>
         
         </p>
 
@@ -3580,8 +2639,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3589,7 +2646,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l85"><code>back:85</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l82"><code>back:82</code></a>
         
         </p>
 
@@ -3631,8 +2688,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3640,7 +2695,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l181"><code>BUTTON_PRESS:181</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l178"><code>BUTTON_PRESS:178</code></a>
         
         </p>
 
@@ -3678,8 +2733,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3687,7 +2740,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l431"><code>enabled:431</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l428"><code>enabled:428</code></a>
         
         </p>
 
@@ -3727,8 +2780,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3736,7 +2787,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l381"><code>height:381</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l378"><code>height:378</code></a>
         
         </p>
 
@@ -3776,8 +2827,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3785,7 +2834,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l93"><code>label:93</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l90"><code>label:90</code></a>
         
         </p>
 
@@ -3796,147 +2845,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
 
     <div class="description">
         <p>The text field of the button. The label is centered by both width and height on the button.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_outCallback" class="property item public">
-    <h3 class="name"><code>outCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l97"><code>outCallback:97</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The function that should be called when mouse leaves the button.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_overCallback" class="property item public">
-    <h3 class="name"><code>overCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l90"><code>overCallback:90</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The function that should be called when the button is moused over.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_releaseCallback" class="property item public">
-    <h3 class="name"><code>releaseCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Button.js.html#l83"><code>releaseCallback:83</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The function that should be called when the button is released.</p>
 
     </div>
 
@@ -3964,8 +2872,6 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3973,7 +2879,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
             
         
         
-        <a href="../files/src_displays_createjs_Button.js.html#l365"><code>width:365</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l362"><code>width:362</code></a>
         
         </p>
 

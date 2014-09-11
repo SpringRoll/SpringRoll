@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : src/displays/pixi/scaling/Positioner.js</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : window</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -178,137 +194,55 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <script>
-	var name = src/displays/pixi/scaling/Positioner.js      
-</script>
-<h1 class="file-heading">File:Positioner.js</h1>
+                        <h1>window Namespace</h1>
+<div class="box clearfix meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
-*  @module cloudkid.pixi
-*/
-(function() {
-	
-	&quot;use strict&quot;;
-	
-	/**
-	*  Initially layouts all interface elements
-	*  @module cloudkid
-	*  @class Positioner
-	*/
-	var Positioner = function(){};
-	
-	// Set the protype
-	Positioner.prototype = {};
-	
-	/**
-	*  Initial position of all layout items
-	*  @method positionItems
-	*  @static
-	*  @param {PIXI.DisplayObject} parent
-	*  @param {Object} itemSettings JSON format with position information
-	*/
-	Positioner.positionItems = function(parent, itemSettings)
-	{
-		var pt, degToRad = Math.PI / 180;
-		for(var iName in itemSettings)
-		{
-			var item = parent[iName];
-			if(!item)
-			{
-				Debug.error(&quot;could not find object &#x27;&quot; +  iName + &quot;&#x27;&quot;);
-				continue;
-			}
-			var setting = itemSettings[iName];
-			if(setting.x !== undefined)
-				item.position.x = setting.x;
-			if(setting.y !== undefined)
-				item.position.y = setting.y;
-			pt = setting.scale;
-			if(pt)
-			{
-				item.scale.x *= pt.x;
-				item.scale.y *= pt.y;
-			}
-			pt = setting.pivot;
-			if(pt)
-			{
-				item.pivot.x = pt.x;
-				item.pivot.y = pt.y;
-			}
-			if(setting.rotation !== undefined)
-				item.rotation = setting.rotation * degToRad;//Pixi rotations are in radians
-			//item.name = iName;
-			if(setting.hitArea)
-			{
-				item.hitArea = Positioner.generateHitArea(setting.hitArea);
-			}
-		}
-	};
-	
-	/**
-	*  Create the polygon hit area for interface elements
-	*  @static
-	*  @method generateHitArea
-	*  @param {Object|Array} hitArea One of the following: &lt;br/&gt;
-	*  * An array of points for a polygon, e.g. 
-	*
-	*		[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
-	*
-	*  * An object describing a rectangle, e.g.
-	*
-	*		{type:&quot;rect&quot;, x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing an ellipse, where x and y are the center, e.g. 
-	*
-	*		{type:&quot;ellipse&quot;, x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing a circle, where x and y are the center, e.g.
-	*
-	*		{type:&quot;circle&quot;, x:0, y:0, r:20}
-	*  @param {Number} scale=1 The size to scale hitArea by
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
-	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
-	*/
-	Positioner.generateHitArea = function(hitArea, scale)
-	{
-		if(!scale)
-			scale = 1;
-		if(isArray(hitArea))
-		{
-			if(scale == 1)
-				return new PIXI.Polygon(hitArea);
-			else
-			{
-				var temp = [];
-				for(var i = 0, len = hitArea.length; i &lt; len; ++i)
-				{
-					temp.push(new PIXI.Point(hitArea[i].x * scale, hitArea[i].y * scale));
-				}
-				return new PIXI.Polygon(temp);
-			}
-		}
-		else if(hitArea.type == &quot;rect&quot; || !hitArea.type)
-			return new PIXI.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
-		else if(hitArea.type == &quot;ellipse&quot;)
-			return new PIXI.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
-		else if(hitArea.type == &quot;circle&quot;)
-			return new PIXI.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
-		else if(hitArea.type == &quot;sector&quot;)
-			return new PIXI.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
-		return null;
-	};
+    
 
-	var isArray = function(o)
-	{
-		return Object.prototype.toString.call(o) === &#x27;[object Array]&#x27;;
-	};
-	
-	namespace(&#x27;cloudkid&#x27;).Positioner = Positioner;
-	namespace(&#x27;cloudkid.pixi&#x27;).Positioner = Positioner;
-}());
-    </pre>
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_utils_namespace.js.html#l4"><code>window:4</code></a>
+        </div>
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    
+</div>
+
+
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+            <p>This namespace provides the following classes:</p>
+
+            <ul class="module-classes">
+            
+                <li class="module-class">
+                    <a href="../classes/Debug.html">
+                        Debug
+                    </a>
+                </li>
+            
+                <li class="module-class">
+                    <a href="../classes/namespace.html">
+                        namespace
+                    </a>
+                </li>
+            
+            </ul>
+        
+    </div>
+
+    <div class="yui3-u-1-2">
+        
+    </div>
 </div>
 
                     </div>

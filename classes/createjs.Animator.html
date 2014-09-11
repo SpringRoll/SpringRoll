@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : Animator</title>  
+	<title>CloudKidFramework v0.0.3 API Documentation : createjs.Animator</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -39,37 +39,37 @@
         <div id="api-tabview-panel">
             <ul id="api-classes" class="apis classes">
             
-                <li><a href="../classes/Animator.html">Animator</a></li>
-            
-                <li><a href="../classes/Animator.AnimTimeline.html">Animator.AnimTimeline</a></li>
-            
-                <li><a href="../classes/AnimatorTimeline.html">AnimatorTimeline</a></li>
-            
                 <li><a href="../classes/Application.html">Application</a></li>
             
-                <li><a href="../classes/AssetManager.html">AssetManager</a></li>
-            
                 <li><a href="../classes/BaseState.html">BaseState</a></li>
-            
-                <li><a href="../classes/Button.html">Button</a></li>
             
                 <li><a href="../classes/CacheManager.html">CacheManager</a></li>
             
                 <li><a href="../classes/Captions.html">Captions</a></li>
             
-                <li><a href="../classes/CharacterClip.html">CharacterClip</a></li>
-            
-                <li><a href="../classes/CharacterController.html">CharacterController</a></li>
-            
                 <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
             
-                <li><a href="../classes/CreateJSCutscene.html">CreateJSCutscene</a></li>
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
             
-                <li><a href="../classes/CreateJSDisplay.html">CreateJSDisplay</a></li>
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
             
                 <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
-            
-                <li><a href="../classes/DragManager.html">DragManager</a></li>
             
                 <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
             
@@ -89,9 +89,23 @@
             
                 <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
                 <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
             
-                <li><a href="../classes/PixiDisplay.html">PixiDisplay</a></li>
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
             
                 <li><a href="../classes/PixiTask.html">PixiTask</a></li>
             
@@ -105,7 +119,7 @@
             
                 <li><a href="../classes/SoundContext.html">SoundContext</a></li>
             
-                <li><a href="../classes/SoundInst.html">SoundInst</a></li>
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
             
                 <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
             
@@ -145,6 +159,8 @@
             
                 <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
             
+                <li><a href="../modules/window.html">window</a></li>
+            
             </ul>
         </div>
     </div>
@@ -178,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Animator Class</h1>
+                        <h1>createjs.Animator Class</h1>
 <div class="box meta">
     
 
@@ -186,13 +202,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_displays_pixi_Animator.js.html#l8"><code>Animator:8</code></a>
+            Defined in: <a href="../files/src_displays_createjs_Animator.js.html#l10"><code>createjs.Animator:10</code></a>
         </div>
     
 
     
         
-            Namespace: <a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a>
+            Namespace: <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a>
         
     
 
@@ -202,7 +218,8 @@
 
 
 <div class="box intro">
-    <p>Animator for interacting with Spine animations</p>
+    <p>Animator is a static class designed to provided
+base animation functionality, using frame labels of MovieClips</p>
 
 </div>
 
@@ -250,6 +267,15 @@
                                 
                             </li>
                         
+                            <li class="index-item method private">
+                                <a href="#method__makeTimeline">_makeTimeline</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method public">
                                 <a href="#method__makeTimeline">_makeTimeline</a>
 
@@ -260,33 +286,10 @@
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__makeTimeline">_makeTimeline</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__onMovieClipDone">_onMovieClipDone</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
                                 <a href="#method__remove">_remove</a>
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method__repool">_repool</a>
-
                                 
                                 
                             </li>
@@ -309,41 +312,11 @@
                                 
                             </li>
                         
-                            <li class="index-item method private">
-                                <a href="#method__update">_update</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_checkSpineForAnimation">checkSpineForAnimation</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private">
-                                <a href="#method_"></a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
                             <li class="index-item method">
                                 <a href="#method_destroy">destroy</a>
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_destroy">destroy</a>
-
                                 
                                 
                             </li>
@@ -369,22 +342,6 @@
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_instanceHasAnimation">instanceHasAnimation</a>
-
                                 
                                 
                             </li>
@@ -431,14 +388,16 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_play">play</a>
+                                <a href="#method_playAtRandomFrame">playAtRandomFrame</a>
 
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
                         
-                            <li class="index-item method">
-                                <a href="#method_playAtRandomFrame">playAtRandomFrame</a>
+                            <li class="index-item method private">
+                                <a href="#method_"></a>
 
                                 
                                     <span class="flag static">static</span>
@@ -451,20 +410,6 @@
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_stop">stop</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_stop">stop</a>
-
                                 
                                 
                             </li>
@@ -507,24 +452,6 @@
                     <ul class="index-list properties">
                         
                             <li class="index-item property private">
-                                <a href="#property__animPool">_animPool</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__numAnims">_numAnims</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
                                 <a href="#property__optionsHelper">_optionsHelper</a>
 
                                 
@@ -553,21 +480,7 @@
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__timelines">_timelines</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
                                 <a href="#property__timelinesMap">_timelinesMap</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_captions">captions</a>
 
                                 
                                 
@@ -596,13 +509,6 @@
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_soundLib">soundLib</a>
-
                                 
                                 
                             </li>
@@ -673,8 +579,6 @@
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -682,7 +586,7 @@
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l324"><code>_canAnimate:324</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l322"><code>_canAnimate:322</code></a>
         
         </p>
 
@@ -779,8 +683,6 @@
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -788,7 +690,7 @@
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l740"><code>_hasTimelines:740</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l738"><code>_hasTimelines:738</code></a>
         
         </p>
 
@@ -815,141 +717,6 @@
                         <span class="type">Bool</span>:
                     
                     <p>if we have timelines</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method__makeTimeline" class="method item public">
-    <h3 class="name"><code>_makeTimeline</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>instance</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>event</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Animator.js.html#l355"><code>_makeTimeline:355</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Checks if animation exists</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">instance</code>
-                        <span class="type">easeljs.MovieClip</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The timeline to check</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">event</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The frame label event (e.g. "onClose" to "onClose stop")</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>does this animation exist?</p>
 
                 
             </div>
@@ -1009,7 +776,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+            <span class="type">AnimatorTimeline</span>
         </span>
     
 
@@ -1033,8 +800,6 @@
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1042,7 +807,7 @@
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l238"><code>_makeTimeline:238</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l236"><code>_makeTimeline:236</code></a>
         
         </p>
 
@@ -1170,7 +935,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>:
+                        <span class="type">AnimatorTimeline</span>:
                     
                     <p>The Timeline object</p>
 
@@ -1183,8 +948,8 @@
 </div>
 
                 
-                    <div id="method__onMovieClipDone" class="method item private">
-    <h3 class="name"><code>_onMovieClipDone</code></h3>
+                    <div id="method__makeTimeline" class="method item public">
+    <h3 class="name"><code>_makeTimeline</code></h3>
 
     
         <div class="args">
@@ -1192,7 +957,13 @@
             
                 <li class="arg">
                     
-                        <code>timeline</code>
+                        <code>instance</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>event</code>
                     
                 </li>
             
@@ -1201,15 +972,21 @@
     
 
     
-
+        <span class="returns-inline">
+            <span class="type">Bool</span>
+        </span>
     
 
     
-        <span class="flag private">private</span>
+
+    
+        <span class="flag public">public</span>
     
 
     
 
+    
+        <span class="flag static">static</span>
     
 
     
@@ -1227,7 +1004,7 @@
             
         
         
-        <a href="../files/src_displays_pixi_Animator.js.html#l421"><code>_onMovieClipDone:421</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l353"><code>_makeTimeline:353</code></a>
         
         </p>
 
@@ -1238,8 +1015,7 @@
     </div>
 
     <div class="description">
-        <p>Called when a movie clip is done playing, calls the AnimTimeline&#39;s
-callback if it has one</p>
+        <p>Checks if animation exists</p>
 
     </div>
 
@@ -1251,14 +1027,31 @@ callback if it has one</p>
             
                 <li class="param">
                     
-                        <code class="param-name">timeline</code>
-                        <span class="type"><a href="../classes/Animator.AnimTimeline.html" class="crosslink">Animator.AnimTimeline</a></span>
+                        <code class="param-name">instance</code>
+                        <span class="type">easeljs.MovieClip</span>
                     
 
                     
 
                     <div class="param-description">
-                         
+                        <p>The timeline to check</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The frame label event (e.g. "onClose" to "onClose stop")</p>
+
                     </div>
 
                     
@@ -1268,6 +1061,20 @@ callback if it has one</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Bool</span>:
+                    
+                    <p>does this animation exist?</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -1319,8 +1126,6 @@ callback if it has one</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1328,7 +1133,7 @@ callback if it has one</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l440"><code>_remove:440</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l438"><code>_remove:438</code></a>
         
         </p>
 
@@ -1352,7 +1157,7 @@ callback if it has one</p>
                 <li class="param">
                     
                         <code class="param-name">timeline</code>
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -1375,97 +1180,6 @@ callback if it has one</p>
                     <div class="param-description">
                         <p>If we do the on complete callback</p>
 
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__repool" class="method item private">
-    <h3 class="name"><code>_repool</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>timeline</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l285"><code>_repool:285</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Put an AnimTimeline back into the general pool after it&#39;s done playing
-or has been manually stopped</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">timeline</code>
-                        <span class="type"><a href="../classes/Animator.AnimTimeline.html" class="crosslink">Animator.AnimTimeline</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
                     </div>
 
                     
@@ -1510,8 +1224,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1519,7 +1231,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l592"><code>_startUpdate:592</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l590"><code>_startUpdate:590</code></a>
         
         </p>
 
@@ -1571,8 +1283,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1580,7 +1290,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l605"><code>_stopUpdate:605</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l603"><code>_stopUpdate:603</code></a>
         
         </p>
 
@@ -1603,321 +1313,6 @@ or has been manually stopped</p>
 </div>
 
                 
-                    <div id="method__update" class="method item private">
-    <h3 class="name"><code>_update</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>elapsed</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l304"><code>_update:304</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Update each frame</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">elapsed</code>
-                        <span class="type">Int</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The time since the last frame</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_checkSpineForAnimation" class="method item">
-    <h3 class="name"><code>checkSpineForAnimation</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>clip</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>anim</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l226"><code>checkSpineForAnimation:226</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Checks to see if a Spine animation includes a given animation alias</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">clip</code>
-                        <span class="type">PIXI.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The spine to search</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">anim</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The animation alias to search for</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    
-                    <p>Returns true if the animation is found</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_" class="method item private">
-    <h3 class="name"><code></code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>elapsed</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Animator.js.html#l618"><code>:618</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The update every frame</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">elapsed</code>
-                        <span class="type">Int</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The time in milliseconds since the last frame</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
                     <div id="method_destroy" class="method item">
     <h3 class="name"><code>destroy</code></h3>
 
@@ -1945,8 +1340,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -1954,7 +1347,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l114"><code>destroy:114</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l112"><code>destroy:112</code></a>
         
         </p>
 
@@ -1966,61 +1359,6 @@ or has been manually stopped</p>
 
     <div class="description">
         <p>Stops all animations and cleans up the variables used.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_destroy" class="method item">
-    <h3 class="name"><code>destroy</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l450"><code>destroy:450</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Destroy this</p>
 
     </div>
 
@@ -2061,8 +1399,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2070,7 +1406,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l581"><code>getPaused:581</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l579"><code>getPaused:579</code></a>
         
         </p>
 
@@ -2126,7 +1462,7 @@ or has been manually stopped</p>
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+            <span class="type">AnimatorTimeline</span>
         </span>
     
 
@@ -2148,8 +1484,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2157,7 +1491,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l562"><code>getTimeline:562</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l560"><code>getTimeline:560</code></a>
         
         </p>
 
@@ -2205,7 +1539,7 @@ or has been manually stopped</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>:
+                        <span class="type">AnimatorTimeline</span>:
                     
                     <p>The timeline</p>
 
@@ -2245,8 +1579,6 @@ or has been manually stopped</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2254,7 +1586,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l98"><code>init:98</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l96"><code>init:96</code></a>
         
         </p>
 
@@ -2272,192 +1604,6 @@ if the Animator data was cleaned up but was needed again later.</p>
 
     
 
-    
-
-    
-</div>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l53"><code>init:53</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initializes the singleton instance of Animator.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_instanceHasAnimation" class="method item">
-    <h3 class="name"><code>instanceHasAnimation</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>instance</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>anim</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l211"><code>instanceHasAnimation:211</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Checks to see if a Spine animation includes a given animation alias</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">instance</code>
-                        <span class="type">PIXI.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The animation to search. This has to be a Spine animation.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">anim</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The animation alias to search for</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    
-                    <p>Returns true if the animation is found</p>
-
-                
-            </div>
-        </div>
     
 
     
@@ -2501,8 +1647,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2510,7 +1654,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l727"><code>onSoundDone:727</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l725"><code>onSoundDone:725</code></a>
         
         </p>
 
@@ -2534,7 +1678,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                 <li class="param">
                     
                         <code class="param-name">timeline</code>
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -2593,8 +1737,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2602,7 +1744,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l715"><code>onSoundStarted:715</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l713"><code>onSoundStarted:713</code></a>
         
         </p>
 
@@ -2626,7 +1768,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                 <li class="param">
                     
                         <code class="param-name">timeline</code>
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -2675,8 +1817,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2684,7 +1824,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l497"><code>pause:497</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l495"><code>pause:495</code></a>
         
         </p>
 
@@ -2750,8 +1890,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2759,7 +1897,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l540"><code>pauseInGroup:540</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l538"><code>pauseInGroup:538</code></a>
         
         </p>
 
@@ -2853,7 +1991,7 @@ if the Animator data was cleaned up but was needed again later.</p>
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+            <span class="type">AnimatorTimeline</span>
         </span>
     
 
@@ -2875,8 +2013,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -2884,7 +2020,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l132"><code>play:132</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l130"><code>play:130</code></a>
         
         </p>
 
@@ -2908,7 +2044,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                 <li class="param">
                     
                         <code class="param-name">instance</code>
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -3060,235 +2196,13 @@ if the Animator data was cleaned up but was needed again later.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>:
+                        <span class="type">AnimatorTimeline</span>:
                     
                     <p>The Timeline object</p>
 
                 
             </div>
         </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_play" class="method item">
-    <h3 class="name"><code>play</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>clip</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>anim</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[options]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l64"><code>play:64</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Play a specified animation</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">clip</code>
-                        <span class="type">PIXI.MovieClip | PIXI.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The clip to play</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">anim</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Depending on the type of clip, this could be one of several things.</p>
-<p>If animating a MovieClip, this should be the array of Textures that is the animation (or null to use the existing array on the clip).</p>
-<p>If animating a Spine object:</p>
-<ul>
-<li>If anim is a string it will play that single animation by name.</li>
-<li>If anim is an array of strings it will play as a list of animations (only the last one can loop).</li>
-<li>If anim is an array of objects (with anim, loop, and speed properties) then multiple animations will be played simultaneously.
- When multiple animations play, animation stops when any non looping animation ends.</li>
-</ul>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[options]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The object of optional parameters or onComplete callback function</p>
-
-                    </div>
-
-                    
-                        <ul class="params-list">
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[onComplete=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The function to call once the animation has finished</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[loop=false]</code>
-                                    <span class="type">Bool</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Whether the animation should loop</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[speed=1]</code>
-                                    <span class="type">Int</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The speed at which to play the animation</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[startTime=0]</code>
-                                    <span class="type">Int</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The time in milliseconds into the animation to start.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[soundData=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-       start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                        </ul>
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
     
 
     
@@ -3326,7 +2240,7 @@ if the Animator data was cleaned up but was needed again later.</p>
 
     
         <span class="returns-inline">
-            <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+            <span class="type">AnimatorTimeline</span>
         </span>
     
 
@@ -3348,8 +2262,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3357,7 +2269,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l217"><code>playAtRandomFrame:217</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l215"><code>playAtRandomFrame:215</code></a>
         
         </p>
 
@@ -3381,7 +2293,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                 <li class="param">
                     
                         <code class="param-name">instance</code>
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -3518,13 +2430,106 @@ if the Animator data was cleaned up but was needed again later.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="../classes/AnimatorTimeline.html" class="crosslink">AnimatorTimeline</a></span>:
+                        <span class="type">AnimatorTimeline</span>:
                     
                     <p>The Timeline object</p>
 
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_" class="method item private">
+    <h3 class="name"><code></code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>elapsed</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_Animator.js.html#l616"><code>:616</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The update every frame</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">elapsed</code>
+                        <span class="type">Int</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The time in milliseconds since the last frame</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     
@@ -3558,8 +2563,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3567,7 +2570,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l518"><code>resume:518</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l516"><code>resume:516</code></a>
         
         </p>
 
@@ -3579,172 +2582,6 @@ if the Animator data was cleaned up but was needed again later.</p>
 
     <div class="description">
         <p>Resumes all tweens executed by the Animator.play()</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_stop" class="method item">
-    <h3 class="name"><code>stop</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>clip</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>doCallback</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l239"><code>stop:239</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Stop a clip</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">clip</code>
-                        <span class="type">PIXI.MovieClip | PIXI.Spine</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The clip to stop</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">doCallback</code>
-                        <span class="type">Bool</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Whether the animations callback should be run</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_stop" class="method item">
-    <h3 class="name"><code>stop</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l266"><code>stop:266</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Stops all current animations</p>
 
     </div>
 
@@ -3799,8 +2636,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3808,7 +2643,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l388"><code>stop:388</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l386"><code>stop:386</code></a>
         
         </p>
 
@@ -3908,8 +2743,6 @@ if the Animator data was cleaned up but was needed again later.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -3917,7 +2750,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l414"><code>stopAll:414</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l412"><code>stopAll:412</code></a>
         
         </p>
 
@@ -3996,8 +2829,6 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4005,7 +2836,7 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l754"><code>toString:754</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l752"><code>toString:752</code></a>
         
         </p>
 
@@ -4048,104 +2879,6 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property__animPool" class="property item private">
-    <h3 class="name"><code>_animPool</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l30"><code>_animPool:30</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Stored collection of AnimTimelines. This is internal to Animator and can&#39;t be accessed externally.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__numAnims" class="property item private">
-    <h3 class="name"><code>_numAnims</code></h3>
-    <span class="type">Int</span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l22"><code>_numAnims:22</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The number of animations</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
                     <div id="property__optionsHelper" class="property item private">
     <h3 class="name"><code>_optionsHelper</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
@@ -4164,8 +2897,6 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4173,7 +2904,7 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l89"><code>_optionsHelper:89</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l87"><code>_optionsHelper:87</code></a>
         
         </p>
 
@@ -4214,8 +2945,6 @@ when an options object is not used for parameters.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4223,7 +2952,7 @@ when an options object is not used for parameters.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l81"><code>_paused:81</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l79"><code>_paused:79</code></a>
         
         </p>
 
@@ -4263,8 +2992,6 @@ when an options object is not used for parameters.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4272,7 +2999,7 @@ when an options object is not used for parameters.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l65"><code>_removedTimelines:65</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l63"><code>_removedTimelines:63</code></a>
         
         </p>
 
@@ -4313,8 +3040,6 @@ reallocated every frame</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4322,7 +3047,7 @@ reallocated every frame</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l57"><code>_timelines:57</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l55"><code>_timelines:55</code></a>
         
         </p>
 
@@ -4333,53 +3058,6 @@ reallocated every frame</p>
 
     <div class="description">
         <p>The collection of timelines</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__timelines" class="property item private">
-    <h3 class="name"><code>_timelines</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l15"><code>_timelines:15</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The collection of AnimTimelines that are playing</p>
 
     </div>
 
@@ -4409,8 +3087,6 @@ reallocated every frame</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4418,7 +3094,7 @@ reallocated every frame</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l74"><code>_timelinesMap:74</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l72"><code>_timelinesMap:72</code></a>
         
         </p>
 
@@ -4429,53 +3105,6 @@ reallocated every frame</p>
 
     <div class="description">
         
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_captions" class="property item public">
-    <h3 class="name"><code>captions</code></h3>
-    <span class="type">cloudkid.Captions</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l46"><code>captions:46</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The global captions object to use with animator</p>
-
     </div>
 
     
@@ -4506,8 +3135,6 @@ reallocated every frame</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4515,7 +3142,7 @@ reallocated every frame</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l49"><code>captions:49</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l47"><code>captions:47</code></a>
         
         </p>
 
@@ -4557,8 +3184,6 @@ reallocated every frame</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4566,7 +3191,7 @@ reallocated every frame</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l30"><code>debug:30</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l28"><code>debug:28</code></a>
         
         </p>
 
@@ -4608,8 +3233,6 @@ reallocated every frame</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4617,7 +3240,7 @@ reallocated every frame</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l39"><code>soundLib:39</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l37"><code>soundLib:37</code></a>
         
         </p>
 
@@ -4629,53 +3252,6 @@ reallocated every frame</p>
     <div class="description">
         <p>The instance of cloudkid.Audio or cloudkid.Sound for playing audio along with animations.
 This MUST be set in order to play synced animations.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_soundLib" class="property item public">
-    <h3 class="name"><code>soundLib</code></h3>
-    <span class="type">cloudkid.Audio | cloudkid.Sound</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_pixi_Animator.js.html#l38"><code>soundLib:38</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The instance of cloudkid.Audio or cloudkid.Sound for playing audio along with animations.</p>
 
     </div>
 
@@ -4707,8 +3283,6 @@ This MUST be set in order to play synced animations.</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -4716,7 +3290,7 @@ This MUST be set in order to play synced animations.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l21"><code>VERSION:21</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l19"><code>VERSION:19</code></a>
         
         </p>
 

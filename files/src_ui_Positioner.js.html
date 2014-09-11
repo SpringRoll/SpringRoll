@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.3 API Documentation : src/ui/Positioner.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/CloudKidStudio/CloudKidFramework"><img src="../assets/css/logo.png" title="CloudKidFramework"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.3</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Namespaces</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Application.html">Application</a></li>
+            
+                <li><a href="../classes/BaseState.html">BaseState</a></li>
+            
+                <li><a href="../classes/CacheManager.html">CacheManager</a></li>
+            
+                <li><a href="../classes/Captions.html">Captions</a></li>
+            
+                <li><a href="../classes/CombinedCallback.html">CombinedCallback</a></li>
+            
+                <li><a href="../classes/createjs.Animator.html">createjs.Animator</a></li>
+            
+                <li><a href="../classes/createjs.AnimatorTimeline.html">createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/createjs.Button.html">createjs.Button</a></li>
+            
+                <li><a href="../classes/createjs.CharacterClip.html">createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/createjs.CharacterController.html">createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/createjs.CreateJSDisplay.html">createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/createjs.Cutscene.html">createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/createjs.DisplayAdapter.html">createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/createjs.DragManager.html">createjs.DragManager</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/DelayedCall.html">DelayedCall</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/FallbackWorker.html">FallbackWorker</a></li>
+            
+                <li><a href="../classes/FunctionTask.html">FunctionTask</a></li>
+            
+                <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
+            
+                <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/LoadTask.html">LoadTask</a></li>
+            
+                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
+            
+                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/PageVisibility.html">PageVisibility</a></li>
+            
+                <li><a href="../classes/pixi.Animator.html">pixi.Animator</a></li>
+            
+                <li><a href="../classes/pixi.AnimatorTimeline.html">pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/pixi.AssetManager.html">pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/pixi.Button.html">pixi.Button</a></li>
+            
+                <li><a href="../classes/pixi.DisplayAdapter.html">pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/pixi.DragManager.html">pixi.DragManager</a></li>
+            
+                <li><a href="../classes/pixi.PixiDisplay.html">pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/PixiTask.html">PixiTask</a></li>
+            
+                <li><a href="../classes/Positioner.html">Positioner</a></li>
+            
+                <li><a href="../classes/SavedData.html">SavedData</a></li>
+            
+                <li><a href="../classes/ScreenSettings.html">ScreenSettings</a></li>
+            
+                <li><a href="../classes/Sound.html">Sound</a></li>
+            
+                <li><a href="../classes/SoundContext.html">SoundContext</a></li>
+            
+                <li><a href="../classes/SoundInstance.html">SoundInstance</a></li>
+            
+                <li><a href="../classes/SoundListTask.html">SoundListTask</a></li>
+            
+                <li><a href="../classes/StateEvent.html">StateEvent</a></li>
+            
+                <li><a href="../classes/StateManager.html">StateManager</a></li>
+            
+                <li><a href="../classes/SubWorker.html">SubWorker</a></li>
+            
+                <li><a href="../classes/Task.html">Task</a></li>
+            
+                <li><a href="../classes/TaskEvent.html">TaskEvent</a></li>
+            
+                <li><a href="../classes/TaskManager.html">TaskManager</a></li>
+            
+                <li><a href="../classes/TimeUtils.html">TimeUtils</a></li>
+            
+                <li><a href="../classes/Translate.html">Translate</a></li>
+            
+                <li><a href="../classes/UIElement.html">UIElement</a></li>
+            
+                <li><a href="../classes/UIElementSettings.html">UIElementSettings</a></li>
+            
+                <li><a href="../classes/UIScaler.html">UIScaler</a></li>
+            
+                <li><a href="../classes/VOPlayer.html">VOPlayer</a></li>
+            
+                <li><a href="../classes/Worker.html">Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/cloudkid.html">cloudkid</a></li>
+            
+                <li><a href="../modules/cloudkid.createjs.html">cloudkid.createjs</a></li>
+            
+                <li><a href="../modules/cloudkid.pixi.html">cloudkid.pixi</a></li>
+            
+                <li><a href="../modules/window.html">window</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = src/ui/Positioner.js      
+</script>
+<h1 class="file-heading">File:Positioner.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module cloudkid
+*/
+(function() {
+		
+	var UIScaler = cloudkid.UIScaler;
+
+	/**
+	*  Initially layouts all interface elements
+	*  @module cloudkid
+	*  @class Positioner
+	*/
+	var Positioner = function(){};
+	
+	// Set the protype
+	Positioner.prototype = {};
+	
+	/**
+	*  Initial position of all layout items
+	*  @method positionItems
+	*  @static
+	*  @param {DisplayObject} parent
+	*  @param {Object} itemSettings JSON format with position information
+	*  @param {Display} [display=Application.instance.display] The current display being positioned
+	*/
+	Positioner.positionItems = function(parent, itemSettings, display)
+	{
+		var adapter = UIScaler.getAdapter(display);
+
+		var pt, degToRad = Math.PI / 180, scale;
+		for(var iName in itemSettings)
+		{
+			var item = parent[iName];
+			if(!item)
+			{
+				Debug.error(&quot;could not find object &#x27;&quot; +  iName + &quot;&#x27;&quot;);
+				continue;
+			}
+			var setting = itemSettings[iName];
+			if(setting.x !== undefined)
+				adapter.setPosition(item, setting.x, &#x27;x&#x27;);
+			if(setting.y !== undefined)
+				adapter.setPosition(item, setting.y, &#x27;y&#x27;);
+			pt = setting.scale;
+			scale = adapter.getScale(item);
+			if(pt)
+			{
+				pt.x *= scale.x;
+				pt.y *= scale.y;
+				adapter.setScale(item, pt);
+			}
+			pt = setting.pivot;
+			if(pt)
+			{
+				adapter.setPivot(item, pt);
+			}
+			if(setting.rotation !== undefined)
+			{
+				item.rotation = settings.rotation;
+				if (adapter.useRadians)
+				{
+					item.rotation *= degToRad;
+				}
+			}
+
+			if(setting.hitArea)
+			{
+				adapter.setHitArea(item, Positioner.generateHitArea(setting.hitArea, 1, display));
+			}
+		}
+	};
+	
+	/**
+	*  Create the polygon hit area for interface elements
+	*  @static
+	*  @method generateHitArea
+	*  @param {Object|Array} hitArea One of the following: &lt;br/&gt;
+	*  * An array of points for a polygon, e.g. 
+	*
+	*		[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
+	*
+	*  * An object describing a rectangle, e.g.
+	*
+	*		{type:&quot;rect&quot;, x:0, y:0, w:10, h:30}
+	*
+	*  * An object describing an ellipse, where x and y are the center, e.g. 
+	*
+	*		{type:&quot;ellipse&quot;, x:0, y:0, w:10, h:30}
+	*
+	*  * An object describing a circle, where x and y are the center, e.g.
+	*
+	*		{type:&quot;circle&quot;, x:0, y:0, r:20}
+	*  @param {Number} [scale=1] The size to scale hitArea by
+	*  @param {Display} [display=Application.instance.display] The current display being positioned
+	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
+	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
+	*/
+	Positioner.generateHitArea = function(hitArea, scale, display)
+	{
+		var adapter = UIScaler.getAdapter(display);
+
+		if (!scale) scale = 1;
+
+		if (isArray(hitArea))
+		{
+			if(scale == 1)
+				return new adapter.Polygon(hitArea);
+			else
+			{
+				var temp = [];
+				for(var i = 0, len = hitArea.length; i &lt; len; ++i)
+				{
+					temp.push(new adapter.Point(hitArea[i].x * scale, hitArea[i].y * scale));
+				}
+				return new adapter.Polygon(temp);
+			}
+		}
+		else if(hitArea.type == &quot;rect&quot; || !hitArea.type)
+			return new adapter.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
+		else if(hitArea.type == &quot;ellipse&quot;)
+			return new adapter.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
+		else if(hitArea.type == &quot;circle&quot;)
+			return new adapter.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
+		else if(hitArea.type == &quot;sector&quot;)
+			return new adapter.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
+		return null;
+	};
+
+	var isArray = function(o)
+	{
+		return Object.prototype.toString.call(o) === &#x27;[object Array]&#x27;;
+	};
+	
+	// Assign to namespace
+	namespace(&#x27;cloudkid&#x27;).Positioner = Positioner;
+
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
