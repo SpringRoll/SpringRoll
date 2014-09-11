@@ -92,6 +92,14 @@
 	* @private
 	*/
 	var _optionsHelper = {};
+
+	/**
+	 * An object to allow stop() calls to be better differentiated
+	 * from animations ending naturally.
+	 * @property {Object} EXTERNAL_STOP
+	 * @private
+	 */
+	var EXTERNAL_STOP = {};
 	
 	/**
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
@@ -406,7 +414,7 @@
 			return;
 		}
 		var timeline = _timelinesMap[instance.id];
-		Animator._remove(timeline, doOnComplete);
+		Animator._remove(timeline, doOnComplete ? EXTERNAL_STOP : false);
 	};
 	
 	/**
@@ -464,7 +472,7 @@
 		timeline.instance.stop();
 
 		//in most cases, if doOnComplete is true, it's a natural stop and the audio can be allowed to continue
-		if(!doOnComplete && timeline.soundInst)
+		if((!doOnComplete || doOnComplete === EXTERNAL_STOP) && timeline.soundInst)
 			timeline.soundInst.stop();//stop the sound from playing
 		
 		// Remove from the stack
