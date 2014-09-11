@@ -1,10 +1,8 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function() {
-	
-	"use strict";
 
 	/**
 	*   Object that contains the screen settings to help scaling
@@ -47,8 +45,6 @@
 *  @module cloudkid
 */
 (function() {
-
-	"use strict";
 
 	// Class imports
 	var UIScaler;
@@ -314,8 +310,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  The UI Item Settings which is the positioning settings used to adjust each element
 	*  @module cloudkid
@@ -374,8 +368,6 @@
 */
 (function(undefined) {
 	
-	"use strict";
-
 	// Class imports
 	var UIElementSettings = cloudkid.UIElementSettings,
 		UIElement = cloudkid.UIElement,
@@ -714,9 +706,7 @@
 *  @module cloudkid
 */
 (function() {
-	
-	"use strict";
-	
+		
 	var UIScaler = cloudkid.UIScaler;
 
 	/**
@@ -848,4 +838,4 @@
 	// Assign to namespace
 	namespace('cloudkid').Positioner = Positioner;
 
-}());
+}());}();

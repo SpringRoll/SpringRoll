@@ -3,8 +3,6 @@
 */
 (function(undefined) {
 
-	"use strict";
-
 	var Application = cloudkid.Application;
 
 	/**

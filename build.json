@@ -5,6 +5,7 @@
 	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
 	"output" : "core",
 	"main" : [
+		"src/utils/namespace.js",
 		"src/polyfills/requestAnimationFrame.js",
 		"src/events/EventDispatcher.js",
 		"src/utils/PageVisibility.js",
@@ -73,6 +74,7 @@
 			"src/ui/Positioner.js"
 		],
 		"captions" : ["src/media/Captions.js"],
-		"translate" : ["src/utils/Translate.js"]
+		"translate" : ["src/utils/Translate.js"],
+		"debug" : ["src/utils/Debug.js"]
 	}
 }

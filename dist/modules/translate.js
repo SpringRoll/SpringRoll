@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function(window, $, undefined){
@@ -453,3 +453,4 @@
 	namespace('cloudkid').Translate = Translate;
 
 })(window, jQuery);
+}();

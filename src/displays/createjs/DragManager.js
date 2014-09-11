@@ -2,9 +2,7 @@
 *  @module cloudkid.createjs
 */
 (function() {
-	
-	"use strict";
-	
+		
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.

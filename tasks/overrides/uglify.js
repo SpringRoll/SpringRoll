@@ -11,7 +11,12 @@ module.exports = {
 			'<%= distFolder %>/modules/sound.min.js' : '<%= build.modules.sound %>',
 			'<%= distFolder %>/modules/captions.min.js' : '<%= build.modules.captions %>',
 			'<%= distFolder %>/modules/interface.min.js' : '<%= build.modules.interface %>',
-			'<%= distFolder %>/modules/translate.min.js' : '<%= build.modules.translate %>'
+			'<%= distFolder %>/modules/translate.min.js' : '<%= build.modules.translate %>',
+			'<%= distFolder %>/modules/debug.min.js' : '<%= build.modules.debug %>'
+		},
+		options: {
+			banner: '/*! <%= build.name %> <%= build.version %> */\n!function(){"use strict";',
+			footer: '}();'
 		}
 	}
 };

@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @modules cloudkid.createjs
 */
 (function(undefined){
@@ -225,8 +225,6 @@
 */
 (function(undefined){
 
-	"use strict";
-
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
@@ -449,8 +447,6 @@
 *  @module cloudkid.createjs
 */
 (function(undefined){
-
-	"use strict";
 
 	// Imports
 	var Application = cloudkid.Application,
@@ -1220,8 +1216,6 @@
 */
 (function(){
 
-	"use strict";
-
 	/**
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
@@ -1397,11 +1391,8 @@
 /**
  *  @module cloudkid.createjs
  */
-(function(undefined)
-{
-
-	"use strict";
-
+(function(undefined){
+	
 	/**
 	 *  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	 *  The button can be a normal button or a selectable button.
@@ -2196,8 +2187,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*   CharacterClip is used by the CharacterController class
 	*   
@@ -2248,8 +2237,6 @@
 *  @module cloudkid.createjs
 */
 (function(){
-
-	"use strict";
 
 	// Imports
 	var Animator = cloudkid.createjs.Animator;
@@ -2511,9 +2498,7 @@
 *  @module cloudkid.createjs
 */
 (function() {
-	
-	"use strict";
-	
+		
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
@@ -3054,8 +3039,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions.
@@ -3497,4 +3480,4 @@
 	};
 	
 	namespace("cloudkid").Cutscene = Cutscene;
-}());
+}());}();

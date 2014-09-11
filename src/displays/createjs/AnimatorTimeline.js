@@ -3,8 +3,6 @@
 */
 (function(){
 
-	"use strict";
-
 	/**
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality

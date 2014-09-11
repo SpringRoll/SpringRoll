@@ -3,8 +3,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
 		Application = cloudkid.Application;
 

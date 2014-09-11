@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function(window){
-	
-	"use strict";
-	
+		
 	// See if we have performance.now or any of
 	// the brower-specific versions
 	var now = window.performance && (

@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @modules cloudkid.pixi
 */
 (function(undefined){
@@ -217,8 +217,6 @@
 *  @module cloudkid.pixi
 */
 (function(undefined){
-
-	"use strict";
 
 	/**
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
@@ -489,8 +487,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
 		Application = cloudkid.Application;
 
@@ -963,8 +959,6 @@
 *  @module cloudkid.pixi
 */
 (function(undefined) {
-
-	"use strict";
 	
 	/**
 	*  A Multipurpose button class. It is designed to have one image, and an optional text label.
@@ -1641,9 +1635,7 @@
 *  @module cloudkid.pixi
 */
 (function() {
-	
-	"use strict";
-	
+		
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
@@ -2173,8 +2165,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
 	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
@@ -2540,4 +2530,4 @@
 	// Assign to the namespace
 	namespace('cloudkid').AssetManager = AssetManager;
 	namespace('cloudkid.pixi').AssetManager = AssetManager;
-}());
+}());}();

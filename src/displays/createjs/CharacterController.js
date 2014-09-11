@@ -3,8 +3,6 @@
 */
 (function(){
 
-	"use strict";
-
 	// Imports
 	var Animator = cloudkid.createjs.Animator;
 	

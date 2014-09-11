@@ -1,10 +1,8 @@
 /**
 *  @module cloudkid
 */
-(function(){
-	
-	"use strict";
-	
+(function(undefined){
+		
 	/** 
 	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
 	*
@@ -13,7 +11,7 @@
 	var SavedData = {},
 	
 	/** A constant to determine if we can use localStorage and sessionStorage */
-	WEB_STORAGE_SUPPORT = typeof(window.Storage) !== "undefined",
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
 	
 	/** A constant for cookie fallback for SavedData.clear() */
 	ERASE_COOKIE = -1;

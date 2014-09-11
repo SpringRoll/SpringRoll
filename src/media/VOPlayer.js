@@ -3,8 +3,6 @@
 */
 (function() {
 
-	"use strict";
-
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
 	var Sound = cloudkid.Sound,

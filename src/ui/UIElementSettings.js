@@ -3,8 +3,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  The UI Item Settings which is the positioning settings used to adjust each element
 	*  @module cloudkid

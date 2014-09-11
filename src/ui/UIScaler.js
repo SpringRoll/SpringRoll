@@ -3,8 +3,6 @@
 */
 (function(undefined) {
 	
-	"use strict";
-
 	// Class imports
 	var UIElementSettings = cloudkid.UIElementSettings,
 		UIElement = cloudkid.UIElement,

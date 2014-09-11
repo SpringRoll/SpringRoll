@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function() {
-	
-	"use strict";
-	
+		
 	var UIScaler = cloudkid.UIScaler;
 
 	/**

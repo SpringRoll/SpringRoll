@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function(global, doc, undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  Handle the page visiblity change, if supported. Application uses one of these to
 	*  monitor page visibility. It is suggested that you listen to "pause", "paused", 

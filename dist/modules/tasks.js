@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function(){
@@ -1208,4 +1208,4 @@
 	// Assign to the namespace
 	namespace('cloudkid').PixiTask = PixiTask;
 	
-}());
+}());}();

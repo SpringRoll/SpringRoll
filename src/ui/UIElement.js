@@ -3,8 +3,6 @@
 */
 (function() {
 
-	"use strict";
-
 	// Class imports
 	var UIScaler;
 

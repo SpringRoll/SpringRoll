@@ -3,8 +3,6 @@
 */
 (function(undefined){
 
-	"use strict";
-
 	/**
 	*   GenericDisplay is a display plugin for doing native rendering. This represents
 	*   the bare minimum needed by the Application to render.

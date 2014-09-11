@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function(){
@@ -773,4 +773,4 @@
 	// Assign to the namespacing
 	namespace('cloudkid').Captions = Captions;
 	
-}());
+}());}();

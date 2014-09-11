@@ -1,5 +1,5 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @modules cloudkid
 */
 (function(){
@@ -49,8 +49,6 @@
 *  @module cloudkid
 */
 (function(){
-
-	"use strict";
 
 	var Sound;
 
@@ -250,8 +248,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	var Task = cloudkid.Task;
 
 	// Task is optional if we're using the task module
@@ -313,8 +309,6 @@
 *  @module cloudkid
 */
 (function() {
-
-	"use strict";
 
 	var Application = cloudkid.Application,
 		MediaLoader = cloudkid.MediaLoader,
@@ -1326,8 +1320,6 @@
 */
 (function() {
 
-	"use strict";
-
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
 	var Sound = cloudkid.Sound,
@@ -1688,3 +1680,4 @@
 	namespace('cloudkid').VOPlayer = VOPlayer;
 	namespace('cloudkid').Sound.VOPlayer = VOPlayer;
 }());
+}();

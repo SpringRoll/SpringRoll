@@ -2,9 +2,7 @@
 *  @module cloudkid.pixi
 */
 (function() {
-	
-	"use strict";
-	
+		
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.

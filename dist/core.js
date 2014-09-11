@@ -1,4 +1,50 @@
 /*! CloudKidFramework 0.0.3 */
+!function(){"use strict";/**
+*  @module window
+*/
+/**
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
+*  @static
+*/
+(function(global){
+	
+	// The namespace function already exists
+	if ("namespace" in global) return;
+	
+	/**
+	*  Create the namespace and assing to the window
+	*
+	*  @example
+		var SpriteUtils = function(){};
+		namespace('cloudkid').SpriteUtils = SpriteUtils;
+	*
+	*  @constructor
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'cloudkid.utils'
+	*  @return {object} The namespace object attached to the current window
+	*/
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the global namespace
+	global.namespace = namespace;
+	
+}(window));
+
+
 (function(){
 
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -40,9 +86,7 @@
 *  @module cloudkid
 */
 (function(global, undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, 
 	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
@@ -231,9 +275,7 @@
 *  @module cloudkid
 */
 (function(global, doc, undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  Handle the page visiblity change, if supported. Application uses one of these to
 	*  monitor page visibility. It is suggested that you listen to "pause", "paused", 
@@ -366,9 +408,7 @@
 *  @module cloudkid
 */
 (function(window){
-	
-	"use strict";
-	
+		
 	// See if we have performance.now or any of
 	// the brower-specific versions
 	var now = window.performance && (
@@ -1144,9 +1184,7 @@
 *  @module cloudkid
 */
 (function(undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  Used for managing the browser cache of loading external elements
 	*  can easily load version manifest and apply it to the media loader
@@ -1342,8 +1380,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*  Represents a single item in the loader queue 
 	*
@@ -1461,9 +1497,7 @@
 *  @module cloudkid
 */
 (function(){
-	
-	"use strict";
-	
+		
 	/**
 	*  The MediaLoader is the singleton loader for loading all assets
 	*  including images, data, code and sounds. MediaLoader supports cache-busting
@@ -1896,8 +1930,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*  The return result of the MediaLoader load
 	*  @class MediaLoaderResult
@@ -1968,8 +2000,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
 	*  callbacks into one. For example usage:
@@ -2016,10 +2046,8 @@
 /**
 *  @module cloudkid
 */
-(function(){
-	
-	"use strict";
-	
+(function(undefined){
+		
 	/** 
 	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
 	*
@@ -2028,7 +2056,7 @@
 	var SavedData = {},
 	
 	/** A constant to determine if we can use localStorage and sessionStorage */
-	WEB_STORAGE_SUPPORT = typeof(window.Storage) !== "undefined",
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
 	
 	/** A constant for cookie fallback for SavedData.clear() */
 	ERASE_COOKIE = -1;
@@ -2139,8 +2167,6 @@
 *  @module cloudkid
 */
 (function(undefined) {
-
-	"use strict";
 
 	var Application = cloudkid.Application;
 
@@ -2297,4 +2323,4 @@
 	};
 
 	namespace('cloudkid').DelayedCall = DelayedCall;
-}());
+}());}();

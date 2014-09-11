@@ -2,8 +2,6 @@
 *  @module cloudkid
 */
 (function() {
-	
-	"use strict";
 
 	/**
 	*   Object that contains the screen settings to help scaling

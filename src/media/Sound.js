@@ -3,8 +3,6 @@
 */
 (function() {
 
-	"use strict";
-
 	var Application = cloudkid.Application,
 		MediaLoader = cloudkid.MediaLoader,
 		LoadTask = cloudkid.LoadTask,

@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function(){
-	
-	"use strict";
-	
+		
 	/**
 	*  The MediaLoader is the singleton loader for loading all assets
 	*  including images, data, code and sounds. MediaLoader supports cache-busting

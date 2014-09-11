@@ -3,8 +3,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions.

@@ -3,8 +3,6 @@
 */
 (function(undefined){
 
-	"use strict";
-
 	// Imports
 	var Application = cloudkid.Application,
 		AnimatorTimeline = null;//saved in global init for less complicated build order

@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function(global, undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, 
 	*  but is more robust in terms of inputs for the `on()` and `off()` methods.

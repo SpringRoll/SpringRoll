@@ -3,8 +3,6 @@
 */
 (function(){
 
-	"use strict";
-
 	var Sound;
 
 	/**

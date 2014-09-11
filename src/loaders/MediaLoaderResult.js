@@ -3,8 +3,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*  The return result of the MediaLoader load
 	*  @class MediaLoaderResult

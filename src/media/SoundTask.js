@@ -3,8 +3,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	var Task = cloudkid.Task;
 
 	// Task is optional if we're using the task module

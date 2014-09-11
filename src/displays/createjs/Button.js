@@ -1,11 +1,8 @@
 /**
  *  @module cloudkid.createjs
  */
-(function(undefined)
-{
-
-	"use strict";
-
+(function(undefined){
+	
 	/**
 	 *  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	 *  The button can be a normal button or a selectable button.

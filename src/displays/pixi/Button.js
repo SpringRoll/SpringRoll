@@ -2,8 +2,6 @@
 *  @module cloudkid.pixi
 */
 (function(undefined) {
-
-	"use strict";
 	
 	/**
 	*  A Multipurpose button class. It is designed to have one image, and an optional text label.

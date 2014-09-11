@@ -3,8 +3,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*  Represents a single item in the loader queue 
 	*

@@ -1,10 +1,8 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function(undefined){
-
-	"use strict";
 
 	/**
 	*   GenericDisplay is a display plugin for doing native rendering. This represents
@@ -175,4 +173,4 @@
 	// Assign to the global namespace
 	namespace('cloudkid').GenericDisplay = GenericDisplay;
 
-}());
+}());}();

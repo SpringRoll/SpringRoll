@@ -3,8 +3,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
 	*  callbacks into one. For example usage:

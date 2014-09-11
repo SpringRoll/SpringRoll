@@ -3,8 +3,6 @@
 */
 (function(undefined){
 	
-	"use strict";
-
 	// Imports
 	var Audio = cloudkid.Audio || cloudkid.Sound,
 		BaseState = cloudkid.BaseState,

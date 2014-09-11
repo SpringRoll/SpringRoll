@@ -3,8 +3,6 @@
 */
 (function(undefined){
 
-	"use strict";
-
 	/**
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.

@@ -3,8 +3,6 @@
 */
 (function(undefined){
 	
-	"use strict";
-
 	/**
 	*   A state-related event used by the State Manager
 	*   

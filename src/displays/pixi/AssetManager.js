@@ -3,8 +3,6 @@
 */
 (function() {
 	
-	"use strict";
-
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
 	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware

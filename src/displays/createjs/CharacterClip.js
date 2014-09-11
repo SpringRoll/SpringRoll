@@ -3,8 +3,6 @@
 */
 (function(){
 	
-	"use strict";
-
 	/**
 	*   CharacterClip is used by the CharacterController class
 	*   

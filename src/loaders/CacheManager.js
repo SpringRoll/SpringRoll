@@ -2,9 +2,7 @@
 *  @module cloudkid
 */
 (function(undefined){
-	
-	"use strict";
-	
+		
 	/**
 	*  Used for managing the browser cache of loading external elements
 	*  can easily load version manifest and apply it to the media loader

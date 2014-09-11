@@ -3,8 +3,6 @@
 */
 (function(undefined){
 
-	"use strict";
-
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.

@@ -38,5 +38,13 @@ module.exports = {
 	translate : {
 		src: ['<%= build.modules.translate %>'],
 		dest: '<%= distFolder %>/modules/translate.js'
+	},
+	debug : {
+		src: ['<%= build.modules.debug %>'],
+		dest: '<%= distFolder %>/modules/debug.js'
+	},
+	options: {
+		banner: '/*! <%= build.name %> <%= build.version %> */\n!function(){"use strict";',
+		footer: '}();'
 	}
 };

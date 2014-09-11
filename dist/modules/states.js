@@ -1,11 +1,9 @@
 /*! CloudKidFramework 0.0.3 */
-/**
+!function(){"use strict";/**
 *  @module cloudkid
 */
 (function(){
 	
-	"use strict";
-
 	// Imports
 	var StateManager;
 	
@@ -470,8 +468,6 @@
 */
 (function(undefined){
 	
-	"use strict";
-
 	/**
 	*   A state-related event used by the State Manager
 	*   
@@ -575,8 +571,6 @@
 */
 (function(undefined){
 	
-	"use strict";
-
 	// Imports
 	var Audio = cloudkid.Audio || cloudkid.Sound,
 		BaseState = cloudkid.BaseState,
@@ -1225,4 +1219,4 @@
 	
 	// Add to the name space
 	namespace('cloudkid').StateManager = StateManager;
-})();
+})();}();
