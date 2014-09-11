@@ -1,5 +1,5 @@
 /**
-*  @module cloudkid.pixi
+*  @module cloudkid
 */
 (function() {
 	
@@ -40,6 +40,5 @@
 	
 	// Assign to namespace
 	namespace('cloudkid').ScreenSettings = ScreenSettings;
-	namespace('cloudkid.pixi').ScreenSettings = ScreenSettings;
 
 }());

@@ -1,15 +1,15 @@
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function(){
 	
 	"use strict";
 
 	/**
-	*   CreateJSCutscene is a class for playing a single EaselJS animation synced to a
+	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions.
 	*
-	*   @class CreateJSCutscene
+	*   @class createjs.Cutscene
 	*	@constructor
 	*	@param {Object} options The runtime specific setup data for the cutscene.
 	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
@@ -20,13 +20,13 @@
 	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
 	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
 	*/
-	var CreateJSCutscene = function(options)
+	var Cutscene = function(options)
 	{
 		createjs.Container.call(this);
 		this.setup(options);
 	};
 	
-	var p = CreateJSCutscene.prototype = new createjs.Container();
+	var p = Cutscene.prototype = new createjs.Container();
 	
 	/**
 	*	When the cutscene is ready to use
@@ -145,7 +145,7 @@
 	p.setup = function(options)
 	{
 		if(!options)
-			throw new Error("need options to create CreateJSCutscene");
+			throw new Error("need options to create Cutscene");
 		
 		this.display = typeof options.display == "string" ? cloudkid.Application.instance.getDisplay(options.display) : options.display;
 		this.config = options.configUrl;
@@ -445,5 +445,5 @@
 		this.display = null;
 	};
 	
-	namespace("cloudkid").CreateJSCutscene = CreateJSCutscene;
+	namespace("cloudkid").Cutscene = Cutscene;
 }());

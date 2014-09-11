@@ -1,8 +1,222 @@
 /*! CloudKidFramework 0.0.3 */
 /**
-*  @module cloudkid
+*  @modules cloudkid.pixi
 */
-(function(){
+(function(undefined){
+	
+	/**
+	*  Provide a normalized way to get size, position, scale values
+	*  as well as provide reference for different geometry classes.
+	*  @class pixi.DisplayAdapter
+	*/
+	var DisplayAdapter = {};
+
+	/**
+	*  The geometry class for Circle
+	*  @property {Function} Circle
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Circle
+	*/
+	DisplayAdapter.Circle = PIXI.Circle;
+
+	/**
+	*  The geometry class for Ellipse
+	*  @property {Function} Ellipse
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Ellipse
+	*/
+	DisplayAdapter.Ellipse = PIXI.Ellipse;
+
+	/**
+	*  The geometry class for Rectangle
+	*  @property {Function} Rectangle
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Rectangle
+	*/
+	DisplayAdapter.Rectangle = PIXI.Rectangle;
+
+	/**
+	*  The geometry class for Sector
+	*  @property {Function} Sector
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Sector
+	*/
+	DisplayAdapter.Sector = PIXI.Sector;
+
+	/**
+	*  The geometry class for point
+	*  @property {Function} Point
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Point
+	*/
+	DisplayAdapter.Point = PIXI.Point;
+
+	/**
+	*  The geometry class for Polygon
+	*  @property {Function} Polygon
+	*  @readOnly
+	*  @static
+	*  @default PIXI.Polygon
+	*/
+	DisplayAdapter.Polygon = PIXI.Polygon;
+
+	/**
+	*  If the rotation is expressed in radians
+	*  @property {Boolean} useRadians
+	*  @readOnly
+	*  @static
+	*  @default true
+	*/
+	DisplayAdapter.useRadians = true;
+
+	/**
+	*  Normalize the object scale
+	*  @method getScale
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI display object
+	*  @param {String} [direction] Either "x" or "y" to return a specific value
+	*  @return {object|Number} A scale object with x and y keys or a single number if direction is set
+	*/
+	DisplayAdapter.getScale = function(object, direction)
+	{
+		if (direction !== undefined)
+		{
+			return object.scale[direction];
+		}
+		return object.scale;
+	};
+
+	/**
+	*  Normalize the object position setting
+	*  @method setPosition
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI display object
+	*  @param {object|Number} position The position object or the value
+	* 		if the direction is set.
+	*  @param {Number} [position.x] The x value
+	*  @param {Number} [position.y] The y value
+	*  @param {String} [direction] Either "x" or "y" value
+	*  @return {PIXI.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setPosition = function(object, position, direction)
+	{
+		if (direction !== undefined)
+		{
+			object.position[direction] = position;
+		}
+		else
+		{
+			if (position.x) object.position.x = position.x;
+			if (position.y) object.position.y = position.y;
+		}
+		return object;
+	};
+
+	/**
+	*  Normalize the object position getting
+	*  @method getPosition
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI display object
+	*  @param {String} [direction] Either "x" or "y", default is an object of both
+	*  @return {Object|Number} The position as an object with x and y keys if no direction
+	*		value is set, or the value of the specific direction
+	*/
+	DisplayAdapter.getPosition = function(object, direction)
+	{
+		if (direction !== undefined)
+		{
+			return object.position[direction];
+		}
+		return object.position;
+	};
+
+	/**
+	*  Normalize the object scale setting
+	*  @method setScale
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI Display object
+	*  @param {Number} scale The scaling object or scale value for x and y
+	*  @param {String} [direction] Either "x" or "y" if setting a specific value, default
+	* 		sets both the scale x and scale y.
+	*  @return {PIXI.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setScale = function(object, scale, direction)
+	{
+		if (direction !== undefined)
+		{
+			object.scale[direction] = scale;
+		}
+		else
+		{
+			object.scale.x = object.scale.y = scale;
+		}
+		return object;
+	};
+
+	/**
+	*  Set the pivot or registration point of an object
+	*  @method setPivot
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI Display object
+	*  @param {object|Number} pivot The object pivot point or the value if the direction is set
+	*  @param {Number} [pivot.x] The x position of the pivot point
+	*  @param {Number} [pivot.y] The y position of the pivot point
+	*  @param {String} [direction] Either "x" or "y" the value for specific direction, default
+	* 		will set using the object.
+	*  @return {PIXI.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setPivot = function(object, pivot, direction)
+	{
+		if (direction !== undefined)
+		{
+			object.pivot[direction] = pivot;
+		}
+		object.pivot = pivot;
+		return object;
+	};
+
+	/**
+	*  Set the hit area of the shape
+	*  @method setHitArea
+	*  @static
+	*  @param {PIXI.DisplayObject} object The PIXI Display object
+	*  @param {Object} shape The geometry object
+	*  @return {PIXI.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setHitArea = function(object, shape)
+	{
+		object.hitArea = shape;
+		return object;
+	};
+
+	/**
+	*  Get the original size of a bitmap
+	*  @method getBitmapSize
+	*  @static
+	*  @param {PIXI.Bitmap} bitmap The bitmap to measure
+	*  @return {object} The width (w) and height (h) of the actual bitmap size
+	*/
+	DisplayAdapter.getBitmapSize = function(bitmap)
+	{
+		return {
+			h: bitmap.height / bitmap.scale.y,
+			w: bitmap.width / bitmap.scale.x
+		};
+	};
+
+	// Assign to namespace
+	namespace('cloudkid.pixi').DisplayAdapter = DisplayAdapter;
+
+}());
+/**
+*  @module cloudkid.pixi
+*/
+(function(undefined){
 
 	"use strict";
 
@@ -10,7 +224,7 @@
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
 	*
-	*   @class PixiDisplay
+	*   @class pixi.PixiDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
@@ -81,6 +295,7 @@
 		this.renderer.clearView = !!options.clearView;
 		this.enabled = true;//enable mouse/touch input
 		this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+		
 		/**
 		*  The Animator class to use when using this display.
 		*  @property {Animator} Animator
@@ -88,6 +303,15 @@
 		*  @public
 		*/
 		this.Animator = cloudkid.pixi.Animator;
+
+		/**
+		*  The DisplayAdapter class to use when providing standard
+		*  ways for accessing properties like position, scale, etc.
+		*  @property {pixi.DisplayAdapter} DisplayAdapter
+		*  @readOnly
+		*  @public
+		*/
+		this.DisplayAdapter = cloudkid.pixi.DisplayAdapter;
 	};
 
 	var p = PixiDisplay.prototype = {};
@@ -261,21 +485,24 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.pixi
 */
 (function() {
 	
 	"use strict";
 
+	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
+		Application = cloudkid.Application;
+
 	/**
 	*  Animator for interacting with Spine animations
-	*  @class Animator
+	*  @class pixi.Animator
 	*  @static
 	*/
 	var Animator = function(){};
 	
 	/**
-	* The collection of AnimTimelines that are playing
+	* The collection of AnimatorTimelines that are playing
 	* @property {Array} _timelines
 	* @private
 	*/
@@ -290,7 +517,7 @@
 	_numAnims = 0,
 	
 	/**
-	 * Stored collection of AnimTimelines. This is internal to Animator and can't be accessed externally.
+	 * Stored collection of AnimatorTimelines. This is internal to Animator and can't be accessed externally.
 	 * @property {Array} _animPool
 	 * @private
 	 * @static
@@ -307,7 +534,7 @@
 	
 	/**
 	*  The global captions object to use with animator
-	*  @property {cloudkid.Captions} captions
+	*  @property {Captions} captions
 	*  @public
 	*/
 	Animator.captions = null;
@@ -344,6 +571,7 @@
 	* @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
 	* @param {Object|String} [options.soundData=null] Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
 	*        start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.
+	* @return {pixi.AnimatorTimeline} The timeline object
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
@@ -378,7 +606,7 @@
 
 		var t = _animPool.length ? 
 			_animPool.pop().init(clip, callback, speed) : 
-			new AnimTimeline(clip, callback, speed);
+			new AnimatorTimeline(clip, callback, speed);
 
 		if(t.isSpine)//PIXI.Spine
 		{
@@ -466,7 +694,7 @@
 		t.time = startTime > 0 ? startTime : 0;
 		_timelines.push(t);
 		if(++_numAnims == 1)
-			cloudkid.Application.instance.on("update", _update);
+			Application.instance.on("update", _update);
 		return t;
 	};
 
@@ -514,7 +742,7 @@
 				var t = _timelines[i];
 				_timelines.splice(i, 1);
 				if(--_numAnims === 0)
-					cloudkid.Application.instance.off("update", _update);
+					Application.instance.off("update", _update);
 				if(doCallback && t.callback)
 					t.callback();
 				if(t.soundInst)
@@ -540,16 +768,16 @@
 				_repool(t);
 				break;
 		}		
-		cloudkid.Application.instance.off("update", _update);
+		Application.instance.off("update", _update);
 		_timelines.length = _numAnims = 0;
 	};
 	
 	/**
-	 * Put an AnimTimeline back into the general pool after it's done playing
+	 * Put an AnimatorTimeline back into the general pool after it's done playing
 	 * or has been manually stopped
 	 * 
 	 * @function _repool
-	 * @param {Animator.AnimTimeline} timeline
+	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _repool = function(timeline)
@@ -664,7 +892,7 @@
 			}
 		}
 		if(_numAnims === 0)
-			cloudkid.Application.instance.off("update", _update);
+			Application.instance.off("update", _update);
 	};
 	
 	var onSoundStarted = function(timeline)
@@ -681,11 +909,11 @@
 	};
 	
 	/**
-	 * Called when a movie clip is done playing, calls the AnimTimeline's
+	 * Called when a movie clip is done playing, calls the AnimatorTimeline's
 	 * callback if it has one
 	 * 
 	 * @function _onMovieClipDone
-	 * @param {Animator.AnimTimeline} timeline
+	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _onMovieClipDone = function(timeline)
@@ -700,7 +928,7 @@
 				t.clip.onComplete = null;
 				_timelines.splice(i, 1);
 				if(--_numAnims === 0)
-					cloudkid.Application.instance.off("update", _update);
+					Application.instance.off("update", _update);
 				if(t.callback)
 					t.callback();
 				_repool(t);
@@ -720,169 +948,19 @@
 		_instance = null;
 		_animPool = null;
 		_timelines = null;
-		cloudkid.Application.instance.off("update", _update);
+		Application.instance.off("update", _update);
 		_boundUpdate = null;
 	};
-	
-	/**
-	 * Internal Animator class for keeping track of animations. AnimTimelines are pooled internally,
-	 * so please only keep references to them while they are actively playing an animation.
-	 * 
-	 * @class Animator.AnimTimeline
-	 * @constructor
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {int} speed The speed at which the clip should be played
-	 */
-	var AnimTimeline = function(clip, callback, speed)
-	{
-		this.init(clip, callback, speed);
-	};
-	
-	AnimTimeline.constructor = AnimTimeline;
-	
-	/**
-	 * Initialize the AnimTimeline
-	 * 
-	 * @function init
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {Number} speed The speed at which the clip should be played
-	 * @returns {Animator.AnimTimeline}
-	 */
-	AnimTimeline.prototype.init = function(clip, callback, speed)
-	{
-		/**
-		*	The clip for this AnimTimeLine
-		*	@property {PIXI.MovieClip|PIXI.Spine} clip
-		*	@public
-		*/
-		this.clip = clip;
-
-		/**
-		*	Whether the clip is a PIXI.Spine
-		*	@property {bool} isSpine
-		*	@public
-		*/
-		this.isSpine = clip instanceof PIXI.Spine;
-
-		/**
-		*	The function to call when the clip is finished playing
-		*	@property {function} callback
-		*	@public
-		*/
-		this.callback = callback;
-
-		/**
-		*	The speed at which the clip should be played
-		*	@property {Number} speed
-		*	@public
-		*/
-		this.speed = speed;
-
-		/**
-		*	@property {Array} spineStates
-		*	@public
-		*/
-		this.spineStates = null;
-
-		/**
-		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
-		*	@property {bool} loop
-		*	@public
-		*/
-		this.loop = null;
-
-		/**
-		*	The position of the animation in seconds
-		*	@property {Number} time
-		*	@public
-		*/
-		this.time = 0;
-
-		/**
-		*	Sound alias to sync to during the animation.
-		*	@property {String} soundAlias
-		*	@public
-		*/
-		this.soundAlias = null;
-
-		/**
-		*	A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
-		*	@property {Object} soundInst
-		*	@public
-		*/
-		this.soundInst = null;
-
-		/**
-		*	If the timeline will, but has yet to, play a sound
-		*	@property {bool} playSound
-		*	@public
-		*/
-		this.playSound = false;
-
-		/**
-		*	The time (seconds) into the animation that the sound starts.
-		*	@property {Number} soundStart
-		*	@public
-		*/
-		this.soundStart = 0;
-
-		/**
-		*	The time (seconds) into the animation that the sound ends
-		*	@property {Number} soundEnd
-		*	@public
-		*/
-		this.soundEnd = 0;
-
-		/**
-		*  If this timeline plays captions
-		*
-		*  @property {bool} useCaptions
-		*  @readOnly
-		*/
-		this.useCaptions = false;
-
-		/**
-		*	If this animation is paused.
-		*	@property {bool} _paused
-		*	@private
-		*/
-		this._paused = false;
-
-		return this;
-	};
-	
-	/**
-	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
-	* @public
-	*/
-	Object.defineProperty(AnimTimeline.prototype, "paused", {
-		get: function() { return this._paused; },
-		set: function(value) {
-			if(value == this._paused) return;
-			this._paused = !!value;
-			if(this.soundInst)
-			{
-				if(this.paused)
-					this.soundInst.pause();
-				else
-					this.soundInst.unpause();
-			}
-		}
-	});
 
 	//set up the global initialization and destroy
-	cloudkid.Application.registerInit(Animator.init);
-	cloudkid.Application.registerDestroy(Animator.destroy);
+	Application.registerInit(Animator.init);
+	Application.registerDestroy(Animator.destroy);
 	
 	namespace('cloudkid').Animator = Animator;
 	namespace('cloudkid.pixi').Animator = Animator;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.pixi
 */
 (function(undefined) {
 
@@ -895,7 +973,7 @@
 	*  initialization and callbacks.
 	*  Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
 	*  
-	*  @class Button
+	*  @class pixi.Button
 	*  @extends PIXI.DisplayObjectContainer
 	*  @constructor
 	*  @param {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
@@ -1560,7 +1638,7 @@
 	namespace('cloudkid.pixi').Button = Button;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.pixi
 */
 (function() {
 	
@@ -1570,7 +1648,7 @@
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
 	*
-	*  @class DragManager
+	*  @class pixi.DragManager
 	*  @constructor
 	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
 	*  @param {function} startCallback The callback when when starting
@@ -2091,7 +2169,7 @@
 	namespace('cloudkid.pixi').DragManager = DragManager;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.pixi
 */
 (function() {
 	
@@ -2104,7 +2182,7 @@
 	*  The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
 	*  loading the appropriate assets, as well as easily unloading assets when you are done using them.
 	*
-	*  @class AssetManager
+	*  @class pixi.AssetManager
 	*/
 	var AssetManager = {};
 	
@@ -2462,781 +2540,4 @@
 	// Assign to the namespace
 	namespace('cloudkid').AssetManager = AssetManager;
 	namespace('cloudkid.pixi').AssetManager = AssetManager;
-}());
-(function() {
-	
-	"use strict";
-	
-	/**
-	*  Initially layouts all interface elements
-	*  @module cloudkid
-	*  @class Positioner
-	*/
-	var Positioner = function(){};
-	
-	// Set the protype
-	Positioner.prototype = {};
-	
-	/**
-	*  Initial position of all layout items
-	*  @method positionItems
-	*  @static
-	*  @param {PIXI.DisplayObject} parent
-	*  @param {Object} itemSettings JSON format with position information
-	*/
-	Positioner.positionItems = function(parent, itemSettings)
-	{
-		var pt, degToRad = Math.PI / 180;
-		for(var iName in itemSettings)
-		{
-			var item = parent[iName];
-			if(!item)
-			{
-				Debug.error("could not find object '" +  iName + "'");
-				continue;
-			}
-			var setting = itemSettings[iName];
-			if(setting.x !== undefined)
-				item.position.x = setting.x;
-			if(setting.y !== undefined)
-				item.position.y = setting.y;
-			pt = setting.scale;
-			if(pt)
-			{
-				item.scale.x *= pt.x;
-				item.scale.y *= pt.y;
-			}
-			pt = setting.pivot;
-			if(pt)
-			{
-				item.pivot.x = pt.x;
-				item.pivot.y = pt.y;
-			}
-			if(setting.rotation !== undefined)
-				item.rotation = setting.rotation * degToRad;//Pixi rotations are in radians
-			//item.name = iName;
-			if(setting.hitArea)
-			{
-				item.hitArea = Positioner.generateHitArea(setting.hitArea);
-			}
-		}
-	};
-	
-	/**
-	*  Create the polygon hit area for interface elements
-	*  @static
-	*  @method generateHitArea
-	*  @param {Object|Array} hitArea One of the following: <br/>
-	*  * An array of points for a polygon, e.g. 
-	*
-	*		[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
-	*
-	*  * An object describing a rectangle, e.g.
-	*
-	*		{type:"rect", x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing an ellipse, where x and y are the center, e.g. 
-	*
-	*		{type:"ellipse", x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing a circle, where x and y are the center, e.g.
-	*
-	*		{type:"circle", x:0, y:0, r:20}
-	*  @param {Number} scale=1 The size to scale hitArea by
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
-	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
-	*/
-	Positioner.generateHitArea = function(hitArea, scale)
-	{
-		if(!scale)
-			scale = 1;
-		if(isArray(hitArea))
-		{
-			if(scale == 1)
-				return new PIXI.Polygon(hitArea);
-			else
-			{
-				var temp = [];
-				for(var i = 0, len = hitArea.length; i < len; ++i)
-				{
-					temp.push(new PIXI.Point(hitArea[i].x * scale, hitArea[i].y * scale));
-				}
-				return new PIXI.Polygon(temp);
-			}
-		}
-		else if(hitArea.type == "rect" || !hitArea.type)
-			return new PIXI.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
-		else if(hitArea.type == "ellipse")
-			return new PIXI.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
-		else if(hitArea.type == "circle")
-			return new PIXI.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
-		else if(hitArea.type == "sector")
-			return new PIXI.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
-		return null;
-	};
-
-	var isArray = function(o)
-	{
-		return Object.prototype.toString.call(o) === '[object Array]';
-	};
-	
-	namespace('cloudkid').Positioner = Positioner;
-	namespace('cloudkid.pixi').Positioner = Positioner;
-}());
-(function() {
-	
-	"use strict";
-
-	/**
-	*   Object that contains the screen settings to help scaling
-	*   @module cloudkid
-	*   @class ScreenSettings
-	*   @constructor
-	*   @param {Number} width The screen width in pixels
-	*   @param {Number} height The screen height in pixels
-	*   @param {Number} ppi The screen pixel density (PPI)
-	*/
-	var ScreenSettings = function(width, height, ppi)
-	{
-		/**
-		*  The screen width in pixels
-		*  @property {Number} width 
-		*/
-		this.width = width;
-
-		/**
-		*  The screen height in pixels
-		*  @property {Number} height 
-		*/
-		this.height = height;
-
-		/**
-		*  The screen pixel density (PPI)
-		*  @property {Number} ppi
-		*/
-		this.ppi = ppi;
-	};
-	
-	// Set the prototype
-	ScreenSettings.prototype = {};
-	
-	// Assign to namespace
-	namespace('cloudkid').ScreenSettings = ScreenSettings;
-	namespace('cloudkid.pixi').ScreenSettings = ScreenSettings;
-
-}());
-(function() {
-
-	"use strict";
-
-	// Class imports
-	var UIScaler;
-
-	/**
-	*   A single UI item that needs to be resized	
-	*
-	*   @module cloudkid
-	*   @class UIElement
-	*	@param {PIXI.DisplayObject} item The item to affect  
-	*   @param {UIElementSettings} settings The scale settings
-	*	@param {ScreenSettings} designedScreen The original screen the item was designed for
-	*/
-	var UIElement = function(item, settings, designedScreen)
-	{
-		UIScaler = cloudkid.pixi.UIScaler;
-		
-		this._item = item;			
-		this._settings = settings;
-		this._designedScreen = designedScreen;
-		
-		this.origScaleX = item.scale.x;
-		this.origScaleY = item.scale.y;
-
-		this.origWidth = item.width;
-
-		this.origBounds = {x:0, y:0, width:item.width, height:item.height};
-		this.origBounds.right = this.origBounds.x + this.origBounds.width;
-		this.origBounds.bottom = this.origBounds.y + this.origBounds.height;
-		
-		switch(settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-			{
-				this.origMarginVert = item.position.y + this.origBounds.y;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this.origMarginVert = designedScreen.height * 0.5 - item.position.y;
-				break;
-			}
-			case UIScaler.ALIGN_BOTTOM:
-			{
-				this.origMarginVert = designedScreen.height - (item.position.y + this.origBounds.bottom);
-				break;
-			}
-		}
-
-		switch(settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-			{
-				this.origMarginHori = item.position.x + this.origBounds.x;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this.origMarginHori = designedScreen.width * 0.5 - item.position.x;
-				break;
-			}
-			case UIScaler.ALIGN_RIGHT:
-			{
-				this.origMarginHori = designedScreen.width - (item.position.x + this.origBounds.right);
-				break;
-			}
-		}
-	};
-	
-	var p = UIElement.prototype = {};
-
-	/**
-	*  Original horizontal margin in pixels
-	*  @property {Number} origMarginHori
-	*  @default 0
-	*/
-	p.origMarginHori = 0;
-
-	/**
-	*  Original vertical margin in pixels
-	*  @property {Number} origMarginVert
-	*  @default 0
-	*/
-	p.origMarginVert = 0;
-
-	/** 
-	*  Original width in pixels 
-	*  @property {Number} origWidth
-	*  @default 0
-	*/
-	p.origWidth = 0;
-
-	/**
-	*  Original X scale of the item
-	*  @property {Number} origScaleX
-	*  @default 0
-	*/
-	p.origScaleX = 0;
-
-	/**
-	*  The original Y scale of the item
-	*  @property {Number} origScaleY
-	*  @default 0
-	*/
-	p.origScaleY = 0;
-
-	/**
-	*  The original bounds of the item with x, y, right, bottom, width, height properties.
-	*  Used to determine the distance to each edge of the item from its origin
-	*  @property {Object} origBounds
-	*/
-	p.origBounds = null;
-
-	/**
-	*  The reference to the scale settings
-	*  @private
-	*  @property {UIElementSettings} _settings
-	*/	
-	p._settings = null;
-	
-	/**
-	*  The reference to the interface item we're scaling
-	*  @private
-	*  @property {createjs.DisplayObject|PIXI.DisplayObject} _item
-	*/
-	p._item = null;
-	
-	/**
-	*  The original screen the item was designed for
-	*  @private
-	*  @property {ScreenSettings} _designedScreen
-	*/
-	p._designedScreen = null;
-	
-	/**
-	*  Adjust the item scale and position, to reflect new screen
-	*  @method resize
-	*  @param {ScreenSettings} newScreen The current screen settings
-	*/
-	p.resize = function(newScreen)
-	{
-		var overallScale = newScreen.height / this._designedScreen.height;
-		var ppiScale = newScreen.ppi / this._designedScreen.ppi;
-		var letterBoxWidth = (newScreen.width - this._designedScreen.width * overallScale) / 2;
-
-		// Scale item to the overallScale to match rest of the app, 
-		// then clamp its physical size as specified 
-		// then set the item's scale to be correct - the screen is not scaled
-
-		//Full math:
-		/*var physicalScale:Number = overallScale / ppiScale;
-		var itemScale:Number = MathUtils.clamp(physicalScale, minScale, maxScale) / physicalScale * overallScale;*/
-
-		//Optimized math:
-		var itemScale = overallScale / ppiScale;
-		if(this._settings.minScale && itemScale < this._settings.minScale)
-			itemScale = this._settings.minScale;
-		else if(this._settings.maxScale && itemScale > this._settings.maxScale)
-			itemScale = this._settings.maxScale;
-		itemScale *= ppiScale;
-
-		this._item.scale.x = this.origScaleX * itemScale;
-		this._item.scale.y = this.origScaleY * itemScale;
-
-		// positioning
-		var m;
-
-		// vertical move
-		m = this.origMarginVert * overallScale;
-		
-		
-		switch(this._settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-			{
-				this._item.position.y = m - this.origBounds.y * itemScale;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this._item.position.y = newScreen.height * 0.5 - m;
-				break;
-			}
-			case UIScaler.ALIGN_BOTTOM:
-			{
-				this._item.position.y = newScreen.height - m - this.origBounds.bottom * itemScale;
-				break;
-			}
-		}
-
-		// horizontal move
-		m = this.origMarginHori * overallScale;
-		
-		switch(this._settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-			{
-				if(this._settings.titleSafe)
-				{
-					this._item.position.x = letterBoxWidth + m - this.origBounds.x * itemScale;
-				}
-				else
-				{
-					this._item.position.x = m - this.origBounds.x * itemScale;
-				}
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				if(this._settings.centeredHorizontally)
-				{
-					this._item.position.x = (newScreen.width - this._item.width) * 0.5;
-				}
-				else
-				{
-					this._item.position.x = newScreen.width * 0.5 - m;
-				}
-				break;
-			}	
-			case UIScaler.ALIGN_RIGHT:
-			{
-				if(this._settings.titleSafe)
-				{
-					this._item.position.x = newScreen.width - letterBoxWidth - m - this.origBounds.right * itemScale;
-				}
-				else
-				{
-					this._item.position.x = newScreen.width - m - this.origBounds.right * itemScale;
-				}
-				break;
-			}		
-		}
-	};
-	
-	/**
-	*  Destroy this item, don't use after this
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		this.origBounds = null;
-		this._item = null;
-		this._settings = null;
-		this._designedScreen = null;
-	};
-	
-	namespace('cloudkid').UIElement = UIElement;
-	namespace('cloudkid.pixi').UIElement = UIElement;
-}());
-(function() {
-	
-	"use strict";
-
-	/**
-	*  The UI Item Settings which is the positioning settings used to adjust each element
-	*  @module cloudkid
-	*  @class UIElementSettings
-	*/
-	var UIElementSettings = function(){};
-	
-	// Reference to the prototype
-	var p = UIElementSettings.prototype = {};
-	
-	/** 
-	*  What vertical screen location the item should be aligned to: "top", "center", "bottom"
-	*  @property {String} vertAlign
-	*/
-	p.vertAlign = null;
-
-	/** 
-	*  What horizontal screen location the item should be aligned to: "left", "center", "right"
-	*  @property {String} horiAlign
-	*/
-	p.horiAlign = null;
-
-	/** 
-	*  If this element should be aligned to the title safe area, not the actual screen 
-	*  @property {Boolean} titleSafe
-	*  @default false
-	*/
-	p.titleSafe = false;
-
-	/** 
-	*  Maximum scale allowed in physical size 
-	*  @property {Number} maxScale
-	*  @default 1
-	*/
-	p.maxScale = 1;
-
-	/** 
-	*  Minimum scale allowed in physical size 
-	*  @property {Number} minScale
-	*  @default 1
-	*/
-	p.minScale = 1;
-	
-	/**
-	*  If the UI element is centered horizontally
-	*  @property {Boolean} centeredHorizontally
-	*  @default false
-	*/
-	p.centeredHorizontally = false;
-	
-	namespace('cloudkid').UIElementSettings = UIElementSettings;
-	namespace('cloudkid.pixi').UIElementSettings = UIElementSettings;
-}());
-(function() {
-	
-	"use strict";
-
-	// Class imports
-	var UIElementSettings = cloudkid.pixi.UIElementSettings,
-		UIElement = cloudkid.pixi.UIElement,
-		ScreenSettings = cloudkid.pixi.ScreenSettings;
-
-	/**
-	*   The UI scale is responsible for scaling UI components
-	*   to help easy the burden of different device aspect ratios
-	*
-	*  @module cloudkid
-	*  @class UIScaler
-	*  @constructor
-	*  @param {PIXI.DisplayObject} parent The UI display container
-	*  @param {Number} designedWidth The designed width of the UI
-	*  @param {Number} designedHeight The designed height of the UI
-	*  @param {Number} designedPPI The designed PPI of the UI
-	*/
-	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI)
-	{
-		this._parent = parent;
-		this._items = [];
-		this._designedScreen = new ScreenSettings(designedWidth, designedHeight, designedPPI);
-	};
-	
-	// Reference to the prototype
-	var p = UIScaler.prototype = {};
-				
-	/** 
-	*  The current screen settings 
-	*  @property {ScreenSettings} currentScreen
-	*  @static
-	*  @private
-	*/
-	var currentScreen = new ScreenSettings(0, 0, 0);
-	
-	/** 
-	*  If the screensize has been set 
-	*  @property {Boolean} initialized
-	*  @static
-	*  @private
-	*/
-	var initialized = false;
-	
-	/** 
-	*  The UI display object to update 
-	*  @property {PIXI.DisplayObject} _parent
-	*  @private
-	*/
-	p._parent = null;
-	
-	/** 
-	*  The screen settings object, contains information about designed size 
-	*  @property {ScreenSettings} _designedScreen
-	*  @private
-	*/
-	p._designedScreen = null;
-	
-	/** 
-	*  The configuration for each items
-	*  @property {Array} _items
-	*  @private
-	*/
-	p._items = null;
-	
-	/**
-	*  Vertically align to the top
-	*  @property {String} ALIGN_TOP
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "top"
-	*/
-	UIScaler.ALIGN_TOP = "top";
-
-	/**
-	*  Vertically align to the bottom
-	*  @property {String} ALIGN_BOTTOM
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "bottom"
-	*/
-	UIScaler.ALIGN_BOTTOM = "bottom";
-
-	/**
-	*  Horizontally align to the left
-	*  @property {String} ALIGN_LEFT
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "left"
-	*/
-	UIScaler.ALIGN_LEFT = "left";
-
-	/**
-	*  Horizontally align to the right
-	*  @property {String} ALIGN_RIGHT
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "right"
-	*/
-	UIScaler.ALIGN_RIGHT = "right";
-
-	/**
-	*  Vertically or horizontally align to the center
-	*  @property {String} ALIGN_CENTER
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "center"
-	*/
-	UIScaler.ALIGN_CENTER = "center";
-	
-	/**
-	*  Create the scaler from JSON data
-	*  @method fromJSON
-	*  @static
-	*  @param {PIXI.DisplayObject} parent The UI display container
-	*  @param {Object} jsonSettings The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}
-	*  @param {Object} jsonItems The json items object where the keys are the name of the property on the parent and the value
-	*         is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"
-	*  @param {Boolean} [immediateDestroy=true] If we should immediately cleanup the UIScaler after scaling items
-	*  @return {UIScaler} The scaler object that can be reused
-	*/
-	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy)
-	{
-		if (typeof immediateDestroy != "boolean") immediateDestroy = true;
-			
-		var scaler = new UIScaler(
-			parent, 
-			jsonSettings.designedWidth,
-			jsonSettings.designedHeight,
-			jsonSettings.designedPPI
-		);
-		
-		// Temp variables
-		var item, i, align, vertAlign, horiAlign;
-		
-		// Loop through all the items and register
-		// each dpending on the settings
-		for(i in jsonItems)
-		{
-			item = jsonItems[i];
-			
-			if (item.align)
-			{
-				align = item.align.split("-");
-				vertAlign = align[0];
-				horiAlign = align[1];
-			}
-			else
-			{
-				vertAlign = ALIGN_CENTER;
-				horiAlign = ALIGN_CENTER;
-			}
-			scaler.add(
-				parent[i], 
-				vertAlign,
-				horiAlign,
-				item.titleSafe || false,
-				item.minScale || NaN,
-				item.maxScale || NaN,
-				item.centeredHorizontally || false
-			);
-		}
-		
-		// Scale the items
-		scaler.resize();
-		
-		if (immediateDestroy)
-		{
-			scaler.destroy();
-		}
-		return scaler;
-	};
-	
-	/**
-	*   Set the current screen settings. If the stage size changes at all, re-call this function
-	*   @method init
-	*   @static
-	*   @param {Number} screenWidth The fullscreen width
-	*   @param {Number} screenHeight The fullscreen height
-	*   @param {Number} screenPPI The screen resolution density
-	*/
-	UIScaler.init = function(screenWidth, screenHeight, screenPPI)
-	{
-		currentScreen.width = screenWidth;
-		currentScreen.height = screenHeight;
-		currentScreen.ppi = screenPPI;
-		initialized = true;
-	};
-
-	/**
-	*  Get the current scale of the screen
-	*  @method getScale
-	*  @return {Number} The current stage scale
-	*/
-	p.getScale = function()
-	{
-		return currentScreen.height / this._designedScreen.height;
-	};
-	
-	/**
-	*   Manually add an item 
-	*   @method add
-	*   @param {PIXI.DisplayObject} item The display object item to add
-	*   @param {String} [vertAlign="center"] The vertical align of the item (cefault is center)
-	*   @param {String} [horiAlign="center"] The horizontal align of the item (default is center)
-	*   @param {Boolean} [titleSafe=false] If the item needs to be in the title safe area (default is false)
-	*   @param {Number} [minScale=1] The minimum scale amount (default, scales the same size as the stage)
-	*   @param {Number} [maxScale=1] The maximum scale amount (default, scales the same size as the stage)
-	*   @param {Boolean} [centeredHorizontally=false] Makes sure that the center of the object was at the center of the screen, assuming an origin at the top left of the object
-	*/
-	p.add = function(item, vertAlign, horiAlign, titleSafe, minScale, maxScale, centeredHorizontally)
-	{
-		// Create the item settings
-		var s = new UIElementSettings();
-		
-		s.vertAlign = vertAlign || UIScaler.ALIGN_CENTER;
-		s.horiAlign = horiAlign || UIScaler.ALIGN_CENTER;
-		s.titleSafe = (typeof titleSafe != "boolean") ? false : titleSafe;
-		s.maxScale = (typeof maxScale != "number") ? NaN : maxScale;
-		s.minScale = (typeof minScale != "number") ? NaN : minScale;
-		s.centeredHorizontally = centeredHorizontally || false;
-				
-		this._items.push(new UIElement(item, s, this._designedScreen));
-	};
-	
-	/**
-	*   Scale a single background image according to the UIScaler.width and height
-	*   @method resizeBackground
-	*   @static
-	*   @param {PIXI.Bitmap} The bitmap to scale
-	*/
-	UIScaler.resizeBackground = function(bitmap)
-	{
-		if (!initialized) return;
-		
-		var h, w, scale;
-		h = bitmap.height / bitmap.scale.y;
-		w = bitmap.width / bitmap.scale.x;
-
-		//scale the background
-		scale = currentScreen.height / h;
-		bitmap.scale.x = bitmap.scale.y = scale;
-		
-		//center the background
-		bitmap.position.x = (currentScreen.width - bitmap.width) * 0.5;
-	};
-	
-	/**
-	*  Convenience function to scale a collection of backgrounds
-	*  @method resizeBackgrounds
-	*  @static
-	*  @param {Array} bitmaps The collection of bitmap images
-	*/
-	UIScaler.resizeBackgrounds = function(bitmaps)
-	{
-		for(var i = 0, len = bitmaps.length; i < len; ++i)
-		{
-			UIScaler.resizeBackground(bitmaps[i]);
-		}
-	};
-	
-	/**
-	*  Scale the UI items that have been registered to the current screen
-	*  @method resize
-	*/
-	p.resize = function()
-	{
-		if (this._items.length > 0)
-		{
-			for(var i = 0, len = this._items.length; i < len; ++i)
-			{
-				this._items[i].resize(currentScreen);
-			}
-		}
-	};
-	
-	/**
-	*  Destroy the scaler object
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		if (this._items.length > 0)
-		{
-			for(var i = 0, len = this._items.length; i < len; ++i)
-			{
-				this._items[i].destroy();
-			}
-		}
-		
-		this._parent = null;
-		this._designedScreen = null;
-		this._items = null;
-	};
-	
-	namespace('cloudkid').UIScaler = UIScaler;
-	namespace('cloudkid.pixi').UIScaler = UIScaler;
 }());

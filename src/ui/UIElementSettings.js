@@ -1,5 +1,5 @@
 /**
-*  @module cloudkid.createjs
+*  @module cloudkid
 */
 (function() {
 	
@@ -55,6 +55,6 @@
 	*/
 	p.centeredHorizontally = false;
 	
+	// Assign to name space
 	namespace('cloudkid').UIElementSettings = UIElementSettings;
-	namespace('cloudkid.createjs').UIElementSettings = UIElementSettings;
 }());

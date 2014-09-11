@@ -3,8 +3,8 @@ module.exports = function(grunt)
 	grunt.registerTask(
 		'combine',
 		'Builds a combined library file without minification', [
-			'concat:combine',
-			'replace:combine',
+			'concat:development',
+			'replace:development',
 			'concat:worker',
 			'replace:worker',
 			'concat:displaygeneric',
@@ -21,8 +21,8 @@ module.exports = function(grunt)
 			'replace:sound',
 			'concat:captions',
 			'replace:captions',
-			'concat:cutscene',
-			'replace:cutscene',
+			'concat:interface',
+			'replace:interface',
 			'concat:translate',
 			'replace:translate'
 		]

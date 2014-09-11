@@ -9,7 +9,7 @@
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
 	*
-	*   @class PixiDisplay
+	*   @class pixi.PixiDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
@@ -80,6 +80,7 @@
 		this.renderer.clearView = !!options.clearView;
 		this.enabled = true;//enable mouse/touch input
 		this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+		
 		/**
 		*  The Animator class to use when using this display.
 		*  @property {Animator} Animator
@@ -87,6 +88,15 @@
 		*  @public
 		*/
 		this.Animator = cloudkid.pixi.Animator;
+
+		/**
+		*  The DisplayAdapter class to use when providing standard
+		*  ways for accessing properties like position, scale, etc.
+		*  @property {pixi.DisplayAdapter} DisplayAdapter
+		*  @readOnly
+		*  @public
+		*/
+		this.DisplayAdapter = cloudkid.pixi.DisplayAdapter;
 	};
 
 	var p = PixiDisplay.prototype = {};

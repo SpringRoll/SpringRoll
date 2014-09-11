@@ -10,7 +10,7 @@ module.exports = {
 		'<%= build.modules.states %>',
 		'<%= build.modules.sound %>',
 		'<%= build.modules.captions %>',
-		'<%= build.modules.cutscene %>',
+		'<%= build.modules.interface %>',
 		'<%= build.modules.translate %>'
 	]
 };

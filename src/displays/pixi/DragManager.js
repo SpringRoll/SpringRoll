@@ -9,7 +9,7 @@
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
 	*
-	*  @class DragManager
+	*  @class pixi.DragManager
 	*  @constructor
 	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
 	*  @param {function} startCallback The callback when when starting

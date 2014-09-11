@@ -1,32 +1,80 @@
 /**
-*  @module cloudkid.pixi
+*  @module cloudkid
 */
-(function() {
+(function(undefined) {
 	
 	"use strict";
 
 	// Class imports
-	var UIElementSettings = cloudkid.pixi.UIElementSettings,
-		UIElement = cloudkid.pixi.UIElement,
-		ScreenSettings = cloudkid.pixi.ScreenSettings;
+	var UIElementSettings = cloudkid.UIElementSettings,
+		UIElement = cloudkid.UIElement,
+		Application = cloudkid.Application,
+		ScreenSettings = cloudkid.ScreenSettings;
 
 	/**
 	*   The UI scale is responsible for scaling UI components
 	*   to help easy the burden of different device aspect ratios
 	*
-	*  @module cloudkid
 	*  @class UIScaler
 	*  @constructor
-	*  @param {PIXI.DisplayObject} parent The UI display container
+	*  @param {object} parent The UI display container
 	*  @param {Number} designedWidth The designed width of the UI
 	*  @param {Number} designedHeight The designed height of the UI
 	*  @param {Number} designedPPI The designed PPI of the UI
+	*  @param {Display} [display=Application.instance.display] The display to use the UIScaler on
 	*/
-	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI)
+	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI, display)
 	{
+		/** 
+		*  The UI display object to update 
+		*  @property {DisplayObject} _parent
+		*  @private
+		*/
 		this._parent = parent;
+
+		/** 
+		*  The configuration for each items
+		*  @property {Array} _items
+		*  @private
+		*/
 		this._items = [];
+
+		/** 
+		*  The screen settings object, contains information about designed size 
+		*  @property {ScreenSettings} _designedScreen
+		*  @private
+		*/
 		this._designedScreen = new ScreenSettings(designedWidth, designedHeight, designedPPI);
+
+		/**
+		*  The adapter for universal scale, rotation size access
+		*  @property {Object} _adapter
+		*  @private
+		*/
+		this._adapter = UIScaler.getAdapter(display);
+	};
+
+	/**
+	*  Get the adapter by display
+	*  @method getAdapter
+	*  @private
+	*  @static
+	*  @param {object} display The canvas renderer display
+	*/
+	UIScaler.getAdapter = function(display)
+	{
+		if (display === undefined)
+		{
+			display = Application.instance.display;
+		}
+
+		// Check for a displayadpater, doesn't work with generic display
+		if (!display.DisplayAdapter)
+		{
+			throw "The display specified is incompatible with UIScaler";
+		}
+
+		return display.DisplayAdapter;
 	};
 	
 	// Reference to the prototype
@@ -47,27 +95,6 @@
 	*  @private
 	*/
 	var initialized = false;
-	
-	/** 
-	*  The UI display object to update 
-	*  @property {PIXI.DisplayObject} _parent
-	*  @private
-	*/
-	p._parent = null;
-	
-	/** 
-	*  The screen settings object, contains information about designed size 
-	*  @property {ScreenSettings} _designedScreen
-	*  @private
-	*/
-	p._designedScreen = null;
-	
-	/** 
-	*  The configuration for each items
-	*  @property {Array} _items
-	*  @private
-	*/
-	p._items = null;
 	
 	/**
 	*  Vertically align to the top
@@ -123,14 +150,15 @@
 	*  Create the scaler from JSON data
 	*  @method fromJSON
 	*  @static
-	*  @param {PIXI.DisplayObject} parent The UI display container
+	*  @param {DisplayObject} parent The UI display container
 	*  @param {Object} jsonSettings The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}
 	*  @param {Object} jsonItems The json items object where the keys are the name of the property on the parent and the value
 	*         is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"
 	*  @param {Boolean} [immediateDestroy=true] If we should immediately cleanup the UIScaler after scaling items
+	*  @param {Display} [display=Application.instance.display] The display which to use for the scaler
 	*  @return {UIScaler} The scaler object that can be reused
 	*/
-	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy)
+	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy, display)
 	{
 		if (typeof immediateDestroy != "boolean") immediateDestroy = true;
 			
@@ -138,7 +166,8 @@
 			parent, 
 			jsonSettings.designedWidth,
 			jsonSettings.designedHeight,
-			jsonSettings.designedPPI
+			jsonSettings.designedPPI,
+			display
 		);
 		
 		// Temp variables
@@ -211,7 +240,7 @@
 	/**
 	*   Manually add an item 
 	*   @method add
-	*   @param {PIXI.DisplayObject} item The display object item to add
+	*   @param {object} item The display object item to add
 	*   @param {String} [vertAlign="center"] The vertical align of the item (cefault is center)
 	*   @param {String} [horiAlign="center"] The horizontal align of the item (default is center)
 	*   @param {Boolean} [titleSafe=false] If the item needs to be in the title safe area (default is false)
@@ -231,29 +260,30 @@
 		s.minScale = (typeof minScale != "number") ? NaN : minScale;
 		s.centeredHorizontally = centeredHorizontally || false;
 				
-		this._items.push(new UIElement(item, s, this._designedScreen));
+		this._items.push(new UIElement(item, s, this._designedScreen, this._adapter));
 	};
 	
 	/**
 	*   Scale a single background image according to the UIScaler.width and height
 	*   @method resizeBackground
 	*   @static
-	*   @param {PIXI.Bitmap} The bitmap to scale
+	*   @param {Bitmap} The bitmap to scale
+	*   @param {Display} [display=Application.instance.display] The display which to use for the scaler
 	*/
-	UIScaler.resizeBackground = function(bitmap)
+	UIScaler.resizeBackground = function(bitmap, display)
 	{
 		if (!initialized) return;
-		
-		var h, w, scale;
-		h = bitmap.height / bitmap.scale.y;
-		w = bitmap.width / bitmap.scale.x;
+
+		var adapter = UIScaler.getAdapter(display),
+			size = adapter.getBitmapSize(bitmap), 
+			scale;
 
 		//scale the background
-		scale = currentScreen.height / h;
-		bitmap.scale.x = bitmap.scale.y = scale;
+		scale = currentScreen.height / size.h;
+		adapter.setScale(bitmap, scale);
 		
 		//center the background
-		bitmap.position.x = (currentScreen.width - bitmap.width) * 0.5;
+		adapter.setPosition(bitmap, (currentScreen.width - size.w * scale) * 0.5, "x");
 	};
 	
 	/**
@@ -261,12 +291,13 @@
 	*  @method resizeBackgrounds
 	*  @static
 	*  @param {Array} bitmaps The collection of bitmap images
+	*  @param {object} [display=Application.instance.display] The display which to use for the scaler
 	*/
-	UIScaler.resizeBackgrounds = function(bitmaps)
+	UIScaler.resizeBackgrounds = function(bitmaps, display)
 	{
 		for(var i = 0, len = bitmaps.length; i < len; ++i)
 		{
-			UIScaler.resizeBackground(bitmaps[i]);
+			UIScaler.resizeBackground(bitmaps[i], display);
 		}
 	};
 	
@@ -299,11 +330,12 @@
 			}
 		}
 		
+		this._adapter = null;
 		this._parent = null;
 		this._designedScreen = null;
 		this._items = null;
 	};
 	
 	namespace('cloudkid').UIScaler = UIScaler;
-	namespace('cloudkid.pixi').UIScaler = UIScaler;
+
 }());

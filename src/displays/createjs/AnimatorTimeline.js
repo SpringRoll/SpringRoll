@@ -9,7 +9,7 @@
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
 	*   
-	*   @class AnimatorTimeline
+	*   @class createjs.AnimatorTimeline
 	*   @constructor
 	*/
 	var AnimatorTimeline = function(){};

@@ -5,15 +5,18 @@
 	
 	"use strict";
 
+	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
+		Application = cloudkid.Application;
+
 	/**
 	*  Animator for interacting with Spine animations
-	*  @class Animator
+	*  @class pixi.Animator
 	*  @static
 	*/
 	var Animator = function(){};
 	
 	/**
-	* The collection of AnimTimelines that are playing
+	* The collection of AnimatorTimelines that are playing
 	* @property {Array} _timelines
 	* @private
 	*/
@@ -28,7 +31,7 @@
 	_numAnims = 0,
 	
 	/**
-	 * Stored collection of AnimTimelines. This is internal to Animator and can't be accessed externally.
+	 * Stored collection of AnimatorTimelines. This is internal to Animator and can't be accessed externally.
 	 * @property {Array} _animPool
 	 * @private
 	 * @static
@@ -45,7 +48,7 @@
 	
 	/**
 	*  The global captions object to use with animator
-	*  @property {cloudkid.Captions} captions
+	*  @property {Captions} captions
 	*  @public
 	*/
 	Animator.captions = null;
@@ -82,6 +85,7 @@
 	* @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
 	* @param {Object|String} [options.soundData=null] Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
 	*        start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.
+	* @return {pixi.AnimatorTimeline} The timeline object
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
@@ -116,7 +120,7 @@
 
 		var t = _animPool.length ? 
 			_animPool.pop().init(clip, callback, speed) : 
-			new AnimTimeline(clip, callback, speed);
+			new AnimatorTimeline(clip, callback, speed);
 
 		if(t.isSpine)//PIXI.Spine
 		{
@@ -204,7 +208,7 @@
 		t.time = startTime > 0 ? startTime : 0;
 		_timelines.push(t);
 		if(++_numAnims == 1)
-			cloudkid.Application.instance.on("update", _update);
+			Application.instance.on("update", _update);
 		return t;
 	};
 
@@ -252,7 +256,7 @@
 				var t = _timelines[i];
 				_timelines.splice(i, 1);
 				if(--_numAnims === 0)
-					cloudkid.Application.instance.off("update", _update);
+					Application.instance.off("update", _update);
 				if(doCallback && t.callback)
 					t.callback();
 				if(t.soundInst)
@@ -278,16 +282,16 @@
 				_repool(t);
 				break;
 		}		
-		cloudkid.Application.instance.off("update", _update);
+		Application.instance.off("update", _update);
 		_timelines.length = _numAnims = 0;
 	};
 	
 	/**
-	 * Put an AnimTimeline back into the general pool after it's done playing
+	 * Put an AnimatorTimeline back into the general pool after it's done playing
 	 * or has been manually stopped
 	 * 
 	 * @function _repool
-	 * @param {Animator.AnimTimeline} timeline
+	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _repool = function(timeline)
@@ -402,7 +406,7 @@
 			}
 		}
 		if(_numAnims === 0)
-			cloudkid.Application.instance.off("update", _update);
+			Application.instance.off("update", _update);
 	};
 	
 	var onSoundStarted = function(timeline)
@@ -419,11 +423,11 @@
 	};
 	
 	/**
-	 * Called when a movie clip is done playing, calls the AnimTimeline's
+	 * Called when a movie clip is done playing, calls the AnimatorTimeline's
 	 * callback if it has one
 	 * 
 	 * @function _onMovieClipDone
-	 * @param {Animator.AnimTimeline} timeline
+	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _onMovieClipDone = function(timeline)
@@ -438,7 +442,7 @@
 				t.clip.onComplete = null;
 				_timelines.splice(i, 1);
 				if(--_numAnims === 0)
-					cloudkid.Application.instance.off("update", _update);
+					Application.instance.off("update", _update);
 				if(t.callback)
 					t.callback();
 				_repool(t);
@@ -458,163 +462,13 @@
 		_instance = null;
 		_animPool = null;
 		_timelines = null;
-		cloudkid.Application.instance.off("update", _update);
+		Application.instance.off("update", _update);
 		_boundUpdate = null;
 	};
-	
-	/**
-	 * Internal Animator class for keeping track of animations. AnimTimelines are pooled internally,
-	 * so please only keep references to them while they are actively playing an animation.
-	 * 
-	 * @class Animator.AnimTimeline
-	 * @constructor
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {int} speed The speed at which the clip should be played
-	 */
-	var AnimTimeline = function(clip, callback, speed)
-	{
-		this.init(clip, callback, speed);
-	};
-	
-	AnimTimeline.constructor = AnimTimeline;
-	
-	/**
-	 * Initialize the AnimTimeline
-	 * 
-	 * @function init
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {Number} speed The speed at which the clip should be played
-	 * @returns {Animator.AnimTimeline}
-	 */
-	AnimTimeline.prototype.init = function(clip, callback, speed)
-	{
-		/**
-		*	The clip for this AnimTimeLine
-		*	@property {PIXI.MovieClip|PIXI.Spine} clip
-		*	@public
-		*/
-		this.clip = clip;
-
-		/**
-		*	Whether the clip is a PIXI.Spine
-		*	@property {bool} isSpine
-		*	@public
-		*/
-		this.isSpine = clip instanceof PIXI.Spine;
-
-		/**
-		*	The function to call when the clip is finished playing
-		*	@property {function} callback
-		*	@public
-		*/
-		this.callback = callback;
-
-		/**
-		*	The speed at which the clip should be played
-		*	@property {Number} speed
-		*	@public
-		*/
-		this.speed = speed;
-
-		/**
-		*	@property {Array} spineStates
-		*	@public
-		*/
-		this.spineStates = null;
-
-		/**
-		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
-		*	@property {bool} loop
-		*	@public
-		*/
-		this.loop = null;
-
-		/**
-		*	The position of the animation in seconds
-		*	@property {Number} time
-		*	@public
-		*/
-		this.time = 0;
-
-		/**
-		*	Sound alias to sync to during the animation.
-		*	@property {String} soundAlias
-		*	@public
-		*/
-		this.soundAlias = null;
-
-		/**
-		*	A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
-		*	@property {Object} soundInst
-		*	@public
-		*/
-		this.soundInst = null;
-
-		/**
-		*	If the timeline will, but has yet to, play a sound
-		*	@property {bool} playSound
-		*	@public
-		*/
-		this.playSound = false;
-
-		/**
-		*	The time (seconds) into the animation that the sound starts.
-		*	@property {Number} soundStart
-		*	@public
-		*/
-		this.soundStart = 0;
-
-		/**
-		*	The time (seconds) into the animation that the sound ends
-		*	@property {Number} soundEnd
-		*	@public
-		*/
-		this.soundEnd = 0;
-
-		/**
-		*  If this timeline plays captions
-		*
-		*  @property {bool} useCaptions
-		*  @readOnly
-		*/
-		this.useCaptions = false;
-
-		/**
-		*	If this animation is paused.
-		*	@property {bool} _paused
-		*	@private
-		*/
-		this._paused = false;
-
-		return this;
-	};
-	
-	/**
-	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
-	* @public
-	*/
-	Object.defineProperty(AnimTimeline.prototype, "paused", {
-		get: function() { return this._paused; },
-		set: function(value) {
-			if(value == this._paused) return;
-			this._paused = !!value;
-			if(this.soundInst)
-			{
-				if(this.paused)
-					this.soundInst.pause();
-				else
-					this.soundInst.unpause();
-			}
-		}
-	});
 
 	//set up the global initialization and destroy
-	cloudkid.Application.registerInit(Animator.init);
-	cloudkid.Application.registerDestroy(Animator.destroy);
+	Application.registerInit(Animator.init);
+	Application.registerDestroy(Animator.destroy);
 	
 	namespace('cloudkid').Animator = Animator;
 	namespace('cloudkid.pixi').Animator = Animator;

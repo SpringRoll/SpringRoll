@@ -1,8 +1,229 @@
 /*! CloudKidFramework 0.0.3 */
 /**
-*  @module cloudkid
+*  @modules cloudkid.createjs
 */
-(function(){
+(function(undefined){
+	
+	/**
+	*  Provide a normalized way to get size, position, scale values
+	*  as well as provide reference for different geometry classes.
+	*  @class createjs.DisplayAdapter
+	*/
+	var DisplayAdapter = {};
+
+	/**
+	*  The geometry class for Circle
+	*  @property {Function} Circle
+	*  @readOnly
+	*  @static
+	*  @default createjs.Circle
+	*/
+	DisplayAdapter.Circle = createjs.Circle;
+
+	/**
+	*  The geometry class for Ellipse
+	*  @property {Function} Ellipse
+	*  @readOnly
+	*  @static
+	*  @default createjs.Ellipse
+	*/
+	DisplayAdapter.Ellipse = createjs.Ellipse;
+
+	/**
+	*  The geometry class for Rectangle
+	*  @property {Function} Rectangle
+	*  @readOnly
+	*  @static
+	*  @default createjs.Rectangle
+	*/
+	DisplayAdapter.Rectangle = createjs.Rectangle;
+
+	/**
+	*  The geometry class for Sector
+	*  @property {Function} Sector
+	*  @readOnly
+	*  @static
+	*  @default createjs.Sector
+	*/
+	DisplayAdapter.Sector = createjs.Sector;
+
+	/**
+	*  The geometry class for point
+	*  @property {Function} Point
+	*  @readOnly
+	*  @static
+	*  @default createjs.Point
+	*/
+	DisplayAdapter.Point = createjs.Point;
+
+	/**
+	*  The geometry class for Polygon
+	*  @property {Function} Polygon
+	*  @readOnly
+	*  @static
+	*  @default createjs.Polygon
+	*/
+	DisplayAdapter.Polygon = createjs.Polygon;
+
+	/**
+	*  If the rotation is expressed in radians
+	*  @property {Boolean} useRadians
+	*  @readOnly
+	*  @static
+	*  @default false
+	*/
+	DisplayAdapter.useRadians = false;
+
+	/**
+	*  Normalize the object scale
+	*  @method getScale
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs display object
+	*  @param {String} [direction] Either "x" or "y" to return a specific value
+	*  @return {object|Number} A scale object with x and y keys or a single number if direction is set
+	*/
+	DisplayAdapter.getScale = function(object, direction)
+	{
+		if (direction !== undefined)
+		{
+			return object["scale" + direction.toUpperCase()];
+		}
+		return {
+			x : object.scaleX,
+			y : object.scaleY
+		};
+	};
+
+	/**
+	*  Normalize the object position setting
+	*  @method setPosition
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs display object
+	*  @param {object|Number} position The position object or the value
+	* 		if the direction is set.
+	*  @param {Number} [position.x] The x value
+	*  @param {Number} [position.y] The y value
+	*  @param {String} [direction] Either "x" or "y" value
+	*  @return {createjs.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setPosition = function(object, position, direction)
+	{
+		if (direction !== undefined)
+		{
+			object[direction] = position;
+		}
+		else
+		{
+			if (position.x) object.x = position.x;
+			if (position.y) object.y = position.y;
+		}
+		return object;
+	};
+
+	/**
+	*  Normalize the object position getting
+	*  @method getPosition
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs display object
+	*  @param {String} [direction] Either "x" or "y", default is an object of both
+	*  @return {Object|Number} The position as an object with x and y keys if no direction
+	*		value is set, or the value of the specific direction
+	*/
+	DisplayAdapter.getPosition = function(object, direction)
+	{
+		if (direction !== undefined)
+		{
+			return object[direction];
+		}
+		return {
+			x : object.x,
+			y : object.y
+		};
+	};
+
+	/**
+	*  Normalize the object scale setting
+	*  @method setScale
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs Display object
+	*  @param {Number} scale The scaling object or scale value for x and y
+	*  @param {String} [direction] Either "x" or "y" if setting a specific value, default
+	* 		sets both the scale x and scale y.
+	*  @return {createjs.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setScale = function(object, scale, direction)
+	{
+		if (direction !== undefined)
+		{
+			object["scale" + direction.toUpperCase()] = scale;
+		}
+		else
+		{
+			object.scaleX = object.scaleY = scale;
+		}
+		return object;
+	};
+
+	/**
+	*  Set the pivot or registration point of an object
+	*  @method setPivot
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs Display object
+	*  @param {object|Number} pivot The object pivot point or the value if the direction is set
+	*  @param {Number} [pivot.x] The x position of the pivot point
+	*  @param {Number} [pivot.y] The y position of the pivot point
+	*  @param {String} [direction] Either "x" or "y" the value for specific direction, default
+	* 		will set using the object.
+	*  @return {createjs.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setPivot = function(object, pivot, direction)
+	{
+		if (direction !== undefined)
+		{
+			object["reg" + direction.toUpperCase()] = pivot;
+		}
+		object.regX = pivot.x;
+		object.regY = pivot.y;
+		return object;
+	};
+
+	/**
+	*  Set the hit area of the shape
+	*  @method setHitArea
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs Display object
+	*  @param {Object} shape The geometry object
+	*  @return {createjs.DisplayObject} Return the object for chaining
+	*/
+	DisplayAdapter.setHitArea = function(object, shape)
+	{
+		object.hitShape = shape;
+		return object;
+	};
+
+	/**
+	*  Get the original size of a bitmap
+	*  @method getBitmapSize
+	*  @static
+	*  @param {createjs.Bitmap} bitmap The bitmap to measure
+	*  @return {object} The width (w) and height (h) of the actual bitmap size
+	*/
+	DisplayAdapter.getBitmapSize = function(bitmap)
+	{
+		return {
+			h: bitmap.image.height,
+			w: bitmap.image.width
+		};
+	};
+
+	// Assign to namespace
+	namespace('cloudkid.createjs').DisplayAdapter = DisplayAdapter;
+
+}());
+/**
+*  @module cloudkid.createjs
+*/
+(function(undefined){
 
 	"use strict";
 
@@ -10,7 +231,7 @@
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
 	*
-	*   @class CreateJSDisplay
+	*   @class createjs.CreateJSDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -44,6 +265,7 @@
 			e.preventDefault();
 		};
 		this.enabled = true;//enable mouse/touch input
+
 		/**
 		*  The Animator class to use when using this display.
 		*  @property {Animator} Animator
@@ -51,6 +273,15 @@
 		*  @public
 		*/
 		this.Animator = cloudkid.createjs.Animator;
+
+		/**
+		*  The DisplayAdapter class to use when providing standard
+		*  ways for accessing properties like position, scale, etc.
+		*  @property {createjs.DisplayAdapter} DisplayAdapter
+		*  @readOnly
+		*  @public
+		*/
+		this.DisplayAdapter = cloudkid.createjs.DisplayAdapter;
 	};
 
 	var p = CreateJSDisplay.prototype = {};
@@ -215,7 +446,7 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function(undefined){
 
@@ -229,7 +460,7 @@
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
 	*
-	*   @class Animator
+	*   @class createjs.Animator
 	*   @static
 	*/
 	var Animator = function(){};
@@ -241,7 +472,7 @@
 	* @public
 	* @static
 	*/
-	Animator.VERSION = "${version}";
+	Animator.VERSION = "0.0.3";
 	
 	/**
 	* If we fire debug statements 
@@ -418,7 +649,7 @@
 			return timeline;
 		}
 		
-		if (DEBUG)
+		if (true)
 		{
 			Debug.log("No event " + event + " was found, or it lacks an end, on this MovieClip " + instance);
 		}
@@ -561,7 +792,7 @@
 			instance.play !== undefined &&//method - start playing
 			instance.id !== undefined)//property - used to avoid duplication of timelines
 			return true;
-		if(DEBUG)
+		if(true)
 		{
 			Debug.error("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
 		}
@@ -617,7 +848,7 @@
 		
 		if (_timelinesMap[instance.id] === undefined)
 		{
-			if (DEBUG)
+			if (true)
 			{
 				Debug.log("No timeline was found matching the instance id " + instance);
 			}
@@ -985,7 +1216,7 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function(){
 
@@ -995,7 +1226,7 @@
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
 	*   
-	*   @class AnimatorTimeline
+	*   @class createjs.AnimatorTimeline
 	*   @constructor
 	*/
 	var AnimatorTimeline = function(){};
@@ -1164,7 +1395,7 @@
 	
 }());
 /**
- *  @module cloudkid
+ *  @module cloudkid.createjs
  */
 (function(undefined)
 {
@@ -1178,7 +1409,7 @@
 	 *  initialization and callbacks. Add event listeners for click and mouseover to know about
 	 *  button clicks and mouse overs, respectively.
 	 *
-	 *  @class Button
+	 *  @class createjs.Button
 	 *  @extends createjs.Container
 	 *  @constructor
 	 *  @param {Object|Image|HTMLCanvasElement} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
@@ -1961,7 +2192,7 @@
 	namespace('cloudkid.createjs').Button = Button;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function(){
 	
@@ -1970,7 +2201,7 @@
 	/**
 	*   CharacterClip is used by the CharacterController class
 	*   
-	*   @class CharacterClip
+	*   @class createjs.CharacterClip
 	*   @constructor
 	*   @param {String} event Animator event to play
 	*   @param {int} loops The number of loops
@@ -2014,7 +2245,7 @@
 	namespace('cloudkid.createjs').CharacterClip = CharacterClip;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function(){
 
@@ -2028,7 +2259,7 @@
 	*   sequences on the timeline. This is a flexible way to
 	*   animate characters on a timeline
 	*   
-	*   @class CharacterController
+	*   @class createjs.CharacterController
 	*/
 	var CharacterController = function()
 	{
@@ -2277,7 +2508,7 @@
 	namespace('cloudkid.createjs').CharacterController = CharacterController;
 }());
 /**
-*  @module cloudkid
+*  @module cloudkid.createjs
 */
 (function() {
 	
@@ -2287,7 +2518,7 @@
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
 	*  
-	*  @class DragManager
+	*  @class createjs.DragManager
 	*  @constructor
 	*  @param {createjs.Stage} stage The stage that this DragManager is monitoring.
 	*  @param {function} startCallback The callback when when starting
@@ -2818,780 +3049,452 @@
 	namespace('cloudkid').DragManager = DragManager;
 	namespace('cloudkid.createjs').DragManager = DragManager;
 }());
-(function() {
-	
-	"use strict";
-	
-	/**
-	*  Initially layouts all interface elements
-	*  @module cloudkid
-	*  @class Positioner
-	*/
-	var Positioner = function(){};
-	
-	// Set the protype
-	Positioner.prototype = {};
-	
-	/**
-	*  Initial position of all layout items
-	*  @method positionItems
-	*  @static
-	*  @param {createjs.DisplayObject} parent
-	*  @param {Object} itemSettings JSON format with position information
-	*/
-	Positioner.positionItems = function(parent, itemSettings)
-	{
-		var pt;
-		for(var iName in itemSettings)
-		{
-			var item = parent[iName];
-			if(!item)
-			{
-				Debug.error("could not find object '" +  iName + "'");
-				continue;
-			}
-			var setting = itemSettings[iName];
-			if(setting.x !== undefined)
-				item.x = setting.x;
-			if(setting.y !== undefined)
-				item.y = setting.y;
-			pt = setting.scale;
-			if(pt)
-			{
-				item.scaleX *= pt.x;
-				item.scaleY *= pt.y;
-			}
-			pt = setting.pivot;
-			if(pt)
-			{
-				item.regX = pt.x;
-				item.regY = pt.y;
-			}
-			if(setting.rotation !== undefined)
-				item.rotation = settings.rotation;
-			//item.name = iName;
-			if(setting.hitArea)
-			{
-				item.hitShape = Positioner.generateHitArea(setting.hitArea);
-			}
-		}
-	};
-	
-	/**
-	*  Create the polygon hit area for interface elements
-	*  @static
-	*  @method generateHitArea
-	*  @param {Object|Array} hitArea One of the following: <br/>
-	*  * An array of points for a polygon, e.g. 
-	*
-	*		[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
-	*
-	*  * An object describing a rectangle, e.g.
-	*
-	*		{type:"rect", x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing an ellipse, where x and y are the center, e.g. 
-	*
-	*		{type:"ellipse", x:0, y:0, w:10, h:30}
-	*
-	*  * An object describing a circle, where x and y are the center, e.g.
-	*
-	*		{type:"circle", x:0, y:0, r:20}
-	*  @param {Number} scale=1 The size to scale hitArea by
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
-	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
-	*/
-	Positioner.generateHitArea = function(hitArea, scale)
-	{
-		if(!scale)
-			scale = 1;
-		if(isArray(hitArea))
-		{
-			if(scale == 1)
-				return new createjs.Polygon(hitArea);
-			else
-			{
-				var temp = [];
-				for(var i = 0, len = hitArea.length; i < len; ++i)
-				{
-					temp.push(new createjs.Point(hitArea[i].x * scale, hitArea[i].y * scale));
-				}
-				return new createjs.Polygon(temp);
-			}
-		}
-		else if(hitArea.type == "rect" || !hitArea.type)
-			return new createjs.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
-		else if(hitArea.type == "ellipse")
-			return new createjs.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
-		else if(hitArea.type == "circle")
-			return new createjs.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
-		else if(hitArea.type == "sector")
-			return new createjs.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
-		return null;
-	};
-
-	var isArray = function(o)
-	{
-		return Object.prototype.toString.call(o) === '[object Array]';
-	};
-	
-	namespace('cloudkid').Positioner = Positioner;
-	namespace('cloudkid.createjs').Positioner = Positioner;
-}());
-(function() {
+/**
+*  @module cloudkid.createjs
+*/
+(function(){
 	
 	"use strict";
 
 	/**
-	*   Object that contains the screen settings to help scaling
-	*   @module cloudkid
-	*   @class ScreenSettings
-	*   @constructor
-	*   @param {Number} width The screen width in pixels
-	*   @param {Number} height The screen height in pixels
-	*   @param {Number} ppi The screen pixel density (PPI)
-	*/
-	var ScreenSettings = function(width, height, ppi)
-	{
-		/**
-		*  The screen width in pixels
-		*  @property {Number} width 
-		*/
-		this.width = width;
-
-		/**
-		*  The screen height in pixels
-		*  @property {Number} height 
-		*/
-		this.height = height;
-
-		/**
-		*  The screen pixel density (PPI)
-		*  @property {Number} ppi
-		*/
-		this.ppi = ppi;
-	};
-	
-	// Set the prototype
-	ScreenSettings.prototype = {};
-	
-	// Assign to namespace
-	namespace('cloudkid').ScreenSettings = ScreenSettings;
-	namespace('cloudkid.createjs').ScreenSettings = ScreenSettings;
-
-}());
-(function() {
-
-	"use strict";
-
-	// Class imports
-	var UIScaler;
-
-	/**
-	*   A single UI item that needs to be resized	
+	*   Cutscene is a class for playing a single EaselJS animation synced to a
+	*	single audio file with cloudkid.Sound, with optional captions.
 	*
-	*   @module cloudkid
-	*   @class UIElement
-	*	@param {createjs.DisplayObject} item The item to affect  
-	*   @param {UIElementSettings} settings The scale settings
-	*	@param {ScreenSettings} designedScreen The original screen the item was designed for
+	*   @class createjs.Cutscene
+	*	@constructor
+	*	@param {Object} options The runtime specific setup data for the cutscene.
+	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
+	*	@param {String} options.configUrl The url of the json config file describing the cutscene. See the example project.
+	*	@param {Function} [options.loadCallback] A function to call when loading is complete.
+	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
+	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
+	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
+	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
 	*/
-	var UIElement = function(item, settings, designedScreen)
+	var Cutscene = function(options)
 	{
-		UIScaler = cloudkid.createjs.UIScaler;
-		
-		this._item = item;			
-		this._settings = settings;
-		this._designedScreen = designedScreen;
-		
-		this.origScaleX = item.scaleX;
-		this.origScaleY = item.scaleY;
-
-		this.origWidth = item.width;
-
-		this.origBounds = {x:0, y:0, width:item.width, height:item.height};
-		this.origBounds.right = this.origBounds.x + this.origBounds.width;
-		this.origBounds.bottom = this.origBounds.y + this.origBounds.height;
-		
-		switch(settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-			{
-				this.origMarginVert = item.y + this.origBounds.y;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this.origMarginVert = designedScreen.height * 0.5 - item.y;
-				break;
-			}
-			case UIScaler.ALIGN_BOTTOM:
-			{
-				this.origMarginVert = designedScreen.height - (item.y + this.origBounds.bottom);
-				break;
-			}
-		}
-
-		switch(settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-			{
-				this.origMarginHori = item.x + this.origBounds.x;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this.origMarginHori = designedScreen.width * 0.5 - item.x;
-				break;
-			}
-			case UIScaler.ALIGN_RIGHT:
-			{
-				this.origMarginHori = designedScreen.width - (item.x + this.origBounds.right);
-				break;
-			}
-		}
+		createjs.Container.call(this);
+		this.setup(options);
 	};
 	
-	var p = UIElement.prototype = {};
-
-	/**
-	*  Original horizontal margin in pixels
-	*  @property {Number} origMarginHori
-	*  @default 0
-	*/
-	p.origMarginHori = 0;
-
-	/**
-	*  Original vertical margin in pixels
-	*  @property {Number} origMarginVert
-	*  @default 0
-	*/
-	p.origMarginVert = 0;
-
-	/** 
-	*  Original width in pixels 
-	*  @property {Number} origWidth
-	*  @default 0
-	*/
-	p.origWidth = 0;
-
-	/**
-	*  Original X scale of the item
-	*  @property {Number} origScaleX
-	*  @default 0
-	*/
-	p.origScaleX = 0;
-
-	/**
-	*  The original Y scale of the item
-	*  @property {Number} origScaleY
-	*  @default 0
-	*/
-	p.origScaleY = 0;
-
-	/**
-	*  The original bounds of the item with x, y, right, bottom, width, height properties.
-	*  Used to determine the distance to each edge of the item from its origin
-	*  @property {Object} origBounds
-	*/
-	p.origBounds = null;
-
-	/**
-	*  The reference to the scale settings
-	*  @private
-	*  @property {UIElementSettings} _settings
-	*/	
-	p._settings = null;
+	var p = Cutscene.prototype = new createjs.Container();
 	
 	/**
-	*  The reference to the interface item we're scaling
-	*  @private
-	*  @property {createjs.DisplayObject|PIXI.DisplayObject} _item
+	*	When the cutscene is ready to use
+	*	@property {Boolean} isReady
+	*	@public
 	*/
-	p._item = null;
+	p.isReady = false;
 	
 	/**
-	*  The original screen the item was designed for
-	*  @private
-	*  @property {ScreenSettings} _designedScreen
+	*	The framerate the cutscene should play at.
+	*	@property {int} framerate
+	*	@private
 	*/
-	p._designedScreen = null;
+	p.framerate = 0;
 	
 	/**
-	*  Adjust the item scale and position, to reflect new screen
-	*  @method resize
-	*  @param {ScreenSettings} newScreen The current screen settings
+	*	Reference to the display we are drawing on
+	*	@property {Display} display
+	*	@public
 	*/
-	p.resize = function(newScreen)
-	{
-		var overallScale = newScreen.height / this._designedScreen.height;
-		var ppiScale = newScreen.ppi / this._designedScreen.ppi;
-		var letterBoxWidth = (newScreen.width - this._designedScreen.width * overallScale) / 2;
-
-		// Scale item to the overallScale to match rest of the app, 
-		// then clamp its physical size as specified 
-		// then set the item's scale to be correct - the screen is not scaled
-
-		//Full math:
-		/*var physicalScale:Number = overallScale / ppiScale;
-		var itemScale:Number = MathUtils.clamp(physicalScale, minScale, maxScale) / physicalScale * overallScale;*/
-
-		//Optimized math:
-		var itemScale = overallScale / ppiScale;
-		if(this._settings.minScale && itemScale < this._settings.minScale)
-			itemScale = this._settings.minScale;
-		else if(this._settings.maxScale && itemScale > this._settings.maxScale)
-			itemScale = this._settings.maxScale;
-		itemScale *= ppiScale;
-
-		this._item.scaleX = this.origScaleX * itemScale;
-		this._item.scaleY = this.origScaleY * itemScale;
-
-		// positioning
-		var m;
-
-		// vertical move
-		m = this.origMarginVert * overallScale;
-		
-		
-		switch(this._settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-			{
-				this._item.y = m - this.origBounds.y * itemScale;
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				this._item.y = newScreen.height * 0.5 - m;
-				break;
-			}
-			case UIScaler.ALIGN_BOTTOM:
-			{
-				this._item.y = newScreen.height - m - this.origBounds.bottom * itemScale;
-				break;
-			}
-		}
-
-		// horizontal move
-		m = this.origMarginHori * overallScale;
-		
-		switch(this._settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-			{
-				if(this._settings.titleSafe)
-				{
-					this._item.x = letterBoxWidth + m - this.origBounds.x * itemScale;
-				}
-				else
-				{
-					this._item.x = m - this.origBounds.x * itemScale;
-				}
-				break;
-			}
-			case UIScaler.ALIGN_CENTER:
-			{
-				if(this._settings.centeredHorizontally)
-				{
-					this._item.x = (newScreen.width - this._item.width) * 0.5;
-				}
-				else
-				{
-					this._item.x = newScreen.width * 0.5 - m;
-				}
-				break;
-			}	
-			case UIScaler.ALIGN_RIGHT:
-			{
-				if(this._settings.titleSafe)
-				{
-					this._item.x = newScreen.width - letterBoxWidth - m - this.origBounds.right * itemScale;
-				}
-				else
-				{
-					this._item.x = newScreen.width - m - this.origBounds.right * itemScale;
-				}
-				break;
-			}		
-		}
-	};
+	p.display = null;
 	
 	/**
-	*  Destroy this item, don't use after this
-	*  @method destroy
+	*	The source url for the config until it is loaded, then the config object.
+	*	@property {String|Object} config
+	*	@private
 	*/
-	p.destroy = function()
-	{
-		this.origBounds = null;
-		this._item = null;
-		this._settings = null;
-		this._designedScreen = null;
-	};
-	
-	namespace('cloudkid').UIElement = UIElement;
-	namespace('cloudkid.createjs').UIElement = UIElement;
-}());
-(function() {
-	
-	"use strict";
-
+	p.config = null;
 	/**
-	*  The UI Item Settings which is the positioning settings used to adjust each element
-	*  @module cloudkid
-	*  @class UIElementSettings
+	*	The scaling value for all images.
+	*	@property {Number} imageScale
+	*	@private
 	*/
-	var UIElementSettings = function(){};
-	
-	// Reference to the prototype
-	var p = UIElementSettings.prototype = {};
-	
-	/** 
-	*  What vertical screen location the item should be aligned to: "top", "center", "bottom"
-	*  @property {String} vertAlign
+	p.imageScale = 1;
+	/**
+	*	A string found in the paths of images that should be replaced with another value.
+	*	@property {String} pathReplaceTarg
+	*	@private
 	*/
-	p.vertAlign = null;
-
-	/** 
-	*  What horizontal screen location the item should be aligned to: "left", "center", "right"
-	*  @property {String} horiAlign
+	p.pathReplaceTarg = null;
+	/**
+	*	The string to use when replacing options.pathReplaceTarg.
+	*	@property {String} pathReplaceVal
+	*	@private
 	*/
-	p.horiAlign = null;
-
-	/** 
-	*  If this element should be aligned to the title safe area, not the actual screen 
-	*  @property {Boolean} titleSafe
-	*  @default false
+	p.pathReplaceVal = null;
+	/**
+	*	The TaskManager used to load up assets.
+	*	@property {cloudkid.TaskManager} _taskMan
+	*	@private
 	*/
-	p.titleSafe = false;
-
-	/** 
-	*  Maximum scale allowed in physical size 
-	*  @property {Number} maxScale
-	*  @default 1
+	p._taskMan = null;
+	/**
+	*	The time elapsed in seconds.
+	*	@property {Number} _elapsedTime
+	*	@private
 	*/
-	p.maxScale = 1;
-
-	/** 
-	*  Minimum scale allowed in physical size 
-	*  @property {Number} minScale
-	*  @default 1
+	p._elapsedTime = 0;
+	/**
+	*	The clip that is being animated.
+	*	@property {easeljs.MovieClip} _clip
+	*	@private
 	*/
-	p.minScale = 1;
+	p._clip = null;
+	/**
+	*	The sound instance of the playing audio
+	*	@property {cloudkid.Sound.soundInst} _currentAudioInstance
+	*	@private
+	*/
+	p._currentAudioInstance = null;
+	/**
+	*	If the animation has finished playing.
+	*	@property {Boolean} _animFinished
+	*	@private
+	*/
+	p._animFinished = false;
+	/**
+	*	If the audio has finished playing.
+	*	@property {Boolean} _audioFinished
+	*	@private
+	*/
+	p._audioFinished = false;
+	/**
+	*	The Captions object to use to manage captions.
+	*	@property {cloudkid.Captions} _captionsObj
+	*	@private
+	*/
+	p._captionsObj = null;
+	/**
+	*	The function to call when loading is complete.
+	*	@property {Function} _loadCallback
+	*	@private
+	*/
+	p._loadCallback = null;
+	/**
+	*	The function to call when playback is complete.
+	*	@property {Function} _endCallback
+	*	@private
+	*/
+	p._endCallback = null;
 	
 	/**
-	*  If the UI element is centered horizontally
-	*  @property {Boolean} centeredHorizontally
-	*  @default false
-	*/
-	p.centeredHorizontally = false;
-	
-	namespace('cloudkid').UIElementSettings = UIElementSettings;
-	namespace('cloudkid.createjs').UIElementSettings = UIElementSettings;
-}());
-(function() {
-	
-	"use strict";
-
-	// Class imports
-	var UIElementSettings = cloudkid.createjs.UIElementSettings,
-		UIElement = cloudkid.createjs.UIElement,
-		ScreenSettings = cloudkid.createjs.ScreenSettings;
-
-	/**
-	*   The UI scale is responsible for scaling UI components
-	*   to help easy the burden of different device aspect ratios
+	*   Called from the constructor to complete setup and start loading.
 	*
-	*  @module cloudkid
-	*  @class UIScaler
-	*  @constructor
-	*  @param {createjs.DisplayObject} parent The UI display container
-	*  @param {Number} designedWidth The designed width of the UI
-	*  @param {Number} designedHeight The designed height of the UI
-	*  @param {Number} designedPPI The designed PPI of the UI
+	*   @method setup
+	*	@param {Object} options The runtime specific setup data for the cutscene.
+	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
+	*	@param {String} options.configUrl The url of the json config file describing the cutscene. See the example project.
+	*	@param {Function} [options.loadCallback] A function to call when loading is complete.
+	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
+	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
+	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
+	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
+	*	@private
 	*/
-	var UIScaler = function(parent, designedWidth, designedHeight, designedPPI)
+	p.setup = function(options)
 	{
-		this._parent = parent;
-		this._items = [];
-		this._designedScreen = new ScreenSettings(designedWidth, designedHeight, designedPPI);
-	};
-	
-	// Reference to the prototype
-	var p = UIScaler.prototype = {};
-				
-	/** 
-	*  The current screen settings 
-	*  @property {ScreenSettings} currentScreen
-	*  @static
-	*  @private
-	*/
-	var currentScreen = new ScreenSettings(0, 0, 0);
-	
-	/** 
-	*  If the screensize has been set 
-	*  @property {Boolean} initialized
-	*  @static
-	*  @private
-	*/
-	var initialized = false;
-	
-	/** 
-	*  The UI display object to update 
-	*  @property {createjs.DisplayObject} _parent
-	*  @private
-	*/
-	p._parent = null;
-	
-	/** 
-	*  The screen settings object, contains information about designed size 
-	*  @property {ScreenSettings} _designedScreen
-	*  @private
-	*/
-	p._designedScreen = null;
-	
-	/** 
-	*  The configuration for each items
-	*  @property {Array} _items
-	*  @private
-	*/
-	p._items = null;
-	
-	/**
-	*  Vertically align to the top
-	*  @property {String} ALIGN_TOP
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "top"
-	*/
-	UIScaler.ALIGN_TOP = "top";
+		if(!options)
+			throw new Error("need options to create Cutscene");
+		
+		this.display = typeof options.display == "string" ? cloudkid.Application.instance.getDisplay(options.display) : options.display;
+		this.config = options.configUrl;
+		this._loadCallback = options.loadCallback || null;
+		this.imageScale = options.imageScale || 1;
+		this.pathReplaceTarg = options.pathReplaceTarg || null;
+		this.pathReplaceVal = options.pathReplaceVal || null;
+		this._captionsObj = options.captions || null;
+		
+		//bind some callbacks
+		this.update = this.update.bind(this);
+		this._audioCallback = this._audioCallback.bind(this);
+		this.resize = this.resize.bind(this);
 
-	/**
-	*  Vertically align to the bottom
-	*  @property {String} ALIGN_BOTTOM
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "bottom"
-	*/
-	UIScaler.ALIGN_BOTTOM = "bottom";
+		this.display.stage.addChild(this);
 
-	/**
-	*  Horizontally align to the left
-	*  @property {String} ALIGN_LEFT
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "left"
-	*/
-	UIScaler.ALIGN_LEFT = "left";
-
-	/**
-	*  Horizontally align to the right
-	*  @property {String} ALIGN_RIGHT
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "right"
-	*/
-	UIScaler.ALIGN_RIGHT = "right";
-
-	/**
-	*  Vertically or horizontally align to the center
-	*  @property {String} ALIGN_CENTER
-	*  @static
-	*  @final
-	*  @readOnly
-	*  @default "center"
-	*/
-	UIScaler.ALIGN_CENTER = "center";
-	
-	/**
-	*  Create the scaler from JSON data
-	*  @method fromJSON
-	*  @static
-	*  @param {createjs.DisplayObject} parent The UI display container
-	*  @param {Object} jsonSettings The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}
-	*  @param {Object} jsonItems The json items object where the keys are the name of the property on the parent and the value
-	*         is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"
-	*  @param {Boolean} [immediateDestroy=true] If we should immediately cleanup the UIScaler after scaling items
-	*  @return {UIScaler} The scaler object that can be reused
-	*/
-	UIScaler.fromJSON = function(parent, jsonSettings, jsonItems, immediateDestroy)
-	{
-		if (typeof immediateDestroy != "boolean") immediateDestroy = true;
-			
-		var scaler = new UIScaler(
-			parent, 
-			jsonSettings.designedWidth,
-			jsonSettings.designedHeight,
-			jsonSettings.designedPPI
+		var tasks = [];
+		tasks.push(new cloudkid.LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
+		// create a texture from an image path
+		this._taskMan = new cloudkid.TaskManager(tasks);
+		this._taskMan.addEventListener(
+			cloudkid.TaskManager.ALL_TASKS_DONE, 
+			this.onLoadComplete.bind(this)
 		);
-		
-		// Temp variables
-		var item, i, align, vertAlign, horiAlign;
-		
-		// Loop through all the items and register
-		// each dpending on the settings
-		for(i in jsonItems)
-		{
-			item = jsonItems[i];
-			
-			if (item.align)
-			{
-				align = item.align.split("-");
-				vertAlign = align[0];
-				horiAlign = align[1];
-			}
-			else
-			{
-				vertAlign = ALIGN_CENTER;
-				horiAlign = ALIGN_CENTER;
-			}
-			scaler.add(
-				parent[i], 
-				vertAlign,
-				horiAlign,
-				item.titleSafe || false,
-				item.minScale || NaN,
-				item.maxScale || NaN,
-				item.centeredHorizontally || false
-			);
-		}
-		
-		// Scale the items
-		scaler.resize();
-		
-		if (immediateDestroy)
-		{
-			scaler.destroy();
-		}
-		return scaler;
+		this._taskMan.startAll();
 	};
 	
 	/**
-	*   Set the current screen settings. If the stage size changes at all, re-call this function
-	*   @method init
-	*   @static
-	*   @param {Number} screenWidth The fullscreen width
-	*   @param {Number} screenHeight The fullscreen height
-	*   @param {Number} screenPPI The screen resolution density
+	*	Callback for when the config file is loaded.
+	*	@method onConfigLoaded
+	*	@param {cloudkid.MediaLoaderResult} result The loaded result.
+	*	@private
 	*/
-	UIScaler.init = function(screenWidth, screenHeight, screenPPI)
+	p.onConfigLoaded = function(result)
 	{
-		currentScreen.width = screenWidth;
-		currentScreen.height = screenHeight;
-		currentScreen.ppi = screenPPI;
-		initialized = true;
+		this.config = result.content;
+		
+		if(this._captionsObj)
+			this._captionsObj.setDictionary(this.config.captions);
+		
+		//parse config
+		this.framerate = this.config.settings.fps;
+		
+		//figure out what to load
+		var manifest = [];
+		//the javascript file
+		manifest.push({id:"clip", src:this.config.settings.clip});
+		//all the images
+		for(var key in this.config.images)
+		{
+			var url = this.pathReplaceTarg ? this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) : this.config.images[key];
+			manifest.push({id:key, src:url});
+		}
+		
+		var soundConfig = this.config.audio;
+		cloudkid.Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
+		
+		this._taskMan.addTask(new cloudkid.ListTask("art", manifest, this.onArtLoaded.bind(this)));
+		this._taskMan.addTask(cloudkid.Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
+	};
+	
+	/**
+	*	Callback for when the audio has been preloaded.
+	*	@method onAudioLoaded
+	*	@private
+	*/
+	p.onAudioLoaded = function()
+	{
+		//do nothing
+	};
+	
+	/**
+	*	Callback for when all art assets have been loaded.
+	*	@method onArtLoaded
+	*	@param {Object} results The loaded results.
+	*	@private
+	*/
+	p.onArtLoaded = function(results)
+	{
+		if(!window.images)
+			window.images = {};
+		var atlasData = {}, atlasImages = {}, id;
+		for(id in results)
+		{
+			var result = results[id].content;
+			if(id.indexOf("atlasData_") === 0)//look for spritesheet data
+			{
+				atlasData[id.replace("atlasData_", "")] = result;
+			}
+			else if(id.indexOf("atlasImage_") === 0)//look for spritesheet images
+			{
+				atlasImages[id.replace("atlasImage_", "")] = result;
+			}
+			else if(id == "clip")//look for the javascript animation file
+			{
+				//the javascript file
+				//if bitmaps need scaling, then do black magic to the object prototypes so the scaling is built in
+				if(this.imageScale != 1)
+				{
+					var imgScale = this.imageScale;
+					for(var key in this.config.images)
+					{
+						createjs.BitmapUtils.replaceWithScaledBitmap(key, imgScale);
+					}
+				}
+			}
+			else//anything left must be individual images that we were expecting
+			{
+				images[id] = result;
+			}
+		}
+		for(id in atlasData)//if we loaded any spritesheets, load them up
+		{
+			if(atlasData[id] && atlasImages[id])
+			{
+				createjs.BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+			}
+		}
 	};
 
 	/**
-	*  Get the current scale of the screen
-	*  @method getScale
-	*  @return {Number} The current stage scale
+	*	Callback for when all loading is complete.
+	*	@method onLoadComplete
+	*	@param {Event} evt An event
+	*	@private
 	*/
-	p.getScale = function()
+	p.onLoadComplete = function(evt)
 	{
-		return currentScreen.height / this._designedScreen.height;
-	};
-	
-	/**
-	*   Manually add an item 
-	*   @method add
-	*   @param {createjs.DisplayObject} item The display object item to add
-	*   @param {String} [vertAlign="center"] The vertical align of the item (cefault is center)
-	*   @param {String} [horiAlign="center"] The horizontal align of the item (default is center)
-	*   @param {Boolean} [titleSafe=false] If the item needs to be in the title safe area (default is false)
-	*   @param {Number} [minScale=1] The minimum scale amount (default, scales the same size as the stage)
-	*   @param {Number} [maxScale=1] The maximum scale amount (default, scales the same size as the stage)
-	*   @param {Boolean} [centeredHorizontally=false] Makes sure that the center of the object was at the center of the screen, assuming an origin at the top left of the object
-	*/
-	p.add = function(item, vertAlign, horiAlign, titleSafe, minScale, maxScale, centeredHorizontally)
-	{
-		// Create the item settings
-		var s = new UIElementSettings();
+		this._taskMan.removeAllEventListeners();
+		this._taskMan.destroy();
+		this._taskMan = null;
 		
-		s.vertAlign = vertAlign || UIScaler.ALIGN_CENTER;
-		s.horiAlign = horiAlign || UIScaler.ALIGN_CENTER;
-		s.titleSafe = (typeof titleSafe != "boolean") ? false : titleSafe;
-		s.maxScale = (typeof maxScale != "number") ? NaN : maxScale;
-		s.minScale = (typeof minScale != "number") ? NaN : minScale;
-		s.centeredHorizontally = centeredHorizontally || false;
-				
-		this._items.push(new UIElement(item, s, this._designedScreen));
-	};
-	
-	/**
-	*   Scale a single background image according to the UIScaler.width and height
-	*   @method resizeBackground
-	*   @static
-	*   @param {createjs.Bitmap} The bitmap to scale
-	*/
-	UIScaler.resizeBackground = function(bitmap)
-	{
-		if (!initialized) return;
+		var clip = this._clip = new lib[this.config.settings.clipClass]();
+		//if the animation was for the older ComicCutscene, we should handle it gracefully
+		//so if the clip only has one frame or is a container, then we get the child of the clip as the animation
+		if(!this._clip.timeline || this._clip.timeline.duration == 1)
+			clip = this._clip.getChildAt(0);
+		clip.mouseEnabled = false;
+		clip.framerate = this.framerate;
+		clip.advanceDuringTicks = false;
+		clip.gotoAndPlay(0);//internally, movieclip has to be playing to change frames during tick() or advance().
+		clip.loop = false;
+		this.addChild(this._clip);
 		
-		var h, w, scale;
-		h = bitmap.image.height;
-		w = bitmap.image.width;
-
-		//scale the background
-		scale = currentScreen.height / h;
-		bitmap.scaleX = bitmap.scaleY = scale;
+		this.resize(this.display.width, this.display.height);
+		cloudkid.Application.instance.on("resize", this.resize);
 		
-		//center the background
-		bitmap.x = (currentScreen.width - w * scale) * 0.5;
-	};
-	
-	/**
-	*  Convenience function to scale a collection of backgrounds
-	*  @method resizeBackgrounds
-	*  @static
-	*  @param {Array} bitmaps The collection of bitmap images
-	*/
-	UIScaler.resizeBackgrounds = function(bitmaps)
-	{
-		for(var i = 0, len = bitmaps.length; i < len; ++i)
+		this.isReady = true;
+		
+		if(this._loadCallback)
 		{
-			UIScaler.resizeBackground(bitmaps[i]);
+			this._loadCallback();
+			this._loadCallback = null;
 		}
 	};
 	
 	/**
-	*  Scale the UI items that have been registered to the current screen
-	*  @method resize
+	*	Listener for when the Application is resized.
+	*	@method resize
+	*	@param {int} width The new width of the display.
+	*	@param {int} height The new height of the display.
+	*	@private
 	*/
-	p.resize = function()
+	p.resize = function(width, height)
 	{
-		if (this._items.length > 0)
+		if(!this._clip) return;
+		
+		var scale = height / this.config.settings.designedHeight;
+		this._clip.scaleX = this._clip.scaleY = scale;
+		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
+
+		//if the display is paused, tell it to render once since the display just got wiped
+		if(this.isReady && this.display.paused)
 		{
-			for(var i = 0, len = this._items.length; i < len; ++i)
+			this.display.paused = false;
+			this.display.render(0);
+			this.display.paused = true;
+		}
+	};
+	
+	/**
+	*	Starts playing the cutscene.
+	*	@method start
+	*	@param {Function} callback The function to call when playback is complete.
+	*	@public
+	*/
+	p.start = function(callback)
+	{
+		this._endCallback = callback;
+
+		this._timeElapsed = 0;
+		this._animFinished = false;
+		this._audioFinished = false;
+		var id = this.config.audio.soundManifest[0].id;
+		this._currentAudioInstance = cloudkid.Sound.instance.play(id, this._audioCallback);
+		if(this._captionsObj)
+			this._captionsObj.run(id);
+		cloudkid.Application.instance.on("update", this.update);
+	};
+	
+	/**
+	*	Callback for when the audio has finished playing.
+	*	@method _audioCallback
+	*	@private
+	*/
+	p._audioCallback = function()
+	{
+		this._audioFinished = true;
+		this._currentAudioInstance = null;
+		if(this._animFinished)
+		{
+			this.stop(true);
+		}
+	};
+	
+	/**
+	*	Listener for frame updates.
+	*	@method update
+	*	@param {int} elapsed Time in milliseconds
+	*	@private
+	*/
+	p.update = function(elapsed)
+	{
+		if(this._animFinished) return;
+		
+		if(this._currentAudioInstance)
+		{
+			var pos = this._currentAudioInstance.position * 0.001;
+			//sometimes (at least with the flash plugin), the first check of the position would be very incorrect
+			if(this._timeElapsed === 0 && pos > elapsed * 2)
 			{
-				this._items[i].resize(currentScreen);
+				//do nothing here
+			}
+			else if(this._currentAudioInstance)//random bug? - check avoids an unlikely null ref error
+				this._timeElapsed = this._currentAudioInstance.position * 0.001;//save the time elapsed
+		}
+		else
+			this._timeElapsed += elapsed * 0.001;
+		if(this._captionsObj)
+			this._captionsObj.seek(this._timeElapsed * 1000);
+		//set the elapsed time of the clip
+		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ? this._clip.getChildAt(0) : this._clip;
+		clip.elapsedTime = this._timeElapsed;
+		if(clip.currentFrame == clip.timeline.duration)
+		{
+			this._animFinished = true;
+			if(this._audioFinished)
+			{
+				this.stop(true);
 			}
 		}
 	};
+
+	/**
+	*	Stops playback of the cutscene.
+	*	@method stop
+	*	@param {Boolean} [doCallback=false] If the end callback should be performed.
+	*	@public
+	*/
+	p.stop = function(doCallback)
+	{
+		cloudkid.Application.instance.off("update", this.update);
+		if(this._currentAudioInstance)
+			cloudkid.Sound.instance.stop(this.config.audio.soundManifest[0].id);
+		this._captionsObj.stop();
+
+		if(doCallback && this._endCallback)
+		{
+			this._endCallback();
+			this._endCallback = null;
+		}
+	};
 	
 	/**
-	*  Destroy the scaler object
-	*  @method destroy
+	*	Destroys the cutscene.
+	*	@method destroy
+	*	@public
 	*/
 	p.destroy = function()
 	{
-		if (this._items.length > 0)
+		cloudkid.Application.instance.off("resize", this.resize);
+		this.removeAllChildren(true);
+		cloudkid.Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
+		this.config = null;
+		if(this._taskMan)
 		{
-			for(var i = 0, len = this._items.length; i < len; ++i)
-			{
-				this._items[i].destroy();
-			}
+			this._taskMan.removeAllEventListeners();
+			this._taskMan.destroy();
+			this._taskMan = null;
 		}
-		
-		this._parent = null;
-		this._designedScreen = null;
-		this._items = null;
+		this._currentAudioInstance = null;
+		this._loadCallback = null;
+		this._endCallback = null;
+		this._clip = null;
+		this._captionsObj = null;
+		this.display.stage.removeChild(this);
+		this.display = null;
 	};
 	
-	namespace('cloudkid').UIScaler = UIScaler;
-	namespace('cloudkid.createjs').UIScaler = UIScaler;
+	namespace("cloudkid").Cutscene = Cutscene;
 }());

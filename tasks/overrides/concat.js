@@ -31,9 +31,9 @@ module.exports = {
 		src: ['<%= build.modules.captions %>'],
 		dest: '<%= distFolder %>/modules/captions.js'
 	},
-	cutscene : {
-		src: ['<%= build.modules.cutscene %>'],
-		dest: '<%= distFolder %>/modules/cutscene.js'
+	interface : {
+		src: ['<%= build.modules.interface %>'],
+		dest: '<%= distFolder %>/modules/interface.js'
 	},
 	translate : {
 		src: ['<%= build.modules.translate %>'],

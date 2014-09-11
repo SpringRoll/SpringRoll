@@ -198,7 +198,7 @@
 	* @property {String} VERSION
 	* @static
 	*/
-	Captions.VERSION = "${version}";
+	Captions.VERSION = "0.0.3";
 	
 	/** 
 	* Creates the singleton instance of Captions, with an optional dictionary ready to go 

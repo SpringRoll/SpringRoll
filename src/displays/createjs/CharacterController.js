@@ -13,7 +13,7 @@
 	*   sequences on the timeline. This is a flexible way to
 	*   animate characters on a timeline
 	*   
-	*   @class CharacterController
+	*   @class createjs.CharacterController
 	*/
 	var CharacterController = function()
 	{

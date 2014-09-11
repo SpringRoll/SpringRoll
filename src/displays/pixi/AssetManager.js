@@ -12,7 +12,7 @@
 	*  The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
 	*  loading the appropriate assets, as well as easily unloading assets when you are done using them.
 	*
-	*  @class AssetManager
+	*  @class pixi.AssetManager
 	*/
 	var AssetManager = {};
 	

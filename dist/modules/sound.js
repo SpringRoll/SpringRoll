@@ -119,7 +119,7 @@
 		}
 		else if(createjs.Sound.activePlugin)
 		{
-			if(DEBUG)
+			if(true)
 			{
 				Debug.log("SoundJS Plugin " + createjs.Sound.activePlugin + " was not ready, waiting until it is");
 			}
@@ -1136,7 +1136,7 @@
 	SoundInst.prototype.updateVolume = function(contextVol)
 	{
 		if(!this._channel) return;
-		if(contextVol === )
+		if(contextVol === undefined)
 		{
 			var s = Sound.instance;
 			var sound = s._sounds[this.alias];

@@ -26,6 +26,7 @@
 			"src/displays/generic/GenericDisplay.js"
 		],
 		"displaycreatejs" : [
+			"src/displays/createjs/DisplayAdapter.js",
 			"src/displays/createjs/CreateJSDisplay.js",
 			"src/displays/createjs/Animator.js",
 			"src/displays/createjs/AnimatorTimeline.js",
@@ -33,23 +34,15 @@
 			"src/displays/createjs/CharacterClip.js",
 			"src/displays/createjs/CharacterController.js",
 			"src/displays/createjs/DragManager.js",
-			"src/displays/createjs/scaling/Positioner.js",
-			"src/displays/createjs/scaling/ScreenSettings.js",
-			"src/displays/createjs/scaling/UIElement.js",
-			"src/displays/createjs/scaling/UIElementSettings.js",
-			"src/displays/createjs/scaling/UIScaler.js"
+			"src/displays/createjs/Cutscene.js"
 		],
 		"displaypixi" : [
+			"src/displays/pixi/DisplayAdapter.js",
 			"src/displays/pixi/PixiDisplay.js",
 			"src/displays/pixi/Animator.js",
 			"src/displays/pixi/Button.js",
 			"src/displays/pixi/DragManager.js",
-			"src/displays/pixi/AssetManager.js",
-			"src/displays/pixi/scaling/Positioner.js",
-			"src/displays/pixi/scaling/ScreenSettings.js",
-			"src/displays/pixi/scaling/UIElement.js",
-			"src/displays/pixi/scaling/UIElementSettings.js",
-			"src/displays/pixi/scaling/UIScaler.js"
+			"src/displays/pixi/AssetManager.js"
 		],
 		"tasks" : [
 			"src/tasks/TaskEvent.js",
@@ -69,8 +62,14 @@
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js"
 		],
+		"interface" : [
+			"src/ui/ScreenSettings.js",
+			"src/ui/UIElement.js",
+			"src/ui/UIElementSettings.js",
+			"src/ui/UIScaler.js",
+			"src/ui/Positioner.js"
+		],
 		"captions" : ["src/media/Captions.js"],
-		"cutscene" : ["src/media/CreateJSCutscene.js"],
 		"translate" : ["src/utils/Translate.js"]
 	}
 }

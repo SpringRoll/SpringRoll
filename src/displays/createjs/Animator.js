@@ -13,7 +13,7 @@
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
 	*
-	*   @class Animator
+	*   @class createjs.Animator
 	*   @static
 	*/
 	var Animator = function(){};

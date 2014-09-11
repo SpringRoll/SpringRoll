@@ -8,7 +8,7 @@
 	/**
 	*   CharacterClip is used by the CharacterController class
 	*   
-	*   @class CharacterClip
+	*   @class createjs.CharacterClip
 	*   @constructor
 	*   @param {String} event Animator event to play
 	*   @param {int} loops The number of loops

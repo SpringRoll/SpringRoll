@@ -13,7 +13,7 @@
 	 *  initialization and callbacks. Add event listeners for click and mouseover to know about
 	 *  button clicks and mouse overs, respectively.
 	 *
-	 *  @class Button
+	 *  @class createjs.Button
 	 *  @extends createjs.Container
 	 *  @constructor
 	 *  @param {Object|Image|HTMLCanvasElement} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.

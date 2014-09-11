@@ -315,7 +315,7 @@
 /**
 *  @module cloudkid
 */
-(function(){
+(function(undefined){
 	
 	// Imports
 	var MediaLoader = cloudkid.MediaLoader,
@@ -543,7 +543,7 @@
 	* @static
 	* @final
 	*/
-	TaskManager.VERSION = '${version}';
+	TaskManager.VERSION = '0.0.3';
 	
 	/**
 	* Event dispatched when tasks are all done

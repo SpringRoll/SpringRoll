@@ -468,7 +468,7 @@
 /**
 *  @module cloudkid
 */
-(function(){
+(function(undefined){
 	
 	"use strict";
 
@@ -658,7 +658,7 @@
 	* @static
 	* @final
 	*/
-	StateManager.VERSION = '${version}';
+	StateManager.VERSION = '0.0.3';
 
 	/**
 	* The display that holds the states this StateManager is managing.
@@ -830,7 +830,7 @@
 	*/
 	p.addState = function(id, state)
 	{
-		if (DEBUG) 
+		if (true) 
 		{
 			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass cloudkid.BaseState");
 		}

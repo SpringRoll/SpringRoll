@@ -2,7 +2,7 @@
 /**
 *  @module cloudkid
 */
-(function(){
+(function(undefined){
 
 	"use strict";
 

@@ -9,7 +9,7 @@
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
 	*
-	*   @class CreateJSDisplay
+	*   @class createjs.CreateJSDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -43,6 +43,7 @@
 			e.preventDefault();
 		};
 		this.enabled = true;//enable mouse/touch input
+
 		/**
 		*  The Animator class to use when using this display.
 		*  @property {Animator} Animator
@@ -50,6 +51,15 @@
 		*  @public
 		*/
 		this.Animator = cloudkid.createjs.Animator;
+
+		/**
+		*  The DisplayAdapter class to use when providing standard
+		*  ways for accessing properties like position, scale, etc.
+		*  @property {createjs.DisplayAdapter} DisplayAdapter
+		*  @readOnly
+		*  @public
+		*/
+		this.DisplayAdapter = cloudkid.createjs.DisplayAdapter;
 	};
 
 	var p = CreateJSDisplay.prototype = {};

@@ -1,5 +1,5 @@
 /**
-*  @module cloudkid.createjs
+*  @module cloudkid
 */
 (function() {
 
@@ -13,42 +13,105 @@
 	*
 	*   @module cloudkid
 	*   @class UIElement
-	*	@param {createjs.DisplayObject} item The item to affect  
+	*	@param {DisplayObject} item The item to affect  
 	*   @param {UIElementSettings} settings The scale settings
 	*	@param {ScreenSettings} designedScreen The original screen the item was designed for
+	*   @param {DisplayAdapter} adapter The display adapter
 	*/
-	var UIElement = function(item, settings, designedScreen)
+	var UIElement = function(item, settings, designedScreen, adapter)
 	{
-		UIScaler = cloudkid.createjs.UIScaler;
+		UIScaler = cloudkid.UIScaler;
 		
-		this._item = item;			
+		/**
+		*  The reference to the interface item we're scaling
+		*  @private
+		*  @property {DisplayObject} _item
+		*/
+		this._item = item;	
+
+		/**
+		*  The reference to the scale settings
+		*  @private
+		*  @property {UIElementSettings} _settings
+		*/
 		this._settings = settings;
+
+		/**
+		*  The original screen the item was designed for
+		*  @private
+		*  @property {ScreenSettings} _designedScreen
+		*/
 		this._designedScreen = designedScreen;
+
+		/**
+		*  The adapter for universal scale, rotation size access
+		*  @property {Object} _adapter
+		*  @private
+		*/
+		this._adapter = adapter;
 		
-		this.origScaleX = item.scaleX;
-		this.origScaleY = item.scaleY;
+		var scale = adapter.getScale(item), 
+			position = adapter.getPosition(item);
 
-		this.origWidth = item.width;
+		/**
+		*  Original X scale of the item
+		*  @property {Number} origScaleX
+		*  @default 0
+		*/
+		this.origScaleX = scale.x || 0;
 
+		/**
+		*  The original Y scale of the item
+		*  @property {Number} origScaleY
+		*  @default 0
+		*/
+		this.origScaleY = scale.y || 0;
+
+		/** 
+		*  Original width in pixels 
+		*  @property {Number} origWidth
+		*  @default 0
+		*/
+		this.origWidth = item.width || 0;
+
+		/**
+		*  The original bounds of the item with x, y, right, bottom, width, height properties.
+		*  Used to determine the distance to each edge of the item from its origin
+		*  @property {Object} origBounds
+		*/
 		this.origBounds = {x:0, y:0, width:item.width, height:item.height};
 		this.origBounds.right = this.origBounds.x + this.origBounds.width;
 		this.origBounds.bottom = this.origBounds.y + this.origBounds.height;
-		
+
+		/**
+		*  Original horizontal margin in pixels
+		*  @property {Number} origMarginHori
+		*  @default 0
+		*/
+		this.origMarginHori = 0;
+
+		/**
+		*  Original vertical margin in pixels
+		*  @property {Number} origMarginVert
+		*  @default 0
+		*/
+		this.origMarginVert = 0;
+
 		switch(settings.vertAlign)
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				this.origMarginVert = item.y + this.origBounds.y;
+				this.origMarginVert = position.y + this.origBounds.y;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
 			{
-				this.origMarginVert = designedScreen.height * 0.5 - item.y;
+				this.origMarginVert = designedScreen.height * 0.5 - position.y;
 				break;
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				this.origMarginVert = designedScreen.height - (item.y + this.origBounds.bottom);
+				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom);
 				break;
 			}
 		}
@@ -57,86 +120,24 @@
 		{
 			case UIScaler.ALIGN_LEFT:
 			{
-				this.origMarginHori = item.x + this.origBounds.x;
+				this.origMarginHori = position.x + this.origBounds.x;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
 			{
-				this.origMarginHori = designedScreen.width * 0.5 - item.x;
+				this.origMarginHori = designedScreen.width * 0.5 - position.x;
 				break;
 			}
 			case UIScaler.ALIGN_RIGHT:
 			{
-				this.origMarginHori = designedScreen.width - (item.x + this.origBounds.right);
+				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right);
 				break;
 			}
 		}
 	};
 	
+	// Reference to the prototype
 	var p = UIElement.prototype = {};
-
-	/**
-	*  Original horizontal margin in pixels
-	*  @property {Number} origMarginHori
-	*  @default 0
-	*/
-	p.origMarginHori = 0;
-
-	/**
-	*  Original vertical margin in pixels
-	*  @property {Number} origMarginVert
-	*  @default 0
-	*/
-	p.origMarginVert = 0;
-
-	/** 
-	*  Original width in pixels 
-	*  @property {Number} origWidth
-	*  @default 0
-	*/
-	p.origWidth = 0;
-
-	/**
-	*  Original X scale of the item
-	*  @property {Number} origScaleX
-	*  @default 0
-	*/
-	p.origScaleX = 0;
-
-	/**
-	*  The original Y scale of the item
-	*  @property {Number} origScaleY
-	*  @default 0
-	*/
-	p.origScaleY = 0;
-
-	/**
-	*  The original bounds of the item with x, y, right, bottom, width, height properties.
-	*  Used to determine the distance to each edge of the item from its origin
-	*  @property {Object} origBounds
-	*/
-	p.origBounds = null;
-
-	/**
-	*  The reference to the scale settings
-	*  @private
-	*  @property {UIElementSettings} _settings
-	*/	
-	p._settings = null;
-	
-	/**
-	*  The reference to the interface item we're scaling
-	*  @private
-	*  @property {createjs.DisplayObject|PIXI.DisplayObject} _item
-	*/
-	p._item = null;
-	
-	/**
-	*  The original screen the item was designed for
-	*  @private
-	*  @property {ScreenSettings} _designedScreen
-	*/
-	p._designedScreen = null;
 	
 	/**
 	*  Adjust the item scale and position, to reflect new screen
@@ -145,6 +146,7 @@
 	*/
 	p.resize = function(newScreen)
 	{
+		var adapter = this._adapter;
 		var overallScale = newScreen.height / this._designedScreen.height;
 		var ppiScale = newScreen.ppi / this._designedScreen.ppi;
 		var letterBoxWidth = (newScreen.width - this._designedScreen.width * overallScale) / 2;
@@ -165,34 +167,38 @@
 			itemScale = this._settings.maxScale;
 		itemScale *= ppiScale;
 
-		this._item.scaleX = this.origScaleX * itemScale;
-		this._item.scaleY = this.origScaleY * itemScale;
+		adapter.setScale(this._item, {
+			x : this.origScaleX * itemScale,
+			y : this.origScaleY * itemScale
+		});
 
 		// positioning
-		var m;
+		var m, x = null, y = null;
 
 		// vertical move
 		m = this.origMarginVert * overallScale;
-		
 		
 		switch(this._settings.vertAlign)
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				this._item.y = m - this.origBounds.y * itemScale;
+				y = m - this.origBounds.y * itemScale;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
 			{
-				this._item.y = newScreen.height * 0.5 - m;
+				y = newScreen.height * 0.5 - m;
 				break;
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				this._item.y = newScreen.height - m - this.origBounds.bottom * itemScale;
+				y = newScreen.height - m - this.origBounds.bottom * itemScale;
 				break;
 			}
 		}
+
+		// Set the position
+		if (y !== null) adapter.setPosition(this._item, y, "y");
 
 		// horizontal move
 		m = this.origMarginHori * overallScale;
@@ -203,11 +209,11 @@
 			{
 				if(this._settings.titleSafe)
 				{
-					this._item.x = letterBoxWidth + m - this.origBounds.x * itemScale;
+					x = letterBoxWidth + m - this.origBounds.x * itemScale;
 				}
 				else
 				{
-					this._item.x = m - this.origBounds.x * itemScale;
+					x = m - this.origBounds.x * itemScale;
 				}
 				break;
 			}
@@ -215,11 +221,11 @@
 			{
 				if(this._settings.centeredHorizontally)
 				{
-					this._item.x = (newScreen.width - this._item.width) * 0.5;
+					x = (newScreen.width - this._item.width) * 0.5;
 				}
 				else
 				{
-					this._item.x = newScreen.width * 0.5 - m;
+					x = newScreen.width * 0.5 - m;
 				}
 				break;
 			}	
@@ -227,15 +233,18 @@
 			{
 				if(this._settings.titleSafe)
 				{
-					this._item.x = newScreen.width - letterBoxWidth - m - this.origBounds.right * itemScale;
+					x = newScreen.width - letterBoxWidth - m - this.origBounds.right * itemScale;
 				}
 				else
 				{
-					this._item.x = newScreen.width - m - this.origBounds.right * itemScale;
+					x = newScreen.width - m - this.origBounds.right * itemScale;
 				}
 				break;
 			}		
 		}
+
+		// Set the position
+		if (x !== null) adapter.setPosition(this._item, x, "x");
 	};
 	
 	/**
@@ -244,12 +253,14 @@
 	*/
 	p.destroy = function()
 	{
+		this._adapter = null;
 		this.origBounds = null;
 		this._item = null;
 		this._settings = null;
 		this._designedScreen = null;
 	};
 	
+	// Assign to namespace
 	namespace('cloudkid').UIElement = UIElement;
-	namespace('cloudkid.createjs').UIElement = UIElement;
+
 }());
