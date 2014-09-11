@@ -59,6 +59,9 @@
 			"src/states/StateManager.js"
 		],
 		"sound" : [
+			"src/media/SoundContext.js",
+			"src/media/SoundInstance.js",
+			"src/media/SoundTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js"
 		],
