@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/media/SoundTask.js</title>  
+	<title>CloudKidFramework v0.0.4 API Documentation : src/media/SoundListTask.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -195,9 +195,9 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/media/SoundTask.js      
+	var name = src/media/SoundListTask.js      
 </script>
-<h1 class="file-heading">File:SoundTask.js</h1>
+<h1 class="file-heading">File:SoundListTask.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -222,7 +222,7 @@
 	*  @param {Array} list The collection of sounds
 	*  @param {Function} callback Completed callback function
 	*/
-	SoundListTask = function(id, list, callback)
+	var SoundListTask = function(id, list, callback)
 	{
 		this.initialize(id, callback);
 		
@@ -260,7 +260,7 @@
 	};
 
 	// Assign to name space
-	namespace(&#x27;cloudkid&#x27;).SoundListTask = SoundContext;
+	namespace(&#x27;cloudkid&#x27;).SoundListTask = SoundListTask;
 	
 }());
     </pre>

@@ -253,8 +253,8 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/media/SoundTask.js": {
-            "name": "src/media/SoundTask.js",
+        "src/media/SoundListTask.js": {
+            "name": "src/media/SoundListTask.js",
             "modules": {},
             "classes": {
                 "SoundListTask": 1
@@ -1727,7 +1727,7 @@
             "extension_for": [],
             "module": "cloudkid",
             "namespace": "",
-            "file": "src/media/SoundTask.js",
+            "file": "src/media/SoundListTask.js",
             "line": 11,
             "description": "A task for loading a list of sounds. These can only\nbe created through Sound.instance.createPreloadTask().\nThis class is not created if the Task library is not loaded before the Sound library.",
             "extends": "{cloudkid.Task}",
@@ -10267,14 +10267,14 @@
             "module": "cloudkid"
         },
         {
-            "file": "src/media/SoundTask.js",
+            "file": "src/media/SoundListTask.js",
             "line": 1,
             "modules": "cloudkid",
             "class": "SoundListTask",
             "module": "cloudkid"
         },
         {
-            "file": "src/media/SoundTask.js",
+            "file": "src/media/SoundListTask.js",
             "line": 26,
             "description": "The collection of sounds to load",
             "itemtype": "property",
@@ -10284,7 +10284,7 @@
             "module": "cloudkid"
         },
         {
-            "file": "src/media/SoundTask.js",
+            "file": "src/media/SoundListTask.js",
             "line": 39,
             "description": "Begin the task",
             "itemtype": "method",
@@ -10300,7 +10300,7 @@
             "module": "cloudkid"
         },
         {
-            "file": "src/media/SoundTask.js",
+            "file": "src/media/SoundListTask.js",
             "line": 49,
             "description": "Destroy the task",
             "itemtype": "method",
@@ -13094,7 +13094,7 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 73,
+            "line": 72,
             "description": "Create the polygon hit area for interface elements",
             "static": 1,
             "itemtype": "method",
@@ -13288,7 +13288,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 248,
+            "line": 246,
             "description": "Destroy this item, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -15759,7 +15759,7 @@
         },
         {
             "message": "unknown tag: modules",
-            "line": " src/media/SoundTask.js:1"
+            "line": " src/media/SoundListTask.js:1"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -16203,7 +16203,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " src/media/SoundTask.js:1"
+            "line": " src/media/SoundListTask.js:1"
         },
         {
             "message": "Missing item type",
