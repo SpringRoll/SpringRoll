@@ -157,7 +157,7 @@
 	{
 		if(!name || !callback) return false;
 
-		var listeners = this._listeners[n];
+		var listeners = this._listeners[name];
 		if(!listeners) return false;
 		return listeners.indexOf(callback) >= 0;
 	};
