@@ -1,30 +1,31 @@
 #CloudKid Framework
 
-A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a  plugin architecture to work with PIXI, CreateJS and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
+A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [CreateJS](http://createjs.com) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
-	* Adding sound (WebAudio)
-	* Hardware rendered games (WebGL)
-	* Implementing captions
-	* Remote debugging
-	* Responsive interfaces
-	* Multi-threading
-	* Game state management
-	* Preloading assets
-	* Browser cache control
+* Adding Sound (WebAudio)
+* Hardware Rendered Games (via WebGL)
+* Implementing Captions
+* Remote Debugging
+* Responsive Interfaces
+* Multi-threading
+* Game State Management
+* Preloading Assets
+* Browser Cache Control
 
 ##Browser Support
 
-The primary objective is to build content which supports WebAudio API and WebGL. With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
+The primary objective of the framework is to build content which supports WebAudio API and WebGL (with Context2d fallback). With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
 
-	* Internet Explorer 9+
-	* iOS Safari & iOS WebView 8+
-	* Chrome for Android 37+
-	* Chrome 30+
-	* Firefox 25+
+* Internet Explorer 9+
+* iOS Safari & iOS WebView 7+
+* Chrome for Android 37+
+* Chrome 30+
+* Firefox 25+
 
-We have intentionally avoided support for these problematic browser:
+We have intentionally avoided support for these browsers:
 	
-	* Android stock browser ()
+* Android stock browser (no WebAudio support or suitable fallback support)
+* Internet Explorer 7/8 (no HTML5 canvas support)
 
 ##Installation
 
@@ -33,6 +34,10 @@ CloudKid Framework can be install using Bower.
 ```bash
 bower install cloudkid-framework
 ```
+
+##Dependencies
+
+* [PreloadJS](https://github.com/CloudKidStudio/PreloadJS) CloudKid's fork of PreloadJS
 
 ##Usage
 
@@ -72,37 +77,51 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 
 Modules are extra components which contain code libraries, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and contain functionality that can work along-size the core of the framework. These are found in the **dist/modules** folder.
 
-### **Captions** 
+### Captions
+
 Module file: _captions(.min).js_
 
-### **Debug** 
+### Debug 
 Module file: _debug(.min).js_
 
-### **CreateJS Display**  
+### CreateJS Display
 Module file: _display-createjs(.min).js_
 
-### **Generic Display** 
+#### Dependencies
+* [EaselJS](https://github.com/CloudKidStudio/EaselJS) CloudKid's fork of EaselJS
+* [TweenJS](https://github.com/CloudKidStudio/TweenJS) CloudKid's fork of TweenJS
+
+### Generic Display 
 Module file: _display-generc(.min).js_
 
-### **PIXI Display** 
+### PIXI Display
 Module file: _display-pixi(.min).js_
 
-### **Interface**  
+#### Dependencies
+* [PixiJS](https://github.com/CloudKidStudio/pixi.js) CloudKid's fork of PixiJS
+
+### Interface
 Module file: _interface(.min).js_
 
-### **Sound**  
+### Sound  
 Module file: _sound(.min).js_
 
-### **States**  
+#### Dependencies
+* [SoundJS](https://github.com/CloudKidStudio/SoundJS) CloudKid's fork of SoundJS
+
+### States  
 Module file: _states(.min).js_
 
-### **Tasks** 
+### Tasks 
 Module file: _tasks(.min).js_
 
-### **Translate**  
+### Translate  
 Module file: _translate(.min).js_
 
-### **Worker** 
+#### Dependencies
+* [jQuery](http://jquery.com)
+
+### Worker 
 Module file: _worker(.min).js_
 
 ##Displays
