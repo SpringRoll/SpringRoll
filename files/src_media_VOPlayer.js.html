@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : src/media/VOPlayer.js</title>  
+    <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.4 API Documentation : src/media/VOPlayer.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.3</em>
+            <em>API Documentation for: 0.0.4</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -339,19 +339,26 @@
 	
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
+	*	Alternatively, plays a list of audio files, timers, and/or functions.
+	*	Audio in the list will be preloaded to minimize pauses for loading.
 	*	@method play
 	*	@public
-	*	@param {String} id The alias of the audio file to play.
+	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
 	*	@param {function} callback The function to call when playback is complete.
-	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop(), play() or playList() call.
+	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop() or play() call.
 	*/
-	p.play = function(id, callback, cancelledCallback)
+	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
 		
 		this._listCounter = -1;
-		this._listHelper[0] = id;
-		this.audioList = this._listHelper;
+		if(typeof idOrList == &quot;string&quot;)
+		{
+			this._listHelper[0] = idOrList;
+			this.audioList = this._listHelper;
+		}
+		else
+			this.audioList = idOrList;
 		this._callback = callback;
 		this._cancelledCallback = cancelledCallback;
 		this._onAudioFinished();
@@ -361,6 +368,7 @@
 	*	Plays a list of audio files, timers, and/or functions, interrupting any current playback.
 	*	Audio in the list will be preloaded to minimize pauses for loading.
 	*	@method playList
+	*	@deprecated Use play() instead.
 	*	@public
 	*	@param {Array} list The array of items to play/call in order.
 	*	@param {function} callback The function to call when playback is complete.
@@ -368,13 +376,7 @@
 	*/
 	p.playList = function(list, callback, cancelledCallback)
 	{
-		this.stop();
-
-		this._listCounter = -1;
-		this.audioList = list;
-		this._callback = callback;
-		this._cancelledCallback = cancelledCallback;
-		this._onAudioFinished();
+		this.play(list, callback, cancelledCallback);
 	};
 	
 	/**

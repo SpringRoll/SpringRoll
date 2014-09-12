@@ -2,7 +2,7 @@
     "project": {
         "name": "CloudKidFramework",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "url": "http://github.com/CloudKidStudio/CloudKidFramework"
     },
     "files": {
@@ -2722,6 +2722,18 @@
         {
             "file": "src/displays/createjs/Animator.js",
             "line": 96,
+            "description": "An object to allow stop() calls to be better differentiated\nfrom animations ending naturally.",
+            "itemtype": "property",
+            "name": "EXTERNAL_STOP",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "createjs.Animator",
+            "module": "cloudkid.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Animator.js",
+            "line": 104,
             "description": "Sets the variables of the Animator to their defaults. Use when _timelines is null,\nif the Animator data was cleaned up but was needed again later.",
             "itemtype": "method",
             "name": "init",
@@ -2731,7 +2743,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 112,
+            "line": 120,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -2741,7 +2753,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 130,
+            "line": 138,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -2817,7 +2829,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 215,
+            "line": 223,
             "description": "Play an animation for a frame label event, starting at a random frame within the animation",
             "itemtype": "method",
             "name": "playAtRandomFrame",
@@ -2886,7 +2898,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 236,
+            "line": 244,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -2934,7 +2946,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 322,
+            "line": 330,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with\n\ta unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,\n\tit needs to not have an id that is identical to anything from EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -2957,7 +2969,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 353,
+            "line": 361,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -2985,7 +2997,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 386,
+            "line": 394,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -3007,7 +3019,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 412,
+            "line": 420,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -3024,7 +3036,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 438,
+            "line": 446,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -3048,7 +3060,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 495,
+            "line": 503,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -3058,7 +3070,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 516,
+            "line": 524,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -3068,7 +3080,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 538,
+            "line": 546,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -3090,7 +3102,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 560,
+            "line": 568,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -3111,7 +3123,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 579,
+            "line": 587,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -3124,7 +3136,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 590,
+            "line": 598,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -3136,7 +3148,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 603,
+            "line": 611,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -3148,7 +3160,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 616,
+            "line": 624,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -3167,7 +3179,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 713,
+            "line": 721,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -3185,7 +3197,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 725,
+            "line": 733,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -3203,7 +3215,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 738,
+            "line": 746,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -3219,7 +3231,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 752,
+            "line": 760,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -10562,16 +10574,16 @@
         {
             "file": "src/media/VOPlayer.js",
             "line": 137,
-            "description": "Plays a single audio alias, interrupting any current playback.",
+            "description": "Plays a single audio alias, interrupting any current playback.\nAlternatively, plays a list of audio files, timers, and/or functions.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "play",
             "access": "public",
             "tagname": "",
             "params": [
                 {
-                    "name": "id",
-                    "description": "The alias of the audio file to play.",
-                    "type": "String"
+                    "name": "idOrList",
+                    "description": "The alias of the audio file to play or the array of items to play/call in order.",
+                    "type": "String|Array"
                 },
                 {
                     "name": "callback",
@@ -10580,7 +10592,7 @@
                 },
                 {
                     "name": "cancelledCallback",
-                    "description": "The function to call when playback is interrupted with a stop(), play() or playList() call.",
+                    "description": "The function to call when playback is interrupted with a stop() or play() call.",
                     "type": "Function"
                 }
             ],
@@ -10589,10 +10601,12 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 157,
+            "line": 164,
             "description": "Plays a list of audio files, timers, and/or functions, interrupting any current playback.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "playList",
+            "deprecated": true,
+            "deprecationMessage": "Use play() instead.",
             "access": "public",
             "tagname": "",
             "params": [
@@ -10617,7 +10631,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 177,
+            "line": 179,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onAudioFinished",
@@ -10628,7 +10642,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 224,
+            "line": 226,
             "description": "The update callback used for silence timers and updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_update",
@@ -10646,7 +10660,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 242,
+            "line": 244,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateCaptionPos",
@@ -10664,7 +10678,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 255,
+            "line": 257,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playAudio",
@@ -10675,7 +10689,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 305,
+            "line": 307,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -10686,7 +10700,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 329,
+            "line": 331,
             "description": "Unloads all audio this VOPlayer has played. If trackAudio is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadPlayedAudio",
@@ -10697,7 +10711,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 340,
+            "line": 342,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
@@ -15661,83 +15675,83 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:96"
+            "line": " src/displays/createjs/Animator.js:104"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:112"
+            "line": " src/displays/createjs/Animator.js:120"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:130"
+            "line": " src/displays/createjs/Animator.js:138"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:215"
+            "line": " src/displays/createjs/Animator.js:223"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:236"
+            "line": " src/displays/createjs/Animator.js:244"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:322"
+            "line": " src/displays/createjs/Animator.js:330"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:353"
+            "line": " src/displays/createjs/Animator.js:361"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:386"
+            "line": " src/displays/createjs/Animator.js:394"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:412"
+            "line": " src/displays/createjs/Animator.js:420"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:438"
+            "line": " src/displays/createjs/Animator.js:446"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:495"
+            "line": " src/displays/createjs/Animator.js:503"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:516"
+            "line": " src/displays/createjs/Animator.js:524"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:538"
+            "line": " src/displays/createjs/Animator.js:546"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:560"
+            "line": " src/displays/createjs/Animator.js:568"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:579"
+            "line": " src/displays/createjs/Animator.js:587"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:590"
+            "line": " src/displays/createjs/Animator.js:598"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:603"
+            "line": " src/displays/createjs/Animator.js:611"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:616"
+            "line": " src/displays/createjs/Animator.js:624"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:738"
+            "line": " src/displays/createjs/Animator.js:746"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:752"
+            "line": " src/displays/createjs/Animator.js:760"
         },
         {
             "message": "replacing incorrect tag: function with method",

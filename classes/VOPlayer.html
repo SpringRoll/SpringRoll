@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.3 API Documentation : VOPlayer</title>  
+    <script src="http://yui.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.4 API Documentation : VOPlayer</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.3</em>
+            <em>API Documentation for: 0.0.4</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -384,10 +384,12 @@ managing captions (CloudKidCaptions library) at the same time.</p>
                                 
                             </li>
                         
-                            <li class="index-item method public">
+                            <li class="index-item method public deprecated">
                                 <a href="#method_playList">playList</a>
 
                                 
+                                
+                                    <span class="flag deprecated">deprecated</span>
                                 
                             </li>
                         
@@ -554,7 +556,7 @@ managing captions (CloudKidCaptions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l177"><code>_onAudioFinished:177</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l179"><code>_onAudioFinished:179</code></a>
         
         </p>
 
@@ -611,7 +613,7 @@ managing captions (CloudKidCaptions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l255"><code>_playAudio:255</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l257"><code>_playAudio:257</code></a>
         
         </p>
 
@@ -678,7 +680,7 @@ managing captions (CloudKidCaptions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l224"><code>_update:224</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l226"><code>_update:226</code></a>
         
         </p>
 
@@ -770,7 +772,7 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l242"><code>_updateCaptionPos:242</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l244"><code>_updateCaptionPos:244</code></a>
         
         </p>
 
@@ -852,7 +854,7 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l340"><code>destroy:340</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l342"><code>destroy:342</code></a>
         
         </p>
 
@@ -884,7 +886,7 @@ This method is bound to the VOPlayer instance.</p>
             
                 <li class="arg">
                     
-                        <code>id</code>
+                        <code>idOrList</code>
                     
                 </li>
             
@@ -942,7 +944,9 @@ This method is bound to the VOPlayer instance.</p>
     </div>
 
     <div class="description">
-        <p>Plays a single audio alias, interrupting any current playback.</p>
+        <p>Plays a single audio alias, interrupting any current playback.
+Alternatively, plays a list of audio files, timers, and/or functions.
+Audio in the list will be preloaded to minimize pauses for loading.</p>
 
     </div>
 
@@ -954,14 +958,14 @@ This method is bound to the VOPlayer instance.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">id</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">idOrList</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The alias of the audio file to play.</p>
+                        <p>The alias of the audio file to play or the array of items to play/call in order.</p>
 
                     </div>
 
@@ -993,7 +997,7 @@ This method is bound to the VOPlayer instance.</p>
                     
 
                     <div class="param-description">
-                        <p>The function to call when playback is interrupted with a stop(), play() or playList() call.</p>
+                        <p>The function to call when playback is interrupted with a stop() or play() call.</p>
 
                     </div>
 
@@ -1010,7 +1014,7 @@ This method is bound to the VOPlayer instance.</p>
 </div>
 
                 
-                    <div id="method_playList" class="method item public">
+                    <div id="method_playList" class="method item public deprecated">
     <h3 class="name"><code>playList</code></h3>
 
     
@@ -1042,6 +1046,8 @@ This method is bound to the VOPlayer instance.</p>
     
 
     
+        <span class="flag deprecated" title="Use play() instead.">deprecated</span>
+    
 
     
         <span class="flag public">public</span>
@@ -1066,11 +1072,13 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l157"><code>playList:157</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l164"><code>playList:164</code></a>
         
         </p>
 
 
+        
+            <p>Deprecated: Use play() instead.</p>
         
 
         
@@ -1180,7 +1188,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l305"><code>stop:305</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l307"><code>stop:307</code></a>
         
         </p>
 
@@ -1237,7 +1245,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l329"><code>unloadPlayedAudio:329</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l331"><code>unloadPlayedAudio:331</code></a>
         
         </p>
 
