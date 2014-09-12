@@ -1,13 +1,32 @@
-CloudKid Framework
-==========
+#CloudKid Framework
 
-An application framework for building HTML5 Canvas games and applications. The framework is built on a flexible plugin architecture to work with PIXI, CreateJS and native canvas rendering. The Framework comes with several optional modules.
+A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a  plugin architecture to work with PIXI, CreateJS and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
-##Documentation##
+	* Adding sound (WebAudio)
+	* Hardware rendered games (WebGL)
+	* Implementing captions
+	* Remote debugging
+	* Responsive interfaces
+	* Multi-threading
+	* Game state management
+	* Preloading assets
+	* Browser cache control
 
-[API Documentation](http://cloudkidstudio.github.io/CloudKidFramework/)
+##Browser Support
 
-##Installation##
+The primary objective is to build content which supports WebAudio API and WebGL. With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
+
+	* Internet Explorer 9+
+	* iOS Safari & iOS WebView 8+
+	* Chrome for Android 37+
+	* Chrome 30+
+	* Firefox 25+
+
+We have intentionally avoided support for these problematic browser:
+	
+	* Android stock browser ()
+
+##Installation
 
 CloudKid Framework can be install using Bower.
 
@@ -15,9 +34,84 @@ CloudKid Framework can be install using Bower.
 bower install cloudkid-framework
 ```
 
+##Usage
+
+The basic usage is to create a canvas element on the DOM, assign it an ID and then create a new Application to render that canvas.
+
+```html
+<html>
+	<head>
+		<!-- Core is required! -->
+		<script src="dist/core.min.js"></script>
+
+		<!-- Optional modules -->
+		<script src="dist/modules/display-createjs.min.js"></script>
+	</head>
+	<body>
+		<canvas id="stage" width="600" height="400"></canvas>
+		<script>
+
+			// Create the application
+			var app = new cloudkid.Application({
+				canvasId : "stage",
+				display : cloudkid.CreateJSDisplay
+			});
+
+			// Listen for when the application
+			// has been fully initialized
+			app.on('init', function(){
+				// Ready!
+			});
+
+		</script>
+	</body>
+</html>
+```
+
+##Modules
+
+Modules are extra components which contain code libraries, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and contain functionality that can work along-size the core of the framework. These are found in the **dist/modules** folder.
+
+### **Captions** 
+Module file: _captions(.min).js_
+
+### **Debug** 
+Module file: _debug(.min).js_
+
+### **CreateJS Display**  
+Module file: _display-createjs(.min).js_
+
+### **Generic Display** 
+Module file: _display-generc(.min).js_
+
+### **PIXI Display** 
+Module file: _display-pixi(.min).js_
+
+### **Interface**  
+Module file: _interface(.min).js_
+
+### **Sound**  
+Module file: _sound(.min).js_
+
+### **States**  
+Module file: _states(.min).js_
+
+### **Tasks** 
+Module file: _tasks(.min).js_
+
+### **Translate**  
+Module file: _translate(.min).js_
+
+### **Worker** 
+Module file: _worker(.min).js_
+
 ##Displays
 
 The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [CreateJS](http://createjs.com/) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all there displays methods simultaneously.
+
+##Documentation
+
+[API Documentation](http://cloudkidstudio.github.io/CloudKidFramework/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/CloudKidStudio/CloudKidFramework/wiki).
 
 ##License
 
