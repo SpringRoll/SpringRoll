@@ -165,10 +165,8 @@
 			itemScale = this._settings.maxScale;
 		itemScale *= ppiScale;
 
-		adapter.setScale(this._item, {
-			x : this.origScaleX * itemScale,
-			y : this.origScaleY * itemScale
-		});
+		adapter.setScale(this._item, this.origScaleX * itemScale, "x");
+		adapter.setScale(this._item, this.origScaleY * itemScale, "y");
 
 		// positioning
 		var m, x = null, y = null;

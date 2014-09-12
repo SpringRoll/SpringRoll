@@ -45,9 +45,8 @@
 			scale = adapter.getScale(item);
 			if(pt)
 			{
-				pt.x *= scale.x;
-				pt.y *= scale.y;
-				adapter.setScale(item, pt);
+				adapter.setScale(item, pt.x * scale.x, "x");
+				adapter.setScale(item, pt.y * scale.y, "y");
 			}
 			pt = setting.pivot;
 			if(pt)

@@ -114,8 +114,8 @@
 		}
 		else
 		{
-			if (position.x) object.x = position.x;
-			if (position.y) object.y = position.y;
+			if (position.x !== undefined) object.x = position.x;
+			if (position.y !== undefined) object.y = position.y;
 		}
 		return object;
 	};
