@@ -57,6 +57,6 @@
 	};
 
 	// Assign to name space
-	namespace('cloudkid').SoundListTask = SoundContext;
+	namespace('cloudkid').SoundListTask = SoundListTask;
 	
 }());

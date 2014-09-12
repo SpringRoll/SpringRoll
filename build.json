@@ -62,7 +62,7 @@
 		"sound" : [
 			"src/media/SoundContext.js",
 			"src/media/SoundInstance.js",
-			"src/media/SoundTask.js",
+			"src/media/SoundListTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js"
 		],
