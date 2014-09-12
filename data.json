@@ -2525,6 +2525,13 @@
                             "optional": true
                         },
                         {
+                            "name": "updateTween",
+                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
                             "name": "canvasId",
                             "description": "The default display DOM ID name",
                             "type": "String",
@@ -2543,13 +2550,6 @@
                             "optional": true
                         }
                     ]
-                },
-                {
-                    "name": "updateTween",
-                    "description": "If using TweenJS, the Application will update the Tween itself",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "false"
                 }
             ]
         }
