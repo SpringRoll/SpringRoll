@@ -1644,10 +1644,10 @@
             "module": "cloudkid",
             "namespace": "",
             "file": "src/media/Captions.js",
-            "line": 10,
-            "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class and depends on `cloudkid.Audio` for the progress update.",
+            "line": 6,
+            "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class.",
             "example": [
-                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
+                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");\n\n\t\t// Provide the update to captions\n\t\tApplication.intance.on('up', captions.update.bind(captions));"
             ],
             "is_constructor": 1,
             "params": [
@@ -2464,6 +2464,25 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
+                        },
+                        {
+                            "name": "versionsFile",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "cacheBust",
+                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "basePath",
+                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "type": "String",
+                            "optional": true
                         },
                         {
                             "name": "resizeElement",
@@ -8598,7 +8617,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 42,
+            "line": 38,
             "description": "Reference to the inherieted task",
             "access": "private",
             "tagname": "",
@@ -8610,7 +8629,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 50,
+            "line": 46,
             "description": "An object used as a dictionary with keys that should be the same as sound aliases",
             "access": "private",
             "tagname": "",
@@ -8622,7 +8641,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 58,
+            "line": 54,
             "description": "A reference to the CreateJS Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.\nWhen using PIXI textfields, textIsProp should be false.",
             "access": "private",
             "tagname": "",
@@ -8634,7 +8653,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 68,
+            "line": 64,
             "description": "The function to call when playback is complete.",
             "access": "private",
             "tagname": "",
@@ -8646,7 +8665,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 76,
+            "line": 72,
             "description": "The collection of line objects {start:0, end:0, content:\"\"}",
             "access": "private",
             "tagname": "",
@@ -8658,7 +8677,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 84,
+            "line": 80,
             "description": "The duration in milliseconds of the current sound.",
             "access": "private",
             "tagname": "",
@@ -8670,7 +8689,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 92,
+            "line": 88,
             "description": "The current playback time",
             "access": "private",
             "tagname": "",
@@ -8682,7 +8701,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 100,
+            "line": 96,
             "description": "Save the current line index",
             "access": "private",
             "tagname": "",
@@ -8694,7 +8713,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 108,
+            "line": 104,
             "description": "Cache the last active line",
             "access": "private",
             "tagname": "",
@@ -8706,7 +8725,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 116,
+            "line": 112,
             "description": "If we're playing",
             "access": "private",
             "tagname": "",
@@ -8718,7 +8737,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 124,
+            "line": 120,
             "description": "The singleton instance of Captions",
             "access": "private",
             "tagname": "",
@@ -8730,7 +8749,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 132,
+            "line": 128,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "access": "private",
             "tagname": "",
@@ -8742,19 +8761,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 140,
-            "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).\nDefault is false.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "_isSlave",
-            "type": "Bool",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 150,
+            "line": 136,
             "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nWhen using PIXI textfields, textIsProp should be false.\nDefault is true.",
             "access": "private",
             "tagname": "",
@@ -8766,19 +8773,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 160,
-            "description": "An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced\nwith with an animation.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "_animTimeline.",
-            "type": "cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 169,
+            "line": 146,
             "description": "If this instance has been destroyed already",
             "access": "private",
             "tagname": "",
@@ -8790,31 +8785,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 177,
-            "description": "A bound update function to get the progress from Sound with",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "_boundUpdate",
-            "type": "Function",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 185,
-            "description": "A bound completion callback for when Sound has finished playing.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "_boundComplete",
-            "type": "Function",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 193,
+            "line": 154,
             "description": "The version number of this library",
             "access": "public",
             "tagname": "",
@@ -8827,7 +8798,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 202,
+            "line": 163,
             "description": "Creates the singleton instance of Captions, with an optional dictionary ready to go",
             "access": "public",
             "tagname": "",
@@ -8850,12 +8821,16 @@
                 }
             ],
             "static": 1,
+            "return": {
+                "description": "The captions object instance",
+                "type": "Captions"
+            },
             "class": "Captions",
             "module": "cloudkid"
         },
         {
             "file": "src/media/Captions.js",
-            "line": 216,
+            "line": 179,
             "description": "The singleton instance of Captions",
             "static": 1,
             "readonly": "",
@@ -8869,7 +8844,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 231,
+            "line": 194,
             "description": "Constructor for caption.",
             "access": "private",
             "tagname": "",
@@ -8884,7 +8859,7 @@
                 },
                 {
                     "name": "field",
-                    "description": "An text field to use as the output for this captions object. When using PIXI textfields, textIsProp should be false.",
+                    "description": "An text field to use as the \n\toutput for this captions object. When using PIXI textfields, textIsProp should be false.",
                     "type": "createjs.Text|PIXI.Text|PIXI.BitmapText",
                     "optional": true,
                     "optdefault": "null"
@@ -8895,7 +8870,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 249,
+            "line": 211,
             "description": "Mute all of the captions.",
             "access": "public",
             "tagname": "",
@@ -8914,7 +8889,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 265,
+            "line": 227,
             "description": "If the captions are all currently muted.",
             "access": "public",
             "tagname": "",
@@ -8930,7 +8905,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 278,
+            "line": 240,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -8948,7 +8923,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 322,
+            "line": 284,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
             "access": "public",
             "tagname": "",
@@ -8966,7 +8941,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 342,
+            "line": 304,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -8986,7 +8961,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 354,
+            "line": 316,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -9011,7 +8986,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 390,
+            "line": 352,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -9029,7 +9004,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 413,
+            "line": 375,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -9040,7 +9015,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 425,
+            "line": 387,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -9062,7 +9037,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 446,
+            "line": 408,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -9077,7 +9052,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 458,
+            "line": 420,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -9088,7 +9063,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 469,
+            "line": 431,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -9099,19 +9074,8 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 479,
-            "description": "If this Captions instance is a 'slave', that doesn't run cloudkid.Audio\nand must have update() called manually (and passed milliseconds).",
-            "itemtype": "property",
-            "name": "isSlave",
-            "type": "Bool",
-            "default": "false",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 491,
-            "description": "Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.",
+            "line": 441,
+            "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -9128,71 +9092,12 @@
                     "type": "Function"
                 }
             ],
-            "return": {
-                "description": "The update function that should be called if captions isSlave is true",
-                "type": "Function"
-            },
             "class": "Captions",
             "module": "cloudkid"
         },
         {
             "file": "src/media/Captions.js",
-            "line": 526,
-            "description": "Starts caption playback without controlling the sound or animation. Returns the update\nfunction that should be called to control the Captions object.",
-            "deprecated": true,
-            "deprecationMessage": "Use play(alias) instead, isSlave should be set to true",
-            "access": "public",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "run",
-            "params": [
-                {
-                    "name": "alias",
-                    "description": "The caption/sound alias",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The update function that should be called",
-                "type": "Function"
-            },
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 544,
-            "description": "Runs a caption synced to the audio of an animation.",
-            "deprecated": true,
-            "deprecationMessage": "Set Animator.captions or PixiAnimator.captions to set the captions object to use",
-            "access": "public",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "runWithAnimation",
-            "params": [
-                {
-                    "name": "animTimeline",
-                    "description": "The animation to sync to.",
-                    "type": "cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline"
-                }
-            ],
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 560,
-            "description": "Is called when cloudkid.Audio finishes playing. Is not called if \na cloudkid.AudioAnimation finishes playing, as then stop() is called.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "_onSoundComplete",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 577,
+            "line": 460,
             "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
             "access": "public",
             "tagname": "",
@@ -9203,7 +9108,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 602,
+            "line": 475,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -9221,18 +9126,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 648,
-            "description": "Callback for when a frame is entered, to sync to an animation's audio.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "_updateToAnim",
-            "class": "Captions",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 670,
+            "line": 521,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -9250,12 +9144,12 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 684,
+            "line": 535,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
-            "name": "updateTime",
+            "name": "update",
             "params": [
                 {
                     "name": "progress",
@@ -9268,7 +9162,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 699,
+            "line": 550,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -9279,7 +9173,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 736,
+            "line": 587,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -9290,7 +9184,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 754,
+            "line": 605,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10416,7 +10310,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 40,
+            "line": 39,
             "description": "If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.",
             "itemtype": "property",
             "name": "trackAudio",
@@ -10428,7 +10322,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 47,
+            "line": 46,
             "description": "The current list of audio/silence times/functions. Generally you will not need to modify this.",
             "itemtype": "property",
             "name": "audioList",
@@ -10440,7 +10334,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 54,
+            "line": 53,
             "description": "The current position in audioList.",
             "itemtype": "property",
             "name": "_listCounter",
@@ -10452,7 +10346,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 61,
+            "line": 60,
             "description": "The current audio alias being played.",
             "itemtype": "property",
             "name": "_currentAudio",
@@ -10464,7 +10358,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 68,
+            "line": 67,
             "description": "The current audio instance being played.",
             "itemtype": "property",
             "name": "_audioInst",
@@ -10476,7 +10370,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 75,
+            "line": 74,
             "description": "The callback for when the list is finished.",
             "itemtype": "property",
             "name": "_callback",
@@ -10488,7 +10382,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 82,
+            "line": 81,
             "description": "The callback for when the list is interrupted for any reason.",
             "itemtype": "property",
             "name": "_cancelledCallback",
@@ -10500,7 +10394,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 89,
+            "line": 88,
             "description": "The bound _onAudioFinished call.",
             "itemtype": "property",
             "name": "_audioListener",
@@ -10512,7 +10406,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 96,
+            "line": 95,
             "description": "A list of audio file played by this, so that they can be unloaded later.",
             "itemtype": "property",
             "name": "_playedAudio",
@@ -10524,7 +10418,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 103,
+            "line": 102,
             "description": "A timer for silence entries in the list, in milliseconds.",
             "itemtype": "property",
             "name": "_timer",
@@ -10536,7 +10430,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 110,
+            "line": 109,
             "description": "The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions\ndictionary config file and a reference to a text field.",
             "itemtype": "property",
             "name": "captions",
@@ -10548,7 +10442,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 118,
+            "line": 117,
             "description": "An Array used when play() is called to avoid creating lots of Array objects.",
             "itemtype": "property",
             "name": "_listHelper",
@@ -10560,7 +10454,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 126,
+            "line": 125,
             "description": "If VOPlayer is currently playing (audio or silence).",
             "itemtype": "property",
             "name": "playing",
@@ -10573,7 +10467,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 137,
+            "line": 136,
             "description": "Plays a single audio alias, interrupting any current playback.\nAlternatively, plays a list of audio files, timers, and/or functions.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "play",
@@ -10601,7 +10495,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 164,
+            "line": 163,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onAudioFinished",
@@ -10612,7 +10506,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 211,
+            "line": 216,
             "description": "The update callback used for silence timers and updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_update",
@@ -10630,7 +10524,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 229,
+            "line": 236,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateCaptionPos",
@@ -10648,7 +10542,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 242,
+            "line": 250,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playAudio",
@@ -10659,7 +10553,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 292,
+            "line": 300,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -10670,7 +10564,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 316,
+            "line": 326,
             "description": "Unloads all audio this VOPlayer has played. If trackAudio is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadPlayedAudio",
@@ -10681,7 +10575,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 327,
+            "line": 337,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
@@ -14997,7 +14891,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 36,
+            "line": 44,
             "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
             "itemtype": "property",
             "name": "options",
@@ -15008,7 +14902,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 44,
+            "line": 52,
             "description": "Primary renderer for the application, for simply accessing Application.instance.display.stage;\nThe first display added becomes the primary display automatically.",
             "itemtype": "property",
             "name": "display",
@@ -15020,7 +14914,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 64,
+            "line": 72,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance MediaLoader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -15033,7 +14927,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 74,
+            "line": 82,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance MediaLoader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -15046,7 +14940,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 84,
+            "line": 92,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -15058,7 +14952,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 91,
+            "line": 99,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -15070,7 +14964,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 98,
+            "line": 106,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -15082,7 +14976,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 105,
+            "line": 113,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -15094,7 +14988,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 112,
+            "line": 120,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -15106,7 +15000,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 119,
+            "line": 127,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -15118,7 +15012,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 126,
+            "line": 134,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -15130,7 +15024,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 133,
+            "line": 141,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -15143,7 +15037,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 141,
+            "line": 149,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -15156,7 +15050,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 149,
+            "line": 157,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -15168,7 +15062,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 156,
+            "line": 164,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -15181,7 +15075,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 164,
+            "line": 172,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -15193,7 +15087,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 171,
+            "line": 179,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -15205,7 +15099,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 179,
+            "line": 187,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -15217,7 +15111,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 186,
+            "line": 194,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -15229,7 +15123,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 208,
+            "line": 216,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -15241,7 +15135,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 215,
+            "line": 223,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -15250,7 +15144,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 221,
+            "line": 229,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -15266,7 +15160,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 228,
+            "line": 236,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -15287,7 +15181,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 236,
+            "line": 244,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -15303,7 +15197,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 243,
+            "line": 251,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -15312,7 +15206,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 249,
+            "line": 257,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -15321,7 +15215,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 255,
+            "line": 263,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -15330,7 +15224,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 261,
+            "line": 269,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(MediaLoader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -15349,7 +15243,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 273,
+            "line": 281,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(MediaLoader.instance.destroy.bind(MediaLoader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -15368,7 +15262,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 286,
+            "line": 294,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -15381,7 +15275,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 299,
+            "line": 307,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -15392,7 +15286,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 392,
+            "line": 400,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -15410,7 +15304,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 420,
+            "line": 428,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -15421,7 +15315,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 427,
+            "line": 435,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -15432,7 +15326,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 437,
+            "line": 445,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -15443,7 +15337,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 447,
+            "line": 455,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -15453,7 +15347,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 488,
+            "line": 496,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -15476,7 +15370,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 505,
+            "line": 513,
             "description": "Resize listener function, handles default resize behavior on all displays and dispatches a resize event",
             "itemtype": "method",
             "name": "_resize",
@@ -15487,7 +15381,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 533,
+            "line": 541,
             "description": "Calculates the resizing of displays. By default, this limits the new size \nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -15517,7 +15411,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 559,
+            "line": 567,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -15548,7 +15442,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 586,
+            "line": 594,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -15568,7 +15462,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 597,
+            "line": 605,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -15583,7 +15477,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 611,
+            "line": 619,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -15599,7 +15493,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 626,
+            "line": 634,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -15611,7 +15505,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 644,
+            "line": 652,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -15623,7 +15517,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 660,
+            "line": 668,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -15634,7 +15528,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 707,
+            "line": 715,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
