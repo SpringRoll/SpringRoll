@@ -1,6 +1,6 @@
 {
 	"name": "cloudkid-framework",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"main": "dist/core.min.js",
 	"dependencies": {
 		"preloadjs": "https://github.com/CloudKidStudio/PreloadJS.git"

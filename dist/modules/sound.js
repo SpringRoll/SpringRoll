@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.3 */
+/*! CloudKidFramework 0.0.4 */
 !function(){"use strict";/**
 *  @modules cloudkid
 */
@@ -1453,19 +1453,26 @@
 	
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
+	*	Alternatively, plays a list of audio files, timers, and/or functions.
+	*	Audio in the list will be preloaded to minimize pauses for loading.
 	*	@method play
 	*	@public
-	*	@param {String} id The alias of the audio file to play.
+	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
 	*	@param {function} callback The function to call when playback is complete.
-	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop(), play() or playList() call.
+	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop() or play() call.
 	*/
-	p.play = function(id, callback, cancelledCallback)
+	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
 		
 		this._listCounter = -1;
-		this._listHelper[0] = id;
-		this.audioList = this._listHelper;
+		if(typeof idOrList == "string")
+		{
+			this._listHelper[0] = idOrList;
+			this.audioList = this._listHelper;
+		}
+		else
+			this.audioList = idOrList;
 		this._callback = callback;
 		this._cancelledCallback = cancelledCallback;
 		this._onAudioFinished();
@@ -1475,6 +1482,7 @@
 	*	Plays a list of audio files, timers, and/or functions, interrupting any current playback.
 	*	Audio in the list will be preloaded to minimize pauses for loading.
 	*	@method playList
+	*	@deprecated Use play() instead.
 	*	@public
 	*	@param {Array} list The array of items to play/call in order.
 	*	@param {function} callback The function to call when playback is complete.
@@ -1482,13 +1490,7 @@
 	*/
 	p.playList = function(list, callback, cancelledCallback)
 	{
-		this.stop();
-
-		this._listCounter = -1;
-		this.audioList = list;
-		this._callback = callback;
-		this._cancelledCallback = cancelledCallback;
-		this._onAudioFinished();
+		this.play(list, callback, cancelledCallback);
 	};
 	
 	/**

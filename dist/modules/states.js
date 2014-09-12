@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.3 */
+/*! CloudKidFramework 0.0.4 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
@@ -652,7 +652,7 @@
 	* @static
 	* @final
 	*/
-	StateManager.VERSION = '0.0.3';
+	StateManager.VERSION = '0.0.4';
 
 	/**
 	* The display that holds the states this StateManager is managing.

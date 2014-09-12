@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.3 */
+/*! CloudKidFramework 0.0.4 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
@@ -543,7 +543,7 @@
 	* @static
 	* @final
 	*/
-	TaskManager.VERSION = '0.0.3';
+	TaskManager.VERSION = '0.0.4';
 	
 	/**
 	* Event dispatched when tasks are all done

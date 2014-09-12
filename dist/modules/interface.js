@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.3 */
+/*! CloudKidFramework 0.0.4 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
