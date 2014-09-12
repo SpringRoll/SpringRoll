@@ -365,21 +365,6 @@
 	};
 	
 	/**
-	*	Plays a list of audio files, timers, and/or functions, interrupting any current playback.
-	*	Audio in the list will be preloaded to minimize pauses for loading.
-	*	@method playList
-	*	@deprecated Use play() instead.
-	*	@public
-	*	@param {Array} list The array of items to play/call in order.
-	*	@param {function} callback The function to call when playback is complete.
-	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop(), play() or playList() call.
-	*/
-	p.playList = function(list, callback, cancelledCallback)
-	{
-		this.play(list, callback, cancelledCallback);
-	};
-	
-	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
 	*	@method _onAudioFinished
 	*	@private

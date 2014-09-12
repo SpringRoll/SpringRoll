@@ -10602,36 +10602,6 @@
         {
             "file": "src/media/VOPlayer.js",
             "line": 164,
-            "description": "Plays a list of audio files, timers, and/or functions, interrupting any current playback.\nAudio in the list will be preloaded to minimize pauses for loading.",
-            "itemtype": "method",
-            "name": "playList",
-            "deprecated": true,
-            "deprecationMessage": "Use play() instead.",
-            "access": "public",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "list",
-                    "description": "The array of items to play/call in order.",
-                    "type": "Array"
-                },
-                {
-                    "name": "callback",
-                    "description": "The function to call when playback is complete.",
-                    "type": "Function"
-                },
-                {
-                    "name": "cancelledCallback",
-                    "description": "The function to call when playback is interrupted with a stop(), play() or playList() call.",
-                    "type": "Function"
-                }
-            ],
-            "class": "VOPlayer",
-            "module": "cloudkid"
-        },
-        {
-            "file": "src/media/VOPlayer.js",
-            "line": 179,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onAudioFinished",
@@ -10642,7 +10612,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 226,
+            "line": 211,
             "description": "The update callback used for silence timers and updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_update",
@@ -10660,7 +10630,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 244,
+            "line": 229,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateCaptionPos",
@@ -10678,7 +10648,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 257,
+            "line": 242,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playAudio",
@@ -10689,7 +10659,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 307,
+            "line": 292,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -10700,7 +10670,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 331,
+            "line": 316,
             "description": "Unloads all audio this VOPlayer has played. If trackAudio is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadPlayedAudio",
@@ -10711,7 +10681,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 342,
+            "line": 327,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
