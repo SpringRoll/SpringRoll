@@ -1,7 +1,10 @@
 /**
 *  @module cloudkid
 */
-(function(){
+(function(undefined){
+
+	// Optional class
+	var Debug = null;
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -26,9 +29,13 @@
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
-	*  @param {Boolean} [options.debug=false] Enable the Debugger
-	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error)
-	*  @param {String} [options.ip] The host computer for IP remote debugging
+	*  @param {Boolean} [options.debug=false] Enable the Debugger,
+	*		the debug module must be included to use this feature.
+	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
+	*		the debug module must be included to use this feature.
+	*  @param {String} [options.ip] The host computer for IP remote debugging,
+	*		the debug module must be included to use this feature.
+	*  @param {Boolean} [updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)
 	*  @param {Object} [options.displayOptions] Display-specific options
@@ -40,6 +47,12 @@
 			throw "Only one Application can be opened at a time";
 		}
 		_instance = this;
+
+		// Check for the Debug class (optional)
+		if (window.Debug !== undefined)
+		{
+			Debug = window.Debug;
+		}
 
 		/**
 		*  Initialization options/query string parameters, these properties are read-only
@@ -210,7 +223,8 @@
 		//default display properties
 		canvasId: null,
 		display: null,
-		displayOptions: null
+		displayOptions: null,
+		updateTween: false
 	},
 
 	/**
@@ -348,17 +362,28 @@
 			window.addEventListener("resize", this._resize);
 		}
 
-		// Turn on debugging
-		if (this.options.debug !== undefined)
-			Debug.enabled = this.options.debug === true || this.options.debug === "true";
+		if (Debug)
+		{
+			// Turn on debugging
+			if (this.options.debug !== undefined)
+				Debug.enabled = this.options.debug === true || this.options.debug === "true";
+			
+			if (this.options.minLogLevel !== undefined)
+				Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+
+			//if we were supplied with an IP address, connect to it with the Debug class for logging
+			if(typeof this.options.ip == "string")
+				Debug.connect(this.options.ip);
+		}
+
+		// Add an option to have the application control the Tween tick
+		if (window.createjs && createjs.Tween && this.options.updateTween)
+		{
+			if (createjs.Ticker)
+				createjs.Ticker.setPaused(true);
+			this.on('update', createjs.Tween.tick);
+		}
 		
-		if (this.options.minLogLevel !== undefined)
-			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
-
-		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if(typeof this.options.ip == "string")
-			Debug.connect(this.options.ip);
-
 		//set up the page visibility listener
 		_pageVisibility = new cloudkid.PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
@@ -370,14 +395,15 @@
 			// Call the init function
 			if (this.init) this.init();
 
-			// Dispatch the init event
-			this.trigger(INIT);
-
 			//do an initial resize to make sure everything is sized properly
 			this._resize();
 
 			//start update loop
 			this.paused = false;
+
+			// Dispatch the init event
+			this.trigger(INIT);
+
 		}.bind(this);
 
 		// Check to see if we should load a versions file
@@ -393,7 +419,9 @@
 		}
 		else
 		{
-			versionsLoaded();
+			// Wait until the next execution sequence
+			// so that init can be added after construction
+			setTimeout(versionsLoaded, 0);
 		}
 	};
 
@@ -418,7 +446,10 @@
 			myVar = splitFlashVars[i].split("=");
 			if (DEBUG)
 			{
-				Debug.log(myVar[0] + " -> " + myVar[1]);
+				if (Debug)
+				{
+					Debug.log(myVar[0] + " -> " + myVar[1]);
+				}
 			}
 			output[myVar[0]] = myVar[1];
 		}
@@ -578,8 +609,13 @@
 	{
 		if(_displays[id])
 		{
-			if(DEBUG)
-				Debug.error("A display already exists with the id of " + id);
+			if (DEBUG)
+			{
+				if (Debug)
+				{
+					Debug.error("A display already exists with the id of " + id);
+				}
+			}
 			return;
 		}
 		var display = _displays[id] = new displayConstructor(id, options);

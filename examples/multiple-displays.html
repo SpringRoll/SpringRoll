@@ -3,37 +3,40 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>CloudKidFramework Example</title>
+        <title>Multiple Displays Example</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-
-        <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
 
-        <script src="libs/modernizr/modernizr.js"></script>
+        <!-- External dependencies -->
 		<script src="libs/jquery/dist/jquery.min.js"></script>
 		<script src="libs/preloadjs/lib/preloadjs.min.js"></script>
 		<script src="libs/pixi.js/bin/pixi.js"></script>
 		<script src="libs/easeljs/lib/easeljs.combined.js"></script>
 		
+		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/display-pixi.js"></script>
 		<script src="../dist/modules/display-createjs.js"></script>
 
-		<script src="DrawingApp.js"></script>
+		<!-- Local application -->
+		<script src="js/DrawingApp.js"></script>
+
     </head>
     <body>
 		<div id="content">
-			<div id="framerate" style="z-index:1; position:absolute;"></div>
-			<canvas id="pixiStage" style="z-index:0;" width="800" height="500"></canvas>
-			<canvas id="createjsStage" style="z-index:0;" width="800" height="500"></canvas>
+			<div id="framerate">FPS: 00.000</div>
+			<canvas id="pixiStage" width="800" height="500"></canvas>
+			<canvas id="createjsStage" width="800" height="500"></canvas>
 			<script>
+
 				new cloudkid.DrawingApp({
 					framerate: "framerate",
 					debug: true
 				});
+				
 			</script>
 		</div>
-		<footer>CloudKid 2014</footer>
     </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Basic Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- External dependencies -->
+		<script src="libs/easeljs/lib/easeljs.combined.js"></script>
+		
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/display-createjs.js"></script>
+
+    </head>
+    <body>
+		<div id="content">
+			<div id="framerate">FPS: 00.000</div>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<script>
+
+				// Create the new application
+				var app = new cloudkid.Application({
+					framerate: "framerate", // optional
+					canvasId: "stage",
+					display: cloudkid.CreateJSDisplay
+				});
+
+				// Wait until the app is ready
+				app.on('init', function(){
+
+					// Create a new shape
+					var shape = new createjs.Shape();
+					shape.graphics.beginFill("#69a1df")
+						.drawCircle(400, 250, 100);
+
+					// Add it to the EaselJS stage
+					app.display.stage.addChild(shape);
+				});
+
+			</script>
+		</div>
+    </body>
+</html>
