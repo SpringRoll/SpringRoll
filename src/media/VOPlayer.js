@@ -30,7 +30,6 @@
 		if (useCaptions)
 		{
 			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
-			this.captions.isSlave = true;
 		}
 		this._listHelper = [];
 	};
@@ -171,12 +170,17 @@
 		//remove any update callback
 		Application.instance.off("update", this._update);
 		Application.instance.off("update", this._updateCaptionPos);
+		
 		//if we have captions and an audio instance, set the caption time to the length of the audio
 		if(this.captions && this._audioInst)
+		{
 			this.captions.seek(this._audioInst.length);
+		}
 		this._audioInst = null;//clear the audio instance
 		this._listCounter++;//advance list
-		if(this._listCounter >= this.audioList.length)//if the list is complete
+		
+		//if the list is complete
+		if(this._listCounter >= this.audioList.length)
 		{
 			if(this.captions)
 				this.captions.stop();
@@ -191,7 +195,8 @@
 			this._currentAudio = this.audioList[this._listCounter];
 			if(typeof this._currentAudio == "string")
 			{
-				//If the sound doesn't exist, then we play it and let it fail, an error should be shown and playback will continue
+				// If the sound doesn't exist, then we play it and let it fail, 
+				// an error should be shown and playback will continue
 				this._playAudio();
 			}
 			else if(typeof this._currentAudio == "function")
@@ -199,7 +204,7 @@
 				this._currentAudio();//call function
 				this._onAudioFinished();//immediately continue
 			}
-			else// if(typeof this._currentAudio == "number")
+			else
 			{
 				this._timer = this._currentAudio;//set up a timer to wait
 				this._currentAudio = null;
@@ -218,7 +223,9 @@
 	p._update = function(elapsed)
 	{
 		if(this.captions)
+		{
 			this.captions.updateTime(elapsed);
+		}
 		this._timer -= elapsed;
 		if(this._timer <= 0)
 		{
@@ -236,6 +243,7 @@
 	p._updateCaptionPos = function(elapsed)
 	{
 		if(!this._audioInst) return;
+
 		this.captions.seek(this._audioInst.position);
 	};
 
@@ -302,7 +310,9 @@
 			this._currentAudio = null;
 		}
 		if(this.captions)
+		{
 			this.captions.stop();
+		}
 		Application.instance.off("update", this._update);
 		Application.instance.off("update", this._updateCaptionPos);
 		this.audioList = null;

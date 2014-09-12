@@ -3,14 +3,10 @@
 */
 (function(){
 	
-	// Global classes to use, they will actually be imported in the constructor
-	// so that we don't require a specific load order
-	var Audio, Application;
-	
 	/**
 	* A class that creates captioning for multimedia content. Captions are
 	* created from a dictionary of captions and can be played by alias. Captions 
-	* is a singleton class and depends on `cloudkid.Audio` for the progress update.
+	* is a singleton class.
 	*
 	* @example
 		var captionsDictionary = {
@@ -22,8 +18,12 @@
 			]
 		};
 	
+		// initialize the captions
 		var captions = new cloudkid.Captions(captionsDictionary);
 		captions.play("Alias1");
+
+		// Provide the update to captions
+		Application.intance.on('up', captions.update.bind(captions));
 	*
 	* @class Captions
 	* @constructor
@@ -32,10 +32,6 @@
 	*/
 	var Captions = function(captionDictionary, field)
 	{
-		// Import external classes
-		Audio = cloudkid.Audio;
-		Application = cloudkid.Application;
-
 		this.initialize(captionDictionary, field);
 	};
 	
@@ -138,16 +134,6 @@
 	var _muteAll = false;
 	
 	/**
-	* If this Captions instance is a 'slave', that doesn't run cloudkid.Audio
-	* and must have update() called manually (and passed milliseconds).
-	* Default is false.
-	*
-	* @private
-	* @property {bool} _isSlave
-	*/
-	p._isSlave = false;
-	
-	/**
 	* If text should be set on the text field with '.text = ' instead of '.setText()'.
 	* When using PIXI textfields, textIsProp should be false.
 	* Default is true.
@@ -156,15 +142,6 @@
 	* @property {bool} textIsProp
 	*/
 	p.textIsProp = true;
-
-	/**
-	* An animation timeline from Animator or PixiAnimator. This is used for syncing captions to audio that is synced
-	* with with an animation.
-	*
-	* @private
-	* @property {cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline} _animTimeline.
-	*/
-	p._animTimeline = null;
 	
 	/**
 	* If this instance has been destroyed already 
@@ -173,22 +150,6 @@
 	* @property {bool} _isDestroyed
 	*/
 	p._isDestroyed = false;
-	
-	/** 
-	* A bound update function to get the progress from Sound with 
-	* 
-	* @private
-	* @property {Function} _boundUpdate
-	*/
-	p._boundUpdate = null;
-	
-	/** 
-	* A bound completion callback for when Sound has finished playing. 
-	* 
-	* @private
-	* @property {Function} _boundComplete
-	*/
-	p._boundComplete = null;
 	
 	/** 
 	* The version number of this library 
@@ -207,10 +168,12 @@
 	* @param {object} [captionDictionary=null] An object set up in dictionary format of caption objects.
 	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
 	* @static
+	* @return {Captions} The captions object instance
 	*/
 	Captions.init = function(captionDictionary, field)
 	{
 		_instance = new Captions(captionDictionary, field);
+		return _instance;
 	};
 	
 	/**
@@ -234,15 +197,14 @@
 	* @private
 	* @method initialize
 	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} [field=null] An text field to use as the output for this captions object. When using PIXI textfields, textIsProp should be false.
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} [field=null] An text field to use as the 
+	*	output for this captions object. When using PIXI textfields, textIsProp should be false.
 	*/
 	p.initialize = function(captionDictionary, field)
 	{
 		this._lines = [];
 		this.setDictionary(captionDictionary || null);
 		this.setTextField(field);
-		this._boundUpdate = this._updatePercent.bind(this);
-		this._boundComplete = this._onSoundComplete.bind(this);
 		this._updateToAnim = this._updateToAnim.bind(this);
 	};
 	
@@ -475,27 +437,14 @@
 	{
 		get: function() { return this._currentDuration; }
 	});
-
-	/**
-	*  If this Captions instance is a 'slave', that doesn't run cloudkid.Audio
-	*  and must have update() called manually (and passed milliseconds).
-	*  @property {bool} isSlave
-	*  @default false
-	*/
-	Object.defineProperty(p, "isSlave",
-	{
-		get: function() { return this._isSlave; },
-		set: function(isSlave) { this._isSlave = isSlave; }
-	});
 	
 	/**
-	*  Start the caption playback. Captions will tell cloudkid.Audio to play the proper sound.
+	*  Start the caption playback.
 	*  
 	*  @public
 	*  @method play
 	*  @param {String} alias The desired caption's alias
 	*  @param {function} callback The function to call when the caption is finished playing
-	*  @return {function} The update function that should be called if captions isSlave is true
 	*/
 	p.play = function(alias, callback)
 	{
@@ -503,75 +452,9 @@
 		this._completeCallback = callback;
 		this._playing = true;
 		this._load(this._captionDict[alias]);
+		this._currentDuration = this._getTotalDuration();
 
-		if (this._isSlave)
-		{
-			this._currentDuration = this._getTotalDuration();
-		}
-		else
-		{
-			this._currentDuration = Audio.instance.getLength(alias) * 1000;
-
-			// Backward compatibility, but you should use the VOPlayer in the Sound or Audio libraries
-			Audio.instance.play(alias, this._boundComplete, null, this._boundUpdate);
-		}
 		this.seek(0);
-
-		if (this._isSlave)
-		{
-			return this._boundUpdate;
-		}
-	};
-	
-	/** 
-	* Starts caption playback without controlling the sound or animation. Returns the update
-	* function that should be called to control the Captions object.
-	* @deprecated Use play(alias) instead, isSlave should be set to true
-	* @public
-	* @method run
-	* @param {String} alias The caption/sound alias
-	* @return {function} The update function that should be called
-	*/
-	p.run = function(alias)
-	{
-		if (!this._isSlave)
-		{
-			throw "Captions.isSlave needs to be set to tru to use run";
-		}
-		return this.play(alias);
-	};
-
-	/**
-	* Runs a caption synced to the audio of an animation.
-	* @deprecated Set Animator.captions or PixiAnimator.captions to set the captions object to use
-	* @public
-	* @method runWithAnimation
-	* @param {cloudkid.AnimatorTimeline|cloudkid.PixiAnimator.AnimTimeline} animTimeline The animation to sync to.
-	*/
-	p.runWithAnimation = function(animTimeline)
-	{
-		if(!animTimeline.soundAlias) return;//make sure animation has audio to begin with.
-		this.stop();
-		this._animTimeline = animTimeline;
-		this._load(this._captionDict[animTimeline.soundAlias]);
-		Application.instance.on("update", this._updateToAnim);
-	};
-	
-	/** 
-	* Is called when cloudkid.Audio finishes playing. Is not called if 
-	* a cloudkid.AudioAnimation finishes playing, as then stop() is called.
-	* 
-	* @private
-	* @method _onSoundComplete
-	*/
-	p._onSoundComplete = function()
-	{
-		var callback = this._completeCallback;
-		
-		this.stop();
-		
-		if(callback)
-			callback();
 	};
 	
 	/**
@@ -583,16 +466,6 @@
 	*/
 	p.stop = function()
 	{
-		if(!this._isSlave && this._playing)
-		{
-			Audio.instance.stop();
-			this._playing = false;
-		}
-		if(this._animTimeline)
-		{
-			this._animTimeline = null;
-			Application.instance.off("update", this._updateToAnim);
-		}
 		this._lines = null;
 		this._completeCallback = null;
 		this._reset();
@@ -644,28 +517,6 @@
 			}
 		}
 	};
-
-	/**
-	* Callback for when a frame is entered, to sync to an animation's audio.
-	*
-	* @private
-	* @method _updateToAnim
-	*/
-	p._updateToAnim = function()
-	{
-		//this should catch most interruptions to caption or animation playback, but if an animation is stopped before the sound plays, then this
-		//might not catch it
-		if(!this._animTimeline || //no longer have a timeline to use
-			(!this._animTimeline.playSound && !this._animTimeline.soundInst) || //timeline has been cleaned up
-			(this._animTimeline.soundInst && !this._animTimeline.soundInst.isValid))//audio on timeline is no longer valid
-		{
-			this.stop();
-		}
-		else if(this._animTimeline.soundInst)//make sure the audio instance exists - if it doesn't, it hasn't been played yet
-		{
-			this.seek(this._animTimeline.soundInst.position);
-		}
-	};
 	
 	/**
 	* Callback for when a frame is entered.
@@ -686,10 +537,10 @@
 	* Call this to advance the caption by a given amount of time.
 	*
 	* @public
-	* @method updateTime
+	* @method update
 	* @param {int} progress The time elapsed since the last frame in milliseconds
 	*/
-	p.updateTime = function(elapsed)
+	p.update = function(elapsed)
 	{
 		if (this._isDestroyed) return;
 		this._currentTime += elapsed;
@@ -741,10 +592,10 @@
 	*/
 	p._updateCaptions = function()
 	{
-		if(this._textField)
+		if (this._textField)
 		{
 			var text = (this._currentLine == -1 || _muteAll) ? "" : this._lines[this._currentLine].content;
-			if(this.textIsProp)
+			if (this.textIsProp)
 				this._textField.text = text;
 			else
 				this._textField.setText(text);
