@@ -264,7 +264,7 @@
 	*  @param {Array} list The collection of sounds
 	*  @param {Function} callback Completed callback function
 	*/
-	SoundListTask = function(id, list, callback)
+	var SoundListTask = function(id, list, callback)
 	{
 		this.initialize(id, callback);
 		
