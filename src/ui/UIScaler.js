@@ -4,11 +4,11 @@
 (function(undefined) {
 	
 	// Class imports
-	var UIElementSettings = cloudkid.UIElementSettings,
-		UIElement = cloudkid.UIElement,
-		Application = cloudkid.Application,
-		ScreenSettings = cloudkid.ScreenSettings;
-
+	var UIElementSettings = include('cloudkid.UIElementSettings'),
+		UIElement = include('cloudkid.UIElement'),
+		Application = include('cloudkid.Application'),
+		ScreenSettings = include('cloudkid.ScreenSettings');
+		
 	/**
 	*   The UI scale is responsible for scaling UI components
 	*   to help easy the burden of different device aspect ratios

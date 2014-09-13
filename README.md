@@ -81,9 +81,6 @@ Modules are extra components which contain code libraries, documentation and/or 
 
 Module file: _captions(.min).js_
 
-### Debug 
-Module file: _debug(.min).js_
-
 ### CreateJS Display
 Module file: _display-createjs(.min).js_
 

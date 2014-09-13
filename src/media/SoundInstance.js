@@ -12,7 +12,7 @@
 	*/
 	var SoundInstance = function()
 	{
-		Sound = cloudkid.Sound;
+		Sound = include('cloudkid.Sound');
 
 		/**
 		*	SoundJS SoundInstanceance, essentially a sound channel.

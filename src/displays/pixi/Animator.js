@@ -3,15 +3,16 @@
 */
 (function() {
 	
-	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
-		Application = cloudkid.Application;
+	var Spine = include('PIXI.Spine'),
+		AnimatorTimeline = include('cloudkid.pixi.AnimatorTimeline'),
+		Application = include('cloudkid.Application');
 
 	/**
 	*  Animator for interacting with Spine animations
 	*  @class pixi.Animator
 	*  @static
 	*/
-	var Animator = function(){};
+	var Animator = {};
 	
 	/**
 	* The collection of AnimatorTimelines that are playing
@@ -37,10 +38,12 @@
 	_animPool = null;
 	
 	/**
-	* The instance of cloudkid.Audio or cloudkid.Sound for playing audio along with animations.
+	* The instance of cloudkid.Sound for playing audio along with animations.
 	* 
-	* @property {cloudkid.Audio|cloudkid.Sound} soundLib
+	* @property {Sound} soundLib
 	* @public
+	* @static
+	* @default Sound.instance
 	*/
 	Animator.soundLib = null;
 	
@@ -87,6 +90,14 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
+		var Sound = include('cloudkid.Sound');
+
+		// Default the sound library to Sound if unset
+		if (!Animator.soundLib && Sound)
+		{
+			Animator.soundLib = Sound.instance;
+		}
+		
 		var callback = null;
 
 		if (options && typeof options == "function")
@@ -103,9 +114,9 @@
 			options = {};
 		}
 
-		if(clip === null || (!(clip instanceof PIXI.Spine) && !(clip.updateAnim/*clip instanceof PIXI.MovieClip*/)))
+		if (clip === null || (!(clip instanceof Spine) && !(clip.updateAnim/*clip instanceof PIXI.MovieClip*/)))
 		{
-			if(callback) callback();
+			if (callback) callback();
 			return;
 		}
 		
@@ -120,16 +131,16 @@
 			_animPool.pop().init(clip, callback, speed) : 
 			new AnimatorTimeline(clip, callback, speed);
 
-		if(t.isSpine)//PIXI.Spine
+		if (t.isSpine)
 		{
 			var i;
 			
-			if(typeof anim == "string")//allow the animations to be a string, or an array of strings
+			if (typeof anim == "string")//allow the animations to be a string, or an array of strings
 			{
-				if(!checkSpineForAnimation(clip, anim))
+				if (!checkSpineForAnimation(clip, anim))
 				{
 					_repool(t);
-					if(callback)
+					if (callback)
 						callback();
 					return;
 				}
@@ -138,7 +149,7 @@
 			}
 			else//Array - either animations in order or animations at the same time
 			{
-				if(typeof anim[0] == "string")//array of Strings, play animations by name in order
+				if (typeof anim[0] == "string")//array of Strings, play animations by name in order
 				{
 					clip.state.setAnimationByName(anim[0], false);
 					for(i = 1; i < anim.length; ++i)
@@ -156,11 +167,11 @@
 						var s = new PIXI.spine.AnimationState(clip.stateData);
 						t.spineStates[i] = s;
 						s.setAnimationByName(anim[i].anim, loop || anim[i].loop);
-						if(anim[i].speed)
+						if (anim[i].speed)
 							t.speed[i] = anim[i].speed;
 						else
 							t.speed[i] = speed || 1;
-						if(startTime > 0)
+						if (startTime > 0)
 							s.update(startTime * t.speed[i]);
 						s.apply(clip.skeleton);
 					}
@@ -169,7 +180,7 @@
 		}
 		else//standard PIXI.MovieClip
 		{
-			if(anim && anim instanceof Array)
+			if (anim && anim instanceof Array)
 			{
 				clip.textures = anim;
 				clip.updateDuration();
@@ -177,13 +188,13 @@
 			clip.loop = loop;
 			clip.onComplete = _onMovieClipDone.bind(this, t);
 			clip.gotoAndPlay(0);
-			if(startTime > 0)
+			if (startTime > 0)
 				clip.updateAnim(startTime * t.speed);
 		}
-		if(soundData)
+		if (soundData)
 		{
 			t.playSound = true;
-			if(typeof soundData == "string")
+			if (typeof soundData == "string")
 			{
 				t.soundStart = 0;
 				t.soundAlias = soundData;
@@ -195,7 +206,7 @@
 			}
 			t.useCaptions = Animator.captions && Animator.captions.hasCaption(t.soundAlias);
 
-			if(t.soundStart === 0)
+			if (t.soundStart === 0)
 			{
 				t.soundInst = Animator.soundLib.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
 			}
@@ -205,7 +216,7 @@
 		t.loop = loop;
 		t.time = startTime > 0 ? startTime : 0;
 		_timelines.push(t);
-		if(++_numAnims == 1)
+		if (++_numAnims == 1)
 			Application.instance.on("update", _update);
 		return t;
 	};
@@ -220,7 +231,7 @@
 	 */
 	Animator.instanceHasAnimation = function(instance, anim)
 	{
-		if(instance instanceof PIXI.Spine)
+		if (instance instanceof Spine)
 			return checkSpineForAnimation(instance, anim);
 		return false;
 	};
@@ -249,15 +260,15 @@
 	{
 		for(var i = 0; i < _numAnims; ++i)
 		{
-			if(_timelines[i].clip === clip)
+			if (_timelines[i].clip === clip)
 			{
 				var t = _timelines[i];
 				_timelines.splice(i, 1);
-				if(--_numAnims === 0)
+				if (--_numAnims === 0)
 					Application.instance.off("update", _update);
-				if(doCallback && t.callback)
+				if (doCallback && t.callback)
 					t.callback();
-				if(t.soundInst)
+				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
 				break;
@@ -275,7 +286,7 @@
 		for(var i = 0; i < _numAnims; ++i)
 		{
 				var t = _timelines[i];
-				if(t.soundInst)
+				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
 				break;
@@ -317,15 +328,15 @@
 		for(var i = _numAnims - 1; i >= 0; --i)
 		{
 			var t = _timelines[i];
-			if(t.paused) continue;
+			if (t.paused) continue;
 			var prevTime = t.time;
-			if(t.soundInst)
+			if (t.soundInst)
 			{
-				if(t.soundInst.isValid)
+				if (t.soundInst.isValid)
 				{
 					//convert sound position ms -> sec
 					var audioPos = t.soundInst.position * 0.001;
-					if(audioPos < 0)
+					if (audioPos < 0)
 						audioPos = 0;
 					t.time = t.soundStart + audioPos;
 					if (t.useCaptions)
@@ -342,7 +353,7 @@
 			else
 			{
 				t.time += delta;
-				if(t.playSound && t.time >= t.soundStart)
+				if (t.playSound && t.time >= t.soundStart)
 				{
 					t.time = t.soundStart;
 					t.soundInst = Animator.soundLib.play(
@@ -358,9 +369,9 @@
 				}
 			}
 			var c = t.clip;
-			if(t.isSpine)//PIXI.Spine
+			if (t.isSpine)
 			{
-				if(t.spineStates)
+				if (t.spineStates)
 				{
 					var complete = false;
 					for(var j = 0, len = t.spineStates.length; j < len; ++j)
@@ -368,16 +379,16 @@
 						var s = t.spineStates[j];
 						s.update((t.time - prevTime) * t.speed[j]);
 						s.apply(c.skeleton);
-						if(!s.currentLoop && s.isComplete())
+						if (!s.currentLoop && s.isComplete())
 							complete = true;
 					}
-					if(complete)
+					if (complete)
 					{
 						_timelines.splice(i, 1);
 						_numAnims--;
-						if(t.useCaptions)
+						if (t.useCaptions)
 							Animator.captions.stop();
-						if(t.callback)
+						if (t.callback)
 							t.callback();
 						_repool(t);
 					}
@@ -386,13 +397,13 @@
 				{
 					c.updateAnim((t.time - prevTime) * t.speed);
 					var state = c.state;
-					if(!state.currentLoop && state.queue.length === 0 && state.currentTime >= state.current.duration)
+					if (!state.currentLoop && state.queue.length === 0 && state.currentTime >= state.current.duration)
 					{
 						_timelines.splice(i, 1);
 						_numAnims--;
-						if(t.useCaptions)
+						if (t.useCaptions)
 							captions.stop();
-						if(t.callback)
+						if (t.callback)
 							t.callback();
 						_repool(t);
 					}
@@ -403,7 +414,7 @@
 				c.updateAnim((t.time - prevTime) * t.speed);
 			}
 		}
-		if(_numAnims === 0)
+		if (_numAnims === 0)
 			Application.instance.off("update", _update);
 	};
 	
@@ -415,7 +426,7 @@
 	
 	var onSoundDone = function(timeline)
 	{
-		if(timeline.soundEnd > 0 && timeline.time < timeline.soundEnd)
+		if (timeline.soundEnd > 0 && timeline.time < timeline.soundEnd)
 			timeline.time = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
@@ -432,16 +443,16 @@
 	{
 		for(var i = 0; i < _numAnims; ++i)
 		{
-			if(_timelines[i] === timeline)
+			if (_timelines[i] === timeline)
 			{
 				var t = _timelines[i];
-				if(t.useCaptions)
+				if (t.useCaptions)
 					Animator.captions.stop();
 				t.clip.onComplete = null;
 				_timelines.splice(i, 1);
-				if(--_numAnims === 0)
+				if (--_numAnims === 0)
 					Application.instance.off("update", _update);
-				if(t.callback)
+				if (t.callback)
 					t.callback();
 				_repool(t);
 				break;

@@ -3,17 +3,15 @@
 */
 (function() {
 		
-	var UIScaler = cloudkid.UIScaler;
+	var UIScaler = include('cloudkid.UIScaler');
 
 	/**
 	*  Initially layouts all interface elements
 	*  @module cloudkid
 	*  @class Positioner
+	*  @static
 	*/
-	var Positioner = function(){};
-	
-	// Set the protype
-	Positioner.prototype = {};
+	var Positioner = {};
 	
 	/**
 	*  Initial position of all layout items
@@ -31,29 +29,29 @@
 		for(var iName in itemSettings)
 		{
 			var item = parent[iName];
-			if(!item)
+			if (!item)
 			{
 				Debug.error("could not find object '" +  iName + "'");
 				continue;
 			}
 			var setting = itemSettings[iName];
-			if(setting.x !== undefined)
+			if (setting.x !== undefined)
 				adapter.setPosition(item, setting.x, 'x');
-			if(setting.y !== undefined)
+			if (setting.y !== undefined)
 				adapter.setPosition(item, setting.y, 'y');
 			pt = setting.scale;
 			scale = adapter.getScale(item);
-			if(pt)
+			if (pt)
 			{
 				adapter.setScale(item, pt.x * scale.x, "x");
 				adapter.setScale(item, pt.y * scale.y, "y");
 			}
 			pt = setting.pivot;
-			if(pt)
+			if (pt)
 			{
 				adapter.setPivot(item, pt);
 			}
-			if(setting.rotation !== undefined)
+			if (setting.rotation !== undefined)
 			{
 				item.rotation = settings.rotation;
 				if (adapter.useRadians)
@@ -62,7 +60,7 @@
 				}
 			}
 
-			if(setting.hitArea)
+			if (setting.hitArea)
 			{
 				adapter.setHitArea(item, Positioner.generateHitArea(setting.hitArea, 1, display));
 			}
@@ -102,26 +100,60 @@
 
 		if (isArray(hitArea))
 		{
-			if(scale == 1)
+			if (scale == 1)
+			{
 				return new adapter.Polygon(hitArea);
+			}	
 			else
 			{
 				var temp = [];
 				for(var i = 0, len = hitArea.length; i < len; ++i)
 				{
-					temp.push(new adapter.Point(hitArea[i].x * scale, hitArea[i].y * scale));
+					temp.push(new adapter.Point(
+						hitArea[i].x * scale, 
+						hitArea[i].y * scale
+					));
 				}
 				return new adapter.Polygon(temp);
 			}
 		}
-		else if(hitArea.type == "rect" || !hitArea.type)
-			return new adapter.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
-		else if(hitArea.type == "ellipse")
-			return new adapter.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
-		else if(hitArea.type == "circle")
-			return new adapter.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
-		else if(hitArea.type == "sector")
-			return new adapter.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
+		else if (hitArea.type == "rect" || !hitArea.type)
+		{
+			return new adapter.Rectangle(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.w * scale, 
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == "ellipse")
+		{
+			//convert center to upper left corner
+			return new adapter.Ellipse(
+				(hitArea.x - hitArea.w * 0.5) * scale, 
+				(hitArea.y - hitArea.h * 0.5) * scale, 
+				hitArea.w * scale, 
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == "circle")
+		{
+			return new adapter.Circle(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.r * scale
+			);
+		}
+		else if (hitArea.type == "sector")
+		{
+			return new adapter.Sector(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.r * scale, 
+				hitArea.start, 
+				hitArea.end
+			);
+		}
 		return null;
 	};
 

@@ -121,48 +121,56 @@
 	* @public
 	*/
 	p.startTime = 0;
+	
 	/**
 	* The animation duration in seconds.
 	* @property {Number} duration
 	* @public
 	*/
 	p.duration = 0;
+
 	/**
 	* The animation speed. Default is 1.
 	* @property {Number} speed
 	* @public
 	*/
 	p.speed = 1;
+
 	/**
 	* The position of the animation in seconds.
 	* @property {Number} time
 	* @public
 	*/
 	p.time = 0;
+
 	/**
 	* Sound alias to sync to during the animation.
 	* @property {String} soundAlias
 	* @public
 	*/
 	p.soundAlias = null;
+
 	/**
-	* A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
+	* A sound instance object from cloudkid.Sound used for tracking sound position.
 	* @property {Object} soundInst
 	* @public
 	*/
 	p.soundInst = null;
+
 	/**
 	* If the timeline will, but has yet to play a sound.
 	* @property {bool} playSound
 	* @public
 	*/
 	p.playSound = false;
+
 	/**
 	* The time (seconds) into the animation that the sound starts.
 	* @property {Number} soundStart
 	* @public
 	*/
 	p.soundStart = 0;
+
 	/**
 	* The time (seconds) into the animation that the sound ends
 	* @property {Number} soundEnd

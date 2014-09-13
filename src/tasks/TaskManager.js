@@ -4,7 +4,7 @@
 (function(){
 
 	// Imports
-	var TaskEvent = cloudkid.TaskEvent;
+	var TaskEvent;
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -16,6 +16,8 @@
 	*/
 	var TaskManager = function(tasks)
 	{
+		TaskEvent = include('cloudkid.TaskEvent');
+
 		this.initialize(tasks);
 	};
 	

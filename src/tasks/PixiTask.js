@@ -3,6 +3,11 @@
 */
 (function(){
 	
+	var Loader,
+		Application,
+		AssetLoader,
+		Task = include('cloudkid.Task');
+
 	/**
 	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
 	*  This means textures, spritesheets, and bitmap fonts.
@@ -16,10 +21,14 @@
 	*/
 	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
+		AssetLoader = include('PIXI.AssetLoader');
+		Loader = include('cloudkid.Loader');
+		Application = include('cloudkid.Application');
+
 		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
 	};
 	
-	var p = PixiTask.prototype = new cloudkid.Task();
+	var p = PixiTask.prototype = new Task();
 	
 	/**
 	*	Super for the constructor
@@ -73,7 +82,7 @@
 	*/
 	p.initialize = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
-		var cm = cloudkid.MediaLoader.instance.cacheManager;
+		var cm = Loader.instance.cacheManager;
 		for(var i = 0; i < urls.length; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
@@ -93,8 +102,8 @@
 	*/
 	p.start = function(callback)
 	{
-		var opts = cloudkid.Application.instance.options;
-		this._assetLoader = new PIXI.AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
+		var opts = Application.instance.options;
+		this._assetLoader = new AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
 		this._assetLoader.onComplete = callback;
 		if(this.updateCallback)
 			this._assetLoader.onProgress = this.onProgress.bind(this);

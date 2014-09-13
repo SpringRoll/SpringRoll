@@ -3,9 +3,12 @@
 */
 (function(window){
 		
+	// Include the window.performance object
+	var performance = include('performance', false);
+
 	// See if we have performance.now or any of
 	// the brower-specific versions
-	var now = window.performance && (
+	var now = performance && (
 		performance.now || 
 		performance.mozNow || 
 		performance.msNow || 

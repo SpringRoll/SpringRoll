@@ -18,7 +18,7 @@
 	*  @static
 	*  @default PIXI.Circle
 	*/
-	DisplayAdapter.Circle = PIXI.Circle;
+	DisplayAdapter.Circle = include('PIXI.Circle');
 
 	/**
 	*  The geometry class for Ellipse
@@ -27,7 +27,7 @@
 	*  @static
 	*  @default PIXI.Ellipse
 	*/
-	DisplayAdapter.Ellipse = PIXI.Ellipse;
+	DisplayAdapter.Ellipse = include('PIXI.Ellipse');
 
 	/**
 	*  The geometry class for Rectangle
@@ -36,7 +36,7 @@
 	*  @static
 	*  @default PIXI.Rectangle
 	*/
-	DisplayAdapter.Rectangle = PIXI.Rectangle;
+	DisplayAdapter.Rectangle = include('PIXI.Rectangle');
 
 	/**
 	*  The geometry class for Sector
@@ -45,7 +45,7 @@
 	*  @static
 	*  @default PIXI.Sector
 	*/
-	DisplayAdapter.Sector = PIXI.Sector;
+	DisplayAdapter.Sector = include('PIXI.Sector');
 
 	/**
 	*  The geometry class for point
@@ -54,7 +54,7 @@
 	*  @static
 	*  @default PIXI.Point
 	*/
-	DisplayAdapter.Point = PIXI.Point;
+	DisplayAdapter.Point = include('PIXI.Point');
 
 	/**
 	*  The geometry class for Polygon
@@ -63,7 +63,7 @@
 	*  @static
 	*  @default PIXI.Polygon
 	*/
-	DisplayAdapter.Polygon = PIXI.Polygon;
+	DisplayAdapter.Polygon = include('PIXI.Polygon');
 
 	/**
 	*  If the rotation is expressed in radians
@@ -218,6 +218,11 @@
 */
 (function(undefined){
 
+	var Stage = include('PIXI.Stage'),
+		CanvasRenderer = include('PIXI.CanvasRenderer'),
+		WebGLRenderer = include('PIXI.WebGLRenderer'),
+		autoDetectRenderer = include('PIXI.autoDetectRenderer');
+
 	/**
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
@@ -251,7 +256,7 @@
 		this.height = this.canvas.height;
 		this._visible = this.canvas.style.display != "none";
 		//make stage
-		this.stage = new PIXI.Stage(options.backgroundColor || 0);
+		this.stage = new Stage(options.backgroundColor || 0);
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
@@ -261,7 +266,7 @@
 			transparent = "notMultiplied";
 		if(options.forceContext == "canvas2d")
 		{
-			this.renderer = new PIXI.CanvasRenderer(
+			this.renderer = new CanvasRenderer(
 				this.width, 
 				this.height, 
 				this.canvas, 
@@ -270,7 +275,7 @@
 		}
 		else if(options.forceContext == "webgl")
 		{
-			this.renderer = new PIXI.WebGLRenderer(
+			this.renderer = new WebGLRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -281,7 +286,7 @@
 		}
 		else
 		{
-			this.renderer = PIXI.autoDetectRenderer(
+			this.renderer = autoDetectRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -292,7 +297,7 @@
 		}
 		this.renderer.clearView = !!options.clearView;
 		this.enabled = true;//enable mouse/touch input
-		this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		/**
 		*  The Animator class to use when using this display.
@@ -300,7 +305,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.pixi.Animator;
+		this.Animator = include('cloudkid.pixi.Animator');
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -309,7 +314,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.pixi.DisplayAdapter;
+		this.DisplayAdapter = include('cloudkid.pixi.DisplayAdapter');
 	};
 
 	var p = PixiDisplay.prototype = {};
@@ -485,17 +490,180 @@
 /**
 *  @module cloudkid.pixi
 */
+(function(){
+	
+	/**
+	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
+	 * so please only keep references to them while they are actively playing an animation.
+	 * 
+	 * @class pixi.AnimatorTimeline
+	 * @constructor
+	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
+	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {int} speed The speed at which the clip should be played
+	 */
+	var AnimatorTimeline = function(clip, callback, speed)
+	{
+		this.init(clip, callback, speed);
+	};
+	
+	AnimatorTimeline.constructor = AnimatorTimeline;
+
+	// Reference to the prototype
+	var p = AnimatorTimeline.prototype;
+
+	/**
+	 * Initialize the AnimatorTimeline
+	 * 
+	 * @function init
+	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
+	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {Number} speed The speed at which the clip should be played
+	 * @returns {Animator.AnimatorTimeline}
+	 */
+	p.init = function(clip, callback, speed)
+	{
+		/**
+		*	The clip for this AnimTimeLine
+		*	@property {PIXI.MovieClip|PIXI.Spine} clip
+		*	@public
+		*/
+		this.clip = clip;
+
+		/**
+		*	Whether the clip is a PIXI.Spine
+		*	@property {bool} isSpine
+		*	@public
+		*/
+		this.isSpine = clip instanceof PIXI.Spine;
+
+		/**
+		*	The function to call when the clip is finished playing
+		*	@property {function} callback
+		*	@public
+		*/
+		this.callback = callback;
+
+		/**
+		*	The speed at which the clip should be played
+		*	@property {Number} speed
+		*	@public
+		*/
+		this.speed = speed;
+
+		/**
+		*	@property {Array} spineStates
+		*	@public
+		*/
+		this.spineStates = null;
+
+		/**
+		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
+		*	@property {bool} loop
+		*	@public
+		*/
+		this.loop = null;
+
+		/**
+		*	The position of the animation in seconds
+		*	@property {Number} time
+		*	@public
+		*/
+		this.time = 0;
+
+		/**
+		*	Sound alias to sync to during the animation.
+		*	@property {String} soundAlias
+		*	@public
+		*/
+		this.soundAlias = null;
+
+		/**
+		*	A sound instance object from Sound, used for tracking sound position.
+		*	@property {Object} soundInst
+		*	@public
+		*/
+		this.soundInst = null;
+
+		/**
+		*	If the timeline will, but has yet to, play a sound
+		*	@property {bool} playSound
+		*	@public
+		*/
+		this.playSound = false;
+
+		/**
+		*	The time (seconds) into the animation that the sound starts.
+		*	@property {Number} soundStart
+		*	@public
+		*/
+		this.soundStart = 0;
+
+		/**
+		*	The time (seconds) into the animation that the sound ends
+		*	@property {Number} soundEnd
+		*	@public
+		*/
+		this.soundEnd = 0;
+
+		/**
+		*  If this timeline plays captions
+		*
+		*  @property {bool} useCaptions
+		*  @readOnly
+		*/
+		this.useCaptions = false;
+
+		/**
+		*	If this animation is paused.
+		*	@property {bool} _paused
+		*	@private
+		*/
+		this._paused = false;
+
+		return this;
+	};
+	
+	/**
+	* Sets and gets the animation's paused status.
+	* 
+	* @property {bool} paused
+	* @public
+	*/
+	Object.defineProperty(p, "paused", {
+		get: function() { return this._paused; },
+		set: function(value) {
+			if(value == this._paused) return;
+			this._paused = !!value;
+			if(this.soundInst)
+			{
+				if(this.paused)
+					this.soundInst.pause();
+				else
+					this.soundInst.unpause();
+			}
+		}
+	});
+
+	// Assign to namespace
+	namespace("cloudkid.pixi").AnimatorTimeline = AnimatorTimeline;
+
+}());
+/**
+*  @module cloudkid.pixi
+*/
 (function() {
 	
-	var AnimatorTimeline = cloudkid.pixi.AnimatorTimeline,
-		Application = cloudkid.Application;
+	var Spine = include('PIXI.Spine'),
+		AnimatorTimeline = include('cloudkid.pixi.AnimatorTimeline'),
+		Application = include('cloudkid.Application');
 
 	/**
 	*  Animator for interacting with Spine animations
 	*  @class pixi.Animator
 	*  @static
 	*/
-	var Animator = function(){};
+	var Animator = {};
 	
 	/**
 	* The collection of AnimatorTimelines that are playing
@@ -521,10 +689,12 @@
 	_animPool = null;
 	
 	/**
-	* The instance of cloudkid.Audio or cloudkid.Sound for playing audio along with animations.
+	* The instance of cloudkid.Sound for playing audio along with animations.
 	* 
-	* @property {cloudkid.Audio|cloudkid.Sound} soundLib
+	* @property {Sound} soundLib
 	* @public
+	* @static
+	* @default Sound.instance
 	*/
 	Animator.soundLib = null;
 	
@@ -571,6 +741,14 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
+		var Sound = include('cloudkid.Sound');
+
+		// Default the sound library to Sound if unset
+		if (!Animator.soundLib && Sound)
+		{
+			Animator.soundLib = Sound.instance;
+		}
+		
 		var callback = null;
 
 		if (options && typeof options == "function")
@@ -587,9 +765,9 @@
 			options = {};
 		}
 
-		if(clip === null || (!(clip instanceof PIXI.Spine) && !(clip.updateAnim/*clip instanceof PIXI.MovieClip*/)))
+		if (clip === null || (!(clip instanceof Spine) && !(clip.updateAnim/*clip instanceof PIXI.MovieClip*/)))
 		{
-			if(callback) callback();
+			if (callback) callback();
 			return;
 		}
 		
@@ -604,16 +782,16 @@
 			_animPool.pop().init(clip, callback, speed) : 
 			new AnimatorTimeline(clip, callback, speed);
 
-		if(t.isSpine)//PIXI.Spine
+		if (t.isSpine)
 		{
 			var i;
 			
-			if(typeof anim == "string")//allow the animations to be a string, or an array of strings
+			if (typeof anim == "string")//allow the animations to be a string, or an array of strings
 			{
-				if(!checkSpineForAnimation(clip, anim))
+				if (!checkSpineForAnimation(clip, anim))
 				{
 					_repool(t);
-					if(callback)
+					if (callback)
 						callback();
 					return;
 				}
@@ -622,7 +800,7 @@
 			}
 			else//Array - either animations in order or animations at the same time
 			{
-				if(typeof anim[0] == "string")//array of Strings, play animations by name in order
+				if (typeof anim[0] == "string")//array of Strings, play animations by name in order
 				{
 					clip.state.setAnimationByName(anim[0], false);
 					for(i = 1; i < anim.length; ++i)
@@ -640,11 +818,11 @@
 						var s = new PIXI.spine.AnimationState(clip.stateData);
 						t.spineStates[i] = s;
 						s.setAnimationByName(anim[i].anim, loop || anim[i].loop);
-						if(anim[i].speed)
+						if (anim[i].speed)
 							t.speed[i] = anim[i].speed;
 						else
 							t.speed[i] = speed || 1;
-						if(startTime > 0)
+						if (startTime > 0)
 							s.update(startTime * t.speed[i]);
 						s.apply(clip.skeleton);
 					}
@@ -653,7 +831,7 @@
 		}
 		else//standard PIXI.MovieClip
 		{
-			if(anim && anim instanceof Array)
+			if (anim && anim instanceof Array)
 			{
 				clip.textures = anim;
 				clip.updateDuration();
@@ -661,13 +839,13 @@
 			clip.loop = loop;
 			clip.onComplete = _onMovieClipDone.bind(this, t);
 			clip.gotoAndPlay(0);
-			if(startTime > 0)
+			if (startTime > 0)
 				clip.updateAnim(startTime * t.speed);
 		}
-		if(soundData)
+		if (soundData)
 		{
 			t.playSound = true;
-			if(typeof soundData == "string")
+			if (typeof soundData == "string")
 			{
 				t.soundStart = 0;
 				t.soundAlias = soundData;
@@ -679,7 +857,7 @@
 			}
 			t.useCaptions = Animator.captions && Animator.captions.hasCaption(t.soundAlias);
 
-			if(t.soundStart === 0)
+			if (t.soundStart === 0)
 			{
 				t.soundInst = Animator.soundLib.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
 			}
@@ -689,7 +867,7 @@
 		t.loop = loop;
 		t.time = startTime > 0 ? startTime : 0;
 		_timelines.push(t);
-		if(++_numAnims == 1)
+		if (++_numAnims == 1)
 			Application.instance.on("update", _update);
 		return t;
 	};
@@ -704,7 +882,7 @@
 	 */
 	Animator.instanceHasAnimation = function(instance, anim)
 	{
-		if(instance instanceof PIXI.Spine)
+		if (instance instanceof Spine)
 			return checkSpineForAnimation(instance, anim);
 		return false;
 	};
@@ -733,15 +911,15 @@
 	{
 		for(var i = 0; i < _numAnims; ++i)
 		{
-			if(_timelines[i].clip === clip)
+			if (_timelines[i].clip === clip)
 			{
 				var t = _timelines[i];
 				_timelines.splice(i, 1);
-				if(--_numAnims === 0)
+				if (--_numAnims === 0)
 					Application.instance.off("update", _update);
-				if(doCallback && t.callback)
+				if (doCallback && t.callback)
 					t.callback();
-				if(t.soundInst)
+				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
 				break;
@@ -759,7 +937,7 @@
 		for(var i = 0; i < _numAnims; ++i)
 		{
 				var t = _timelines[i];
-				if(t.soundInst)
+				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
 				break;
@@ -801,15 +979,15 @@
 		for(var i = _numAnims - 1; i >= 0; --i)
 		{
 			var t = _timelines[i];
-			if(t.paused) continue;
+			if (t.paused) continue;
 			var prevTime = t.time;
-			if(t.soundInst)
+			if (t.soundInst)
 			{
-				if(t.soundInst.isValid)
+				if (t.soundInst.isValid)
 				{
 					//convert sound position ms -> sec
 					var audioPos = t.soundInst.position * 0.001;
-					if(audioPos < 0)
+					if (audioPos < 0)
 						audioPos = 0;
 					t.time = t.soundStart + audioPos;
 					if (t.useCaptions)
@@ -826,7 +1004,7 @@
 			else
 			{
 				t.time += delta;
-				if(t.playSound && t.time >= t.soundStart)
+				if (t.playSound && t.time >= t.soundStart)
 				{
 					t.time = t.soundStart;
 					t.soundInst = Animator.soundLib.play(
@@ -842,9 +1020,9 @@
 				}
 			}
 			var c = t.clip;
-			if(t.isSpine)//PIXI.Spine
+			if (t.isSpine)
 			{
-				if(t.spineStates)
+				if (t.spineStates)
 				{
 					var complete = false;
 					for(var j = 0, len = t.spineStates.length; j < len; ++j)
@@ -852,16 +1030,16 @@
 						var s = t.spineStates[j];
 						s.update((t.time - prevTime) * t.speed[j]);
 						s.apply(c.skeleton);
-						if(!s.currentLoop && s.isComplete())
+						if (!s.currentLoop && s.isComplete())
 							complete = true;
 					}
-					if(complete)
+					if (complete)
 					{
 						_timelines.splice(i, 1);
 						_numAnims--;
-						if(t.useCaptions)
+						if (t.useCaptions)
 							Animator.captions.stop();
-						if(t.callback)
+						if (t.callback)
 							t.callback();
 						_repool(t);
 					}
@@ -870,13 +1048,13 @@
 				{
 					c.updateAnim((t.time - prevTime) * t.speed);
 					var state = c.state;
-					if(!state.currentLoop && state.queue.length === 0 && state.currentTime >= state.current.duration)
+					if (!state.currentLoop && state.queue.length === 0 && state.currentTime >= state.current.duration)
 					{
 						_timelines.splice(i, 1);
 						_numAnims--;
-						if(t.useCaptions)
+						if (t.useCaptions)
 							captions.stop();
-						if(t.callback)
+						if (t.callback)
 							t.callback();
 						_repool(t);
 					}
@@ -887,7 +1065,7 @@
 				c.updateAnim((t.time - prevTime) * t.speed);
 			}
 		}
-		if(_numAnims === 0)
+		if (_numAnims === 0)
 			Application.instance.off("update", _update);
 	};
 	
@@ -899,7 +1077,7 @@
 	
 	var onSoundDone = function(timeline)
 	{
-		if(timeline.soundEnd > 0 && timeline.time < timeline.soundEnd)
+		if (timeline.soundEnd > 0 && timeline.time < timeline.soundEnd)
 			timeline.time = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
@@ -916,16 +1094,16 @@
 	{
 		for(var i = 0; i < _numAnims; ++i)
 		{
-			if(_timelines[i] === timeline)
+			if (_timelines[i] === timeline)
 			{
 				var t = _timelines[i];
-				if(t.useCaptions)
+				if (t.useCaptions)
 					Animator.captions.stop();
 				t.clip.onComplete = null;
 				_timelines.splice(i, 1);
-				if(--_numAnims === 0)
+				if (--_numAnims === 0)
 					Application.instance.off("update", _update);
-				if(t.callback)
+				if (t.callback)
 					t.callback();
 				_repool(t);
 				break;
@@ -960,6 +1138,13 @@
 */
 (function(undefined) {
 	
+	// Import classes
+	var DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
+		Point = include('PIXI.Point'),
+		Sprite = include('PIXI.Sprite'),
+		BitmapText = include('PIXI.BitmapText'),
+		Text = include('PIXI.Text');
+
 	/**
 	*  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	*  The button can be a normal button or a selectable button.
@@ -1011,13 +1196,13 @@
 	*/
 	var Button = function(imageSettings, label, enabled)
 	{
-		if(!imageSettings) return;
-		PIXI.DisplayObjectContainer.call(this);
+		if (!imageSettings) return;
+		DisplayObjectContainer.call(this);
 		this.initialize(imageSettings, label, enabled);
 	};
 	
 	// Reference to the prototype
-	var p = Button.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+	var p = Button.prototype = Object.create(DisplayObjectContainer.prototype);
 	
 	/*
 	*  The sprite that is the body of the button.
@@ -1167,7 +1352,7 @@
 	*/
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		this.back = new PIXI.Sprite(imageSettings.up);
+		this.back = new Sprite(imageSettings.up);
 		this.addChild(this.back);
 		
 		this._overCB = this._onOver.bind(this);
@@ -1178,22 +1363,22 @@
 
 		var _stateData = this._stateData = {};
 		this._stateFlags = {};
-		this._offset = new PIXI.Point();
+		this._offset = new Point();
 		
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
-		if(label)
+		if (label)
 		{
 			labelData = clone(label);
 			delete labelData.text;
 			delete labelData.type;
-			if(labelData.x === undefined)
+			if (labelData.x === undefined)
 				labelData.x = "center";
-			if(labelData.y === undefined)
+			if (labelData.y === undefined)
 				labelData.y = "center";
 			//clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
 			var style = labelData.style = clone(label.style);
-			if(label.type == "bitmap")
+			if (label.type == "bitmap")
 			{
 				style.align = style.align || "left";
 			}
@@ -1216,15 +1401,15 @@
 			//set up the property for the state so it can be set - the function will ignore reserved states
 			this._addProperty(state);
 			//set the default value for the state flag
-			if(state != "disabled" && state != "up")
+			if (state != "disabled" && state != "up")
 				this._stateFlags[state] = false;
 			var inputData = imageSettings[state];
 			
-			if(inputData)
+			if (inputData)
 			{
 				//if inputData is an object with a tex property, use that
 				//otherwise it is a texture itself
-				if(inputData.tex)
+				if (inputData.tex)
 					_stateData[state] = {tex: inputData.tex};
 				else
 					_stateData[state] = {tex: inputData};
@@ -1235,10 +1420,10 @@
 				_stateData[state] = _stateData.up;
 			}
 			//set up the label info for this state
-			if(label)
+			if (label)
 			{
 				//if there is actual label data for this state, use that
-				if(inputData && inputData.label)
+				if (inputData && inputData.label)
 				{
 					inputData = inputData.label;
 					var stateLabel = _stateData[state].label = {};
@@ -1252,19 +1437,19 @@
 			}
 		}
 		//ensure that our required states exist
-		if(!_stateData.up)
+		if (!_stateData.up)
 		{
 			Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
 			Debug.error(imageSettings);
 		}
-		if(!_stateData.over)
+		if (!_stateData.over)
 			_stateData.over = _stateData.up;
-		if(!_stateData.down)
+		if (!_stateData.down)
 			_stateData.down = _stateData.up;
-		if(!_stateData.disabled)
+		if (!_stateData.disabled)
 			_stateData.disabled = _stateData.up;
 		//set up the offset
-		if(imageSettings.offset)
+		if (imageSettings.offset)
 		{
 			this._offset.x = imageSettings.offset.x;
 			this._offset.y = imageSettings.offset.y;
@@ -1274,15 +1459,15 @@
 			this._offset.x = this._offset.y = 0;
 		}
 
-		if(imageSettings.scale)
+		if (imageSettings.scale)
 		{
 			var s = imageSettings.scale || 1;
 			this.back.scale.x = this.back.scale.y = s;
 		}
 		
-		if(label)
+		if (label)
 		{
-			this.label = label.type == "bitmap" ? new PIXI.BitmapText(label.text, labelData.style) : new PIXI.Text(label.text, labelData.style);
+			this.label = label.type == "bitmap" ? new BitmapText(label.text, labelData.style) : new Text(label.text, labelData.style);
 			this.addChild(this.label);
 		}
 
@@ -1339,11 +1524,11 @@
 	*/
 	p.setText = function(text)
 	{
-		if(this.label)
+		if (this.label)
 		{
 			this.label.setText(text);
 			//make the text update so we can figure out the size for positioning
-			if(this.label instanceof PIXI.Text)
+			if (this.label instanceof Text)
 			{
 				this.label.updateText();
 				this.label.dirty = false;
@@ -1354,16 +1539,16 @@
 			var data;
 			for(var i = 0; i < this._statePriority.length; ++i)
 			{
-				if(this._stateFlags[this._statePriority[i]])
+				if (this._stateFlags[this._statePriority[i]])
 				{
 					data = this._stateData[this._statePriority[i]];
 					break;
 				}
 			}
-			if(!data)
+			if (!data)
 				data = this._stateData.up;
 			data = data.label;
-			if(data.x == "center")
+			if (data.x == "center")
 			{
 				var bW = this.back.width, lW = this.label.width;
 				switch(this._currentLabelStyle.align)
@@ -1381,7 +1566,7 @@
 			}
 			else
 				this.label.position.x = data.x + this._offset.x;
-			if(data.y == "center")
+			if (data.y == "center")
 			{
 				this.label.position.y = (this.back.height - this.label.height) * 0.5;
 			}
@@ -1405,7 +1590,7 @@
 			this.interactive = value;
 			
 			//make sure interaction callbacks are properly set
-			if(value)
+			if (value)
 			{
 				this.mousedown = this.touchstart = this._downCB;
 				this.mouseover = this._overCB;
@@ -1434,7 +1619,7 @@
 	p._addProperty = function(propertyName)
 	{
 		//check to make sure we don't add reserved names
-		if(RESERVED_STATES.indexOf(propertyName) >= 0) return;
+		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
 		
 		Object.defineProperty(this, propertyName, {
 			get: function() { return this._stateFlags[propertyName]; },
@@ -1453,33 +1638,33 @@
 	*/
 	p._updateState = function()
 	{
-		if(!this.back) return;
+		if (!this.back) return;
 
 		var data;
 		//use the highest priority state
 		for(var i = 0; i < this._statePriority.length; ++i)
 		{
-			if(this._stateFlags[this._statePriority[i]])
+			if (this._stateFlags[this._statePriority[i]])
 			{
 				data = this._stateData[this._statePriority[i]];
 				break;
 			}
 		}
 		//if no state is active, use the up state
-		if(!data)
+		if (!data)
 			data = this._stateData.up;
 		this.back.setTexture(data.tex);
 		//if we have a label, update that too
-		if(this.label)
+		if (this.label)
 		{
 			data = data.label;
 			//update the text style
-			if(!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
+			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
 			{
 				this.label.setStyle(data.style);
 				this._currentLabelStyle = data.style;
 				//make the text update so we can figure out the size for positioning
-				if(this.label instanceof PIXI.Text)
+				if (this.label instanceof Text)
 				{
 					this.label.updateText();
 					this.label.dirty = false;
@@ -1488,7 +1673,7 @@
 					this.label.forceUpdateText();
 			}
 			//position the text
-			if(data.x == "center")
+			if (data.x == "center")
 			{
 				var bW = this.back.width, lW = this.label.width;
 				switch(this._currentLabelStyle.align)
@@ -1506,7 +1691,7 @@
 			}
 			else
 				this.label.position.x = data.x + this._offset.x;
-			if(data.y == "center")
+			if (data.y == "center")
 			{
 				this.label.position.y = (this.back.height - this.label.height) * 0.5;
 			}
@@ -1520,11 +1705,11 @@
 	*/
 	function doObjectsMatch(obj1, obj2)
 	{
-		if(obj1 === obj2)
+		if (obj1 === obj2)
 			return true;
 		for(var key in obj1)
 		{
-			if(obj1[key] != obj2[key])
+			if (obj1[key] != obj2[key])
 				return false;
 		}
 		return true;
@@ -1539,7 +1724,7 @@
 	{
 		this._stateFlags.over = true;
 		this._updateState();
-		if(this.overCallback)
+		if (this.overCallback)
 			this.overCallback(this);
 	};
 	
@@ -1552,7 +1737,7 @@
 	{
 		this._stateFlags.over = false;
 		this._updateState();
-		if(this.outCallback)
+		if (this.outCallback)
 			this.outCallback(this);
 	};
 	
@@ -1585,7 +1770,7 @@
 		this.mouseupoutside = this.touchendoutside = null;
 		
 		this._updateState();
-		if(this.releaseCallback)
+		if (this.releaseCallback)
 			this.releaseCallback(this);
 	};
 	
@@ -1635,7 +1820,11 @@
 *  @module cloudkid.pixi
 */
 (function() {
-		
+	
+	var Application,
+		Tween,
+		Point;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
@@ -1648,6 +1837,10 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		Application = include('cloudkid.Application');
+		Tween = include('createjs.Tween');
+		Point = include('PIXI.Point');
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -1823,9 +2016,9 @@
 		this._dragStartCallback = startCallback;
 		this._dragEndCallback = endCallback;
 		this._draggableObjects = [];
-		this.mouseDownStagePos = new PIXI.Point(0, 0);
-		this.mouseDownObjPos = new PIXI.Point(0, 0);
-		helperPoint = new PIXI.Point(0, 0);
+		this.mouseDownStagePos = new Point(0, 0);
+		this.mouseDownObjPos = new Point(0, 0);
+		helperPoint = new Point(0, 0);
 	};
 	
 	/**
@@ -1855,8 +2048,8 @@
 		if(this.draggedObj !== null) return;
 
 		this.draggedObj = obj;
-		createjs.Tween.removeTweens(this.draggedObj);
-		createjs.Tween.removeTweens(this.draggedObj.position);
+		Tween.removeTweens(this.draggedObj);
+		Tween.removeTweens(this.draggedObj.position);
 		
 		//get the mouse position and convert it to object parent space
 		this._dragOffset = interactionData.getLocalPosition(this.draggedObj.parent);
@@ -2003,7 +2196,7 @@
 	* Handles snapping the dragged object to the nearest among a list of points
 	* @method _handlePointSnap
 	* @private
-	* @param {createjs.Point} localMousePos The mouse position in the same space as the dragged object.
+	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
 	*/
 	p._handlePointSnap = function(localMousePos)
 	{
@@ -2083,7 +2276,7 @@
 		if(!bounds)
 		{
 			//use the primary display size, since the Pixi stage does not have height/width
-			var display = cloudkid.Application.instance.display;
+			var display = Application.instance.display;
 			bounds = {x:0, y:0, width:canvas.width, height:canvas.height};
 		}
 		bounds.right = bounds.x + bounds.width;
@@ -2165,6 +2358,9 @@
 */
 (function() {
 	
+	var BitmapText = include('PIXI.BitmapText'),
+		Texture = include('PIXI.Texture');
+
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
 	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
@@ -2439,11 +2635,11 @@
 		if(a.anim) return;//don't unload these, they are pretty small
 		if(a.isFont)
 		{
-			if(PIXI.BitmapText.fonts[asset])
-				delete PIXI.BitmapText.fonts[asset];
+			if(BitmapText.fonts[asset])
+				delete BitmapText.fonts[asset];
 		}
 		//anything else is a texture
-		PIXI.Texture.destroyTexture(assetUrlCache[asset]);
+		Texture.destroyTexture(assetUrlCache[asset]);
 		delete AssetManager.scales[asset];
 		delete assetUrlCache[asset];
 	};
@@ -2493,7 +2689,7 @@
 		var compareLength = compares.length;
 		
 		var rtnDict = outObj || {};
-		var fromFrame = PIXI.Texture.fromFrame;
+		var fromFrame = Texture.fromFrame;
 		var prevTex, len;
 		for(var a in anims)
 		{

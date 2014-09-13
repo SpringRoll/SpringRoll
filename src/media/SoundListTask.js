@@ -3,7 +3,7 @@
 */
 (function(){
 	
-	var Task = cloudkid.Task;
+	var Task = include('cloudkid.Task', false);
 
 	// Task is optional if we're using the task module
 	if (!Task) return;

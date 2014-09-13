@@ -15,7 +15,7 @@
 	*/
 	var BaseState = function(panel)
 	{
-		StateManager = cloudkid.StateManager;
+		StateManager = include('cloudkid.StateManager');
 		this.initialize(panel);
 	};
 	

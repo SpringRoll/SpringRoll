@@ -48,10 +48,5 @@ module.exports = {
 		src: ['<%= distFolder %>/modules/translate.js'],
 		overwrite: true,
 		replacements: '<%= replace.development.replacements %>'
-	},
-	debug: {
-		src: ['<%= distFolder %>/modules/debug.js'],
-		overwrite: true,
-		replacements: '<%= replace.development.replacements %>'
 	}
 };

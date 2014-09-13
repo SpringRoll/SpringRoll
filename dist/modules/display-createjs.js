@@ -18,7 +18,7 @@
 	*  @static
 	*  @default createjs.Circle
 	*/
-	DisplayAdapter.Circle = createjs.Circle;
+	DisplayAdapter.Circle = include('createjs.Circle');
 
 	/**
 	*  The geometry class for Ellipse
@@ -27,7 +27,7 @@
 	*  @static
 	*  @default createjs.Ellipse
 	*/
-	DisplayAdapter.Ellipse = createjs.Ellipse;
+	DisplayAdapter.Ellipse = include('createjs.Ellipse');
 
 	/**
 	*  The geometry class for Rectangle
@@ -36,7 +36,7 @@
 	*  @static
 	*  @default createjs.Rectangle
 	*/
-	DisplayAdapter.Rectangle = createjs.Rectangle;
+	DisplayAdapter.Rectangle = include('createjs.Rectangle');
 
 	/**
 	*  The geometry class for Sector
@@ -45,7 +45,7 @@
 	*  @static
 	*  @default createjs.Sector
 	*/
-	DisplayAdapter.Sector = createjs.Sector;
+	DisplayAdapter.Sector = include('createjs.Sector');
 
 	/**
 	*  The geometry class for point
@@ -54,7 +54,7 @@
 	*  @static
 	*  @default createjs.Point
 	*/
-	DisplayAdapter.Point = createjs.Point;
+	DisplayAdapter.Point = include('createjs.Point');
 
 	/**
 	*  The geometry class for Polygon
@@ -63,7 +63,7 @@
 	*  @static
 	*  @default createjs.Polygon
 	*/
-	DisplayAdapter.Polygon = createjs.Polygon;
+	DisplayAdapter.Polygon = include('createjs.Polygon');
 
 	/**
 	*  If the rotation is expressed in radians
@@ -225,6 +225,10 @@
 */
 (function(undefined){
 
+	// Import createjs classes
+	var Stage,
+		Touch;
+
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
@@ -239,6 +243,9 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
+		Stage = include('createjs.Stage');
+		Touch = include('createjs.Touch');
+
 		this.id = id;
 		options = options || {};
 		this.canvas = document.getElementById(id);
@@ -254,7 +261,7 @@
 		}
 		else
 		{
-			this.stage = new createjs.Stage(id);
+			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
 		// prevent mouse down turning into text cursor
@@ -270,7 +277,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.createjs.Animator;
+		this.Animator = include('cloudkid.createjs.Animator');
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -279,7 +286,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.createjs.DisplayAdapter;
+		this.DisplayAdapter = include('cloudkid.createjs.DisplayAdapter');
 	};
 
 	var p = CreateJSDisplay.prototype = {};
@@ -363,13 +370,13 @@
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
 				this.stage.enableDOMEvents(true);
-				createjs.Touch.enable(this.stage);
+				Touch.enable(this.stage);
 			}
 			else
 			{
 				this.stage.enableMouseOver(false);
 				this.stage.enableDOMEvents(false);
-				createjs.Touch.disable(this.stage);
+				Touch.disable(this.stage);
 				this.canvas.style.cursor = "";//reset the cursor
 			}
 		}
@@ -446,11 +453,196 @@
 /**
 *  @module cloudkid.createjs
 */
+(function(){
+
+	/**
+	*   Animator Timeline is a class designed to provide
+	*   base animation functionality
+	*   
+	*   @class createjs.AnimatorTimeline
+	*   @constructor
+	*/
+	var AnimatorTimeline = function(){};
+	
+	// Create a prototype
+	var p = AnimatorTimeline.prototype;
+	
+	/**
+	* The event to callback when we're done
+	* 
+	* @event onComplete
+	*/
+	p.onComplete = null;
+	
+	/** 
+	* The parameters to pass when completed 
+	* 
+	* @property {Array} onCompleteParams
+	*/
+	p.onCompleteParams = null;
+	
+	/**
+	* The event label
+	* 
+	* @property {String} event
+	*/
+	p.event = null;
+	
+	/**
+	* The instance of the timeline to animate 
+	* 
+	* @property {AnimatorTimeline} instance
+	*/
+	p.instance = null;
+	
+	/**
+	* The frame number of the first frame
+	* 
+	* @property {int} firstFrame
+	*/
+	p.firstFrame = -1;
+	
+	/**
+	* The frame number of the last frame
+	* 
+	* @property {int} lastFrame
+	*/
+	p.lastFrame = -1;
+	
+	/**
+	* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
+	* 
+	* @property {bool} isLooping
+	*/
+	p.isLooping = false;
+	
+	/**
+	* Ensure we show the last frame before looping
+	* 
+	* @property {bool} isLastFrame
+	*/
+	p.isLastFrame = false;
+	
+	/**
+	* length of timeline in frames
+	* 
+	* @property {int} length
+	*/
+	p.length = 0;
+
+	/**
+	*  If this timeline plays captions
+	*
+	*  @property {bool} useCaptions
+	*  @readOnly
+	*/
+	p.useCaptions = false;
+	
+	/**
+	* If the timeline is paused.
+	* 
+	* @property {bool} _paused
+	* @private
+	*/
+	p._paused = false;
+	
+	/**
+	* Sets and gets the animation's paused status.
+	* 
+	* @property {bool} paused
+	* @public
+	*/
+	Object.defineProperty(AnimatorTimeline.prototype, "paused", {
+		get: function() { return this._paused; },
+		set: function(value) {
+			if(value == this._paused) return;
+			this._paused = !!value;
+			if(this.soundInst)
+			{
+				if(this.paused)
+					this.soundInst.pause();
+				else
+					this.soundInst.unpause();
+			}
+		}
+	});
+
+	/**
+	* The animation start time in seconds on the movieclip's timeline.
+	* @property {Number} startTime
+	* @public
+	*/
+	p.startTime = 0;
+	
+	/**
+	* The animation duration in seconds.
+	* @property {Number} duration
+	* @public
+	*/
+	p.duration = 0;
+
+	/**
+	* The animation speed. Default is 1.
+	* @property {Number} speed
+	* @public
+	*/
+	p.speed = 1;
+
+	/**
+	* The position of the animation in seconds.
+	* @property {Number} time
+	* @public
+	*/
+	p.time = 0;
+
+	/**
+	* Sound alias to sync to during the animation.
+	* @property {String} soundAlias
+	* @public
+	*/
+	p.soundAlias = null;
+
+	/**
+	* A sound instance object from cloudkid.Sound used for tracking sound position.
+	* @property {Object} soundInst
+	* @public
+	*/
+	p.soundInst = null;
+
+	/**
+	* If the timeline will, but has yet to play a sound.
+	* @property {bool} playSound
+	* @public
+	*/
+	p.playSound = false;
+
+	/**
+	* The time (seconds) into the animation that the sound starts.
+	* @property {Number} soundStart
+	* @public
+	*/
+	p.soundStart = 0;
+
+	/**
+	* The time (seconds) into the animation that the sound ends
+	* @property {Number} soundEnd
+	* @public
+	*/
+	p.soundEnd = 0;
+	
+	// Assign to the name space
+	namespace('cloudkid').AnimatorTimeline = AnimatorTimeline;
+	namespace('cloudkid.createjs').AnimatorTimeline = AnimatorTimeline;
+	
+}());
+/**
+*  @module cloudkid.createjs
+*/
 (function(undefined){
 
 	// Imports
-	var Application = cloudkid.Application,
-		AnimatorTimeline = null;//saved in global init for less complicated build order
+	var Application = include('cloudkid.Application'),
+		AnimatorTimeline;
 	
 	/**
 	*   Animator is a static class designed to provided
@@ -459,7 +651,7 @@
 	*   @class createjs.Animator
 	*   @static
 	*/
-	var Animator = function(){};
+	var Animator = {};
 	
 	/**
 	* The current version of the Animator class 
@@ -486,6 +678,7 @@
 	* @property {cloudkid.Audio|cloudkid.Sound} soundLib
 	* @public
 	* @static
+	* @default cloudkid.Sound.instance
 	*/
 	Animator.soundLib = null;
 
@@ -559,7 +752,7 @@
 		_removedTimelines = [];
 		_timelinesMap = {};
 		_paused = false;
-		AnimatorTimeline = cloudkid.createjs.AnimatorTimeline;
+		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
 	};
 	
 	/**
@@ -599,6 +792,12 @@
 	*/
 	Animator.play = function(instance, event, options, onCompleteParams, startTime, speed, soundData, doCancelledCallback)
 	{
+		// Default the sound library to Sound if unset
+		if (!Animator.soundLib && cloudkid.Sound)
+		{
+			Animator.soundLib = cloudkid.Sound.instance;
+		}
+
 		var onComplete;
 
 		if (options && typeof options == "function")
@@ -1220,187 +1419,20 @@
 
 }());
 /**
-*  @module cloudkid.createjs
-*/
-(function(){
-
-	/**
-	*   Animator Timeline is a class designed to provide
-	*   base animation functionality
-	*   
-	*   @class createjs.AnimatorTimeline
-	*   @constructor
-	*/
-	var AnimatorTimeline = function(){};
-	
-	// Create a prototype
-	var p = AnimatorTimeline.prototype;
-	
-	/**
-	* The event to callback when we're done
-	* 
-	* @event onComplete
-	*/
-	p.onComplete = null;
-	
-	/** 
-	* The parameters to pass when completed 
-	* 
-	* @property {Array} onCompleteParams
-	*/
-	p.onCompleteParams = null;
-	
-	/**
-	* The event label
-	* 
-	* @property {String} event
-	*/
-	p.event = null;
-	
-	/**
-	* The instance of the timeline to animate 
-	* 
-	* @property {AnimatorTimeline} instance
-	*/
-	p.instance = null;
-	
-	/**
-	* The frame number of the first frame
-	* 
-	* @property {int} firstFrame
-	*/
-	p.firstFrame = -1;
-	
-	/**
-	* The frame number of the last frame
-	* 
-	* @property {int} lastFrame
-	*/
-	p.lastFrame = -1;
-	
-	/**
-	* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
-	* 
-	* @property {bool} isLooping
-	*/
-	p.isLooping = false;
-	
-	/**
-	* Ensure we show the last frame before looping
-	* 
-	* @property {bool} isLastFrame
-	*/
-	p.isLastFrame = false;
-	
-	/**
-	* length of timeline in frames
-	* 
-	* @property {int} length
-	*/
-	p.length = 0;
-
-	/**
-	*  If this timeline plays captions
-	*
-	*  @property {bool} useCaptions
-	*  @readOnly
-	*/
-	p.useCaptions = false;
-	
-	/**
-	* If the timeline is paused.
-	* 
-	* @property {bool} _paused
-	* @private
-	*/
-	p._paused = false;
-	
-	/**
-	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
-	* @public
-	*/
-	Object.defineProperty(AnimatorTimeline.prototype, "paused", {
-		get: function() { return this._paused; },
-		set: function(value) {
-			if(value == this._paused) return;
-			this._paused = !!value;
-			if(this.soundInst)
-			{
-				if(this.paused)
-					this.soundInst.pause();
-				else
-					this.soundInst.unpause();
-			}
-		}
-	});
-
-	/**
-	* The animation start time in seconds on the movieclip's timeline.
-	* @property {Number} startTime
-	* @public
-	*/
-	p.startTime = 0;
-	/**
-	* The animation duration in seconds.
-	* @property {Number} duration
-	* @public
-	*/
-	p.duration = 0;
-	/**
-	* The animation speed. Default is 1.
-	* @property {Number} speed
-	* @public
-	*/
-	p.speed = 1;
-	/**
-	* The position of the animation in seconds.
-	* @property {Number} time
-	* @public
-	*/
-	p.time = 0;
-	/**
-	* Sound alias to sync to during the animation.
-	* @property {String} soundAlias
-	* @public
-	*/
-	p.soundAlias = null;
-	/**
-	* A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
-	* @property {Object} soundInst
-	* @public
-	*/
-	p.soundInst = null;
-	/**
-	* If the timeline will, but has yet to play a sound.
-	* @property {bool} playSound
-	* @public
-	*/
-	p.playSound = false;
-	/**
-	* The time (seconds) into the animation that the sound starts.
-	* @property {Number} soundStart
-	* @public
-	*/
-	p.soundStart = 0;
-	/**
-	* The time (seconds) into the animation that the sound ends
-	* @property {Number} soundEnd
-	* @public
-	*/
-	p.soundEnd = 0;
-	
-	// Assign to the name space
-	namespace('cloudkid').AnimatorTimeline = AnimatorTimeline;
-	namespace('cloudkid.createjs').AnimatorTimeline = AnimatorTimeline;
-	
-}());
-/**
  *  @module cloudkid.createjs
  */
 (function(undefined){
 	
+	var Rectangle = include('createjs.Rectangle'),
+		Container = include('createjs.Container'),
+		ColorMatrix = include('createjs.ColorMatrix'),
+		ColorFilter = include('createjs.ColorFilter'),
+		ColorMatrixFilter = include('createjs.ColorMatrixFilter'),
+		Text = include('createjs.Text'),
+		Event = include('createjs.Event'),
+		Point = include('createjs.Point'),
+		Bitmap = include('createjs.Bitmap');
+
 	/**
 	 *  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	 *  The button can be a normal button or a selectable button.
@@ -1473,9 +1505,9 @@
 	};
 
 	// Extend Container
-	var p = Button.prototype = new createjs.Container();
+	var p = Button.prototype = new Container();
 
-	var s = createjs.Container.prototype; //super
+	var s = Container.prototype; //super
 
 	/**
 	 *  The sprite that is the body of the button.
@@ -1617,7 +1649,7 @@
 
 		var _stateData = this._stateData = {};
 		this._stateFlags = {};
-		this._offset = new createjs.Point();
+		this._offset = new Point();
 
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
@@ -1710,13 +1742,13 @@
 			height = image.height / 3;
 			this._statePriority = DEFAULT_PRIORITY;
 			_stateData.disabled = _stateData.up = {
-				src: new createjs.Rectangle(0, 0, width, height)
+				src: new Rectangle(0, 0, width, height)
 			};
 			_stateData.over = {
-				src: new createjs.Rectangle(0, height, width, height)
+				src: new Rectangle(0, height, width, height)
 			};
 			_stateData.down = {
-				src: new createjs.Rectangle(0, height * 2, width, height)
+				src: new Rectangle(0, height * 2, width, height)
 			};
 			if (labelData)
 			{
@@ -1728,14 +1760,14 @@
 			this._offset.x = this._offset.y = 0;
 		}
 
-		this.back = new createjs.Bitmap(image);
+		this.back = new Bitmap(image);
 		this.addChild(this.back);
 		this._width = width;
 		this._height = height;
 
 		if (label)
 		{
-			this.label = new createjs.Text(label.text || "", _stateData.up.label.font, _stateData.up.label.color);
+			this.label = new Text(label.text || "", _stateData.up.label.font, _stateData.up.label.color);
 			this.addChild(this.label);
 		}
 
@@ -1978,7 +2010,7 @@
 	 */
 	p._onClick = function(e)
 	{
-		this.dispatchEvent(new createjs.Event(Button.BUTTON_PRESS));
+		this.dispatchEvent(new Event(Button.BUTTON_PRESS));
 	};
 
 	/**
@@ -2085,19 +2117,19 @@
 			image: canvas,
 			up:
 			{
-				src: new createjs.Rectangle(0, 0, buttonWidth, buttonHeight)
+				src: new Rectangle(0, 0, buttonWidth, buttonHeight)
 			},
 			over:
 			{
-				src: new createjs.Rectangle(0, buttonHeight, buttonWidth, buttonHeight)
+				src: new Rectangle(0, buttonHeight, buttonWidth, buttonHeight)
 			},
 			down:
 			{
-				src: new createjs.Rectangle(0, buttonHeight * 2, buttonWidth, buttonHeight)
+				src: new Rectangle(0, buttonHeight * 2, buttonWidth, buttonHeight)
 			}
 		};
 		//set up a bitmap to draw other states with
-		var drawingBitmap = new createjs.Bitmap(image);
+		var drawingBitmap = new Bitmap(image);
 		drawingBitmap.sourceRect = output.up.src;
 		//set up a y position for where the next state should go in the canvas
 		var nextY = image.height;
@@ -2107,20 +2139,20 @@
 			//position the button to draw
 			context.translate(0, nextY);
 			//set up the desaturation matrix
-			var matrix = new createjs.ColorMatrix();
+			var matrix = new ColorMatrix();
 			if (disabledSettings.saturation !== undefined)
 				matrix.adjustSaturation(disabledSettings.saturation);
 			if (disabledSettings.brightness !== undefined)
 				matrix.adjustBrightness(disabledSettings.brightness * 2.55); //convert to CreateJS's -255->255 system from -100->100
 			if (disabledSettings.contrast !== undefined)
 				matrix.adjustContrast(disabledSettings.contrast);
-			drawingBitmap.filters = [new createjs.ColorMatrixFilter(matrix)];
+			drawingBitmap.filters = [new ColorMatrixFilter(matrix)];
 			//draw the state
 			drawingBitmap.cache(0, 0, output.up.src.width, output.up.src.height);
 			drawingBitmap.draw(context);
 			//update the output with the state
 			output.disabled = {
-				src: new createjs.Rectangle(0, nextY, buttonWidth | 0, buttonHeight | 0)
+				src: new Rectangle(0, nextY, buttonWidth | 0, buttonHeight | 0)
 			};
 			nextY += buttonHeight; //set up the next position for the highlight state, if we have it
 			context.restore(); //reset any transformations
@@ -2132,7 +2164,7 @@
 			var highlightStateWidth = buttonWidth + highlightSettings.size * 2;
 			var highlightStateHeight = buttonHeight + highlightSettings.size * 2;
 			//set up the color changing filter
-			drawingBitmap.filters = [new createjs.ColorFilter(0, 0, 0, 1,
+			drawingBitmap.filters = [new ColorFilter(0, 0, 0, 1,
 				/*r*/
 				highlightSettings.red,
 				/*g*/
@@ -2161,7 +2193,7 @@
 			drawingBitmap.updateContext(context);
 			drawingBitmap.draw(context);
 			//set up the trim values for the other states
-			var trim = new createjs.Rectangle(
+			var trim = new Rectangle(
 				highlightSettings.size,
 				highlightSettings.size,
 				highlightStateWidth,
@@ -2173,7 +2205,7 @@
 				output.disabled.trim = trim;
 			//set up the highlight state for the button
 			output.highlighted = {
-				src: new createjs.Rectangle(0, nextY, highlightStateWidth | 0, highlightStateHeight | 0)
+				src: new Rectangle(0, nextY, highlightStateWidth | 0, highlightStateHeight | 0)
 			};
 			//set up the state priority to include the highlighted state
 			output.priority = DEFAULT_PRIORITY.slice();
@@ -2247,7 +2279,7 @@
 (function(){
 
 	// Imports
-	var Animator = cloudkid.createjs.Animator;
+	var Animator = include('cloudkid.createjs.Animator');
 	
 	/**
 	*   Character Controller class is designed to play animated
@@ -2507,6 +2539,8 @@
 */
 (function() {
 		
+	var Tween;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
@@ -2519,6 +2553,8 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		Tween = include('createjs.Tween');
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -2729,7 +2765,7 @@
 
 		this.draggedObj = obj;
 		//stop any active tweens on the object, in case it is moving around or something
-		createjs.Tween.removeTweens(obj);
+		Tween.removeTweens(obj);
 		
 		//get the mouse position in global space and convert it to parent space
 		this._dragOffset = this.draggedObj.parent.globalToLocal(ev ? ev.stageX : 0, ev ? ev.stageY : 0);
@@ -3047,6 +3083,14 @@
 */
 (function(){
 	
+	var Container = include('createjs.Container'),
+		BitmapUtils,
+		Application,
+		LoadTask,
+		TaskManager,
+		Sound,
+		ListTask;
+
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions.
@@ -3060,15 +3104,22 @@
 	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
 	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
 	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
+	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
 	*/
 	var Cutscene = function(options)
 	{
-		createjs.Container.call(this);
+		Application = include('cloudkid.Application');
+		LoadTask = include('cloudkid.LoadTask');
+		TaskManager = include('cloudkid.TaskManager');
+		Sound = include('cloudkid.Sound');
+		ListTask = include('cloudkid.ListTask');
+		BitmapUtils = include('createjs.BitmapUtils');
+
+		Container.call(this);
 		this.setup(options);
 	};
 	
-	var p = Cutscene.prototype = new createjs.Container();
+	var p = Cutscene.prototype = new Container();
 	
 	/**
 	*	When the cutscene is ready to use
@@ -3117,7 +3168,7 @@
 	p.pathReplaceVal = null;
 	/**
 	*	The TaskManager used to load up assets.
-	*	@property {cloudkid.TaskManager} _taskMan
+	*	@property {TaskManager} _taskMan
 	*	@private
 	*/
 	p._taskMan = null;
@@ -3135,7 +3186,7 @@
 	p._clip = null;
 	/**
 	*	The sound instance of the playing audio
-	*	@property {cloudkid.Sound.soundInst} _currentAudioInstance
+	*	@property {Sound.soundInst} _currentAudioInstance
 	*	@private
 	*/
 	p._currentAudioInstance = null;
@@ -3153,7 +3204,7 @@
 	p._audioFinished = false;
 	/**
 	*	The Captions object to use to manage captions.
-	*	@property {cloudkid.Captions} _captionsObj
+	*	@property {Captions} _captionsObj
 	*	@private
 	*/
 	p._captionsObj = null;
@@ -3181,7 +3232,7 @@
 	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
 	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
 	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
+	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
 	*	@private
 	*/
 	p.setup = function(options)
@@ -3189,7 +3240,7 @@
 		if(!options)
 			throw new Error("need options to create Cutscene");
 		
-		this.display = typeof options.display == "string" ? cloudkid.Application.instance.getDisplay(options.display) : options.display;
+		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
 		this.config = options.configUrl;
 		this._loadCallback = options.loadCallback || null;
 		this.imageScale = options.imageScale || 1;
@@ -3205,11 +3256,11 @@
 		this.display.stage.addChild(this);
 
 		var tasks = [];
-		tasks.push(new cloudkid.LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
+		tasks.push(new LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
 		// create a texture from an image path
-		this._taskMan = new cloudkid.TaskManager(tasks);
+		this._taskMan = new TaskManager(tasks);
 		this._taskMan.addEventListener(
-			cloudkid.TaskManager.ALL_TASKS_DONE, 
+			TaskManager.ALL_TASKS_DONE, 
 			this.onLoadComplete.bind(this)
 		);
 		this._taskMan.startAll();
@@ -3218,7 +3269,7 @@
 	/**
 	*	Callback for when the config file is loaded.
 	*	@method onConfigLoaded
-	*	@param {cloudkid.MediaLoaderResult} result The loaded result.
+	*	@param {LoaderResult} result The loaded result.
 	*	@private
 	*/
 	p.onConfigLoaded = function(result)
@@ -3243,10 +3294,10 @@
 		}
 		
 		var soundConfig = this.config.audio;
-		cloudkid.Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
+		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
 		
-		this._taskMan.addTask(new cloudkid.ListTask("art", manifest, this.onArtLoaded.bind(this)));
-		this._taskMan.addTask(cloudkid.Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
+		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
+		this._taskMan.addTask(Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
 	};
 	
 	/**
@@ -3290,7 +3341,7 @@
 					var imgScale = this.imageScale;
 					for(var key in this.config.images)
 					{
-						createjs.BitmapUtils.replaceWithScaledBitmap(key, imgScale);
+						BitmapUtils.replaceWithScaledBitmap(key, imgScale);
 					}
 				}
 			}
@@ -3303,7 +3354,7 @@
 		{
 			if(atlasData[id] && atlasImages[id])
 			{
-				createjs.BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+				BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
 			}
 		}
 	};
@@ -3333,7 +3384,7 @@
 		this.addChild(this._clip);
 		
 		this.resize(this.display.width, this.display.height);
-		cloudkid.Application.instance.on("resize", this.resize);
+		Application.instance.on("resize", this.resize);
 		
 		this.isReady = true;
 		
@@ -3382,10 +3433,10 @@
 		this._animFinished = false;
 		this._audioFinished = false;
 		var id = this.config.audio.soundManifest[0].id;
-		this._currentAudioInstance = cloudkid.Sound.instance.play(id, this._audioCallback);
+		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
 		if(this._captionsObj)
 			this._captionsObj.run(id);
-		cloudkid.Application.instance.on("update", this.update);
+		Application.instance.on("update", this.update);
 	};
 	
 	/**
@@ -3449,9 +3500,9 @@
 	*/
 	p.stop = function(doCallback)
 	{
-		cloudkid.Application.instance.off("update", this.update);
+		Application.instance.off("update", this.update);
 		if(this._currentAudioInstance)
-			cloudkid.Sound.instance.stop(this.config.audio.soundManifest[0].id);
+			Sound.instance.stop(this.config.audio.soundManifest[0].id);
 		this._captionsObj.stop();
 
 		if(doCallback && this._endCallback)
@@ -3468,9 +3519,9 @@
 	*/
 	p.destroy = function()
 	{
-		cloudkid.Application.instance.off("resize", this.resize);
+		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		cloudkid.Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
+		Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
 		this.config = null;
 		if(this._taskMan)
 		{

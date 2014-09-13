@@ -4,14 +4,14 @@
 (function(){
 	
 	/**
-	*  The return result of the MediaLoader load
-	*  @class MediaLoaderResult
+	*  The return result of the Loader load
+	*  @class LoaderResult
 	*  @constructor
 	*  @param {*} content The dynamic content loaded
 	*  @param {string} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	*/
-	var MediaLoaderResult = function(content, url, loader)
+	var LoaderResult = function(content, url, loader)
 	{
 		this.content = content;
 		this.url = url;
@@ -19,7 +19,7 @@
 	};
 	
 	/** Reference to the prototype */
-	var p = MediaLoaderResult.prototype;
+	var p = LoaderResult.prototype;
 	
 	/**
 	*  The contents of the load
@@ -50,7 +50,7 @@
 	*/
 	p.toString = function()
 	{
-		return "[MediaLoaderResult('"+this.url+"')]";
+		return "[LoaderResult('"+this.url+"')]";
 	};
 	
 	/**
@@ -66,5 +66,8 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').MediaLoaderResult = MediaLoaderResult;
+	// MediaLoadeResult is deprecated
+	namespace('cloudkid').MediaLoaderResult = LoaderResult;
+	namespace('cloudkid').LoaderResult = LoaderResult;
+	
 }());

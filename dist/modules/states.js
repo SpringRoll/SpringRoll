@@ -16,7 +16,7 @@
 	*/
 	var BaseState = function(panel)
 	{
-		StateManager = cloudkid.StateManager;
+		StateManager = include('cloudkid.StateManager');
 		this.initialize(panel);
 	};
 	
@@ -572,10 +572,10 @@
 (function(undefined){
 	
 	// Imports
-	var Audio = cloudkid.Audio || cloudkid.Sound,
-		BaseState = cloudkid.BaseState,
-		StateEvent = cloudkid.StateEvent,
-		EventDispatcher = createjs.EventDispatcher;
+	var Sound,
+		EventDispatcher = include('createjs.EventDispatcher'),
+		BaseState = include('cloudkid.BaseState'),
+		StateEvent = include('cloudkid.StateEvent');		
 	
 	/**
 	*  The State Manager used for managing the different states of a game or site
@@ -589,6 +589,9 @@
 	*/
 	var StateManager = function(display, transition, audio)
 	{
+		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
+		Sound = include('cloudkid.Sound', false) || include('cloudkid.Audio', false);
+
 		this.initialize(display, transition, audio);
 	};
 	
@@ -1128,7 +1131,7 @@
 		if(this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
-			if(Audio.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
 				audio = null;
 		}
 		if(this._display.Animator.instanceHasAnimation(this._transition, "transitionLoop"))
@@ -1183,7 +1186,7 @@
 		if(this._transitionSounds)
 		{
 			audio = event == StateManager.TRANSITION_IN ? this._transitionSounds.in : this._transitionSounds.out;
-			if(Audio.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
 				audio = null;
 		}
 		this._display.Animator.play(this._transition, event, {onComplete: callback, soundData: audio});

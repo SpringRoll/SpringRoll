@@ -4,8 +4,8 @@
 (function(undefined){
 
 	// Imports
-	var Application = cloudkid.Application,
-		AnimatorTimeline = null;//saved in global init for less complicated build order
+	var Application = include('cloudkid.Application'),
+		AnimatorTimeline;
 	
 	/**
 	*   Animator is a static class designed to provided
@@ -14,7 +14,7 @@
 	*   @class createjs.Animator
 	*   @static
 	*/
-	var Animator = function(){};
+	var Animator = {};
 	
 	/**
 	* The current version of the Animator class 
@@ -41,6 +41,7 @@
 	* @property {cloudkid.Audio|cloudkid.Sound} soundLib
 	* @public
 	* @static
+	* @default cloudkid.Sound.instance
 	*/
 	Animator.soundLib = null;
 
@@ -114,7 +115,7 @@
 		_removedTimelines = [];
 		_timelinesMap = {};
 		_paused = false;
-		AnimatorTimeline = cloudkid.createjs.AnimatorTimeline;
+		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
 	};
 	
 	/**
@@ -154,6 +155,12 @@
 	*/
 	Animator.play = function(instance, event, options, onCompleteParams, startTime, speed, soundData, doCancelledCallback)
 	{
+		// Default the sound library to Sound if unset
+		if (!Animator.soundLib && cloudkid.Sound)
+		{
+			Animator.soundLib = cloudkid.Sound.instance;
+		}
+
 		var onComplete;
 
 		if (options && typeof options == "function")

@@ -4,10 +4,10 @@
 (function(){
 	
 	// Imports
-	var Task = cloudkid.Task,
-		LoadTask = cloudkid.LoadTask,
-		TaskEvent = cloudkid.TaskEvent,
-		TaskManager = cloudkid.TaskManager;
+	var Task = include('cloudkid.Task'),
+		LoadTask = include('cloudkid.LoadTask'),
+		TaskEvent = include('cloudkid.TaskEvent'),
+		TaskManager = include('cloudkid.TaskManager');
 	
 	/**
 	*   A task that performs a list of tasks

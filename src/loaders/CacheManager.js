@@ -2,7 +2,11 @@
 *  @module cloudkid
 */
 (function(undefined){
-		
+
+	// Classes to import	
+	var Application,
+		Loader;
+
 	/**
 	*  Used for managing the browser cache of loading external elements
 	*  can easily load version manifest and apply it to the media loader
@@ -13,6 +17,9 @@
 	*/
 	var CacheManager = function()
 	{
+		Application = include('cloudkid.Application');
+		Loader = include('cloudkid.Loader');
+		
 		this.initialize();
 	};
 	
@@ -44,7 +51,7 @@
 	{
 		this._versions = [];
 				
-		var cb = cloudkid.Application.instance.options.cacheBust;
+		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = cb ? (cb === "true" || cb === true) : false;
 		
 		if(DEBUG)
@@ -75,7 +82,7 @@
 	{		
 		Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
 				
-		var ml = cloudkid.MediaLoader.instance;
+		var ml = Loader.instance;
 		
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
@@ -161,8 +168,9 @@
 	*  @public
 	*  @method prepare
 	*  @param {string} url The url to prepare
-	*  @param {bool} applyBasePath If the global base path should be applied to the url. This defaults to false because it can 
-	*								potentially interfere with later regular expression checks, particularly with PreloadJS
+	*  @param {bool} [applyBasePath=false] If the global base path should be applied to the url. 
+	*		This defaults to false because it can potentially interfere with later regular 
+	*		expression checks, particularly with PreloadJS
 	*  @return {string} The final url with version/cache and basePath added
 	*/
 	p.prepare = function(url, applyBasePath)
@@ -181,7 +189,7 @@
 		}
 		if(applyBasePath)
 		{
-			var basePath = cloudkid.Application.instance.options.basePath;
+			var basePath = Application.instance.options.basePath;
 			if (/^http(s)?\:/.test(url) === false && basePath !== undefined && url.search(basePath) == -1)
 			{
 				url = basePath + url;
@@ -190,6 +198,7 @@
 		return url;
 	};
 	
+	// Assign to namespace
 	namespace('cloudkid').CacheManager = CacheManager;
 	
 }());

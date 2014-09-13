@@ -8,10 +8,10 @@
 *  @class namespace
 *  @static
 */
-(function(global){
+(function(window){
 	
 	// The namespace function already exists
-	if ("namespace" in global) return;
+	if ("namespace" in window) return;
 	
 	/**
 	*  Create the namespace and assing to the window
@@ -39,12 +39,588 @@
 		return parent;
 	};
 	
-	// Assign to the global namespace
-	global.namespace = namespace;
+	// Assign to the window namespace
+	window.namespace = namespace;
 	
 }(window));
 
 
+/**
+*  @module window
+*/
+/**
+*  Used to include required classes by name
+*  @class include
+*  @static
+*/
+(function(window, undefined){
+	
+	// The namespace function already exists
+	if ("include" in window) return;
+	
+	/**
+	*  Import a class
+	*
+	*  @example
+		var Application = include('cloudkid.Application');
+	*
+	*  @constructor
+	*  @method include
+	*  @param {string} namespaceString Name space, for instance 'cloudkid.Application'
+	*  @param {Boolean} [required=true] If the class we're trying to include is required.
+	* 		For classes that aren't found and are required, an error is thrown.
+	*  @return {object|function} The object attached at the given namespace
+	*/
+	var include = function(namespaceString, required)
+	{
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+		
+		required = required !== undefined ? !!required : true;
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			if (!parent[currentPart])
+			{
+				if (!required)
+				{
+					return null;
+				}
+				if (true)
+				{
+					throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
+				}
+				else
+				{
+					throw "Unable to include '" + namespaceString + "'";
+				}
+			}
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.include = include;
+	
+}(window));
+/**
+*  @module window
+*/
+(function(window, undefined){
+	
+	/**
+	*  A static closure to provide easy access to the console
+	*  without having errors if the console doesn't exist
+	*  to use call: Debug.log('Your log here')
+	*  
+	*  @class Debug
+	*  @static
+	*/
+	var Debug = function(){};	
+	
+	/**
+	*  If we have a console
+	*
+	*  @private
+	*  @property {bool} hasConsole
+	*/
+	var hasConsole = (window.console !== undefined);
+	
+	/** 
+	* The most general default debug level
+	* @static
+	* @final
+	* @property {int} GENERAL
+	*/
+	Debug.GENERAL = 0;
+	
+	/** 
+	* Log level for debug messages
+	* @static
+	* @final
+	* @property {int} true
+	*/
+	Debug.true = 1;
+	
+	/** 
+	* Log level for debug messages
+	* @static
+	* @final
+	* @property {int} INFO
+	*/
+	Debug.INFO = 2;
+	
+	/** 
+	* Log level for warning messages
+	* @static
+	* @final
+	* @property {int} WARN
+	*/
+	Debug.WARN = 3;
+	
+	/** 
+	* Log level for error messages
+	* @static
+	* @final
+	* @property {int} ERROR
+	*/
+	Debug.ERROR = 4;
+	
+	/**
+	* The minimum log level to show, by default it's set to
+	* show all levels of logging. 
+	* @public
+	* @static
+	* @property {int} minLogLevel
+	*/
+	Debug.minLogLevel = Debug.GENERAL;
+	
+	/** 
+	* Boolean to turn on or off the debugging
+	* @public
+	* @static
+	* @property {bool} enabled
+	*/
+	Debug.enabled = true;
+	
+	/**
+	*  The jQuery element to output debug messages to
+	*
+	*  @public
+	*  @static
+	*  @property {jQuery} output
+	*/
+	Debug.output = null;
+
+	/**
+	*	If the console is currently connected with JSConsole (jsconsole.com).
+	*	@private
+	*	@static
+	*	@property {bool} _isJSConsole
+	*/
+	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as 'remote' and trys to overwrite 'console'
+	
+	/** 
+	* Browser port for the websocket browsers tend to block ports 
+	*  @static
+	*  @private
+	*  @property {int} _NET_PORT
+	*  @default 1025
+	*/
+	Debug._NET_PORT = 1025;
+	
+	/** 
+	* If the web socket is connected 
+	* @static
+	* @private
+	* @default false
+	* @property {bool} _isConnected
+	*/
+	Debug._isConnected = false;
+	
+	/** 
+	* The socket connection
+	* @static
+	* @private
+	* @property {WebSocket} _socket
+	*/
+	Debug._socket = null;
+	
+	/** 
+	* The current message object being sent to the `WebSocket`
+	* @static
+	* @private
+	* @property {object} _messageObj
+	*/
+	Debug._messageObj = null;
+	
+	/** 
+	* The `WebSocket` message queue 
+	* @static
+	* @private
+	* @property {Array} _messageQueue
+	*/
+	Debug._messageQueue = null;
+	
+	/**
+	*  Connect to the `WebSocket`
+	*  @public
+	*  @static
+	*  @method connect
+	*  @param {string} The IP address to connect to
+	*/
+	Debug.connect = function(ipAddr)
+	{
+		// Make sure WebSocket exists without prefixes for us
+		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
+		
+		window.WebSocket = WebSocket || MozWebSocket; 
+		
+		try
+		{
+			var s = Debug._socket = new WebSocket("ws://" + ipAddr + ":" + Debug._NET_PORT);
+			s.onopen = onConnect;
+			s.onmessage = function(){};
+			s.onclose = onClose;
+			s.onerror = onClose;
+			Debug._messageQueue = [];
+			Debug._isConnected = true;
+		}
+		catch(error)
+		{
+			return false;
+		}
+		return true;
+	};
+	
+	/**
+	*  Disconnect from the `WebSocket`
+	*  @public
+	*  @static
+	*  @method disconnect
+	*/
+	Debug.disconnect = function()
+	{
+		if(Debug._isConnected)
+		{
+			Debug._socket.close();
+			onClose();
+		}
+	};
+	
+	/**
+	*  Callback when the `WebSocket` is connected
+	*  @private
+	*  @static
+	*  @method onConnect
+	*/
+	var onConnect = function()
+	{
+		// set up a function to handle all messages
+		window.onerror = globalErrorHandler;
+		
+		// create and send a new session message
+		Debug._messageObj = {level:"session", message:""};
+		Debug._socket.send(JSON.stringify(Debug._messageObj));
+		
+		// send any queued logs
+		for(var i = 0; i < Debug._messageQueue.length; ++i)
+		{
+			Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
+		}
+		// get rid of this, since we are connected
+		Debug._messageQueue = null;
+	};
+	
+	/**
+	*  Global window error handler
+	*  @static
+	*  @private
+	*  @method globalErrorHandler
+	*  @param THe error message
+	*  @param The url of the file
+	*  @param The line within the file
+	*/
+	var globalErrorHandler = function(errorMsg, url, lineNumber)
+	{
+		Debug.remoteLog("Error: " + errorMsg + " in " + url + " at line " + lineNumber, "ERROR");
+		return false;
+	};
+	
+	/**
+	*  Callback for when the websocket is closed
+	*  @private
+	*  @static
+	*  @method onClose
+	*/
+	var onClose = function()
+	{
+		window.onerror = null;
+		Debug._isConnected = false;
+		var s = Debug._socket;
+		s.onopen = null;
+		s.onmessage = null;
+		s.onclose = null;
+		s.onerror = null;
+		Debug._socket = null;
+		Debug._messageObj = null;
+		Debug._messageQueue = null;
+	};
+	
+	/**
+	*  Sent to the output
+	*  @private
+	*  @static
+	*  @method output
+	*  @param {string} level The log level
+	*  @param {string} args Additional arguments
+	*/
+	function output(level, args)
+	{
+		if (Debug.output)
+		{
+			Debug.output.append("<div class=\""+level+"\">" + args + "</div>");
+		}
+	}
+	
+	/**
+	*  Send a remote log message using the socket connection
+	*  @public
+	*  @static
+	*  @method remoteLog
+	*  @param {string} message The message to send 
+	*  @param {level} level The log level to send
+	*/
+	Debug.remoteLog = function(message, level)
+	{
+		if(!level)
+			level = "GENERAL";
+		if(Debug._messageQueue)//If we are still in the process of connecting, queue up the log
+		{
+			Debug._messageQueue.push({message:message, level:level});
+		}
+		else//send the log immediately
+		{
+			Debug._messageObj.level = level;
+			Debug._messageObj.message = message;
+			Debug._socket.send(JSON.stringify(Debug._messageObj));
+		}
+	};
+
+	function JSC_stringify(obj, depth)
+	{
+		if(!depth)
+			depth = 1;
+		var spacing = "";
+		var endSpacing = "";
+		for(var i = 0; i < depth * 4; ++i)
+		{
+			spacing += "&nbsp;";
+			if(i < (depth - 1) * 4)
+				endSpacing += "&nbsp;";
+		}
+		var rtn = "{<br />";
+		for(var key in obj)
+		{
+			//avoid doing properties that are known to be DOM objects, because those have circular references
+			if(key == "document" || key == "window" || key == "ownerDocument" || key == "view")
+				continue;
+			if(key == "target" || key == "currentTarget" || key == "originalTarget" || key == "explicitOriginalTarget" || key == "rangeParent")
+				continue;
+			if(key == "srcElement" || key == "relatedTarget" || key == "fromElement" || key == "toElement")
+				continue;
+			switch(typeof obj[key])
+			{
+				case "string":
+				case "number":
+				case "boolean":
+				case "bool":
+					rtn += spacing + key + ": " + obj[key] + "<br />";
+					break;
+				case "object":
+					rtn += spacing + key + ": " + JSC_stringify(obj[key], depth + 1) + "<br />";
+					break;
+				case "function":
+					rtn += spacing + key + ": (function)<br />";
+					break;
+				default:
+					rtn += spacing + key + ": " + obj[key] + "<br />";
+					break;
+			}
+		}
+		rtn += endSpacing + "}";
+		return rtn;
+	}
+
+	function JSC_format(input)
+	{
+		if(typeof input == "string")
+		{
+			return input.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;").replace(/\n/g, "<br />");
+		}
+		else if(typeof input == "object")
+		{
+			return JSC_stringify(input);
+		}
+		return input;
+	}
+	
+	/**
+	*  Log something in the console or remote
+	*  @static
+	*  @public 
+	*  @method log
+	*  @param {*} params The statement or object to log
+	*/
+	Debug.log = function(params)
+	{
+		if(!Debug.enabled) return;
+		if(Debug._isConnected)
+		{
+			Debug.remoteLog(params, "GENERAL");
+		}
+		else if (Debug.minLogLevel == Debug.GENERAL && hasConsole) 
+		{
+			console.log(Debug._isJSConsole ? JSC_format(params) : params);
+			output("general", params);
+		}	
+	};
+	
+	/**
+	*  Debug something in the console or remote
+	*  @static
+	*  @public 
+	*  @method debug
+	*  @param {*} params The statement or object to debug
+	*/
+	Debug.debug = function(params)
+	{
+		if(!Debug.enabled) return;
+		if(Debug._isConnected)
+		{
+			Debug.remoteLog(params, "true");
+		}
+		else if (Debug.minLogLevel <= Debug.true && hasConsole) 
+		{
+			console.debug(Debug._isJSConsole ? JSC_format(params) : params);
+			output("debug", params);
+		}
+	};
+	
+	/**
+	*  Info something in the console or remote
+	*  @static
+	*  @public 
+	*  @method info
+	*  @param {*} params The statement or object to info
+	*/
+	Debug.info = function(params)
+	{
+		if(!Debug.enabled) return;
+		if(Debug._isConnected)
+		{
+			Debug.remoteLog(params, "INFO");
+		}
+		else if (Debug.minLogLevel <= Debug.INFO && hasConsole) 
+		{
+			console.info(Debug._isJSConsole ? JSC_format(params) : params);
+			output("info", params);
+		}	
+	};
+	
+	/**
+	*  Warn something in the console or remote
+	*  @static
+	*  @public 
+	*  @method warn
+	*  @param {*} params The statement or object to warn
+	*/
+	Debug.warn = function(params)
+	{
+		if(!Debug.enabled) return;
+		if(Debug._isConnected)
+		{
+			Debug.remoteLog(params, "WARNING");
+		}
+		else if (Debug.minLogLevel <= Debug.WARN && hasConsole) 
+		{
+			console.warn(Debug._isJSConsole ? JSC_format(params) : params);
+			output("warn", params);
+		}	
+	};
+	
+	/**
+	*  Error something in the console or remote
+	*  @static
+	*  @public 
+	*  @method error
+	*  @param {*} params The statement or object to error
+	*/
+	Debug.error = function(params)
+	{
+		if(!Debug.enabled) return;
+		if(Debug._isConnected)
+		{
+			Debug.remoteLog(params, "ERROR");
+		}
+		else if (hasConsole) 
+		{
+			console.error(Debug._isJSConsole ? JSC_format(params) : params);
+			output("error", params);
+		}	
+	};
+	
+	/**
+	*  Assert that something is true
+	*  @static
+	*  @public
+	*  @method assert
+	*  @param {bool} truth As statement that is assumed true
+	*  @param {*} params The message to error if the assert is false
+	*/
+	Debug.assert = function(truth, params)
+	{
+		if (hasConsole && Debug.enabled && console.assert) 
+		{
+			console.assert(truth, Debug._isJSConsole ? JSC_format(params) : params);
+			if (!truth) output("error", params);
+		}	
+	};
+	
+	/**
+	*  Method to describe an object in the console
+	*  @static
+	*  @method dir
+	*  @public
+	*  @param {object} params The object to describe in the console
+	*/
+	Debug.dir = function(params)
+	{
+		if (Debug.minLogLevel == Debug.GENERAL && hasConsole && Debug.enabled) 
+		{
+			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
+		}	
+	};
+	
+	/**
+	*  Method to clear the console
+	*
+	*  @static
+	*  @public
+	*  @method clear
+	*/
+	Debug.clear = function()
+	{
+		if (hasConsole && Debug.enabled) 
+		{
+			console.clear();
+			if (Debug.output) Debug.output.html("");
+		}	
+	};
+	
+	/**
+	*  Generate a stack track in the output
+	*  @static
+	*  @public
+	*  @method trace
+	*  @param {*} params Optional parameters to log
+	*/
+	Debug.trace = function(params)
+	{
+		if (Debug.minLogLevel == Debug.GENERAL && hasConsole && Debug.enabled) 
+		{
+			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
+		}	
+	};
+	
+	// Make the debug class globally accessible
+	// If the console doesn't exist, use the dummy to prevent errors
+	window.Debug = Debug;
+	
+}(window));
 (function(){
 
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -85,7 +661,7 @@
 /**
 *  @module cloudkid
 */
-(function(global, undefined){
+(function(undefined){
 		
 	/**
 	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, 
@@ -267,10 +843,10 @@
 		return typeof value;
 	}
 	
-	// Assign to the global spacing
+	// Assign to name space
 	namespace('cloudkid').EventDispatcher = EventDispatcher;
 	
-}(window));
+}());
 /**
 *  @module cloudkid
 */
@@ -409,9 +985,12 @@
 */
 (function(window){
 		
+	// Include the window.performance object
+	var performance = include('performance', false);
+
 	// See if we have performance.now or any of
 	// the brower-specific versions
-	var now = window.performance && (
+	var now = performance && (
 		performance.now || 
 		performance.mozNow || 
 		performance.msNow || 
@@ -451,8 +1030,12 @@
 */
 (function(undefined){
 
-	// Optional class
-	var Debug = null;
+	// classes to import
+	var Debug,
+		Loader,
+		TimeUtils,
+		PageVisibility,
+		EventDispatcher = include('cloudkid.EventDispatcher');
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -496,11 +1079,10 @@
 		}
 		_instance = this;
 
-		// Check for the Debug class (optional)
-		if (window.Debug !== undefined)
-		{
-			Debug = window.Debug;
-		}
+		Debug = include('Debug');
+		Loader = include('cloudkid.Loader');
+		TimeUtils = include('cloudkid.TimeUtils');
+		PageVisibility = include('cloudkid.PageVisibility');
 
 		/**
 		*  Initialization options/query string parameters, these properties are read-only
@@ -528,12 +1110,12 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(cloudkid.EventDispatcher.prototype);
+	var p = Application.prototype = Object.create(EventDispatcher.prototype);
 
 	/**
 	*  The collection of function references to call when initializing the application
 	*  these are registered by external libraries that need to setup, destroyed
-	*  for instance MediaLoader
+	*  for instance Loader
 	*  @property {Array} _globalInit
 	*  @private
 	*  @static
@@ -543,7 +1125,7 @@
 	/**
 	*  The collection of function references to call when destroying the application
 	*  these are registered by external libraries that need to setup, destroyed
-	*  for instance MediaLoader
+	*  for instance Loader
 	*  @property {Array} _globalDestroy
 	*  @private
 	*  @static
@@ -730,7 +1312,7 @@
 
 	/**
 	*  Libraries would register global initialization functions when they are created, e.g.
-	*  Application.registerInit(MediaLoader.init);
+	*  Application.registerInit(Loader.init);
 	*  @method registerInit
 	*  @param {Function} func
 	*  @static
@@ -742,7 +1324,7 @@
 	};
 	/**
 	*  Libraries would register global destroy functions when they are created or initialized, e.g.
-	*  Application.registerInit(MediaLoader.instance.destroy.bind(MediaLoader.instance));
+	*  Application.registerInit(Loader.instance.destroy.bind(Loader.instance));
 	*  @method registerDestroy
 	*  @param {Function} func
 	*  @static
@@ -776,6 +1358,7 @@
 		//grab the query string parameters if we should be doing so
 		if(this.options.parseQueryString)
 			parseQueryStringParams(this.options);
+		
 		//set up default options
 		for(var key in _defaultOptions)
 		{
@@ -810,30 +1393,33 @@
 			window.addEventListener("resize", this._resize);
 		}
 
-		if (Debug)
-		{
-			// Turn on debugging
-			if (this.options.debug !== undefined)
-				Debug.enabled = this.options.debug === true || this.options.debug === "true";
-			
-			if (this.options.minLogLevel !== undefined)
-				Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+		// Turn on debugging
+		if (this.options.debug !== undefined)
+			Debug.enabled = this.options.debug === true || this.options.debug === "true";
+		
+		if (this.options.minLogLevel !== undefined)
+			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
-			//if we were supplied with an IP address, connect to it with the Debug class for logging
-			if(typeof this.options.ip == "string")
-				Debug.connect(this.options.ip);
-		}
+		//if we were supplied with an IP address, connect to it with the Debug class for logging
+		if(typeof this.options.ip == "string")
+			Debug.connect(this.options.ip);
+
+		// If tween and/or ticker are included
+		var Tween = include('createjs.Tween', false),
+			Ticker = include('createjs.Ticker', false);
 
 		// Add an option to have the application control the Tween tick
-		if (window.createjs && createjs.Tween && this.options.updateTween)
+		if (Tween && this.options.updateTween)
 		{
-			if (createjs.Ticker)
-				createjs.Ticker.setPaused(true);
-			this.on('update', createjs.Tween.tick);
+			if (Ticker)
+			{
+				Ticker.setPaused(true);
+			}
+			this.on('update', Tween.tick);
 		}
 		
 		//set up the page visibility listener
-		_pageVisibility = new cloudkid.PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
+		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
 		if(this.options.canvasId && this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
@@ -860,7 +1446,7 @@
 		{
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
-			cloudkid.MediaLoader.instance.cacheManager.addVersionsFile(
+			Loader.instance.cacheManager.addVersionsFile(
 				this.options.versionsFile, 
 				versionsLoaded
 			);
@@ -894,10 +1480,7 @@
 			myVar = splitFlashVars[i].split("=");
 			if (true)
 			{
-				if (Debug)
-				{
-					Debug.log(myVar[0] + " -> " + myVar[1]);
-				}
+				Debug.log(myVar[0] + " -> " + myVar[1]);
 			}
 			output[myVar[0]] = myVar[1];
 		}
@@ -967,7 +1550,7 @@
 						requestAnimFrame(_tickCallback): 
 						setTargetedTimeout(_tickCallback);
 				}
-				_lastFPSUpdateTime = _lastFrameTime = cloudkid.TimeUtils.now();
+				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
 	});
@@ -1059,10 +1642,7 @@
 		{
 			if (true)
 			{
-				if (Debug)
-				{
-					Debug.error("A display already exists with the id of " + id);
-				}
+				Debug.error("A display already exists with the id of " + id);
 			}
 			return;
 		}
@@ -1162,7 +1742,7 @@
 			return;
 		}
 
-		var now = cloudkid.TimeUtils.now();
+		var now = TimeUtils.now();
 		var dTime = now - _lastFrameTime;
 		
 		// Only update the framerate every second
@@ -1193,7 +1773,7 @@
 		//request the next animation frame
 		_tickId = _useRAF ? 
 			requestAnimFrame(_tickCallback) : 
-			setTargetedTimeout(_tickCallback, cloudkid.TimeUtils.now() - _lastFrameTime);
+			setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 	};
 
 	/**
@@ -1228,7 +1808,11 @@
 *  @module cloudkid
 */
 (function(undefined){
-		
+
+	// Classes to import	
+	var Application,
+		Loader;
+
 	/**
 	*  Used for managing the browser cache of loading external elements
 	*  can easily load version manifest and apply it to the media loader
@@ -1239,6 +1823,9 @@
 	*/
 	var CacheManager = function()
 	{
+		Application = include('cloudkid.Application');
+		Loader = include('cloudkid.Loader');
+		
 		this.initialize();
 	};
 	
@@ -1270,7 +1857,7 @@
 	{
 		this._versions = [];
 				
-		var cb = cloudkid.Application.instance.options.cacheBust;
+		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = cb ? (cb === "true" || cb === true) : false;
 		
 		if(true)
@@ -1301,7 +1888,7 @@
 	{		
 		Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
 				
-		var ml = cloudkid.MediaLoader.instance;
+		var ml = Loader.instance;
 		
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
@@ -1387,8 +1974,9 @@
 	*  @public
 	*  @method prepare
 	*  @param {string} url The url to prepare
-	*  @param {bool} applyBasePath If the global base path should be applied to the url. This defaults to false because it can 
-	*								potentially interfere with later regular expression checks, particularly with PreloadJS
+	*  @param {bool} [applyBasePath=false] If the global base path should be applied to the url. 
+	*		This defaults to false because it can potentially interfere with later regular 
+	*		expression checks, particularly with PreloadJS
 	*  @return {string} The final url with version/cache and basePath added
 	*/
 	p.prepare = function(url, applyBasePath)
@@ -1407,7 +1995,7 @@
 		}
 		if(applyBasePath)
 		{
-			var basePath = cloudkid.Application.instance.options.basePath;
+			var basePath = Application.instance.options.basePath;
 			if (/^http(s)?\:/.test(url) === false && basePath !== undefined && url.search(basePath) == -1)
 			{
 				url = basePath + url;
@@ -1416,6 +2004,7 @@
 		return url;
 	};
 	
+	// Assign to namespace
 	namespace('cloudkid').CacheManager = CacheManager;
 	
 }());
@@ -1541,25 +2130,41 @@
 *  @module cloudkid
 */
 (function(){
-		
+	
+	// Classes to import
+	var LoaderQueueItem,
+		CacheManager,
+		Application,
+		Sound,
+		LoadQueue,
+		LoaderResult;
+
 	/**
-	*  The MediaLoader is the singleton loader for loading all assets
-	*  including images, data, code and sounds. MediaLoader supports cache-busting
+	*  The Loader is the singleton loader for loading all assets
+	*  including images, data, code and sounds. Loader supports cache-busting
 	*  in the browser using dynamic query string parameters.
 	* 
-	*  @class MediaLoader
+	*  @class Loader
 	*/
-	var MediaLoader = function(){};
+	var Loader = function()
+	{
+		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		CacheManager = include('cloudkid.CacheManager');
+		Application = include('cloudkid.Application');
+		LoaderResult = include('cloudkid.LoaderResult');
+		LoadQueue = include('createjs.LoadQueue');
+		Sound = include('createjs.Sound', false);
+	};
 	
 	/** The prototype */
-	var p = MediaLoader.prototype;
+	var p = Loader.prototype;
 	
 	/**
 	* Reference to the private instance object
 	* @static
 	* @protected
 	*/
-	MediaLoader._instance = null;
+	var _instance = null;
 	
 	/**
 	*  The collection of LoaderQueueItems
@@ -1621,43 +2226,43 @@
 	*  @static
 	*  @public
 	*/
-	MediaLoader.init = function()
+	Loader.init = function()
 	{
-		if (!MediaLoader._instance)
+		if (!_instance)
 		{
-			MediaLoader._instance = new MediaLoader();
-			MediaLoader._instance._initialize();
+			_instance = new Loader();
+			_instance._initialize();
 			//register the destroy function
-			cloudkid.Application.registerDestroy(
-				MediaLoader._instance.destroy.bind(MediaLoader._instance)
+			Application.registerDestroy(
+				_instance.destroy.bind(_instance)
 			);
 		}
-		return MediaLoader._instance;
+		return _instance;
 	};
 
 	//register the global init function
-	cloudkid.Application.registerInit(MediaLoader.init);
+	cloudkid.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
 	*  @static
 	*  @readOnly
 	*  @public
-	*  @property {MediaLoader} instance
+	*  @property {Loader} instance
 	*/
-	Object.defineProperty(MediaLoader, "instance", {
+	Object.defineProperty(Loader, "instance", {
 		get:function()
 		{
-			if (!MediaLoader._instance)
+			if (!_instance)
 			{
-				throw 'Call cloudkid.MediaLoader.init()';
+				throw 'Call Loader.init()';
 			}
-			return MediaLoader._instance;
+			return _instance;
 		}
 	});
 	
 	/**
-	*  Destroy the MediaLoader singleton, don't use after this
+	*  Destroy the Loader singleton, don't use after this
 	*  @public
 	*  @method destroy
 	*/
@@ -1680,7 +2285,7 @@
 				loaders[key].close();
 			}
 		}
-		MediaLoader._instance = null;
+		_instance = null;
 		if (this.cacheManager)
 			this.cacheManager.destroy();
 		this.cacheManager = null;
@@ -1707,7 +2312,7 @@
 		queueItems = {};
 		loaders = {};
 		retries = {};
-		this.cacheManager = new cloudkid.CacheManager();
+		this.cacheManager = new CacheManager();
 	};
 	
 	/**
@@ -1724,7 +2329,7 @@
 	{
 		var qi = this._getQI();
 		
-		var basePath = cloudkid.Application.instance.options.basePath;
+		var basePath = Application.instance.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
@@ -1733,7 +2338,7 @@
 		qi.url = url;
 		qi.callback = callback;
 		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || cloudkid.LoaderQueueItem.PRIORITY_NORMAL;
+		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
 		qi.data = data || null;
 		
 		queue.push(qi);
@@ -1909,7 +2514,7 @@
 			rtn = qiPool.pop();
 		else
 		{
-			rtn = new cloudkid.LoaderQueueItem();
+			rtn = new LoaderQueueItem();
 			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
 			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
 			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
@@ -1933,10 +2538,12 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new createjs.LoadQueue(true, basePath);
+			rtn = new LoadQueue(true, basePath);
 		//allow the loader to handle sound as well
-		if(createjs.Sound)
-			rtn.installPlugin(createjs.Sound);
+		if(Sound)
+		{
+			rtn.installPlugin(Sound);
+		}
 		return rtn;
 	};
 	
@@ -1957,7 +2564,7 @@
 			rtn.loader = loader;
 		}
 		else
-			rtn = new cloudkid.MediaLoaderResult(result, url, loader);
+			rtn = new LoaderResult(result, url, loader);
 		return rtn;
 	};
 	
@@ -1967,7 +2574,9 @@
 		resultPool.push(result);
 	};
 	
-	namespace('cloudkid').MediaLoader = MediaLoader;
+	// MediaLoader name is deprecated
+	namespace('cloudkid').MediaLoader = Loader;
+	namespace('cloudkid').Loader = Loader;
 }());
 /**
 *  @module cloudkid
@@ -1975,14 +2584,14 @@
 (function(){
 	
 	/**
-	*  The return result of the MediaLoader load
-	*  @class MediaLoaderResult
+	*  The return result of the Loader load
+	*  @class LoaderResult
 	*  @constructor
 	*  @param {*} content The dynamic content loaded
 	*  @param {string} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	*/
-	var MediaLoaderResult = function(content, url, loader)
+	var LoaderResult = function(content, url, loader)
 	{
 		this.content = content;
 		this.url = url;
@@ -1990,7 +2599,7 @@
 	};
 	
 	/** Reference to the prototype */
-	var p = MediaLoaderResult.prototype;
+	var p = LoaderResult.prototype;
 	
 	/**
 	*  The contents of the load
@@ -2021,7 +2630,7 @@
 	*/
 	p.toString = function()
 	{
-		return "[MediaLoaderResult('"+this.url+"')]";
+		return "[LoaderResult('"+this.url+"')]";
 	};
 	
 	/**
@@ -2037,7 +2646,10 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').MediaLoaderResult = MediaLoaderResult;
+	// MediaLoadeResult is deprecated
+	namespace('cloudkid').MediaLoaderResult = LoaderResult;
+	namespace('cloudkid').LoaderResult = LoaderResult;
+	
 }());
 /**
 *  @module cloudkid
@@ -2212,7 +2824,7 @@
 */
 (function(undefined) {
 
-	var Application = cloudkid.Application;
+	var Application = include('cloudkid.Application');
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
@@ -2225,25 +2837,28 @@
 	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*/
 	var DelayedCall = function(callback, delay, repeat, autoDestroy)
-	{
+	{		
 		/**
 		*  The function to call when the delay is completed.
 		*  @private
 		*  @property {function} _callback
 		*/
 		this._callback = callback;
+
 		/**
 		*  The delay time, in milliseconds.
 		*  @private
 		*  @property {int} _delay
 		*/
 		this._delay = delay;
+
 		/**
 		*  The timer counting down from _delay, in milliseconds.
 		*  @private
 		*  @property {int} _timer
 		*/
 		this._timer = delay;
+
 		/**
 		*  If the DelayedCall should repeat itself automatically.
 		*  @private
@@ -2251,6 +2866,7 @@
 		*  @default false
 		*/
 		this._repeat = !!repeat;
+
 		/**
 		*  If the DelayedCall should destroy itself after completing
 		*  @private
@@ -2258,6 +2874,7 @@
 		*  @default true
 		*/
 		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+
 		/**
 		*  If the DelayedCall is currently paused (not stopped).
 		*  @private
@@ -2267,6 +2884,7 @@
 
 		//save a bound version of the update function
 		this._update = this._update.bind(this);
+
 		//start the delay
 		Application.instance.on("update", this._update);
 	};

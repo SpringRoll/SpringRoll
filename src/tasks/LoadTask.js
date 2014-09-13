@@ -4,13 +4,13 @@
 (function(undefined){
 	
 	// Imports
-	var MediaLoader = cloudkid.MediaLoader,
-		Task = cloudkid.Task,
-		LoaderQueueItem = cloudkid.LoaderQueueItem;
+	var Loader,
+		LoaderQueueItem,
+		Task = include('cloudkid.Task');
 	
 	/**
 	*  Load task is a common type of task used for loading assets
-	*  through the MediaLoader
+	*  through the Loader
 	*  
 	*  @class LoadTask
 	*  @extends Task
@@ -24,6 +24,9 @@
 	*/
 	var LoadTask = function(id, url, callback, updateCallback, priority, data)
 	{
+		Loader = include('cloudkid.Loader');
+		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+
 		this.initialize(id, url, callback, updateCallback, priority, data);
 	};
 	
@@ -95,7 +98,7 @@
 	*/
 	p.start = function(callback)
 	{
-		MediaLoader.instance.load(
+		Loader.instance.load(
 			this.url, 
 			callback,
 			this.updateCallback,
@@ -114,7 +117,7 @@
 	*/
 	p.cancel = function()
 	{
-		return MediaLoader.instance.cancel(this.url);
+		return Loader.instance.cancel(this.url);
 	};
 	
 	/**

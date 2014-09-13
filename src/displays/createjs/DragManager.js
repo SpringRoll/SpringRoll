@@ -3,6 +3,8 @@
 */
 (function() {
 		
+	var Tween;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
@@ -15,6 +17,8 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		Tween = include('createjs.Tween');
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -225,7 +229,7 @@
 
 		this.draggedObj = obj;
 		//stop any active tweens on the object, in case it is moving around or something
-		createjs.Tween.removeTweens(obj);
+		Tween.removeTweens(obj);
 		
 		//get the mouse position in global space and convert it to parent space
 		this._dragOffset = this.draggedObj.parent.globalToLocal(ev ? ev.stageX : 0, ev ? ev.stageY : 0);

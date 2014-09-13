@@ -3,6 +3,11 @@
 */
 (function(undefined){
 
+	var Stage = include('PIXI.Stage'),
+		CanvasRenderer = include('PIXI.CanvasRenderer'),
+		WebGLRenderer = include('PIXI.WebGLRenderer'),
+		autoDetectRenderer = include('PIXI.autoDetectRenderer');
+
 	/**
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
@@ -36,7 +41,7 @@
 		this.height = this.canvas.height;
 		this._visible = this.canvas.style.display != "none";
 		//make stage
-		this.stage = new PIXI.Stage(options.backgroundColor || 0);
+		this.stage = new Stage(options.backgroundColor || 0);
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
@@ -46,7 +51,7 @@
 			transparent = "notMultiplied";
 		if(options.forceContext == "canvas2d")
 		{
-			this.renderer = new PIXI.CanvasRenderer(
+			this.renderer = new CanvasRenderer(
 				this.width, 
 				this.height, 
 				this.canvas, 
@@ -55,7 +60,7 @@
 		}
 		else if(options.forceContext == "webgl")
 		{
-			this.renderer = new PIXI.WebGLRenderer(
+			this.renderer = new WebGLRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -66,7 +71,7 @@
 		}
 		else
 		{
-			this.renderer = PIXI.autoDetectRenderer(
+			this.renderer = autoDetectRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -77,7 +82,7 @@
 		}
 		this.renderer.clearView = !!options.clearView;
 		this.enabled = true;//enable mouse/touch input
-		this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		/**
 		*  The Animator class to use when using this display.
@@ -85,7 +90,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.pixi.Animator;
+		this.Animator = include('cloudkid.pixi.Animator');
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -94,7 +99,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.pixi.DisplayAdapter;
+		this.DisplayAdapter = include('cloudkid.pixi.DisplayAdapter');
 	};
 
 	var p = PixiDisplay.prototype = {};

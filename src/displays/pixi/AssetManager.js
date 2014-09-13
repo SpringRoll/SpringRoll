@@ -3,6 +3,9 @@
 */
 (function() {
 	
+	var BitmapText = include('PIXI.BitmapText'),
+		Texture = include('PIXI.Texture');
+
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
 	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
@@ -277,11 +280,11 @@
 		if(a.anim) return;//don't unload these, they are pretty small
 		if(a.isFont)
 		{
-			if(PIXI.BitmapText.fonts[asset])
-				delete PIXI.BitmapText.fonts[asset];
+			if(BitmapText.fonts[asset])
+				delete BitmapText.fonts[asset];
 		}
 		//anything else is a texture
-		PIXI.Texture.destroyTexture(assetUrlCache[asset]);
+		Texture.destroyTexture(assetUrlCache[asset]);
 		delete AssetManager.scales[asset];
 		delete assetUrlCache[asset];
 	};
@@ -331,7 +334,7 @@
 		var compareLength = compares.length;
 		
 		var rtnDict = outObj || {};
-		var fromFrame = PIXI.Texture.fromFrame;
+		var fromFrame = Texture.fromFrame;
 		var prevTex, len;
 		for(var a in anims)
 		{

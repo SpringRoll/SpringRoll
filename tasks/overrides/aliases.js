@@ -24,9 +24,7 @@ module.exports = function(grunt)
 			'concat:interface',
 			'replace:interface',
 			'concat:translate',
-			'replace:translate',
-			'concat:debug',
-			'replace:debug'
+			'replace:translate'
 		]
 	);
 };

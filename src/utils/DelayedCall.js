@@ -3,7 +3,7 @@
 */
 (function(undefined) {
 
-	var Application = cloudkid.Application;
+	var Application = include('cloudkid.Application');
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
@@ -16,25 +16,28 @@
 	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*/
 	var DelayedCall = function(callback, delay, repeat, autoDestroy)
-	{
+	{		
 		/**
 		*  The function to call when the delay is completed.
 		*  @private
 		*  @property {function} _callback
 		*/
 		this._callback = callback;
+
 		/**
 		*  The delay time, in milliseconds.
 		*  @private
 		*  @property {int} _delay
 		*/
 		this._delay = delay;
+
 		/**
 		*  The timer counting down from _delay, in milliseconds.
 		*  @private
 		*  @property {int} _timer
 		*/
 		this._timer = delay;
+
 		/**
 		*  If the DelayedCall should repeat itself automatically.
 		*  @private
@@ -42,6 +45,7 @@
 		*  @default false
 		*/
 		this._repeat = !!repeat;
+
 		/**
 		*  If the DelayedCall should destroy itself after completing
 		*  @private
@@ -49,6 +53,7 @@
 		*  @default true
 		*/
 		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+
 		/**
 		*  If the DelayedCall is currently paused (not stopped).
 		*  @private
@@ -58,6 +63,7 @@
 
 		//save a bound version of the update function
 		this._update = this._update.bind(this);
+
 		//start the delay
 		Application.instance.on("update", this._update);
 	};

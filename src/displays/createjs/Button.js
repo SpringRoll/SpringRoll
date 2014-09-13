@@ -3,6 +3,16 @@
  */
 (function(undefined){
 	
+	var Rectangle = include('createjs.Rectangle'),
+		Container = include('createjs.Container'),
+		ColorMatrix = include('createjs.ColorMatrix'),
+		ColorFilter = include('createjs.ColorFilter'),
+		ColorMatrixFilter = include('createjs.ColorMatrixFilter'),
+		Text = include('createjs.Text'),
+		Event = include('createjs.Event'),
+		Point = include('createjs.Point'),
+		Bitmap = include('createjs.Bitmap');
+
 	/**
 	 *  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	 *  The button can be a normal button or a selectable button.
@@ -75,9 +85,9 @@
 	};
 
 	// Extend Container
-	var p = Button.prototype = new createjs.Container();
+	var p = Button.prototype = new Container();
 
-	var s = createjs.Container.prototype; //super
+	var s = Container.prototype; //super
 
 	/**
 	 *  The sprite that is the body of the button.
@@ -219,7 +229,7 @@
 
 		var _stateData = this._stateData = {};
 		this._stateFlags = {};
-		this._offset = new createjs.Point();
+		this._offset = new Point();
 
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
@@ -312,13 +322,13 @@
 			height = image.height / 3;
 			this._statePriority = DEFAULT_PRIORITY;
 			_stateData.disabled = _stateData.up = {
-				src: new createjs.Rectangle(0, 0, width, height)
+				src: new Rectangle(0, 0, width, height)
 			};
 			_stateData.over = {
-				src: new createjs.Rectangle(0, height, width, height)
+				src: new Rectangle(0, height, width, height)
 			};
 			_stateData.down = {
-				src: new createjs.Rectangle(0, height * 2, width, height)
+				src: new Rectangle(0, height * 2, width, height)
 			};
 			if (labelData)
 			{
@@ -330,14 +340,14 @@
 			this._offset.x = this._offset.y = 0;
 		}
 
-		this.back = new createjs.Bitmap(image);
+		this.back = new Bitmap(image);
 		this.addChild(this.back);
 		this._width = width;
 		this._height = height;
 
 		if (label)
 		{
-			this.label = new createjs.Text(label.text || "", _stateData.up.label.font, _stateData.up.label.color);
+			this.label = new Text(label.text || "", _stateData.up.label.font, _stateData.up.label.color);
 			this.addChild(this.label);
 		}
 
@@ -580,7 +590,7 @@
 	 */
 	p._onClick = function(e)
 	{
-		this.dispatchEvent(new createjs.Event(Button.BUTTON_PRESS));
+		this.dispatchEvent(new Event(Button.BUTTON_PRESS));
 	};
 
 	/**
@@ -687,19 +697,19 @@
 			image: canvas,
 			up:
 			{
-				src: new createjs.Rectangle(0, 0, buttonWidth, buttonHeight)
+				src: new Rectangle(0, 0, buttonWidth, buttonHeight)
 			},
 			over:
 			{
-				src: new createjs.Rectangle(0, buttonHeight, buttonWidth, buttonHeight)
+				src: new Rectangle(0, buttonHeight, buttonWidth, buttonHeight)
 			},
 			down:
 			{
-				src: new createjs.Rectangle(0, buttonHeight * 2, buttonWidth, buttonHeight)
+				src: new Rectangle(0, buttonHeight * 2, buttonWidth, buttonHeight)
 			}
 		};
 		//set up a bitmap to draw other states with
-		var drawingBitmap = new createjs.Bitmap(image);
+		var drawingBitmap = new Bitmap(image);
 		drawingBitmap.sourceRect = output.up.src;
 		//set up a y position for where the next state should go in the canvas
 		var nextY = image.height;
@@ -709,20 +719,20 @@
 			//position the button to draw
 			context.translate(0, nextY);
 			//set up the desaturation matrix
-			var matrix = new createjs.ColorMatrix();
+			var matrix = new ColorMatrix();
 			if (disabledSettings.saturation !== undefined)
 				matrix.adjustSaturation(disabledSettings.saturation);
 			if (disabledSettings.brightness !== undefined)
 				matrix.adjustBrightness(disabledSettings.brightness * 2.55); //convert to CreateJS's -255->255 system from -100->100
 			if (disabledSettings.contrast !== undefined)
 				matrix.adjustContrast(disabledSettings.contrast);
-			drawingBitmap.filters = [new createjs.ColorMatrixFilter(matrix)];
+			drawingBitmap.filters = [new ColorMatrixFilter(matrix)];
 			//draw the state
 			drawingBitmap.cache(0, 0, output.up.src.width, output.up.src.height);
 			drawingBitmap.draw(context);
 			//update the output with the state
 			output.disabled = {
-				src: new createjs.Rectangle(0, nextY, buttonWidth | 0, buttonHeight | 0)
+				src: new Rectangle(0, nextY, buttonWidth | 0, buttonHeight | 0)
 			};
 			nextY += buttonHeight; //set up the next position for the highlight state, if we have it
 			context.restore(); //reset any transformations
@@ -734,7 +744,7 @@
 			var highlightStateWidth = buttonWidth + highlightSettings.size * 2;
 			var highlightStateHeight = buttonHeight + highlightSettings.size * 2;
 			//set up the color changing filter
-			drawingBitmap.filters = [new createjs.ColorFilter(0, 0, 0, 1,
+			drawingBitmap.filters = [new ColorFilter(0, 0, 0, 1,
 				/*r*/
 				highlightSettings.red,
 				/*g*/
@@ -763,7 +773,7 @@
 			drawingBitmap.updateContext(context);
 			drawingBitmap.draw(context);
 			//set up the trim values for the other states
-			var trim = new createjs.Rectangle(
+			var trim = new Rectangle(
 				highlightSettings.size,
 				highlightSettings.size,
 				highlightStateWidth,
@@ -775,7 +785,7 @@
 				output.disabled.trim = trim;
 			//set up the highlight state for the button
 			output.highlighted = {
-				src: new createjs.Rectangle(0, nextY, highlightStateWidth | 0, highlightStateHeight | 0)
+				src: new Rectangle(0, nextY, highlightStateWidth | 0, highlightStateHeight | 0)
 			};
 			//set up the state priority to include the highlighted state
 			output.priority = DEFAULT_PRIORITY.slice();

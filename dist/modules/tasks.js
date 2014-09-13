@@ -207,7 +207,7 @@
 (function(){
 	
 	// Imports
-	var Task = cloudkid.Task;
+	var Task = include('cloudkid.Task');
 	
 	/**
 	*   A task to do some generic async function task
@@ -318,13 +318,13 @@
 (function(undefined){
 	
 	// Imports
-	var MediaLoader = cloudkid.MediaLoader,
-		Task = cloudkid.Task,
-		LoaderQueueItem = cloudkid.LoaderQueueItem;
+	var Loader,
+		LoaderQueueItem,
+		Task = include('cloudkid.Task');
 	
 	/**
 	*  Load task is a common type of task used for loading assets
-	*  through the MediaLoader
+	*  through the Loader
 	*  
 	*  @class LoadTask
 	*  @extends Task
@@ -338,6 +338,9 @@
 	*/
 	var LoadTask = function(id, url, callback, updateCallback, priority, data)
 	{
+		Loader = include('cloudkid.Loader');
+		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+
 		this.initialize(id, url, callback, updateCallback, priority, data);
 	};
 	
@@ -409,7 +412,7 @@
 	*/
 	p.start = function(callback)
 	{
-		MediaLoader.instance.load(
+		Loader.instance.load(
 			this.url, 
 			callback,
 			this.updateCallback,
@@ -428,7 +431,7 @@
 	*/
 	p.cancel = function()
 	{
-		return MediaLoader.instance.cancel(this.url);
+		return Loader.instance.cancel(this.url);
 	};
 	
 	/**
@@ -467,7 +470,7 @@
 (function(){
 
 	// Imports
-	var TaskEvent = cloudkid.TaskEvent;
+	var TaskEvent;
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -479,6 +482,8 @@
 	*/
 	var TaskManager = function(tasks)
 	{
+		TaskEvent = include('cloudkid.TaskEvent');
+
 		this.initialize(tasks);
 	};
 	
@@ -859,10 +864,10 @@
 (function(){
 	
 	// Imports
-	var Task = cloudkid.Task,
-		LoadTask = cloudkid.LoadTask,
-		TaskEvent = cloudkid.TaskEvent,
-		TaskManager = cloudkid.TaskManager;
+	var Task = include('cloudkid.Task'),
+		LoadTask = include('cloudkid.LoadTask'),
+		TaskEvent = include('cloudkid.TaskEvent'),
+		TaskManager = include('cloudkid.TaskManager');
 	
 	/**
 	*   A task that performs a list of tasks
@@ -1054,6 +1059,11 @@
 */
 (function(){
 	
+	var Loader,
+		Application,
+		AssetLoader,
+		Task = include('cloudkid.Task');
+
 	/**
 	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
 	*  This means textures, spritesheets, and bitmap fonts.
@@ -1067,10 +1077,14 @@
 	*/
 	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
+		AssetLoader = include('PIXI.AssetLoader');
+		Loader = include('cloudkid.Loader');
+		Application = include('cloudkid.Application');
+
 		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
 	};
 	
-	var p = PixiTask.prototype = new cloudkid.Task();
+	var p = PixiTask.prototype = new Task();
 	
 	/**
 	*	Super for the constructor
@@ -1124,7 +1138,7 @@
 	*/
 	p.initialize = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
-		var cm = cloudkid.MediaLoader.instance.cacheManager;
+		var cm = Loader.instance.cacheManager;
 		for(var i = 0; i < urls.length; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
@@ -1144,8 +1158,8 @@
 	*/
 	p.start = function(callback)
 	{
-		var opts = cloudkid.Application.instance.options;
-		this._assetLoader = new PIXI.AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
+		var opts = Application.instance.options;
+		this._assetLoader = new AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
 		this._assetLoader.onComplete = callback;
 		if(this.updateCallback)
 			this._assetLoader.onProgress = this.onProgress.bind(this);

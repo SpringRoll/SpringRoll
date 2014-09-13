@@ -3,6 +3,14 @@
 */
 (function(){
 	
+	var Container = include('createjs.Container'),
+		BitmapUtils,
+		Application,
+		LoadTask,
+		TaskManager,
+		Sound,
+		ListTask;
+
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions.
@@ -16,15 +24,22 @@
 	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
 	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
 	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
+	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
 	*/
 	var Cutscene = function(options)
 	{
-		createjs.Container.call(this);
+		Application = include('cloudkid.Application');
+		LoadTask = include('cloudkid.LoadTask');
+		TaskManager = include('cloudkid.TaskManager');
+		Sound = include('cloudkid.Sound');
+		ListTask = include('cloudkid.ListTask');
+		BitmapUtils = include('createjs.BitmapUtils');
+
+		Container.call(this);
 		this.setup(options);
 	};
 	
-	var p = Cutscene.prototype = new createjs.Container();
+	var p = Cutscene.prototype = new Container();
 	
 	/**
 	*	When the cutscene is ready to use
@@ -73,7 +88,7 @@
 	p.pathReplaceVal = null;
 	/**
 	*	The TaskManager used to load up assets.
-	*	@property {cloudkid.TaskManager} _taskMan
+	*	@property {TaskManager} _taskMan
 	*	@private
 	*/
 	p._taskMan = null;
@@ -91,7 +106,7 @@
 	p._clip = null;
 	/**
 	*	The sound instance of the playing audio
-	*	@property {cloudkid.Sound.soundInst} _currentAudioInstance
+	*	@property {Sound.soundInst} _currentAudioInstance
 	*	@private
 	*/
 	p._currentAudioInstance = null;
@@ -109,7 +124,7 @@
 	p._audioFinished = false;
 	/**
 	*	The Captions object to use to manage captions.
-	*	@property {cloudkid.Captions} _captionsObj
+	*	@property {Captions} _captionsObj
 	*	@private
 	*/
 	p._captionsObj = null;
@@ -137,7 +152,7 @@
 	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
 	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
 	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {cloudkid.Captions} [options.captions] A Captions instance to display captions text on.
+	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
 	*	@private
 	*/
 	p.setup = function(options)
@@ -145,7 +160,7 @@
 		if(!options)
 			throw new Error("need options to create Cutscene");
 		
-		this.display = typeof options.display == "string" ? cloudkid.Application.instance.getDisplay(options.display) : options.display;
+		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
 		this.config = options.configUrl;
 		this._loadCallback = options.loadCallback || null;
 		this.imageScale = options.imageScale || 1;
@@ -161,11 +176,11 @@
 		this.display.stage.addChild(this);
 
 		var tasks = [];
-		tasks.push(new cloudkid.LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
+		tasks.push(new LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
 		// create a texture from an image path
-		this._taskMan = new cloudkid.TaskManager(tasks);
+		this._taskMan = new TaskManager(tasks);
 		this._taskMan.addEventListener(
-			cloudkid.TaskManager.ALL_TASKS_DONE, 
+			TaskManager.ALL_TASKS_DONE, 
 			this.onLoadComplete.bind(this)
 		);
 		this._taskMan.startAll();
@@ -174,7 +189,7 @@
 	/**
 	*	Callback for when the config file is loaded.
 	*	@method onConfigLoaded
-	*	@param {cloudkid.MediaLoaderResult} result The loaded result.
+	*	@param {LoaderResult} result The loaded result.
 	*	@private
 	*/
 	p.onConfigLoaded = function(result)
@@ -199,10 +214,10 @@
 		}
 		
 		var soundConfig = this.config.audio;
-		cloudkid.Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
+		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
 		
-		this._taskMan.addTask(new cloudkid.ListTask("art", manifest, this.onArtLoaded.bind(this)));
-		this._taskMan.addTask(cloudkid.Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
+		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
+		this._taskMan.addTask(Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
 	};
 	
 	/**
@@ -246,7 +261,7 @@
 					var imgScale = this.imageScale;
 					for(var key in this.config.images)
 					{
-						createjs.BitmapUtils.replaceWithScaledBitmap(key, imgScale);
+						BitmapUtils.replaceWithScaledBitmap(key, imgScale);
 					}
 				}
 			}
@@ -259,7 +274,7 @@
 		{
 			if(atlasData[id] && atlasImages[id])
 			{
-				createjs.BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+				BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
 			}
 		}
 	};
@@ -289,7 +304,7 @@
 		this.addChild(this._clip);
 		
 		this.resize(this.display.width, this.display.height);
-		cloudkid.Application.instance.on("resize", this.resize);
+		Application.instance.on("resize", this.resize);
 		
 		this.isReady = true;
 		
@@ -338,10 +353,10 @@
 		this._animFinished = false;
 		this._audioFinished = false;
 		var id = this.config.audio.soundManifest[0].id;
-		this._currentAudioInstance = cloudkid.Sound.instance.play(id, this._audioCallback);
+		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
 		if(this._captionsObj)
 			this._captionsObj.run(id);
-		cloudkid.Application.instance.on("update", this.update);
+		Application.instance.on("update", this.update);
 	};
 	
 	/**
@@ -405,9 +420,9 @@
 	*/
 	p.stop = function(doCallback)
 	{
-		cloudkid.Application.instance.off("update", this.update);
+		Application.instance.off("update", this.update);
 		if(this._currentAudioInstance)
-			cloudkid.Sound.instance.stop(this.config.audio.soundManifest[0].id);
+			Sound.instance.stop(this.config.audio.soundManifest[0].id);
 		this._captionsObj.stop();
 
 		if(doCallback && this._endCallback)
@@ -424,9 +439,9 @@
 	*/
 	p.destroy = function()
 	{
-		cloudkid.Application.instance.off("resize", this.resize);
+		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		cloudkid.Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
+		Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
 		this.config = null;
 		if(this._taskMan)
 		{

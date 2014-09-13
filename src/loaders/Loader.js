@@ -2,25 +2,41 @@
 *  @module cloudkid
 */
 (function(){
-		
+	
+	// Classes to import
+	var LoaderQueueItem,
+		CacheManager,
+		Application,
+		Sound,
+		LoadQueue,
+		LoaderResult;
+
 	/**
-	*  The MediaLoader is the singleton loader for loading all assets
-	*  including images, data, code and sounds. MediaLoader supports cache-busting
+	*  The Loader is the singleton loader for loading all assets
+	*  including images, data, code and sounds. Loader supports cache-busting
 	*  in the browser using dynamic query string parameters.
 	* 
-	*  @class MediaLoader
+	*  @class Loader
 	*/
-	var MediaLoader = function(){};
+	var Loader = function()
+	{
+		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		CacheManager = include('cloudkid.CacheManager');
+		Application = include('cloudkid.Application');
+		LoaderResult = include('cloudkid.LoaderResult');
+		LoadQueue = include('createjs.LoadQueue');
+		Sound = include('createjs.Sound', false);
+	};
 	
 	/** The prototype */
-	var p = MediaLoader.prototype;
+	var p = Loader.prototype;
 	
 	/**
 	* Reference to the private instance object
 	* @static
 	* @protected
 	*/
-	MediaLoader._instance = null;
+	var _instance = null;
 	
 	/**
 	*  The collection of LoaderQueueItems
@@ -82,43 +98,43 @@
 	*  @static
 	*  @public
 	*/
-	MediaLoader.init = function()
+	Loader.init = function()
 	{
-		if (!MediaLoader._instance)
+		if (!_instance)
 		{
-			MediaLoader._instance = new MediaLoader();
-			MediaLoader._instance._initialize();
+			_instance = new Loader();
+			_instance._initialize();
 			//register the destroy function
-			cloudkid.Application.registerDestroy(
-				MediaLoader._instance.destroy.bind(MediaLoader._instance)
+			Application.registerDestroy(
+				_instance.destroy.bind(_instance)
 			);
 		}
-		return MediaLoader._instance;
+		return _instance;
 	};
 
 	//register the global init function
-	cloudkid.Application.registerInit(MediaLoader.init);
+	cloudkid.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
 	*  @static
 	*  @readOnly
 	*  @public
-	*  @property {MediaLoader} instance
+	*  @property {Loader} instance
 	*/
-	Object.defineProperty(MediaLoader, "instance", {
+	Object.defineProperty(Loader, "instance", {
 		get:function()
 		{
-			if (!MediaLoader._instance)
+			if (!_instance)
 			{
-				throw 'Call cloudkid.MediaLoader.init()';
+				throw 'Call Loader.init()';
 			}
-			return MediaLoader._instance;
+			return _instance;
 		}
 	});
 	
 	/**
-	*  Destroy the MediaLoader singleton, don't use after this
+	*  Destroy the Loader singleton, don't use after this
 	*  @public
 	*  @method destroy
 	*/
@@ -141,7 +157,7 @@
 				loaders[key].close();
 			}
 		}
-		MediaLoader._instance = null;
+		_instance = null;
 		if (this.cacheManager)
 			this.cacheManager.destroy();
 		this.cacheManager = null;
@@ -168,7 +184,7 @@
 		queueItems = {};
 		loaders = {};
 		retries = {};
-		this.cacheManager = new cloudkid.CacheManager();
+		this.cacheManager = new CacheManager();
 	};
 	
 	/**
@@ -185,7 +201,7 @@
 	{
 		var qi = this._getQI();
 		
-		var basePath = cloudkid.Application.instance.options.basePath;
+		var basePath = Application.instance.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
@@ -194,7 +210,7 @@
 		qi.url = url;
 		qi.callback = callback;
 		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || cloudkid.LoaderQueueItem.PRIORITY_NORMAL;
+		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
 		qi.data = data || null;
 		
 		queue.push(qi);
@@ -370,7 +386,7 @@
 			rtn = qiPool.pop();
 		else
 		{
-			rtn = new cloudkid.LoaderQueueItem();
+			rtn = new LoaderQueueItem();
 			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
 			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
 			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
@@ -394,10 +410,12 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new createjs.LoadQueue(true, basePath);
+			rtn = new LoadQueue(true, basePath);
 		//allow the loader to handle sound as well
-		if(createjs.Sound)
-			rtn.installPlugin(createjs.Sound);
+		if(Sound)
+		{
+			rtn.installPlugin(Sound);
+		}
 		return rtn;
 	};
 	
@@ -418,7 +436,7 @@
 			rtn.loader = loader;
 		}
 		else
-			rtn = new cloudkid.MediaLoaderResult(result, url, loader);
+			rtn = new LoaderResult(result, url, loader);
 		return rtn;
 	};
 	
@@ -428,5 +446,7 @@
 		resultPool.push(result);
 	};
 	
-	namespace('cloudkid').MediaLoader = MediaLoader;
+	// MediaLoader name is deprecated
+	namespace('cloudkid').MediaLoader = Loader;
+	namespace('cloudkid').Loader = Loader;
 }());

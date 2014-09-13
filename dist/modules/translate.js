@@ -2,7 +2,9 @@
 !function(){"use strict";/**
 *  @module cloudkid
 */
-(function(window, $, undefined){
+(function(window, undefined){
+
+	var $ = include('jQuery');
 
 	/**
 	*  Internationalization/translation object with convenient jquery plugin
@@ -452,5 +454,4 @@
 	// Assign to namespace
 	namespace('cloudkid').Translate = Translate;
 
-})(window, jQuery);
-}();
+})(window);}();

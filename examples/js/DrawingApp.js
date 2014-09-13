@@ -1,10 +1,11 @@
 (function(){
 		
 	// Import library dependencies
-	var Texture = PIXI.Texture,
-		Sprite = PIXI.Sprite,
-		Point = PIXI.Point,
-		Application = cloudkid.Application;
+	var Texture = include('PIXI.Texture'),
+		Sprite = include('PIXI.Sprite'),
+		Point = include('PIXI.Point'),
+		Loader = include('cloudkid.Loader'),
+		Application = include('cloudkid.Application');
 	
 	var DrawingApp = function(options)
 	{
@@ -74,7 +75,7 @@
 		this._assetLoader.onComplete = this._onCompletedLoad.bind(this);
 		this._assetLoader.load();
 
-		cloudkid.MediaLoader.instance.load(
+		Loader.instance.load(
 			'images/button.png', 
 			this._onCJSButtonLoaded.bind(this)
 		);

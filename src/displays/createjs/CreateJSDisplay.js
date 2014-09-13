@@ -3,6 +3,10 @@
 */
 (function(undefined){
 
+	// Import createjs classes
+	var Stage,
+		Touch;
+
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
@@ -17,6 +21,9 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
+		Stage = include('createjs.Stage');
+		Touch = include('createjs.Touch');
+
 		this.id = id;
 		options = options || {};
 		this.canvas = document.getElementById(id);
@@ -32,7 +39,7 @@
 		}
 		else
 		{
-			this.stage = new createjs.Stage(id);
+			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
 		// prevent mouse down turning into text cursor
@@ -48,7 +55,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.createjs.Animator;
+		this.Animator = include('cloudkid.createjs.Animator');
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -57,7 +64,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.createjs.DisplayAdapter;
+		this.DisplayAdapter = include('cloudkid.createjs.DisplayAdapter');
 	};
 
 	var p = CreateJSDisplay.prototype = {};
@@ -141,13 +148,13 @@
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
 				this.stage.enableDOMEvents(true);
-				createjs.Touch.enable(this.stage);
+				Touch.enable(this.stage);
 			}
 			else
 			{
 				this.stage.enableMouseOver(false);
 				this.stage.enableDOMEvents(false);
-				createjs.Touch.disable(this.stage);
+				Touch.disable(this.stage);
 				this.canvas.style.cursor = "";//reset the cursor
 			}
 		}

@@ -4,7 +4,7 @@
 (function(){
 	
 	// Imports
-	var Task = cloudkid.Task;
+	var Task = include('cloudkid.Task');
 	
 	/**
 	*   A task to do some generic async function task

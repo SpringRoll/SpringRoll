@@ -1,7 +1,7 @@
 /**
 *  @module cloudkid
 */
-(function(global, undefined){
+(function(undefined){
 		
 	/**
 	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, 
@@ -183,7 +183,7 @@
 		return typeof value;
 	}
 	
-	// Assign to the global spacing
+	// Assign to name space
 	namespace('cloudkid').EventDispatcher = EventDispatcher;
 	
-}(window));
+}());

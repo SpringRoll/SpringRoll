@@ -13,8 +13,7 @@ module.exports = {
 			'<%= build.modules.sound %>',
 			'<%= build.modules.captions %>',
 			'<%= build.modules.interface %>',
-			'<%= build.modules.translate %>',
-			'<%= build.modules.debug %>'
+			'<%= build.modules.translate %>'
 		]
 	}
 };

@@ -1,11 +1,13 @@
 {
 	"name" : "CloudKidFramework",
-	"version" : "0.0.4",
+	"version" : "0.0.5",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
 	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
 	"output" : "core",
 	"main" : [
 		"src/utils/namespace.js",
+		"src/utils/include.js",
+		"src/utils/Debug.js",
 		"src/polyfills/requestAnimationFrame.js",
 		"src/events/EventDispatcher.js",
 		"src/utils/PageVisibility.js",
@@ -13,8 +15,8 @@
 		"src/Application.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
-		"src/loaders/MediaLoader.js",
-		"src/loaders/MediaLoaderResult.js",
+		"src/loaders/Loader.js",
+		"src/loaders/LoaderResult.js",
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
 		"src/utils/DelayedCall.js"
@@ -29,8 +31,8 @@
 		"displaycreatejs" : [
 			"src/displays/createjs/DisplayAdapter.js",
 			"src/displays/createjs/CreateJSDisplay.js",
-			"src/displays/createjs/Animator.js",
 			"src/displays/createjs/AnimatorTimeline.js",
+			"src/displays/createjs/Animator.js",
 			"src/displays/createjs/Button.js",
 			"src/displays/createjs/CharacterClip.js",
 			"src/displays/createjs/CharacterController.js",
@@ -40,6 +42,7 @@
 		"displaypixi" : [
 			"src/displays/pixi/DisplayAdapter.js",
 			"src/displays/pixi/PixiDisplay.js",
+			"src/displays/pixi/AnimatorTimeline.js",
 			"src/displays/pixi/Animator.js",
 			"src/displays/pixi/Button.js",
 			"src/displays/pixi/DragManager.js",
@@ -74,7 +77,6 @@
 			"src/ui/Positioner.js"
 		],
 		"captions" : ["src/media/Captions.js"],
-		"translate" : ["src/utils/Translate.js"],
-		"debug" : ["src/utils/Debug.js"]
+		"translate" : ["src/utils/Translate.js"]
 	}
 }

@@ -2,7 +2,11 @@
 *  @module cloudkid.pixi
 */
 (function() {
-		
+	
+	var Application,
+		Tween,
+		Point;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
@@ -15,6 +19,10 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		Application = include('cloudkid.Application');
+		Tween = include('createjs.Tween');
+		Point = include('PIXI.Point');
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -190,9 +198,9 @@
 		this._dragStartCallback = startCallback;
 		this._dragEndCallback = endCallback;
 		this._draggableObjects = [];
-		this.mouseDownStagePos = new PIXI.Point(0, 0);
-		this.mouseDownObjPos = new PIXI.Point(0, 0);
-		helperPoint = new PIXI.Point(0, 0);
+		this.mouseDownStagePos = new Point(0, 0);
+		this.mouseDownObjPos = new Point(0, 0);
+		helperPoint = new Point(0, 0);
 	};
 	
 	/**
@@ -222,8 +230,8 @@
 		if(this.draggedObj !== null) return;
 
 		this.draggedObj = obj;
-		createjs.Tween.removeTweens(this.draggedObj);
-		createjs.Tween.removeTweens(this.draggedObj.position);
+		Tween.removeTweens(this.draggedObj);
+		Tween.removeTweens(this.draggedObj.position);
 		
 		//get the mouse position and convert it to object parent space
 		this._dragOffset = interactionData.getLocalPosition(this.draggedObj.parent);
@@ -370,7 +378,7 @@
 	* Handles snapping the dragged object to the nearest among a list of points
 	* @method _handlePointSnap
 	* @private
-	* @param {createjs.Point} localMousePos The mouse position in the same space as the dragged object.
+	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
 	*/
 	p._handlePointSnap = function(localMousePos)
 	{
@@ -450,7 +458,7 @@
 		if(!bounds)
 		{
 			//use the primary display size, since the Pixi stage does not have height/width
-			var display = cloudkid.Application.instance.display;
+			var display = Application.instance.display;
 			bounds = {x:0, y:0, width:canvas.width, height:canvas.height};
 		}
 		bounds.right = bounds.x + bounds.width;

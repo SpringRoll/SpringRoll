@@ -3,6 +3,13 @@
 */
 (function(undefined) {
 	
+	// Import classes
+	var DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
+		Point = include('PIXI.Point'),
+		Sprite = include('PIXI.Sprite'),
+		BitmapText = include('PIXI.BitmapText'),
+		Text = include('PIXI.Text');
+
 	/**
 	*  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	*  The button can be a normal button or a selectable button.
@@ -54,13 +61,13 @@
 	*/
 	var Button = function(imageSettings, label, enabled)
 	{
-		if(!imageSettings) return;
-		PIXI.DisplayObjectContainer.call(this);
+		if (!imageSettings) return;
+		DisplayObjectContainer.call(this);
 		this.initialize(imageSettings, label, enabled);
 	};
 	
 	// Reference to the prototype
-	var p = Button.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+	var p = Button.prototype = Object.create(DisplayObjectContainer.prototype);
 	
 	/*
 	*  The sprite that is the body of the button.
@@ -210,7 +217,7 @@
 	*/
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		this.back = new PIXI.Sprite(imageSettings.up);
+		this.back = new Sprite(imageSettings.up);
 		this.addChild(this.back);
 		
 		this._overCB = this._onOver.bind(this);
@@ -221,22 +228,22 @@
 
 		var _stateData = this._stateData = {};
 		this._stateFlags = {};
-		this._offset = new PIXI.Point();
+		this._offset = new Point();
 		
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
-		if(label)
+		if (label)
 		{
 			labelData = clone(label);
 			delete labelData.text;
 			delete labelData.type;
-			if(labelData.x === undefined)
+			if (labelData.x === undefined)
 				labelData.x = "center";
-			if(labelData.y === undefined)
+			if (labelData.y === undefined)
 				labelData.y = "center";
 			//clone the style object and set up the defaults from PIXI.Text or PIXI.BitmapText
 			var style = labelData.style = clone(label.style);
-			if(label.type == "bitmap")
+			if (label.type == "bitmap")
 			{
 				style.align = style.align || "left";
 			}
@@ -259,15 +266,15 @@
 			//set up the property for the state so it can be set - the function will ignore reserved states
 			this._addProperty(state);
 			//set the default value for the state flag
-			if(state != "disabled" && state != "up")
+			if (state != "disabled" && state != "up")
 				this._stateFlags[state] = false;
 			var inputData = imageSettings[state];
 			
-			if(inputData)
+			if (inputData)
 			{
 				//if inputData is an object with a tex property, use that
 				//otherwise it is a texture itself
-				if(inputData.tex)
+				if (inputData.tex)
 					_stateData[state] = {tex: inputData.tex};
 				else
 					_stateData[state] = {tex: inputData};
@@ -278,10 +285,10 @@
 				_stateData[state] = _stateData.up;
 			}
 			//set up the label info for this state
-			if(label)
+			if (label)
 			{
 				//if there is actual label data for this state, use that
-				if(inputData && inputData.label)
+				if (inputData && inputData.label)
 				{
 					inputData = inputData.label;
 					var stateLabel = _stateData[state].label = {};
@@ -295,19 +302,19 @@
 			}
 		}
 		//ensure that our required states exist
-		if(!_stateData.up)
+		if (!_stateData.up)
 		{
 			Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
 			Debug.error(imageSettings);
 		}
-		if(!_stateData.over)
+		if (!_stateData.over)
 			_stateData.over = _stateData.up;
-		if(!_stateData.down)
+		if (!_stateData.down)
 			_stateData.down = _stateData.up;
-		if(!_stateData.disabled)
+		if (!_stateData.disabled)
 			_stateData.disabled = _stateData.up;
 		//set up the offset
-		if(imageSettings.offset)
+		if (imageSettings.offset)
 		{
 			this._offset.x = imageSettings.offset.x;
 			this._offset.y = imageSettings.offset.y;
@@ -317,15 +324,15 @@
 			this._offset.x = this._offset.y = 0;
 		}
 
-		if(imageSettings.scale)
+		if (imageSettings.scale)
 		{
 			var s = imageSettings.scale || 1;
 			this.back.scale.x = this.back.scale.y = s;
 		}
 		
-		if(label)
+		if (label)
 		{
-			this.label = label.type == "bitmap" ? new PIXI.BitmapText(label.text, labelData.style) : new PIXI.Text(label.text, labelData.style);
+			this.label = label.type == "bitmap" ? new BitmapText(label.text, labelData.style) : new Text(label.text, labelData.style);
 			this.addChild(this.label);
 		}
 
@@ -382,11 +389,11 @@
 	*/
 	p.setText = function(text)
 	{
-		if(this.label)
+		if (this.label)
 		{
 			this.label.setText(text);
 			//make the text update so we can figure out the size for positioning
-			if(this.label instanceof PIXI.Text)
+			if (this.label instanceof Text)
 			{
 				this.label.updateText();
 				this.label.dirty = false;
@@ -397,16 +404,16 @@
 			var data;
 			for(var i = 0; i < this._statePriority.length; ++i)
 			{
-				if(this._stateFlags[this._statePriority[i]])
+				if (this._stateFlags[this._statePriority[i]])
 				{
 					data = this._stateData[this._statePriority[i]];
 					break;
 				}
 			}
-			if(!data)
+			if (!data)
 				data = this._stateData.up;
 			data = data.label;
-			if(data.x == "center")
+			if (data.x == "center")
 			{
 				var bW = this.back.width, lW = this.label.width;
 				switch(this._currentLabelStyle.align)
@@ -424,7 +431,7 @@
 			}
 			else
 				this.label.position.x = data.x + this._offset.x;
-			if(data.y == "center")
+			if (data.y == "center")
 			{
 				this.label.position.y = (this.back.height - this.label.height) * 0.5;
 			}
@@ -448,7 +455,7 @@
 			this.interactive = value;
 			
 			//make sure interaction callbacks are properly set
-			if(value)
+			if (value)
 			{
 				this.mousedown = this.touchstart = this._downCB;
 				this.mouseover = this._overCB;
@@ -477,7 +484,7 @@
 	p._addProperty = function(propertyName)
 	{
 		//check to make sure we don't add reserved names
-		if(RESERVED_STATES.indexOf(propertyName) >= 0) return;
+		if (RESERVED_STATES.indexOf(propertyName) >= 0) return;
 		
 		Object.defineProperty(this, propertyName, {
 			get: function() { return this._stateFlags[propertyName]; },
@@ -496,33 +503,33 @@
 	*/
 	p._updateState = function()
 	{
-		if(!this.back) return;
+		if (!this.back) return;
 
 		var data;
 		//use the highest priority state
 		for(var i = 0; i < this._statePriority.length; ++i)
 		{
-			if(this._stateFlags[this._statePriority[i]])
+			if (this._stateFlags[this._statePriority[i]])
 			{
 				data = this._stateData[this._statePriority[i]];
 				break;
 			}
 		}
 		//if no state is active, use the up state
-		if(!data)
+		if (!data)
 			data = this._stateData.up;
 		this.back.setTexture(data.tex);
 		//if we have a label, update that too
-		if(this.label)
+		if (this.label)
 		{
 			data = data.label;
 			//update the text style
-			if(!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
+			if (!this._currentLabelStyle || !doObjectsMatch(this._currentLabelStyle, data.style))
 			{
 				this.label.setStyle(data.style);
 				this._currentLabelStyle = data.style;
 				//make the text update so we can figure out the size for positioning
-				if(this.label instanceof PIXI.Text)
+				if (this.label instanceof Text)
 				{
 					this.label.updateText();
 					this.label.dirty = false;
@@ -531,7 +538,7 @@
 					this.label.forceUpdateText();
 			}
 			//position the text
-			if(data.x == "center")
+			if (data.x == "center")
 			{
 				var bW = this.back.width, lW = this.label.width;
 				switch(this._currentLabelStyle.align)
@@ -549,7 +556,7 @@
 			}
 			else
 				this.label.position.x = data.x + this._offset.x;
-			if(data.y == "center")
+			if (data.y == "center")
 			{
 				this.label.position.y = (this.back.height - this.label.height) * 0.5;
 			}
@@ -563,11 +570,11 @@
 	*/
 	function doObjectsMatch(obj1, obj2)
 	{
-		if(obj1 === obj2)
+		if (obj1 === obj2)
 			return true;
 		for(var key in obj1)
 		{
-			if(obj1[key] != obj2[key])
+			if (obj1[key] != obj2[key])
 				return false;
 		}
 		return true;
@@ -582,7 +589,7 @@
 	{
 		this._stateFlags.over = true;
 		this._updateState();
-		if(this.overCallback)
+		if (this.overCallback)
 			this.overCallback(this);
 	};
 	
@@ -595,7 +602,7 @@
 	{
 		this._stateFlags.over = false;
 		this._updateState();
-		if(this.outCallback)
+		if (this.outCallback)
 			this.outCallback(this);
 	};
 	
@@ -628,7 +635,7 @@
 		this.mouseupoutside = this.touchendoutside = null;
 		
 		this._updateState();
-		if(this.releaseCallback)
+		if (this.releaseCallback)
 			this.releaseCallback(this);
 	};
 	

@@ -4,7 +4,7 @@
 (function(){
 
 	// Imports
-	var Animator = cloudkid.createjs.Animator;
+	var Animator = include('cloudkid.createjs.Animator');
 	
 	/**
 	*   Character Controller class is designed to play animated

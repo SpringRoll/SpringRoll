@@ -90,7 +90,7 @@
 		this.soundAlias = null;
 
 		/**
-		*	A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
+		*	A sound instance object from Sound, used for tracking sound position.
 		*	@property {Object} soundInst
 		*	@public
 		*/
