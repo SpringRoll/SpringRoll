@@ -7,7 +7,6 @@
 	},
 	"devDependencies": {
 		"jquery": " ~1",
-		"modernizr": "*",
 		"pixi.js": "https://github.com/CloudKidStudio/pixi.js.git#~1.6.3",
 		"easeljs": "https://github.com/CloudKidStudio/EaselJS.git#~0.7.6",
 		"tweenjs": "https://github.com/CloudKidStudio/TweenJS.git#~0.4.1",
