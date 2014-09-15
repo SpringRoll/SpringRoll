@@ -9707,12 +9707,12 @@
                 },
                 {
                     "name": "options",
-                    "description": "The object of optional parameters or completeCallback callback function",
+                    "description": "The object of optional parameters or complete callback function",
                     "type": "Object|function",
                     "optional": true,
                     "props": [
                         {
-                            "name": "completeCallback",
+                            "name": "complete",
                             "description": "An optional function to call when the sound is finished.",
                             "type": "Function",
                             "optional": true
@@ -9761,7 +9761,7 @@
                     ]
                 },
                 {
-                    "name": "opitons.startCallback",
+                    "name": "opitons.start",
                     "description": "An optional function to call when the sound starts playback.\n\t\tIf the sound is loaded, this is called immediately, if not, it calls when the \n\t\tsound is finished loading.",
                     "type": "Function",
                     "optional": true
@@ -9776,7 +9776,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 633,
+            "line": 634,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -9803,7 +9803,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 658,
+            "line": 659,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -9821,7 +9821,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 706,
+            "line": 707,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -9839,7 +9839,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 723,
+            "line": 724,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -9857,7 +9857,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 750,
+            "line": 751,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -9875,7 +9875,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 766,
+            "line": 767,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -9893,7 +9893,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 779,
+            "line": 780,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -9911,7 +9911,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 802,
+            "line": 803,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -9929,7 +9929,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 821,
+            "line": 822,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -9947,7 +9947,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 842,
+            "line": 843,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -9958,7 +9958,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 854,
+            "line": 855,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -9969,7 +9969,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 866,
+            "line": 867,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -9992,7 +9992,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 896,
+            "line": 897,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -10010,7 +10010,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 907,
+            "line": 908,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -10033,7 +10033,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 937,
+            "line": 938,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -10056,7 +10056,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 964,
+            "line": 965,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -10079,7 +10079,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1012,
+            "line": 1013,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -10102,7 +10102,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1037,
+            "line": 1038,
             "description": "Creates a Task for the CloudKid Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -10134,7 +10134,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1053,
+            "line": 1054,
             "description": "Unloads a list of sounds to reclaim memory if possible. \nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -10152,7 +10152,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1076,
+            "line": 1077,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -10170,7 +10170,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1094,
+            "line": 1095,
             "description": "Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
