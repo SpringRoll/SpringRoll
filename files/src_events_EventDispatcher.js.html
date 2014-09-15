@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/events/EventDispatcher.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/events/EventDispatcher.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -204,7 +206,7 @@
 /**
 *  @module cloudkid
 */
-(function(global, undefined){
+(function(undefined){
 		
 	/**
 	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS&#x27;s EventDispatcher, 
@@ -213,17 +215,18 @@
 	*  @class EventDispatcher
 	*  @constructor
 	*/
-	var EventDispatcher = function(){},
+	var EventDispatcher = function()
+	{
+		/**
+		* The collection of listeners
+		* @property {Array} _listeners
+		* @private
+		*/
+		this._listeners = [];
+	},
 	
 	// Reference to the prototype 
 	p = EventDispatcher.prototype;
-	
-	/**
-	* The collection of listeners
-	* @property {Array} _listeners
-	* @private
-	*/
-	p._listeners = [];
 	
 	/**
 	*  Dispatch an event
@@ -366,12 +369,12 @@
 	};
 	
 	/**
-	* Return type of the value.
-	*
-	* @private
-	* @method type
-	* @param  {*} value
-	* @return {String} The type
+	*  Return type of the value.
+	*  
+	*  @private
+	*  @method type
+	*  @param  {*} value
+	*  @return {String} The type
 	*/
 	function type(value)
 	{
@@ -385,11 +388,29 @@
 		}
 		return typeof value;
 	}
+
+	/**
+	*  Adds EventDispatcher methods and properties to an object or object prototype.
+	*  @method mixIn
+	*  @param {Object} object The object or prototype
+	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
+	*  @static
+	*  @public
+	*/
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		object.trigger = p.trigger;
+		object.on = p.on;
+		object.off = p.off;
+		object.has = p.has;
+		if(callConstructor)
+			EventDispatcher.call(object);
+	};
 	
-	// Assign to the global spacing
+	// Assign to name space
 	namespace(&#x27;cloudkid&#x27;).EventDispatcher = EventDispatcher;
 	
-}(window));
+}());
     </pre>
 </div>
 

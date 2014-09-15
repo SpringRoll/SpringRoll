@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : BaseState</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : BaseState</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -347,35 +349,28 @@
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__internalEnterState">_internalEnterState</a>
+                                <a href="#method__internalEnter">_internalEnter</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__internalEnterStateDone">_internalEnterStateDone</a>
+                                <a href="#method__internalEnterDone">_internalEnterDone</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__internalExitState">_internalExitState</a>
+                                <a href="#method__internalExit">_internalExit</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__internalExitStateStart">_internalExitStateStart</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_addEventListener">addEventListener</a>
+                                <a href="#method__internalExitStart">_internalExitStart</a>
 
                                 
                                 
@@ -396,35 +391,28 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_dispatchEvent">dispatchEvent</a>
+                                <a href="#method_enter">enter</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_enterState">enterState</a>
+                                <a href="#method_enterDone">enterDone</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_enterStateDone">enterStateDone</a>
+                                <a href="#method_exit">exit</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_exitState">exitState</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_exitStateStart">exitStateStart</a>
+                                <a href="#method_exitStart">exitStart</a>
 
                                 
                                 
@@ -459,13 +447,6 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_hasEventListener">hasEventListener</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_initialize">initialize</a>
 
                                 
@@ -481,20 +462,6 @@
                         
                             <li class="index-item method">
                                 <a href="#method_loadingStart">loadingStart</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_removeAllEventListeners">removeAllEventListeners</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_removeEventListener">removeEventListener</a>
 
                                 
                                 
@@ -567,14 +534,7 @@
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__listeners description">_listeners description</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__onEnterStateProceed">_onEnterStateProceed</a>
+                                <a href="#property__onEnterProceed">_onEnterProceed</a>
 
                                 
                                 
@@ -663,7 +623,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l302"><code>_internalCancel:302</code></a>
+        <a href="../files/src_states_BaseState.js.html#l254"><code>_internalCancel:254</code></a>
         
         </p>
 
@@ -686,8 +646,8 @@
 </div>
 
                 
-                    <div id="method__internalEnterState" class="method item private">
-    <h3 class="name"><code>_internalEnterState</code></h3>
+                    <div id="method__internalEnter" class="method item private">
+    <h3 class="name"><code>_internalEnter</code></h3>
 
     
         <div class="args">
@@ -730,7 +690,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l224"><code>_internalEnterState:224</code></a>
+        <a href="../files/src_states_BaseState.js.html#l176"><code>_internalEnter:176</code></a>
         
         </p>
 
@@ -760,7 +720,7 @@
                     
 
                     <div class="param-description">
-                        <p>The function to call after enterState has been called</p>
+                        <p>The function to call after enter has been called</p>
 
                     </div>
 
@@ -777,8 +737,8 @@
 </div>
 
                 
-                    <div id="method__internalEnterStateDone" class="method item private">
-    <h3 class="name"><code>_internalEnterStateDone</code></h3>
+                    <div id="method__internalEnterDone" class="method item private">
+    <h3 class="name"><code>_internalEnterDone</code></h3>
 
     
         <span class="paren">()</span>
@@ -811,7 +771,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l333"><code>_internalEnterStateDone:333</code></a>
+        <a href="../files/src_states_BaseState.js.html#l285"><code>_internalEnterDone:285</code></a>
         
         </p>
 
@@ -834,8 +794,8 @@
 </div>
 
                 
-                    <div id="method__internalExitState" class="method item private">
-    <h3 class="name"><code>_internalExitState</code></h3>
+                    <div id="method__internalExit" class="method item private">
+    <h3 class="name"><code>_internalExit</code></h3>
 
     
         <span class="paren">()</span>
@@ -868,7 +828,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l179"><code>_internalExitState:179</code></a>
+        <a href="../files/src_states_BaseState.js.html#l131"><code>_internalExit:131</code></a>
         
         </p>
 
@@ -891,8 +851,8 @@
 </div>
 
                 
-                    <div id="method__internalExitStateStart" class="method item private">
-    <h3 class="name"><code>_internalExitStateStart</code></h3>
+                    <div id="method__internalExitStart" class="method item private">
+    <h3 class="name"><code>_internalExitStart</code></h3>
 
     
         <span class="paren">()</span>
@@ -925,7 +885,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l206"><code>_internalExitStateStart:206</code></a>
+        <a href="../files/src_states_BaseState.js.html#l158"><code>_internalExitStart:158</code></a>
         
         </p>
 
@@ -942,135 +902,6 @@
 
     
 
-    
-
-    
-</div>
-
-                
-                    <div id="method_addEventListener" class="method item">
-    <h3 class="name"><code>addEventListener</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>type</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>listener</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l24"><code>addEventListener:24</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Adds the specified event listener</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">type</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The string type of the event</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">listener</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>An object with a handleEvent method, or a function that will be called when the event is dispatched</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
-                    
-                    <p>Returns the listener for chaining or assignment</p>
-
-                
-            </div>
-        </div>
     
 
     
@@ -1109,7 +940,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l318"><code>cancel:318</code></a>
+        <a href="../files/src_states_BaseState.js.html#l270"><code>cancel:270</code></a>
         
         </p>
 
@@ -1165,7 +996,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l446"><code>destroy:446</code></a>
+        <a href="../files/src_states_BaseState.js.html#l398"><code>destroy:398</code></a>
         
         </p>
 
@@ -1188,137 +1019,8 @@ this is where any async actions are removed</p>
 </div>
 
                 
-                    <div id="method_dispatchEvent" class="method item">
-    <h3 class="name"><code>dispatchEvent</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>enventObj</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>target</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l48"><code>dispatchEvent:48</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Dispatches the specified event</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">enventObj</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>An object with a "type" property, or a string type</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">target</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The object to use as the target property of the event object</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>Returns true if any listener returned true</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_enterState" class="method item">
-    <h3 class="name"><code>enterState</code></h3>
+                    <div id="method_enter" class="method item">
+    <h3 class="name"><code>enter</code></h3>
 
     
         <span class="paren">()</span>
@@ -1349,7 +1051,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l326"><code>enterState:326</code></a>
+        <a href="../files/src_states_BaseState.js.html#l278"><code>enter:278</code></a>
         
         </p>
 
@@ -1372,8 +1074,8 @@ this is where any async actions are removed</p>
 </div>
 
                 
-                    <div id="method_enterStateDone" class="method item">
-    <h3 class="name"><code>enterStateDone</code></h3>
+                    <div id="method_enterDone" class="method item">
+    <h3 class="name"><code>enterDone</code></h3>
 
     
         <span class="paren">()</span>
@@ -1404,7 +1106,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l347"><code>enterStateDone:347</code></a>
+        <a href="../files/src_states_BaseState.js.html#l299"><code>enterDone:299</code></a>
         
         </p>
 
@@ -1428,8 +1130,8 @@ that is, after the transition is done</p>
 </div>
 
                 
-                    <div id="method_exitState" class="method item">
-    <h3 class="name"><code>exitState</code></h3>
+                    <div id="method_exit" class="method item">
+    <h3 class="name"><code>exit</code></h3>
 
     
         <span class="paren">()</span>
@@ -1460,7 +1162,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l199"><code>exitState:199</code></a>
+        <a href="../files/src_states_BaseState.js.html#l151"><code>exit:151</code></a>
         
         </p>
 
@@ -1483,8 +1185,8 @@ that is, after the transition is done</p>
 </div>
 
                 
-                    <div id="method_exitStateStart" class="method item">
-    <h3 class="name"><code>exitStateStart</code></h3>
+                    <div id="method_exitStart" class="method item">
+    <h3 class="name"><code>exitStart</code></h3>
 
     
         <span class="paren">()</span>
@@ -1515,7 +1217,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l217"><code>exitStateStart:217</code></a>
+        <a href="../files/src_states_BaseState.js.html#l169"><code>exitStart:169</code></a>
         
         </p>
 
@@ -1574,7 +1276,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l355"><code>getActive:355</code></a>
+        <a href="../files/src_states_BaseState.js.html#l307"><code>getActive:307</code></a>
         
         </p>
 
@@ -1647,7 +1349,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l168"><code>getCanceled:168</code></a>
+        <a href="../files/src_states_BaseState.js.html#l120"><code>getCanceled:120</code></a>
         
         </p>
 
@@ -1720,7 +1422,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l413"><code>getDestroyed:413</code></a>
+        <a href="../files/src_states_BaseState.js.html#l365"><code>getDestroyed:365</code></a>
         
         </p>
 
@@ -1793,7 +1495,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l435"><code>getEnabled:435</code></a>
+        <a href="../files/src_states_BaseState.js.html#l387"><code>getEnabled:387</code></a>
         
         </p>
 
@@ -1820,113 +1522,6 @@ that is, after the transition is done</p>
                         <span class="type">Bool</span>:
                     
                     <p>If this state is enabled</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_hasEventListener" class="method item">
-    <h3 class="name"><code>hasEventListener</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>type</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l57"><code>hasEventListener:57</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Indicates whether there is at least one listener for the specified event type</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">type</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The string type of the event</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>Returns true if there is at least one listener for the specified event</p>
 
                 
             </div>
@@ -1979,7 +1574,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l158"><code>initialize:158</code></a>
+        <a href="../files/src_states_BaseState.js.html#l110"><code>initialize:110</code></a>
         
         </p>
 
@@ -2058,7 +1653,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l279"><code>loadingDone:279</code></a>
+        <a href="../files/src_states_BaseState.js.html#l231"><code>loadingDone:231</code></a>
         
         </p>
 
@@ -2113,7 +1708,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l254"><code>loadingStart:254</code></a>
+        <a href="../files/src_states_BaseState.js.html#l206"><code>loadingStart:206</code></a>
         
         </p>
 
@@ -2128,206 +1723,6 @@ that is, after the transition is done</p>
 
     </div>
 
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_removeAllEventListeners" class="method item">
-    <h3 class="name"><code>removeAllEventListeners</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>type</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l41"><code>removeAllEventListeners:41</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Removes all listeners for the specified type, or all listeners of all types</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">type</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The string type of the event. If omitted, all listeners for all types will be removed.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_removeEventListener" class="method item">
-    <h3 class="name"><code>removeEventListener</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>type</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>listener</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l33"><code>removeEventListener:33</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Removes the specified event listener</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">type</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The string type of the event</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">listener</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The listener function or object</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -2378,7 +1773,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l424"><code>setEnabled:424</code></a>
+        <a href="../files/src_states_BaseState.js.html#l376"><code>setEnabled:376</code></a>
         
         </p>
 
@@ -2467,7 +1862,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l366"><code>transitionIn:366</code></a>
+        <a href="../files/src_states_BaseState.js.html#l318"><code>transitionIn:318</code></a>
         
         </p>
 
@@ -2555,7 +1950,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l389"><code>transitionOut:389</code></a>
+        <a href="../files/src_states_BaseState.js.html#l341"><code>transitionOut:341</code></a>
         
         </p>
 
@@ -2634,7 +2029,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l104"><code>_active:104</code></a>
+        <a href="../files/src_states_BaseState.js.html#l56"><code>_active:56</code></a>
         
         </p>
 
@@ -2681,7 +2076,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l120"><code>_canceled:120</code></a>
+        <a href="../files/src_states_BaseState.js.html#l72"><code>_canceled:72</code></a>
         
         </p>
 
@@ -2728,7 +2123,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l96"><code>_destroyed:96</code></a>
+        <a href="../files/src_states_BaseState.js.html#l48"><code>_destroyed:48</code></a>
         
         </p>
 
@@ -2775,7 +2170,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l143"><code>_enabled:143</code></a>
+        <a href="../files/src_states_BaseState.js.html#l95"><code>_enabled:95</code></a>
         
         </p>
 
@@ -2821,7 +2216,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l112"><code>_isLoading:112</code></a>
+        <a href="../files/src_states_BaseState.js.html#l64"><code>_isLoading:64</code></a>
         
         </p>
 
@@ -2843,55 +2238,8 @@ that is, after the transition is done</p>
 </div>
 
                 
-                    <div id="property__listeners description" class="property item private">
-    <h3 class="name"><code>_listeners description</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l65"><code>_listeners description:65</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Createjs EventDispatcher method</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__onEnterStateProceed" class="property item private">
-    <h3 class="name"><code>_onEnterStateProceed</code></h3>
+                    <div id="property__onEnterProceed" class="property item private">
+    <h3 class="name"><code>_onEnterProceed</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
     
@@ -2915,7 +2263,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l128"><code>_onEnterStateProceed:128</code></a>
+        <a href="../files/src_states_BaseState.js.html#l80"><code>_onEnterProceed:80</code></a>
         
         </p>
 
@@ -2962,7 +2310,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l136"><code>_onLoadingComplete:136</code></a>
+        <a href="../files/src_states_BaseState.js.html#l88"><code>_onLoadingComplete:88</code></a>
         
         </p>
 
@@ -3008,7 +2356,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l150"><code>isTransitioning:150</code></a>
+        <a href="../files/src_states_BaseState.js.html#l102"><code>isTransitioning:102</code></a>
         
         </p>
 
@@ -3053,7 +2401,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l82"><code>manager:82</code></a>
+        <a href="../files/src_states_BaseState.js.html#l34"><code>manager:34</code></a>
         
         </p>
 
@@ -3077,7 +2425,7 @@ that is, after the transition is done</p>
                 
                     <div id="property_panel" class="property item">
     <h3 class="name"><code>panel</code></h3>
-    <span class="type">createjs.MovieClip | PIXI.DisplayObjectContainer</span>
+    <span class="type">createjs.Container | PIXI.DisplayObjectContainer</span>
 
     
 
@@ -3098,7 +2446,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l89"><code>panel:89</code></a>
+        <a href="../files/src_states_BaseState.js.html#l41"><code>panel:41</code></a>
         
         </p>
 
@@ -3143,7 +2491,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l75"><code>stateID:75</code></a>
+        <a href="../files/src_states_BaseState.js.html#l27"><code>stateID:27</code></a>
         
         </p>
 

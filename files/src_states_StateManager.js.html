@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/states/StateManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/states/StateManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -207,10 +209,10 @@
 (function(undefined){
 	
 	// Imports
-	var Audio = cloudkid.Audio || cloudkid.Sound,
-		BaseState = cloudkid.BaseState,
-		StateEvent = cloudkid.StateEvent,
-		EventDispatcher = createjs.EventDispatcher;
+	var Sound,
+		EventDispatcher = include(&#x27;cloudkid.EventDispatcher&#x27;),
+		BaseState = include(&#x27;cloudkid.BaseState&#x27;),
+		StateEvent = include(&#x27;cloudkid.StateEvent&#x27;);		
 	
 	/**
 	*  The State Manager used for managing the different states of a game or site
@@ -224,61 +226,18 @@
 	*/
 	var StateManager = function(display, transition, audio)
 	{
+		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
+		if(!Sound)
+		{
+			Sound = include(&#x27;cloudkid.Sound&#x27;, false) || include(&#x27;cloudkid.Audio&#x27;, false);
+		}
+
+		EventDispatcher.call(this);
+
 		this.initialize(display, transition, audio);
 	};
 	
-	var p = StateManager.prototype;
-	
-	/**
-	* Adds the specified event listener
-	* @function addEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener An object with a handleEvent method, or a function that will be called when the event is dispatched
-	* @return {function|object} Returns the listener for chaining or assignment
-	*/
-	p.addEventListener = null;
-
-	/**
-	* Removes the specified event listener
-	* @function removeEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener The listener function or object
-	*/
-	p.removeEventListener = null;
-
-	/**
-	* Removes all listeners for the specified type, or all listeners of all types
-	* @function removeAllEventListeners
-	* @param {String} type The string type of the event. If omitted, all listeners for all types will be removed.
-	*/
-	p.removeAllEventListeners = null;
-
-	/**
-	* Dispatches the specified event
-	* @function dispatchEvent
-	* @param {Object|String} enventObj An object with a &quot;type&quot; property, or a string type
-	* @param {object} target The object to use as the target property of the event object
-	* @return {bool} Returns true if any listener returned true
-	*/
-	p.dispatchEvent = null;
-
-	/**
-	* Indicates whether there is at least one listener for the specified event type
-	* @function hasEventListener
-	* @param {String} type The string type of the event
-	* @return {bool} Returns true if there is at least one listener for the specified event
-	*/
-	p.hasEventListener = null;
-
-	/**
-	* Createjs EventDispatcher method
-	* @property {Array} _listeners description
-	* @private
-	*/
-	p._listeners = null;
-	
-	// we only use EventDispatcher if it&#x27;s available:
-	if (EventDispatcher) EventDispatcher.initialize(p); 
+	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
 	
 	/**
 	* The current version of the state manager
@@ -545,7 +504,7 @@
 		if (this._destroyed) return;
 		
 		//this.showLoader();
-		this.dispatchEvent(StateManager.LOADING_START);
+		this.trigger(StateManager.LOADING_START);
 		
 		this._loopTransition();
 	};
@@ -561,7 +520,7 @@
 		if (this._destroyed) return;
 		
 		//this.hideLoader();
-		this.dispatchEvent(StateManager.LOADING_DONE);
+		this.trigger(StateManager.LOADING_DONE);
 	};
 	
 	/**
@@ -631,7 +590,7 @@
 			this._transition.visible = true;
 			sm = this;
 			this._loopTransition();
-			sm.dispatchEvent(StateManager.TRANSITION_INIT_DONE);
+			sm.trigger(StateManager.TRANSITION_INIT_DONE);
 			sm._isLoading = true;
 			sm._state._internalEnterState(sm._onStateLoaded.bind(sm));
 		}
@@ -652,22 +611,22 @@
 				this.showBlocker();
 				sm = this;
 								
-				this.dispatchEvent(new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
+				this.trigger(new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
 				this._oldState.transitionOut(
 					function()
 					{
-						sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
-						sm.dispatchEvent(StateManager.TRANSITION_OUT);
+						sm.trigger(new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
+						sm.trigger(StateManager.TRANSITION_OUT);
 						
 						sm._transitioning(
 							StateManager.TRANSITION_OUT,
 							function()
 							{
-								sm.dispatchEvent(StateManager.TRANSITION_OUT_DONE);
+								sm.trigger(StateManager.TRANSITION_OUT_DONE);
 								
 								sm._isTransitioning = false;
 								
-								sm.dispatchEvent(new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
+								sm.trigger(new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
 								sm._oldState.panel.visible = false;
 								sm._oldState._internalExitState();
 								sm._oldState = null;
@@ -699,22 +658,22 @@
 		this._isLoading = false;
 		this._isTransitioning = true;
 		
-		this.dispatchEvent(new StateEvent(StateEvent.VISIBLE, this._state));
+		this.trigger(new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
-		this.dispatchEvent(StateManager.TRANSITION_IN);
+		this.trigger(StateManager.TRANSITION_IN);
 		var sm = this;
 		this._transitioning(
 			StateManager.TRANSITION_IN,
 			function()
 			{
 				sm._transition.visible = false;
-				sm.dispatchEvent(StateManager.TRANSITION_IN_DONE);
-				sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_IN, sm._state));
+				sm.trigger(StateManager.TRANSITION_IN_DONE);
+				sm.trigger(new StateEvent(StateEvent.TRANSITION_IN, sm._state));
 				sm._state.transitionIn(
 					function()
 					{
-						sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
+						sm.trigger(new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
 						sm._isTransitioning = false;
 						sm.hideBlocker();
 						
@@ -763,7 +722,7 @@
 		if(this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
-			if(Audio.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
 				audio = null;
 		}
 		if(this._display.Animator.instanceHasAnimation(this._transition, &quot;transitionLoop&quot;))
@@ -818,7 +777,7 @@
 		if(this._transitionSounds)
 		{
 			audio = event == StateManager.TRANSITION_IN ? this._transitionSounds.in : this._transitionSounds.out;
-			if(Audio.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
 				audio = null;
 		}
 		this._display.Animator.play(this._transition, event, {onComplete: callback, soundData: audio});

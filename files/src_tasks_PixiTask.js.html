@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/tasks/PixiTask.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/tasks/PixiTask.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,6 +208,11 @@
 */
 (function(){
 	
+	var Loader,
+		Application,
+		AssetLoader,
+		Task = include(&#x27;cloudkid.Task&#x27;);
+
 	/**
 	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
 	*  This means textures, spritesheets, and bitmap fonts.
@@ -219,10 +226,17 @@
 	*/
 	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
+		if(!Loader)
+		{
+			AssetLoader = include(&#x27;PIXI.AssetLoader&#x27;);
+			Loader = include(&#x27;cloudkid.Loader&#x27;);
+			Application = include(&#x27;cloudkid.Application&#x27;);
+		}
+
 		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
 	};
 	
-	var p = PixiTask.prototype = new cloudkid.Task();
+	var p = PixiTask.prototype = new Task();
 	
 	/**
 	*	Super for the constructor
@@ -276,7 +290,7 @@
 	*/
 	p.initialize = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
-		var cm = cloudkid.MediaLoader.instance.cacheManager;
+		var cm = Loader.instance.cacheManager;
 		for(var i = 0; i &lt; urls.length; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
@@ -296,8 +310,8 @@
 	*/
 	p.start = function(callback)
 	{
-		var opts = cloudkid.Application.instance.options;
-		this._assetLoader = new PIXI.AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
+		var opts = Application.instance.options;
+		this._assetLoader = new AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
 		this._assetLoader.onComplete = callback;
 		if(this.updateCallback)
 			this._assetLoader.onProgress = this.onProgress.bind(this);

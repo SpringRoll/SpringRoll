@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : MediaLoader</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : Loader</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -194,7 +196,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>MediaLoader Class</h1>
+                        <h1>Loader Class</h1>
 <div class="box meta">
     
 
@@ -202,7 +204,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_loaders_MediaLoader.js.html#l6"><code>MediaLoader:6</code></a>
+            Defined in: <a href="../files/src_loaders_Loader.js.html#l14"><code>Loader:14</code></a>
         </div>
     
 
@@ -218,8 +220,8 @@
 
 
 <div class="box intro">
-    <p>The MediaLoader is the singleton loader for loading all assets
-including images, data, code and sounds. MediaLoader supports cache-busting
+    <p>The Loader is the singleton loader for loading all assets
+including images, data, code and sounds. Loader supports cache-busting
 in the browser using dynamic query string parameters.</p>
 
 </div>
@@ -417,7 +419,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l157"><code>_initialize:157</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l176"><code>_initialize:176</code></a>
         
         </p>
 
@@ -490,7 +492,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l313"><code>_loadDone:313</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l332"><code>_loadDone:332</code></a>
         
         </p>
 
@@ -603,7 +605,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l258"><code>_onLoadCompleted:258</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l277"><code>_onLoadCompleted:277</code></a>
         
         </p>
 
@@ -710,7 +712,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l211"><code>_onLoadFailed:211</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l230"><code>_onLoadFailed:230</code></a>
         
         </p>
 
@@ -807,7 +809,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l243"><code>_onLoadProgress:243</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l262"><code>_onLoadProgress:262</code></a>
         
         </p>
 
@@ -904,7 +906,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l281"><code>_tryNextLoad:281</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l300"><code>_tryNextLoad:300</code></a>
         
         </p>
 
@@ -975,7 +977,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l331"><code>cancel:331</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l350"><code>cancel:350</code></a>
         
         </p>
 
@@ -1070,7 +1072,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l120"><code>destroy:120</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l139"><code>destroy:139</code></a>
         
         </p>
 
@@ -1081,7 +1083,7 @@ in the browser using dynamic query string parameters.</p>
     </div>
 
     <div class="description">
-        <p>Destroy the MediaLoader singleton, don&#39;t use after this</p>
+        <p>Destroy the Loader singleton, don&#39;t use after this</p>
 
     </div>
 
@@ -1129,7 +1131,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l79"><code>init:79</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l98"><code>init:98</code></a>
         
         </p>
 
@@ -1220,7 +1222,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l174"><code>load:174</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l193"><code>load:193</code></a>
         
         </p>
 
@@ -1364,7 +1366,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l72"><code>cacheManager:72</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l91"><code>cacheManager:91</code></a>
         
         </p>
 
@@ -1388,7 +1390,7 @@ in the browser using dynamic query string parameters.</p>
                 
                     <div id="property_instance" class="property item public">
     <h3 class="name"><code>instance</code></h3>
-    <span class="type"><a href="../classes/MediaLoader.html" class="crosslink">MediaLoader</a></span>
+    <span class="type"><a href="../classes/Loader.html" class="crosslink">Loader</a></span>
 
     
 
@@ -1413,7 +1415,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l102"><code>instance:102</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l121"><code>instance:121</code></a>
         
         </p>
 
@@ -1460,7 +1462,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l37"><code>loaders:37</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l56"><code>loaders:56</code></a>
         
         </p>
 
@@ -1507,7 +1509,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l64"><code>maxSimultaneousLoads:64</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l83"><code>maxSimultaneousLoads:83</code></a>
         
         </p>
 
@@ -1556,7 +1558,7 @@ in the browser using dynamic query string parameters.</p>
             
         
         
-        <a href="../files/src_loaders_MediaLoader.js.html#l48"><code>numLoads:48</code></a>
+        <a href="../files/src_loaders_Loader.js.html#l67"><code>numLoads:67</code></a>
         
         </p>
 

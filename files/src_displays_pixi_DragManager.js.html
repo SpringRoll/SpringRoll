@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/pixi/DragManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/pixi/DragManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -205,7 +207,11 @@
 *  @module cloudkid.pixi
 */
 (function() {
-		
+	
+	var Application,
+		Tween,
+		Point;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
@@ -218,6 +224,13 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		if(!Application)
+		{
+			Application = include(&#x27;cloudkid.Application&#x27;);
+			Tween = include(&#x27;createjs.Tween&#x27;, false);
+			Point = include(&#x27;PIXI.Point&#x27;);
+		}
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -393,9 +406,9 @@
 		this._dragStartCallback = startCallback;
 		this._dragEndCallback = endCallback;
 		this._draggableObjects = [];
-		this.mouseDownStagePos = new PIXI.Point(0, 0);
-		this.mouseDownObjPos = new PIXI.Point(0, 0);
-		helperPoint = new PIXI.Point(0, 0);
+		this.mouseDownStagePos = new Point(0, 0);
+		this.mouseDownObjPos = new Point(0, 0);
+		helperPoint = new Point(0, 0);
 	};
 	
 	/**
@@ -425,8 +438,12 @@
 		if(this.draggedObj !== null) return;
 
 		this.draggedObj = obj;
-		createjs.Tween.removeTweens(this.draggedObj);
-		createjs.Tween.removeTweens(this.draggedObj.position);
+		//Stop any tweens on the object (mostly the position)
+		if(Tween)
+		{
+			Tween.removeTweens(this.draggedObj);
+			Tween.removeTweens(this.draggedObj.position);
+		}
 		
 		//get the mouse position and convert it to object parent space
 		this._dragOffset = interactionData.getLocalPosition(this.draggedObj.parent);
@@ -573,7 +590,7 @@
 	* Handles snapping the dragged object to the nearest among a list of points
 	* @method _handlePointSnap
 	* @private
-	* @param {createjs.Point} localMousePos The mouse position in the same space as the dragged object.
+	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
 	*/
 	p._handlePointSnap = function(localMousePos)
 	{
@@ -653,7 +670,7 @@
 		if(!bounds)
 		{
 			//use the primary display size, since the Pixi stage does not have height/width
-			var display = cloudkid.Application.instance.display;
+			var display = Application.instance.display;
 			bounds = {x:0, y:0, width:canvas.width, height:canvas.height};
 		}
 		bounds.right = bounds.x + bounds.width;

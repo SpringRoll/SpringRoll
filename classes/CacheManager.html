@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : CacheManager</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : CacheManager</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -202,7 +204,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_loaders_CacheManager.js.html#l6"><code>CacheManager:6</code></a>
+            Defined in: <a href="../files/src_loaders_CacheManager.js.html#l10"><code>CacheManager:10</code></a>
         </div>
     
 
@@ -379,7 +381,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l138"><code>_getVersionByUrl:138</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l148"><code>_getVersionByUrl:148</code></a>
         
         </p>
 
@@ -490,7 +492,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l124"><code>addVersion:124</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l134"><code>addVersion:134</code></a>
         
         </p>
 
@@ -609,7 +611,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l66"><code>addVersionsFile:66</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l76"><code>addVersionsFile:76</code></a>
         
         </p>
 
@@ -722,7 +724,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l56"><code>destroy:56</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l66"><code>destroy:66</code></a>
         
         </p>
 
@@ -779,7 +781,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l37"><code>initialize:37</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l47"><code>initialize:47</code></a>
         
         </p>
 
@@ -817,7 +819,7 @@ uses the query string to bust browser versions.</p>
             
                 <li class="arg">
                     
-                        <code>applyBasePath</code>
+                        <code class="optional">[applyBasePath=false]</code>
                     
                 </li>
             
@@ -856,7 +858,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l158"><code>prepare:158</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l168"><code>prepare:168</code></a>
         
         </p>
 
@@ -896,15 +898,17 @@ as well as the base directoryr</p>
             
                 <li class="param">
                     
-                        <code class="param-name">applyBasePath</code>
+                        <code class="param-name optional">[applyBasePath=false]</code>
                         <span class="type">Bool</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>If the global base path should be applied to the url. This defaults to false because it can 
-                                potentially interfere with later regular expression checks, particularly with PreloadJS</p>
+                        <p>If the global base path should be applied to the url. 
+        This defaults to false because it can potentially interfere with later regular 
+        expression checks, particularly with PreloadJS</p>
 
                     </div>
 
@@ -968,7 +972,7 @@ as well as the base directoryr</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l22"><code>_versions:22</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l32"><code>_versions:32</code></a>
         
         </p>
 
@@ -1015,7 +1019,7 @@ as well as the base directoryr</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l29"><code>cacheBust:29</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l39"><code>cacheBust:39</code></a>
         
         </p>
 

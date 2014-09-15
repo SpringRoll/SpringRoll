@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : Sound</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : Sound</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -202,7 +204,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_media_Sound.js.html#l14"><code>Sound:14</code></a>
+            Defined in: <a href="../files/src_media_Sound.js.html#l15"><code>Sound:15</code></a>
         </div>
     
 
@@ -278,6 +280,13 @@ for managing sounds.</p>
                             </li>
                         
                             <li class="index-item method private">
+                                <a href="#method__playEmpty">_playEmpty</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
                                 <a href="#method__poolinst">_poolinst</a>
 
                                 
@@ -307,6 +316,13 @@ for managing sounds.</p>
                         
                             <li class="index-item method public">
                                 <a href="#method_createPreloadTask">createPreloadTask</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_"></a>
 
                                 
                                 
@@ -434,6 +450,13 @@ for managing sounds.</p>
                             </li>
                         
                             <li class="index-item method public">
+                                <a href="#method_setMuteAll">setMuteAll</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method public">
                                 <a href="#method_stop">stop</a>
 
                                 
@@ -522,15 +545,6 @@ for managing sounds.</p>
                                 
                             </li>
                         
-                            <li class="index-item property public">
-                                <a href="#property_UNHANDLED">UNHANDLED</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
                     </ul>
                 </div>
             
@@ -599,7 +613,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l544"><code>_getSoundInst:544</code></a>
+        <a href="../files/src_media_Sound.js.html#l633"><code>_getSoundInst:633</code></a>
         
         </p>
 
@@ -726,7 +740,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l913"><code>_markLoaded:913</code></a>
+        <a href="../files/src_media_Sound.js.html#l1012"><code>_markLoaded:1012</code></a>
         
         </p>
 
@@ -833,7 +847,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l617"><code>_onSoundComplete:617</code></a>
+        <a href="../files/src_media_Sound.js.html#l706"><code>_onSoundComplete:706</code></a>
         
         </p>
 
@@ -924,7 +938,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l569"><code>_playAfterload:569</code></a>
+        <a href="../files/src_media_Sound.js.html#l658"><code>_playAfterload:658</code></a>
         
         </p>
 
@@ -963,6 +977,63 @@ for managing sounds.</p>
             
             </ul>
         </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__playEmpty" class="method item private">
+    <h3 class="name"><code>_playEmpty</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Sound.js.html#l175"><code>_playEmpty:175</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Statisfies the iOS event needed to initialize the audio</p>
+
+    </div>
+
     
 
     
@@ -1015,7 +1086,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l977"><code>_poolinst:977</code></a>
+        <a href="../files/src_media_Sound.js.html#l1076"><code>_poolinst:1076</code></a>
         
         </p>
 
@@ -1106,7 +1177,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l677"><code>_stopInst:677</code></a>
+        <a href="../files/src_media_Sound.js.html#l766"><code>_stopInst:766</code></a>
         
         </p>
 
@@ -1197,7 +1268,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l661"><code>_stopSound:661</code></a>
+        <a href="../files/src_media_Sound.js.html#l750"><code>_stopSound:750</code></a>
         
         </p>
 
@@ -1288,7 +1359,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l370"><code>_update:370</code></a>
+        <a href="../files/src_media_Sound.js.html#l443"><code>_update:443</code></a>
         
         </p>
 
@@ -1395,7 +1466,7 @@ for managing sounds.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l938"><code>createPreloadTask:938</code></a>
+        <a href="../files/src_media_Sound.js.html#l1037"><code>createPreloadTask:1037</code></a>
         
         </p>
 
@@ -1489,6 +1560,119 @@ This function will not work if the Task library was not loaded before the Sound 
 </div>
 
                 
+                    <div id="method_" class="method item private">
+    <h3 class="name"><code></code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>filetypeOrder</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Sound.js.html#l186"><code>:186</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>When the initialization as completed</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">filetypeOrder</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The list of files types</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The callback function</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_destroy" class="method item public">
     <h3 class="name"><code>destroy</code></h3>
 
@@ -1523,7 +1707,7 @@ This function will not work if the Task library was not loaded before the Sound 
             
         
         
-        <a href="../files/src_media_Sound.js.html#l995"><code>destroy:995</code></a>
+        <a href="../files/src_media_Sound.js.html#l1094"><code>destroy:1094</code></a>
         
         </p>
 
@@ -1534,7 +1718,7 @@ This function will not work if the Task library was not loaded before the Sound 
     </div>
 
     <div class="description">
-        <p>Destroys cloudkid.Sound. This does not unload loaded sounds, destroy SoundJS to do that.</p>
+        <p>Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.</p>
 
     </div>
 
@@ -1594,7 +1778,7 @@ This function will not work if the Task library was not loaded before the Sound 
             
         
         
-        <a href="../files/src_media_Sound.js.html#l225"><code>exists:225</code></a>
+        <a href="../files/src_media_Sound.js.html#l294"><code>exists:294</code></a>
         
         </p>
 
@@ -1717,7 +1901,7 @@ This function will not work if the Task library was not loaded before the Sound 
             
         
         
-        <a href="../files/src_media_Sound.js.html#l286"><code>fadeIn:286</code></a>
+        <a href="../files/src_media_Sound.js.html#l355"><code>fadeIn:355</code></a>
         
         </p>
 
@@ -1874,7 +2058,7 @@ This function will not work if the Task library was not loaded before the Sound 
             
         
         
-        <a href="../files/src_media_Sound.js.html#l325"><code>fadeOut:325</code></a>
+        <a href="../files/src_media_Sound.js.html#l396"><code>fadeOut:396</code></a>
         
         </p>
 
@@ -1979,13 +2163,13 @@ is stopped after the fade.</p>
             
                 <li class="arg">
                     
-                        <code>pluginOrder</code>
+                        <code class="optional">[options]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>filetypeOrder</code>
+                        <code>[options.plugins=[createjs.WebAudioPlugin,</code>
                     
                 </li>
             
@@ -1999,6 +2183,10 @@ is stopped after the fade.</p>
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Sound.html" class="crosslink">Sound</a></span>
+        </span>
     
 
     
@@ -2026,7 +2214,7 @@ is stopped after the fade.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l91"><code>init:91</code></a>
+        <a href="../files/src_media_Sound.js.html#l92"><code>init:92</code></a>
         
         </p>
 
@@ -2050,31 +2238,66 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">pluginOrder</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The SoundJS plugins to pass to createjs.Sound.registerPlugins().</p>
+                        <p>Either the options object or the completeCallback</p>
 
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[types=[&#x27;ogg&#x27;,&#x27;mp3&#x27;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The order in which file types are preferred, where "ogg" 
+    becomes a ".ogg" extension on all sound file urls.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[swfPath=&#x27;assets/swfs/&#x27;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The required path to the createjs.FlashPlugin SWF</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
                 <li class="param">
                     
-                        <code class="param-name">filetypeOrder</code>
+                        <code class="param-name">[options.plugins=[createjs.WebAudioPlugin,</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The order in which file types are preferred, where "ogg" becomes a ".ogg"
-                extension on all sound file urls.</p>
+                        <p>createjs.FlashPlugin]] The SoundJS plugins to pass to createjs.Sound.registerPlugins().</p>
 
                     </div>
 
@@ -2101,6 +2324,20 @@ createjs.FlashPlugin.BASE_PATH.</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Sound.html" class="crosslink">Sound</a></span>:
+                    
+                    <p>The new instance of the sound object</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -2155,7 +2392,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l249"><code>isLoaded:249</code></a>
+        <a href="../files/src_media_Sound.js.html#l318"><code>isLoaded:318</code></a>
         
         </p>
 
@@ -2264,7 +2501,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l261"><code>isLoading:261</code></a>
+        <a href="../files/src_media_Sound.js.html#l330"><code>isLoading:330</code></a>
         
         </p>
 
@@ -2373,7 +2610,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l273"><code>isPlaying:273</code></a>
+        <a href="../files/src_media_Sound.js.html#l342"><code>isPlaying:342</code></a>
         
         </p>
 
@@ -2482,7 +2719,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l237"><code>isUnloaded:237</code></a>
+        <a href="../files/src_media_Sound.js.html#l306"><code>isUnloaded:306</code></a>
         
         </p>
 
@@ -2556,16 +2793,14 @@ createjs.FlashPlugin.BASE_PATH.</p>
                     
                 </li>
             
-                <li class="arg">
-                    
-                        <code>defaultContext</code>
-                    
-                </li>
-            
             </ul><span class="paren">)</span>
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Sound.html" class="crosslink">Sound</a></span>
+        </span>
     
 
     
@@ -2593,7 +2828,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l180"><code>loadConfig:180</code></a>
+        <a href="../files/src_media_Sound.js.html#l235"><code>loadConfig:235</code></a>
         
         </p>
 
@@ -2628,22 +2863,130 @@ createjs.FlashPlugin.BASE_PATH.</p>
                     </div>
 
                     
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">defaultContext</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[context]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    
+                                <div class="param-description">
+                                    <p>The optional sound context to load sounds into unless 
+                                 otherwise specified by the individual sound. Sounds do not require a context.</p>
 
-                    <div class="param-description">
-                        <p>The optional sound context to load sounds into unless 
-    otherwise specified. Sounds do not require a context.</p>
+                                </div>
 
-                    </div>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[path=&quot;&quot;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
+                                <div class="param-description">
+                                    <p>The path to prepend to all sound source urls in this config.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">soundManifest</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                
+
+                                <div class="param-description">
+                                    <p>The list of sounds, either as String ids or Objects with settings.</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name">listItem</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                            
+
+                                            <div class="param-description">
+                                                Not actually a property called listItem, but an entry in the array.
+                                            If this is a string, then it is the same as {'id':'<yourString>'}.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name">listItem.id</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                            
+
+                                            <div class="param-description">
+                                                The id to reference the sound by.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[listItem.src]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The src path to the file, without an extension. If omitted, defaults to id.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[listItem.volume=1]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The default volume for the sound, from 0 to 1.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[listItem.loop=false]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                If the sound should loop by default whenever the loop
+                                                            parameter in play() is not specified.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[listItem.context]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                A context name to override config.context with.
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
@@ -2651,6 +2994,20 @@ createjs.FlashPlugin.BASE_PATH.</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Sound.html" class="crosslink">Sound</a></span>:
+                    
+                    <p>The sound object for chaining</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -2691,7 +3048,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l754"><code>pauseAll:754</code></a>
+        <a href="../files/src_media_Sound.js.html#l842"><code>pauseAll:842</code></a>
         
         </p>
 
@@ -2758,7 +3115,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l713"><code>pauseSound:713</code></a>
+        <a href="../files/src_media_Sound.js.html#l802"><code>pauseSound:802</code></a>
         
         </p>
 
@@ -2821,49 +3178,13 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
                 <li class="arg">
                     
-                        <code>completeCallback</code>
+                        <code class="optional">[options]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>startCallback</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>interrupt</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>delay</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>offset</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>loop</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>volume</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>pan</code>
+                        <code class="optional">[opitons.startCallback]</code>
                     
                 </li>
             
@@ -2902,7 +3223,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l422"><code>play:422</code></a>
+        <a href="../files/src_media_Sound.js.html#l497"><code>play:497</code></a>
         
         </p>
 
@@ -2941,26 +3262,136 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">completeCallback</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <code class="param-name optional">[options]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An optional function to call when the sound is finished. 
-        Passing cloudkid.Sound.UNHANDLED results in cloudkid.Sound not handling the sound 
-        and merely returning what SoundJS returns from its play() call.</p>
+                        <p>The object of optional parameters or completeCallback callback function</p>
 
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[completeCallback]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>An optional function to call when the sound is finished.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[interrupt=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If the sound should interrupt previous sounds (SoundJS parameter). Default is false.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[delay=0]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The delay to play the sound at in milliseconds(SoundJS parameter). Default is 0.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[offset=0]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The offset into the sound to play in milliseconds(SoundJS parameter). Default is 0.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[loop=0]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>How many times the sound should loop. Use -1 (or true) for infinite loops (SoundJS parameter).
+        Default is no looping.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[volume]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The volume to play the sound at (0 to 1). Omit to use the default for the sound.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[pan=0]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The panning to start the sound at (-1 to 1). Default is centered (0).</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
                 <li class="param">
                     
-                        <code class="param-name">startCallback</code>
+                        <code class="param-name optional">[opitons.startCallback]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
@@ -2969,103 +3400,6 @@ createjs.FlashPlugin.BASE_PATH.</p>
                         <p>An optional function to call when the sound starts playback.
         If the sound is loaded, this is called immediately, if not, it calls when the 
         sound is finished loading.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">interrupt</code>
-                        <span class="type">Bool</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If the sound should interrupt previous sounds (SoundJS parameter). Default is false.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">delay</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The delay to play the sound at in milliseconds(SoundJS parameter). Default is 0.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">offset</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The offset into the sound to play in milliseconds(SoundJS parameter). Default is 0.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">loop</code>
-                        <span class="type">Int</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>How many times the sound should loop. Use -1 (or true) for infinite loops (SoundJS parameter).
-        Default is no looping.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">volume</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The volume to play the sound at (0 to 1). Omit to use the default for the sound.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">pan</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The panning to start the sound at (-1 to 1). Default is centered (0).</p>
 
                     </div>
 
@@ -3147,7 +3481,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l865"><code>preload:865</code></a>
+        <a href="../files/src_media_Sound.js.html#l964"><code>preload:964</code></a>
         
         </p>
 
@@ -3260,7 +3594,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l838"><code>preloadSound:838</code></a>
+        <a href="../files/src_media_Sound.js.html#l937"><code>preloadSound:937</code></a>
         
         </p>
 
@@ -3373,7 +3707,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l778"><code>setContextMute:778</code></a>
+        <a href="../files/src_media_Sound.js.html#l866"><code>setContextMute:866</code></a>
         
         </p>
 
@@ -3486,7 +3820,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l808"><code>setContextVolume:808</code></a>
+        <a href="../files/src_media_Sound.js.html#l907"><code>setContextVolume:907</code></a>
         
         </p>
 
@@ -3549,6 +3883,97 @@ createjs.FlashPlugin.BASE_PATH.</p>
 </div>
 
                 
+                    <div id="method_setMuteAll" class="method item public">
+    <h3 class="name"><code>setMuteAll</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>mute</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Sound.js.html#l896"><code>setMuteAll:896</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Set the mute status of all sounds</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">mute</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If the sounds should be muted.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_stop" class="method item public">
     <h3 class="name"><code>stop</code></h3>
 
@@ -3593,7 +4018,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l634"><code>stop:634</code></a>
+        <a href="../files/src_media_Sound.js.html#l723"><code>stop:723</code></a>
         
         </p>
 
@@ -3684,7 +4109,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l690"><code>stopContext:690</code></a>
+        <a href="../files/src_media_Sound.js.html#l779"><code>stopContext:779</code></a>
         
         </p>
 
@@ -3775,7 +4200,7 @@ createjs.FlashPlugin.BASE_PATH.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l954"><code>unload:954</code></a>
+        <a href="../files/src_media_Sound.js.html#l1053"><code>unload:1053</code></a>
         
         </p>
 
@@ -3857,7 +4282,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l766"><code>unpauseAll:766</code></a>
+        <a href="../files/src_media_Sound.js.html#l854"><code>unpauseAll:854</code></a>
         
         </p>
 
@@ -3924,7 +4349,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l732"><code>unpauseSound:732</code></a>
+        <a href="../files/src_media_Sound.js.html#l821"><code>unpauseSound:821</code></a>
         
         </p>
 
@@ -4005,7 +4430,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l68"><code>_contexts:68</code></a>
+        <a href="../files/src_media_Sound.js.html#l80"><code>_contexts:80</code></a>
         
         </p>
 
@@ -4052,7 +4477,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l28"><code>_playAfterLoadBound:28</code></a>
+        <a href="../files/src_media_Sound.js.html#l40"><code>_playAfterLoadBound:40</code></a>
         
         </p>
 
@@ -4099,7 +4524,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l54"><code>_pool:54</code></a>
+        <a href="../files/src_media_Sound.js.html#l66"><code>_pool:66</code></a>
         
         </p>
 
@@ -4146,7 +4571,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l40"><code>_sounds:40</code></a>
+        <a href="../files/src_media_Sound.js.html#l52"><code>_sounds:52</code></a>
         
         </p>
 
@@ -4195,7 +4620,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l169"><code>instance:169</code></a>
+        <a href="../files/src_media_Sound.js.html#l224"><code>instance:224</code></a>
         
         </p>
 
@@ -4242,7 +4667,7 @@ If the sounds are playing, they are stopped.</p>
             
         
         
-        <a href="../files/src_media_Sound.js.html#l61"><code>supportedSound:61</code></a>
+        <a href="../files/src_media_Sound.js.html#l73"><code>supportedSound:73</code></a>
         
         </p>
 
@@ -4253,56 +4678,6 @@ If the sounds are playing, they are stopped.</p>
 
     <div class="description">
         <p>The extension of the supported sound type that will be used.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_UNHANDLED" class="property item public">
-    <h3 class="name"><code>UNHANDLED</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Sound.js.html#l82"><code>UNHANDLED:82</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>A constant for telling Sound not to handle a sound with play(), but to
-return what SoundJS returns directly.</p>
 
     </div>
 

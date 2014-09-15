@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/createjs/DragManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/createjs/DragManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,6 +208,8 @@
 */
 (function() {
 		
+	var Tween;
+
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
@@ -218,6 +222,11 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
+		if(!Tween)
+		{
+			Tween = include(&#x27;createjs.Tween&#x27;, false);
+		}
+
 		this.initialize(stage, startCallback, endCallback);
 	};
 	
@@ -428,7 +437,8 @@
 
 		this.draggedObj = obj;
 		//stop any active tweens on the object, in case it is moving around or something
-		createjs.Tween.removeTweens(obj);
+		if(Tween)
+			Tween.removeTweens(obj);
 		
 		//get the mouse position in global space and convert it to parent space
 		this._dragOffset = this.draggedObj.parent.globalToLocal(ev ? ev.stageX : 0, ev ? ev.stageY : 0);

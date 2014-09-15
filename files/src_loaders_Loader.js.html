@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/loaders/MediaLoader.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/loaders/Loader.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -195,9 +197,9 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/loaders/MediaLoader.js      
+	var name = src/loaders/Loader.js      
 </script>
-<h1 class="file-heading">File:MediaLoader.js</h1>
+<h1 class="file-heading">File:Loader.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -205,25 +207,44 @@
 *  @module cloudkid
 */
 (function(){
-		
+	
+	// Classes to import
+	var LoaderQueueItem,
+		CacheManager,
+		Application,
+		Sound,
+		LoadQueue,
+		LoaderResult;
+
 	/**
-	*  The MediaLoader is the singleton loader for loading all assets
-	*  including images, data, code and sounds. MediaLoader supports cache-busting
+	*  The Loader is the singleton loader for loading all assets
+	*  including images, data, code and sounds. Loader supports cache-busting
 	*  in the browser using dynamic query string parameters.
 	* 
-	*  @class MediaLoader
+	*  @class Loader
 	*/
-	var MediaLoader = function(){};
+	var Loader = function()
+	{
+		if(!Loader)
+		{
+			LoaderQueueItem = include(&#x27;cloudkid.LoaderQueueItem&#x27;);
+			CacheManager = include(&#x27;cloudkid.CacheManager&#x27;);
+			Application = include(&#x27;cloudkid.Application&#x27;);
+			LoaderResult = include(&#x27;cloudkid.LoaderResult&#x27;);
+			LoadQueue = include(&#x27;createjs.LoadQueue&#x27;);
+			Sound = include(&#x27;createjs.Sound&#x27;, false);
+		}
+	};
 	
 	/** The prototype */
-	var p = MediaLoader.prototype;
+	var p = Loader.prototype;
 	
 	/**
 	* Reference to the private instance object
 	* @static
 	* @protected
 	*/
-	MediaLoader._instance = null;
+	var _instance = null;
 	
 	/**
 	*  The collection of LoaderQueueItems
@@ -285,43 +306,43 @@
 	*  @static
 	*  @public
 	*/
-	MediaLoader.init = function()
+	Loader.init = function()
 	{
-		if (!MediaLoader._instance)
+		if (!_instance)
 		{
-			MediaLoader._instance = new MediaLoader();
-			MediaLoader._instance._initialize();
+			_instance = new Loader();
+			_instance._initialize();
 			//register the destroy function
-			cloudkid.Application.registerDestroy(
-				MediaLoader._instance.destroy.bind(MediaLoader._instance)
+			Application.registerDestroy(
+				_instance.destroy.bind(_instance)
 			);
 		}
-		return MediaLoader._instance;
+		return _instance;
 	};
 
 	//register the global init function
-	cloudkid.Application.registerInit(MediaLoader.init);
+	cloudkid.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
 	*  @static
 	*  @readOnly
 	*  @public
-	*  @property {MediaLoader} instance
+	*  @property {Loader} instance
 	*/
-	Object.defineProperty(MediaLoader, &quot;instance&quot;, {
+	Object.defineProperty(Loader, &quot;instance&quot;, {
 		get:function()
 		{
-			if (!MediaLoader._instance)
+			if (!_instance)
 			{
-				throw &#x27;Call cloudkid.MediaLoader.init()&#x27;;
+				throw &#x27;Call Loader.init()&#x27;;
 			}
-			return MediaLoader._instance;
+			return _instance;
 		}
 	});
 	
 	/**
-	*  Destroy the MediaLoader singleton, don&#x27;t use after this
+	*  Destroy the Loader singleton, don&#x27;t use after this
 	*  @public
 	*  @method destroy
 	*/
@@ -344,7 +365,7 @@
 				loaders[key].close();
 			}
 		}
-		MediaLoader._instance = null;
+		_instance = null;
 		if (this.cacheManager)
 			this.cacheManager.destroy();
 		this.cacheManager = null;
@@ -371,7 +392,7 @@
 		queueItems = {};
 		loaders = {};
 		retries = {};
-		this.cacheManager = new cloudkid.CacheManager();
+		this.cacheManager = new CacheManager();
 	};
 	
 	/**
@@ -388,7 +409,7 @@
 	{
 		var qi = this._getQI();
 		
-		var basePath = cloudkid.Application.instance.options.basePath;
+		var basePath = Application.instance.options.basePath;
 		if (basePath !== undefined &amp;&amp; /^http(s)?\:/.test(url) === false &amp;&amp; url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
@@ -397,7 +418,7 @@
 		qi.url = url;
 		qi.callback = callback;
 		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || cloudkid.LoaderQueueItem.PRIORITY_NORMAL;
+		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
 		qi.data = data || null;
 		
 		queue.push(qi);
@@ -573,7 +594,7 @@
 			rtn = qiPool.pop();
 		else
 		{
-			rtn = new cloudkid.LoaderQueueItem();
+			rtn = new LoaderQueueItem();
 			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
 			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
 			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
@@ -597,10 +618,12 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new createjs.LoadQueue(true, basePath);
+			rtn = new LoadQueue(true, basePath);
 		//allow the loader to handle sound as well
-		if(createjs.Sound)
-			rtn.installPlugin(createjs.Sound);
+		if(Sound)
+		{
+			rtn.installPlugin(Sound);
+		}
 		return rtn;
 	};
 	
@@ -621,7 +644,7 @@
 			rtn.loader = loader;
 		}
 		else
-			rtn = new cloudkid.MediaLoaderResult(result, url, loader);
+			rtn = new LoaderResult(result, url, loader);
 		return rtn;
 	};
 	
@@ -631,7 +654,9 @@
 		resultPool.push(result);
 	};
 	
-	namespace(&#x27;cloudkid&#x27;).MediaLoader = MediaLoader;
+	// MediaLoader name is deprecated
+	namespace(&#x27;cloudkid&#x27;).MediaLoader = Loader;
+	namespace(&#x27;cloudkid&#x27;).Loader = Loader;
 }());
     </pre>
 </div>

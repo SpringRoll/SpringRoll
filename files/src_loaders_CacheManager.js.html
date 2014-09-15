@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/loaders/CacheManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/loaders/CacheManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -205,7 +207,11 @@
 *  @module cloudkid
 */
 (function(undefined){
-		
+
+	// Classes to import	
+	var Application,
+		Loader;
+
 	/**
 	*  Used for managing the browser cache of loading external elements
 	*  can easily load version manifest and apply it to the media loader
@@ -216,6 +222,12 @@
 	*/
 	var CacheManager = function()
 	{
+		if(!Application)
+		{
+			Application = include(&#x27;cloudkid.Application&#x27;);
+			Loader = include(&#x27;cloudkid.Loader&#x27;);
+		}
+		
 		this.initialize();
 	};
 	
@@ -247,7 +259,7 @@
 	{
 		this._versions = [];
 				
-		var cb = cloudkid.Application.instance.options.cacheBust;
+		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = cb ? (cb === &quot;true&quot; || cb === true) : false;
 		
 		if(DEBUG)
@@ -278,7 +290,7 @@
 	{		
 		Debug.assert(/^.*\.txt$/.test(url), &quot;The versions file must be a *.txt file&quot;);
 				
-		var ml = cloudkid.MediaLoader.instance;
+		var ml = Loader.instance;
 		
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
@@ -364,8 +376,9 @@
 	*  @public
 	*  @method prepare
 	*  @param {string} url The url to prepare
-	*  @param {bool} applyBasePath If the global base path should be applied to the url. This defaults to false because it can 
-	*								potentially interfere with later regular expression checks, particularly with PreloadJS
+	*  @param {bool} [applyBasePath=false] If the global base path should be applied to the url. 
+	*		This defaults to false because it can potentially interfere with later regular 
+	*		expression checks, particularly with PreloadJS
 	*  @return {string} The final url with version/cache and basePath added
 	*/
 	p.prepare = function(url, applyBasePath)
@@ -384,7 +397,7 @@
 		}
 		if(applyBasePath)
 		{
-			var basePath = cloudkid.Application.instance.options.basePath;
+			var basePath = Application.instance.options.basePath;
 			if (/^http(s)?\:/.test(url) === false &amp;&amp; basePath !== undefined &amp;&amp; url.search(basePath) == -1)
 			{
 				url = basePath + url;
@@ -393,6 +406,7 @@
 		return url;
 	};
 	
+	// Assign to namespace
 	namespace(&#x27;cloudkid&#x27;).CacheManager = CacheManager;
 	
 }());

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/utils/DelayedCall.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/utils/DelayedCall.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,7 +208,7 @@
 */
 (function(undefined) {
 
-	var Application = cloudkid.Application;
+	var Application = include(&#x27;cloudkid.Application&#x27;);
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
@@ -219,25 +221,28 @@
 	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*/
 	var DelayedCall = function(callback, delay, repeat, autoDestroy)
-	{
+	{		
 		/**
 		*  The function to call when the delay is completed.
 		*  @private
 		*  @property {function} _callback
 		*/
 		this._callback = callback;
+
 		/**
 		*  The delay time, in milliseconds.
 		*  @private
 		*  @property {int} _delay
 		*/
 		this._delay = delay;
+
 		/**
 		*  The timer counting down from _delay, in milliseconds.
 		*  @private
 		*  @property {int} _timer
 		*/
 		this._timer = delay;
+
 		/**
 		*  If the DelayedCall should repeat itself automatically.
 		*  @private
@@ -245,6 +250,7 @@
 		*  @default false
 		*/
 		this._repeat = !!repeat;
+
 		/**
 		*  If the DelayedCall should destroy itself after completing
 		*  @private
@@ -252,6 +258,7 @@
 		*  @default true
 		*/
 		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+
 		/**
 		*  If the DelayedCall is currently paused (not stopped).
 		*  @private
@@ -261,6 +268,7 @@
 
 		//save a bound version of the update function
 		this._update = this._update.bind(this);
+
 		//start the delay
 		Application.instance.on(&quot;update&quot;, this._update);
 	};

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/pixi/PixiDisplay.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/pixi/PixiDisplay.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,6 +208,11 @@
 */
 (function(undefined){
 
+	var Stage = include(&#x27;PIXI.Stage&#x27;),
+		CanvasRenderer = include(&#x27;PIXI.CanvasRenderer&#x27;),
+		WebGLRenderer = include(&#x27;PIXI.WebGLRenderer&#x27;),
+		autoDetectRenderer = include(&#x27;PIXI.autoDetectRenderer&#x27;);
+
 	/**
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
@@ -239,7 +246,7 @@
 		this.height = this.canvas.height;
 		this._visible = this.canvas.style.display != &quot;none&quot;;
 		//make stage
-		this.stage = new PIXI.Stage(options.backgroundColor || 0);
+		this.stage = new Stage(options.backgroundColor || 0);
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
@@ -249,7 +256,7 @@
 			transparent = &quot;notMultiplied&quot;;
 		if(options.forceContext == &quot;canvas2d&quot;)
 		{
-			this.renderer = new PIXI.CanvasRenderer(
+			this.renderer = new CanvasRenderer(
 				this.width, 
 				this.height, 
 				this.canvas, 
@@ -258,7 +265,7 @@
 		}
 		else if(options.forceContext == &quot;webgl&quot;)
 		{
-			this.renderer = new PIXI.WebGLRenderer(
+			this.renderer = new WebGLRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -269,7 +276,7 @@
 		}
 		else
 		{
-			this.renderer = PIXI.autoDetectRenderer(
+			this.renderer = autoDetectRenderer(
 				this.width, 
 				this.height,
 				this.canvas, 
@@ -280,7 +287,7 @@
 		}
 		this.renderer.clearView = !!options.clearView;
 		this.enabled = true;//enable mouse/touch input
-		this.isWebGL = this.renderer instanceof PIXI.WebGLRenderer;
+		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		/**
 		*  The Animator class to use when using this display.
@@ -288,7 +295,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.pixi.Animator;
+		this.Animator = include(&#x27;cloudkid.pixi.Animator&#x27;);
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -297,7 +304,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.pixi.DisplayAdapter;
+		this.DisplayAdapter = include(&#x27;cloudkid.pixi.DisplayAdapter&#x27;);
 	};
 
 	var p = PixiDisplay.prototype = {};

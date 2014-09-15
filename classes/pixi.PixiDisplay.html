@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : pixi.PixiDisplay</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : pixi.PixiDisplay</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -202,7 +204,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_displays_pixi_PixiDisplay.js.html#l6"><code>pixi.PixiDisplay:6</code></a>
+            Defined in: <a href="../files/src_displays_pixi_PixiDisplay.js.html#l11"><code>pixi.PixiDisplay:11</code></a>
         </div>
     
 
@@ -274,7 +276,7 @@
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l6"><code>pixi.PixiDisplay:6</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l11"><code>pixi.PixiDisplay:11</code></a>
         
         </p>
 
@@ -649,7 +651,7 @@
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l248"><code>destroy:248</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l253"><code>destroy:253</code></a>
         
         </p>
 
@@ -716,7 +718,7 @@ The stage recursively removes all display objects here.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l234"><code>render:234</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l239"><code>render:239</code></a>
         
         </p>
 
@@ -811,7 +813,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l220"><code>resize:220</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l225"><code>resize:225</code></a>
         
         </p>
 
@@ -907,7 +909,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l144"><code>:144</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l149"><code>:149</code></a>
         
         </p>
 
@@ -954,7 +956,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l168"><code>_enabled:168</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l173"><code>_enabled:173</code></a>
         
         </p>
 
@@ -1001,7 +1003,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l199"><code>_visible:199</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l204"><code>_visible:204</code></a>
         
         </p>
 
@@ -1048,7 +1050,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l82"><code>Animator:82</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l87"><code>Animator:87</code></a>
         
         </p>
 
@@ -1095,7 +1097,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l152"><code>:152</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l157"><code>:157</code></a>
         
         </p>
 
@@ -1142,7 +1144,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l136"><code>:136</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l141"><code>:141</code></a>
         
         </p>
 
@@ -1189,7 +1191,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l102"><code>canvas:102</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l107"><code>canvas:107</code></a>
         
         </p>
 
@@ -1236,7 +1238,7 @@ This method does nothing if paused is true or visible is false.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l90"><code>DisplayAdapter:90</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l95"><code>DisplayAdapter:95</code></a>
         
         </p>
 
@@ -1284,7 +1286,7 @@ ways for accessing properties like position, scale, etc.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l175"><code>enabled:175</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l180"><code>enabled:180</code></a>
         
         </p>
 
@@ -1331,7 +1333,7 @@ ways for accessing properties like position, scale, etc.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l127"><code>height:127</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l132"><code>height:132</code></a>
         
         </p>
 
@@ -1379,7 +1381,7 @@ would be the same thing as canvas.height</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l110"><code>id:110</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l115"><code>id:115</code></a>
         
         </p>
 
@@ -1426,7 +1428,7 @@ would be the same thing as canvas.height</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l160"><code>paused:160</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l165"><code>paused:165</code></a>
         
         </p>
 
@@ -1474,7 +1476,7 @@ using Application.paused setter.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l206"><code>visible:206</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l211"><code>visible:211</code></a>
         
         </p>
 
@@ -1521,7 +1523,7 @@ using Application.paused setter.</p>
             
         
         
-        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l118"><code>width:118</code></a>
+        <a href="../files/src_displays_pixi_PixiDisplay.js.html#l123"><code>width:123</code></a>
         
         </p>
 

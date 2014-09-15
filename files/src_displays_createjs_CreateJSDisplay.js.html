@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/createjs/CreateJSDisplay.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/createjs/CreateJSDisplay.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,6 +208,10 @@
 */
 (function(undefined){
 
+	// Import createjs classes
+	var Stage,
+		Touch;
+
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
@@ -220,6 +226,12 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
+		if(!Stage)
+		{
+			Stage = include(&#x27;createjs.Stage&#x27;);
+			Touch = include(&#x27;createjs.Touch&#x27;);
+		}
+
 		this.id = id;
 		options = options || {};
 		this.canvas = document.getElementById(id);
@@ -235,7 +247,7 @@
 		}
 		else
 		{
-			this.stage = new createjs.Stage(id);
+			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
 		// prevent mouse down turning into text cursor
@@ -251,7 +263,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.Animator = cloudkid.createjs.Animator;
+		this.Animator = include(&#x27;cloudkid.createjs.Animator&#x27;);
 
 		/**
 		*  The DisplayAdapter class to use when providing standard
@@ -260,7 +272,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.DisplayAdapter = cloudkid.createjs.DisplayAdapter;
+		this.DisplayAdapter = include(&#x27;cloudkid.createjs.DisplayAdapter&#x27;);
 	};
 
 	var p = CreateJSDisplay.prototype = {};
@@ -344,13 +356,13 @@
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
 				this.stage.enableDOMEvents(true);
-				createjs.Touch.enable(this.stage);
+				Touch.enable(this.stage);
 			}
 			else
 			{
 				this.stage.enableMouseOver(false);
 				this.stage.enableDOMEvents(false);
-				createjs.Touch.disable(this.stage);
+				Touch.disable(this.stage);
 				this.canvas.style.cursor = &quot;&quot;;//reset the cursor
 			}
 		}

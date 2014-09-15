@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/createjs/DisplayAdapter.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/createjs/DisplayAdapter.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -220,7 +222,7 @@
 	*  @static
 	*  @default createjs.Circle
 	*/
-	DisplayAdapter.Circle = createjs.Circle;
+	DisplayAdapter.Circle = include(&#x27;createjs.Circle&#x27;, false);
 
 	/**
 	*  The geometry class for Ellipse
@@ -229,7 +231,7 @@
 	*  @static
 	*  @default createjs.Ellipse
 	*/
-	DisplayAdapter.Ellipse = createjs.Ellipse;
+	DisplayAdapter.Ellipse = include(&#x27;createjs.Ellipse&#x27;, false);
 
 	/**
 	*  The geometry class for Rectangle
@@ -238,7 +240,7 @@
 	*  @static
 	*  @default createjs.Rectangle
 	*/
-	DisplayAdapter.Rectangle = createjs.Rectangle;
+	DisplayAdapter.Rectangle = include(&#x27;createjs.Rectangle&#x27;);
 
 	/**
 	*  The geometry class for Sector
@@ -247,7 +249,7 @@
 	*  @static
 	*  @default createjs.Sector
 	*/
-	DisplayAdapter.Sector = createjs.Sector;
+	DisplayAdapter.Sector = include(&#x27;createjs.Sector&#x27;, false);
 
 	/**
 	*  The geometry class for point
@@ -256,7 +258,7 @@
 	*  @static
 	*  @default createjs.Point
 	*/
-	DisplayAdapter.Point = createjs.Point;
+	DisplayAdapter.Point = include(&#x27;createjs.Point&#x27;);
 
 	/**
 	*  The geometry class for Polygon
@@ -265,7 +267,7 @@
 	*  @static
 	*  @default createjs.Polygon
 	*/
-	DisplayAdapter.Polygon = createjs.Polygon;
+	DisplayAdapter.Polygon = include(&#x27;createjs.Polygon&#x27;, false);
 
 	/**
 	*  If the rotation is expressed in radians

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/Application.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/Application.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,8 +208,12 @@
 */
 (function(undefined){
 
-	// Optional class
-	var Debug = null;
+	// classes to import
+	var Debug,
+		Loader,
+		TimeUtils,
+		PageVisibility,
+		EventDispatcher = include(&#x27;cloudkid.EventDispatcher&#x27;);
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -251,10 +257,14 @@
 		}
 		_instance = this;
 
-		// Check for the Debug class (optional)
-		if (window.Debug !== undefined)
+		EventDispatcher.call(this);
+
+		if(!Debug)
 		{
-			Debug = window.Debug;
+			Debug = include(&#x27;Debug&#x27;);
+			Loader = include(&#x27;cloudkid.Loader&#x27;);
+			TimeUtils = include(&#x27;cloudkid.TimeUtils&#x27;);
+			PageVisibility = include(&#x27;cloudkid.PageVisibility&#x27;);
 		}
 
 		/**
@@ -283,12 +293,12 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(cloudkid.EventDispatcher.prototype);
+	var p = Application.prototype = Object.create(EventDispatcher.prototype);
 
 	/**
 	*  The collection of function references to call when initializing the application
 	*  these are registered by external libraries that need to setup, destroyed
-	*  for instance MediaLoader
+	*  for instance Loader
 	*  @property {Array} _globalInit
 	*  @private
 	*  @static
@@ -298,7 +308,7 @@
 	/**
 	*  The collection of function references to call when destroying the application
 	*  these are registered by external libraries that need to setup, destroyed
-	*  for instance MediaLoader
+	*  for instance Loader
 	*  @property {Array} _globalDestroy
 	*  @private
 	*  @static
@@ -485,7 +495,7 @@
 
 	/**
 	*  Libraries would register global initialization functions when they are created, e.g.
-	*  Application.registerInit(MediaLoader.init);
+	*  Application.registerInit(Loader.init);
 	*  @method registerInit
 	*  @param {Function} func
 	*  @static
@@ -497,7 +507,7 @@
 	};
 	/**
 	*  Libraries would register global destroy functions when they are created or initialized, e.g.
-	*  Application.registerInit(MediaLoader.instance.destroy.bind(MediaLoader.instance));
+	*  Application.registerInit(Loader.instance.destroy.bind(Loader.instance));
 	*  @method registerDestroy
 	*  @param {Function} func
 	*  @static
@@ -531,6 +541,7 @@
 		//grab the query string parameters if we should be doing so
 		if(this.options.parseQueryString)
 			parseQueryStringParams(this.options);
+		
 		//set up default options
 		for(var key in _defaultOptions)
 		{
@@ -565,30 +576,33 @@
 			window.addEventListener(&quot;resize&quot;, this._resize);
 		}
 
-		if (Debug)
-		{
-			// Turn on debugging
-			if (this.options.debug !== undefined)
-				Debug.enabled = this.options.debug === true || this.options.debug === &quot;true&quot;;
-			
-			if (this.options.minLogLevel !== undefined)
-				Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+		// Turn on debugging
+		if (this.options.debug !== undefined)
+			Debug.enabled = this.options.debug === true || this.options.debug === &quot;true&quot;;
+		
+		if (this.options.minLogLevel !== undefined)
+			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
-			//if we were supplied with an IP address, connect to it with the Debug class for logging
-			if(typeof this.options.ip == &quot;string&quot;)
-				Debug.connect(this.options.ip);
-		}
+		//if we were supplied with an IP address, connect to it with the Debug class for logging
+		if(typeof this.options.ip == &quot;string&quot;)
+			Debug.connect(this.options.ip);
+
+		// If tween and/or ticker are included
+		var Tween = include(&#x27;createjs.Tween&#x27;, false),
+			Ticker = include(&#x27;createjs.Ticker&#x27;, false);
 
 		// Add an option to have the application control the Tween tick
-		if (window.createjs &amp;&amp; createjs.Tween &amp;&amp; this.options.updateTween)
+		if (Tween &amp;&amp; this.options.updateTween)
 		{
-			if (createjs.Ticker)
-				createjs.Ticker.setPaused(true);
-			this.on(&#x27;update&#x27;, createjs.Tween.tick);
+			if (Ticker)
+			{
+				Ticker.setPaused(true);
+			}
+			this.on(&#x27;update&#x27;, Tween.tick);
 		}
 		
 		//set up the page visibility listener
-		_pageVisibility = new cloudkid.PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
+		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
 		if(this.options.canvasId &amp;&amp; this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
@@ -615,7 +629,7 @@
 		{
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
-			cloudkid.MediaLoader.instance.cacheManager.addVersionsFile(
+			Loader.instance.cacheManager.addVersionsFile(
 				this.options.versionsFile, 
 				versionsLoaded
 			);
@@ -649,10 +663,7 @@
 			myVar = splitFlashVars[i].split(&quot;=&quot;);
 			if (DEBUG)
 			{
-				if (Debug)
-				{
-					Debug.log(myVar[0] + &quot; -&gt; &quot; + myVar[1]);
-				}
+				Debug.log(myVar[0] + &quot; -&gt; &quot; + myVar[1]);
 			}
 			output[myVar[0]] = myVar[1];
 		}
@@ -722,7 +733,7 @@
 						requestAnimFrame(_tickCallback): 
 						setTargetedTimeout(_tickCallback);
 				}
-				_lastFPSUpdateTime = _lastFrameTime = cloudkid.TimeUtils.now();
+				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
 	});
@@ -814,10 +825,7 @@
 		{
 			if (DEBUG)
 			{
-				if (Debug)
-				{
-					Debug.error(&quot;A display already exists with the id of &quot; + id);
-				}
+				Debug.error(&quot;A display already exists with the id of &quot; + id);
 			}
 			return;
 		}
@@ -917,7 +925,7 @@
 			return;
 		}
 
-		var now = cloudkid.TimeUtils.now();
+		var now = TimeUtils.now();
 		var dTime = now - _lastFrameTime;
 		
 		// Only update the framerate every second
@@ -948,7 +956,7 @@
 		//request the next animation frame
 		_tickId = _useRAF ? 
 			requestAnimFrame(_tickCallback) : 
-			setTargetedTimeout(_tickCallback, cloudkid.TimeUtils.now() - _lastFrameTime);
+			setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 	};
 
 	/**

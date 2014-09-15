@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/pixi/AssetManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/pixi/AssetManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,6 +208,9 @@
 */
 (function() {
 	
+	var BitmapText = include(&#x27;PIXI.BitmapText&#x27;),
+		Texture = include(&#x27;PIXI.Texture&#x27;);
+
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
 	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
@@ -480,11 +485,11 @@
 		if(a.anim) return;//don&#x27;t unload these, they are pretty small
 		if(a.isFont)
 		{
-			if(PIXI.BitmapText.fonts[asset])
-				delete PIXI.BitmapText.fonts[asset];
+			if(BitmapText.fonts[asset])
+				delete BitmapText.fonts[asset];
 		}
 		//anything else is a texture
-		PIXI.Texture.destroyTexture(assetUrlCache[asset]);
+		Texture.destroyTexture(assetUrlCache[asset]);
 		delete AssetManager.scales[asset];
 		delete assetUrlCache[asset];
 	};
@@ -534,7 +539,7 @@
 		var compareLength = compares.length;
 		
 		var rtnDict = outObj || {};
-		var fromFrame = PIXI.Texture.fromFrame;
+		var fromFrame = Texture.fromFrame;
 		var prevTex, len;
 		for(var a in anims)
 		{

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/displays/createjs/AnimatorTimeline.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/createjs/AnimatorTimeline.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -324,48 +326,56 @@
 	* @public
 	*/
 	p.startTime = 0;
+	
 	/**
 	* The animation duration in seconds.
 	* @property {Number} duration
 	* @public
 	*/
 	p.duration = 0;
+
 	/**
 	* The animation speed. Default is 1.
 	* @property {Number} speed
 	* @public
 	*/
 	p.speed = 1;
+
 	/**
 	* The position of the animation in seconds.
 	* @property {Number} time
 	* @public
 	*/
 	p.time = 0;
+
 	/**
 	* Sound alias to sync to during the animation.
 	* @property {String} soundAlias
 	* @public
 	*/
 	p.soundAlias = null;
+
 	/**
-	* A sound instance object from cloudkid.Sound or cloudkid.Audio, used for tracking sound position.
+	* A sound instance object from cloudkid.Sound used for tracking sound position.
 	* @property {Object} soundInst
 	* @public
 	*/
 	p.soundInst = null;
+
 	/**
 	* If the timeline will, but has yet to play a sound.
 	* @property {bool} playSound
 	* @public
 	*/
 	p.playSound = false;
+
 	/**
 	* The time (seconds) into the animation that the sound starts.
 	* @property {Number} soundStart
 	* @public
 	*/
 	p.soundStart = 0;
+
 	/**
 	* The time (seconds) into the animation that the sound ends
 	* @property {Number} soundEnd

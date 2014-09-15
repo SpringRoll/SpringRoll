@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/tasks/TaskManager.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/tasks/TaskManager.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -207,7 +209,8 @@
 (function(){
 
 	// Imports
-	var TaskEvent = cloudkid.TaskEvent;
+	var TaskEvent,
+		EventDispatcher = include(&#x27;cloudkid.EventDispatcher&#x27;);
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -219,62 +222,17 @@
 	*/
 	var TaskManager = function(tasks)
 	{
+		if(!TaskEvent)
+		{
+			TaskEvent = include(&#x27;cloudkid.TaskEvent&#x27;);
+		}
+
+		EventDispatcher.call(this);
+
 		this.initialize(tasks);
 	};
 	
-	var p = TaskManager.prototype;
-	
-	/**
-	* Adds the specified event listener
-	* @function addEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener An object with a handleEvent method, or a function that will be called when the event is dispatched
-	* @return {function|object} Returns the listener for chaining or assignment
-	*/
-	p.addEventListener = null;
-
-	/**
-	* Removes the specified event listener
-	* @function removeEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener The listener function or object
-	*/
-	p.removeEventListener = null;
-
-	/**
-	* Removes all listeners for the specified type, or all listeners of all types
-	* @function removeAllEventListeners
-	* @param {String} type The string type of the event. If omitted, all listeners for all types will be removed.
-	*/
-	p.removeAllEventListeners = null;
-
-	/**
-	* Dispatches the specified event
-	* @function dispatchEvent
-	* @param {Object|String} enventObj An object with a &quot;type&quot; property, or a string type
-	* @param {object} target The object to use as the target property of the event object
-	* @return {bool} Returns true if any listener returned true
-	*/
-	p.dispatchEvent = null;
-
-	/**
-	* Indicates whether there is at least one listener for the specified event type
-	* @function hasEventListener
-	* @param {String} type The string type of the event
-	* @return {bool} Returns true if there is at least one listener for the specified event
-	*/
-	p.hasEventListener = null;
-
-	/**
-	* Createjs EventDispatcher method
-	* @property {Array} _listeners description
-	* @private
-	*/
-	p._listeners = null;
-	
-	// we only use EventDispatcher if it&#x27;s available:
-	if (createjs.EventDispatcher) 
-		createjs.EventDispatcher.initialize(p); // inject EventDispatcher methods.
+	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
 	
 	/**
 	* The current version of the state manager
@@ -349,12 +307,12 @@
 
 		var allDone = TaskManager.ALL_TASKS_DONE;
 		var manager = new TaskManager(tasks);
-		manager.addEventListener(
+		manager.on(
 			allDone,
 			function()
 			{
 				// Remove the listener
-				manager.removeEventListener(allDone);
+				manager.off(allDone);
 
 				// Destroy the manager
 				if (immediateDestroy) manager.destroy();
@@ -499,14 +457,14 @@
 		this.paused = false;
 		
 		// Give warning that a task is about to be started and respect pauses
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
+		this.trigger(new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
 	
 		if (this.paused)
 		{
 			return null;
 		}
 		
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_STARTING, task));
+		this.trigger(new TaskEvent(TaskEvent.TASK_STARTING, task));
 		this._tasksInProgress++;
 		
 		task.start(this.onTaskDone.bind(this, task));
@@ -527,7 +485,7 @@
 		
 		this._tasksInProgress--;
 		
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_DONE, task, result));
+		this.trigger(new TaskEvent(TaskEvent.TASK_DONE, task, result));
 		task.done(result, this);
 		
 		// Remove from the current tasks
@@ -542,7 +500,7 @@
 		// No more valid tasks
 		if (this._tasksInProgress === 0 &amp;&amp; this.tasks.length === 0)
 		{
-			this.dispatchEvent(new TaskEvent(TaskManager.ALL_TASKS_DONE, null));
+			this.trigger(new TaskEvent(TaskManager.ALL_TASKS_DONE, null));
 		}
 		else
 		{

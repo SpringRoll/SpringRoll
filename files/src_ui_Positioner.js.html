@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/ui/Positioner.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/ui/Positioner.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -206,17 +208,15 @@
 */
 (function() {
 		
-	var UIScaler = cloudkid.UIScaler;
+	var UIScaler = include(&#x27;cloudkid.UIScaler&#x27;);
 
 	/**
 	*  Initially layouts all interface elements
 	*  @module cloudkid
 	*  @class Positioner
+	*  @static
 	*/
-	var Positioner = function(){};
-	
-	// Set the protype
-	Positioner.prototype = {};
+	var Positioner = {};
 	
 	/**
 	*  Initial position of all layout items
@@ -234,29 +234,29 @@
 		for(var iName in itemSettings)
 		{
 			var item = parent[iName];
-			if(!item)
+			if (!item)
 			{
 				Debug.error(&quot;could not find object &#x27;&quot; +  iName + &quot;&#x27;&quot;);
 				continue;
 			}
 			var setting = itemSettings[iName];
-			if(setting.x !== undefined)
+			if (setting.x !== undefined)
 				adapter.setPosition(item, setting.x, &#x27;x&#x27;);
-			if(setting.y !== undefined)
+			if (setting.y !== undefined)
 				adapter.setPosition(item, setting.y, &#x27;y&#x27;);
 			pt = setting.scale;
 			scale = adapter.getScale(item);
-			if(pt)
+			if (pt)
 			{
 				adapter.setScale(item, pt.x * scale.x, &quot;x&quot;);
 				adapter.setScale(item, pt.y * scale.y, &quot;y&quot;);
 			}
 			pt = setting.pivot;
-			if(pt)
+			if (pt)
 			{
 				adapter.setPivot(item, pt);
 			}
-			if(setting.rotation !== undefined)
+			if (setting.rotation !== undefined)
 			{
 				item.rotation = settings.rotation;
 				if (adapter.useRadians)
@@ -265,7 +265,7 @@
 				}
 			}
 
-			if(setting.hitArea)
+			if (setting.hitArea)
 			{
 				adapter.setHitArea(item, Positioner.generateHitArea(setting.hitArea, 1, display));
 			}
@@ -305,26 +305,60 @@
 
 		if (isArray(hitArea))
 		{
-			if(scale == 1)
+			if (scale == 1)
+			{
 				return new adapter.Polygon(hitArea);
+			}	
 			else
 			{
 				var temp = [];
 				for(var i = 0, len = hitArea.length; i &lt; len; ++i)
 				{
-					temp.push(new adapter.Point(hitArea[i].x * scale, hitArea[i].y * scale));
+					temp.push(new adapter.Point(
+						hitArea[i].x * scale, 
+						hitArea[i].y * scale
+					));
 				}
 				return new adapter.Polygon(temp);
 			}
 		}
-		else if(hitArea.type == &quot;rect&quot; || !hitArea.type)
-			return new adapter.Rectangle(hitArea.x * scale, hitArea.y * scale, hitArea.w * scale, hitArea.h * scale);
-		else if(hitArea.type == &quot;ellipse&quot;)
-			return new adapter.Ellipse((hitArea.x - hitArea.w * 0.5) * scale, (hitArea.y - hitArea.h * 0.5) * scale, hitArea.w * scale, hitArea.h * scale);//convert center to upper left corner
-		else if(hitArea.type == &quot;circle&quot;)
-			return new adapter.Circle(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale);
-		else if(hitArea.type == &quot;sector&quot;)
-			return new adapter.Sector(hitArea.x * scale, hitArea.y * scale, hitArea.r * scale, hitArea.start, hitArea.end);
+		else if (hitArea.type == &quot;rect&quot; || !hitArea.type)
+		{
+			return new adapter.Rectangle(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.w * scale, 
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == &quot;ellipse&quot;)
+		{
+			//convert center to upper left corner
+			return new adapter.Ellipse(
+				(hitArea.x - hitArea.w * 0.5) * scale, 
+				(hitArea.y - hitArea.h * 0.5) * scale, 
+				hitArea.w * scale, 
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == &quot;circle&quot;)
+		{
+			return new adapter.Circle(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.r * scale
+			);
+		}
+		else if (hitArea.type == &quot;sector&quot;)
+		{
+			return new adapter.Sector(
+				hitArea.x * scale, 
+				hitArea.y * scale, 
+				hitArea.r * scale, 
+				hitArea.start, 
+				hitArea.end
+			);
+		}
 		return null;
 	};
 

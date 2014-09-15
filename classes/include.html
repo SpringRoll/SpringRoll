@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.5 API Documentation : src/displays/pixi/AnimatorTimeline.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : include</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -196,176 +196,230 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <script>
-	var name = src/displays/pixi/AnimatorTimeline.js      
-</script>
-<h1 class="file-heading">File:AnimatorTimeline.js</h1>
+                        <h1>include Class</h1>
+<div class="box meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
-*  @module cloudkid.pixi
-*/
-(function(){
-	
-	/**
-	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
-	 * so please only keep references to them while they are actively playing an animation.
-	 * 
-	 * @class pixi.AnimatorTimeline
-	 * @constructor
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline&#x27;s clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {int} speed The speed at which the clip should be played
-	 */
-	var AnimatorTimeline = function(clip, callback, speed)
-	{
-		this.init(clip, callback, speed);
-	};
-	
-	AnimatorTimeline.constructor = AnimatorTimeline;
+    
 
-	// Reference to the prototype
-	var p = AnimatorTimeline.prototype;
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_utils_include.js.html#l4"><code>include:4</code></a>
+        </div>
+    
 
-	/**
-	 * Initialize the AnimatorTimeline
-	 * 
-	 * @function init
-	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline&#x27;s clip
-	 * @param {function} callback The function to call when the clip is finished playing
-	 * @param {Number} speed The speed at which the clip should be played
-	 * @returns {Animator.AnimatorTimeline}
-	 */
-	p.init = function(clip, callback, speed)
-	{
-		/**
-		*	The clip for this AnimTimeLine
-		*	@property {PIXI.MovieClip|PIXI.Spine} clip
-		*	@public
-		*/
-		this.clip = clip;
+    
+        
+            Namespace: <a href="../modules/window.html">window</a>
+        
+    
 
-		/**
-		*	Whether the clip is a PIXI.Spine
-		*	@property {bool} isSpine
-		*	@public
-		*/
-		this.isSpine = clip instanceof PIXI.Spine;
+    
+</div>
 
-		/**
-		*	The function to call when the clip is finished playing
-		*	@property {function} callback
-		*	@public
-		*/
-		this.callback = callback;
 
-		/**
-		*	The speed at which the clip should be played
-		*	@property {Number} speed
-		*	@public
-		*/
-		this.speed = speed;
 
-		/**
-		*	@property {Array} spineStates
-		*	@public
-		*/
-		this.spineStates = null;
+<div class="box intro">
+    <p>Used to include required classes by name</p>
 
-		/**
-		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
-		*	@property {bool} loop
-		*	@public
-		*/
-		this.loop = null;
+</div>
 
-		/**
-		*	The position of the animation in seconds
-		*	@property {Number} time
-		*	@public
-		*/
-		this.time = 0;
 
-		/**
-		*	Sound alias to sync to during the animation.
-		*	@property {String} soundAlias
-		*	@public
-		*/
-		this.soundAlias = null;
 
-		/**
-		*	A sound instance object from Sound, used for tracking sound position.
-		*	@property {Object} soundInst
-		*	@public
-		*/
-		this.soundInst = null;
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
 
-		/**
-		*	If the timeline will, but has yet to, play a sound
-		*	@property {bool} playSound
-		*	@public
-		*/
-		this.playSound = false;
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+        
+        
+    </ul>
 
-		/**
-		*	The time (seconds) into the animation that the sound starts.
-		*	@property {Number} soundStart
-		*	@public
-		*/
-		this.soundStart = 0;
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
 
-		/**
-		*	The time (seconds) into the animation that the sound ends
-		*	@property {Number} soundEnd
-		*	@public
-		*/
-		this.soundEnd = 0;
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
 
-		/**
-		*  If this timeline plays captions
-		*
-		*  @property {bool} useCaptions
-		*  @readOnly
-		*/
-		this.useCaptions = false;
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_include">include</a>
 
-		/**
-		*	If this animation is paused.
-		*	@property {bool} _paused
-		*	@private
-		*/
-		this._paused = false;
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
 
-		return this;
-	};
-	
-	/**
-	* Sets and gets the animation&#x27;s paused status.
-	* 
-	* @property {bool} paused
-	* @public
-	*/
-	Object.defineProperty(p, &quot;paused&quot;, {
-		get: function() { return this._paused; },
-		set: function(value) {
-			if(value == this._paused) return;
-			this._paused = !!value;
-			if(this.soundInst)
-			{
-				if(this.paused)
-					this.soundInst.pause();
-				else
-					this.soundInst.unpause();
-			}
-		}
-	});
+            
 
-	// Assign to namespace
-	namespace(&quot;cloudkid.pixi&quot;).AnimatorTimeline = AnimatorTimeline;
+            
 
-}());
-    </pre>
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_include" class="method item">
+    <h3 class="name"><code>include</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>namespaceString</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[required=true]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_utils_include.js.html#l14"><code>include:14</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Import a class</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">namespaceString</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Name space, for instance &#39;cloudkid.Application&#39;</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[required=true]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If the class we&#39;re trying to include is required.
+         For classes that aren&#39;t found and are required, an error is thrown.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                    
+                    <p>The object attached at the given namespace</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>    var Application = include(&#39;cloudkid.Application&#39;);</code></pre>
+
+            </div>
+        </div>
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

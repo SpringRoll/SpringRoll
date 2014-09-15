@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : src/tasks/LoadTask.js</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : src/tasks/LoadTask.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -207,13 +209,13 @@
 (function(undefined){
 	
 	// Imports
-	var MediaLoader = cloudkid.MediaLoader,
-		Task = cloudkid.Task,
-		LoaderQueueItem = cloudkid.LoaderQueueItem;
+	var Loader,
+		LoaderQueueItem,
+		Task = include(&#x27;cloudkid.Task&#x27;);
 	
 	/**
 	*  Load task is a common type of task used for loading assets
-	*  through the MediaLoader
+	*  through the Loader
 	*  
 	*  @class LoadTask
 	*  @extends Task
@@ -227,6 +229,12 @@
 	*/
 	var LoadTask = function(id, url, callback, updateCallback, priority, data)
 	{
+		if(!Loader)
+		{
+			Loader = include(&#x27;cloudkid.Loader&#x27;);
+			LoaderQueueItem = include(&#x27;cloudkid.LoaderQueueItem&#x27;);
+		}
+
 		this.initialize(id, url, callback, updateCallback, priority, data);
 	};
 	
@@ -298,7 +306,7 @@
 	*/
 	p.start = function(callback)
 	{
-		MediaLoader.instance.load(
+		Loader.instance.load(
 			this.url, 
 			callback,
 			this.updateCallback,
@@ -317,7 +325,7 @@
 	*/
 	p.cancel = function()
 	{
-		return MediaLoader.instance.cancel(this.url);
+		return Loader.instance.cancel(this.url);
 	};
 	
 	/**

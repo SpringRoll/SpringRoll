@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.4 API Documentation : pixi.DragManager</title>  
+	<title>CloudKidFramework v0.0.5 API Documentation : pixi.DragManager</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -19,7 +19,7 @@
             
         </div>
         <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.4</em>
+            <em>API Documentation for: 0.0.5</em>
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -79,15 +79,17 @@
             
                 <li><a href="../classes/GenericDisplay.html">GenericDisplay</a></li>
             
+                <li><a href="../classes/include.html">include</a></li>
+            
                 <li><a href="../classes/ListTask.html">ListTask</a></li>
+            
+                <li><a href="../classes/Loader.html">Loader</a></li>
             
                 <li><a href="../classes/LoaderQueueItem.html">LoaderQueueItem</a></li>
             
+                <li><a href="../classes/LoaderResult.html">LoaderResult</a></li>
+            
                 <li><a href="../classes/LoadTask.html">LoadTask</a></li>
-            
-                <li><a href="../classes/MediaLoader.html">MediaLoader</a></li>
-            
-                <li><a href="../classes/MediaLoaderResult.html">MediaLoaderResult</a></li>
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
@@ -202,7 +204,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_displays_pixi_DragManager.js.html#l6"><code>pixi.DragManager:6</code></a>
+            Defined in: <a href="../files/src_displays_pixi_DragManager.js.html#l10"><code>pixi.DragManager:10</code></a>
         </div>
     
 
@@ -280,7 +282,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l6"><code>pixi.DragManager:6</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l10"><code>pixi.DragManager:10</code></a>
         
         </p>
 
@@ -669,7 +671,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l369"><code>_handlePointSnap:369</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l384"><code>_handlePointSnap:384</code></a>
         
         </p>
 
@@ -693,7 +695,7 @@ supports click-n-stick and click-n-drag functionality.</p>
                 <li class="param">
                     
                         <code class="param-name">localMousePos</code>
-                        <span class="type">createjs.Point</span>
+                        <span class="type">PIXI.Point</span>
                     
 
                     
@@ -766,7 +768,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l211"><code>_objMouseDown:211</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l222"><code>_objMouseDown:222</code></a>
         
         </p>
 
@@ -863,7 +865,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l285"><code>_startDrag:285</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l300"><code>_startDrag:300</code></a>
         
         </p>
 
@@ -936,7 +938,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l310"><code>_stopDrag:310</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l325"><code>_stopDrag:325</code></a>
         
         </p>
 
@@ -1043,7 +1045,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l266"><code>_triggerHeldDrag:266</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l281"><code>_triggerHeldDrag:281</code></a>
         
         </p>
 
@@ -1124,7 +1126,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l253"><code>_triggerStickyClick:253</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l268"><code>_triggerStickyClick:268</code></a>
         
         </p>
 
@@ -1191,7 +1193,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l333"><code>_updateObjPosition:333</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l348"><code>_updateObjPosition:348</code></a>
         
         </p>
 
@@ -1288,7 +1290,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l438"><code>addObject:438</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l453"><code>addObject:453</code></a>
         
         </p>
 
@@ -1388,7 +1390,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l494"><code>destroy:494</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l509"><code>destroy:509</code></a>
         
         </p>
 
@@ -1465,7 +1467,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l176"><code>initialize:176</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l187"><code>initialize:187</code></a>
         
         </p>
 
@@ -1588,7 +1590,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l472"><code>removeObject:472</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l487"><code>removeObject:487</code></a>
         
         </p>
 
@@ -1685,7 +1687,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l198"><code>startDrag:198</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l209"><code>startDrag:209</code></a>
         
         </p>
 
@@ -1793,7 +1795,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l299"><code>stopDrag:299</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l314"><code>stopDrag:314</code></a>
         
         </p>
 
@@ -1873,7 +1875,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l129"><code>_dragEndCallback:129</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l140"><code>_dragEndCallback:140</code></a>
         
         </p>
 
@@ -1920,7 +1922,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l164"><code>_draggableObjects:164</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l175"><code>_draggableObjects:175</code></a>
         
         </p>
 
@@ -1967,7 +1969,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l115"><code>_dragOffset:115</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l126"><code>_dragOffset:126</code></a>
         
         </p>
 
@@ -2014,7 +2016,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l122"><code>_dragStartCallback:122</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l133"><code>_dragStartCallback:133</code></a>
         
         </p>
 
@@ -2061,7 +2063,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l150"><code>_stageMouseUpCallback:150</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l161"><code>_stageMouseUpCallback:161</code></a>
         
         </p>
 
@@ -2108,7 +2110,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l108"><code>_theStage:108</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l119"><code>_theStage:119</code></a>
         
         </p>
 
@@ -2155,7 +2157,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l136"><code>_triggerHeldDragCallback:136</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l147"><code>_triggerHeldDragCallback:147</code></a>
         
         </p>
 
@@ -2202,7 +2204,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l143"><code>_triggerStickyClickCallback:143</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l154"><code>_triggerStickyClickCallback:154</code></a>
         
         </p>
 
@@ -2249,7 +2251,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l157"><code>_updateCallback:157</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l168"><code>_updateCallback:168</code></a>
         
         </p>
 
@@ -2296,7 +2298,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l81"><code>allowStickyClick:81</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l92"><code>allowStickyClick:92</code></a>
         
         </p>
 
@@ -2345,7 +2347,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l24"><code>draggedObj:24</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l35"><code>draggedObj:35</code></a>
         
         </p>
 
@@ -2392,7 +2394,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l32"><code>dragStartThreshold:32</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l43"><code>dragStartThreshold:43</code></a>
         
         </p>
 
@@ -2441,7 +2443,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l63"><code>isHeldDrag:63</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l74"><code>isHeldDrag:74</code></a>
         
         </p>
 
@@ -2490,7 +2492,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l72"><code>isStickyClick:72</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l83"><code>isStickyClick:83</code></a>
         
         </p>
 
@@ -2539,7 +2541,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l54"><code>isTouchMove:54</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l65"><code>isTouchMove:65</code></a>
         
         </p>
 
@@ -2588,7 +2590,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l47"><code>mouseDownObjPos:47</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l58"><code>mouseDownObjPos:58</code></a>
         
         </p>
 
@@ -2635,7 +2637,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l40"><code>mouseDownStagePos:40</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l51"><code>mouseDownStagePos:51</code></a>
         
         </p>
 
@@ -2682,7 +2684,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/src_displays_pixi_DragManager.js.html#l89"><code>snapSettings:89</code></a>
+        <a href="../files/src_displays_pixi_DragManager.js.html#l100"><code>snapSettings:100</code></a>
         
         </p>
 
