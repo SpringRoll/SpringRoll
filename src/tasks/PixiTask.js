@@ -21,9 +21,12 @@
 	*/
 	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
-		AssetLoader = include('PIXI.AssetLoader');
-		Loader = include('cloudkid.Loader');
-		Application = include('cloudkid.Application');
+		if(!Loader)
+		{
+			AssetLoader = include('PIXI.AssetLoader');
+			Loader = include('cloudkid.Loader');
+			Application = include('cloudkid.Application');
+		}
 
 		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
 	};

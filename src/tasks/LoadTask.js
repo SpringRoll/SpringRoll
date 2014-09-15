@@ -24,8 +24,11 @@
 	*/
 	var LoadTask = function(id, url, callback, updateCallback, priority, data)
 	{
-		Loader = include('cloudkid.Loader');
-		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		if(!Loader)
+		{
+			Loader = include('cloudkid.Loader');
+			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		}
 
 		this.initialize(id, url, callback, updateCallback, priority, data);
 	};

@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @modules cloudkid.createjs
 */
@@ -18,7 +18,7 @@
 	*  @static
 	*  @default createjs.Circle
 	*/
-	DisplayAdapter.Circle = include('createjs.Circle');
+	DisplayAdapter.Circle = include('createjs.Circle', false);
 
 	/**
 	*  The geometry class for Ellipse
@@ -27,7 +27,7 @@
 	*  @static
 	*  @default createjs.Ellipse
 	*/
-	DisplayAdapter.Ellipse = include('createjs.Ellipse');
+	DisplayAdapter.Ellipse = include('createjs.Ellipse', false);
 
 	/**
 	*  The geometry class for Rectangle
@@ -45,7 +45,7 @@
 	*  @static
 	*  @default createjs.Sector
 	*/
-	DisplayAdapter.Sector = include('createjs.Sector');
+	DisplayAdapter.Sector = include('createjs.Sector', false);
 
 	/**
 	*  The geometry class for point
@@ -63,7 +63,7 @@
 	*  @static
 	*  @default createjs.Polygon
 	*/
-	DisplayAdapter.Polygon = include('createjs.Polygon');
+	DisplayAdapter.Polygon = include('createjs.Polygon', false);
 
 	/**
 	*  If the rotation is expressed in radians
@@ -243,8 +243,11 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
-		Stage = include('createjs.Stage');
-		Touch = include('createjs.Touch');
+		if(!Stage)
+		{
+			Stage = include('createjs.Stage');
+			Touch = include('createjs.Touch');
+		}
 
 		this.id = id;
 		options = options || {};
@@ -660,7 +663,7 @@
 	* @public
 	* @static
 	*/
-	Animator.VERSION = "0.0.4";
+	Animator.VERSION = "0.0.5";
 	
 	/**
 	* If we fire debug statements 
@@ -752,7 +755,10 @@
 		_removedTimelines = [];
 		_timelinesMap = {};
 		_paused = false;
-		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
+		if(!AnimatorTimeline)
+		{
+			AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
+		}
 	};
 	
 	/**
@@ -2553,7 +2559,10 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
-		Tween = include('createjs.Tween');
+		if(!Tween)
+		{
+			Tween = include('createjs.Tween', false);
+		}
 
 		this.initialize(stage, startCallback, endCallback);
 	};
@@ -2765,7 +2774,8 @@
 
 		this.draggedObj = obj;
 		//stop any active tweens on the object, in case it is moving around or something
-		Tween.removeTweens(obj);
+		if(Tween)
+			Tween.removeTweens(obj);
 		
 		//get the mouse position in global space and convert it to parent space
 		this._dragOffset = this.draggedObj.parent.globalToLocal(ev ? ev.stageX : 0, ev ? ev.stageY : 0);
@@ -3108,12 +3118,15 @@
 	*/
 	var Cutscene = function(options)
 	{
-		Application = include('cloudkid.Application');
-		LoadTask = include('cloudkid.LoadTask');
-		TaskManager = include('cloudkid.TaskManager');
-		Sound = include('cloudkid.Sound');
-		ListTask = include('cloudkid.ListTask');
-		BitmapUtils = include('createjs.BitmapUtils');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			LoadTask = include('cloudkid.LoadTask');
+			TaskManager = include('cloudkid.TaskManager');
+			Sound = include('cloudkid.Sound');
+			ListTask = include('cloudkid.ListTask');
+			BitmapUtils = include('createjs.BitmapUtils');
+		}
 
 		Container.call(this);
 		this.setup(options);

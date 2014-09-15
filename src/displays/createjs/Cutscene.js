@@ -28,12 +28,15 @@
 	*/
 	var Cutscene = function(options)
 	{
-		Application = include('cloudkid.Application');
-		LoadTask = include('cloudkid.LoadTask');
-		TaskManager = include('cloudkid.TaskManager');
-		Sound = include('cloudkid.Sound');
-		ListTask = include('cloudkid.ListTask');
-		BitmapUtils = include('createjs.BitmapUtils');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			LoadTask = include('cloudkid.LoadTask');
+			TaskManager = include('cloudkid.TaskManager');
+			Sound = include('cloudkid.Sound');
+			ListTask = include('cloudkid.ListTask');
+			BitmapUtils = include('createjs.BitmapUtils');
+		}
 
 		Container.call(this);
 		this.setup(options);

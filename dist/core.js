@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @module window
 */
@@ -55,7 +55,7 @@
 */
 (function(window, undefined){
 	
-	// The namespace function already exists
+	// The include function already exists
 	if ("include" in window) return;
 	
 	/**
@@ -670,17 +670,18 @@
 	*  @class EventDispatcher
 	*  @constructor
 	*/
-	var EventDispatcher = function(){},
+	var EventDispatcher = function()
+	{
+		/**
+		* The collection of listeners
+		* @property {Array} _listeners
+		* @private
+		*/
+		this._listeners = [];
+	},
 	
 	// Reference to the prototype 
 	p = EventDispatcher.prototype;
-	
-	/**
-	* The collection of listeners
-	* @property {Array} _listeners
-	* @private
-	*/
-	p._listeners = [];
 	
 	/**
 	*  Dispatch an event
@@ -823,12 +824,12 @@
 	};
 	
 	/**
-	* Return type of the value.
-	*
-	* @private
-	* @method type
-	* @param  {*} value
-	* @return {String} The type
+	*  Return type of the value.
+	*  
+	*  @private
+	*  @method type
+	*  @param  {*} value
+	*  @return {String} The type
 	*/
 	function type(value)
 	{
@@ -842,6 +843,24 @@
 		}
 		return typeof value;
 	}
+
+	/**
+	*  Adds EventDispatcher methods and properties to an object or object prototype.
+	*  @method mixIn
+	*  @param {Object} object The object or prototype
+	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
+	*  @static
+	*  @public
+	*/
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		object.trigger = p.trigger;
+		object.on = p.on;
+		object.off = p.off;
+		object.has = p.has;
+		if(callConstructor)
+			EventDispatcher.call(object);
+	};
 	
 	// Assign to name space
 	namespace('cloudkid').EventDispatcher = EventDispatcher;
@@ -1079,10 +1098,15 @@
 		}
 		_instance = this;
 
-		Debug = include('Debug');
-		Loader = include('cloudkid.Loader');
-		TimeUtils = include('cloudkid.TimeUtils');
-		PageVisibility = include('cloudkid.PageVisibility');
+		EventDispatcher.call(this);
+
+		if(!Debug)
+		{
+			Debug = include('Debug');
+			Loader = include('cloudkid.Loader');
+			TimeUtils = include('cloudkid.TimeUtils');
+			PageVisibility = include('cloudkid.PageVisibility');
+		}
 
 		/**
 		*  Initialization options/query string parameters, these properties are read-only
@@ -1823,8 +1847,11 @@
 	*/
 	var CacheManager = function()
 	{
-		Application = include('cloudkid.Application');
-		Loader = include('cloudkid.Loader');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			Loader = include('cloudkid.Loader');
+		}
 		
 		this.initialize();
 	};
@@ -2148,12 +2175,15 @@
 	*/
 	var Loader = function()
 	{
-		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
-		CacheManager = include('cloudkid.CacheManager');
-		Application = include('cloudkid.Application');
-		LoaderResult = include('cloudkid.LoaderResult');
-		LoadQueue = include('createjs.LoadQueue');
-		Sound = include('createjs.Sound', false);
+		if(!Loader)
+		{
+			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+			CacheManager = include('cloudkid.CacheManager');
+			Application = include('cloudkid.Application');
+			LoaderResult = include('cloudkid.LoaderResult');
+			LoadQueue = include('createjs.LoadQueue');
+			Sound = include('createjs.Sound', false);
+		}
 	};
 	
 	/** The prototype */

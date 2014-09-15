@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @modules cloudkid.pixi
 */
@@ -45,7 +45,7 @@
 	*  @static
 	*  @default PIXI.Sector
 	*/
-	DisplayAdapter.Sector = include('PIXI.Sector');
+	DisplayAdapter.Sector = include('PIXI.Sector', false);
 
 	/**
 	*  The geometry class for point
@@ -741,12 +741,10 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
-		var Sound = include('cloudkid.Sound');
-
 		// Default the sound library to Sound if unset
-		if (!Animator.soundLib && Sound)
+		if (!Animator.soundLib && include('cloudkid.Sound', false))
 		{
-			Animator.soundLib = Sound.instance;
+			Animator.soundLib = cloudkid.Sound.instance;
 		}
 		
 		var callback = null;
@@ -1837,9 +1835,12 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
-		Application = include('cloudkid.Application');
-		Tween = include('createjs.Tween');
-		Point = include('PIXI.Point');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			Tween = include('createjs.Tween', false);
+			Point = include('PIXI.Point');
+		}
 
 		this.initialize(stage, startCallback, endCallback);
 	};
@@ -2048,8 +2049,12 @@
 		if(this.draggedObj !== null) return;
 
 		this.draggedObj = obj;
-		Tween.removeTweens(this.draggedObj);
-		Tween.removeTweens(this.draggedObj.position);
+		//Stop any tweens on the object (mostly the position)
+		if(Tween)
+		{
+			Tween.removeTweens(this.draggedObj);
+			Tween.removeTweens(this.draggedObj.position);
+		}
 		
 		//get the mouse position and convert it to object parent space
 		this._dragOffset = interactionData.getLocalPosition(this.draggedObj.parent);

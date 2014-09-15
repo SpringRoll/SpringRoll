@@ -115,7 +115,10 @@
 		_removedTimelines = [];
 		_timelinesMap = {};
 		_paused = false;
-		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
+		if(!AnimatorTimeline)
+		{
+			AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
+		}
 	};
 	
 	/**

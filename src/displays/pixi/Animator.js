@@ -90,12 +90,10 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
-		var Sound = include('cloudkid.Sound');
-
 		// Default the sound library to Sound if unset
-		if (!Animator.soundLib && Sound)
+		if (!Animator.soundLib && include('cloudkid.Sound', false))
 		{
-			Animator.soundLib = Sound.instance;
+			Animator.soundLib = cloudkid.Sound.instance;
 		}
 		
 		var callback = null;

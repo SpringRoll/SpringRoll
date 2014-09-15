@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
@@ -159,7 +159,7 @@
 	* @property {String} VERSION
 	* @static
 	*/
-	Captions.VERSION = "0.0.4";
+	Captions.VERSION = "0.0.5";
 	
 	/** 
 	* Creates the singleton instance of Captions, with an optional dictionary ready to go 

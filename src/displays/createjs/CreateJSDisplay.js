@@ -21,8 +21,11 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
-		Stage = include('createjs.Stage');
-		Touch = include('createjs.Touch');
+		if(!Stage)
+		{
+			Stage = include('createjs.Stage');
+			Touch = include('createjs.Touch');
+		}
 
 		this.id = id;
 		options = options || {};

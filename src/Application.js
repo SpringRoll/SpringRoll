@@ -52,10 +52,15 @@
 		}
 		_instance = this;
 
-		Debug = include('Debug');
-		Loader = include('cloudkid.Loader');
-		TimeUtils = include('cloudkid.TimeUtils');
-		PageVisibility = include('cloudkid.PageVisibility');
+		EventDispatcher.call(this);
+
+		if(!Debug)
+		{
+			Debug = include('Debug');
+			Loader = include('cloudkid.Loader');
+			TimeUtils = include('cloudkid.TimeUtils');
+			PageVisibility = include('cloudkid.PageVisibility');
+		}
 
 		/**
 		*  Initialization options/query string parameters, these properties are read-only

@@ -19,9 +19,12 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
-		Application = include('cloudkid.Application');
-		Tween = include('createjs.Tween');
-		Point = include('PIXI.Point');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			Tween = include('createjs.Tween', false);
+			Point = include('PIXI.Point');
+		}
 
 		this.initialize(stage, startCallback, endCallback);
 	};
@@ -230,8 +233,12 @@
 		if(this.draggedObj !== null) return;
 
 		this.draggedObj = obj;
-		Tween.removeTweens(this.draggedObj);
-		Tween.removeTweens(this.draggedObj.position);
+		//Stop any tweens on the object (mostly the position)
+		if(Tween)
+		{
+			Tween.removeTweens(this.draggedObj);
+			Tween.removeTweens(this.draggedObj.position);
+		}
 		
 		//get the mouse position and convert it to object parent space
 		this._dragOffset = interactionData.getLocalPosition(this.draggedObj.parent);

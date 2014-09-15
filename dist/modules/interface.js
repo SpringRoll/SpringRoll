@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
@@ -61,7 +61,10 @@
 	*/
 	var UIElement = function(item, settings, designedScreen, adapter)
 	{
-		UIScaler = include('cloudkid.UIScaler');
+		if(!UIScaler)
+		{
+			UIScaler = include('cloudkid.UIScaler');
+		}
 		
 		/**
 		*  The reference to the interface item we're scaling

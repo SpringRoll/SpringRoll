@@ -17,8 +17,11 @@
 	*/
 	var CacheManager = function()
 	{
-		Application = include('cloudkid.Application');
-		Loader = include('cloudkid.Loader');
+		if(!Application)
+		{
+			Application = include('cloudkid.Application');
+			Loader = include('cloudkid.Loader');
+		}
 		
 		this.initialize();
 	};

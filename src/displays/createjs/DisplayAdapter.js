@@ -17,7 +17,7 @@
 	*  @static
 	*  @default createjs.Circle
 	*/
-	DisplayAdapter.Circle = include('createjs.Circle');
+	DisplayAdapter.Circle = include('createjs.Circle', false);
 
 	/**
 	*  The geometry class for Ellipse
@@ -26,7 +26,7 @@
 	*  @static
 	*  @default createjs.Ellipse
 	*/
-	DisplayAdapter.Ellipse = include('createjs.Ellipse');
+	DisplayAdapter.Ellipse = include('createjs.Ellipse', false);
 
 	/**
 	*  The geometry class for Rectangle
@@ -44,7 +44,7 @@
 	*  @static
 	*  @default createjs.Sector
 	*/
-	DisplayAdapter.Sector = include('createjs.Sector');
+	DisplayAdapter.Sector = include('createjs.Sector', false);
 
 	/**
 	*  The geometry class for point
@@ -62,7 +62,7 @@
 	*  @static
 	*  @default createjs.Polygon
 	*/
-	DisplayAdapter.Polygon = include('createjs.Polygon');
+	DisplayAdapter.Polygon = include('createjs.Polygon', false);
 
 	/**
 	*  If the rotation is expressed in radians

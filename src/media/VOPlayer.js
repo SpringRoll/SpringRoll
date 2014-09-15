@@ -5,7 +5,7 @@
 
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
-	var Sound = cloudkid.Sound,
+	var Sound = include('cloudkid.Sound'),
 		Captions,
 		Application; 
 
@@ -21,13 +21,16 @@
 	var VOPlayer = function(useCaptions)
 	{
 		// Import classes
-		Captions = cloudkid.Captions;
-		Application = cloudkid.Application;
+		if(!Application)
+		{
+			Captions = include('cloudkid.Captions');
+			Application = include('cloudkid.Application');
+		}
 
 		this._audioListener = this._onAudioFinished.bind(this);
 		this._update = this._update.bind(this);
 		this._updateCaptionPos = this._updateCaptionPos.bind(this);
-		if (useCaptions)
+		if (useCaptions && Captions)
 		{
 			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
 		}

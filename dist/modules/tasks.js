@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.4 */
+/*! CloudKidFramework 0.0.5 */
 !function(){"use strict";/**
 *  @module cloudkid
 */
@@ -338,8 +338,11 @@
 	*/
 	var LoadTask = function(id, url, callback, updateCallback, priority, data)
 	{
-		Loader = include('cloudkid.Loader');
-		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		if(!Loader)
+		{
+			Loader = include('cloudkid.Loader');
+			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+		}
 
 		this.initialize(id, url, callback, updateCallback, priority, data);
 	};
@@ -470,7 +473,8 @@
 (function(){
 
 	// Imports
-	var TaskEvent;
+	var TaskEvent,
+		EventDispatcher = include('cloudkid.EventDispatcher');
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -482,64 +486,17 @@
 	*/
 	var TaskManager = function(tasks)
 	{
-		TaskEvent = include('cloudkid.TaskEvent');
+		if(!TaskEvent)
+		{
+			TaskEvent = include('cloudkid.TaskEvent');
+		}
+
+		EventDispatcher.call(this);
 
 		this.initialize(tasks);
 	};
 	
-	var p = TaskManager.prototype;
-	
-	/**
-	* Adds the specified event listener
-	* @function addEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener An object with a handleEvent method, or a function that will be called when the event is dispatched
-	* @return {function|object} Returns the listener for chaining or assignment
-	*/
-	p.addEventListener = null;
-
-	/**
-	* Removes the specified event listener
-	* @function removeEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener The listener function or object
-	*/
-	p.removeEventListener = null;
-
-	/**
-	* Removes all listeners for the specified type, or all listeners of all types
-	* @function removeAllEventListeners
-	* @param {String} type The string type of the event. If omitted, all listeners for all types will be removed.
-	*/
-	p.removeAllEventListeners = null;
-
-	/**
-	* Dispatches the specified event
-	* @function dispatchEvent
-	* @param {Object|String} enventObj An object with a "type" property, or a string type
-	* @param {object} target The object to use as the target property of the event object
-	* @return {bool} Returns true if any listener returned true
-	*/
-	p.dispatchEvent = null;
-
-	/**
-	* Indicates whether there is at least one listener for the specified event type
-	* @function hasEventListener
-	* @param {String} type The string type of the event
-	* @return {bool} Returns true if there is at least one listener for the specified event
-	*/
-	p.hasEventListener = null;
-
-	/**
-	* Createjs EventDispatcher method
-	* @property {Array} _listeners description
-	* @private
-	*/
-	p._listeners = null;
-	
-	// we only use EventDispatcher if it's available:
-	if (createjs.EventDispatcher) 
-		createjs.EventDispatcher.initialize(p); // inject EventDispatcher methods.
+	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
 	
 	/**
 	* The current version of the state manager
@@ -548,7 +505,7 @@
 	* @static
 	* @final
 	*/
-	TaskManager.VERSION = '0.0.4';
+	TaskManager.VERSION = '0.0.5';
 	
 	/**
 	* Event dispatched when tasks are all done
@@ -614,12 +571,12 @@
 
 		var allDone = TaskManager.ALL_TASKS_DONE;
 		var manager = new TaskManager(tasks);
-		manager.addEventListener(
+		manager.on(
 			allDone,
 			function()
 			{
 				// Remove the listener
-				manager.removeEventListener(allDone);
+				manager.off(allDone);
 
 				// Destroy the manager
 				if (immediateDestroy) manager.destroy();
@@ -764,14 +721,14 @@
 		this.paused = false;
 		
 		// Give warning that a task is about to be started and respect pauses
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
+		this.trigger(new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
 	
 		if (this.paused)
 		{
 			return null;
 		}
 		
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_STARTING, task));
+		this.trigger(new TaskEvent(TaskEvent.TASK_STARTING, task));
 		this._tasksInProgress++;
 		
 		task.start(this.onTaskDone.bind(this, task));
@@ -792,7 +749,7 @@
 		
 		this._tasksInProgress--;
 		
-		this.dispatchEvent(new TaskEvent(TaskEvent.TASK_DONE, task, result));
+		this.trigger(new TaskEvent(TaskEvent.TASK_DONE, task, result));
 		task.done(result, this);
 		
 		// Remove from the current tasks
@@ -807,7 +764,7 @@
 		// No more valid tasks
 		if (this._tasksInProgress === 0 && this.tasks.length === 0)
 		{
-			this.dispatchEvent(new TaskEvent(TaskManager.ALL_TASKS_DONE, null));
+			this.trigger(new TaskEvent(TaskManager.ALL_TASKS_DONE, null));
 		}
 		else
 		{
@@ -1077,9 +1034,12 @@
 	*/
 	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
 	{
-		AssetLoader = include('PIXI.AssetLoader');
-		Loader = include('cloudkid.Loader');
-		Application = include('cloudkid.Application');
+		if(!Loader)
+		{
+			AssetLoader = include('PIXI.AssetLoader');
+			Loader = include('cloudkid.Loader');
+			Application = include('cloudkid.Application');
+		}
 
 		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
 	};

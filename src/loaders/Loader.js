@@ -20,12 +20,15 @@
 	*/
 	var Loader = function()
 	{
-		LoaderQueueItem = include('cloudkid.LoaderQueueItem');
-		CacheManager = include('cloudkid.CacheManager');
-		Application = include('cloudkid.Application');
-		LoaderResult = include('cloudkid.LoaderResult');
-		LoadQueue = include('createjs.LoadQueue');
-		Sound = include('createjs.Sound', false);
+		if(!Loader)
+		{
+			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+			CacheManager = include('cloudkid.CacheManager');
+			Application = include('cloudkid.Application');
+			LoaderResult = include('cloudkid.LoaderResult');
+			LoadQueue = include('createjs.LoadQueue');
+			Sound = include('createjs.Sound', false);
+		}
 	};
 	
 	/** The prototype */

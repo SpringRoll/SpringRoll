@@ -5,7 +5,7 @@
 	
 	// Imports
 	var Sound,
-		EventDispatcher = include('createjs.EventDispatcher'),
+		EventDispatcher = include('cloudkid.EventDispatcher'),
 		BaseState = include('cloudkid.BaseState'),
 		StateEvent = include('cloudkid.StateEvent');		
 	
@@ -22,63 +22,17 @@
 	var StateManager = function(display, transition, audio)
 	{
 		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
-		Sound = include('cloudkid.Sound', false) || include('cloudkid.Audio', false);
+		if(!Sound)
+		{
+			Sound = include('cloudkid.Sound', false) || include('cloudkid.Audio', false);
+		}
+
+		EventDispatcher.call(this);
 
 		this.initialize(display, transition, audio);
 	};
 	
-	var p = StateManager.prototype;
-	
-	/**
-	* Adds the specified event listener
-	* @function addEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener An object with a handleEvent method, or a function that will be called when the event is dispatched
-	* @return {function|object} Returns the listener for chaining or assignment
-	*/
-	p.addEventListener = null;
-
-	/**
-	* Removes the specified event listener
-	* @function removeEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener The listener function or object
-	*/
-	p.removeEventListener = null;
-
-	/**
-	* Removes all listeners for the specified type, or all listeners of all types
-	* @function removeAllEventListeners
-	* @param {String} type The string type of the event. If omitted, all listeners for all types will be removed.
-	*/
-	p.removeAllEventListeners = null;
-
-	/**
-	* Dispatches the specified event
-	* @function dispatchEvent
-	* @param {Object|String} enventObj An object with a "type" property, or a string type
-	* @param {object} target The object to use as the target property of the event object
-	* @return {bool} Returns true if any listener returned true
-	*/
-	p.dispatchEvent = null;
-
-	/**
-	* Indicates whether there is at least one listener for the specified event type
-	* @function hasEventListener
-	* @param {String} type The string type of the event
-	* @return {bool} Returns true if there is at least one listener for the specified event
-	*/
-	p.hasEventListener = null;
-
-	/**
-	* Createjs EventDispatcher method
-	* @property {Array} _listeners description
-	* @private
-	*/
-	p._listeners = null;
-	
-	// we only use EventDispatcher if it's available:
-	if (EventDispatcher) EventDispatcher.initialize(p); 
+	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
 	
 	/**
 	* The current version of the state manager
@@ -345,7 +299,7 @@
 		if (this._destroyed) return;
 		
 		//this.showLoader();
-		this.dispatchEvent(StateManager.LOADING_START);
+		this.trigger(StateManager.LOADING_START);
 		
 		this._loopTransition();
 	};
@@ -361,7 +315,7 @@
 		if (this._destroyed) return;
 		
 		//this.hideLoader();
-		this.dispatchEvent(StateManager.LOADING_DONE);
+		this.trigger(StateManager.LOADING_DONE);
 	};
 	
 	/**
@@ -431,7 +385,7 @@
 			this._transition.visible = true;
 			sm = this;
 			this._loopTransition();
-			sm.dispatchEvent(StateManager.TRANSITION_INIT_DONE);
+			sm.trigger(StateManager.TRANSITION_INIT_DONE);
 			sm._isLoading = true;
 			sm._state._internalEnterState(sm._onStateLoaded.bind(sm));
 		}
@@ -452,22 +406,22 @@
 				this.showBlocker();
 				sm = this;
 								
-				this.dispatchEvent(new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
+				this.trigger(new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
 				this._oldState.transitionOut(
 					function()
 					{
-						sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
-						sm.dispatchEvent(StateManager.TRANSITION_OUT);
+						sm.trigger(new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
+						sm.trigger(StateManager.TRANSITION_OUT);
 						
 						sm._transitioning(
 							StateManager.TRANSITION_OUT,
 							function()
 							{
-								sm.dispatchEvent(StateManager.TRANSITION_OUT_DONE);
+								sm.trigger(StateManager.TRANSITION_OUT_DONE);
 								
 								sm._isTransitioning = false;
 								
-								sm.dispatchEvent(new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
+								sm.trigger(new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
 								sm._oldState.panel.visible = false;
 								sm._oldState._internalExitState();
 								sm._oldState = null;
@@ -499,22 +453,22 @@
 		this._isLoading = false;
 		this._isTransitioning = true;
 		
-		this.dispatchEvent(new StateEvent(StateEvent.VISIBLE, this._state));
+		this.trigger(new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
-		this.dispatchEvent(StateManager.TRANSITION_IN);
+		this.trigger(StateManager.TRANSITION_IN);
 		var sm = this;
 		this._transitioning(
 			StateManager.TRANSITION_IN,
 			function()
 			{
 				sm._transition.visible = false;
-				sm.dispatchEvent(StateManager.TRANSITION_IN_DONE);
-				sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_IN, sm._state));
+				sm.trigger(StateManager.TRANSITION_IN_DONE);
+				sm.trigger(new StateEvent(StateEvent.TRANSITION_IN, sm._state));
 				sm._state.transitionIn(
 					function()
 					{
-						sm.dispatchEvent(new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
+						sm.trigger(new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
 						sm._isTransitioning = false;
 						sm.hideBlocker();
 						

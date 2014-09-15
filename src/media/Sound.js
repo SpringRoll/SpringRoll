@@ -3,13 +3,14 @@
 */
 (function(){
 
-	var Application,
+	var Application = include('cloudkid.Application'),
 		Loader,
 		LoadTask,
 		TaskManager,
 		SoundContext,
 		SoundInstance,
-		SoundListTask;
+		SoundListTask,
+		CJSSound = include('createjs.Sound');
 		
 	/**
 	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
@@ -20,13 +21,15 @@
 	var Sound = function()
 	{
 		// Import classes
-		Application = include('cloudkid.Application');
-		Loader = include('cloudkid.Loader');
-		LoadTask = include('cloudkid.LoadTask');
-		TaskManager = include('cloudkid.TaskManager');
-		SoundContext = include('cloudkid.SoundContext');
-		SoundInstance = include('cloudkid.SoundInstance');
-		SoundListTask = include('cloudkid.SoundListTask');
+		if(!Loader)
+		{
+			Loader = include('cloudkid.Loader');
+			LoadTask = include('cloudkid.LoadTask');
+			TaskManager = include('cloudkid.TaskManager');
+			SoundContext = include('cloudkid.SoundContext');
+			SoundInstance = include('cloudkid.SoundInstance');
+			SoundListTask = include('cloudkid.SoundListTask');
+		}
 
 		this._sounds = {};
 		this._fades = [];
@@ -85,17 +88,6 @@
 	var UNLOADED = 0;
 	var LOADING = 1;
 	var LOADED = 2;
-
-	var UPDATE_ALIAS = "CKSOUND";
-
-	/**
-	*  A constant for telling Sound not to handle a sound with play(), but to
-	*  return what SoundJS returns directly.
-	*  @property {String} UNHANDLED
-	*  @public
-	*  @static
-	*/
-	Sound.UNHANDLED = "unhandled";
 	
 	/**
 	*	Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for setting
@@ -127,15 +119,21 @@
 				options[key] = _defaultOptions[key];
 		}
 
-		createjs.Sound.registerPlugins(options.plugins);
+		CJSSound.registerPlugins(options.plugins);
 
 		// Apply the base path if available
 		var basePath = Application.instance.options.basePath;
-		createjs.FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
+		if(createjs.FlashPlugin)
+		{
+			if(createjs.FlashPlugin.hasOwnProperty("swfPath"))
+				createjs.FlashPlugin.swfPath = (basePath || "") + options.swfPath;
+			else
+				createjs.FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
+		}
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
-		if (createjs.Sound.BrowserDetect.isIOS)
+		if (CJSSound.BrowserDetect.isIOS)
 		{
 			document.addEventListener("touchstart", _playEmpty);
 		}
@@ -144,24 +142,24 @@
 		_instance = new Sound();
 		
 		//make sure the capabilities are ready (looking at you, Cordova plugin)
-		if (createjs.Sound.getCapabilities())
+		if (CJSSound.getCapabilities())
 		{
-			_instance._initComplete(option.types, completeCallback);
+			_instance._initComplete(options.types, completeCallback);
 		}
-		else if(createjs.Sound.activePlugin)
+		else if(CJSSound.activePlugin)
 		{
 			if (DEBUG)
 			{
-				Debug.log("SoundJS Plugin " + createjs.Sound.activePlugin + " was not ready, waiting until it is");
+				Debug.log("SoundJS Plugin " + CJSSound.activePlugin + " was not ready, waiting until it is");
 			}
 			//if the sound plugin is not ready, then just wait until it is
 			var waitFunction;
 			waitFunction = function()
 			{
-				if (createjs.Sound.getCapabilities())
+				if (CJSSound.getCapabilities())
 				{
 					Application.instance.off("update", waitFunction);
-					_instance._initComplete(option.types, completeCallback);
+					_instance._initComplete(options.types, completeCallback);
 				}
 			};
 
@@ -194,7 +192,7 @@
 	*/
 	p._initComplete = function(filetypeOrder, callback)
 	{
-		if (createjs.FlashPlugin && createjs.Sound.activePlugin instanceof createjs.FlashPlugin)
+		if (createjs.FlashPlugin && CJSSound.activePlugin instanceof createjs.FlashPlugin)
 		{
 			_instance.supportedSound = ".mp3";
 		}
@@ -203,7 +201,7 @@
 			for(var i = 0; i < filetypeOrder.length; ++i)
 			{
 				var type = filetypeOrder[i];
-				if (createjs.Sound.getCapability(type))
+				if (CJSSound.getCapability(type))
 				{
 					_instance.supportedSound = "." + type;
 					break;
@@ -212,8 +210,10 @@
 		}
 
 		// Add listeners to pause and resume the sounds
-		Application.instance.on('paused', this.pauseAll.bind(this));
-		Application.instance.on('resumed', this.unpauseAll.bind(this));
+		this.pauseAll = this.pauseAll.bind(this);
+		this.unpauseAll = this.unpauseAll.bind(this);
+		Application.instance.on('paused', this.pauseAll);
+		Application.instance.on('resumed', this.unpauseAll);
 
 		if (callback)
 		{
@@ -237,11 +237,21 @@
 	*	@method loadConfig
 	*	@public
 	*	@param {Object} config The config to load.
-	*	@param {String} [defaultContext] The optional sound context to load sounds into unless 
-	*		otherwise specified. Sounds do not require a context.
+	*	@param {String} [config.context] The optional sound context to load sounds into unless 
+	*		                             otherwise specified by the individual sound. Sounds do not require a context.
+	*	@param {String} [config.path=""] The path to prepend to all sound source urls in this config.
+	*	@param {Array} config.soundManifest The list of sounds, either as String ids or Objects with settings.
+	*	@param {Object|String} config.soundManifest.listItem Not actually a property called listItem, but an entry in the array.
+	*	                                            If this is a string, then it is the same as {'id':'<yourString>'}.
+	*	@param {String} config.soundManifest.listItem.id The id to reference the sound by.
+	*	@param {String} [config.soundManifest.listItem.src] The src path to the file, without an extension. If omitted, defaults to id.
+	*	@param {Number} [config.soundManifest.listItem.volume=1] The default volume for the sound, from 0 to 1.
+	*	@param {Boolean} [config.soundManifest.listItem.loop=false] If the sound should loop by default whenever the loop
+	*	                                                            parameter in play() is not specified.
+	*	@param {String} [config.soundManifest.listItem.context] A context name to override config.context with.
 	*   @return {Sound} The sound object for chaining
 	*/
-	p.loadConfig = function(config, defaultContext)
+	p.loadConfig = function(config)
 	{
 		if (!config)
 		{
@@ -249,8 +259,8 @@
 			return;
 		}
 		var list = config.soundManifest;
-		var path = config.path;
-		defaultContext = defaultContext || config.context;
+		var path = config.path || "";
+		var defaultContext = config.context;
 		for(var i = 0, len = list.length; i < len; ++i)
 		{
 			var s = list[i];
@@ -261,6 +271,7 @@
 				id: s.id,
 				src: path + (s.src ? s.src : s.id) + this.supportedSound,
 				volume: s.volume ? s.volume : 1,
+				loop: !!s.loop,
 				state: UNLOADED,
 				playing: [],
 				waitingToPlay: [],
@@ -276,6 +287,8 @@
 				this._contexts[temp.context].sounds.push(temp);
 			}
 		}
+		//return the Sound instance for chaining
+		return this;
 	};
 
 	/**
@@ -486,36 +499,40 @@
 	*	@method play
 	*	@public
 	*	@param {String} alias The alias of the sound to play.
-	*	@param {function} completeCallback An optional function to call when the sound is finished. 
-			Passing cloudkid.Sound.UNHANDLED results in cloudkid.Sound not handling the sound 
-			and merely returning what SoundJS returns from its play() call.
-	*	@param {function} startCallback An optional function to call when the sound starts playback.
+	*   @param {Object|function} [options] The object of optional parameters or completeCallback callback function
+	*	@param {Function} [options.completeCallback] An optional function to call when the sound is finished.
+	*	@param {Function} [opitons.startCallback] An optional function to call when the sound starts playback.
 			If the sound is loaded, this is called immediately, if not, it calls when the 
 			sound is finished loading.
-	*	@param {bool} interrupt If the sound should interrupt previous sounds (SoundJS parameter). Default is false.
-	*	@param {Number} delay The delay to play the sound at in milliseconds(SoundJS parameter). Default is 0.
-	*	@param {Number} offset The offset into the sound to play in milliseconds(SoundJS parameter). Default is 0.
-	*	@param {int} loop How many times the sound should loop. Use -1 (or true) for infinite loops (SoundJS parameter).
+	*	@param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds (SoundJS parameter). Default is false.
+	*	@param {Number} [options.delay=0] The delay to play the sound at in milliseconds(SoundJS parameter). Default is 0.
+	*	@param {Number} [options.offset=0] The offset into the sound to play in milliseconds(SoundJS parameter). Default is 0.
+	*	@param {int} [options.loop=0] How many times the sound should loop. Use -1 (or true) for infinite loops (SoundJS parameter).
 			Default is no looping.
-	*	@param {Number} volume The volume to play the sound at (0 to 1). Omit to use the default for the sound.
-	*	@param {Number} pan The panning to start the sound at (-1 to 1). Default is centered (0).
+	*	@param {Number} [options.volume] The volume to play the sound at (0 to 1). Omit to use the default for the sound.
+	*	@param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). Default is centered (0).
 	*	@return {SoundInstance} An internal SoundInstance object that can be used for fading in/out as well as 
 			pausing and getting the sound's current position.
 	*/
-	p.play = function (alias, completeCallback, startCallback, interrupt, delay, offset, loop, volume, pan)
+	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
+		var completeCallback;
+		if (options && typeof options == "function")
+		{
+			completeCallback = options;
+			options = null;
+		}
+		startCallback = (options ? options.startCallback : startCallback) || null;
+		interrupt = !!(options ? options.interrupt : interrupt);
+		delay = (options ? options.delay : delay) || 0;
+		offset = (options ? options.offset : offset) || 0;
+		loop = (options ? options.loop : loop);
+		volume = (options ? options.volume : volume);
+		pan = (options ? options.pan : pan) || 0;
+
 		//Replace with correct infinite looping.
 		if (loop === true)
 			loop = -1;
-
-		// UNHANDLED is really for legacy code, like the StateManager and Cutscene 
-		// libraries that are using the sound instance directly to synch animations
-		// let calling code manage the SoundInstance - this is only allowed if 
-		// the sound is already loaded
-		if (completeCallback == Sound.UNHANDLED)
-		{
-			return createjs.Sound.play(alias, interrupt, delay, offset, loop, volume, pan);
-		}
 
 		var sound = this._sounds[alias];
 		if (!sound)
@@ -525,15 +542,20 @@
 				completeCallback();
 			return;
 		}
+		//check for sound loop settings
+		if(sound.loop && loop === undefined || loop === null)
+			loop = -1;
+		//check for sound volume settings
+		volume = (typeof(volume) == "number") ? volume : sound.volume;
+		//take action based on the sound state
 		var state = sound.state;
 		var inst, arr;
-		volume = (typeof(volume) == "number" && volume > 0) ? volume : sound.volume;
 		if (state == LOADED)
 		{
-			var channel = createjs.Sound.play(alias, interrupt, delay, offset, loop, volume, pan);
+			var channel = CJSSound.play(alias, interrupt, delay, offset, loop, volume, pan);
 			//have Sound manage the playback of the sound
 			
-			if (!channel || channel.playState == createjs.Sound.PLAY_FAILED)
+			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
 			{
 				if (completeCallback)
 					completeCallback();
@@ -655,9 +677,9 @@
 			var inst = waiting[i];
 			var startParams = inst._startParams;
 			var volume = inst.curVol;
-			var channel = createjs.Sound.play(alias, startParams[0], startParams[1], startParams[2], startParams[3], volume, startParams[4]);
+			var channel = CJSSound.play(alias, startParams[0], startParams[1], startParams[2], startParams[3], volume, startParams[4]);
 
-			if (!channel || channel.playState == createjs.Sound.PLAY_FAILED)
+			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
 			{
 				if (inst._endCallback)
 					inst._endCallback();
@@ -879,7 +901,7 @@
 	*/
 	p.setMuteAll = function(muted)
 	{
-		createjs.Sound.setMute(!!muted);
+		CJSSound.setMute(!!muted);
 	};
 
 	/**
@@ -1047,7 +1069,7 @@
 				this._stopSound(sound);
 				sound.state = UNLOADED;
 			}
-			createjs.Sound.removeSound(list[i]);
+			CJSSound.removeSound(list[i]);
 		}
 	};
 
@@ -1077,16 +1099,21 @@
 	p.destroy = function()
 	{
 		// Remove all sounds
-		createjs.Sound.removeAllSounds();
+		CJSSound.removeAllSounds();
 
 		// Remove the SWF from the page
-		if (createjs.Sound.activePlugin instanceof createjs.FlashPlugin)
+		if (createjs.FlashPlugin && CJSSound.activePlugin instanceof createjs.FlashPlugin)
 		{
 			var swf = document.getElementById("SoundJSFlashContainer");
 			if (swf && swf.parentNode)
 			{
 				swf.parentNode.removeChild(swf);
-			}	
+			}
+		}
+		if(Application.instance)
+		{
+			Application.instance.off('paused', this.pauseAll);
+			Application.instance.off('resumed', this.unpauseAll);
 		}
 
 		_instance = null;

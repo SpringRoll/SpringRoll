@@ -8,7 +8,7 @@
 */
 (function(window, undefined){
 	
-	// The namespace function already exists
+	// The include function already exists
 	if ("include" in window) return;
 	
 	/**

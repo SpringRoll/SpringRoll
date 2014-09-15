@@ -17,7 +17,10 @@
 	*/
 	var DragManager = function(stage, startCallback, endCallback)
 	{
-		Tween = include('createjs.Tween');
+		if(!Tween)
+		{
+			Tween = include('createjs.Tween', false);
+		}
 
 		this.initialize(stage, startCallback, endCallback);
 	};
@@ -229,7 +232,8 @@
 
 		this.draggedObj = obj;
 		//stop any active tweens on the object, in case it is moving around or something
-		Tween.removeTweens(obj);
+		if(Tween)
+			Tween.removeTweens(obj);
 		
 		//get the mouse position in global space and convert it to parent space
 		this._dragOffset = this.draggedObj.parent.globalToLocal(ev ? ev.stageX : 0, ev ? ev.stageY : 0);

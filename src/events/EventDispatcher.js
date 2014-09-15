@@ -10,17 +10,18 @@
 	*  @class EventDispatcher
 	*  @constructor
 	*/
-	var EventDispatcher = function(){},
+	var EventDispatcher = function()
+	{
+		/**
+		* The collection of listeners
+		* @property {Array} _listeners
+		* @private
+		*/
+		this._listeners = [];
+	},
 	
 	// Reference to the prototype 
 	p = EventDispatcher.prototype;
-	
-	/**
-	* The collection of listeners
-	* @property {Array} _listeners
-	* @private
-	*/
-	p._listeners = [];
 	
 	/**
 	*  Dispatch an event
@@ -163,12 +164,12 @@
 	};
 	
 	/**
-	* Return type of the value.
-	*
-	* @private
-	* @method type
-	* @param  {*} value
-	* @return {String} The type
+	*  Return type of the value.
+	*  
+	*  @private
+	*  @method type
+	*  @param  {*} value
+	*  @return {String} The type
 	*/
 	function type(value)
 	{
@@ -182,6 +183,24 @@
 		}
 		return typeof value;
 	}
+
+	/**
+	*  Adds EventDispatcher methods and properties to an object or object prototype.
+	*  @method mixIn
+	*  @param {Object} object The object or prototype
+	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
+	*  @static
+	*  @public
+	*/
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		object.trigger = p.trigger;
+		object.on = p.on;
+		object.off = p.off;
+		object.has = p.has;
+		if(callConstructor)
+			EventDispatcher.call(object);
+	};
 	
 	// Assign to name space
 	namespace('cloudkid').EventDispatcher = EventDispatcher;

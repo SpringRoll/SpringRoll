@@ -15,62 +15,14 @@
 	*/
 	var BaseState = function(panel)
 	{
-		StateManager = include('cloudkid.StateManager');
+		if(!StateManager)
+		{
+			StateManager = include('cloudkid.StateManager');
+		}
 		this.initialize(panel);
 	};
 	
 	var p = BaseState.prototype;
-	
-	/**
-	* Adds the specified event listener
-	* @function addEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener An object with a handleEvent method, or a function that will be called when the event is dispatched
-	* @return {function|object} Returns the listener for chaining or assignment
-	*/
-	p.addEventListener = null;
-
-	/**
-	* Removes the specified event listener
-	* @function removeEventListener
-	* @param {String} type The string type of the event
-	* @param {function|object} listener The listener function or object
-	*/
-	p.removeEventListener = null;
-
-	/**
-	* Removes all listeners for the specified type, or all listeners of all types
-	* @function removeAllEventListeners
-	* @param {String} type The string type of the event. If omitted, all listeners for all types will be removed.
-	*/
-	p.removeAllEventListeners = null;
-
-	/**
-	* Dispatches the specified event
-	* @function dispatchEvent
-	* @param {Object|String} enventObj An object with a "type" property, or a string type
-	* @param {object} target The object to use as the target property of the event object
-	* @return {bool} Returns true if any listener returned true
-	*/
-	p.dispatchEvent = null;
-
-	/**
-	* Indicates whether there is at least one listener for the specified event type
-	* @function hasEventListener
-	* @param {String} type The string type of the event
-	* @return {bool} Returns true if there is at least one listener for the specified event
-	*/
-	p.hasEventListener = null;
-
-	/**
-	* Createjs EventDispatcher method
-	* @property {Array} _listeners description
-	* @private
-	*/
-	p._listeners = null;
-	
-	// we only use EventDispatcher if it's available:
-	if (createjs.EventDispatcher) createjs.EventDispatcher.initialize(p); // inject EventDispatcher methods.
 	
 	/** 
 	* The id reference
@@ -89,7 +41,7 @@
 	/** 
 	* Save the panel
 	* 
-	* @property {createjs.MovieClip|PIXI.DisplayObjectContainer} panel
+	* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
 	*/
 	p.panel = null;
 	
@@ -128,12 +80,12 @@
 	/**
 	* When we're finishing loading
 	* 
-	* @property {function} _onEnterStateProceed
+	* @property {function} _onEnterProceed
 	* @private
 	*/
-	p._onEnterStateProceed = null;
+	p._onEnterProceed = null;
 	
-	/** If we start doing a load in enterState, assign the onEnterStateComplete here
+	/** If we start doing a load in enter, assign the onEnterComplete here
 	* 
 	* @property {function} _onLoadingComplete
 	* @private
@@ -179,10 +131,10 @@
 	/**
 	*   This is called by the State Manager to exit the state 
 	*   
-	*   @function _internalExitState
+	*   @function _internalExit
 	*   @private
 	*/
-	p._internalExitState = function()
+	p._internalExit = function()
 	{
 		if (this._isTransitioning)
 		{
@@ -193,42 +145,42 @@
 		this._enabled = false;
 		this.panel.visible = false;
 		this._active = false;
-		this.exitState();
+		this.exit();
 	};
 	
 	/**
 	*  When the state is exited
 	*  
-	*  @function exitState
+	*  @function exit
 	*/
-	p.exitState = function(){};
+	p.exit = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalExitStateStart
+	*   @function _internalExitStart
 	*   @private
 	*/
-	p._internalExitStateStart = function()
+	p._internalExitStart = function()
 	{
-		this.exitStateStart();
+		this.exitStart();
 	};
 	
 	/**
 	*   When the state has requested to be exit, pre-transition
 	*   
-	*   @function exitStateStart
+	*   @function exitStart
 	*/
-	p.exitStateStart = function(){};
+	p.exitStart = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalEnterState
-	*   @param {functon} proceed The function to call after enterState has been called
+	*   @function _internalEnter
+	*   @param {functon} proceed The function to call after enter has been called
 	*   @private
 	*/
-	p._internalEnterState = function(proceed)
+	p._internalEnter = function(proceed)
 	{
 		if (this._isTransitioning)
 		{
@@ -240,14 +192,14 @@
 		this._active = true;
 		this._canceled = false;
 		
-		this._onEnterStateProceed = proceed;
+		this._onEnterProceed = proceed;
 		
-		this.enterState();
+		this.enter();
 		
-		if (this._onEnterStateProceed)
+		if (this._onEnterProceed)
 		{
-			this._onEnterStateProceed();
-			this._onEnterStateProceed = null;
+			this._onEnterProceed();
+			this._onEnterProceed = null;
 		}
 	};
 	
@@ -268,12 +220,12 @@
 		this.manager.loadingStart();
 		
 		// Starting a load is optional and 
-		// need to be called from the enterState function
+		// need to be called from the enter function
 		// We'll override the existing behavior
-		// of internalEnterState, by passing
+		// of internalEnter, by passing
 		// the complete function to onLoadingComplete
-		this._onLoadingComplete = this._onEnterStateProceed;
-		this._onEnterStateProceed = null;
+		this._onLoadingComplete = this._onEnterProceed;
+		this._onEnterProceed = null;
 	};
 	
 	/**
@@ -311,7 +263,7 @@
 		this._canceled = true;
 		this._isLoading = false;
 		
-		this._internalExitState();
+		this._internalExit();
 		this.cancel();
 	};
 	
@@ -326,31 +278,31 @@
 	/**
 	*   When the state is entered
 	*   
-	*   @function enterState
+	*   @function enter
 	*/
-	p.enterState = function(){};
+	p.enter = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalEnterStateDone
+	*   @function _internalEnterDone
 	*   @private
 	*/
-	p._internalEnterStateDone = function()
+	p._internalEnterDone = function()
 	{
 		if (this._canceled) return;
 		
 		this.setEnabled(true);
-		this.enterStateDone();
+		this.enterDone();
 	};
 	
 	/**
 	*   When the state is visually entered fully
 	*   that is, after the transition is done
 	*   
-	*   @function enterStateDone
+	*   @function enterDone
 	*/
-	p.enterStateDone = function(){};
+	p.enterDone = function(){};
 	
 	/**
 	*   Get if this is the active state
@@ -450,12 +402,12 @@
 	*/
 	p.destroy = function()
 	{		
-		this.exitState();
+		this.exit();
 		
 		this.panel = null;
 		this.manager = null;
 		this._destroyed = true;
-		this._onEnterStateProceed = null;
+		this._onEnterProceed = null;
 		this._onLoadingComplete = null;
 	};
 	
