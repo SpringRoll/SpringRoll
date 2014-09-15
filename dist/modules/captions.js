@@ -206,7 +206,6 @@
 		this._lines = [];
 		this.setDictionary(captionDictionary || null);
 		this.setTextField(field);
-		this._updateToAnim = this._updateToAnim.bind(this);
 	};
 	
 	/**
@@ -459,8 +458,7 @@
 	};
 	
 	/**
-	* Convience function for stopping captions. Is also called by 
-	* cloudkid.AudioAnimation when it is finished.
+	* Convience function for stopping captions.
 	*
 	* @public
 	* @method stop
