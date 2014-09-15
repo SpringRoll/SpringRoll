@@ -807,19 +807,21 @@
 	};
 
 	/**
-	*  Checks if the EventDispatcher has a specific listener.
+	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
 	*  
 	*  @method has
 	*  @param {String} name The name of the single event type to check for
-	*  @param {Function} callback The listener function to check for
+	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
 	*  @return {Boolean} If the EventDispatcher has the specified listener.
 	*/
 	p.has = function(name, callback)
 	{
-		if(!name || !callback) return false;
+		if(!name) return false;
 
 		var listeners = this._listeners[name];
 		if(!listeners) return false;
+		if(!callback)
+			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};
 	
