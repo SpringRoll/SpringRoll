@@ -338,6 +338,8 @@
 		if (this._isDestroyed) return;
 		
 		this._isDestroyed = true;
+
+		this.off();
 		
 		this.removeAll();
 		this._currentTasks = null;

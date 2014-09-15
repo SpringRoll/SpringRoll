@@ -106,11 +106,11 @@
 	{
 		this._results = {};
 		this._manager = new TaskManager(this.list.slice());
-		this._manager.addEventListener(
+		this._manager.on(
 			TaskEvent.TASK_DONE, 
 			this._onTaskDone.bind(this)
 		);
-		this._manager.addEventListener(
+		this._manager.on(
 			TaskManager.ALL_TASKS_DONE, 
 			this._onAllTasksComplete.bind(this, callback)
 		);

@@ -586,11 +586,12 @@
 	p.destroy = function()
 	{
 		this._destroyed = true;
+
+		this.off();
 		
 		this._display.Animator.stop(this._transition);
 		
 		this._transition = null;
-		//this._loader = null;
 		
 		this._state = null;
 		this._oldState = null;
