@@ -77,49 +77,16 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 
 Modules are extra components which contain code libraries, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and contain functionality that can work along-size the core of the framework. These are found in the **dist/modules** folder.
 
-### Captions
-
-Module file: _captions(.min).js_
-
-### CreateJS Display
-Module file: _display-createjs(.min).js_
-
-#### Dependencies
-* [EaselJS](https://github.com/CloudKidStudio/EaselJS) CloudKid's fork of EaselJS
-* [TweenJS](https://github.com/CloudKidStudio/TweenJS) CloudKid's fork of TweenJS
-
-### Generic Display 
-Module file: _display-generc(.min).js_
-
-### PIXI Display
-Module file: _display-pixi(.min).js_
-
-#### Dependencies
-* [PixiJS](https://github.com/CloudKidStudio/pixi.js) CloudKid's fork of PixiJS
-
-### Interface
-Module file: _interface(.min).js_
-
-### Sound  
-Module file: _sound(.min).js_
-
-#### Dependencies
-* [SoundJS](https://github.com/CloudKidStudio/SoundJS) CloudKid's fork of SoundJS
-
-### States  
-Module file: _states(.min).js_
-
-### Tasks 
-Module file: _tasks(.min).js_
-
-### Translate  
-Module file: _translate(.min).js_
-
-#### Dependencies
-* [jQuery](http://jquery.com)
-
-### Worker 
-Module file: _worker(.min).js_
+* **Captions Module**
+* **CreateJS Display Module**
+* **Generic Display Module**
+* **PIXI Display Module**
+* **Interface Module** 
+* **[Sound Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Sound-Module)**
+* **States Module**
+* **Tasks Module**
+* **Translate Module**
+* **Worker Module**
 
 ##Displays
 
