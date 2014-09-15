@@ -10,6 +10,7 @@
 
         <!-- External dependencies -->
 		<script src="libs/soundjs/lib/soundjs.min.js"></script>
+		<script src="libs/soundjs/lib/flashplugin.min.js"></script>
 		<script src="libs/tweenjs/lib/tweenjs.min.js"></script>
 		<script src="libs/preloadjs/lib/preloadjs.min.js"></script>
 		<script src="libs/easeljs/lib/easeljs.combined.js"></script>
@@ -24,40 +25,121 @@
     <body>
 		<div id="content">
 			<div id="framerate">FPS: 00.000</div>
-			<canvas id="stage" width="800" height="500"></canvas>
+			<canvas id="stage" width="300" height="400"></canvas>
 			<script>
 
 				var Application = include('cloudkid.Application'),
 					CreateJSDisplay = include('cloudkid.CreateJSDisplay'),
+					Button = include('cloudkid.createjs.Button'),
+					Loader = include('cloudkid.Loader'),
 					Shape = include('createjs.Shape'),
-					Tween = include('createjs.Tween');
+					Tween = include('createjs.Tween'),
+					Sound = include('cloudkid.Sound');
 
 				// Create the new application
 				var app = new Application({
-					framerate: "framerate", // optional framerate display
-					updateTween: true, // IMPORTANT! for Application to own TweenJS updates
+					framerate: "framerate",
 					canvasId: "stage",
 					display: CreateJSDisplay,
 					displayOptions: {
-						clearView: true // clear the stage on render
+						clearView: true
 					}
 				});
+
+				// The button image
+				var image = null;
+
+				// The configuration used by the Sound class
+				// sounds are loaded into a "context", that is a group of 
+				// sounds that are similar, this provides the ability
+				// to mute or pause a particular context by name, handy
+				// if you want to provide the ability to turn of music
+				// or turn off all sound effects. This would be easy
+				// to externalized as a JSON file.
+				var config = {
+					sfx : {
+						"context":"sfx",
+						"path":"sound/sfx/",
+						"soundManifest": [
+							"FoodChute",
+							"TipEarned",
+							"TrashChute"
+						]
+					},
+					music : {
+						"context":"music",
+						"path":"sound/music/",
+						"soundManifest": [
+							"TitleMusic"
+						]
+					}
+				};
 
 				// Wait until the app is ready
 				app.on('init', function(){
 
-					// Create a new shape
-					var shape = new Shape();
-					shape.graphics.beginFill("#69a1df")
-						.drawCircle(-100, 500 / 2, 100);
-
-					// Add it to the EaselJS stage
-					app.display.stage.addChild(shape);
-
-					// Tween the shape
-					Tween.get(shape, {loop: true}).to({x: 1000}, 3000);
+					// Add buttons to the stage
+					Loader.instance.load('images/button.png', function(result) {
 						
+						// Save the bitmap image to use late
+						image = result.content,
+							
+						// Initialize the Sound system
+						Sound.init({
+								// The path to the Flash SWF fallback
+								swfPath : 'libs/soundjs/lib/'
+							}, 
+							// callback
+							onSoundReady
+						);
+					});					
 				});
+
+				// Callback when the sound is ready to be used
+				function onSoundReady()
+				{
+					// Load up the configuration for the sound effects
+					Sound.instance.loadConfig(config.sfx)
+						.loadConfig(config.music);
+
+					var centerX = (app.display.width - image.width) / 2;
+
+					// Add the buttons
+					addButton("FoodChute", centerX, 60, onPlayEffect);
+					addButton("TipEarned", centerX, 120, onPlayEffect);
+					addButton("TrashChute", centerX, 180, onPlayEffect);
+					addButton("TitleMusic", centerX, 300, onPlayMusic);
+				}
+
+				// Add a new button to the stage
+				function addButton(text, x, y, callback)
+				{
+					var button = new Button(image, {
+						text: text,
+						font: "16px Arial",
+						color: "#ffffff"
+					});
+					button.x = x || 0;
+					button.y = y || 0;
+					app.display.stage.addChild(button);
+					button.on('buttonPress', callback);
+				}
+
+				// Click handler for playing effect
+				function onPlayEffect(e)
+				{
+					// Play the sound based on the label
+					Sound.instance.play(e.target.label.text);	
+				}
+
+				// Click handler for playing music
+				function onPlayMusic(e)
+				{
+					// Play the sound based on the label
+					var alias = e.target.label.text;
+					var sound = Sound.instance;
+					sound.isPlaying(alias) ? sound.stop(alias) : sound.play(alias);	
+				}
 
 			</script>
 		</div>
