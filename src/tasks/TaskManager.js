@@ -252,14 +252,16 @@
 		this.paused = false;
 		
 		// Give warning that a task is about to be started and respect pauses
-		this.trigger(new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
+		if(this.has(TaskEvent.TASK_ABOUT_TO_START))
+			this.trigger(TaskEvent.TASK_ABOUT_TO_START, new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
 	
 		if (this.paused)
 		{
 			return null;
 		}
 		
-		this.trigger(new TaskEvent(TaskEvent.TASK_STARTING, task));
+		if(this.has(TaskEvent.TASK_STARTING))
+			this.trigger(TaskEvent.TASK_STARTING, new TaskEvent(TaskEvent.TASK_STARTING, task));
 		this._tasksInProgress++;
 		
 		task.start(this.onTaskDone.bind(this, task));
@@ -280,7 +282,8 @@
 		
 		this._tasksInProgress--;
 		
-		this.trigger(new TaskEvent(TaskEvent.TASK_DONE, task, result));
+		if(this.has(TaskEvent.TASK_DONE))
+			this.trigger(TaskEvent.TASK_DONE, new TaskEvent(TaskEvent.TASK_DONE, task, result));
 		task.done(result, this);
 		
 		// Remove from the current tasks
@@ -290,12 +293,12 @@
 		{
 			this._currentTasks.splice(index, 1);
 		}
-		task.destroy();		
-		
+		task.destroy();
+
 		// No more valid tasks
 		if (this._tasksInProgress === 0 && this.tasks.length === 0)
 		{
-			this.trigger(new TaskEvent(TaskManager.ALL_TASKS_DONE, null));
+			this.trigger(TaskManager.ALL_TASKS_DONE);
 		}
 		else
 		{

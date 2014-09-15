@@ -228,7 +228,7 @@
 		state.manager = this;
 		
 		// Make sure the state ie exited initially
-		state._internalExitState();
+		state._internalExit();
 	};
 	
 	/**
@@ -298,7 +298,6 @@
 	{
 		if (this._destroyed) return;
 		
-		//this.showLoader();
 		this.trigger(StateManager.LOADING_START);
 		
 		this._loopTransition();
@@ -314,7 +313,6 @@
 	{
 		if (this._destroyed) return;
 		
-		//this.hideLoader();
 		this.trigger(StateManager.LOADING_DONE);
 	};
 	
@@ -387,7 +385,7 @@
 			this._loopTransition();
 			sm.trigger(StateManager.TRANSITION_INIT_DONE);
 			sm._isLoading = true;
-			sm._state._internalEnterState(sm._onStateLoaded.bind(sm));
+			sm._state._internalEnter(sm._onStateLoaded.bind(sm));
 		}
 		else
 		{
@@ -397,20 +395,22 @@
 			{
 				this._oldState._internalCancel();
 				this._isLoading = false;
-				this._state._internalEnterState(this._onStateLoaded);
+				this._state._internalEnter(this._onStateLoaded);
 			}
 			else
 			{
 				this._isTransitioning = true;
-				this._oldState._internalExitStateStart();
+				this._oldState._internalExitStart();
 				this.showBlocker();
 				sm = this;
-								
-				this.trigger(new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
+				
+				if(this.has(StateEvent.TRANSITION_OUT))
+					this.trigger(StateEvent.TRANSITION_OUT, new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
 				this._oldState.transitionOut(
 					function()
 					{
-						sm.trigger(new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
+						if(sm.has(StateEvent.TRANSITION_OUT_DONE))
+							sm.trigger(StateEvent.TRANSITION_OUT_DONE, new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
 						sm.trigger(StateManager.TRANSITION_OUT);
 						
 						sm._transitioning(
@@ -421,9 +421,10 @@
 								
 								sm._isTransitioning = false;
 								
-								sm.trigger(new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
+								if(sm.has(StateEvent.HIDDEN))
+									sm.trigger(StateEvent.HIDDEN, new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
 								sm._oldState.panel.visible = false;
-								sm._oldState._internalExitState();
+								sm._oldState._internalExit();
 								sm._oldState = null;
 
 								sm._loopTransition();//play the transition loop animation
@@ -431,7 +432,7 @@
 								if (!sm._processQueue())
 								{
 									sm._isLoading = true;
-									sm._state._internalEnterState(sm._onStateLoaded.bind(sm));
+									sm._state._internalEnter(sm._onStateLoaded.bind(sm));
 								}	
 							}
 						);
@@ -453,7 +454,8 @@
 		this._isLoading = false;
 		this._isTransitioning = true;
 		
-		this.trigger(new StateEvent(StateEvent.VISIBLE, this._state));
+		if(this.has(StateEvent.VISIBLE))
+			this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
 		this.trigger(StateManager.TRANSITION_IN);
@@ -464,17 +466,19 @@
 			{
 				sm._transition.visible = false;
 				sm.trigger(StateManager.TRANSITION_IN_DONE);
-				sm.trigger(new StateEvent(StateEvent.TRANSITION_IN, sm._state));
+				if(sm.has(StateEvent.TRANSITION_IN))
+					sm.trigger(StateEvent.TRANSITION_IN, new StateEvent(StateEvent.TRANSITION_IN, sm._state));
 				sm._state.transitionIn(
 					function()
 					{
-						sm.trigger(new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
+						if(sm.has(StateEvent.TRANSITION_IN_DONE))
+							sm.trigger(StateEvent.TRANSITION_IN_DONE, new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
 						sm._isTransitioning = false;
 						sm.hideBlocker();
 						
 						if (!sm._processQueue())
 						{
-							sm._state._internalEnterStateDone();
+							sm._state._internalEnterDone();
 						}
 					}
 				);
