@@ -20,7 +20,7 @@
 	*/
 	var Loader = function()
 	{
-		if(!Loader)
+		if (!Application)
 		{
 			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
 			CacheManager = include('cloudkid.CacheManager');

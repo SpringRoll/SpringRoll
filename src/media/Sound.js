@@ -499,9 +499,9 @@
 	*	@method play
 	*	@public
 	*	@param {String} alias The alias of the sound to play.
-	*   @param {Object|function} [options] The object of optional parameters or completeCallback callback function
-	*	@param {Function} [options.completeCallback] An optional function to call when the sound is finished.
-	*	@param {Function} [opitons.startCallback] An optional function to call when the sound starts playback.
+	*   @param {Object|function} [options] The object of optional parameters or complete callback function
+	*	@param {Function} [options.complete] An optional function to call when the sound is finished.
+	*	@param {Function} [opitons.start] An optional function to call when the sound starts playback.
 			If the sound is loaded, this is called immediately, if not, it calls when the 
 			sound is finished loading.
 	*	@param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds (SoundJS parameter). Default is false.
@@ -522,7 +522,8 @@
 			completeCallback = options;
 			options = null;
 		}
-		startCallback = (options ? options.startCallback : startCallback) || null;
+		completeCallback = (options ? options.complete : completeCallback) || null;
+		startCallback = (options ? options.start : startCallback) || null;
 		interrupt = !!(options ? options.interrupt : interrupt);
 		delay = (options ? options.delay : delay) || 0;
 		offset = (options ? options.offset : offset) || 0;

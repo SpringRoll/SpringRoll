@@ -128,8 +128,12 @@
 				// Click handler for playing effect
 				function onPlayEffect(e)
 				{
+					var alias = e.target.label.text;
 					// Play the sound based on the label
-					Sound.instance.play(e.target.label.text);	
+					Sound.instance.play(alias, {
+						start : function(){ console.log("Started '" + alias + "'"); },
+						complete : function(){ console.log("Completed '" + alias + "'"); }
+					});	
 				}
 
 				// Click handler for playing music
