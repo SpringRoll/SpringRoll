@@ -404,20 +404,27 @@
 	*	createjs.FlashPlugin.BASE_PATH.
 	*	@method init
 	*	@static
-	*   @param {Object|Function} [options] Either the options object or the completeCallback
+	*   @param {Object|Function} options Either the options object or the ready function
 	*	@param {Array} [options.plugins=[createjs.WebAudioPlugin, createjs.FlashPlugin]] The SoundJS plugins to pass to createjs.Sound.registerPlugins().
 	*	@param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred, where "ogg" 
 	*		becomes a ".ogg" extension on all sound file urls.
 	*   @param {String} [options.swfPath='assets/swfs/'] The required path to the createjs.FlashPlugin SWF
-	*	@param {Function} completeCallback A function to call when initialization is complete.
+	*	@param {Function} [options.ready] A function to call when initialization is complete.
 	*   @return {Sound} The new instance of the sound object
 	*/
-	Sound.init = function(options, completeCallback)
+	Sound.init = function(options, readyCallback)
 	{
+		// First argument is function
+		if (typeof options == 'function')
+		{
+			options = { ready: options };
+		}
+
 		var _defaultOptions = {
 			plugins : [createjs.WebAudioPlugin, createjs.FlashPlugin],
 			types: ['ogg', 'mp3'],
-			swfPath: 'assets/swfs/'
+			swfPath: 'assets/swfs/',
+			ready: null
 		};
 
 		options = options || {};
@@ -427,6 +434,15 @@
 		{
 			if (!options.hasOwnProperty(key))
 				options[key] = _defaultOptions[key];
+		}
+
+		// Check if the ready callback is the second argument
+		// this is deprecated
+		options.ready = options.ready || readyCallback;
+
+		if (!options.ready)
+		{
+			throw "cloudkid.Sound.init requires a ready callback";
 		}
 
 		CJSSound.registerPlugins(options.plugins);
@@ -454,7 +470,7 @@
 		//make sure the capabilities are ready (looking at you, Cordova plugin)
 		if (CJSSound.getCapabilities())
 		{
-			_instance._initComplete(options.types, completeCallback);
+			_instance._initComplete(options.types, options.ready);
 		}
 		else if(CJSSound.activePlugin)
 		{
@@ -469,7 +485,7 @@
 				if (CJSSound.getCapabilities())
 				{
 					Application.instance.off("update", waitFunction);
-					_instance._initComplete(options.types, completeCallback);
+					_instance._initComplete(options.types, options.ready);
 				}
 			};
 
@@ -667,9 +683,9 @@
 	*	@method fadeIn
 	*	@public
 	*	@param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played instance of, or an instance returned from play().
-	*	@param {Number} duration The duration in milliseconds to fade for. The default is 500ms.
-	*	@param {Number} targetVol The volume to fade to. The default is the sound's default volume.
-	*	@param {Number} startVol The volume to start from. The default is 0.
+	*	@param {Number} [duration=500] The duration in milliseconds to fade for. The default is 500ms.
+	*	@param {Number} [targetVol] The volume to fade to. The default is the sound's default volume.
+	*	@param {Number} [startVol=0] The volume to start from. The default is 0.
 	*/
 	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 	{
@@ -709,9 +725,9 @@
 	*	@method fadeOut
 	*	@public
 	*	@param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played instance of, or an instance returned from play().
-	*	@param {Number} duration The duration in milliseconds to fade for. The default is 500ms.
-	*	@param {Number} targetVol The volume to fade to. The default is 0.
-	*	@param {Number} startVol The volume to fade from. The default is the current volume.
+	*	@param {Number} [duration=500] The duration in milliseconds to fade for. The default is 500ms.
+	*	@param {Number} [targetVol=0] The volume to fade to. The default is 0.
+	*	@param {Number} [startVol] The volume to fade from. The default is the current volume.
 	*/
 	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
 	{

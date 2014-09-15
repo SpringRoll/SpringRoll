@@ -86,12 +86,10 @@
 							
 						// Initialize the Sound system
 						Sound.init({
-								// The path to the Flash SWF fallback
-								swfPath : 'libs/soundjs/lib/'
-							}, 
-							// callback
-							onSoundReady
-						);
+							// The path to the Flash SWF fallback
+							swfPath : 'libs/soundjs/lib/',
+							ready : onSoundReady
+						});
 					});					
 				});
 
