@@ -542,6 +542,12 @@
 		for(i in jsonItems)
 		{
 			item = jsonItems[i];
+
+			if (!item)
+			{
+				Debug.error("UIScaler: could not find object '" +  iName + "'");
+				continue;
+			}
 			
 			if (item.align)
 			{
@@ -736,7 +742,7 @@
 			var item = parent[iName];
 			if (!item)
 			{
-				Debug.error("could not find object '" +  iName + "'");
+				Debug.error("Positioner: could not find object '" +  iName + "'");
 				continue;
 			}
 			var setting = itemSettings[iName];

@@ -31,7 +31,7 @@
 			var item = parent[iName];
 			if (!item)
 			{
-				Debug.error("could not find object '" +  iName + "'");
+				Debug.error("Positioner: could not find object '" +  iName + "'");
 				continue;
 			}
 			var setting = itemSettings[iName];
