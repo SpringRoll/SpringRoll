@@ -16,10 +16,10 @@
 	*  @constructor
 	*  @param {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
-	*  @param {object} audio Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
+	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
 	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
 	*/
-	var StateManager = function(display, transition, audio)
+	var StateManager = function(display, transition, transitionSounds)
 	{
 		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
 		if(!Sound)
@@ -29,7 +29,95 @@
 
 		EventDispatcher.call(this);
 
-		this.initialize(display, transition, audio);
+		/**
+		* The display that holds the states this StateManager is managing.
+		* 
+		* @property {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} _display
+		* @private
+		*/
+		this._display = display;
+		
+		/**
+		* The click to play in between transitioning states
+		* 
+		* @property {createjs.MovieClip|PIXI.Spine} _transition
+		* @private
+		*/
+		this._transition = transition;
+		
+		/**
+		* The sounds for the transition
+		* 
+		* @property {object} _transitionSounds
+		* @private
+		*/
+		this._transitionSounds = transitionSounds || null;
+		
+		/**
+		* The collection of states map
+		* 
+		* @property {Array} _states
+		* @private
+		*/
+		this._states = null;
+		
+		/**
+		* The currently selected state
+		* 
+		* @property {BaseState} _state
+		* @private
+		*/
+		this._state = null;
+		
+		/** 
+		* The currently selected state id
+		* 
+		* @property {String} _stateID
+		* @private
+		*/
+		this._stateId = null;
+		
+		/**
+		* The old state
+		* 
+		* @property {BaseState} _oldState
+		* @private
+		*/
+		this._oldState = null;
+		
+		/**
+		* If the manager is loading a state
+		* 
+		* @property {bool} name description
+		* @private
+		*/
+		this._isLoading = false;
+		
+		/** 
+		* If the state or manager is current transitioning
+		* 
+		* @property {bool} _isTransitioning
+		* @private
+		*/
+		this._isTransitioning = false;
+		
+		/**
+		* If the current object is destroyed
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
+		
+		/**
+		* If we're transitioning the state, the queue the id of the next one
+		* 
+		* @property {String} _queueStateId
+		* @private
+		*/
+		this._queueStateId = null;
+
+		this.initialize();
 	};
 	
 	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
@@ -43,94 +131,6 @@
 	*/
 	StateManager.VERSION = '${version}';
 
-	/**
-	* The display that holds the states this StateManager is managing.
-	* 
-	* @property {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} _display
-	* @private
-	*/
-	p._display = null;
-	
-	/**
-	* The click to play in between transitioning states
-	* 
-	* @property {createjs.MovieClip|PIXI.Spine} _transition
-	* @private
-	*/
-	p._transition = null;
-	
-	/**
-	* The sounds for the transition
-	* 
-	* @property {object} _transitionSounds
-	* @private
-	*/
-	p._transitionSounds = null;
-	
-	/**
-	* The collection of states map
-	* 
-	* @property {Array} _states
-	* @private
-	*/
-	p._states = null;
-	
-	/**
-	* The currently selected state
-	* 
-	* @property {BaseState} _state
-	* @private
-	*/
-	p._state = null;
-	
-	/** 
-	* The currently selected state id
-	* 
-	* @property {String} _stateID
-	* @private
-	*/
-	p._stateId = null;
-	
-	/**
-	* The old state
-	* 
-	* @property {BaseState} _oldState
-	* @private
-	*/
-	p._oldState = null;
-	
-	/**
-	* If the manager is loading a state
-	* 
-	* @property {bool} name description
-	* @private
-	*/
-	p._isLoading = false;
-	
-	/** 
-	* If the state or manager is current transitioning
-	* 
-	* @property {bool} _isTransitioning
-	* @private
-	*/
-	p._isTransitioning = false;
-	
-	/**
-	* If the current object is destroyed
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* If we're transitioning the state, the queue the id of the next one
-	* 
-	* @property {String} _queueStateId
-	* @private
-	*/
-	p._queueStateId = null;
-	
 	/**
 	* The name of the Animator label and event for transitioning state in
 	* 
@@ -188,19 +188,14 @@
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
 	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}
 	*/
-	p.initialize = function(display, transition, transitionSounds)
-	{
-		this._display = display;
-		this._transition = transition;
-		
+	p.initialize = function()
+	{		
 		if(this._transition.stop)
 			this._transition.stop();
 
 		this.hideBlocker();
 		this._states = {};
 		
-		this._transitionSounds = transitionSounds || null;
-
 		this._loopTransition = this._loopTransition.bind(this);
 	};
 	

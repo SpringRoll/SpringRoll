@@ -31,58 +31,50 @@
 			SoundListTask = include('cloudkid.SoundListTask');
 		}
 
-		this._sounds = {};
-		this._fades = [];
-		this._contexts = {};
-		this._pool = [];
-		this._update = this._update.bind(this);
-		this._markLoaded = this._markLoaded.bind(this);
 		/** 
-		*  A copy of _playAfterLoad bound to this Sound instance.
-		*  @property {function} _playAfterLoadBound
+		*  Dictionary of sound objects, containing configuration info and playback objects.
+		*  @property {Object} _sounds
 		*  @private
 		*/
-		this._playAfterLoadBound = this._playAfterLoad.bind(this);
+		this._sounds = {};
+
+		/** 
+		*  Array of SoundInstance objects that are being faded in or out.
+		*  @property {Array} _fades
+		*  @private
+		*/
+		this._fades = [];
+
+		/**
+		*  Array of SoundInstance objects waiting to be used.
+		*  @property {Array} _pool
+		*  @private
+		*/
+		this._pool = [];
+
+		/**
+		*  The extension of the supported sound type that will be used.
+		*  @property {string} supportedSound
+		*  @public
+		*/
+		this.supportedSound = null;
+
+		/**
+		*  Dictionary of SoundContexts.
+		*  @property {Object} _contexts
+		*  @private
+		*/
+		this._contexts = {};
+
+		// Bindings
+		this._update = this._update.bind(this);
+		this._markLoaded = this._markLoaded.bind(this);
+		this._playAfterLoad = this._playAfterLoad.bind(this);
 	};
 	
 	var p = Sound.prototype = {};
 	
 	var _instance = null;
-	
-	/** 
-	*  Dictionary of sound objects, containing configuration info and playback objects.
-	*  @property {Object} _sounds
-	*  @private
-	*/
-	p._sounds = null;
-	/** 
-	
-	*  Array of SoundInstance objects that are being faded in or out.
-	*  @property {Array} _fades
-	*  @private
-	*/
-	p._fades = null;
-
-	/**
-	*  Array of SoundInstance objects waiting to be used.
-	*  @property {Array} _pool
-	*  @private
-	*/
-	p._pool = null;
-
-	/**
-	*  The extension of the supported sound type that will be used.
-	*  @property {string} supportedSound
-	*  @public
-	*/
-	p.supportedSound = null;
-
-	/**
-	*  Dictionary of SoundContexts.
-	*  @property {Object} _contexts
-	*  @private
-	*/
-	p._contexts = null;
 
 	//sound states
 	var UNLOADED = 0;

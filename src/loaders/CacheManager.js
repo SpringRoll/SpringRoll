@@ -22,46 +22,31 @@
 			Application = include('cloudkid.Application');
 			Loader = include('cloudkid.Loader');
 		}
-		
-		this.initialize();
-	};
-	
-	/** Easy access to the prototype */
-	var p = CacheManager.prototype = {};
-	
-	/**
-	*  The collection of version numbers
-	*  @protected
-	*  @property {Dictionary} _versions
-	*/
-	p._versions = null;
-	
-	/**
-	*  If we are suppose to cache bust every file
-	*  @property {bool} cacheBust
-	*  @public
-	*  @default false
-	*/
-	p.cacheBust = false;
-	
-	/**
-	* The constructor for the Cache manager
-	* @public
-	* @constructor
-	* @method initialize
-	*/
-	p.initialize = function()
-	{
+
+		/**
+		*  The collection of version numbers
+		*  @protected
+		*  @property {Dictionary} _versions
+		*/
 		this._versions = [];
-				
+		
+		/**
+		*  If we are suppose to cache bust every file
+		*  @property {bool} cacheBust
+		*  @public
+		*  @default false
+		*/						
 		var cb = Application.instance.options.cacheBust;
-		this.cacheBust = cb ? (cb === "true" || cb === true) : false;
+		this.cacheBust = (cb === "true" || cb === true);
 		
 		if(DEBUG)
 		{
 			if (this.cacheBust) Debug.log("CacheBust all files is on.");
 		}
 	};
+	
+	/** Easy access to the prototype */
+	var p = CacheManager.prototype = {};
 	
 	/**
 	*  Destroy the cache manager, don't use after this

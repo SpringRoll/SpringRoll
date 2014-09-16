@@ -29,19 +29,86 @@
 	*/
 	var PixiDisplay = function(id, options)
 	{
-		this.id = id;
 		options = options || {};
+
+		/**
+		*  the canvas managed by this display
+		*  @property {DOMElement} canvas
+		*  @readOnly
+		*  @public
+		*/
 		this.canvas = document.getElementById(id);
+
+		/**
+		*  The DOM id for the canvas
+		*  @property {String} id
+		*  @readOnly
+		*  @public
+		*/
+		this.id = id;
+
+		/**
+		*  Convenience method for getting the width of the canvas element
+		*  would be the same thing as canvas.width
+		*  @property {int} width
+		*  @readOnly
+		*  @public
+		*/
+		this.width = this.canvas.width;
+
+		/**
+		*  Convenience method for getting the height of the canvas element
+		*  would be the same thing as canvas.height
+		*  @property {int} height
+		*  @readOnly
+		*  @public
+		*/
+		this.height = this.canvas.height;
+
+		/**
+		*  The rendering library's stage element, the root display object
+		*  @property {PIXI.Stage}
+		*  @readOnly
+		*  @public
+		*/
+		this.stage = new Stage(options.backgroundColor || 0);
+
+		/**
+		*  The Pixi renderer.
+		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
+		*  @readOnly
+		*  @public
+		*/
+		this.renderer = null;
+
+		/**
+		*  If rendering is paused on this display only. Pausing all displays can be done
+		*  using Application.paused setter.
+		*  @property {Boolean} paused
+		*  @public
+		*/
+		this.paused = false;
+
+		/**
+		*  If input is enabled on the stage.
+		*  @property {Boolean} _enabled
+		*  @private
+		*/
+		this._enabled = true;//enable mouse/touch input
+
+		/**
+		*  If the display is visible.
+		*  @property {Boolean} _visible
+		*  @private
+		*/
+		this._visible = this.canvas.style.display != "none";
+
 		// prevent mouse down turning into text cursor
 		this.canvas.onmousedown = function(e)
 		{
 			e.preventDefault();
 		};
-		this.width = this.canvas.width;
-		this.height = this.canvas.height;
-		this._visible = this.canvas.style.display != "none";
-		//make stage
-		this.stage = new Stage(options.backgroundColor || 0);
+
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
@@ -49,6 +116,7 @@
 		var preserveDrawingBuffer = !!options.preserveDrawingBuffer;
 		if(transparent && !preMultAlpha)
 			transparent = "notMultiplied";
+
 		if(options.forceContext == "canvas2d")
 		{
 			this.renderer = new CanvasRenderer(
@@ -80,8 +148,13 @@
 				preMultAlpha
 			);
 		}
-		this.renderer.clearView = !!options.clearView;
-		this.enabled = true;//enable mouse/touch input
+
+		/**
+		*  If Pixi is being rendered with WebGL.
+		*  @property {Boolean}
+		*  @readOnly
+		*  @public
+		*/
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		/**
@@ -103,79 +176,6 @@
 	};
 
 	var p = PixiDisplay.prototype = {};
-
-	/**
-	*  the canvas managed by this display
-	*  @property {DOMElement} canvas
-	*  @readOnly
-	*  @public
-	*/
-	p.canvas = null;
-
-	/**
-	*  The DOM id for the canvas
-	*  @property {String} id
-	*  @readOnly
-	*  @public
-	*/
-	p.id = null;
-
-	/**
-	*  Convenience method for getting the width of the canvas element
-	*  would be the same thing as canvas.width
-	*  @property {int} width
-	*  @readOnly
-	*  @public
-	*/
-	p.width = 0;
-
-	/**
-	*  Convenience method for getting the height of the canvas element
-	*  would be the same thing as canvas.height
-	*  @property {int} height
-	*  @readOnly
-	*  @public
-	*/
-	p.height = 0;
-
-	/**
-	*  The rendering library's stage element, the root display object
-	*  @property {PIXI.Stage}
-	*  @readOnly
-	*  @public
-	*/
-	p.stage = null;
-
-	/**
-	*  The Pixi renderer.
-	*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
-	*  @readOnly
-	*  @public
-	*/
-	p.renderer = null;
-
-	/**
-	*  If Pixi is being rendered with WebGL.
-	*  @property {Boolean}
-	*  @readOnly
-	*  @public
-	*/
-	p.isWebGL = null;
-
-	/**
-	*  If rendering is paused on this display only. Pausing all displays can be done
-	*  using Application.paused setter.
-	*  @property {Boolean} paused
-	*  @public
-	*/
-	p.paused = false;
-
-	/**
-	*  If input is enabled on the stage.
-	*  @property {Boolean} _enabled
-	*  @private
-	*/
-	p._enabled = false;
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -200,13 +200,6 @@
 			}
 		}
 	});
-
-	/**
-	*  If the display is visible.
-	*  @property {Boolean} _visible
-	*  @private
-	*/
-	p._visible = false;
 
 	/**
 	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.

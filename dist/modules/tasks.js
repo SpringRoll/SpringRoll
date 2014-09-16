@@ -16,12 +16,28 @@
 	*/
 	var TaskEvent = function(type, task, data)
 	{
-		this.initialize(type, task, data);
+		/**
+		* Task this event pertains to
+		* 
+		* @property {Task} task
+		*/
+		this.task = null;
+		
+		/**
+		* The task result
+		* 
+		* @property {*} data
+		*/
+		this.data = null;
+		
+		/**
+		* The type of event
+		* 
+		* @property {String} type
+		*/
+		this.type = null;
 	};
-	
-	// Reference to the prototype
-	var p = TaskEvent.prototype;
-	
+		
 	/**
 	 * A task is about to start
 	 * @event onItemAboutToLoad
@@ -40,44 +56,9 @@
 	 */
 	TaskEvent.TASK_DONE = "onItemLoaded";
 	
-	/**
-	* Task this event pertains to
-	* 
-	* @property {Task} task
-	*/
-	p.task = null;
-	
-	/**
-	* The task result
-	* 
-	* @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	* The type of event
-	* 
-	* @property {String} type
-	*/
-	p.type = null;
-
-	/**
-	*  Init the event
-	*  
-	*  @function initialize
-	*  @param {String} type The type of event
-	*  @param {Task} task The task attached to this event
-	*  @param {*} data The data result associated with this task
-	*/
-	p.initialize = function(type, task, data)
-	{
-		this.type = type;
-		this.task = task;
-		this.data = data;
-	};
-	
 	// Assign to the namespace
 	namespace('cloudkid').TaskEvent = TaskEvent;
+
 }());
 /**
 *  @module cloudkid
@@ -95,46 +76,31 @@
 	*/
 	var Task = function(id, callback)
 	{
-		this.initialize(id, callback);
+		/**
+		* The unique id of the task
+		* 
+		* @property {String} id
+		*/
+		p.id = id;
+		
+		/**
+		* Callback to call when the task is completed
+		* 
+		* @property {function} callback
+		*/
+		p.callback = callback;
+		
+		/**
+		* Bool to keep track if this has been destroyed
+		* 
+		* @property {bool} _isDestroyed
+		* @protected
+		*/
+		p._isDestroyed = false;
 	};
 	
 	/** Prototype reference */
 	var p = Task.prototype;
-	
-	/**
-	* The unique id of the task
-	* 
-	* @property {String} id
-	*/
-	p.id = null;
-	
-	/**
-	* Callback to call when the task is completed
-	* 
-	* @property {function} callback
-	*/
-	p.callback = null;
-	
-	/**
-	* Bool to keep track if this has been destroyed
-	* 
-	* @property {bool} _isDestroyed
-	* @protected
-	*/
-	p._isDestroyed = false;
-	
-	/**
-	*   Make a task but don't load
-	*   @function initialize
-	*   @param {String} id ID of the task
-	*   @param {function} callback Callback to to call with the result, this task, and the
-	*          TaskManager that started it
-	*/
-	p.initialize = function(id, callback)
-	{
-		this.id = id;
-		this.callback = callback;
-	};
 	
 	/**
 	*   Called from the task manager when a Task is finished
@@ -222,48 +188,21 @@
 	*/
 	var FunctionTask = function(id, serviceCall, callback, args)
 	{
-		this.initialize(id, serviceCall, callback, args);
-	};
-	
-	/** Reference to the inherieted task */
-	var p = FunctionTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
-	
-	/**
-	* The url of the file to load
-	* 
-	* @property {function} serviceCall
-	*/
-	p.serviceCall = null;
-	
-	/**
-	* The media loader priorty of the load
-	* @property {*} args
-	*/
-	p.args = null;
-	
-	/**
-	*   Create the service task
-	*   
-	*   @function initialize
-	*   @param {String} id The key for the task
-	*   @param {function} serviceCall Function the service call
-	*   @param {function} callback The function to callback when done
-	*   @param {*} args The arguments passed to the service call, (callback is first)
-	*/
-	p.initialize = function(id, serviceCall, callback, args)
-	{
-		this.Task_initialize(id, callback);
-		
+		Task.call(this, id, callback);
+
+		/**
+		* The url of the file to load
+		* 
+		* @property {function} serviceCall
+		*/
 		this.serviceCall = serviceCall;
 		
-		this.args = [];
-		
+		/**
+		* The media loader priorty of the load
+		* @property {*} args
+		*/
+		this.args = null;
+
 		// Get the additional arguments as an array
 		if (args)
 		{
@@ -271,6 +210,12 @@
 			this.args = a.slice(3);
 		}
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = FunctionTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -302,7 +247,7 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
 		
 		this.serviceCall = null;
 		this.args = null;
@@ -344,68 +289,43 @@
 			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
 		}
 
-		this.initialize(id, url, callback, updateCallback, priority, data);
-	};
-	
-	/** Reference to the inherieted task */
-	var p = LoadTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
-	
-	/**
-	* The url of the file to load 
-	* 
-	* @property {String} url
-	*/
-	p.url = null;
-	
-	/**
-	* Loading options
-	* 
-	* @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	* The media loader priorty of the load
-	* 
-	* @property {int} priority
-	*/
-	p.priority = null;
-	
-	/**
-	* The optional callback to get updates (to show load progress)
-	* 
-	* @property {function} updateCallback
-	*/
-	p.updateCallback = null;
-	
-	/**
-	*  Init the laod task
-	*  
-	*  @function initialize
-	*  @param {String} id The id of the task
-	*  @param {String} url The url to load
-	*  @param {function} callback The callback to call when the load is completed
-	*  @param {function} updateCallback The optional callback to get updates (to show load progress)
-	*  @param {int} priority The optional priority, defaults to normal
-	*  @param {*} data The optional data object, for any loading options that may have been added to the preloader
-	*/
-	p.initialize = function(id, url, callback, updateCallback, priority, data)
-	{
-		this.url = url;
-		this.updateCallback = updateCallback;
-		this.priority = priority === undefined ? 
-			LoaderQueueItem.PRIORITY_NORMAL : priority;
-		
-		this.data = data;
+		// Construct the parent
+		Task.call(this, id, callback);
 
-		this.Task_initialize(id, callback);
+		/**
+		* The url of the file to load 
+		* 
+		* @property {String} url
+		*/
+		this.url = url;
+		
+		/**
+		* Loading options
+		* 
+		* @property {*} data
+		*/
+		this.data = data;
+		
+		/**
+		* The media loader priorty of the load
+		* 
+		* @property {int} priority
+		*/
+		this.priority = priority === undefined ? LoaderQueueItem.PRIORITY_NORMAL : priority;
+		
+		/**
+		* The optional callback to get updates (to show load progress)
+		* 
+		* @property {function} updateCallback
+		*/
+		this.updateCallback = updateCallback;
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = LoadTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -457,7 +377,8 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
+
 		this.updateCallback = null;
 		this.url = null;
 		this.data = null;
@@ -493,7 +414,44 @@
 
 		EventDispatcher.call(this);
 
-		this.initialize(tasks);
+		/**
+		* Collection of all tasks
+		* 
+		* @property {Array} tasks
+		*/
+		this.tasks = tasks || [];
+		
+		/**
+		* The current tasks
+		* 
+		* @property {Array} _currentTaskes
+		* @private
+		*/
+		this._currentTasks = [];
+		
+		/**
+		* If we're paused and should therefore not automatically proceed to the
+		* next task after each task completes
+		* 
+		* @property {bool} paused
+		*/
+		this.paused = true;
+		
+		/**
+		* The number of tasks that are currently in progress
+		* 
+		* @property {int} _tasksInProgress
+		* @private
+		*/
+		this._tasksInProgress = 0;
+		
+		/**
+		* If the manager is destroyed
+		* 
+		* @property {bool} _isDestroyed
+		* @private
+		*/
+		this._isDestroyed = false;
 	};
 	
 	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
@@ -513,45 +471,6 @@
 	* @event onAllTasksDone
 	*/
 	TaskManager.ALL_TASKS_DONE = "onAllTasksDone";
-	
-	/**
-	* Collection of all tasks
-	* 
-	* @property {Array} tasks
-	*/
-	p.tasks = null;
-	
-	/**
-	* The current tasks
-	* 
-	* @property {Array} _currentTaskes
-	* @private
-	*/
-	p._currentTasks = null;
-	
-	/**
-	* If we're paused and should therefore not automatically proceed to the
-	* next task after each task completes
-	* 
-	* @property {bool} paused
-	*/
-	p.paused = true;
-	
-	/**
-	* The number of tasks that are currently in progress
-	* 
-	* @property {int} _tasksInProgress
-	* @private
-	*/
-	p._tasksInProgress = 0;
-	
-	/**
-	* If the manager is destroyed
-	* 
-	* @property {bool} _isDestroyed
-	* @private
-	*/
-	p._isDestroyed = false;
 	
 	/**
 	*  Convenience method to execute tasks without having to setup the event listener
@@ -593,18 +512,6 @@
 			manager.startNext();
 
 		return manager;
-	};
-
-	/**
-	*  Initializes the task manager
-	*  
-	*  @function initialize
-	*  @param {Array} tasks The optional array of tasks, we can also add this later
-	*/
-	p.initialize = function(tasks)
-	{
-		this._currentTasks = [];
-		this.tasks = tasks || [];
 	};
 	
 	/**
@@ -840,53 +747,25 @@
 	*/
 	var ListTask = function(id, list, callback)
 	{
-		this.initialize(id, list, callback);
-	};
-	
-	// Reference to the Task prototype
-	var p = ListTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
+		Task.call(this, id, callback);
 
-	/**
-	* The list of other tasks, as an array
-	* 
-	* @property {Array} list
-	*/
-	p.list = null;
-	
-	/**
-	* The internal task manager
-	* 
-	* @property {TaskManager} _manager
-	* @private
-	*/
-	p._manager = null;
-	
-	/**
-	* The load results dictionary
-	* 
-	* @property {Dictionary} _results
-	* @private
-	*/
-	p._results = null;
-	
-	/**
-	*   Make the list task but don't start.
-	*   @function initialize
-	*   @param {String} id ID of the task
-	*   @param {Array} list List of tasks to start or a preloadJS manifest.
-	*   @param {function} callback Callback to to call with the result of the tasks, this
-	*          task, and the TaskManager that loaded it
-	*/
-	p.initialize = function(id, list, callback)
-	{
-		this.Task_initialize(id, callback);
+		/**
+		* The internal task manager
+		* 
+		* @property {TaskManager} _manager
+		* @private
+		*/
+		this._manager = null;
 		
+		/**
+		* The load results dictionary
+		* 
+		* @property {Dictionary} _results
+		* @private
+		*/
+		this._results = null;
+
+		// Turn the list into tasks
 		var tasks = [];
 		for(var i = 0; i < list.length; i++)
 		{
@@ -913,8 +792,20 @@
 				));
 			}
 		}
+
+		/**
+		* The list of other tasks, as an array
+		* 
+		* @property {Array} list
+		*/
 		this.list = tasks;
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = ListTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -993,7 +884,7 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
 		
 		this._results = null;
 		
@@ -1043,75 +934,47 @@
 			Application = include('cloudkid.Application');
 		}
 
-		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
-	};
-	
-	var p = PixiTask.prototype = new Task();
-	
-	/**
-	*	Super for the constructor
-	*	@property {Function} Task_initialize
-	*	@private
-	*/
-	p.Task_initialize = p.initialize;
-	
-	/**
-	*	Super for the destroy function
-	*	@property {Function} Task_destroy
-	*	@private
-	*/
-	p.Task_destroy = p.destroy;
-	
-	/**
-	*	The urls of the files to load
-	*	@property {Array} urls
-	*	@private
-	*/
-	p.urls = null;
-	
-	/**
-	*	The optional callback to get updates (to show load progress)
-	*	@property {Function} updateCallback
-	*	@private
-	*/
-	p.updateCallback = null;
-	
-	/**
-	*	If loaded images should be drawn to a canvas and used from there.
-	*	@property {Boolean} generateCanvas
-	*	@private
-	*/
-	p.generateCanvas = false;
-	
-	/**
-	*	The AssetLoader used to load all files.
-	*	@property {PIXI.AssetLoader} _assetLoader
-	*	@private
-	*/
-	p._assetLoader = null;
-	
-	/**
-	*  Construct the load task
-	*  @param {String} id The id of the task
-	*  @param {Array} urls The urls to load using PIXI.AssetLoader
-	*  @param {Function} callback The callback to call when the load is completed
-	*  @param {Function} updateCallback The optional callback to call each time an item finishes loading
-	*  @param {Boolean} generateCanvasTexture=false If loaded images should be drawn to a canvas and used from there.
-	*/
-	p.initialize = function(id, urls, callback, updateCallback, generateCanvasTexture)
-	{
+		Task.call(this, id, callback);
+		
+		/**
+		*	The optional callback to get updates (to show load progress)
+		*	@property {Function} updateCallback
+		*	@private
+		*/
+		this.updateCallback = updateCallback;
+		
+		/**
+		*	If loaded images should be drawn to a canvas and used from there.
+		*	@property {Boolean} generateCanvas
+		*	@private
+		*/
+		this.generateCanvas = generateCanvasTexture || false;
+		
+		/**
+		*	The AssetLoader used to load all files.
+		*	@property {PIXI.AssetLoader} _assetLoader
+		*	@private
+		*/
+		this._assetLoader = null;
+
 		var cm = Loader.instance.cacheManager;
+
 		for(var i = 0; i < urls.length; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
 		}
-		this.urls = urls;
-		this.updateCallback = updateCallback;
-		
-		this.generateCanvas = generateCanvasTexture || false;
 
-		this.Task_initialize(id, callback);
+		/**
+		*	The urls of the files to load
+		*	@property {Array} urls
+		*	@private
+		*/
+		this.urls = urls;
 	};
+	
+	var s = Task.prototype;
+
+	var p = PixiTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -1170,7 +1033,8 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
+
 		this.updateCallback = null;
 		this.urls = null;
 		if(this._assetLoader)

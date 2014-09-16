@@ -33,6 +33,99 @@
 	*/
 	var Captions = function(captionDictionary, field)
 	{
+		/** 
+		* An object used as a dictionary with keys that should be the same as sound aliases
+		* 
+		* @private
+		* @property {Dictionary} _captionDict
+		*/
+		this._captionDict = null;
+		
+		/** 
+		* A reference to the CreateJS Text object that Captions should be controlling. 
+		* Only one text field can be controlled at a time.
+		* When using PIXI textfields, textIsProp should be false.
+		*
+		* @private
+		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText} _textField
+		*/
+		this._textField = null;
+		
+		/** 
+		* The function to call when playback is complete. 
+		*
+		* @private
+		* @property {Function} _completeCallback
+		*/
+		this._completeCallback = null;
+		
+		/** 
+		* The collection of line objects {start:0, end:0, content:""} 
+		* 
+		* @private
+		* @property {Array} _lines
+		*/
+		this._lines = null;
+		
+		/** 
+		* The duration in milliseconds of the current sound. 
+		*
+		* @private
+		* @property {int} _currentDuration
+		*/
+		this._currentDuration = 0;
+		
+		/** 
+		* The current playback time 
+		*
+		* @private
+		* @property {int} _currentTime
+		*/
+		this._currentTime = 0;
+		
+		/** 
+		* Save the current line index 
+		*
+		* @private
+		* @property {int} _currentLine 
+		*/
+		this._currentLine = -1;
+		
+		/** 
+		* Cache the last active line
+		*
+		* @private
+		* @property {int} _lastActiveLine
+		*/
+		this._lastActiveLine = -1;
+		
+		/** 
+		* If we're playing 
+		*
+		* @private
+		* @property {bool} _playing 
+		*/
+		this._playing = false;
+		
+		/**
+		* If text should be set on the text field with '.text = ' instead of '.setText()'.
+		* When using PIXI textfields, textIsProp should be false.
+		* Default is true.
+		*
+		* @private
+		* @property {bool} textIsProp
+		*/
+		this.textIsProp = true;
+		
+		/**
+		* If this instance has been destroyed already 
+		* 
+		* @private
+		* @property {bool} _isDestroyed
+		*/
+		this._isDestroyed = false;
+
+		// Initialize
 		this.initialize(captionDictionary, field);
 	};
 	
@@ -43,81 +136,7 @@
 	* @property {Object} p
 	*/
 	var p = Captions.prototype;
-	
-	/** 
-	* An object used as a dictionary with keys that should be the same as sound aliases
-	* 
-	* @private
-	* @property {Dictionary} _captionDict
-	*/
-	p._captionDict = null;
-	
-	/** 
-	* A reference to the CreateJS Text object that Captions should be controlling. 
-	* Only one text field can be controlled at a time.
-	* When using PIXI textfields, textIsProp should be false.
-	*
-	* @private
-	* @property {createjs.Text|PIXI.Text|PIXI.BitmapText} _textField
-	*/
-	p._textField = null;
-	
-	/** 
-	* The function to call when playback is complete. 
-	*
-	* @private
-	* @property {Function} _completeCallback
-	*/
-	p._completeCallback = null;
-	
-	/** 
-	* The collection of line objects {start:0, end:0, content:""} 
-	* 
-	* @private
-	* @property {Array} _lines
-	*/
-	p._lines = null;
-	
-	/** 
-	* The duration in milliseconds of the current sound. 
-	*
-	* @private
-	* @property {int} _currentDuration
-	*/
-	p._currentDuration = 0;
-	
-	/** 
-	* The current playback time 
-	*
-	* @private
-	* @property {int} _currentTime
-	*/
-	p._currentTime = 0;
-	
-	/** 
-	* Save the current line index 
-	*
-	* @private
-	* @property {int} _currentLine 
-	*/
-	p._currentLine = -1;
-	
-	/** 
-	* Cache the last active line
-	*
-	* @private
-	* @property {int} _lastActiveLine
-	*/
-	p._lastActiveLine = -1;
-	
-	/** 
-	* If we're playing 
-	*
-	* @private
-	* @property {bool} _playing 
-	*/
-	p._playing = false;
-	
+
 	/** 
 	* The singleton instance of Captions 
 	*
@@ -133,24 +152,6 @@
 	* @property {bool} _muteAll
 	*/
 	var _muteAll = false;
-	
-	/**
-	* If text should be set on the text field with '.text = ' instead of '.setText()'.
-	* When using PIXI textfields, textIsProp should be false.
-	* Default is true.
-	*
-	* @private
-	* @property {bool} textIsProp
-	*/
-	p.textIsProp = true;
-	
-	/**
-	* If this instance has been destroyed already 
-	* 
-	* @private
-	* @property {bool} _isDestroyed
-	*/
-	p._isDestroyed = false;
 	
 	/** 
 	* The version number of this library 

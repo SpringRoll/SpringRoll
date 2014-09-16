@@ -15,7 +15,28 @@
 	*/
 	var PageVisibility = function(onFocus, onBlur)
 	{
-		this.initialize(onFocus, onBlur);
+		/**
+		* Callback when the page becomes visible
+		* @property {function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* The visibility toggle function
+		* @property {function} _onToggle
+		* @private
+		*/
+		this._onToggle = null;
+
+		this.initialize();
 	},
 	
 	// Reference to the prototype 
@@ -28,27 +49,6 @@
 	* @private
 	*/
 	_visibilityChange = null;
-	
-	/**
-	* Callback when the page becomes visible
-	* @property {function} _onFocus
-	* @private
-	*/
-	p._onFocus = null;
-	
-	/**
-	* Callback when the page loses visibility
-	* @property {function} _onBlur
-	* @private
-	*/
-	p._onBlur = null;
-	
-	/**
-	* The visibility toggle function
-	* @property {function} _onToggle
-	* @private
-	*/
-	p._onToggle = null;
 	
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
@@ -72,24 +72,19 @@
 	*  Create new Page visibility
 	*  
 	*  @method initialize
-	*  @param {function} onFocus The callback when the page comes into focus
-	*  @param {function} onBlur The callback when the page loses focus
 	*/
-	p.initialize = function(onFocus, onBlur)
+	p.initialize = function()
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange) return;
-		
-		this._onBlur = onBlur;
-		this._onFocus = onFocus;
 		
 		// The visibility toggle function
 		var onVisibilityChange = function() 
 		{
 			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				onBlur();
+				this._onBlur();
 			else 
-				onFocus();
+				this._onFocus();
 		};
 		
 		// Listen to visibility change

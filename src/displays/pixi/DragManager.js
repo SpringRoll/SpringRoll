@@ -26,185 +26,163 @@
 			Point = include('PIXI.Point');
 		}
 
-		this.initialize(stage, startCallback, endCallback);
+		/**
+		* The object that's being dragged
+		* @public
+		* @readOnly
+		* @property {PIXI.DisplayObject} draggedObj
+		*/
+		this.draggedObj = null;
+		
+		/**
+		* The radius in pixel to allow for dragging, or else does sticky click
+		* @public
+		* @property dragStartThreshold
+		* @default 20
+		*/
+		this.dragStartThreshold = 20;
+		
+		/**
+		* The position x, y of the mouse down on the stage
+		* @private
+		* @property {PIXI.Point} mouseDownStagePos
+		*/
+		this.mouseDownStagePos = new Point(0, 0);
+
+		/**
+		* The position x, y of the object when interaction with it started.
+		* @private
+		* @property {PIXI.Point} mouseDownObjPos
+		*/
+		this.mouseDownObjPos = new Point(0, 0);
+		
+		/**
+		* Is the move touch based
+		* @public
+		* @readOnly
+		* @property {Bool} isTouchMove
+		* @default false
+		*/
+		this.isTouchMove = false;
+		
+		/**
+		* Is the drag being held on mouse down (not sticky clicking)
+		* @public
+		* @readOnly
+		* @property {Bool} isHeldDrag
+		* @default false
+		*/
+		this.isHeldDrag = false;
+		
+		/**
+		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		* @public
+		* @readOnly
+		* @property {Bool} isStickyClick
+		* @default false
+		*/
+		this.isStickyClick = false;
+		
+		/**
+		* If sticky click dragging is allowed.
+		* @public
+		* @property {Bool} allowStickyClick
+		* @default true
+		*/
+		this.allowStickyClick = true;
+
+		/**
+		* Settings for snapping.
+		*
+		*  Format for snapping to a list of points:
+		*	{
+		*		mode:"points",
+		*		dist:20,//snap when within 20 pixels/units
+		*		points:[
+		*			{ x: 20, y:30 },
+		*			{ x: 50, y:10 }
+		*		]
+		*	}
+		*
+		* @public
+		* @property {Object} snapSettings
+		* @default null
+		*/
+		this.snapSettings = null;
+		
+		/**
+		* Reference to the stage
+		* @private
+		* @property {PIXI.Stage} _theStage
+		*/
+		this._theStage = stage;
+		
+		/**
+		* The local to global position of the drag
+		* @private
+		* @property {PIXI.Point} _dragOffset
+		*/
+		this._dragOffset = null;
+		
+		/**
+		* External callback when we start dragging
+		* @private
+		* @property {Function} _dragStartCallback
+		*/
+		this._dragStartCallback = startCallback;
+		
+		/**
+		* External callback when we are done dragging
+		* @private
+		* @property {Function} _dragEndCallback
+		*/
+		this._dragEndCallback = endCallback;
+		
+		/**
+		* Callback to test for the start a held drag
+		* @private
+		* @property {Function} _triggerHeldDragCallback
+		*/
+		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
+		
+		/**
+		* Callback to start a sticky click drag
+		* @private
+		* @property {Function} _triggerStickyClickCallback
+		*/
+		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
+		
+		/**
+		* Callback when we are done with the drag
+		* @private
+		* @property {Function} _stageMouseUpCallback
+		*/
+		this._stageMouseUpCallback = this._stopDrag.bind(this);
+			
+		/**
+		* The function call when the mouse/touch moves
+		* @private
+		* @property {function} _updateCallback 
+		*/
+		this._updateCallback = this._updateObjPosition.bind(this);
+		
+		/**
+		* The collection of draggable objects
+		* @private
+		* @property {Array} _draggableObjects
+		*/
+		this._draggableObjects = [];
+
+		helperPoint = new Point(0, 0);
 	};
 	
 	/** Reference to the drag manager */
 	var p = DragManager.prototype = {};
 	
-	/**
-	* The object that's being dragged
-	* @public
-	* @readOnly
-	* @property {PIXI.DisplayObject} draggedObj
-	*/
-	p.draggedObj = null;
-	
-	/**
-	* The radius in pixel to allow for dragging, or else does sticky click
-	* @public
-	* @property dragStartThreshold
-	* @default 20
-	*/
-	p.dragStartThreshold = 20;
-	
-	/**
-	* The position x, y of the mouse down on the stage
-	* @private
-	* @property {PIXI.Point} mouseDownStagePos
-	*/
-	p.mouseDownStagePos = null;
-
-	/**
-	* The position x, y of the object when interaction with it started.
-	* @private
-	* @property {PIXI.Point} mouseDownObjPos
-	*/
-	p.mouseDownObjPos = null;
-	
-	/**
-	* Is the move touch based
-	* @public
-	* @readOnly
-	* @property {Bool} isTouchMove
-	* @default false
-	*/
-	p.isTouchMove = false;
-	
-	/**
-	* Is the drag being held on mouse down (not sticky clicking)
-	* @public
-	* @readOnly
-	* @property {Bool} isHeldDrag
-	* @default false
-	*/
-	p.isHeldDrag = false;
-	
-	/**
-	* Is the drag a sticky clicking (click on a item, then mouse the mouse)
-	* @public
-	* @readOnly
-	* @property {Bool} isStickyClick
-	* @default false
-	*/
-	p.isStickyClick = false;
-	
-	/**
-	* If sticky click dragging is allowed.
-	* @public
-	* @property {Bool} allowStickyClick
-	* @default true
-	*/
-	p.allowStickyClick = true;
-
-	/**
-	* Settings for snapping.
-	*
-	*  Format for snapping to a list of points:
-	*	{
-	*		mode:"points",
-	*		dist:20,//snap when within 20 pixels/units
-	*		points:[
-	*			{ x: 20, y:30 },
-	*			{ x: 50, y:10 }
-	*		]
-	*	}
-	*
-	* @public
-	* @property {Object} snapSettings
-	* @default null
-	*/
-	p.snapSettings = null;
-	
-	/**
-	* Reference to the stage
-	* @private
-	* @property {PIXI.Stage} _theStage
-	*/
-	p._theStage = null;
-	
-	/**
-	* The local to global position of the drag
-	* @private
-	* @property {PIXI.Point} _dragOffset
-	*/
-	p._dragOffset = null;
-	
-	/**
-	* External callback when we start dragging
-	* @private
-	* @property {Function} _dragStartCallback
-	*/
-	p._dragStartCallback = null;
-	
-	/**
-	* External callback when we are done dragging
-	* @private
-	* @property {Function} _dragEndCallback
-	*/
-	p._dragEndCallback = null;
-	
-	/**
-	* Callback to test for the start a held drag
-	* @private
-	* @property {Function} _triggerHeldDragCallback
-	*/
-	p._triggerHeldDragCallback = null;
-	
-	/**
-	* Callback to start a sticky click drag
-	* @private
-	* @property {Function} _triggerStickyClickCallback
-	*/
-	p._triggerStickyClickCallback = null;
-	
-	/**
-	* Callback when we are done with the drag
-	* @private
-	* @property {Function} _stageMouseUpCallback
-	*/
-	p._stageMouseUpCallback = null;
-		
-	/**
-	* The function call when the mouse/touch moves
-	* @private
-	* @property {function} _updateCallback 
-	*/
-	p._updateCallback = null;
-	
-	/**
-	* The collection of draggable objects
-	* @private
-	* @property {Array} _draggableObjects
-	*/
-	p._draggableObjects = null;
-	
 	var helperPoint = null;
 	
 	var TYPE_MOUSE = 0;
 	var TYPE_TOUCH = 1;
-	
-	/** 
-	* Constructor 
-	* @method initialize
-	* @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
-	* @param {function} startCallback The callback when when starting
-	* @param {function} endCallback The callback when ending
-	*/
-	p.initialize = function(stage, startCallback, endCallback)
-	{
-		this._updateCallback = this._updateObjPosition.bind(this);
-		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
-		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
-		this._stageMouseUpCallback = this._stopDrag.bind(this);
-		this._theStage = stage;
-		this._dragStartCallback = startCallback;
-		this._dragEndCallback = endCallback;
-		this._draggableObjects = [];
-		this.mouseDownStagePos = new Point(0, 0);
-		this.mouseDownObjPos = new Point(0, 0);
-		helperPoint = new Point(0, 0);
-	};
 	
 	/**
 	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 

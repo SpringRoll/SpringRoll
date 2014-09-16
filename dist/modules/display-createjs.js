@@ -249,14 +249,80 @@
 			Touch = include('createjs.Touch');
 		}
 
-		this.id = id;
 		options = options || {};
+
+		/**
+		*  the canvas managed by this display
+		*  @property {DOMElement} canvas
+		*  @readOnly
+		*  @public
+		*/
 		this.canvas = document.getElementById(id);
+
+		/**
+		*  The DOM id for the canvas
+		*  @property {String} id
+		*  @readOnly
+		*  @public
+		*/
+		this.id = id;
+
+		/**
+		*  Convenience method for getting the width of the canvas element
+		*  would be the same thing as canvas.width
+		*  @property {int} width
+		*  @readOnly
+		*  @public
+		*/
 		this.width = this.canvas.width;
+
+		/**
+		*  Convenience method for getting the height of the canvas element
+		*  would be the same thing as canvas.height
+		*  @property {int} height
+		*  @readOnly
+		*  @public
+		*/
 		this.height = this.canvas.height;
+
+		/**
+		*  The rendering library's stage element, the root display object
+		*  @property {createjs.Stage|createjs.SpriteStage}
+		*  @readOnly
+		*  @public
+		*/
+		this.stage = null;
+
+		/**
+		*  If rendering is paused on this display only. Pausing all displays can be done
+		*  using Application.paused setter.
+		*  @property {Boolean} paused
+		*  @public
+		*/
+		this.paused = false;
+
+		/**
+		*  The rate at which EaselJS calculates mouseover events, in times/second.
+		*  @property {int} mouseOverRate
+		*  @public
+		*  @default 30
+		*/
+		this.mouseOverRate = options.mouseOverRate || 30;
+
+		/**
+		*  If input is enabled on the stage.
+		*  @property {Boolean} _enabled
+		*  @private
+		*/
+		this._enabled = true;
+
+		/**
+		*  If the display is visible.
+		*  @property {Boolean} _visible
+		*  @private
+		*/
 		this._visible = this.canvas.style.display != "none";
-		if(options.mouseOverRate !== undefined)
-			this.mouseOverRate = options.mouseOverRate;
+
 		//make stage
 		if(options.stageType == "spriteStage")
 		{
@@ -267,12 +333,12 @@
 			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
+
 		// prevent mouse down turning into text cursor
 		this.canvas.onmousedown = function(e)
 		{
 			e.preventDefault();
 		};
-		this.enabled = true;//enable mouse/touch input
 
 		/**
 		*  The Animator class to use when using this display.
@@ -293,71 +359,6 @@
 	};
 
 	var p = CreateJSDisplay.prototype = {};
-
-	/**
-	*  the canvas managed by this display
-	*  @property {DOMElement} canvas
-	*  @readOnly
-	*  @public
-	*/
-	p.canvas = null;
-
-	/**
-	*  The DOM id for the canvas
-	*  @property {String} id
-	*  @readOnly
-	*  @public
-	*/
-	p.id = null;
-
-	/**
-	*  Convenience method for getting the width of the canvas element
-	*  would be the same thing as canvas.width
-	*  @property {int} width
-	*  @readOnly
-	*  @public
-	*/
-	p.width = 0;
-
-	/**
-	*  Convenience method for getting the height of the canvas element
-	*  would be the same thing as canvas.height
-	*  @property {int} height
-	*  @readOnly
-	*  @public
-	*/
-	p.height = 0;
-
-	/**
-	*  The rendering library's stage element, the root display object
-	*  @property {createjs.Stage|createjs.SpriteStage}
-	*  @readOnly
-	*  @public
-	*/
-	p.stage = null;
-
-	/**
-	*  If rendering is paused on this display only. Pausing all displays can be done
-	*  using Application.paused setter.
-	*  @property {Boolean} paused
-	*  @public
-	*/
-	p.paused = false;
-
-	/**
-	*  The rate at which EaselJS calculates mouseover events, in times/second.
-	*  @property {int} mouseOverRate
-	*  @public
-	*  @default 30
-	*/
-	p.mouseOverRate = 30;
-
-	/**
-	*  If input is enabled on the stage.
-	*  @property {Boolean} _enabled
-	*  @private
-	*/
-	p._enabled = false;
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -384,13 +385,6 @@
 			}
 		}
 	});
-
-	/**
-	*  If the display is visible.
-	*  @property {Boolean} _visible
-	*  @private
-	*/
-	p._visible = false;
 
 	/**
 	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
@@ -465,89 +459,150 @@
 	*   @class createjs.AnimatorTimeline
 	*   @constructor
 	*/
-	var AnimatorTimeline = function(){};
-	
-	// Create a prototype
-	var p = AnimatorTimeline.prototype;
-	
-	/**
-	* The event to callback when we're done
-	* 
-	* @event onComplete
-	*/
-	p.onComplete = null;
-	
-	/** 
-	* The parameters to pass when completed 
-	* 
-	* @property {Array} onCompleteParams
-	*/
-	p.onCompleteParams = null;
-	
-	/**
-	* The event label
-	* 
-	* @property {String} event
-	*/
-	p.event = null;
-	
-	/**
-	* The instance of the timeline to animate 
-	* 
-	* @property {AnimatorTimeline} instance
-	*/
-	p.instance = null;
-	
-	/**
-	* The frame number of the first frame
-	* 
-	* @property {int} firstFrame
-	*/
-	p.firstFrame = -1;
-	
-	/**
-	* The frame number of the last frame
-	* 
-	* @property {int} lastFrame
-	*/
-	p.lastFrame = -1;
-	
-	/**
-	* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
-	* 
-	* @property {bool} isLooping
-	*/
-	p.isLooping = false;
-	
-	/**
-	* Ensure we show the last frame before looping
-	* 
-	* @property {bool} isLastFrame
-	*/
-	p.isLastFrame = false;
-	
-	/**
-	* length of timeline in frames
-	* 
-	* @property {int} length
-	*/
-	p.length = 0;
+	var AnimatorTimeline = function()
+	{
+		/**
+		* The event to callback when we're done
+		* 
+		* @event onComplete
+		*/
+		this.onComplete = null;
+		
+		/** 
+		* The parameters to pass when completed 
+		* 
+		* @property {Array} onCompleteParams
+		*/
+		this.onCompleteParams = null;
+		
+		/**
+		* The event label
+		* 
+		* @property {String} event
+		*/
+		this.event = null;
+		
+		/**
+		* The instance of the timeline to animate 
+		* 
+		* @property {AnimatorTimeline} instance
+		*/
+		this.instance = null;
+		
+		/**
+		* The frame number of the first frame
+		* 
+		* @property {int} firstFrame
+		*/
+		this.firstFrame = -1;
+		
+		/**
+		* The frame number of the last frame
+		* 
+		* @property {int} lastFrame
+		*/
+		this.lastFrame = -1;
+		
+		/**
+		* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
+		* 
+		* @property {bool} isLooping
+		*/
+		this.isLooping = false;
+		
+		/**
+		* Ensure we show the last frame before looping
+		* 
+		* @property {bool} isLastFrame
+		*/
+		this.isLastFrame = false;
+		
+		/**
+		* length of timeline in frames
+		* 
+		* @property {int} length
+		*/
+		this.length = 0;
 
-	/**
-	*  If this timeline plays captions
-	*
-	*  @property {bool} useCaptions
-	*  @readOnly
-	*/
-	p.useCaptions = false;
-	
-	/**
-	* If the timeline is paused.
-	* 
-	* @property {bool} _paused
-	* @private
-	*/
-	p._paused = false;
+		/**
+		*  If this timeline plays captions
+		*
+		*  @property {bool} useCaptions
+		*  @readOnly
+		*/
+		this.useCaptions = false;
+		
+		/**
+		* If the timeline is paused.
+		* 
+		* @property {bool} _paused
+		* @private
+		*/
+		this._paused = false;
+		
+		/**
+		* The animation start time in seconds on the movieclip's timeline.
+		* @property {Number} startTime
+		* @public
+		*/
+		this.startTime = 0;
+		
+		/**
+		* The animation duration in seconds.
+		* @property {Number} duration
+		* @public
+		*/
+		this.duration = 0;
+
+		/**
+		* The animation speed. Default is 1.
+		* @property {Number} speed
+		* @public
+		*/
+		this.speed = 1;
+
+		/**
+		* The position of the animation in seconds.
+		* @property {Number} time
+		* @public
+		*/
+		this.time = 0;
+
+		/**
+		* Sound alias to sync to during the animation.
+		* @property {String} soundAlias
+		* @public
+		*/
+		this.soundAlias = null;
+
+		/**
+		* A sound instance object from cloudkid.Sound used for tracking sound position.
+		* @property {Object} soundInst
+		* @public
+		*/
+		this.soundInst = null;
+
+		/**
+		* If the timeline will, but has yet to play a sound.
+		* @property {bool} playSound
+		* @public
+		*/
+		this.playSound = false;
+
+		/**
+		* The time (seconds) into the animation that the sound starts.
+		* @property {Number} soundStart
+		* @public
+		*/
+		this.soundStart = 0;
+
+		/**
+		* The time (seconds) into the animation that the sound ends
+		* @property {Number} soundEnd
+		* @public
+		*/
+		this.soundEnd = 0;
+	};
 	
 	/**
 	* Sets and gets the animation's paused status.
@@ -569,69 +624,6 @@
 			}
 		}
 	});
-
-	/**
-	* The animation start time in seconds on the movieclip's timeline.
-	* @property {Number} startTime
-	* @public
-	*/
-	p.startTime = 0;
-	
-	/**
-	* The animation duration in seconds.
-	* @property {Number} duration
-	* @public
-	*/
-	p.duration = 0;
-
-	/**
-	* The animation speed. Default is 1.
-	* @property {Number} speed
-	* @public
-	*/
-	p.speed = 1;
-
-	/**
-	* The position of the animation in seconds.
-	* @property {Number} time
-	* @public
-	*/
-	p.time = 0;
-
-	/**
-	* Sound alias to sync to during the animation.
-	* @property {String} soundAlias
-	* @public
-	*/
-	p.soundAlias = null;
-
-	/**
-	* A sound instance object from cloudkid.Sound used for tracking sound position.
-	* @property {Object} soundInst
-	* @public
-	*/
-	p.soundInst = null;
-
-	/**
-	* If the timeline will, but has yet to play a sound.
-	* @property {bool} playSound
-	* @public
-	*/
-	p.playSound = false;
-
-	/**
-	* The time (seconds) into the animation that the sound starts.
-	* @property {Number} soundStart
-	* @public
-	*/
-	p.soundStart = 0;
-
-	/**
-	* The time (seconds) into the animation that the sound ends
-	* @property {Number} soundEnd
-	* @public
-	*/
-	p.soundEnd = 0;
 	
 	// Assign to the name space
 	namespace('cloudkid').AnimatorTimeline = AnimatorTimeline;
@@ -1507,109 +1499,113 @@
 	var Button = function(imageSettings, label, enabled)
 	{
 		if (!imageSettings) return;
+
+		Container.call(this);
+
+		/**
+		 *  The sprite that is the body of the button.
+		 *  @public
+		 *  @property {createjs.Bitmap} back
+		 *  @readOnly
+		 */
+		this.back = null;
+
+		/**
+		 *  The text field of the button. The label is centered by both width and height on the button.
+		 *  @public
+		 *  @property {createjs.Text} label
+		 *  @readOnly
+		 */
+		this.label = null;
+
+		//===callbacks for mouse/touch events
+		/**
+		 * Callback for mouse over, bound to this button.
+		 * @private
+		 * @property {Function} _overCB
+		 */
+		this._overCB = this._onMouseOver.bind(this);
+
+		/**
+		 * Callback for mouse out, bound to this button.
+		 * @private
+		 * @property {Function} _outCB
+		 */
+		this._outCB = this._onMouseOut.bind(this);
+
+		/**
+		 * Callback for mouse down, bound to this button.
+		 * @private
+		 * @property {Function} _downCB
+		 */
+		this._downCB = this._onMouseDown.bind(this);
+
+		/**
+		 * Callback for press up, bound to this button.
+		 * @private
+		 * @property {Function} _upCB
+		 */
+		this._upCB = this._onMouseUp.bind(this);
+
+		/**
+		 * Callback for click, bound to this button.
+		 * @private
+		 * @property {Function} _clickCB
+		 */
+		this._clickCB = this._onClick.bind(this);
+
+		/**
+		 * A dictionary of state booleans, keyed by state name.
+		 * @private
+		 * @property {Object} _stateFlags
+		 */
+		this._stateFlags = {};
+
+		/**
+		 * An array of state names (Strings), in their order of priority.
+		 * The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
+		 * @private
+		 * @property {Array} _statePriority
+		 */
+		this._statePriority = null;
+
+		/**
+		 * A dictionary of state graphic data, keyed by state name.
+		 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		 * Additionally, each object will contain a 'label' object if the button has a text label.
+		 * @private
+		 * @property {Object} _stateData
+		 */
+		this._stateData = {};
+
+		/**
+		 * The width of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _width
+		 */
+		this._width = 0;
+
+		/**
+		 * The height of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _height
+		 */
+		this._height = 0;
+
+		/**
+		 * An offset to button positioning, generally used to adjust for a highlight around the button.
+		 * @private
+		 * @property {createjs.Point} _offset
+		 */
+		this._offset = new Point();
+
 		this.initialize(imageSettings, label, enabled);
 	};
 
 	// Extend Container
-	var p = Button.prototype = new Container();
+	var p = Button.prototype = Object.create(Container.prototype);
 
 	var s = Container.prototype; //super
-
-	/**
-	 *  The sprite that is the body of the button.
-	 *  @public
-	 *  @property {createjs.Bitmap} back
-	 *  @readOnly
-	 */
-	p.back = null;
-
-	/**
-	 *  The text field of the button. The label is centered by both width and height on the button.
-	 *  @public
-	 *  @property {createjs.Text} label
-	 *  @readOnly
-	 */
-	p.label = null;
-
-	//===callbacks for mouse/touch events
-	/**
-	 * Callback for mouse over, bound to this button.
-	 * @private
-	 * @property {Function} _overCB
-	 */
-	p._overCB = null;
-
-	/**
-	 * Callback for mouse out, bound to this button.
-	 * @private
-	 * @property {Function} _outCB
-	 */
-	p._outCB = null;
-
-	/**
-	 * Callback for mouse down, bound to this button.
-	 * @private
-	 * @property {Function} _downCB
-	 */
-	p._downCB = null;
-
-	/**
-	 * Callback for press up, bound to this button.
-	 * @private
-	 * @property {Function} _upCB
-	 */
-	p._upCB = null;
-
-	/**
-	 * Callback for click, bound to this button.
-	 * @private
-	 * @property {Function} _clickCB
-	 */
-	p._clickCB = null;
-
-	/**
-	 * A dictionary of state booleans, keyed by state name.
-	 * @private
-	 * @property {Object} _stateFlags
-	 */
-	p._stateFlags = null;
-	/**
-	 * An array of state names (Strings), in their order of priority.
-	 * The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
-	 * @private
-	 * @property {Array} _statePriority
-	 */
-	p._statePriority = null;
-
-	/**
-	 * A dictionary of state graphic data, keyed by state name.
-	 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-	 * Additionally, each object will contain a 'label' object if the button has a text label.
-	 * @private
-	 * @property {Object} _stateData
-	 */
-	p._stateData = null;
-
-	/**
-	 * The width of the button art, independent of the scaling of the button itself.
-	 * @private
-	 * @property {Number} _width
-	 */
-	p._width = 0;
-
-	/**
-	 * The height of the button art, independent of the scaling of the button itself.
-	 * @private
-	 * @property {Number} _height
-	 */
-	p._height = 0;
-
-	/**
-	 * An offset to button positioning, generally used to adjust for a highlight around the button.
-	 * @private
-	 * @property {createjs.Point} _offset
-	 */
-	p._offset = null;
 
 	/**
 	 * An event for when the button is pressed (while enabled).
@@ -1643,19 +1639,9 @@
 	 */
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		s.initialize.call(this);
-
 		this.mouseChildren = false; //input events should have this button as a target, not the child Bitmap.
 
-		this._downCB = this._onMouseDown.bind(this);
-		this._upCB = this._onMouseUp.bind(this);
-		this._overCB = this._onMouseOver.bind(this);
-		this._outCB = this._onMouseOut.bind(this);
-		this._clickCB = this._onClick.bind(this);
-
-		var _stateData = this._stateData = {};
-		this._stateFlags = {};
-		this._offset = new Point();
+		var _stateData = this._stateData;
 
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
@@ -2243,41 +2229,26 @@
 	*/
 	var CharacterClip = function(event, loops)
 	{
-		this.initialize(event, loops);
-	};
-	
-	var p = CharacterClip.prototype;
-	
-	/**
-	* The event to play
-	*
-	*@property {String} event
-	*/
-	p.event = null;
-	
-	/**
-	* The number of times to loop
-	* 
-	* @property {int} loops
-	*/
-	p.loops = 0;
-	
-	/**
-	*   Initialiaze this character clip
-	*   
-	*   @function initialize
-	*   @param {String} event The frame label to play using Animator.play
-	*   @param {int} loops The number of times to loop, default of 0 plays continuously
-	*/
-	p.initialize = function(event, loops)
-	{
+		/**
+		* The event to play
+		*
+		* @property {String} event
+		*/
 		this.event = event;
+		
+		/**
+		* The number of times to loop
+		* 
+		* @property {int} loops
+		*/
 		this.loops = loops || 0;
 	};
+		
 	
 	// Assign to the cloudkid namespace
 	namespace('cloudkid').CharacterClip = CharacterClip;
 	namespace('cloudkid.createjs').CharacterClip = CharacterClip;
+
 }());
 /**
 *  @module cloudkid.createjs
@@ -2296,84 +2267,72 @@
 	*/
 	var CharacterController = function()
 	{
-		this.initialize();
+		/**
+		* The current stack of animations to play
+		*
+		* @property {Array} _animationStack
+		* @private
+		*/
+		this._animationStack = [];
+		
+		/**
+		* The currently playing animation 
+		* 
+		* @property {CharacterClip} _currentAnimation
+		* @private
+		*/
+		this._currentAnimation = null;
+		
+		/**
+		* Current number of loops for the current animation
+		* 
+		* @property {int} _loops
+		* @private
+		*/
+		this._loops = 0;
+		
+		/**
+		* If the current animation choreographies can't be interrupted 
+		* 
+		* @property {bool} _interruptable
+		* @private
+		*/
+		this._interruptable = true;
+		
+		/**
+		* If frame dropping is allowed for this animation set
+		* 
+		* @property {bool} _allowFrameDropping
+		* @private
+		*/
+		this._allowFrameDropping = false;
+		
+		/**
+		* The current character
+		* 
+		* @property {createjs.MovieClip} _character
+		* @private
+		*/
+		this._character = null;
+		
+		/**
+		* Callback function for playing animation 
+		* 
+		* @property {function} _callback
+		* @private
+		*/
+		this._callback = null;
+		
+		/** 
+		* If this instance has been destroyed
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
 	};
 	
 	var p = CharacterController.prototype;
-	
-	/**
-	* The current stack of animations to play
-	*
-	* @property {Array} _animationStack
-	* @private
-	*/
-	p._animationStack = null;
-	
-	/**
-	* The currently playing animation 
-	* 
-	* @property {CharacterClip} _currentAnimation
-	* @private
-	*/
-	p._currentAnimation = null;
-	
-	/**
-	* Current number of loops for the current animation
-	* 
-	* @property {int} _loops
-	* @private
-	*/
-	p._loops = 0;
-	
-	/**
-	* If the current animation choreographies can't be interrupted 
-	* 
-	* @property {bool} _interruptable
-	* @private
-	*/
-	p._interruptable = true;
-	
-	/**
-	* If frame dropping is allowed for this animation set
-	* 
-	* @property {bool} _allowFrameDropping
-	* @private
-	*/
-	p._allowFrameDropping = false;
-	
-	/**
-	* The current character
-	* 
-	* @property {createjs.MovieClip} _character
-	* @private
-	*/
-	p._character = null;
-	
-	/**
-	* Callback function for playing animation 
-	* 
-	* @property {function} _callback
-	* @private
-	*/
-	p._callback = null;
-	
-	/** 
-	* If this instance has been destroyed
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* Initiliazes this Character controller
-	* 
-	* @function initialize
-	*/
-	p.initialize = function()
-	{
-		this._animationStack = [];
-	};
 	
 	/**
 	*   Set the current character, setting to null clears character
@@ -2564,187 +2523,163 @@
 			Tween = include('createjs.Tween', false);
 		}
 
-		this.initialize(stage, startCallback, endCallback);
+		/**
+		* The object that's being dragged
+		* @public
+		* @readOnly
+		* @property {createjs.DisplayObject} draggedObj
+		*/
+		this.draggedObj = null;
+		
+		/**
+		* The radius in pixel to allow for dragging, or else does sticky click
+		* @public
+		* @property dragStartThreshold
+		* @default 20
+		*/
+		this.dragStartThreshold = 20;
+		
+		/**
+		* The position x, y of the mouse down on the stage
+		* @private
+		* @property {object} mouseDownStagePos
+		*/
+		this.mouseDownStagePos = {x:0, y:0};
+
+		/**
+		* The position x, y of the object when interaction with it started.
+		* @private
+		* @property {object} mouseDownObjPos
+		*/
+		this.mouseDownObjPos = {x:0, y:0};
+
+		/**
+		* If sticky click dragging is allowed.
+		* @public
+		* @property {Bool} allowStickyClick
+		* @default true
+		*/
+		this.allowStickyClick = true;
+		
+		/**
+		* Is the move touch based
+		* @public
+		* @readOnly
+		* @property {Bool} isTouchMove
+		* @default false
+		*/
+		this.isTouchMove = false;
+		
+		/**
+		* Is the drag being held on mouse down (not sticky clicking)
+		* @public
+		* @readOnly
+		* @property {Bool} isHeldDrag
+		* @default false
+		*/
+		this.isHeldDrag = false;
+		
+		/**
+		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		* @public
+		* @readOnly
+		* @property {Bool} isStickyClick
+		* @default false
+		*/
+		this.isStickyClick = false;
+
+		/**
+		* Settings for snapping.
+		*
+		*  Format for snapping to a list of points:
+		*	{
+		*		mode:"points",
+		*		dist:20,//snap when within 20 pixels/units
+		*		points:[
+		*			{ x: 20, y:30 },
+		*			{ x: 50, y:10 }
+		*		]
+		*	}
+		*
+		* @public
+		* @property {Object} snapSettings
+		* @default null
+		*/
+		this.snapSettings = null;
+		
+		/**
+		* Reference to the stage
+		* @private
+		* @property {createjsStage} _theStage
+		*/
+		this._theStage = stage;
+		
+		/**
+		* The local to global position of the drag
+		* @private
+		* @property {createjs.Point} _dragOffset
+		*/
+		this._dragOffset = null;
+		
+		/**
+		* Callback when we start dragging
+		* @private
+		* @property {Function} _dragStartCallback
+		*/
+		this._dragStartCallback = startCallback;
+		
+		/**
+		* Callback when we are done dragging
+		* @private
+		* @property {Function} _dragEndCallback
+		*/
+		this._dragEndCallback = endCallback;
+		
+		/**
+		* Callback to test for the start a held drag
+		* @private
+		* @property {Function} _triggerHeldDragCallback
+		*/
+		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
+		
+		/**
+		* Callback to start a sticky click drag
+		* @private
+		* @property {Function} _triggerStickyClickCallback
+		*/
+		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
+		
+		/**
+		* Callback when we are done with the drag
+		* @private
+		* @property {Function} _stageMouseUpCallback
+		*/
+		this._stageMouseUpCallback = this._stopDrag.bind(this);
+		
+		/**
+		* The collection of draggable objects
+		* @private
+		* @property {Array} _draggableObjects
+		*/
+		this._draggableObjects = [];
+			
+		/**
+		* The function call when the mouse/touch moves
+		* @private
+		* @property {function} _updateCallback 
+		*/
+		this._updateCallback = this._updateObjPosition.bind(this);
+
+		/**
+		* A point for reuse instead of lots of object creation.
+		* @private
+		* @property {createjs.Point} _helperPoint 
+		*/
+		this._helperPoint = null;
 	};
 	
 	/** Reference to the drag manager */
 	var p = DragManager.prototype = {};
-	
-	/**
-	* The object that's being dragged
-	* @public
-	* @readOnly
-	* @property {createjs.DisplayObject} draggedObj
-	*/
-	p.draggedObj = null;
-	
-	/**
-	* The radius in pixel to allow for dragging, or else does sticky click
-	* @public
-	* @property dragStartThreshold
-	* @default 20
-	*/
-	p.dragStartThreshold = 20;
-	
-	/**
-	* The position x, y of the mouse down on the stage
-	* @private
-	* @property {object} mouseDownStagePos
-	*/
-	p.mouseDownStagePos = null;
-
-	/**
-	* The position x, y of the object when interaction with it started.
-	* @private
-	* @property {object} mouseDownObjPos
-	*/
-	p.mouseDownObjPos = null;
-
-	/**
-	* If sticky click dragging is allowed.
-	* @public
-	* @property {Bool} allowStickyClick
-	* @default true
-	*/
-	p.allowStickyClick = true;
-	
-	/**
-	* Is the move touch based
-	* @public
-	* @readOnly
-	* @property {Bool} isTouchMove
-	* @default false
-	*/
-	p.isTouchMove = false;
-	
-	/**
-	* Is the drag being held on mouse down (not sticky clicking)
-	* @public
-	* @readOnly
-	* @property {Bool} isHeldDrag
-	* @default false
-	*/
-	p.isHeldDrag = false;
-	
-	/**
-	* Is the drag a sticky clicking (click on a item, then mouse the mouse)
-	* @public
-	* @readOnly
-	* @property {Bool} isStickyClick
-	* @default false
-	*/
-	p.isStickyClick = false;
-
-	/**
-	* Settings for snapping.
-	*
-	*  Format for snapping to a list of points:
-	*	{
-	*		mode:"points",
-	*		dist:20,//snap when within 20 pixels/units
-	*		points:[
-	*			{ x: 20, y:30 },
-	*			{ x: 50, y:10 }
-	*		]
-	*	}
-	*
-	* @public
-	* @property {Object} snapSettings
-	* @default null
-	*/
-	p.snapSettings = null;
-	
-	/**
-	* Reference to the stage
-	* @private
-	* @property {createjsStage} _theStage
-	*/
-	p._theStage = null;
-	
-	/**
-	* The local to global position of the drag
-	* @private
-	* @property {createjs.Point} _dragOffset
-	*/
-	p._dragOffset = null;
-	
-	/**
-	* Callback when we start dragging
-	* @private
-	* @property {Function} _dragStartCallback
-	*/
-	p._dragStartCallback = null;
-	
-	/**
-	* Callback when we are done dragging
-	* @private
-	* @property {Function} _dragEndCallback
-	*/
-	p._dragEndCallback = null;
-	
-	/**
-	* Callback to test for the start a held drag
-	* @private
-	* @property {Function} _triggerHeldDragCallback
-	*/
-	p._triggerHeldDragCallback = null;
-	
-	/**
-	* Callback to start a sticky click drag
-	* @private
-	* @property {Function} _triggerStickyClickCallback
-	*/
-	p._triggerStickyClickCallback = null;
-	
-	/**
-	* Callback when we are done with the drag
-	* @private
-	* @property {Function} _stageMouseUpCallback
-	*/
-	p._stageMouseUpCallback = null;
-	
-	/**
-	* The collection of draggable objects
-	* @private
-	* @property {Array} _draggableObjects
-	*/
-	p._draggableObjects = null;
-		
-	/**
-	* The function call when the mouse/touch moves
-	* @private
-	* @property {function} _updateCallback 
-	*/
-	p._updateCallback = null;
-
-	/**
-	* A point for reuse instead of lots of object creation.
-	* @private
-	* @property {createjs.Point} _helperPoint 
-	*/
-	p._helperPoint = null;
-	
-	/** 
-	* Constructor 
-	* @method initialize
-	* @constructor
-	* @param {createjs.Stage} stage The stage that this DragManager is monitoring.
-	* @param {function} startCallback The callback when when starting
-	* @param {function} endCallback The callback when ending
-	*/
-	p.initialize = function(stage, startCallback, endCallback)
-	{
-		this._updateCallback = this._updateObjPosition.bind(this);
-		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
-		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
-		this._stageMouseUpCallback = this._stopDrag.bind(this);
-		this._theStage = stage;
-		this._dragStartCallback = startCallback;
-		this._dragEndCallback = endCallback;
-		this._draggableObjects = [];
-		this.mouseDownStagePos = {x:0, y:0};
-		this.mouseDownObjPos = {x:0, y:0};
-	};
 	
 	/**
 	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 
@@ -3129,153 +3064,149 @@
 		}
 
 		Container.call(this);
-		this.setup(options);
+
+		if(!options)
+			throw new Error("need options to create Cutscene");
+
+		/**
+		*	When the cutscene is ready to use
+		*	@property {Boolean} isReady
+		*	@public
+		*/
+		this.isReady = false;
+		
+		/**
+		*	The framerate the cutscene should play at.
+		*	@property {int} framerate
+		*	@private
+		*/
+		this.framerate = 0;
+		
+		/**
+		*	Reference to the display we are drawing on
+		*	@property {Display} display
+		*	@public
+		*/
+		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
+		
+		/**
+		*	The source url for the config until it is loaded, then the config object.
+		*	@property {String|Object} config
+		*	@private
+		*/
+		this.config = options.configUrl;
+
+		/**
+		*	The scaling value for all images.
+		*	@property {Number} imageScale
+		*	@private
+		*/
+		this.imageScale = options.imageScale || 1;
+
+		/**
+		*	A string found in the paths of images that should be replaced with another value.
+		*	@property {String} pathReplaceTarg
+		*	@private
+		*/
+		this.pathReplaceTarg = options.pathReplaceTarg || null;
+
+		/**
+		*	The string to use when replacing options.pathReplaceTarg.
+		*	@property {String} pathReplaceVal
+		*	@private
+		*/
+		this.pathReplaceVal = options.pathReplaceVal || null;
+
+		/**
+		*	The TaskManager used to load up assets.
+		*	@property {TaskManager} _taskMan
+		*	@private
+		*/
+		this._taskMan = null;
+
+		/**
+		*	The time elapsed in seconds.
+		*	@property {Number} _elapsedTime
+		*	@private
+		*/
+		this._elapsedTime = 0;
+
+		/**
+		*	The clip that is being animated.
+		*	@property {easeljs.MovieClip} _clip
+		*	@private
+		*/
+		this._clip = null;
+
+		/**
+		*	The sound instance of the playing audio
+		*	@property {Sound.soundInst} _currentAudioInstance
+		*	@private
+		*/
+		this._currentAudioInstance = null;
+
+		/**
+		*	If the animation has finished playing.
+		*	@property {Boolean} _animFinished
+		*	@private
+		*/
+		this._animFinished = false;
+
+		/**
+		*	If the audio has finished playing.
+		*	@property {Boolean} _audioFinished
+		*	@private
+		*/
+		this._audioFinished = false;
+
+		/**
+		*	The Captions object to use to manage captions.
+		*	@property {Captions} _captionsObj
+		*	@private
+		*/
+		this._captionsObj = options.captions || null;
+
+		/**
+		*	The function to call when loading is complete.
+		*	@property {Function} _loadCallback
+		*	@private
+		*/
+		this._loadCallback = options.loadCallback || null;
+
+		/**
+		*	The function to call when playback is complete.
+		*	@property {Function} _endCallback
+		*	@private
+		*/
+		this._endCallback = null;
+
+		//bind some callbacks
+		this.update = this.update.bind(this);
+		this._audioCallback = this._audioCallback.bind(this);
+
+		this.resize = this.resize.bind(this);
+
+		this.setup();
 	};
 	
 	var p = Cutscene.prototype = new Container();
 	
 	/**
-	*	When the cutscene is ready to use
-	*	@property {Boolean} isReady
-	*	@public
-	*/
-	p.isReady = false;
-	
-	/**
-	*	The framerate the cutscene should play at.
-	*	@property {int} framerate
-	*	@private
-	*/
-	p.framerate = 0;
-	
-	/**
-	*	Reference to the display we are drawing on
-	*	@property {Display} display
-	*	@public
-	*/
-	p.display = null;
-	
-	/**
-	*	The source url for the config until it is loaded, then the config object.
-	*	@property {String|Object} config
-	*	@private
-	*/
-	p.config = null;
-	/**
-	*	The scaling value for all images.
-	*	@property {Number} imageScale
-	*	@private
-	*/
-	p.imageScale = 1;
-	/**
-	*	A string found in the paths of images that should be replaced with another value.
-	*	@property {String} pathReplaceTarg
-	*	@private
-	*/
-	p.pathReplaceTarg = null;
-	/**
-	*	The string to use when replacing options.pathReplaceTarg.
-	*	@property {String} pathReplaceVal
-	*	@private
-	*/
-	p.pathReplaceVal = null;
-	/**
-	*	The TaskManager used to load up assets.
-	*	@property {TaskManager} _taskMan
-	*	@private
-	*/
-	p._taskMan = null;
-	/**
-	*	The time elapsed in seconds.
-	*	@property {Number} _elapsedTime
-	*	@private
-	*/
-	p._elapsedTime = 0;
-	/**
-	*	The clip that is being animated.
-	*	@property {easeljs.MovieClip} _clip
-	*	@private
-	*/
-	p._clip = null;
-	/**
-	*	The sound instance of the playing audio
-	*	@property {Sound.soundInst} _currentAudioInstance
-	*	@private
-	*/
-	p._currentAudioInstance = null;
-	/**
-	*	If the animation has finished playing.
-	*	@property {Boolean} _animFinished
-	*	@private
-	*/
-	p._animFinished = false;
-	/**
-	*	If the audio has finished playing.
-	*	@property {Boolean} _audioFinished
-	*	@private
-	*/
-	p._audioFinished = false;
-	/**
-	*	The Captions object to use to manage captions.
-	*	@property {Captions} _captionsObj
-	*	@private
-	*/
-	p._captionsObj = null;
-	/**
-	*	The function to call when loading is complete.
-	*	@property {Function} _loadCallback
-	*	@private
-	*/
-	p._loadCallback = null;
-	/**
-	*	The function to call when playback is complete.
-	*	@property {Function} _endCallback
-	*	@private
-	*/
-	p._endCallback = null;
-	
-	/**
 	*   Called from the constructor to complete setup and start loading.
 	*
 	*   @method setup
-	*	@param {Object} options The runtime specific setup data for the cutscene.
-	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
-	*	@param {String} options.configUrl The url of the json config file describing the cutscene. See the example project.
-	*	@param {Function} [options.loadCallback] A function to call when loading is complete.
-	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
-	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
-	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
-	*	@private
+	*   @private
 	*/
-	p.setup = function(options)
+	p.setup = function()
 	{
-		if(!options)
-			throw new Error("need options to create Cutscene");
-		
-		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
-		this.config = options.configUrl;
-		this._loadCallback = options.loadCallback || null;
-		this.imageScale = options.imageScale || 1;
-		this.pathReplaceTarg = options.pathReplaceTarg || null;
-		this.pathReplaceVal = options.pathReplaceVal || null;
-		this._captionsObj = options.captions || null;
-		
-		//bind some callbacks
-		this.update = this.update.bind(this);
-		this._audioCallback = this._audioCallback.bind(this);
-		this.resize = this.resize.bind(this);
-
 		this.display.stage.addChild(this);
 
-		var tasks = [];
-		tasks.push(new LoadTask("config", this.config, this.onConfigLoaded.bind(this)));
 		// create a texture from an image path
-		this._taskMan = new TaskManager(tasks);
-		this._taskMan.addEventListener(
-			TaskManager.ALL_TASKS_DONE, 
-			this.onLoadComplete.bind(this)
-		);
+		this._taskMan = new TaskManager([new LoadTask(
+			"config", this.config, this.onConfigLoaded.bind(this)
+		)]);
+
+		this._taskMan.on(TaskManager.ALL_TASKS_DONE, this.onLoadComplete.bind(this));
 		this._taskMan.startAll();
 	};
 	

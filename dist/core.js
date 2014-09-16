@@ -883,7 +883,28 @@
 	*/
 	var PageVisibility = function(onFocus, onBlur)
 	{
-		this.initialize(onFocus, onBlur);
+		/**
+		* Callback when the page becomes visible
+		* @property {function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* The visibility toggle function
+		* @property {function} _onToggle
+		* @private
+		*/
+		this._onToggle = null;
+
+		this.initialize();
 	},
 	
 	// Reference to the prototype 
@@ -896,27 +917,6 @@
 	* @private
 	*/
 	_visibilityChange = null;
-	
-	/**
-	* Callback when the page becomes visible
-	* @property {function} _onFocus
-	* @private
-	*/
-	p._onFocus = null;
-	
-	/**
-	* Callback when the page loses visibility
-	* @property {function} _onBlur
-	* @private
-	*/
-	p._onBlur = null;
-	
-	/**
-	* The visibility toggle function
-	* @property {function} _onToggle
-	* @private
-	*/
-	p._onToggle = null;
 	
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
@@ -940,24 +940,19 @@
 	*  Create new Page visibility
 	*  
 	*  @method initialize
-	*  @param {function} onFocus The callback when the page comes into focus
-	*  @param {function} onBlur The callback when the page loses focus
 	*/
-	p.initialize = function(onFocus, onBlur)
+	p.initialize = function()
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange) return;
-		
-		this._onBlur = onBlur;
-		this._onFocus = onFocus;
 		
 		// The visibility toggle function
 		var onVisibilityChange = function() 
 		{
 			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				onBlur();
+				this._onBlur();
 			else 
-				onFocus();
+				this._onFocus();
 		};
 		
 		// Listen to visibility change
@@ -1852,46 +1847,31 @@
 			Application = include('cloudkid.Application');
 			Loader = include('cloudkid.Loader');
 		}
-		
-		this.initialize();
-	};
-	
-	/** Easy access to the prototype */
-	var p = CacheManager.prototype = {};
-	
-	/**
-	*  The collection of version numbers
-	*  @protected
-	*  @property {Dictionary} _versions
-	*/
-	p._versions = null;
-	
-	/**
-	*  If we are suppose to cache bust every file
-	*  @property {bool} cacheBust
-	*  @public
-	*  @default false
-	*/
-	p.cacheBust = false;
-	
-	/**
-	* The constructor for the Cache manager
-	* @public
-	* @constructor
-	* @method initialize
-	*/
-	p.initialize = function()
-	{
+
+		/**
+		*  The collection of version numbers
+		*  @protected
+		*  @property {Dictionary} _versions
+		*/
 		this._versions = [];
-				
+		
+		/**
+		*  If we are suppose to cache bust every file
+		*  @property {bool} cacheBust
+		*  @public
+		*  @default false
+		*/						
 		var cb = Application.instance.options.cacheBust;
-		this.cacheBust = cb ? (cb === "true" || cb === true) : false;
+		this.cacheBust = (cb === "true" || cb === true);
 		
 		if(true)
 		{
 			if (this.cacheBust) Debug.log("CacheBust all files is on.");
 		}
 	};
+	
+	/** Easy access to the prototype */
+	var p = CacheManager.prototype = {};
 	
 	/**
 	*  Destroy the cache manager, don't use after this
@@ -2045,7 +2025,72 @@
 	*
 	*  @class LoaderQueueItem
 	*/
-	var LoaderQueueItem = function(){};
+	var LoaderQueueItem = function()
+	{
+		/**
+		*  The url of the load
+		*  @public
+		*  @property {string} url
+		*/
+		this.url = null;
+		
+		/**
+		*  Data associate with the load
+		*  @public
+		*  @property {*} data
+		*/
+		this.data = null;
+		
+		/**
+		*  The callback function of the load, to call when 
+		*  the load as finished, takes one argument as result
+		*  @public
+		*  @property {function} callback
+		*/
+		this.callback = null;
+		
+		/**
+		*  The priority of this item
+		*  @property {int} priority
+		*  @public
+		*/
+		this.priority = 0;
+		
+		/**
+		*  The amount we've loaded so far, from 0 to 1
+		*  @public
+		*  @property {Number} progress
+		*/
+		this.progress = 0;
+		
+		/**
+		*  The progress callback
+		*  @public
+		*  @proprty {function} updateCallback
+		*/
+		this.updateCallback = null;
+		
+		/**
+		*  The callback when a load queue item fails
+		*  @private
+		*  @proprty {function} _boundFail
+		*/
+		this._boundFail = null;
+
+		/**
+		*  The callback when a load queue item progresses
+		*  @private
+		*  @proprty {function} _boundProgress
+		*/
+		this._boundProgress = null;
+
+		/**
+		*  The callback when a load queue item completes
+		*  @private
+		*  @proprty {function} _boundComplete
+		*/
+		this._boundComplete = null;
+	};
 	
 	/** Reference to the prototype */
 	var p = LoaderQueueItem.prototype;
@@ -2078,53 +2123,6 @@
 	LoaderQueueItem.PRIORITY_LOW = -1;
 	
 	/**
-	*  The url of the load
-	*  @public
-	*  @property {string} url
-	*/
-	p.url = null;
-	
-	/**
-	*  Data associate with the load
-	*  @public
-	*  @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	*  The callback function of the load, to call when 
-	*  the load as finished, takes one argument as result
-	*  @public
-	*  @property {function} callback
-	*/
-	p.callback = null;
-	
-	/**
-	*  The priority of this item
-	*  @property {int} priority
-	*  @public
-	*/
-	p.priority = 0;
-	
-	/**
-	*  The amount we've loaded so far, from 0 to 1
-	*  @public
-	*  @property {Number} progress
-	*/
-	p.progress = 0;
-	
-	/**
-	*  The progress callback
-	*  @public
-	*  @proprty {function} updateCallback
-	*/
-	p.updateCallback = null;
-	
-	p._boundFail = null;
-	p._boundProgress = null;
-	p._boundComplete = null;
-	
-	/**
 	*  Represent this object as a string
 	*  @public
 	*  @method toString
@@ -2152,6 +2150,7 @@
 	
 	// Assign to the name space
 	namespace('cloudkid').LoaderQueueItem = LoaderQueueItem;
+	
 }());
 /**
 *  @module cloudkid
@@ -2184,6 +2183,27 @@
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 		}
+
+		/**
+		*  If we can load
+		*  @private
+		*/
+		this._canLoad = true;
+		
+		/**
+		*  The maximum number of simulaneous loads
+		*  @public
+		*  @property {int} maxSimultaneousLoads
+		*  @default 2
+		*/
+		this.maxSimultaneousLoads = 2;
+		
+		/**
+		*  The reference to the cache manager
+		*  @public
+		*  @property {CacheManager} cacheManager
+		*/
+		this.cacheManager = null;
 	};
 	
 	/** The prototype */
@@ -2215,8 +2235,25 @@
 	*/
 	var loaders = null;
 	
+	/**
+	*  The pool of queue items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var qiPool = null;
+
+	/**
+	*  The pool of loader items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var loaderPool = null;
+
+	/**
+	*  The pool of result items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var resultPool = null;
 	
 	/**
@@ -2227,28 +2264,12 @@
 	*/
 	var numLoads = 0;
 	
-	var retries = null;
-	
 	/**
-	*  If we can load
+	*  The retry attempts
 	*  @private
+	*  @property {Object} retries
 	*/
-	p._canLoad = true;
-	
-	/**
-	*  The maximum number of simulaneous loads
-	*  @public
-	*  @property {int} maxSimultaneousLoads
-	*  @default 2
-	*/
-	p.maxSimultaneousLoads = 2;
-	
-	/**
-	*  The reference to the cache manager
-	*  @public
-	*  @property {CacheManager} cacheManager
-	*/
-	p.cacheManager = null;
+	var retries = null;
 	
 	/**
 	*  Static constructor creating the singleton
@@ -2623,34 +2644,30 @@
 	*/
 	var LoaderResult = function(content, url, loader)
 	{
+		/**
+		*  The contents of the load
+		*  @public
+		*  @property {*} content 
+		*/
 		this.content = content;
+
+		/**
+		*  The url of the load
+		*  @public
+		*  @property {string} url
+		*/
 		this.url = url;
+
+		/**
+		*  Reference to the preloader object
+		*  @public
+		*  @property {createjs.LoaderQueue} loader
+		*/
 		this.loader = loader;
 	};
 	
 	/** Reference to the prototype */
 	var p = LoaderResult.prototype;
-	
-	/**
-	*  The contents of the load
-	*  @public
-	*  @property {*} content 
-	*/
-	p.content = null;
-	
-	/**
-	*  The url of the load
-	*  @public
-	*  @property {string} url
-	*/
-	p.url = null;
-	
-	/**
-	*  Reference to the preloader object
-	*  @public
-	*  @property {createjs.LoaderQueue} loader
-	*/
-	p.loader = null;
 	
 	/**
 	* A to string method

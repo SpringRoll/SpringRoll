@@ -18,18 +18,21 @@
 		*	@public
 		*/
 		this.id = id;
+		
 		/**
 		*	The current volume to apply to all sounds in the context (0 to 1).
 		*	@property {Number} volume
 		*	@public
 		*/
 		this.volume = 1;
+
 		/**
 		*	If all sounds in the sound context are muted or not.
 		*	@property {bool} muted
 		*	@public
 		*/
 		this.muted = false;
+
 		/**
 		*	The sound objects in this context, from Sound.instance._sounds;
 		*	@property {Array} sounds
@@ -37,9 +40,6 @@
 		*/
 		this.sounds = [];
 	};
-
-	// Reference to the prototype
-	SoundContext.prototype = {};
 
 	// Assign to name space
 	namespace('cloudkid').SoundContext = SoundContext;
@@ -278,11 +278,11 @@
 		this.list = list;
 	};
 
-	// Reference to the prototype
-	var p = SoundListTask.prototype = Object.create(Task.prototype);
-
 	// Super
-	SoundListTask.s = Task.prototype;
+	var s = Task.prototype;
+
+	// Reference to the prototype
+	var p = SoundListTask.prototype = Object.create(s);
 
 	/**
 	*  Begin the task
@@ -300,7 +300,7 @@
 	*/
 	p.destroy = function()
 	{
-		SoundListTask.s.destroy.apply(this);
+		s.destroy.call(this);
 		this.list = null;
 	};
 
@@ -341,58 +341,50 @@
 			SoundListTask = include('cloudkid.SoundListTask');
 		}
 
-		this._sounds = {};
-		this._fades = [];
-		this._contexts = {};
-		this._pool = [];
-		this._update = this._update.bind(this);
-		this._markLoaded = this._markLoaded.bind(this);
 		/** 
-		*  A copy of _playAfterLoad bound to this Sound instance.
-		*  @property {function} _playAfterLoadBound
+		*  Dictionary of sound objects, containing configuration info and playback objects.
+		*  @property {Object} _sounds
 		*  @private
 		*/
-		this._playAfterLoadBound = this._playAfterLoad.bind(this);
+		this._sounds = {};
+
+		/** 
+		*  Array of SoundInstance objects that are being faded in or out.
+		*  @property {Array} _fades
+		*  @private
+		*/
+		this._fades = [];
+
+		/**
+		*  Array of SoundInstance objects waiting to be used.
+		*  @property {Array} _pool
+		*  @private
+		*/
+		this._pool = [];
+
+		/**
+		*  The extension of the supported sound type that will be used.
+		*  @property {string} supportedSound
+		*  @public
+		*/
+		this.supportedSound = null;
+
+		/**
+		*  Dictionary of SoundContexts.
+		*  @property {Object} _contexts
+		*  @private
+		*/
+		this._contexts = {};
+
+		// Bindings
+		this._update = this._update.bind(this);
+		this._markLoaded = this._markLoaded.bind(this);
+		this._playAfterLoad = this._playAfterLoad.bind(this);
 	};
 	
 	var p = Sound.prototype = {};
 	
 	var _instance = null;
-	
-	/** 
-	*  Dictionary of sound objects, containing configuration info and playback objects.
-	*  @property {Object} _sounds
-	*  @private
-	*/
-	p._sounds = null;
-	/** 
-	
-	*  Array of SoundInstance objects that are being faded in or out.
-	*  @property {Array} _fades
-	*  @private
-	*/
-	p._fades = null;
-
-	/**
-	*  Array of SoundInstance objects waiting to be used.
-	*  @property {Array} _pool
-	*  @private
-	*/
-	p._pool = null;
-
-	/**
-	*  The extension of the supported sound type that will be used.
-	*  @property {string} supportedSound
-	*  @public
-	*/
-	p.supportedSound = null;
-
-	/**
-	*  Dictionary of SoundContexts.
-	*  @property {Object} _contexts
-	*  @private
-	*/
-	p._contexts = null;
 
 	//sound states
 	var UNLOADED = 0;
@@ -1475,109 +1467,102 @@
 	var VOPlayer = function(useCaptions)
 	{
 		// Import classes
-		if(!Application)
+		if (!Application)
 		{
 			Captions = include('cloudkid.Captions');
 			Application = include('cloudkid.Application');
 		}
 
-		this._audioListener = this._onAudioFinished.bind(this);
+		// Bound method calls
+		this._onSoundFinished = this._onSoundFinished.bind(this);
 		this._update = this._update.bind(this);
 		this._updateCaptionPos = this._updateCaptionPos.bind(this);
+		
+		/**
+		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
+		*	dictionary config file and a reference to a text field.
+		*	@property {cloudkid.Captions} captions
+		*	@public
+		*/
+		this.captions = null;
+
 		if (useCaptions && Captions)
 		{
 			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
 		}
+
+		/**
+		*	An Array used when play() is called to avoid creating lots of Array objects.
+		*	@property {Array} _listHelper
+		*	@private
+		*/
 		this._listHelper = [];
+
+		/**
+		*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
+		*	@property {bool} trackSound
+		*	@public
+		*/
+		this.trackSound = false;
+
+		/**
+		*	The current list of audio/silence times/functions. Generally you will not need to modify this.
+		*	@property {Array} soundList
+		*	@public
+		*/
+		this.soundList = null;
+
+		/**
+		*	The current position in soundList.
+		*	@property {int} _listCounter
+		*	@private
+		*/
+		this._listCounter = 0;
+
+		/**
+		*	The current audio alias being played.
+		*	@property {String} _currentSound
+		*	@private
+		*/
+		this._currentSound = null;
+
+		/**
+		*	The current audio instance being played.
+		*	@property {SoundInstance} _soundInstance
+		*	@private
+		*/
+		this._soundInstance = null;
+
+		/**
+		*	The callback for when the list is finished.
+		*	@property {function} _callback
+		*	@private
+		*/
+		this._callback = null;
+
+		/**
+		*	The callback for when the list is interrupted for any reason.
+		*	@property {function} _cancelledCallback
+		*	@private
+		*/
+		this._cancelledCallback = null;
+
+		/**
+		*	A list of audio file played by this, so that they can be unloaded later.
+		*	@property {Array} _playedSound
+		*	@private
+		*/
+		this._playedSound = null;
+
+		/**
+		*	A timer for silence entries in the list, in milliseconds.
+		*	@property {int} _timer
+		*	@private
+		*/
+		this._timer = 0;
 	};
 	
 	var p = VOPlayer.prototype = {};
-	
-	/**
-	*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
-	*	@property {bool} trackAudio
-	*	@public
-	*/
-	p.trackAudio = false;
-
-	/**
-	*	The current list of audio/silence times/functions. Generally you will not need to modify this.
-	*	@property {Array} audioList
-	*	@public
-	*/
-	p.audioList = null;
-
-	/**
-	*	The current position in audioList.
-	*	@property {int} _listCounter
-	*	@private
-	*/
-	p._listCounter = 0;
-
-	/**
-	*	The current audio alias being played.
-	*	@property {String} _currentAudio
-	*	@private
-	*/
-	p._currentAudio = null;
-
-	/**
-	*	The current audio instance being played.
-	*	@property {SoundInst} _audioInst
-	*	@private
-	*/
-	p._audioInst = null;
-
-	/**
-	*	The callback for when the list is finished.
-	*	@property {function} _callback
-	*	@private
-	*/
-	p._callback = null;
-
-	/**
-	*	The callback for when the list is interrupted for any reason.
-	*	@property {function} _cancelledCallback
-	*	@private
-	*/
-	p._cancelledCallback = null;
-
-	/**
-	*	The bound _onAudioFinished call.
-	*	@property {function} _audioListener
-	*	@private
-	*/
-	p._audioListener = null;
-
-	/**
-	*	A list of audio file played by this, so that they can be unloaded later.
-	*	@property {Array} _playedAudio
-	*	@private
-	*/
-	p._playedAudio = null;
-
-	/**
-	*	A timer for silence entries in the list, in milliseconds.
-	*	@property {int} _timer
-	*	@private
-	*/
-	p._timer = 0;
-
-	/**
-	*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
-	*	dictionary config file and a reference to a text field.
-	*	@property {cloudkid.Captions} captions
-	*	@public
-	*/
-	p.captions = null;
-
-	/**
-	*	An Array used when play() is called to avoid creating lots of Array objects.
-	*	@property {Array} _listHelper
-	*	@private
-	*/
-	p._listHelper = null;
-
 	
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
@@ -1587,7 +1572,7 @@
 	*/
 	Object.defineProperty(p, "playing",
 	{
-		get: function() { return this._currentAudio !== null || this._timer > 0; }
+		get: function(){ return this._currentSound !== null || this._timer > 0; }
 	});
 	
 	/**
@@ -1605,66 +1590,66 @@
 		this.stop();
 		
 		this._listCounter = -1;
-		if(typeof idOrList == "string")
+		if (typeof idOrList == "string")
 		{
 			this._listHelper[0] = idOrList;
-			this.audioList = this._listHelper;
+			this.soundList = this._listHelper;
 		}
 		else
-			this.audioList = idOrList;
+			this.soundList = idOrList;
 		this._callback = callback;
 		this._cancelledCallback = cancelledCallback;
-		this._onAudioFinished();
+		this._onSoundFinished();
 	};
 	
 	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
-	*	@method _onAudioFinished
+	*	@method _onSoundFinished
 	*	@private
 	*/
-	p._onAudioFinished = function()
+	p._onSoundFinished = function()
 	{
 		//remove any update callback
 		Application.instance.off("update", this._update);
 		Application.instance.off("update", this._updateCaptionPos);
 		
 		//if we have captions and an audio instance, set the caption time to the length of the audio
-		if(this.captions && this._audioInst)
+		if (this.captions && this._soundInstance)
 		{
-			this.captions.seek(this._audioInst.length);
+			this.captions.seek(this._soundInstance.length);
 		}
-		this._audioInst = null;//clear the audio instance
+		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
 		
 		//if the list is complete
-		if(this._listCounter >= this.audioList.length)
+		if (this._listCounter >= this.soundList.length)
 		{
-			if(this.captions)
+			if (this.captions)
 				this.captions.stop();
-			this._currentAudio = null;
+			this._currentSound = null;
 			this._cancelledCallback = null;
 			var c = this._callback;
 			this._callback = null;
-			if(c) c();
+			if (c) c();
 		}
 		else
 		{
-			this._currentAudio = this.audioList[this._listCounter];
-			if(typeof this._currentAudio == "string")
+			this._currentSound = this.soundList[this._listCounter];
+			if (typeof this._currentSound == "string")
 			{
 				// If the sound doesn't exist, then we play it and let it fail, 
 				// an error should be shown and playback will continue
-				this._playAudio();
+				this._playSound();
 			}
-			else if(typeof this._currentAudio == "function")
+			else if (typeof this._currentSound == "function")
 			{
-				this._currentAudio();//call function
-				this._onAudioFinished();//immediately continue
+				this._currentSound();//call function
+				this._onSoundFinished();//immediately continue
 			}
 			else
 			{
-				this._timer = this._currentAudio;//set up a timer to wait
-				this._currentAudio = null;
+				this._timer = this._currentSound;//set up a timer to wait
+				this._currentSound = null;
 				Application.instance.on("update", this._update);
 			}
 		}
@@ -1679,14 +1664,16 @@
 	*/
 	p._update = function(elapsed)
 	{
-		if(this.captions)
+		if (this.captions)
 		{
 			this.captions.updateTime(elapsed);
 		}
+		
 		this._timer -= elapsed;
-		if(this._timer <= 0)
+
+		if (this._timer <= 0)
 		{
-			this._onAudioFinished();
+			this._onSoundFinished();
 		}
 	};
 
@@ -1699,53 +1686,53 @@
 	*/
 	p._updateCaptionPos = function(elapsed)
 	{
-		if(!this._audioInst) return;
+		if (!this._soundInstance) return;
 
-		this.captions.seek(this._audioInst.position);
+		this.captions.seek(this._soundInstance.position);
 	};
 
 	/** 
 	*	Plays the current audio item and begins preloading the next item.
-	*	@method _playAudio
+	*	@method _playSound
 	*	@private
 	*/
-	p._playAudio = function()
+	p._playSound = function()
 	{
-		if(this.trackAudio)
+		if (this.trackSound)
 		{
-			if(this._playedAudio)
+			if (this._playedSound)
 			{
-				if(this._playedAudio.indexOf(this._currentAudio) == -1)
-					this._playedAudio.push(this._currentAudio);
+				if (this._playedSound.indexOf(this._currentSound) == -1)
+					this._playedSound.push(this._currentSound);
 			}
 			else
 			{
-				this._playedAudio = [this._currentAudio];
+				this._playedSound = [this._currentSound];
 			}
 		}
 		var s = Sound.instance;
-		if(!s.exists(this._currentAudio) && this.captions && this.captions.hasCaption(this._currentAudio))
+		if (!s.exists(this._currentSound) && this.captions && this.captions.hasCaption(this._currentSound))
 		{
-			this.captions.play(this._currentAudio);
+			this.captions.play(this._currentSound);
 			this._timer = this.captions.currentDuration;
-			this._currentAudio = null;
+			this._currentSound = null;
 			Application.instance.on("update", this._update);
 		}
 		else
 		{
-			this._audioInst = s.play(this._currentAudio, this._audioListener);
-			if(this.captions)
+			this._soundInstance = s.play(this._currentSound, this._onSoundFinished);
+			if (this.captions)
 			{
-				this.captions.play(this._currentAudio);
+				this.captions.play(this._currentSound);
 				Application.instance.on("update", this._updateCaptionPos);
 			}
 		}
-		for(var i = this._listCounter + 1; i < this.audioList.length; ++i)
+		for(var i = this._listCounter + 1; i < this.soundList.length; ++i)
 		{
-			var next = this.audioList[i];
-			if(typeof next == "string")
+			var next = this.soundList[i];
+			if (typeof next == "string")
 			{
-				if(!s.isLoaded(next))
+				if (!s.isLoaded(next))
 				{
 					s.preloadSound(next);
 				}
@@ -1761,18 +1748,18 @@
 	*/
 	p.stop = function()
 	{
-		if(this._currentAudio)
+		if (this._currentSound)
 		{
-			Sound.instance.stop(this._currentAudio);
-			this._currentAudio = null;
+			Sound.instance.stop(this._currentSound);
+			this._currentSound = null;
 		}
-		if(this.captions)
+		if (this.captions)
 		{
 			this.captions.stop();
 		}
 		Application.instance.off("update", this._update);
 		Application.instance.off("update", this._updateCaptionPos);
-		this.audioList = null;
+		this.soundList = null;
 		this._timer = 0;
 		this._callback = null;
 		var c = this._cancelledCallback;
@@ -1781,14 +1768,14 @@
 	};
 
 	/**
-	*	Unloads all audio this VOPlayer has played. If trackAudio is false, this won't do anything.
-	*	@method unloadPlayedAudio
+	*	Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.
+	*	@method unloadSound
 	*	@public
 	*/
-	p.unloadPlayedAudio = function()
+	p.unloadSound = function()
 	{
-		Sound.instance.unload(this._playedAudio);
-		this._playedAudio = null;
+		Sound.instance.unload(this._playedSound);
+		this._playedSound = null;
 	};
 
 	/**
@@ -1799,15 +1786,15 @@
 	p.destroy = function()
 	{
 		this.stop();
-		this.audioList = null;
+		this.soundList = null;
 		this._listHelper = null;
-		this._currentAudio = null;
-		this._audioInst = null;
+		this._currentSound = null;
+		this._soundInstance = null;
 		this._callback = null;
 		this._cancelledCallback = null;
-		this._audioListener = null;
-		this._playedAudio = null;
-		if(this.captions)
+		this._playedSound = null;
+
+		if (this.captions)
 		{
 			this.captions.destroy();
 			this.captions = null;
@@ -1816,5 +1803,5 @@
 	
 	namespace('cloudkid').VOPlayer = VOPlayer;
 	namespace('cloudkid').Sound.VOPlayer = VOPlayer;
-}());
-}();
+
+}());}();

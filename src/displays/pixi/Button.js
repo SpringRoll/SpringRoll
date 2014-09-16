@@ -63,6 +63,132 @@
 	{
 		if (!imageSettings) return;
 		DisplayObjectContainer.call(this);
+
+		/*
+		*  The sprite that is the body of the button.
+		*  @public
+		*  @property {PIXI.Sprite} back
+		*  @readOnly
+		*/
+		this.back = new Sprite(imageSettings.up);
+
+		/*
+		*  The text field of the button. The label is centered by both width and height on the button.
+		*  @public
+		*  @property {PIXI.Text|PIXI.BitmapText} label
+		*  @readOnly
+		*/
+		this.label = null;
+
+		/**
+		*  The function that should be called when the button is released.
+		*  @public
+		*  @property {function} releaseCallback
+		*/
+		this.releaseCallback = null;
+
+		/**
+		*  The function that should be called when the button is moused over.
+		*  @public
+		*  @property {function} overCallback
+		*/
+		this.overCallback = null;
+		
+		/**
+		*  The function that should be called when mouse leaves the button.
+		*  @public
+		*  @property {function} outCallback
+		*/
+		this.outCallback = null;
+
+		/**
+		* A dictionary of state booleans, keyed by state name.
+		* @private
+		* @property {Object} _stateFlags
+		*/
+		this._stateFlags = {};
+
+		/**
+		* An array of state names (Strings), in their order of priority.
+		* The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
+		* @private
+		* @property {Array} _statePriority
+		*/
+		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
+		
+		/**
+		* A dictionary of state graphic data, keyed by state name.
+		* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		* Additionally, each object will contain a 'label' object if the button has a text label.
+		* @private
+		* @property {Object} _stateData
+		*/
+		this._stateData = null;
+
+		/**
+		* The current style for the label, to avoid setting this if it is unchanged.
+		* @private
+		* @property {Object} _currentLabelStyle
+		*/
+		this._currentLabelStyle = null;
+
+		/**
+		* An offset to button positioning, generally used to adjust for a highlight around the button.
+		* @private
+		* @property {PIXI.Point} _offset
+		*/
+		this._offset = new Point();
+		
+		//===callbacks for mouse/touch events
+		/*
+		* Callback for mouse over, bound to this button.
+		* @private
+		* @property {Function} _overCB
+		*/
+		this._overCB = null;
+
+		/*
+		* Callback for mouse out, bound to this button.
+		* @private
+		* @property {Function} _outCB
+		*/
+		this._outCB = null;
+
+		/*
+		* Callback for mouse down, bound to this button.
+		* @private
+		* @property {Function} _downCB
+		*/
+		this._downCB = null;
+
+		/*
+		* Callback for mouse up, bound to this button.
+		* @private
+		* @property {Function} _upCB
+		*/
+		this._upCB = null;
+
+		/**
+		* Callback for mouse up outside, bound to this button.
+		* @private
+		* @property {Function} _upOutCB
+		*/
+		this._upOutCB = null;
+		
+		/*
+		* The width of the button art, independent of the scaling of the button itself.
+		* @private
+		* @property {Number} _width
+		*/
+		this._width = 0;
+
+		/*
+		* The height of the button art, independent of the scaling of the button itself.
+		* @private
+		* @property {Number} _height
+		*/
+		this._height = 0;
+
 		this.initialize(imageSettings, label, enabled);
 	};
 	
@@ -70,136 +196,13 @@
 	var p = Button.prototype = Object.create(DisplayObjectContainer.prototype);
 	
 	/*
-	*  The sprite that is the body of the button.
-	*  @public
-	*  @property {PIXI.Sprite} back
-	*  @readOnly
-	*/
-	p.back = null;
-
-	/*
-	*  The text field of the button. The label is centered by both width and height on the button.
-	*  @public
-	*  @property {PIXI.Text|PIXI.BitmapText} label
-	*  @readOnly
-	*/
-	p.label = null;
-
-	/**
-	*  The function that should be called when the button is released.
-	*  @public
-	*  @property {function} releaseCallback
-	*/
-	p.releaseCallback = null;
-
-	/**
-	*  The function that should be called when the button is moused over.
-	*  @public
-	*  @property {function} overCallback
-	*/
-	p.overCallback = null;
-	
-	/**
-	*  The function that should be called when mouse leaves the button.
-	*  @public
-	*  @property {function} outCallback
-	*/
-	p.outCallback = null;
-
-	/**
-	* A dictionary of state booleans, keyed by state name.
-	* @private
-	* @property {Object} _stateFlags
-	*/
-	p._stateFlags = null;
-	/**
-	* An array of state names (Strings), in their order of priority.
-	* The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
-	* @private
-	* @property {Array} _statePriority
-	*/
-	p._statePriority = null;
-	
-	/**
-	* A dictionary of state graphic data, keyed by state name.
-	* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-	* Additionally, each object will contain a 'label' object if the button has a text label.
-	* @private
-	* @property {Object} _stateData
-	*/
-	p._stateData = null;
-
-	/**
-	* The current style for the label, to avoid setting this if it is unchanged.
-	* @private
-	* @property {Object} _currentLabelStyle
-	*/
-	p._currentLabelStyle = null;
-
-	/**
-	* An offset to button positioning, generally used to adjust for a highlight around the button.
-	* @private
-	* @property {PIXI.Point} _offset
-	*/
-	p._offset = null;
-	
-	//===callbacks for mouse/touch events
-	/*
-	* Callback for mouse over, bound to this button.
-	* @private
-	* @property {Function} _overCB
-	*/
-	p._overCB = null;
-
-	/*
-	* Callback for mouse out, bound to this button.
-	* @private
-	* @property {Function} _outCB
-	*/
-	p._outCB = null;
-
-	/*
-	* Callback for mouse down, bound to this button.
-	* @private
-	* @property {Function} _downCB
-	*/
-	p._downCB = null;
-
-	/*
-	* Callback for mouse up, bound to this button.
-	* @private
-	* @property {Function} _upCB
-	*/
-	p._upCB = null;
-
-	/**
-	* Callback for mouse up outside, bound to this button.
-	* @private
-	* @property {Function} _upOutCB
-	*/
-	p._upOutCB = null;
-	
-	/*
-	* The width of the button art, independent of the scaling of the button itself.
-	* @private
-	* @property {Number} _width
-	*/
-	p._width = 0;
-
-	/*
-	* The height of the button art, independent of the scaling of the button itself.
-	* @private
-	* @property {Number} _height
-	*/
-	p._height = 0;
-
-	/*
 	* A list of state names that should not have properties autogenerated.
 	* @private
 	* @static
 	* @property {Array} RESERVED_STATES
 	*/
 	var RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
+
 	/*
 	* A state priority list to use as the default.
 	* @private
@@ -217,7 +220,6 @@
 	*/
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		this.back = new Sprite(imageSettings.up);
 		this.addChild(this.back);
 		
 		this._overCB = this._onOver.bind(this);
@@ -227,8 +229,6 @@
 		this._upOutCB = this._onUpOutside.bind(this);
 
 		var _stateData = this._stateData = {};
-		this._stateFlags = {};
-		this._offset = new Point();
 		
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
@@ -259,7 +259,6 @@
 			}
 		}
 		
-		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
 		for(var i = this._statePriority.length - 1; i >= 0; --i)//start at the end to start at the up state
 		{
 			var state = this._statePriority[i];

@@ -14,7 +14,25 @@
 	*/
 	var StateEvent = function(type, currentState, visibleState)
 	{
-		this.initialize(type, currentState, visibleState);
+		/**
+		* A reference to the current state of the state manager
+		* 
+		* @property {BaseState} currentState
+		*/
+		this.currentState = currentState;
+		
+		/**
+		* A reference to the state who's actually being transitioned or being changed
+		* 
+		* @property {BaseState} visibleState
+		*/
+		this.visibleState = visibleState === undefined ? currentState : visibleState;
+		
+		/** The type of event
+		 * 
+		 * @property {String} type
+		*/
+		this.type = type;
 	};
 	
 	var p = StateEvent.prototype;
@@ -60,42 +78,6 @@
 	* @event {String} onHidden
 	*/
 	StateEvent.HIDDEN = "onHidden";
-	
-	/**
-	* A reference to the current state of the state manager
-	* 
-	* @property {BaseState} currentState
-	*/
-	p.currentState = null;
-	
-	/**
-	* A reference to the state who's actually being transitioned or being changed
-	* 
-	* @property {BaseState} visibleState
-	*/
-	p.visibleState = null;
-	
-	/** The type of event
-	 * 
-	 * @property {String} type
-	*/
-	p.type = null;
-	
-	/**
-	*  Initialize the event
-	*  
-	*  @function initialize
-	*  @param {String} type The type of event
-	*  @param {BaseState} currentState The currentState of the state manager
-	*  @param {BaseState} visibleState The current state being transitioned or changing visibility
-	*/
-	p.initialize = function(type, currentState, visibleState)
-	{
-		this.type = type;
-		
-		this.visibleState = visibleState === undefined ? currentState : visibleState;
-		this.currentState = currentState;
-	};
 	
 	// Add to the name space
 	namespace('cloudkid').StateEvent = StateEvent;

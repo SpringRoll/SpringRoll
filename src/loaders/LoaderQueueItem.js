@@ -8,7 +8,72 @@
 	*
 	*  @class LoaderQueueItem
 	*/
-	var LoaderQueueItem = function(){};
+	var LoaderQueueItem = function()
+	{
+		/**
+		*  The url of the load
+		*  @public
+		*  @property {string} url
+		*/
+		this.url = null;
+		
+		/**
+		*  Data associate with the load
+		*  @public
+		*  @property {*} data
+		*/
+		this.data = null;
+		
+		/**
+		*  The callback function of the load, to call when 
+		*  the load as finished, takes one argument as result
+		*  @public
+		*  @property {function} callback
+		*/
+		this.callback = null;
+		
+		/**
+		*  The priority of this item
+		*  @property {int} priority
+		*  @public
+		*/
+		this.priority = 0;
+		
+		/**
+		*  The amount we've loaded so far, from 0 to 1
+		*  @public
+		*  @property {Number} progress
+		*/
+		this.progress = 0;
+		
+		/**
+		*  The progress callback
+		*  @public
+		*  @proprty {function} updateCallback
+		*/
+		this.updateCallback = null;
+		
+		/**
+		*  The callback when a load queue item fails
+		*  @private
+		*  @proprty {function} _boundFail
+		*/
+		this._boundFail = null;
+
+		/**
+		*  The callback when a load queue item progresses
+		*  @private
+		*  @proprty {function} _boundProgress
+		*/
+		this._boundProgress = null;
+
+		/**
+		*  The callback when a load queue item completes
+		*  @private
+		*  @proprty {function} _boundComplete
+		*/
+		this._boundComplete = null;
+	};
 	
 	/** Reference to the prototype */
 	var p = LoaderQueueItem.prototype;
@@ -41,53 +106,6 @@
 	LoaderQueueItem.PRIORITY_LOW = -1;
 	
 	/**
-	*  The url of the load
-	*  @public
-	*  @property {string} url
-	*/
-	p.url = null;
-	
-	/**
-	*  Data associate with the load
-	*  @public
-	*  @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	*  The callback function of the load, to call when 
-	*  the load as finished, takes one argument as result
-	*  @public
-	*  @property {function} callback
-	*/
-	p.callback = null;
-	
-	/**
-	*  The priority of this item
-	*  @property {int} priority
-	*  @public
-	*/
-	p.priority = 0;
-	
-	/**
-	*  The amount we've loaded so far, from 0 to 1
-	*  @public
-	*  @property {Number} progress
-	*/
-	p.progress = 0;
-	
-	/**
-	*  The progress callback
-	*  @public
-	*  @proprty {function} updateCallback
-	*/
-	p.updateCallback = null;
-	
-	p._boundFail = null;
-	p._boundProgress = null;
-	p._boundComplete = null;
-	
-	/**
 	*  Represent this object as a string
 	*  @public
 	*  @method toString
@@ -115,4 +133,5 @@
 	
 	// Assign to the name space
 	namespace('cloudkid').LoaderQueueItem = LoaderQueueItem;
+	
 }());

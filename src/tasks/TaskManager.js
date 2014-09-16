@@ -24,7 +24,44 @@
 
 		EventDispatcher.call(this);
 
-		this.initialize(tasks);
+		/**
+		* Collection of all tasks
+		* 
+		* @property {Array} tasks
+		*/
+		this.tasks = tasks || [];
+		
+		/**
+		* The current tasks
+		* 
+		* @property {Array} _currentTaskes
+		* @private
+		*/
+		this._currentTasks = [];
+		
+		/**
+		* If we're paused and should therefore not automatically proceed to the
+		* next task after each task completes
+		* 
+		* @property {bool} paused
+		*/
+		this.paused = true;
+		
+		/**
+		* The number of tasks that are currently in progress
+		* 
+		* @property {int} _tasksInProgress
+		* @private
+		*/
+		this._tasksInProgress = 0;
+		
+		/**
+		* If the manager is destroyed
+		* 
+		* @property {bool} _isDestroyed
+		* @private
+		*/
+		this._isDestroyed = false;
 	};
 	
 	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
@@ -44,45 +81,6 @@
 	* @event onAllTasksDone
 	*/
 	TaskManager.ALL_TASKS_DONE = "onAllTasksDone";
-	
-	/**
-	* Collection of all tasks
-	* 
-	* @property {Array} tasks
-	*/
-	p.tasks = null;
-	
-	/**
-	* The current tasks
-	* 
-	* @property {Array} _currentTaskes
-	* @private
-	*/
-	p._currentTasks = null;
-	
-	/**
-	* If we're paused and should therefore not automatically proceed to the
-	* next task after each task completes
-	* 
-	* @property {bool} paused
-	*/
-	p.paused = true;
-	
-	/**
-	* The number of tasks that are currently in progress
-	* 
-	* @property {int} _tasksInProgress
-	* @private
-	*/
-	p._tasksInProgress = 0;
-	
-	/**
-	* If the manager is destroyed
-	* 
-	* @property {bool} _isDestroyed
-	* @private
-	*/
-	p._isDestroyed = false;
 	
 	/**
 	*  Convenience method to execute tasks without having to setup the event listener
@@ -124,18 +122,6 @@
 			manager.startNext();
 
 		return manager;
-	};
-
-	/**
-	*  Initializes the task manager
-	*  
-	*  @function initialize
-	*  @param {Array} tasks The optional array of tasks, we can also add this later
-	*/
-	p.initialize = function(tasks)
-	{
-		this._currentTasks = [];
-		this.tasks = tasks || [];
 	};
 	
 	/**

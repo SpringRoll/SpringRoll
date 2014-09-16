@@ -30,11 +30,11 @@
 		this.list = list;
 	};
 
-	// Reference to the prototype
-	var p = SoundListTask.prototype = Object.create(Task.prototype);
-
 	// Super
-	SoundListTask.s = Task.prototype;
+	var s = Task.prototype;
+
+	// Reference to the prototype
+	var p = SoundListTask.prototype = Object.create(s);
 
 	/**
 	*  Begin the task
@@ -52,7 +52,7 @@
 	*/
 	p.destroy = function()
 	{
-		SoundListTask.s.destroy.apply(this);
+		s.destroy.call(this);
 		this.list = null;
 	};
 

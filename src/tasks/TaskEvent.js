@@ -15,12 +15,28 @@
 	*/
 	var TaskEvent = function(type, task, data)
 	{
-		this.initialize(type, task, data);
+		/**
+		* Task this event pertains to
+		* 
+		* @property {Task} task
+		*/
+		this.task = null;
+		
+		/**
+		* The task result
+		* 
+		* @property {*} data
+		*/
+		this.data = null;
+		
+		/**
+		* The type of event
+		* 
+		* @property {String} type
+		*/
+		this.type = null;
 	};
-	
-	// Reference to the prototype
-	var p = TaskEvent.prototype;
-	
+		
 	/**
 	 * A task is about to start
 	 * @event onItemAboutToLoad
@@ -39,42 +55,7 @@
 	 */
 	TaskEvent.TASK_DONE = "onItemLoaded";
 	
-	/**
-	* Task this event pertains to
-	* 
-	* @property {Task} task
-	*/
-	p.task = null;
-	
-	/**
-	* The task result
-	* 
-	* @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	* The type of event
-	* 
-	* @property {String} type
-	*/
-	p.type = null;
-
-	/**
-	*  Init the event
-	*  
-	*  @function initialize
-	*  @param {String} type The type of event
-	*  @param {Task} task The task attached to this event
-	*  @param {*} data The data result associated with this task
-	*/
-	p.initialize = function(type, task, data)
-	{
-		this.type = type;
-		this.task = task;
-		this.data = data;
-	};
-	
 	// Assign to the namespace
 	namespace('cloudkid').TaskEvent = TaskEvent;
+
 }());

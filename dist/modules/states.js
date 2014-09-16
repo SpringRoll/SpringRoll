@@ -20,93 +20,94 @@
 		{
 			StateManager = include('cloudkid.StateManager');
 		}
+
+		/** 
+		* The id reference
+		* 
+		* @property {String} stateID
+		*/
+		this.stateId = null;
+		
+		/**
+		* A reference to the state manager
+		* 
+		* @property {StateManager} manager
+		*/
+		this.manager = null;
+		
+		/** 
+		* Save the panel
+		* 
+		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
+		*/
+		this.panel = null;
+		
+		/**
+		* Check to see if we've been destroyed 
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
+		
+		/**
+		* If the manager considers this the active panel
+		* 
+		* @property {bool} _active
+		* @private
+		*/
+		this._active = false;
+		
+		/**
+		* If we are pre-loading the state
+		* 
+		* @property {bool} _isLoading
+		* @private
+		*/
+		this._isLoading = false;
+		
+		/**
+		* If we canceled entering the state
+		* 
+		* @property {bool} _canceled
+		* @private
+		*/
+		this._canceled = false;
+		
+		/**
+		* When we're finishing loading
+		* 
+		* @property {function} _onEnterProceed
+		* @private
+		*/
+		this._onEnterProceed = null;
+		
+		/** If we start doing a load in enter, assign the onEnterComplete here
+		* 
+		* @property {function} _onLoadingComplete
+		* @private
+		*/
+		this._onLoadingComplete = null;
+		
+		/** If the state is enabled that means it click ready
+		* 
+		* @property {bool} _enabled
+		* @private
+		*/
+		this._enabled = false;
+
+		/**
+		* If we are currently transitioning
+		* 
+		* @property {bool} isTransitioning
+		* @private
+		*/
+		this._isTransitioning = false;
+		
 		this.initialize(panel);
 	};
 	
 	var p = BaseState.prototype;
-	
-	/** 
-	* The id reference
-	* 
-	* @property {String} stateID
-	*/
-	p.stateId = null;
-	
-	/**
-	* A reference to the state manager
-	* 
-	* @property {StateManager} manager
-	*/
-	p.manager = null;
-	
-	/** 
-	* Save the panel
-	* 
-	* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
-	*/
-	p.panel = null;
-	
-	/**
-	* Check to see if we've been destroyed 
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* If the manager considers this the active panel
-	* 
-	* @property {bool} _active
-	* @private
-	*/
-	p._active = false;
-	
-	/**
-	* If we are pre-loading the state
-	* 
-	* @property {bool} _isLoading
-	* @private
-	*/
-	p._isLoading = false;
-	
-	/**
-	* If we canceled entering the state
-	* 
-	* @property {bool} _canceled
-	* @private
-	*/
-	p._canceled = false;
-	
-	/**
-	* When we're finishing loading
-	* 
-	* @property {function} _onEnterProceed
-	* @private
-	*/
-	p._onEnterProceed = null;
-	
-	/** If we start doing a load in enter, assign the onEnterComplete here
-	* 
-	* @property {function} _onLoadingComplete
-	* @private
-	*/
-	p._onLoadingComplete = null;
-	
-	/** If the state is enabled that means it click ready
-	* 
-	* @property {bool} _enabled
-	* @private
-	*/
-	p._enabled = false;
-
-	/**
-	* If we are currently transitioning
-	* 
-	* @property {bool} isTransitioning
-	* @private
-	*/
-	p._isTransitioning = false;
 	
 	/**
 	*  Initialize the Base State
@@ -414,6 +415,7 @@
 	
 	// Add to the name space
 	namespace('cloudkid').BaseState = BaseState;
+	
 }());
 /**
 *  @module cloudkid
@@ -431,7 +433,25 @@
 	*/
 	var StateEvent = function(type, currentState, visibleState)
 	{
-		this.initialize(type, currentState, visibleState);
+		/**
+		* A reference to the current state of the state manager
+		* 
+		* @property {BaseState} currentState
+		*/
+		this.currentState = currentState;
+		
+		/**
+		* A reference to the state who's actually being transitioned or being changed
+		* 
+		* @property {BaseState} visibleState
+		*/
+		this.visibleState = visibleState === undefined ? currentState : visibleState;
+		
+		/** The type of event
+		 * 
+		 * @property {String} type
+		*/
+		this.type = type;
 	};
 	
 	var p = StateEvent.prototype;
@@ -478,42 +498,6 @@
 	*/
 	StateEvent.HIDDEN = "onHidden";
 	
-	/**
-	* A reference to the current state of the state manager
-	* 
-	* @property {BaseState} currentState
-	*/
-	p.currentState = null;
-	
-	/**
-	* A reference to the state who's actually being transitioned or being changed
-	* 
-	* @property {BaseState} visibleState
-	*/
-	p.visibleState = null;
-	
-	/** The type of event
-	 * 
-	 * @property {String} type
-	*/
-	p.type = null;
-	
-	/**
-	*  Initialize the event
-	*  
-	*  @function initialize
-	*  @param {String} type The type of event
-	*  @param {BaseState} currentState The currentState of the state manager
-	*  @param {BaseState} visibleState The current state being transitioned or changing visibility
-	*/
-	p.initialize = function(type, currentState, visibleState)
-	{
-		this.type = type;
-		
-		this.visibleState = visibleState === undefined ? currentState : visibleState;
-		this.currentState = currentState;
-	};
-	
 	// Add to the name space
 	namespace('cloudkid').StateEvent = StateEvent;
 	
@@ -536,10 +520,10 @@
 	*  @constructor
 	*  @param {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
-	*  @param {object} audio Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
+	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
 	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
 	*/
-	var StateManager = function(display, transition, audio)
+	var StateManager = function(display, transition, transitionSounds)
 	{
 		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
 		if(!Sound)
@@ -549,7 +533,95 @@
 
 		EventDispatcher.call(this);
 
-		this.initialize(display, transition, audio);
+		/**
+		* The display that holds the states this StateManager is managing.
+		* 
+		* @property {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} _display
+		* @private
+		*/
+		this._display = display;
+		
+		/**
+		* The click to play in between transitioning states
+		* 
+		* @property {createjs.MovieClip|PIXI.Spine} _transition
+		* @private
+		*/
+		this._transition = transition;
+		
+		/**
+		* The sounds for the transition
+		* 
+		* @property {object} _transitionSounds
+		* @private
+		*/
+		this._transitionSounds = transitionSounds || null;
+		
+		/**
+		* The collection of states map
+		* 
+		* @property {Array} _states
+		* @private
+		*/
+		this._states = null;
+		
+		/**
+		* The currently selected state
+		* 
+		* @property {BaseState} _state
+		* @private
+		*/
+		this._state = null;
+		
+		/** 
+		* The currently selected state id
+		* 
+		* @property {String} _stateID
+		* @private
+		*/
+		this._stateId = null;
+		
+		/**
+		* The old state
+		* 
+		* @property {BaseState} _oldState
+		* @private
+		*/
+		this._oldState = null;
+		
+		/**
+		* If the manager is loading a state
+		* 
+		* @property {bool} name description
+		* @private
+		*/
+		this._isLoading = false;
+		
+		/** 
+		* If the state or manager is current transitioning
+		* 
+		* @property {bool} _isTransitioning
+		* @private
+		*/
+		this._isTransitioning = false;
+		
+		/**
+		* If the current object is destroyed
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
+		
+		/**
+		* If we're transitioning the state, the queue the id of the next one
+		* 
+		* @property {String} _queueStateId
+		* @private
+		*/
+		this._queueStateId = null;
+
+		this.initialize();
 	};
 	
 	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
@@ -563,94 +635,6 @@
 	*/
 	StateManager.VERSION = '0.0.5';
 
-	/**
-	* The display that holds the states this StateManager is managing.
-	* 
-	* @property {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} _display
-	* @private
-	*/
-	p._display = null;
-	
-	/**
-	* The click to play in between transitioning states
-	* 
-	* @property {createjs.MovieClip|PIXI.Spine} _transition
-	* @private
-	*/
-	p._transition = null;
-	
-	/**
-	* The sounds for the transition
-	* 
-	* @property {object} _transitionSounds
-	* @private
-	*/
-	p._transitionSounds = null;
-	
-	/**
-	* The collection of states map
-	* 
-	* @property {Array} _states
-	* @private
-	*/
-	p._states = null;
-	
-	/**
-	* The currently selected state
-	* 
-	* @property {BaseState} _state
-	* @private
-	*/
-	p._state = null;
-	
-	/** 
-	* The currently selected state id
-	* 
-	* @property {String} _stateID
-	* @private
-	*/
-	p._stateId = null;
-	
-	/**
-	* The old state
-	* 
-	* @property {BaseState} _oldState
-	* @private
-	*/
-	p._oldState = null;
-	
-	/**
-	* If the manager is loading a state
-	* 
-	* @property {bool} name description
-	* @private
-	*/
-	p._isLoading = false;
-	
-	/** 
-	* If the state or manager is current transitioning
-	* 
-	* @property {bool} _isTransitioning
-	* @private
-	*/
-	p._isTransitioning = false;
-	
-	/**
-	* If the current object is destroyed
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* If we're transitioning the state, the queue the id of the next one
-	* 
-	* @property {String} _queueStateId
-	* @private
-	*/
-	p._queueStateId = null;
-	
 	/**
 	* The name of the Animator label and event for transitioning state in
 	* 
@@ -708,19 +692,14 @@
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
 	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}
 	*/
-	p.initialize = function(display, transition, transitionSounds)
-	{
-		this._display = display;
-		this._transition = transition;
-		
+	p.initialize = function()
+	{		
 		if(this._transition.stop)
 			this._transition.stop();
 
 		this.hideBlocker();
 		this._states = {};
 		
-		this._transitionSounds = transitionSounds || null;
-
 		this._loopTransition = this._loopTransition.bind(this);
 	};
 	

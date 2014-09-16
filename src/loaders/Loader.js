@@ -29,6 +29,27 @@
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 		}
+
+		/**
+		*  If we can load
+		*  @private
+		*/
+		this._canLoad = true;
+		
+		/**
+		*  The maximum number of simulaneous loads
+		*  @public
+		*  @property {int} maxSimultaneousLoads
+		*  @default 2
+		*/
+		this.maxSimultaneousLoads = 2;
+		
+		/**
+		*  The reference to the cache manager
+		*  @public
+		*  @property {CacheManager} cacheManager
+		*/
+		this.cacheManager = null;
 	};
 	
 	/** The prototype */
@@ -60,8 +81,25 @@
 	*/
 	var loaders = null;
 	
+	/**
+	*  The pool of queue items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var qiPool = null;
+
+	/**
+	*  The pool of loader items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var loaderPool = null;
+
+	/**
+	*  The pool of result items
+	*  @private
+	*  @property {array} loaders
+	*/
 	var resultPool = null;
 	
 	/**
@@ -72,28 +110,12 @@
 	*/
 	var numLoads = 0;
 	
-	var retries = null;
-	
 	/**
-	*  If we can load
+	*  The retry attempts
 	*  @private
+	*  @property {Object} retries
 	*/
-	p._canLoad = true;
-	
-	/**
-	*  The maximum number of simulaneous loads
-	*  @public
-	*  @property {int} maxSimultaneousLoads
-	*  @default 2
-	*/
-	p.maxSimultaneousLoads = 2;
-	
-	/**
-	*  The reference to the cache manager
-	*  @public
-	*  @property {CacheManager} cacheManager
-	*/
-	p.cacheManager = null;
+	var retries = null;
 	
 	/**
 	*  Static constructor creating the singleton

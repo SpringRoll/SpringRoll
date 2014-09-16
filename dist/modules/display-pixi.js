@@ -244,19 +244,86 @@
 	*/
 	var PixiDisplay = function(id, options)
 	{
-		this.id = id;
 		options = options || {};
+
+		/**
+		*  the canvas managed by this display
+		*  @property {DOMElement} canvas
+		*  @readOnly
+		*  @public
+		*/
 		this.canvas = document.getElementById(id);
+
+		/**
+		*  The DOM id for the canvas
+		*  @property {String} id
+		*  @readOnly
+		*  @public
+		*/
+		this.id = id;
+
+		/**
+		*  Convenience method for getting the width of the canvas element
+		*  would be the same thing as canvas.width
+		*  @property {int} width
+		*  @readOnly
+		*  @public
+		*/
+		this.width = this.canvas.width;
+
+		/**
+		*  Convenience method for getting the height of the canvas element
+		*  would be the same thing as canvas.height
+		*  @property {int} height
+		*  @readOnly
+		*  @public
+		*/
+		this.height = this.canvas.height;
+
+		/**
+		*  The rendering library's stage element, the root display object
+		*  @property {PIXI.Stage}
+		*  @readOnly
+		*  @public
+		*/
+		this.stage = new Stage(options.backgroundColor || 0);
+
+		/**
+		*  The Pixi renderer.
+		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
+		*  @readOnly
+		*  @public
+		*/
+		this.renderer = null;
+
+		/**
+		*  If rendering is paused on this display only. Pausing all displays can be done
+		*  using Application.paused setter.
+		*  @property {Boolean} paused
+		*  @public
+		*/
+		this.paused = false;
+
+		/**
+		*  If input is enabled on the stage.
+		*  @property {Boolean} _enabled
+		*  @private
+		*/
+		this._enabled = true;//enable mouse/touch input
+
+		/**
+		*  If the display is visible.
+		*  @property {Boolean} _visible
+		*  @private
+		*/
+		this._visible = this.canvas.style.display != "none";
+
 		// prevent mouse down turning into text cursor
 		this.canvas.onmousedown = function(e)
 		{
 			e.preventDefault();
 		};
-		this.width = this.canvas.width;
-		this.height = this.canvas.height;
-		this._visible = this.canvas.style.display != "none";
-		//make stage
-		this.stage = new Stage(options.backgroundColor || 0);
+
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
@@ -264,6 +331,7 @@
 		var preserveDrawingBuffer = !!options.preserveDrawingBuffer;
 		if(transparent && !preMultAlpha)
 			transparent = "notMultiplied";
+
 		if(options.forceContext == "canvas2d")
 		{
 			this.renderer = new CanvasRenderer(
@@ -295,8 +363,13 @@
 				preMultAlpha
 			);
 		}
-		this.renderer.clearView = !!options.clearView;
-		this.enabled = true;//enable mouse/touch input
+
+		/**
+		*  If Pixi is being rendered with WebGL.
+		*  @property {Boolean}
+		*  @readOnly
+		*  @public
+		*/
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		/**
@@ -318,79 +391,6 @@
 	};
 
 	var p = PixiDisplay.prototype = {};
-
-	/**
-	*  the canvas managed by this display
-	*  @property {DOMElement} canvas
-	*  @readOnly
-	*  @public
-	*/
-	p.canvas = null;
-
-	/**
-	*  The DOM id for the canvas
-	*  @property {String} id
-	*  @readOnly
-	*  @public
-	*/
-	p.id = null;
-
-	/**
-	*  Convenience method for getting the width of the canvas element
-	*  would be the same thing as canvas.width
-	*  @property {int} width
-	*  @readOnly
-	*  @public
-	*/
-	p.width = 0;
-
-	/**
-	*  Convenience method for getting the height of the canvas element
-	*  would be the same thing as canvas.height
-	*  @property {int} height
-	*  @readOnly
-	*  @public
-	*/
-	p.height = 0;
-
-	/**
-	*  The rendering library's stage element, the root display object
-	*  @property {PIXI.Stage}
-	*  @readOnly
-	*  @public
-	*/
-	p.stage = null;
-
-	/**
-	*  The Pixi renderer.
-	*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
-	*  @readOnly
-	*  @public
-	*/
-	p.renderer = null;
-
-	/**
-	*  If Pixi is being rendered with WebGL.
-	*  @property {Boolean}
-	*  @readOnly
-	*  @public
-	*/
-	p.isWebGL = null;
-
-	/**
-	*  If rendering is paused on this display only. Pausing all displays can be done
-	*  using Application.paused setter.
-	*  @property {Boolean} paused
-	*  @public
-	*/
-	p.paused = false;
-
-	/**
-	*  If input is enabled on the stage.
-	*  @property {Boolean} _enabled
-	*  @private
-	*/
-	p._enabled = false;
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -415,13 +415,6 @@
 			}
 		}
 	});
-
-	/**
-	*  If the display is visible.
-	*  @property {Boolean} _visible
-	*  @private
-	*/
-	p._visible = false;
 
 	/**
 	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
@@ -1196,6 +1189,132 @@
 	{
 		if (!imageSettings) return;
 		DisplayObjectContainer.call(this);
+
+		/*
+		*  The sprite that is the body of the button.
+		*  @public
+		*  @property {PIXI.Sprite} back
+		*  @readOnly
+		*/
+		this.back = new Sprite(imageSettings.up);
+
+		/*
+		*  The text field of the button. The label is centered by both width and height on the button.
+		*  @public
+		*  @property {PIXI.Text|PIXI.BitmapText} label
+		*  @readOnly
+		*/
+		this.label = null;
+
+		/**
+		*  The function that should be called when the button is released.
+		*  @public
+		*  @property {function} releaseCallback
+		*/
+		this.releaseCallback = null;
+
+		/**
+		*  The function that should be called when the button is moused over.
+		*  @public
+		*  @property {function} overCallback
+		*/
+		this.overCallback = null;
+		
+		/**
+		*  The function that should be called when mouse leaves the button.
+		*  @public
+		*  @property {function} outCallback
+		*/
+		this.outCallback = null;
+
+		/**
+		* A dictionary of state booleans, keyed by state name.
+		* @private
+		* @property {Object} _stateFlags
+		*/
+		this._stateFlags = {};
+
+		/**
+		* An array of state names (Strings), in their order of priority.
+		* The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
+		* @private
+		* @property {Array} _statePriority
+		*/
+		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
+		
+		/**
+		* A dictionary of state graphic data, keyed by state name.
+		* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		* Additionally, each object will contain a 'label' object if the button has a text label.
+		* @private
+		* @property {Object} _stateData
+		*/
+		this._stateData = null;
+
+		/**
+		* The current style for the label, to avoid setting this if it is unchanged.
+		* @private
+		* @property {Object} _currentLabelStyle
+		*/
+		this._currentLabelStyle = null;
+
+		/**
+		* An offset to button positioning, generally used to adjust for a highlight around the button.
+		* @private
+		* @property {PIXI.Point} _offset
+		*/
+		this._offset = new Point();
+		
+		//===callbacks for mouse/touch events
+		/*
+		* Callback for mouse over, bound to this button.
+		* @private
+		* @property {Function} _overCB
+		*/
+		this._overCB = null;
+
+		/*
+		* Callback for mouse out, bound to this button.
+		* @private
+		* @property {Function} _outCB
+		*/
+		this._outCB = null;
+
+		/*
+		* Callback for mouse down, bound to this button.
+		* @private
+		* @property {Function} _downCB
+		*/
+		this._downCB = null;
+
+		/*
+		* Callback for mouse up, bound to this button.
+		* @private
+		* @property {Function} _upCB
+		*/
+		this._upCB = null;
+
+		/**
+		* Callback for mouse up outside, bound to this button.
+		* @private
+		* @property {Function} _upOutCB
+		*/
+		this._upOutCB = null;
+		
+		/*
+		* The width of the button art, independent of the scaling of the button itself.
+		* @private
+		* @property {Number} _width
+		*/
+		this._width = 0;
+
+		/*
+		* The height of the button art, independent of the scaling of the button itself.
+		* @private
+		* @property {Number} _height
+		*/
+		this._height = 0;
+
 		this.initialize(imageSettings, label, enabled);
 	};
 	
@@ -1203,136 +1322,13 @@
 	var p = Button.prototype = Object.create(DisplayObjectContainer.prototype);
 	
 	/*
-	*  The sprite that is the body of the button.
-	*  @public
-	*  @property {PIXI.Sprite} back
-	*  @readOnly
-	*/
-	p.back = null;
-
-	/*
-	*  The text field of the button. The label is centered by both width and height on the button.
-	*  @public
-	*  @property {PIXI.Text|PIXI.BitmapText} label
-	*  @readOnly
-	*/
-	p.label = null;
-
-	/**
-	*  The function that should be called when the button is released.
-	*  @public
-	*  @property {function} releaseCallback
-	*/
-	p.releaseCallback = null;
-
-	/**
-	*  The function that should be called when the button is moused over.
-	*  @public
-	*  @property {function} overCallback
-	*/
-	p.overCallback = null;
-	
-	/**
-	*  The function that should be called when mouse leaves the button.
-	*  @public
-	*  @property {function} outCallback
-	*/
-	p.outCallback = null;
-
-	/**
-	* A dictionary of state booleans, keyed by state name.
-	* @private
-	* @property {Object} _stateFlags
-	*/
-	p._stateFlags = null;
-	/**
-	* An array of state names (Strings), in their order of priority.
-	* The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
-	* @private
-	* @property {Array} _statePriority
-	*/
-	p._statePriority = null;
-	
-	/**
-	* A dictionary of state graphic data, keyed by state name.
-	* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-	* Additionally, each object will contain a 'label' object if the button has a text label.
-	* @private
-	* @property {Object} _stateData
-	*/
-	p._stateData = null;
-
-	/**
-	* The current style for the label, to avoid setting this if it is unchanged.
-	* @private
-	* @property {Object} _currentLabelStyle
-	*/
-	p._currentLabelStyle = null;
-
-	/**
-	* An offset to button positioning, generally used to adjust for a highlight around the button.
-	* @private
-	* @property {PIXI.Point} _offset
-	*/
-	p._offset = null;
-	
-	//===callbacks for mouse/touch events
-	/*
-	* Callback for mouse over, bound to this button.
-	* @private
-	* @property {Function} _overCB
-	*/
-	p._overCB = null;
-
-	/*
-	* Callback for mouse out, bound to this button.
-	* @private
-	* @property {Function} _outCB
-	*/
-	p._outCB = null;
-
-	/*
-	* Callback for mouse down, bound to this button.
-	* @private
-	* @property {Function} _downCB
-	*/
-	p._downCB = null;
-
-	/*
-	* Callback for mouse up, bound to this button.
-	* @private
-	* @property {Function} _upCB
-	*/
-	p._upCB = null;
-
-	/**
-	* Callback for mouse up outside, bound to this button.
-	* @private
-	* @property {Function} _upOutCB
-	*/
-	p._upOutCB = null;
-	
-	/*
-	* The width of the button art, independent of the scaling of the button itself.
-	* @private
-	* @property {Number} _width
-	*/
-	p._width = 0;
-
-	/*
-	* The height of the button art, independent of the scaling of the button itself.
-	* @private
-	* @property {Number} _height
-	*/
-	p._height = 0;
-
-	/*
 	* A list of state names that should not have properties autogenerated.
 	* @private
 	* @static
 	* @property {Array} RESERVED_STATES
 	*/
 	var RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
+
 	/*
 	* A state priority list to use as the default.
 	* @private
@@ -1350,7 +1346,6 @@
 	*/
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		this.back = new Sprite(imageSettings.up);
 		this.addChild(this.back);
 		
 		this._overCB = this._onOver.bind(this);
@@ -1360,8 +1355,6 @@
 		this._upOutCB = this._onUpOutside.bind(this);
 
 		var _stateData = this._stateData = {};
-		this._stateFlags = {};
-		this._offset = new Point();
 		
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
@@ -1392,7 +1385,6 @@
 			}
 		}
 		
-		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
 		for(var i = this._statePriority.length - 1; i >= 0; --i)//start at the end to start at the up state
 		{
 			var state = this._statePriority[i];
@@ -1842,185 +1834,163 @@
 			Point = include('PIXI.Point');
 		}
 
-		this.initialize(stage, startCallback, endCallback);
+		/**
+		* The object that's being dragged
+		* @public
+		* @readOnly
+		* @property {PIXI.DisplayObject} draggedObj
+		*/
+		this.draggedObj = null;
+		
+		/**
+		* The radius in pixel to allow for dragging, or else does sticky click
+		* @public
+		* @property dragStartThreshold
+		* @default 20
+		*/
+		this.dragStartThreshold = 20;
+		
+		/**
+		* The position x, y of the mouse down on the stage
+		* @private
+		* @property {PIXI.Point} mouseDownStagePos
+		*/
+		this.mouseDownStagePos = new Point(0, 0);
+
+		/**
+		* The position x, y of the object when interaction with it started.
+		* @private
+		* @property {PIXI.Point} mouseDownObjPos
+		*/
+		this.mouseDownObjPos = new Point(0, 0);
+		
+		/**
+		* Is the move touch based
+		* @public
+		* @readOnly
+		* @property {Bool} isTouchMove
+		* @default false
+		*/
+		this.isTouchMove = false;
+		
+		/**
+		* Is the drag being held on mouse down (not sticky clicking)
+		* @public
+		* @readOnly
+		* @property {Bool} isHeldDrag
+		* @default false
+		*/
+		this.isHeldDrag = false;
+		
+		/**
+		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		* @public
+		* @readOnly
+		* @property {Bool} isStickyClick
+		* @default false
+		*/
+		this.isStickyClick = false;
+		
+		/**
+		* If sticky click dragging is allowed.
+		* @public
+		* @property {Bool} allowStickyClick
+		* @default true
+		*/
+		this.allowStickyClick = true;
+
+		/**
+		* Settings for snapping.
+		*
+		*  Format for snapping to a list of points:
+		*	{
+		*		mode:"points",
+		*		dist:20,//snap when within 20 pixels/units
+		*		points:[
+		*			{ x: 20, y:30 },
+		*			{ x: 50, y:10 }
+		*		]
+		*	}
+		*
+		* @public
+		* @property {Object} snapSettings
+		* @default null
+		*/
+		this.snapSettings = null;
+		
+		/**
+		* Reference to the stage
+		* @private
+		* @property {PIXI.Stage} _theStage
+		*/
+		this._theStage = stage;
+		
+		/**
+		* The local to global position of the drag
+		* @private
+		* @property {PIXI.Point} _dragOffset
+		*/
+		this._dragOffset = null;
+		
+		/**
+		* External callback when we start dragging
+		* @private
+		* @property {Function} _dragStartCallback
+		*/
+		this._dragStartCallback = startCallback;
+		
+		/**
+		* External callback when we are done dragging
+		* @private
+		* @property {Function} _dragEndCallback
+		*/
+		this._dragEndCallback = endCallback;
+		
+		/**
+		* Callback to test for the start a held drag
+		* @private
+		* @property {Function} _triggerHeldDragCallback
+		*/
+		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
+		
+		/**
+		* Callback to start a sticky click drag
+		* @private
+		* @property {Function} _triggerStickyClickCallback
+		*/
+		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
+		
+		/**
+		* Callback when we are done with the drag
+		* @private
+		* @property {Function} _stageMouseUpCallback
+		*/
+		this._stageMouseUpCallback = this._stopDrag.bind(this);
+			
+		/**
+		* The function call when the mouse/touch moves
+		* @private
+		* @property {function} _updateCallback 
+		*/
+		this._updateCallback = this._updateObjPosition.bind(this);
+		
+		/**
+		* The collection of draggable objects
+		* @private
+		* @property {Array} _draggableObjects
+		*/
+		this._draggableObjects = [];
+
+		helperPoint = new Point(0, 0);
 	};
 	
 	/** Reference to the drag manager */
 	var p = DragManager.prototype = {};
 	
-	/**
-	* The object that's being dragged
-	* @public
-	* @readOnly
-	* @property {PIXI.DisplayObject} draggedObj
-	*/
-	p.draggedObj = null;
-	
-	/**
-	* The radius in pixel to allow for dragging, or else does sticky click
-	* @public
-	* @property dragStartThreshold
-	* @default 20
-	*/
-	p.dragStartThreshold = 20;
-	
-	/**
-	* The position x, y of the mouse down on the stage
-	* @private
-	* @property {PIXI.Point} mouseDownStagePos
-	*/
-	p.mouseDownStagePos = null;
-
-	/**
-	* The position x, y of the object when interaction with it started.
-	* @private
-	* @property {PIXI.Point} mouseDownObjPos
-	*/
-	p.mouseDownObjPos = null;
-	
-	/**
-	* Is the move touch based
-	* @public
-	* @readOnly
-	* @property {Bool} isTouchMove
-	* @default false
-	*/
-	p.isTouchMove = false;
-	
-	/**
-	* Is the drag being held on mouse down (not sticky clicking)
-	* @public
-	* @readOnly
-	* @property {Bool} isHeldDrag
-	* @default false
-	*/
-	p.isHeldDrag = false;
-	
-	/**
-	* Is the drag a sticky clicking (click on a item, then mouse the mouse)
-	* @public
-	* @readOnly
-	* @property {Bool} isStickyClick
-	* @default false
-	*/
-	p.isStickyClick = false;
-	
-	/**
-	* If sticky click dragging is allowed.
-	* @public
-	* @property {Bool} allowStickyClick
-	* @default true
-	*/
-	p.allowStickyClick = true;
-
-	/**
-	* Settings for snapping.
-	*
-	*  Format for snapping to a list of points:
-	*	{
-	*		mode:"points",
-	*		dist:20,//snap when within 20 pixels/units
-	*		points:[
-	*			{ x: 20, y:30 },
-	*			{ x: 50, y:10 }
-	*		]
-	*	}
-	*
-	* @public
-	* @property {Object} snapSettings
-	* @default null
-	*/
-	p.snapSettings = null;
-	
-	/**
-	* Reference to the stage
-	* @private
-	* @property {PIXI.Stage} _theStage
-	*/
-	p._theStage = null;
-	
-	/**
-	* The local to global position of the drag
-	* @private
-	* @property {PIXI.Point} _dragOffset
-	*/
-	p._dragOffset = null;
-	
-	/**
-	* External callback when we start dragging
-	* @private
-	* @property {Function} _dragStartCallback
-	*/
-	p._dragStartCallback = null;
-	
-	/**
-	* External callback when we are done dragging
-	* @private
-	* @property {Function} _dragEndCallback
-	*/
-	p._dragEndCallback = null;
-	
-	/**
-	* Callback to test for the start a held drag
-	* @private
-	* @property {Function} _triggerHeldDragCallback
-	*/
-	p._triggerHeldDragCallback = null;
-	
-	/**
-	* Callback to start a sticky click drag
-	* @private
-	* @property {Function} _triggerStickyClickCallback
-	*/
-	p._triggerStickyClickCallback = null;
-	
-	/**
-	* Callback when we are done with the drag
-	* @private
-	* @property {Function} _stageMouseUpCallback
-	*/
-	p._stageMouseUpCallback = null;
-		
-	/**
-	* The function call when the mouse/touch moves
-	* @private
-	* @property {function} _updateCallback 
-	*/
-	p._updateCallback = null;
-	
-	/**
-	* The collection of draggable objects
-	* @private
-	* @property {Array} _draggableObjects
-	*/
-	p._draggableObjects = null;
-	
 	var helperPoint = null;
 	
 	var TYPE_MOUSE = 0;
 	var TYPE_TOUCH = 1;
-	
-	/** 
-	* Constructor 
-	* @method initialize
-	* @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
-	* @param {function} startCallback The callback when when starting
-	* @param {function} endCallback The callback when ending
-	*/
-	p.initialize = function(stage, startCallback, endCallback)
-	{
-		this._updateCallback = this._updateObjPosition.bind(this);
-		this._triggerHeldDragCallback = this._triggerHeldDrag.bind(this);
-		this._triggerStickyClickCallback = this._triggerStickyClick.bind(this);
-		this._stageMouseUpCallback = this._stopDrag.bind(this);
-		this._theStage = stage;
-		this._dragStartCallback = startCallback;
-		this._dragEndCallback = endCallback;
-		this._draggableObjects = [];
-		this.mouseDownStagePos = new Point(0, 0);
-		this.mouseDownObjPos = new Point(0, 0);
-		helperPoint = new Point(0, 0);
-	};
 	
 	/**
 	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 

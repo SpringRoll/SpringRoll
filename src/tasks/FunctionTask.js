@@ -19,48 +19,21 @@
 	*/
 	var FunctionTask = function(id, serviceCall, callback, args)
 	{
-		this.initialize(id, serviceCall, callback, args);
-	};
-	
-	/** Reference to the inherieted task */
-	var p = FunctionTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
-	
-	/**
-	* The url of the file to load
-	* 
-	* @property {function} serviceCall
-	*/
-	p.serviceCall = null;
-	
-	/**
-	* The media loader priorty of the load
-	* @property {*} args
-	*/
-	p.args = null;
-	
-	/**
-	*   Create the service task
-	*   
-	*   @function initialize
-	*   @param {String} id The key for the task
-	*   @param {function} serviceCall Function the service call
-	*   @param {function} callback The function to callback when done
-	*   @param {*} args The arguments passed to the service call, (callback is first)
-	*/
-	p.initialize = function(id, serviceCall, callback, args)
-	{
-		this.Task_initialize(id, callback);
-		
+		Task.call(this, id, callback);
+
+		/**
+		* The url of the file to load
+		* 
+		* @property {function} serviceCall
+		*/
 		this.serviceCall = serviceCall;
 		
-		this.args = [];
-		
+		/**
+		* The media loader priorty of the load
+		* @property {*} args
+		*/
+		this.args = null;
+
 		// Get the additional arguments as an array
 		if (args)
 		{
@@ -68,6 +41,12 @@
 			this.args = a.slice(3);
 		}
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = FunctionTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -99,7 +78,7 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
 		
 		this.serviceCall = null;
 		this.args = null;

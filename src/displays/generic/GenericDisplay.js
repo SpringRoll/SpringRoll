@@ -15,12 +15,71 @@
 	*/
 	var GenericDisplay = function(id, options)
 	{
-		this.id = id;
 		options = options || {};
+
+		/**
+		*  the canvas managed by this display
+		*  @property {DOMElement} canvas
+		*  @readOnly
+		*  @public
+		*/
 		this.canvas = document.getElementById(id);
-		this.stage = this.canvas.getContext(options.contextId || "2d");
+
+		/**
+		*  The DOM id for the canvas
+		*  @property {String} id
+		*  @readOnly
+		*  @public
+		*/
+		this.id = id;
+
+		/**
+		*  Convenience method for getting the width of the canvas element
+		*  would be the same thing as canvas.width
+		*  @property {int} width
+		*  @readOnly
+		*  @public
+		*/
 		this.width = this.canvas.width;
+
+		/**
+		*  Convenience method for getting the height of the canvas element
+		*  would be the same thing as canvas.height
+		*  @property {int} height
+		*  @readOnly
+		*  @public
+		*/
 		this.height = this.canvas.height;
+
+		/**
+		*  The main rendering context, typically either `CanvasRenderingContext2d` 
+		*  or `WebGLRenderingContext`
+		*  @property {RenderingContext}
+		*  @readOnly
+		*  @public
+		*/
+		this.stage = this.canvas.getContext(options.contextId || "2d");
+
+		/**
+		*  If rendering is paused on this display only. Pausing all displays can be done
+		*  using Application.paused setter.
+		*  @property {Boolean} paused
+		*  @public
+		*/
+		this.paused = false;
+
+		/**
+		*  If input is enabled on the stage.
+		*  @property {Boolean} _enabled
+		*  @private
+		*/
+		this._enabled = false;
+
+		/**
+		*  If the display is visible.
+		*  @property {Boolean} _visible
+		*  @private
+		*/
 		this._visible = this.canvas.style.display != "none";
 
 		/**
@@ -39,64 +98,6 @@
 	var p = GenericDisplay.prototype = {};
 
 	/**
-	*  the canvas managed by this display
-	*  @property {DOMElement} canvas
-	*  @readOnly
-	*  @public
-	*/
-	p.canvas = null;
-
-	/**
-	*  The DOM id for the canvas
-	*  @property {String} id
-	*  @readOnly
-	*  @public
-	*/
-	p.id = null;
-
-	/**
-	*  Convenience method for getting the width of the canvas element
-	*  would be the same thing as canvas.width
-	*  @property {int} width
-	*  @readOnly
-	*  @public
-	*/
-	p.width = 0;
-
-	/**
-	*  Convenience method for getting the height of the canvas element
-	*  would be the same thing as canvas.height
-	*  @property {int} height
-	*  @readOnly
-	*  @public
-	*/
-	p.height = 0;
-
-	/**
-	*  The main rendering context, typically either `CanvasRenderingContext2d` 
-	*  or `WebGLRenderingContext`
-	*  @property {RenderingContext}
-	*  @readOnly
-	*  @public
-	*/
-	p.stage = null;
-
-	/**
-	*  If rendering is paused on this display only. Pausing all displays can be done
-	*  using Application.paused setter.
-	*  @property {Boolean} paused
-	*  @public
-	*/
-	p.paused = false;
-
-	/**
-	*  If input is enabled on the stage.
-	*  @property {Boolean} _enabled
-	*  @private
-	*/
-	p._enabled = false;
-
-	/**
 	*  If input is enabled on the stage for this display. The default is true.
 	*  Without a rendering library, this does not actually have an effect.
 	*  @property {Boolean} enabled
@@ -109,13 +110,6 @@
 			this._enabled = value;
 		}
 	});
-
-	/**
-	*  If the display is visible.
-	*  @property {Boolean} _visible
-	*  @private
-	*/
-	p._visible = false;
 
 	/**
 	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.

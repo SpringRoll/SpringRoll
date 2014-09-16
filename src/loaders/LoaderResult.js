@@ -13,34 +13,30 @@
 	*/
 	var LoaderResult = function(content, url, loader)
 	{
+		/**
+		*  The contents of the load
+		*  @public
+		*  @property {*} content 
+		*/
 		this.content = content;
+
+		/**
+		*  The url of the load
+		*  @public
+		*  @property {string} url
+		*/
 		this.url = url;
+
+		/**
+		*  Reference to the preloader object
+		*  @public
+		*  @property {createjs.LoaderQueue} loader
+		*/
 		this.loader = loader;
 	};
 	
 	/** Reference to the prototype */
 	var p = LoaderResult.prototype;
-	
-	/**
-	*  The contents of the load
-	*  @public
-	*  @property {*} content 
-	*/
-	p.content = null;
-	
-	/**
-	*  The url of the load
-	*  @public
-	*  @property {string} url
-	*/
-	p.url = null;
-	
-	/**
-	*  Reference to the preloader object
-	*  @public
-	*  @property {createjs.LoaderQueue} loader
-	*/
-	p.loader = null;
 	
 	/**
 	* A to string method

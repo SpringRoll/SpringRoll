@@ -19,93 +19,94 @@
 		{
 			StateManager = include('cloudkid.StateManager');
 		}
+
+		/** 
+		* The id reference
+		* 
+		* @property {String} stateID
+		*/
+		this.stateId = null;
+		
+		/**
+		* A reference to the state manager
+		* 
+		* @property {StateManager} manager
+		*/
+		this.manager = null;
+		
+		/** 
+		* Save the panel
+		* 
+		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
+		*/
+		this.panel = null;
+		
+		/**
+		* Check to see if we've been destroyed 
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
+		
+		/**
+		* If the manager considers this the active panel
+		* 
+		* @property {bool} _active
+		* @private
+		*/
+		this._active = false;
+		
+		/**
+		* If we are pre-loading the state
+		* 
+		* @property {bool} _isLoading
+		* @private
+		*/
+		this._isLoading = false;
+		
+		/**
+		* If we canceled entering the state
+		* 
+		* @property {bool} _canceled
+		* @private
+		*/
+		this._canceled = false;
+		
+		/**
+		* When we're finishing loading
+		* 
+		* @property {function} _onEnterProceed
+		* @private
+		*/
+		this._onEnterProceed = null;
+		
+		/** If we start doing a load in enter, assign the onEnterComplete here
+		* 
+		* @property {function} _onLoadingComplete
+		* @private
+		*/
+		this._onLoadingComplete = null;
+		
+		/** If the state is enabled that means it click ready
+		* 
+		* @property {bool} _enabled
+		* @private
+		*/
+		this._enabled = false;
+
+		/**
+		* If we are currently transitioning
+		* 
+		* @property {bool} isTransitioning
+		* @private
+		*/
+		this._isTransitioning = false;
+		
 		this.initialize(panel);
 	};
 	
 	var p = BaseState.prototype;
-	
-	/** 
-	* The id reference
-	* 
-	* @property {String} stateID
-	*/
-	p.stateId = null;
-	
-	/**
-	* A reference to the state manager
-	* 
-	* @property {StateManager} manager
-	*/
-	p.manager = null;
-	
-	/** 
-	* Save the panel
-	* 
-	* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
-	*/
-	p.panel = null;
-	
-	/**
-	* Check to see if we've been destroyed 
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* If the manager considers this the active panel
-	* 
-	* @property {bool} _active
-	* @private
-	*/
-	p._active = false;
-	
-	/**
-	* If we are pre-loading the state
-	* 
-	* @property {bool} _isLoading
-	* @private
-	*/
-	p._isLoading = false;
-	
-	/**
-	* If we canceled entering the state
-	* 
-	* @property {bool} _canceled
-	* @private
-	*/
-	p._canceled = false;
-	
-	/**
-	* When we're finishing loading
-	* 
-	* @property {function} _onEnterProceed
-	* @private
-	*/
-	p._onEnterProceed = null;
-	
-	/** If we start doing a load in enter, assign the onEnterComplete here
-	* 
-	* @property {function} _onLoadingComplete
-	* @private
-	*/
-	p._onLoadingComplete = null;
-	
-	/** If the state is enabled that means it click ready
-	* 
-	* @property {bool} _enabled
-	* @private
-	*/
-	p._enabled = false;
-
-	/**
-	* If we are currently transitioning
-	* 
-	* @property {bool} isTransitioning
-	* @private
-	*/
-	p._isTransitioning = false;
 	
 	/**
 	*  Initialize the Base State
@@ -413,4 +414,5 @@
 	
 	// Add to the name space
 	namespace('cloudkid').BaseState = BaseState;
+	
 }());

@@ -81,109 +81,113 @@
 	var Button = function(imageSettings, label, enabled)
 	{
 		if (!imageSettings) return;
+
+		Container.call(this);
+
+		/**
+		 *  The sprite that is the body of the button.
+		 *  @public
+		 *  @property {createjs.Bitmap} back
+		 *  @readOnly
+		 */
+		this.back = null;
+
+		/**
+		 *  The text field of the button. The label is centered by both width and height on the button.
+		 *  @public
+		 *  @property {createjs.Text} label
+		 *  @readOnly
+		 */
+		this.label = null;
+
+		//===callbacks for mouse/touch events
+		/**
+		 * Callback for mouse over, bound to this button.
+		 * @private
+		 * @property {Function} _overCB
+		 */
+		this._overCB = this._onMouseOver.bind(this);
+
+		/**
+		 * Callback for mouse out, bound to this button.
+		 * @private
+		 * @property {Function} _outCB
+		 */
+		this._outCB = this._onMouseOut.bind(this);
+
+		/**
+		 * Callback for mouse down, bound to this button.
+		 * @private
+		 * @property {Function} _downCB
+		 */
+		this._downCB = this._onMouseDown.bind(this);
+
+		/**
+		 * Callback for press up, bound to this button.
+		 * @private
+		 * @property {Function} _upCB
+		 */
+		this._upCB = this._onMouseUp.bind(this);
+
+		/**
+		 * Callback for click, bound to this button.
+		 * @private
+		 * @property {Function} _clickCB
+		 */
+		this._clickCB = this._onClick.bind(this);
+
+		/**
+		 * A dictionary of state booleans, keyed by state name.
+		 * @private
+		 * @property {Object} _stateFlags
+		 */
+		this._stateFlags = {};
+
+		/**
+		 * An array of state names (Strings), in their order of priority.
+		 * The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
+		 * @private
+		 * @property {Array} _statePriority
+		 */
+		this._statePriority = null;
+
+		/**
+		 * A dictionary of state graphic data, keyed by state name.
+		 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		 * Additionally, each object will contain a 'label' object if the button has a text label.
+		 * @private
+		 * @property {Object} _stateData
+		 */
+		this._stateData = {};
+
+		/**
+		 * The width of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _width
+		 */
+		this._width = 0;
+
+		/**
+		 * The height of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _height
+		 */
+		this._height = 0;
+
+		/**
+		 * An offset to button positioning, generally used to adjust for a highlight around the button.
+		 * @private
+		 * @property {createjs.Point} _offset
+		 */
+		this._offset = new Point();
+
 		this.initialize(imageSettings, label, enabled);
 	};
 
 	// Extend Container
-	var p = Button.prototype = new Container();
+	var p = Button.prototype = Object.create(Container.prototype);
 
 	var s = Container.prototype; //super
-
-	/**
-	 *  The sprite that is the body of the button.
-	 *  @public
-	 *  @property {createjs.Bitmap} back
-	 *  @readOnly
-	 */
-	p.back = null;
-
-	/**
-	 *  The text field of the button. The label is centered by both width and height on the button.
-	 *  @public
-	 *  @property {createjs.Text} label
-	 *  @readOnly
-	 */
-	p.label = null;
-
-	//===callbacks for mouse/touch events
-	/**
-	 * Callback for mouse over, bound to this button.
-	 * @private
-	 * @property {Function} _overCB
-	 */
-	p._overCB = null;
-
-	/**
-	 * Callback for mouse out, bound to this button.
-	 * @private
-	 * @property {Function} _outCB
-	 */
-	p._outCB = null;
-
-	/**
-	 * Callback for mouse down, bound to this button.
-	 * @private
-	 * @property {Function} _downCB
-	 */
-	p._downCB = null;
-
-	/**
-	 * Callback for press up, bound to this button.
-	 * @private
-	 * @property {Function} _upCB
-	 */
-	p._upCB = null;
-
-	/**
-	 * Callback for click, bound to this button.
-	 * @private
-	 * @property {Function} _clickCB
-	 */
-	p._clickCB = null;
-
-	/**
-	 * A dictionary of state booleans, keyed by state name.
-	 * @private
-	 * @property {Object} _stateFlags
-	 */
-	p._stateFlags = null;
-	/**
-	 * An array of state names (Strings), in their order of priority.
-	 * The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
-	 * @private
-	 * @property {Array} _statePriority
-	 */
-	p._statePriority = null;
-
-	/**
-	 * A dictionary of state graphic data, keyed by state name.
-	 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-	 * Additionally, each object will contain a 'label' object if the button has a text label.
-	 * @private
-	 * @property {Object} _stateData
-	 */
-	p._stateData = null;
-
-	/**
-	 * The width of the button art, independent of the scaling of the button itself.
-	 * @private
-	 * @property {Number} _width
-	 */
-	p._width = 0;
-
-	/**
-	 * The height of the button art, independent of the scaling of the button itself.
-	 * @private
-	 * @property {Number} _height
-	 */
-	p._height = 0;
-
-	/**
-	 * An offset to button positioning, generally used to adjust for a highlight around the button.
-	 * @private
-	 * @property {createjs.Point} _offset
-	 */
-	p._offset = null;
 
 	/**
 	 * An event for when the button is pressed (while enabled).
@@ -217,19 +221,9 @@
 	 */
 	p.initialize = function(imageSettings, label, enabled)
 	{
-		s.initialize.call(this);
-
 		this.mouseChildren = false; //input events should have this button as a target, not the child Bitmap.
 
-		this._downCB = this._onMouseDown.bind(this);
-		this._upCB = this._onMouseUp.bind(this);
-		this._overCB = this._onMouseOver.bind(this);
-		this._outCB = this._onMouseOut.bind(this);
-		this._clickCB = this._onClick.bind(this);
-
-		var _stateData = this._stateData = {};
-		this._stateFlags = {};
-		this._offset = new Point();
+		var _stateData = this._stateData;
 
 		//a clone of the label data to use as a default value, without changing the original
 		var labelData;
