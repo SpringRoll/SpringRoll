@@ -24,7 +24,7 @@
 		captions.play("Alias1");
 
 		// Provide the update to captions
-		Application.intance.on('up', captions.update.bind(captions));
+		Application.intance.on('update', captions.update.bind(captions));
 	*
 	* @class Captions
 	* @constructor

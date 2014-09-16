@@ -53,7 +53,7 @@
 			}
 			if (setting.rotation !== undefined)
 			{
-				item.rotation = settings.rotation;
+				item.rotation = setting.rotation;
 				if (adapter.useRadians)
 				{
 					item.rotation *= degToRad;
