@@ -1817,7 +1817,7 @@ if you need variable aspect ratios.</p>
             
                 <li class="arg">
                     
-                        <code>callback</code>
+                        <code class="optional">[callback]</code>
                     
                 </li>
             
@@ -1862,7 +1862,7 @@ if you need variable aspect ratios.</p>
     </div>
 
     <div class="description">
-        <p>Checks if the EventDispatcher has a specific listener.</p>
+        <p>Checks if the EventDispatcher has a specific listener or any listener for a given event.</p>
 
     </div>
 
@@ -1890,14 +1890,15 @@ if you need variable aspect ratios.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">callback</code>
+                        <code class="param-name optional">[callback]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The listener function to check for</p>
+                        <p>The listener function to check for. If omitted, checks for any listener.</p>
 
                     </div>
 
@@ -2871,7 +2872,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_events_EventDispatcher.js.html#l166"><code>type:166</code></a>
+        <a href="../files/src_events_EventDispatcher.js.html#l168"><code>type:168</code></a>
         
         </p>
 

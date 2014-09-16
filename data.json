@@ -1658,7 +1658,7 @@
             "line": 6,
             "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class.",
             "example": [
-                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");\n\n\t\t// Provide the update to captions\n\t\tApplication.intance.on('up', captions.update.bind(captions));"
+                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");\n\n\t\t// Provide the update to captions\n\t\tApplication.intance.on('update', captions.update.bind(captions));"
             ],
             "is_constructor": 1,
             "params": [
@@ -7942,7 +7942,7 @@
         {
             "file": "src/events/EventDispatcher.js",
             "line": 149,
-            "description": "Checks if the EventDispatcher has a specific listener.",
+            "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
             "params": [
@@ -7953,8 +7953,9 @@
                 },
                 {
                     "name": "callback",
-                    "description": "The listener function to check for",
-                    "type": "Function"
+                    "description": "The listener function to check for. If omitted, checks for any listener.",
+                    "type": "Function",
+                    "optional": true
                 }
             ],
             "return": {
@@ -7966,7 +7967,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 166,
+            "line": 168,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -7988,7 +7989,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 187,
+            "line": 189,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -8934,7 +8935,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 211,
+            "line": 210,
             "description": "Mute all of the captions.",
             "access": "public",
             "tagname": "",
@@ -8953,7 +8954,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 227,
+            "line": 226,
             "description": "If the captions are all currently muted.",
             "access": "public",
             "tagname": "",
@@ -8969,7 +8970,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 240,
+            "line": 239,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -8987,7 +8988,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 284,
+            "line": 283,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
             "access": "public",
             "tagname": "",
@@ -9005,7 +9006,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 304,
+            "line": 303,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -9025,7 +9026,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 316,
+            "line": 315,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -9050,7 +9051,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 352,
+            "line": 351,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -9068,7 +9069,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 375,
+            "line": 374,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -9079,7 +9080,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 387,
+            "line": 386,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -9101,7 +9102,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 408,
+            "line": 407,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -9116,7 +9117,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 420,
+            "line": 419,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -9127,7 +9128,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 431,
+            "line": 430,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -9138,7 +9139,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 441,
+            "line": 440,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -9161,8 +9162,8 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 460,
-            "description": "Convience function for stopping captions. Is also called by \ncloudkid.AudioAnimation when it is finished.",
+            "line": 459,
+            "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -9172,7 +9173,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 475,
+            "line": 473,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -9190,7 +9191,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 521,
+            "line": 519,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -9208,7 +9209,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 535,
+            "line": 533,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -9226,7 +9227,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 550,
+            "line": 548,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -9237,7 +9238,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 587,
+            "line": 585,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -9248,7 +9249,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 605,
+            "line": 603,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9332,9 +9333,8 @@
             "params": [
                 {
                     "name": "options",
-                    "description": "Either the options object or the completeCallback",
+                    "description": "Either the options object or the ready function",
                     "type": "Object|Function",
-                    "optional": true,
                     "props": [
                         {
                             "name": "types",
@@ -9349,6 +9349,12 @@
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
+                        },
+                        {
+                            "name": "ready",
+                            "description": "A function to call when initialization is complete.",
+                            "type": "Function",
+                            "optional": true
                         }
                     ]
                 },
@@ -9356,11 +9362,6 @@
                     "name": "[options.plugins=[createjs.WebAudioPlugin,",
                     "description": "createjs.FlashPlugin]] The SoundJS plugins to pass to createjs.Sound.registerPlugins().",
                     "type": "Array"
-                },
-                {
-                    "name": "completeCallback",
-                    "description": "A function to call when initialization is complete.",
-                    "type": "Function"
                 }
             ],
             "return": {
@@ -9372,7 +9373,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 175,
+            "line": 191,
             "description": "Statisfies the iOS event needed to initialize the audio",
             "access": "private",
             "tagname": "",
@@ -9383,7 +9384,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 186,
+            "line": 202,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -9406,7 +9407,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 224,
+            "line": 240,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -9419,7 +9420,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 235,
+            "line": 251,
             "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "loadConfig",
@@ -9499,7 +9500,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 294,
+            "line": 310,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -9521,7 +9522,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 306,
+            "line": 322,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -9543,7 +9544,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 318,
+            "line": 334,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -9565,7 +9566,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 330,
+            "line": 346,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -9587,7 +9588,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 342,
+            "line": 358,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -9609,7 +9610,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 355,
+            "line": 371,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -9624,17 +9625,22 @@
                 {
                     "name": "duration",
                     "description": "The duration in milliseconds to fade for. The default is 500ms.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "500"
                 },
                 {
                     "name": "targetVol",
                     "description": "The volume to fade to. The default is the sound's default volume.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true
                 },
                 {
                     "name": "startVol",
                     "description": "The volume to start from. The default is 0.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "0"
                 }
             ],
             "class": "Sound",
@@ -9642,7 +9648,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 396,
+            "line": 412,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -9657,17 +9663,22 @@
                 {
                     "name": "duration",
                     "description": "The duration in milliseconds to fade for. The default is 500ms.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "500"
                 },
                 {
                     "name": "targetVol",
                     "description": "The volume to fade to. The default is 0.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "0"
                 },
                 {
                     "name": "startVol",
                     "description": "The volume to fade from. The default is the current volume.",
-                    "type": "Number"
+                    "type": "Number",
+                    "optional": true
                 }
             ],
             "class": "Sound",
@@ -9675,7 +9686,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 443,
+            "line": 459,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -9693,7 +9704,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 497,
+            "line": 513,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -9776,7 +9787,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 634,
+            "line": 650,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -9803,7 +9814,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 659,
+            "line": 675,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -9821,7 +9832,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 707,
+            "line": 723,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -9839,7 +9850,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 724,
+            "line": 740,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -9857,7 +9868,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 751,
+            "line": 767,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -9875,7 +9886,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 767,
+            "line": 783,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -9893,7 +9904,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 780,
+            "line": 796,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -9911,7 +9922,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 803,
+            "line": 819,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -9929,7 +9940,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 822,
+            "line": 838,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -9947,7 +9958,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 843,
+            "line": 859,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -9958,7 +9969,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 855,
+            "line": 871,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -9969,7 +9980,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 867,
+            "line": 883,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -9992,7 +10003,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 897,
+            "line": 913,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -10010,7 +10021,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 908,
+            "line": 924,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -10033,7 +10044,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 938,
+            "line": 954,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -10056,7 +10067,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 965,
+            "line": 981,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -10079,7 +10090,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1013,
+            "line": 1029,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -10102,7 +10113,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1038,
+            "line": 1054,
             "description": "Creates a Task for the CloudKid Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -10134,7 +10145,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1054,
+            "line": 1070,
             "description": "Unloads a list of sounds to reclaim memory if possible. \nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -10152,7 +10163,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1077,
+            "line": 1093,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -10170,7 +10181,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1095,
+            "line": 1111,
             "description": "Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -11720,7 +11731,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 307,
+            "line": 306,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -11729,7 +11740,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 321,
+            "line": 319,
             "description": "Show, enable the blocker clip to disable mouse clicks",
             "itemtype": "method",
             "name": "showBlocker",
@@ -11738,7 +11749,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 332,
+            "line": 330,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -11747,7 +11758,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 342,
+            "line": 340,
             "description": "This transitions out of the current state and \nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -11756,7 +11767,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 354,
+            "line": 352,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
@@ -11772,7 +11783,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 444,
+            "line": 445,
             "description": "When the state has completed it's loading sequence\nthis should be treated as an asyncronous process",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -11783,7 +11794,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 485,
+            "line": 489,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -11797,7 +11808,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 507,
+            "line": 511,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -11808,7 +11819,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 527,
+            "line": 531,
             "description": "Displays the transition out animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -11824,7 +11835,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 547,
+            "line": 551,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -11840,7 +11851,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 559,
+            "line": 563,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -11863,7 +11874,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 581,
+            "line": 585,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -12867,7 +12878,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 270,
+            "line": 272,
             "description": "Callback for when an task is done",
             "itemtype": "method",
             "name": "onTaskDone",
@@ -12888,7 +12899,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 309,
+            "line": 312,
             "description": "Start the next task until there are no more tasks to start",
             "itemtype": "method",
             "name": "startAll",
@@ -12901,7 +12912,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 332,
+            "line": 335,
             "description": "We don't want to use the task manager after this",
             "itemtype": "method",
             "name": "destroy",
@@ -13414,7 +13425,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 212,
+            "line": 218,
             "description": "Set the current screen settings. If the stage size changes at all, re-call this function",
             "itemtype": "method",
             "name": "init",
@@ -13441,7 +13452,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 228,
+            "line": 234,
             "description": "Get the current scale of the screen",
             "itemtype": "method",
             "name": "getScale",
@@ -13454,7 +13465,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 238,
+            "line": 244,
             "description": "Manually add an item",
             "itemtype": "method",
             "name": "add",
@@ -13512,7 +13523,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 264,
+            "line": 270,
             "description": "Scale a single background image according to the UIScaler.width and height",
             "itemtype": "method",
             "name": "resizeBackground",
@@ -13536,7 +13547,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 287,
+            "line": 293,
             "description": "Convenience function to scale a collection of backgrounds",
             "itemtype": "method",
             "name": "resizeBackgrounds",
@@ -13560,7 +13571,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 302,
+            "line": 308,
             "description": "Scale the UI items that have been registered to the current screen",
             "itemtype": "method",
             "name": "resize",
@@ -13569,7 +13580,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 317,
+            "line": 323,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -15759,51 +15770,51 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:307"
+            "line": " src/states/StateManager.js:306"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:321"
+            "line": " src/states/StateManager.js:319"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:332"
+            "line": " src/states/StateManager.js:330"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:342"
+            "line": " src/states/StateManager.js:340"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:354"
+            "line": " src/states/StateManager.js:352"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:444"
+            "line": " src/states/StateManager.js:445"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:485"
+            "line": " src/states/StateManager.js:489"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:507"
+            "line": " src/states/StateManager.js:511"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:527"
+            "line": " src/states/StateManager.js:531"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:547"
+            "line": " src/states/StateManager.js:551"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:559"
+            "line": " src/states/StateManager.js:563"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:581"
+            "line": " src/states/StateManager.js:585"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -15923,15 +15934,15 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:270"
+            "line": " src/tasks/TaskManager.js:272"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:309"
+            "line": " src/tasks/TaskManager.js:312"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:332"
+            "line": " src/tasks/TaskManager.js:335"
         },
         {
             "message": "replacing incorrect tag: extend with extends",
