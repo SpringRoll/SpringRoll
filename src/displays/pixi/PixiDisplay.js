@@ -191,7 +191,7 @@
 			if(value)
 			{
 				//add events to the interaction manager's target
-				interactionManager.setTargetDomElement(interactionManager.target);
+				interactionManager.setTargetDomElement(this.canvas);
 			}
 			else
 			{
