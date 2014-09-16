@@ -187,16 +187,16 @@
 		set: function(value)
 		{
 			this._enabled = value;
+			var interactionManager = this.stage.interactionManager;
 			if(value)
 			{
-				this.stage.setInteractive(true);
+				//add events to the interaction manager's target
+				interactionManager.setTargetDomElement(interactionManager.target);
 			}
 			else
 			{
-				this.stage.setInteractive(false);
-				// force an update that disables the whole stage (the stage doesn't 
-				// update the interaction manager if interaction is false)
-				this.stage.forceUpdateInteraction();
+				//remove event listeners
+				interactionManager.removeEvents();
 			}
 		}
 	});
