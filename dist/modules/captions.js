@@ -24,7 +24,7 @@
 		captions.play("Alias1");
 
 		// Provide the update to captions
-		Application.intance.on('up', captions.update.bind(captions));
+		Application.intance.on('update', captions.update.bind(captions));
 	*
 	* @class Captions
 	* @constructor
@@ -207,7 +207,6 @@
 		this._lines = [];
 		this.setDictionary(captionDictionary || null);
 		this.setTextField(field);
-		this._updateToAnim = this._updateToAnim.bind(this);
 	};
 	
 	/**
@@ -460,8 +459,7 @@
 	};
 	
 	/**
-	* Convience function for stopping captions. Is also called by 
-	* cloudkid.AudioAnimation when it is finished.
+	* Convience function for stopping captions.
 	*
 	* @public
 	* @method stop

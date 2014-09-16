@@ -176,6 +176,12 @@
 		for(i in jsonItems)
 		{
 			item = jsonItems[i];
+
+			if (!item)
+			{
+				Debug.error("UIScaler: could not find object '" +  iName + "'");
+				continue;
+			}
 			
 			if (item.align)
 			{
