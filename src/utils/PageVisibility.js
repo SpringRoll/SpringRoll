@@ -85,7 +85,7 @@
 				this._onBlur();
 			else 
 				this._onFocus();
-		};
+		}.bind(this);
 		
 		// Listen to visibility change
 		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
