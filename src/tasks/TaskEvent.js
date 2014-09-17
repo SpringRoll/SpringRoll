@@ -20,21 +20,21 @@
 		* 
 		* @property {Task} task
 		*/
-		this.task = null;
+		this.task = task;
 		
 		/**
 		* The task result
 		* 
 		* @property {*} data
 		*/
-		this.data = null;
+		this.data = data;
 		
 		/**
 		* The type of event
 		* 
 		* @property {String} type
 		*/
-		this.type = null;
+		this.type = type;
 	};
 		
 	/**
