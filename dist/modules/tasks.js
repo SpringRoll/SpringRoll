@@ -81,14 +81,14 @@
 		* 
 		* @property {String} id
 		*/
-		p.id = id;
+		this.id = id;
 		
 		/**
 		* Callback to call when the task is completed
 		* 
 		* @property {function} callback
 		*/
-		p.callback = callback;
+		this.callback = callback;
 		
 		/**
 		* Bool to keep track if this has been destroyed
@@ -96,7 +96,7 @@
 		* @property {bool} _isDestroyed
 		* @protected
 		*/
-		p._isDestroyed = false;
+		this._isDestroyed = false;
 	};
 	
 	/** Prototype reference */
