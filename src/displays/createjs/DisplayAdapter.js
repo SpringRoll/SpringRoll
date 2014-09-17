@@ -74,6 +74,38 @@
 	DisplayAdapter.useRadians = false;
 
 	/**
+	*  Gets the object's boundaries in its local coordinate space.
+	*  @method getLocalBounds
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs display object
+	*  @return {Rectangle} A rectangle with added right and bottom properties.
+	*/
+	DisplayAdapter.getLocalBounds = function(object)
+	{
+		var bounds;
+		if(object.nominalBounds)
+		{
+			//start by using nominal bounds, if it was exported from Flash, since it
+			//should be fast and pretty accurate
+			bounds = object.nominalBounds.clone();
+		}
+		else if(object.width !== undefined && object.height !== undefined)
+		{
+			//next check for a width and height that someone might have set up,
+			//like our Button class has.
+			//this also needs to take into account the registration point, as that affects the
+			//positioning of the art
+		}
+		else
+		{
+			//finally fall back to using EaselJS's getBounds().
+		}
+		bounds.right = bounds.x + bounds.width;
+		bounds.bottom = bounds.y + bounds.height;
+		return bounds;
+	};
+
+	/**
 	*  Normalize the object scale
 	*  @method getScale
 	*  @static
