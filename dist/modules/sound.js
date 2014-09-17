@@ -269,7 +269,7 @@
 	*/
 	var SoundListTask = function(id, list, callback)
 	{
-		this.initialize(id, callback);
+		Task.call(this, id, callback);
 		
 		/**
 		*  The collection of sounds to load
