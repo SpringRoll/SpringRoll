@@ -181,7 +181,7 @@
 		 */
 		this._offset = new Point();
 
-		this.initialize(imageSettings, label, enabled);
+		this.buttonInitialize(imageSettings, label, enabled);
 	};
 
 	// Extend Container
@@ -214,12 +214,12 @@
 
 	/** 
 	 *  Constructor for the button when using CreateJS.
-	 *  @method initialize
+	 *  @method buttonInitialize
 	 *  @param {Object|Image|HTMLCanvasElement} [imageSettings] See the constructor for more information
 	 *  @param {Object} [label=null] Information about the text label on the button. Omitting this makes the button not use a label.
 	 *  @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
 	 */
-	p.initialize = function(imageSettings, label, enabled)
+	p.buttonInitialize = function(imageSettings, label, enabled)
 	{
 		this.mouseChildren = false; //input events should have this button as a target, not the child Bitmap.
 
