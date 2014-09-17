@@ -92,10 +92,10 @@
 		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
 		
 		// Listen for page events (when clicking the home button on iOS)
-		global.addEventListener("pagehide", onBlur);
-		global.addEventListener("pageshow", onFocus);
-		global.addEventListener("blur", onBlur);
-		global.addEventListener("focus", onFocus);
+		global.addEventListener("pagehide", this._onBlur);
+		global.addEventListener("pageshow", this._onFocus);
+		global.addEventListener("blur", this._onBlur);
+		global.addEventListener("focus", this._onFocus);
 		global.addEventListener("visibilitychange", onVisibilityChange, false);
 		
 		this._onToggle = onVisibilityChange;
