@@ -608,7 +608,7 @@
 				inst._startParams = [interrupt, delay, offset, loop, pan];
 			Loader.instance.load(
 				sound.src, //url to load
-				this._playAfterLoadBound,//complete callback
+				this._playAfterLoad,//complete callback
 				null,//progress callback
 				0,//priority
 				sound//the sound object (contains properties for PreloadJS/SoundJS)
