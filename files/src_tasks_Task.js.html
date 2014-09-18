@@ -219,46 +219,31 @@
 	*/
 	var Task = function(id, callback)
 	{
-		this.initialize(id, callback);
+		/**
+		* The unique id of the task
+		* 
+		* @property {String} id
+		*/
+		this.id = id;
+		
+		/**
+		* Callback to call when the task is completed
+		* 
+		* @property {function} callback
+		*/
+		this.callback = callback;
+		
+		/**
+		* Bool to keep track if this has been destroyed
+		* 
+		* @property {bool} _isDestroyed
+		* @protected
+		*/
+		this._isDestroyed = false;
 	};
 	
 	/** Prototype reference */
 	var p = Task.prototype;
-	
-	/**
-	* The unique id of the task
-	* 
-	* @property {String} id
-	*/
-	p.id = null;
-	
-	/**
-	* Callback to call when the task is completed
-	* 
-	* @property {function} callback
-	*/
-	p.callback = null;
-	
-	/**
-	* Bool to keep track if this has been destroyed
-	* 
-	* @property {bool} _isDestroyed
-	* @protected
-	*/
-	p._isDestroyed = false;
-	
-	/**
-	*   Make a task but don&#x27;t load
-	*   @function initialize
-	*   @param {String} id ID of the task
-	*   @param {function} callback Callback to to call with the result, this task, and the
-	*          TaskManager that started it
-	*/
-	p.initialize = function(id, callback)
-	{
-		this.id = id;
-		this.callback = callback;
-	};
 	
 	/**
 	*   Called from the task manager when a Task is finished

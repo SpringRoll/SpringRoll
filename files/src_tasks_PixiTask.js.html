@@ -233,75 +233,47 @@
 			Application = include(&#x27;cloudkid.Application&#x27;);
 		}
 
-		this.initialize(id, urls, callback, updateCallback, generateCanvasTexture);
-	};
-	
-	var p = PixiTask.prototype = new Task();
-	
-	/**
-	*	Super for the constructor
-	*	@property {Function} Task_initialize
-	*	@private
-	*/
-	p.Task_initialize = p.initialize;
-	
-	/**
-	*	Super for the destroy function
-	*	@property {Function} Task_destroy
-	*	@private
-	*/
-	p.Task_destroy = p.destroy;
-	
-	/**
-	*	The urls of the files to load
-	*	@property {Array} urls
-	*	@private
-	*/
-	p.urls = null;
-	
-	/**
-	*	The optional callback to get updates (to show load progress)
-	*	@property {Function} updateCallback
-	*	@private
-	*/
-	p.updateCallback = null;
-	
-	/**
-	*	If loaded images should be drawn to a canvas and used from there.
-	*	@property {Boolean} generateCanvas
-	*	@private
-	*/
-	p.generateCanvas = false;
-	
-	/**
-	*	The AssetLoader used to load all files.
-	*	@property {PIXI.AssetLoader} _assetLoader
-	*	@private
-	*/
-	p._assetLoader = null;
-	
-	/**
-	*  Construct the load task
-	*  @param {String} id The id of the task
-	*  @param {Array} urls The urls to load using PIXI.AssetLoader
-	*  @param {Function} callback The callback to call when the load is completed
-	*  @param {Function} updateCallback The optional callback to call each time an item finishes loading
-	*  @param {Boolean} generateCanvasTexture=false If loaded images should be drawn to a canvas and used from there.
-	*/
-	p.initialize = function(id, urls, callback, updateCallback, generateCanvasTexture)
-	{
+		Task.call(this, id, callback);
+		
+		/**
+		*	The optional callback to get updates (to show load progress)
+		*	@property {Function} updateCallback
+		*	@private
+		*/
+		this.updateCallback = updateCallback;
+		
+		/**
+		*	If loaded images should be drawn to a canvas and used from there.
+		*	@property {Boolean} generateCanvas
+		*	@private
+		*/
+		this.generateCanvas = generateCanvasTexture || false;
+		
+		/**
+		*	The AssetLoader used to load all files.
+		*	@property {PIXI.AssetLoader} _assetLoader
+		*	@private
+		*/
+		this._assetLoader = null;
+
 		var cm = Loader.instance.cacheManager;
+
 		for(var i = 0; i &lt; urls.length; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
 		}
-		this.urls = urls;
-		this.updateCallback = updateCallback;
-		
-		this.generateCanvas = generateCanvasTexture || false;
 
-		this.Task_initialize(id, callback);
+		/**
+		*	The urls of the files to load
+		*	@property {Array} urls
+		*	@private
+		*/
+		this.urls = urls;
 	};
+	
+	var s = Task.prototype;
+
+	var p = PixiTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -360,7 +332,8 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
+
 		this.updateCallback = null;
 		this.urls = null;
 		if(this._assetLoader)

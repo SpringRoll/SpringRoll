@@ -226,53 +226,25 @@
 	*/
 	var ListTask = function(id, list, callback)
 	{
-		this.initialize(id, list, callback);
-	};
-	
-	// Reference to the Task prototype
-	var p = ListTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
+		Task.call(this, id, callback);
 
-	/**
-	* The list of other tasks, as an array
-	* 
-	* @property {Array} list
-	*/
-	p.list = null;
-	
-	/**
-	* The internal task manager
-	* 
-	* @property {TaskManager} _manager
-	* @private
-	*/
-	p._manager = null;
-	
-	/**
-	* The load results dictionary
-	* 
-	* @property {Dictionary} _results
-	* @private
-	*/
-	p._results = null;
-	
-	/**
-	*   Make the list task but don&#x27;t start.
-	*   @function initialize
-	*   @param {String} id ID of the task
-	*   @param {Array} list List of tasks to start or a preloadJS manifest.
-	*   @param {function} callback Callback to to call with the result of the tasks, this
-	*          task, and the TaskManager that loaded it
-	*/
-	p.initialize = function(id, list, callback)
-	{
-		this.Task_initialize(id, callback);
+		/**
+		* The internal task manager
+		* 
+		* @property {TaskManager} _manager
+		* @private
+		*/
+		this._manager = null;
 		
+		/**
+		* The load results dictionary
+		* 
+		* @property {Dictionary} _results
+		* @private
+		*/
+		this._results = null;
+
+		// Turn the list into tasks
 		var tasks = [];
 		for(var i = 0; i &lt; list.length; i++)
 		{
@@ -299,8 +271,20 @@
 				));
 			}
 		}
+
+		/**
+		* The list of other tasks, as an array
+		* 
+		* @property {Array} list
+		*/
 		this.list = tasks;
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = ListTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -379,7 +363,7 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
 		
 		this._results = null;
 		

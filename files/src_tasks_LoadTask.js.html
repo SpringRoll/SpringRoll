@@ -235,68 +235,43 @@
 			LoaderQueueItem = include(&#x27;cloudkid.LoaderQueueItem&#x27;);
 		}
 
-		this.initialize(id, url, callback, updateCallback, priority, data);
-	};
-	
-	/** Reference to the inherieted task */
-	var p = LoadTask.prototype = new Task();
-	
-	/** Super for the constructor */
-	p.Task_initialize = p.initialize;
-	
-	/** Super for the destroy function */
-	p.Task_destroy = p.destroy;
-	
-	/**
-	* The url of the file to load 
-	* 
-	* @property {String} url
-	*/
-	p.url = null;
-	
-	/**
-	* Loading options
-	* 
-	* @property {*} data
-	*/
-	p.data = null;
-	
-	/**
-	* The media loader priorty of the load
-	* 
-	* @property {int} priority
-	*/
-	p.priority = null;
-	
-	/**
-	* The optional callback to get updates (to show load progress)
-	* 
-	* @property {function} updateCallback
-	*/
-	p.updateCallback = null;
-	
-	/**
-	*  Init the laod task
-	*  
-	*  @function initialize
-	*  @param {String} id The id of the task
-	*  @param {String} url The url to load
-	*  @param {function} callback The callback to call when the load is completed
-	*  @param {function} updateCallback The optional callback to get updates (to show load progress)
-	*  @param {int} priority The optional priority, defaults to normal
-	*  @param {*} data The optional data object, for any loading options that may have been added to the preloader
-	*/
-	p.initialize = function(id, url, callback, updateCallback, priority, data)
-	{
-		this.url = url;
-		this.updateCallback = updateCallback;
-		this.priority = priority === undefined ? 
-			LoaderQueueItem.PRIORITY_NORMAL : priority;
-		
-		this.data = data;
+		// Construct the parent
+		Task.call(this, id, callback);
 
-		this.Task_initialize(id, callback);
+		/**
+		* The url of the file to load 
+		* 
+		* @property {String} url
+		*/
+		this.url = url;
+		
+		/**
+		* Loading options
+		* 
+		* @property {*} data
+		*/
+		this.data = data;
+		
+		/**
+		* The media loader priorty of the load
+		* 
+		* @property {int} priority
+		*/
+		this.priority = priority === undefined ? LoaderQueueItem.PRIORITY_NORMAL : priority;
+		
+		/**
+		* The optional callback to get updates (to show load progress)
+		* 
+		* @property {function} updateCallback
+		*/
+		this.updateCallback = updateCallback;
 	};
+	
+	// Super prototype
+	var s = Task.prototype;
+
+	// Reference to the inherieted task
+	var p = LoadTask.prototype = Object.create(s);
 	
 	/**
 	*   Start the load
@@ -348,7 +323,8 @@
 	{
 		if (this._isDestroyed) return;
 		
-		this.Task_destroy();
+		s.destroy.call(this);
+
 		this.updateCallback = null;
 		this.url = null;
 		this.data = null;

@@ -226,109 +226,102 @@
 	var VOPlayer = function(useCaptions)
 	{
 		// Import classes
-		if(!Application)
+		if (!Application)
 		{
 			Captions = include(&#x27;cloudkid.Captions&#x27;);
 			Application = include(&#x27;cloudkid.Application&#x27;);
 		}
 
-		this._audioListener = this._onAudioFinished.bind(this);
+		// Bound method calls
+		this._onSoundFinished = this._onSoundFinished.bind(this);
 		this._update = this._update.bind(this);
 		this._updateCaptionPos = this._updateCaptionPos.bind(this);
+		
+		/**
+		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
+		*	dictionary config file and a reference to a text field.
+		*	@property {cloudkid.Captions} captions
+		*	@public
+		*/
+		this.captions = null;
+
 		if (useCaptions &amp;&amp; Captions)
 		{
 			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
 		}
+
+		/**
+		*	An Array used when play() is called to avoid creating lots of Array objects.
+		*	@property {Array} _listHelper
+		*	@private
+		*/
 		this._listHelper = [];
+
+		/**
+		*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
+		*	@property {bool} trackSound
+		*	@public
+		*/
+		this.trackSound = false;
+
+		/**
+		*	The current list of audio/silence times/functions. Generally you will not need to modify this.
+		*	@property {Array} soundList
+		*	@public
+		*/
+		this.soundList = null;
+
+		/**
+		*	The current position in soundList.
+		*	@property {int} _listCounter
+		*	@private
+		*/
+		this._listCounter = 0;
+
+		/**
+		*	The current audio alias being played.
+		*	@property {String} _currentSound
+		*	@private
+		*/
+		this._currentSound = null;
+
+		/**
+		*	The current audio instance being played.
+		*	@property {SoundInstance} _soundInstance
+		*	@private
+		*/
+		this._soundInstance = null;
+
+		/**
+		*	The callback for when the list is finished.
+		*	@property {function} _callback
+		*	@private
+		*/
+		this._callback = null;
+
+		/**
+		*	The callback for when the list is interrupted for any reason.
+		*	@property {function} _cancelledCallback
+		*	@private
+		*/
+		this._cancelledCallback = null;
+
+		/**
+		*	A list of audio file played by this, so that they can be unloaded later.
+		*	@property {Array} _playedSound
+		*	@private
+		*/
+		this._playedSound = null;
+
+		/**
+		*	A timer for silence entries in the list, in milliseconds.
+		*	@property {int} _timer
+		*	@private
+		*/
+		this._timer = 0;
 	};
 	
 	var p = VOPlayer.prototype = {};
-	
-	/**
-	*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
-	*	@property {bool} trackAudio
-	*	@public
-	*/
-	p.trackAudio = false;
-
-	/**
-	*	The current list of audio/silence times/functions. Generally you will not need to modify this.
-	*	@property {Array} audioList
-	*	@public
-	*/
-	p.audioList = null;
-
-	/**
-	*	The current position in audioList.
-	*	@property {int} _listCounter
-	*	@private
-	*/
-	p._listCounter = 0;
-
-	/**
-	*	The current audio alias being played.
-	*	@property {String} _currentAudio
-	*	@private
-	*/
-	p._currentAudio = null;
-
-	/**
-	*	The current audio instance being played.
-	*	@property {SoundInst} _audioInst
-	*	@private
-	*/
-	p._audioInst = null;
-
-	/**
-	*	The callback for when the list is finished.
-	*	@property {function} _callback
-	*	@private
-	*/
-	p._callback = null;
-
-	/**
-	*	The callback for when the list is interrupted for any reason.
-	*	@property {function} _cancelledCallback
-	*	@private
-	*/
-	p._cancelledCallback = null;
-
-	/**
-	*	The bound _onAudioFinished call.
-	*	@property {function} _audioListener
-	*	@private
-	*/
-	p._audioListener = null;
-
-	/**
-	*	A list of audio file played by this, so that they can be unloaded later.
-	*	@property {Array} _playedAudio
-	*	@private
-	*/
-	p._playedAudio = null;
-
-	/**
-	*	A timer for silence entries in the list, in milliseconds.
-	*	@property {int} _timer
-	*	@private
-	*/
-	p._timer = 0;
-
-	/**
-	*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
-	*	dictionary config file and a reference to a text field.
-	*	@property {cloudkid.Captions} captions
-	*	@public
-	*/
-	p.captions = null;
-
-	/**
-	*	An Array used when play() is called to avoid creating lots of Array objects.
-	*	@property {Array} _listHelper
-	*	@private
-	*/
-	p._listHelper = null;
-
 	
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
@@ -338,7 +331,7 @@
 	*/
 	Object.defineProperty(p, &quot;playing&quot;,
 	{
-		get: function() { return this._currentAudio !== null || this._timer &gt; 0; }
+		get: function(){ return this._currentSound !== null || this._timer &gt; 0; }
 	});
 	
 	/**
@@ -356,66 +349,66 @@
 		this.stop();
 		
 		this._listCounter = -1;
-		if(typeof idOrList == &quot;string&quot;)
+		if (typeof idOrList == &quot;string&quot;)
 		{
 			this._listHelper[0] = idOrList;
-			this.audioList = this._listHelper;
+			this.soundList = this._listHelper;
 		}
 		else
-			this.audioList = idOrList;
+			this.soundList = idOrList;
 		this._callback = callback;
 		this._cancelledCallback = cancelledCallback;
-		this._onAudioFinished();
+		this._onSoundFinished();
 	};
 	
 	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
-	*	@method _onAudioFinished
+	*	@method _onSoundFinished
 	*	@private
 	*/
-	p._onAudioFinished = function()
+	p._onSoundFinished = function()
 	{
 		//remove any update callback
 		Application.instance.off(&quot;update&quot;, this._update);
 		Application.instance.off(&quot;update&quot;, this._updateCaptionPos);
 		
 		//if we have captions and an audio instance, set the caption time to the length of the audio
-		if(this.captions &amp;&amp; this._audioInst)
+		if (this.captions &amp;&amp; this._soundInstance)
 		{
-			this.captions.seek(this._audioInst.length);
+			this.captions.seek(this._soundInstance.length);
 		}
-		this._audioInst = null;//clear the audio instance
+		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
 		
 		//if the list is complete
-		if(this._listCounter &gt;= this.audioList.length)
+		if (this._listCounter &gt;= this.soundList.length)
 		{
-			if(this.captions)
+			if (this.captions)
 				this.captions.stop();
-			this._currentAudio = null;
+			this._currentSound = null;
 			this._cancelledCallback = null;
 			var c = this._callback;
 			this._callback = null;
-			if(c) c();
+			if (c) c();
 		}
 		else
 		{
-			this._currentAudio = this.audioList[this._listCounter];
-			if(typeof this._currentAudio == &quot;string&quot;)
+			this._currentSound = this.soundList[this._listCounter];
+			if (typeof this._currentSound == &quot;string&quot;)
 			{
 				// If the sound doesn&#x27;t exist, then we play it and let it fail, 
 				// an error should be shown and playback will continue
-				this._playAudio();
+				this._playSound();
 			}
-			else if(typeof this._currentAudio == &quot;function&quot;)
+			else if (typeof this._currentSound == &quot;function&quot;)
 			{
-				this._currentAudio();//call function
-				this._onAudioFinished();//immediately continue
+				this._currentSound();//call function
+				this._onSoundFinished();//immediately continue
 			}
 			else
 			{
-				this._timer = this._currentAudio;//set up a timer to wait
-				this._currentAudio = null;
+				this._timer = this._currentSound;//set up a timer to wait
+				this._currentSound = null;
 				Application.instance.on(&quot;update&quot;, this._update);
 			}
 		}
@@ -430,14 +423,16 @@
 	*/
 	p._update = function(elapsed)
 	{
-		if(this.captions)
+		if (this.captions)
 		{
 			this.captions.updateTime(elapsed);
 		}
+		
 		this._timer -= elapsed;
-		if(this._timer &lt;= 0)
+
+		if (this._timer &lt;= 0)
 		{
-			this._onAudioFinished();
+			this._onSoundFinished();
 		}
 	};
 
@@ -450,53 +445,53 @@
 	*/
 	p._updateCaptionPos = function(elapsed)
 	{
-		if(!this._audioInst) return;
+		if (!this._soundInstance) return;
 
-		this.captions.seek(this._audioInst.position);
+		this.captions.seek(this._soundInstance.position);
 	};
 
 	/** 
 	*	Plays the current audio item and begins preloading the next item.
-	*	@method _playAudio
+	*	@method _playSound
 	*	@private
 	*/
-	p._playAudio = function()
+	p._playSound = function()
 	{
-		if(this.trackAudio)
+		if (this.trackSound)
 		{
-			if(this._playedAudio)
+			if (this._playedSound)
 			{
-				if(this._playedAudio.indexOf(this._currentAudio) == -1)
-					this._playedAudio.push(this._currentAudio);
+				if (this._playedSound.indexOf(this._currentSound) == -1)
+					this._playedSound.push(this._currentSound);
 			}
 			else
 			{
-				this._playedAudio = [this._currentAudio];
+				this._playedSound = [this._currentSound];
 			}
 		}
 		var s = Sound.instance;
-		if(!s.exists(this._currentAudio) &amp;&amp; this.captions &amp;&amp; this.captions.hasCaption(this._currentAudio))
+		if (!s.exists(this._currentSound) &amp;&amp; this.captions &amp;&amp; this.captions.hasCaption(this._currentSound))
 		{
-			this.captions.play(this._currentAudio);
+			this.captions.play(this._currentSound);
 			this._timer = this.captions.currentDuration;
-			this._currentAudio = null;
+			this._currentSound = null;
 			Application.instance.on(&quot;update&quot;, this._update);
 		}
 		else
 		{
-			this._audioInst = s.play(this._currentAudio, this._audioListener);
-			if(this.captions)
+			this._soundInstance = s.play(this._currentSound, this._onSoundFinished);
+			if (this.captions)
 			{
-				this.captions.play(this._currentAudio);
+				this.captions.play(this._currentSound);
 				Application.instance.on(&quot;update&quot;, this._updateCaptionPos);
 			}
 		}
-		for(var i = this._listCounter + 1; i &lt; this.audioList.length; ++i)
+		for(var i = this._listCounter + 1; i &lt; this.soundList.length; ++i)
 		{
-			var next = this.audioList[i];
-			if(typeof next == &quot;string&quot;)
+			var next = this.soundList[i];
+			if (typeof next == &quot;string&quot;)
 			{
-				if(!s.isLoaded(next))
+				if (!s.isLoaded(next))
 				{
 					s.preloadSound(next);
 				}
@@ -512,18 +507,18 @@
 	*/
 	p.stop = function()
 	{
-		if(this._currentAudio)
+		if (this._currentSound)
 		{
-			Sound.instance.stop(this._currentAudio);
-			this._currentAudio = null;
+			Sound.instance.stop(this._currentSound);
+			this._currentSound = null;
 		}
-		if(this.captions)
+		if (this.captions)
 		{
 			this.captions.stop();
 		}
 		Application.instance.off(&quot;update&quot;, this._update);
 		Application.instance.off(&quot;update&quot;, this._updateCaptionPos);
-		this.audioList = null;
+		this.soundList = null;
 		this._timer = 0;
 		this._callback = null;
 		var c = this._cancelledCallback;
@@ -532,14 +527,14 @@
 	};
 
 	/**
-	*	Unloads all audio this VOPlayer has played. If trackAudio is false, this won&#x27;t do anything.
-	*	@method unloadPlayedAudio
+	*	Unloads all audio this VOPlayer has played. If trackSound is false, this won&#x27;t do anything.
+	*	@method unloadSound
 	*	@public
 	*/
-	p.unloadPlayedAudio = function()
+	p.unloadSound = function()
 	{
-		Sound.instance.unload(this._playedAudio);
-		this._playedAudio = null;
+		Sound.instance.unload(this._playedSound);
+		this._playedSound = null;
 	};
 
 	/**
@@ -550,15 +545,15 @@
 	p.destroy = function()
 	{
 		this.stop();
-		this.audioList = null;
+		this.soundList = null;
 		this._listHelper = null;
-		this._currentAudio = null;
-		this._audioInst = null;
+		this._currentSound = null;
+		this._soundInstance = null;
 		this._callback = null;
 		this._cancelledCallback = null;
-		this._audioListener = null;
-		this._playedAudio = null;
-		if(this.captions)
+		this._playedSound = null;
+
+		if (this.captions)
 		{
 			this.captions.destroy();
 			this.captions = null;
@@ -567,8 +562,8 @@
 	
 	namespace(&#x27;cloudkid&#x27;).VOPlayer = VOPlayer;
 	namespace(&#x27;cloudkid&#x27;).Sound.VOPlayer = VOPlayer;
-}());
 
+}());
     </pre>
 </div>
 

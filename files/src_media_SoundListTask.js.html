@@ -226,7 +226,7 @@
 	*/
 	var SoundListTask = function(id, list, callback)
 	{
-		this.initialize(id, callback);
+		Task.call(this, id, callback);
 		
 		/**
 		*  The collection of sounds to load
@@ -235,11 +235,11 @@
 		this.list = list;
 	};
 
-	// Reference to the prototype
-	var p = SoundListTask.prototype = Object.create(Task.prototype);
-
 	// Super
-	SoundListTask.s = Task.prototype;
+	var s = Task.prototype;
+
+	// Reference to the prototype
+	var p = SoundListTask.prototype = Object.create(s);
 
 	/**
 	*  Begin the task
@@ -257,7 +257,7 @@
 	*/
 	p.destroy = function()
 	{
-		SoundListTask.s.destroy.apply(this);
+		s.destroy.call(this);
 		this.list = null;
 	};
 

@@ -220,84 +220,72 @@
 	*/
 	var CharacterController = function()
 	{
-		this.initialize();
+		/**
+		* The current stack of animations to play
+		*
+		* @property {Array} _animationStack
+		* @private
+		*/
+		this._animationStack = [];
+		
+		/**
+		* The currently playing animation 
+		* 
+		* @property {CharacterClip} _currentAnimation
+		* @private
+		*/
+		this._currentAnimation = null;
+		
+		/**
+		* Current number of loops for the current animation
+		* 
+		* @property {int} _loops
+		* @private
+		*/
+		this._loops = 0;
+		
+		/**
+		* If the current animation choreographies can&#x27;t be interrupted 
+		* 
+		* @property {bool} _interruptable
+		* @private
+		*/
+		this._interruptable = true;
+		
+		/**
+		* If frame dropping is allowed for this animation set
+		* 
+		* @property {bool} _allowFrameDropping
+		* @private
+		*/
+		this._allowFrameDropping = false;
+		
+		/**
+		* The current character
+		* 
+		* @property {createjs.MovieClip} _character
+		* @private
+		*/
+		this._character = null;
+		
+		/**
+		* Callback function for playing animation 
+		* 
+		* @property {function} _callback
+		* @private
+		*/
+		this._callback = null;
+		
+		/** 
+		* If this instance has been destroyed
+		* 
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
 	};
 	
 	var p = CharacterController.prototype;
-	
-	/**
-	* The current stack of animations to play
-	*
-	* @property {Array} _animationStack
-	* @private
-	*/
-	p._animationStack = null;
-	
-	/**
-	* The currently playing animation 
-	* 
-	* @property {CharacterClip} _currentAnimation
-	* @private
-	*/
-	p._currentAnimation = null;
-	
-	/**
-	* Current number of loops for the current animation
-	* 
-	* @property {int} _loops
-	* @private
-	*/
-	p._loops = 0;
-	
-	/**
-	* If the current animation choreographies can&#x27;t be interrupted 
-	* 
-	* @property {bool} _interruptable
-	* @private
-	*/
-	p._interruptable = true;
-	
-	/**
-	* If frame dropping is allowed for this animation set
-	* 
-	* @property {bool} _allowFrameDropping
-	* @private
-	*/
-	p._allowFrameDropping = false;
-	
-	/**
-	* The current character
-	* 
-	* @property {createjs.MovieClip} _character
-	* @private
-	*/
-	p._character = null;
-	
-	/**
-	* Callback function for playing animation 
-	* 
-	* @property {function} _callback
-	* @private
-	*/
-	p._callback = null;
-	
-	/** 
-	* If this instance has been destroyed
-	* 
-	* @property {bool} _destroyed
-	* @private
-	*/
-	p._destroyed = false;
-	
-	/**
-	* Initiliazes this Character controller
-	* 
-	* @function initialize
-	*/
-	p.initialize = function()
-	{
-		this._animationStack = [];
-	};
 	
 	/**
 	*   Set the current character, setting to null clears character
