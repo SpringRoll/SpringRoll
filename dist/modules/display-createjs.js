@@ -3355,7 +3355,7 @@
 	*/
 	p.onLoadComplete = function(evt)
 	{
-		this._taskMan.removeAllEventListeners();
+		this._taskMan.off();
 		this._taskMan.destroy();
 		this._taskMan = null;
 		
@@ -3513,7 +3513,7 @@
 		this.config = null;
 		if(this._taskMan)
 		{
-			this._taskMan.removeAllEventListeners();
+			this._taskMan.off();
 			this._taskMan.destroy();
 			this._taskMan = null;
 		}
@@ -3527,4 +3527,5 @@
 	};
 	
 	namespace("cloudkid").Cutscene = Cutscene;
+	namespace("cloudkid.createjs").Cutscene = Cutscene;
 }());}();
