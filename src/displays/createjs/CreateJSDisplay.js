@@ -65,7 +65,7 @@
 
 		/**
 		*  The rendering library's stage element, the root display object
-		*  @property {createjs.Stage|createjs.SpriteStage}
+		*  @property {createjs.Stage|createjs.SpriteStage} stage
 		*  @readOnly
 		*  @public
 		*/

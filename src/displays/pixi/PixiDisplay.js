@@ -67,7 +67,7 @@
 
 		/**
 		*  The rendering library's stage element, the root display object
-		*  @property {PIXI.Stage}
+		*  @property {PIXI.Stage} stage
 		*  @readOnly
 		*  @public
 		*/
@@ -75,7 +75,7 @@
 
 		/**
 		*  The Pixi renderer.
-		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
+		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
 		*  @readOnly
 		*  @public
 		*/
@@ -151,7 +151,7 @@
 
 		/**
 		*  If Pixi is being rendered with WebGL.
-		*  @property {Boolean}
+		*  @property {Boolean} isWebGL
 		*  @readOnly
 		*  @public
 		*/
