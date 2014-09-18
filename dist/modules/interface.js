@@ -102,14 +102,14 @@
 		*  @property {Number} origScaleX
 		*  @default 0
 		*/
-		this.origScaleX = scale.x || 0;
+		this.origScaleX = scale.x || 1;
 
 		/**
 		*  The original Y scale of the item
 		*  @property {Number} origScaleY
 		*  @default 0
 		*/
-		this.origScaleY = scale.y || 0;
+		this.origScaleY = scale.y || 1;
 
 		/** 
 		*  Original width in pixels 
@@ -123,9 +123,7 @@
 		*  Used to determine the distance to each edge of the item from its origin
 		*  @property {Object} origBounds
 		*/
-		this.origBounds = {x:0, y:0, width:item.width, height:item.height};
-		this.origBounds.right = this.origBounds.x + this.origBounds.width;
-		this.origBounds.bottom = this.origBounds.y + this.origBounds.height;
+		this.origBounds = adapter.getLocalBounds(item);
 
 		/**
 		*  Original horizontal margin in pixels
@@ -145,7 +143,7 @@
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				this.origMarginVert = position.y + this.origBounds.y;
+				this.origMarginVert = position.y + this.origBounds.y * scale.y;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
@@ -155,7 +153,7 @@
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom);
+				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
 				break;
 			}
 		}
@@ -164,7 +162,7 @@
 		{
 			case UIScaler.ALIGN_LEFT:
 			{
-				this.origMarginHori = position.x + this.origBounds.x;
+				this.origMarginHori = position.x + this.origBounds.x * scale.x;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
@@ -174,7 +172,7 @@
 			}
 			case UIScaler.ALIGN_RIGHT:
 			{
-				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right);
+				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
 				break;
 			}
 		}
@@ -224,7 +222,7 @@
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				y = m - this.origBounds.y * itemScale;
+				y = m - this.origBounds.y * this.origScaleY * itemScale;
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
@@ -234,7 +232,7 @@
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				y = newScreen.height - m - this.origBounds.bottom * itemScale;
+				y = newScreen.height - m - this.origBounds.bottom * this.origScaleY * itemScale;
 				break;
 			}
 		}
@@ -251,11 +249,11 @@
 			{
 				if(this._settings.titleSafe)
 				{
-					x = letterBoxWidth + m - this.origBounds.x * itemScale;
+					x = letterBoxWidth + m - this.origBounds.x * this.origScaleX * itemScale;
 				}
 				else
 				{
-					x = m - this.origBounds.x * itemScale;
+					x = m - this.origBounds.x * this.origScaleX * itemScale;
 				}
 				break;
 			}
@@ -275,11 +273,11 @@
 			{
 				if(this._settings.titleSafe)
 				{
-					x = newScreen.width - letterBoxWidth - m - this.origBounds.right * itemScale;
+					x = newScreen.width - letterBoxWidth - m - this.origBounds.right * this.origScaleX * itemScale;
 				}
 				else
 				{
-					x = newScreen.width - m - this.origBounds.right * itemScale;
+					x = newScreen.width - m - this.origBounds.right * this.origScaleX * itemScale;
 				}
 				break;
 			}		

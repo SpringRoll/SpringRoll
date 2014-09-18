@@ -74,11 +74,12 @@
 	DisplayAdapter.useRadians = false;
 
 	/**
-	*  Gets the object's boundaries in its local coordinate space.
+	*  Gets the object's boundaries in its local coordinate space, without any scaling or
+	*  rotation applied.
 	*  @method getLocalBounds
 	*  @static
 	*  @param {createjs.DisplayObject} object The createjs display object
-	*  @return {Rectangle} A rectangle with added right and bottom properties.
+	*  @return {createjs.Rectangle} A rectangle with additional right and bottom properties.
 	*/
 	DisplayAdapter.getLocalBounds = function(object)
 	{
@@ -95,10 +96,21 @@
 			//like our Button class has.
 			//this also needs to take into account the registration point, as that affects the
 			//positioning of the art
+			var actW = object.width / object.scaleX;
+			var actH = object.height / object.scaleY;
+			bounds = new createjs.Rectangle(-object.regX, -object.regY, actW, actH);
 		}
 		else
 		{
 			//finally fall back to using EaselJS's getBounds().
+			if(object.getLocalBounds)
+			{
+				bounds = object.getLocalBounds();
+				if(bounds)
+					bounds = bounds.clone();//clone the rectangle in case it gets changed
+			}
+			if(!bounds)//make sure we actually got a rectangle, if getLocalBounds failed for some reason
+				bounds = new createjs.Rectangle();
 		}
 		bounds.right = bounds.x + bounds.width;
 		bounds.bottom = bounds.y + bounds.height;

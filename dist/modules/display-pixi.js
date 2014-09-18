@@ -75,6 +75,30 @@
 	DisplayAdapter.useRadians = true;
 
 	/**
+	*  Gets the object's boundaries in its local coordinate space, without any scaling or
+	*  rotation applied.
+	*  @method getLocalBounds
+	*  @static
+	*  @param {createjs.DisplayObject} object The createjs display object
+	*  @return {createjs.Rectangle} A rectangle with additional right and bottom properties.
+	*/
+	DisplayAdapter.getLocalBounds = function(object)
+	{
+		var bounds;
+		var width = object.width;
+		var height = object.height;
+		if(width && height)
+		{
+			bounds = new PIXI.Rectangle(-object.pivot.x, -object.pivot.y, width / object.scale.x, height / object.scale.y);
+		}
+		else
+		{
+			bounds = new PIXI.Rectangle();
+		}
+		return bounds;
+	};
+
+	/**
 	*  Normalize the object scale
 	*  @method getScale
 	*  @static
