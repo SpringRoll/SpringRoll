@@ -94,6 +94,8 @@
 		{
 			bounds = new PIXI.Rectangle();
 		}
+		bounds.right = bounds.x + bounds.width;
+		bounds.bottom = bounds.y + bounds.height;
 		return bounds;
 	};
 
