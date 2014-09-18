@@ -13,7 +13,7 @@
 
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
-	*	single audio file with cloudkid.Sound, with optional captions.
+	*	single audio file with cloudkid.Sound, with optional captions. Utilizes the Tasks module.
 	*
 	*   @class createjs.Cutscene
 	*	@constructor
@@ -354,7 +354,7 @@
 		var id = this.config.audio.soundManifest[0].id;
 		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
 		if(this._captionsObj)
-			this._captionsObj.run(id);
+			this._captionsObj.play(id);
 		Application.instance.on("update", this.update);
 	};
 	
