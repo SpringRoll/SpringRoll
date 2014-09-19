@@ -512,12 +512,15 @@
 		if(this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
-			var Sound = animator.soundLib;
+			
+			var sound = animator.soundLib.instance;
 
 			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
 			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
-			if(!Sound || Sound.instance.soundLoaded === false)
+			if (!sound || (sound.soundLoaded !== undefined && sound.soundLoaded === false))
+			{
 				audio = null;
+			}
 		}
 
 		if(animator.instanceHasAnimation(this._transition, "transitionLoop"))
@@ -583,14 +586,14 @@
 				this._transitionSounds.in : 
 				this._transitionSounds.out;
 
-			var Sound = animator.soundLib;
+			var sound = animator.soundLib.instance;
 
 			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
 			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
-			if(!Sound || Sound.instance.soundLoaded === false)
+			if (!sound || (sound.soundLoaded !== undefined && sound.soundLoaded === false))
 			{
 				audio = null;
-			}	
+			}
 		}
 		animator.play(this._transition, event, {
 			onComplete: callback, 
