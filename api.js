@@ -1,85 +1,134 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "Application",
-        "BaseState",
-        "CacheManager",
-        "Captions",
-        "CombinedCallback",
+        "Array",
         "Debug",
-        "DelayedCall",
-        "EventDispatcher",
-        "FallbackWorker",
-        "FunctionTask",
-        "GenericDisplay",
-        "ListTask",
-        "LoadTask",
-        "Loader",
-        "LoaderQueueItem",
-        "LoaderResult",
-        "PageVisibility",
-        "PixiTask",
-        "Positioner",
-        "SavedData",
-        "ScreenSettings",
-        "Sound",
-        "SoundContext",
-        "SoundInstance",
-        "SoundListTask",
-        "StateEvent",
-        "StateManager",
-        "SubWorker",
-        "Task",
-        "TaskEvent",
-        "TaskManager",
-        "TimeUtils",
-        "Translate",
-        "UIElement",
-        "UIElementSettings",
-        "UIScaler",
-        "VOPlayer",
-        "Worker",
-        "createjs.Animator",
-        "createjs.AnimatorTimeline",
-        "createjs.Button",
-        "createjs.CharacterClip",
-        "createjs.CharacterController",
-        "createjs.CreateJSDisplay",
-        "createjs.Cutscene",
-        "createjs.DisplayAdapter",
-        "createjs.DragManager",
+        "Math",
+        "cloudkid.AbstractDisplay",
+        "cloudkid.Application",
+        "cloudkid.BaseState",
+        "cloudkid.CacheManager",
+        "cloudkid.Captions",
+        "cloudkid.CombinedCallback",
+        "cloudkid.DelayedCall",
+        "cloudkid.EventDispatcher",
+        "cloudkid.FallbackWorker",
+        "cloudkid.FunctionTask",
+        "cloudkid.Game",
+        "cloudkid.GenericDisplay",
+        "cloudkid.ListTask",
+        "cloudkid.LoadTask",
+        "cloudkid.Loader",
+        "cloudkid.LoaderQueueItem",
+        "cloudkid.LoaderResult",
+        "cloudkid.PageVisibility",
+        "cloudkid.PixiTask",
+        "cloudkid.Positioner",
+        "cloudkid.SavedData",
+        "cloudkid.ScalingGame",
+        "cloudkid.ScreenSettings",
+        "cloudkid.Sound",
+        "cloudkid.SoundContext",
+        "cloudkid.SoundGame",
+        "cloudkid.SoundInstance",
+        "cloudkid.SoundListTask",
+        "cloudkid.StateEvent",
+        "cloudkid.StateGame",
+        "cloudkid.StateManager",
+        "cloudkid.SubWorker",
+        "cloudkid.Task",
+        "cloudkid.TaskEvent",
+        "cloudkid.TaskManager",
+        "cloudkid.TimeUtils",
+        "cloudkid.Translate",
+        "cloudkid.UIElement",
+        "cloudkid.UIElementSettings",
+        "cloudkid.UIScaler",
+        "cloudkid.VOPlayer",
+        "cloudkid.Worker",
+        "cloudkid.createjs.Animator",
+        "cloudkid.createjs.AnimatorTimeline",
+        "cloudkid.createjs.Button",
+        "cloudkid.createjs.CharacterClip",
+        "cloudkid.createjs.CharacterController",
+        "cloudkid.createjs.CreateJSDisplay",
+        "cloudkid.createjs.Cutscene",
+        "cloudkid.createjs.DisplayAdapter",
+        "cloudkid.createjs.DragManager",
+        "cloudkid.createjs.MovieClipUtils",
+        "cloudkid.createjs.SoundButton",
+        "cloudkid.pixi.Animator",
+        "cloudkid.pixi.AnimatorTimeline",
+        "cloudkid.pixi.AssetManager",
+        "cloudkid.pixi.Button",
+        "cloudkid.pixi.DisplayAdapter",
+        "cloudkid.pixi.DragManager",
+        "cloudkid.pixi.PixiDisplay",
         "include",
-        "namespace",
-        "pixi.Animator",
-        "pixi.AnimatorTimeline",
-        "pixi.AssetManager",
-        "pixi.Button",
-        "pixi.DisplayAdapter",
-        "pixi.DragManager",
-        "pixi.PixiDisplay"
+        "namespace"
     ],
     "modules": [
-        "cloudkid",
-        "cloudkid.createjs",
-        "cloudkid.pixi",
-        "window"
+        "Captions",
+        "CreateJS Display",
+        "Framework",
+        "Game",
+        "Generic Display",
+        "Interface",
+        "PIXI Display",
+        "Sound",
+        "States",
+        "Tasks",
+        "Translate",
+        "Worker"
     ],
     "allModules": [
         {
-            "displayName": "cloudkid",
-            "name": "cloudkid"
+            "displayName": "Captions",
+            "name": "Captions"
         },
         {
-            "displayName": "cloudkid.createjs",
-            "name": "cloudkid.createjs"
+            "displayName": "CreateJS Display",
+            "name": "CreateJS Display"
         },
         {
-            "displayName": "cloudkid.pixi",
-            "name": "cloudkid.pixi"
+            "displayName": "Framework",
+            "name": "Framework"
         },
         {
-            "displayName": "window",
-            "name": "window"
+            "displayName": "Game",
+            "name": "Game"
+        },
+        {
+            "displayName": "Generic Display",
+            "name": "Generic Display"
+        },
+        {
+            "displayName": "Interface",
+            "name": "Interface"
+        },
+        {
+            "displayName": "PIXI Display",
+            "name": "PIXI Display"
+        },
+        {
+            "displayName": "Sound",
+            "name": "Sound"
+        },
+        {
+            "displayName": "States",
+            "name": "States"
+        },
+        {
+            "displayName": "Tasks",
+            "name": "Tasks"
+        },
+        {
+            "displayName": "Translate",
+            "name": "Translate"
+        },
+        {
+            "displayName": "Worker",
+            "name": "Worker"
         }
     ]
 } };

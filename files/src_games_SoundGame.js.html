@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.6 API Documentation : src/games/SoundGame.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/CloudKidStudio/CloudKidFramework"><img src="../assets/css/logo.png" title="CloudKidFramework"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/cloudkid.AbstractDisplay.html">cloudkid.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.Application.html">cloudkid.Application</a></li>
+            
+                <li><a href="../classes/cloudkid.BaseState.html">cloudkid.BaseState</a></li>
+            
+                <li><a href="../classes/cloudkid.CacheManager.html">cloudkid.CacheManager</a></li>
+            
+                <li><a href="../classes/cloudkid.Captions.html">cloudkid.Captions</a></li>
+            
+                <li><a href="../classes/cloudkid.CombinedCallback.html">cloudkid.CombinedCallback</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Animator.html">cloudkid.createjs.Animator</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.AnimatorTimeline.html">cloudkid.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Button.html">cloudkid.createjs.Button</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CharacterClip.html">cloudkid.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CharacterController.html">cloudkid.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CreateJSDisplay.html">cloudkid.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Cutscene.html">cloudkid.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.DisplayAdapter.html">cloudkid.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.DragManager.html">cloudkid.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.MovieClipUtils.html">cloudkid.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.SoundButton.html">cloudkid.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/cloudkid.DelayedCall.html">cloudkid.DelayedCall</a></li>
+            
+                <li><a href="../classes/cloudkid.EventDispatcher.html">cloudkid.EventDispatcher</a></li>
+            
+                <li><a href="../classes/cloudkid.FallbackWorker.html">cloudkid.FallbackWorker</a></li>
+            
+                <li><a href="../classes/cloudkid.FunctionTask.html">cloudkid.FunctionTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
+            
+                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
+            
+                <li><a href="../classes/cloudkid.LoaderQueueItem.html">cloudkid.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
+            
+                <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.Animator.html">cloudkid.pixi.Animator</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.AnimatorTimeline.html">cloudkid.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.AssetManager.html">cloudkid.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.Button.html">cloudkid.pixi.Button</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.DisplayAdapter.html">cloudkid.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.DragManager.html">cloudkid.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.PixiDisplay.html">cloudkid.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.PixiTask.html">cloudkid.PixiTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Positioner.html">cloudkid.Positioner</a></li>
+            
+                <li><a href="../classes/cloudkid.SavedData.html">cloudkid.SavedData</a></li>
+            
+                <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
+            
+                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
+            
+                <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundGame.html">cloudkid.SoundGame</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundInstance.html">cloudkid.SoundInstance</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundListTask.html">cloudkid.SoundListTask</a></li>
+            
+                <li><a href="../classes/cloudkid.StateEvent.html">cloudkid.StateEvent</a></li>
+            
+                <li><a href="../classes/cloudkid.StateGame.html">cloudkid.StateGame</a></li>
+            
+                <li><a href="../classes/cloudkid.StateManager.html">cloudkid.StateManager</a></li>
+            
+                <li><a href="../classes/cloudkid.SubWorker.html">cloudkid.SubWorker</a></li>
+            
+                <li><a href="../classes/cloudkid.Task.html">cloudkid.Task</a></li>
+            
+                <li><a href="../classes/cloudkid.TaskEvent.html">cloudkid.TaskEvent</a></li>
+            
+                <li><a href="../classes/cloudkid.TaskManager.html">cloudkid.TaskManager</a></li>
+            
+                <li><a href="../classes/cloudkid.TimeUtils.html">cloudkid.TimeUtils</a></li>
+            
+                <li><a href="../classes/cloudkid.Translate.html">cloudkid.Translate</a></li>
+            
+                <li><a href="../classes/cloudkid.UIElement.html">cloudkid.UIElement</a></li>
+            
+                <li><a href="../classes/cloudkid.UIElementSettings.html">cloudkid.UIElementSettings</a></li>
+            
+                <li><a href="../classes/cloudkid.UIScaler.html">cloudkid.UIScaler</a></li>
+            
+                <li><a href="../classes/cloudkid.VOPlayer.html">cloudkid.VOPlayer</a></li>
+            
+                <li><a href="../classes/cloudkid.Worker.html">cloudkid.Worker</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = src/games/SoundGame.js      
+</script>
+<h1 class="file-heading">File:SoundGame.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module Game
+*  @namespace cloudkid
+*/
+(function(undefined){
+
+	//Library depencencies
+	var Game = include(&#x27;cloudkid.Game&#x27;),
+		VOPlayer,
+		Captions,
+		Sound;
+
+	/**
+	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
+	*  @example
+		var game = new cloudkid.SoundGame();
+		game.on(&#x27;soundReady&#x27;, function(){
+			// Ready to use!
+		});
+	*  @class SoundGame
+	*  @extends Game
+	*  @constructor
+	*  @param {object} [options] The collection of options, see Application for more options.
+	*  @param {String} [options.captionsPath=&#x27;assets/config/captions.json&#x27;] The path to the captions dictionary. If this is set to null
+	*		captions will not be created or used by the VO player.
+	*  @param {string} [options.swfPath=&#x27;assets/swfs/&#x27;] The relative location to the FlashPlugin swf for SoundJS
+	*  @param {boolean} [options.mute=false] Set the initial mute state of the all the audio (unminifed library version only)
+	*/
+	var SoundGame = function(options)
+	{
+		Sound = include(&#x27;cloudkid.Sound&#x27;);
+		VOPlayer = include(&#x27;cloudkid.VOPlayer&#x27;);
+		Captions = include(&#x27;cloudkid.Captions&#x27;, false);
+
+		Game.call(this, options);
+
+		/**
+		*  The current music alias playing
+		*  @property {string} _music
+		*  @private
+		*/
+		this._music = null;
+
+		/**
+		*  The global player for playing voice over
+		*  @property {VOPlayer} player
+		*/
+		this.player = null;
+
+		// Listen for the game is loaded then initalize the sound
+		onLoaded = onLoaded.bind(this);
+		onLoading = onLoading.bind(this);
+
+		this.on({
+			loaded : onLoaded,
+			loading : onLoading
+		});
+	};
+
+	// Extend application
+	var s = Game.prototype;
+	var p = SoundGame.prototype = Object.create(s);
+
+	/**
+	*  The Sound is completed, this is the event to listen to 
+	*  when the game ready to use. Do NOT use Application&#x27;s init,
+	*  or Game&#x27;s loaded events as the entry point for your application.
+	*  @event soundReady
+	*/
+	var SOUND_READY = &#x27;soundReady&#x27;;
+
+	/**
+	*  Callback when preload as been finished
+	*  @method onLoading
+	*  @private
+	*  @param {Array} tasks The collection of tasks
+	*/
+	var onLoading = function(tasks)
+	{
+		if (this.options.captionsPath !== null)
+		{
+			tasks.push(new LoadTask(
+				&#x27;captions&#x27;,
+				this.options.captionsPath || &quot;assets/config/captions.json&quot;,
+				onCaptionsLoaded.bind(this)
+			));
+		}
+		else
+		{
+			onCaptionsLoaded();
+		}
+	};
+
+	/**
+	*  Callback when the captions have been loaded
+	*  @method onCaptionsLoaded
+	*  @private
+	*  @param {LoaderResult} result The loader result
+	*/
+	var onCaptionsLoaded = function(result)
+	{
+		var captions = null;
+
+		// Add to the captions
+		if (result)
+		{
+			captions = new Captions(result.content);
+		}
+
+		this.player = new VOPlayer(captions);
+	};
+
+	/**
+	*  Callback when preload as been finished
+	*  @method onLoaded
+	*  @private
+	*/
+	var onLoaded = function()
+	{
+		// Initialize the sound
+		Sound.init({
+			swfPath : this.options.swfPath,
+			ready : onSoundReady.bind(this)
+		});
+	};
+
+	/**
+	*  Callback when the sound has been initialized
+	*  @method onSoundReady
+	*  @private
+	*/
+	var onSoundReady = function()
+	{
+		var sounds = this.config.sounds;
+		var sound = Sound.instance;
+
+		//initialize Sound and load up global sound config
+		if (sounds)
+		{
+			if (sounds.vo) sound.loadConfig(sounds.vo);
+			if (sounds.sfx) sound.loadConfig(sounds.sfx);
+			if (sounds.music) sound.loadConfig(sounds.music);
+		}
+
+		if (DEBUG)
+		{
+			// For testing, mute the game if requested
+			sound.setMuteAll(!!this.options.mute);
+		}
+
+		this.trigger(SOUND_READY);
+	};
+
+	/**
+	*  Set the current music alias to play
+	*  @property {string} music
+	*  @default null
+	*/
+	Object.defineProperty(p, &quot;music&quot;,
+	{
+		set: function(value)
+		{
+			if (value == this._music)
+			{
+				return;
+			}
+			var sound = Sound.instance;
+
+			if (DEBUG &amp;&amp; !sound)
+			{
+				Debug.assert(&quot;Sound must be created before setting music!&quot;);
+			}
+
+			if (this._music)
+			{
+				sound.fadeOut(this._music);
+			}
+			this._music = value;
+
+			if (this._music)
+			{
+				sound.play(
+					this._music, 
+					{
+						start: sound.fadeIn.bind(sound, this._music),
+						loop: -1
+					}
+				);
+			}
+		},
+		get: function()
+		{
+			return this._music;
+		}
+	});
+
+	/**
+	*  Destroy the game, don&#x27;t use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		if (this.player)
+		{
+			this.player.destroy();
+			this.player = null;
+		}
+		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {string} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return &quot;[SoundGame name=&#x27;&quot; + this.name + &quot;&#x27;&#x27;]&quot;;
+	};
+
+	// Assign to the namespace
+	namespace(&#x27;cloudkid&#x27;).SoundGame = SoundGame;
+
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

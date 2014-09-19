@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>CloudKidFramework v0.0.6 API Documentation : cloudkid.LoadTask</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/CloudKidStudio/CloudKidFramework"><img src="../assets/css/logo.png" title="CloudKidFramework"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/cloudkid.AbstractDisplay.html">cloudkid.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.Application.html">cloudkid.Application</a></li>
+            
+                <li><a href="../classes/cloudkid.BaseState.html">cloudkid.BaseState</a></li>
+            
+                <li><a href="../classes/cloudkid.CacheManager.html">cloudkid.CacheManager</a></li>
+            
+                <li><a href="../classes/cloudkid.Captions.html">cloudkid.Captions</a></li>
+            
+                <li><a href="../classes/cloudkid.CombinedCallback.html">cloudkid.CombinedCallback</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Animator.html">cloudkid.createjs.Animator</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.AnimatorTimeline.html">cloudkid.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Button.html">cloudkid.createjs.Button</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CharacterClip.html">cloudkid.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CharacterController.html">cloudkid.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.CreateJSDisplay.html">cloudkid.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.Cutscene.html">cloudkid.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.DisplayAdapter.html">cloudkid.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.DragManager.html">cloudkid.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.MovieClipUtils.html">cloudkid.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/cloudkid.createjs.SoundButton.html">cloudkid.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/cloudkid.DelayedCall.html">cloudkid.DelayedCall</a></li>
+            
+                <li><a href="../classes/cloudkid.EventDispatcher.html">cloudkid.EventDispatcher</a></li>
+            
+                <li><a href="../classes/cloudkid.FallbackWorker.html">cloudkid.FallbackWorker</a></li>
+            
+                <li><a href="../classes/cloudkid.FunctionTask.html">cloudkid.FunctionTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
+            
+                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
+            
+                <li><a href="../classes/cloudkid.LoaderQueueItem.html">cloudkid.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
+            
+                <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.Animator.html">cloudkid.pixi.Animator</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.AnimatorTimeline.html">cloudkid.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.AssetManager.html">cloudkid.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.Button.html">cloudkid.pixi.Button</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.DisplayAdapter.html">cloudkid.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.DragManager.html">cloudkid.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/cloudkid.pixi.PixiDisplay.html">cloudkid.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.PixiTask.html">cloudkid.PixiTask</a></li>
+            
+                <li><a href="../classes/cloudkid.Positioner.html">cloudkid.Positioner</a></li>
+            
+                <li><a href="../classes/cloudkid.SavedData.html">cloudkid.SavedData</a></li>
+            
+                <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
+            
+                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
+            
+                <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundGame.html">cloudkid.SoundGame</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundInstance.html">cloudkid.SoundInstance</a></li>
+            
+                <li><a href="../classes/cloudkid.SoundListTask.html">cloudkid.SoundListTask</a></li>
+            
+                <li><a href="../classes/cloudkid.StateEvent.html">cloudkid.StateEvent</a></li>
+            
+                <li><a href="../classes/cloudkid.StateGame.html">cloudkid.StateGame</a></li>
+            
+                <li><a href="../classes/cloudkid.StateManager.html">cloudkid.StateManager</a></li>
+            
+                <li><a href="../classes/cloudkid.SubWorker.html">cloudkid.SubWorker</a></li>
+            
+                <li><a href="../classes/cloudkid.Task.html">cloudkid.Task</a></li>
+            
+                <li><a href="../classes/cloudkid.TaskEvent.html">cloudkid.TaskEvent</a></li>
+            
+                <li><a href="../classes/cloudkid.TaskManager.html">cloudkid.TaskManager</a></li>
+            
+                <li><a href="../classes/cloudkid.TimeUtils.html">cloudkid.TimeUtils</a></li>
+            
+                <li><a href="../classes/cloudkid.Translate.html">cloudkid.Translate</a></li>
+            
+                <li><a href="../classes/cloudkid.UIElement.html">cloudkid.UIElement</a></li>
+            
+                <li><a href="../classes/cloudkid.UIElementSettings.html">cloudkid.UIElementSettings</a></li>
+            
+                <li><a href="../classes/cloudkid.UIScaler.html">cloudkid.UIScaler</a></li>
+            
+                <li><a href="../classes/cloudkid.VOPlayer.html">cloudkid.VOPlayer</a></li>
+            
+                <li><a href="../classes/cloudkid.Worker.html">cloudkid.Worker</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1>cloudkid.LoadTask Class</h1>
+<div class="box meta">
+    
+
+    
+        <div class="extends">
+            Extends Task
+        </div>
+    
+
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src_tasks_LoadTask.js.html#l12"><code>cloudkid.LoadTask:12</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/Tasks.html">Tasks</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Load task is a common type of task used for loading assets
+through the Loader</p>
+
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_cloudkid.LoadTask" class="method item">
+    <h3 class="name"><code>cloudkid.LoadTask</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>id</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>updateCallback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>priority</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>data</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l12"><code>cloudkid.LoadTask:12</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">id</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Alias for the task</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The url from which to load the asset</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to call once loading is complete</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">updateCallback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Optional call back to get load progress</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">priority</code>
+                        <span class="type">Int</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Media loader priority of the load</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">data</code>
+                        <span class="type"></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Opitonal loading options</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                        
+                            <li class="index-item method">
+                                <a href="#method_cancel">cancel</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_destroy">destroy</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_start">start</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_ToString">ToString</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property">
+                                <a href="#property_data">data</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_priority">priority</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_updateCallback">updateCallback</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_url">url</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_cancel" class="method item">
+    <h3 class="name"><code>cancel</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Bool</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l89"><code>cancel:89</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Cancel the task - for use in inherited classes</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Bool</span>:
+                    
+                    <p>If the loader removed it from the queue successfully - 
+    false means that there is a &#39;load finished&#39; event inbound 
+    for the task manager</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l113"><code>destroy:113</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Destroy this load task and don&#39;t use after this</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_start" class="method item">
+    <h3 class="name"><code>start</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l72"><code>start:72</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Start the load</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Callback to call when the load is done</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_ToString" class="method item">
+    <h3 class="name"><code>ToString</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l102"><code>ToString:102</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get a string representation of this task</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                    <p>A string representation of this task</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_data" class="property item">
+    <h3 class="name"><code>data</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l44"><code>data:44</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Loading options</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_priority" class="property item">
+    <h3 class="name"><code>priority</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l51"><code>priority:51</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The media loader priorty of the load</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_updateCallback" class="property item">
+    <h3 class="name"><code>updateCallback</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l58"><code>updateCallback:58</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The optional callback to get updates (to show load progress)</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_url" class="property item">
+    <h3 class="name"><code>url</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_tasks_LoadTask.js.html#l37"><code>url:37</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The url of the file to load</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
