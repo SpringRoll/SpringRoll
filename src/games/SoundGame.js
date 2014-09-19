@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Game
+*  @namespace cloudkid
 */
 (function(undefined){
 

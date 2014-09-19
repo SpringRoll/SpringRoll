@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 
@@ -9,7 +10,6 @@
 	/**
 	*   A single UI item that needs to be resized	
 	*
-	*   @module cloudkid
 	*   @class UIElement
 	*	@param {DisplayObject} item The item to affect  
 	*   @param {UIElementSettings} settings The scale settings

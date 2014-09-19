@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function() {
 	
@@ -9,7 +10,7 @@
 
 	/**
 	*  Animator for interacting with Spine animations
-	*  @class pixi.Animator
+	*  @class Animator
 	*  @static
 	*/
 	var Animator = {};

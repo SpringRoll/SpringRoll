@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(undefined){
 
@@ -11,7 +12,7 @@
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
 	*
-	*   @class createjs.Animator
+	*   @class Animator
 	*   @static
 	*/
 	var Animator = {};

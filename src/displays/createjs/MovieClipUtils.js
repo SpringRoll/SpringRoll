@@ -1,11 +1,12 @@
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function()
 {
 	/**
 	 * Utility methods for dealing with createjs movieclips
-	 * @class createjs.MovieClipUtils
+	 * @class MovieClipUtils
 	 */
 	var MovieClipUtils = {};
 

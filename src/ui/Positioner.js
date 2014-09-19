@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 		
@@ -7,7 +8,6 @@
 
 	/**
 	*  Initially layouts all interface elements
-	*  @module cloudkid
 	*  @class Positioner
 	*  @static
 	*/

@@ -1,13 +1,54 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @modules cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
+*/
+(function()
+{
+	/**
+	 * Utility methods for dealing with createjs movieclips
+	 * @class MovieClipUtils
+	 */
+	var MovieClipUtils = {};
+
+	/**
+	 * Combines gotoAndStop and cache in createjs to cache right away
+	 * @method gotoAndCache
+	 * @static
+	 * @param {createjs.MovieClip} movieClip The movieclip
+	 * @param {String|int} [frame=0] The 0-index frame number or frame label
+	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
+	 */
+	MovieClipUtils.gotoAndCache = function(movieClip, frame, buffer)
+	{
+		frame = (frame === undefined) ? 0 : frame;
+		buffer = (buffer === undefined) ? 15 : buffer;
+		movieClip.gotoAndStop(frame);
+		var bounds = movieClip.nominalBounds;
+		movieClip.cache(
+			bounds.x - buffer,
+			bounds.y - buffer,
+			bounds.width + (buffer * 2),
+			bounds.height + (buffer * 2),
+			1
+		);
+	};
+
+	//assign to namespace
+	namespace('cloudkid').MovieClipUtils = MovieClipUtils;
+	namespace('cloudkid.createjs').MovieClipUtils = MovieClipUtils;
+
+}());
+/**
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(undefined){
 	
 	/**
 	*  Provide a normalized way to get size, position, scale values
 	*  as well as provide reference for different geometry classes.
-	*  @class createjs.DisplayAdapter
+	*  @class DisplayAdapter
 	*/
 	var DisplayAdapter = {};
 
@@ -260,24 +301,38 @@
 		};
 	};
 
+	/**
+	*  Remove all children from a display object
+	*  @method removeChildren
+	*  @static
+	*  @param {createjs.Container} container The display object container
+	*/
+	DisplayAdapter.removeChildren = function(container)
+	{
+		container.removeAllChildren();
+	};
+
 	// Assign to namespace
 	namespace('cloudkid.createjs').DisplayAdapter = DisplayAdapter;
 
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(undefined){
 
 	// Import createjs classes
-	var Stage,
+	var AbstractDisplay = include('cloudkid.AbstractDisplay'),
+		Stage,
 		Touch;
 
 	/**
 	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the EaselJS library for rendering.
 	*
-	*   @class createjs.CreateJSDisplay
+	*   @class CreateJSDisplay
+	*   @extends AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -287,63 +342,15 @@
 	*/
 	var CreateJSDisplay = function(id, options)
 	{
-		if(!Stage)
+		if (!Stage)
 		{
 			Stage = include('createjs.Stage');
 			Touch = include('createjs.Touch');
 		}
 
+		AbstractDisplay.call(this, id, options);
+
 		options = options || {};
-
-		/**
-		*  the canvas managed by this display
-		*  @property {DOMElement} canvas
-		*  @readOnly
-		*  @public
-		*/
-		this.canvas = document.getElementById(id);
-
-		/**
-		*  The DOM id for the canvas
-		*  @property {String} id
-		*  @readOnly
-		*  @public
-		*/
-		this.id = id;
-
-		/**
-		*  Convenience method for getting the width of the canvas element
-		*  would be the same thing as canvas.width
-		*  @property {int} width
-		*  @readOnly
-		*  @public
-		*/
-		this.width = this.canvas.width;
-
-		/**
-		*  Convenience method for getting the height of the canvas element
-		*  would be the same thing as canvas.height
-		*  @property {int} height
-		*  @readOnly
-		*  @public
-		*/
-		this.height = this.canvas.height;
-
-		/**
-		*  The rendering library's stage element, the root display object
-		*  @property {createjs.Stage|createjs.SpriteStage}
-		*  @readOnly
-		*  @public
-		*/
-		this.stage = null;
-
-		/**
-		*  If rendering is paused on this display only. Pausing all displays can be done
-		*  using Application.paused setter.
-		*  @property {Boolean} paused
-		*  @public
-		*/
-		this.paused = false;
 
 		/**
 		*  The rate at which EaselJS calculates mouseover events, in times/second.
@@ -353,56 +360,29 @@
 		*/
 		this.mouseOverRate = options.mouseOverRate || 30;
 
-		/**
-		*  If input is enabled on the stage.
-		*  @property {Boolean} _enabled
-		*  @private
-		*/
-		this._enabled = true;
-
-		/**
-		*  If the display is visible.
-		*  @property {Boolean} _visible
-		*  @private
-		*/
-		this._visible = this.canvas.style.display != "none";
-
-		//make stage
-		if(options.stageType == "spriteStage")
+		if (options.stageType == "spriteStage")
 		{
 			//TODO: make a sprite stage (not officially released yet)
+			// this.stage = new SpriteStage(id);
 		}
 		else
 		{
+			/**
+			*  The rendering library's stage element, the root display object
+			*  @property {createjs.Stage|createjs.SpriteStage} stage
+			*  @readOnly
+			*  @public
+			*/
 			this.stage = new Stage(id);
 		}
 		this.stage.autoClear = !!options.clearView;
 
-		// prevent mouse down turning into text cursor
-		this.canvas.onmousedown = function(e)
-		{
-			e.preventDefault();
-		};
-
-		/**
-		*  The Animator class to use when using this display.
-		*  @property {Animator} Animator
-		*  @readOnly
-		*  @public
-		*/
-		this.Animator = include('cloudkid.createjs.Animator');
-
-		/**
-		*  The DisplayAdapter class to use when providing standard
-		*  ways for accessing properties like position, scale, etc.
-		*  @property {createjs.DisplayAdapter} DisplayAdapter
-		*  @readOnly
-		*  @public
-		*/
-		this.DisplayAdapter = include('cloudkid.createjs.DisplayAdapter');
+		this.animator = include('cloudkid.createjs.Animator');
+		this.adapter = include('cloudkid.createjs.DisplayAdapter');
 	};
 
-	var p = CreateJSDisplay.prototype = {};
+	var s = AbstractDisplay.prototype;
+	var p = CreateJSDisplay.prototype = Object.create(s);
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -413,7 +393,8 @@
 		get: function(){ return this._enabled; },
 		set: function(value)
 		{
-			this._enabled = value;
+			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
+
 			if(value)
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
@@ -430,33 +411,6 @@
 		}
 	});
 
-	/**
-	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-	*  @property {Boolean} visible
-	*  @public
-	*/
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
-		set: function(value)
-		{
-			this._visible = value;
-			this.canvas.style.display = value ? "block" : "none";
-		}
-	});
-
-	/**
-	* Resizes the canvas. This is only called by the Application.
-	* @method resize
-	* @internal
-	* @param {int} width The width that the display should be
-	* @param {int} height The height that the display should be
-	*/
-	p.resize = function(width, height)
-	{
-		this.width = this.canvas.width = width;
-		this.height = this.canvas.height = height;
-	};
-
 	/** 
 	* Updates the stage and draws it. This is only called by the Application. 
 	* This method does nothing if paused is true or visible is false.
@@ -466,9 +420,10 @@
 	*/
 	p.render = function(elapsed)
 	{
-		if(this.paused || !this._visible) return;
-
-		this.stage.update(elapsed);
+		if (!this.paused && this._visible)
+		{
+			this.stage.update(elapsed);
+		}		
 	};
 
 	/**
@@ -480,10 +435,10 @@
 	*/
 	p.destroy = function()
 	{
-		this.enabled = false;
+		s.destroy.call(this);
+
 		this.stage.removeAllChildren(true);
-		this.canvas.onmousedown = null;
-		this.stage = this.canvas = null;
+		this.stage = null;
 	};
 
 	// Assign to the global namespace
@@ -492,7 +447,8 @@
 
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 
@@ -500,7 +456,7 @@
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
 	*   
-	*   @class createjs.AnimatorTimeline
+	*   @class AnimatorTimeline
 	*   @constructor
 	*/
 	var AnimatorTimeline = function()
@@ -675,7 +631,8 @@
 	
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(undefined){
 
@@ -687,7 +644,7 @@
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
 	*
-	*   @class createjs.Animator
+	*   @class Animator
 	*   @static
 	*/
 	var Animator = {};
@@ -699,7 +656,7 @@
 	* @public
 	* @static
 	*/
-	Animator.VERSION = "0.0.5";
+	Animator.VERSION = "0.0.6";
 	
 	/**
 	* If we fire debug statements 
@@ -1461,8 +1418,9 @@
 
 }());
 /**
- *  @module cloudkid.createjs
- */
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
+*/
 (function(undefined){
 	
 	var Rectangle = include('createjs.Rectangle'),
@@ -1482,7 +1440,7 @@
 	 *  initialization and callbacks. Add event listeners for click and mouseover to know about
 	 *  button clicks and mouse overs, respectively.
 	 *
-	 *  @class createjs.Button
+	 *  @class Button
 	 *  @extends createjs.Container
 	 *  @constructor
 	 *  @param {Object|Image|HTMLCanvasElement} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
@@ -2259,14 +2217,133 @@
 	namespace('cloudkid.createjs').Button = Button;
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
+*/
+(function(){
+
+	var Button = include('cloudkid.createjs.Button'),
+		Sound;
+
+	/**
+	 *  A button with audio events for click and over mouse events
+	 *  @class SoundButton
+	 *  @extends Button
+	 *  @constructor
+	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
+	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
+	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
+	 *  @param {String} [clickAlias="SFX_ButtonClick"] The button click audio alias
+	 *  @param {String} [overAlias="SFX_ButtonRollover"] The button rollover audio alias
+	 */
+	var SoundButton = function(imageSettings, label, enabled, clickAlias, overAlias)
+	{
+		Sound = include('cloudkid.Sound');
+
+		Button.call(this, imageSettings, label, enabled);
+
+		/**
+		 *  The audio alias to use for click events
+		 *  @property {String} clickAlias
+		 */
+		this.clickAlias = clickAlias || "SFX_ButtonClick";
+
+		/**
+		 *  The audio alias to use for mouse over events
+		 *  @property {String} overAlias
+		 */
+		this.overAlias = overAlias || "SFX_ButtonRollover";
+
+		/**
+		 *  If the audio is enabled
+		 *  @property {Boolean} _audioEnabled
+		 *  @private
+		 */
+		this._audioEnabled = true;
+
+		this._onRollover = this._onRollover.bind(this);
+		this._onButtonPress = this._onButtonPress.bind(this);
+
+		// add listeners
+		this.on('rollover', this._onRollover);
+		this.on(Button.BUTTON_PRESS, this._onButtonPress);
+	};
+
+	// Reference to the super prototype
+	var s = Button.prototype;
+
+	// Reference to the prototype
+	var p = SoundButton.prototype = Object.create(s);
+
+	/**
+	 *  Handler for the BUTTON_PRESS event
+	 *  @method _onButtonPress
+	 *  @private
+	 */
+	p._onButtonPress = function(e)
+	{
+		if (this.clickAlias)
+		{
+			Sound.instance.play(this.clickAlias);
+		}
+	};
+
+	/**
+	 *  Override for _onRollover function.
+	 *  @method _onRollover
+	 *  @private
+	 */
+	p._onRollover = function(e)
+	{
+		if (this.overAlias)
+		{
+			Sound.instance.play(this.overAlias);
+		}	
+	};
+
+	/**
+	 *  Handler for the on mouse over event
+	 *  @property {Boolean} enabled
+	 */
+	Object.defineProperty(p, "audioEnabled",
+	{
+		get: function()
+		{
+			return this._audioEnabled;
+		},
+		set: function(enabled)
+		{
+			this._audioEnabled = enabled;
+		}
+	});
+
+	/**
+	 *  Don't use after this
+	 *  @method destroy
+	 */
+	p.destroy = function()
+	{
+		button.off("rollover", this._onRollover);
+		button.off(Button.BUTTON_PRESS, this._onButtonPress);
+		this.audioEnabled = false;
+		s.destroy.apply(this);
+	};
+
+	// Assign to namespace
+	namespace('cloudkid').SoundButton = SoundButton;
+	namespace('cloudkid.createjs').SoundButton = SoundButton;
+
+}());
+/**
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 	
 	/**
 	*   CharacterClip is used by the CharacterController class
 	*   
-	*   @class createjs.CharacterClip
+	*   @class CharacterClip
 	*   @constructor
 	*   @param {String} event Animator event to play
 	*   @param {int} loops The number of loops
@@ -2295,7 +2372,8 @@
 
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 
@@ -2307,7 +2385,7 @@
 	*   sequences on the timeline. This is a flexible way to
 	*   animate characters on a timeline
 	*   
-	*   @class createjs.CharacterController
+	*   @class CharacterController
 	*/
 	var CharacterController = function()
 	{
@@ -2544,7 +2622,8 @@
 	namespace('cloudkid.createjs').CharacterController = CharacterController;
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function() {
 		
@@ -2554,7 +2633,7 @@
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
 	*  
-	*  @class createjs.DragManager
+	*  @class DragManager
 	*  @constructor
 	*  @param {createjs.Stage} stage The stage that this DragManager is monitoring.
 	*  @param {function} startCallback The callback when when starting
@@ -3068,7 +3147,8 @@
 	namespace('cloudkid.createjs').DragManager = DragManager;
 }());
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 	
@@ -3084,7 +3164,7 @@
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions. Utilizes the Tasks module.
 	*
-	*   @class createjs.Cutscene
+	*   @class Cutscene
 	*	@constructor
 	*	@param {Object} options The runtime specific setup data for the cutscene.
 	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.

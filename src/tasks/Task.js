@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	

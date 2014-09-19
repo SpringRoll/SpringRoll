@@ -1,12 +1,13 @@
 /**
-*  @modules cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(undefined){
 	
 	/**
 	*  Provide a normalized way to get size, position, scale values
 	*  as well as provide reference for different geometry classes.
-	*  @class createjs.DisplayAdapter
+	*  @class DisplayAdapter
 	*/
 	var DisplayAdapter = {};
 

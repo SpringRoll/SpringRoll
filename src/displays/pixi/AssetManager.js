@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function() {
 	
@@ -13,7 +14,7 @@
 	*  The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
 	*  loading the appropriate assets, as well as easily unloading assets when you are done using them.
 	*
-	*  @class pixi.AssetManager
+	*  @class AssetManager
 	*/
 	var AssetManager = {};
 	

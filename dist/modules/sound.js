@@ -1,6 +1,7 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @modules cloudkid
+*  @modules Sound
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -46,7 +47,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Sound
+*  @namespace cloudkid
 */
 (function(){
 
@@ -247,7 +249,8 @@
 
 }());
 /**
-*  @modules cloudkid
+*  @modules Sound
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -309,7 +312,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Sound
+*  @namespace cloudkid
 */
 (function(){
 
@@ -527,11 +531,16 @@
 			}
 		}
 
-		// Add listeners to pause and resume the sounds
 		this.pauseAll = this.pauseAll.bind(this);
 		this.unpauseAll = this.unpauseAll.bind(this);
-		Application.instance.on('paused', this.pauseAll);
-		Application.instance.on('resumed', this.unpauseAll);
+		this.destroy = this.destroy.bind(this);
+
+		// Add listeners to pause and resume the sounds
+		Application.instance.on({
+			paused : this.pauseAll,
+			resumed : this.unpauseAll,
+			destroy : this.destroy
+		});
 
 		if (callback)
 		{
@@ -1429,13 +1438,15 @@
 				swf.parentNode.removeChild(swf);
 			}
 		}
-		if(Application.instance)
+		if (Application.instance)
 		{
 			Application.instance.off('paused', this.pauseAll);
 			Application.instance.off('resumed', this.unpauseAll);
+			Application.instance.off('destroy', this.destroy);
 		}
 
 		_instance = null;
+
 		this._volumes = null;
 		this._fades = null;
 		this._contexts = null;
@@ -1445,7 +1456,8 @@
 	namespace('cloudkid').Sound = Sound;
 }());
 /**
-*  @module cloudkid
+*  @module Sound
+*  @namespace cloudkid
 */
 (function() {
 
@@ -1457,14 +1469,14 @@
 
 	/**
 	*	A class for managing audio by only playing one at a time, playing a list, and even
-	*	managing captions (CloudKidCaptions library) at the same time.
+	*	managing captions (Captions library) at the same time.
 	* 
 	*	@class VOPlayer
 	*	@constructor
-	*	@param {bool|cloudkid.Captions} [useCaptions=false] If a cloudkid.Captions object should be created for use 
+	*	@param {Captions} [captions=null] If a Captions object should be created for use 
 	*			or the captions object to use
 	*/
-	var VOPlayer = function(useCaptions)
+	var VOPlayer = function(captions)
 	{
 		// Import classes
 		if (!Application)
@@ -1481,15 +1493,10 @@
 		/**
 		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
-		*	@property {cloudkid.Captions} captions
+		*	@property {Captions} captions
 		*	@public
 		*/
-		this.captions = null;
-
-		if (useCaptions && Captions)
-		{
-			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
-		}
+		this.captions = captions || null;
 
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.

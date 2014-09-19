@@ -1,11 +1,11 @@
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 
 	/**
 	*   Object that contains the screen settings to help scaling
-	*   @module cloudkid
 	*   @class ScreenSettings
 	*   @constructor
 	*   @param {Number} width The screen width in pixels

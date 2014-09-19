@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(undefined) {
 	
@@ -17,7 +18,7 @@
 	*  initialization and callbacks.
 	*  Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
 	*  
-	*  @class pixi.Button
+	*  @class Button
 	*  @extends PIXI.DisplayObjectContainer
 	*  @constructor
 	*  @param {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.

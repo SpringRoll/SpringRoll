@@ -1,13 +1,14 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @modules cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(undefined){
 	
 	/**
 	*  Provide a normalized way to get size, position, scale values
 	*  as well as provide reference for different geometry classes.
-	*  @class pixi.DisplayAdapter
+	*  @class DisplayAdapter
 	*/
 	var DisplayAdapter = {};
 
@@ -235,16 +236,29 @@
 		};
 	};
 
+	/**
+	*  Remove all children from a display object
+	*  @method removeChildren
+	*  @static
+	*  @param {PIXI.DisplayObjectContainer} container The display object container
+	*/
+	DisplayAdapter.removeChildren = function(container)
+	{
+		container.removeChildren(true);
+	};
+
 	// Assign to namespace
 	namespace('cloudkid.pixi').DisplayAdapter = DisplayAdapter;
 
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(undefined){
 
-	var Stage = include('PIXI.Stage'),
+	var AbstractDisplay = include('cloudkid.AbstractDisplay'),
+		Stage = include('PIXI.Stage'),
 		CanvasRenderer = include('PIXI.CanvasRenderer'),
 		WebGLRenderer = include('PIXI.WebGLRenderer'),
 		autoDetectRenderer = include('PIXI.autoDetectRenderer');
@@ -253,7 +267,8 @@
 	*   PixiDisplay is a display plugin for the CloudKid Framework 
 	*	that uses the Pixi library for rendering.
 	*
-	*   @class pixi.PixiDisplay
+	*   @class PixiDisplay
+	*   @extends AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
@@ -270,45 +285,13 @@
 	*/
 	var PixiDisplay = function(id, options)
 	{
+		AbstractDisplay.call(this, id, options);
+
 		options = options || {};
 
 		/**
-		*  the canvas managed by this display
-		*  @property {DOMElement} canvas
-		*  @readOnly
-		*  @public
-		*/
-		this.canvas = document.getElementById(id);
-
-		/**
-		*  The DOM id for the canvas
-		*  @property {String} id
-		*  @readOnly
-		*  @public
-		*/
-		this.id = id;
-
-		/**
-		*  Convenience method for getting the width of the canvas element
-		*  would be the same thing as canvas.width
-		*  @property {int} width
-		*  @readOnly
-		*  @public
-		*/
-		this.width = this.canvas.width;
-
-		/**
-		*  Convenience method for getting the height of the canvas element
-		*  would be the same thing as canvas.height
-		*  @property {int} height
-		*  @readOnly
-		*  @public
-		*/
-		this.height = this.canvas.height;
-
-		/**
 		*  The rendering library's stage element, the root display object
-		*  @property {PIXI.Stage}
+		*  @property {PIXI.Stage} stage
 		*  @readOnly
 		*  @public
 		*/
@@ -316,47 +299,22 @@
 
 		/**
 		*  The Pixi renderer.
-		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer}
+		*  @property {PIXI.CanvasRenderer|PIXI.WebGLRenderer} renderer
 		*  @readOnly
 		*  @public
 		*/
 		this.renderer = null;
-
-		/**
-		*  If rendering is paused on this display only. Pausing all displays can be done
-		*  using Application.paused setter.
-		*  @property {Boolean} paused
-		*  @public
-		*/
-		this.paused = false;
-
-		/**
-		*  If input is enabled on the stage.
-		*  @property {Boolean} _enabled
-		*  @private
-		*/
-		this._enabled = true;//enable mouse/touch input
-
-		/**
-		*  If the display is visible.
-		*  @property {Boolean} _visible
-		*  @private
-		*/
-		this._visible = this.canvas.style.display != "none";
-
-		// prevent mouse down turning into text cursor
-		this.canvas.onmousedown = function(e)
-		{
-			e.preventDefault();
-		};
 
 		//make the renderer
 		var preMultAlpha = !!options.preMultAlpha;
 		var transparent = !!options.transparent;
 		var antiAlias = !!options.antiAlias;
 		var preserveDrawingBuffer = !!options.preserveDrawingBuffer;
+		
 		if(transparent && !preMultAlpha)
+		{
 			transparent = "notMultiplied";
+		}	
 
 		if(options.forceContext == "canvas2d")
 		{
@@ -392,31 +350,19 @@
 
 		/**
 		*  If Pixi is being rendered with WebGL.
-		*  @property {Boolean}
+		*  @property {Boolean} isWebGL
 		*  @readOnly
 		*  @public
 		*/
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
-		/**
-		*  The Animator class to use when using this display.
-		*  @property {Animator} Animator
-		*  @readOnly
-		*  @public
-		*/
-		this.Animator = include('cloudkid.pixi.Animator');
-
-		/**
-		*  The DisplayAdapter class to use when providing standard
-		*  ways for accessing properties like position, scale, etc.
-		*  @property {pixi.DisplayAdapter} DisplayAdapter
-		*  @readOnly
-		*  @public
-		*/
-		this.DisplayAdapter = include('cloudkid.pixi.DisplayAdapter');
+		// Set the animator and display adapter classes
+		this.animator = include('cloudkid.pixi.Animator');
+		this.adapter = include('cloudkid.pixi.DisplayAdapter');
 	};
 
-	var p = PixiDisplay.prototype = {};
+	var s = AbstractDisplay.prototype;
+	var p = PixiDisplay.prototype = Object.create(s);
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -427,7 +373,8 @@
 		get: function(){ return this._enabled; },
 		set: function(value)
 		{
-			this._enabled = value;
+			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
+
 			var interactionManager = this.stage.interactionManager;
 			if(value)
 			{
@@ -443,20 +390,6 @@
 	});
 
 	/**
-	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-	*  @property {Boolean} visible
-	*  @public
-	*/
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
-		set: function(value)
-		{
-			this._visible = value;
-			this.canvas.style.display = value ? "block" : "none";
-		}
-	});
-
-	/**
 	* Resizes the canvas and the renderer. This is only called by the Application.
 	* @method resize
 	* @internal
@@ -465,8 +398,7 @@
 	*/
 	p.resize = function(width, height)
 	{
-		this.width = this.canvas.width = width;
-		this.height = this.canvas.height = height;
+		s.resize.call(this, width, height);
 		this.renderer.resize(width, height);
 	};
 
@@ -479,9 +411,10 @@
 	*/
 	p.render = function(elapsed)
 	{
-		if(this.paused || !this._visible) return;
-
-		this.renderer.render(this.stage);
+		if(!this.paused && this._visible)
+		{
+			this.renderer.render(this.stage);
+		}
 	};
 
 	/**
@@ -493,12 +426,12 @@
 	*/
 	p.destroy = function()
 	{
-		this.enabled = false;
+		s.destroy.call(this);
+
 		this.stage.removeChildren(true);
 		this.stage.destroy();
 		this.renderer.destroy();
-		this.canvas.onmousedown = null;
-		this.renderer = this.stage = this.canvas = null;
+		this.renderer = this.stage = null;
 	};
 
 	// Assign to the global namespace
@@ -507,7 +440,8 @@
 
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(){
 	
@@ -515,7 +449,7 @@
 	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
 	 * so please only keep references to them while they are actively playing an animation.
 	 * 
-	 * @class pixi.AnimatorTimeline
+	 * @class AnimatorTimeline
 	 * @constructor
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
 	 * @param {function} callback The function to call when the clip is finished playing
@@ -669,7 +603,8 @@
 
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function() {
 	
@@ -679,7 +614,7 @@
 
 	/**
 	*  Animator for interacting with Spine animations
-	*  @class pixi.Animator
+	*  @class Animator
 	*  @static
 	*/
 	var Animator = {};
@@ -1151,7 +1086,8 @@
 	namespace('cloudkid.pixi').Animator = Animator;
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(undefined) {
 	
@@ -1169,7 +1105,7 @@
 	*  initialization and callbacks.
 	*  Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
 	*  
-	*  @class pixi.Button
+	*  @class Button
 	*  @extends PIXI.DisplayObjectContainer
 	*  @constructor
 	*  @param {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
@@ -1833,7 +1769,8 @@
 	namespace('cloudkid.pixi').Button = Button;
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function() {
 	
@@ -1845,7 +1782,7 @@
 	*  Drag manager is responsible for handling the dragging of stage elements
 	*  supports click-n-stick and click-n-drag functionality.
 	*
-	*  @class pixi.DragManager
+	*  @class DragManager
 	*  @constructor
 	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
 	*  @param {function} startCallback The callback when when starting
@@ -2355,7 +2292,8 @@
 	namespace('cloudkid.pixi').DragManager = DragManager;
 }());
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function() {
 	
@@ -2369,7 +2307,7 @@
 	*  The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
 	*  loading the appropriate assets, as well as easily unloading assets when you are done using them.
 	*
-	*  @class pixi.AssetManager
+	*  @class AssetManager
 	*/
 	var AssetManager = {};
 	

@@ -1,12 +1,13 @@
 /**
-*  @modules cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(undefined){
 	
 	/**
 	*  Provide a normalized way to get size, position, scale values
 	*  as well as provide reference for different geometry classes.
-	*  @class pixi.DisplayAdapter
+	*  @class DisplayAdapter
 	*/
 	var DisplayAdapter = {};
 

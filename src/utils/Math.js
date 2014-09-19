@@ -1,5 +1,5 @@
 /**
-*  @module global
+*  @module Game
 */
 (function(Math){
 

@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function(undefined) {
 	
@@ -67,12 +68,12 @@
 		}
 
 		// Check for a displayadpater, doesn't work with generic display
-		if (!display.DisplayAdapter)
+		if (!display.adapter)
 		{
 			throw "The display specified is incompatible with UIScaler";
 		}
 
-		return display.DisplayAdapter;
+		return display.adapter;
 	};
 	
 	// Reference to the prototype

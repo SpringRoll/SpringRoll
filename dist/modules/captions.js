@@ -1,6 +1,7 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @module cloudkid
+*  @module Captions
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -33,6 +34,9 @@
 	*/
 	var Captions = function(captionDictionary, field)
 	{
+		// Add to the instances
+		_instances.push(this);
+
 		/** 
 		* An object used as a dictionary with keys that should be the same as sound aliases
 		* 
@@ -136,14 +140,6 @@
 	* @property {Object} p
 	*/
 	var p = Captions.prototype;
-
-	/** 
-	* The singleton instance of Captions 
-	*
-	* @private
-	* @property {Captions} _instance
-	*/
-	var _instance = null;
 	
 	/** 
 	* If you want to mute the captions, doesn't remove the current caption 
@@ -152,6 +148,13 @@
 	* @property {bool} _muteAll
 	*/
 	var _muteAll = false;
+
+	/**
+	*  The collection of instances created
+	*  @property {array} _instances
+	*  @private
+	*/
+	var _instances = [];
 	
 	/** 
 	* The version number of this library 
@@ -160,38 +163,7 @@
 	* @property {String} VERSION
 	* @static
 	*/
-	Captions.VERSION = "0.0.5";
-	
-	/** 
-	* Creates the singleton instance of Captions, with an optional dictionary ready to go 
-	*
-	* @public
-	* @method init
-	* @param {object} [captionDictionary=null] An object set up in dictionary format of caption objects.
-	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
-	* @static
-	* @return {Captions} The captions object instance
-	*/
-	Captions.init = function(captionDictionary, field)
-	{
-		_instance = new Captions(captionDictionary, field);
-		return _instance;
-	};
-	
-	/**
-	*  The singleton instance of Captions 
-	*
-	*  @static
-	*  @readOnly
-	*  @public
-	*  @property {Captions} instance
-	*/
-	Object.defineProperty(
-		Captions, "instance", 
-		{
-			get:function(){ return _instance; }
-		}
-	);
+	Captions.VERSION = "0.0.6";
 	
 	/**
 	* Constructor for caption.
@@ -220,9 +192,11 @@
 	Captions.setMuteAll = function(muteAll)
 	{
 		_muteAll = muteAll;
-		
-		if(_instance)
-			_instance._updateCaptions();
+
+		for(var i = 0; i < _instances.length; i++)
+		{
+			_instances[i]._updateCaptions();
+		}
 	};
 	
 	/**
@@ -610,11 +584,14 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
+
+		var i = _instances.indexOf(this);
+		if (i > -1)
+		{
+			_instances.splice(i, 1);
+		}
 		
 		this._isDestroyed = true;
-		
-		if(_instance === this)
-			_instance = null;
 		
 		this._captionDict = null;
 		this._lines = null;

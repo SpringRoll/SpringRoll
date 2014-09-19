@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 
@@ -11,7 +12,7 @@
 	*   sequences on the timeline. This is a flexible way to
 	*   animate characters on a timeline
 	*   
-	*   @class createjs.CharacterController
+	*   @class CharacterController
 	*/
 	var CharacterController = function()
 	{

@@ -1,6 +1,7 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @module cloudkid
+*  @module States
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -142,7 +143,7 @@
 		{
 			this._isTransitioning = false;
 			
-			this.manager._display.Animator.stop(this.panel);
+			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this.panel.visible = false;
@@ -188,7 +189,7 @@
 		{
 			this._isTransitioning = false;
 			
-			this.manager._display.Animator.stop(this.panel);
+			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this._active = true;
@@ -329,7 +330,7 @@
 		
 		var s = this;
 		
-		this.manager._display.Animator.play(
+		this.manager._display.animator.play(
 			this.panel, 
 			StateManager.TRANSITION_IN,
 			function()
@@ -353,7 +354,7 @@
 		
 		var s = this;
 		
-		this.manager._display.Animator.play(
+		this.manager._display.animator.play(
 			this.panel, 
 			StateManager.TRANSITION_OUT,
 			function()
@@ -418,7 +419,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module States
+*  @namespace cloudkid
 */
 (function(undefined){
 	
@@ -503,13 +505,13 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module States
+*  @namespace cloudkid
 */
 (function(undefined){
 	
 	// Imports
-	var Sound,
-		EventDispatcher = include('cloudkid.EventDispatcher'),
+	var EventDispatcher = include('cloudkid.EventDispatcher'),
 		BaseState = include('cloudkid.BaseState'),
 		StateEvent = include('cloudkid.StateEvent');		
 	
@@ -525,12 +527,6 @@
 	*/
 	var StateManager = function(display, transition, transitionSounds)
 	{
-		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
-		if(!Sound)
-		{
-			Sound = include('cloudkid.Sound', false) || include('cloudkid.Audio', false);
-		}
-
 		EventDispatcher.call(this);
 
 		/**
@@ -633,7 +629,7 @@
 	* @static
 	* @final
 	*/
-	StateManager.VERSION = '0.0.5';
+	StateManager.VERSION = '0.0.6';
 
 	/**
 	* The name of the Animator label and event for transitioning state in
@@ -1016,15 +1012,27 @@
 	*/
 	p._loopTransition = function()
 	{
-		var audio;
+		var audio,
+			animator = this._display.animator;
+
 		if(this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
-			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			var Sound = animator.soundLib;
+
+			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
+			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
+			if(!Sound || Sound.instance.soundLoaded === false)
 				audio = null;
 		}
-		if(this._display.Animator.instanceHasAnimation(this._transition, "transitionLoop"))
-			this._display.Animator.play(this._transition, "transitionLoop", {onComplete: this._loopTransition, soundData:audio});
+
+		if(animator.instanceHasAnimation(this._transition, "transitionLoop"))
+		{
+			animator.play(this._transition, "transitionLoop", {
+				onComplete: this._loopTransition, 
+				soundData:audio
+			});
+		}
 	};
 	
 	/**
@@ -1071,14 +1079,29 @@
 	{
 		var clip = this._transition;
 		clip.visible = true;
-		var audio;
+
+		var audio,
+			animator = this._display.animator;
+
 		if(this._transitionSounds)
 		{
-			audio = event == StateManager.TRANSITION_IN ? this._transitionSounds.in : this._transitionSounds.out;
-			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			audio = event == StateManager.TRANSITION_IN ? 
+				this._transitionSounds.in : 
+				this._transitionSounds.out;
+
+			var Sound = animator.soundLib;
+
+			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
+			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
+			if(!Sound || Sound.instance.soundLoaded === false)
+			{
 				audio = null;
+			}	
 		}
-		this._display.Animator.play(this._transition, event, {onComplete: callback, soundData: audio});
+		animator.play(this._transition, event, {
+			onComplete: callback, 
+			soundData: audio
+		});
 	};
 	
 	/**
@@ -1092,7 +1115,7 @@
 
 		this.off();
 		
-		this._display.Animator.stop(this._transition);
+		this._display.animator.stop(this._transition);
 		
 		this._transition = null;
 		

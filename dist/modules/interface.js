@@ -1,12 +1,12 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 
 	/**
 	*   Object that contains the screen settings to help scaling
-	*   @module cloudkid
 	*   @class ScreenSettings
 	*   @constructor
 	*   @param {Number} width The screen width in pixels
@@ -42,7 +42,8 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 
@@ -52,7 +53,6 @@
 	/**
 	*   A single UI item that needs to be resized	
 	*
-	*   @module cloudkid
 	*   @class UIElement
 	*	@param {DisplayObject} item The item to affect  
 	*   @param {UIElementSettings} settings The scale settings
@@ -305,13 +305,13 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function(){
 	
 	/**
 	*  The UI Item Settings which is the positioning settings used to adjust each element
-	*  @module cloudkid
 	*  @class UIElementSettings
 	*/
 	var UIElementSettings = function()
@@ -362,7 +362,8 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function(undefined) {
 	
@@ -430,12 +431,12 @@
 		}
 
 		// Check for a displayadpater, doesn't work with generic display
-		if (!display.DisplayAdapter)
+		if (!display.adapter)
 		{
 			throw "The display specified is incompatible with UIScaler";
 		}
 
-		return display.DisplayAdapter;
+		return display.adapter;
 	};
 	
 	// Reference to the prototype
@@ -707,7 +708,8 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module Interface
+*  @namespace cloudkid
 */
 (function() {
 		
@@ -715,7 +717,6 @@
 
 	/**
 	*  Initially layouts all interface elements
-	*  @module cloudkid
 	*  @class Positioner
 	*  @static
 	*/

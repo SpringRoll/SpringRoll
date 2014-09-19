@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module States
+*  @namespace cloudkid
 */
 (function(undefined){
 	

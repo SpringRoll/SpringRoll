@@ -1,6 +1,7 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @module cloudkid
+*  @module Translate
+*  @namespace cloudkid
 */
 (function(window, undefined){
 
@@ -19,7 +20,7 @@
 	*  @static
 	*  @readOnly
 	*/
-	Translate.VERSION = "0.0.5";
+	Translate.VERSION = "0.0.6";
 
 	/**
 	*  The full language dictionary containing all languages as keys

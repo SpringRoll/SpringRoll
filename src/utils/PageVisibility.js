@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Framework
+*  @namespace cloudkid
 */
 (function(global, doc, undefined){
 		

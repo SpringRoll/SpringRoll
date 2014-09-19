@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.pixi
+*  @module PIXI Display
+*  @namespace cloudkid.pixi
 */
 (function(){
 	
@@ -7,7 +8,7 @@
 	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
 	 * so please only keep references to them while they are actively playing an animation.
 	 * 
-	 * @class pixi.AnimatorTimeline
+	 * @class AnimatorTimeline
 	 * @constructor
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
 	 * @param {function} callback The function to call when the clip is finished playing

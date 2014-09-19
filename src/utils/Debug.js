@@ -1,5 +1,5 @@
 /**
-*  @module window
+*  @module Framework
 */
 (function(window, undefined){
 	

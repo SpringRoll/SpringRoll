@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 	
@@ -15,7 +16,7 @@
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
 	*	single audio file with cloudkid.Sound, with optional captions. Utilizes the Tasks module.
 	*
-	*   @class createjs.Cutscene
+	*   @class Cutscene
 	*	@constructor
 	*	@param {Object} options The runtime specific setup data for the cutscene.
 	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.

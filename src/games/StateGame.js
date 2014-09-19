@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Game
+*  @namespace cloudkid
 */
 (function(undefined){
 	
@@ -171,7 +172,7 @@
 
 		if (this.transition)
 		{
-			this.display.DisplayAdapter.removeChildren(this.transition);
+			this.display.adapter.removeChildren(this.transition);
 			this.transition = null;
 		}
 		

@@ -1,6 +1,7 @@
-/*! CloudKidFramework 0.0.5 */
+/*! CloudKidFramework 0.0.6 */
 !function(){"use strict";/**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -61,7 +62,8 @@
 
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -168,7 +170,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -258,7 +261,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(undefined){
 	
@@ -389,7 +393,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 
@@ -463,7 +468,7 @@
 	* @static
 	* @final
 	*/
-	TaskManager.VERSION = '0.0.5';
+	TaskManager.VERSION = '0.0.6';
 	
 	/**
 	* Event dispatched when tasks are all done
@@ -728,7 +733,8 @@
 	namespace('cloudkid').TaskManager = TaskManager;
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -908,7 +914,8 @@
 	
 }());
 /**
-*  @module cloudkid
+*  @module Tasks
+*  @namespace cloudkid
 */
 (function(){
 	

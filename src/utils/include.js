@@ -1,5 +1,5 @@
 /**
-*  @module window
+*  @module Framework
 */
 /**
 *  Used to include required classes by name

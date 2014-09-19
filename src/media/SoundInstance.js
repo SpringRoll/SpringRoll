@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Sound
+*  @namespace cloudkid
 */
 (function(){
 

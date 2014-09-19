@@ -1,6 +1,6 @@
 {
 	"name" : "CloudKidFramework",
-	"version" : "0.0.5",
+	"version" : "0.0.6",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
 	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
 	"output" : "core",
@@ -13,6 +13,7 @@
 		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
 		"src/Application.js",
+		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
 		"src/loaders/Loader.js",

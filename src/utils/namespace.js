@@ -1,5 +1,5 @@
 /**
-*  @module window
+*  @module Framework
 */
 /**
 *  Static class for namespacing objects and adding

@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid.createjs
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
 */
 (function(){
 
@@ -7,7 +8,7 @@
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
 	*   
-	*   @class createjs.AnimatorTimeline
+	*   @class AnimatorTimeline
 	*   @constructor
 	*/
 	var AnimatorTimeline = function()

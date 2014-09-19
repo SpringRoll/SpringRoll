@@ -1,11 +1,11 @@
 /**
-*  @module global
+*  @module Game
 */
 (function() {
 	/**
 	*  Add methods to Array
 	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array.prototype
+	*  @class Array
 	*/
 
 	/**

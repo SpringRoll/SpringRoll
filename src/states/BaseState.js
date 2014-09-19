@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module States
+*  @namespace cloudkid
 */
 (function(){
 	
@@ -141,7 +142,7 @@
 		{
 			this._isTransitioning = false;
 			
-			this.manager._display.Animator.stop(this.panel);
+			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this.panel.visible = false;
@@ -187,7 +188,7 @@
 		{
 			this._isTransitioning = false;
 			
-			this.manager._display.Animator.stop(this.panel);
+			this.manager._display.animator.stop(this.panel);
 		}
 		this._enabled = false;
 		this._active = true;
@@ -328,7 +329,7 @@
 		
 		var s = this;
 		
-		this.manager._display.Animator.play(
+		this.manager._display.animator.play(
 			this.panel, 
 			StateManager.TRANSITION_IN,
 			function()
@@ -352,7 +353,7 @@
 		
 		var s = this;
 		
-		this.manager._display.Animator.play(
+		this.manager._display.animator.play(
 			this.panel, 
 			StateManager.TRANSITION_OUT,
 			function()

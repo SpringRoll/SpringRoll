@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Translate
+*  @namespace cloudkid
 */
 (function(window, undefined){
 

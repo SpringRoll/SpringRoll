@@ -1,5 +1,6 @@
 /**
-*  @module cloudkid
+*  @module Worker
+*  @namespace cloudkid
 */
 (function(){
 		

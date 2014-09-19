@@ -1,6 +1,7 @@
 /**
- *  @module cloudkid.createjs
- */
+*  @module CreateJS Display
+*  @namespace cloudkid.createjs
+*/
 (function(){
 
 	var Button = include('cloudkid.createjs.Button'),
@@ -8,8 +9,8 @@
 
 	/**
 	 *  A button with audio events for click and over mouse events
-	 *  @class createjs.SoundButton
-	 *  @extends createjs.Button
+	 *  @class SoundButton
+	 *  @extends Button
 	 *  @constructor
 	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
 	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
@@ -63,7 +64,10 @@
 	 */
 	p._onButtonPress = function(e)
 	{
-		Sound.instance.play(this.clickAlias);
+		if (this.clickAlias)
+		{
+			Sound.instance.play(this.clickAlias);
+		}
 	};
 
 	/**
@@ -73,7 +77,10 @@
 	 */
 	p._onRollover = function(e)
 	{
-		Sound.instance.play(this.overAlias);
+		if (this.overAlias)
+		{
+			Sound.instance.play(this.overAlias);
+		}	
 	};
 
 	/**
