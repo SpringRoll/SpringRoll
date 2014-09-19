@@ -18,7 +18,7 @@
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game
 	*  @param {string} [options.configPath='assets/config/config.json'] The path to the default config to load
-	*  @param {boolean} [options.forceMobile] Manually override the check for isMobile
+	*  @param {boolean} [options.forceMobile] Manually override the check for isMobile (unminifed library version only)
 	*  @param {boolean} [options.updateTween=true] Have the application take care of the Tween updates
 	*/
 	var Game = function(options)
@@ -51,7 +51,7 @@
 		*  If the current brower is mobile
 		*  @property {boolean} isMobile
 		*/
-		if (options.forceMobile !== undefined)
+		if (DEBUG && options.forceMobile !== undefined)
 		{
 			this.isMobile = !!options.forceMobile;
 		}
