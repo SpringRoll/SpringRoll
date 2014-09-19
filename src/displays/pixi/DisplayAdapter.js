@@ -234,6 +234,17 @@
 		};
 	};
 
+	/**
+	*  Remove all children from a display object
+	*  @method removeChildren
+	*  @static
+	*  @param {PIXI.DisplayObjectContainer} container The display object container
+	*/
+	DisplayAdapter.removeChildren = function(container)
+	{
+		container.removeChildren(true);
+	};
+
 	// Assign to namespace
 	namespace('cloudkid.pixi').DisplayAdapter = DisplayAdapter;
 

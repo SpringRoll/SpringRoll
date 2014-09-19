@@ -13,6 +13,8 @@ module.exports = function(grunt)
 			'replace:displaycreatejs',
 			'concat:displaypixi',
 			'replace:displaypixi',
+			'concat:game',
+			'replace:game',
 			'concat:tasks',
 			'replace:tasks',
 			'concat:states',

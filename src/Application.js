@@ -762,20 +762,32 @@
 	{
 		this.paused = true;
 		this.trigger(DESTROY);
+		
 		for(var key in _displays)
 		{
 			_displays[key].destroy();
 		}
 		_displays = null;
+
 		for(var i = 0; i < Application._globalDestroy.length; ++i)
+		{
 			Application._globalDestroy[i]();
+		}
+
 		if(_resizeElement)
+		{
 			window.removeEventListener("resize", this._resize);
+		}
+
 		_framerate = _resizeElement = null;
+
 		_pageVisibility.destroy();
 		_pageVisibility = null;
+
 		this._listeners = null;
 		_tickCallback = null;
+
+		Debug.disconnect();
 	};
 
 	// Add to the name space

@@ -15,6 +15,10 @@ module.exports = {
 		src: ['<%= build.modules.displaycreatejs %>'],
 		dest: '<%= distFolder %>/modules/display-createjs.js'
 	},
+	game : {
+		src: ['<%= build.modules.game %>'],
+		dest: '<%= distFolder %>/modules/game.js'
+	},
 	tasks : {
 		src: ['<%= build.modules.tasks %>'],
 		dest: '<%= distFolder %>/modules/tasks.js'

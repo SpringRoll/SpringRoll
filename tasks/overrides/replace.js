@@ -19,6 +19,11 @@ module.exports = {
 		overwrite: true,
 		replacements: '<%= replace.development.replacements %>'
 	},
+	game: {
+		src: ['<%= distFolder %>/modules/game.js'],
+		overwrite: true,
+		replacements: '<%= replace.development.replacements %>'
+	},
 	tasks: {
 		src: ['<%= distFolder %>/modules/tasks.js'],
 		overwrite: true,

@@ -11,14 +11,14 @@
 
 	/**
 	*	A class for managing audio by only playing one at a time, playing a list, and even
-	*	managing captions (CloudKidCaptions library) at the same time.
+	*	managing captions (Captions library) at the same time.
 	* 
 	*	@class VOPlayer
 	*	@constructor
-	*	@param {bool|cloudkid.Captions} [useCaptions=false] If a cloudkid.Captions object should be created for use 
+	*	@param {Captions} [captions=null] If a Captions object should be created for use 
 	*			or the captions object to use
 	*/
-	var VOPlayer = function(useCaptions)
+	var VOPlayer = function(captions)
 	{
 		// Import classes
 		if (!Application)
@@ -35,15 +35,10 @@
 		/**
 		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
-		*	@property {cloudkid.Captions} captions
+		*	@property {Captions} captions
 		*	@public
 		*/
-		this.captions = null;
-
-		if (useCaptions && Captions)
-		{
-			this.captions = useCaptions instanceof Captions ? useCaptions : new Captions();
-		}
+		this.captions = captions || null;
 
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.

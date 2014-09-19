@@ -6,6 +6,7 @@ module.exports = {
 		'<%= build.modules.displaygeneric %>',
 		'<%= build.modules.displaycreatejs %>',
 		'<%= build.modules.displaypixi %>',
+		'<%= build.modules.game %>',
 		'<%= build.modules.tasks %>',
 		'<%= build.modules.states %>',
 		'<%= build.modules.sound %>',

@@ -48,6 +48,12 @@
 			"src/displays/pixi/DragManager.js",
 			"src/displays/pixi/AssetManager.js"
 		],
+		"game" : [
+			"src/games/Game.js",
+			"src/games/SoundGame.js",
+			"src/games/StateGame.js",
+			"src/games/ScalingGame.js"
+		],
 		"tasks" : [
 			"src/tasks/TaskEvent.js",
 			"src/tasks/Task.js",

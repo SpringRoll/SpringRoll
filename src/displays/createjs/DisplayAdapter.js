@@ -259,6 +259,17 @@
 		};
 	};
 
+	/**
+	*  Remove all children from a display object
+	*  @method removeChildren
+	*  @static
+	*  @param {createjs.Container} container The display object container
+	*/
+	DisplayAdapter.removeChildren = function(container)
+	{
+		container.removeAllChildren();
+	};
+
 	// Assign to namespace
 	namespace('cloudkid.createjs').DisplayAdapter = DisplayAdapter;
 

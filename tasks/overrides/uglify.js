@@ -6,6 +6,7 @@ module.exports = {
 			'<%= distFolder %>/modules/display-generic.min.js' : '<%= build.modules.displaygeneric %>',
 			'<%= distFolder %>/modules/display-createjs.min.js' : '<%= build.modules.displaycreatejs %>',
 			'<%= distFolder %>/modules/display-pixi.min.js' : '<%= build.modules.displaypixi %>',
+			'<%= distFolder %>/modules/game.min.js' : '<%= build.modules.game %>',
 			'<%= distFolder %>/modules/tasks.min.js' : '<%= build.modules.tasks %>',
 			'<%= distFolder %>/modules/states.min.js' : '<%= build.modules.states %>',
 			'<%= distFolder %>/modules/sound.min.js' : '<%= build.modules.sound %>',
