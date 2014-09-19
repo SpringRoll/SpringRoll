@@ -87,12 +87,16 @@
 			}
 		}
 
-		this.transition.gotoAndStop("onTransitionOut_stop");
+		//if the transition is a CreateJS movieclip, start it out 
+		//at the end of the transition out animation. If it has a 
+		//'transitionLoop' animation, that will be played as soon as a state is set
+		if(this.transition.gotoAndStop)
+			this.transition.gotoAndStop("onTransitionOut_stop");
 
 		// Create the state manager
 		this.manager = new StateManager(
 			this.display,
-			transition, 
+			this.transition, 
 			options.transitionSounds || {
 				"in" : "TransitionEnd",
 				"out": "TransitionStart"
