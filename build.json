@@ -29,11 +29,13 @@
 			"src/displays/generic/GenericDisplay.js"
 		],
 		"displaycreatejs" : [
+			"src/displays/createjs/MovieClipUtils.js",
 			"src/displays/createjs/DisplayAdapter.js",
 			"src/displays/createjs/CreateJSDisplay.js",
 			"src/displays/createjs/AnimatorTimeline.js",
 			"src/displays/createjs/Animator.js",
 			"src/displays/createjs/Button.js",
+			"src/displays/createjs/SoundButton.js",
 			"src/displays/createjs/CharacterClip.js",
 			"src/displays/createjs/CharacterController.js",
 			"src/displays/createjs/DragManager.js",
@@ -49,6 +51,8 @@
 			"src/displays/pixi/AssetManager.js"
 		],
 		"game" : [
+			"src/utils/Array.js",
+			"src/utils/Math.js",
 			"src/games/Game.js",
 			"src/games/SoundGame.js",
 			"src/games/StateGame.js",
