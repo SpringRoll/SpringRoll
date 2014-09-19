@@ -82,6 +82,15 @@
 	var LOADED = 'loaded';
 
 	/**
+	*  The config has finished loading, in case you want to 
+	*  add additional tasks to the manager after this.
+	*  @event configLoaded
+	*  @param {object} config The JSON object for config
+	*  @param {TaskManager} manager The task manager
+	*/
+	var CONFIG_LOADED = 'configLoaded';
+
+	/**
 	*  The game has started loading
 	*  @event loading
 	*  @param {array} tasks The list of tasks to preload
@@ -112,12 +121,13 @@
 	};
 
 	/**
-	 *
-	 *  @param {Object} Results from the load task
+	 *  Callback when the config is loaded
+	 *  @param {LoaderResult} result The Loader result from the load task
 	 */
-	var onConfigLoaded = function(result)
+	var onConfigLoaded = function(result, task, manager)
 	{
 		this.config = result.content;
+		this.trigger(CONFIG_LOADED, this.config, manager);
 	};
 
 	/**

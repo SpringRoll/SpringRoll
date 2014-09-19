@@ -62,7 +62,6 @@
 	/**
 	*  Initialize the states event, this is where state could be added
 	*  @event initStates
-	*  @param {StateManager} manager The reference to the statemanager
 	*/
 	var ADD_STATES = 'addStates';
 
@@ -101,7 +100,7 @@
 		);
 
 		// states should be added on this event!
-		this.trigger(ADD_STATES, this.manager);
+		this.trigger(ADD_STATES);
 
 		// Add the transition on top of everything else
 		this.display.stage.addChild(this.transition);
