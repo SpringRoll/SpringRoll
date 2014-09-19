@@ -4,8 +4,7 @@
 (function(undefined){
 	
 	// Imports
-	var Sound,
-		EventDispatcher = include('cloudkid.EventDispatcher'),
+	var EventDispatcher = include('cloudkid.EventDispatcher'),
 		BaseState = include('cloudkid.BaseState'),
 		StateEvent = include('cloudkid.StateEvent');		
 	
@@ -21,12 +20,6 @@
 	*/
 	var StateManager = function(display, transition, transitionSounds)
 	{
-		// cloudkid.Sound and cloudkid.Audio are optional sound APIs to use
-		if(!Sound)
-		{
-			Sound = include('cloudkid.Sound', false) || include('cloudkid.Audio', false);
-		}
-
 		EventDispatcher.call(this);
 
 		/**
@@ -516,7 +509,10 @@
 		if(this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
-			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			var Sound = this._display.Animator.soundLib;
+			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
+			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
+			if(!Sound || Sound.instance.soundLoaded === false)
 				audio = null;
 		}
 		if(this._display.Animator.instanceHasAnimation(this._transition, "transitionLoop"))
@@ -571,7 +567,10 @@
 		if(this._transitionSounds)
 		{
 			audio = event == StateManager.TRANSITION_IN ? this._transitionSounds.in : this._transitionSounds.out;
-			if(Sound.instance.soundLoaded === false)//if soundLoaded is defined and false, then the AudioSprite is not yet loaded
+			var Sound = this._display.Animator.soundLib;
+			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
+			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
+			if(!Sound || Sound.instance.soundLoaded === false)
 				audio = null;
 		}
 		this._display.Animator.play(this._transition, event, {onComplete: callback, soundData: audio});
