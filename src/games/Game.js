@@ -61,13 +61,9 @@
 			// normally we'd use touch but the pointer events
 			// in Internet Explorer mess that up, so we're 
 			// looking for specific browser.
-			var agent = navigator.userAgent,
-				isIOS = this.isIOS = agent.indexOf("iPod") > -1 ||
-					agent.indexOf("iPhone") > -1 ||
-					agent.indexOf("iPad") > -1,
-				isAndroid = (agent.indexOf("Android") > -1),
-				isBlackberry = (agent.indexOf("Blackberry") > -1);
-			this.isMobile = isIOS || isAndroid || isBlackberry;
+			var agent = navigator.userAgent;
+			this.isIOS = agent.search(/iPhone|iPad|iPod/) > -1;
+			this.isMobile = this.isIOS || agent.search(/Android|Blackberry/) > -1;
 		}
 
 		// Listen for when the application is initalized
