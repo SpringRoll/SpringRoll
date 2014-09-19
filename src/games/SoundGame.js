@@ -11,6 +11,11 @@
 
 	/**
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
+	*  @example
+		var game = new cloudkid.SoundGame();
+		game.on('soundReady', function(){
+			// Ready to use!
+		});
 	*  @class SoundGame
 	*  @extends Game
 	*  @constructor
@@ -56,7 +61,9 @@
 	var p = SoundGame.prototype = Object.create(s);
 
 	/**
-	*  The sound is initialized
+	*  The Sound is completed, this is the event to listen to 
+	*  when the game ready to use. Do NOT use Application's init,
+	*  or Game's loaded events as the entry point for your application.
 	*  @event soundReady
 	*/
 	var SOUND_READY = 'soundReady';
@@ -207,7 +214,7 @@
 	*/
 	p.toString = function()
 	{
-		return "[SoundGame '" + this.name + "'']";
+		return "[SoundGame name='" + this.name + "'']";
 	};
 
 	// Assign to the namespace

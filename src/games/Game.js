@@ -12,6 +12,11 @@
 	*  A game extends the main application and provides some game specific convenience function 
 	*  and additional events. Most importantly it provides preload functionalty though the state
 	*  manager. Assume loading a single configuration JSON file.
+	*  @example
+		var game = new cloudkid.Game();
+		game.on('loaded', function(){
+			// Ready to use!
+		});
 	*  @class Game
 	*  @extends Application
 	*  @constructor
@@ -158,7 +163,7 @@
 	*/
 	p.toString = function()
 	{
-		return "[Game '" + this.name + "'']";
+		return "[Game name='" + this.name + "'']";
 	};
 
 	// Assign to the namespace

@@ -8,6 +8,11 @@
 
 	/**
 	*  A game with state management, provides some convenience and events for adding states.
+	*  @example
+		var game = new cloudkid.StateGame();
+		game.on('statesReady', function(){
+			// Ready to use!
+		});
 	*  @class StateGame
 	*  @extends SoundGame
 	*  @constructor
@@ -54,10 +59,13 @@
 	var INIT_STATES = 'initStates';
 
 	/**
-	*  The event when all the states are setup, presumably
-	*  @event readyStates
+	*  The States are setup, this is the event to listen to 
+	*  when the game ready to use. Do NOT use Application's init,
+	*  or Game's loaded, or SoundGame's 'soundReady' events 
+	*  as the entry point for your application.
+	*  @event statesReady
 	*/
-	var READY_STATES = 'readyStates';
+	var STATES_READY = 'statesReady';
 
 	/**
 	*  Initialize the states event, this is where state could be added
@@ -72,6 +80,8 @@
 	*/
 	var onSoundReady = function()
 	{
+		this.off('soundReady');
+
 		this.trigger(INIT_STATE_MANAGER);
 
 		// Goto the transition state
@@ -116,7 +126,7 @@
 		}
 
 		// Rock and roll
-		this.trigger(READY_STATES);
+		this.trigger(STATES_READY);
 	};
 
 	/**
@@ -166,6 +176,16 @@
 		}
 		
 		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {string} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return "[StateGame name='" + this.name + "'']";
 	};
 	
 	// Assign to the global namespace

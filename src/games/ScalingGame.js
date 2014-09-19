@@ -9,6 +9,11 @@
 
 	/**
 	*  A sub-game class to provide scaling functionality and responsive design.
+	*  @example
+		var game = new cloudkid.ScalingGame();
+		game.on('scalingReady', function(){
+			// Ready to use!
+		});
 	*  @class ScalingGame
 	*  @extends StateGame
 	*  @constructor
@@ -27,10 +32,10 @@
 		this.pixelRatio = window.devicePixelRatio || 1;
 		
 		/**
-		*  The current UI scaler
-		*  @property {UIScaler} scaling
+		*  The main UIScaler for any display object references in the main game.
+		*  @property {UIScaler} scaler
 		*/
-		this.scaling = null; 
+		this.scaler = null; 
 
 		/** 
 		*  The default pixels per inch on the screen
@@ -40,13 +45,18 @@
 		this.ppi = 96;
 
 		// Listen when the state manager is setup
-		onStatesReady = onStatesReady.bind(this);
-		this.on('statesReady', onStatesReady);
+		this.on('statesReady', onStatesReady.bind(this));
 	};
 
 	// Extend application
 	var s = StateGame.prototype;
 	var p = ScalingGame.prototype = Object.create(s);
+
+	/**
+	*  The main entry point for this game
+	*  @event scalingReady
+	*/
+	var SCALING_READY = 'scalingReady';
 
 	/**
 	*  Callback when tasks are completed
@@ -55,7 +65,7 @@
 	*/
 	var onStatesReady = function()
 	{
-		this.off('statesReady', onStatesReady);
+		this.off('statesReady');
 
 		var config = this.config,
 			display = this.display;
@@ -84,12 +94,9 @@
 			}
 		}
 
-		// Set the initial UIScaler
-		UIScaler.init(display.width, display.height, this.ppi);
-
 		// Create the calling from the configuration
-		this.scaling = UIScaler.fromJSON(
-			display.stage, 
+		this.scaler = UIScaler.fromJSON(
+			this, 
 			config.designedSettings, 
 			config.scaling,
 			false
@@ -100,6 +107,9 @@
 
 		// Dispatch a resize function
 		this.trigger('resize', display.width, display.height);
+
+		// We're done initializing the scaler
+		this.trigger(SCALING_READY);
 	};
 
 	/**
@@ -121,9 +131,9 @@
 		}
 		
 		// Set the new design scale size
-		UIScaler.init(this.gameWidth, this.gameHeight, pretendPPI);
+		UIScaler.init(w, h, pretendPPI);
 
-		this.scaling.resize();	
+		this.scaler.resize();
 	};
 
 	/**
@@ -132,10 +142,10 @@
 	*/
 	p.destroy = function()
 	{
-		if (this.scaling)
+		if (this.scaler)
 		{
-			this.scaling.destroy();
-			this.scaling = null;
+			this.scaler.destroy();
+			this.scaler = null;
 		}
 		s.destroy.call(this);
 	};
@@ -147,7 +157,7 @@
 	*/
 	p.toString = function()
 	{
-		return "[ScalingGame '" + this.name + "'']";
+		return "[ScalingGame name='" + this.name + "'']";
 	};
 
 	// Add to the namespace
