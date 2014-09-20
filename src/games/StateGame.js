@@ -5,7 +5,7 @@
 (function(undefined){
 	
 	var StateManager,
-		Game = include('cloudkid.Game');
+		SoundGame = include('cloudkid.SoundGame');
 
 	/**
 	*  A game with state management, provides some convenience and events for adding states.
@@ -83,7 +83,7 @@
 	{
 		this.off('soundReady');
 
-		this.trigger(INIT_STATE_MANAGER);
+		this.trigger(INIT_STATES);
 
 		// Goto the transition state
 		if (!this.transition)

@@ -7,6 +7,7 @@
 	//Library depencencies
 	var Game = include('cloudkid.Game'),
 		VOPlayer,
+		LoadTask,
 		Captions,
 		Sound;
 
@@ -79,6 +80,7 @@
 	{
 		if (this.options.captionsPath !== null)
 		{
+			LoadTask = include('cloudkid.LoadTask');
 			tasks.push(new LoadTask(
 				'captions',
 				this.options.captionsPath || "assets/config/captions.json",
