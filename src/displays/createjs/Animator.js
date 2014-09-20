@@ -6,7 +6,8 @@
 
 	// Imports
 	var Application = include('cloudkid.Application'),
-		AnimatorTimeline;
+		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline'),
+		Sound;
 	
 	/**
 	*   Animator is a static class designed to provided
@@ -34,17 +35,6 @@
 	* @static
 	*/
 	Animator.debug = false;
-	
-	/**
-	* The instance of cloudkid.Audio or cloudkid.Sound for playing audio along with animations.
-	* This MUST be set in order to play synced animations.
-	* 
-	* @property {cloudkid.Audio|cloudkid.Sound} soundLib
-	* @public
-	* @static
-	* @default cloudkid.Sound.instance
-	*/
-	Animator.soundLib = null;
 
 	/**
 	*  The global captions object to use with animator
@@ -116,10 +106,8 @@
 		_removedTimelines = [];
 		_timelinesMap = {};
 		_paused = false;
-		if(!AnimatorTimeline)
-		{
-			AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline');
-		}
+
+		Sound = include('cloudkid.Sound');
 	};
 	
 	/**
@@ -159,12 +147,11 @@
 	*/
 	Animator.play = function(instance, event, options, onCompleteParams, startTime, speed, soundData, doCancelledCallback)
 	{
-		// Default the sound library to Sound if unset
-		if (!Animator.soundLib && cloudkid.Sound)
+		if (!Sound.instance)
 		{
-			Animator.soundLib = cloudkid.Sound.instance;
+			throw "Sound needs to be initialized for Animator";
 		}
-
+		
 		var onComplete;
 
 		if (options && typeof options == "function")
@@ -211,9 +198,9 @@
 			_timelinesMap[instance.id] = timeline;
 
 			//If the sound doesn't play immediately and we can preload it, we should do that
-			if(timeline.soundStart > 0 && Animator.soundLib.preloadSound)
+			if (timeline.soundStart > 0 && Sound.instance.preloadSound)
 			{
-				Animator.soundLib.preloadSound(timeline.soundAlias);
+				Sound.instance.preloadSound(timeline.soundAlias);
 			}
 			
 			return timeline;
@@ -269,18 +256,18 @@
 	Animator._makeTimeline = function(instance, event, onComplete, onCompleteParams, speed, soundData)
 	{
 		var timeline = new AnimatorTimeline();
-		if(!Animator._canAnimate(instance))//not a movieclip
+		if (!Animator._canAnimate(instance))//not a movieclip
 		{
 			return timeline;
 		}
 		instance.advanceDuringTicks = false;//make sure the movieclip doesn't play outside the control of Animator
 		var fps;
-		if(!instance.framerate)//make sure the movieclip is framerate independent
+		if (!instance.framerate)//make sure the movieclip is framerate independent
 		{
 			fps = Application.instance.options.fps;
-			if(!fps)
+			if (!fps)
 				fps = Application.instance.fps;
-			if(!fps)
+			if (!fps)
 				fps = 15;
 			instance.framerate = fps;
 		}
@@ -291,10 +278,10 @@
 		timeline.onComplete = onComplete;
 		timeline.onCompleteParams = onCompleteParams;
 		timeline.speed = speed;
-		if(soundData)
+		if (soundData)
 		{
 			timeline.playSound = true;
-			if(typeof soundData == "string")
+			if (typeof soundData == "string")
 			{
 				timeline.soundStart = 0;
 				timeline.soundAlias = soundData;
@@ -314,16 +301,16 @@
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
 			var l = labels[i];
-			if(l.label == event)
+			if (l.label == event)
 			{
 				timeline.firstFrame = l.position;
 			}
-			else if(l.label == stopLabel)
+			else if (l.label == stopLabel)
 			{
 				timeline.lastFrame = l.position;
 				break;
 			}
-			else if(l.label == loopLabel)
+			else if (l.label == loopLabel)
 			{
 				timeline.lastFrame = l.position;
 				timeline.isLooping = true;
@@ -352,9 +339,9 @@
 	*/
 	Animator._canAnimate = function(instance)
 	{
-		if(instance instanceof createjs.MovieClip)//all createjs.MovieClips are A-OK
+		if (instance instanceof createjs.MovieClip)//all createjs.MovieClips are A-OK
 			return true;
-		if(instance.framerate !== undefined &&//property - calculate timing
+		if (instance.framerate !== undefined &&//property - calculate timing
 			instance.getLabels !== undefined &&//method - get framelabels
 			instance.elapsedTime !== undefined &&//property - set time passed
 			instance._tick !== undefined &&//method - update after setting elapsedTime
@@ -362,9 +349,9 @@
 			instance.play !== undefined &&//method - start playing
 			instance.id !== undefined)//property - used to avoid duplication of timelines
 			return true;
-		if(DEBUG)
+		if (DEBUG)
 		{
-			Debug.error("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
+			Debug.warn("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
 		}
 		return false;
 	};
@@ -388,11 +375,11 @@
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
 			var l = labels[i];
-			if(l.label == event)
+			if (l.label == event)
 			{
 				startFrame = l.position;
 			}
-			else if(l.label == stopLabel || l.label == loopLabel)
+			else if (l.label == stopLabel || l.label == loopLabel)
 			{
 				stopFrame = l.position;
 				break;
@@ -483,7 +470,7 @@
 		timeline.instance.stop();
 
 		//in most cases, if doOnComplete is true, it's a natural stop and the audio can be allowed to continue
-		if((!doOnComplete || doOnComplete === EXTERNAL_STOP) && timeline.soundInst)
+		if ((!doOnComplete || doOnComplete === EXTERNAL_STOP) && timeline.soundInst)
 			timeline.soundInst.stop();//stop the sound from playing
 		
 		// Remove from the stack
@@ -540,7 +527,7 @@
 	*/
 	Animator.resume = function()
 	{
-		if(!_timelines) return;
+		if (!_timelines) return;
 		
 		if (!_paused) return;
 		
@@ -642,7 +629,7 @@
 	*/
 	Animator._update = function(elapsed)
 	{
-		if(!_timelines) return;
+		if (!_timelines) return;
 		
 		var delta = elapsed * 0.001;//ms -> sec
 		
@@ -651,15 +638,15 @@
 		{
 			t = _timelines[i];
 			var instance = t.instance;
-			if(t.paused) continue;
+			if (t.paused) continue;
 			
-			if(t.soundInst)
+			if (t.soundInst)
 			{
-				if(t.soundInst.isValid)
+				if (t.soundInst.isValid)
 				{
 					//convert sound position ms -> sec
 					var audioPos = t.soundInst.position * 0.001;
-					if(audioPos < 0)
+					if (audioPos < 0)
 						audioPos = 0;
 					t.time = t.soundStart + audioPos;
 					
@@ -670,7 +657,7 @@
 					//if the sound goes beyond the animation, then stop the animation
 					//audio animations shouldn't loop, because doing that properly is difficult
 					//letting the audio continue should be okay though
-					if(t.time >= t.duration)
+					if (t.time >= t.duration)
 					{
 						instance.gotoAndStop(t.lastFrame);
 						_removedTimelines.push(t);
@@ -687,9 +674,9 @@
 			else
 			{
 				t.time += delta * t.speed;
-				if(t.time >= t.duration)
+				if (t.time >= t.duration)
 				{
-					if(t.isLooping)
+					if (t.isLooping)
 					{
 						t.time -= t.duration;
 						if (t.onComplete)
@@ -702,10 +689,10 @@
 						continue;
 					}
 				}
-				if(t.playSound && t.time >= t.soundStart)
+				if (t.playSound && t.time >= t.soundStart)
 				{
 					t.time = t.soundStart;
-					t.soundInst = Animator.soundLib.play(
+					t.soundInst = Sound.instance.play(
 						t.soundAlias, 
 						onSoundDone.bind(this, t), 
 						onSoundStarted.bind(this, t)
@@ -749,7 +736,7 @@
 	*/
 	var onSoundDone = function(timeline)
 	{
-		if(timeline.soundEnd > 0 && timeline.soundEnd > timeline.time)
+		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline.time)
 			timeline.time = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
@@ -764,7 +751,7 @@
 	*/
 	Animator._hasTimelines = function()
 	{
-		if(!_timelines) return false;
+		if (!_timelines) return false;
 		return _timelines.length > 0;
 	};
 	

@@ -6,7 +6,8 @@
 	
 	var Spine = include('PIXI.Spine'),
 		AnimatorTimeline = include('cloudkid.pixi.AnimatorTimeline'),
-		Application = include('cloudkid.Application');
+		Application = include('cloudkid.Application'),
+		Sound;
 
 	/**
 	*  Animator for interacting with Spine animations
@@ -39,16 +40,6 @@
 	_animPool = null;
 	
 	/**
-	* The instance of cloudkid.Sound for playing audio along with animations.
-	* 
-	* @property {Sound} soundLib
-	* @public
-	* @static
-	* @default Sound.instance
-	*/
-	Animator.soundLib = null;
-	
-	/**
 	*  The global captions object to use with animator
 	*  @property {Captions} captions
 	*  @public
@@ -64,6 +55,8 @@
 	{
 		_animPool = [];
 		_timelines = [];
+
+		Sound = include('cloudkid.Sound');
 	};
 	
 	/**
@@ -91,12 +84,11 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
-		// Default the sound library to Sound if unset
-		if (!Animator.soundLib && include('cloudkid.Sound', false))
+		if (!Sound.instance)
 		{
-			Animator.soundLib = cloudkid.Sound.instance;
+			throw "Sound needs to be initialized for Animator";
 		}
-		
+
 		var callback = null;
 
 		if (options && typeof options == "function")
@@ -207,10 +199,13 @@
 
 			if (t.soundStart === 0)
 			{
-				t.soundInst = Animator.soundLib.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
+				t.soundInst = Sound.instance.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
 			}
-			else if(Animator.soundLib.preloadSound)//if it can preload sound this way
-				Animator.soundLib.preloadSound(soundData.alias);
+			//if it can preload sound this way
+			else if(Sound.instance.preloadSound)
+			{
+				Sound.instance.preloadSound(soundData.alias);
+			}
 		}
 		t.loop = loop;
 		t.time = startTime > 0 ? startTime : 0;
@@ -355,7 +350,7 @@
 				if (t.playSound && t.time >= t.soundStart)
 				{
 					t.time = t.soundStart;
-					t.soundInst = Animator.soundLib.play(
+					t.soundInst = Sound.instance.play(
 						t.soundAlias, 
 						onSoundDone.bind(this, t), 
 						onSoundStarted.bind(this, t)

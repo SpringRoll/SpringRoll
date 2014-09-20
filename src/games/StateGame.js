@@ -21,8 +21,8 @@
 	*  @param {string} [options=state] The initial state
 	*  @param {createjs.MovieClip|PIXI.Spine} [options.transition] The StateManager transition animation
 	*  @param {Object} [options.transitionSounds] The transition sound data
-	*  @param {Object|String} [options.transitionSounds.in="TransitionEnd"] The transition in sound alias or sound object
-	*  @param {Object|String} [options.transitionSounds.out="TransitionStart"] The transition out sound alias or sound object
+	*  @param {Object|String} [options.transitionSounds.in="TransitionIn"] The transition in sound alias or sound object
+	*  @param {Object|String} [options.transitionSounds.out="TransitionOut"] The transition out sound alias or sound object
 	*/
 	var StateGame = function(options)
 	{
@@ -108,9 +108,9 @@
 		this.manager = new StateManager(
 			this.display,
 			this.transition, 
-			options.transitionSounds || {
-				"in" : "TransitionEnd",
-				"out": "TransitionStart"
+			this.options.transitionSounds || {
+				"in" : "TransitionIn",
+				"out": "TransitionOut"
 			}
 		);
 
@@ -121,9 +121,9 @@
 		this.display.stage.addChild(this.transition);
 
 		// Goto the first state
-		if (options.state)
+		if (this.options.state)
 		{
-			this.manager.setState(options.state);
+			this.manager.setState(this.options.state);
 		}
 
 		// Rock and roll

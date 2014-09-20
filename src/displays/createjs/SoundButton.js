@@ -15,8 +15,8 @@
 	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
 	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
 	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
-	 *  @param {String} [clickAlias="SFX_ButtonClick"] The button click audio alias
-	 *  @param {String} [overAlias="SFX_ButtonRollover"] The button rollover audio alias
+	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
+	 *  @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
 	 */
 	var SoundButton = function(imageSettings, label, enabled, clickAlias, overAlias)
 	{
@@ -28,13 +28,13 @@
 		 *  The audio alias to use for click events
 		 *  @property {String} clickAlias
 		 */
-		this.clickAlias = clickAlias || "SFX_ButtonClick";
+		this.clickAlias = clickAlias || "ButtonClick";
 
 		/**
 		 *  The audio alias to use for mouse over events
 		 *  @property {String} overAlias
 		 */
-		this.overAlias = overAlias || "SFX_ButtonRollover";
+		this.overAlias = overAlias || "ButtonRollover";
 
 		/**
 		 *  If the audio is enabled
@@ -105,8 +105,8 @@
 	 */
 	p.destroy = function()
 	{
-		button.off("rollover", this._onRollover);
-		button.off(Button.BUTTON_PRESS, this._onButtonPress);
+		this.off("rollover", this._onRollover);
+		this.off(Button.BUTTON_PRESS, this._onButtonPress);
 		this.audioEnabled = false;
 		s.destroy.apply(this);
 	};

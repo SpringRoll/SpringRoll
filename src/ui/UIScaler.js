@@ -178,9 +178,12 @@
 		{
 			item = jsonItems[i];
 
-			if (!item)
+			if (parent[i] === undefined)
 			{
-				Debug.error("UIScaler: could not find object '" +  iName + "'");
+				if (DEBUG)
+				{
+					Debug.debug("UIScaler: could not find object '" +  i + "'");
+				}
 				continue;
 			}
 			
@@ -192,8 +195,8 @@
 			}
 			else
 			{
-				vertAlign = ALIGN_CENTER;
-				horiAlign = ALIGN_CENTER;
+				vertAlign = UIScaler.ALIGN_CENTER;
+				horiAlign = UIScaler.ALIGN_CENTER;
 			}
 			scaler.add(
 				parent[i], 

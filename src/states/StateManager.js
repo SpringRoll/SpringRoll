@@ -7,7 +7,8 @@
 	// Imports
 	var EventDispatcher = include('cloudkid.EventDispatcher'),
 		BaseState = include('cloudkid.BaseState'),
-		StateEvent = include('cloudkid.StateEvent');		
+		StateEvent = include('cloudkid.StateEvent'),
+		Sound;		
 	
 	/**
 	*  The State Manager used for managing the different states of a game or site
@@ -22,6 +23,8 @@
 	var StateManager = function(display, transition, transitionSounds)
 	{
 		EventDispatcher.call(this);
+
+		Sound = include('cloudkid.Sound', false);
 
 		/**
 		* The display that holds the states this StateManager is managing.
@@ -50,10 +53,10 @@
 		/**
 		* The collection of states map
 		* 
-		* @property {Array} _states
+		* @property {Object} _states
 		* @private
 		*/
-		this._states = null;
+		this._states = {};
 		
 		/**
 		* The currently selected state
@@ -111,7 +114,16 @@
 		*/
 		this._queueStateId = null;
 
-		this.initialize();
+		// Construct
+		if (this._transition.stop)
+		{
+			this._transition.stop();
+		}
+		// Hide the blocker
+		this.hideBlocker();
+
+		// Binding		
+		this._loopTransition = this._loopTransition.bind(this);
 	};
 	
 	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
@@ -173,25 +185,6 @@
 	* @event onLoadingDone
 	*/
 	StateManager.LOADING_DONE = "onLoadingDone";
-	
-	/**
-	*  Initialize the State Manager
-	*  
-	*  @function intialize
-	*  @param {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} display The display on which the transition animation is displayed.
-	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
-	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}
-	*/
-	p.initialize = function()
-	{		
-		if(this._transition.stop)
-			this._transition.stop();
-
-		this.hideBlocker();
-		this._states = {};
-		
-		this._loopTransition = this._loopTransition.bind(this);
-	};
 	
 	/**
 	*  Register a state with the state manager, done initially
@@ -393,12 +386,12 @@
 				this.showBlocker();
 				sm = this;
 				
-				if(this.has(StateEvent.TRANSITION_OUT))
+				if (this.has(StateEvent.TRANSITION_OUT))
 					this.trigger(StateEvent.TRANSITION_OUT, new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
 				this._oldState.transitionOut(
 					function()
 					{
-						if(sm.has(StateEvent.TRANSITION_OUT_DONE))
+						if (sm.has(StateEvent.TRANSITION_OUT_DONE))
 							sm.trigger(StateEvent.TRANSITION_OUT_DONE, new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
 						sm.trigger(StateManager.TRANSITION_OUT);
 						
@@ -410,7 +403,7 @@
 								
 								sm._isTransitioning = false;
 								
-								if(sm.has(StateEvent.HIDDEN))
+								if (sm.has(StateEvent.HIDDEN))
 									sm.trigger(StateEvent.HIDDEN, new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
 								sm._oldState.panel.visible = false;
 								sm._oldState._internalExit();
@@ -443,7 +436,7 @@
 		this._isLoading = false;
 		this._isTransitioning = true;
 		
-		if(this.has(StateEvent.VISIBLE))
+		if (this.has(StateEvent.VISIBLE))
 			this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
@@ -455,12 +448,12 @@
 			{
 				sm._transition.visible = false;
 				sm.trigger(StateManager.TRANSITION_IN_DONE);
-				if(sm.has(StateEvent.TRANSITION_IN))
+				if (sm.has(StateEvent.TRANSITION_IN))
 					sm.trigger(StateEvent.TRANSITION_IN, new StateEvent(StateEvent.TRANSITION_IN, sm._state));
 				sm._state.transitionIn(
 					function()
 					{
-						if(sm.has(StateEvent.TRANSITION_IN_DONE))
+						if (sm.has(StateEvent.TRANSITION_IN_DONE))
 							sm.trigger(StateEvent.TRANSITION_IN_DONE, new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
 						sm._isTransitioning = false;
 						sm.hideBlocker();
@@ -509,25 +502,16 @@
 		var audio,
 			animator = this._display.animator;
 
-		if(this._transitionSounds)
+		if (this._transitionSounds && Sound)
 		{
 			audio = this._transitionSounds.loop;
-			
-			var sound = animator.soundLib.instance;
-
-			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
-			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
-			if (!sound || (sound.soundLoaded !== undefined && sound.soundLoaded === false))
-			{
-				audio = null;
-			}
 		}
 
-		if(animator.instanceHasAnimation(this._transition, "transitionLoop"))
+		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
 		{
 			animator.play(this._transition, "transitionLoop", {
 				onComplete: this._loopTransition, 
-				soundData:audio
+				soundData: audio
 			});
 		}
 	};
@@ -546,7 +530,7 @@
 		{
 			sm._loopTransition();
 
-			if(callback)
+			if (callback)
 				callback();
 		};
 		this._transitioning(StateManager.TRANSITION_OUT, func);
@@ -561,7 +545,7 @@
 	p.showTransitionIn = function(callback)
 	{
 		var sm = this;
-		this._transitioning(StateManager.TRANSITION_IN, function() { sm.hideBlocker(); if(callback) callback(); });
+		this._transitioning(StateManager.TRANSITION_IN, function() { sm.hideBlocker(); if (callback) callback(); });
 	};
 	
 	/**
@@ -580,20 +564,11 @@
 		var audio,
 			animator = this._display.animator;
 
-		if(this._transitionSounds)
+		if (this._transitionSounds && Sound)
 		{
 			audio = event == StateManager.TRANSITION_IN ? 
 				this._transitionSounds.in : 
 				this._transitionSounds.out;
-
-			var sound = animator.soundLib.instance;
-
-			//if soundLoaded is defined and false, then the AudioSprite used by cloudkid.Audio is not yet loaded
-			//cloudkid.Sound does not have a soundLoaded property, because it is not relevant for it
-			if (!sound || (sound.soundLoaded !== undefined && sound.soundLoaded === false))
-			{
-				audio = null;
-			}
 		}
 		animator.play(this._transition, event, {
 			onComplete: callback, 

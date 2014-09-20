@@ -552,7 +552,8 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("cloudkid.Sound: sound " + alias + " not found!");
+			Debug.error("cloudkid.Sound: alias '" + alias + "' not found!");
+			
 			if (completeCallback)
 				completeCallback();
 			return;
