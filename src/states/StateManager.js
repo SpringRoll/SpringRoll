@@ -332,6 +332,21 @@
 	};
 	
 	/**
+	*  Get or change the current state
+	*  @property {String} state
+	*/
+	Object.defineProperty(p, "state", {
+		set : function(id)
+		{
+			this.setState(id);
+		},
+		get : function()
+		{
+			return this._stateId;
+		}
+	});
+
+	/**
 	*  Set the current State
 	*  
 	*  @function setState
@@ -574,6 +589,59 @@
 			onComplete: callback, 
 			soundData: audio
 		});
+	};
+
+
+	/**
+	*  Goto the next state
+	*  @method next
+	*/
+	p.next = function()
+	{
+		var type = typeof this._state.nextState;
+
+		if (!this._state.nextState)
+		{
+			if (DEBUG)
+			{
+				Debug.info("'nextState' is undefined in current state, ignoring");
+			}
+			return;
+		}
+		else if (type === "function")
+		{
+			this._state.nextState();
+		}
+		else if (type === "string")
+		{
+			this.setState(this._state.nextState);
+		}
+	};
+
+	/**
+	*  Goto the previous state
+	*  @method previous
+	*/
+	p.previous = function()
+	{
+		var type = typeof this._state.prevState;
+
+		if (!this._state.prevState)
+		{
+			if (DEBUG)
+			{
+				Debug.info("'prevState' is undefined in current state, ignoring");
+			}
+			return;
+		}
+		else if (type === "function")
+		{
+			this._state.prevState();
+		}
+		else if (type === "string")
+		{
+			this.setState(this._state.prevState);
+		}
 	};
 	
 	/**

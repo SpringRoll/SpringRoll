@@ -24,7 +24,7 @@
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game
 	*  @param {string} [options.configPath='assets/config/config.json'] The path to the default config to load
-	*  @param {boolean} [options.forceMobile] Manually override the check for isMobile (unminifed library version only)
+	*  @param {boolean} [options.forceMobile=false] Manually override the check for isMobile (unminifed library version only)
 	*  @param {boolean} [options.updateTween=true] Have the application take care of the Tween updates
 	*/
 	var Game = function(options)
@@ -32,20 +32,19 @@
 		LoadTask = include('cloudkid.LoadTask');
 		TaskManager = include('cloudkid.TaskManager');
 
-		// Override the updateTween Application default
-		if (options.updateTween === undefined)
-		{
-			options.updateTween = true;
-		}
-
-		Application.call(this, options);
+		Application.call(this, Object.merge({
+			updateTween : true,
+			name : 'Untitled',
+			forceMobile : false,
+			configPath : 'assets/config/config.json'
+		}, options));
 
 		/**
 		*  The name of the game, useful for debugging purposes
 		*  @property {string} name
 		*  @default "Untitled"
 		*/
-		this.name = options.name || "Untitled";
+		this.name = this.options.name;
 
 		/**
 		*  The game configuration loaded from and external JSON file
@@ -57,9 +56,9 @@
 		*  If the current brower is mobile
 		*  @property {boolean} isMobile
 		*/
-		if (DEBUG && options.forceMobile !== undefined)
+		if (DEBUG && this.options.forceMobile)
 		{
-			this.isMobile = !!options.forceMobile;
+			this.isMobile = true;
 		}
 		else
 		{
@@ -115,7 +114,7 @@
 		var tasks = [
 			new LoadTask(
 				"config", 
-				this.options.configPath || "assets/config/config.json", 
+				this.options.configPath, 
 				onConfigLoaded.bind(this)
 			)
 		];

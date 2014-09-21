@@ -14,8 +14,10 @@
 	*  @class BaseState
 	*  @constructor
 	*  @param {createjs.MovieClip|PIXI.DisplayObjectContainer} panel The panel to associate with this panel
+	*  @param {string|function} [nextState=null] The next state alias
+	*  @param {string|function} [prevState=null] The previous state alias
 	*/
-	var BaseState = function(panel)
+	var BaseState = function(panel, nextState, prevState)
 	{
 		if(!StateManager)
 		{
@@ -41,7 +43,7 @@
 		* 
 		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
 		*/
-		this.panel = null;
+		this.panel = panel;
 		
 		/**
 		* Check to see if we've been destroyed 
@@ -104,26 +106,32 @@
 		* @private
 		*/
 		this._isTransitioning = false;
+
+		/**
+		*  Either the alias of the next state or a function
+		*  to call when going to the next state.
+		*
+		*  @property {string|function} nextState
+		*  @protected
+		*/
+		this.nextState = nextState || null;
 		
-		this.initialize(panel);
+		/**
+		*  Either the alias of the previous state or a function
+		*  to call when going to the previous state.
+		*
+		*  @property {string|function} prevState
+		*  @protected
+		*/
+		this.prevState = prevState || null;
 	};
 	
 	var p = BaseState.prototype;
 	
 	/**
-	*  Initialize the Base State
-	*  @function initialize
-	*  @param {createjs.MovieClip|PIXI.DisplayObjectContaner} panel The panel
-	*/
-	p.initialize = function(panel)
-	{
-		this.panel = panel;
-	};
-	
-	/**
 	*  Status of whether the panel load was canceled
 	*  
-	*  @function  getCanceled
+	*  @method  getCanceled
 	*  @return {bool} If the load was canceled
 	*/
 	p.getCanceled = function()
@@ -134,7 +142,7 @@
 	/**
 	*   This is called by the State Manager to exit the state 
 	*   
-	*   @function _internalExit
+	*   @method _internalExit
 	*   @private
 	*/
 	p._internalExit = function()
@@ -154,14 +162,14 @@
 	/**
 	*  When the state is exited
 	*  
-	*  @function exit
+	*  @method exit
 	*/
 	p.exit = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalExitStart
+	*   @method _internalExitStart
 	*   @private
 	*/
 	p._internalExitStart = function()
@@ -171,15 +179,14 @@
 	
 	/**
 	*   When the state has requested to be exit, pre-transition
-	*   
-	*   @function exitStart
+	*   @method exitStart
 	*/
 	p.exitStart = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalEnter
+	*   @method _internalEnter
 	*   @param {functon} proceed The function to call after enter has been called
 	*   @private
 	*/
@@ -209,7 +216,7 @@
 	/**
 	*   Internal function to start the preloading
 	*   
-	*   @function loadingStart
+	*   @method loadingStart
 	*/
 	p.loadingStart = function()
 	{
@@ -234,7 +241,7 @@
 	/**
 	*   Internal function to finish the preloading
 	*   
-	*   @function loadingDone
+	*   @method loadingDone
 	*/
 	p.loadingDone = function()
 	{
@@ -257,7 +264,7 @@
 	/**
 	*   Cancel the loading of this state
 	*   
-	*   @function _internalCancel
+	*   @method _internalCancel
 	*   @private
 	*/
 	p._internalCancel = function()
@@ -274,21 +281,21 @@
 	*   Cancel the load, implementation-specific
 	*   this is where any async actions are removed
 	*   
-	*   @function cancel
+	*   @method cancel
 	*/
 	p.cancel = function(){};
 	
 	/**
 	*   When the state is entered
 	*   
-	*   @function enter
+	*   @method enter
 	*/
 	p.enter = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
 	*   
-	*   @function _internalEnterDone
+	*   @method _internalEnterDone
 	*   @private
 	*/
 	p._internalEnterDone = function()
@@ -303,14 +310,14 @@
 	*   When the state is visually entered fully
 	*   that is, after the transition is done
 	*   
-	*   @function enterDone
+	*   @method enterDone
 	*/
 	p.enterDone = function(){};
 	
 	/**
 	*   Get if this is the active state
 	*   
-	*   @function getActive
+	*   @method getActive
 	*   @return {bool} If this is the active state
 	*/
 	p.getActive = function()
@@ -321,7 +328,7 @@
 	/**
 	*   Transition the panel in
 	*   
-	*   @function transitionIn
+	*   @method transitionIn
 	*   @param {function} callback
 	*/
 	p.transitionIn = function(callback)
@@ -344,7 +351,7 @@
 	/**
 	*   Transition the panel out
 	*   
-	*   @function transitionOut
+	*   @method transitionOut
 	*   @param {function} callback
 	*/
 	p.transitionOut = function(callback)
@@ -368,7 +375,7 @@
 	/**
 	*   Get if this State has been destroyed
 	*   
-	*   @function  getDestroyed
+	*   @method  getDestroyed
 	*   @return {bool} If this has been destroyed
 	*/
 	p.getDestroyed = function()
@@ -379,7 +386,7 @@
 	/**
 	*   Enable this panel, true is only non-loading and non-transitioning state
 	*   
-	*   @function setEnabled
+	*   @method setEnabled
 	*   @param {bool} enabled The enabled state
 	*/
 	p.setEnabled = function(enabled)
@@ -390,7 +397,7 @@
 	/**
 	*   Get the enabled status
 	*   
-	*   @function getEnabled
+	*   @method getEnabled
 	*   @return {bool} If this state is enabled
 	*/
 	p.getEnabled = function()
@@ -401,7 +408,7 @@
 	/**
 	*   Don't use the state object after this
 	*   
-	*   @function destroy
+	*   @method destroy
 	*/
 	p.destroy = function()
 	{		
@@ -838,6 +845,21 @@
 	};
 	
 	/**
+	*  Get or change the current state
+	*  @property {String} state
+	*/
+	Object.defineProperty(p, "state", {
+		set : function(id)
+		{
+			this.setState(id);
+		},
+		get : function()
+		{
+			return this._stateId;
+		}
+	});
+
+	/**
 	*  Set the current State
 	*  
 	*  @function setState
@@ -1080,6 +1102,59 @@
 			onComplete: callback, 
 			soundData: audio
 		});
+	};
+
+
+	/**
+	*  Goto the next state
+	*  @method next
+	*/
+	p.next = function()
+	{
+		var type = typeof this._state.nextState;
+
+		if (!this._state.nextState)
+		{
+			if (true)
+			{
+				Debug.info("'nextState' is undefined in current state, ignoring");
+			}
+			return;
+		}
+		else if (type === "function")
+		{
+			this._state.nextState();
+		}
+		else if (type === "string")
+		{
+			this.setState(this._state.nextState);
+		}
+	};
+
+	/**
+	*  Goto the previous state
+	*  @method previous
+	*/
+	p.previous = function()
+	{
+		var type = typeof this._state.prevState;
+
+		if (!this._state.prevState)
+		{
+			if (true)
+			{
+				Debug.info("'prevState' is undefined in current state, ignoring");
+			}
+			return;
+		}
+		else if (type === "function")
+		{
+			this._state.prevState();
+		}
+		else if (type === "string")
+		{
+			this.setState(this._state.prevState);
+		}
 	};
 	
 	/**

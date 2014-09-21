@@ -18,7 +18,7 @@
 	*  @extends SoundGame
 	*  @constructor
 	*  @param {object} [options] The Application options
-	*  @param {string} [options=state] The initial state
+	*  @param {string} [options.state] The initial state
 	*  @param {createjs.MovieClip|PIXI.Spine} [options.transition] The StateManager transition animation
 	*  @param {Object} [options.transitionSounds] The transition sound data
 	*  @param {Object|String} [options.transitionSounds.in="TransitionIn"] The transition in sound alias or sound object
@@ -26,7 +26,14 @@
 	*/
 	var StateGame = function(options)
 	{
-		SoundGame.call(this, options);
+		SoundGame.call(this, Object.merge({
+			state : null,
+			transition : null,
+			transitionSounds : {
+				'in' : 'TransitionIn',
+				'out' : 'TransitionOut'
+			}
+		}, options));
 
 		StateManager = include('cloudkid.StateManager');
 
@@ -34,7 +41,7 @@
 		*  The transition animation to use between the StateManager state changes
 		*  @property {createjs.MovieClip|PIXI.Spine} transition
 		*/
-		this.transition = options.transition ||  null;
+		this.transition = this.options.transition ||  null;
 
 		/**
 		*  The state manager
@@ -108,10 +115,7 @@
 		this.manager = new StateManager(
 			this.display,
 			this.transition, 
-			this.options.transitionSounds || {
-				"in" : "TransitionIn",
-				"out": "TransitionOut"
-			}
+			this.options.transitionSounds
 		);
 
 		// states should be added on this event!

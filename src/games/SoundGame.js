@@ -33,7 +33,11 @@
 		VOPlayer = include('cloudkid.VOPlayer');
 		Captions = include('cloudkid.Captions', false);
 
-		Game.call(this, options);
+		Game.call(this, Object.merge({
+			captionsPath : 'assets/config/captions.json',
+			swfPath : 'assets/swfs/',
+			mute : false
+		}, options));
 
 		/**
 		*  The current music alias playing
@@ -83,7 +87,7 @@
 			LoadTask = include('cloudkid.LoadTask');
 			tasks.push(new LoadTask(
 				'captions',
-				this.options.captionsPath || "assets/config/captions.json",
+				this.options.captionsPath,
 				onCaptionsLoaded.bind(this)
 			));
 		}

@@ -335,15 +335,10 @@
 	p._internalInit = function()
 	{
 		//grab the query string parameters if we should be doing so
-		if(this.options.parseQueryString)
-			parseQueryStringParams(this.options);
+		var query = !!this.options.parseQueryString ? parseQueryStringParams() : {};
 		
-		//set up default options
-		for(var key in _defaultOptions)
-		{
-			if(!this.options.hasOwnProperty(key))
-				this.options[key] = _defaultOptions[key];
-		}
+		// Assemble all of the options, the last takes precedence
+		this.options = Object.merge({}, _defaultOptions, this.options, query);
 
 		// Call any global libraries to initialize
 		for(var i = 0; i < Application._globalInit.length; ++i)
@@ -442,10 +437,11 @@
 	*  Define all of the query string parameters
 	*  @private
 	*  @method parseQueryStringParams
-	*  @param {object} output The object reference to update
+	*  @return {object} The object reference to update
 	*/
-	var parseQueryStringParams = function(output)
+	var parseQueryStringParams = function()
 	{
+		var output = {};
 		var href = window.location.search;
 		if(!href)//empty string is false
 			return output;
