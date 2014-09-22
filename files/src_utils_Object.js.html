@@ -252,6 +252,10 @@
 	/**
 	*  Merges two (or more) objects, giving the last one precedence
 	*  @method merge
+	*  @example
+		var obj1 = { id : &#x27;foo&#x27;, name : &#x27;Hello!&#x27;, value : 100 };
+		var obj2 = { id : &#x27;bar&#x27;, value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : &#x27;bar&#x27;, name : &#x27;Hello!&#x27;, value : 200 }
 	*  @static
 	*  @param {object} target The target object
 	*  @param {object} source* Additional objects to add
@@ -271,9 +275,6 @@
 				
 				if (typeof sourceProperty === &#x27;object&#x27; &amp;&amp; Object.isPlain(sourceProperty))
 				{
-					Debug.log(target[property]);
-					Debug.log(sourceProperty);
-
 					target[property] = Object.merge(target[property], sourceProperty);
 					continue;
 				}
