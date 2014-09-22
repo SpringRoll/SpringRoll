@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -278,12 +280,6 @@
                     
                 </li>
             
-                <li class="arg">
-                    
-                        <code class="optional">[options=state]</code>
-                    
-                </li>
-            
             </ul><span class="paren">)</span>
         </div>
     
@@ -348,28 +344,26 @@
                     </div>
 
                     
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[options=state]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The initial state</p>
-
-                    </div>
-
-                    
                         <ul class="params-list">
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[]</code>
+                                    <code class="param-name optional">[state]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial state</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[transition]</code>
                                     <span class="type">createjs.MovieClip | PIXI.Spine</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
@@ -384,7 +378,7 @@
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[]</code>
+                                    <code class="param-name optional">[transitionSounds]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
@@ -395,35 +389,33 @@
                                 </div>
 
                                 
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[in=&quot;TransitionEnd&quot;]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[in=&quot;TransitionIn&quot;]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                                <div class="param-description">
-                                    <p>The transition in sound alias or sound object</p>
+                                            <div class="param-description">
+                                                The transition in sound alias or sound object
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[out=&quot;TransitionOut&quot;]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[out=&quot;TransitionStart&quot;]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The transition out sound alias or sound object</p>
-
-                                </div>
-
+                                            <div class="param-description">
+                                                The transition out sound alias or sound object
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
                                 
                             </li>
                             
@@ -631,7 +623,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l133"><code>addState:133</code></a>
+        <a href="../files/src_games_StateGame.js.html#l137"><code>addState:137</code></a>
         
         </p>
 
@@ -736,7 +728,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l148"><code>addStates:148</code></a>
+        <a href="../files/src_games_StateGame.js.html#l152"><code>addStates:152</code></a>
         
         </p>
 
@@ -815,7 +807,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l161"><code>destroy:161</code></a>
+        <a href="../files/src_games_StateGame.js.html#l165"><code>destroy:165</code></a>
         
         </p>
 
@@ -872,7 +864,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l77"><code>onLoaded:77</code></a>
+        <a href="../files/src_games_StateGame.js.html#l84"><code>onLoaded:84</code></a>
         
         </p>
 
@@ -931,7 +923,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l182"><code>toString:182</code></a>
+        <a href="../files/src_games_StateGame.js.html#l186"><code>toString:186</code></a>
         
         </p>
 
@@ -999,7 +991,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l39"><code>manager:39</code></a>
+        <a href="../files/src_games_StateGame.js.html#l46"><code>manager:46</code></a>
         
         </p>
 
@@ -1044,7 +1036,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l33"><code>transition:33</code></a>
+        <a href="../files/src_games_StateGame.js.html#l40"><code>transition:40</code></a>
         
         </p>
 
@@ -1099,7 +1091,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l55"><code>initStateManager:55</code></a>
+        <a href="../files/src_games_StateGame.js.html#l62"><code>initStateManager:62</code></a>
         
         </p>
 
@@ -1144,7 +1136,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l71"><code>initStates:71</code></a>
+        <a href="../files/src_games_StateGame.js.html#l78"><code>initStates:78</code></a>
         
         </p>
 
@@ -1188,7 +1180,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l62"><code>statesReady:62</code></a>
+        <a href="../files/src_games_StateGame.js.html#l69"><code>statesReady:69</code></a>
         
         </p>
 

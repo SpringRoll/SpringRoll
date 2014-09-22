@@ -4,6 +4,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Array",
         "Debug",
         "Math",
+        "Object",
         "cloudkid.AbstractDisplay",
         "cloudkid.Application",
         "cloudkid.BaseState",

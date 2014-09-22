@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -274,6 +276,18 @@
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code class="optional">[nextState=null]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[prevState=null]</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -333,6 +347,40 @@
 
                     <div class="param-description">
                         <p>The panel to associate with this panel</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[nextState=null]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The next state alias</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[prevState=null]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The previous state alias</p>
 
                     </div>
 
@@ -481,13 +529,6 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_loadingDone">loadingDone</a>
 
                                 
@@ -595,8 +636,22 @@
                                 
                             </li>
                         
+                            <li class="index-item property protected">
+                                <a href="#property_nextState">nextState</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property">
                                 <a href="#property_panel">panel</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property protected">
+                                <a href="#property_prevState">prevState</a>
 
                                 
                                 
@@ -657,7 +712,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l256"><code>_internalCancel:256</code></a>
+        <a href="../files/src_states_BaseState.js.html#l263"><code>_internalCancel:263</code></a>
         
         </p>
 
@@ -724,7 +779,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l178"><code>_internalEnter:178</code></a>
+        <a href="../files/src_states_BaseState.js.html#l185"><code>_internalEnter:185</code></a>
         
         </p>
 
@@ -805,7 +860,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l287"><code>_internalEnterDone:287</code></a>
+        <a href="../files/src_states_BaseState.js.html#l294"><code>_internalEnterDone:294</code></a>
         
         </p>
 
@@ -862,7 +917,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l133"><code>_internalExit:133</code></a>
+        <a href="../files/src_states_BaseState.js.html#l141"><code>_internalExit:141</code></a>
         
         </p>
 
@@ -919,7 +974,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l160"><code>_internalExitStart:160</code></a>
+        <a href="../files/src_states_BaseState.js.html#l168"><code>_internalExitStart:168</code></a>
         
         </p>
 
@@ -974,7 +1029,7 @@
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l272"><code>cancel:272</code></a>
+        <a href="../files/src_states_BaseState.js.html#l279"><code>cancel:279</code></a>
         
         </p>
 
@@ -1030,7 +1085,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l400"><code>destroy:400</code></a>
+        <a href="../files/src_states_BaseState.js.html#l407"><code>destroy:407</code></a>
         
         </p>
 
@@ -1085,7 +1140,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l280"><code>enter:280</code></a>
+        <a href="../files/src_states_BaseState.js.html#l287"><code>enter:287</code></a>
         
         </p>
 
@@ -1140,7 +1195,7 @@ this is where any async actions are removed</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l301"><code>enterDone:301</code></a>
+        <a href="../files/src_states_BaseState.js.html#l308"><code>enterDone:308</code></a>
         
         </p>
 
@@ -1196,7 +1251,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l153"><code>exit:153</code></a>
+        <a href="../files/src_states_BaseState.js.html#l161"><code>exit:161</code></a>
         
         </p>
 
@@ -1251,7 +1306,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l171"><code>exitStart:171</code></a>
+        <a href="../files/src_states_BaseState.js.html#l179"><code>exitStart:179</code></a>
         
         </p>
 
@@ -1310,7 +1365,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l309"><code>getActive:309</code></a>
+        <a href="../files/src_states_BaseState.js.html#l316"><code>getActive:316</code></a>
         
         </p>
 
@@ -1383,7 +1438,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l122"><code>getCanceled:122</code></a>
+        <a href="../files/src_states_BaseState.js.html#l130"><code>getCanceled:130</code></a>
         
         </p>
 
@@ -1456,7 +1511,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l367"><code>getDestroyed:367</code></a>
+        <a href="../files/src_states_BaseState.js.html#l374"><code>getDestroyed:374</code></a>
         
         </p>
 
@@ -1529,7 +1584,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l389"><code>getEnabled:389</code></a>
+        <a href="../files/src_states_BaseState.js.html#l396"><code>getEnabled:396</code></a>
         
         </p>
 
@@ -1560,95 +1615,6 @@ that is, after the transition is done</p>
                 
             </div>
         </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>panel</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_states_BaseState.js.html#l112"><code>initialize:112</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialize the Base State</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">panel</code>
-                        <span class="type">createjs.MovieClip | PIXI.DisplayObjectContaner</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The panel</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
     
 
     
@@ -1687,7 +1653,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l233"><code>loadingDone:233</code></a>
+        <a href="../files/src_states_BaseState.js.html#l240"><code>loadingDone:240</code></a>
         
         </p>
 
@@ -1742,7 +1708,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l208"><code>loadingStart:208</code></a>
+        <a href="../files/src_states_BaseState.js.html#l215"><code>loadingStart:215</code></a>
         
         </p>
 
@@ -1807,7 +1773,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l378"><code>setEnabled:378</code></a>
+        <a href="../files/src_states_BaseState.js.html#l385"><code>setEnabled:385</code></a>
         
         </p>
 
@@ -1896,7 +1862,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l320"><code>transitionIn:320</code></a>
+        <a href="../files/src_states_BaseState.js.html#l327"><code>transitionIn:327</code></a>
         
         </p>
 
@@ -1984,7 +1950,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l343"><code>transitionOut:343</code></a>
+        <a href="../files/src_states_BaseState.js.html#l350"><code>transitionOut:350</code></a>
         
         </p>
 
@@ -2063,7 +2029,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l53"><code>_active:53</code></a>
+        <a href="../files/src_states_BaseState.js.html#l55"><code>_active:55</code></a>
         
         </p>
 
@@ -2110,7 +2076,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l69"><code>_canceled:69</code></a>
+        <a href="../files/src_states_BaseState.js.html#l71"><code>_canceled:71</code></a>
         
         </p>
 
@@ -2157,7 +2123,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l45"><code>_destroyed:45</code></a>
+        <a href="../files/src_states_BaseState.js.html#l47"><code>_destroyed:47</code></a>
         
         </p>
 
@@ -2204,7 +2170,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l92"><code>_enabled:92</code></a>
+        <a href="../files/src_states_BaseState.js.html#l94"><code>_enabled:94</code></a>
         
         </p>
 
@@ -2250,7 +2216,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l61"><code>_isLoading:61</code></a>
+        <a href="../files/src_states_BaseState.js.html#l63"><code>_isLoading:63</code></a>
         
         </p>
 
@@ -2297,7 +2263,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l77"><code>_onEnterProceed:77</code></a>
+        <a href="../files/src_states_BaseState.js.html#l79"><code>_onEnterProceed:79</code></a>
         
         </p>
 
@@ -2344,7 +2310,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l85"><code>_onLoadingComplete:85</code></a>
+        <a href="../files/src_states_BaseState.js.html#l87"><code>_onLoadingComplete:87</code></a>
         
         </p>
 
@@ -2390,7 +2356,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l99"><code>isTransitioning:99</code></a>
+        <a href="../files/src_states_BaseState.js.html#l101"><code>isTransitioning:101</code></a>
         
         </p>
 
@@ -2435,7 +2401,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l31"><code>manager:31</code></a>
+        <a href="../files/src_states_BaseState.js.html#l33"><code>manager:33</code></a>
         
         </p>
 
@@ -2446,6 +2412,54 @@ that is, after the transition is done</p>
 
     <div class="description">
         <p>A reference to the state manager</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_nextState" class="property item protected">
+    <h3 class="name"><code>nextState</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_states_BaseState.js.html#l109"><code>nextState:109</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Either the alias of the next state or a function
+to call when going to the next state.</p>
 
     </div>
 
@@ -2480,7 +2494,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l38"><code>panel:38</code></a>
+        <a href="../files/src_states_BaseState.js.html#l40"><code>panel:40</code></a>
         
         </p>
 
@@ -2491,6 +2505,54 @@ that is, after the transition is done</p>
 
     <div class="description">
         <p>Save the panel</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_prevState" class="property item protected">
+    <h3 class="name"><code>prevState</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_states_BaseState.js.html#l118"><code>prevState:118</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Either the alias of the previous state or a function
+to call when going to the previous state.</p>
 
     </div>
 
@@ -2525,7 +2587,7 @@ that is, after the transition is done</p>
             
         
         
-        <a href="../files/src_states_BaseState.js.html#l24"><code>stateID:24</code></a>
+        <a href="../files/src_states_BaseState.js.html#l26"><code>stateID:26</code></a>
         
         </p>
 

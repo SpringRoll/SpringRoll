@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -246,6 +248,7 @@
 	//Library depencencies
 	var Game = include(&#x27;cloudkid.Game&#x27;),
 		VOPlayer,
+		LoadTask,
 		Captions,
 		Sound;
 
@@ -271,7 +274,11 @@
 		VOPlayer = include(&#x27;cloudkid.VOPlayer&#x27;);
 		Captions = include(&#x27;cloudkid.Captions&#x27;, false);
 
-		Game.call(this, options);
+		Game.call(this, Object.merge({
+			captionsPath : &#x27;assets/config/captions.json&#x27;,
+			swfPath : &#x27;assets/swfs/&#x27;,
+			mute : false
+		}, options));
 
 		/**
 		*  The current music alias playing
@@ -318,9 +325,10 @@
 	{
 		if (this.options.captionsPath !== null)
 		{
+			LoadTask = include(&#x27;cloudkid.LoadTask&#x27;);
 			tasks.push(new LoadTask(
 				&#x27;captions&#x27;,
-				this.options.captionsPath || &quot;assets/config/captions.json&quot;,
+				this.options.captionsPath,
 				onCaptionsLoaded.bind(this)
 			));
 		}

@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -417,9 +419,12 @@
 		{
 			item = jsonItems[i];
 
-			if (!item)
+			if (parent[i] === undefined)
 			{
-				Debug.error(&quot;UIScaler: could not find object &#x27;&quot; +  iName + &quot;&#x27;&quot;);
+				if (DEBUG)
+				{
+					Debug.debug(&quot;UIScaler: could not find object &#x27;&quot; +  i + &quot;&#x27;&quot;);
+				}
 				continue;
 			}
 			
@@ -431,8 +436,8 @@
 			}
 			else
 			{
-				vertAlign = ALIGN_CENTER;
-				horiAlign = ALIGN_CENTER;
+				vertAlign = UIScaler.ALIGN_CENTER;
+				horiAlign = UIScaler.ALIGN_CENTER;
 			}
 			scaler.add(
 				parent[i], 

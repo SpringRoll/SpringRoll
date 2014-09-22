@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -263,7 +265,7 @@
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game
 	*  @param {string} [options.configPath=&#x27;assets/config/config.json&#x27;] The path to the default config to load
-	*  @param {boolean} [options.forceMobile] Manually override the check for isMobile (unminifed library version only)
+	*  @param {boolean} [options.forceMobile=false] Manually override the check for isMobile (unminifed library version only)
 	*  @param {boolean} [options.updateTween=true] Have the application take care of the Tween updates
 	*/
 	var Game = function(options)
@@ -271,20 +273,19 @@
 		LoadTask = include(&#x27;cloudkid.LoadTask&#x27;);
 		TaskManager = include(&#x27;cloudkid.TaskManager&#x27;);
 
-		// Override the updateTween Application default
-		if (options.updateTween === undefined)
-		{
-			options.updateTween = true;
-		}
-
-		Application.call(this, options);
+		Application.call(this, Object.merge({
+			updateTween : true,
+			name : &#x27;Untitled&#x27;,
+			forceMobile : false,
+			configPath : &#x27;assets/config/config.json&#x27;
+		}, options));
 
 		/**
 		*  The name of the game, useful for debugging purposes
 		*  @property {string} name
 		*  @default &quot;Untitled&quot;
 		*/
-		this.name = options.name || &quot;Untitled&quot;;
+		this.name = this.options.name;
 
 		/**
 		*  The game configuration loaded from and external JSON file
@@ -296,9 +297,9 @@
 		*  If the current brower is mobile
 		*  @property {boolean} isMobile
 		*/
-		if (DEBUG &amp;&amp; options.forceMobile !== undefined)
+		if (DEBUG &amp;&amp; this.options.forceMobile)
 		{
-			this.isMobile = !!options.forceMobile;
+			this.isMobile = true;
 		}
 		else
 		{
@@ -354,7 +355,7 @@
 		var tasks = [
 			new LoadTask(
 				&quot;config&quot;, 
-				this.options.configPath || &quot;assets/config/config.json&quot;, 
+				this.options.configPath, 
 				onConfigLoaded.bind(this)
 			)
 		];

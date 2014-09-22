@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -244,7 +246,7 @@
 (function(undefined){
 	
 	var StateManager,
-		Game = include(&#x27;cloudkid.Game&#x27;);
+		SoundGame = include(&#x27;cloudkid.SoundGame&#x27;);
 
 	/**
 	*  A game with state management, provides some convenience and events for adding states.
@@ -257,15 +259,22 @@
 	*  @extends SoundGame
 	*  @constructor
 	*  @param {object} [options] The Application options
-	*  @param {string} [options=state] The initial state
+	*  @param {string} [options.state] The initial state
 	*  @param {createjs.MovieClip|PIXI.Spine} [options.transition] The StateManager transition animation
 	*  @param {Object} [options.transitionSounds] The transition sound data
-	*  @param {Object|String} [options.transitionSounds.in=&quot;TransitionEnd&quot;] The transition in sound alias or sound object
-	*  @param {Object|String} [options.transitionSounds.out=&quot;TransitionStart&quot;] The transition out sound alias or sound object
+	*  @param {Object|String} [options.transitionSounds.in=&quot;TransitionIn&quot;] The transition in sound alias or sound object
+	*  @param {Object|String} [options.transitionSounds.out=&quot;TransitionOut&quot;] The transition out sound alias or sound object
 	*/
 	var StateGame = function(options)
 	{
-		SoundGame.call(this, options);
+		SoundGame.call(this, Object.merge({
+			state : null,
+			transition : null,
+			transitionSounds : {
+				&#x27;in&#x27; : &#x27;TransitionIn&#x27;,
+				&#x27;out&#x27; : &#x27;TransitionOut&#x27;
+			}
+		}, options));
 
 		StateManager = include(&#x27;cloudkid.StateManager&#x27;);
 
@@ -273,7 +282,7 @@
 		*  The transition animation to use between the StateManager state changes
 		*  @property {createjs.MovieClip|PIXI.Spine} transition
 		*/
-		this.transition = options.transition ||  null;
+		this.transition = this.options.transition ||  null;
 
 		/**
 		*  The state manager
@@ -322,7 +331,7 @@
 	{
 		this.off(&#x27;soundReady&#x27;);
 
-		this.trigger(INIT_STATE_MANAGER);
+		this.trigger(INIT_STATES);
 
 		// Goto the transition state
 		if (!this.transition)
@@ -347,10 +356,7 @@
 		this.manager = new StateManager(
 			this.display,
 			this.transition, 
-			options.transitionSounds || {
-				&quot;in&quot; : &quot;TransitionEnd&quot;,
-				&quot;out&quot;: &quot;TransitionStart&quot;
-			}
+			this.options.transitionSounds
 		);
 
 		// states should be added on this event!
@@ -360,9 +366,9 @@
 		this.display.stage.addChild(this.transition);
 
 		// Goto the first state
-		if (options.state)
+		if (this.options.state)
 		{
-			this.manager.setState(options.state);
+			this.manager.setState(this.options.state);
 		}
 
 		// Rock and roll

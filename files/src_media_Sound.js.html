@@ -169,6 +169,8 @@
             
                 <li><a href="../classes/namespace.html">namespace</a></li>
             
+                <li><a href="../classes/Object.html">Object</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
@@ -791,7 +793,8 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error(&quot;cloudkid.Sound: sound &quot; + alias + &quot; not found!&quot;);
+			Debug.error(&quot;cloudkid.Sound: alias &#x27;&quot; + alias + &quot;&#x27; not found!&quot;);
+			
 			if (completeCallback)
 				completeCallback();
 			return;
