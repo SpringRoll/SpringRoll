@@ -1098,7 +1098,7 @@
 	*  @class Button
 	*  @extends PIXI.DisplayObjectContainer
 	*  @constructor
-	*  @param {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
+	*  @param {Object} imageSettings Information about the art to be used for button states, as well as if the button is selectable or not.
 	*  @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to ["disabled", "down", "over", "up"].
 	*         Previous versions of Button used a hard coded order: ["highlighted", "disabled", "down", "over", "selected", "up"].
 	*  @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button. This can be either the texture itself,
@@ -1139,7 +1139,11 @@
 	*/
 	var Button = function(imageSettings, label, enabled)
 	{
-		if (!imageSettings) return;
+		if (!imageSettings && true)
+		{
+			throw "cloudkid.pixi.Button requires image as first parameter";
+		}
+
 		DisplayObjectContainer.call(this);
 
 		/*

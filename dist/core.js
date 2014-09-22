@@ -119,6 +119,10 @@
 	/**
 	*  Merges two (or more) objects, giving the last one precedence
 	*  @method merge
+	*  @example
+		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+		var obj2 = { id : 'bar', value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
 	*  @static
 	*  @param {object} target The target object
 	*  @param {object} source* Additional objects to add
@@ -138,9 +142,6 @@
 				
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
-					Debug.log(target[property]);
-					Debug.log(sourceProperty);
-
 					target[property] = Object.merge(target[property], sourceProperty);
 					continue;
 				}
@@ -1180,16 +1181,16 @@
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
-	*  @param {Boolean} [options.debug=false] Enable the Debugger,
-	*		the debug module must be included to use this feature.
+	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
-	*		the debug module must be included to use this feature.
+	*		the `Debug` class must be used for this feature.
 	*  @param {String} [options.ip] The host computer for IP remote debugging,
 	*		the debug module must be included to use this feature.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
+	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var Application = function(options)
 	{

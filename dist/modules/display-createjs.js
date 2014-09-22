@@ -1482,7 +1482,10 @@
 	 */
 	var Button = function(imageSettings, label, enabled)
 	{
-		if (!imageSettings) return;
+		if (!imageSettings && true)
+		{
+			throw "cloudkid.createjs.Button requires an image as the first parameter";
+		}
 
 		Container.call(this);
 
