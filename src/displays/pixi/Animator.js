@@ -56,7 +56,7 @@
 		_animPool = [];
 		_timelines = [];
 
-		Sound = include('cloudkid.Sound');
+		Sound = include('cloudkid.Sound', false);
 	};
 	
 	/**
@@ -84,11 +84,6 @@
 	*/
 	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
 	{
-		if (!Sound.instance)
-		{
-			throw "Sound needs to be initialized for Animator";
-		}
-
 		var callback = null;
 
 		if (options && typeof options == "function")
@@ -182,7 +177,7 @@
 			if (startTime > 0)
 				clip.updateAnim(startTime * t.speed);
 		}
-		if (soundData)
+		if (soundData && Sound)//only do sound if the Sound library is in use
 		{
 			t.playSound = true;
 			if (typeof soundData == "string")
@@ -201,9 +196,9 @@
 			{
 				t.soundInst = Sound.instance.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
 			}
-			//if it can preload sound this way
-			else if(Sound.instance.preloadSound)
+			else
 			{
+				//start preloading the sound, for less wait time when the animation gets to it
 				Sound.instance.preloadSound(soundData.alias);
 			}
 		}

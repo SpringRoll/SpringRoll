@@ -107,7 +107,7 @@
 		_timelinesMap = {};
 		_paused = false;
 
-		Sound = include('cloudkid.Sound');
+		Sound = include('cloudkid.Sound', false);
 	};
 	
 	/**
@@ -146,12 +146,7 @@
 	*   @static
 	*/
 	Animator.play = function(instance, event, options, onCompleteParams, startTime, speed, soundData, doCancelledCallback)
-	{
-		if (!Sound.instance)
-		{
-			throw "Sound needs to be initialized for Animator";
-		}
-		
+	{	
 		var onComplete;
 
 		if (options && typeof options == "function")
@@ -197,8 +192,8 @@
 			_timelines.push(timeline);
 			_timelinesMap[instance.id] = timeline;
 
-			//If the sound doesn't play immediately and we can preload it, we should do that
-			if (timeline.soundStart > 0 && Sound.instance.preloadSound)
+			//start preloading the sound, for less wait time when the animation gets to it
+			if (timeline.soundStart > 0)
 			{
 				Sound.instance.preloadSound(timeline.soundAlias);
 			}
@@ -278,7 +273,7 @@
 		timeline.onComplete = onComplete;
 		timeline.onCompleteParams = onCompleteParams;
 		timeline.speed = speed;
-		if (soundData)
+		if (soundData && Sound)
 		{
 			timeline.playSound = true;
 			if (typeof soundData == "string")
