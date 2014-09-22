@@ -1674,7 +1674,7 @@
 	{
 		if (this.captions)
 		{
-			this.captions.updateTime(elapsed);
+			this.captions.seek(elapsed);
 		}
 		
 		this._timer -= elapsed;
