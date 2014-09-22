@@ -11,6 +11,10 @@
 	/**
 	*  Merges two (or more) objects, giving the last one precedence
 	*  @method merge
+	*  @example
+		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+		var obj2 = { id : 'bar', value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
 	*  @static
 	*  @param {object} target The target object
 	*  @param {object} source* Additional objects to add
