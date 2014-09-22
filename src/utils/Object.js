@@ -30,9 +30,6 @@
 				
 				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
 				{
-					Debug.log(target[property]);
-					Debug.log(sourceProperty);
-
 					target[property] = Object.merge(target[property], sourceProperty);
 					continue;
 				}
