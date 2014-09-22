@@ -481,8 +481,7 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Enable the Debugger,
-        the debug module must be included to use this feature.</p>
+                                    <p>Enable the Debug class</p>
 
                                 </div>
 
@@ -498,7 +497,7 @@ manages displays, update loop controlling, handles resizing</p>
 
                                 <div class="param-description">
                                     <p>The minimum log level to show debug messages for from 0 (general) to 4 (error),
-        the debug module must be included to use this feature.</p>
+        the <code>Debug</code> class must be used for this feature.</p>
 
                                 </div>
 
@@ -559,7 +558,7 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)</p>
+                                    <p>The name of the class to instaniate as the display (e.g. <code>cloudkid.PixiDisplay</code>)</p>
 
                                 </div>
 
@@ -575,6 +574,21 @@ manages displays, update loop controlling, handles resizing</p>
 
                                 <div class="param-description">
                                     <p>Display-specific options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[crossOrigin=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Used by <code>cloudkid.PixiTask</code>, default behavior is to load assets from the same domain.</p>
 
                                 </div>
 

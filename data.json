@@ -2050,6 +2050,111 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
+                        },
+                        {
+                            "name": "fps",
+                            "description": "The framerate to use for rendering the stage",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "60"
+                        },
+                        {
+                            "name": "raf",
+                            "description": "Use request animation frame",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "versionsFile",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "cacheBust",
+                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "basePath",
+                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "resizeElement",
+                            "description": "The element to resize the canvas to",
+                            "type": "String|DOMElement|Window",
+                            "optional": true
+                        },
+                        {
+                            "name": "uniformResize",
+                            "description": "Whether to resize the displays to the original aspect ratio",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "queryStringParameters",
+                            "description": "Parse the query string paramenters as options",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "debug",
+                            "description": "Enable the Debug class",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "minLogLevel",
+                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "0"
+                        },
+                        {
+                            "name": "ip",
+                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "updateTween",
+                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "canvasId",
+                            "description": "The default display DOM ID name",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "display",
+                            "description": "The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "displayOptions",
+                            "description": "Display-specific options",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "crossOrigin",
+                            "description": "Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
                         }
                     ]
                 }
@@ -2078,7 +2183,196 @@
                     "name": "options",
                     "description": "The collection of options, see Application for more options.",
                     "type": "Object",
-                    "optional": true
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "state",
+                            "description": "The initial state",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "transition",
+                            "description": "The StateManager transition animation",
+                            "type": "createjs.MovieClip|PIXI.Spine",
+                            "optional": true
+                        },
+                        {
+                            "name": "transitionSounds",
+                            "description": "The transition sound data",
+                            "type": "Object",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "in",
+                                    "description": "The transition in sound alias or sound object",
+                                    "type": "Object|String",
+                                    "optional": true,
+                                    "optdefault": "\"TransitionIn\""
+                                },
+                                {
+                                    "name": "out",
+                                    "description": "The transition out sound alias or sound object",
+                                    "type": "Object|String",
+                                    "optional": true,
+                                    "optdefault": "\"TransitionOut\""
+                                }
+                            ]
+                        },
+                        {
+                            "name": "captionsPath",
+                            "description": "The path to the captions dictionary. If this is set to null\n\t\tcaptions will not be created or used by the VO player.",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "'assets/config/captions.json'"
+                        },
+                        {
+                            "name": "swfPath",
+                            "description": "The relative location to the FlashPlugin swf for SoundJS",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "'assets/swfs/'"
+                        },
+                        {
+                            "name": "mute",
+                            "description": "Set the initial mute state of the all the audio (unminifed library version only)",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The name of the game",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "configPath",
+                            "description": "The path to the default config to load",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "'assets/config/config.json'"
+                        },
+                        {
+                            "name": "forceMobile",
+                            "description": "Manually override the check for isMobile (unminifed library version only)",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "updateTween",
+                            "description": "Have the application take care of the Tween updates",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "fps",
+                            "description": "The framerate to use for rendering the stage",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "60"
+                        },
+                        {
+                            "name": "raf",
+                            "description": "Use request animation frame",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "versionsFile",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "cacheBust",
+                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "basePath",
+                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "resizeElement",
+                            "description": "The element to resize the canvas to",
+                            "type": "String|DOMElement|Window",
+                            "optional": true
+                        },
+                        {
+                            "name": "uniformResize",
+                            "description": "Whether to resize the displays to the original aspect ratio",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "queryStringParameters",
+                            "description": "Parse the query string paramenters as options",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "debug",
+                            "description": "Enable the Debug class",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "minLogLevel",
+                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "0"
+                        },
+                        {
+                            "name": "ip",
+                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "updateTween",
+                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "canvasId",
+                            "description": "The default display DOM ID name",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "display",
+                            "description": "The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "displayOptions",
+                            "description": "Display-specific options",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "crossOrigin",
+                            "description": "Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        }
+                    ]
                 }
             ]
         },
@@ -2124,6 +2418,138 @@
                         {
                             "name": "mute",
                             "description": "Set the initial mute state of the all the audio (unminifed library version only)",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The name of the game",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "configPath",
+                            "description": "The path to the default config to load",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "'assets/config/config.json'"
+                        },
+                        {
+                            "name": "forceMobile",
+                            "description": "Manually override the check for isMobile (unminifed library version only)",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "updateTween",
+                            "description": "Have the application take care of the Tween updates",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "fps",
+                            "description": "The framerate to use for rendering the stage",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "60"
+                        },
+                        {
+                            "name": "raf",
+                            "description": "Use request animation frame",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "versionsFile",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "cacheBust",
+                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "basePath",
+                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "resizeElement",
+                            "description": "The element to resize the canvas to",
+                            "type": "String|DOMElement|Window",
+                            "optional": true
+                        },
+                        {
+                            "name": "uniformResize",
+                            "description": "Whether to resize the displays to the original aspect ratio",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "queryStringParameters",
+                            "description": "Parse the query string paramenters as options",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "debug",
+                            "description": "Enable the Debug class",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "minLogLevel",
+                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "0"
+                        },
+                        {
+                            "name": "ip",
+                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "updateTween",
+                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "canvasId",
+                            "description": "The default display DOM ID name",
+                            "type": "String",
+                            "optional": true
+                        },
+                        {
+                            "name": "display",
+                            "description": "The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
+                            "name": "displayOptions",
+                            "description": "Display-specific options",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "crossOrigin",
+                            "description": "Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -3254,14 +3680,14 @@
                         },
                         {
                             "name": "debug",
-                            "description": "Enable the Debugger,\n\t\tthe debug module must be included to use this feature.",
+                            "description": "Enable the Debug class",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "minLogLevel",
-                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe debug module must be included to use this feature.",
+                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
@@ -3287,7 +3713,7 @@
                         },
                         {
                             "name": "display",
-                            "description": "The name of the class to instaniate as the display (e.g. cloudkid.PixiDisplay)",
+                            "description": "The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)",
                             "type": "Function",
                             "optional": true
                         },
@@ -3296,6 +3722,13 @@
                             "description": "Display-specific options",
                             "type": "Object",
                             "optional": true
+                        },
+                        {
+                            "name": "crossOrigin",
+                            "description": "Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
                         }
                     ]
                 }
@@ -8827,7 +9260,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 42,
+            "line": 65,
             "description": "The name of the game, useful for debugging purposes",
             "itemtype": "property",
             "name": "name",
@@ -8839,7 +9272,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 49,
+            "line": 72,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
@@ -8850,7 +9283,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 55,
+            "line": 78,
             "description": "If the current brower is mobile",
             "itemtype": "property",
             "name": "isMobile",
@@ -8861,7 +9294,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 83,
+            "line": 106,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -8871,7 +9304,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 89,
+            "line": 112,
             "description": "The config has finished loading, in case you want to \nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -8893,7 +9326,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 98,
+            "line": 121,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -8910,7 +9343,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 105,
+            "line": 128,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -8922,7 +9355,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 128,
+            "line": 151,
             "description": "Callback when the config is loaded",
             "params": [
                 {
@@ -8937,7 +9370,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 138,
+            "line": 161,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -8949,7 +9382,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 148,
+            "line": 171,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -8959,7 +9392,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 159,
+            "line": 182,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -8973,7 +9406,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 29,
+            "line": 65,
             "description": "The current device pixel ratio as reported by the browser",
             "itemtype": "property",
             "name": "pixelRatio",
@@ -8984,7 +9417,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 35,
+            "line": 71,
             "description": "The main UIScaler for any display object references in the main game.",
             "itemtype": "property",
             "name": "scaler",
@@ -8995,7 +9428,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 41,
+            "line": 77,
             "description": "The default pixels per inch on the screen",
             "itemtype": "property",
             "name": "ppi",
@@ -9007,7 +9440,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 56,
+            "line": 92,
             "description": "The main entry point for this game",
             "itemtype": "event",
             "name": "scalingReady",
@@ -9017,7 +9450,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 62,
+            "line": 98,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -9029,7 +9462,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 116,
+            "line": 152,
             "description": "Handler for the stage resizing",
             "itemtype": "method",
             "name": "resize",
@@ -9053,7 +9486,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 140,
+            "line": 176,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9063,7 +9496,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 154,
+            "line": 190,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -9077,7 +9510,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 42,
+            "line": 69,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -9090,7 +9523,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 49,
+            "line": 76,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -9101,7 +9534,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 69,
+            "line": 96,
             "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use. Do NOT use Application's init,\nor Game's loaded events as the entry point for your application.",
             "itemtype": "event",
             "name": "soundReady",
@@ -9111,7 +9544,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 77,
+            "line": 104,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoading",
@@ -9130,7 +9563,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 100,
+            "line": 127,
             "description": "Callback when the captions have been loaded",
             "itemtype": "method",
             "name": "onCaptionsLoaded",
@@ -9149,7 +9582,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 119,
+            "line": 146,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoaded",
@@ -9161,7 +9594,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 133,
+            "line": 160,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -9173,7 +9606,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 160,
+            "line": 187,
             "description": "Set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -9185,7 +9618,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 203,
+            "line": 230,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9195,7 +9628,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 217,
+            "line": 244,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -17485,7 +17918,7 @@
         },
         {
             "message": "Missing item type\nCallback when the config is loaded",
-            "line": " src/games/Game.js:128"
+            "line": " src/games/Game.js:151"
         },
         {
             "message": "Missing item type\nReference to the prototype extends application",

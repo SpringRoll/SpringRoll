@@ -408,6 +408,253 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
                             </li>
                             
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[fps=60]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The framerate to use for rendering the stage</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[raf=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Use request animation frame</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[versionsFile]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Path to a text file which contains explicit version
+        numbers for each asset. This is useful for controlling the live browser cache.
+        For instance, this text file would have an asset on each line followed by a number: 
+         <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[cacheBust=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Override the end-user browser cache by adding "?v=" 
+        to the end of each file path requested. Use for developmently, debugging only!</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[basePath]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The optional file path to prefix to any relative file requests
+        this is a great way to load all load requests with a CDN path.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[resizeElement]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement | Window</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The element to resize the canvas to</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[uniformResize=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Whether to resize the displays to the original aspect ratio</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[queryStringParameters=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Parse the query string paramenters as options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[debug=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Enable the Debug class</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[minLogLevel=0]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The minimum log level to show debug messages for from 0 (general) to 4 (error),
+        the <code>Debug</code> class must be used for this feature.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[ip]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The host computer for IP remote debugging,
+        the debug module must be included to use this feature.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[updateTween=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If using TweenJS, the Application will update the Tween itself</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[canvasId]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The default display DOM ID name</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[display]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The name of the class to instaniate as the display (e.g. <code>cloudkid.PixiDisplay</code>)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[displayOptions]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Display-specific options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[crossOrigin=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Used by <code>cloudkid.PixiTask</code>, default behavior is to load assets from the same domain.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
                         </ul>
                     
                 </li>
@@ -596,7 +843,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l148"><code>destroy:148</code></a>
+        <a href="../files/src_games_Game.js.html#l171"><code>destroy:171</code></a>
         
         </p>
 
@@ -653,7 +900,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l105"><code>onSoundReady:105</code></a>
+        <a href="../files/src_games_Game.js.html#l128"><code>onSoundReady:128</code></a>
         
         </p>
 
@@ -710,7 +957,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l138"><code>onTasksComplete:138</code></a>
+        <a href="../files/src_games_Game.js.html#l161"><code>onTasksComplete:161</code></a>
         
         </p>
 
@@ -769,7 +1016,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l159"><code>toString:159</code></a>
+        <a href="../files/src_games_Game.js.html#l182"><code>toString:182</code></a>
         
         </p>
 
@@ -837,7 +1084,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l49"><code>config:49</code></a>
+        <a href="../files/src_games_Game.js.html#l72"><code>config:72</code></a>
         
         </p>
 
@@ -882,7 +1129,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l55"><code>isMobile:55</code></a>
+        <a href="../files/src_games_Game.js.html#l78"><code>isMobile:78</code></a>
         
         </p>
 
@@ -927,7 +1174,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l42"><code>name:42</code></a>
+        <a href="../files/src_games_Game.js.html#l65"><code>name:65</code></a>
         
         </p>
 
@@ -984,7 +1231,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l89"><code>configLoaded:89</code></a>
+        <a href="../files/src_games_Game.js.html#l112"><code>configLoaded:112</code></a>
         
         </p>
 
@@ -1069,7 +1316,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l83"><code>loaded:83</code></a>
+        <a href="../files/src_games_Game.js.html#l106"><code>loaded:106</code></a>
         
         </p>
 
@@ -1113,7 +1360,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l98"><code>loading:98</code></a>
+        <a href="../files/src_games_Game.js.html#l121"><code>loading:121</code></a>
         
         </p>
 

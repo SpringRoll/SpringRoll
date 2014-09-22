@@ -392,6 +392,313 @@
                                 
                             </li>
                             
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[name]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The name of the game</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[configPath=&#x27;assets/config/config.json&#x27;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The path to the default config to load</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[forceMobile=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Manually override the check for isMobile (unminifed library version only)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[updateTween=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Have the application take care of the Tween updates</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[fps=60]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The framerate to use for rendering the stage</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[raf=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Use request animation frame</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[versionsFile]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Path to a text file which contains explicit version
+        numbers for each asset. This is useful for controlling the live browser cache.
+        For instance, this text file would have an asset on each line followed by a number: 
+         <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[cacheBust=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Override the end-user browser cache by adding "?v=" 
+        to the end of each file path requested. Use for developmently, debugging only!</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[basePath]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The optional file path to prefix to any relative file requests
+        this is a great way to load all load requests with a CDN path.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[resizeElement]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement | Window</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The element to resize the canvas to</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[uniformResize=true]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Whether to resize the displays to the original aspect ratio</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[queryStringParameters=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Parse the query string paramenters as options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[debug=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Enable the Debug class</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[minLogLevel=0]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The minimum log level to show debug messages for from 0 (general) to 4 (error),
+        the <code>Debug</code> class must be used for this feature.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[ip]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The host computer for IP remote debugging,
+        the debug module must be included to use this feature.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[updateTween=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If using TweenJS, the Application will update the Tween itself</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[canvasId]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The default display DOM ID name</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[display]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The name of the class to instaniate as the display (e.g. <code>cloudkid.PixiDisplay</code>)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[displayOptions]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Display-specific options</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[crossOrigin=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Used by <code>cloudkid.PixiTask</code>, default behavior is to load assets from the same domain.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
                         </ul>
                     
                 </li>
@@ -580,7 +887,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l203"><code>destroy:203</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l230"><code>destroy:230</code></a>
         
         </p>
 
@@ -647,7 +954,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l100"><code>onCaptionsLoaded:100</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l127"><code>onCaptionsLoaded:127</code></a>
         
         </p>
 
@@ -728,7 +1035,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l119"><code>onLoaded:119</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l146"><code>onLoaded:146</code></a>
         
         </p>
 
@@ -795,7 +1102,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l77"><code>onLoading:77</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l104"><code>onLoading:104</code></a>
         
         </p>
 
@@ -876,7 +1183,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l133"><code>onSoundReady:133</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l160"><code>onSoundReady:160</code></a>
         
         </p>
 
@@ -935,7 +1242,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l217"><code>toString:217</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l244"><code>toString:244</code></a>
         
         </p>
 
@@ -1005,7 +1312,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l42"><code>_music:42</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l69"><code>_music:69</code></a>
         
         </p>
 
@@ -1050,7 +1357,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l160"><code>music:160</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l187"><code>music:187</code></a>
         
         </p>
 
@@ -1097,7 +1404,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l49"><code>player:49</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l76"><code>player:76</code></a>
         
         </p>
 
@@ -1152,7 +1459,7 @@
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l69"><code>soundReady:69</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l96"><code>soundReady:96</code></a>
         
         </p>
 
