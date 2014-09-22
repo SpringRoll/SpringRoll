@@ -839,16 +839,18 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				this._listeners[n] = this._listeners[n] || [];
+				var listener = this._listeners[n];
+				if(!listener)
+					listener = this._listeners[n] = [];
 				
-				if (this._listeners[n].indexOf(callback) === -1)
+				if (listener.indexOf(callback) === -1)
 				{
-					this._listeners[n].push(callback);
+					listener.push(callback);
 				}
 			}
 		}
 		// Callbacks array
-		else if (type(callback) === 'array')
+		else if (Array.isArray(callback))
 		{
 			for (var f = 0, fl = callback.length; f < fl; f++)
 			{
@@ -874,7 +876,7 @@
 			this._listeners = [];
 		}
 		// remove multiple callbacks
-		else if (type(callback) === 'array')
+		else if (Array.isArray(callback))
 		{
 			for (var f = 0, fl = callback.length; f < fl; f++) 
 			{
@@ -887,19 +889,22 @@
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				this._listeners[n] = this._listeners[n] || [];
-				
-				// remove all by time
-				if (callback === undefined)
+				var listener = this._listeners[n];
+				if(listener)
 				{
-					this._listeners[n].length = 0;
-				}
-				else
-				{
-					var index = this._listeners[n].indexOf(callback);
-					if (index !== -1)
+					// remove all listeners for that event
+					if (callback === undefined)
 					{
-						this._listeners[n].splice(index, 1);
+						listener.length = 0;
+					}
+					else
+					{
+						//remove single listener
+						var index = listener.indexOf(callback);
+						if (index !== -1)
+						{
+							listener.splice(index, 1);
+						}
 					}
 				}
 			}
@@ -938,13 +943,14 @@
 	{
 		if (value === null)
 		{
-			return String(value);
+			return 'null';
 		}
-		if (typeof value === 'object' || typeof value === 'function')
+		var typeOfValue = typeof value;
+		if (typeOfValue === 'object' || typeOfValue === 'function')
 		{
 			return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
 		}
-		return typeof value;
+		return typeOfValue;
 	}
 
 	/**
