@@ -422,7 +422,9 @@
 
 			// Give the display to the animators
 			this.getDisplays(function(display){
-				display.animator.captions = captions;
+				//ensure that displays without Animators don't break anything
+				if(display.animator)
+					display.animator.captions = captions;
 			});
 
 			// Add the reference to the game

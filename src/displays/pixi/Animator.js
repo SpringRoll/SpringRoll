@@ -352,8 +352,7 @@
 					);
 					if (t.useCaptions)
 					{
-						Animator.captions.isSlave = true;
-						Animator.captions.run(t.soundAlias);
+						Animator.captions.play(t.soundAlias);
 					}
 				}
 			}
