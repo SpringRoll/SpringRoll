@@ -735,6 +735,9 @@
 	*/
 	Positioner.positionItems = function(parent, itemSettings, display)
 	{
+		if(!display)
+			display = cloudkid.Application.instance.display;
+
 		var adapter = UIScaler.getAdapter(display);
 
 		var pt, degToRad = Math.PI / 180, scale;
@@ -806,6 +809,9 @@
 	*/
 	Positioner.generateHitArea = function(hitArea, scale, display)
 	{
+		if(!display)
+			display = cloudkid.Application.instance.display;
+		
 		var adapter = UIScaler.getAdapter(display);
 
 		if (!scale) scale = 1;
