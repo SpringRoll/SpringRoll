@@ -688,14 +688,14 @@
 		// Add the transition on top of everything else
 		this.display.stage.addChild(this.transition);
 
+		// Rock and roll
+		this.trigger(STATES_READY);
+
 		// Goto the first state
 		if (this.options.state)
 		{
 			this.manager.setState(this.options.state);
 		}
-
-		// Rock and roll
-		this.trigger(STATES_READY);
 	};
 
 	/**

@@ -1591,8 +1591,8 @@
 	*	@method play
 	*	@public
 	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
-	*	@param {function} callback The function to call when playback is complete.
-	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop() or play() call.
+	*	@param {function} [callback] The function to call when playback is complete.
+	*	@param {function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
 	*/
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
