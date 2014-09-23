@@ -3396,7 +3396,7 @@
                 {
                     "name": "display",
                     "description": "The display on which the transition animation is displayed.",
-                    "type": "cloudkid.CreateJSDisplay|cloudkid.PixiDisplay"
+                    "type": "cloudkid.AbstractDisplay"
                 },
                 {
                     "name": "transition",
@@ -8154,7 +8154,7 @@
             "description": "The global captions object to use with animator",
             "itemtype": "property",
             "name": "captions",
-            "type": "Captions",
+            "type": "cloudkid.Captions",
             "access": "public",
             "tagname": "",
             "class": "cloudkid.pixi.Animator",
@@ -14616,7 +14616,7 @@
             "description": "The display that holds the states this StateManager is managing.",
             "itemtype": "property",
             "name": "_display",
-            "type": "cloudkid.CreateJSDisplay|cloudkid.PixiDisplay",
+            "type": "cloudkid.AbstractDisplay",
             "access": "private",
             "tagname": "",
             "class": "cloudkid.StateManager",
@@ -14970,7 +14970,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 312,
+            "line": 311,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -14980,7 +14980,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 322,
+            "line": 321,
             "description": "This transitions out of the current state and \nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -14990,7 +14990,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 334,
+            "line": 333,
             "description": "Get or change the current state",
             "itemtype": "property",
             "name": "state",
@@ -15001,7 +15001,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 349,
+            "line": 348,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
@@ -15018,7 +15018,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 442,
+            "line": 441,
             "description": "When the state has completed it's loading sequence\nthis should be treated as an asyncronous process",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -15030,7 +15030,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 486,
+            "line": 485,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -15045,7 +15045,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 508,
+            "line": 507,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -15057,7 +15057,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 534,
+            "line": 533,
             "description": "Displays the transition out animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -15074,7 +15074,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 554,
+            "line": 553,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -15091,7 +15091,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 566,
+            "line": 565,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -15115,7 +15115,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 595,
+            "line": 594,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -15125,7 +15125,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 621,
+            "line": 620,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -15135,7 +15135,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 647,
+            "line": 646,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -18997,43 +18997,43 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:312"
+            "line": " src/states/StateManager.js:311"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:322"
+            "line": " src/states/StateManager.js:321"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:349"
+            "line": " src/states/StateManager.js:348"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:442"
+            "line": " src/states/StateManager.js:441"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:486"
+            "line": " src/states/StateManager.js:485"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:508"
+            "line": " src/states/StateManager.js:507"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:534"
+            "line": " src/states/StateManager.js:533"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:554"
+            "line": " src/states/StateManager.js:553"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:566"
+            "line": " src/states/StateManager.js:565"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:647"
+            "line": " src/states/StateManager.js:646"
         },
         {
             "message": "replacing incorrect tag: function with method",
