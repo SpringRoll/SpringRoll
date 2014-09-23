@@ -138,6 +138,12 @@
 		if (result)
 		{
 			captions = new Captions(result.content);
+			var displays = this.getDisplays();
+			for(var i = 0; i < displays.length; ++i)
+			{
+				if(this.display.animator)
+					this.display.animator.captions = captions;
+			}
 		}
 
 		this.player = new VOPlayer(captions);
