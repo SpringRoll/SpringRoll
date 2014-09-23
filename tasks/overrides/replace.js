@@ -4,8 +4,8 @@ module.exports = {
 		overwrite: true,
 		replacements: '<%= replace.development.replacements %>'
 	},
-	displaygeneric: {
-		src: ['<%= distFolder %>/modules/display-generic.js'],
+	displaynative: {
+		src: ['<%= distFolder %>/modules/display-native.js'],
 		overwrite: true,
 		replacements: '<%= replace.development.replacements %>'
 	},

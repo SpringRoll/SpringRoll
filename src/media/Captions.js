@@ -2,7 +2,7 @@
 *  @module Captions
 *  @namespace cloudkid
 */
-(function(){
+(function(undefined){
 	
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -29,7 +29,8 @@
 	* @class Captions
 	* @constructor
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
-	* @param {createjs.Text} [field=null] An text field to use as the output for this captions object
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] An text field to use as the output for this captions object,
+	* * if a string type is supplied, captions will use the DOMElement by id.
 	*/
 	var Captions = function(captionDictionary, field)
 	{
@@ -45,14 +46,13 @@
 		this._captionDict = null;
 		
 		/** 
-		* A reference to the CreateJS Text object that Captions should be controlling. 
+		* A reference to the Text object that Captions should be controlling. 
 		* Only one text field can be controlled at a time.
-		* When using PIXI textfields, textIsProp should be false.
 		*
 		* @private
-		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText} _textField
+		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
 		*/
-		this._textField = null;
+		this._textField = (typeof field === "string" ? document.getElementById(field) : (field || null));
 		
 		/** 
 		* The function to call when playback is complete. 
@@ -68,7 +68,7 @@
 		* @private
 		* @property {Array} _lines
 		*/
-		this._lines = null;
+		this._lines = [];
 		
 		/** 
 		* The duration in milliseconds of the current sound. 
@@ -111,16 +111,6 @@
 		this._playing = false;
 		
 		/**
-		* If text should be set on the text field with '.text = ' instead of '.setText()'.
-		* When using PIXI textfields, textIsProp should be false.
-		* Default is true.
-		*
-		* @private
-		* @property {bool} textIsProp
-		*/
-		this.textIsProp = true;
-		
-		/**
 		* If this instance has been destroyed already 
 		* 
 		* @private
@@ -128,8 +118,8 @@
 		*/
 		this._isDestroyed = false;
 
-		// Initialize
-		this.initialize(captionDictionary, field);
+		// Set the captions dictionary
+		this.setDictionary(captionDictionary || null);
 	};
 	
 	/** 
@@ -163,22 +153,6 @@
 	* @static
 	*/
 	Captions.VERSION = "${version}";
-	
-	/**
-	* Constructor for caption.
-	*
-	* @private
-	* @method initialize
-	* @param [captionDictionary=null] An object set up in dictionary format of caption objects.
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} [field=null] An text field to use as the 
-	*	output for this captions object. When using PIXI textfields, textIsProp should be false.
-	*/
-	p.initialize = function(captionDictionary, field)
-	{
-		this._lines = [];
-		this.setDictionary(captionDictionary || null);
-		this.setTextField(field);
-	};
 	
 	/**
 	* Mute all of the captions.
@@ -258,21 +232,65 @@
 	/** 
 	* Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. 
 	* Only one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.
-	*
-	* @public
+	* @deprecated Please use the setter `textField` instead
 	* @method setTextField
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText} field The CreateJS or PIXI Text object 
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The CreateJS or PIXI Text object 
 	*/
 	p.setTextField = function(field)
 	{
-		if(this._textField)
-		{
-			if(this.textIsProp)
-				this._textField.text = "";
-			else
-				this._textField.setText("");
-		}
+		setText(this._textField, '');
 		this._textField = field || null;
+	};
+
+	/** 
+	*  The text field that the captions uses to update.
+	*  @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+	*/
+	Object.defineProperty(p, "textField", {
+		set: function(field)
+		{
+			this.setTextField(field);
+		},
+		get : function()
+		{
+			return this._textField;
+		}
+	});
+
+	/**
+	 * Automatically determine how to set the text field text
+	 * @method setText
+	 * @private
+	 * @static
+	 * @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The text field to change
+	 * @param {string} text The text to set it to
+	 * @return {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} The text field
+	 */
+	var setText = function(field, text)
+	{
+		if (!field) return;
+
+		// PIXI style text setting
+		if (typeof field.setText === "function")
+		{
+			field.setText(text);
+		}
+		// DOM element
+		else if (field.nodeName)
+		{
+			field.innerHTML = field;
+		}
+		// The CreateJS style text setting
+		else if (field.text !== undefined)
+		{
+			field.text = text;
+		}
+		// Unsupported field type, oops!
+		else
+		{
+			throw "Unrecognizable captions text field";
+		}
+		return field;
 	};
 	
 	/** 
@@ -565,14 +583,10 @@
 	*/
 	p._updateCaptions = function()
 	{
-		if (this._textField)
-		{
-			var text = (this._currentLine == -1 || _muteAll) ? "" : this._lines[this._currentLine].content;
-			if (this.textIsProp)
-				this._textField.text = text;
-			else
-				this._textField.setText(text);
-		}
+		setText(
+			this._textField, 
+			(this._currentLine == -1 || _muteAll) ? '' : this._lines[this._currentLine].content
+		);
 	};
 	
 	/**

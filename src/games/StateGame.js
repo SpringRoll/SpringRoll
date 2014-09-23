@@ -23,6 +23,7 @@
 	*  @param {Object} [options.transitionSounds] The transition sound data
 	*  @param {Object|String} [options.transitionSounds.in="TransitionIn"] The transition in sound alias or sound object
 	*  @param {Object|String} [options.transitionSounds.out="TransitionOut"] The transition out sound alias or sound object
+	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
 	*  @param {String} [options.captionsPath='assets/config/captions.json'] The path to the captions dictionary. If this is set to null
 	*		captions will not be created or used by the VO player.
 	*  @param {string} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin swf for SoundJS

@@ -3,9 +3,9 @@ module.exports = {
 		src: ['<%= build.modules.worker %>'],
 		dest: '<%= distFolder %>/modules/worker.js'
 	},
-	displaygeneric : {
-		src: ['<%= build.modules.displaygeneric %>'],
-		dest: '<%= distFolder %>/modules/display-generic.js'
+	displaynative : {
+		src: ['<%= build.modules.displaynative %>'],
+		dest: '<%= distFolder %>/modules/display-native.js'
 	},
 	displaypixi : {
 		src: ['<%= build.modules.displaypixi %>'],

@@ -80,8 +80,8 @@
 	*  rotation applied.
 	*  @method getLocalBounds
 	*  @static
-	*  @param {createjs.DisplayObject} object The createjs display object
-	*  @return {createjs.Rectangle} A rectangle with additional right and bottom properties.
+	*  @param {PIXI.DisplayObject} object The createjs display object
+	*  @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
 	*/
 	DisplayAdapter.getLocalBounds = function(object)
 	{

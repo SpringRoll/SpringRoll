@@ -645,13 +645,20 @@
 	*  Gets a specific renderer by the canvas id.
 	*  @method getDisplays
 	*  @public
+	*  @param {function} [each] Optional looping method, callback takes a single parameter of the display
 	*  @return {Array} The collection of Display objects
 	*/
-	p.getDisplays = function()
+	p.getDisplays = function(each)
 	{
 		var output = [];
 		for(var key in _displays)
+		{
 			output.push(_displays[key]);
+			if (typeof each === "function")
+			{
+				each.call(this, _displays[key]);
+			}
+		}
 		return output;
 	};
 

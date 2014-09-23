@@ -27,8 +27,10 @@
 		"worker" : [
 			"src/polyfills/Worker.js"
 		],
-		"displaygeneric" : [
-			"src/displays/generic/GenericDisplay.js"
+		"displaynative" : [
+			"src/displays/native/geom/*.js",
+			"src/displays/native/DisplayAdapter.js",
+			"src/displays/native/NativeDisplay.js"
 		],
 		"displaycreatejs" : [
 			"src/displays/createjs/MovieClipUtils.js",

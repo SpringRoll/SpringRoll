@@ -22,6 +22,7 @@
 	*  @extends Game
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
+	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
 	*  @param {String} [options.captionsPath='assets/config/captions.json'] The path to the captions dictionary. If this is set to null
 	*		captions will not be created or used by the VO player.
 	*  @param {string} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin swf for SoundJS
@@ -63,7 +64,8 @@
 		Game.call(this, Object.merge({
 			captionsPath : 'assets/config/captions.json',
 			swfPath : 'assets/swfs/',
-			mute : false
+			mute : false,
+			captions : null
 		}, options));
 
 		/**
@@ -78,6 +80,12 @@
 		*  @property {VOPlayer} player
 		*/
 		this.player = null;
+
+		/**
+		*  The global captions object
+		*  @property {DOMElement|createjs.Text|PIXI.Text|PIXI.BitmapText} captions
+		*/
+		this.captions = null;
 
 		// Listen for the game is loaded then initalize the sound
 		onLoaded = onLoaded.bind(this);
@@ -137,15 +145,19 @@
 		// Add to the captions
 		if (result)
 		{
-			captions = new Captions(result.content);
-			var displays = this.getDisplays();
-			for(var i = 0; i < displays.length; ++i)
-			{
-				if(this.display.animator)
-					this.display.animator.captions = captions;
-			}
+			// Create a new captions object
+			captions = new Captions(result.content, this.options.captions);
+
+			// Give the display to the animators
+			this.getDisplays(function(display){
+				display.animator = captions;
+			});
+
+			// Add the reference to the game
+			this.captions = captions.textField;
 		}
 
+		// Create a new VO Player class
 		this.player = new VOPlayer(captions);
 	};
 

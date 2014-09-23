@@ -3,7 +3,7 @@ module.exports = {
 		files: {
 			'<%= distFolder %>/<%= build.output %>.min.js': '<%= build.main %>',
 			'<%= distFolder %>/modules/worker.min.js' : '<%= build.modules.worker %>',
-			'<%= distFolder %>/modules/display-generic.min.js' : '<%= build.modules.displaygeneric %>',
+			'<%= distFolder %>/modules/display-native.min.js' : '<%= build.modules.displaynative %>',
 			'<%= distFolder %>/modules/display-createjs.min.js' : '<%= build.modules.displaycreatejs %>',
 			'<%= distFolder %>/modules/display-pixi.min.js' : '<%= build.modules.displaypixi %>',
 			'<%= distFolder %>/modules/game.min.js' : '<%= build.modules.game %>',
