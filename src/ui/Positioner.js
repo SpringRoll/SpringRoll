@@ -95,7 +95,7 @@
 	*  * An object describing a sector, where x and y are the center of a circle
 	*  		and start/end are the start and end angles of the sector in degrees, e.g.
 	*
-	*		{type:"circle", x:0, y:0, r:20, start:0, end:90}
+	*		{type:"sector", x:0, y:0, r:20, start:0, end:90}
 	*  @param {Number} [scale=1] The size to scale hitArea by
 	*  @param {Display} [display=Application.instance.display] The current display being positioned
 	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle, 
