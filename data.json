@@ -4623,7 +4623,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 387,
+            "line": 388,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4646,7 +4646,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 413,
+            "line": 414,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4664,7 +4664,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 439,
+            "line": 440,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4689,7 +4689,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 496,
+            "line": 497,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4700,7 +4700,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 517,
+            "line": 518,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4711,7 +4711,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 539,
+            "line": 540,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4734,7 +4734,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 561,
+            "line": 562,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4756,7 +4756,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 580,
+            "line": 581,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4770,7 +4770,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 591,
+            "line": 592,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4783,7 +4783,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 604,
+            "line": 605,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4796,7 +4796,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 617,
+            "line": 618,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4816,7 +4816,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 714,
+            "line": 715,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4835,7 +4835,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 726,
+            "line": 727,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4854,7 +4854,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 739,
+            "line": 740,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4871,7 +4871,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 753,
+            "line": 754,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -11981,8 +11981,8 @@
             "file": "src/media/Captions.js",
             "line": 157,
             "description": "Mute all of the captions.",
-            "access": "public",
-            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Please use the property `Captions.muteAll`",
             "itemtype": "method",
             "name": "setMuteAll",
             "params": [
@@ -11999,10 +11999,10 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 175,
+            "line": 170,
             "description": "If the captions are all currently muted.",
-            "access": "public",
-            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Please use the property `Captions.muteAll`",
             "itemtype": "method",
             "name": "getMuteAll",
             "static": 1,
@@ -12016,7 +12016,19 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 188,
+            "line": 183,
+            "description": "Set if all captions are currently muted.",
+            "itemtype": "property",
+            "name": "muteAll",
+            "type": "Boolean",
+            "static": 1,
+            "class": "cloudkid.Captions",
+            "module": "Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 205,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12035,10 +12047,10 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 232,
+            "line": 249,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
             "deprecated": true,
-            "deprecationMessage": "Please use the setter `textField` instead",
+            "deprecationMessage": "Please use the setter `Captions.textField` instead",
             "itemtype": "method",
             "name": "setTextField",
             "params": [
@@ -12054,7 +12066,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 245,
+            "line": 261,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12065,7 +12077,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 260,
+            "line": 277,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12094,7 +12106,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 296,
+            "line": 313,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12115,7 +12127,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 308,
+            "line": 325,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12141,7 +12153,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 344,
+            "line": 361,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12160,7 +12172,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 367,
+            "line": 384,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12172,7 +12184,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 379,
+            "line": 396,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12195,7 +12207,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 400,
+            "line": 417,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12211,7 +12223,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 412,
+            "line": 429,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12223,7 +12235,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 423,
+            "line": 440,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12235,7 +12247,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 433,
+            "line": 452,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12259,7 +12271,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 452,
+            "line": 471,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12271,7 +12283,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 466,
+            "line": 485,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12290,7 +12302,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 512,
+            "line": 531,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12309,7 +12321,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 526,
+            "line": 545,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12328,7 +12340,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 541,
+            "line": 560,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12340,7 +12352,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 578,
+            "line": 597,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12352,7 +12364,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 592,
+            "line": 611,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -18761,55 +18773,55 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:387"
+            "line": " src/displays/createjs/Animator.js:388"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:413"
+            "line": " src/displays/createjs/Animator.js:414"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:439"
+            "line": " src/displays/createjs/Animator.js:440"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:496"
+            "line": " src/displays/createjs/Animator.js:497"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:517"
+            "line": " src/displays/createjs/Animator.js:518"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:539"
+            "line": " src/displays/createjs/Animator.js:540"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:561"
+            "line": " src/displays/createjs/Animator.js:562"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:580"
+            "line": " src/displays/createjs/Animator.js:581"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:591"
+            "line": " src/displays/createjs/Animator.js:592"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:604"
+            "line": " src/displays/createjs/Animator.js:605"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:617"
+            "line": " src/displays/createjs/Animator.js:618"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:739"
+            "line": " src/displays/createjs/Animator.js:740"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:753"
+            "line": " src/displays/createjs/Animator.js:754"
         },
         {
             "message": "replacing incorrect tag: function with method",
