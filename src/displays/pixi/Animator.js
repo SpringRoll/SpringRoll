@@ -41,7 +41,7 @@
 	
 	/**
 	*  The global captions object to use with animator
-	*  @property {Captions} captions
+	*  @property {cloudkid.Captions} captions
 	*  @public
 	*/
 	Animator.captions = null;

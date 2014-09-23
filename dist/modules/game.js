@@ -426,7 +426,7 @@
 
 			// Give the display to the animators
 			this.getDisplays(function(display){
-				display.animator = captions;
+				display.animator.captions = captions;
 			});
 
 			// Add the reference to the game

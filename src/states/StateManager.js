@@ -15,7 +15,7 @@
 	*  
 	*  @class StateManager
 	*  @constructor
-	*  @param {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} display The display on which the transition animation is displayed.
+	*  @param {cloudkid.AbstractDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
 	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
 	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
@@ -29,7 +29,7 @@
 		/**
 		* The display that holds the states this StateManager is managing.
 		* 
-		* @property {cloudkid.CreateJSDisplay|cloudkid.PixiDisplay} _display
+		* @property {cloudkid.AbstractDisplay} _display
 		* @private
 		*/
 		this._display = display;
@@ -307,7 +307,6 @@
 	{
 		this._display.enabled = false;
 	};
-	
 	
 	/**
 	*   Re-enable interaction with the stage
