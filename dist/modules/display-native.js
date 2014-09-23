@@ -736,7 +736,7 @@
 	*   the bare minimum needed by the Application to render.
 	*
 	*   @class NativeDisplay
-	*   @extends AbstractDisplay
+	*   @extends cloudkid.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the display.

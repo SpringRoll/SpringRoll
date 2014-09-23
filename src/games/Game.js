@@ -19,7 +19,7 @@
 			// Ready to use!
 		});
 	*  @class Game
-	*  @extends Application
+	*  @extends cloudkid.Application
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game

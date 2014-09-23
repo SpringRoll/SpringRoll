@@ -10,7 +10,7 @@
 	/**
 	 *  A button with audio events for click and over mouse events
 	 *  @class SoundButton
-	 *  @extends Button
+	 *  @extends cloudkid.createjs.Button
 	 *  @constructor
 	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
 	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor

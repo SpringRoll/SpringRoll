@@ -16,7 +16,7 @@
 			// Ready to use!
 		});
 	*  @class ScalingGame
-	*  @extends StateGame
+	*  @extends cloudkid.StateGame
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.state] The initial state

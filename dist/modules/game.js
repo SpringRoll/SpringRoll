@@ -100,7 +100,7 @@
 			// Ready to use!
 		});
 	*  @class Game
-	*  @extends Application
+	*  @extends cloudkid.Application
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game
@@ -295,7 +295,7 @@
 			// Ready to use!
 		});
 	*  @class SoundGame
-	*  @extends Game
+	*  @extends cloudkid.Game
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
@@ -566,7 +566,7 @@
 			// Ready to use!
 		});
 	*  @class StateGame
-	*  @extends SoundGame
+	*  @extends cloudkid.SoundGame
 	*  @constructor
 	*  @param {object} [options] The Application options
 	*  @param {string} [options.state] The initial state
@@ -798,7 +798,7 @@
 			// Ready to use!
 		});
 	*  @class ScalingGame
-	*  @extends StateGame
+	*  @extends cloudkid.StateGame
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.state] The initial state

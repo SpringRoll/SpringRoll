@@ -332,7 +332,7 @@
 	*	that uses the EaselJS library for rendering.
 	*
 	*   @class CreateJSDisplay
-	*   @extends AbstractDisplay
+	*   @extends cloudkid.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -2213,7 +2213,7 @@
 	/**
 	 *  A button with audio events for click and over mouse events
 	 *  @class SoundButton
-	 *  @extends Button
+	 *  @extends cloudkid.createjs.Button
 	 *  @constructor
 	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
 	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
