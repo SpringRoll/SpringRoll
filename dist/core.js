@@ -850,7 +850,7 @@
 			{
 				if (name.hasOwnProperty(key))
 				{
-					this.on(key, name[key]);
+					this.on(key, name[key], once);
 				}
 			}
 		}
@@ -881,7 +881,7 @@
 		{
 			for (var f = 0, fl = callback.length; f < fl; f++)
 			{
-				this.on(name, callback[f]);
+				this.on(name, callback[f], once);
 			}
 		}
 		return this;
