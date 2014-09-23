@@ -79,6 +79,14 @@
 		*/
 		this.display = null;
 
+		/**
+		*  If we should wait to init the Application, this is useful is something is inheriting
+		*  Application but want to do some extra stuff before init is actually called.
+		*  @property {Boolean} _readyToInit
+		*  @protected
+		*/
+		this._readyToInit = true;
+
 		_displays = {};
 		_tickCallback = this._tick.bind(this);
 
@@ -250,6 +258,13 @@
 	INIT = 'init',
 
 	/**
+	*  Event when everything's done but we haven't actually inited
+	*  @event preInit
+	*  @protected
+	*/
+	BEFORE_INIT = 'beforeInit',
+
+	/**
 	*  Fired when an update is called, every frame update
 	*  @event update
 	*  @param {int} elasped The number of milliseconds since the last frame update
@@ -398,21 +413,9 @@
 		if(this.options.canvasId && this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
 
-		var versionsLoaded = function()
-		{
-			// Call the init function
-			if (this.init) this.init();
 
-			//do an initial resize to make sure everything is sized properly
-			this._resize();
-
-			//start update loop
-			this.paused = false;
-
-			// Dispatch the init event
-			this.trigger(INIT);
-
-		}.bind(this);
+		// Bind the do init
+		this._doInit = this._doInit.bind(this);
 
 		// Check to see if we should load a versions file
 		// The versions file keeps track of file versions to avoid cache issues
@@ -422,15 +425,40 @@
 			// callback should be made with a scope in mind
 			Loader.instance.cacheManager.addVersionsFile(
 				this.options.versionsFile, 
-				versionsLoaded
+				this._doInit
 			);
 		}
 		else
 		{
 			// Wait until the next execution sequence
 			// so that init can be added after construction
-			setTimeout(versionsLoaded, 0);
+			setTimeout(this._doInit, 0);
 		}
+	};
+
+	/**
+	*  Initialize the application
+	*  @method _doInit
+	*  @protected
+	*/
+	p._doInit = function()
+	{
+		this.trigger(BEFORE_INIT);
+
+		// If a sub-class will manually try to init later on
+		if (!this._readyToInit) return;
+
+		// Call the init function
+		if (this.init) this.init();
+
+		//do an initial resize to make sure everything is sized properly
+		this._resize();
+
+		//start update loop
+		this.paused = false;
+
+		// Dispatch the init event
+		this.trigger(INIT);
 	};
 
 	/**

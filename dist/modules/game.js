@@ -96,7 +96,7 @@
 	*  manager. Assume loading a single configuration JSON file.
 	*  @example
 		var game = new cloudkid.Game();
-		game.on('loaded', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class Game
@@ -175,9 +175,8 @@
 			this.isMobile = this.isIOS || agent.search(/Android|Blackberry/) > -1;
 		}
 
-		// Listen for when the application is initalized
-		onInit = onInit.bind(this);
-		this.on('init', onInit);
+		// Callback right before init is called
+		this.once('beforeInit', onBeforeInit.bind(this));
 	};
 
 	// Extend application
@@ -207,14 +206,14 @@
 	var LOADING = 'loading';
 
 	/**
-	*  Callback when the sound has been initialized
-	*  @method onSoundReady
-	*  @private
+	*  Override the do init method
+	*  @method onBeforeInit
+	*  @protected
 	*/
-	var onInit = function()
+	var onBeforeInit = function()
 	{
-		this.off('init', onInit);
-		
+		this._readyToInit = false;
+
 		var tasks = [
 			new LoadTask(
 				"config", 
@@ -246,7 +245,9 @@
 	*/
 	var onTasksComplete = function()
 	{
+		this._readyToInit = true;
 		this.trigger(LOADED);
+		Application.prototype._doInit.call(this);
 	};
 
 	/**
@@ -282,6 +283,7 @@
 
 	//Library depencencies
 	var Game = include('cloudkid.Game'),
+		Application = include('cloudkid.Application'),
 		VOPlayer,
 		LoadTask,
 		Captions,
@@ -291,7 +293,7 @@
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
 		var game = new cloudkid.SoundGame();
-		game.on('soundReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
@@ -364,13 +366,8 @@
 		this.captions = null;
 
 		// Listen for the game is loaded then initalize the sound
-		onLoaded = onLoaded.bind(this);
-		onLoading = onLoading.bind(this);
-
-		this.on({
-			loaded : onLoaded,
-			loading : onLoading
-		});
+		this.once('loading', onLoading.bind(this));
+		this.once('loaded', onLoaded.bind(this));
 	};
 
 	// Extend application
@@ -379,8 +376,7 @@
 
 	/**
 	*  The Sound is completed, this is the event to listen to 
-	*  when the game ready to use. Do NOT use Application's init,
-	*  or Game's loaded events as the entry point for your application.
+	*  when the game ready to use. 
 	*  @event soundReady
 	*/
 	var SOUND_READY = 'soundReady';
@@ -444,6 +440,8 @@
 	*/
 	var onLoaded = function()
 	{
+		this._readyToInit = false;
+
 		// Initialize the sound
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -457,7 +455,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{
+	{	
 		var sounds = this.config.sounds;
 		var sound = Sound.instance;
 
@@ -475,7 +473,9 @@
 			sound.setMuteAll(!!this.options.mute);
 		}
 
+		this._readyToInit = true;
 		this.trigger(SOUND_READY);
+		Application.prototype._doInit.call(this);
 	};
 
 	/**
@@ -562,7 +562,7 @@
 	*  A game with state management, provides some convenience and events for adding states.
 	*  @example
 		var game = new cloudkid.StateGame();
-		game.on('statesReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class StateGame
@@ -633,7 +633,7 @@
 		this.manager = null;
 
 		// Listen for the soundReady event
-		this.on('soundReady', onSoundReady.bind(this));
+		this.once('soundReady', onSoundReady.bind(this));
 	};
 
 	/**
@@ -650,10 +650,8 @@
 	var INIT_STATES = 'initStates';
 
 	/**
-	*  The States are setup, this is the event to listen to 
-	*  when the game ready to use. Do NOT use Application's init,
-	*  or Game's loaded, or SoundGame's 'soundReady' events 
-	*  as the entry point for your application.
+	*  The states are setup, this is the event to listen to 
+	*  when the game ready to use. 
 	*  @event statesReady
 	*/
 	var STATES_READY = 'statesReady';
@@ -670,9 +668,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{
-		this.off('soundReady');
-
+	{		
 		this.trigger(INIT_STATES);
 
 		// Goto the transition state
@@ -707,7 +703,6 @@
 		// Add the transition on top of everything else
 		this.display.stage.addChild(this.transition);
 
-		// Rock and roll
 		this.trigger(STATES_READY);
 
 		// Goto the first state
@@ -794,7 +789,7 @@
 	*  A sub-game class to provide scaling functionality and responsive design.
 	*  @example
 		var game = new cloudkid.ScalingGame();
-		game.on('scalingReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class ScalingGame
@@ -865,7 +860,7 @@
 		this.ppi = 96;
 
 		// Listen when the state manager is setup
-		this.on('statesReady', onStatesReady.bind(this));
+		this.once('statesReady', onStatesReady.bind(this));
 	};
 
 	// Extend application
@@ -873,7 +868,7 @@
 	var p = ScalingGame.prototype = Object.create(s);
 
 	/**
-	*  The main entry point for this game
+	*  When the scaling has been initialized
 	*  @event scalingReady
 	*/
 	var SCALING_READY = 'scalingReady';
@@ -885,8 +880,6 @@
 	*/
 	var onStatesReady = function()
 	{
-		this.off('statesReady');
-
 		var config = this.config,
 			display = this.display;
 
@@ -924,12 +917,6 @@
 
 		// Resize now that the config is loaded - fix portrait mode
 		this.on("resize", resize.bind(this));
-
-		// Dispatch a resize function
-		this.trigger('resize', display.width, display.height);
-
-		// We're done initializing the scaler
-		this.trigger(SCALING_READY);
 	};
 
 	/**

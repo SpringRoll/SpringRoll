@@ -6,6 +6,7 @@
 
 	//Library depencencies
 	var Game = include('cloudkid.Game'),
+		Application = include('cloudkid.Application'),
 		VOPlayer,
 		LoadTask,
 		Captions,
@@ -15,7 +16,7 @@
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
 		var game = new cloudkid.SoundGame();
-		game.on('soundReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
@@ -88,13 +89,8 @@
 		this.captions = null;
 
 		// Listen for the game is loaded then initalize the sound
-		onLoaded = onLoaded.bind(this);
-		onLoading = onLoading.bind(this);
-
-		this.on({
-			loaded : onLoaded,
-			loading : onLoading
-		});
+		this.once('loading', onLoading.bind(this));
+		this.once('loaded', onLoaded.bind(this));
 	};
 
 	// Extend application
@@ -103,8 +99,7 @@
 
 	/**
 	*  The Sound is completed, this is the event to listen to 
-	*  when the game ready to use. Do NOT use Application's init,
-	*  or Game's loaded events as the entry point for your application.
+	*  when the game ready to use. 
 	*  @event soundReady
 	*/
 	var SOUND_READY = 'soundReady';
@@ -168,6 +163,8 @@
 	*/
 	var onLoaded = function()
 	{
+		this._readyToInit = false;
+
 		// Initialize the sound
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -181,7 +178,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{
+	{	
 		var sounds = this.config.sounds;
 		var sound = Sound.instance;
 
@@ -199,7 +196,9 @@
 			sound.setMuteAll(!!this.options.mute);
 		}
 
+		this._readyToInit = true;
 		this.trigger(SOUND_READY);
+		Application.prototype._doInit.call(this);
 	};
 
 	/**

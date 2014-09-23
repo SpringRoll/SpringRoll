@@ -11,7 +11,7 @@
 	*  A game with state management, provides some convenience and events for adding states.
 	*  @example
 		var game = new cloudkid.StateGame();
-		game.on('statesReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class StateGame
@@ -82,7 +82,7 @@
 		this.manager = null;
 
 		// Listen for the soundReady event
-		this.on('soundReady', onSoundReady.bind(this));
+		this.once('soundReady', onSoundReady.bind(this));
 	};
 
 	/**
@@ -99,10 +99,8 @@
 	var INIT_STATES = 'initStates';
 
 	/**
-	*  The States are setup, this is the event to listen to 
-	*  when the game ready to use. Do NOT use Application's init,
-	*  or Game's loaded, or SoundGame's 'soundReady' events 
-	*  as the entry point for your application.
+	*  The states are setup, this is the event to listen to 
+	*  when the game ready to use. 
 	*  @event statesReady
 	*/
 	var STATES_READY = 'statesReady';
@@ -119,9 +117,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{
-		this.off('soundReady');
-
+	{		
 		this.trigger(INIT_STATES);
 
 		// Goto the transition state
@@ -156,7 +152,6 @@
 		// Add the transition on top of everything else
 		this.display.stage.addChild(this.transition);
 
-		// Rock and roll
 		this.trigger(STATES_READY);
 
 		// Goto the first state

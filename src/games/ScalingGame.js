@@ -12,7 +12,7 @@
 	*  A sub-game class to provide scaling functionality and responsive design.
 	*  @example
 		var game = new cloudkid.ScalingGame();
-		game.on('scalingReady', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class ScalingGame
@@ -83,7 +83,7 @@
 		this.ppi = 96;
 
 		// Listen when the state manager is setup
-		this.on('statesReady', onStatesReady.bind(this));
+		this.once('statesReady', onStatesReady.bind(this));
 	};
 
 	// Extend application
@@ -91,7 +91,7 @@
 	var p = ScalingGame.prototype = Object.create(s);
 
 	/**
-	*  The main entry point for this game
+	*  When the scaling has been initialized
 	*  @event scalingReady
 	*/
 	var SCALING_READY = 'scalingReady';
@@ -103,8 +103,6 @@
 	*/
 	var onStatesReady = function()
 	{
-		this.off('statesReady');
-
 		var config = this.config,
 			display = this.display;
 
@@ -142,12 +140,6 @@
 
 		// Resize now that the config is loaded - fix portrait mode
 		this.on("resize", resize.bind(this));
-
-		// Dispatch a resize function
-		this.trigger('resize', display.width, display.height);
-
-		// We're done initializing the scaler
-		this.trigger(SCALING_READY);
 	};
 
 	/**

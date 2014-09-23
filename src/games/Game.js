@@ -15,7 +15,7 @@
 	*  manager. Assume loading a single configuration JSON file.
 	*  @example
 		var game = new cloudkid.Game();
-		game.on('loaded', function(){
+		game.on('init', function(){
 			// Ready to use!
 		});
 	*  @class Game
@@ -94,9 +94,8 @@
 			this.isMobile = this.isIOS || agent.search(/Android|Blackberry/) > -1;
 		}
 
-		// Listen for when the application is initalized
-		onInit = onInit.bind(this);
-		this.on('init', onInit);
+		// Callback right before init is called
+		this.once('beforeInit', onBeforeInit.bind(this));
 	};
 
 	// Extend application
@@ -126,14 +125,14 @@
 	var LOADING = 'loading';
 
 	/**
-	*  Callback when the sound has been initialized
-	*  @method onSoundReady
-	*  @private
+	*  Override the do init method
+	*  @method onBeforeInit
+	*  @protected
 	*/
-	var onInit = function()
+	var onBeforeInit = function()
 	{
-		this.off('init', onInit);
-		
+		this._readyToInit = false;
+
 		var tasks = [
 			new LoadTask(
 				"config", 
@@ -165,7 +164,9 @@
 	*/
 	var onTasksComplete = function()
 	{
+		this._readyToInit = true;
 		this.trigger(LOADED);
+		Application.prototype._doInit.call(this);
 	};
 
 	/**

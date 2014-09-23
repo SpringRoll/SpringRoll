@@ -34,20 +34,41 @@
 	{
 		if (this._listeners[type] !== undefined) 
 		{	
-			var listeners = this._listeners[type];
+			// copy the listeners array
+			var listeners = this._listeners[type].slice();
 
 			var args;
+
 			if(arguments.length > 1)
+			{
 				args = Array.prototype.slice.call(arguments, 1);
+			}
 			
 			for(var i = listeners.length - 1; i >= 0; --i) 
 			{
-				if(args)
-					listeners[i].apply(this, args);
-				else
-					listeners[i]();
+				listeners[i].apply(this, args);
+
+				if (listeners[i]._eventDispatcherOnce)
+				{
+					delete listeners[i]._eventDispatcherOnce;
+					this.off(type, listeners[i]);
+				}
 			}
 		}
+	};
+
+	/**
+	*  Add an event listener but only handle it one time.
+	*  
+	*  @method once
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
+	*          or a map of events to handlers
+	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.once = function(name, callback)
+	{
+		return this.on(name, callback, true);
 	};
 	
 	/**
@@ -59,7 +80,7 @@
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
 	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
-	p.on = function(name, callback)
+	p.on = function(name, callback, once)
 	{
 		// Callbacks map
 		if (type(name) === 'object')
@@ -83,6 +104,11 @@
 				if(!listener)
 					listener = this._listeners[n] = [];
 				
+				if (once)
+				{
+					callback._eventDispatcherOnce = true;
+				}
+
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
