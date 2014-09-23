@@ -995,6 +995,7 @@
 	*/
 	Animator.instanceHasAnimation = function(instance, event)
 	{
+		if(typeof instance.getLabels != "function") return false;
 		var labels = instance.getLabels();
 		var startFrame = -1, stopFrame = -1;
 		var stopLabel = event + "_stop";
