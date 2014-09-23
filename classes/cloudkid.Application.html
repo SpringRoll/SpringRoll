@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -1270,7 +1282,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l707"><code>_tick:707</code></a>
+        <a href="../files/src_Application.js.html#l714"><code>_tick:714</code></a>
         
         </p>
 
@@ -1605,7 +1617,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l754"><code>destroy:754</code></a>
+        <a href="../files/src_Application.js.html#l761"><code>destroy:761</code></a>
         
         </p>
 
@@ -1739,7 +1751,17 @@ if you need variable aspect ratios.</p>
     <h3 class="name"><code>getDisplays</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[each]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -1788,6 +1810,31 @@ if you need variable aspect ratios.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[each]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Optional looping method, callback takes a single parameter of the display</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -2170,7 +2217,7 @@ Application.registerInit(Loader.init);</p>
             
         
         
-        <a href="../files/src_Application.js.html#l658"><code>removeDisplay:658</code></a>
+        <a href="../files/src_Application.js.html#l665"><code>removeDisplay:665</code></a>
         
         </p>
 
@@ -3272,7 +3319,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l673"><code>fps:673</code></a>
+        <a href="../files/src_Application.js.html#l680"><code>fps:680</code></a>
         
         </p>
 
@@ -3459,7 +3506,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l691"><code>raf:691</code></a>
+        <a href="../files/src_Application.js.html#l698"><code>raf:698</code></a>
         
         </p>
 

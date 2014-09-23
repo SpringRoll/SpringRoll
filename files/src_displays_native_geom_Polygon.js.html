@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>CloudKidFramework v0.0.6 API Documentation : cloudkid.GenericDisplay</title>  
+	<title>CloudKidFramework v0.0.6 API Documentation : src/displays/native/geom/Polygon.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -232,275 +244,103 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>cloudkid.GenericDisplay Class</h1>
-<div class="box meta">
-    
-
-    
-        <div class="extends">
-            Extends AbstractDisplay
-        </div>
-    
-
-    
-        <div class="foundat">
-            Defined in: <a href="../files/src_displays_generic_GenericDisplay.js.html#l9"><code>cloudkid.GenericDisplay:9</code></a>
-        </div>
-    
-
-    
-        
-            Module: <a href="../modules/Generic Display.html">Generic Display</a>
-        
-    
-
-    
-</div>
-
-
-
-<div class="box intro">
-    <p>GenericDisplay is a display plugin for doing native rendering. This represents
-the bare minimum needed by the Application to render.</p>
-
-</div>
-
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_cloudkid.GenericDisplay" class="method item">
-    <h3 class="name"><code>cloudkid.GenericDisplay</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>id</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>options</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_generic_GenericDisplay.js.html#l9"><code>cloudkid.GenericDisplay:9</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">id</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The id of the canvas element on the page to draw to.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">options</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The setup data for the display.</p>
-
-                    </div>
-
-                    
-                        <ul class="params-list">
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[contextId=&quot;2d&quot;]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Valid options are "2d" and "webgl"</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                        </ul>
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-    </div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-        
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties extends">
-                        
-                            <li class="index-item property public">
-                                <a href="#property_"></a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-        </div>
-
-        
-
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
-
-                
-                    <div id="property_" class="property item public">
-    <h3 class="name"><code></code></h3>
-    <span class="type">RenderingContext</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_generic_GenericDisplay.js.html#l26"><code>:26</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The main rendering context, typically either <code>CanvasRenderingContext2d</code> 
-or <code>WebGLRenderingContext</code></p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
-        
-
-        
-
-        
-    </div>
+                        <script>
+	var name = src/displays/native/geom/Polygon.js      
+</script>
+<h1 class="file-heading">File:Polygon.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module Native Display
+*  @namespace cloudkid.native
+*/
+(function(){
+
+    /**
+     * @class Polygon
+     * @constructor
+     * @param points* {Array&lt;Point&gt;|Array&lt;Number&gt;|Point...|Number...} This can be an array of Points that form the polygon,
+     *      a flat array of numbers that will be interpreted as [x,y, x,y, ...], or the arguments passed can be
+     *      all the points of the polygon e.g. &#x60;new Polygon(new Point(), new Point(), ...)&#x60;, or the
+     *      arguments passed can be flat x,y values e.g. &#x60;new Polygon(x,y, x,y, x,y, ...)&#x60; where &#x60;x&#x60; and &#x60;y&#x60; are
+     *      Numbers.
+     */
+    var Polygon = function(points)
+    {
+        //if points isn&#x27;t an array, use arguments as the array
+        if(!(points instanceof Array))
+            points = Array.prototype.slice.call(arguments);
+
+        //if this is a flat array of numbers, convert it to points
+        if(typeof points[0] === &#x27;number&#x27;) {
+            var p = [];
+            for(var i = 0, il = points.length; i &lt; il; i+=2) {
+                p.push(
+                    new Point(points[i], points[i + 1])
+                );
+            }
+
+            points = p;
+        }
+
+        this.points = points;
+    };
+
+    var p = Polygon.prototype;
+
+    /**
+     * Creates a clone of this polygon
+     *
+     * @method clone
+     * @return {Polygon} a copy of the polygon
+     */
+    p.clone = function()
+    {
+        var points = [];
+        for (var i=0; i&lt;this.points.length; i++) {
+            points.push(this.points[i].clone());
+        }
+
+        return new Polygon(points);
+    };
+
+    /**
+     * Checks if the x, and y coords passed to this function are contained within this polygon
+     *
+     * @method contains
+     * @param x {Number} The X coord of the point to test
+     * @param y {Number} The Y coord of the point to test
+     * @return {Boolean} if the x/y coords are within this polygon
+     */
+    p.contains = function(x, y)
+    {
+        var inside = false;
+
+        // use some raycasting to test hits
+        // https://github.com/substack/point-in-polygon/blob/master/index.js
+        var p = this.points;
+        for(var i = 0, len = p.length, j = p.length - 1; i &lt; len; j = i++) {
+            var pi = p[i], pj = p[j];
+            var xi = pi.x, yi = pi.y,
+                xj = pj.x, yj = pj.y,
+                intersect = ((yi &gt; y) != (yj &gt; y)) &amp;&amp; (x &lt; (xj - xi) * (y - yi) / (yj - yi) + xi);
+
+            if(intersect) inside = !inside;
+        }
+
+        return inside;
+    };
+
+    // constructor
+    p.constructor = Polygon;
+
+    // Assign to namespace
+    namespace(&#x27;cloudkid.native&#x27;).Polygon = Polygon;
+
+}());
+
+    </pre>
 </div>
 
                     </div>

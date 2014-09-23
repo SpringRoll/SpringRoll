@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -373,8 +385,8 @@
 	*	@method play
 	*	@public
 	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
-	*	@param {function} callback The function to call when playback is complete.
-	*	@param {function} cancelledCallback The function to call when playback is interrupted with a stop() or play() call.
+	*	@param {function} [callback] The function to call when playback is complete.
+	*	@param {function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
 	*/
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
@@ -457,7 +469,7 @@
 	{
 		if (this.captions)
 		{
-			this.captions.updateTime(elapsed);
+			this.captions.seek(elapsed);
 		}
 		
 		this._timer -= elapsed;

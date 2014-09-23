@@ -16,7 +16,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "cloudkid.FallbackWorker",
         "cloudkid.FunctionTask",
         "cloudkid.Game",
-        "cloudkid.GenericDisplay",
         "cloudkid.ListTask",
         "cloudkid.LoadTask",
         "cloudkid.Loader",
@@ -58,6 +57,13 @@ YUI.add("yuidoc-meta", function(Y) {
         "cloudkid.createjs.DragManager",
         "cloudkid.createjs.MovieClipUtils",
         "cloudkid.createjs.SoundButton",
+        "cloudkid.native.Circle",
+        "cloudkid.native.DisplayAdapter",
+        "cloudkid.native.Ellipse",
+        "cloudkid.native.NativeDisplay",
+        "cloudkid.native.Point",
+        "cloudkid.native.Polygon",
+        "cloudkid.native.Rectangle",
         "cloudkid.pixi.Animator",
         "cloudkid.pixi.AnimatorTimeline",
         "cloudkid.pixi.AssetManager",
@@ -73,8 +79,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "CreateJS Display",
         "Framework",
         "Game",
-        "Generic Display",
         "Interface",
+        "Native Display",
         "PIXI Display",
         "Sound",
         "States",
@@ -100,12 +106,12 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "Game"
         },
         {
-            "displayName": "Generic Display",
-            "name": "Generic Display"
-        },
-        {
             "displayName": "Interface",
             "name": "Interface"
+        },
+        {
+            "displayName": "Native Display",
+            "name": "Native Display"
         },
         {
             "displayName": "PIXI Display",

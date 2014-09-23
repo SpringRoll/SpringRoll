@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -263,6 +275,7 @@
 	*  @extends Game
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
+	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
 	*  @param {String} [options.captionsPath=&#x27;assets/config/captions.json&#x27;] The path to the captions dictionary. If this is set to null
 	*		captions will not be created or used by the VO player.
 	*  @param {string} [options.swfPath=&#x27;assets/swfs/&#x27;] The relative location to the FlashPlugin swf for SoundJS
@@ -304,7 +317,8 @@
 		Game.call(this, Object.merge({
 			captionsPath : &#x27;assets/config/captions.json&#x27;,
 			swfPath : &#x27;assets/swfs/&#x27;,
-			mute : false
+			mute : false,
+			captions : null
 		}, options));
 
 		/**
@@ -319,6 +333,12 @@
 		*  @property {VOPlayer} player
 		*/
 		this.player = null;
+
+		/**
+		*  The global captions object
+		*  @property {DOMElement|createjs.Text|PIXI.Text|PIXI.BitmapText} captions
+		*/
+		this.captions = null;
 
 		// Listen for the game is loaded then initalize the sound
 		onLoaded = onLoaded.bind(this);
@@ -378,9 +398,19 @@
 		// Add to the captions
 		if (result)
 		{
-			captions = new Captions(result.content);
+			// Create a new captions object
+			captions = new Captions(result.content, this.options.captions);
+
+			// Give the display to the animators
+			this.getDisplays(function(display){
+				display.animator = captions;
+			});
+
+			// Add the reference to the game
+			this.captions = captions.textField;
 		}
 
+		// Create a new VO Player class
 		this.player = new VOPlayer(captions);
 	};
 

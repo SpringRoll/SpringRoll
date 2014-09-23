@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -886,13 +898,20 @@
 	*  Gets a specific renderer by the canvas id.
 	*  @method getDisplays
 	*  @public
+	*  @param {function} [each] Optional looping method, callback takes a single parameter of the display
 	*  @return {Array} The collection of Display objects
 	*/
-	p.getDisplays = function()
+	p.getDisplays = function(each)
 	{
 		var output = [];
 		for(var key in _displays)
+		{
 			output.push(_displays[key]);
+			if (typeof each === &quot;function&quot;)
+			{
+				each.call(this, _displays[key]);
+			}
+		}
 		return output;
 	};
 

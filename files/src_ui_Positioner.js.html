@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -264,6 +276,11 @@
 	*/
 	Positioner.positionItems = function(parent, itemSettings, display)
 	{
+		//while UIScaler.getAdapter() gets the default display, we can save some 
+		//function calls by saving it ourselves and passing it on to generateHitArea().
+		if(!display)
+			display = cloudkid.Application.instance.display;
+
 		var adapter = UIScaler.getAdapter(display);
 
 		var pt, degToRad = Math.PI / 180, scale;
@@ -328,18 +345,23 @@
 	*  * An object describing a circle, where x and y are the center, e.g.
 	*
 	*		{type:&quot;circle&quot;, x:0, y:0, r:20}
+	*  * An object describing a sector, where x and y are the center of a circle
+	*  		and start/end are the start and end angles of the sector in degrees, e.g.
+	*
+	*		{type:&quot;sector&quot;, x:0, y:0, r:20, start:0, end:90}
 	*  @param {Number} [scale=1] The size to scale hitArea by
 	*  @param {Display} [display=Application.instance.display] The current display being positioned
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
-	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
+	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle, 
+	*      or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.
 	*/
 	Positioner.generateHitArea = function(hitArea, scale, display)
 	{
+		//getAdapter() will get the default display if none is specified
 		var adapter = UIScaler.getAdapter(display);
 
 		if (!scale) scale = 1;
 
-		if (isArray(hitArea))
+		if (Array.isArray(hitArea))
 		{
 			if (scale == 1)
 			{
@@ -396,11 +418,6 @@
 			);
 		}
 		return null;
-	};
-
-	var isArray = function(o)
-	{
-		return Object.prototype.toString.call(o) === &#x27;[object Array]&#x27;;
 	};
 	
 	// Assign to namespace

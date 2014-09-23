@@ -140,17 +140,83 @@
                 "cloudkid.createjs": 1
             }
         },
-        "src/displays/generic/GenericDisplay.js": {
-            "name": "src/displays/generic/GenericDisplay.js",
+        "src/displays/native/geom/Circle.js": {
+            "name": "src/displays/native/geom/Circle.js",
             "modules": {
-                "Generic Display": 1
+                "Native Display": 1
             },
             "classes": {
-                "cloudkid.GenericDisplay": 1
+                "cloudkid.native.Circle": 1
             },
             "fors": {},
             "namespaces": {
-                "cloudkid": 1
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/geom/Ellipse.js": {
+            "name": "src/displays/native/geom/Ellipse.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.Ellipse": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/geom/Point.js": {
+            "name": "src/displays/native/geom/Point.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.Point": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/geom/Polygon.js": {
+            "name": "src/displays/native/geom/Polygon.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.Polygon": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/geom/Rectangle.js": {
+            "name": "src/displays/native/geom/Rectangle.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.Rectangle": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/DisplayAdapter.js": {
+            "name": "src/displays/native/DisplayAdapter.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.DisplayAdapter": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
+            }
+        },
+        "src/displays/native/NativeDisplay.js": {
+            "name": "src/displays/native/NativeDisplay.js",
+            "modules": {},
+            "classes": {
+                "cloudkid.native.NativeDisplay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "cloudkid.native": 1
             }
         },
         "src/displays/pixi/Animator.js": {
@@ -779,18 +845,24 @@
             "file": "src/displays/createjs/SoundButton.js",
             "line": 10
         },
-        "Generic Display": {
-            "name": "Generic Display",
+        "Native Display": {
+            "name": "Native Display",
             "submodules": {},
             "classes": {
-                "cloudkid.GenericDisplay": 1
+                "cloudkid.native.Circle": 1,
+                "cloudkid.native.Ellipse": 1,
+                "cloudkid.native.Point": 1,
+                "cloudkid.native.Polygon": 1,
+                "cloudkid.native.Rectangle": 1,
+                "cloudkid.native.DisplayAdapter": 1,
+                "cloudkid.native.NativeDisplay": 1
             },
             "fors": {},
             "namespaces": {
-                "cloudkid": 1
+                "cloudkid.native": 1
             },
             "tag": "module",
-            "file": "src/displays/generic/GenericDisplay.js",
+            "file": "src/displays/native/NativeDisplay.js",
             "line": 9
         },
         "PIXI Display": {
@@ -1521,19 +1593,188 @@
                 }
             ]
         },
-        "cloudkid.GenericDisplay": {
-            "name": "cloudkid.GenericDisplay",
-            "shortname": "GenericDisplay",
+        "cloudkid.native.Circle": {
+            "name": "cloudkid.native.Circle",
+            "shortname": "Circle",
             "classitems": [],
             "plugins": [],
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Generic Display",
-            "namespace": "cloudkid",
-            "file": "src/displays/generic/GenericDisplay.js",
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 7,
+            "description": "The Circle object can be used to specify a hit area for displayobjects",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the upper-left corner of the framing rectangle of this circle",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the upper-left corner of the framing rectangle of this circle",
+                    "type": "Number"
+                },
+                {
+                    "name": "radius",
+                    "description": "The radius of the circle",
+                    "type": "Number"
+                }
+            ]
+        },
+        "cloudkid.native.Ellipse": {
+            "name": "cloudkid.native.Ellipse",
+            "shortname": "Ellipse",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 7,
+            "description": "The Ellipse object can be used to specify a hit area for displayobjects",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the upper-left corner of the framing rectangle of this ellipse",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the upper-left corner of the framing rectangle of this ellipse",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "The overall width of this ellipse",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "The overall height of this ellipse",
+                    "type": "Number"
+                }
+            ]
+        },
+        "cloudkid.native.Point": {
+            "name": "cloudkid.native.Point",
+            "shortname": "Point",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/geom/Point.js",
+            "line": 7,
+            "description": "The Point object represents a location in a two-dimensional coordinate system, where x represents the horizontal axis and y represents the vertical axis.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "position of the point",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "position of the point",
+                    "type": "Number"
+                }
+            ]
+        },
+        "cloudkid.native.Polygon": {
+            "name": "cloudkid.native.Polygon",
+            "shortname": "Polygon",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/geom/Polygon.js",
+            "line": 7,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "points",
+                    "description": "This can be an array of Points that form the polygon,\n     a flat array of numbers that will be interpreted as [x,y, x,y, ...], or the arguments passed can be\n     all the points of the polygon e.g. `new Polygon(new Point(), new Point(), ...)`, or the\n     arguments passed can be flat x,y values e.g. `new Polygon(x,y, x,y, x,y, ...)` where `x` and `y` are\n     Numbers.",
+                    "type": "Array<Point>|Array<Number>|Point...|Number...",
+                    "multiple": true
+                }
+            ]
+        },
+        "cloudkid.native.Rectangle": {
+            "name": "cloudkid.native.Rectangle",
+            "shortname": "Rectangle",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 7,
+            "description": "the Rectangle object is an area defined by its position, as indicated by its top-left corner point (x, y) and by its width and its height.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the upper-left corner of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the upper-left corner of the rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "The overall width of this rectangle",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "The overall height of this rectangle",
+                    "type": "Number"
+                }
+            ]
+        },
+        "cloudkid.native.DisplayAdapter": {
+            "name": "cloudkid.native.DisplayAdapter",
+            "shortname": "DisplayAdapter",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 7,
+            "description": "Provide a normalized way to get size, position, scale values\nas well as provide reference for different geometry classes."
+        },
+        "cloudkid.native.NativeDisplay": {
+            "name": "cloudkid.native.NativeDisplay",
+            "shortname": "NativeDisplay",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Native Display",
+            "namespace": "cloudkid.native",
+            "file": "src/displays/native/NativeDisplay.js",
             "line": 9,
-            "description": "GenericDisplay is a display plugin for doing native rendering. This represents\nthe bare minimum needed by the Application to render.",
+            "description": "NativeDisplay is a display plugin for doing native rendering. This represents\nthe bare minimum needed by the Application to render.",
             "extends": "AbstractDisplay",
             "is_constructor": 1,
             "params": [
@@ -1639,7 +1880,6 @@
                     "name": "imageSettings",
                     "description": "Information about the art to be used for button states, as well as if the button is selectable or not.",
                     "type": "Object",
-                    "optional": true,
                     "props": [
                         {
                             "name": "priority",
@@ -2220,6 +2460,12 @@
                             ]
                         },
                         {
+                            "name": "captions",
+                            "description": "The captions text field object to use for the VOPlayer captions object.",
+                            "type": "DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText",
+                            "optional": true
+                        },
+                        {
                             "name": "captionsPath",
                             "description": "The path to the captions dictionary. If this is set to null\n\t\tcaptions will not be created or used by the VO player.",
                             "type": "String",
@@ -2401,6 +2647,12 @@
                     "type": "Object",
                     "optional": true,
                     "props": [
+                        {
+                            "name": "captions",
+                            "description": "The captions text field object to use for the VOPlayer captions object.",
+                            "type": "DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText",
+                            "optional": true
+                        },
                         {
                             "name": "captionsPath",
                             "description": "The path to the captions dictionary. If this is set to null\n\t\tcaptions will not be created or used by the VO player.",
@@ -2616,6 +2868,12 @@
                                     "optdefault": "\"TransitionOut\""
                                 }
                             ]
+                        },
+                        {
+                            "name": "captions",
+                            "description": "The captions text field object to use for the VOPlayer captions object.",
+                            "type": "DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText",
+                            "optional": true
                         },
                         {
                             "name": "captionsPath",
@@ -2875,8 +3133,8 @@
                 },
                 {
                     "name": "field",
-                    "description": "An text field to use as the output for this captions object",
-                    "type": "createjs.Text",
+                    "description": "An text field to use as the output for this captions object,\n* if a string type is supplied, captions will use the DOMElement by id.",
+                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String",
                     "optional": true,
                     "optdefault": "null"
                 }
@@ -4880,7 +5138,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 88,
+            "line": 91,
             "description": "The sprite that is the body of the button.",
             "access": "public",
             "tagname": "",
@@ -4894,7 +5152,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 96,
+            "line": 99,
             "description": "The text field of the button. The label is centered by both width and height on the button.",
             "access": "public",
             "tagname": "",
@@ -4908,7 +5166,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 105,
+            "line": 108,
             "description": "Callback for mouse over, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -4921,7 +5179,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 112,
+            "line": 115,
             "description": "Callback for mouse out, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -4934,7 +5192,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 119,
+            "line": 122,
             "description": "Callback for mouse down, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -4947,7 +5205,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 126,
+            "line": 129,
             "description": "Callback for press up, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -4960,7 +5218,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 133,
+            "line": 136,
             "description": "Callback for click, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -4973,7 +5231,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 140,
+            "line": 143,
             "description": "A dictionary of state booleans, keyed by state name.",
             "access": "private",
             "tagname": "",
@@ -4986,7 +5244,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 147,
+            "line": 150,
             "description": "An array of state names (Strings), in their order of priority.\nThe standard order previously was [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
             "access": "private",
             "tagname": "",
@@ -4999,7 +5257,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 155,
+            "line": 158,
             "description": "A dictionary of state graphic data, keyed by state name.\nEach object contains the sourceRect (src) and optionally 'trim', another Rectangle.\nAdditionally, each object will contain a 'label' object if the button has a text label.",
             "access": "private",
             "tagname": "",
@@ -5012,7 +5270,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 164,
+            "line": 167,
             "description": "The width of the button art, independent of the scaling of the button itself.",
             "access": "private",
             "tagname": "",
@@ -5025,7 +5283,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 171,
+            "line": 174,
             "description": "The height of the button art, independent of the scaling of the button itself.",
             "access": "private",
             "tagname": "",
@@ -5038,7 +5296,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 178,
+            "line": 181,
             "description": "An offset to button positioning, generally used to adjust for a highlight around the button.",
             "access": "private",
             "tagname": "",
@@ -5051,7 +5309,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 193,
+            "line": 196,
             "description": "An event for when the button is pressed (while enabled).",
             "access": "public",
             "tagname": "",
@@ -5065,7 +5323,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 216,
+            "line": 219,
             "description": "Constructor for the button when using CreateJS.",
             "itemtype": "method",
             "name": "buttonInitialize",
@@ -5097,7 +5355,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 367,
+            "line": 370,
             "description": "The width of the button, based on the width of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "width",
@@ -5108,7 +5366,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 383,
+            "line": 386,
             "description": "The height of the button, based on the height of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "height",
@@ -5119,7 +5377,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 399,
+            "line": 402,
             "description": "Sets the text of the label. This does nothing if the button was not initialized with a label.",
             "access": "public",
             "tagname": "",
@@ -5138,7 +5396,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 433,
+            "line": 436,
             "description": "Whether or not the button is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -5150,7 +5408,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 470,
+            "line": 473,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -5169,7 +5427,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 496,
+            "line": 499,
             "description": "Updates back based on the current button state.",
             "access": "private",
             "tagname": "",
@@ -5181,7 +5439,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 551,
+            "line": 554,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -5193,7 +5451,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 564,
+            "line": 567,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -5205,7 +5463,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 579,
+            "line": 582,
             "description": "The callback for when the button the button is clicked or tapped on. This is\nthe most reliable way of detecting mouse up/touch end events that are on this button\nwhile letting the pressup event handle the mouse up/touch ends on and outside the button.",
             "access": "private",
             "tagname": "",
@@ -5217,7 +5475,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 591,
+            "line": 594,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -5229,7 +5487,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 602,
+            "line": 605,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -5241,7 +5499,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 613,
+            "line": 616,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -5253,7 +5511,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 633,
+            "line": 636,
             "description": "Generates a desaturated up state as a disabled state, and an update with a solid colored glow for a highlighted state.",
             "itemtype": "method",
             "name": "generateDefaultStates",
@@ -7025,7 +7283,818 @@
             "namespace": "cloudkid.createjs"
         },
         {
-            "file": "src/displays/generic/GenericDisplay.js",
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 18,
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Circle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 25,
+            "itemtype": "property",
+            "name": "y",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Circle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 32,
+            "itemtype": "property",
+            "name": "radius",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Circle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 42,
+            "description": "Creates a clone of this Circle instance",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "a copy of the polygon",
+                "type": "Circle"
+            },
+            "class": "cloudkid.native.Circle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Circle.js",
+            "line": 53,
+            "description": "Checks if the x, and y coords passed to this function are contained within this circle",
+            "itemtype": "method",
+            "name": "contains",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the point to test",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the point to test",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "if the x/y coords are within this polygon",
+                "type": "Boolean"
+            },
+            "class": "cloudkid.native.Circle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 19,
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 26,
+            "itemtype": "property",
+            "name": "y",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 33,
+            "itemtype": "property",
+            "name": "width",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 40,
+            "itemtype": "property",
+            "name": "height",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 50,
+            "description": "Creates a clone of this Ellipse instance",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "a copy of the ellipse",
+                "type": "Ellipse"
+            },
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Ellipse.js",
+            "line": 61,
+            "description": "Checks if the x, and y coords passed to this function are contained within this ellipse",
+            "itemtype": "method",
+            "name": "contains",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the point to test",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the point to test",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "if the x/y coords are within this ellipse",
+                "type": "Boolean"
+            },
+            "class": "cloudkid.native.Ellipse",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 17,
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 24,
+            "itemtype": "property",
+            "name": "y",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 34,
+            "description": "Creates a clone of this point",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "a copy of the point",
+                "type": "Point"
+            },
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 45,
+            "description": "Returns the dot product between this point and another one.",
+            "itemtype": "method",
+            "name": "dotProd",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to form a dot product with",
+                    "type": "Point"
+                }
+            ],
+            "return": {
+                "description": "The dot product between the two points."
+            },
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 56,
+            "description": "Returns the length (or magnitude) of this point.",
+            "itemtype": "method",
+            "name": "length",
+            "return": {
+                "description": "The length of this point."
+            },
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 66,
+            "description": "Returns the squared length (or magnitude) of this point. This is faster than length().",
+            "itemtype": "method",
+            "name": "lengthSq",
+            "return": {
+                "description": "The length squared of this point."
+            },
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 76,
+            "description": "Reduces the point to a length of 1.",
+            "itemtype": "method",
+            "name": "normalize",
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 87,
+            "description": "Subtracts the x and y values of a point from this point.",
+            "itemtype": "method",
+            "name": "subtract",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to subtract from this one",
+                    "type": "Point"
+                }
+            ],
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 98,
+            "description": "Adds the x and y values of a point to this point.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to add to this one",
+                    "type": "Point"
+                }
+            ],
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 109,
+            "description": "Truncate the length of the point to a maximum.",
+            "itemtype": "method",
+            "name": "truncate",
+            "params": [
+                {
+                    "name": "maxLength",
+                    "description": "The maximum length to allow in this point.",
+                    "type": "Number"
+                }
+            ],
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 125,
+            "description": "Multiplies the x and y values of this point by a value.",
+            "itemtype": "method",
+            "name": "scaleBy",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value to scale by.",
+                    "type": "Number"
+                }
+            ],
+            "class": "cloudkid.native.Point",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Polygon.js",
+            "line": 39,
+            "description": "Creates a clone of this polygon",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "a copy of the polygon",
+                "type": "Polygon"
+            },
+            "class": "cloudkid.native.Polygon",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Polygon.js",
+            "line": 55,
+            "description": "Checks if the x, and y coords passed to this function are contained within this polygon",
+            "itemtype": "method",
+            "name": "contains",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the point to test",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the point to test",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "if the x/y coords are within this polygon",
+                "type": "Boolean"
+            },
+            "class": "cloudkid.native.Polygon",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 19,
+            "itemtype": "property",
+            "name": "x",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 26,
+            "itemtype": "property",
+            "name": "y",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 33,
+            "itemtype": "property",
+            "name": "width",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 40,
+            "itemtype": "property",
+            "name": "height",
+            "type": "Number",
+            "default": "0",
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 50,
+            "description": "Creates a clone of this Rectangle",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "a copy of the rectangle",
+                "type": "Rectangle"
+            },
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/geom/Rectangle.js",
+            "line": 61,
+            "description": "Checks if the x, and y coords passed to this function are contained within this Rectangle",
+            "itemtype": "method",
+            "name": "contains",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The X coord of the point to test",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The Y coord of the point to test",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "if the x/y coords are within this Rectangle",
+                "type": "Boolean"
+            },
+            "class": "cloudkid.native.Rectangle",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 14,
+            "description": "The geometry class for Circle",
+            "itemtype": "property",
+            "name": "Circle",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Circle",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 23,
+            "description": "The geometry class for Ellipse",
+            "itemtype": "property",
+            "name": "Ellipse",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Ellipse",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 32,
+            "description": "The geometry class for Rectangle",
+            "itemtype": "property",
+            "name": "Rectangle",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Rectangle",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 41,
+            "description": "The geometry class for Sector",
+            "itemtype": "property",
+            "name": "Sector",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Sector",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 50,
+            "description": "The geometry class for point",
+            "itemtype": "property",
+            "name": "Point",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Point",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 59,
+            "description": "The geometry class for Polygon",
+            "itemtype": "property",
+            "name": "Polygon",
+            "type": "Function",
+            "readonly": "",
+            "static": 1,
+            "default": "PIXI.Polygon",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 68,
+            "description": "If the rotation is expressed in radians",
+            "itemtype": "property",
+            "name": "useRadians",
+            "type": "Boolean",
+            "readonly": "",
+            "static": 1,
+            "default": "true",
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 77,
+            "description": "Gets the object's boundaries in its local coordinate space, without any scaling or\nrotation applied.",
+            "itemtype": "method",
+            "name": "getLocalBounds",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The createjs display object",
+                    "type": "createjs.DisplayObject"
+                }
+            ],
+            "return": {
+                "description": "A rectangle with additional right and bottom properties.",
+                "type": "createjs.Rectangle"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 91,
+            "description": "Normalize the object scale",
+            "itemtype": "method",
+            "name": "getScale",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "direction",
+                    "description": "Either \"x\" or \"y\" to return a specific value",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "A scale object with x and y keys or a single number if direction is set",
+                "type": "Object|Number"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 105,
+            "description": "Normalize the object position setting",
+            "itemtype": "method",
+            "name": "setPosition",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "position",
+                    "description": "The position object or the value\n \t\tif the direction is set.",
+                    "type": "Object|Number",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x value",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y value",
+                            "type": "Number",
+                            "optional": true
+                        }
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "description": "Either \"x\" or \"y\" value",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return the object for chaining",
+                "type": "DisplayObject"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 123,
+            "description": "Normalize the object position getting",
+            "itemtype": "method",
+            "name": "getPosition",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "direction",
+                    "description": "Either \"x\" or \"y\", default is an object of both",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The position as an object with x and y keys if no direction\n\t\tvalue is set, or the value of the specific direction",
+                "type": "Object|Number"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 137,
+            "description": "Normalize the object scale setting",
+            "itemtype": "method",
+            "name": "setScale",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The Display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "scale",
+                    "description": "The scaling object or scale value for x and y",
+                    "type": "Number"
+                },
+                {
+                    "name": "direction",
+                    "description": "Either \"x\" or \"y\" if setting a specific value, default\n \t\tsets both the scale x and scale y.",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return the object for chaining",
+                "type": "DisplayObject"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 152,
+            "description": "Set the pivot or registration point of an object",
+            "itemtype": "method",
+            "name": "setPivot",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The Display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "pivot",
+                    "description": "The object pivot point or the value if the direction is set",
+                    "type": "Object|Number",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x position of the pivot point",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y position of the pivot point",
+                            "type": "Number",
+                            "optional": true
+                        }
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "description": "Either \"x\" or \"y\" the value for specific direction, default\n \t\twill set using the object.",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return the object for chaining",
+                "type": "DisplayObject"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 169,
+            "description": "Set the hit area of the shape",
+            "itemtype": "method",
+            "name": "setHitArea",
+            "static": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The  Display object",
+                    "type": "DisplayObject"
+                },
+                {
+                    "name": "shape",
+                    "description": "The geometry object",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Return the object for chaining",
+                "type": "DisplayObject"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 182,
+            "description": "Get the original size of a bitmap",
+            "itemtype": "method",
+            "name": "getBitmapSize",
+            "static": 1,
+            "params": [
+                {
+                    "name": "bitmap",
+                    "description": "The bitmap to measure",
+                    "type": "DOMElement"
+                }
+            ],
+            "return": {
+                "description": "The width (w) and height (h) of the actual bitmap size",
+                "type": "Object"
+            },
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/DisplayAdapter.js",
+            "line": 197,
+            "description": "Remove all children from a display object",
+            "itemtype": "method",
+            "name": "removeChildren",
+            "static": 1,
+            "params": [
+                {
+                    "name": "container",
+                    "description": "The display object container",
+                    "type": "DisplayObjectContainer"
+                }
+            ],
+            "class": "cloudkid.native.DisplayAdapter",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
+        },
+        {
+            "file": "src/displays/native/NativeDisplay.js",
             "line": 26,
             "description": "The main rendering context, typically either `CanvasRenderingContext2d` \nor `WebGLRenderingContext`",
             "itemtype": "property",
@@ -7034,9 +8103,9 @@
             "readonly": "",
             "access": "public",
             "tagname": "",
-            "class": "cloudkid.GenericDisplay",
-            "module": "Generic Display",
-            "namespace": "cloudkid"
+            "class": "cloudkid.native.NativeDisplay",
+            "module": "Native Display",
+            "namespace": "cloudkid.native"
         },
         {
             "file": "src/displays/pixi/Animator.js",
@@ -7835,7 +8904,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 84,
+            "line": 88,
             "description": "The function that should be called when the button is released.",
             "access": "public",
             "tagname": "",
@@ -7848,7 +8917,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 91,
+            "line": 95,
             "description": "The function that should be called when the button is moused over.",
             "access": "public",
             "tagname": "",
@@ -7861,7 +8930,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 98,
+            "line": 102,
             "description": "The function that should be called when mouse leaves the button.",
             "access": "public",
             "tagname": "",
@@ -7874,7 +8943,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 105,
+            "line": 109,
             "description": "A dictionary of state booleans, keyed by state name.",
             "access": "private",
             "tagname": "",
@@ -7887,7 +8956,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 112,
+            "line": 116,
             "description": "An array of state names (Strings), in their order of priority.\nThe standard order previously was [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
             "access": "private",
             "tagname": "",
@@ -7900,7 +8969,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 120,
+            "line": 124,
             "description": "A dictionary of state graphic data, keyed by state name.\nEach object contains the sourceRect (src) and optionally 'trim', another Rectangle.\nAdditionally, each object will contain a 'label' object if the button has a text label.",
             "access": "private",
             "tagname": "",
@@ -7913,7 +8982,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 129,
+            "line": 133,
             "description": "The current style for the label, to avoid setting this if it is unchanged.",
             "access": "private",
             "tagname": "",
@@ -7926,7 +8995,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 136,
+            "line": 140,
             "description": "An offset to button positioning, generally used to adjust for a highlight around the button.",
             "access": "private",
             "tagname": "",
@@ -7939,7 +9008,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 172,
+            "line": 176,
             "description": "Callback for mouse up outside, bound to this button.",
             "access": "private",
             "tagname": "",
@@ -7952,7 +9021,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 215,
+            "line": 219,
             "description": "Constructor for the button when using PIXI.",
             "itemtype": "method",
             "name": "initialize",
@@ -7984,7 +9053,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 477,
+            "line": 481,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -8003,7 +9072,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 583,
+            "line": 587,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -8015,7 +9084,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 596,
+            "line": 600,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -8027,7 +9096,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 609,
+            "line": 613,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -8039,7 +9108,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 624,
+            "line": 628,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -8051,7 +9120,7 @@
         },
         {
             "file": "src/displays/pixi/Button.js",
-            "line": 642,
+            "line": 646,
             "description": "The callback for when the mouse/touch is released outside the button when the button was held down.",
             "access": "private",
             "tagname": "",
@@ -8170,12 +9239,12 @@
                 {
                     "name": "object",
                     "description": "The createjs display object",
-                    "type": "createjs.DisplayObject"
+                    "type": "PIXI.DisplayObject"
                 }
             ],
             "return": {
                 "description": "A rectangle with additional right and bottom properties.",
-                "type": "createjs.Rectangle"
+                "type": "PIXI.Rectangle"
             },
             "class": "cloudkid.pixi.DisplayAdapter",
             "module": "PIXI Display",
@@ -9310,7 +10379,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 101,
+            "line": 103,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -9336,7 +10405,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 150,
+            "line": 155,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -9363,7 +10432,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 169,
+            "line": 174,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -9386,7 +10455,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 190,
+            "line": 196,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -9559,7 +10628,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 65,
+            "line": 66,
             "description": "The current device pixel ratio as reported by the browser",
             "itemtype": "property",
             "name": "pixelRatio",
@@ -9570,7 +10639,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 71,
+            "line": 72,
             "description": "The main UIScaler for any display object references in the main game.",
             "itemtype": "property",
             "name": "scaler",
@@ -9581,7 +10650,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 77,
+            "line": 78,
             "description": "The default pixels per inch on the screen",
             "itemtype": "property",
             "name": "ppi",
@@ -9593,7 +10662,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 92,
+            "line": 93,
             "description": "The main entry point for this game",
             "itemtype": "event",
             "name": "scalingReady",
@@ -9603,7 +10672,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 98,
+            "line": 99,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -9615,7 +10684,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 152,
+            "line": 153,
             "description": "Handler for the stage resizing",
             "itemtype": "method",
             "name": "resize",
@@ -9639,7 +10708,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 176,
+            "line": 177,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9649,7 +10718,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 190,
+            "line": 191,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -9663,7 +10732,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 69,
+            "line": 71,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -9676,7 +10745,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 76,
+            "line": 78,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -9687,7 +10756,18 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 96,
+            "line": 84,
+            "description": "The global captions object",
+            "itemtype": "property",
+            "name": "captions",
+            "type": "DOMElement|createjs.Text|PIXI.Text|PIXI.BitmapText",
+            "class": "cloudkid.SoundGame",
+            "module": "Game",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/games/SoundGame.js",
+            "line": 104,
             "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use. Do NOT use Application's init,\nor Game's loaded events as the entry point for your application.",
             "itemtype": "event",
             "name": "soundReady",
@@ -9697,7 +10777,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 104,
+            "line": 112,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoading",
@@ -9716,7 +10796,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 127,
+            "line": 135,
             "description": "Callback when the captions have been loaded",
             "itemtype": "method",
             "name": "onCaptionsLoaded",
@@ -9735,7 +10815,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 146,
+            "line": 164,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoaded",
@@ -9747,7 +10827,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 160,
+            "line": 178,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -9759,7 +10839,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 187,
+            "line": 205,
             "description": "Set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -9771,7 +10851,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 230,
+            "line": 248,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9781,7 +10861,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 244,
+            "line": 262,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -9795,7 +10875,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 71,
+            "line": 72,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -9806,7 +10886,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 77,
+            "line": 78,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -9817,7 +10897,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 87,
+            "line": 88,
             "description": "Reference to the prototype extends application",
             "class": "cloudkid.StateGame",
             "module": "Game",
@@ -9825,7 +10905,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 93,
+            "line": 94,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
             "itemtype": "event",
             "name": "initStateManager",
@@ -9835,7 +10915,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 100,
+            "line": 101,
             "description": "The States are setup, this is the event to listen to \nwhen the game ready to use. Do NOT use Application's init,\nor Game's loaded, or SoundGame's 'soundReady' events \nas the entry point for your application.",
             "itemtype": "event",
             "name": "statesReady",
@@ -9845,7 +10925,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 109,
+            "line": 110,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "initStates",
@@ -9855,7 +10935,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 115,
+            "line": 116,
             "description": "Callback when the game is loaded",
             "itemtype": "method",
             "name": "onLoaded",
@@ -9867,7 +10947,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 168,
+            "line": 169,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -9889,7 +10969,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 183,
+            "line": 184,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -9906,7 +10986,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 196,
+            "line": 197,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9916,7 +10996,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 217,
+            "line": 218,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10716,7 +11796,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 39,
+            "line": 40,
             "description": "An object used as a dictionary with keys that should be the same as sound aliases",
             "access": "private",
             "tagname": "",
@@ -10729,13 +11809,13 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 47,
-            "description": "A reference to the CreateJS Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.\nWhen using PIXI textfields, textIsProp should be false.",
+            "line": 48,
+            "description": "A reference to the Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
             "name": "_textField",
-            "type": "createjs.Text|PIXI.Text|PIXI.BitmapText",
+            "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement",
             "class": "cloudkid.Captions",
             "module": "Captions",
             "namespace": "cloudkid"
@@ -10834,19 +11914,6 @@
         {
             "file": "src/media/Captions.js",
             "line": 113,
-            "description": "If text should be set on the text field with '.text = ' instead of '.setText()'.\nWhen using PIXI textfields, textIsProp should be false.\nDefault is true.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "textIsProp",
-            "type": "Bool",
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 123,
             "description": "If this instance has been destroyed already",
             "access": "private",
             "tagname": "",
@@ -10859,7 +11926,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 135,
+            "line": 125,
             "description": "Reference to the inherieted task",
             "access": "private",
             "tagname": "",
@@ -10872,7 +11939,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 143,
+            "line": 133,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "access": "private",
             "tagname": "",
@@ -10885,7 +11952,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 151,
+            "line": 141,
             "description": "The collection of instances created",
             "itemtype": "property",
             "name": "_instances",
@@ -10898,7 +11965,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 158,
+            "line": 148,
             "description": "The version number of this library",
             "access": "public",
             "tagname": "",
@@ -10912,34 +11979,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 167,
-            "description": "Constructor for caption.",
-            "access": "private",
-            "tagname": "",
-            "itemtype": "method",
-            "name": "initialize",
-            "params": [
-                {
-                    "name": "captionDictionary",
-                    "description": "An object set up in dictionary format of caption objects.",
-                    "optional": true,
-                    "optdefault": "null"
-                },
-                {
-                    "name": "field",
-                    "description": "An text field to use as the \n\toutput for this captions object. When using PIXI textfields, textIsProp should be false.",
-                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText",
-                    "optional": true,
-                    "optdefault": "null"
-                }
-            ],
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 183,
+            "line": 157,
             "description": "Mute all of the captions.",
             "access": "public",
             "tagname": "",
@@ -10959,7 +11999,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 201,
+            "line": 175,
             "description": "If the captions are all currently muted.",
             "access": "public",
             "tagname": "",
@@ -10976,7 +12016,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 214,
+            "line": 188,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -10995,17 +12035,17 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 258,
+            "line": 232,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
-            "access": "public",
-            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Please use the setter `textField` instead",
             "itemtype": "method",
             "name": "setTextField",
             "params": [
                 {
                     "name": "field",
                     "description": "The CreateJS or PIXI Text object",
-                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText"
+                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement"
                 }
             ],
             "class": "cloudkid.Captions",
@@ -11014,7 +12054,47 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 278,
+            "line": 245,
+            "description": "The text field that the captions uses to update.",
+            "itemtype": "property",
+            "name": "textField",
+            "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement",
+            "class": "cloudkid.Captions",
+            "module": "Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 260,
+            "description": "Automatically determine how to set the text field text",
+            "itemtype": "method",
+            "name": "setText",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "params": [
+                {
+                    "name": "field",
+                    "description": "The text field to change",
+                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement"
+                },
+                {
+                    "name": "text",
+                    "description": "The text to set it to",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The text field",
+                "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement"
+            },
+            "class": "cloudkid.Captions",
+            "module": "Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 296,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -11035,7 +12115,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 290,
+            "line": 308,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -11061,7 +12141,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 326,
+            "line": 344,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -11080,7 +12160,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 349,
+            "line": 367,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -11092,7 +12172,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 361,
+            "line": 379,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -11115,7 +12195,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 382,
+            "line": 400,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -11131,7 +12211,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 394,
+            "line": 412,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -11143,7 +12223,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 405,
+            "line": 423,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -11155,7 +12235,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 415,
+            "line": 433,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -11179,7 +12259,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 434,
+            "line": 452,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -11191,7 +12271,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 448,
+            "line": 466,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -11210,7 +12290,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 494,
+            "line": 512,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -11229,7 +12309,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 508,
+            "line": 526,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -11248,7 +12328,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 523,
+            "line": 541,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -11260,7 +12340,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 560,
+            "line": 578,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -11272,7 +12352,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 578,
+            "line": 592,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -11381,8 +12461,8 @@
                     ]
                 },
                 {
-                    "name": "[options.plugins=[createjs.WebAudioPlugin,",
-                    "description": "createjs.FlashPlugin]] The SoundJS plugins to pass to createjs.Sound.registerPlugins().",
+                    "name": "[options.plugins=createjs.WebAudioPlugin,",
+                    "description": "createjs.FlashPlugin] The SoundJS plugins to pass to createjs.Sound.registerPlugins().",
                     "type": "Array"
                 }
             ],
@@ -12780,12 +13860,14 @@
                 {
                     "name": "callback",
                     "description": "The function to call when playback is complete.",
-                    "type": "Function"
+                    "type": "Function",
+                    "optional": true
                 },
                 {
                     "name": "cancelledCallback",
                     "description": "The function to call when playback is interrupted with a stop() or play() call.",
-                    "type": "Function"
+                    "type": "Function",
+                    "optional": true
                 }
             ],
             "class": "cloudkid.VOPlayer",
@@ -14914,7 +15996,7 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 70,
+            "line": 75,
             "description": "Create the polygon hit area for interface elements",
             "static": 1,
             "itemtype": "method",
@@ -14922,7 +16004,7 @@
             "params": [
                 {
                     "name": "hitArea",
-                    "description": "One of the following: <br/>\n* An array of points for a polygon, e.g. \n\n\t\t[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n* An object describing a rectangle, e.g.\n\n\t\t{type:\"rect\", x:0, y:0, w:10, h:30}\n\n* An object describing an ellipse, where x and y are the center, e.g. \n\n\t\t{type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n* An object describing a circle, where x and y are the center, e.g.\n\n\t\t{type:\"circle\", x:0, y:0, r:20}",
+                    "description": "One of the following: <br/>\n* An array of points for a polygon, e.g. \n\n\t\t[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n* An object describing a rectangle, e.g.\n\n\t\t{type:\"rect\", x:0, y:0, w:10, h:30}\n\n* An object describing an ellipse, where x and y are the center, e.g. \n\n\t\t{type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n* An object describing a circle, where x and y are the center, e.g.\n\n\t\t{type:\"circle\", x:0, y:0, r:20}\n* An object describing a sector, where x and y are the center of a circle\n\t\tand start/end are the start and end angles of the sector in degrees, e.g.\n\n\t\t{type:\"sector\", x:0, y:0, r:20, start:0, end:90}",
                     "type": "Object|Array"
                 },
                 {
@@ -14941,7 +16023,7 @@
                 }
             ],
             "return": {
-                "description": "A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,\n    depending on the hitArea object. The shape will have a contains() function for hit testing.",
+                "description": "A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle, \n    or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.",
                 "type": "Object"
             },
             "class": "cloudkid.Positioner",
@@ -17566,6 +18648,14 @@
             "name": "getDisplays",
             "access": "public",
             "tagname": "",
+            "params": [
+                {
+                    "name": "each",
+                    "description": "Optional looping method, callback takes a single parameter of the display",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
             "return": {
                 "description": "The collection of Display objects",
                 "type": "Array"
@@ -17576,7 +18666,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 658,
+            "line": 665,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -17593,7 +18683,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 673,
+            "line": 680,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -17606,7 +18696,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 691,
+            "line": 698,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -17619,7 +18709,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 707,
+            "line": 714,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -17631,7 +18721,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 754,
+            "line": 761,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -18075,7 +19165,7 @@
         },
         {
             "message": "Missing item type\nReference to the prototype extends application",
-            "line": " src/games/StateGame.js:87"
+            "line": " src/games/StateGame.js:88"
         },
         {
             "message": "Missing item type",

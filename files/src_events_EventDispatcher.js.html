@@ -85,8 +85,6 @@
             
                 <li><a href="../classes/cloudkid.Game.html">cloudkid.Game</a></li>
             
-                <li><a href="../classes/cloudkid.GenericDisplay.html">cloudkid.GenericDisplay</a></li>
-            
                 <li><a href="../classes/cloudkid.ListTask.html">cloudkid.ListTask</a></li>
             
                 <li><a href="../classes/cloudkid.Loader.html">cloudkid.Loader</a></li>
@@ -96,6 +94,20 @@
                 <li><a href="../classes/cloudkid.LoaderResult.html">cloudkid.LoaderResult</a></li>
             
                 <li><a href="../classes/cloudkid.LoadTask.html">cloudkid.LoadTask</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Circle.html">cloudkid.native.Circle</a></li>
+            
+                <li><a href="../classes/cloudkid.native.DisplayAdapter.html">cloudkid.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Ellipse.html">cloudkid.native.Ellipse</a></li>
+            
+                <li><a href="../classes/cloudkid.native.NativeDisplay.html">cloudkid.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Point.html">cloudkid.native.Point</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Polygon.html">cloudkid.native.Polygon</a></li>
+            
+                <li><a href="../classes/cloudkid.native.Rectangle.html">cloudkid.native.Rectangle</a></li>
             
                 <li><a href="../classes/cloudkid.PageVisibility.html">cloudkid.PageVisibility</a></li>
             
@@ -183,9 +195,9 @@
             
                 <li><a href="../modules/Game.html">Game</a></li>
             
-                <li><a href="../modules/Generic Display.html">Generic Display</a></li>
-            
                 <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
             
@@ -320,16 +332,18 @@
 			for (var i = 0, nl = names.length; i &lt; nl; i++)
 			{
 				n = names[i];
-				this._listeners[n] = this._listeners[n] || [];
+				var listener = this._listeners[n];
+				if(!listener)
+					listener = this._listeners[n] = [];
 				
-				if (this._listeners[n].indexOf(callback) === -1)
+				if (listener.indexOf(callback) === -1)
 				{
-					this._listeners[n].push(callback);
+					listener.push(callback);
 				}
 			}
 		}
 		// Callbacks array
-		else if (type(callback) === &#x27;array&#x27;)
+		else if (Array.isArray(callback))
 		{
 			for (var f = 0, fl = callback.length; f &lt; fl; f++)
 			{
@@ -355,7 +369,7 @@
 			this._listeners = [];
 		}
 		// remove multiple callbacks
-		else if (type(callback) === &#x27;array&#x27;)
+		else if (Array.isArray(callback))
 		{
 			for (var f = 0, fl = callback.length; f &lt; fl; f++) 
 			{
@@ -368,19 +382,22 @@
 			for (var i = 0, nl = names.length; i &lt; nl; i++)
 			{
 				n = names[i];
-				this._listeners[n] = this._listeners[n] || [];
-				
-				// remove all by time
-				if (callback === undefined)
+				var listener = this._listeners[n];
+				if(listener)
 				{
-					this._listeners[n].length = 0;
-				}
-				else
-				{
-					var index = this._listeners[n].indexOf(callback);
-					if (index !== -1)
+					// remove all listeners for that event
+					if (callback === undefined)
 					{
-						this._listeners[n].splice(index, 1);
+						listener.length = 0;
+					}
+					else
+					{
+						//remove single listener
+						var index = listener.indexOf(callback);
+						if (index !== -1)
+						{
+							listener.splice(index, 1);
+						}
 					}
 				}
 			}
@@ -419,13 +436,14 @@
 	{
 		if (value === null)
 		{
-			return String(value);
+			return &#x27;null&#x27;;
 		}
-		if (typeof value === &#x27;object&#x27; || typeof value === &#x27;function&#x27;)
+		var typeOfValue = typeof value;
+		if (typeOfValue === &#x27;object&#x27; || typeOfValue === &#x27;function&#x27;)
 		{
 			return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || &#x27;object&#x27;;
 		}
-		return typeof value;
+		return typeOfValue;
 	}
 
 	/**
