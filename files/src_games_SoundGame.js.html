@@ -259,6 +259,7 @@
 
 	//Library depencencies
 	var Game = include(&#x27;cloudkid.Game&#x27;),
+		Application = include(&#x27;cloudkid.Application&#x27;),
 		VOPlayer,
 		LoadTask,
 		Captions,
@@ -268,7 +269,7 @@
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
 		var game = new cloudkid.SoundGame();
-		game.on(&#x27;soundReady&#x27;, function(){
+		game.on(&#x27;init&#x27;, function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
@@ -341,13 +342,8 @@
 		this.captions = null;
 
 		// Listen for the game is loaded then initalize the sound
-		onLoaded = onLoaded.bind(this);
-		onLoading = onLoading.bind(this);
-
-		this.on({
-			loaded : onLoaded,
-			loading : onLoading
-		});
+		this.once(&#x27;loading&#x27;, onLoading.bind(this));
+		this.once(&#x27;loaded&#x27;, onLoaded.bind(this));
 	};
 
 	// Extend application
@@ -356,8 +352,7 @@
 
 	/**
 	*  The Sound is completed, this is the event to listen to 
-	*  when the game ready to use. Do NOT use Application&#x27;s init,
-	*  or Game&#x27;s loaded events as the entry point for your application.
+	*  when the game ready to use. 
 	*  @event soundReady
 	*/
 	var SOUND_READY = &#x27;soundReady&#x27;;
@@ -403,7 +398,9 @@
 
 			// Give the display to the animators
 			this.getDisplays(function(display){
-				display.animator.captions = captions;
+				//ensure that displays without Animators don&#x27;t break anything
+				if(display.animator)
+					display.animator.captions = captions;
 			});
 
 			// Add the reference to the game
@@ -421,6 +418,8 @@
 	*/
 	var onLoaded = function()
 	{
+		this._readyToInit = false;
+
 		// Initialize the sound
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -434,7 +433,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{
+	{	
 		var sounds = this.config.sounds;
 		var sound = Sound.instance;
 
@@ -452,7 +451,9 @@
 			sound.setMuteAll(!!this.options.mute);
 		}
 
+		this._readyToInit = true;
 		this.trigger(SOUND_READY);
+		Application.prototype._doInit.call(this);
 	};
 
 	/**

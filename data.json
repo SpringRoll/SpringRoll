@@ -2253,7 +2253,7 @@
             "line": 12,
             "description": "A game extends the main application and provides some game specific convenience function \nand additional events. Most importantly it provides preload functionalty though the state\nmanager. Assume loading a single configuration JSON file.",
             "example": [
-                "\n\t\tvar game = new cloudkid.Game();\n\t\tgame.on('loaded', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.Game();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.Application",
             "is_constructor": 1,
@@ -2414,7 +2414,7 @@
             "line": 11,
             "description": "A sub-game class to provide scaling functionality and responsive design.",
             "example": [
-                "\n\t\tvar game = new cloudkid.ScalingGame();\n\t\tgame.on('scalingReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.ScalingGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.StateGame",
             "is_constructor": 1,
@@ -2633,10 +2633,10 @@
             "module": "Game",
             "namespace": "cloudkid",
             "file": "src/games/SoundGame.js",
-            "line": 14,
+            "line": 15,
             "description": "A sub-application for Game which setups Sound, VOPlayer and Captions.",
             "example": [
-                "\n\t\tvar game = new cloudkid.SoundGame();\n\t\tgame.on('soundReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.SoundGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.Game",
             "is_constructor": 1,
@@ -2824,7 +2824,7 @@
             "line": 10,
             "description": "A game with state management, provides some convenience and events for adding states.",
             "example": [
-                "\n\t\tvar game = new cloudkid.StateGame();\n\t\tgame.on('statesReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.StateGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.SoundGame",
             "is_constructor": 1,
@@ -4816,7 +4816,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 715,
+            "line": 714,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4835,7 +4835,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 727,
+            "line": 726,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4854,7 +4854,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 740,
+            "line": 739,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4871,7 +4871,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 754,
+            "line": 753,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -8365,7 +8365,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 423,
+            "line": 422,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -8384,7 +8384,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 452,
+            "line": 451,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -10353,7 +10353,33 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 53,
+            "line": 60,
+            "description": "Add an event listener but only handle it one time.",
+            "itemtype": "method",
+            "name": "once",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The type of event (can be multiple events separated by spaces), \n        or a map of events to handlers",
+                    "type": "String|object"
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function when event is fired or an array of callbacks.",
+                    "type": "Function|Array*"
+                }
+            ],
+            "return": {
+                "description": "Return this EventDispatcher for chaining calls.",
+                "type": "EventDispatcher"
+            },
+            "class": "cloudkid.EventDispatcher",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/events/EventDispatcher.js",
+            "line": 74,
             "description": "Add an event listener. The parameters for the listener functions depend on the event.",
             "itemtype": "method",
             "name": "on",
@@ -10379,7 +10405,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 103,
+            "line": 129,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -10405,7 +10431,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 155,
+            "line": 181,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -10432,7 +10458,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 174,
+            "line": 200,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -10455,7 +10481,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 196,
+            "line": 222,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -10516,7 +10542,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 106,
+            "line": 105,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -10526,7 +10552,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 112,
+            "line": 111,
             "description": "The config has finished loading, in case you want to \nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -10548,7 +10574,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 121,
+            "line": 120,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -10565,11 +10591,11 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 128,
-            "description": "Callback when the sound has been initialized",
+            "line": 127,
+            "description": "Override the do init method",
             "itemtype": "method",
-            "name": "onSoundReady",
-            "access": "private",
+            "name": "onBeforeInit",
+            "access": "protected",
             "tagname": "",
             "class": "cloudkid.Game",
             "module": "Game",
@@ -10577,7 +10603,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 151,
+            "line": 150,
             "description": "Callback when the config is loaded",
             "params": [
                 {
@@ -10592,7 +10618,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 161,
+            "line": 160,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -10604,7 +10630,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 171,
+            "line": 172,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10614,7 +10640,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 182,
+            "line": 183,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10663,7 +10689,7 @@
         {
             "file": "src/games/ScalingGame.js",
             "line": 93,
-            "description": "The main entry point for this game",
+            "description": "When the scaling has been initialized",
             "itemtype": "event",
             "name": "scalingReady",
             "class": "cloudkid.ScalingGame",
@@ -10684,7 +10710,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 153,
+            "line": 145,
             "description": "Handler for the stage resizing",
             "itemtype": "method",
             "name": "resize",
@@ -10708,7 +10734,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 177,
+            "line": 169,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10718,7 +10744,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 191,
+            "line": 183,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10732,7 +10758,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 71,
+            "line": 72,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -10745,7 +10771,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 78,
+            "line": 79,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -10756,7 +10782,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 84,
+            "line": 85,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -10767,8 +10793,8 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 104,
-            "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use. Do NOT use Application's init,\nor Game's loaded events as the entry point for your application.",
+            "line": 100,
+            "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use.",
             "itemtype": "event",
             "name": "soundReady",
             "class": "cloudkid.SoundGame",
@@ -10777,7 +10803,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 112,
+            "line": 107,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoading",
@@ -10796,7 +10822,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 135,
+            "line": 130,
             "description": "Callback when the captions have been loaded",
             "itemtype": "method",
             "name": "onCaptionsLoaded",
@@ -10815,7 +10841,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 164,
+            "line": 161,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoaded",
@@ -10827,7 +10853,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 178,
+            "line": 177,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -10839,7 +10865,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 205,
+            "line": 206,
             "description": "Set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -10851,7 +10877,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 248,
+            "line": 249,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10861,7 +10887,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 262,
+            "line": 263,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10916,7 +10942,7 @@
         {
             "file": "src/games/StateGame.js",
             "line": 101,
-            "description": "The States are setup, this is the event to listen to \nwhen the game ready to use. Do NOT use Application's init,\nor Game's loaded, or SoundGame's 'soundReady' events \nas the entry point for your application.",
+            "description": "The states are setup, this is the event to listen to \nwhen the game ready to use.",
             "itemtype": "event",
             "name": "statesReady",
             "class": "cloudkid.StateGame",
@@ -10925,7 +10951,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 110,
+            "line": 108,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "initStates",
@@ -10935,7 +10961,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 116,
+            "line": 114,
             "description": "Callback when the game is loaded",
             "itemtype": "method",
             "name": "onLoaded",
@@ -10947,7 +10973,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 169,
+            "line": 164,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -10969,7 +10995,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 184,
+            "line": 179,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -10986,7 +11012,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 197,
+            "line": 192,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10996,7 +11022,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 218,
+            "line": 213,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -18070,7 +18096,20 @@
         },
         {
             "file": "src/Application.js",
-            "line": 94,
+            "line": 82,
+            "description": "If we should wait to init the Application, this is useful is something is inheriting\nApplication but want to do some extra stuff before init is actually called.",
+            "itemtype": "property",
+            "name": "_readyToInit",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "cloudkid.Application",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 102,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -18084,7 +18123,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 104,
+            "line": 112,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -18098,7 +18137,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 114,
+            "line": 122,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -18111,7 +18150,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 121,
+            "line": 129,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -18124,7 +18163,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 128,
+            "line": 136,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18137,7 +18176,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 135,
+            "line": 143,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18150,7 +18189,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 142,
+            "line": 150,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -18163,7 +18202,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 149,
+            "line": 157,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -18176,7 +18215,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 156,
+            "line": 164,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -18189,7 +18228,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 163,
+            "line": 171,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -18203,7 +18242,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 171,
+            "line": 179,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -18217,7 +18256,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 179,
+            "line": 187,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -18230,7 +18269,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 186,
+            "line": 194,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -18244,7 +18283,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 194,
+            "line": 202,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -18257,7 +18296,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 201,
+            "line": 209,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -18270,7 +18309,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 209,
+            "line": 217,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -18283,7 +18322,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 216,
+            "line": 224,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -18296,7 +18335,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 239,
+            "line": 247,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -18309,7 +18348,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 246,
+            "line": 254,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -18319,7 +18358,19 @@
         },
         {
             "file": "src/Application.js",
-            "line": 252,
+            "line": 260,
+            "description": "Event when everything's done but we haven't actually inited",
+            "itemtype": "event",
+            "name": "preInit",
+            "access": "protected",
+            "tagname": "",
+            "class": "cloudkid.Application",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 267,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -18336,7 +18387,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 259,
+            "line": 274,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -18358,7 +18409,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 267,
+            "line": 282,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -18375,7 +18426,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 274,
+            "line": 289,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -18385,7 +18436,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 280,
+            "line": 295,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -18395,7 +18446,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 286,
+            "line": 301,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -18405,7 +18456,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 292,
+            "line": 307,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -18425,7 +18476,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 304,
+            "line": 319,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -18445,7 +18496,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 317,
+            "line": 332,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -18459,7 +18510,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 330,
+            "line": 345,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -18471,7 +18522,19 @@
         },
         {
             "file": "src/Application.js",
-            "line": 436,
+            "line": 439,
+            "description": "Initialize the application",
+            "itemtype": "method",
+            "name": "_doInit",
+            "access": "protected",
+            "tagname": "",
+            "class": "cloudkid.Application",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 464,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -18487,7 +18550,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 465,
+            "line": 493,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -18499,7 +18562,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 472,
+            "line": 500,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -18511,7 +18574,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 482,
+            "line": 510,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -18523,7 +18586,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 492,
+            "line": 520,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -18534,7 +18597,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 533,
+            "line": 561,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18558,7 +18621,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 550,
+            "line": 578,
             "description": "Resize listener function, handles default resize behavior on all displays and dispatches a resize event",
             "itemtype": "method",
             "name": "_resize",
@@ -18570,7 +18633,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 578,
+            "line": 606,
             "description": "Calculates the resizing of displays. By default, this limits the new size \nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18601,7 +18664,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 604,
+            "line": 632,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18633,7 +18696,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 633,
+            "line": 661,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18654,7 +18717,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 644,
+            "line": 672,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18678,7 +18741,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 665,
+            "line": 693,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18695,7 +18758,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 680,
+            "line": 708,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18708,7 +18771,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 698,
+            "line": 726,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18721,7 +18784,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 714,
+            "line": 742,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18733,7 +18796,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 761,
+            "line": 789,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -18817,11 +18880,11 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:740"
+            "line": " src/displays/createjs/Animator.js:739"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:754"
+            "line": " src/displays/createjs/Animator.js:753"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -18897,11 +18960,11 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/pixi/Animator.js:423"
+            "line": " src/displays/pixi/Animator.js:422"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/pixi/Animator.js:452"
+            "line": " src/displays/pixi/Animator.js:451"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19173,7 +19236,7 @@
         },
         {
             "message": "Missing item type\nCallback when the config is loaded",
-            "line": " src/games/Game.js:151"
+            "line": " src/games/Game.js:150"
         },
         {
             "message": "Missing item type\nReference to the prototype extends application",
