@@ -735,6 +735,8 @@
 	*/
 	Positioner.positionItems = function(parent, itemSettings, display)
 	{
+		//while UIScaler.getAdapter() gets the default display, we can save some 
+		//function calls by saving it ourselves and passing it on to generateHitArea().
 		if(!display)
 			display = cloudkid.Application.instance.display;
 
@@ -802,21 +804,23 @@
 	*  * An object describing a circle, where x and y are the center, e.g.
 	*
 	*		{type:"circle", x:0, y:0, r:20}
+	*  * An object describing a sector, where x and y are the center of a circle
+	*  		and start/end are the start and end angles of the sector in degrees, e.g.
+	*
+	*		{type:"circle", x:0, y:0, r:20, start:0, end:90}
 	*  @param {Number} [scale=1] The size to scale hitArea by
 	*  @param {Display} [display=Application.instance.display] The current display being positioned
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, or Circle,
-	*      depending on the hitArea object. The shape will have a contains() function for hit testing.
+	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle, 
+	*      or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.
 	*/
 	Positioner.generateHitArea = function(hitArea, scale, display)
 	{
-		if(!display)
-			display = cloudkid.Application.instance.display;
-		
+		//getAdapter() will get the default display if none is specified
 		var adapter = UIScaler.getAdapter(display);
 
 		if (!scale) scale = 1;
 
-		if (isArray(hitArea))
+		if (Array.isArray(hitArea))
 		{
 			if (scale == 1)
 			{
@@ -873,11 +877,6 @@
 			);
 		}
 		return null;
-	};
-
-	var isArray = function(o)
-	{
-		return Object.prototype.toString.call(o) === '[object Array]';
 	};
 	
 	// Assign to namespace
