@@ -1379,7 +1379,7 @@
             "file": "src/displays/createjs/CreateJSDisplay.js",
             "line": 12,
             "description": "CreateJSDisplay is a display plugin for the CloudKid Framework \n\tthat uses the EaselJS library for rendering.",
-            "extends": "AbstractDisplay",
+            "extends": "cloudkid.AbstractDisplay",
             "is_constructor": 1,
             "params": [
                 {
@@ -1555,7 +1555,7 @@
             "file": "src/displays/createjs/SoundButton.js",
             "line": 10,
             "description": "A button with audio events for click and over mouse events",
-            "extends": "Button",
+            "extends": "cloudkid.createjs.Button",
             "is_constructor": 1,
             "params": [
                 {
@@ -1775,7 +1775,7 @@
             "file": "src/displays/native/NativeDisplay.js",
             "line": 9,
             "description": "NativeDisplay is a display plugin for doing native rendering. This represents\nthe bare minimum needed by the Application to render.",
-            "extends": "AbstractDisplay",
+            "extends": "cloudkid.AbstractDisplay",
             "is_constructor": 1,
             "params": [
                 {
@@ -2122,7 +2122,7 @@
             "file": "src/displays/pixi/PixiDisplay.js",
             "line": 13,
             "description": "PixiDisplay is a display plugin for the CloudKid Framework \n\tthat uses the Pixi library for rendering.",
-            "extends": "AbstractDisplay",
+            "extends": "cloudkid.AbstractDisplay",
             "is_constructor": 1,
             "params": [
                 {
@@ -2255,7 +2255,7 @@
             "example": [
                 "\n\t\tvar game = new cloudkid.Game();\n\t\tgame.on('loaded', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
-            "extends": "Application",
+            "extends": "cloudkid.Application",
             "is_constructor": 1,
             "params": [
                 {
@@ -2416,7 +2416,7 @@
             "example": [
                 "\n\t\tvar game = new cloudkid.ScalingGame();\n\t\tgame.on('scalingReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
-            "extends": "StateGame",
+            "extends": "cloudkid.StateGame",
             "is_constructor": 1,
             "params": [
                 {
@@ -2638,7 +2638,7 @@
             "example": [
                 "\n\t\tvar game = new cloudkid.SoundGame();\n\t\tgame.on('soundReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
-            "extends": "Game",
+            "extends": "cloudkid.Game",
             "is_constructor": 1,
             "params": [
                 {
@@ -2826,7 +2826,7 @@
             "example": [
                 "\n\t\tvar game = new cloudkid.StateGame();\n\t\tgame.on('statesReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
-            "extends": "SoundGame",
+            "extends": "cloudkid.SoundGame",
             "is_constructor": 1,
             "params": [
                 {
