@@ -158,33 +158,50 @@
 	/**
 	* Mute all of the captions.
 	*
-	* @public
+	* @deprecated Please use the property `Captions.muteAll`
 	* @method setMuteAll
 	* @param {bool} muteAll Whether to mute or unmute
 	* @static
 	*/
 	Captions.setMuteAll = function(muteAll)
 	{
-		_muteAll = muteAll;
-
-		for(var i = 0; i < _instances.length; i++)
-		{
-			_instances[i]._updateCaptions();
-		}
+		Captions.muteAll = muteAll;
 	};
 	
 	/**
 	* If the captions are all currently muted.
 	*
-	* @public
+	* @deprecated Please use the property `Captions.muteAll`
 	* @method getMuteAll
 	* @static
 	* @return {bool} Whether the captions are all muted
 	*/
 	Captions.getMuteAll = function()
 	{
-		return _muteAll;
+		return Captions.muteAll;
 	};
+
+	/**
+	* Set if all captions are currently muted.
+	*
+	* @property {Boolean} muteAll
+	* @static
+	*/
+	Object.defineProperty(Captions, 'muteAll', {
+		get : function()
+		{
+			return _muteAll;
+		}, 
+		set : function(muteAll)
+		{
+			_muteAll = muteAll;
+
+			for(var i = 0; i < _instances.length; i++)
+			{
+				_instances[i]._updateCaptions();
+			}
+		}
+	});
 	
 	/**
 	* Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
@@ -233,24 +250,24 @@
 	/** 
 	* Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. 
 	* Only one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.
-	* @deprecated Please use the setter `textField` instead
+	* @deprecated Please use the setter `Captions.textField` instead
 	* @method setTextField
 	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The CreateJS or PIXI Text object 
 	*/
 	p.setTextField = function(field)
 	{
-		setText(this._textField, '');
-		this._textField = field || null;
+		this.textField = field;
 	};
 
 	/** 
 	*  The text field that the captions uses to update.
 	*  @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
 	*/
-	Object.defineProperty(p, "textField", {
+	Object.defineProperty(p, 'textField', {
 		set: function(field)
 		{
-			this.setTextField(field);
+			setText(this._textField, '');
+			this._textField = field || null;
 		},
 		get : function()
 		{
@@ -426,9 +443,11 @@
 	*  @property {int} currentDuration
 	*  @readOnly
 	*/
-	Object.defineProperty(p, "currentDuration",
-	{
-		get: function() { return this._currentDuration; }
+	Object.defineProperty(p, 'currentDuration', {
+		get: function()
+		{ 
+			return this._currentDuration; 
+		}
 	});
 	
 	/**
