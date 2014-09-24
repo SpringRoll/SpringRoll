@@ -894,7 +894,7 @@
 
 	function listenerSorter(a, b)
 	{
-		return a - b;
+		return a._priority - b._priority;
 	}
 	
 	/**
