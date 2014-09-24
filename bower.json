@@ -10,7 +10,8 @@
 		"pixi.js": "https://github.com/CloudKidStudio/pixi.js.git#~1.6.3",
 		"easeljs": "https://github.com/CloudKidStudio/EaselJS.git#~0.7.6",
 		"tweenjs": "https://github.com/CloudKidStudio/TweenJS.git#~0.4.1",
-		"soundjs": "https://github.com/CloudKidStudio/SoundJS.git#~0.5.0"
+		"soundjs": "https://github.com/CloudKidStudio/SoundJS.git#~0.5.0",
+		"qunit": "*"
 	},
 	"ignore": [
 		"Gruntfile.js",
