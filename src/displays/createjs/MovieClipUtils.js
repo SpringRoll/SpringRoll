@@ -1,7 +1,7 @@
 /**
-*  @module CreateJS Display
-*  @namespace cloudkid.createjs
-*/
+ * @module CreateJS Display
+ * @namespace cloudkid.createjs
+ */
 (function()
 {
 	/**
@@ -22,7 +22,10 @@
 	{
 		frame = (frame === undefined) ? 0 : frame;
 		buffer = (buffer === undefined) ? 15 : buffer;
-		movieClip.gotoAndStop(frame);
+		if (movieClip.timeline)
+		{
+			movieClip.gotoAndStop(frame);
+		}
 		var bounds = movieClip.nominalBounds;
 		movieClip.cache(
 			bounds.x - buffer,
