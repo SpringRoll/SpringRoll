@@ -407,14 +407,21 @@ managing captions (Captions library) at the same time.</p>
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__update">_update</a>
+                                <a href="#method__syncCaptionToSound">_syncCaptionToSound</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method__updateCaptionPos">_updateCaptionPos</a>
+                                <a href="#method__updateSilence">_updateSilence</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__updateSoloCaption">_updateSoloCaption</a>
 
                                 
                                 
@@ -590,7 +597,7 @@ managing captions (Captions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l155"><code>_onSoundFinished:155</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l159"><code>_onSoundFinished:159</code></a>
         
         </p>
 
@@ -647,7 +654,7 @@ managing captions (Captions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l244"><code>_playSound:244</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l264"><code>_playSound:264</code></a>
         
         </p>
 
@@ -670,8 +677,8 @@ managing captions (Captions library) at the same time.</p>
 </div>
 
                 
-                    <div id="method__update" class="method item private">
-    <h3 class="name"><code>_update</code></h3>
+                    <div id="method__syncCaptionToSound" class="method item private">
+    <h3 class="name"><code>_syncCaptionToSound</code></h3>
 
     
         <div class="args">
@@ -714,7 +721,7 @@ managing captions (Captions library) at the same time.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l208"><code>_update:208</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l250"><code>_syncCaptionToSound:250</code></a>
         
         </p>
 
@@ -725,7 +732,7 @@ managing captions (Captions library) at the same time.</p>
     </div>
 
     <div class="description">
-        <p>The update callback used for silence timers and updating captions without active audio.
+        <p>The update callback used for updating captions with active audio.
 This method is bound to the VOPlayer instance.</p>
 
     </div>
@@ -762,8 +769,8 @@ This method is bound to the VOPlayer instance.</p>
 </div>
 
                 
-                    <div id="method__updateCaptionPos" class="method item private">
-    <h3 class="name"><code>_updateCaptionPos</code></h3>
+                    <div id="method__updateSilence" class="method item private">
+    <h3 class="name"><code>_updateSilence</code></h3>
 
     
         <div class="args">
@@ -806,7 +813,7 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l230"><code>_updateCaptionPos:230</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l215"><code>_updateSilence:215</code></a>
         
         </p>
 
@@ -817,7 +824,99 @@ This method is bound to the VOPlayer instance.</p>
     </div>
 
     <div class="description">
-        <p>The update callback used for updating captions with active audio.
+        <p>The update callback used for silence timers.
+This method is bound to the VOPlayer instance.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">elapsed</code>
+                        <span class="type">Int</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The time elapsed since the previous frame, in milliseconds.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method__updateSoloCaption" class="method item private">
+    <h3 class="name"><code>_updateSoloCaption</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>elapsed</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_VOPlayer.js.html#l232"><code>_updateSoloCaption:232</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The update callback used for updating captions without active audio.
 This method is bound to the VOPlayer instance.</p>
 
     </div>
@@ -888,7 +987,7 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l331"><code>destroy:331</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l354"><code>destroy:354</code></a>
         
         </p>
 
@@ -967,7 +1066,7 @@ This method is bound to the VOPlayer instance.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l128"><code>play:128</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l132"><code>play:132</code></a>
         
         </p>
 
@@ -1084,7 +1183,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l294"><code>stop:294</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l314"><code>stop:314</code></a>
         
         </p>
 
@@ -1141,7 +1240,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l320"><code>unloadSound:320</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l343"><code>unloadSound:343</code></a>
         
         </p>
 
@@ -1197,7 +1296,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l86"><code>_callback:86</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l90"><code>_callback:90</code></a>
         
         </p>
 
@@ -1244,7 +1343,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l93"><code>_cancelledCallback:93</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l97"><code>_cancelledCallback:97</code></a>
         
         </p>
 
@@ -1291,7 +1390,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l72"><code>_currentSound:72</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l76"><code>_currentSound:76</code></a>
         
         </p>
 
@@ -1338,7 +1437,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l65"><code>_listCounter:65</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l69"><code>_listCounter:69</code></a>
         
         </p>
 
@@ -1385,7 +1484,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l44"><code>_listHelper:44</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l48"><code>_listHelper:48</code></a>
         
         </p>
 
@@ -1432,7 +1531,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l100"><code>_playedSound:100</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l104"><code>_playedSound:104</code></a>
         
         </p>
 
@@ -1479,7 +1578,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l79"><code>_soundInstance:79</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l83"><code>_soundInstance:83</code></a>
         
         </p>
 
@@ -1526,7 +1625,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l107"><code>_timer:107</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l111"><code>_timer:111</code></a>
         
         </p>
 
@@ -1573,7 +1672,7 @@ Audio in the list will be preloaded to minimize pauses for loading.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l36"><code>captions:36</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l37"><code>captions:37</code></a>
         
         </p>
 
@@ -1621,7 +1720,7 @@ dictionary config file and a reference to a text field.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l117"><code>playing:117</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l121"><code>playing:121</code></a>
         
         </p>
 
@@ -1668,7 +1767,7 @@ dictionary config file and a reference to a text field.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l58"><code>soundList:58</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l62"><code>soundList:62</code></a>
         
         </p>
 
@@ -1715,7 +1814,7 @@ dictionary config file and a reference to a text field.</p>
             
         
         
-        <a href="../files/src_media_VOPlayer.js.html#l51"><code>trackSound:51</code></a>
+        <a href="../files/src_media_VOPlayer.js.html#l55"><code>trackSound:55</code></a>
         
         </p>
 

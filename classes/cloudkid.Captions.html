@@ -252,7 +252,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_media_Captions.js.html#l7"><code>cloudkid.Captions:7</code></a>
+            Defined in: <a href="../files/src_media_Captions.js.html#l10"><code>cloudkid.Captions:10</code></a>
         </div>
     
 
@@ -296,6 +296,12 @@ is a singleton class.</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code class="optional">[selfUpdate=true]</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -325,7 +331,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l7"><code>cloudkid.Captions:7</code></a>
+        <a href="../files/src_media_Captions.js.html#l10"><code>cloudkid.Captions:10</code></a>
         
         </p>
 
@@ -372,10 +378,25 @@ is a singleton class.</p>
                     
 
                     <div class="param-description">
-                        <p>An text field to use as the output for this captions object,</p>
-<ul>
-<li>if a string type is supplied, captions will use the DOMElement by id.</li>
-</ul>
+                        <p>An text field to use as the output for this captions object,
+ if a string type is supplied, captions will use the DOMElement by id.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[selfUpdate=true]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If the captions should update itself</p>
 
                     </div>
 
@@ -404,10 +425,7 @@ is a singleton class.</p>
 
     // initialize the captions
     var captions = new cloudkid.Captions(captionsDictionary);
-    captions.play("Alias1");
-
-    // Provide the update to captions
-    Application.intance.on(&#39;update&#39;, captions.update.bind(captions));</code></pre>
+    captions.play("Alias1");</code></pre>
 
             </div>
         </div>
@@ -650,6 +668,13 @@ is a singleton class.</p>
                             </li>
                         
                             <li class="index-item property private">
+                                <a href="#property__selfUpdate">_selfUpdate</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
                                 <a href="#property__textField">_textField</a>
 
                                 
@@ -674,6 +699,13 @@ is a singleton class.</p>
                         
                             <li class="index-item property private">
                                 <a href="#property_p">p</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_selfUpdate">selfUpdate</a>
 
                                 
                                 
@@ -743,7 +775,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l522"><code>_calcUpdate:522</code></a>
+        <a href="../files/src_media_Captions.js.html#l558"><code>_calcUpdate:558</code></a>
         
         </p>
 
@@ -800,7 +832,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l391"><code>_getTotalDuration:391</code></a>
+        <a href="../files/src_media_Captions.js.html#l427"><code>_getTotalDuration:427</code></a>
         
         </p>
 
@@ -867,7 +899,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l323"><code>_load:323</code></a>
+        <a href="../files/src_media_Captions.js.html#l359"><code>_load:359</code></a>
         
         </p>
 
@@ -948,7 +980,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l346"><code>_reset:346</code></a>
+        <a href="../files/src_media_Captions.js.html#l382"><code>_reset:382</code></a>
         
         </p>
 
@@ -1019,7 +1051,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l358"><code>_timeCodeToMilliseconds:358</code></a>
+        <a href="../files/src_media_Captions.js.html#l394"><code>_timeCodeToMilliseconds:394</code></a>
         
         </p>
 
@@ -1115,7 +1147,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l559"><code>_updateCaptions:559</code></a>
+        <a href="../files/src_media_Captions.js.html#l595"><code>_updateCaptions:595</code></a>
         
         </p>
 
@@ -1182,7 +1214,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l493"><code>_updatePercent:493</code></a>
+        <a href="../files/src_media_Captions.js.html#l529"><code>_updatePercent:529</code></a>
         
         </p>
 
@@ -1261,7 +1293,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l573"><code>destroy:573</code></a>
+        <a href="../files/src_media_Captions.js.html#l609"><code>destroy:609</code></a>
         
         </p>
 
@@ -1336,7 +1368,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l287"><code>getFullCaption:287</code></a>
+        <a href="../files/src_media_Captions.js.html#l323"><code>getFullCaption:323</code></a>
         
         </p>
 
@@ -1460,7 +1492,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l275"><code>hasCaption:275</code></a>
+        <a href="../files/src_media_Captions.js.html#l311"><code>hasCaption:311</code></a>
         
         </p>
 
@@ -1559,7 +1591,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l379"><code>isPlaying:379</code></a>
+        <a href="../files/src_media_Captions.js.html#l415"><code>isPlaying:415</code></a>
         
         </p>
 
@@ -1646,7 +1678,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l414"><code>play:414</code></a>
+        <a href="../files/src_media_Captions.js.html#l450"><code>play:450</code></a>
         
         </p>
 
@@ -1753,7 +1785,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l447"><code>seek:447</code></a>
+        <a href="../files/src_media_Captions.js.html#l483"><code>seek:483</code></a>
         
         </p>
 
@@ -1844,7 +1876,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l179"><code>setDictionary:179</code></a>
+        <a href="../files/src_media_Captions.js.html#l215"><code>setDictionary:215</code></a>
         
         </p>
 
@@ -1947,7 +1979,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l239"><code>setText:239</code></a>
+        <a href="../files/src_media_Captions.js.html#l275"><code>setText:275</code></a>
         
         </p>
 
@@ -2058,7 +2090,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l433"><code>stop:433</code></a>
+        <a href="../files/src_media_Captions.js.html#l469"><code>stop:469</code></a>
         
         </p>
 
@@ -2125,7 +2157,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l507"><code>update:507</code></a>
+        <a href="../files/src_media_Captions.js.html#l543"><code>update:543</code></a>
         
         </p>
 
@@ -2206,7 +2238,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l40"><code>_captionDict:40</code></a>
+        <a href="../files/src_media_Captions.js.html#l41"><code>_captionDict:41</code></a>
         
         </p>
 
@@ -2253,7 +2285,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l57"><code>_completeCallback:57</code></a>
+        <a href="../files/src_media_Captions.js.html#l58"><code>_completeCallback:58</code></a>
         
         </p>
 
@@ -2300,7 +2332,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l73"><code>_currentDuration:73</code></a>
+        <a href="../files/src_media_Captions.js.html#l74"><code>_currentDuration:74</code></a>
         
         </p>
 
@@ -2347,7 +2379,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l89"><code>_currentLine:89</code></a>
+        <a href="../files/src_media_Captions.js.html#l90"><code>_currentLine:90</code></a>
         
         </p>
 
@@ -2394,7 +2426,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l81"><code>_currentTime:81</code></a>
+        <a href="../files/src_media_Captions.js.html#l82"><code>_currentTime:82</code></a>
         
         </p>
 
@@ -2441,7 +2473,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l141"><code>_instances:141</code></a>
+        <a href="../files/src_media_Captions.js.html#l153"><code>_instances:153</code></a>
         
         </p>
 
@@ -2488,7 +2520,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l113"><code>_isDestroyed:113</code></a>
+        <a href="../files/src_media_Captions.js.html#l114"><code>_isDestroyed:114</code></a>
         
         </p>
 
@@ -2535,7 +2567,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l97"><code>_lastActiveLine:97</code></a>
+        <a href="../files/src_media_Captions.js.html#l98"><code>_lastActiveLine:98</code></a>
         
         </p>
 
@@ -2582,7 +2614,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l65"><code>_lines:65</code></a>
+        <a href="../files/src_media_Captions.js.html#l66"><code>_lines:66</code></a>
         
         </p>
 
@@ -2629,7 +2661,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l133"><code>_muteAll:133</code></a>
+        <a href="../files/src_media_Captions.js.html#l145"><code>_muteAll:145</code></a>
         
         </p>
 
@@ -2676,7 +2708,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l105"><code>_playing:105</code></a>
+        <a href="../files/src_media_Captions.js.html#l106"><code>_playing:106</code></a>
         
         </p>
 
@@ -2690,6 +2722,55 @@ Call this to advance the caption by a given amount of time.</p>
 
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__selfUpdate" class="property item private">
+    <h3 class="name"><code>_selfUpdate</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Captions.js.html#l125"><code>_selfUpdate:125</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the captions object should do it&#39;s own update</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
     
 
     
@@ -2723,7 +2804,7 @@ Call this to advance the caption by a given amount of time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l48"><code>_textField:48</code></a>
+        <a href="../files/src_media_Captions.js.html#l49"><code>_textField:49</code></a>
         
         </p>
 
@@ -2769,7 +2850,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l402"><code>currentDuration:402</code></a>
+        <a href="../files/src_media_Captions.js.html#l438"><code>currentDuration:438</code></a>
         
         </p>
 
@@ -2816,7 +2897,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l157"><code>muteAll:157</code></a>
+        <a href="../files/src_media_Captions.js.html#l169"><code>muteAll:169</code></a>
         
         </p>
 
@@ -2863,7 +2944,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l125"><code>p:125</code></a>
+        <a href="../files/src_media_Captions.js.html#l137"><code>p:137</code></a>
         
         </p>
 
@@ -2877,6 +2958,55 @@ Only one text field can be controlled at a time.</p>
 
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_selfUpdate" class="property item">
+    <h3 class="name"><code>selfUpdate</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Captions.js.html#l191"><code>selfUpdate:191</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the captions object should do it&#39;s own updating unless you want to manuall
+seek. In general, self-updating should not be set to false unless the sync
+of the captions needs to be exact with something else.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
     
 
     
@@ -2908,7 +3038,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l223"><code>textField:223</code></a>
+        <a href="../files/src_media_Captions.js.html#l259"><code>textField:259</code></a>
         
         </p>
 
@@ -2957,7 +3087,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l148"><code>VERSION:148</code></a>
+        <a href="../files/src_media_Captions.js.html#l160"><code>VERSION:160</code></a>
         
         </p>
 

@@ -916,7 +916,7 @@
             },
             "tag": "module",
             "file": "src/media/Captions.js",
-            "line": 7
+            "line": 10
         },
         "Sound": {
             "name": "Sound",
@@ -3117,10 +3117,10 @@
             "module": "Captions",
             "namespace": "cloudkid",
             "file": "src/media/Captions.js",
-            "line": 7,
+            "line": 10,
             "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class.",
             "example": [
-                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");\n\n\t\t// Provide the update to captions\n\t\tApplication.intance.on('update', captions.update.bind(captions));"
+                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
             ],
             "is_constructor": 1,
             "params": [
@@ -3133,10 +3133,17 @@
                 },
                 {
                     "name": "field",
-                    "description": "An text field to use as the output for this captions object,\n* if a string type is supplied, captions will use the DOMElement by id.",
+                    "description": "An text field to use as the output for this captions object,\n if a string type is supplied, captions will use the DOMElement by id.",
                     "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String",
                     "optional": true,
                     "optdefault": "null"
+                },
+                {
+                    "name": "selfUpdate",
+                    "description": "If the captions should update itself",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
                 }
             ]
         },
@@ -3422,7 +3429,7 @@
             "namespace": "cloudkid",
             "file": "src/tasks/FunctionTask.js",
             "line": 10,
-            "description": "A task to do some generic async function task",
+            "description": "A task to do a generic asynchronous function task.",
             "is_constructor": 1,
             "extends": "Task",
             "params": [
@@ -3433,7 +3440,7 @@
                 },
                 {
                     "name": "serviceCall",
-                    "description": "Function the service call",
+                    "description": "The function to start the asynchronous task. It should take a \n                              callback function as the first parameter, so the task knows \n                              when the asynchronous call has been completed.",
                     "type": "Function"
                 },
                 {
@@ -3442,8 +3449,8 @@
                     "type": "Function"
                 },
                 {
-                    "name": "args",
-                    "description": "The arguments passed to the service call",
+                    "name": "arguments",
+                    "description": "The additional arguments passed to the service call, after the callback",
                     "type": "*"
                 }
             ]
@@ -6091,7 +6098,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 145,
+            "line": 148,
             "description": "The function to call when loading is complete.",
             "itemtype": "property",
             "name": "_loadCallback",
@@ -6104,7 +6111,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 152,
+            "line": 155,
             "description": "The function to call when playback is complete.",
             "itemtype": "property",
             "name": "_endCallback",
@@ -6117,7 +6124,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 170,
+            "line": 173,
             "description": "Called from the constructor to complete setup and start loading.",
             "itemtype": "method",
             "name": "setup",
@@ -6129,7 +6136,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 189,
+            "line": 192,
             "description": "Callback for when the config file is loaded.",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -6148,7 +6155,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 223,
+            "line": 228,
             "description": "Callback for when the audio has been preloaded.",
             "itemtype": "method",
             "name": "onAudioLoaded",
@@ -6160,7 +6167,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 233,
+            "line": 238,
             "description": "Callback for when all art assets have been loaded.",
             "itemtype": "method",
             "name": "onArtLoaded",
@@ -6179,7 +6186,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 282,
+            "line": 287,
             "description": "Callback for when all loading is complete.",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -6198,7 +6205,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 318,
+            "line": 323,
             "description": "Listener for when the Application is resized.",
             "itemtype": "method",
             "name": "resize",
@@ -6222,7 +6229,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 342,
+            "line": 347,
             "description": "Starts playing the cutscene.",
             "itemtype": "method",
             "name": "start",
@@ -6241,7 +6248,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 362,
+            "line": 369,
             "description": "Callback for when the audio has finished playing.",
             "itemtype": "method",
             "name": "_audioCallback",
@@ -6253,7 +6260,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 377,
+            "line": 384,
             "description": "Listener for frame updates.",
             "itemtype": "method",
             "name": "update",
@@ -6272,7 +6279,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 415,
+            "line": 427,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -6293,7 +6300,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 435,
+            "line": 447,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -10338,7 +10345,7 @@
             "params": [
                 {
                     "name": "type",
-                    "description": "The event string name,",
+                    "description": "The type of event to trigger",
                     "type": "String"
                 },
                 {
@@ -11822,7 +11829,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 40,
+            "line": 41,
             "description": "An object used as a dictionary with keys that should be the same as sound aliases",
             "access": "private",
             "tagname": "",
@@ -11835,7 +11842,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 48,
+            "line": 49,
             "description": "A reference to the Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.",
             "access": "private",
             "tagname": "",
@@ -11848,7 +11855,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 57,
+            "line": 58,
             "description": "The function to call when playback is complete.",
             "access": "private",
             "tagname": "",
@@ -11861,7 +11868,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 65,
+            "line": 66,
             "description": "The collection of line objects {start:0, end:0, content:\"\"}",
             "access": "private",
             "tagname": "",
@@ -11874,7 +11881,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 73,
+            "line": 74,
             "description": "The duration in milliseconds of the current sound.",
             "access": "private",
             "tagname": "",
@@ -11887,7 +11894,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 81,
+            "line": 82,
             "description": "The current playback time",
             "access": "private",
             "tagname": "",
@@ -11900,7 +11907,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 89,
+            "line": 90,
             "description": "Save the current line index",
             "access": "private",
             "tagname": "",
@@ -11913,7 +11920,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 97,
+            "line": 98,
             "description": "Cache the last active line",
             "access": "private",
             "tagname": "",
@@ -11926,7 +11933,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 105,
+            "line": 106,
             "description": "If we're playing",
             "access": "private",
             "tagname": "",
@@ -11939,7 +11946,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 113,
+            "line": 114,
             "description": "If this instance has been destroyed already",
             "access": "private",
             "tagname": "",
@@ -11953,6 +11960,20 @@
         {
             "file": "src/media/Captions.js",
             "line": 125,
+            "description": "If the captions object should do it's own update",
+            "itemtype": "property",
+            "name": "_selfUpdate",
+            "type": "Boolean",
+            "access": "private",
+            "tagname": "",
+            "default": "true",
+            "class": "cloudkid.Captions",
+            "module": "Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 137,
             "description": "Reference to the inherieted task",
             "access": "private",
             "tagname": "",
@@ -11965,7 +11986,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 133,
+            "line": 145,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "access": "private",
             "tagname": "",
@@ -11978,7 +11999,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 141,
+            "line": 153,
             "description": "The collection of instances created",
             "itemtype": "property",
             "name": "_instances",
@@ -11991,7 +12012,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 148,
+            "line": 160,
             "description": "The version number of this library",
             "access": "public",
             "tagname": "",
@@ -12005,7 +12026,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 157,
+            "line": 169,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "muteAll",
@@ -12017,7 +12038,19 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 179,
+            "line": 191,
+            "description": "If the captions object should do it's own updating unless you want to manuall\nseek. In general, self-updating should not be set to false unless the sync\nof the captions needs to be exact with something else.",
+            "itemtype": "property",
+            "name": "selfUpdate",
+            "type": "Boolean",
+            "default": "true",
+            "class": "cloudkid.Captions",
+            "module": "Captions",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 215,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12036,7 +12069,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 223,
+            "line": 259,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12047,7 +12080,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 239,
+            "line": 275,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12076,7 +12109,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 275,
+            "line": 311,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12097,7 +12130,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 287,
+            "line": 323,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12123,7 +12156,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 323,
+            "line": 359,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12142,7 +12175,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 346,
+            "line": 382,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12154,7 +12187,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 358,
+            "line": 394,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12177,7 +12210,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 379,
+            "line": 415,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12193,7 +12226,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 391,
+            "line": 427,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12205,7 +12238,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 402,
+            "line": 438,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12217,7 +12250,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 414,
+            "line": 450,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12241,7 +12274,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 433,
+            "line": 469,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12253,7 +12286,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 447,
+            "line": 483,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12272,7 +12305,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 493,
+            "line": 529,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12291,7 +12324,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 507,
+            "line": 543,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12310,7 +12343,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 522,
+            "line": 558,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12322,7 +12355,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 559,
+            "line": 595,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12334,7 +12367,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 573,
+            "line": 609,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -13670,7 +13703,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 36,
+            "line": 37,
             "description": "The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions\ndictionary config file and a reference to a text field.",
             "itemtype": "property",
             "name": "captions",
@@ -13683,7 +13716,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 44,
+            "line": 48,
             "description": "An Array used when play() is called to avoid creating lots of Array objects.",
             "itemtype": "property",
             "name": "_listHelper",
@@ -13696,7 +13729,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 51,
+            "line": 55,
             "description": "If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.",
             "itemtype": "property",
             "name": "trackSound",
@@ -13709,7 +13742,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 58,
+            "line": 62,
             "description": "The current list of audio/silence times/functions. Generally you will not need to modify this.",
             "itemtype": "property",
             "name": "soundList",
@@ -13722,7 +13755,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 65,
+            "line": 69,
             "description": "The current position in soundList.",
             "itemtype": "property",
             "name": "_listCounter",
@@ -13735,7 +13768,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 72,
+            "line": 76,
             "description": "The current audio alias being played.",
             "itemtype": "property",
             "name": "_currentSound",
@@ -13748,7 +13781,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 79,
+            "line": 83,
             "description": "The current audio instance being played.",
             "itemtype": "property",
             "name": "_soundInstance",
@@ -13761,7 +13794,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 86,
+            "line": 90,
             "description": "The callback for when the list is finished.",
             "itemtype": "property",
             "name": "_callback",
@@ -13774,7 +13807,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 93,
+            "line": 97,
             "description": "The callback for when the list is interrupted for any reason.",
             "itemtype": "property",
             "name": "_cancelledCallback",
@@ -13787,7 +13820,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 100,
+            "line": 104,
             "description": "A list of audio file played by this, so that they can be unloaded later.",
             "itemtype": "property",
             "name": "_playedSound",
@@ -13800,7 +13833,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 107,
+            "line": 111,
             "description": "A timer for silence entries in the list, in milliseconds.",
             "itemtype": "property",
             "name": "_timer",
@@ -13813,7 +13846,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 117,
+            "line": 121,
             "description": "If VOPlayer is currently playing (audio or silence).",
             "itemtype": "property",
             "name": "playing",
@@ -13827,7 +13860,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 128,
+            "line": 132,
             "description": "Plays a single audio alias, interrupting any current playback.\nAlternatively, plays a list of audio files, timers, and/or functions.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "play",
@@ -13858,7 +13891,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 155,
+            "line": 159,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onSoundFinished",
@@ -13870,10 +13903,10 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 208,
-            "description": "The update callback used for silence timers and updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
+            "line": 215,
+            "description": "The update callback used for silence timers.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
-            "name": "_update",
+            "name": "_updateSilence",
             "access": "private",
             "tagname": "",
             "params": [
@@ -13889,10 +13922,29 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 230,
+            "line": 232,
+            "description": "The update callback used for updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
+            "itemtype": "method",
+            "name": "_updateSoloCaption",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "elapsed",
+                    "description": "The time elapsed since the previous frame, in milliseconds.",
+                    "type": "Int"
+                }
+            ],
+            "class": "cloudkid.VOPlayer",
+            "module": "Sound",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/media/VOPlayer.js",
+            "line": 250,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
-            "name": "_updateCaptionPos",
+            "name": "_syncCaptionToSound",
             "access": "private",
             "tagname": "",
             "params": [
@@ -13908,7 +13960,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 244,
+            "line": 264,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playSound",
@@ -13920,7 +13972,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 294,
+            "line": 314,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -13932,7 +13984,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 320,
+            "line": 343,
             "description": "Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadSound",
@@ -13944,7 +13996,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 331,
+            "line": 354,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
@@ -15115,7 +15167,7 @@
         },
         {
             "file": "src/tasks/FunctionTask.js",
-            "line": 25,
+            "line": 27,
             "description": "The url of the file to load",
             "itemtype": "property",
             "name": "serviceCall",
@@ -15126,25 +15178,25 @@
         },
         {
             "file": "src/tasks/FunctionTask.js",
-            "line": 32,
+            "line": 34,
             "description": "The media loader priorty of the load",
             "itemtype": "property",
             "name": "args",
-            "type": "*",
+            "type": "Array",
             "class": "cloudkid.FunctionTask",
             "module": "Tasks",
             "namespace": "cloudkid"
         },
         {
             "file": "src/tasks/FunctionTask.js",
-            "line": 52,
+            "line": 53,
             "description": "Start the load",
             "itemtype": "method",
             "name": "start",
             "params": [
                 {
                     "name": "callback",
-                    "description": "Callback to call when the load is done",
+                    "description": "Callback to call when the asynchronous function is done",
                     "type": "Function"
                 }
             ],
@@ -15154,7 +15206,7 @@
         },
         {
             "file": "src/tasks/FunctionTask.js",
-            "line": 62,
+            "line": 66,
             "description": "Get a string representation of this task",
             "itemtype": "method",
             "name": "toString",
@@ -15168,7 +15220,7 @@
         },
         {
             "file": "src/tasks/FunctionTask.js",
-            "line": 73,
+            "line": 77,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -19044,15 +19096,15 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/FunctionTask.js:52"
+            "line": " src/tasks/FunctionTask.js:53"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/FunctionTask.js:62"
+            "line": " src/tasks/FunctionTask.js:66"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/FunctionTask.js:73"
+            "line": " src/tasks/FunctionTask.js:77"
         },
         {
             "message": "replacing incorrect tag: function with method",
