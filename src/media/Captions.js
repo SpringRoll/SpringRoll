@@ -465,7 +465,7 @@
 		
 		if (currentTime < lines[0].start)
 		{
-			currentLine = this._lastActiveLine = -1;
+			this._currentLine = this._lastActiveLine = -1;
 			this._updateCaptions();
 			return;
 		}
