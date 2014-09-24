@@ -219,18 +219,6 @@
 			}
 		}
 	};
-	
-	/** 
-	* Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. 
-	* Only one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.
-	* @deprecated Please use the setter `Captions.textField` instead
-	* @method setTextField
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The CreateJS or PIXI Text object 
-	*/
-	p.setTextField = function(field)
-	{
-		this.textField = field;
-	};
 
 	/** 
 	*  The text field that the captions uses to update.
