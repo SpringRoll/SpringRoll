@@ -454,7 +454,8 @@
 		this._endCallback = null;
 		this._clip = null;
 		this._captionsObj = null;
-		this.display.stage.removeChild(this);
+		if(this.parent)
+			this.parent.removeChild(this);
 		this.display = null;
 	};
 	
