@@ -97,7 +97,8 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(EventDispatcher.prototype);
+	var s = EventDispatcher.prototype;
+	var p = Application.prototype = Object.create(s);
 
 	/**
 	*  The collection of function references to call when initializing the application
@@ -792,6 +793,7 @@
 	*/
 	p.destroy = function()
 	{
+		this._readyToInit = false;
 		this.paused = true;
 		this.trigger(DESTROY);
 		
@@ -811,15 +813,17 @@
 			window.removeEventListener("resize", this._resize);
 		}
 
-		_framerate = _resizeElement = null;
-
 		_pageVisibility.destroy();
 		_pageVisibility = null;
 
-		this._listeners = null;
-		_tickCallback = null;
+		_instance =
+		_tickCallback = 
+		_framerate = 
+		_resizeElement = null;
 
 		Debug.disconnect();
+
+		s.destroy.call(this);
 	};
 
 	// Add to the name space

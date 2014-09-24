@@ -151,10 +151,6 @@
 	Object.defineProperty(Loader, "instance", {
 		get:function()
 		{
-			if (!_instance)
-			{
-				throw 'Call Loader.init()';
-			}
 			return _instance;
 		}
 	});

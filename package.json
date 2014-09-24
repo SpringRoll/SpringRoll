@@ -1,7 +1,10 @@
 {
-	"private": true,
-	"dependencies": {
-		"grunt": "~0.4.5",
-		"grunt-library-builder": "CloudKidStudio/grunt-library-builder"
-	}
+  "private": true,
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-library-builder": "*",
+    "load-grunt-config": "~0.13.1",
+    "lodash": "~2.4.1",
+    "grunt-contrib-qunit": "~0.5.2"
+  }
 }

@@ -780,6 +780,13 @@
 		* @private
 		*/
 		this._listeners = [];
+
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
 	},
 	
 	// Reference to the prototype 
@@ -793,6 +800,8 @@
 	*/
 	p.trigger = function(type)
 	{
+		if (this._destroyed) return;
+		
 		if (this._listeners[type] !== undefined) 
 		{	
 			// copy the listeners array
@@ -845,6 +854,8 @@
 	*/
 	p.on = function(name, callback, priority, once)
 	{
+		if (this._destroyed) return;
+
 		// Callbacks map
 		if (type(name) === 'object')
 		{
@@ -906,7 +917,9 @@
 	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
 	p.off = function(name, callback)
-	{	
+	{
+		if (this._destroyed) return;
+
 		// remove all 
 		if (name === undefined)
 		{
@@ -968,6 +981,16 @@
 		return listeners.indexOf(callback) >= 0;
 	};
 	
+	/**
+	*  Destroy and don't use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this._destroyed = true;
+		this._listeners = null;
+	};
+
 	/**
 	*  Return type of the value.
 	*  
@@ -1286,7 +1309,8 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(EventDispatcher.prototype);
+	var s = EventDispatcher.prototype;
+	var p = Application.prototype = Object.create(s);
 
 	/**
 	*  The collection of function references to call when initializing the application
@@ -1981,6 +2005,7 @@
 	*/
 	p.destroy = function()
 	{
+		this._readyToInit = false;
 		this.paused = true;
 		this.trigger(DESTROY);
 		
@@ -2000,15 +2025,17 @@
 			window.removeEventListener("resize", this._resize);
 		}
 
-		_framerate = _resizeElement = null;
-
 		_pageVisibility.destroy();
 		_pageVisibility = null;
 
-		this._listeners = null;
-		_tickCallback = null;
+		_instance =
+		_tickCallback = 
+		_framerate = 
+		_resizeElement = null;
 
 		Debug.disconnect();
+
+		s.destroy.call(this);
 	};
 
 	// Add to the name space
@@ -2687,10 +2714,6 @@
 	Object.defineProperty(Loader, "instance", {
 		get:function()
 		{
-			if (!_instance)
-			{
-				throw 'Call Loader.init()';
-			}
 			return _instance;
 		}
 	});
