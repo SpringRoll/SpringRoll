@@ -12006,43 +12006,6 @@
         {
             "file": "src/media/Captions.js",
             "line": 157,
-            "description": "Mute all of the captions.",
-            "deprecated": true,
-            "deprecationMessage": "Please use the property `Captions.muteAll`",
-            "itemtype": "method",
-            "name": "setMuteAll",
-            "params": [
-                {
-                    "name": "muteAll",
-                    "description": "Whether to mute or unmute",
-                    "type": "Bool"
-                }
-            ],
-            "static": 1,
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 170,
-            "description": "If the captions are all currently muted.",
-            "deprecated": true,
-            "deprecationMessage": "Please use the property `Captions.muteAll`",
-            "itemtype": "method",
-            "name": "getMuteAll",
-            "static": 1,
-            "return": {
-                "description": "Whether the captions are all muted",
-                "type": "Bool"
-            },
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 183,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "muteAll",
@@ -12054,7 +12017,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 205,
+            "line": 179,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12073,7 +12036,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 249,
+            "line": 223,
             "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
             "deprecated": true,
             "deprecationMessage": "Please use the setter `Captions.textField` instead",
@@ -12092,7 +12055,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 261,
+            "line": 235,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12103,7 +12066,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 277,
+            "line": 251,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12132,7 +12095,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 313,
+            "line": 287,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12153,7 +12116,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 325,
+            "line": 299,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12179,7 +12142,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 361,
+            "line": 335,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12198,7 +12161,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 384,
+            "line": 358,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12210,7 +12173,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 396,
+            "line": 370,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12233,7 +12196,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 417,
+            "line": 391,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12249,7 +12212,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 429,
+            "line": 403,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12261,7 +12224,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 440,
+            "line": 414,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12273,7 +12236,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 452,
+            "line": 426,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12297,7 +12260,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 471,
+            "line": 445,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12309,7 +12272,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 485,
+            "line": 459,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12328,7 +12291,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 531,
+            "line": 505,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12347,7 +12310,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 545,
+            "line": 519,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12366,7 +12329,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 560,
+            "line": 534,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12378,7 +12341,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 597,
+            "line": 571,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12390,7 +12353,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 611,
+            "line": 585,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
