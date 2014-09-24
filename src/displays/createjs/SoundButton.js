@@ -12,7 +12,7 @@
 	 *  @class SoundButton
 	 *  @extends cloudkid.createjs.Button
 	 *  @constructor
-	 *  @param {DOMElement}|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
+	 *  @param {DOMElement|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
 	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
 	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
 	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
@@ -47,8 +47,8 @@
 		this._onButtonPress = this._onButtonPress.bind(this);
 
 		// add listeners
-		this.on('rollover', this._onRollover);
-		this.on(Button.BUTTON_PRESS, this._onButtonPress);
+		this.addEventListener('rollover', this._onRollover);
+		this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 	};
 
 	// Reference to the super prototype
@@ -64,28 +64,28 @@
 	 */
 	p._onButtonPress = function(e)
 	{
-		if (this.clickAlias)
+		if (this.clickAlias && this._audioEnabled)
 		{
 			Sound.instance.play(this.clickAlias);
 		}
 	};
 
 	/**
-	 *  Override for _onRollover function.
+	 *  Handler for rollover event.
 	 *  @method _onRollover
 	 *  @private
 	 */
 	p._onRollover = function(e)
 	{
-		if (this.overAlias)
+		if (this.overAlias && this.enabled && this._audioEnabled)
 		{
 			Sound.instance.play(this.overAlias);
 		}	
 	};
 
 	/**
-	 *  Handler for the on mouse over event
-	 *  @property {Boolean} enabled
+	 *  If audio should be played for this button.
+	 *  @property {Boolean} audioEnabled
 	 */
 	Object.defineProperty(p, "audioEnabled",
 	{
@@ -105,8 +105,8 @@
 	 */
 	p.destroy = function()
 	{
-		this.off("rollover", this._onRollover);
-		this.off(Button.BUTTON_PRESS, this._onButtonPress);
+		this.removeEventListener("rollover", this._onRollover);
+		this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 		this.audioEnabled = false;
 		s.destroy.apply(this);
 	};
