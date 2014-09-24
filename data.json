@@ -12037,25 +12037,6 @@
         {
             "file": "src/media/Captions.js",
             "line": 223,
-            "description": "Sets the CreateJS Text or Pixi BitmapText/Text object that Captions should control the text of. \nOnly one text field can be controlled at a time. When using PIXI textfields, textIsProp should be false.",
-            "deprecated": true,
-            "deprecationMessage": "Please use the setter `Captions.textField` instead",
-            "itemtype": "method",
-            "name": "setTextField",
-            "params": [
-                {
-                    "name": "field",
-                    "description": "The CreateJS or PIXI Text object",
-                    "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement"
-                }
-            ],
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 235,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12066,7 +12047,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 251,
+            "line": 239,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12095,7 +12076,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 287,
+            "line": 275,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12116,7 +12097,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 299,
+            "line": 287,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12142,7 +12123,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 335,
+            "line": 323,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12161,7 +12142,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 358,
+            "line": 346,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12173,7 +12154,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 370,
+            "line": 358,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12196,7 +12177,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 391,
+            "line": 379,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12212,7 +12193,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 403,
+            "line": 391,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12224,7 +12205,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 414,
+            "line": 402,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12236,7 +12217,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 426,
+            "line": 414,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12260,7 +12241,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 445,
+            "line": 433,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12272,7 +12253,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 459,
+            "line": 447,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12291,7 +12272,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 505,
+            "line": 493,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12310,7 +12291,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 519,
+            "line": 507,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12329,7 +12310,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 534,
+            "line": 522,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12341,7 +12322,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 571,
+            "line": 559,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12353,7 +12334,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 585,
+            "line": 573,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
