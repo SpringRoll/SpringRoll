@@ -1489,8 +1489,9 @@
 
 		// Bound method calls
 		this._onSoundFinished = this._onSoundFinished.bind(this);
-		this._update = this._update.bind(this);
-		this._updateCaptionPos = this._updateCaptionPos.bind(this);
+		this._updateSilence = this._updateSilence.bind(this);
+		this._updateSoloCaption = this._updateSoloCaption.bind(this);
+		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
 		
 		/**
 		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
@@ -1499,6 +1500,9 @@
 		*	@public
 		*/
 		this.captions = captions || null;
+
+		// Make sure the captions don't update themselves
+		if (captions) captions.selfUpdate = false;
 
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.
@@ -1619,8 +1623,11 @@
 	p._onSoundFinished = function()
 	{
 		//remove any update callback
-		Application.instance.off("update", this._update);
-		Application.instance.off("update", this._updateCaptionPos);
+		Application.instance.off("update", [
+			this._updateSoloCaption,
+			this._syncCaptionToSound,
+			this._updateSilence
+		]);
 		
 		//if we have captions and an audio instance, set the caption time to the length of the audio
 		if (this.captions && this._soundInstance)
@@ -1659,25 +1666,20 @@
 			{
 				this._timer = this._currentSound;//set up a timer to wait
 				this._currentSound = null;
-				Application.instance.on("update", this._update);
+				Application.instance.on("update", this._updateSilence);
 			}
 		}
 	};
 
 	/**
-	*	The update callback used for silence timers and updating captions without active audio.
+	*	The update callback used for silence timers.
 	*	This method is bound to the VOPlayer instance.
-	*	@method _update
+	*	@method _updateSilence
 	*	@private
 	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
 	*/
-	p._update = function(elapsed)
+	p._updateSilence = function(elapsed)
 	{
-		if (this.captions)
-		{
-			this.captions.seek(elapsed);
-		}
-		
 		this._timer -= elapsed;
 
 		if (this._timer <= 0)
@@ -1687,13 +1689,31 @@
 	};
 
 	/**
-	*	The update callback used for updating captions with active audio.
+	*	The update callback used for updating captions without active audio.
 	*	This method is bound to the VOPlayer instance.
-	*	@method _updateCaptionPos
+	*	@method _updateSoloCaption
 	*	@private
 	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
 	*/
-	p._updateCaptionPos = function(elapsed)
+	p._updateSoloCaption = function(elapsed)
+	{
+		this._timer += elapsed;
+		this.captions.seek(this._timer);
+
+		if (this._timer >= this.captions.duration)
+		{
+			this._onSoundFinished();
+		}
+	};
+
+	/**
+	*	The update callback used for updating captions with active audio.
+	*	This method is bound to the VOPlayer instance.
+	*	@method _syncCaptionToSound
+	*	@private
+	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+	*/
+	p._syncCaptionToSound = function(elapsed)
 	{
 		if (!this._soundInstance) return;
 
@@ -1723,9 +1743,9 @@
 		if (!s.exists(this._currentSound) && this.captions && this.captions.hasCaption(this._currentSound))
 		{
 			this.captions.play(this._currentSound);
-			this._timer = this.captions.currentDuration;
+			this._timer = 0;
 			this._currentSound = null;
-			Application.instance.on("update", this._update);
+			Application.instance.on("update", this._updateSoloCaption);
 		}
 		else
 		{
@@ -1733,7 +1753,7 @@
 			if (this.captions)
 			{
 				this.captions.play(this._currentSound);
-				Application.instance.on("update", this._updateCaptionPos);
+				Application.instance.on("update", this._syncCaptionToSound);
 			}
 		}
 		for(var i = this._listCounter + 1; i < this.soundList.length; ++i)
@@ -1766,8 +1786,11 @@
 		{
 			this.captions.stop();
 		}
-		Application.instance.off("update", this._update);
-		Application.instance.off("update", this._updateCaptionPos);
+		Application.instance.off('update', [
+			this._updateSoloCaption,
+			this._syncCaptionToSound,
+			this._updateSilence
+		]);
 		this.soundList = null;
 		this._timer = 0;
 		this._callback = null;

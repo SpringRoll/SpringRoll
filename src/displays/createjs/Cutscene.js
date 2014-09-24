@@ -142,6 +142,9 @@
 		*/
 		this._captionsObj = options.captions || null;
 
+		// Make sure the captions don't update themselves
+		if (this._captionsObj) this._captionsObj.selfUpdate = false;
+
 		/**
 		*	The function to call when loading is complete.
 		*	@property {Function} _loadCallback
@@ -197,7 +200,9 @@
 		this.config = result.content;
 		
 		if(this._captionsObj)
+		{
 			this._captionsObj.setDictionary(this.config.captions);
+		}
 		
 		//parse config
 		this.framerate = this.config.settings.fps;
@@ -355,7 +360,9 @@
 		var id = this.config.audio.soundManifest[0].id;
 		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
 		if(this._captionsObj)
+		{
 			this._captionsObj.play(id);
+		}
 		Application.instance.on("update", this.update);
 	};
 	
@@ -396,9 +403,14 @@
 				this._timeElapsed = this._currentAudioInstance.position * 0.001;//save the time elapsed
 		}
 		else
+		{
 			this._timeElapsed += elapsed * 0.001;
+		}
+			
 		if(this._captionsObj)
+		{
 			this._captionsObj.seek(this._timeElapsed * 1000);
+		}
 		//set the elapsed time of the clip
 		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ? this._clip.getChildAt(0) : this._clip;
 		clip.elapsedTime = this._timeElapsed;

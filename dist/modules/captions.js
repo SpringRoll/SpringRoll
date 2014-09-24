@@ -5,6 +5,9 @@
 */
 (function(undefined){
 	
+	// Import class
+	var Application = include('cloudkid.Application');
+
 	/**
 	* A class that creates captioning for multimedia content. Captions are
 	* created from a dictionary of captions and can be played by alias. Captions 
@@ -23,17 +26,15 @@
 		// initialize the captions
 		var captions = new cloudkid.Captions(captionsDictionary);
 		captions.play("Alias1");
-
-		// Provide the update to captions
-		Application.intance.on('update', captions.update.bind(captions));
 	*
 	* @class Captions
 	* @constructor
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
 	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] An text field to use as the output for this captions object,
-	* * if a string type is supplied, captions will use the DOMElement by id.
+	*  if a string type is supplied, captions will use the DOMElement by id.
+	* @param {Boolean} [selfUpdate=true] If the captions should update itself
 	*/
-	var Captions = function(captionDictionary, field)
+	var Captions = function(captionDictionary, field, selfUpdate)
 	{
 		// Add to the instances
 		_instances.push(this);
@@ -119,6 +120,17 @@
 		*/
 		this._isDestroyed = false;
 
+		// Bind the update function
+		this.update = this.update.bind(this);
+
+		/**
+		*  If the captions object should do it's own update
+		*  @property {Boolean} _selfUpdate
+		*  @private
+		*  @default true
+		*/
+		this.selfUpdate = this._selfUpdate = (selfUpdate === undefined ? true : selfUpdate);
+
 		// Set the captions dictionary
 		this.setDictionary(captionDictionary || null);
 	};
@@ -174,6 +186,30 @@
 			{
 				_instances[i]._updateCaptions();
 			}
+		}
+	});
+
+	/**
+	*  If the captions object should do it's own updating unless you want to manuall
+	*  seek. In general, self-updating should not be set to false unless the sync
+	*  of the captions needs to be exact with something else.
+	*  @property {Boolean} selfUpdate
+	*  @default true
+	*/
+	Object.defineProperty(p, 'selfUpdate', {
+		set : function(selfUpdate)
+		{
+			this._selfUpdate = !!selfUpdate;
+			Application.instance.off('update', this.update);
+
+			if (this._selfUpdate)
+			{
+				Application.instance.on('update', this.update);
+			}
+		},
+		get : function()
+		{
+			return this._selfUpdate;
 		}
 	});
 	
