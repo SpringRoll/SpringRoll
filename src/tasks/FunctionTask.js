@@ -8,38 +8,39 @@
 	var Task = include('cloudkid.Task');
 	
 	/**
-	*   A task to do some generic async function task
+	*   A task to do a generic asynchronous function task.
 	*   
 	*   @class FunctionTask
 	*   @constructor
 	*   @extends Task
 	*   @param {String} id Alias for this task
-	*   @param {function} serviceCall Function the service call
-	*   @param {function} callback Function to call when the task is completed
-	*   @param {*} args The arguments passed to the service call
+	*   @param {Function} serviceCall The function to start the asynchronous task. It should take a 
+	*                                 callback function as the first parameter, so the task knows 
+	*                                 when the asynchronous call has been completed.
+	*   @param {Function} callback Function to call when the task is completed
+	*   @param {*} arguments The additional arguments passed to the service call, after the callback
 	*/
-	var FunctionTask = function(id, serviceCall, callback, args)
+	var FunctionTask = function(id, serviceCall, callback)
 	{
 		Task.call(this, id, callback);
 
 		/**
 		* The url of the file to load
 		* 
-		* @property {function} serviceCall
+		* @property {Function} serviceCall
 		*/
 		this.serviceCall = serviceCall;
 		
 		/**
 		* The media loader priorty of the load
-		* @property {*} args
+		* @property {Array} args
 		*/
 		this.args = null;
 
 		// Get the additional arguments as an array
-		if (args)
+		if(arguments.length > 3)
 		{
-			var a = Array.prototype.slice.call(arguments);
-			this.args = a.slice(3);
+			this.args = Array.prototype.slice.call(arguments, 3);
 		}
 	};
 	
@@ -52,11 +53,14 @@
 	/**
 	*   Start the load
 	*   @function start
-	*   @param {function} callback Callback to call when the load is done
+	*   @param {Function} callback Callback to call when the asynchronous function is done
 	*/
 	p.start = function(callback)
 	{
-		this.serviceCall.apply(null, [callback].concat(this.args));
+		if(this.args)
+			this.serviceCall.apply(null, [callback].concat(this.args));
+		else
+			this.serviceCall.call(null, callback);
 	};
 	
 	/**
