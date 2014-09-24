@@ -10374,6 +10374,13 @@
                     "name": "callback",
                     "description": "The callback function when event is fired or an array of callbacks.",
                     "type": "Function|Array*"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the event listener. Higher numbers are handled first.",
+                    "type": "Int",
+                    "optional": true,
+                    "optdefault": "0"
                 }
             ],
             "return": {
@@ -10386,7 +10393,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 74,
+            "line": 75,
             "description": "Add an event listener. The parameters for the listener functions depend on the event.",
             "itemtype": "method",
             "name": "on",
@@ -10400,6 +10407,13 @@
                     "name": "callback",
                     "description": "The callback function when event is fired or an array of callbacks.",
                     "type": "Function|Array*"
+                },
+                {
+                    "name": "priority",
+                    "description": "The priority of the event listener. Higher numbers are handled first.",
+                    "type": "Int",
+                    "optional": true,
+                    "optdefault": "0"
                 }
             ],
             "return": {
@@ -10412,7 +10426,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 129,
+            "line": 139,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -10438,7 +10452,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 181,
+            "line": 191,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -10465,7 +10479,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 200,
+            "line": 210,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -10488,7 +10502,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 222,
+            "line": 232,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
