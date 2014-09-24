@@ -918,7 +918,7 @@
 		);
 
 		// Resize now that the config is loaded - fix portrait mode
-		this.on("resize", resize.bind(this));
+		this.on("resize", resize.bind(this), 100);
 	};
 
 	/**

@@ -825,11 +825,12 @@
 	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
 	*          or a map of events to handlers
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
 	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
-	p.once = function(name, callback)
+	p.once = function(name, callback, priority)
 	{
-		return this.on(name, callback, true);
+		return this.on(name, callback, priority, true);
 	};
 	
 	/**
@@ -839,9 +840,10 @@
 	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
 	*          or a map of events to handlers
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
 	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
-	p.on = function(name, callback, once)
+	p.on = function(name, callback, priority, once)
 	{
 		// Callbacks map
 		if (type(name) === 'object')
@@ -850,7 +852,7 @@
 			{
 				if (name.hasOwnProperty(key))
 				{
-					this.on(key, name[key], once);
+					this.on(key, name[key], priority, once);
 				}
 			}
 		}
@@ -869,10 +871,13 @@
 				{
 					callback._eventDispatcherOnce = true;
 				}
+				callback._priority = parseInt(priority) || 0;
 
 				if (listener.indexOf(callback) === -1)
 				{
 					listener.push(callback);
+					if(listener.length > 1)
+						listener.sort(listenerSorter);
 				}
 			}
 		}
@@ -881,11 +886,16 @@
 		{
 			for (var f = 0, fl = callback.length; f < fl; f++)
 			{
-				this.on(name, callback[f], once);
+				this.on(name, callback[f], priority, once);
 			}
 		}
 		return this;
 	};
+
+	function listenerSorter(a, b)
+	{
+		return a - b;
+	}
 	
 	/**
 	*  Remove the event listener
