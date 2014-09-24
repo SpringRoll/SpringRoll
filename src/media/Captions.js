@@ -153,32 +153,6 @@
 	* @static
 	*/
 	Captions.VERSION = "${version}";
-	
-	/**
-	* Mute all of the captions.
-	*
-	* @deprecated Please use the property `Captions.muteAll`
-	* @method setMuteAll
-	* @param {bool} muteAll Whether to mute or unmute
-	* @static
-	*/
-	Captions.setMuteAll = function(muteAll)
-	{
-		Captions.muteAll = muteAll;
-	};
-	
-	/**
-	* If the captions are all currently muted.
-	*
-	* @deprecated Please use the property `Captions.muteAll`
-	* @method getMuteAll
-	* @static
-	* @return {bool} Whether the captions are all muted
-	*/
-	Captions.getMuteAll = function()
-	{
-		return Captions.muteAll;
-	};
 
 	/**
 	* Set if all captions are currently muted.
