@@ -8,10 +8,16 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="css/main.css">
 
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="js/examples.js"></script>
+
         <!-- External dependencies -->
-		<script src="libs/tweenjs/lib/tweenjs.min.js"></script>
-		<script src="libs/easeljs/lib/easeljs.combined.js"></script>
-		<script src="libs/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
@@ -19,44 +25,50 @@
 
     </head>
     <body>
-		<div id="content">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
 			<div id="framerate">FPS: 00.000</div>
 			<canvas id="stage" width="800" height="500"></canvas>
-			<script>
+			<pre id="codeDisplay"></pre>
+<script>
 
-				var Application = include('cloudkid.Application'),
-					CreateJSDisplay = include('cloudkid.CreateJSDisplay'),
-					Shape = include('createjs.Shape'),
-					Tween = include('createjs.Tween');
+var Application = include('cloudkid.Application'),
+	CreateJSDisplay = include('cloudkid.CreateJSDisplay'),
+	Shape = include('createjs.Shape'),
+	Tween = include('createjs.Tween');
 
-				// Create the new application
-				var app = new Application({
-					framerate: "framerate", // optional framerate display
-					updateTween: true, // IMPORTANT! for Application to own TweenJS updates
-					canvasId: "stage",
-					display: CreateJSDisplay,
-					displayOptions: {
-						clearView: true // clear the stage on render
-					}
-				});
+// Create the new application
+var app = new Application({
+	framerate: "framerate", // optional framerate display
+	updateTween: true, // IMPORTANT! for Application to own TweenJS updates
+	canvasId: "stage",
+	display: CreateJSDisplay,
+	displayOptions: {
+		clearView: true // clear the stage on render
+	}
+});
 
-				// Wait until the app is ready
-				app.on('init', function(){
+// Wait until the app is ready
+app.on('init', function(){
 
-					// Create a new shape
-					var shape = new Shape();
-					shape.graphics.beginFill("#69a1df")
-						.drawCircle(-100, 500 / 2, 100);
+	// Create a new shape
+	var shape = new Shape();
+	shape.graphics.beginFill("#69a1df")
+		.drawCircle(-100, 500 / 2, 100);
 
-					// Add it to the EaselJS stage
-					app.display.stage.addChild(shape);
+	// Add it to the EaselJS stage
+	app.display.stage.addChild(shape);
 
-					// Tween the shape
-					Tween.get(shape, {loop: true}).to({x: 1000}, 3000);
+	// Tween the shape
+	Tween.get(shape, {loop: true}).to({x: 1000}, 3000);
 
-				});
+});
 
-			</script>
+</script>
 		</div>
     </body>
 </html>

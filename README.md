@@ -35,6 +35,14 @@ CloudKid Framework can be install using Bower.
 bower install cloudkid-framework
 ```
 
+##Examples
+
+To test the examples, run the grunt task `examples`. This will download any dependencies and automatically launch the examples in your browser.
+
+```bash
+grunt examples
+```
+
 ##Dependencies
 
 * [PreloadJS](https://github.com/CloudKidStudio/PreloadJS) CloudKid's fork of PreloadJS

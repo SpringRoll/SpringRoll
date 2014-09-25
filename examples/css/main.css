@@ -1,13 +1,19 @@
 body, html {
     margin: 0;
     padding: 0;
+    font-family:Helvetica, sans-serif;
+    background:#bebebe;
 }
 
-body {
+#frame {
     position:absolute;
     height:100%;
     width:100%;
-    background:#bebebe;
+    
+}
+
+.index {
+    background:#fff;
 }
 
 #content {
@@ -15,13 +21,96 @@ body {
     left:50%;
     top:50%;
     transform: translate(-50%, -50%);
+}
+
+#content h1 {
+    font-size:150%;
+}
+
+#content nav {
+    height:30px;
+    position:absolute;
+    top:0;
+    padding:0 10px;
+    width:100%;
+    box-sizing:border-box;
+}
+
+#content nav button {
+    border:1px solid #999;
+    background:#ccc;
+    padding:5px 10px;
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom:0;
+    font-size:90%;
+    outline:0;
+    color:#666;
+}
+#content nav button:hover {
+    background:#ddd;
+    border-color: #666;
+    color:#333;
+}
+#content.code nav #code,
+#content.canvas nav #canvas {
     background:#fff;
+    border-color: #fff;
+    color:#333;
+}
+
+#content.canvas canvas {
+    opacity:1;
+}
+#content.code canvas {
+    opacity:0;
+}
+
+#content.code #codeDisplay {
+    display:block;
+    position: absolute;
+    top: 30px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: #fff;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    max-height: 500px;
+    overflow: auto;
+}
+#content.canvas #codeDisplay {
+    display:none;
+}
+
+#content nav #back {
+    float:right;
+}
+
+
+#content canvas {
+    margin-top:30px;
+    background:#fff;
+}
+
+a {
+    color:#0080FF;
+}
+a:hover {
+    color:#084B8A;
+    text-decoration: none;
+}
+#content.index {
+    padding:20px;
+    line-height:1.6;
 }
 
 #framerate {
     position:absolute;
-    top:0;
-    left:0;
+    right:0;
+    top:30px;
     padding:5px;
     color:#fff;
     background:rgba(0,0,0,0.5);
