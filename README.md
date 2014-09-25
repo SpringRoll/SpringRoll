@@ -85,9 +85,9 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 
 Modules are extra components which contain code libraries, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and contain functionality that can work along-size the core of the framework. These are found in the **dist/modules** folder.
 
-* **Captions Module**
+* **[Captions Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Captions-Module)**
 * **CreateJS Display Module**
-* **Generic Display Module**
+* **Native Display Module**
 * **PIXI Display Module**
 * **Interface Module** 
 * **[Sound Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Sound-Module)**
