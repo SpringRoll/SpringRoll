@@ -89,7 +89,7 @@ Modules are extra components which contain code libraries, documentation and/or 
 * **CreateJS Display Module**
 * **Native Display Module**
 * **PIXI Display Module**
-* **Interface Module** 
+* **[Interface Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Interface-Module)** 
 * **[Sound Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Sound-Module)**
 * **States Module**
 * **Tasks Module**
