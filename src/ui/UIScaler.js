@@ -168,7 +168,7 @@
 	*  @private
 	*  @param {object} display The canvas renderer display
 	*/
-	p._getAdapter = function(display)
+	UIScaler._getAdapter = function(display)
 	{
 		if (display === undefined)
 		{
