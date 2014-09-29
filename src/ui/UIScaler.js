@@ -13,7 +13,7 @@
 	/**
 	*  The UI scale is responsible for scaling UI components
 	*  to help easy the burden of different device aspect ratios.
-	*  
+	*
 	*  @class UIScaler
 	*  @constructor
 	*  @param {DisplayObject} parent The UI display container
@@ -29,14 +29,14 @@
 	*/
 	var UIScaler = function(parent, designedSize, items, enabled, display)
 	{
-		/** 
-		*  The UI display object to update 
+		/**
+		*  The UI display object to update
 		*  @property {DisplayObject} _parent
 		*  @private
 		*/
 		this._parent = parent;
 
-		/** 
+		/**
 		*  The configuration for each items
 		*  @property {Array} _items
 		*  @private
@@ -56,8 +56,8 @@
 			}
 		}
 
-		/** 
-		*  The screen settings object, contains information about designed size 
+		/**
+		*  The screen settings object, contains information about designed size
 		*  @property {object} _designedSize
 		*  @private
 		*/
@@ -84,7 +84,7 @@
 		*  @property {Object} _adapter
 		*  @private
 		*/
-		this._adapter = getAdapter(display);
+		this._adapter = UIScaler._getAdapter(display);
 
 		/**
 		*  The collection of bitmaps to full screen scale
@@ -164,11 +164,11 @@
 
 	/**
 	*  Get the adapter by display
-	*  @method getAdapter
+	*  @method _getAdapter
 	*  @private
 	*  @param {object} display The canvas renderer display
 	*/
-	var getAdapter = function(display)
+	p._getAdapter = function(display)
 	{
 		if (display === undefined)
 		{
@@ -271,17 +271,17 @@
 	};
 
 	/**
-	*  Manually add an item 
+	*  Manually add an item
 	*  @method addItem
 	*  @param {object} item The display object item to add
 	*  @param {object} [settings] The collection of settings
-	*  @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center") then horizontal 
+	*  @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center") then horizontal
 	*         alignment ("left", "right" and "center"). Or you can use the short-handed versions: "center" = "center-center",
-	*         "top" = "top-center", "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".                                           
+	*         "top" = "top-center", "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
 	*  @param {Boolean} [settings.titleSafe=false] If the item needs to be in the title safe area (default is false)
 	*  @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same size as the stage)
 	*  @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same size as the stage)
-	*  @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner. 
+	*  @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.
 	*  @param {Number} [settings.x] The initial X position of the item
 	*  @param {Number} [settings.y] The initial Y position of the item
 	*  @param {Object} [settings.scale] The initial scale
@@ -303,21 +303,21 @@
 		// Interpret short handed versions
 		switch(align)
 		{
-			case UIScaler.ALIGN_CENTER : 
+			case UIScaler.ALIGN_CENTER :
 			{
-				align = align + "-" + align; 
+				align = align + "-" + align;
 				break;
 			}
-			case UIScaler.ALIGN_LEFT : 
-			case UIScaler.ALIGN_RIGHT : 
+			case UIScaler.ALIGN_LEFT :
+			case UIScaler.ALIGN_RIGHT :
 			{
-				align = UIScaler.ALIGN_CENTER + "-" + align; 
+				align = UIScaler.ALIGN_CENTER + "-" + align;
 				break;
 			}
-			case UIScaler.ALIGN_TOP : 
-			case UIScaler.ALIGN_BOTTOM : 
+			case UIScaler.ALIGN_TOP :
+			case UIScaler.ALIGN_BOTTOM :
 			{
-				align = align + "-" + UIScaler.ALIGN_CENTER; 
+				align = align + "-" + UIScaler.ALIGN_CENTER;
 				break;
 			}
 		}
@@ -350,9 +350,9 @@
 	};
 
 	/**
-	*   Add background bitmaps to scale full screen, this will attempt to 
-	*   scale the background to the height of the display and crop on 
-	*   the left and right. 
+	*   Add background bitmaps to scale full screen, this will attempt to
+	*   scale the background to the height of the display and crop on
+	*   the left and right.
 	*   @method addBackground
 	*   @param {Bitmap} The bitmap to scale or collection of bitmaps
 	*   @return {UIScaler} The UIScaler for chaining
@@ -368,7 +368,7 @@
 	};
 
 	/**
-	*   Remove background 
+	*   Remove background
 	*   @method removeBackground
 	*   @param {Bitmap} The bitmap or bitmaps to remove
 	*   @return {UIScaler} The UIScaler for chaining
@@ -425,12 +425,12 @@
 				
 				//center the background
 				this._adapter.setPosition(
-					bitmap, 
-					(w - size.w * scale) * 0.5, 
+					bitmap,
+					(w - size.w * scale) * 0.5,
 					"x"
 				);
 			}
-		}	
+		}
 	};
 	
 	/**
