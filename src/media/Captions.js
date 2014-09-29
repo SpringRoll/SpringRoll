@@ -293,7 +293,7 @@
 		// DOM element
 		else if (field.nodeName)
 		{
-			field.innerHTML = field;
+			field.innerHTML = text;
 		}
 		// The CreateJS style text setting
 		else if (field.text !== undefined)
