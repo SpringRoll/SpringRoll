@@ -25,15 +25,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
-	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*		For instance, this text file would have an asset on each line followed by a number:
+	*		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -77,7 +77,7 @@
 		*  Primary renderer for the application, for simply accessing Application.instance.display.stage;
 		*  The first display added becomes the primary display automatically.
 		*  @property {Display} display
-		*  @public 
+		*  @public
 		*/
 		this.display = null;
 
@@ -179,7 +179,7 @@
 	*/
 	_useRAF = false,
 
-	/** 
+	/**
 	*  The current internal frames per second
 	*  @property {Number} _fps
 	*  @private
@@ -229,7 +229,7 @@
 	*  @property {dictionary} _defaultOptions
 	*  @private
 	*/
-	_defaultOptions = 
+	_defaultOptions =
 	{
 		//application properties
 		raf: true,
@@ -340,7 +340,7 @@
 	*/
 	var _instance = null;
 	Object.defineProperty(Application, "instance", {
-		get: function() { 
+		get: function() {
 			return _instance;
 		}
 	});
@@ -427,7 +427,7 @@
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
 			Loader.instance.cacheManager.addVersionsFile(
-				this.options.versionsFile, 
+				this.options.versionsFile,
 				this._doInit
 			);
 		}
@@ -552,8 +552,8 @@
 			{
 				if(_tickId == -1)
 				{
-					_tickId = _useRAF ? 
-						requestAnimFrame(_tickCallback): 
+					_tickId = _useRAF ?
+						requestAnimFrame(_tickCallback):
 						setTargetedTimeout(_tickCallback);
 				}
 				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
@@ -606,7 +606,7 @@
 	};
 
 	/**
-	*  Calculates the resizing of displays. By default, this limits the new size 
+	*  Calculates the resizing of displays. By default, this limits the new size
 	*  to the initial aspect ratio of the primary display. Override this function
 	*  if you need variable aspect ratios.
 	*  @method calculateDisplaySize
@@ -640,7 +640,7 @@
 	*  @method addDisplay
 	*  @param {String} id The id of the canvas element, this will be used to grab the Display later
 	*                also the Display should be the one to called document.getElementById(id)
-	*                and not the application sinc we don't care about the DOMElement as this point            
+	*                and not the application sinc we don't care about the DOMElement as this point
 	*  @param {function} displayConstructor The function to call to create the display instance
 	*  @param {Object} [options] Optional Display specific options
 	*  @return {Display} The created display.
@@ -660,7 +660,7 @@
 		{
 			this.display = display;
 			_aspectRatio = display.width / display.height;
-			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio; 
+			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio;
 
 			if (maxAspectRatio < _aspectRatio)
 			{
@@ -732,7 +732,7 @@
 	Object.defineProperty(p, "fps", {
 		get: function()
 		{
-			return _fps; 
+			return _fps;
 		},
 		set: function(value)
 		{
@@ -749,8 +749,8 @@
 	*/
 	Object.defineProperty(p, "raf", {
 		get: function()
-		{ 
-			return _useRAF; 
+		{
+			return _useRAF;
 		},
 		set: function(value)
 		{
@@ -800,8 +800,8 @@
 
 		//request the next tick
 		//request the next animation frame
-		_tickId = _useRAF ? 
-			requestAnimFrame(_tickCallback) : 
+		_tickId = _useRAF ?
+			requestAnimFrame(_tickCallback) :
 			setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 	};
 
@@ -835,8 +835,8 @@
 		_pageVisibility = null;
 
 		_instance =
-		_tickCallback = 
-		_framerate = 
+		_tickCallback =
+		_framerate =
 		_resizeElement = null;
 
 		Debug.disconnect();
