@@ -5,7 +5,8 @@
 (function(){
 	
 	/**
-	*  The UI Item Settings which is the positioning settings used to adjust each element
+	*  The UI Item Settings which is the positioning settings used to adjust each element,
+	*  this is an internal class that you would not need to interact with.
 	*  @class UIElementSettings
 	*/
 	var UIElementSettings = function()

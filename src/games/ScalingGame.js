@@ -45,6 +45,8 @@
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
@@ -62,25 +64,12 @@
 		UIScaler = include('cloudkid.UIScaler');
 
 		StateGame.call(this, options);
-
-		/**
-		*  The current device pixel ratio as reported by the browser
-		*  @property {number} pixelRatio
-		*/
-		this.pixelRatio = window.devicePixelRatio || 1;
 		
 		/**
 		*  The main UIScaler for any display object references in the main game.
 		*  @property {UIScaler} scaler
 		*/
 		this.scaler = null; 
-
-		/** 
-		*  The default pixels per inch on the screen
-		*  @property {int} ppi
-		*  @default 96
-		*/
-		this.ppi = 96;
 
 		// Listen when the state manager is setup
 		this.once('statesReady', onStatesReady.bind(this));
@@ -104,17 +93,18 @@
 	var onStatesReady = function()
 	{
 		var config = this.config,
-			display = this.display;
+			display = this.display,
+			designed = config.designedSettings;
 
-		if (!config.designedSettings)
+		if (!designed)
 		{
 			if (DEBUG)
 			{
-				throw "The config.json requires designedSettings object which contains keys 'designedWidth', 'designedHeight', and 'designedPPI'";
+				throw "The config requires 'designedSettings' object which contains keys 'width' and 'height'";
 			}
 			else
 			{
-				throw "designedSettings required in config";
+				throw "'designedSettings' required in config";
 			}
 		}
 
@@ -122,48 +112,23 @@
 		{
 			if (DEBUG)
 			{
-				throw "The config.json requires scaling object which contains all the state scaling";
+				throw "The config requires 'scaling' object which contains all the state scaling items";
 			}
 			else
 			{
-				throw "scaling required in config";
+				throw "'scaling' required in config";
 			}
 		}
 
 		// Create the calling from the configuration
-		this.scaler = UIScaler.fromJSON(
+		// This will only scale items on the root of the stage
+		this.scaler = new UIScaler(
 			this, 
-			config.designedSettings, 
+			designed,
 			config.scaling,
-			false
+			true,
+			this.display
 		);
-
-		// Resize now that the config is loaded - fix portrait mode
-		this.on("resize", resize.bind(this), 100);
-	};
-
-	/**
-	*  Handler for the stage resizing
-	*  @method resize
-	*  @private
-	*  @param {number} width The width of the display
-	*  @param {number} height  The height of the display
-	*/
-	var resize = function(w, h)
-	{
-		var pretendPPI = this.ppi;
-
-		// assume a small phone and force a higher ppi in 
-		// size calculations for larger buttons
-		if (h <= 450)
-		{
-			pretendPPI *= 1.5;
-		}
-		
-		// Set the new design scale size
-		UIScaler.init(w, h, pretendPPI);
-
-		this.scaler.resize();
 	};
 
 	/**

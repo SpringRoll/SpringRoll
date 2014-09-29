@@ -85,11 +85,10 @@
 			"src/media/VOPlayer.js"
 		],
 		"interface" : [
-			"src/ui/ScreenSettings.js",
 			"src/ui/UIElement.js",
 			"src/ui/UIElementSettings.js",
-			"src/ui/UIScaler.js",
-			"src/ui/Positioner.js"
+			"src/ui/Positioner.js",
+			"src/ui/UIScaler.js"
 		],
 		"captions" : ["src/media/Captions.js"],
 		"translate" : ["src/utils/Translate.js"]

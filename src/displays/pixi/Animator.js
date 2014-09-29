@@ -455,12 +455,10 @@
 	 */
 	Animator.destroy = function()
 	{
-		captions = null;
-		_instance = null;
+		Animator.captions = null;
 		_animPool = null;
 		_timelines = null;
 		Application.instance.off("update", _update);
-		_boundUpdate = null;
 	};
 
 	//set up the global initialization and destroy

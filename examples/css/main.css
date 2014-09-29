@@ -82,8 +82,12 @@ body, html {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    max-height: 500px;
+    bottom:0;
     overflow: auto;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    -webkit-tab-size: 4;
+    tab-size: 4;
 }
 #content.canvas #codeDisplay {
     display:none;
@@ -92,7 +96,6 @@ body, html {
 #content nav #back {
     float:right;
 }
-
 
 #content canvas {
     margin-top:30px;
@@ -116,5 +119,36 @@ a:hover {
     background:rgba(0,0,0,0.5);
     font-family:"Lucida Console",Monaco,monospace;
     font-size:12px;
+    z-index:1;
+    overflow: hidden;
 }
 
+#stageContainer {
+    position:absolute;
+    top:30px;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: #999;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+}
+.fullscreen #content {
+    top:20px;
+    left:20px;
+    bottom:20px;
+    right:20px;
+    transform:none;
+    margin:0;
+
+    /** Important to not get flickering on resize */
+    overflow: hidden;
+}
+.fullscreen #content canvas{
+    margin:0;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    background:transparent;
+}

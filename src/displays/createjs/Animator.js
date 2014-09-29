@@ -119,7 +119,9 @@
 	Animator.destroy = function()
 	{
 		Animator.stopAll();
-		
+		Animator.captions = null;
+
+		_optionsHelper = null;
 		_timelines = null;
 		_removedTimelines = null;
 		_timelinesMap = null;

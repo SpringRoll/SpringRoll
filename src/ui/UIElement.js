@@ -8,17 +8,18 @@
 	var UIScaler;
 
 	/**
-	*   A single UI item that needs to be resized	
+	*  A single UI item that needs to be resized,
+	*  this is an internal class that you would not need to interact with.	
 	*
-	*   @class UIElement
-	*	@param {DisplayObject} item The item to affect  
-	*   @param {UIElementSettings} settings The scale settings
-	*	@param {ScreenSettings} designedScreen The original screen the item was designed for
-	*   @param {DisplayAdapter} adapter The display adapter
+	*  @class UIElement
+	*  @param {DisplayObject} item The item to affect  
+	*  @param {cloudkid.UIElementSettings} settings The scale settings
+	*  @param {cloudkid.ScreenSettings} designedScreen The original screen the item was designed for
+	*  @param {DisplayAdapter} adapter The display adapter
 	*/
 	var UIElement = function(item, settings, designedScreen, adapter)
 	{
-		if(!UIScaler)
+		if (!UIScaler)
 		{
 			UIScaler = include('cloudkid.UIScaler');
 		}
@@ -137,34 +138,34 @@
 	
 	// Reference to the prototype
 	var p = UIElement.prototype = {};
+
+	if (DEBUG)
+	{
+		p.toString = function()
+		{
+			return "[UIElement (vertAlign='"+this._settings.vertAlign+"', horiAlign='"+this._settings.horiAlign+"')]";
+		};
+	}
+	
 	
 	/**
 	*  Adjust the item scale and position, to reflect new screen
 	*  @method resize
-	*  @param {ScreenSettings} newScreen The current screen settings
+	*  @param {Number} displayWidth The current screen width
+	*  @param {Number} displayHeight The current screen height
 	*/
-	p.resize = function(newScreen)
+	p.resize = function(displayWidth, displayHeight)
 	{
 		var adapter = this._adapter;
-		var overallScale = newScreen.height / this._designedScreen.height;
-		var ppiScale = newScreen.ppi / this._designedScreen.ppi;
-		var letterBoxWidth = (newScreen.width - this._designedScreen.width * overallScale) / 2;
+		var overallScale = displayHeight / this._designedScreen.height;
+		var letterBoxWidth = (displayWidth - this._designedScreen.width * overallScale) / 2;
 
-		// Scale item to the overallScale to match rest of the app, 
-		// then clamp its physical size as specified 
-		// then set the item's scale to be correct - the screen is not scaled
-
-		//Full math:
-		/*var physicalScale:Number = overallScale / ppiScale;
-		var itemScale:Number = MathUtils.clamp(physicalScale, minScale, maxScale) / physicalScale * overallScale;*/
-
-		//Optimized math:
-		var itemScale = overallScale / ppiScale;
+		// Optional clamps on the min and max scale of the item 
+		var itemScale = overallScale;
 		if(this._settings.minScale && itemScale < this._settings.minScale)
 			itemScale = this._settings.minScale;
 		else if(this._settings.maxScale && itemScale > this._settings.maxScale)
 			itemScale = this._settings.maxScale;
-		itemScale *= ppiScale;
 
 		adapter.setScale(this._item, this.origScaleX * itemScale, "x");
 		adapter.setScale(this._item, this.origScaleY * itemScale, "y");
@@ -184,12 +185,12 @@
 			}
 			case UIScaler.ALIGN_CENTER:
 			{
-				y = newScreen.height * 0.5 - m;
+				y = displayHeight * 0.5 - m;
 				break;
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				y = newScreen.height - m - this.origBounds.bottom * this.origScaleY * itemScale;
+				y = displayHeight - m - this.origBounds.bottom * this.origScaleY * itemScale;
 				break;
 			}
 		}
@@ -218,11 +219,11 @@
 			{
 				if(this._settings.centeredHorizontally)
 				{
-					x = (newScreen.width - this._item.width) * 0.5;
+					x = (displayWidth - this._item.width) * 0.5;
 				}
 				else
 				{
-					x = newScreen.width * 0.5 - m;
+					x = displayWidth * 0.5 - m;
 				}
 				break;
 			}	
@@ -230,11 +231,11 @@
 			{
 				if(this._settings.titleSafe)
 				{
-					x = newScreen.width - letterBoxWidth - m - this.origBounds.right * this.origScaleX * itemScale;
+					x = displayWidth - letterBoxWidth - m - this.origBounds.right * this.origScaleX * itemScale;
 				}
 				else
 				{
-					x = newScreen.width - m - this.origBounds.right * this.origScaleX * itemScale;
+					x = displayWidth - m - this.origBounds.right * this.origScaleX * itemScale;
 				}
 				break;
 			}		

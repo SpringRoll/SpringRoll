@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Core Module Tests</title>
+	<link rel="stylesheet" href="../components/qunit/qunit/qunit.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+
+	<script src="../components/bind-polyfill/index.js"></script>
+	<script src="../components/qunit/qunit/qunit.js"></script>
+	<script src="../components/preloadjs/lib/preloadjs.combined.js"></script>
+	<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+	<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+	<script src="../components/easeljs/lib/movieclip.combined.js"></script>
+	<script src="../components/soundjs/lib/soundjs.min.js"></script>
+	<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+	<script src="../components/pixi.js/bin/pixi.dev.js"></script>
+	<script src="../components/jquery/dist/jquery.js"></script>
+
+	<script src="../dist/core.js"></script>
+	<script src="../dist/modules/captions.js"></script>
+	<script src="../dist/modules/display-createjs.js"></script>
+	<script src="../dist/modules/display-native.js"></script>
+	<script src="../dist/modules/display-pixi.js"></script>
+	<script src="../dist/modules/game.js"></script>
+	<script src="../dist/modules/interface.js"></script>
+	<script src="../dist/modules/sound.js"></script>
+	<script src="../dist/modules/states.js"></script>
+	<script src="../dist/modules/tasks.js"></script>
+	<script src="../dist/modules/translate.js"></script>
+	<script src="../dist/modules/worker.js"></script>
+
+	<script>
+	test('Include All Modules', function(assert){
+		expect(1);
+		var Application = cloudkid.Application;
+		var app = new Application();
+		assert.ok(!!Application.instance, "Created a blank application");
+		app.destroy();
+	});
+	</script>
+</body>
+</html>

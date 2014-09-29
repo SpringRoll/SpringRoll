@@ -1246,6 +1246,8 @@
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
@@ -1592,8 +1594,8 @@
 				_resizeElement = document.getElementById(resizeElement);
 			else
 				_resizeElement = resizeElement;
-			this._resize = this._resize.bind(this);
-			window.addEventListener("resize", this._resize);
+			this.triggerResize = this.triggerResize.bind(this);
+			window.addEventListener("resize", this.triggerResize);
 		}
 
 		// Turn on debugging
@@ -1666,7 +1668,7 @@
 		if (this.init) this.init();
 
 		//do an initial resize to make sure everything is sized properly
-		this._resize();
+		this.triggerResize();
 
 		//start update loop
 		this.paused = false;
@@ -1790,11 +1792,10 @@
 	};
 
 	/**
-	*  Resize listener function, handles default resize behavior on all displays and dispatches a resize event
-	*  @method _resize
-	*  @private
+	*  Fire a resize event with the current width and height of the display
+	*  @method triggerResize
 	*/
-	p._resize = function()
+	p.triggerResize = function()
 	{
 		if(!_resizeElement) return;
 
@@ -1830,16 +1831,20 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
-		if(!_aspectRatio || !this.options.uniformResize) return;
-		if(size.width / size.height < _aspectRatio)
+		if (!_aspectRatio || !this.options.uniformResize) return;
+
+		var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio,
+			currentAspect = size.width / size.height;
+
+		if (currentAspect < _aspectRatio)
 		{
 			//limit to the narrower width
 			size.height = size.width / _aspectRatio;
 		}
-		else
+		else if (currentAspect > maxAspectRatio)
 		{
 			//limit to the shorter height
-			size.width = size.height * _aspectRatio;
+			size.width = size.height * maxAspectRatio;
 		}
 	};
 
@@ -1864,10 +1869,23 @@
 			return;
 		}
 		var display = _displays[id] = new displayConstructor(id, options);
-		if(!this.display)
+		if (!this.display)
 		{
 			this.display = display;
 			_aspectRatio = display.width / display.height;
+			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio; 
+
+			if (maxAspectRatio < _aspectRatio)
+			{
+				if (true)
+				{
+					throw "Invalid 'maxAspectRatio': Must be greater than the original aspect ratio of the display";
+				}
+				else
+				{
+					throw "Invalid 'maxAspectRatio'";
+				}
+			}
 		}
 		return display;
 	};
@@ -2023,7 +2041,7 @@
 
 		if(_resizeElement)
 		{
-			window.removeEventListener("resize", this._resize);
+			window.removeEventListener("resize", this.triggerResize);
 		}
 
 		_pageVisibility.destroy();
