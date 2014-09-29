@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -288,7 +286,7 @@
             
                 <li class="arg">
                     
-                        <code>|object}</code>
+                        <code>imageSettings</code>
                     
                 </li>
             
@@ -367,14 +365,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">|object}</code>
-                        <span class="type">DOMElement</span>
+                        <code class="param-name">imageSettings</code>
+                        <span class="type">DOMElement | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>imageSettings The loaded image element, see cloudkid.createjs.Button constructor</p>
+                        <p>The loaded image element, see cloudkid.createjs.Button constructor</p>
 
                     </div>
 
@@ -658,6 +656,13 @@
                         
                             <li class="index-item property private inherited">
                                 <a href="#property__width">_width</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_audioEnabled">audioEnabled</a>
 
                                 
                                 
@@ -1192,7 +1197,7 @@ while letting the pressup event handle the mouse up/touch ends on and outside th
     </div>
 
     <div class="description">
-        <p>Override for _onRollover function.</p>
+        <p>Handler for rollover event.</p>
 
     </div>
 
@@ -2076,6 +2081,51 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
 </div>
 
                 
+                    <div id="property_audioEnabled" class="property item">
+    <h3 class="name"><code>audioEnabled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_SoundButton.js.html#l86"><code>audioEnabled:86</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If audio should be played for this button.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_back" class="property item public inherited">
     <h3 class="name"><code>back</code></h3>
     <span class="type">createjs.Bitmap</span>
@@ -2165,7 +2215,7 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
 </div>
 
                 
-                    <div id="property_enabled" class="property item">
+                    <div id="property_enabled" class="property item inherited">
     <h3 class="name"><code>enabled</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
@@ -2179,16 +2229,13 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
 
     <div class="meta">
         
-            <p>Inherited from
-            <a href="../classes/cloudkid.createjs.Button.html#property_enabled">
-                cloudkid.createjs.Button
-            </a>
             
-            but overwritten in
+                <p>Inherited from
+                <a href="../classes/cloudkid.createjs.Button.html#property_enabled">cloudkid.createjs.Button</a>:
             
         
         
-        <a href="../files/src_displays_createjs_SoundButton.js.html#l86"><code>enabled:86</code></a>
+        <a href="../files/src_displays_createjs_Button.js.html#l436"><code>enabled:436</code></a>
         
         </p>
 
@@ -2198,10 +2245,12 @@ The standard order previously was ["highlighted", "disabled", "down", "over", "s
     </div>
 
     <div class="description">
-        <p>Handler for the on mouse over event</p>
+        <p>Whether or not the button is enabled.</p>
 
     </div>
 
+    
+        <p><strong>Default:</strong> true</p>
     
 
     

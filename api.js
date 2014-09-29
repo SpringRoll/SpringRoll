@@ -26,7 +26,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "cloudkid.Positioner",
         "cloudkid.SavedData",
         "cloudkid.ScalingGame",
-        "cloudkid.ScreenSettings",
         "cloudkid.Sound",
         "cloudkid.SoundContext",
         "cloudkid.SoundGame",

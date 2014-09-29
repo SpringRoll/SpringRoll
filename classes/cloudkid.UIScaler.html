@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -269,7 +267,7 @@
 
 <div class="box intro">
     <p>The UI scale is responsible for scaling UI components
-to help easy the burden of different device aspect ratios</p>
+to help easy the burden of different device aspect ratios.</p>
 
 </div>
 
@@ -291,19 +289,19 @@ to help easy the burden of different device aspect ratios</p>
             
                 <li class="arg">
                     
-                        <code>designedWidth</code>
+                        <code>designedSize</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>designedHeight</code>
+                        <code class="optional">[items=null]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>designedPPI</code>
+                        <code class="optional">[enabled=true]</code>
                     
                 </li>
             
@@ -317,6 +315,10 @@ to help easy the burden of different device aspect ratios</p>
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type">UIScaler</span>
+        </span>
     
 
     
@@ -365,7 +367,7 @@ to help easy the burden of different device aspect ratios</p>
                 <li class="param">
                     
                         <code class="param-name">parent</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type">DisplayObject</span>
                     
 
                     
@@ -380,14 +382,79 @@ to help easy the burden of different device aspect ratios</p>
             
                 <li class="param">
                     
-                        <code class="param-name">designedWidth</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <code class="param-name">designedSize</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The designed width of the UI</p>
+                        <p>The designed settings of the interface {width:800, height:600}</p>
+
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">width</code>
+                                    <span class="type">Int</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The designed width of the interface</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">height</code>
+                                    <span class="type">Int</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The designed height of the interface</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[maxWidth=designedSize.width]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The designed maximum width of the interface</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[items=null]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The items object where the keys are the name of the property on the parent and the value
+       is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"</p>
 
                     </div>
 
@@ -396,30 +463,15 @@ to help easy the burden of different device aspect ratios</p>
             
                 <li class="param">
                     
-                        <code class="param-name">designedHeight</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <code class="param-name optional">[enabled=true]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The designed height of the UI</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">designedPPI</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The designed PPI of the UI</p>
+                        <p>If the UIScaler should be enabled by default</p>
 
                     </div>
 
@@ -436,7 +488,7 @@ to help easy the burden of different device aspect ratios</p>
                     
 
                     <div class="param-description">
-                        <p>The display to use the UIScaler on</p>
+                        <p>The display which to use for the scaler</p>
 
                     </div>
 
@@ -447,6 +499,20 @@ to help easy the burden of different device aspect ratios</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">UIScaler</span>:
+                    
+                    <p>The scaler object that can be reused</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -479,8 +545,29 @@ to help easy the burden of different device aspect ratios</p>
 
                     <ul class="index-list methods">
                         
+                            <li class="index-item method private">
+                                <a href="#method__resize">_resize</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method">
-                                <a href="#method_add">add</a>
+                                <a href="#method_addBackground">addBackground</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addItem">addItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addItems">addItems</a>
 
                                 
                                 
@@ -493,61 +580,16 @@ to help easy the burden of different device aspect ratios</p>
                                 
                             </li>
                         
-                            <li class="index-item method">
-                                <a href="#method_fromJSON">fromJSON</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
                             <li class="index-item method private">
                                 <a href="#method_getAdapter">getAdapter</a>
 
                                 
-                                    <span class="flag static">static</span>
-                                
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_getScale">getScale</a>
+                                <a href="#method_removeBackground">removeBackground</a>
 
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_init">init</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_resize">resize</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_resizeBackground">resizeBackground</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_resizeBackgrounds">resizeBackgrounds</a>
-
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -570,7 +612,21 @@ to help easy the burden of different device aspect ratios</p>
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__designedScreen">_designedScreen</a>
+                                <a href="#property__backgrounds">_backgrounds</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__designedSize">_designedSize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__enabled">_enabled</a>
 
                                 
                                 
@@ -585,6 +641,13 @@ to help easy the burden of different device aspect ratios</p>
                         
                             <li class="index-item property private">
                                 <a href="#property__parent">_parent</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__scale">_scale</a>
 
                                 
                                 
@@ -635,20 +698,16 @@ to help easy the burden of different device aspect ratios</p>
                                 
                             </li>
                         
-                            <li class="index-item property private">
-                                <a href="#property_currentScreen">currentScreen</a>
+                            <li class="index-item property">
+                                <a href="#property_enabled">enabled</a>
 
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
                         
-                            <li class="index-item property private">
-                                <a href="#property_initialized">initialized</a>
+                            <li class="index-item property">
+                                <a href="#property_scale">scale</a>
 
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -667,8 +726,8 @@ to help easy the burden of different device aspect ratios</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_add" class="method item">
-    <h3 class="name"><code>add</code></h3>
+                    <div id="method__resize" class="method item private">
+    <h3 class="name"><code>_resize</code></h3>
 
     
         <div class="args">
@@ -676,43 +735,13 @@ to help easy the burden of different device aspect ratios</p>
             
                 <li class="arg">
                     
-                        <code>item</code>
+                        <code>w</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code class="optional">[vertAlign=&quot;center&quot;]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[horiAlign=&quot;center&quot;]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[titleSafe=false]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[minScale=1]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[maxScale=1]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[centeredHorizontally=false]</code>
+                        <code>h</code>
                     
                 </li>
             
@@ -720,6 +749,117 @@ to help easy the burden of different device aspect ratios</p>
         </div>
     
 
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l389"><code>_resize:389</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Scale the UI items that have been registered to the current screen</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">w</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The current width of the application</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">h</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The current height of the application</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_addBackground" class="method item">
+    <h3 class="name"><code>addBackground</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">UIScaler</span>
+        </span>
     
 
     
@@ -745,7 +885,122 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l248"><code>add:248</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l352"><code>addBackground:352</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add background bitmaps to scale full screen, this will attempt to 
+scale the background to the height of the display and crop on 
+the left and right.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">The</code>
+                        <span class="type">Bitmap</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>bitmap to scale or collection of bitmaps</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">UIScaler</span>:
+                    
+                    <p>The UIScaler for chaining</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_addItem" class="method item">
+    <h3 class="name"><code>addItem</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>item</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[settings]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">UIScaler</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l273"><code>addItem:273</code></a>
         
         </p>
 
@@ -784,100 +1039,368 @@ to help easy the burden of different device aspect ratios</p>
             
                 <li class="param">
                     
-                        <code class="param-name optional">[vertAlign=&quot;center&quot;]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name optional">[settings]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The vertical align of the item (cefault is center)</p>
+                        <p>The collection of settings</p>
 
                     </div>
 
                     
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[align=&quot;center&quot;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The vertical alignment ("top", "bottom", "center") then horizontal 
+       alignment ("left", "right" and "center"). Or you can use the short-handed versions: "center" = "center-center",
+       "top" = "top-center", "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[titleSafe=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If the item needs to be in the title safe area (default is false)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[minScale=NaN]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The minimum scale amount (default, scales the same size as the stage)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[maxScale=NaN]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The maximum scale amount (default, scales the same size as the stage)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[centeredHorizontally=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[x]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial X position of the item</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[y]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial Y position of the item</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[scale]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial scale</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[x]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The initial scale X value
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[y]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The initial scale Y value
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[pivot]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The pivot point</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[x]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The pivot point X location
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[y]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The pivot point Y location
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[rotation]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial rotation in degrees</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[hitArea]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>An object which describes the hit area of the item or an array of points.</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[type]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                If the hitArea is an object, the type of hit area, "rect", "ellipse", "circle", etc
+       center of the screen, assuming an origin at the top left of the object.
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                        </ul>
+                    
                 </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">UIScaler</span>:
+                    
+                    <p>The instance of this UIScaler for chaining</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_addItems" class="method item">
+    <h3 class="name"><code>addItems</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>items</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">UIScaler</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l232"><code>addItems:232</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Register a dictionary of items to the UIScaler to control.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
             
                 <li class="param">
                     
-                        <code class="param-name optional">[horiAlign=&quot;center&quot;]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                        <code class="param-name">items</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The horizontal align of the item (default is center)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[titleSafe=false]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If the item needs to be in the title safe area (default is false)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[minScale=1]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The minimum scale amount (default, scales the same size as the stage)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[maxScale=1]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The maximum scale amount (default, scales the same size as the stage)</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[centeredHorizontally=false]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Makes sure that the center of the object was at the center of the screen, assuming an origin at the top left of the object</p>
+                        <p>The items object where the keys are the name of the property on the parent and the value
+      is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align", see UIScaler.addItem
+      for a description of the different keys.</p>
 
                     </div>
 
@@ -888,6 +1411,20 @@ to help easy the burden of different device aspect ratios</p>
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">UIScaler</span>:
+                    
+                    <p>The instance of this UIScaler for chaining</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -926,7 +1463,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l327"><code>destroy:327</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l436"><code>destroy:436</code></a>
         
         </p>
 
@@ -943,206 +1480,6 @@ to help easy the burden of different device aspect ratios</p>
 
     
 
-    
-
-    
-</div>
-
-                
-                    <div id="method_fromJSON" class="method item">
-    <h3 class="name"><code>fromJSON</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>parent</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>jsonSettings</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>jsonItems</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[immediateDestroy=true]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[display=Application.instance.display]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">UIScaler</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_ui_UIScaler.js.html#l148"><code>fromJSON:148</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Create the scaler from JSON data</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">parent</code>
-                        <span class="type">DisplayObject</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The UI display container</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">jsonSettings</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">jsonItems</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The json items object where the keys are the name of the property on the parent and the value
-       is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[immediateDestroy=true]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If we should immediately cleanup the UIScaler after scaling items</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[display=Application.instance.display]</code>
-                        <span class="type">Display</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The display which to use for the scaler</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">UIScaler</span>:
-                    
-                    <p>The scaler object that can be reused</p>
-
-                
-            </div>
-        </div>
     
 
     
@@ -1177,8 +1514,6 @@ to help easy the burden of different device aspect ratios</p>
     
 
     
-        <span class="flag static">static</span>
-    
 
     
 
@@ -1195,7 +1530,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l56"><code>getAdapter:56</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l165"><code>getAdapter:165</code></a>
         
         </p>
 
@@ -1242,16 +1577,26 @@ to help easy the burden of different device aspect ratios</p>
 </div>
 
                 
-                    <div id="method_getScale" class="method item">
-    <h3 class="name"><code>getScale</code></h3>
+                    <div id="method_removeBackground" class="method item">
+    <h3 class="name"><code>removeBackground</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+            <span class="type">UIScaler</span>
         </span>
     
 
@@ -1278,7 +1623,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l238"><code>getScale:238</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l370"><code>removeBackground:370</code></a>
         
         </p>
 
@@ -1289,284 +1634,7 @@ to help easy the burden of different device aspect ratios</p>
     </div>
 
     <div class="description">
-        <p>Get the current scale of the screen</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
-                    
-                    <p>The current stage scale</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_init" class="method item">
-    <h3 class="name"><code>init</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>screenWidth</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>screenHeight</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>screenPPI</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_ui_UIScaler.js.html#l222"><code>init:222</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Set the current screen settings. If the stage size changes at all, re-call this function</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">screenWidth</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The fullscreen width</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">screenHeight</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The fullscreen height</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">screenPPI</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The screen resolution density</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_resize" class="method item">
-    <h3 class="name"><code>resize</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_ui_UIScaler.js.html#l312"><code>resize:312</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Scale the UI items that have been registered to the current screen</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_resizeBackground" class="method item">
-    <h3 class="name"><code>resizeBackground</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>The</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[display=Application.instance.display]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_ui_UIScaler.js.html#l274"><code>resizeBackground:274</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Scale a single background image according to the UIScaler.width and height</p>
+        <p>Remove background</p>
 
     </div>
 
@@ -1585,24 +1653,7 @@ to help easy the burden of different device aspect ratios</p>
                     
 
                     <div class="param-description">
-                        <p>bitmap to scale</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[display=Application.instance.display]</code>
-                        <span class="type">Display</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The display which to use for the scaler</p>
+                        <p>bitmap or bitmaps to remove</p>
 
                     </div>
 
@@ -1614,119 +1665,19 @@ to help easy the burden of different device aspect ratios</p>
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
 
-    
-</div>
+            <div class="returns-description">
+                
+                    
+                        <span class="type">UIScaler</span>:
+                    
+                    <p>The UIScaler for chaining</p>
 
                 
-                    <div id="method_resizeBackgrounds" class="method item">
-    <h3 class="name"><code>resizeBackgrounds</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>bitmaps</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[display=Application.instance.display]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
+            </div>
         </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_ui_UIScaler.js.html#l297"><code>resizeBackgrounds:297</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Convenience function to scale a collection of backgrounds</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">bitmaps</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The collection of bitmap images</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[display=Application.instance.display]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The display which to use for the scaler</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
     
 
     
@@ -1766,7 +1717,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l48"><code>_adapter:48</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l82"><code>_adapter:82</code></a>
         
         </p>
 
@@ -1788,9 +1739,9 @@ to help easy the burden of different device aspect ratios</p>
 </div>
 
                 
-                    <div id="property__designedScreen" class="property item private">
-    <h3 class="name"><code>_designedScreen</code></h3>
-    <span class="type">ScreenSettings</span>
+                    <div id="property__backgrounds" class="property item private">
+    <h3 class="name"><code>_backgrounds</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
     
 
@@ -1813,7 +1764,54 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l41"><code>_designedScreen:41</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l89"><code>_backgrounds:89</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The collection of bitmaps to full screen scale</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__designedSize" class="property item private">
+    <h3 class="name"><code>_designedSize</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l59"><code>_designedSize:59</code></a>
         
         </p>
 
@@ -1824,6 +1822,53 @@ to help easy the burden of different device aspect ratios</p>
 
     <div class="description">
         <p>The screen settings object, contains information about designed size</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__enabled" class="property item private">
+    <h3 class="name"><code>_enabled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l96"><code>_enabled:96</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The internal enabled</p>
 
     </div>
 
@@ -1860,7 +1905,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l34"><code>_items:34</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l39"><code>_items:39</code></a>
         
         </p>
 
@@ -1907,7 +1952,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l27"><code>_parent:27</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l32"><code>_parent:32</code></a>
         
         </p>
 
@@ -1921,6 +1966,55 @@ to help easy the burden of different device aspect ratios</p>
 
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__scale" class="property item private">
+    <h3 class="name"><code>_scale</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_ui_UIScaler.js.html#l74"><code>_scale:74</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The current overall scale of the game</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 1</p>
     
 
     
@@ -1956,7 +2050,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l108"><code>ALIGN_BOTTOM:108</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l125"><code>ALIGN_BOTTOM:125</code></a>
         
         </p>
 
@@ -2007,7 +2101,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l138"><code>ALIGN_CENTER:138</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l155"><code>ALIGN_CENTER:155</code></a>
         
         </p>
 
@@ -2058,7 +2152,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l118"><code>ALIGN_LEFT:118</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l135"><code>ALIGN_LEFT:135</code></a>
         
         </p>
 
@@ -2109,7 +2203,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l128"><code>ALIGN_RIGHT:128</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l145"><code>ALIGN_RIGHT:145</code></a>
         
         </p>
 
@@ -2160,7 +2254,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l98"><code>ALIGN_TOP:98</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l115"><code>ALIGN_TOP:115</code></a>
         
         </p>
 
@@ -2184,20 +2278,16 @@ to help easy the burden of different device aspect ratios</p>
 </div>
 
                 
-                    <div id="property_currentScreen" class="property item private">
-    <h3 class="name"><code>currentScreen</code></h3>
-    <span class="type">ScreenSettings</span>
+                    <div id="property_enabled" class="property item">
+    <h3 class="name"><code>enabled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
-    
-
-    
-        <span class="flag private">private</span>
     
 
     
 
     
-        <span class="flag static">static</span>
+
     
 
     <div class="meta">
@@ -2211,7 +2301,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l82"><code>currentScreen:82</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l205"><code>enabled:205</code></a>
         
         </p>
 
@@ -2221,10 +2311,13 @@ to help easy the burden of different device aspect ratios</p>
     </div>
 
     <div class="description">
-        <p>The current screen settings</p>
+        <p>Whether the UIScaler should listen to the stage resize. Setting to true
+initialized a resize.</p>
 
     </div>
 
+    
+        <p><strong>Default:</strong> true</p>
     
 
     
@@ -2233,20 +2326,16 @@ to help easy the burden of different device aspect ratios</p>
 </div>
 
                 
-                    <div id="property_initialized" class="property item private">
-    <h3 class="name"><code>initialized</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    <div id="property_scale" class="property item">
+    <h3 class="name"><code>scale</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 
-    
-
-    
-        <span class="flag private">private</span>
     
 
     
 
     
-        <span class="flag static">static</span>
+
     
 
     <div class="meta">
@@ -2260,7 +2349,7 @@ to help easy the burden of different device aspect ratios</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l90"><code>initialized:90</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l193"><code>scale:193</code></a>
         
         </p>
 
@@ -2270,7 +2359,7 @@ to help easy the burden of different device aspect ratios</p>
     </div>
 
     <div class="description">
-        <p>If the screensize has been set</p>
+        <p>Get the current scale of the screen relative to the designed screen size</p>
 
     </div>
 

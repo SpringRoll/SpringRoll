@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -272,6 +270,13 @@
 		* @private
 		*/
 		this._listeners = [];
+
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
 	},
 	
 	// Reference to the prototype 
@@ -285,6 +290,8 @@
 	*/
 	p.trigger = function(type)
 	{
+		if (this._destroyed) return;
+		
 		if (this._listeners[type] !== undefined) 
 		{	
 			// copy the listeners array
@@ -337,6 +344,8 @@
 	*/
 	p.on = function(name, callback, priority, once)
 	{
+		if (this._destroyed) return;
+
 		// Callbacks map
 		if (type(name) === &#x27;object&#x27;)
 		{
@@ -398,7 +407,9 @@
 	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
 	*/
 	p.off = function(name, callback)
-	{	
+	{
+		if (this._destroyed) return;
+
 		// remove all 
 		if (name === undefined)
 		{
@@ -460,6 +471,16 @@
 		return listeners.indexOf(callback) &gt;= 0;
 	};
 	
+	/**
+	*  Destroy and don&#x27;t use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this._destroyed = true;
+		this._listeners = null;
+	};
+
 	/**
 	*  Return type of the value.
 	*  

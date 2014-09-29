@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -708,12 +706,10 @@
 	 */
 	Animator.destroy = function()
 	{
-		captions = null;
-		_instance = null;
+		Animator.captions = null;
 		_animPool = null;
 		_timelines = null;
 		Application.instance.off(&quot;update&quot;, _update);
-		_boundUpdate = null;
 	};
 
 	//set up the global initialization and destroy

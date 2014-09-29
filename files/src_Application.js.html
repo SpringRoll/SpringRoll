@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -286,6 +284,8 @@
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*         This allows for &quot;title-safe&quot; responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
@@ -350,7 +350,8 @@
 	};
 
 	// Reference to the prototype
-	var p = Application.prototype = Object.create(EventDispatcher.prototype);
+	var s = EventDispatcher.prototype;
+	var p = Application.prototype = Object.create(s);
 
 	/**
 	*  The collection of function references to call when initializing the application
@@ -631,8 +632,8 @@
 				_resizeElement = document.getElementById(resizeElement);
 			else
 				_resizeElement = resizeElement;
-			this._resize = this._resize.bind(this);
-			window.addEventListener(&quot;resize&quot;, this._resize);
+			this.triggerResize = this.triggerResize.bind(this);
+			window.addEventListener(&quot;resize&quot;, this.triggerResize);
 		}
 
 		// Turn on debugging
@@ -705,7 +706,7 @@
 		if (this.init) this.init();
 
 		//do an initial resize to make sure everything is sized properly
-		this._resize();
+		this.triggerResize();
 
 		//start update loop
 		this.paused = false;
@@ -829,11 +830,10 @@
 	};
 
 	/**
-	*  Resize listener function, handles default resize behavior on all displays and dispatches a resize event
-	*  @method _resize
-	*  @private
+	*  Fire a resize event with the current width and height of the display
+	*  @method triggerResize
 	*/
-	p._resize = function()
+	p.triggerResize = function()
 	{
 		if(!_resizeElement) return;
 
@@ -869,16 +869,20 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
-		if(!_aspectRatio || !this.options.uniformResize) return;
-		if(size.width / size.height &lt; _aspectRatio)
+		if (!_aspectRatio || !this.options.uniformResize) return;
+
+		var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio,
+			currentAspect = size.width / size.height;
+
+		if (currentAspect &lt; _aspectRatio)
 		{
 			//limit to the narrower width
 			size.height = size.width / _aspectRatio;
 		}
-		else
+		else if (currentAspect &gt; maxAspectRatio)
 		{
 			//limit to the shorter height
-			size.width = size.height * _aspectRatio;
+			size.width = size.height * maxAspectRatio;
 		}
 	};
 
@@ -903,10 +907,23 @@
 			return;
 		}
 		var display = _displays[id] = new displayConstructor(id, options);
-		if(!this.display)
+		if (!this.display)
 		{
 			this.display = display;
 			_aspectRatio = display.width / display.height;
+			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio; 
+
+			if (maxAspectRatio &lt; _aspectRatio)
+			{
+				if (DEBUG)
+				{
+					throw &quot;Invalid &#x27;maxAspectRatio&#x27;: Must be greater than the original aspect ratio of the display&quot;;
+				}
+				else
+				{
+					throw &quot;Invalid &#x27;maxAspectRatio&#x27;&quot;;
+				}
+			}
 		}
 		return display;
 	};
@@ -1045,6 +1062,7 @@
 	*/
 	p.destroy = function()
 	{
+		this._readyToInit = false;
 		this.paused = true;
 		this.trigger(DESTROY);
 		
@@ -1061,18 +1079,20 @@
 
 		if(_resizeElement)
 		{
-			window.removeEventListener(&quot;resize&quot;, this._resize);
+			window.removeEventListener(&quot;resize&quot;, this.triggerResize);
 		}
-
-		_framerate = _resizeElement = null;
 
 		_pageVisibility.destroy();
 		_pageVisibility = null;
 
-		this._listeners = null;
-		_tickCallback = null;
+		_instance =
+		_tickCallback = 
+		_framerate = 
+		_resizeElement = null;
 
 		Debug.disconnect();
+
+		s.destroy.call(this);
 	};
 
 	// Add to the name space

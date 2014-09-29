@@ -620,17 +620,6 @@
                 "cloudkid": 1
             }
         },
-        "src/ui/ScreenSettings.js": {
-            "name": "src/ui/ScreenSettings.js",
-            "modules": {},
-            "classes": {
-                "cloudkid.ScreenSettings": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "cloudkid": 1
-            }
-        },
         "src/ui/UIElement.js": {
             "name": "src/ui/UIElement.js",
             "modules": {},
@@ -993,7 +982,6 @@
             "submodules": {},
             "classes": {
                 "cloudkid.Positioner": 1,
-                "cloudkid.ScreenSettings": 1,
                 "cloudkid.UIElement": 1,
                 "cloudkid.UIElementSettings": 1,
                 "cloudkid.UIScaler": 1
@@ -1559,9 +1547,9 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "|object}",
-                    "description": "imageSettings The loaded image element, see cloudkid.createjs.Button constructor",
-                    "type": "DOMElement"
+                    "name": "imageSettings",
+                    "description": "The loaded image element, see cloudkid.createjs.Button constructor",
+                    "type": "DOMElement|object"
                 },
                 {
                     "name": "label",
@@ -2338,6 +2326,12 @@
                             "optdefault": "true"
                         },
                         {
+                            "name": "maxAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
                             "name": "queryStringParameters",
                             "description": "Parse the query string paramenters as options",
                             "type": "Boolean",
@@ -2560,6 +2554,12 @@
                             "optdefault": "true"
                         },
                         {
+                            "name": "maxAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
                             "name": "queryStringParameters",
                             "description": "Parse the query string paramenters as options",
                             "type": "Boolean",
@@ -2746,6 +2746,12 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
+                        },
+                        {
+                            "name": "maxAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
                         },
                         {
                             "name": "queryStringParameters",
@@ -2968,6 +2974,12 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
+                        },
+                        {
+                            "name": "maxAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
                         },
                         {
                             "name": "queryStringParameters",
@@ -3670,41 +3682,9 @@
             "module": "Interface",
             "namespace": "cloudkid",
             "file": "src/ui/Positioner.js",
-            "line": 9,
+            "line": 7,
             "description": "Initially layouts all interface elements",
             "static": 1
-        },
-        "cloudkid.ScreenSettings": {
-            "name": "cloudkid.ScreenSettings",
-            "shortname": "ScreenSettings",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Interface",
-            "namespace": "cloudkid",
-            "file": "src/ui/ScreenSettings.js",
-            "line": 7,
-            "description": "Object that contains the screen settings to help scaling",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "width",
-                    "description": "The screen width in pixels",
-                    "type": "Number"
-                },
-                {
-                    "name": "height",
-                    "description": "The screen height in pixels",
-                    "type": "Number"
-                },
-                {
-                    "name": "ppi",
-                    "description": "The screen pixel density (PPI)",
-                    "type": "Number"
-                }
-            ]
         },
         "cloudkid.UIElement": {
             "name": "cloudkid.UIElement",
@@ -3718,7 +3698,7 @@
             "namespace": "cloudkid",
             "file": "src/ui/UIElement.js",
             "line": 10,
-            "description": "A single UI item that needs to be resized",
+            "description": "A single UI item that needs to be resized,\nthis is an internal class that you would not need to interact with.",
             "params": [
                 {
                     "name": "item",
@@ -3728,12 +3708,12 @@
                 {
                     "name": "settings",
                     "description": "The scale settings",
-                    "type": "UIElementSettings"
+                    "type": "cloudkid.UIElementSettings"
                 },
                 {
                     "name": "designedScreen",
                     "description": "The original screen the item was designed for",
-                    "type": "ScreenSettings"
+                    "type": "cloudkid.ScreenSettings"
                 },
                 {
                     "name": "adapter",
@@ -3754,7 +3734,7 @@
             "namespace": "cloudkid",
             "file": "src/ui/UIElementSettings.js",
             "line": 7,
-            "description": "The UI Item Settings which is the positioning settings used to adjust each element"
+            "description": "The UI Item Settings which is the positioning settings used to adjust each element,\nthis is an internal class that you would not need to interact with."
         },
         "cloudkid.UIScaler": {
             "name": "cloudkid.UIScaler",
@@ -3768,37 +3748,64 @@
             "namespace": "cloudkid",
             "file": "src/ui/UIScaler.js",
             "line": 13,
-            "description": "The UI scale is responsible for scaling UI components\nto help easy the burden of different device aspect ratios",
+            "description": "The UI scale is responsible for scaling UI components\nto help easy the burden of different device aspect ratios.",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "parent",
                     "description": "The UI display container",
-                    "type": "Object"
+                    "type": "DisplayObject"
                 },
                 {
-                    "name": "designedWidth",
-                    "description": "The designed width of the UI",
-                    "type": "Number"
+                    "name": "designedSize",
+                    "description": "The designed settings of the interface {width:800, height:600}",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "width",
+                            "description": "The designed width of the interface",
+                            "type": "Int"
+                        },
+                        {
+                            "name": "height",
+                            "description": "The designed height of the interface",
+                            "type": "Int"
+                        },
+                        {
+                            "name": "maxWidth",
+                            "description": "The designed maximum width of the interface",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "designedSize.width"
+                        }
+                    ]
                 },
                 {
-                    "name": "designedHeight",
-                    "description": "The designed height of the UI",
-                    "type": "Number"
+                    "name": "items",
+                    "description": "The items object where the keys are the name of the property on the parent and the value\n       is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\", \"centerHorizontally\", \"align\"",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "null"
                 },
                 {
-                    "name": "designedPPI",
-                    "description": "The designed PPI of the UI",
-                    "type": "Number"
+                    "name": "enabled",
+                    "description": "If the UIScaler should be enabled by default",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
                 },
                 {
                     "name": "display",
-                    "description": "The display to use the UIScaler on",
+                    "description": "The display which to use for the scaler",
                     "type": "Display",
                     "optional": true,
                     "optdefault": "Application.instance.display"
                 }
-            ]
+            ],
+            "return": {
+                "description": "The scaler object that can be reused",
+                "type": "UIScaler"
+            }
         },
         "Array": {
             "name": "Array",
@@ -4088,6 +4095,12 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
+                        },
+                        {
+                            "name": "maxAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
                         },
                         {
                             "name": "queryStringParameters",
@@ -4381,7 +4394,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 131,
+            "line": 133,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -4458,7 +4471,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 216,
+            "line": 218,
             "description": "Play an animation for a frame label event, starting at a random frame within the animation",
             "itemtype": "method",
             "name": "playAtRandomFrame",
@@ -4528,7 +4541,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 237,
+            "line": 239,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4577,7 +4590,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 323,
+            "line": 325,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with\n\ta unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,\n\tit needs to not have an id that is identical to anything from EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4601,7 +4614,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 354,
+            "line": 356,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4630,7 +4643,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 388,
+            "line": 390,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4653,7 +4666,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 414,
+            "line": 416,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4671,7 +4684,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 440,
+            "line": 442,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4696,7 +4709,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 497,
+            "line": 499,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4707,7 +4720,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 518,
+            "line": 520,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4718,7 +4731,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 540,
+            "line": 542,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4741,7 +4754,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 562,
+            "line": 564,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4763,7 +4776,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 581,
+            "line": 583,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4777,7 +4790,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 592,
+            "line": 594,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4790,7 +4803,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 605,
+            "line": 607,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4803,7 +4816,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 618,
+            "line": 620,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4823,7 +4836,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 714,
+            "line": 716,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4842,7 +4855,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 726,
+            "line": 728,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4861,7 +4874,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 739,
+            "line": 741,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4878,7 +4891,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 753,
+            "line": 755,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -7259,7 +7272,7 @@
         {
             "file": "src/displays/createjs/SoundButton.js",
             "line": 73,
-            "description": "Override for _onRollover function.",
+            "description": "Handler for rollover event.",
             "itemtype": "method",
             "name": "_onRollover",
             "access": "private",
@@ -7271,9 +7284,9 @@
         {
             "file": "src/displays/createjs/SoundButton.js",
             "line": 86,
-            "description": "Handler for the on mouse over event",
+            "description": "If audio should be played for this button.",
             "itemtype": "property",
-            "name": "enabled",
+            "name": "audioEnabled",
             "type": "Boolean",
             "class": "cloudkid.createjs.SoundButton",
             "module": "CreateJS Display",
@@ -10338,7 +10351,20 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 27,
+            "line": 23,
+            "description": "If the dispatcher is destroyed",
+            "itemtype": "property",
+            "name": "_destroyed",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "cloudkid.EventDispatcher",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/events/EventDispatcher.js",
+            "line": 34,
             "description": "Dispatch an event",
             "itemtype": "method",
             "name": "trigger",
@@ -10360,7 +10386,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 60,
+            "line": 69,
             "description": "Add an event listener but only handle it one time.",
             "itemtype": "method",
             "name": "once",
@@ -10393,7 +10419,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 75,
+            "line": 84,
             "description": "Add an event listener. The parameters for the listener functions depend on the event.",
             "itemtype": "method",
             "name": "on",
@@ -10426,7 +10452,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 139,
+            "line": 150,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -10452,7 +10478,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 191,
+            "line": 204,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -10479,7 +10505,17 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 210,
+            "line": 223,
+            "description": "Destroy and don't use after this",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "cloudkid.EventDispatcher",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/events/EventDispatcher.js",
+            "line": 233,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -10502,7 +10538,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 232,
+            "line": 255,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -10529,7 +10565,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 65,
+            "line": 67,
             "description": "The name of the game, useful for debugging purposes",
             "itemtype": "property",
             "name": "name",
@@ -10541,7 +10577,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 72,
+            "line": 74,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
@@ -10552,7 +10588,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 78,
+            "line": 80,
             "description": "If the current brower is mobile",
             "itemtype": "property",
             "name": "isMobile",
@@ -10563,7 +10599,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 105,
+            "line": 107,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -10573,7 +10609,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 111,
+            "line": 113,
             "description": "The config has finished loading, in case you want to \nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -10595,7 +10631,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 120,
+            "line": 122,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -10612,7 +10648,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 127,
+            "line": 129,
             "description": "Override the do init method",
             "itemtype": "method",
             "name": "onBeforeInit",
@@ -10624,7 +10660,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 150,
+            "line": 152,
             "description": "Callback when the config is loaded",
             "params": [
                 {
@@ -10639,7 +10675,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 160,
+            "line": 162,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -10651,7 +10687,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 172,
+            "line": 174,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10661,7 +10697,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 183,
+            "line": 185,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10675,18 +10711,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 66,
-            "description": "The current device pixel ratio as reported by the browser",
-            "itemtype": "property",
-            "name": "pixelRatio",
-            "type": "Number",
-            "class": "cloudkid.ScalingGame",
-            "module": "Game",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/games/ScalingGame.js",
-            "line": 72,
+            "line": 68,
             "description": "The main UIScaler for any display object references in the main game.",
             "itemtype": "property",
             "name": "scaler",
@@ -10697,19 +10722,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 78,
-            "description": "The default pixels per inch on the screen",
-            "itemtype": "property",
-            "name": "ppi",
-            "type": "Int",
-            "default": "96",
-            "class": "cloudkid.ScalingGame",
-            "module": "Game",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/games/ScalingGame.js",
-            "line": 93,
+            "line": 82,
             "description": "When the scaling has been initialized",
             "itemtype": "event",
             "name": "scalingReady",
@@ -10719,7 +10732,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 99,
+            "line": 88,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -10731,31 +10744,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 145,
-            "description": "Handler for the stage resizing",
-            "itemtype": "method",
-            "name": "resize",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "width",
-                    "description": "The width of the display",
-                    "type": "Number"
-                },
-                {
-                    "name": "height",
-                    "description": "The height of the display",
-                    "type": "Number"
-                }
-            ],
-            "class": "cloudkid.ScalingGame",
-            "module": "Game",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/games/ScalingGame.js",
-            "line": 169,
+            "line": 134,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10765,7 +10754,7 @@
         },
         {
             "file": "src/games/ScalingGame.js",
-            "line": 183,
+            "line": 148,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10779,7 +10768,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 72,
+            "line": 74,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -10792,7 +10781,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 79,
+            "line": 81,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -10803,7 +10792,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 85,
+            "line": 87,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -10814,7 +10803,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 100,
+            "line": 102,
             "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use.",
             "itemtype": "event",
             "name": "soundReady",
@@ -10824,7 +10813,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 107,
+            "line": 109,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoading",
@@ -10843,7 +10832,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 130,
+            "line": 132,
             "description": "Callback when the captions have been loaded",
             "itemtype": "method",
             "name": "onCaptionsLoaded",
@@ -10862,7 +10851,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 161,
+            "line": 163,
             "description": "Callback when preload as been finished",
             "itemtype": "method",
             "name": "onLoaded",
@@ -10874,7 +10863,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 177,
+            "line": 179,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -10886,7 +10875,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 206,
+            "line": 208,
             "description": "Set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -10898,7 +10887,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 249,
+            "line": 251,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10908,7 +10897,7 @@
         },
         {
             "file": "src/games/SoundGame.js",
-            "line": 263,
+            "line": 265,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10922,7 +10911,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 72,
+            "line": 74,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -10933,7 +10922,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 78,
+            "line": 80,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -10944,7 +10933,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 88,
+            "line": 90,
             "description": "Reference to the prototype extends application",
             "class": "cloudkid.StateGame",
             "module": "Game",
@@ -10952,7 +10941,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 94,
+            "line": 96,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
             "itemtype": "event",
             "name": "initStateManager",
@@ -10962,7 +10951,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 101,
+            "line": 103,
             "description": "The states are setup, this is the event to listen to \nwhen the game ready to use.",
             "itemtype": "event",
             "name": "statesReady",
@@ -10972,7 +10961,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 108,
+            "line": 110,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "initStates",
@@ -10982,7 +10971,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 114,
+            "line": 116,
             "description": "Callback when the game is loaded",
             "itemtype": "method",
             "name": "onLoaded",
@@ -10994,7 +10983,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 164,
+            "line": 166,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -11016,7 +11005,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 179,
+            "line": 181,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -11033,7 +11022,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 192,
+            "line": 194,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -11043,7 +11032,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 213,
+            "line": 215,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -11391,7 +11380,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 162,
+            "line": 158,
             "description": "Destroy the Loader singleton, don't use after this",
             "access": "public",
             "tagname": "",
@@ -11403,7 +11392,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 199,
+            "line": 195,
             "description": "Initilize the object",
             "access": "protected",
             "tagname": "",
@@ -11415,7 +11404,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 216,
+            "line": 212,
             "description": "Load a file",
             "itemtype": "method",
             "name": "load",
@@ -11454,7 +11443,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 253,
+            "line": 249,
             "description": "There was an error loading the file",
             "access": "private",
             "tagname": "",
@@ -11473,7 +11462,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 285,
+            "line": 281,
             "description": "The file load progress event",
             "itemtype": "method",
             "name": "_onLoadProgress",
@@ -11497,7 +11486,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 300,
+            "line": 296,
             "description": "The file was loaded successfully",
             "access": "private",
             "tagname": "",
@@ -11521,7 +11510,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 323,
+            "line": 319,
             "description": "Attempt to do the next load",
             "itemtype": "method",
             "name": "_tryNextLoad",
@@ -11533,7 +11522,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 355,
+            "line": 351,
             "description": "Alert that the loading is finished",
             "access": "private",
             "tagname": "",
@@ -11557,7 +11546,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 373,
+            "line": 369,
             "description": "Cancel a load that's currently in progress",
             "access": "public",
             "tagname": "",
@@ -16014,28 +16003,100 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 16,
-            "description": "Initial position of all layout items",
+            "line": 17,
+            "description": "Initial position a single item",
             "itemtype": "method",
-            "name": "positionItems",
+            "name": "initItem",
             "static": 1,
             "params": [
                 {
-                    "name": "parent",
-                    "description": "",
+                    "name": "item",
+                    "description": "The display object to scale",
                     "type": "DisplayObject"
                 },
                 {
-                    "name": "itemSettings",
-                    "description": "JSON format with position information",
-                    "type": "Object"
+                    "name": "settings",
+                    "description": "The values for setting",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The initial X position of the item",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "y",
+                            "description": "The initial Y position of the item",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "scale",
+                            "description": "The initial scale",
+                            "type": "Object",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "x",
+                                    "description": "The initial scale X value",
+                                    "type": "Number",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "y",
+                                    "description": "The initial scale Y value",
+                                    "type": "Number",
+                                    "optional": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "pivot",
+                            "description": "The pivot point",
+                            "type": "Object",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "x",
+                                    "description": "The pivot point X location",
+                                    "type": "Number",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "y",
+                                    "description": "The pivot point Y location",
+                                    "type": "Number",
+                                    "optional": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "rotation",
+                            "description": "The initial rotation in degrees",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "hitArea",
+                            "description": "An object which describes the hit area of the item or an array of points.",
+                            "type": "Object|Array",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "type",
+                                    "description": "If the hitArea is an object, the type of hit area, \"rect\", \"ellipse\", \"circle\", etc",
+                                    "type": "String",
+                                    "optional": true
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
-                    "name": "display",
-                    "description": "The current display being positioned",
-                    "type": "Display",
-                    "optional": true,
-                    "optdefault": "Application.instance.display"
+                    "name": "adapter",
+                    "description": "The current display adapter being positioned",
+                    "type": "Display"
                 }
             ],
             "class": "cloudkid.Positioner",
@@ -16044,7 +16105,7 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 75,
+            "line": 83,
             "description": "Create the polygon hit area for interface elements",
             "static": 1,
             "itemtype": "method",
@@ -16058,16 +16119,12 @@
                 {
                     "name": "scale",
                     "description": "The size to scale hitArea by",
-                    "type": "Number",
-                    "optional": true,
-                    "optdefault": "1"
+                    "type": "Number"
                 },
                 {
-                    "name": "display",
-                    "description": "The current display being positioned",
-                    "type": "Display",
-                    "optional": true,
-                    "optdefault": "Application.instance.display"
+                    "name": "adapter",
+                    "description": "The current display adapter for creating Polygon, Point, Rectangle, Ellipse, Circle",
+                    "type": "Display"
                 }
             ],
             "return": {
@@ -16079,41 +16136,8 @@
             "namespace": "cloudkid"
         },
         {
-            "file": "src/ui/ScreenSettings.js",
-            "line": 17,
-            "description": "The screen width in pixels",
-            "itemtype": "property",
-            "name": "width",
-            "type": "Number",
-            "class": "cloudkid.ScreenSettings",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/ScreenSettings.js",
-            "line": 23,
-            "description": "The screen height in pixels",
-            "itemtype": "property",
-            "name": "height",
-            "type": "Number",
-            "class": "cloudkid.ScreenSettings",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/ScreenSettings.js",
-            "line": 29,
-            "description": "The screen pixel density (PPI)",
-            "itemtype": "property",
-            "name": "ppi",
-            "type": "Number",
-            "class": "cloudkid.ScreenSettings",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
             "file": "src/ui/UIElement.js",
-            "line": 26,
+            "line": 27,
             "description": "The reference to the interface item we're scaling",
             "access": "private",
             "tagname": "",
@@ -16126,7 +16150,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 33,
+            "line": 34,
             "description": "The reference to the scale settings",
             "access": "private",
             "tagname": "",
@@ -16139,7 +16163,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 40,
+            "line": 41,
             "description": "The original screen the item was designed for",
             "access": "private",
             "tagname": "",
@@ -16152,7 +16176,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 47,
+            "line": 48,
             "description": "The adapter for universal scale, rotation size access",
             "itemtype": "property",
             "name": "_adapter",
@@ -16165,7 +16189,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 57,
+            "line": 58,
             "description": "Original X scale of the item",
             "itemtype": "property",
             "name": "origScaleX",
@@ -16177,7 +16201,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 64,
+            "line": 65,
             "description": "The original Y scale of the item",
             "itemtype": "property",
             "name": "origScaleY",
@@ -16189,7 +16213,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 71,
+            "line": 72,
             "description": "Original width in pixels",
             "itemtype": "property",
             "name": "origWidth",
@@ -16201,7 +16225,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 78,
+            "line": 79,
             "description": "The original bounds of the item with x, y, right, bottom, width, height properties.\nUsed to determine the distance to each edge of the item from its origin",
             "itemtype": "property",
             "name": "origBounds",
@@ -16212,7 +16236,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 85,
+            "line": 86,
             "description": "Original horizontal margin in pixels",
             "itemtype": "property",
             "name": "origMarginHori",
@@ -16224,7 +16248,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 92,
+            "line": 93,
             "description": "Original vertical margin in pixels",
             "itemtype": "property",
             "name": "origMarginVert",
@@ -16236,15 +16260,20 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 141,
+            "line": 151,
             "description": "Adjust the item scale and position, to reflect new screen",
             "itemtype": "method",
             "name": "resize",
             "params": [
                 {
-                    "name": "newScreen",
-                    "description": "The current screen settings",
-                    "type": "ScreenSettings"
+                    "name": "displayWidth",
+                    "description": "The current screen width",
+                    "type": "Number"
+                },
+                {
+                    "name": "displayHeight",
+                    "description": "The current screen height",
+                    "type": "Number"
                 }
             ],
             "class": "cloudkid.UIElement",
@@ -16253,7 +16282,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 247,
+            "line": 248,
             "description": "Destroy this item, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -16263,7 +16292,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 13,
+            "line": 14,
             "description": "What vertical screen location the item should be aligned to: \"top\", \"center\", \"bottom\"",
             "itemtype": "property",
             "name": "vertAlign",
@@ -16274,7 +16303,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 19,
+            "line": 20,
             "description": "What horizontal screen location the item should be aligned to: \"left\", \"center\", \"right\"",
             "itemtype": "property",
             "name": "horiAlign",
@@ -16285,7 +16314,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 25,
+            "line": 26,
             "description": "If this element should be aligned to the title safe area, not the actual screen",
             "itemtype": "property",
             "name": "titleSafe",
@@ -16297,7 +16326,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 32,
+            "line": 33,
             "description": "Maximum scale allowed in physical size",
             "itemtype": "property",
             "name": "maxScale",
@@ -16309,7 +16338,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 39,
+            "line": 40,
             "description": "Minimum scale allowed in physical size",
             "itemtype": "property",
             "name": "minScale",
@@ -16321,7 +16350,7 @@
         },
         {
             "file": "src/ui/UIElementSettings.js",
-            "line": 46,
+            "line": 47,
             "description": "If the UI element is centered horizontally",
             "itemtype": "property",
             "name": "centeredHorizontally",
@@ -16333,7 +16362,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 27,
+            "line": 32,
             "description": "The UI display object to update",
             "itemtype": "property",
             "name": "_parent",
@@ -16346,7 +16375,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 34,
+            "line": 39,
             "description": "The configuration for each items",
             "itemtype": "property",
             "name": "_items",
@@ -16359,11 +16388,11 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 41,
+            "line": 59,
             "description": "The screen settings object, contains information about designed size",
             "itemtype": "property",
-            "name": "_designedScreen",
-            "type": "ScreenSettings",
+            "name": "_designedSize",
+            "type": "Object",
             "access": "private",
             "tagname": "",
             "class": "cloudkid.UIScaler",
@@ -16372,7 +16401,21 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 48,
+            "line": 74,
+            "description": "The current overall scale of the game",
+            "itemtype": "property",
+            "name": "_scale",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "default": "1",
+            "class": "cloudkid.UIScaler",
+            "module": "Interface",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/ui/UIScaler.js",
+            "line": 82,
             "description": "The adapter for universal scale, rotation size access",
             "itemtype": "property",
             "name": "_adapter",
@@ -16385,32 +16428,11 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 56,
-            "description": "Get the adapter by display",
-            "itemtype": "method",
-            "name": "getAdapter",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "params": [
-                {
-                    "name": "display",
-                    "description": "The canvas renderer display",
-                    "type": "Object"
-                }
-            ],
-            "class": "cloudkid.UIScaler",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/UIScaler.js",
-            "line": 82,
-            "description": "The current screen settings",
+            "line": 89,
+            "description": "The collection of bitmaps to full screen scale",
             "itemtype": "property",
-            "name": "currentScreen",
-            "type": "ScreenSettings",
-            "static": 1,
+            "name": "_backgrounds",
+            "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "cloudkid.UIScaler",
@@ -16419,12 +16441,11 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 90,
-            "description": "If the screensize has been set",
+            "line": 96,
+            "description": "The internal enabled",
             "itemtype": "property",
-            "name": "initialized",
+            "name": "_enabled",
             "type": "Boolean",
-            "static": 1,
             "access": "private",
             "tagname": "",
             "class": "cloudkid.UIScaler",
@@ -16433,7 +16454,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 98,
+            "line": 115,
             "description": "Vertically align to the top",
             "itemtype": "property",
             "name": "ALIGN_TOP",
@@ -16448,7 +16469,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 108,
+            "line": 125,
             "description": "Vertically align to the bottom",
             "itemtype": "property",
             "name": "ALIGN_BOTTOM",
@@ -16463,7 +16484,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 118,
+            "line": 135,
             "description": "Horizontally align to the left",
             "itemtype": "property",
             "name": "ALIGN_LEFT",
@@ -16478,7 +16499,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 128,
+            "line": 145,
             "description": "Horizontally align to the right",
             "itemtype": "property",
             "name": "ALIGN_RIGHT",
@@ -16493,7 +16514,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 138,
+            "line": 155,
             "description": "Vertically or horizontally align to the center",
             "itemtype": "property",
             "name": "ALIGN_CENTER",
@@ -16508,44 +16529,62 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 148,
-            "description": "Create the scaler from JSON data",
+            "line": 165,
+            "description": "Get the adapter by display",
             "itemtype": "method",
-            "name": "fromJSON",
-            "static": 1,
+            "name": "getAdapter",
+            "access": "private",
+            "tagname": "",
             "params": [
                 {
-                    "name": "parent",
-                    "description": "The UI display container",
-                    "type": "DisplayObject"
-                },
-                {
-                    "name": "jsonSettings",
-                    "description": "The json of the designed settings {designedWidth:800, designedHeight:600, designedPPI:72}",
-                    "type": "Object"
-                },
-                {
-                    "name": "jsonItems",
-                    "description": "The json items object where the keys are the name of the property on the parent and the value\n       is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\", \"centerHorizontally\", \"align\"",
-                    "type": "Object"
-                },
-                {
-                    "name": "immediateDestroy",
-                    "description": "If we should immediately cleanup the UIScaler after scaling items",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "true"
-                },
-                {
                     "name": "display",
-                    "description": "The display which to use for the scaler",
-                    "type": "Display",
-                    "optional": true,
-                    "optdefault": "Application.instance.display"
+                    "description": "The canvas renderer display",
+                    "type": "Object"
+                }
+            ],
+            "class": "cloudkid.UIScaler",
+            "module": "Interface",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/ui/UIScaler.js",
+            "line": 193,
+            "description": "Get the current scale of the screen relative to the designed screen size",
+            "itemtype": "property",
+            "name": "scale",
+            "type": "Number",
+            "readonly": "",
+            "class": "cloudkid.UIScaler",
+            "module": "Interface",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/ui/UIScaler.js",
+            "line": 205,
+            "description": "Whether the UIScaler should listen to the stage resize. Setting to true\ninitialized a resize.",
+            "itemtype": "property",
+            "name": "enabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "cloudkid.UIScaler",
+            "module": "Interface",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/ui/UIScaler.js",
+            "line": 232,
+            "description": "Register a dictionary of items to the UIScaler to control.",
+            "itemtype": "method",
+            "name": "addItems",
+            "params": [
+                {
+                    "name": "items",
+                    "description": "The items object where the keys are the name of the property on the parent and the value\n      is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem\n      for a description of the different keys.",
+                    "type": "Object"
                 }
             ],
             "return": {
-                "description": "The scaler object that can be reused",
+                "description": "The instance of this UIScaler for chaining",
                 "type": "UIScaler"
             },
             "class": "cloudkid.UIScaler",
@@ -16554,52 +16593,10 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 222,
-            "description": "Set the current screen settings. If the stage size changes at all, re-call this function",
-            "itemtype": "method",
-            "name": "init",
-            "static": 1,
-            "params": [
-                {
-                    "name": "screenWidth",
-                    "description": "The fullscreen width",
-                    "type": "Number"
-                },
-                {
-                    "name": "screenHeight",
-                    "description": "The fullscreen height",
-                    "type": "Number"
-                },
-                {
-                    "name": "screenPPI",
-                    "description": "The screen resolution density",
-                    "type": "Number"
-                }
-            ],
-            "class": "cloudkid.UIScaler",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/UIScaler.js",
-            "line": 238,
-            "description": "Get the current scale of the screen",
-            "itemtype": "method",
-            "name": "getScale",
-            "return": {
-                "description": "The current stage scale",
-                "type": "Number"
-            },
-            "class": "cloudkid.UIScaler",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/UIScaler.js",
-            "line": 248,
+            "line": 273,
             "description": "Manually add an item",
             "itemtype": "method",
-            "name": "add",
+            "name": "addItem",
             "params": [
                 {
                     "name": "item",
@@ -16607,96 +16604,189 @@
                     "type": "Object"
                 },
                 {
-                    "name": "vertAlign",
-                    "description": "The vertical align of the item (cefault is center)",
-                    "type": "String",
+                    "name": "settings",
+                    "description": "The collection of settings",
+                    "type": "Object",
                     "optional": true,
-                    "optdefault": "\"center\""
-                },
-                {
-                    "name": "horiAlign",
-                    "description": "The horizontal align of the item (default is center)",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"center\""
-                },
-                {
-                    "name": "titleSafe",
-                    "description": "If the item needs to be in the title safe area (default is false)",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "false"
-                },
-                {
-                    "name": "minScale",
-                    "description": "The minimum scale amount (default, scales the same size as the stage)",
-                    "type": "Number",
-                    "optional": true,
-                    "optdefault": "1"
-                },
-                {
-                    "name": "maxScale",
-                    "description": "The maximum scale amount (default, scales the same size as the stage)",
-                    "type": "Number",
-                    "optional": true,
-                    "optdefault": "1"
-                },
-                {
-                    "name": "centeredHorizontally",
-                    "description": "Makes sure that the center of the object was at the center of the screen, assuming an origin at the top left of the object",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "false"
+                    "props": [
+                        {
+                            "name": "align",
+                            "description": "The vertical alignment (\"top\", \"bottom\", \"center\") then horizontal \n       alignment (\"left\", \"right\" and \"center\"). Or you can use the short-handed versions: \"center\" = \"center-center\",\n       \"top\" = \"top-center\", \"bottom\" = \"bottom-center\", \"left\" = \"center-left\", \"right\" = \"center-right\".",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "\"center\""
+                        },
+                        {
+                            "name": "titleSafe",
+                            "description": "If the item needs to be in the title safe area (default is false)",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "minScale",
+                            "description": "The minimum scale amount (default, scales the same size as the stage)",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "NaN"
+                        },
+                        {
+                            "name": "maxScale",
+                            "description": "The maximum scale amount (default, scales the same size as the stage)",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "NaN"
+                        },
+                        {
+                            "name": "centeredHorizontally",
+                            "description": "Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "x",
+                            "description": "The initial X position of the item",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "y",
+                            "description": "The initial Y position of the item",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "scale",
+                            "description": "The initial scale",
+                            "type": "Object",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "x",
+                                    "description": "The initial scale X value",
+                                    "type": "Number",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "y",
+                                    "description": "The initial scale Y value",
+                                    "type": "Number",
+                                    "optional": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "pivot",
+                            "description": "The pivot point",
+                            "type": "Object",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "x",
+                                    "description": "The pivot point X location",
+                                    "type": "Number",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "y",
+                                    "description": "The pivot point Y location",
+                                    "type": "Number",
+                                    "optional": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "rotation",
+                            "description": "The initial rotation in degrees",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "hitArea",
+                            "description": "An object which describes the hit area of the item or an array of points.",
+                            "type": "Object|Array",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "type",
+                                    "description": "If the hitArea is an object, the type of hit area, \"rect\", \"ellipse\", \"circle\", etc\n       center of the screen, assuming an origin at the top left of the object.",
+                                    "type": "String",
+                                    "optional": true
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
+            "return": {
+                "description": "The instance of this UIScaler for chaining",
+                "type": "UIScaler"
+            },
             "class": "cloudkid.UIScaler",
             "module": "Interface",
             "namespace": "cloudkid"
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 274,
-            "description": "Scale a single background image according to the UIScaler.width and height",
+            "line": 352,
+            "description": "Add background bitmaps to scale full screen, this will attempt to \nscale the background to the height of the display and crop on \nthe left and right.",
             "itemtype": "method",
-            "name": "resizeBackground",
-            "static": 1,
+            "name": "addBackground",
             "params": [
                 {
                     "name": "The",
-                    "description": "bitmap to scale",
+                    "description": "bitmap to scale or collection of bitmaps",
                     "type": "Bitmap"
-                },
-                {
-                    "name": "display",
-                    "description": "The display which to use for the scaler",
-                    "type": "Display",
-                    "optional": true,
-                    "optdefault": "Application.instance.display"
                 }
             ],
+            "return": {
+                "description": "The UIScaler for chaining",
+                "type": "UIScaler"
+            },
             "class": "cloudkid.UIScaler",
             "module": "Interface",
             "namespace": "cloudkid"
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 297,
-            "description": "Convenience function to scale a collection of backgrounds",
+            "line": 370,
+            "description": "Remove background",
             "itemtype": "method",
-            "name": "resizeBackgrounds",
-            "static": 1,
+            "name": "removeBackground",
             "params": [
                 {
-                    "name": "bitmaps",
-                    "description": "The collection of bitmap images",
-                    "type": "Array"
+                    "name": "The",
+                    "description": "bitmap or bitmaps to remove",
+                    "type": "Bitmap"
+                }
+            ],
+            "return": {
+                "description": "The UIScaler for chaining",
+                "type": "UIScaler"
+            },
+            "class": "cloudkid.UIScaler",
+            "module": "Interface",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/ui/UIScaler.js",
+            "line": 389,
+            "description": "Scale the UI items that have been registered to the current screen",
+            "itemtype": "method",
+            "name": "_resize",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "w",
+                    "description": "The current width of the application",
+                    "type": "Number"
                 },
                 {
-                    "name": "display",
-                    "description": "The display which to use for the scaler",
-                    "type": "Object",
-                    "optional": true,
-                    "optdefault": "Application.instance.display"
+                    "name": "h",
+                    "description": "The current height of the application",
+                    "type": "Number"
                 }
             ],
             "class": "cloudkid.UIScaler",
@@ -16705,17 +16795,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 312,
-            "description": "Scale the UI items that have been registered to the current screen",
-            "itemtype": "method",
-            "name": "resize",
-            "class": "cloudkid.UIScaler",
-            "module": "Interface",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/ui/UIScaler.js",
-            "line": 327,
+            "line": 436,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -18081,7 +18161,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 66,
+            "line": 68,
             "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
             "itemtype": "property",
             "name": "options",
@@ -18093,7 +18173,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 74,
+            "line": 76,
             "description": "Primary renderer for the application, for simply accessing Application.instance.display.stage;\nThe first display added becomes the primary display automatically.",
             "itemtype": "property",
             "name": "display",
@@ -18106,7 +18186,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 82,
+            "line": 84,
             "description": "If we should wait to init the Application, this is useful is something is inheriting\nApplication but want to do some extra stuff before init is actually called.",
             "itemtype": "property",
             "name": "_readyToInit",
@@ -18119,7 +18199,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 102,
+            "line": 105,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -18133,7 +18213,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 112,
+            "line": 115,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -18147,7 +18227,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 122,
+            "line": 125,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -18160,7 +18240,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 129,
+            "line": 132,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -18173,7 +18253,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 136,
+            "line": 139,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18186,7 +18266,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 143,
+            "line": 146,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18199,7 +18279,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 150,
+            "line": 153,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -18212,7 +18292,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 157,
+            "line": 160,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -18225,7 +18305,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 164,
+            "line": 167,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -18238,7 +18318,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 171,
+            "line": 174,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -18252,7 +18332,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 179,
+            "line": 182,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -18266,7 +18346,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 187,
+            "line": 190,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -18279,7 +18359,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 194,
+            "line": 197,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -18293,7 +18373,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 202,
+            "line": 205,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -18306,7 +18386,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 209,
+            "line": 212,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -18319,7 +18399,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 217,
+            "line": 220,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -18332,7 +18412,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 224,
+            "line": 227,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -18345,7 +18425,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 247,
+            "line": 250,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -18358,7 +18438,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 254,
+            "line": 257,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -18368,7 +18448,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 260,
+            "line": 263,
             "description": "Event when everything's done but we haven't actually inited",
             "itemtype": "event",
             "name": "preInit",
@@ -18380,7 +18460,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 267,
+            "line": 270,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -18397,7 +18477,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 274,
+            "line": 277,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -18419,7 +18499,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 282,
+            "line": 285,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -18436,7 +18516,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 289,
+            "line": 292,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -18446,7 +18526,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 295,
+            "line": 298,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -18456,7 +18536,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 301,
+            "line": 304,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -18466,7 +18546,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 307,
+            "line": 310,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -18486,7 +18566,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 319,
+            "line": 322,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -18506,7 +18586,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 332,
+            "line": 335,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -18520,7 +18600,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 345,
+            "line": 348,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -18532,7 +18612,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 439,
+            "line": 442,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -18544,7 +18624,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 464,
+            "line": 467,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -18560,7 +18640,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 493,
+            "line": 496,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -18572,7 +18652,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 500,
+            "line": 503,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -18584,7 +18664,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 510,
+            "line": 513,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -18596,7 +18676,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 520,
+            "line": 523,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -18607,7 +18687,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 561,
+            "line": 564,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18631,19 +18711,17 @@
         },
         {
             "file": "src/Application.js",
-            "line": 578,
-            "description": "Resize listener function, handles default resize behavior on all displays and dispatches a resize event",
+            "line": 581,
+            "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
-            "name": "_resize",
-            "access": "private",
-            "tagname": "",
+            "name": "triggerResize",
             "class": "cloudkid.Application",
             "module": "Framework",
             "namespace": "cloudkid"
         },
         {
             "file": "src/Application.js",
-            "line": 606,
+            "line": 608,
             "description": "Calculates the resizing of displays. By default, this limits the new size \nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18674,7 +18752,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 632,
+            "line": 638,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18706,7 +18784,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 661,
+            "line": 680,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18727,7 +18805,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 672,
+            "line": 691,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18751,7 +18829,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 693,
+            "line": 712,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18768,7 +18846,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 708,
+            "line": 727,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18781,7 +18859,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 726,
+            "line": 745,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18794,7 +18872,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 742,
+            "line": 761,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18806,7 +18884,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 789,
+            "line": 808,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -18826,75 +18904,75 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:131"
+            "line": " src/displays/createjs/Animator.js:133"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:216"
+            "line": " src/displays/createjs/Animator.js:218"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:237"
+            "line": " src/displays/createjs/Animator.js:239"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:323"
+            "line": " src/displays/createjs/Animator.js:325"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:354"
+            "line": " src/displays/createjs/Animator.js:356"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:388"
+            "line": " src/displays/createjs/Animator.js:390"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:414"
+            "line": " src/displays/createjs/Animator.js:416"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:440"
+            "line": " src/displays/createjs/Animator.js:442"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:497"
+            "line": " src/displays/createjs/Animator.js:499"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:518"
+            "line": " src/displays/createjs/Animator.js:520"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:540"
+            "line": " src/displays/createjs/Animator.js:542"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:562"
+            "line": " src/displays/createjs/Animator.js:564"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:581"
+            "line": " src/displays/createjs/Animator.js:583"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:592"
+            "line": " src/displays/createjs/Animator.js:594"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:605"
+            "line": " src/displays/createjs/Animator.js:607"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:618"
+            "line": " src/displays/createjs/Animator.js:620"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:739"
+            "line": " src/displays/createjs/Animator.js:741"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:753"
+            "line": " src/displays/createjs/Animator.js:755"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19246,11 +19324,11 @@
         },
         {
             "message": "Missing item type\nCallback when the config is loaded",
-            "line": " src/games/Game.js:150"
+            "line": " src/games/Game.js:152"
         },
         {
             "message": "Missing item type\nReference to the prototype extends application",
-            "line": " src/games/StateGame.js:88"
+            "line": " src/games/StateGame.js:90"
         },
         {
             "message": "Missing item type",

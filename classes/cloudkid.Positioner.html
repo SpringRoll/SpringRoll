@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -252,7 +250,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_ui_Positioner.js.html#l9"><code>cloudkid.Positioner:9</code></a>
+            Defined in: <a href="../files/src_ui_Positioner.js.html#l7"><code>cloudkid.Positioner:7</code></a>
         </div>
     
 
@@ -306,7 +304,7 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_positionItems">positionItems</a>
+                                <a href="#method_initItem">initItem</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -345,13 +343,13 @@
             
                 <li class="arg">
                     
-                        <code class="optional">[scale=1]</code>
+                        <code>scale</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code class="optional">[display=Application.instance.display]</code>
+                        <code>adapter</code>
                     
                 </li>
             
@@ -390,7 +388,7 @@
             
         
         
-        <a href="../files/src_ui_Positioner.js.html#l75"><code>generateHitArea:75</code></a>
+        <a href="../files/src_ui_Positioner.js.html#l83"><code>generateHitArea:83</code></a>
         
         </p>
 
@@ -448,9 +446,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name optional">[scale=1]</code>
+                        <code class="param-name">scale</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
@@ -465,15 +462,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name optional">[display=Application.instance.display]</code>
+                        <code class="param-name">adapter</code>
                         <span class="type">Display</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The current display being positioned</p>
+                        <p>The current display adapter for creating Polygon, Point, Rectangle, Ellipse, Circle</p>
 
                     </div>
 
@@ -505,8 +501,8 @@
 </div>
 
                 
-                    <div id="method_positionItems" class="method item">
-    <h3 class="name"><code>positionItems</code></h3>
+                    <div id="method_initItem" class="method item">
+    <h3 class="name"><code>initItem</code></h3>
 
     
         <div class="args">
@@ -514,19 +510,19 @@
             
                 <li class="arg">
                     
-                        <code>parent</code>
+                        <code>item</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>itemSettings</code>
+                        <code>settings</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code class="optional">[display=Application.instance.display]</code>
+                        <code>adapter</code>
                     
                 </li>
             
@@ -561,7 +557,7 @@
             
         
         
-        <a href="../files/src_ui_Positioner.js.html#l16"><code>positionItems:16</code></a>
+        <a href="../files/src_ui_Positioner.js.html#l17"><code>initItem:17</code></a>
         
         </p>
 
@@ -572,7 +568,7 @@
     </div>
 
     <div class="description">
-        <p>Initial position of all layout items</p>
+        <p>Initial position a single item</p>
 
     </div>
 
@@ -584,14 +580,15 @@
             
                 <li class="param">
                     
-                        <code class="param-name">parent</code>
+                        <code class="param-name">item</code>
                         <span class="type">DisplayObject</span>
                     
 
                     
 
                     <div class="param-description">
-                         
+                        <p>The display object to scale</p>
+
                     </div>
 
                     
@@ -599,31 +596,196 @@
             
                 <li class="param">
                     
-                        <code class="param-name">itemSettings</code>
+                        <code class="param-name">settings</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>JSON format with position information</p>
+                        <p>The values for setting</p>
 
                     </div>
 
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[x]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial X position of the item</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[y]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial Y position of the item</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[scale]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial scale</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[x]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The initial scale X value
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[y]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The initial scale Y value
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[pivot]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The pivot point</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[x]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The pivot point X location
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[y]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The pivot point Y location
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[rotation]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial rotation in degrees</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[hitArea]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>An object which describes the hit area of the item or an array of points.</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[type]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                If the hitArea is an object, the type of hit area, "rect", "ellipse", "circle", etc
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             
                 <li class="param">
                     
-                        <code class="param-name optional">[display=Application.instance.display]</code>
+                        <code class="param-name">adapter</code>
                         <span class="type">Display</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The current display being positioned</p>
+                        <p>The current display adapter being positioned</p>
 
                     </div>
 

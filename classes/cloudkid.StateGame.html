@@ -133,8 +133,6 @@
             
                 <li><a href="../classes/cloudkid.ScalingGame.html">cloudkid.ScalingGame</a></li>
             
-                <li><a href="../classes/cloudkid.ScreenSettings.html">cloudkid.ScreenSettings</a></li>
-            
                 <li><a href="../classes/cloudkid.Sound.html">cloudkid.Sound</a></li>
             
                 <li><a href="../classes/cloudkid.SoundContext.html">cloudkid.SoundContext</a></li>
@@ -664,6 +662,22 @@
                             
                             <li class="param">
                                 
+                                    <code class="param-name optional">[maxAspectRatio]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+       This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
                                     <code class="param-name optional">[queryStringParameters=false]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
@@ -882,13 +896,6 @@
                             </li>
                         
                             <li class="index-item method private inherited">
-                                <a href="#method__resize">_resize</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method private inherited">
                                 <a href="#method__tick">_tick</a>
 
                                 
@@ -1016,6 +1023,13 @@
                         
                             <li class="index-item method inherited">
                                 <a href="#method_toString">toString</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method inherited">
+                                <a href="#method_triggerResize">triggerResize</a>
 
                                 
                                 
@@ -1406,7 +1420,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l439"><code>_doInit:439</code></a>
+        <a href="../files/src_Application.js.html#l442"><code>_doInit:442</code></a>
         
         </p>
 
@@ -1460,7 +1474,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l345"><code>_internalInit:345</code></a>
+        <a href="../files/src_Application.js.html#l348"><code>_internalInit:348</code></a>
         
         </p>
 
@@ -1514,7 +1528,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l500"><code>_onHidden:500</code></a>
+        <a href="../files/src_Application.js.html#l503"><code>_onHidden:503</code></a>
         
         </p>
 
@@ -1568,7 +1582,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l510"><code>_onVisible:510</code></a>
+        <a href="../files/src_Application.js.html#l513"><code>_onVisible:513</code></a>
         
         </p>
 
@@ -1580,60 +1594,6 @@
 
     <div class="description">
         <p>Private listener for when the page is shown.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method__resize" class="method item private inherited">
-    <h3 class="name"><code>_resize</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                <p>Inherited from
-                <a href="../classes/cloudkid.Application.html#method__resize">cloudkid.Application</a>:
-            
-        
-        
-        <a href="../files/src_Application.js.html#l578"><code>_resize:578</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Resize listener function, handles default resize behavior on all displays and dispatches a resize event</p>
 
     </div>
 
@@ -1676,7 +1636,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l742"><code>_tick:742</code></a>
+        <a href="../files/src_Application.js.html#l761"><code>_tick:761</code></a>
         
         </p>
 
@@ -1754,7 +1714,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l632"><code>addDisplay:632</code></a>
+        <a href="../files/src_Application.js.html#l638"><code>addDisplay:638</code></a>
         
         </p>
 
@@ -1898,7 +1858,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l164"><code>addState:164</code></a>
+        <a href="../files/src_games_StateGame.js.html#l166"><code>addState:166</code></a>
         
         </p>
 
@@ -2003,7 +1963,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l179"><code>addStates:179</code></a>
+        <a href="../files/src_games_StateGame.js.html#l181"><code>addStates:181</code></a>
         
         </p>
 
@@ -2091,7 +2051,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l606"><code>calculateDisplaySize:606</code></a>
+        <a href="../files/src_Application.js.html#l608"><code>calculateDisplaySize:608</code></a>
         
         </p>
 
@@ -2205,7 +2165,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l192"><code>destroy:192</code></a>
+        <a href="../files/src_games_StateGame.js.html#l194"><code>destroy:194</code></a>
         
         </p>
 
@@ -2271,7 +2231,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l661"><code>getDisplay:661</code></a>
+        <a href="../files/src_Application.js.html#l680"><code>getDisplay:680</code></a>
         
         </p>
 
@@ -2377,7 +2337,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l672"><code>getDisplays:672</code></a>
+        <a href="../files/src_Application.js.html#l691"><code>getDisplays:691</code></a>
         
         </p>
 
@@ -2470,7 +2430,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l493"><code>init:493</code></a>
+        <a href="../files/src_Application.js.html#l496"><code>init:496</code></a>
         
         </p>
 
@@ -2524,7 +2484,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l127"><code>onBeforeInit:127</code></a>
+        <a href="../files/src_games_Game.js.html#l129"><code>onBeforeInit:129</code></a>
         
         </p>
 
@@ -2588,7 +2548,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l130"><code>onCaptionsLoaded:130</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l132"><code>onCaptionsLoaded:132</code></a>
         
         </p>
 
@@ -2669,7 +2629,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l114"><code>onLoaded:114</code></a>
+        <a href="../files/src_games_StateGame.js.html#l116"><code>onLoaded:116</code></a>
         
         </p>
 
@@ -2733,7 +2693,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l107"><code>onLoading:107</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l109"><code>onLoading:109</code></a>
         
         </p>
 
@@ -2811,7 +2771,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l177"><code>onSoundReady:177</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l179"><code>onSoundReady:179</code></a>
         
         </p>
 
@@ -2865,7 +2825,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l160"><code>onTasksComplete:160</code></a>
+        <a href="../files/src_games_Game.js.html#l162"><code>onTasksComplete:162</code></a>
         
         </p>
 
@@ -2923,7 +2883,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l464"><code>parseQueryStringParams:464</code></a>
+        <a href="../files/src_Application.js.html#l467"><code>parseQueryStringParams:467</code></a>
         
         </p>
 
@@ -2999,7 +2959,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l693"><code>removeDisplay:693</code></a>
+        <a href="../files/src_Application.js.html#l712"><code>removeDisplay:712</code></a>
         
         </p>
 
@@ -3093,7 +3053,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l561"><code>setTargetedTimeout:561</code></a>
+        <a href="../files/src_Application.js.html#l564"><code>setTargetedTimeout:564</code></a>
         
         </p>
 
@@ -3193,7 +3153,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l213"><code>toString:213</code></a>
+        <a href="../files/src_games_StateGame.js.html#l215"><code>toString:215</code></a>
         
         </p>
 
@@ -3230,6 +3190,58 @@ current tick.</p>
 </div>
 
                 
+                    <div id="method_triggerResize" class="method item inherited">
+    <h3 class="name"><code>triggerResize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="../classes/cloudkid.Application.html#method_triggerResize">cloudkid.Application</a>:
+            
+        
+        
+        <a href="../files/src_Application.js.html#l581"><code>triggerResize:581</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fire a resize event with the current width and height of the display</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
@@ -3260,7 +3272,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l202"><code>_aspectRatio:202</code></a>
+        <a href="../files/src_Application.js.html#l205"><code>_aspectRatio:205</code></a>
         
         </p>
 
@@ -3304,7 +3316,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l224"><code>_defaultOptions:224</code></a>
+        <a href="../files/src_Application.js.html#l227"><code>_defaultOptions:227</code></a>
         
         </p>
 
@@ -3348,7 +3360,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l217"><code>_displays:217</code></a>
+        <a href="../files/src_Application.js.html#l220"><code>_displays:220</code></a>
         
         </p>
 
@@ -3392,7 +3404,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l179"><code>_fps:179</code></a>
+        <a href="../files/src_Application.js.html#l182"><code>_fps:182</code></a>
         
         </p>
 
@@ -3438,7 +3450,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l143"><code>_frameCount:143</code></a>
+        <a href="../files/src_Application.js.html#l146"><code>_frameCount:146</code></a>
         
         </p>
 
@@ -3482,7 +3494,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l122"><code>_framerate:122</code></a>
+        <a href="../files/src_Application.js.html#l125"><code>_framerate:125</code></a>
         
         </p>
 
@@ -3526,7 +3538,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l136"><code>_lastFPSUpdateTime:136</code></a>
+        <a href="../files/src_Application.js.html#l139"><code>_lastFPSUpdateTime:139</code></a>
         
         </p>
 
@@ -3570,7 +3582,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l129"><code>_lastFrameTime:129</code></a>
+        <a href="../files/src_Application.js.html#l132"><code>_lastFrameTime:132</code></a>
         
         </p>
 
@@ -3614,7 +3626,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l187"><code>_msPerFrame:187</code></a>
+        <a href="../files/src_Application.js.html#l190"><code>_msPerFrame:190</code></a>
         
         </p>
 
@@ -3658,7 +3670,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l72"><code>_music:72</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l74"><code>_music:74</code></a>
         
         </p>
 
@@ -3702,7 +3714,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l209"><code>_pageVisibility:209</code></a>
+        <a href="../files/src_Application.js.html#l212"><code>_pageVisibility:212</code></a>
         
         </p>
 
@@ -3746,7 +3758,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l157"><code>_paused:157</code></a>
+        <a href="../files/src_Application.js.html#l160"><code>_paused:160</code></a>
         
         </p>
 
@@ -3790,7 +3802,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l82"><code>_readyToInit:82</code></a>
+        <a href="../files/src_Application.js.html#l84"><code>_readyToInit:84</code></a>
         
         </p>
 
@@ -3835,7 +3847,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l194"><code>_resizeElement:194</code></a>
+        <a href="../files/src_Application.js.html#l197"><code>_resizeElement:197</code></a>
         
         </p>
 
@@ -3881,7 +3893,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l247"><code>_resizeHelper:247</code></a>
+        <a href="../files/src_Application.js.html#l250"><code>_resizeHelper:250</code></a>
         
         </p>
 
@@ -3925,7 +3937,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l150"><code>_tickCallback:150</code></a>
+        <a href="../files/src_Application.js.html#l153"><code>_tickCallback:153</code></a>
         
         </p>
 
@@ -3969,7 +3981,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l164"><code>_tickId:164</code></a>
+        <a href="../files/src_Application.js.html#l167"><code>_tickId:167</code></a>
         
         </p>
 
@@ -4013,7 +4025,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l171"><code>_useRAF:171</code></a>
+        <a href="../files/src_Application.js.html#l174"><code>_useRAF:174</code></a>
         
         </p>
 
@@ -4057,7 +4069,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l85"><code>captions:85</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l87"><code>captions:87</code></a>
         
         </p>
 
@@ -4099,7 +4111,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l72"><code>config:72</code></a>
+        <a href="../files/src_games_Game.js.html#l74"><code>config:74</code></a>
         
         </p>
 
@@ -4143,7 +4155,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l74"><code>display:74</code></a>
+        <a href="../files/src_Application.js.html#l76"><code>display:76</code></a>
         
         </p>
 
@@ -4188,7 +4200,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l708"><code>fps:708</code></a>
+        <a href="../files/src_Application.js.html#l727"><code>fps:727</code></a>
         
         </p>
 
@@ -4230,7 +4242,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l78"><code>isMobile:78</code></a>
+        <a href="../files/src_games_Game.js.html#l80"><code>isMobile:80</code></a>
         
         </p>
 
@@ -4275,7 +4287,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l78"><code>manager:78</code></a>
+        <a href="../files/src_games_StateGame.js.html#l80"><code>manager:80</code></a>
         
         </p>
 
@@ -4317,7 +4329,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l206"><code>music:206</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l208"><code>music:208</code></a>
         
         </p>
 
@@ -4361,7 +4373,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l65"><code>name:65</code></a>
+        <a href="../files/src_games_Game.js.html#l67"><code>name:67</code></a>
         
         </p>
 
@@ -4405,7 +4417,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l66"><code>options:66</code></a>
+        <a href="../files/src_Application.js.html#l68"><code>options:68</code></a>
         
         </p>
 
@@ -4448,7 +4460,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l520"><code>paused:520</code></a>
+        <a href="../files/src_Application.js.html#l523"><code>paused:523</code></a>
         
         </p>
 
@@ -4490,7 +4502,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l79"><code>player:79</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l81"><code>player:81</code></a>
         
         </p>
 
@@ -4534,7 +4546,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l726"><code>raf:726</code></a>
+        <a href="../files/src_Application.js.html#l745"><code>raf:745</code></a>
         
         </p>
 
@@ -4579,7 +4591,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l72"><code>transition:72</code></a>
+        <a href="../files/src_games_StateGame.js.html#l74"><code>transition:74</code></a>
         
         </p>
 
@@ -4631,7 +4643,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_games_Game.js.html#l111"><code>configLoaded:111</code></a>
+        <a href="../files/src_games_Game.js.html#l113"><code>configLoaded:113</code></a>
         
         </p>
 
@@ -4713,7 +4725,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l301"><code>destroy:301</code></a>
+        <a href="../files/src_Application.js.html#l304"><code>destroy:304</code></a>
         
         </p>
 
@@ -4754,7 +4766,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l254"><code>init:254</code></a>
+        <a href="../files/src_Application.js.html#l257"><code>init:257</code></a>
         
         </p>
 
@@ -4798,7 +4810,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l94"><code>initStateManager:94</code></a>
+        <a href="../files/src_games_StateGame.js.html#l96"><code>initStateManager:96</code></a>
         
         </p>
 
@@ -4843,7 +4855,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l108"><code>initStates:108</code></a>
+        <a href="../files/src_games_StateGame.js.html#l110"><code>initStates:110</code></a>
         
         </p>
 
@@ -4884,7 +4896,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l105"><code>loaded:105</code></a>
+        <a href="../files/src_games_Game.js.html#l107"><code>loaded:107</code></a>
         
         </p>
 
@@ -4925,7 +4937,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l120"><code>loading:120</code></a>
+        <a href="../files/src_games_Game.js.html#l122"><code>loading:122</code></a>
         
         </p>
 
@@ -4990,7 +5002,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l282"><code>pause:282</code></a>
+        <a href="../files/src_Application.js.html#l285"><code>pause:285</code></a>
         
         </p>
 
@@ -5055,7 +5067,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l289"><code>paused:289</code></a>
+        <a href="../files/src_Application.js.html#l292"><code>paused:292</code></a>
         
         </p>
 
@@ -5098,7 +5110,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l260"><code>preInit:260</code></a>
+        <a href="../files/src_Application.js.html#l263"><code>preInit:263</code></a>
         
         </p>
 
@@ -5139,7 +5151,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l274"><code>resize:274</code></a>
+        <a href="../files/src_Application.js.html#l277"><code>resize:277</code></a>
         
         </p>
 
@@ -5220,7 +5232,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l295"><code>resumed:295</code></a>
+        <a href="../files/src_Application.js.html#l298"><code>resumed:298</code></a>
         
         </p>
 
@@ -5261,7 +5273,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_SoundGame.js.html#l100"><code>soundReady:100</code></a>
+        <a href="../files/src_games_SoundGame.js.html#l102"><code>soundReady:102</code></a>
         
         </p>
 
@@ -5306,7 +5318,7 @@ when the game ready to use.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l101"><code>statesReady:101</code></a>
+        <a href="../files/src_games_StateGame.js.html#l103"><code>statesReady:103</code></a>
         
         </p>
 
@@ -5348,7 +5360,7 @@ when the game ready to use.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l267"><code>update:267</code></a>
+        <a href="../files/src_Application.js.html#l270"><code>update:270</code></a>
         
         </p>
 
