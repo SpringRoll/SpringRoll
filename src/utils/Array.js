@@ -37,4 +37,21 @@
 			return this[Math.floor(Math.random() * this.length)];
 		}
 	});
+
+	/**
+	*  Get the last item in the array
+	*  @method last
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The last item
+	*/
+	Object.defineProperty(Array.prototype, 'last',
+	{
+		enumerable: false,
+		writable: false,
+		value: function()
+		{
+			return this[this.length - 1];
+		}
+	});
 }());
