@@ -908,7 +908,6 @@
 		{
 			for(i = 0; i < len; ++i)
 			{
-				Debug.log('Resize item ' + this._items[i]);
 				this._items[i].resize(w, h);
 			}
 		}
