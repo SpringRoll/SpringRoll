@@ -244,7 +244,7 @@
 	* @final
 	* @property {int} true
 	*/
-	Debug.true = 1;
+	Debug['DE'+'BUG'] = 1; // jshint ignore:line
 	
 	/**
 	* Log level for debug messages
@@ -589,9 +589,9 @@
 		if(!Debug.enabled) return;
 		if(Debug._isConnected)
 		{
-			Debug.remoteLog(params, "true");
+			Debug.remoteLog(params, 'DE'+'BUG');
 		}
-		else if (Debug.minLogLevel <= Debug.true && hasConsole)
+		else if (Debug.minLogLevel <= Debug['DE'+'BUG'] && hasConsole) // jshint ignore:line
 		{
 			console.debug(Debug._isJSConsole ? JSC_format(params) : params);
 			output("debug", params);
