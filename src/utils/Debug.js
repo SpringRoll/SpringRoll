@@ -142,9 +142,9 @@
 	*  @public
 	*  @static
 	*  @method connect
-	*  @param {string} The IP address to connect to
+	*  @param {string} host The remote address to connect to, IP address or host name
 	*/
-	Debug.connect = function(ipAddr)
+	Debug.connect = function(host)
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
@@ -153,7 +153,7 @@
 		
 		try
 		{
-			var s = Debug._socket = new WebSocket("ws://" + ipAddr + ":" + Debug._NET_PORT);
+			var s = Debug._socket = new WebSocket("ws://" + host + ":" + Debug._NET_PORT);
 			s.onopen = onConnect;
 			s.onmessage = function(){};
 			s.onclose = onClose;

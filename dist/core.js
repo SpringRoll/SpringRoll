@@ -351,9 +351,9 @@
 	*  @public
 	*  @static
 	*  @method connect
-	*  @param {string} The IP address to connect to
+	*  @param {string} host The remote address to connect to, IP address or host name
 	*/
-	Debug.connect = function(ipAddr)
+	Debug.connect = function(host)
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
@@ -362,7 +362,7 @@
 		
 		try
 		{
-			var s = Debug._socket = new WebSocket("ws://" + ipAddr + ":" + Debug._NET_PORT);
+			var s = Debug._socket = new WebSocket("ws://" + host + ":" + Debug._NET_PORT);
 			s.onopen = onConnect;
 			s.onmessage = function(){};
 			s.onclose = onClose;
@@ -1259,8 +1259,8 @@
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
 	*		the `Debug` class must be used for this feature.
-	*  @param {String} [options.ip] The host computer for IP remote debugging,
-	*		the debug module must be included to use this feature.
+	*  @param {String} [options.debugRemote] The host computer for remote debugging,
+	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
@@ -1613,8 +1613,8 @@
 			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if(typeof this.options.ip == "string")
-			Debug.connect(this.options.ip);
+		if(typeof this.options.debugRemote == "string")
+			Debug.connect(this.options.debugRemote);
 
 		// If tween and/or ticker are included
 		var Tween = include('createjs.Tween', false),
