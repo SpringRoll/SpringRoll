@@ -4472,76 +4472,6 @@
         {
             "file": "src/displays/createjs/Animator.js",
             "line": 218,
-            "description": "Play an animation for a frame label event, starting at a random frame within the animation",
-            "itemtype": "method",
-            "name": "playAtRandomFrame",
-            "params": [
-                {
-                    "name": "instance",
-                    "description": "The timeline to animate.",
-                    "type": "AnimatorTimeline"
-                },
-                {
-                    "name": "event",
-                    "description": "The frame label event (e.g. \"onClose\" to \"onClose_stop\").",
-                    "type": "String"
-                },
-                {
-                    "name": "options",
-                    "description": "The object of optional parameters or onComplete callback function",
-                    "type": "Object|function",
-                    "optional": true,
-                    "props": [
-                        {
-                            "name": "onComplete",
-                            "description": "The callback function when the animation is done",
-                            "type": "Function",
-                            "optional": true,
-                            "optdefault": "null"
-                        },
-                        {
-                            "name": "onCompleteParams",
-                            "description": "Parameters to pass to onComplete function",
-                            "type": "Array",
-                            "optional": true,
-                            "optdefault": "null"
-                        },
-                        {
-                            "name": "speed",
-                            "description": "The speed at which to play the animation.",
-                            "type": "Number",
-                            "optional": true,
-                            "optdefault": "1"
-                        },
-                        {
-                            "name": "soundData",
-                            "description": "soundData Data about a sound to sync the animation to, as an alias or in the format {alias:\"MyAlias\", start:0}.\n\t\tstart is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.",
-                            "type": "Object",
-                            "optional": true,
-                            "optdefault": "null"
-                        },
-                        {
-                            "name": "doCancelledCallback",
-                            "description": "Should an overridden animation's callback function still run?",
-                            "type": "Bool",
-                            "optional": true,
-                            "optdefault": "false"
-                        }
-                    ]
-                }
-            ],
-            "return": {
-                "description": "The Timeline object",
-                "type": "AnimatorTimeline"
-            },
-            "static": 1,
-            "class": "cloudkid.createjs.Animator",
-            "module": "CreateJS Display",
-            "namespace": "cloudkid.createjs"
-        },
-        {
-            "file": "src/displays/createjs/Animator.js",
-            "line": 239,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4590,7 +4520,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 325,
+            "line": 304,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with\n\ta unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,\n\tit needs to not have an id that is identical to anything from EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4614,7 +4544,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 356,
+            "line": 335,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4643,7 +4573,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 390,
+            "line": 369,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4666,7 +4596,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 416,
+            "line": 395,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4684,7 +4614,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 442,
+            "line": 421,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4709,7 +4639,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 499,
+            "line": 478,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4720,7 +4650,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 520,
+            "line": 499,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4731,7 +4661,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 542,
+            "line": 521,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4754,7 +4684,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 564,
+            "line": 543,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4776,7 +4706,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 583,
+            "line": 562,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4790,7 +4720,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 594,
+            "line": 573,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4803,7 +4733,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 607,
+            "line": 586,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4816,7 +4746,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 620,
+            "line": 599,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4836,7 +4766,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 716,
+            "line": 695,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4855,7 +4785,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 728,
+            "line": 707,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4874,7 +4804,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 741,
+            "line": 720,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4891,7 +4821,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 755,
+            "line": 734,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -18946,27 +18876,27 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:239"
+            "line": " src/displays/createjs/Animator.js:304"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:325"
+            "line": " src/displays/createjs/Animator.js:335"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:356"
+            "line": " src/displays/createjs/Animator.js:369"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:390"
+            "line": " src/displays/createjs/Animator.js:395"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:416"
+            "line": " src/displays/createjs/Animator.js:421"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:442"
+            "line": " src/displays/createjs/Animator.js:478"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -18974,39 +18904,35 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:520"
+            "line": " src/displays/createjs/Animator.js:521"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:542"
+            "line": " src/displays/createjs/Animator.js:543"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:564"
+            "line": " src/displays/createjs/Animator.js:562"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:583"
+            "line": " src/displays/createjs/Animator.js:573"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:594"
+            "line": " src/displays/createjs/Animator.js:586"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:607"
+            "line": " src/displays/createjs/Animator.js:599"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:620"
+            "line": " src/displays/createjs/Animator.js:720"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:741"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:755"
+            "line": " src/displays/createjs/Animator.js:734"
         },
         {
             "message": "replacing incorrect tag: function with method",

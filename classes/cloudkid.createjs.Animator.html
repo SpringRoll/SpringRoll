@@ -315,7 +315,7 @@ base animation functionality, using frame labels of MovieClips</p>
                                 
                             </li>
                         
-                            <li class="index-item method private">
+                            <li class="index-item method public">
                                 <a href="#method__makeTimeline">_makeTimeline</a>
 
                                 
@@ -324,7 +324,7 @@ base animation functionality, using frame labels of MovieClips</p>
                                 
                             </li>
                         
-                            <li class="index-item method public">
+                            <li class="index-item method private">
                                 <a href="#method__makeTimeline">_makeTimeline</a>
 
                                 
@@ -428,15 +428,6 @@ base animation functionality, using frame labels of MovieClips</p>
                         
                             <li class="index-item method">
                                 <a href="#method_play">play</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_playAtRandomFrame">playAtRandomFrame</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -632,7 +623,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l325"><code>_canAnimate:325</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l304"><code>_canAnimate:304</code></a>
         
         </p>
 
@@ -736,7 +727,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l741"><code>_hasTimelines:741</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l720"><code>_hasTimelines:720</code></a>
         
         </p>
 
@@ -763,6 +754,139 @@ base animation functionality, using frame labels of MovieClips</p>
                         <span class="type">Bool</span>:
                     
                     <p>if we have timelines</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__makeTimeline" class="method item public">
+    <h3 class="name"><code>_makeTimeline</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>event</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Bool</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_displays_createjs_Animator.js.html#l335"><code>_makeTimeline:335</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Checks if animation exists</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type">easeljs.MovieClip</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The timeline to check</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">event</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The frame label event (e.g. "onClose" to "onClose stop")</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Bool</span>:
+                    
+                    <p>does this animation exist?</p>
 
                 
             </div>
@@ -853,7 +977,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l239"><code>_makeTimeline:239</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l218"><code>_makeTimeline:218</code></a>
         
         </p>
 
@@ -994,139 +1118,6 @@ base animation functionality, using frame labels of MovieClips</p>
 </div>
 
                 
-                    <div id="method__makeTimeline" class="method item public">
-    <h3 class="name"><code>_makeTimeline</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>instance</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>event</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Animator.js.html#l356"><code>_makeTimeline:356</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Checks if animation exists</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">instance</code>
-                        <span class="type">easeljs.MovieClip</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The timeline to check</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">event</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The frame label event (e.g. "onClose" to "onClose stop")</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>does this animation exist?</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
                     <div id="method__remove" class="method item private">
     <h3 class="name"><code>_remove</code></h3>
 
@@ -1179,7 +1170,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l442"><code>_remove:442</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l421"><code>_remove:421</code></a>
         
         </p>
 
@@ -1277,7 +1268,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l594"><code>_startUpdate:594</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l573"><code>_startUpdate:573</code></a>
         
         </p>
 
@@ -1336,7 +1327,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l607"><code>_stopUpdate:607</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l586"><code>_stopUpdate:586</code></a>
         
         </p>
 
@@ -1452,7 +1443,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l583"><code>getPaused:583</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l562"><code>getPaused:562</code></a>
         
         </p>
 
@@ -1537,7 +1528,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l564"><code>getTimeline:564</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l543"><code>getTimeline:543</code></a>
         
         </p>
 
@@ -1700,7 +1691,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l728"><code>onSoundDone:728</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l707"><code>onSoundDone:707</code></a>
         
         </p>
 
@@ -1790,7 +1781,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l716"><code>onSoundStarted:716</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l695"><code>onSoundStarted:695</code></a>
         
         </p>
 
@@ -1870,7 +1861,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l499"><code>pause:499</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l478"><code>pause:478</code></a>
         
         </p>
 
@@ -1943,7 +1934,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l542"><code>pauseInGroup:542</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l521"><code>pauseInGroup:521</code></a>
         
         </p>
 
@@ -2255,240 +2246,6 @@ if the Animator data was cleaned up but was needed again later.</p>
 </div>
 
                 
-                    <div id="method_playAtRandomFrame" class="method item">
-    <h3 class="name"><code>playAtRandomFrame</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>instance</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>event</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[options]</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">AnimatorTimeline</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_displays_createjs_Animator.js.html#l218"><code>playAtRandomFrame:218</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Play an animation for a frame label event, starting at a random frame within the animation</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">instance</code>
-                        <span class="type">AnimatorTimeline</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The timeline to animate.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">event</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The frame label event (e.g. "onClose" to "onClose_stop").</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[options]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The object of optional parameters or onComplete callback function</p>
-
-                    </div>
-
-                    
-                        <ul class="params-list">
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[onComplete=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The callback function when the animation is done</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[onCompleteParams=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Parameters to pass to onComplete function</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[speed=1]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The speed at which to play the animation.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[soundData=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>soundData Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-        start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[doCancelledCallback=false]</code>
-                                    <span class="type">Bool</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Should an overridden animation&#39;s callback function still run?</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                        </ul>
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">AnimatorTimeline</span>:
-                    
-                    <p>The Timeline object</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
                     <div id="method_" class="method item private">
     <h3 class="name"><code></code></h3>
 
@@ -2535,7 +2292,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l620"><code>:620</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l599"><code>:599</code></a>
         
         </p>
 
@@ -2616,7 +2373,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l520"><code>resume:520</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l499"><code>resume:499</code></a>
         
         </p>
 
@@ -2689,7 +2446,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l390"><code>stop:390</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l369"><code>stop:369</code></a>
         
         </p>
 
@@ -2796,7 +2553,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l416"><code>stopAll:416</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l395"><code>stopAll:395</code></a>
         
         </p>
 
@@ -2882,7 +2639,7 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
             
         
         
-        <a href="../files/src_displays_createjs_Animator.js.html#l755"><code>toString:755</code></a>
+        <a href="../files/src_displays_createjs_Animator.js.html#l734"><code>toString:734</code></a>
         
         </p>
 
