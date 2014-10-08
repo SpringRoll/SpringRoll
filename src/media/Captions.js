@@ -9,7 +9,7 @@
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
-	* created from a dictionary of captions and can be played by alias. Captions 
+	* created from a dictionary of captions and can be played by alias. Captions
 	* is a singleton class.
 	*
 	* @example
@@ -38,16 +38,16 @@
 		// Add to the instances
 		_instances.push(this);
 
-		/** 
+		/**
 		* An object used as a dictionary with keys that should be the same as sound aliases
-		* 
+		*
 		* @private
 		* @property {Dictionary} _captionDict
 		*/
 		this._captionDict = null;
 		
-		/** 
-		* A reference to the Text object that Captions should be controlling. 
+		/**
+		* A reference to the Text object that Captions should be controlling.
 		* Only one text field can be controlled at a time.
 		*
 		* @private
@@ -55,47 +55,47 @@
 		*/
 		this._textField = (typeof field === "string" ? document.getElementById(field) : (field || null));
 		
-		/** 
-		* The function to call when playback is complete. 
+		/**
+		* The function to call when playback is complete.
 		*
 		* @private
 		* @property {Function} _completeCallback
 		*/
 		this._completeCallback = null;
 		
-		/** 
-		* The collection of line objects {start:0, end:0, content:""} 
-		* 
+		/**
+		* The collection of line objects {start:0, end:0, content:""}
+		*
 		* @private
 		* @property {Array} _lines
 		*/
 		this._lines = [];
 		
-		/** 
-		* The duration in milliseconds of the current sound. 
+		/**
+		* The duration in milliseconds of the current sound.
 		*
 		* @private
 		* @property {int} _currentDuration
 		*/
 		this._currentDuration = 0;
 		
-		/** 
-		* The current playback time 
+		/**
+		* The current playback time
 		*
 		* @private
 		* @property {int} _currentTime
 		*/
 		this._currentTime = 0;
 		
-		/** 
-		* Save the current line index 
+		/**
+		* Save the current line index
 		*
 		* @private
-		* @property {int} _currentLine 
+		* @property {int} _currentLine
 		*/
 		this._currentLine = -1;
 		
-		/** 
+		/**
 		* Cache the last active line
 		*
 		* @private
@@ -103,17 +103,17 @@
 		*/
 		this._lastActiveLine = -1;
 		
-		/** 
-		* If we're playing 
+		/**
+		* If we're playing
 		*
 		* @private
-		* @property {bool} _playing 
+		* @property {bool} _playing
 		*/
 		this._playing = false;
 		
 		/**
-		* If this instance has been destroyed already 
-		* 
+		* If this instance has been destroyed already
+		*
 		* @private
 		* @property {bool} _isDestroyed
 		*/
@@ -134,18 +134,18 @@
 		this.setDictionary(captionDictionary || null);
 	};
 	
-	/** 
-	* Reference to the inherieted task 
-	* 
+	/**
+	* Reference to the inherieted task
+	*
 	* @private
 	* @property {Object} p
 	*/
 	var p = Captions.prototype;
 	
-	/** 
-	* If you want to mute the captions, doesn't remove the current caption 
+	/**
+	* If you want to mute the captions, doesn't remove the current caption
 	*
-	* @private 
+	* @private
 	* @property {bool} _muteAll
 	*/
 	var _muteAll = false;
@@ -157,10 +157,10 @@
 	*/
 	var _instances = [];
 	
-	/** 
-	* The version number of this library 
+	/**
+	* The version number of this library
 	*
-	* @public 
+	* @public
 	* @property {String} VERSION
 	* @static
 	*/
@@ -176,7 +176,7 @@
 		get : function()
 		{
 			return _muteAll;
-		}, 
+		},
 		set : function(muteAll)
 		{
 			_muteAll = muteAll;
@@ -229,7 +229,13 @@
 		//Loop through each line and make sure the times are formatted correctly
 		for(var alias in dict)
 		{
-			var lines = Array.isArray(dict[alias]) ? dict[alias] : dict[alias].lines;
+			//account for a compressed format that is just an array of lines
+			//and convert it to an object with a lines property.
+			if(Array.isArray(dict[alias]))
+			{
+				dict[alias] = {lines:dict[alias]};
+			}
+			var lines = dict[alias].lines;
 			if(!lines)
 			{
 				Debug.log("alias '" + alias + "' has no lines!");
@@ -256,7 +262,7 @@
 		}
 	};
 
-	/** 
+	/**
 	*  The text field that the captions uses to update.
 	*  @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
 	*/
@@ -308,9 +314,9 @@
 		return field;
 	};
 	
-	/** 
-	 * Returns if there is a caption under that alias or not. 
-	 * 
+	/**
+	 * Returns if there is a caption under that alias or not.
+	 *
 	 * @method  hasCaption
 	 * @param {String} alias The alias to check against
 	 * @return {bool} Whether the caption was found or not
@@ -320,10 +326,10 @@
 		return this._captionDict ? !!this._captionDict[alias] : false;
 	};
 
-	/** 
+	/**
 	 * A utility function for getting the full text of a caption by alias
-	 * this can be useful for debugging purposes. 
-	 * 
+	 * this can be useful for debugging purposes.
+	 *
 	 * @method  getFullCaption
 	 * @param {String} alias The alias to get the text of
 	 * @param {String} [separator=" "] The separation between each line
@@ -335,9 +341,9 @@
 
 		separator = separator || " ";
 
-		var result, 
-			content, 
-			lines = this._captionDict[alias].lines, 
+		var result,
+			content,
+			lines = this._captionDict[alias].lines,
 			len = lines.length;
 
 		for (var i = 0; i < len; i++)
@@ -381,7 +387,7 @@
 	
 	/**
 	*  Reset the captions
-	*  
+	*
 	*  @private
 	*  @method _reset
 	*/
@@ -394,7 +400,7 @@
 	/**
 	*  Take the captions timecode and convert to milliseconds
 	*  format is in HH:MM:ss:mmm
-	*  
+	*
 	*  @private
 	*  @method _timeCodeToMilliseconds
 	*  @param {String} input The input string of the format
@@ -420,8 +426,8 @@
 	* @return {bool} If the caption is playing
 	*/
 	p.isPlaying = function()
-	{ 
-		return this._playing; 
+	{
+		return this._playing;
 	};
 	
 	/**
@@ -442,14 +448,14 @@
 	*/
 	Object.defineProperty(p, 'currentDuration', {
 		get: function()
-		{ 
-			return this._currentDuration; 
+		{
+			return this._currentDuration;
 		}
 	});
 	
 	/**
 	*  Start the caption playback.
-	*  
+	*
 	*  @public
 	*  @method play
 	*  @param {String} alias The desired caption's alias
@@ -518,7 +524,7 @@
 			}
 			else if(currentTime > lines[i].end)
 			{
-				// this elseif helps us if there was no line at seek time, 
+				// this elseif helps us if there was no line at seek time,
 				// so we can still keep track of the last active line
 				this._lastActiveLine = i;
 				this._currentLine = -1;
@@ -594,21 +600,21 @@
 	
 	/**
 	*  Updates the text in the managed text field.
-	*  
+	*
 	*  @private
 	*  @method _updateCaptions
 	*/
 	p._updateCaptions = function()
 	{
 		setText(
-			this._textField, 
+			this._textField,
 			(this._currentLine == -1 || _muteAll) ? '' : this._lines[this._currentLine].content
 		);
 	};
 	
 	/**
 	*  Destroy this load task and don't use after this
-	*  
+	*
 	*  @method destroy
 	*/
 	p.destroy = function()
