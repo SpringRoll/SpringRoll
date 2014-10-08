@@ -19,8 +19,8 @@
 	var Animator = {};
 	
 	/**
-	* The current version of the Animator class 
-	* 
+	* The current version of the Animator class
+	*
 	* @property {String} VERSION
 	* @public
 	* @static
@@ -28,8 +28,8 @@
 	Animator.VERSION = "${version}";
 	
 	/**
-	* If we fire debug statements 
-	* 
+	* If we fire debug statements
+	*
 	* @property {bool} debug
 	* @public
 	* @static
@@ -46,7 +46,7 @@
 	
 	/**
 	* The collection of timelines
-	* 
+	*
 	* @property {Array} _timelines
 	* @private
 	*/
@@ -55,14 +55,14 @@
 	/**
 	* A collection of timelines for removal - kept out here so it doesn't need to be
 	* reallocated every frame
-	* 
+	*
 	* @property {Array} _removedTimelines
 	* @private
 	*/
 	var _removedTimelines = null;
 	
 	/** Look up a timeline by the instance
-	* 
+	*
 	* @property {Dictionary} _timelinesMap
 	* @private
 	*/
@@ -70,7 +70,7 @@
 	
 	/**
 	* If the Animator is paused
-	* 
+	*
 	* @property {bool} _paused
 	* @private
 	*/
@@ -79,7 +79,7 @@
 	/**
 	* An empty object to avoid creating new objects in play()
 	* when an options object is not used for parameters.
-	* 
+	*
 	* @property {Object} _optionsHelper
 	* @private
 	*/
@@ -96,7 +96,7 @@
 	/**
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
 	*	if the Animator data was cleaned up but was needed again later.
-	*	
+	*
 	*	@function init
 	*	@static
 	*/
@@ -112,7 +112,7 @@
 	
 	/**
 	*	Stops all animations and cleans up the variables used.
-	*	
+	*
 	*	@function destroy
 	*	@static
 	*/
@@ -132,7 +132,7 @@
 	
 	/**
 	*   Play an animation for a frame label event
-	*   
+	*
 	*   @function play
 	*   @param {AnimatorTimeline} instance The timeline to animate
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
@@ -148,7 +148,7 @@
 	*   @static
 	*/
 	Animator.play = function(instance, event, options, onCompleteParams, startTime, speed, soundData, doCancelledCallback)
-	{	
+	{
 		var onComplete;
 
 		if (options && typeof options == "function")
@@ -169,7 +169,7 @@
 		doCancelledCallback = options.doCancelledCallback || doCancelledCallback || false;
 		soundData = options.soundData || soundData || null;
 
-		if (!_timelines) 
+		if (!_timelines)
 			Animator.init();
 		
 		if (_timelinesMap[instance.id] !== undefined)
@@ -216,29 +216,8 @@
 	};
 	
 	/**
-	*   Play an animation for a frame label event, starting at a random frame within the animation
-	*   
-	*   @function playAtRandomFrame
-	*   @param {AnimatorTimeline} instance The timeline to animate.
-	*   @param {String} event The frame label event (e.g. "onClose" to "onClose_stop").
-	*   @param {Object|function} [options] The object of optional parameters or onComplete callback function
-	*   @param {function} [options.onComplete=null] The callback function when the animation is done
-	*   @param {Array} [options.onCompleteParams=null] Parameters to pass to onComplete function
-	*	@param {Number} [options.speed=1] The speed at which to play the animation.
-	*	@param {Object} [options.soundData=null] soundData Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-	*		start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.
-	*   @param {bool} [options.doCancelledCallback=false] Should an overridden animation's callback function still run?
-	*   @return {AnimatorTimeline} The Timeline object
-	*   @static
-	*/
-	Animator.playAtRandomFrame = function(instance, event, options, onCompleteParams, speed, soundData, doCancelledCallback)
-	{
-		return Animator.play(instance, event, options, onCompleteParams, -1, speed, soundData, doCancelledCallback);
-	};
-	
-	/**
 	*   Creates the AnimatorTimeline for a given animation
-	*   
+	*
 	*   @function _makeTimeline
 	*   @param {easeljs.MovieClip} instance The timeline to animate
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
@@ -327,7 +306,7 @@
 	*	MovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with
 	*	a unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,
 	*	it needs to not have an id that is identical to anything from EaselJS.
-	*   
+	*
 	*   @function _canAnimate
 	*   @param {easeljs.MovieClip} instance The object to check for animation properties.
 	*   @return {Boolean} If the instance can be animated or not.
@@ -355,7 +334,7 @@
 
 	/**
 	*   Checks if animation exists
-	*   
+	*
 	*   @function _makeTimeline
 	*   @param {easeljs.MovieClip} instance The timeline to check
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
@@ -389,7 +368,7 @@
 	
 	/**
 	*   Stop the animation.
-	*   
+	*
 	*   @function stop
 	*   @param {createjs.MovieClip} instance The MovieClip to stop the action on
 	*   @param {bool} doOnComplete If we are suppose to do the complete callback when stopping (default is false)
@@ -416,7 +395,7 @@
 	/**
 	*   Stop all current Animator animations.
 	*   This is good for cleaning up all animation, as it doesn't do a callback on any of them.
-	*   
+	*
 	*   @function stopAll
 	*   @param {createjs.Container} container Optional - specify a container to stop timelines contained within
 	*   @static
@@ -441,7 +420,7 @@
 	
 	/**
 	*   Remove a timeline from the stack
-	*   
+	*
 	*   @function _remove
 	*   @param {AnimatorTimeline} timeline
 	*   @param {bool} doOnComplete If we do the on complete callback
@@ -498,7 +477,7 @@
 	
 	/**
 	*   Pause all tweens which have been excuted by Animator.play()
-	*   
+	*
 	*   @function pause
 	*   @static
 	*/
@@ -519,7 +498,7 @@
 	
 	/**
 	*   Resumes all tweens executed by the Animator.play()
-	*   
+	*
 	*   @function resume
 	*   @static
 	*/
@@ -541,7 +520,7 @@
 	
 	/**
 	*   Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
-	*   
+	*
 	*   @function pauseInGroup
 	*   @param {bool} paused If this should be paused or unpaused
 	*   @param {createjs.Container} container The container to stop timelines contained within
@@ -563,9 +542,9 @@
 	
 	/**
 	*   Get the timeline object for an instance
-	*   
+	*
 	*   @function getTimeline
-	*   @param {createjs.MovieClip} instance MovieClip 
+	*   @param {createjs.MovieClip} instance MovieClip
 	*   @return {AnimatorTimeline} The timeline
 	*   @static
 	*/
@@ -582,7 +561,7 @@
 	
 	/**
 	*  Whether the Animator class is currently paused.
-	*  
+	*
 	*  @function getPaused
 	*  @return {bool} if we're paused or not
 	*/
@@ -592,8 +571,8 @@
 	};
 	
 	/**
-	*  Start the updating 
-	*  
+	*  Start the updating
+	*
 	*  @function _startUpdate
 	*  @private
 	*  @static
@@ -606,7 +585,7 @@
 	
 	/**
 	*   Stop the updating
-	*   
+	*
 	*   @function _stopUpdate
 	*   @private
 	*   @static
@@ -619,7 +598,7 @@
 	
 	/**
 	*   The update every frame
-	*   
+	*
 	*   @function
 	*   @param {int} elapsed The time in milliseconds since the last frame
 	*   @private
@@ -691,8 +670,8 @@
 				{
 					t.time = t.soundStart;
 					t.soundInst = Sound.instance.play(
-						t.soundAlias, 
-						onSoundDone.bind(this, t), 
+						t.soundAlias,
+						onSoundDone.bind(this, t),
 						onSoundStarted.bind(this, t)
 					);
 					if (t.useCaptions)
@@ -702,7 +681,7 @@
 				}
 			}
 			instance.elapsedTime = t.startTime + t.time;
-			//because the movieclip only checks the elapsed time here (advanceDuringTicks is false), 
+			//because the movieclip only checks the elapsed time here (advanceDuringTicks is false),
 			//calling advance() with no parameters is fine
 			instance.advance();
 		}
@@ -740,7 +719,7 @@
 	
 	/**
 	*  Check to see if we have timeline
-	*  
+	*
 	*  @function _hasTimelines
 	*  @return {bool} if we have timelines
 	*  @private
@@ -754,12 +733,12 @@
 	
 	/**
 	*  String representation of this class
-	*  
+	*
 	*  @function toString
 	*  @return String
 	*  @static
 	*/
-	Animator.toString = function() 
+	Animator.toString = function()
 	{
 		return "[Animator version:" + Animator.VERSION + "]";
 	};
