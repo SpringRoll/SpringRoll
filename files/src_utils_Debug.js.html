@@ -258,11 +258,11 @@
 	*  A static closure to provide easy access to the console
 	*  without having errors if the console doesn&#x27;t exist
 	*  to use call: Debug.log(&#x27;Your log here&#x27;)
-	*  
+	*
 	*  @class Debug
 	*  @static
 	*/
-	var Debug = function(){};	
+	var Debug = function(){};
 	
 	/**
 	*  If we have a console
@@ -272,7 +272,7 @@
 	*/
 	var hasConsole = (window.console !== undefined);
 	
-	/** 
+	/**
 	* The most general default debug level
 	* @static
 	* @final
@@ -280,15 +280,15 @@
 	*/
 	Debug.GENERAL = 0;
 	
-	/** 
+	/**
 	* Log level for debug messages
 	* @static
 	* @final
 	* @property {int} DEBUG
 	*/
-	Debug.DEBUG = 1;
+	Debug[&#x27;DE&#x27;+&#x27;BUG&#x27;] = 1; // jshint ignore:line
 	
-	/** 
+	/**
 	* Log level for debug messages
 	* @static
 	* @final
@@ -296,7 +296,7 @@
 	*/
 	Debug.INFO = 2;
 	
-	/** 
+	/**
 	* Log level for warning messages
 	* @static
 	* @final
@@ -304,7 +304,7 @@
 	*/
 	Debug.WARN = 3;
 	
-	/** 
+	/**
 	* Log level for error messages
 	* @static
 	* @final
@@ -314,14 +314,14 @@
 	
 	/**
 	* The minimum log level to show, by default it&#x27;s set to
-	* show all levels of logging. 
+	* show all levels of logging.
 	* @public
 	* @static
 	* @property {int} minLogLevel
 	*/
 	Debug.minLogLevel = Debug.GENERAL;
 	
-	/** 
+	/**
 	* Boolean to turn on or off the debugging
 	* @public
 	* @static
@@ -346,8 +346,8 @@
 	*/
 	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as &#x27;remote&#x27; and trys to overwrite &#x27;console&#x27;
 	
-	/** 
-	* Browser port for the websocket browsers tend to block ports 
+	/**
+	* Browser port for the websocket browsers tend to block ports
 	*  @static
 	*  @private
 	*  @property {int} _NET_PORT
@@ -355,8 +355,8 @@
 	*/
 	Debug._NET_PORT = 1025;
 	
-	/** 
-	* If the web socket is connected 
+	/**
+	* If the web socket is connected
 	* @static
 	* @private
 	* @default false
@@ -364,7 +364,7 @@
 	*/
 	Debug._isConnected = false;
 	
-	/** 
+	/**
 	* The socket connection
 	* @static
 	* @private
@@ -372,7 +372,7 @@
 	*/
 	Debug._socket = null;
 	
-	/** 
+	/**
 	* The current message object being sent to the &#x60;WebSocket&#x60;
 	* @static
 	* @private
@@ -380,8 +380,8 @@
 	*/
 	Debug._messageObj = null;
 	
-	/** 
-	* The &#x60;WebSocket&#x60; message queue 
+	/**
+	* The &#x60;WebSocket&#x60; message queue
 	* @static
 	* @private
 	* @property {Array} _messageQueue
@@ -393,18 +393,18 @@
 	*  @public
 	*  @static
 	*  @method connect
-	*  @param {string} The IP address to connect to
+	*  @param {string} host The remote address to connect to, IP address or host name
 	*/
-	Debug.connect = function(ipAddr)
+	Debug.connect = function(host)
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!(&quot;WebSocket&quot; in window) &amp;&amp; !(&quot;MozWebSocket&quot; in window)) return false;
 		
-		window.WebSocket = WebSocket || MozWebSocket; 
+		window.WebSocket = WebSocket || MozWebSocket;
 		
 		try
 		{
-			var s = Debug._socket = new WebSocket(&quot;ws://&quot; + ipAddr + &quot;:&quot; + Debug._NET_PORT);
+			var s = Debug._socket = new WebSocket(&quot;ws://&quot; + host + &quot;:&quot; + Debug._NET_PORT);
 			s.onopen = onConnect;
 			s.onmessage = function(){};
 			s.onclose = onClose;
@@ -459,17 +459,24 @@
 	};
 	
 	/**
-	*  Global window error handler
+	*  Global window error handler, used for remote connections.
 	*  @static
 	*  @private
 	*  @method globalErrorHandler
-	*  @param THe error message
-	*  @param The url of the file
-	*  @param The line within the file
+	*  @param {String} message The error message
+	*  @param {String} file The url of the file
+	*  @param {int} line The line within the file
+	*  @param {int} column The column within the line
+	*  @param {Error} error The error itself
 	*/
-	var globalErrorHandler = function(errorMsg, url, lineNumber)
+	var globalErrorHandler = function(message, file, line, column, error)
 	{
-		Debug.remoteLog(&quot;Error: &quot; + errorMsg + &quot; in &quot; + url + &quot; at line &quot; + lineNumber, &quot;ERROR&quot;);
+		var logMessage = &quot;Error: &quot; + message + &quot; in &quot; + file + &quot; at line &quot; + line;
+		if(column !== undefined)
+			logMessage += &quot;:&quot; + column;
+		if(error)
+			logMessage += &quot;\n&quot; + error.stack;
+		Debug.remoteLog(logMessage, &quot;ERROR&quot;);
 		return false;
 	};
 	
@@ -514,7 +521,7 @@
 	*  @public
 	*  @static
 	*  @method remoteLog
-	*  @param {string} message The message to send 
+	*  @param {string} message The message to send
 	*  @param {level} level The log level to send
 	*/
 	Debug.remoteLog = function(message, level)
@@ -594,7 +601,7 @@
 	/**
 	*  Log something in the console or remote
 	*  @static
-	*  @public 
+	*  @public
 	*  @method log
 	*  @param {*} params The statement or object to log
 	*/
@@ -605,17 +612,17 @@
 		{
 			Debug.remoteLog(params, &quot;GENERAL&quot;);
 		}
-		else if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole) 
+		else if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole)
 		{
 			console.log(Debug._isJSConsole ? JSC_format(params) : params);
 			output(&quot;general&quot;, params);
-		}	
+		}
 	};
 	
 	/**
 	*  Debug something in the console or remote
 	*  @static
-	*  @public 
+	*  @public
 	*  @method debug
 	*  @param {*} params The statement or object to debug
 	*/
@@ -624,9 +631,9 @@
 		if(!Debug.enabled) return;
 		if(Debug._isConnected)
 		{
-			Debug.remoteLog(params, &quot;DEBUG&quot;);
+			Debug.remoteLog(params, &#x27;DE&#x27;+&#x27;BUG&#x27;);
 		}
-		else if (Debug.minLogLevel &lt;= Debug.DEBUG &amp;&amp; hasConsole) 
+		else if (Debug.minLogLevel &lt;= Debug[&#x27;DE&#x27;+&#x27;BUG&#x27;] &amp;&amp; hasConsole) // jshint ignore:line
 		{
 			console.debug(Debug._isJSConsole ? JSC_format(params) : params);
 			output(&quot;debug&quot;, params);
@@ -636,7 +643,7 @@
 	/**
 	*  Info something in the console or remote
 	*  @static
-	*  @public 
+	*  @public
 	*  @method info
 	*  @param {*} params The statement or object to info
 	*/
@@ -647,17 +654,17 @@
 		{
 			Debug.remoteLog(params, &quot;INFO&quot;);
 		}
-		else if (Debug.minLogLevel &lt;= Debug.INFO &amp;&amp; hasConsole) 
+		else if (Debug.minLogLevel &lt;= Debug.INFO &amp;&amp; hasConsole)
 		{
 			console.info(Debug._isJSConsole ? JSC_format(params) : params);
 			output(&quot;info&quot;, params);
-		}	
+		}
 	};
 	
 	/**
 	*  Warn something in the console or remote
 	*  @static
-	*  @public 
+	*  @public
 	*  @method warn
 	*  @param {*} params The statement or object to warn
 	*/
@@ -668,17 +675,17 @@
 		{
 			Debug.remoteLog(params, &quot;WARNING&quot;);
 		}
-		else if (Debug.minLogLevel &lt;= Debug.WARN &amp;&amp; hasConsole) 
+		else if (Debug.minLogLevel &lt;= Debug.WARN &amp;&amp; hasConsole)
 		{
 			console.warn(Debug._isJSConsole ? JSC_format(params) : params);
 			output(&quot;warn&quot;, params);
-		}	
+		}
 	};
 	
 	/**
 	*  Error something in the console or remote
 	*  @static
-	*  @public 
+	*  @public
 	*  @method error
 	*  @param {*} params The statement or object to error
 	*/
@@ -689,11 +696,11 @@
 		{
 			Debug.remoteLog(params, &quot;ERROR&quot;);
 		}
-		else if (hasConsole) 
+		else if (hasConsole)
 		{
 			console.error(Debug._isJSConsole ? JSC_format(params) : params);
 			output(&quot;error&quot;, params);
-		}	
+		}
 	};
 	
 	/**
@@ -706,11 +713,11 @@
 	*/
 	Debug.assert = function(truth, params)
 	{
-		if (hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.assert) 
+		if (hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.assert)
 		{
 			console.assert(truth, Debug._isJSConsole ? JSC_format(params) : params);
 			if (!truth) output(&quot;error&quot;, params);
-		}	
+		}
 	};
 	
 	/**
@@ -722,10 +729,10 @@
 	*/
 	Debug.dir = function(params)
 	{
-		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled) 
+		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled)
 		{
 			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
-		}	
+		}
 	};
 	
 	/**
@@ -737,11 +744,11 @@
 	*/
 	Debug.clear = function()
 	{
-		if (hasConsole &amp;&amp; Debug.enabled) 
+		if (hasConsole &amp;&amp; Debug.enabled)
 		{
 			console.clear();
 			if (Debug.output) Debug.output.html(&quot;&quot;);
-		}	
+		}
 	};
 	
 	/**
@@ -753,10 +760,10 @@
 	*/
 	Debug.trace = function(params)
 	{
-		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled) 
+		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled)
 		{
 			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
-		}	
+		}
 	};
 	
 	// Make the debug class globally accessible

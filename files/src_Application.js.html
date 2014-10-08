@@ -276,22 +276,22 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
-	* 		&#x60;assets/config/config.json 2&#x60; this would load &#x60;assets/config/config.json?v=2&#x60;
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding &quot;?v=&quot; 
+	*		For instance, this text file would have an asset on each line followed by a number:
+	*		&#x60;assets/config/config.json 2&#x60; this would load &#x60;assets/config/config.json?v=2&#x60;
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding &quot;?v=&quot;
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for &quot;title-safe&quot; responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
 	*		the &#x60;Debug&#x60; class must be used for this feature.
-	*  @param {String} [options.ip] The host computer for IP remote debugging,
-	*		the debug module must be included to use this feature.
+	*  @param {String} [options.debugRemote] The host computer for remote debugging,
+	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. &#x60;cloudkid.PixiDisplay&#x60;)
@@ -328,7 +328,7 @@
 		*  Primary renderer for the application, for simply accessing Application.instance.display.stage;
 		*  The first display added becomes the primary display automatically.
 		*  @property {Display} display
-		*  @public 
+		*  @public
 		*/
 		this.display = null;
 
@@ -430,7 +430,7 @@
 	*/
 	_useRAF = false,
 
-	/** 
+	/**
 	*  The current internal frames per second
 	*  @property {Number} _fps
 	*  @private
@@ -480,7 +480,7 @@
 	*  @property {dictionary} _defaultOptions
 	*  @private
 	*/
-	_defaultOptions = 
+	_defaultOptions =
 	{
 		//application properties
 		raf: true,
@@ -591,7 +591,7 @@
 	*/
 	var _instance = null;
 	Object.defineProperty(Application, &quot;instance&quot;, {
-		get: function() { 
+		get: function() {
 			return _instance;
 		}
 	});
@@ -644,8 +644,8 @@
 			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if(typeof this.options.ip == &quot;string&quot;)
-			Debug.connect(this.options.ip);
+		if(typeof this.options.debugRemote == &quot;string&quot;)
+			Debug.connect(this.options.debugRemote);
 
 		// If tween and/or ticker are included
 		var Tween = include(&#x27;createjs.Tween&#x27;, false),
@@ -678,7 +678,7 @@
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
 			Loader.instance.cacheManager.addVersionsFile(
-				this.options.versionsFile, 
+				this.options.versionsFile,
 				this._doInit
 			);
 		}
@@ -803,8 +803,8 @@
 			{
 				if(_tickId == -1)
 				{
-					_tickId = _useRAF ? 
-						requestAnimFrame(_tickCallback): 
+					_tickId = _useRAF ?
+						requestAnimFrame(_tickCallback):
 						setTargetedTimeout(_tickCallback);
 				}
 				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
@@ -857,7 +857,7 @@
 	};
 
 	/**
-	*  Calculates the resizing of displays. By default, this limits the new size 
+	*  Calculates the resizing of displays. By default, this limits the new size
 	*  to the initial aspect ratio of the primary display. Override this function
 	*  if you need variable aspect ratios.
 	*  @method calculateDisplaySize
@@ -891,7 +891,7 @@
 	*  @method addDisplay
 	*  @param {String} id The id of the canvas element, this will be used to grab the Display later
 	*                also the Display should be the one to called document.getElementById(id)
-	*                and not the application sinc we don&#x27;t care about the DOMElement as this point            
+	*                and not the application sinc we don&#x27;t care about the DOMElement as this point
 	*  @param {function} displayConstructor The function to call to create the display instance
 	*  @param {Object} [options] Optional Display specific options
 	*  @return {Display} The created display.
@@ -911,7 +911,7 @@
 		{
 			this.display = display;
 			_aspectRatio = display.width / display.height;
-			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio; 
+			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio;
 
 			if (maxAspectRatio &lt; _aspectRatio)
 			{
@@ -983,7 +983,7 @@
 	Object.defineProperty(p, &quot;fps&quot;, {
 		get: function()
 		{
-			return _fps; 
+			return _fps;
 		},
 		set: function(value)
 		{
@@ -1000,8 +1000,8 @@
 	*/
 	Object.defineProperty(p, &quot;raf&quot;, {
 		get: function()
-		{ 
-			return _useRAF; 
+		{
+			return _useRAF;
 		},
 		set: function(value)
 		{
@@ -1051,8 +1051,8 @@
 
 		//request the next tick
 		//request the next animation frame
-		_tickId = _useRAF ? 
-			requestAnimFrame(_tickCallback) : 
+		_tickId = _useRAF ?
+			requestAnimFrame(_tickCallback) :
 			setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
 	};
 
@@ -1086,8 +1086,8 @@
 		_pageVisibility = null;
 
 		_instance =
-		_tickCallback = 
-		_framerate = 
+		_tickCallback =
+		_framerate =
 		_resizeElement = null;
 
 		Debug.disconnect();

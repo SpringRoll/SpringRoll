@@ -651,7 +651,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l448"><code>assert:448</code></a>
+        <a href="../files/src_utils_Debug.js.html#l455"><code>assert:455</code></a>
         
         </p>
 
@@ -750,7 +750,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l480"><code>clear:480</code></a>
+        <a href="../files/src_utils_Debug.js.html#l487"><code>clear:487</code></a>
         
         </p>
 
@@ -782,7 +782,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="arg">
                     
-                        <code>The</code>
+                        <code>host</code>
                     
                 </li>
             
@@ -842,14 +842,14 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">The</code>
+                        <code class="param-name">host</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>IP address to connect to</p>
+                        <p>The remote address to connect to, IP address or host name</p>
 
                     </div>
 
@@ -912,7 +912,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l364"><code>debug:364</code></a>
+        <a href="../files/src_utils_Debug.js.html#l371"><code>debug:371</code></a>
         
         </p>
 
@@ -1005,7 +1005,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l465"><code>dir:465</code></a>
+        <a href="../files/src_utils_Debug.js.html#l472"><code>dir:472</code></a>
         
         </p>
 
@@ -1157,7 +1157,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l427"><code>error:427</code></a>
+        <a href="../files/src_utils_Debug.js.html#l434"><code>error:434</code></a>
         
         </p>
 
@@ -1213,19 +1213,31 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="arg">
                     
-                        <code>THe</code>
+                        <code>message</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>The</code>
+                        <code>file</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>The</code>
+                        <code>line</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>column</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>error</code>
                     
                 </li>
             
@@ -1273,7 +1285,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
     </div>
 
     <div class="description">
-        <p>Global window error handler</p>
+        <p>Global window error handler, used for remote connections.</p>
 
     </div>
 
@@ -1285,14 +1297,14 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">THe</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name">message</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>error message</p>
+                        <p>The error message</p>
 
                     </div>
 
@@ -1301,14 +1313,14 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">The</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name">file</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>url of the file</p>
+                        <p>The url of the file</p>
 
                     </div>
 
@@ -1317,14 +1329,46 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">The</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name">line</code>
+                        <span class="type">Int</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>line within the file</p>
+                        <p>The line within the file</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">column</code>
+                        <span class="type">Int</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The column within the line</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">error</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error" class="crosslink external" target="_blank">Error</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The error itself</p>
 
                     </div>
 
@@ -1387,7 +1431,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l385"><code>info:385</code></a>
+        <a href="../files/src_utils_Debug.js.html#l392"><code>info:392</code></a>
         
         </p>
 
@@ -1480,7 +1524,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l343"><code>log:343</code></a>
+        <a href="../files/src_utils_Debug.js.html#l350"><code>log:350</code></a>
         
         </p>
 
@@ -1563,7 +1607,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l225"><code>onClose:225</code></a>
+        <a href="../files/src_utils_Debug.js.html#l232"><code>onClose:232</code></a>
         
         </p>
 
@@ -1697,7 +1741,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l245"><code>output:245</code></a>
+        <a href="../files/src_utils_Debug.js.html#l252"><code>output:252</code></a>
         
         </p>
 
@@ -1812,7 +1856,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l261"><code>remoteLog:261</code></a>
+        <a href="../files/src_utils_Debug.js.html#l268"><code>remoteLog:268</code></a>
         
         </p>
 
@@ -1921,7 +1965,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l496"><code>trace:496</code></a>
+        <a href="../files/src_utils_Debug.js.html#l503"><code>trace:503</code></a>
         
         </p>
 
@@ -2014,7 +2058,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l406"><code>warn:406</code></a>
+        <a href="../files/src_utils_Debug.js.html#l413"><code>warn:413</code></a>
         
         </p>
 

@@ -2353,8 +2353,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "ip",
-                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "name": "debugRemote",
+                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
@@ -2581,8 +2581,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "ip",
-                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "name": "debugRemote",
+                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
@@ -2775,8 +2775,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "ip",
-                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "name": "debugRemote",
+                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
@@ -3003,8 +3003,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "ip",
-                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "name": "debugRemote",
+                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
@@ -4066,13 +4066,13 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n\t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -4098,7 +4098,7 @@
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
@@ -4124,8 +4124,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "ip",
-                            "description": "The host computer for IP remote debugging,\n\t\tthe debug module must be included to use this feature.",
+                            "name": "debugRemote",
+                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
@@ -16096,7 +16096,7 @@
                 {
                     "name": "adapter",
                     "description": "The current display adapter being positioned",
-                    "type": "Display"
+                    "type": "DisplayAdapter"
                 }
             ],
             "class": "cloudkid.Positioner",
@@ -16105,7 +16105,7 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 83,
+            "line": 87,
             "description": "Create the polygon hit area for interface elements",
             "static": 1,
             "itemtype": "method",
@@ -16113,7 +16113,7 @@
             "params": [
                 {
                     "name": "hitArea",
-                    "description": "One of the following: <br/>\n* An array of points for a polygon, e.g. \n\n\t\t[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n* An object describing a rectangle, e.g.\n\n\t\t{type:\"rect\", x:0, y:0, w:10, h:30}\n\n* An object describing an ellipse, where x and y are the center, e.g. \n\n\t\t{type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n* An object describing a circle, where x and y are the center, e.g.\n\n\t\t{type:\"circle\", x:0, y:0, r:20}\n* An object describing a sector, where x and y are the center of a circle\n\t\tand start/end are the start and end angles of the sector in degrees, e.g.\n\n\t\t{type:\"sector\", x:0, y:0, r:20, start:0, end:90}",
+                    "description": "One of the following: <br/>\n* An array of points for a polygon, e.g.\n\n\t\t[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n* An object describing a rectangle, e.g.\n\n\t\t{type:\"rect\", x:0, y:0, w:10, h:30}\n\n* An object describing an ellipse, where x and y are the center, e.g.\n\n\t\t{type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n* An object describing a circle, where x and y are the center, e.g.\n\n\t\t{type:\"circle\", x:0, y:0, r:20}\n* An object describing a sector, where x and y are the center of a circle\n\t\tand start/end are the start and end angles of the sector in degrees, e.g.\n\n\t\t{type:\"sector\", x:0, y:0, r:20, start:0, end:90}",
                     "type": "Object|Array"
                 },
                 {
@@ -16128,7 +16128,7 @@
                 }
             ],
             "return": {
-                "description": "A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle, \n    or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.",
+                "description": "A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle,\n    or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.",
                 "type": "Object"
             },
             "class": "cloudkid.Positioner",
@@ -16532,7 +16532,7 @@
             "line": 165,
             "description": "Get the adapter by display",
             "itemtype": "method",
-            "name": "getAdapter",
+            "name": "_getAdapter",
             "access": "private",
             "tagname": "",
             "params": [
@@ -16611,7 +16611,7 @@
                     "props": [
                         {
                             "name": "align",
-                            "description": "The vertical alignment (\"top\", \"bottom\", \"center\") then horizontal \n       alignment (\"left\", \"right\" and \"center\"). Or you can use the short-handed versions: \"center\" = \"center-center\",\n       \"top\" = \"top-center\", \"bottom\" = \"bottom-center\", \"left\" = \"center-left\", \"right\" = \"center-right\".",
+                            "description": "The vertical alignment (\"top\", \"bottom\", \"center\") then horizontal\n       alignment (\"left\", \"right\" and \"center\"). Or you can use the short-handed versions: \"center\" = \"center-center\",\n       \"top\" = \"top-center\", \"bottom\" = \"bottom-center\", \"left\" = \"center-left\", \"right\" = \"center-right\".",
                             "type": "String",
                             "optional": true,
                             "optdefault": "\"center\""
@@ -16730,7 +16730,7 @@
         {
             "file": "src/ui/UIScaler.js",
             "line": 352,
-            "description": "Add background bitmaps to scale full screen, this will attempt to \nscale the background to the height of the display and crop on \nthe left and right.",
+            "description": "Add background bitmaps to scale full screen, this will attempt to\nscale the background to the height of the display and crop on\nthe left and right.",
             "itemtype": "method",
             "name": "addBackground",
             "params": [
@@ -16795,7 +16795,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 436,
+            "line": 435,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -16828,6 +16828,27 @@
             ],
             "return": {
                 "description": "The random item",
+                "type": "*"
+            },
+            "class": "Array",
+            "module": "Game"
+        },
+        {
+            "file": "src/utils/Array.js",
+            "line": 41,
+            "description": "Get the last item in the array",
+            "itemtype": "method",
+            "name": "last",
+            "static": 1,
+            "params": [
+                {
+                    "name": "array",
+                    "description": "The array",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "The last item",
                 "type": "*"
             },
             "class": "Array",
@@ -17068,8 +17089,8 @@
             "name": "connect",
             "params": [
                 {
-                    "name": "The",
-                    "description": "IP address to connect to",
+                    "name": "host",
+                    "description": "The remote address to connect to, IP address or host name",
                     "type": "String"
                 }
             ],
@@ -17103,7 +17124,7 @@
         {
             "file": "src/utils/Debug.js",
             "line": 210,
-            "description": "Global window error handler",
+            "description": "Global window error handler, used for remote connections.",
             "static": 1,
             "access": "private",
             "tagname": "",
@@ -17111,16 +17132,29 @@
             "name": "globalErrorHandler",
             "params": [
                 {
-                    "name": "THe",
-                    "description": "error message"
+                    "name": "message",
+                    "description": "The error message",
+                    "type": "String"
                 },
                 {
-                    "name": "The",
-                    "description": "url of the file"
+                    "name": "file",
+                    "description": "The url of the file",
+                    "type": "String"
                 },
                 {
-                    "name": "The",
-                    "description": "line within the file"
+                    "name": "line",
+                    "description": "The line within the file",
+                    "type": "Int"
+                },
+                {
+                    "name": "column",
+                    "description": "The column within the line",
+                    "type": "Int"
+                },
+                {
+                    "name": "error",
+                    "description": "The error itself",
+                    "type": "Error"
                 }
             ],
             "class": "Debug",
@@ -17128,7 +17162,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 225,
+            "line": 232,
             "description": "Callback for when the websocket is closed",
             "access": "private",
             "tagname": "",
@@ -17140,7 +17174,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 245,
+            "line": 252,
             "description": "Sent to the output",
             "access": "private",
             "tagname": "",
@@ -17164,7 +17198,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 261,
+            "line": 268,
             "description": "Send a remote log message using the socket connection",
             "access": "public",
             "tagname": "",
@@ -17188,7 +17222,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 343,
+            "line": 350,
             "description": "Log something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17207,7 +17241,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 364,
+            "line": 371,
             "description": "Debug something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17226,7 +17260,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 385,
+            "line": 392,
             "description": "Info something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17245,7 +17279,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 406,
+            "line": 413,
             "description": "Warn something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17264,7 +17298,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 427,
+            "line": 434,
             "description": "Error something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17283,7 +17317,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 448,
+            "line": 455,
             "description": "Assert that something is true",
             "static": 1,
             "access": "public",
@@ -17307,7 +17341,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 465,
+            "line": 472,
             "description": "Method to describe an object in the console",
             "static": 1,
             "itemtype": "method",
@@ -17326,7 +17360,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 480,
+            "line": 487,
             "description": "Method to clear the console",
             "static": 1,
             "access": "public",
@@ -17338,7 +17372,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 496,
+            "line": 503,
             "description": "Generate a stack track in the output",
             "static": 1,
             "access": "public",
@@ -18722,7 +18756,7 @@
         {
             "file": "src/Application.js",
             "line": 608,
-            "description": "Calculates the resizing of displays. By default, this limits the new size \nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
+            "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
             "access": "protected",

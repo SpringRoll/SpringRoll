@@ -398,8 +398,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 <div class="param-description">
                                     <p>Path to a text file which contains explicit version
         numbers for each asset. This is useful for controlling the live browser cache.
-        For instance, this text file would have an asset on each line followed by a number: 
-         <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
+        For instance, this text file would have an asset on each line followed by a number:
+        <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
 
                                 </div>
 
@@ -414,7 +414,7 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Override the end-user browser cache by adding "?v=" 
+                                    <p>Override the end-user browser cache by adding "?v="
         to the end of each file path requested. Use for developmently, debugging only!</p>
 
                                 </div>
@@ -476,7 +476,7 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio.
        This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.</p>
 
                                 </div>
@@ -532,14 +532,14 @@ manages displays, update loop controlling, handles resizing</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[ip]</code>
+                                    <code class="param-name optional">[debugRemote]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>The host computer for IP remote debugging,
-        the debug module must be included to use this feature.</p>
+                                    <p>The host computer for remote debugging,
+        the debug module must be included to use this feature. Can be an IP address or host name.</p>
 
                                 </div>
 
@@ -1549,7 +1549,7 @@ manages displays, update loop controlling, handles resizing</p>
     </div>
 
     <div class="description">
-        <p>Calculates the resizing of displays. By default, this limits the new size 
+        <p>Calculates the resizing of displays. By default, this limits the new size
 to the initial aspect ratio of the primary display. Override this function
 if you need variable aspect ratios.</p>
 
