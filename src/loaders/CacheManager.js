@@ -35,11 +35,11 @@
 		this._versions = {};
 		
 		/**
-		*  The list of URL preparation functions.
+		*  The list of URL filtering functions.
 		*  @protected
-		*  @property {Array} _preparationCallbacks
+		*  @property {Array} _filters
 		*/
-		this._preparationCallbacks = [];
+		this._filters = [];
 		
 		/**
 		*  A global version or cache busting string to apply to every url.
@@ -98,25 +98,25 @@
 	});
 	
 	/**
-	*  Destroy the cache manager, don't use after this
+	*  Destroy the cache manager, don't use after this.
 	*  @public
 	*  @method destroy
 	*/
 	p.destroy = function()
 	{
 		this._versions = null;
-		this._preparationCallbacks = null;
+		this._filters = null;
 		this._applySpecificVersion = null;
 		this._applyGlobalVersion = null;
 	};
 	
 	/**
-	*  Add the versions
+	*  Adds a versions text file containing versions for different assets.
 	*  @public
 	*  @method addVersionsFile
-	*  @param {String} url The url of the versions file
-	*  @param {Function} callback Callback when the url has been laoded
-	*  @param {String} baseUrl A base url to prepend all lines of the file
+	*  @param {String} url The url of the versions file.
+	*  @param {Function} callback Callback when the versions file has been loaded.
+	*  @param {String} baseUrl A base url to prepend all lines of the file.
 	*/
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
@@ -184,13 +184,31 @@
 			this._versions[url] = version;
 	};
 	
-	p.registerURLPreparation = function(callback)
+	/**
+	*  Adds a function for running all urls through, to modify them if needed.
+	*  Functions used should accept one string parameter (the url), and return the
+	*  modified url.
+	*  @method registerURLFilter
+	*  @public
+	*  @param {Function} filter The function that will handle urls.
+	*/
+	p.registerURLFilter = function(filter)
 	{
-		if(this._
+		if(this._filters.indexOf(filter) == -1)
+			this._filters.push(filter);
 	};
 	
-	p.unregisterURLPreparation = function(callback)
+	/**
+	*  Removes a function from the list of filtering functions.
+	*  @method unregisterURLFilter
+	*  @public
+	*  @param {Function} filter The function to remove.
+	*/
+	p.unregisterURLFilter = function(filter)
 	{
+		var index = this._filters.indexOf(filter);
+		if(index > -1)
+			this._filters.splice(index, 1);
 	};
 	
 	/**
