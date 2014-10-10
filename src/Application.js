@@ -23,6 +23,9 @@
 	*  @param {Object} [options] The options for creating the application
 	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
 	*  @param {Boolean} [options.raf=true] Use request animation frame
+	*  @param {String|int} [options.version] The current version number for your application. This 
+	*       number will automatically be appended to all file requests. For instance, if the version
+	*       is "0.0.1" all file requests will be appended with "?v=0.0.1"
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
 	*		For instance, this text file would have an asset on each line followed by a number:
