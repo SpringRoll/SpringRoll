@@ -2337,8 +2337,8 @@
 			if(value)
 			{
 				this._globalVersion = "cb=" + Date.now();
-				this.unregisterURLPreparation(this._applySpecificVersion);
-				this.registerURLPreparation(this._applyGlobalVersion);
+				this.unregisterURLFilter(this._applySpecificVersion);
+				this.registerURLFilter(this._applyGlobalVersion);
 			}
 			else
 			{
@@ -2346,13 +2346,13 @@
 				this._globalVersion = version ? "v=" + version : null;
 				if(this._globalVersion)
 				{
-					this.registerURLPreparation(this._applyGlobalVersion);
-					this.unregisterURLPreparation(this._applySpecificVersion);
+					this.unregisterURLFilter(this._applyGlobalVersion);
+					this.registerURLFilter(this._applySpecificVersion);
 				}
 				else
 				{
-					this.unregisterURLPreparation(this._applyGlobalVersion);
-					this.registerURLPreparation(this._applySpecificVersion);
+					this.unregisterURLFilter(this._applyGlobalVersion);
+					this.registerURLFilter(this._applySpecificVersion);
 				}
 			}
 		}
@@ -2511,6 +2511,25 @@
 	};
 	
 	/**
+	*  Applies a base path to a relative url. This is not used in the filtering
+	*  system because PreloadJS has its own method of prepending the base path
+	*  that we use. Instead, it is used with an extra parameter to prepare().
+	*  @method _applyBasePath
+	*  @private
+	*  @param {String} url The url to prepend the base path to.
+	*  @return {String} The modified url.
+	*/
+	p._applyBasePath = function(url)
+	{
+		var basePath = Application.instance.options.basePath;
+		if (/^http(s)?\:/.test(url) === false && basePath && url.search(basePath) == -1)
+		{
+			url = basePath + url;
+		}
+		return url;
+	};
+	
+	/**
 	*  Prepare a URL with the necessary cache busting and/or versioning
 	*  as well as the base directory.
 	*  @public
@@ -2523,18 +2542,14 @@
 	*/
 	p.prepare = function(url, applyBasePath)
 	{
-		for(var i = 0; i < this._preparationCallbacks.length; ++i)
+		for(var i = 0; i < this._filters.length; ++i)
 		{
-			url = this._preparationCallbacks[i](url);
+			url = this._filters[i](url);
 		}
 		
 		if(applyBasePath)
 		{
-			var basePath = Application.instance.options.basePath;
-			if (/^http(s)?\:/.test(url) === false && basePath && url.search(basePath) == -1)
-			{
-				url = basePath + url;
-			}
+			url = this._applyBasePath(url);
 		}
 		return url;
 	};
