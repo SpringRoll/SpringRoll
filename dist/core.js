@@ -2346,8 +2346,8 @@
 				this._globalVersion = version ? "v=" + version : null;
 				if(this._globalVersion)
 				{
-					this.unregisterURLFilter(this._applyGlobalVersion);
-					this.registerURLFilter(this._applySpecificVersion);
+					this.unregisterURLFilter(this._applySpecificVersion);
+					this.registerURLFilter(this._applyGlobalVersion);
 				}
 				else
 				{
