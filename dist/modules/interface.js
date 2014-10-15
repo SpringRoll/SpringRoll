@@ -762,7 +762,7 @@
 				throw "Scaler settings must be a plain object " + settings;
 			}
 
-			if (this._parent[name] === undefined)
+			if (!this._parent[name])
 			{
 				if (true)
 				{
