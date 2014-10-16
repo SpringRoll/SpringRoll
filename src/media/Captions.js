@@ -156,15 +156,6 @@
 	*  @private
 	*/
 	var _instances = [];
-	
-	/**
-	* The version number of this library
-	*
-	* @public
-	* @property {String} VERSION
-	* @static
-	*/
-	Captions.VERSION = "${version}";
 
 	/**
 	* Set if all captions are currently muted.
@@ -422,13 +413,15 @@
 	* The playing status.
 	*
 	* @public
-	* @method isPlaying
-	* @return {bool} If the caption is playing
+	* @property {Boolean} playing
+	* @readOnly
 	*/
-	p.isPlaying = function()
-	{
-		return this._playing;
-	};
+	Object.defineProperty(p, 'playing', {
+		get : function()
+		{
+			return this._playing;
+		}	
+	});
 	
 	/**
 	*  Calculate the total duration of the current caption
@@ -480,6 +473,7 @@
 	*/
 	p.stop = function()
 	{
+		this._playing = false;
 		this._lines = null;
 		this._completeCallback = null;
 		this._reset();
@@ -556,7 +550,7 @@
 	*/
 	p.update = function(elapsed)
 	{
-		if (this._isDestroyed) return;
+		if (this._isDestroyed || !this._playing) return;
 		this._currentTime += elapsed;
 		this._calcUpdate();
 	};
@@ -582,8 +576,7 @@
 		// If we are outside of the bounds of captions, stop
 		if (currentTime >= lines[lastLine].end)
 		{
-			this._currentLine = -1;
-			this._updateCaptions();
+			this.stop();
 		}
 		else if (nextLine <= lastLine && currentTime >= lines[nextLine].start && currentTime <= lines[nextLine].end)
 		{

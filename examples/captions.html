@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Basic Captions</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/main.css">
+
+		<!-- Examples dependencies, these are only necessary for examples -->
+		<link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+		<!-- External dependencies -->
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/captions.js"></script>
+		<script src="../dist/modules/display-createjs.js"></script>
+
+	</head>
+	<body>
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<div id="framerate">FPS: 00.000</div>
+			<div id="captions"></div>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+// Import classes
+var Application = include('cloudkid.Application'),
+	Loader = include('cloudkid.Loader'),
+	Button = include('cloudkid.createjs.Button'),
+	CreateJSDisplay = include('cloudkid.CreateJSDisplay'),
+	Captions = include('cloudkid.Captions');
+
+// Create the new application
+var app = new Application({
+	framerate: "framerate",
+	canvasId: "stage",
+	debug: true,
+	debugRemote: 'localhost',
+	display: CreateJSDisplay,
+	displayOptions: {
+		clearView: true
+	}
+});
+
+// Create the new captions object and provide
+// a dictionary of caption objects as well
+// as the caption target
+var captions = new Captions(
+	{
+		"ExampleAlias" : [{
+			"start":0, 
+			"end":2000,
+			"content":"Ohh that looks awesome!"
+		},{
+			"start":2100, 
+			"end":5000,
+			"content":"Want to try something else?"
+		}]
+	}, 
+	"captions" // The ID of the DOM element
+);
+
+// Wait until the app is ready
+app.on('init', function(){
+
+	// Lets setup the interface for playing the captions
+	// but we need a button image to create buttons
+	Loader.instance.load('assets/images/button.png', function(result){
+
+		var width = app.display.width;
+
+		var shape = new createjs.Shape();
+		shape.graphics.beginFill("#933")
+			.drawCircle(200, 150, 20);
+		shape.visible = false;
+
+		// Create a play button
+		var playButton = new Button(result.content, {
+			text: 'Play',
+			font: "16px Arial",
+			color: "#ffffff"
+		});
+		playButton.x = (width - playButton.width) / 2;
+		playButton.y = 100;
+
+		// Handle
+		playButton.on('buttonPress', function(){
+
+			// Play the caption example here!
+			captions.play("ExampleAlias");
+		});
+
+		// Create a stop button
+		var stopButton = new Button(result.content, {
+			text: 'Stop',
+			font: "16px Arial",
+			color: "#ffffff"
+		});
+
+		stopButton.x = (width - stopButton.width) / 2;
+		stopButton.y = 170;
+
+		// Handle clicks on the stop button
+		stopButton.on('buttonPress', function(){
+			captions.stop();
+		});
+
+		app.on('update', function(){
+			shape.visible = captions.playing;
+		});
+
+		// Add the button to the stage
+		app.display.stage.addChild(playButton, stopButton, shape);
+	});
+
+});
+</script>
+		</div>
+	</body>
+</html>

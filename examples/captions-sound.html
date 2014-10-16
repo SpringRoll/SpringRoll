@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Captions and Sound</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="assets/css/main.css">
+
+		<!-- Examples dependencies, these are only necessary for examples -->
+		<link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+		<!-- External dependencies -->
+		<script src="../components/soundjs/lib/soundjs.min.js"></script>
+		<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/captions.js"></script>
+		<script src="../dist/modules/sound.js"></script>
+		<script src="../dist/modules/display-createjs.js"></script>
+
+	</head>
+	<body>
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<div id="framerate">FPS: 00.000</div>
+			<div id="captions"></div>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+// Import classes
+var Application = include('cloudkid.Application'),
+	Loader = include('cloudkid.Loader'),
+	Button = include('cloudkid.createjs.Button'),
+	CreateJSDisplay = include('cloudkid.CreateJSDisplay'),
+	VOPlayer = include('cloudkid.VOPlayer'),
+	Sound = include('cloudkid.Sound'),
+	Captions = include('cloudkid.Captions');
+
+// Create the new application
+var app = new Application({
+	framerate: "framerate",
+	canvasId: "stage",
+	debug: true,
+	debugRemote: 'localhost',
+	display: CreateJSDisplay,
+	displayOptions: {
+		clearView: true
+	}
+});
+
+// The list of sounds to load
+var soundConfig = {
+	// The name of the context or "group" to load sounds into
+	"context":"vo",
+	
+	// The relative path to the VO sound files
+	"path":"assets/sound/vo/",
+
+	// The collection of sound assets to load
+	// where src is the base name of the file and id
+	// is the sound alias we'll refer to later
+	"soundManifest": [
+		{
+			"id" : "Volume", 
+			"src" : "301"
+		},
+		{
+			"id" : "GoodJob", 
+			"src" : "328"
+		}
+	]
+};
+
+// The captions dictionary
+// IMPORTANT: the alias of the caption MATCHES the alias
+// of the sound. The VO Player will play these two things at once
+var captionsConfig = {
+	"Volume": [
+		{
+			"content": "Volume is the amount of space something takes up.",
+			"start": 0,
+			"end": 3090
+		},
+		{
+			"content": "Let's look at our diving team.",
+			"start": 3328,
+			"end": 5478
+		}
+	],
+	"GoodJob": [
+		{
+			"content": "Good job, team!",
+			"start": 0,
+			"end": 1750
+		}
+	]
+}
+
+// Create the new captions object and provide
+// a dictionary of caption objects as well
+// as the caption target
+var captions = new Captions(captionsConfig, "captions");
+
+// The image that get's loaded dynamically
+var buttonImage;
+
+// Instance of the VO Player
+var voPlayer;
+
+// Wait until the app is ready
+app.on('init', function(){
+
+	// Lets setup the interface for playing the captions
+	// but we need a button image to create buttons
+	Loader.instance.load('assets/images/button.png', function(result){
+
+		buttonImage = result.content;
+
+		// Initialize the Sound system
+		Sound.init({
+			// The path to the Flash SWF fallback
+			swfPath : 'assets/swfs/',
+			ready : onSoundReady
+		});
+	});
+});
+
+// Handle when the sound library is ready
+var onSoundReady = function()
+{
+	// Add the config
+	Sound.instance.loadConfig(soundConfig)
+
+	// Create a new VO player
+	voPlayer = new VOPlayer(captions);
+
+	// Add the buttons and handle the clicks
+	addButton('Volume', 200, 100, onPlayButton);
+	addButton('GoodJob', 340, 100, onPlayButton);
+
+	addButton('Both', 480, 100, function(){
+		voPlayer.play(['GoodJob', 'Volume']);
+	});
+
+	addButton('Stop', 340, 200, function(){
+		voPlayer.stop();
+	});
+};
+
+// Generic method for adding a button to the stage
+// add a label and some positioning information
+var addButton = function(label, x, y, handler)
+{
+	// Create a play button
+	var button = new Button(buttonImage, {
+		text: label,
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+	button.x = x;
+	button.y = y;
+
+	// Play the AUDIO
+	button.on('buttonPress', handler);
+
+	app.display.stage.addChild(button);
+	return button;
+};
+
+// Handler for the buttons, use the 
+// label text as the alias to play
+var onPlayButton = function(e)
+{
+	voPlayer.play(e.currentTarget.label.text);
+};
+
+</script>
+		</div>
+	</body>
+</html>
