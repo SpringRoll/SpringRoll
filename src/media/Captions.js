@@ -420,7 +420,7 @@
 		get : function()
 		{
 			return this._playing;
-		}	
+		}
 	});
 	
 	/**
@@ -522,6 +522,14 @@
 				// so we can still keep track of the last active line
 				this._lastActiveLine = i;
 				this._currentLine = -1;
+				this._updateCaptions();
+			}
+			else if(currentTime < lines[i].start)
+			{
+				//in between lines or before the first one
+				this._lastActiveLine = i - 1;
+				this._currentLine = -1;
+				this._updateCaptions();
 			}
 		}
 	};
