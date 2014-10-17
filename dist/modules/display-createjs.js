@@ -1601,7 +1601,7 @@
 	 */
 	var DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
 
-	/** 
+	/**
 	 *  Constructor for the button when using CreateJS.
 	 *  @method buttonInitialize
 	 *  @param {Object|Image|HTMLCanvasElement} [imageSettings] See the constructor for more information
@@ -1745,6 +1745,8 @@
 	{
 		if (!obj || "object" != typeof obj) return null;
 		var copy = obj.constructor();
+		if(!copy)
+			copy = {};
 		for (var attr in obj)
 		{
 			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
@@ -2054,7 +2056,7 @@
 		}
 		if (highlightSettings)
 		{
-			Debug.log(highlightSettings.rgba);	
+			Debug.log(highlightSettings.rgba);
 			width += highlightSettings.size * 2;
 			height += buttonHeight + highlightSettings.size * 2;
 			if (highlightSettings.rgba)
