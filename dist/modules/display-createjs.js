@@ -331,7 +331,7 @@
 		Touch;
 
 	/**
-	*   CreateJSDisplay is a display plugin for the CloudKid Framework 
+	*   CreateJSDisplay is a display plugin for the CloudKid Framework
 	*	that uses the EaselJS library for rendering.
 	*
 	*   @class CreateJSDisplay
@@ -386,6 +386,15 @@
 
 	var s = AbstractDisplay.prototype;
 	var p = CreateJSDisplay.prototype = Object.create(s);
+	
+	/**
+	 * An internal helper to avoid creating an object each render
+	 * while telling CreateJS the amount of time elapsed.
+	 * @property DELTA_HELPER
+	 * @static
+	 * @private
+	 */
+	var DELTA_HELPER = {delta:0};
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -414,8 +423,8 @@
 		}
 	});
 
-	/** 
-	* Updates the stage and draws it. This is only called by the Application. 
+	/**
+	* Updates the stage and draws it. This is only called by the Application.
 	* This method does nothing if paused is true or visible is false.
 	* @method render
 	* @internal
@@ -425,13 +434,14 @@
 	{
 		if (!this.paused && this._visible)
 		{
-			this.stage.update(elapsed);
-		}		
+			DELTA_HELPER.delta = elapsed;
+			this.stage.update(DELTA_HELPER);
+		}
 	};
 
 	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
+	*  Destroys the display. This method is called by the Application and should
+	*  not be called directly, use Application.removeDisplay(id).
 	*  The stage recursively removes all display objects here.
 	*  @method destroy
 	*  @internal
