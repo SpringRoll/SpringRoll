@@ -127,15 +127,6 @@
 	};
 	
 	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
-	
-	/**
-	* The current version of the state manager
-	*  
-	* @property {String} VERSION
-	* @static
-	* @final
-	*/
-	StateManager.VERSION = '${version}';
 
 	/**
 	* The name of the Animator label and event for transitioning state in
