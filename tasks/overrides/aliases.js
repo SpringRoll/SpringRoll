@@ -1,8 +1,9 @@
 module.exports = function(grunt)
 {
 	grunt.registerTask(
-		'combine',
+		'build-dev',
 		'Builds a combined library file without minification', [
+			'jshint',
 			'concat:development',
 			'replace:development',
 			'concat:worker',

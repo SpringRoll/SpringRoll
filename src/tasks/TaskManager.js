@@ -68,15 +68,6 @@
 	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
 	
 	/**
-	* The current version of the state manager
-	*  
-	* @property {String} VERSION
-	* @static
-	* @final
-	*/
-	TaskManager.VERSION = '${version}';
-	
-	/**
 	* Event dispatched when tasks are all done
 	* 
 	* @event onAllTasksDone

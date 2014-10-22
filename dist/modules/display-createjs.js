@@ -664,15 +664,6 @@
 	var Animator = {};
 	
 	/**
-	* The current version of the Animator class
-	*
-	* @property {String} VERSION
-	* @public
-	* @static
-	*/
-	Animator.VERSION = "0.0.6";
-	
-	/**
 	* If we fire debug statements
 	*
 	* @property {bool} debug
@@ -1385,7 +1376,7 @@
 	*/
 	Animator.toString = function()
 	{
-		return "[Animator version:" + Animator.VERSION + "]";
+		return "[cloudkid.createjs.Animator]";
 	};
 	
 	// Assign to the global namespace

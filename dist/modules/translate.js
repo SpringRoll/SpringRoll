@@ -15,14 +15,6 @@
 	var Translate = {};
 
 	/**
-	*  The current version of the plugin
-	*  @property {string} VERSION
-	*  @static
-	*  @readOnly
-	*/
-	Translate.VERSION = "0.0.6";
-
-	/**
 	*  The full language dictionary containing all languages as keys
 	*  @property {object} _dict
 	*  @private
