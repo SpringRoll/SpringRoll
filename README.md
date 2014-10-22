@@ -1,7 +1,5 @@
 #CloudKid Framework
 
-[ ![Codeship Status for CloudKidStudio/CloudKidFramework](https://www.codeship.io/projects/0b506df0-3c50-0132-5a93-0a247fb9fd2e/status)](https://www.codeship.io/projects/42940)
-
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [CreateJS](http://createjs.com) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
 * Adding Sound (WebAudio)
