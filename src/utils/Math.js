@@ -1,12 +1,12 @@
 /**
-*  @module Game
-*/
-(function(Math){
-
+ *  @module Game
+ */
+(function(Math)
+{
 	/**
-	*  Add methods to Math
-	*  @class Math
-	*/
+	 *  Add methods to Math
+	 *  @class Math
+	 */
 
 	/**
 	 * Return a random int between minimum and maximum
@@ -14,10 +14,22 @@
 	 * @static
 	 * @param {Int} min lowest number
 	 * @param {Int} max highest number
-	 * @return {int} The random value
+	 * @return {Int} The random value
 	 */
 	Math.getRandomInt = function(min, max)
 	{
+		/** OVERRIDE
+		 * 	allow single-parameter use, where min is
+		 * 	assumed to be 0, and max is the supplied single-parameter
+		 * 	i.e. function(max) {
+		 *		return <value between 0 and parameter>
+		 * 	}
+		 */
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
