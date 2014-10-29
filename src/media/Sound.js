@@ -32,14 +32,14 @@
 			SoundListTask = include('cloudkid.SoundListTask', false);
 		}
 
-		/** 
+		/**
 		*  Dictionary of sound objects, containing configuration info and playback objects.
 		*  @property {Object} _sounds
 		*  @private
 		*/
 		this._sounds = {};
 
-		/** 
+		/**
 		*  Array of SoundInstance objects that are being faded in or out.
 		*  @property {Array} _fades
 		*  @private
@@ -71,6 +71,14 @@
 		this._update = this._update.bind(this);
 		this._markLoaded = this._markLoaded.bind(this);
 		this._playAfterLoad = this._playAfterLoad.bind(this);
+		
+		/**
+		*  If sound is enabled. This will only be false if Sound was unable to initialize
+		*  a SoundJS plugin.
+		*  @property {Boolean} soundEnabled
+		*  @readOnly
+		*/
+		this.soundEnabled = true;
 	};
 	
 	var p = Sound.prototype = {};
@@ -89,7 +97,7 @@
 	*	@static
 	*   @param {Object|Function} options Either the options object or the ready function
 	*	@param {Array} [options.plugins=createjs.WebAudioPlugin, createjs.FlashPlugin] The SoundJS plugins to pass to createjs.Sound.registerPlugins().
-	*	@param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred, where "ogg" 
+	*	@param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred, where "ogg"
 	*		becomes a ".ogg" extension on all sound file urls.
 	*   @param {String} [options.swfPath='assets/swfs/'] The required path to the createjs.FlashPlugin SWF
 	*	@param {Function} [options.ready] A function to call when initialization is complete.
@@ -142,7 +150,8 @@
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
-		if (CJSSound.BrowserDetect.isIOS)
+		if (CJSSound.BrowserDetect.isIOS &&
+			CJSSound.activePlugin instanceof createjs.WebAudioPlugin)
 		{
 			document.addEventListener("touchstart", _playEmpty);
 		}
@@ -176,7 +185,10 @@
 		}
 		else
 		{
-			throw "Unable to initialize SoundJS with a plugin!";
+			Debug.error("Unable to initialize SoundJS with a plugin!");
+			this.soundEnabled = false;
+			if(options.ready)
+				options.ready();
 		}
 		return _instance;
 	};
@@ -251,7 +263,7 @@
 	*	@method loadConfig
 	*	@public
 	*	@param {Object} config The config to load.
-	*	@param {String} [config.context] The optional sound context to load sounds into unless 
+	*	@param {String} [config.context] The optional sound context to load sounds into unless
 	*		                             otherwise specified by the individual sound. Sounds do not require a context.
 	*	@param {String} [config.path=""] The path to prepend to all sound source urls in this config.
 	*	@param {Array} config.soundManifest The list of sounds, either as String ids or Objects with settings.
@@ -403,7 +415,7 @@
 			if (this._fades.length == 1)
 			{
 				Application.instance.on("update", this._update);
-			}	
+			}
 		}
 	};
 
@@ -454,7 +466,7 @@
 		}
 	};
 
-	/** 
+	/**
 	*	The update call, used for fading sounds. This is bound to the instance of Sound
 	*	@method _update
 	*	@private
@@ -516,7 +528,7 @@
 	*   @param {Object|function} [options] The object of optional parameters or complete callback function
 	*	@param {Function} [options.complete] An optional function to call when the sound is finished.
 	*	@param {Function} [opitons.start] An optional function to call when the sound starts playback.
-			If the sound is loaded, this is called immediately, if not, it calls when the 
+			If the sound is loaded, this is called immediately, if not, it calls when the
 			sound is finished loading.
 	*	@param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds (SoundJS parameter). Default is false.
 	*	@param {Number} [options.delay=0] The delay to play the sound at in milliseconds(SoundJS parameter). Default is 0.
@@ -525,11 +537,13 @@
 			Default is no looping.
 	*	@param {Number} [options.volume] The volume to play the sound at (0 to 1). Omit to use the default for the sound.
 	*	@param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). Default is centered (0).
-	*	@return {SoundInstance} An internal SoundInstance object that can be used for fading in/out as well as 
+	*	@return {SoundInstance} An internal SoundInstance object that can be used for fading in/out as well as
 			pausing and getting the sound's current position.
 	*/
 	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
+		if(!this.soundEnabled) return;
+		
 		var completeCallback;
 		if (options && typeof options == "function")
 		{
@@ -819,7 +833,7 @@
 	*	Pauses a specific sound.
 	*	@method pauseSound
 	*	@public
-	*	@param {String} alias The alias of the sound to pause. 
+	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
 	p.pauseSound = function(alias)
@@ -838,7 +852,7 @@
 	*	Unpauses a specific sound.
 	*	@method unpauseSound
 	*	@public
-	*	@param {String} alias The alias of the sound to pause. 
+	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
 	p.unpauseSound = function(alias)
@@ -1072,7 +1086,7 @@
 	};
 	
 	/**
-	*	Unloads a list of sounds to reclaim memory if possible. 
+	*	Unloads a list of sounds to reclaim memory if possible.
 	*	If the sounds are playing, they are stopped.
 	*	@method unload
 	*	@public

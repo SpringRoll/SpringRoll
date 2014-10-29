@@ -58,14 +58,14 @@
 }());
 
 /**
-*  @module Game
-*/
-(function(Math){
-
+ *  @module Game
+ */
+(function(Math)
+{
 	/**
-	*  Add methods to Math
-	*  @class Math
-	*/
+	 *  Add methods to Math
+	 *  @class Math
+	 */
 
 	/**
 	 * Return a random int between minimum and maximum
@@ -73,10 +73,22 @@
 	 * @static
 	 * @param {Int} min lowest number
 	 * @param {Int} max highest number
-	 * @return {int} The random value
+	 * @return {Int} The random value
 	 */
 	Math.getRandomInt = function(min, max)
 	{
+		/** OVERRIDE
+		 * 	allow single-parameter use, where min is
+		 * 	assumed to be 0, and max is the supplied single-parameter
+		 * 	i.e. function(max) {
+		 *		return <value between 0 and parameter>
+		 * 	}
+		 */
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
@@ -96,6 +108,7 @@
 	};
 
 }(Math));
+
 /**
 *  @module Game
 *  @namespace cloudkid
@@ -108,12 +121,12 @@
 		TaskManager;
 
 	/**
-	*  A game extends the main application and provides some game specific convenience function 
+	*  A game extends the main application and provides some game specific convenience function
 	*  and additional events. Most importantly it provides preload functionalty though the state
 	*  manager. Assume loading a single configuration JSON file.
 	*  @example
 		var game = new cloudkid.Game();
-		game.on('init', function(){
+		game.on('loaded', function(){
 			// Ready to use!
 		});
 	*  @class Game
@@ -128,15 +141,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -187,7 +200,7 @@
 		{
 			// Auto detect the mobile browser
 			// normally we'd use touch but the pointer events
-			// in Internet Explorer mess that up, so we're 
+			// in Internet Explorer mess that up, so we're
 			// looking for specific browser.
 			var agent = navigator.userAgent;
 			this.isIOS = agent.search(/iPhone|iPad|iPod/) > -1;
@@ -209,7 +222,7 @@
 	var LOADED = 'loaded';
 
 	/**
-	*  The config has finished loading, in case you want to 
+	*  The config has finished loading, in case you want to
 	*  add additional tasks to the manager after this.
 	*  @event configLoaded
 	*  @param {object} config The JSON object for config
@@ -235,8 +248,8 @@
 
 		var tasks = [
 			new LoadTask(
-				"config", 
-				this.options.configPath, 
+				"config",
+				this.options.configPath,
 				onConfigLoaded.bind(this)
 			)
 		];
@@ -312,7 +325,7 @@
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
 		var game = new cloudkid.SoundGame();
-		game.on('init', function(){
+		game.on('soundReady', function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
@@ -332,15 +345,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -396,8 +409,8 @@
 	var p = SoundGame.prototype = Object.create(s);
 
 	/**
-	*  The Sound is completed, this is the event to listen to 
-	*  when the game ready to use. 
+	*  The Sound is completed, this is the event to listen to
+	*  when the game ready to use.
 	*  @event soundReady
 	*/
 	var SOUND_READY = 'soundReady';
@@ -478,7 +491,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{	
+	{
 		var sounds = this.config.sounds;
 		var sound = Sound.instance;
 
@@ -530,7 +543,7 @@
 			if (this._music)
 			{
 				sound.play(
-					this._music, 
+					this._music,
 					{
 						start: sound.fadeIn.bind(sound, this._music),
 						loop: -1
@@ -585,7 +598,10 @@
 	*  A game with state management, provides some convenience and events for adding states.
 	*  @example
 		var game = new cloudkid.StateGame();
-		game.on('init', function(){
+		game.on('addStates', function(){
+			//add some states with game.addState()
+		});
+		game.on('statesReady', function(){
 			// Ready to use!
 		});
 	*  @class StateGame
@@ -610,15 +626,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -630,7 +646,7 @@
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.	
+	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var StateGame = function(options)
 	{
@@ -670,20 +686,20 @@
 	/**
 	*  Before creating the statemanager, a transition
 	*  should probably be added at this callback
-	*  @event initStateManager
+	*  @event initStates
 	*/
 	var INIT_STATES = 'initStates';
 
 	/**
-	*  The states are setup, this is the event to listen to 
-	*  when the game ready to use. 
+	*  The states are setup, this is the event to listen to
+	*  when the game ready to use.
 	*  @event statesReady
 	*/
 	var STATES_READY = 'statesReady';
 
 	/**
 	*  Initialize the states event, this is where state could be added
-	*  @event initStates
+	*  @event addStates
 	*/
 	var ADD_STATES = 'addStates';
 
@@ -693,7 +709,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{		
+	{
 		this.trigger(INIT_STATES);
 
 		// Goto the transition state
@@ -709,8 +725,8 @@
 			}
 		}
 
-		//if the transition is a CreateJS movieclip, start it out 
-		//at the end of the transition out animation. If it has a 
+		//if the transition is a CreateJS movieclip, start it out
+		//at the end of the transition out animation. If it has a
 		//'transitionLoop' animation, that will be played as soon as a state is set
 		if(this.transition.gotoAndStop)
 			this.transition.gotoAndStop("onTransitionOut_stop");
@@ -718,7 +734,7 @@
 		// Create the state manager
 		this.manager = new StateManager(
 			this.display,
-			this.transition, 
+			this.transition,
 			this.options.transitionSounds
 		);
 
@@ -814,7 +830,7 @@
 	*  A sub-game class to provide scaling functionality and responsive design.
 	*  @example
 		var game = new cloudkid.ScalingGame();
-		game.on('init', function(){
+		game.on('scalingReady', function(){
 			// Ready to use!
 		});
 	*  @class ScalingGame
@@ -839,15 +855,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -859,7 +875,7 @@
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.	
+	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var ScalingGame = function(options)
 	{
@@ -871,7 +887,7 @@
 		*  The main UIScaler for any display object references in the main game.
 		*  @property {UIScaler} scaler
 		*/
-		this.scaler = null; 
+		this.scaler = null;
 
 		// Listen when the state manager is setup
 		this.once('statesReady', onStatesReady.bind(this));
@@ -925,7 +941,7 @@
 		// Create the calling from the configuration
 		// This will only scale items on the root of the stage
 		this.scaler = new UIScaler(
-			this, 
+			this,
 			designed,
 			config.scaling,
 			true,
