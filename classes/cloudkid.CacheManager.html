@@ -300,7 +300,21 @@ uses the query string to bust browser versions.</p>
                     <ul class="index-list methods">
                         
                             <li class="index-item method private">
-                                <a href="#method__getVersionByUrl">_getVersionByUrl</a>
+                                <a href="#method__applyBasePath">_applyBasePath</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__applyGlobalVersion">_applyGlobalVersion</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__applySpecificVersion">_applySpecificVersion</a>
 
                                 
                                 
@@ -334,6 +348,20 @@ uses the query string to bust browser versions.</p>
                                 
                             </li>
                         
+                            <li class="index-item method public">
+                                <a href="#method_registerURLFilter">registerURLFilter</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method public">
+                                <a href="#method_unregisterURLFilter">unregisterURLFilter</a>
+
+                                
+                                
+                            </li>
+                        
                     </ul>
                 </div>
             
@@ -343,6 +371,20 @@ uses the query string to bust browser versions.</p>
                     <h3>Properties</h3>
 
                     <ul class="index-list properties">
+                        
+                            <li class="index-item property protected">
+                                <a href="#property__filters">_filters</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property__globalVersion">_globalVersion</a>
+
+                                
+                                
+                            </li>
                         
                             <li class="index-item property protected">
                                 <a href="#property__versions">_versions</a>
@@ -372,8 +414,8 @@ uses the query string to bust browser versions.</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method__getVersionByUrl" class="method item private">
-    <h3 class="name"><code>_getVersionByUrl</code></h3>
+                    <div id="method__applyBasePath" class="method item private">
+    <h3 class="name"><code>_applyBasePath</code></h3>
 
     
         <div class="args">
@@ -420,7 +462,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l134"><code>_getVersionByUrl:134</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l252"><code>_applyBasePath:252</code></a>
         
         </p>
 
@@ -431,7 +473,9 @@ uses the query string to bust browser versions.</p>
     </div>
 
     <div class="description">
-        <p>Search for a version number by url</p>
+        <p>Applies a base path to a relative url. This is not used in the filtering
+system because PreloadJS has its own method of prepending the base path
+that we use. Instead, it is used with an extra parameter to prepare().</p>
 
     </div>
 
@@ -450,7 +494,7 @@ uses the query string to bust browser versions.</p>
                     
 
                     <div class="param-description">
-                        <p>The url to search</p>
+                        <p>The url to prepend the base path to.</p>
 
                     </div>
 
@@ -470,7 +514,225 @@ uses the query string to bust browser versions.</p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
                     
-                    <p>The version number as a string or null</p>
+                    <p>The modified url.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__applyGlobalVersion" class="method item private">
+    <h3 class="name"><code>_applyGlobalVersion</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l233"><code>_applyGlobalVersion:233</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Applies cache busting or a global version to a url.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The url to apply versioning to.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                    <p>The modified url.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__applySpecificVersion" class="method item private">
+    <h3 class="name"><code>_applySpecificVersion</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l214"><code>_applySpecificVersion:214</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Applies a url specific version to a url from the versions file.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The url to apply versioning to.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                    <p>The modified url.</p>
 
                 
             </div>
@@ -531,7 +793,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l120"><code>addVersion:120</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l174"><code>addVersion:174</code></a>
         
         </p>
 
@@ -650,7 +912,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l62"><code>addVersionsFile:62</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l113"><code>addVersionsFile:113</code></a>
         
         </p>
 
@@ -661,7 +923,7 @@ uses the query string to bust browser versions.</p>
     </div>
 
     <div class="description">
-        <p>Add the versions</p>
+        <p>Adds a versions text file containing versions for different assets.</p>
 
     </div>
 
@@ -680,7 +942,7 @@ uses the query string to bust browser versions.</p>
                     
 
                     <div class="param-description">
-                        <p>The url of the versions file</p>
+                        <p>The url of the versions file.</p>
 
                     </div>
 
@@ -696,7 +958,7 @@ uses the query string to bust browser versions.</p>
                     
 
                     <div class="param-description">
-                        <p>Callback when the url has been laoded</p>
+                        <p>Callback when the versions file has been loaded.</p>
 
                     </div>
 
@@ -712,7 +974,7 @@ uses the query string to bust browser versions.</p>
                     
 
                     <div class="param-description">
-                        <p>A base url to prepend all lines of the file</p>
+                        <p>A base url to prepend all lines of the file.</p>
 
                     </div>
 
@@ -763,7 +1025,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l52"><code>destroy:52</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l100"><code>destroy:100</code></a>
         
         </p>
 
@@ -774,7 +1036,7 @@ uses the query string to bust browser versions.</p>
     </div>
 
     <div class="description">
-        <p>Destroy the cache manager, don&#39;t use after this</p>
+        <p>Destroy the cache manager, don&#39;t use after this.</p>
 
     </div>
 
@@ -840,7 +1102,7 @@ uses the query string to bust browser versions.</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l154"><code>prepare:154</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l271"><code>prepare:271</code></a>
         
         </p>
 
@@ -852,7 +1114,7 @@ uses the query string to bust browser versions.</p>
 
     <div class="description">
         <p>Prepare a URL with the necessary cache busting and/or versioning
-as well as the base directoryr</p>
+as well as the base directory.</p>
 
     </div>
 
@@ -881,15 +1143,15 @@ as well as the base directoryr</p>
                 <li class="param">
                     
                         <code class="param-name optional">[applyBasePath=false]</code>
-                        <span class="type">Bool</span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>If the global base path should be applied to the url. 
-        This defaults to false because it can potentially interfere with later regular 
+                        <p>If the global base path should be applied to the url.
+        This defaults to false because it can potentially interfere with later regular
         expression checks, particularly with PreloadJS</p>
 
                     </div>
@@ -921,12 +1183,288 @@ as well as the base directoryr</p>
 </div>
 
                 
+                    <div id="method_registerURLFilter" class="method item public">
+    <h3 class="name"><code>registerURLFilter</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>filter</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l187"><code>registerURLFilter:187</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Adds a function for running all urls through, to modify them if needed.
+Functions used should accept one string parameter (the url), and return the
+modified url.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">filter</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function that will handle urls.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_unregisterURLFilter" class="method item public">
+    <h3 class="name"><code>unregisterURLFilter</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>filter</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l201"><code>unregisterURLFilter:201</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Removes a function from the list of filtering functions.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">filter</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to remove.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
         
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__filters" class="property item protected">
+    <h3 class="name"><code>_filters</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l37"><code>_filters:37</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The list of URL filtering functions.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property__globalVersion" class="property item">
+    <h3 class="name"><code>_globalVersion</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_loaders_CacheManager.js.html#l44"><code>_globalVersion:44</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A global version or cache busting string to apply to every url.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
 
                 
                     <div id="property__versions" class="property item protected">
@@ -954,7 +1492,7 @@ as well as the base directoryr</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l27"><code>_versions:27</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l30"><code>_versions:30</code></a>
         
         </p>
 
@@ -978,7 +1516,7 @@ as well as the base directoryr</p>
                 
                     <div id="property_cacheBust" class="property item public">
     <h3 class="name"><code>cacheBust</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1001,7 +1539,7 @@ as well as the base directoryr</p>
             
         
         
-        <a href="../files/src_loaders_CacheManager.js.html#l34"><code>cacheBust:34</code></a>
+        <a href="../files/src_loaders_CacheManager.js.html#l62"><code>cacheBust:62</code></a>
         
         </p>
 

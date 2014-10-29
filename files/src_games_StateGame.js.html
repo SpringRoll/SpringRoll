@@ -262,7 +262,10 @@
 	*  A game with state management, provides some convenience and events for adding states.
 	*  @example
 		var game = new cloudkid.StateGame();
-		game.on(&#x27;init&#x27;, function(){
+		game.on(&#x27;addStates&#x27;, function(){
+			//add some states with game.addState()
+		});
+		game.on(&#x27;statesReady&#x27;, function(){
 			// Ready to use!
 		});
 	*  @class StateGame
@@ -287,15 +290,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		&#x60;assets/config/config.json 2&#x60; this would load &#x60;assets/config/config.json?v=2&#x60;
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding &quot;?v=&quot; 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding &quot;?v=&quot;
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for &quot;title-safe&quot; responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -307,7 +310,7 @@
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. &#x60;cloudkid.PixiDisplay&#x60;)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by &#x60;cloudkid.PixiTask&#x60;, default behavior is to load assets from the same domain.	
+	*  @param {Boolean} [options.crossOrigin=false] Used by &#x60;cloudkid.PixiTask&#x60;, default behavior is to load assets from the same domain.
 	*/
 	var StateGame = function(options)
 	{
@@ -347,20 +350,20 @@
 	/**
 	*  Before creating the statemanager, a transition
 	*  should probably be added at this callback
-	*  @event initStateManager
+	*  @event initStates
 	*/
 	var INIT_STATES = &#x27;initStates&#x27;;
 
 	/**
-	*  The states are setup, this is the event to listen to 
-	*  when the game ready to use. 
+	*  The states are setup, this is the event to listen to
+	*  when the game ready to use.
 	*  @event statesReady
 	*/
 	var STATES_READY = &#x27;statesReady&#x27;;
 
 	/**
 	*  Initialize the states event, this is where state could be added
-	*  @event initStates
+	*  @event addStates
 	*/
 	var ADD_STATES = &#x27;addStates&#x27;;
 
@@ -370,7 +373,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{		
+	{
 		this.trigger(INIT_STATES);
 
 		// Goto the transition state
@@ -386,8 +389,8 @@
 			}
 		}
 
-		//if the transition is a CreateJS movieclip, start it out 
-		//at the end of the transition out animation. If it has a 
+		//if the transition is a CreateJS movieclip, start it out
+		//at the end of the transition out animation. If it has a
 		//&#x27;transitionLoop&#x27; animation, that will be played as soon as a state is set
 		if(this.transition.gotoAndStop)
 			this.transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
@@ -395,7 +398,7 @@
 		// Create the state manager
 		this.manager = new StateManager(
 			this.display,
-			this.transition, 
+			this.transition,
 			this.options.transitionSounds
 		);
 

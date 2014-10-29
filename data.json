@@ -1366,7 +1366,7 @@
             "namespace": "cloudkid.createjs",
             "file": "src/displays/createjs/CreateJSDisplay.js",
             "line": 12,
-            "description": "CreateJSDisplay is a display plugin for the CloudKid Framework \n\tthat uses the EaselJS library for rendering.",
+            "description": "CreateJSDisplay is a display plugin for the CloudKid Framework\n\tthat uses the EaselJS library for rendering.",
             "extends": "cloudkid.AbstractDisplay",
             "is_constructor": 1,
             "params": [
@@ -2239,9 +2239,9 @@
             "namespace": "cloudkid",
             "file": "src/games/Game.js",
             "line": 12,
-            "description": "A game extends the main application and provides some game specific convenience function \nand additional events. Most importantly it provides preload functionalty though the state\nmanager. Assume loading a single configuration JSON file.",
+            "description": "A game extends the main application and provides some game specific convenience function\nand additional events. Most importantly it provides preload functionalty though the state\nmanager. Assume loading a single configuration JSON file.",
             "example": [
-                "\n\t\tvar game = new cloudkid.Game();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.Game();\n\t\tgame.on('loaded', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.Application",
             "is_constructor": 1,
@@ -2295,13 +2295,13 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2327,7 +2327,7 @@
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
@@ -2408,7 +2408,7 @@
             "line": 11,
             "description": "A sub-game class to provide scaling functionality and responsive design.",
             "example": [
-                "\n\t\tvar game = new cloudkid.ScalingGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.ScalingGame();\n\t\tgame.on('scalingReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.StateGame",
             "is_constructor": 1,
@@ -2523,13 +2523,13 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2555,7 +2555,7 @@
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
@@ -2636,7 +2636,7 @@
             "line": 15,
             "description": "A sub-application for Game which setups Sound, VOPlayer and Captions.",
             "example": [
-                "\n\t\tvar game = new cloudkid.SoundGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.SoundGame();\n\t\tgame.on('soundReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.Game",
             "is_constructor": 1,
@@ -2717,13 +2717,13 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2749,7 +2749,7 @@
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
@@ -2830,7 +2830,7 @@
             "line": 10,
             "description": "A game with state management, provides some convenience and events for adding states.",
             "example": [
-                "\n\t\tvar game = new cloudkid.StateGame();\n\t\tgame.on('init', function(){\n\t\t\t// Ready to use!\n\t\t});"
+                "\n\t\tvar game = new cloudkid.StateGame();\n\t\tgame.on('addStates', function(){\n\t\t\t//add some states with game.addState()\n\t\t});\n\t\tgame.on('statesReady', function(){\n\t\t\t// Ready to use!\n\t\t});"
             ],
             "extends": "cloudkid.SoundGame",
             "is_constructor": 1,
@@ -2945,13 +2945,13 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number: \n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\" \n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2977,7 +2977,7 @@
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio. \n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
@@ -3130,7 +3130,7 @@
             "namespace": "cloudkid",
             "file": "src/media/Captions.js",
             "line": 10,
-            "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions \nis a singleton class.",
+            "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions\nis a singleton class.",
             "example": [
                 "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new cloudkid.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
             ],
@@ -4065,6 +4065,12 @@
                             "optdefault": "true"
                         },
                         {
+                            "name": "version",
+                            "description": "The current version number for your application. This \n     number will automatically be appended to all file requests. For instance, if the version\n     is \"0.0.1\" all file requests will be appended with \"?v=0.0.1\"",
+                            "type": "String|int",
+                            "optional": true
+                        },
+                        {
                             "name": "versionsFile",
                             "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n\t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
                             "type": "String",
@@ -4254,20 +4260,6 @@
         {
             "file": "src/displays/createjs/Animator.js",
             "line": 21,
-            "description": "The current version of the Animator class",
-            "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "access": "public",
-            "tagname": "",
-            "static": 1,
-            "class": "cloudkid.createjs.Animator",
-            "module": "CreateJS Display",
-            "namespace": "cloudkid.createjs"
-        },
-        {
-            "file": "src/displays/createjs/Animator.js",
-            "line": 30,
             "description": "If we fire debug statements",
             "itemtype": "property",
             "name": "debug",
@@ -4281,7 +4273,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 39,
+            "line": 30,
             "description": "The global captions object to use with animator",
             "itemtype": "property",
             "name": "captions",
@@ -4295,7 +4287,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 47,
+            "line": 38,
             "description": "The collection of timelines",
             "itemtype": "property",
             "name": "_timelines",
@@ -4308,7 +4300,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 55,
+            "line": 46,
             "description": "A collection of timelines for removal - kept out here so it doesn't need to be\nreallocated every frame",
             "itemtype": "property",
             "name": "_removedTimelines",
@@ -4321,7 +4313,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 64,
+            "line": 55,
             "itemtype": "property",
             "name": "_timelinesMap",
             "type": "Dictionary",
@@ -4333,7 +4325,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 71,
+            "line": 62,
             "description": "If the Animator is paused",
             "itemtype": "property",
             "name": "_paused",
@@ -4346,7 +4338,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 79,
+            "line": 70,
             "description": "An empty object to avoid creating new objects in play()\nwhen an options object is not used for parameters.",
             "itemtype": "property",
             "name": "_optionsHelper",
@@ -4359,7 +4351,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 88,
+            "line": 79,
             "description": "An object to allow stop() calls to be better differentiated\nfrom animations ending naturally.",
             "itemtype": "property",
             "name": "EXTERNAL_STOP",
@@ -4372,7 +4364,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 96,
+            "line": 87,
             "description": "Sets the variables of the Animator to their defaults. Use when _timelines is null,\nif the Animator data was cleaned up but was needed again later.",
             "itemtype": "method",
             "name": "init",
@@ -4383,7 +4375,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 113,
+            "line": 104,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -4394,7 +4386,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 133,
+            "line": 124,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -4471,7 +4463,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 218,
+            "line": 209,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4520,7 +4512,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 304,
+            "line": 295,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with\n\ta unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,\n\tit needs to not have an id that is identical to anything from EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4544,7 +4536,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 335,
+            "line": 326,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4573,7 +4565,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 369,
+            "line": 360,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4596,7 +4588,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 395,
+            "line": 386,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4614,7 +4606,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 421,
+            "line": 412,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4639,7 +4631,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 478,
+            "line": 469,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4650,7 +4642,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 499,
+            "line": 490,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4661,7 +4653,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 521,
+            "line": 512,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4684,7 +4676,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 543,
+            "line": 534,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4706,7 +4698,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 562,
+            "line": 553,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4720,7 +4712,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 573,
+            "line": 564,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4733,7 +4725,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 586,
+            "line": 577,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4746,7 +4738,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 599,
+            "line": 590,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4766,7 +4758,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 695,
+            "line": 686,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4785,7 +4777,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 707,
+            "line": 698,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4804,7 +4796,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 720,
+            "line": 711,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4821,7 +4813,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 734,
+            "line": 725,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -5305,7 +5297,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 370,
+            "line": 372,
             "description": "The width of the button, based on the width of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "width",
@@ -5316,7 +5308,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 386,
+            "line": 388,
             "description": "The height of the button, based on the height of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "height",
@@ -5327,7 +5319,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 402,
+            "line": 404,
             "description": "Sets the text of the label. This does nothing if the button was not initialized with a label.",
             "access": "public",
             "tagname": "",
@@ -5346,7 +5338,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 436,
+            "line": 438,
             "description": "Whether or not the button is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -5358,7 +5350,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 473,
+            "line": 475,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -5377,7 +5369,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 499,
+            "line": 501,
             "description": "Updates back based on the current button state.",
             "access": "private",
             "tagname": "",
@@ -5389,7 +5381,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 554,
+            "line": 556,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -5401,7 +5393,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 567,
+            "line": 569,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -5413,7 +5405,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 582,
+            "line": 584,
             "description": "The callback for when the button the button is clicked or tapped on. This is\nthe most reliable way of detecting mouse up/touch end events that are on this button\nwhile letting the pressup event handle the mouse up/touch ends on and outside the button.",
             "access": "private",
             "tagname": "",
@@ -5425,7 +5417,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 594,
+            "line": 596,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -5437,7 +5429,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 605,
+            "line": 607,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -5449,7 +5441,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 616,
+            "line": 618,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -5461,7 +5453,7 @@
         },
         {
             "file": "src/displays/createjs/Button.js",
-            "line": 636,
+            "line": 638,
             "description": "Generates a desaturated up state as a disabled state, and an update with a solid colored glow for a highlighted state.",
             "itemtype": "method",
             "name": "generateDefaultStates",
@@ -5818,6 +5810,19 @@
         {
             "file": "src/displays/createjs/CreateJSDisplay.js",
             "line": 69,
+            "description": "An internal helper to avoid creating an object each render\nwhile telling CreateJS the amount of time elapsed.",
+            "itemtype": "property",
+            "name": "DELTA_HELPER",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "class": "cloudkid.createjs.CreateJSDisplay",
+            "module": "CreateJS Display",
+            "namespace": "cloudkid.createjs"
+        },
+        {
+            "file": "src/displays/createjs/CreateJSDisplay.js",
+            "line": 78,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -5830,8 +5835,8 @@
         },
         {
             "file": "src/displays/createjs/CreateJSDisplay.js",
-            "line": 96,
-            "description": "Updates the stage and draws it. This is only called by the Application. \nThis method does nothing if paused is true or visible is false.",
+            "line": 105,
+            "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
             "internal": "",
@@ -5848,8 +5853,8 @@
         },
         {
             "file": "src/displays/createjs/CreateJSDisplay.js",
-            "line": 111,
-            "description": "Destroys the display. This method is called by the Application and should \nnot be called directly, use Application.removeDisplay(id). \nThe stage recursively removes all display objects here.",
+            "line": 121,
+            "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
             "internal": "",
@@ -10540,7 +10545,7 @@
         {
             "file": "src/games/Game.js",
             "line": 113,
-            "description": "The config has finished loading, in case you want to \nadd additional tasks to the manager after this.",
+            "description": "The config has finished loading, in case you want to\nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
             "params": [
@@ -10734,7 +10739,7 @@
         {
             "file": "src/games/SoundGame.js",
             "line": 102,
-            "description": "The Sound is completed, this is the event to listen to \nwhen the game ready to use.",
+            "description": "The Sound is completed, this is the event to listen to\nwhen the game ready to use.",
             "itemtype": "event",
             "name": "soundReady",
             "class": "cloudkid.SoundGame",
@@ -10841,7 +10846,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 74,
+            "line": 77,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -10852,7 +10857,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 80,
+            "line": 83,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -10863,7 +10868,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 90,
+            "line": 93,
             "description": "Reference to the prototype extends application",
             "class": "cloudkid.StateGame",
             "module": "Game",
@@ -10871,28 +10876,8 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 96,
+            "line": 99,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
-            "itemtype": "event",
-            "name": "initStateManager",
-            "class": "cloudkid.StateGame",
-            "module": "Game",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/games/StateGame.js",
-            "line": 103,
-            "description": "The states are setup, this is the event to listen to \nwhen the game ready to use.",
-            "itemtype": "event",
-            "name": "statesReady",
-            "class": "cloudkid.StateGame",
-            "module": "Game",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/games/StateGame.js",
-            "line": 110,
-            "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "initStates",
             "class": "cloudkid.StateGame",
@@ -10901,7 +10886,27 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 116,
+            "line": 106,
+            "description": "The states are setup, this is the event to listen to\nwhen the game ready to use.",
+            "itemtype": "event",
+            "name": "statesReady",
+            "class": "cloudkid.StateGame",
+            "module": "Game",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/games/StateGame.js",
+            "line": 113,
+            "description": "Initialize the states event, this is where state could be added",
+            "itemtype": "event",
+            "name": "addStates",
+            "class": "cloudkid.StateGame",
+            "module": "Game",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/games/StateGame.js",
+            "line": 119,
             "description": "Callback when the game is loaded",
             "itemtype": "method",
             "name": "onLoaded",
@@ -10913,7 +10918,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 166,
+            "line": 169,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -10935,7 +10940,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 181,
+            "line": 184,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -10952,7 +10957,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 194,
+            "line": 197,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10962,7 +10967,7 @@
         },
         {
             "file": "src/games/StateGame.js",
-            "line": 215,
+            "line": 218,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -10976,7 +10981,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 27,
+            "line": 30,
             "description": "The collection of version numbers",
             "access": "protected",
             "tagname": "",
@@ -10989,11 +10994,35 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 34,
+            "line": 37,
+            "description": "The list of URL filtering functions.",
+            "access": "protected",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_filters",
+            "type": "Array",
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 44,
+            "description": "A global version or cache busting string to apply to every url.",
+            "itemtype": "property",
+            "name": "_globalVersion",
+            "type": "String",
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 62,
             "description": "If we are suppose to cache bust every file",
             "itemtype": "property",
             "name": "cacheBust",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "default": "false",
@@ -11003,15 +11032,8 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 49,
-            "class": "cloudkid.CacheManager",
-            "module": "Framework",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/loaders/CacheManager.js",
-            "line": 52,
-            "description": "Destroy the cache manager, don't use after this",
+            "line": 100,
+            "description": "Destroy the cache manager, don't use after this.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -11022,8 +11044,8 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 62,
-            "description": "Add the versions",
+            "line": 113,
+            "description": "Adds a versions text file containing versions for different assets.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -11031,17 +11053,17 @@
             "params": [
                 {
                     "name": "url",
-                    "description": "The url of the versions file",
+                    "description": "The url of the versions file.",
                     "type": "String"
                 },
                 {
                     "name": "callback",
-                    "description": "Callback when the url has been laoded",
+                    "description": "Callback when the versions file has been loaded.",
                     "type": "Function"
                 },
                 {
                     "name": "baseUrl",
-                    "description": "A base url to prepend all lines of the file",
+                    "description": "A base url to prepend all lines of the file.",
                     "type": "String"
                 }
             ],
@@ -11051,7 +11073,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 120,
+            "line": 174,
             "description": "Add a version number for a file",
             "itemtype": "method",
             "name": "addVersion",
@@ -11075,21 +11097,59 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 134,
-            "description": "Search for a version number by url",
+            "line": 187,
+            "description": "Adds a function for running all urls through, to modify them if needed.\nFunctions used should accept one string parameter (the url), and return the\nmodified url.",
             "itemtype": "method",
-            "name": "_getVersionByUrl",
+            "name": "registerURLFilter",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "The function that will handle urls.",
+                    "type": "Function"
+                }
+            ],
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 201,
+            "description": "Removes a function from the list of filtering functions.",
+            "itemtype": "method",
+            "name": "unregisterURLFilter",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "filter",
+                    "description": "The function to remove.",
+                    "type": "Function"
+                }
+            ],
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 214,
+            "description": "Applies a url specific version to a url from the versions file.",
+            "itemtype": "method",
+            "name": "_applySpecificVersion",
             "access": "private",
             "tagname": "",
             "params": [
                 {
                     "name": "url",
-                    "description": "The url to search",
+                    "description": "The url to apply versioning to.",
                     "type": "String"
                 }
             ],
             "return": {
-                "description": "The version number as a string or null",
+                "description": "The modified url.",
                 "type": "String"
             },
             "class": "cloudkid.CacheManager",
@@ -11098,8 +11158,54 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 154,
-            "description": "Prepare a URL with the necessary cache busting and/or versioning\nas well as the base directoryr",
+            "line": 233,
+            "description": "Applies cache busting or a global version to a url.",
+            "itemtype": "method",
+            "name": "_applyGlobalVersion",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to apply versioning to.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The modified url.",
+                "type": "String"
+            },
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 252,
+            "description": "Applies a base path to a relative url. This is not used in the filtering\nsystem because PreloadJS has its own method of prepending the base path\nthat we use. Instead, it is used with an extra parameter to prepare().",
+            "itemtype": "method",
+            "name": "_applyBasePath",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to prepend the base path to.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The modified url.",
+                "type": "String"
+            },
+            "class": "cloudkid.CacheManager",
+            "module": "Framework",
+            "namespace": "cloudkid"
+        },
+        {
+            "file": "src/loaders/CacheManager.js",
+            "line": 271,
+            "description": "Prepare a URL with the necessary cache busting and/or versioning\nas well as the base directory.",
             "access": "public",
             "tagname": "",
             "itemtype": "method",
@@ -11112,8 +11218,8 @@
                 },
                 {
                     "name": "applyBasePath",
-                    "description": "If the global base path should be applied to the url. \n\t\tThis defaults to false because it can potentially interfere with later regular \n\t\texpression checks, particularly with PreloadJS",
-                    "type": "Bool",
+                    "description": "If the global base path should be applied to the url.\n\t\tThis defaults to false because it can potentially interfere with later regular\n\t\texpression checks, particularly with PreloadJS",
+                    "type": "Boolean",
                     "optional": true,
                     "optdefault": "false"
                 }
@@ -11776,7 +11882,7 @@
         {
             "file": "src/media/Captions.js",
             "line": 49,
-            "description": "A reference to the Text object that Captions should be controlling. \nOnly one text field can be controlled at a time.",
+            "description": "A reference to the Text object that Captions should be controlling.\nOnly one text field can be controlled at a time.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -11946,20 +12052,6 @@
         {
             "file": "src/media/Captions.js",
             "line": 160,
-            "description": "The version number of this library",
-            "access": "public",
-            "tagname": "",
-            "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "static": 1,
-            "class": "cloudkid.Captions",
-            "module": "Captions",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/media/Captions.js",
-            "line": 169,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "muteAll",
@@ -11971,7 +12063,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 191,
+            "line": 182,
             "description": "If the captions object should do it's own updating unless you want to manuall\nseek. In general, self-updating should not be set to false unless the sync\nof the captions needs to be exact with something else.",
             "itemtype": "property",
             "name": "selfUpdate",
@@ -11983,7 +12075,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 215,
+            "line": 206,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12002,7 +12094,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 259,
+            "line": 256,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12013,7 +12105,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 275,
+            "line": 272,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12042,7 +12134,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 311,
+            "line": 308,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12063,7 +12155,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 323,
+            "line": 320,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12089,7 +12181,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 359,
+            "line": 356,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12108,7 +12200,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 382,
+            "line": 379,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12120,7 +12212,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 394,
+            "line": 391,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12143,23 +12235,21 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 415,
+            "line": 412,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
-            "itemtype": "method",
-            "name": "isPlaying",
-            "return": {
-                "description": "If the caption is playing",
-                "type": "Bool"
-            },
+            "itemtype": "property",
+            "name": "playing",
+            "type": "Boolean",
+            "readonly": "",
             "class": "cloudkid.Captions",
             "module": "Captions",
             "namespace": "cloudkid"
         },
         {
             "file": "src/media/Captions.js",
-            "line": 427,
+            "line": 426,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12171,7 +12261,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 438,
+            "line": 437,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12183,7 +12273,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 450,
+            "line": 449,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12207,7 +12297,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 469,
+            "line": 468,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12238,7 +12328,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 529,
+            "line": 537,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12257,7 +12347,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 543,
+            "line": 551,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12276,7 +12366,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 558,
+            "line": 566,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12288,7 +12378,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 595,
+            "line": 602,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12300,7 +12390,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 609,
+            "line": 616,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -13170,7 +13260,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1028,
+            "line": 1033,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13194,7 +13284,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1053,
+            "line": 1058,
             "description": "Creates a Task for the CloudKid Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13227,7 +13317,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1069,
+            "line": 1074,
             "description": "Unloads a list of sounds to reclaim memory if possible. \nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13246,7 +13336,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1092,
+            "line": 1097,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13265,7 +13355,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1110,
+            "line": 1115,
             "description": "Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -14711,19 +14801,6 @@
         {
             "file": "src/states/StateManager.js",
             "line": 131,
-            "description": "The current version of the state manager",
-            "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "static": 1,
-            "final": 1,
-            "class": "cloudkid.StateManager",
-            "module": "States",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/states/StateManager.js",
-            "line": 140,
             "description": "The name of the Animator label and event for transitioning state in",
             "itemtype": "event",
             "name": "onTransitionIn",
@@ -14733,7 +14810,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 147,
+            "line": 138,
             "description": "The name of the event for done with transitioning state in",
             "itemtype": "event",
             "name": "onTransitionInDone",
@@ -14743,7 +14820,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 154,
+            "line": 145,
             "description": "The name of the Animator label and event for transitioning state out",
             "itemtype": "event",
             "name": "onTransitionOut",
@@ -14753,7 +14830,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 161,
+            "line": 152,
             "description": "The name of the event for done with transitioning state out",
             "itemtype": "event",
             "name": "onTransitionOutDone",
@@ -14763,7 +14840,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 168,
+            "line": 159,
             "description": "The name of the event for done with initializing",
             "itemtype": "event",
             "name": "onInitDone",
@@ -14773,7 +14850,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 175,
+            "line": 166,
             "description": "Event when the state transitions the first time",
             "itemtype": "event",
             "name": "onLoadingStart",
@@ -14783,7 +14860,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 182,
+            "line": 173,
             "description": "Event when the state transitions the first time",
             "itemtype": "event",
             "name": "onLoadingDone",
@@ -14793,7 +14870,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 189,
+            "line": 180,
             "description": "Register a state with the state manager, done initially",
             "itemtype": "method",
             "name": "addState",
@@ -14815,7 +14892,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 216,
+            "line": 207,
             "description": "Dynamically change the transition",
             "itemtype": "method",
             "name": "changeTransition",
@@ -14832,7 +14909,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 227,
+            "line": 218,
             "description": "Get the currently selected state",
             "itemtype": "method",
             "name": "getState",
@@ -14846,7 +14923,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 238,
+            "line": 229,
             "description": "Get the current selected state (state object)",
             "itemtype": "method",
             "name": "getCurrentState",
@@ -14860,7 +14937,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 249,
+            "line": 240,
             "description": "Access a certain state by the ID",
             "itemtype": "method",
             "name": "getStateById",
@@ -14881,7 +14958,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 262,
+            "line": 253,
             "description": "If the StateManager is busy because it is currently loading or transitioning.",
             "itemtype": "method",
             "name": "isBusy",
@@ -14895,7 +14972,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 273,
+            "line": 264,
             "description": "If the state needs to do some asyncronous tasks,\nThe state can tell the manager to stop the animation",
             "itemtype": "method",
             "name": "loadingStart",
@@ -14905,7 +14982,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 288,
+            "line": 279,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -14915,7 +14992,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 301,
+            "line": 292,
             "description": "Show, enable the blocker clip to disable mouse clicks",
             "itemtype": "method",
             "name": "showBlocker",
@@ -14925,7 +15002,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 311,
+            "line": 302,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -14935,7 +15012,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 321,
+            "line": 312,
             "description": "This transitions out of the current state and \nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -14945,7 +15022,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 333,
+            "line": 324,
             "description": "Get or change the current state",
             "itemtype": "property",
             "name": "state",
@@ -14956,7 +15033,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 348,
+            "line": 339,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
@@ -14973,7 +15050,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 441,
+            "line": 432,
             "description": "When the state has completed it's loading sequence\nthis should be treated as an asyncronous process",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -14985,7 +15062,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 485,
+            "line": 476,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -15000,7 +15077,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 507,
+            "line": 498,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -15012,7 +15089,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 533,
+            "line": 524,
             "description": "Displays the transition out animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -15029,7 +15106,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 553,
+            "line": 544,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -15046,7 +15123,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 565,
+            "line": 556,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -15070,7 +15147,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 594,
+            "line": 585,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -15080,7 +15157,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 620,
+            "line": 611,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -15090,7 +15167,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 646,
+            "line": 637,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -15749,19 +15826,6 @@
         {
             "file": "src/tasks/TaskManager.js",
             "line": 70,
-            "description": "The current version of the state manager",
-            "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "static": 1,
-            "final": 1,
-            "class": "cloudkid.TaskManager",
-            "module": "Tasks",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/tasks/TaskManager.js",
-            "line": 79,
             "description": "Event dispatched when tasks are all done",
             "itemtype": "event",
             "name": "onAllTasksDone",
@@ -15771,7 +15835,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 86,
+            "line": 77,
             "description": "Convenience method to execute tasks without having to setup the event listener",
             "itemtype": "method",
             "name": "process",
@@ -15812,7 +15876,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 128,
+            "line": 119,
             "description": "Convenience function to add a task",
             "itemtype": "method",
             "name": "addTask",
@@ -15829,7 +15893,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 139,
+            "line": 130,
             "description": "Add bunch of tasks",
             "itemtype": "method",
             "name": "addTasks",
@@ -15846,7 +15910,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 152,
+            "line": 143,
             "description": "Cancel and remove all tasks",
             "itemtype": "method",
             "name": "removeAll",
@@ -15856,7 +15920,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 182,
+            "line": 173,
             "description": "Cancels all tasks with a given id",
             "itemtype": "method",
             "name": "cancelTask",
@@ -15873,7 +15937,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 214,
+            "line": 205,
             "description": "Start the next task in the tasks list. When it is done, the\ntask's callback will be called.  If the manager is not paused after\nthe task's callback returns, the manager will start the next task.",
             "itemtype": "method",
             "name": "startNext",
@@ -15887,7 +15951,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 259,
+            "line": 250,
             "description": "Callback for when an task is done",
             "itemtype": "method",
             "name": "onTaskDone",
@@ -15909,7 +15973,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 299,
+            "line": 290,
             "description": "Start the next task until there are no more tasks to start",
             "itemtype": "method",
             "name": "startAll",
@@ -15923,7 +15987,7 @@
         },
         {
             "file": "src/tasks/TaskManager.js",
-            "line": 322,
+            "line": 313,
             "description": "We don't want to use the task manager after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17495,7 +17559,14 @@
         },
         {
             "file": "src/utils/Math.js",
-            "line": 24,
+            "line": 21,
+            "description": "allow single-parameter use, where min is\nassumed to be 0, and max is the supplied single-parameter\ni.e. function(max) {\n\t\treturn <value between 0 and parameter>\n}",
+            "class": "Math",
+            "module": "Game"
+        },
+        {
+            "file": "src/utils/Math.js",
+            "line": 36,
             "description": "Return dist between two points",
             "itemtype": "method",
             "name": "dist",
@@ -17666,19 +17737,6 @@
         {
             "file": "src/utils/Translate.js",
             "line": 16,
-            "description": "The current version of the plugin",
-            "itemtype": "property",
-            "name": "VERSION",
-            "type": "String",
-            "static": 1,
-            "readonly": "",
-            "class": "cloudkid.Translate",
-            "module": "Translate",
-            "namespace": "cloudkid"
-        },
-        {
-            "file": "src/utils/Translate.js",
-            "line": 24,
             "description": "The full language dictionary containing all languages as keys",
             "itemtype": "property",
             "name": "_dict",
@@ -17692,7 +17750,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 32,
+            "line": 24,
             "description": "The current set of translations to use",
             "itemtype": "property",
             "name": "_current",
@@ -17706,7 +17764,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 40,
+            "line": 32,
             "description": "The currently selected locale",
             "itemtype": "property",
             "name": "_locale",
@@ -17720,7 +17778,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 48,
+            "line": 40,
             "description": "The fallback locale if no translation is found",
             "itemtype": "property",
             "name": "_fallbackLocale",
@@ -17734,7 +17792,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 56,
+            "line": 48,
             "description": "Reference to the slice method",
             "itemtype": "property",
             "name": "_slice",
@@ -17748,7 +17806,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 64,
+            "line": 56,
             "description": "Load the full dictionary containing all translations, this can also be used to load\nseparate JSON files which contain the translation. Each JSON file can contain keys\nmatching the locale which to use, or a single locale:\n\n\t// Load external json for all locales\n\tTranslate.load(\"lang.json\", function(){ \n\t\t// Finished loading\n\t});\n\t\n\t// Or load all locales directly\n\tvar dict = {\n\t\t\"en\" : {\n\t\t\t\"title\" : \"My Site\"\n\t\t}\n\t};\n\tTranslate.load(dict);\n\t\n\t// Or loading a single local externally\n\tTranslate.load(\"locale/en/lang.json\", \"en\", function(){\n\t\t// Finished loading\n\t});\n\t\n\t// Or load a single local directly\n\tvar dict = {\n\t\t\"title\" : \"My Site\"\n\t};\n\tTranslate.load(dict, \"en\");",
             "itemtype": "method",
             "name": "load",
@@ -17782,7 +17840,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 145,
+            "line": 137,
             "description": "The separator between the file name and the locale\nif using the filename translation. For instance, \"myfile.png\" becomes \"myfile_en-US.png\"\njoining \"myfile\" with the separator, locale then file extension.",
             "itemtype": "property",
             "name": "fileSeparator",
@@ -17795,7 +17853,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 155,
+            "line": 147,
             "description": "Remove all of the current dictionaries stored and the saved locale",
             "itemtype": "method",
             "name": "reset",
@@ -17810,7 +17868,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 171,
+            "line": 163,
             "description": "Auto detect the locale based on the window navigator object",
             "itemtype": "method",
             "name": "autoDetect",
@@ -17834,7 +17892,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 189,
+            "line": 181,
             "description": "The optional fallback locale to use in all cases",
             "itemtype": "property",
             "name": "fallbackLocale",
@@ -17846,7 +17904,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 207,
+            "line": 199,
             "description": "The current ISO-639-1 two-letter language locale",
             "itemtype": "property",
             "name": "locale",
@@ -17858,7 +17916,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 225,
+            "line": 217,
             "description": "Rebuild the current dictionary of translations to use",
             "itemtype": "method",
             "name": "refresh",
@@ -17871,7 +17929,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 253,
+            "line": 245,
             "description": "Get the locales with the fallback",
             "itemtype": "method",
             "name": "getLocales",
@@ -17888,7 +17946,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 273,
+            "line": 265,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "translateString",
@@ -17917,7 +17975,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 306,
+            "line": 298,
             "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
             "itemtype": "method",
             "name": "translateFile",
@@ -17940,7 +17998,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 344,
+            "line": 336,
             "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
             "itemtype": "method",
             "name": "printf",
@@ -17968,7 +18026,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 370,
+            "line": 362,
             "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
             "itemtype": "method",
             "name": "$.fn._t",
@@ -17996,7 +18054,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 411,
+            "line": 403,
             "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
             "itemtype": "method",
             "name": "$.fn._f",
@@ -18020,7 +18078,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 433,
+            "line": 425,
             "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
             "itemtype": "method",
             "name": "window._t",
@@ -18048,7 +18106,7 @@
         },
         {
             "file": "src/utils/Translate.js",
-            "line": 444,
+            "line": 436,
             "description": "Converts a file to a localized version using the locale preferences. If no locale\nis set or no valid files are found, returns the original file.",
             "itemtype": "method",
             "name": "window._f",
@@ -18125,7 +18183,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 68,
+            "line": 71,
             "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
             "itemtype": "property",
             "name": "options",
@@ -18137,7 +18195,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 76,
+            "line": 79,
             "description": "Primary renderer for the application, for simply accessing Application.instance.display.stage;\nThe first display added becomes the primary display automatically.",
             "itemtype": "property",
             "name": "display",
@@ -18150,7 +18208,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 84,
+            "line": 87,
             "description": "If we should wait to init the Application, this is useful is something is inheriting\nApplication but want to do some extra stuff before init is actually called.",
             "itemtype": "property",
             "name": "_readyToInit",
@@ -18163,7 +18221,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 105,
+            "line": 108,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -18177,7 +18235,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 115,
+            "line": 118,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -18191,7 +18249,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 125,
+            "line": 128,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -18204,7 +18262,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 132,
+            "line": 135,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -18217,7 +18275,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 139,
+            "line": 142,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18230,7 +18288,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 146,
+            "line": 149,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -18243,7 +18301,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 153,
+            "line": 156,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -18256,7 +18314,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 160,
+            "line": 163,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -18269,7 +18327,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 167,
+            "line": 170,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -18282,7 +18340,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 174,
+            "line": 177,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -18296,7 +18354,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 182,
+            "line": 185,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -18310,7 +18368,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 190,
+            "line": 193,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -18323,7 +18381,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 197,
+            "line": 200,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -18337,7 +18395,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 205,
+            "line": 208,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -18350,7 +18408,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 212,
+            "line": 215,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -18363,7 +18421,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 220,
+            "line": 223,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -18376,7 +18434,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 227,
+            "line": 230,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -18389,7 +18447,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 250,
+            "line": 253,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -18402,7 +18460,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 257,
+            "line": 260,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -18412,7 +18470,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 263,
+            "line": 266,
             "description": "Event when everything's done but we haven't actually inited",
             "itemtype": "event",
             "name": "preInit",
@@ -18424,7 +18482,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 270,
+            "line": 273,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -18441,7 +18499,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 277,
+            "line": 280,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -18463,7 +18521,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 285,
+            "line": 288,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -18480,7 +18538,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 292,
+            "line": 295,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -18490,7 +18548,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 298,
+            "line": 301,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -18500,7 +18558,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 304,
+            "line": 307,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -18510,7 +18568,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 310,
+            "line": 313,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -18530,7 +18588,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 322,
+            "line": 325,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -18550,7 +18608,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 335,
+            "line": 338,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -18564,7 +18622,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 348,
+            "line": 351,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -18576,7 +18634,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 442,
+            "line": 445,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -18588,7 +18646,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 467,
+            "line": 470,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -18604,7 +18662,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 496,
+            "line": 499,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -18616,7 +18674,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 503,
+            "line": 506,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -18628,7 +18686,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 513,
+            "line": 516,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -18640,7 +18698,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 523,
+            "line": 526,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -18651,7 +18709,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 564,
+            "line": 567,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18675,7 +18733,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 581,
+            "line": 584,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -18685,7 +18743,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 608,
+            "line": 611,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18716,7 +18774,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 638,
+            "line": 641,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18748,7 +18806,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 680,
+            "line": 683,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18769,7 +18827,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 691,
+            "line": 694,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18793,7 +18851,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 712,
+            "line": 715,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18810,7 +18868,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 727,
+            "line": 730,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18823,7 +18881,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 745,
+            "line": 748,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18836,7 +18894,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 761,
+            "line": 764,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18848,7 +18906,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 808,
+            "line": 811,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -18860,79 +18918,79 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:96"
+            "line": " src/displays/createjs/Animator.js:87"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:113"
+            "line": " src/displays/createjs/Animator.js:104"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:133"
+            "line": " src/displays/createjs/Animator.js:124"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:218"
+            "line": " src/displays/createjs/Animator.js:209"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:304"
+            "line": " src/displays/createjs/Animator.js:295"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:335"
+            "line": " src/displays/createjs/Animator.js:326"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:369"
+            "line": " src/displays/createjs/Animator.js:360"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:395"
+            "line": " src/displays/createjs/Animator.js:386"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:421"
+            "line": " src/displays/createjs/Animator.js:412"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:478"
+            "line": " src/displays/createjs/Animator.js:469"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:499"
+            "line": " src/displays/createjs/Animator.js:490"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:521"
+            "line": " src/displays/createjs/Animator.js:512"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:543"
+            "line": " src/displays/createjs/Animator.js:534"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:562"
+            "line": " src/displays/createjs/Animator.js:553"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:573"
+            "line": " src/displays/createjs/Animator.js:564"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:586"
+            "line": " src/displays/createjs/Animator.js:577"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:599"
+            "line": " src/displays/createjs/Animator.js:590"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:720"
+            "line": " src/displays/createjs/Animator.js:711"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/displays/createjs/Animator.js:734"
+            "line": " src/displays/createjs/Animator.js:725"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -18964,11 +19022,11 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/createjs/CreateJSDisplay.js:96"
+            "line": " src/displays/createjs/CreateJSDisplay.js:105"
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/createjs/CreateJSDisplay.js:111"
+            "line": " src/displays/createjs/CreateJSDisplay.js:121"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19072,79 +19130,79 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:189"
+            "line": " src/states/StateManager.js:180"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:216"
+            "line": " src/states/StateManager.js:207"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:227"
+            "line": " src/states/StateManager.js:218"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:238"
+            "line": " src/states/StateManager.js:229"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:249"
+            "line": " src/states/StateManager.js:240"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:262"
+            "line": " src/states/StateManager.js:253"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:273"
+            "line": " src/states/StateManager.js:264"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:288"
+            "line": " src/states/StateManager.js:279"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:301"
+            "line": " src/states/StateManager.js:292"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:311"
+            "line": " src/states/StateManager.js:302"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:321"
+            "line": " src/states/StateManager.js:312"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:348"
+            "line": " src/states/StateManager.js:339"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:441"
+            "line": " src/states/StateManager.js:432"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:485"
+            "line": " src/states/StateManager.js:476"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:507"
+            "line": " src/states/StateManager.js:498"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:533"
+            "line": " src/states/StateManager.js:524"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:553"
+            "line": " src/states/StateManager.js:544"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:565"
+            "line": " src/states/StateManager.js:556"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/states/StateManager.js:646"
+            "line": " src/states/StateManager.js:637"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19220,35 +19278,35 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:128"
+            "line": " src/tasks/TaskManager.js:119"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:139"
+            "line": " src/tasks/TaskManager.js:130"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:152"
+            "line": " src/tasks/TaskManager.js:143"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:182"
+            "line": " src/tasks/TaskManager.js:173"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:214"
+            "line": " src/tasks/TaskManager.js:205"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:259"
+            "line": " src/tasks/TaskManager.js:250"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:299"
+            "line": " src/tasks/TaskManager.js:290"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/tasks/TaskManager.js:322"
+            "line": " src/tasks/TaskManager.js:313"
         },
         {
             "message": "replacing incorrect tag: extend with extends",
@@ -19288,11 +19346,7 @@
         },
         {
             "message": "Missing item type\nReference to the prototype extends application",
-            "line": " src/games/StateGame.js:90"
-        },
-        {
-            "message": "Missing item type",
-            "line": " src/loaders/CacheManager.js:49"
+            "line": " src/games/StateGame.js:93"
         },
         {
             "message": "Missing item type\nIf we can load",
@@ -19353,6 +19407,10 @@
         {
             "message": "Missing item type\nA task is now starting\nevent onItemLoading",
             "line": " src/tasks/TaskEvent.js:47"
+        },
+        {
+            "message": "Missing item type\nallow single-parameter use, where min is\nassumed to be 0, and max is the supplied single-parameter\ni.e. function(max) {\n\t\treturn <value between 0 and parameter>\n}",
+            "line": " src/utils/Math.js:21"
         }
     ]
 }

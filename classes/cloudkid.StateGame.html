@@ -590,7 +590,7 @@
                                 <div class="param-description">
                                     <p>Path to a text file which contains explicit version
         numbers for each asset. This is useful for controlling the live browser cache.
-        For instance, this text file would have an asset on each line followed by a number: 
+        For instance, this text file would have an asset on each line followed by a number:
          <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
 
                                 </div>
@@ -606,7 +606,7 @@
                                 
 
                                 <div class="param-description">
-                                    <p>Override the end-user browser cache by adding "?v=" 
+                                    <p>Override the end-user browser cache by adding "?v="
         to the end of each file path requested. Use for developmently, debugging only!</p>
 
                                 </div>
@@ -668,7 +668,7 @@
                                 
 
                                 <div class="param-description">
-                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio.
        This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.</p>
 
                                 </div>
@@ -829,7 +829,10 @@
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>    var game = new cloudkid.StateGame();
-    game.on(&#39;init&#39;, function(){
+    game.on(&#39;addStates&#39;, function(){
+        //add some states with game.addState()
+    });
+    game.on(&#39;statesReady&#39;, function(){
         // Ready to use!
     });</code></pre>
 
@@ -1274,6 +1277,13 @@
 
                     <ul class="index-list events extends">
                         
+                            <li class="index-item event">
+                                <a href="#event_addStates">addStates</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item event inherited">
                                 <a href="#event_configLoaded">configLoaded</a>
 
@@ -1290,13 +1300,6 @@
                         
                             <li class="index-item event inherited">
                                 <a href="#event_init">init</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item event">
-                                <a href="#event_initStateManager">initStateManager</a>
 
                                 
                                 
@@ -1420,7 +1423,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l442"><code>_doInit:442</code></a>
+        <a href="../files/src_Application.js.html#l445"><code>_doInit:445</code></a>
         
         </p>
 
@@ -1474,7 +1477,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l348"><code>_internalInit:348</code></a>
+        <a href="../files/src_Application.js.html#l351"><code>_internalInit:351</code></a>
         
         </p>
 
@@ -1528,7 +1531,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l503"><code>_onHidden:503</code></a>
+        <a href="../files/src_Application.js.html#l506"><code>_onHidden:506</code></a>
         
         </p>
 
@@ -1582,7 +1585,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l513"><code>_onVisible:513</code></a>
+        <a href="../files/src_Application.js.html#l516"><code>_onVisible:516</code></a>
         
         </p>
 
@@ -1636,7 +1639,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l761"><code>_tick:761</code></a>
+        <a href="../files/src_Application.js.html#l764"><code>_tick:764</code></a>
         
         </p>
 
@@ -1714,7 +1717,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l638"><code>addDisplay:638</code></a>
+        <a href="../files/src_Application.js.html#l641"><code>addDisplay:641</code></a>
         
         </p>
 
@@ -1858,7 +1861,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l166"><code>addState:166</code></a>
+        <a href="../files/src_games_StateGame.js.html#l169"><code>addState:169</code></a>
         
         </p>
 
@@ -1963,7 +1966,7 @@
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l181"><code>addStates:181</code></a>
+        <a href="../files/src_games_StateGame.js.html#l184"><code>addStates:184</code></a>
         
         </p>
 
@@ -2051,7 +2054,7 @@
             
         
         
-        <a href="../files/src_Application.js.html#l608"><code>calculateDisplaySize:608</code></a>
+        <a href="../files/src_Application.js.html#l611"><code>calculateDisplaySize:611</code></a>
         
         </p>
 
@@ -2165,7 +2168,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l194"><code>destroy:194</code></a>
+        <a href="../files/src_games_StateGame.js.html#l197"><code>destroy:197</code></a>
         
         </p>
 
@@ -2231,7 +2234,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l680"><code>getDisplay:680</code></a>
+        <a href="../files/src_Application.js.html#l683"><code>getDisplay:683</code></a>
         
         </p>
 
@@ -2337,7 +2340,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l691"><code>getDisplays:691</code></a>
+        <a href="../files/src_Application.js.html#l694"><code>getDisplays:694</code></a>
         
         </p>
 
@@ -2430,7 +2433,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l496"><code>init:496</code></a>
+        <a href="../files/src_Application.js.html#l499"><code>init:499</code></a>
         
         </p>
 
@@ -2629,7 +2632,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l116"><code>onLoaded:116</code></a>
+        <a href="../files/src_games_StateGame.js.html#l119"><code>onLoaded:119</code></a>
         
         </p>
 
@@ -2883,7 +2886,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l467"><code>parseQueryStringParams:467</code></a>
+        <a href="../files/src_Application.js.html#l470"><code>parseQueryStringParams:470</code></a>
         
         </p>
 
@@ -2959,7 +2962,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l712"><code>removeDisplay:712</code></a>
+        <a href="../files/src_Application.js.html#l715"><code>removeDisplay:715</code></a>
         
         </p>
 
@@ -3053,7 +3056,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l564"><code>setTargetedTimeout:564</code></a>
+        <a href="../files/src_Application.js.html#l567"><code>setTargetedTimeout:567</code></a>
         
         </p>
 
@@ -3153,7 +3156,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l215"><code>toString:215</code></a>
+        <a href="../files/src_games_StateGame.js.html#l218"><code>toString:218</code></a>
         
         </p>
 
@@ -3219,7 +3222,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l581"><code>triggerResize:581</code></a>
+        <a href="../files/src_Application.js.html#l584"><code>triggerResize:584</code></a>
         
         </p>
 
@@ -3272,7 +3275,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l205"><code>_aspectRatio:205</code></a>
+        <a href="../files/src_Application.js.html#l208"><code>_aspectRatio:208</code></a>
         
         </p>
 
@@ -3316,7 +3319,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l227"><code>_defaultOptions:227</code></a>
+        <a href="../files/src_Application.js.html#l230"><code>_defaultOptions:230</code></a>
         
         </p>
 
@@ -3360,7 +3363,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l220"><code>_displays:220</code></a>
+        <a href="../files/src_Application.js.html#l223"><code>_displays:223</code></a>
         
         </p>
 
@@ -3404,7 +3407,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l182"><code>_fps:182</code></a>
+        <a href="../files/src_Application.js.html#l185"><code>_fps:185</code></a>
         
         </p>
 
@@ -3450,7 +3453,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l146"><code>_frameCount:146</code></a>
+        <a href="../files/src_Application.js.html#l149"><code>_frameCount:149</code></a>
         
         </p>
 
@@ -3494,7 +3497,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l125"><code>_framerate:125</code></a>
+        <a href="../files/src_Application.js.html#l128"><code>_framerate:128</code></a>
         
         </p>
 
@@ -3538,7 +3541,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l139"><code>_lastFPSUpdateTime:139</code></a>
+        <a href="../files/src_Application.js.html#l142"><code>_lastFPSUpdateTime:142</code></a>
         
         </p>
 
@@ -3582,7 +3585,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l132"><code>_lastFrameTime:132</code></a>
+        <a href="../files/src_Application.js.html#l135"><code>_lastFrameTime:135</code></a>
         
         </p>
 
@@ -3626,7 +3629,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l190"><code>_msPerFrame:190</code></a>
+        <a href="../files/src_Application.js.html#l193"><code>_msPerFrame:193</code></a>
         
         </p>
 
@@ -3714,7 +3717,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l212"><code>_pageVisibility:212</code></a>
+        <a href="../files/src_Application.js.html#l215"><code>_pageVisibility:215</code></a>
         
         </p>
 
@@ -3758,7 +3761,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l160"><code>_paused:160</code></a>
+        <a href="../files/src_Application.js.html#l163"><code>_paused:163</code></a>
         
         </p>
 
@@ -3802,7 +3805,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l84"><code>_readyToInit:84</code></a>
+        <a href="../files/src_Application.js.html#l87"><code>_readyToInit:87</code></a>
         
         </p>
 
@@ -3847,7 +3850,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l197"><code>_resizeElement:197</code></a>
+        <a href="../files/src_Application.js.html#l200"><code>_resizeElement:200</code></a>
         
         </p>
 
@@ -3893,7 +3896,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l250"><code>_resizeHelper:250</code></a>
+        <a href="../files/src_Application.js.html#l253"><code>_resizeHelper:253</code></a>
         
         </p>
 
@@ -3937,7 +3940,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l153"><code>_tickCallback:153</code></a>
+        <a href="../files/src_Application.js.html#l156"><code>_tickCallback:156</code></a>
         
         </p>
 
@@ -3981,7 +3984,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l167"><code>_tickId:167</code></a>
+        <a href="../files/src_Application.js.html#l170"><code>_tickId:170</code></a>
         
         </p>
 
@@ -4025,7 +4028,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l174"><code>_useRAF:174</code></a>
+        <a href="../files/src_Application.js.html#l177"><code>_useRAF:177</code></a>
         
         </p>
 
@@ -4155,7 +4158,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l76"><code>display:76</code></a>
+        <a href="../files/src_Application.js.html#l79"><code>display:79</code></a>
         
         </p>
 
@@ -4200,7 +4203,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l727"><code>fps:727</code></a>
+        <a href="../files/src_Application.js.html#l730"><code>fps:730</code></a>
         
         </p>
 
@@ -4287,7 +4290,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l80"><code>manager:80</code></a>
+        <a href="../files/src_games_StateGame.js.html#l83"><code>manager:83</code></a>
         
         </p>
 
@@ -4417,7 +4420,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l68"><code>options:68</code></a>
+        <a href="../files/src_Application.js.html#l71"><code>options:71</code></a>
         
         </p>
 
@@ -4460,7 +4463,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l523"><code>paused:523</code></a>
+        <a href="../files/src_Application.js.html#l526"><code>paused:526</code></a>
         
         </p>
 
@@ -4546,7 +4549,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l745"><code>raf:745</code></a>
+        <a href="../files/src_Application.js.html#l748"><code>raf:748</code></a>
         
         </p>
 
@@ -4591,7 +4594,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l74"><code>transition:74</code></a>
+        <a href="../files/src_games_StateGame.js.html#l77"><code>transition:77</code></a>
         
         </p>
 
@@ -4621,6 +4624,50 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
         
             <div id="events" class="api-class-tabpanel">
                 <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_addStates" class="events item">
+    <h3 class="name"><code>addStates</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_StateGame.js.html#l113"><code>addStates:113</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initialize the states event, this is where state could be added</p>
+
+    </div>
+
+    
+
+
+    
+</div>
 
                 
                     <div id="event_configLoaded" class="events item inherited">
@@ -4653,7 +4700,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
     </div>
 
     <div class="description">
-        <p>The config has finished loading, in case you want to 
+        <p>The config has finished loading, in case you want to
 add additional tasks to the manager after this.</p>
 
     </div>
@@ -4725,7 +4772,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l304"><code>destroy:304</code></a>
+        <a href="../files/src_Application.js.html#l307"><code>destroy:307</code></a>
         
         </p>
 
@@ -4766,7 +4813,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l257"><code>init:257</code></a>
+        <a href="../files/src_Application.js.html#l260"><code>init:260</code></a>
         
         </p>
 
@@ -4777,51 +4824,6 @@ add additional tasks to the manager after this.</p>
 
     <div class="description">
         <p>Fired when initialization of the application is done</p>
-
-    </div>
-
-    
-
-
-    
-</div>
-
-                
-                    <div id="event_initStateManager" class="events item">
-    <h3 class="name"><code>initStateManager</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_games_StateGame.js.html#l96"><code>initStateManager:96</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Before creating the statemanager, a transition
-should probably be added at this callback</p>
 
     </div>
 
@@ -4855,7 +4857,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l110"><code>initStates:110</code></a>
+        <a href="../files/src_games_StateGame.js.html#l99"><code>initStates:99</code></a>
         
         </p>
 
@@ -4865,7 +4867,8 @@ should probably be added at this callback</p>
     </div>
 
     <div class="description">
-        <p>Initialize the states event, this is where state could be added</p>
+        <p>Before creating the statemanager, a transition
+should probably be added at this callback</p>
 
     </div>
 
@@ -5002,7 +5005,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l285"><code>pause:285</code></a>
+        <a href="../files/src_Application.js.html#l288"><code>pause:288</code></a>
         
         </p>
 
@@ -5067,7 +5070,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l292"><code>paused:292</code></a>
+        <a href="../files/src_Application.js.html#l295"><code>paused:295</code></a>
         
         </p>
 
@@ -5110,7 +5113,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l263"><code>preInit:263</code></a>
+        <a href="../files/src_Application.js.html#l266"><code>preInit:266</code></a>
         
         </p>
 
@@ -5151,7 +5154,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l277"><code>resize:277</code></a>
+        <a href="../files/src_Application.js.html#l280"><code>resize:280</code></a>
         
         </p>
 
@@ -5232,7 +5235,7 @@ should probably be added at this callback</p>
             
         
         
-        <a href="../files/src_Application.js.html#l298"><code>resumed:298</code></a>
+        <a href="../files/src_Application.js.html#l301"><code>resumed:301</code></a>
         
         </p>
 
@@ -5283,7 +5286,7 @@ should probably be added at this callback</p>
     </div>
 
     <div class="description">
-        <p>The Sound is completed, this is the event to listen to 
+        <p>The Sound is completed, this is the event to listen to
 when the game ready to use.</p>
 
     </div>
@@ -5318,7 +5321,7 @@ when the game ready to use.</p>
             
         
         
-        <a href="../files/src_games_StateGame.js.html#l103"><code>statesReady:103</code></a>
+        <a href="../files/src_games_StateGame.js.html#l106"><code>statesReady:106</code></a>
         
         </p>
 
@@ -5328,7 +5331,7 @@ when the game ready to use.</p>
     </div>
 
     <div class="description">
-        <p>The states are setup, this is the event to listen to 
+        <p>The states are setup, this is the event to listen to
 when the game ready to use.</p>
 
     </div>
@@ -5360,7 +5363,7 @@ when the game ready to use.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l270"><code>update:270</code></a>
+        <a href="../files/src_Application.js.html#l273"><code>update:273</code></a>
         
         </p>
 

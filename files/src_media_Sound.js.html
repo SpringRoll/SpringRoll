@@ -276,11 +276,11 @@
 		if(!Loader)
 		{
 			Loader = include(&#x27;cloudkid.Loader&#x27;);
-			LoadTask = include(&#x27;cloudkid.LoadTask&#x27;);
-			TaskManager = include(&#x27;cloudkid.TaskManager&#x27;);
+			LoadTask = include(&#x27;cloudkid.LoadTask&#x27;, false);
+			TaskManager = include(&#x27;cloudkid.TaskManager&#x27;, false);
 			SoundContext = include(&#x27;cloudkid.SoundContext&#x27;);
 			SoundInstance = include(&#x27;cloudkid.SoundInstance&#x27;);
-			SoundListTask = include(&#x27;cloudkid.SoundListTask&#x27;);
+			SoundListTask = include(&#x27;cloudkid.SoundListTask&#x27;, false);
 		}
 
 		/** 
@@ -1237,6 +1237,11 @@
 	*/
 	p.preload = function(list, callback)
 	{
+		if (!LoadTask || !TaskManager)
+		{
+			throw &quot;The Task Module is needed to preload audio!&quot;;
+		}
+
 		if (!list || list.length === 0)
 		{
 			if (callback)

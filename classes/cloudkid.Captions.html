@@ -267,7 +267,7 @@
 
 <div class="box intro">
     <p>A class that creates captioning for multimedia content. Captions are
-created from a dictionary of captions and can be played by alias. Captions 
+created from a dictionary of captions and can be played by alias. Captions
 is a singleton class.</p>
 
 </div>
@@ -528,13 +528,6 @@ is a singleton class.</p>
                             </li>
                         
                             <li class="index-item method public">
-                                <a href="#method_isPlaying">isPlaying</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method public">
                                 <a href="#method_play">play</a>
 
                                 
@@ -702,6 +695,13 @@ is a singleton class.</p>
                                 
                             </li>
                         
+                            <li class="index-item property public">
+                                <a href="#property_playing">playing</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property">
                                 <a href="#property_selfUpdate">selfUpdate</a>
 
@@ -712,15 +712,6 @@ is a singleton class.</p>
                             <li class="index-item property">
                                 <a href="#property_textField">textField</a>
 
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_VERSION">VERSION</a>
-
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -773,7 +764,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l558"><code>_calcUpdate:558</code></a>
+        <a href="../files/src_media_Captions.js.html#l566"><code>_calcUpdate:566</code></a>
         
         </p>
 
@@ -830,7 +821,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l427"><code>_getTotalDuration:427</code></a>
+        <a href="../files/src_media_Captions.js.html#l426"><code>_getTotalDuration:426</code></a>
         
         </p>
 
@@ -897,7 +888,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l359"><code>_load:359</code></a>
+        <a href="../files/src_media_Captions.js.html#l356"><code>_load:356</code></a>
         
         </p>
 
@@ -978,7 +969,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l382"><code>_reset:382</code></a>
+        <a href="../files/src_media_Captions.js.html#l379"><code>_reset:379</code></a>
         
         </p>
 
@@ -1049,7 +1040,7 @@ is a singleton class.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l394"><code>_timeCodeToMilliseconds:394</code></a>
+        <a href="../files/src_media_Captions.js.html#l391"><code>_timeCodeToMilliseconds:391</code></a>
         
         </p>
 
@@ -1145,7 +1136,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l595"><code>_updateCaptions:595</code></a>
+        <a href="../files/src_media_Captions.js.html#l602"><code>_updateCaptions:602</code></a>
         
         </p>
 
@@ -1212,7 +1203,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l529"><code>_updatePercent:529</code></a>
+        <a href="../files/src_media_Captions.js.html#l537"><code>_updatePercent:537</code></a>
         
         </p>
 
@@ -1291,7 +1282,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l609"><code>destroy:609</code></a>
+        <a href="../files/src_media_Captions.js.html#l616"><code>destroy:616</code></a>
         
         </p>
 
@@ -1366,7 +1357,7 @@ format is in HH:MM:ss:mmm</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l323"><code>getFullCaption:323</code></a>
+        <a href="../files/src_media_Captions.js.html#l320"><code>getFullCaption:320</code></a>
         
         </p>
 
@@ -1490,7 +1481,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l311"><code>hasCaption:311</code></a>
+        <a href="../files/src_media_Captions.js.html#l308"><code>hasCaption:308</code></a>
         
         </p>
 
@@ -1551,81 +1542,6 @@ this can be useful for debugging purposes.</p>
 </div>
 
                 
-                    <div id="method_isPlaying" class="method item public">
-    <h3 class="name"><code>isPlaying</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Captions.js.html#l415"><code>isPlaying:415</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The playing status.</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>If the caption is playing</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
                     <div id="method_play" class="method item public">
     <h3 class="name"><code>play</code></h3>
 
@@ -1676,7 +1592,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l450"><code>play:450</code></a>
+        <a href="../files/src_media_Captions.js.html#l449"><code>play:449</code></a>
         
         </p>
 
@@ -1874,7 +1790,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l215"><code>setDictionary:215</code></a>
+        <a href="../files/src_media_Captions.js.html#l206"><code>setDictionary:206</code></a>
         
         </p>
 
@@ -1977,7 +1893,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l275"><code>setText:275</code></a>
+        <a href="../files/src_media_Captions.js.html#l272"><code>setText:272</code></a>
         
         </p>
 
@@ -2088,7 +2004,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l469"><code>stop:469</code></a>
+        <a href="../files/src_media_Captions.js.html#l468"><code>stop:468</code></a>
         
         </p>
 
@@ -2155,7 +2071,7 @@ this can be useful for debugging purposes.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l543"><code>update:543</code></a>
+        <a href="../files/src_media_Captions.js.html#l551"><code>update:551</code></a>
         
         </p>
 
@@ -2812,7 +2728,7 @@ Call this to advance the caption by a given amount of time.</p>
     </div>
 
     <div class="description">
-        <p>A reference to the Text object that Captions should be controlling. 
+        <p>A reference to the Text object that Captions should be controlling.
 Only one text field can be controlled at a time.</p>
 
     </div>
@@ -2848,7 +2764,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l438"><code>currentDuration:438</code></a>
+        <a href="../files/src_media_Captions.js.html#l437"><code>currentDuration:437</code></a>
         
         </p>
 
@@ -2895,7 +2811,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l169"><code>muteAll:169</code></a>
+        <a href="../files/src_media_Captions.js.html#l160"><code>muteAll:160</code></a>
         
         </p>
 
@@ -2964,6 +2880,53 @@ Only one text field can be controlled at a time.</p>
 </div>
 
                 
+                    <div id="property_playing" class="property item public">
+    <h3 class="name"><code>playing</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_media_Captions.js.html#l412"><code>playing:412</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The playing status.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_selfUpdate" class="property item">
     <h3 class="name"><code>selfUpdate</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -2987,7 +2950,7 @@ Only one text field can be controlled at a time.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l191"><code>selfUpdate:191</code></a>
+        <a href="../files/src_media_Captions.js.html#l182"><code>selfUpdate:182</code></a>
         
         </p>
 
@@ -3036,7 +2999,7 @@ of the captions needs to be exact with something else.</p>
             
         
         
-        <a href="../files/src_media_Captions.js.html#l259"><code>textField:259</code></a>
+        <a href="../files/src_media_Captions.js.html#l256"><code>textField:256</code></a>
         
         </p>
 
@@ -3047,55 +3010,6 @@ of the captions needs to be exact with something else.</p>
 
     <div class="description">
         <p>The text field that the captions uses to update.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_VERSION" class="property item public">
-    <h3 class="name"><code>VERSION</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_media_Captions.js.html#l160"><code>VERSION:160</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The version number of this library</p>
 
     </div>
 
