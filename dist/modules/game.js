@@ -434,7 +434,7 @@
 		}
 		else
 		{
-			onCaptionsLoaded();
+			onCaptionsLoaded.call(this);
 		}
 	};
 
