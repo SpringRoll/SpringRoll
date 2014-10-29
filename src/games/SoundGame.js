@@ -16,7 +16,7 @@
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
 		var game = new cloudkid.SoundGame();
-		game.on('init', function(){
+		game.on('soundReady', function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
@@ -36,15 +36,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -100,8 +100,8 @@
 	var p = SoundGame.prototype = Object.create(s);
 
 	/**
-	*  The Sound is completed, this is the event to listen to 
-	*  when the game ready to use. 
+	*  The Sound is completed, this is the event to listen to
+	*  when the game ready to use.
 	*  @event soundReady
 	*/
 	var SOUND_READY = 'soundReady';
@@ -182,7 +182,7 @@
 	*  @private
 	*/
 	var onSoundReady = function()
-	{	
+	{
 		var sounds = this.config.sounds;
 		var sound = Sound.instance;
 
@@ -234,7 +234,7 @@
 			if (this._music)
 			{
 				sound.play(
-					this._music, 
+					this._music,
 					{
 						start: sound.fadeIn.bind(sound, this._music),
 						loop: -1

@@ -10,12 +10,12 @@
 		TaskManager;
 
 	/**
-	*  A game extends the main application and provides some game specific convenience function 
+	*  A game extends the main application and provides some game specific convenience function
 	*  and additional events. Most importantly it provides preload functionalty though the state
 	*  manager. Assume loading a single configuration JSON file.
 	*  @example
 		var game = new cloudkid.Game();
-		game.on('init', function(){
+		game.on('loaded', function(){
 			// Ready to use!
 		});
 	*  @class Game
@@ -30,15 +30,15 @@
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
 	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number: 
+	*		For instance, this text file would have an asset on each line followed by a number:
 	* 		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v=" 
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
 	*		to the end of each file path requested. Use for developmently, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
 	*		this is a great way to load all load requests with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio. 
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
 	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
@@ -89,7 +89,7 @@
 		{
 			// Auto detect the mobile browser
 			// normally we'd use touch but the pointer events
-			// in Internet Explorer mess that up, so we're 
+			// in Internet Explorer mess that up, so we're
 			// looking for specific browser.
 			var agent = navigator.userAgent;
 			this.isIOS = agent.search(/iPhone|iPad|iPod/) > -1;
@@ -111,7 +111,7 @@
 	var LOADED = 'loaded';
 
 	/**
-	*  The config has finished loading, in case you want to 
+	*  The config has finished loading, in case you want to
 	*  add additional tasks to the manager after this.
 	*  @event configLoaded
 	*  @param {object} config The JSON object for config
@@ -137,8 +137,8 @@
 
 		var tasks = [
 			new LoadTask(
-				"config", 
-				this.options.configPath, 
+				"config",
+				this.options.configPath,
 				onConfigLoaded.bind(this)
 			)
 		];
