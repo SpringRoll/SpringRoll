@@ -717,7 +717,7 @@ Supports click-n-stick (click to start, move mouse, click to release) and click-
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l368"><code>_handlePointSnap:368</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l376"><code>_handlePointSnap:376</code></a>
         
         </p>
 
@@ -1301,7 +1301,7 @@ Supports click-n-stick (click to start, move mouse, click to release) and click-
             
                 <li class="arg">
                     
-                        <code>bound</code>
+                        <code class="optional">[bounds]</code>
                     
                 </li>
             
@@ -1336,7 +1336,7 @@ Supports click-n-stick (click to start, move mouse, click to release) and click-
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l436"><code>addObject:436</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l444"><code>addObject:444</code></a>
         
         </p>
 
@@ -1347,7 +1347,7 @@ Supports click-n-stick (click to start, move mouse, click to release) and click-
     </div>
 
     <div class="description">
-        <p>Adds properties and functions to the object - use enableDrag() and disableDrag() on 
+        <p>Adds properties and functions to the object - use enableDrag() and disableDrag() on
 objects to enable/disable them (they start out disabled). Properties added to objects:
 _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager
 these will override any existing properties of the same name</p>
@@ -1378,14 +1378,16 @@ these will override any existing properties of the same name</p>
             
                 <li class="param">
                     
-                        <code class="param-name">bound</code>
+                        <code class="param-name optional">[bounds]</code>
                         <span class="type">createjs.Rectangle</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The rectangle bounds</p>
+                        <p>The rectangle bounds. &#39;right&#39; and &#39;bottom&#39; properties
+                                     will be added to this object.</p>
 
                     </div>
 
@@ -1436,7 +1438,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l486"><code>destroy:486</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l494"><code>destroy:494</code></a>
         
         </p>
 
@@ -1503,7 +1505,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l467"><code>removeObject:467</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_createjs_DragManager.js.html#l475"><code>removeObject:475</code></a>
         
         </p>
 
@@ -1611,7 +1613,7 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 
+        <p>Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it
    defaults to a held drag, that ends as soon as the mouse is released.</p>
 
     </div>

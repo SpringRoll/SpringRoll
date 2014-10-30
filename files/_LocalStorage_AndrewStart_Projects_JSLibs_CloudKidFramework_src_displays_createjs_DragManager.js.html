@@ -260,7 +260,7 @@
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
 	*  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
-	*  
+	*
 	*  @class DragManager
 	*  @constructor
 	*  @param {createjs.Stage} stage The stage that this DragManager is monitoring.
@@ -417,14 +417,14 @@
 		/**
 		* The function call when the mouse/touch moves
 		* @private
-		* @property {function} _updateCallback 
+		* @property {function} _updateCallback
 		*/
 		this._updateCallback = this._updateObjPosition.bind(this);
 
 		/**
 		* A point for reuse instead of lots of object creation.
 		* @private
-		* @property {createjs.Point} _helperPoint 
+		* @property {createjs.Point} _helperPoint
 		*/
 		this._helperPoint = null;
 	};
@@ -433,7 +433,7 @@
 	var p = DragManager.prototype = {};
 	
 	/**
-	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 
+	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it
 	*   defaults to a held drag, that ends as soon as the mouse is released.
 	*  @method startDrag
 	*  @public
@@ -537,7 +537,7 @@
 	/**
 	* Internal start dragging on the stage
 	* @method _startDrag
-	* @private 
+	* @private
 	*/
 	p._startDrag = function()
 	{
@@ -564,7 +564,7 @@
 	/**
 	* Internal stop dragging on the stage
 	* @method _stopDrag
-	* @private 
+	* @private
 	* @param {createjs.MouseEvent} ev Mouse up event
 	* @param {Bool} doCallback If we should do the callback
 	*/
@@ -597,8 +597,16 @@
 		var draggedObj = this.draggedObj;
 		var mousePos = draggedObj.parent.globalToLocal(e.stageX, e.stageY, this._helperPoint);
 		var bounds = draggedObj._dragBounds;
-		draggedObj.x = clamp(mousePos.x - this._dragOffset.x, bounds.x, bounds.right);
-		draggedObj.y = clamp(mousePos.y - this._dragOffset.y, bounds.y, bounds.bottom);
+		if(bounds)
+		{
+			draggedObj.x = clamp(mousePos.x - this._dragOffset.x, bounds.x, bounds.right);
+			draggedObj.y = clamp(mousePos.y - this._dragOffset.y, bounds.y, bounds.bottom);
+		}
+		else
+		{
+			draggedObj.x = mousePos.x - this._dragOffset.x;
+			draggedObj.y = mousePos.y - this._dragOffset.y;
+		}
 		if(this.snapSettings)
 		{
 			switch(this.snapSettings.mode)
@@ -684,24 +692,24 @@
 		this._dragMan._objMouseDown(ev, this);
 	};
 	
-	/** 
-	* Adds properties and functions to the object - use enableDrag() and disableDrag() on 
+	/**
+	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
 	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager
 	* these will override any existing properties of the same name
 	* @method addObject
 	* @public
 	* @param {createjs.DisplayObject} obj The display object
-	* @param {createjs.Rectangle} bound The rectangle bounds
+	* @param {createjs.Rectangle} [bounds] The rectangle bounds. &#x27;right&#x27; and &#x27;bottom&#x27; properties
+	*                                      will be added to this object.
 	*/
 	p.addObject = function(obj, bounds)
 	{
-		if(!bounds)
+		if(bounds)
 		{
-			bounds = {x:0, y:0, width:this._theStage.canvas.width, height:this._theStage.canvas.height};
+			bounds.right = bounds.x + bounds.width;
+			bounds.bottom = bounds.y + bounds.height;
 		}
-		bounds.right = bounds.x + bounds.width;
-		bounds.bottom = bounds.y + bounds.height;
 		obj._dragBounds = bounds;
 		if(this._draggableObjects.indexOf(obj) &gt;= 0)
 		{
@@ -715,7 +723,7 @@
 		this._draggableObjects.push(obj);
 	};
 	
-	/** 
+	/**
 	* Removes properties and functions added by addObject().
 	* @public
 	* @method removeObject

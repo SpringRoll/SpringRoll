@@ -710,7 +710,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l363"><code>_handlePointSnap:363</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l372"><code>_handlePointSnap:372</code></a>
         
         </p>
 
@@ -1294,7 +1294,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
                 <li class="arg">
                     
-                        <code>bound</code>
+                        <code class="optional">[bounds]</code>
                     
                 </li>
             
@@ -1329,7 +1329,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l432"><code>addObject:432</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l441"><code>addObject:441</code></a>
         
         </p>
 
@@ -1340,7 +1340,7 @@ supports click-n-stick and click-n-drag functionality.</p>
     </div>
 
     <div class="description">
-        <p>Adds properties and functions to the object - use enableDrag() and disableDrag() on 
+        <p>Adds properties and functions to the object - use enableDrag() and disableDrag() on
 objects to enable/disable them (they start out disabled). Properties added to objects:
 _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager
 these will override any existing properties of the same name</p>
@@ -1371,14 +1371,16 @@ these will override any existing properties of the same name</p>
             
                 <li class="param">
                     
-                        <code class="param-name">bound</code>
+                        <code class="param-name optional">[bounds]</code>
                         <span class="type">PIXI.Rectangle</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The rectangle bounds</p>
+                        <p>The rectangle bounds. &#39;right&#39; and &#39;bottom&#39; properties
+                                     will be added to this object.</p>
 
                     </div>
 
@@ -1429,7 +1431,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l488"><code>destroy:488</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l495"><code>destroy:495</code></a>
         
         </p>
 
@@ -1496,7 +1498,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l466"><code>removeObject:466</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l473"><code>removeObject:473</code></a>
         
         </p>
 
@@ -1604,7 +1606,7 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 
+        <p>Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it
    defaults to a held drag, that ends as soon as the mouse is released.</p>
 
     </div>

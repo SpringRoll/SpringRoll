@@ -6894,7 +6894,7 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
             "line": 184,
-            "description": "Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it \n   defaults to a held drag, that ends as soon as the mouse is released.",
+            "description": "Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it\n   defaults to a held drag, that ends as soon as the mouse is released.",
             "itemtype": "method",
             "name": "startDrag",
             "access": "public",
@@ -7046,7 +7046,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
-            "line": 368,
+            "line": 376,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -7065,8 +7065,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
-            "line": 436,
-            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on \nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
+            "line": 444,
+            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
             "access": "public",
@@ -7078,9 +7078,10 @@
                     "type": "createjs.DisplayObject"
                 },
                 {
-                    "name": "bound",
-                    "description": "The rectangle bounds",
-                    "type": "createjs.Rectangle"
+                    "name": "bounds",
+                    "description": "The rectangle bounds. 'right' and 'bottom' properties\n                                     will be added to this object.",
+                    "type": "createjs.Rectangle",
+                    "optional": true
                 }
             ],
             "class": "cloudkid.createjs.DragManager",
@@ -7089,7 +7090,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
-            "line": 467,
+            "line": 475,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -7108,7 +7109,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
-            "line": 486,
+            "line": 494,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -7120,7 +7121,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js",
-            "line": 522,
+            "line": 530,
             "class": "cloudkid.createjs.DragManager",
             "module": "CreateJS Display",
             "namespace": "cloudkid.createjs"
@@ -9708,7 +9709,7 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
             "line": 188,
-            "description": "Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it \n   defaults to a held drag, that ends as soon as the mouse is released.",
+            "description": "Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it\n   defaults to a held drag, that ends as soon as the mouse is released.",
             "itemtype": "method",
             "name": "startDrag",
             "access": "public",
@@ -9860,7 +9861,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 363,
+            "line": 372,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -9879,7 +9880,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 405,
+            "line": 414,
             "description": "Simple clamp function",
             "class": "cloudkid.pixi.DragManager",
             "module": "PIXI Display",
@@ -9887,8 +9888,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 432,
-            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on \nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
+            "line": 441,
+            "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
             "access": "public",
@@ -9900,9 +9901,10 @@
                     "type": "PIXI.DisplayObject"
                 },
                 {
-                    "name": "bound",
-                    "description": "The rectangle bounds",
-                    "type": "PIXI.Rectangle"
+                    "name": "bounds",
+                    "description": "The rectangle bounds. 'right' and 'bottom' properties\n                                     will be added to this object.",
+                    "type": "PIXI.Rectangle",
+                    "optional": true
                 }
             ],
             "class": "cloudkid.pixi.DragManager",
@@ -9911,7 +9913,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 466,
+            "line": 473,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -9930,7 +9932,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 488,
+            "line": 495,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -9942,7 +9944,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js",
-            "line": 520,
+            "line": 527,
             "class": "cloudkid.pixi.DragManager",
             "module": "PIXI Display",
             "namespace": "cloudkid.pixi"
@@ -19338,7 +19340,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js:522"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/createjs/DragManager.js:530"
         },
         {
             "message": "Missing item type",
@@ -19346,11 +19348,11 @@
         },
         {
             "message": "Missing item type\nSimple clamp function",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js:405"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js:414"
         },
         {
             "message": "Missing item type",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js:520"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/CloudKidFramework/src/displays/pixi/DragManager.js:527"
         },
         {
             "message": "Missing item type\nCallback when the config is loaded",
