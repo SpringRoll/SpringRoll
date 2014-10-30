@@ -163,7 +163,7 @@
 		/**
 		* The function call when the mouse/touch moves
 		* @private
-		* @property {function} _updateCallback 
+		* @property {function} _updateCallback
 		*/
 		this._updateCallback = this._updateObjPosition.bind(this);
 		
@@ -186,7 +186,7 @@
 	var TYPE_TOUCH = 1;
 	
 	/**
-	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it 
+	*	Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it
 	*   defaults to a held drag, that ends as soon as the mouse is released.
 	*  @method startDrag
 	*  @public
@@ -279,7 +279,7 @@
 	/**
 	* Internal start dragging on the stage
 	* @method _startDrag
-	* @private 
+	* @private
 	*/
 	p._startDrag = function()
 	{
@@ -304,7 +304,7 @@
 	/**
 	* Internal stop dragging on the stage
 	* @method _stopDrag
-	* @private 
+	* @private
 	* @param {Event} ev Mouse up event
 	* @param {Bool} doCallback If we should do the callback
 	*/
@@ -333,16 +333,25 @@
 	p._updateObjPosition = function(interactionData)
 	{
 		if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
-		if(!this.draggedObj || !this.draggedObj.parent)//not quite sure what chain of events would lead to this, but we'll stop dragging to be safe
+		var draggedObj = this.draggedObj;
+		if(!draggedObj || !draggedObj.parent)//not quite sure what chain of events would lead to this, but we'll stop dragging to be safe
 		{
 			this._stopDrag(null, false);
 			return;
 		}
 		
 		var mousePos = interactionData.getLocalPosition(this.draggedObj.parent, helperPoint);
-		var bounds = this.draggedObj._dragBounds;
-		this.draggedObj.position.x = clamp(mousePos.x - this._dragOffset.x, bounds.x, bounds.right);
-		this.draggedObj.position.y = clamp(mousePos.y - this._dragOffset.y, bounds.y, bounds.bottom);
+		var bounds = draggedObj._dragBounds;
+		if(bounds)
+		{
+			draggedObj.position.x = clamp(mousePos.x - this._dragOffset.x, bounds.x, bounds.right);
+			draggedObj.position.y = clamp(mousePos.y - this._dragOffset.y, bounds.y, bounds.bottom);
+		}
+		else
+		{
+			draggedObj.position.x = mousePos.x - this._dragOffset.x;
+			draggedObj.position.y = mousePos.y - this._dragOffset.y;
+		}
 		if(this.snapSettings)
 		{
 			switch(this.snapSettings.mode)
@@ -429,26 +438,24 @@
 		this._dragMan._objMouseDown(type, this, mouseData);
 	};
 	
-	/** 
-	* Adds properties and functions to the object - use enableDrag() and disableDrag() on 
+	/**
+	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
 	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager
 	* these will override any existing properties of the same name
 	* @method addObject
 	* @public
 	* @param {PIXI.DisplayObject} obj The display object
-	* @param {PIXI.Rectangle} bound The rectangle bounds
+	* @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
+	*                                      will be added to this object.
 	*/
 	p.addObject = function(obj, bounds)
 	{
-		if(!bounds)
+		if(bounds)
 		{
-			//use the primary display size, since the Pixi stage does not have height/width
-			var display = Application.instance.display;
-			bounds = {x:0, y:0, width:canvas.width, height:canvas.height};
+			bounds.right = bounds.x + bounds.width;
+			bounds.bottom = bounds.y + bounds.height;
 		}
-		bounds.right = bounds.x + bounds.width;
-		bounds.bottom = bounds.y + bounds.height;
 		obj._dragBounds = bounds;
 		if(this._draggableObjects.indexOf(obj) >= 0)
 		{
@@ -463,7 +470,7 @@
 		this._draggableObjects.push(obj);
 	};
 	
-	/** 
+	/**
 	* Removes properties and functions added by addObject().
 	* @public
 	* @method removeObject
