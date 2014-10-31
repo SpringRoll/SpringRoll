@@ -250,7 +250,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l11"><code>cloudkid.pixi.DragManager:11</code></a>
+            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l12"><code>cloudkid.pixi.DragManager:12</code></a>
         </div>
     
 
@@ -328,7 +328,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l11"><code>cloudkid.pixi.DragManager:11</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l12"><code>cloudkid.pixi.DragManager:12</code></a>
         
         </p>
 
@@ -555,7 +555,7 @@ supports click-n-stick and click-n-drag functionality.</p>
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__stageMouseUpCallback">_stageMouseUpCallback</a>
+                                <a href="#property__multitouch">_multitouch</a>
 
                                 
                                 
@@ -563,27 +563,6 @@ supports click-n-stick and click-n-drag functionality.</p>
                         
                             <li class="index-item property private">
                                 <a href="#property__theStage">_theStage</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__triggerHeldDragCallback">_triggerHeldDragCallback</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__triggerStickyClickCallback">_triggerStickyClickCallback</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__updateCallback">_updateCallback</a>
 
                                 
                                 
@@ -631,7 +610,7 @@ supports click-n-stick and click-n-drag functionality.</p>
                                 
                             </li>
                         
-                            <li class="index-item property private">
+                            <li class="index-item property">
                                 <a href="#property_mouseDownObjPos">mouseDownObjPos</a>
 
                                 
@@ -640,6 +619,13 @@ supports click-n-stick and click-n-drag functionality.</p>
                         
                             <li class="index-item property private">
                                 <a href="#property_mouseDownStagePos">mouseDownStagePos</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_multitouch">multitouch</a>
 
                                 
                                 
@@ -679,6 +665,18 @@ supports click-n-stick and click-n-drag functionality.</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>dragOffset</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>obj</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -710,7 +708,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l372"><code>_handlePointSnap:372</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l512"><code>_handlePointSnap:512</code></a>
         
         </p>
 
@@ -747,6 +745,38 @@ supports click-n-stick and click-n-drag functionality.</p>
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">dragOffset</code>
+                        <span class="type">PIXI.Point</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The drag offset for the dragged object.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">obj</code>
+                        <span class="type">PIXI.DisplayObject</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The object to snap.</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -766,13 +796,13 @@ supports click-n-stick and click-n-drag functionality.</p>
             
                 <li class="arg">
                     
-                        <code>type</code>
+                        <code>object</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>object</code>
+                        <code>interactionData</code>
                     
                 </li>
             
@@ -807,7 +837,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l201"><code>_objMouseDown:201</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l214"><code>_objMouseDown:214</code></a>
         
         </p>
 
@@ -830,22 +860,6 @@ supports click-n-stick and click-n-drag functionality.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">type</code>
-                        <span class="type">Int</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The type of input that triggered this call - either TYPE_MOUSE or TYPE_TOUCH.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
                         <code class="param-name">object</code>
                         <span class="type">PIXI.DisplayObject</span>
                     
@@ -854,6 +868,23 @@ supports click-n-stick and click-n-drag functionality.</p>
 
                     <div class="param-description">
                         <p>The object that should be dragged.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">interactionData</code>
+                        <span class="type">PIXI.InteractionData</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The interaction data about
+                                               the input event that triggered this.</p>
 
                     </div>
 
@@ -874,7 +905,17 @@ supports click-n-stick and click-n-drag functionality.</p>
     <h3 class="name"><code>_startDrag</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>interactionData</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -904,7 +945,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l279"><code>_startDrag:279</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l337"><code>_startDrag:337</code></a>
         
         </p>
 
@@ -919,6 +960,30 @@ supports click-n-stick and click-n-drag functionality.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">interactionData</code>
+                        <span class="type">PIXI.InteractionData</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The ineraction data about the moved mouse</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -936,7 +1001,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
                 <li class="arg">
                     
-                        <code>ev</code>
+                        <code>interactionData</code>
                     
                 </li>
             
@@ -977,7 +1042,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l304"><code>_stopDrag:304</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l385"><code>_stopDrag:385</code></a>
         
         </p>
 
@@ -1000,14 +1065,14 @@ supports click-n-stick and click-n-drag functionality.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">ev</code>
-                        <span class="type">Event</span>
+                        <code class="param-name">interactionData</code>
+                        <span class="type">PIXI.InteractionData</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Mouse up event</p>
+                        <p>The ineraction data about the moved mouse</p>
 
                     </div>
 
@@ -1084,7 +1149,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l260"><code>_triggerHeldDrag:260</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l307"><code>_triggerHeldDrag:307</code></a>
         
         </p>
 
@@ -1135,7 +1200,17 @@ supports click-n-stick and click-n-drag functionality.</p>
     <h3 class="name"><code>_triggerStickyClick</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>interactionData</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -1165,7 +1240,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l247"><code>_triggerStickyClick:247</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l289"><code>_triggerStickyClick:289</code></a>
         
         </p>
 
@@ -1180,6 +1255,31 @@ supports click-n-stick and click-n-drag functionality.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">interactionData</code>
+                        <span class="type">PIXI.InteractionData</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The interaction data about
+                                               the input event that triggered this.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -1232,7 +1332,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l327"><code>_updateObjPosition:327</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l454"><code>_updateObjPosition:454</code></a>
         
         </p>
 
@@ -1329,7 +1429,7 @@ supports click-n-stick and click-n-drag functionality.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l441"><code>addObject:441</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l582"><code>addObject:582</code></a>
         
         </p>
 
@@ -1431,7 +1531,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l495"><code>destroy:495</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l634"><code>destroy:634</code></a>
         
         </p>
 
@@ -1498,7 +1598,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l473"><code>removeObject:473</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l613"><code>removeObject:613</code></a>
         
         </p>
 
@@ -1595,7 +1695,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l188"><code>startDrag:188</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l198"><code>startDrag:198</code></a>
         
         </p>
 
@@ -1606,8 +1706,10 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>Manually starts dragging an object. If a mouse down event is not supplied as the second argument, it
-   defaults to a held drag, that ends as soon as the mouse is released.</p>
+        <p>Manually starts dragging an object. If a mouse down event is not supplied
+as the second argument, it defaults to a held drag, that ends as soon as
+the mouse is released. When using multitouch, passing a interaction data is
+required.</p>
 
     </div>
 
@@ -1642,7 +1744,8 @@ these will override any existing properties of the same name</p>
                     
 
                     <div class="param-description">
-                        <p>The interaction data about the input event that triggered this.</p>
+                        <p>The interaction data about
+                                              the input event that triggered this.</p>
 
                     </div>
 
@@ -1668,7 +1771,13 @@ these will override any existing properties of the same name</p>
             
                 <li class="arg">
                     
-                        <code>doCallback</code>
+                        <code class="optional">[doCallback=false]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[obj]</code>
                     
                 </li>
             
@@ -1703,7 +1812,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l293"><code>stopDrag:293</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l359"><code>stopDrag:359</code></a>
         
         </p>
 
@@ -1726,14 +1835,33 @@ these will override any existing properties of the same name</p>
             
                 <li class="param">
                     
-                        <code class="param-name">doCallback</code>
+                        <code class="param-name optional">[doCallback=false]</code>
                         <span class="type">Bool</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>If the drag end callback should be called. Default is false.</p>
+                        <p>If the drag end callback should be called.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[obj]</code>
+                        <span class="type">PIXI.DisplayObject</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A specific object to stop dragging, if multitouch
+                                      is true. If this is omitted, it stops all drags.</p>
 
                     </div>
 
@@ -1783,7 +1911,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l135"><code>_dragEndCallback:135</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l141"><code>_dragEndCallback:141</code></a>
         
         </p>
 
@@ -1830,7 +1958,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l170"><code>_draggableObjects:170</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l153"><code>_draggableObjects:153</code></a>
         
         </p>
 
@@ -1877,7 +2005,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l121"><code>_dragOffset:121</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l125"><code>_dragOffset:125</code></a>
         
         </p>
 
@@ -1887,7 +2015,9 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>The local to global position of the drag</p>
+        <p>The offset from the dragged object&#39;s position that the initial mouse event
+was at. This is only used when multitouch is false - the DragData has
+it when multitouch is true.</p>
 
     </div>
 
@@ -1924,7 +2054,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l128"><code>_dragStartCallback:128</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l134"><code>_dragStartCallback:134</code></a>
         
         </p>
 
@@ -1946,9 +2076,9 @@ these will override any existing properties of the same name</p>
 </div>
 
                 
-                    <div id="property__stageMouseUpCallback" class="property item private">
-    <h3 class="name"><code>_stageMouseUpCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    <div id="property__multitouch" class="property item private">
+    <h3 class="name"><code>_multitouch</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1971,7 +2101,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l156"><code>_stageMouseUpCallback:156</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l160"><code>_multitouch:160</code></a>
         
         </p>
 
@@ -1981,7 +2111,7 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>Callback when we are done with the drag</p>
+        <p>If this DragManager is using multitouch for dragging.</p>
 
     </div>
 
@@ -2018,7 +2148,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l114"><code>_theStage:114</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l118"><code>_theStage:118</code></a>
         
         </p>
 
@@ -2029,147 +2159,6 @@ these will override any existing properties of the same name</p>
 
     <div class="description">
         <p>Reference to the stage</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__triggerHeldDragCallback" class="property item private">
-    <h3 class="name"><code>_triggerHeldDragCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l142"><code>_triggerHeldDragCallback:142</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Callback to test for the start a held drag</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__triggerStickyClickCallback" class="property item private">
-    <h3 class="name"><code>_triggerStickyClickCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l149"><code>_triggerStickyClickCallback:149</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Callback to start a sticky click drag</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__updateCallback" class="property item private">
-    <h3 class="name"><code>_updateCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l163"><code>_updateCallback:163</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The function call when the mouse/touch moves</p>
 
     </div>
 
@@ -2206,7 +2195,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l87"><code>allowStickyClick:87</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l64"><code>allowStickyClick:64</code></a>
         
         </p>
 
@@ -2232,7 +2221,7 @@ these will override any existing properties of the same name</p>
                 
                     <div id="property_draggedObj" class="property item public">
     <h3 class="name"><code>draggedObj</code></h3>
-    <span class="type">PIXI.DisplayObject</span>
+    <span class="type">PIXI.DisplayObject | Dictionary</span>
 
     
 
@@ -2255,7 +2244,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l30"><code>draggedObj:30</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l31"><code>draggedObj:31</code></a>
         
         </p>
 
@@ -2265,7 +2254,8 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>The object that&#39;s being dragged</p>
+        <p>The object that&#39;s being dragged, or a dictionary of DragData being dragged
+by id if multitouch is true.</p>
 
     </div>
 
@@ -2302,7 +2292,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l38"><code>dragStartThreshold:38</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l40"><code>dragStartThreshold:40</code></a>
         
         </p>
 
@@ -2351,7 +2341,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l69"><code>isHeldDrag:69</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l81"><code>isHeldDrag:81</code></a>
         
         </p>
 
@@ -2400,7 +2390,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l78"><code>isStickyClick:78</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l90"><code>isStickyClick:90</code></a>
         
         </p>
 
@@ -2449,7 +2439,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l60"><code>isTouchMove:60</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l72"><code>isTouchMove:72</code></a>
         
         </p>
 
@@ -2473,14 +2463,12 @@ these will override any existing properties of the same name</p>
 </div>
 
                 
-                    <div id="property_mouseDownObjPos" class="property item private">
+                    <div id="property_mouseDownObjPos" class="property item">
     <h3 class="name"><code>mouseDownObjPos</code></h3>
     <span class="type">PIXI.Point</span>
 
     
 
-    
-        <span class="flag private">private</span>
     
 
     
@@ -2498,7 +2486,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l53"><code>mouseDownObjPos:53</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l56"><code>mouseDownObjPos:56</code></a>
         
         </p>
 
@@ -2508,7 +2496,9 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>The position x, y of the object when interaction with it started.</p>
+        <p>The position x, y of the object when interaction with it started. If multitouch is
+true, then this will only be set during a drag stop callback, for the object that just
+stopped getting dragged.</p>
 
     </div>
 
@@ -2545,7 +2535,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l46"><code>mouseDownStagePos:46</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l48"><code>mouseDownStagePos:48</code></a>
         
         </p>
 
@@ -2555,7 +2545,54 @@ these will override any existing properties of the same name</p>
     </div>
 
     <div class="description">
-        <p>The position x, y of the mouse down on the stage</p>
+        <p>The position x, y of the mouse down on the stage. This is only used
+when multitouch is false - the DragData has it when multitouch is true.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_multitouch" class="property item">
+    <h3 class="name"><code>multitouch</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l173"><code>multitouch:173</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the DragManager allows multitouch dragging. Setting this stops any current
+drags.</p>
 
     </div>
 
@@ -2592,7 +2629,7 @@ these will override any existing properties of the same name</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l95"><code>snapSettings:95</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_CloudKidFramework_src_displays_pixi_DragManager.js.html#l99"><code>snapSettings:99</code></a>
         
         </p>
 
