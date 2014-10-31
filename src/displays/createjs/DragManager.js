@@ -275,8 +275,6 @@
 			//if it is a touch event, force it to be the held drag type
 			if(!this.allowStickyClick || ev.nativeEvent.type == 'touchstart')
 			{
-				mouseDownStagePos.x = ev.stageX;
-				mouseDownStagePos.y = ev.stageY;
 				this.isTouchMove = ev.nativeEvent.type == 'touchstart';
 				this.isHeldDrag = true;
 				this._startDrag(ev);

@@ -53,6 +53,7 @@
 			"src/displays/pixi/AnimatorTimeline.js",
 			"src/displays/pixi/Animator.js",
 			"src/displays/pixi/Button.js",
+			"src/displays/pixi/DragData.js",
 			"src/displays/pixi/DragManager.js",
 			"src/displays/pixi/AssetManager.js"
 		],
