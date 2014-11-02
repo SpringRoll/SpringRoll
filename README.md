@@ -1,7 +1,6 @@
-#CloudKid Framework
+#SpringRoll
 
-[ ![Codeship Status for CloudKidStudio/CloudKidFramework](https://www.codeship.io/projects/18b057f0-3c57-0132-06b9-422eb4454b22/status)](https://www.codeship.io/projects/42954)
-[![Dependency Status](https://david-dm.org/CloudKidStudio/CloudKidFramework.svg)](https://david-dm.org/CloudKidStudio/CloudKidFramework)
+[![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg)](https://david-dm.org/SpringRoll/SpringRoll)
 
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [CreateJS](http://createjs.com) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
@@ -32,10 +31,10 @@ We have intentionally avoided support for these browsers:
 
 ##Installation
 
-CloudKid Framework can be install using Bower.
+SpringRoll can be install using Bower.
 
 ```bash
-bower install cloudkid-framework
+bower install springroll
 ```
 
 ##Examples
@@ -48,7 +47,7 @@ grunt examples
 
 ##Dependencies
 
-* [PreloadJS](https://github.com/CloudKidStudio/PreloadJS) CloudKid's fork of PreloadJS
+* [PreloadJS](https://github.com/SpringRoll/PreloadJS) SpringRoll's fork of PreloadJS
 
 ##Usage
 
@@ -68,9 +67,9 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 		<script>
 
 			// Create the application
-			var app = new cloudkid.Application({
+			var app = new springroll.Application({
 				canvasId : "stage",
-				display : cloudkid.CreateJSDisplay
+				display : springroll.CreateJSDisplay
 			});
 
 			// Listen for when the application
@@ -88,13 +87,13 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 
 Modules are components which contain common code classes, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and located in the **dist/modules** folder, except the Core Module.
 
-* **[Core Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Core-Module)** (required)
-* **[Captions Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Captions-Module)**
+* **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
+* **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)**
 * **CreateJS Display Module**
 * **Native Display Module**
 * **PIXI Display Module**
-* **[Interface Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Interface-Module)** 
-* **[Sound Module](https://github.com/CloudKidStudio/CloudKidFramework/wiki/Sound-Module)**
+* **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)** 
+* **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
 * **States Module**
 * **Tasks Module**
 * **Translate Module**
@@ -106,7 +105,7 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 
 ##Documentation
 
-[API Documentation](http://cloudkidstudio.github.io/CloudKidFramework/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/CloudKidStudio/CloudKidFramework/wiki).
+[API Documentation](http://springroll.github.io/SpringRoll/) has full documentation for the core and related modules. For examples of implementing each module please consult the [wiki](https://github.com/SpringRoll/SpringRoll/wiki).
 
 ##License
 
