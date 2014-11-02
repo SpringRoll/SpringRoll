@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : /Users/mattkarl/Sites/HTML5/SpringRoll/src/ui/Positioner.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/springrollStudio/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterClip.html">springroll.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterController.html">springroll.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = /Users/mattkarl/Sites/HTML5/SpringRoll/src/ui/Positioner.js      
+</script>
+<h1 class="file-heading">File:Positioner.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module Interface
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  Initially layouts all interface elements
+	*  @class Positioner
+	*  @static
+	*/
+	var Positioner = {};
+	
+	// Conversion of degrees to radians
+	var DEG_TO_RAD = Math.PI / 180;
+
+	/**
+	*  Initial position a single item
+	*  @method initItem
+	*  @static
+	*  @param {DisplayObject} item The display object to scale
+	*  @param {Object} settings The values for setting
+	*  @param {Number} [settings.x] The initial X position of the item
+	*  @param {Number} [settings.y] The initial Y position of the item
+	*  @param {Object} [settings.scale] The initial scale
+	*  @param {Number} [settings.scale.x] The initial scale X value
+	*  @param {Number} [settings.scale.y] The initial scale Y value
+	*  @param {Object} [settings.pivot] The pivot point
+	*  @param {Number} [settings.pivot.x] The pivot point X location
+	*  @param {Number} [settings.pivot.y] The pivot point Y location
+	*  @param {Number} [settings.rotation] The initial rotation in degrees
+	*  @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item or an array of points.
+	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area, &quot;rect&quot;, &quot;ellipse&quot;, &quot;circle&quot;, etc
+	*  @param {DisplayAdapter} adapter The current display adapter being positioned
+	*/
+	Positioner.initItem = function(item, settings, adapter)
+	{
+		//get the default adapter if not specified
+		if(!adapter)
+			adapter = springroll.UIScaler._getAdapter();
+		
+		if (settings.x !== undefined)
+		{
+			adapter.setPosition(item, settings.x, &#x27;x&#x27;);
+		}
+			
+		if (settings.y !== undefined)
+		{
+			adapter.setPosition(item, settings.y, &#x27;y&#x27;);
+		}
+			
+		var pt = settings.scale;
+		var scale = adapter.getScale(item);
+
+		if (pt)
+		{
+			adapter.setScale(item, pt.x * scale.x, &quot;x&quot;);
+			adapter.setScale(item, pt.y * scale.y, &quot;y&quot;);
+		}
+		pt = settings.pivot;
+
+		if (pt)
+		{
+			adapter.setPivot(item, pt);
+		}
+
+		if (settings.rotation !== undefined)
+		{
+			item.rotation = settings.rotation;
+			if (adapter.useRadians)
+			{
+				item.rotation *= DEG_TO_RAD;
+			}
+		}
+
+		if (settings.hitArea)
+		{
+			adapter.setHitArea(
+				item,
+				Positioner.generateHitArea(
+					settings.hitArea, 1, adapter
+				)
+			);
+		}
+	};
+	
+	/**
+	*  Create the polygon hit area for interface elements
+	*  @static
+	*  @method generateHitArea
+	*  @param {Object|Array} hitArea One of the following: &lt;br/&gt;
+	*  * An array of points for a polygon, e.g.
+	*
+	*		[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
+	*
+	*  * An object describing a rectangle, e.g.
+	*
+	*		{type:&quot;rect&quot;, x:0, y:0, w:10, h:30}
+	*
+	*  * An object describing an ellipse, where x and y are the center, e.g.
+	*
+	*		{type:&quot;ellipse&quot;, x:0, y:0, w:10, h:30}
+	*
+	*  * An object describing a circle, where x and y are the center, e.g.
+	*
+	*		{type:&quot;circle&quot;, x:0, y:0, r:20}
+	*  * An object describing a sector, where x and y are the center of a circle
+	*		and start/end are the start and end angles of the sector in degrees, e.g.
+	*
+	*		{type:&quot;sector&quot;, x:0, y:0, r:20, start:0, end:90}
+	*  @param {Number} scale The size to scale hitArea by
+	*  @param {Display} adapter The current display adapter for creating Polygon, Point, Rectangle, Ellipse, Circle
+	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle,
+	*      or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.
+	*/
+	Positioner.generateHitArea = function(hitArea, scale, adapter)
+	{
+		if (!scale) scale = 1;
+
+		if (Array.isArray(hitArea))
+		{
+			if (scale == 1)
+			{
+				return new adapter.Polygon(hitArea);
+			}
+			else
+			{
+				var temp = [];
+				for(var i = 0, len = hitArea.length; i &lt; len; ++i)
+				{
+					temp.push(new adapter.Point(
+						hitArea[i].x * scale,
+						hitArea[i].y * scale
+					));
+				}
+				return new adapter.Polygon(temp);
+			}
+		}
+		else if (hitArea.type == &quot;rect&quot; || !hitArea.type)
+		{
+			return new adapter.Rectangle(
+				hitArea.x * scale,
+				hitArea.y * scale,
+				hitArea.w * scale,
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == &quot;ellipse&quot;)
+		{
+			//convert center to upper left corner
+			return new adapter.Ellipse(
+				(hitArea.x - hitArea.w * 0.5) * scale,
+				(hitArea.y - hitArea.h * 0.5) * scale,
+				hitArea.w * scale,
+				hitArea.h * scale
+			);
+		}
+		else if (hitArea.type == &quot;circle&quot;)
+		{
+			return new adapter.Circle(
+				hitArea.x * scale,
+				hitArea.y * scale,
+				hitArea.r * scale
+			);
+		}
+		else if (hitArea.type == &quot;sector&quot;)
+		{
+			return new adapter.Sector(
+				hitArea.x * scale,
+				hitArea.y * scale,
+				hitArea.r * scale,
+				hitArea.start,
+				hitArea.end
+			);
+		}
+		return null;
+	};
+	
+	// Assign to namespace
+	namespace(&#x27;springroll&#x27;).Positioner = Positioner;
+
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

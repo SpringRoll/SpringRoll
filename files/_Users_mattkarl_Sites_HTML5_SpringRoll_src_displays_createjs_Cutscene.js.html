@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : /Users/mattkarl/Sites/HTML5/SpringRoll/src/displays/createjs/Cutscene.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/springrollStudio/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterClip.html">springroll.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterController.html">springroll.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = /Users/mattkarl/Sites/HTML5/SpringRoll/src/displays/createjs/Cutscene.js      
+</script>
+<h1 class="file-heading">File:Cutscene.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module CreateJS Display
+*  @namespace springroll.createjs
+*/
+(function(){
+	
+	var Container = include(&#x27;createjs.Container&#x27;),
+		BitmapUtils,
+		Application,
+		LoadTask,
+		TaskManager,
+		Sound,
+		ListTask;
+
+	/**
+	*   Cutscene is a class for playing a single EaselJS animation synced to a
+	*	single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
+	*
+	*   @class Cutscene
+	*	@constructor
+	*	@param {Object} options The runtime specific setup data for the cutscene.
+	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
+	*	@param {String} options.configUrl The url of the json config file describing the cutscene. See the example project.
+	*	@param {Function} [options.loadCallback] A function to call when loading is complete.
+	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
+	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
+	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
+	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
+	*/
+	var Cutscene = function(options)
+	{
+		if(!Application)
+		{
+			Application = include(&#x27;springroll.Application&#x27;);
+			LoadTask = include(&#x27;springroll.LoadTask&#x27;);
+			TaskManager = include(&#x27;springroll.TaskManager&#x27;);
+			Sound = include(&#x27;springroll.Sound&#x27;);
+			ListTask = include(&#x27;springroll.ListTask&#x27;);
+			BitmapUtils = include(&#x27;createjs.BitmapUtils&#x27;);
+		}
+
+		Container.call(this);
+
+		if(!options)
+			throw new Error(&quot;need options to create Cutscene&quot;);
+
+		/**
+		*	When the cutscene is ready to use
+		*	@property {Boolean} isReady
+		*	@public
+		*/
+		this.isReady = false;
+		
+		/**
+		*	The framerate the cutscene should play at.
+		*	@property {int} framerate
+		*	@private
+		*/
+		this.framerate = 0;
+		
+		/**
+		*	Reference to the display we are drawing on
+		*	@property {Display} display
+		*	@public
+		*/
+		this.display = typeof options.display == &quot;string&quot; ? Application.instance.getDisplay(options.display) : options.display;
+		
+		/**
+		*	The source url for the config until it is loaded, then the config object.
+		*	@property {String|Object} config
+		*	@private
+		*/
+		this.config = options.configUrl;
+
+		/**
+		*	The scaling value for all images.
+		*	@property {Number} imageScale
+		*	@private
+		*/
+		this.imageScale = options.imageScale || 1;
+
+		/**
+		*	A string found in the paths of images that should be replaced with another value.
+		*	@property {String} pathReplaceTarg
+		*	@private
+		*/
+		this.pathReplaceTarg = options.pathReplaceTarg || null;
+
+		/**
+		*	The string to use when replacing options.pathReplaceTarg.
+		*	@property {String} pathReplaceVal
+		*	@private
+		*/
+		this.pathReplaceVal = options.pathReplaceVal || null;
+
+		/**
+		*	The TaskManager used to load up assets.
+		*	@property {TaskManager} _taskMan
+		*	@private
+		*/
+		this._taskMan = null;
+
+		/**
+		*	The time elapsed in seconds.
+		*	@property {Number} _elapsedTime
+		*	@private
+		*/
+		this._elapsedTime = 0;
+
+		/**
+		*	The clip that is being animated.
+		*	@property {easeljs.MovieClip} _clip
+		*	@private
+		*/
+		this._clip = null;
+
+		/**
+		*	The sound instance of the playing audio
+		*	@property {Sound.soundInst} _currentAudioInstance
+		*	@private
+		*/
+		this._currentAudioInstance = null;
+
+		/**
+		*	If the animation has finished playing.
+		*	@property {Boolean} _animFinished
+		*	@private
+		*/
+		this._animFinished = false;
+
+		/**
+		*	If the audio has finished playing.
+		*	@property {Boolean} _audioFinished
+		*	@private
+		*/
+		this._audioFinished = false;
+
+		/**
+		*	The Captions object to use to manage captions.
+		*	@property {Captions} _captionsObj
+		*	@private
+		*/
+		this._captionsObj = options.captions || null;
+
+		// Make sure the captions don&#x27;t update themselves
+		if (this._captionsObj) this._captionsObj.selfUpdate = false;
+
+		/**
+		*	The function to call when loading is complete.
+		*	@property {Function} _loadCallback
+		*	@private
+		*/
+		this._loadCallback = options.loadCallback || null;
+
+		/**
+		*	The function to call when playback is complete.
+		*	@property {Function} _endCallback
+		*	@private
+		*/
+		this._endCallback = null;
+
+		//bind some callbacks
+		this.update = this.update.bind(this);
+		this._audioCallback = this._audioCallback.bind(this);
+
+		this.resize = this.resize.bind(this);
+
+		this.setup();
+	};
+	
+	var p = Cutscene.prototype = new Container();
+	
+	/**
+	*   Called from the constructor to complete setup and start loading.
+	*
+	*   @method setup
+	*   @private
+	*/
+	p.setup = function()
+	{
+		this.display.stage.addChild(this);
+
+		// create a texture from an image path
+		this._taskMan = new TaskManager([new LoadTask(
+			&quot;config&quot;, this.config, this.onConfigLoaded.bind(this)
+		)]);
+
+		this._taskMan.on(TaskManager.ALL_TASKS_DONE, this.onLoadComplete.bind(this));
+		this._taskMan.startAll();
+	};
+	
+	/**
+	*	Callback for when the config file is loaded.
+	*	@method onConfigLoaded
+	*	@param {LoaderResult} result The loaded result.
+	*	@private
+	*/
+	p.onConfigLoaded = function(result)
+	{
+		this.config = result.content;
+		
+		if(this._captionsObj)
+		{
+			this._captionsObj.setDictionary(this.config.captions);
+		}
+		
+		//parse config
+		this.framerate = this.config.settings.fps;
+		
+		//figure out what to load
+		var manifest = [];
+		//the javascript file
+		manifest.push({id:&quot;clip&quot;, src:this.config.settings.clip});
+		//all the images
+		for(var key in this.config.images)
+		{
+			var url = this.pathReplaceTarg ? this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) : this.config.images[key];
+			manifest.push({id:key, src:url});
+		}
+		
+		var soundConfig = this.config.audio;
+		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
+		
+		this._taskMan.addTask(new ListTask(&quot;art&quot;, manifest, this.onArtLoaded.bind(this)));
+		this._taskMan.addTask(Sound.instance.createPreloadTask(&quot;audio&quot;, [soundConfig.soundManifest[0].id], this.onAudioLoaded));
+	};
+	
+	/**
+	*	Callback for when the audio has been preloaded.
+	*	@method onAudioLoaded
+	*	@private
+	*/
+	p.onAudioLoaded = function()
+	{
+		//do nothing
+	};
+	
+	/**
+	*	Callback for when all art assets have been loaded.
+	*	@method onArtLoaded
+	*	@param {Object} results The loaded results.
+	*	@private
+	*/
+	p.onArtLoaded = function(results)
+	{
+		if(!window.images)
+			window.images = {};
+		var atlasData = {}, atlasImages = {}, id;
+		for(id in results)
+		{
+			var result = results[id].content;
+			if(id.indexOf(&quot;atlasData_&quot;) === 0)//look for spritesheet data
+			{
+				atlasData[id.replace(&quot;atlasData_&quot;, &quot;&quot;)] = result;
+			}
+			else if(id.indexOf(&quot;atlasImage_&quot;) === 0)//look for spritesheet images
+			{
+				atlasImages[id.replace(&quot;atlasImage_&quot;, &quot;&quot;)] = result;
+			}
+			else if(id == &quot;clip&quot;)//look for the javascript animation file
+			{
+				//the javascript file
+				//if bitmaps need scaling, then do black magic to the object prototypes so the scaling is built in
+				if(this.imageScale != 1)
+				{
+					var imgScale = this.imageScale;
+					for(var key in this.config.images)
+					{
+						BitmapUtils.replaceWithScaledBitmap(key, imgScale);
+					}
+				}
+			}
+			else//anything left must be individual images that we were expecting
+			{
+				images[id] = result;
+			}
+		}
+		for(id in atlasData)//if we loaded any spritesheets, load them up
+		{
+			if(atlasData[id] &amp;&amp; atlasImages[id])
+			{
+				BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+			}
+		}
+	};
+
+	/**
+	*	Callback for when all loading is complete.
+	*	@method onLoadComplete
+	*	@param {Event} evt An event
+	*	@private
+	*/
+	p.onLoadComplete = function(evt)
+	{
+		this._taskMan.off();
+		this._taskMan.destroy();
+		this._taskMan = null;
+		
+		var clip = this._clip = new lib[this.config.settings.clipClass]();
+		//if the animation was for the older ComicCutscene, we should handle it gracefully
+		//so if the clip only has one frame or is a container, then we get the child of the clip as the animation
+		if(!this._clip.timeline || this._clip.timeline.duration == 1)
+			clip = this._clip.getChildAt(0);
+		clip.mouseEnabled = false;
+		clip.framerate = this.framerate;
+		clip.advanceDuringTicks = false;
+		clip.gotoAndPlay(0);//internally, movieclip has to be playing to change frames during tick() or advance().
+		clip.loop = false;
+		this.addChild(this._clip);
+		
+		this.resize(this.display.width, this.display.height);
+		Application.instance.on(&quot;resize&quot;, this.resize);
+		
+		this.isReady = true;
+		
+		if(this._loadCallback)
+		{
+			this._loadCallback();
+			this._loadCallback = null;
+		}
+	};
+	
+	/**
+	*	Listener for when the Application is resized.
+	*	@method resize
+	*	@param {int} width The new width of the display.
+	*	@param {int} height The new height of the display.
+	*	@private
+	*/
+	p.resize = function(width, height)
+	{
+		if(!this._clip) return;
+		
+		var scale = height / this.config.settings.designedHeight;
+		this._clip.scaleX = this._clip.scaleY = scale;
+		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
+
+		//if the display is paused, tell it to render once since the display just got wiped
+		if(this.isReady &amp;&amp; this.display.paused)
+		{
+			this.display.paused = false;
+			this.display.render(0);
+			this.display.paused = true;
+		}
+	};
+	
+	/**
+	*	Starts playing the cutscene.
+	*	@method start
+	*	@param {Function} callback The function to call when playback is complete.
+	*	@public
+	*/
+	p.start = function(callback)
+	{
+		this._endCallback = callback;
+
+		this._timeElapsed = 0;
+		this._animFinished = false;
+		this._audioFinished = false;
+		var id = this.config.audio.soundManifest[0].id;
+		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
+		if(this._captionsObj)
+		{
+			this._captionsObj.play(id);
+		}
+		Application.instance.on(&quot;update&quot;, this.update);
+	};
+	
+	/**
+	*	Callback for when the audio has finished playing.
+	*	@method _audioCallback
+	*	@private
+	*/
+	p._audioCallback = function()
+	{
+		this._audioFinished = true;
+		this._currentAudioInstance = null;
+		if(this._animFinished)
+		{
+			this.stop(true);
+		}
+	};
+	
+	/**
+	*	Listener for frame updates.
+	*	@method update
+	*	@param {int} elapsed Time in milliseconds
+	*	@private
+	*/
+	p.update = function(elapsed)
+	{
+		if(this._animFinished) return;
+		
+		if(this._currentAudioInstance)
+		{
+			var pos = this._currentAudioInstance.position * 0.001;
+			//sometimes (at least with the flash plugin), the first check of the position would be very incorrect
+			if(this._timeElapsed === 0 &amp;&amp; pos &gt; elapsed * 2)
+			{
+				//do nothing here
+			}
+			else if(this._currentAudioInstance)//random bug? - check avoids an unlikely null ref error
+				this._timeElapsed = this._currentAudioInstance.position * 0.001;//save the time elapsed
+		}
+		else
+		{
+			this._timeElapsed += elapsed * 0.001;
+		}
+			
+		if(this._captionsObj)
+		{
+			this._captionsObj.seek(this._timeElapsed * 1000);
+		}
+		//set the elapsed time of the clip
+		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ? this._clip.getChildAt(0) : this._clip;
+		clip.elapsedTime = this._timeElapsed;
+		if(clip.currentFrame == clip.timeline.duration)
+		{
+			this._animFinished = true;
+			if(this._audioFinished)
+			{
+				this.stop(true);
+			}
+		}
+	};
+
+	/**
+	*	Stops playback of the cutscene.
+	*	@method stop
+	*	@param {Boolean} [doCallback=false] If the end callback should be performed.
+	*	@public
+	*/
+	p.stop = function(doCallback)
+	{
+		Application.instance.off(&quot;update&quot;, this.update);
+		if(this._currentAudioInstance)
+			Sound.instance.stop(this.config.audio.soundManifest[0].id);
+		this._captionsObj.stop();
+
+		if(doCallback &amp;&amp; this._endCallback)
+		{
+			this._endCallback();
+			this._endCallback = null;
+		}
+	};
+	
+	/**
+	*	Destroys the cutscene.
+	*	@method destroy
+	*	@public
+	*/
+	p.destroy = function()
+	{
+		Application.instance.off(&quot;resize&quot;, this.resize);
+		this.removeAllChildren(true);
+		Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
+		this.config = null;
+		if(this._taskMan)
+		{
+			this._taskMan.off();
+			this._taskMan.destroy();
+			this._taskMan = null;
+		}
+		this._currentAudioInstance = null;
+		this._loadCallback = null;
+		this._endCallback = null;
+		this._clip = null;
+		this._captionsObj = null;
+		if(this.parent)
+			this.parent.removeChild(this);
+		this.display = null;
+	};
+	
+	namespace(&quot;springroll&quot;).Cutscene = Cutscene;
+	namespace(&quot;springroll.createjs&quot;).Cutscene = Cutscene;
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

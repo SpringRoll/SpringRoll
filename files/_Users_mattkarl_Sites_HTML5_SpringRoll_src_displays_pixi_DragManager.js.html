@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : /Users/mattkarl/Sites/HTML5/SpringRoll/src/displays/pixi/DragManager.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/springrollStudio/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterClip.html">springroll.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterController.html">springroll.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = /Users/mattkarl/Sites/HTML5/SpringRoll/src/displays/pixi/DragManager.js      
+</script>
+<h1 class="file-heading">File:DragManager.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module PIXI Display
+*  @namespace springroll.pixi
+*/
+(function() {
+	
+	var Application,
+		Tween,
+		Point,
+		DragData = include(&quot;springroll.pixi.DragData&quot;);
+
+	/**
+	*  Drag manager is responsible for handling the dragging of stage elements
+	*  supports click-n-stick and click-n-drag functionality.
+	*
+	*  @class DragManager
+	*  @constructor
+	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
+	*  @param {function} startCallback The callback when when starting
+	*  @param {function} endCallback The callback when ending
+	*/
+	var DragManager = function(stage, startCallback, endCallback)
+	{
+		if(!Application)
+		{
+			Application = include(&#x27;springroll.Application&#x27;);
+			Tween = include(&#x27;createjs.Tween&#x27;, false);
+			Point = include(&#x27;PIXI.Point&#x27;);
+		}
+
+		/**
+		* The object that&#x27;s being dragged, or a dictionary of DragData being dragged
+		* by id if multitouch is true.
+		* @public
+		* @readOnly
+		* @property {PIXI.DisplayObject|Dictionary} draggedObj
+		*/
+		this.draggedObj = null;
+		
+		/**
+		* The radius in pixel to allow for dragging, or else does sticky click
+		* @public
+		* @property dragStartThreshold
+		* @default 20
+		*/
+		this.dragStartThreshold = 20;
+		
+		/**
+		* The position x, y of the mouse down on the stage. This is only used
+		* when multitouch is false - the DragData has it when multitouch is true.
+		* @private
+		* @property {PIXI.Point} mouseDownStagePos
+		*/
+		this.mouseDownStagePos = new Point(0, 0);
+
+		/**
+		* The position x, y of the object when interaction with it started. If multitouch is
+		* true, then this will only be set during a drag stop callback, for the object that just
+		* stopped getting dragged.
+		* @property {PIXI.Point} mouseDownObjPos
+		*/
+		this.mouseDownObjPos = new Point(0, 0);
+		
+		/**
+		* If sticky click dragging is allowed.
+		* @public
+		* @property {Bool} allowStickyClick
+		* @default true
+		*/
+		this.allowStickyClick = true;
+		
+		/**
+		* Is the move touch based
+		* @public
+		* @readOnly
+		* @property {Bool} isTouchMove
+		* @default false
+		*/
+		this.isTouchMove = false;
+		
+		/**
+		* Is the drag being held on mouse down (not sticky clicking)
+		* @public
+		* @readOnly
+		* @property {Bool} isHeldDrag
+		* @default false
+		*/
+		this.isHeldDrag = false;
+		
+		/**
+		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		* @public
+		* @readOnly
+		* @property {Bool} isStickyClick
+		* @default false
+		*/
+		this.isStickyClick = false;
+
+		/**
+		* Settings for snapping.
+		*
+		*  Format for snapping to a list of points:
+		*	{
+		*		mode:&quot;points&quot;,
+		*		dist:20,//snap when within 20 pixels/units
+		*		points:[
+		*			{ x: 20, y:30 },
+		*			{ x: 50, y:10 }
+		*		]
+		*	}
+		*
+		* @public
+		* @property {Object} snapSettings
+		* @default null
+		*/
+		this.snapSettings = null;
+		
+		/**
+		* Reference to the stage
+		* @private
+		* @property {PIXI.Stage} _theStage
+		*/
+		this._theStage = stage;
+		
+		/**
+		* The offset from the dragged object&#x27;s position that the initial mouse event
+		* was at. This is only used when multitouch is false - the DragData has
+		* it when multitouch is true.
+		* @private
+		* @property {PIXI.Point} _dragOffset
+		*/
+		this._dragOffset = null;
+		
+		/**
+		* External callback when we start dragging
+		* @private
+		* @property {Function} _dragStartCallback
+		*/
+		this._dragStartCallback = startCallback;
+		
+		/**
+		* External callback when we are done dragging
+		* @private
+		* @property {Function} _dragEndCallback
+		*/
+		this._dragEndCallback = endCallback;
+		
+		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
+		this._triggerStickyClick = this._triggerStickyClick.bind(this);
+		this._stopDrag = this._stopDrag.bind(this);
+		this._updateObjPosition = this._updateObjPosition.bind(this);
+		
+		/**
+		* The collection of draggable objects
+		* @private
+		* @property {Array} _draggableObjects
+		*/
+		this._draggableObjects = [];
+		
+		/**
+		* If this DragManager is using multitouch for dragging.
+		* @private
+		* @property {Boolean} _multitouch
+		*/
+		this._multitouch = false;
+
+		this.helperPoint = new Point(0, 0);
+	};
+	
+	/** Reference to the drag manager */
+	var p = DragManager.prototype = {};
+	
+	/**
+	* If the DragManager allows multitouch dragging. Setting this stops any current
+	* drags.
+	* @property {Boolean} multitouch
+	*/
+	Object.defineProperty(p, &quot;multitouch&quot;, {
+		get: function(){ return this._multitouch; },
+		set: function(value)
+		{
+			if(this.draggedObj)
+			{
+				if(this._multitouch)
+				{
+					for(var id in this.draggedObj)
+					{
+						this._stopDrag(id, true);
+					}
+				}
+				else
+					this._stopDrag(null, true);
+			}
+			this._multitouch = !!value;
+			this.draggedObj = value ? {} : null;
+		}});
+	
+	/**
+	*  Manually starts dragging an object. If a mouse down event is not supplied
+	*  as the second argument, it defaults to a held drag, that ends as soon as
+	*  the mouse is released. When using multitouch, passing a interaction data is
+	*  required.
+	*  @method startDrag
+	*  @public
+	*  @param {PIXI.DisplayObject} object The object that should be dragged.
+	*  @param {PIXI.InteractionData} interactionData The interaction data about
+	*                                                the input event that triggered this.
+	*/
+	p.startDrag = function(object, interactionData)
+	{
+		this._objMouseDown(object, interactionData);
+	};
+	
+	/**
+	* Mouse down on an obmect
+	*  @method _objMouseDown
+	*  @private
+	*  @param {PIXI.DisplayObject} object The object that should be dragged.
+	*  @param {PIXI.InteractionData} interactionData The interaction data about
+	*                                                the input event that triggered this.
+	*/
+	p._objMouseDown = function(obj, interactionData)
+	{
+		// if we are dragging something, then ignore any mouse downs
+		// until we release the currently dragged stuff
+		if((!this._multitouch &amp;&amp; this.draggedObj) ||
+			(this._multitouch &amp;&amp; !interactionData)) return;
+
+		var dragData, mouseDownObjPos, mouseDownStagePos, dragOffset;
+		if(this._multitouch)
+		{
+			dragData = new DragData(obj);
+			this.draggedObj[interactionData.id] = dragData;
+			mouseDownObjPos = dragData.mouseDownObjPos;
+			mouseDownStagePos = dragData.mouseDownStagePos;
+			dragOffset = dragData.dragOffset;
+		}
+		else
+		{
+			this.draggedObj = obj;
+			mouseDownObjPos = this.mouseDownObjPos;
+			mouseDownStagePos = this.mouseDownStagePos;
+			dragOffset = this._dragOffset = new Point();
+		}
+		//Stop any tweens on the object (mostly the position)
+		if(Tween)
+		{
+			Tween.removeTweens(obj);
+			Tween.removeTweens(obj.position);
+		}
+		
+		//get the mouse position and convert it to object parent space
+		interactionData.getLocalPosition(obj.parent, dragOffset);
+		
+		//move the offset to respect the object&#x27;s current position
+		dragOffset.x -= obj.position.x;
+		dragOffset.y -= obj.position.y;
+
+		mouseDownObjPos.x = obj.position.x;
+		mouseDownObjPos.y = obj.position.y;
+		
+		//if we don&#x27;t get an event (manual call neglected to pass one) then default to a held drag
+		if(!interactionData)
+		{
+			this.isHeldDrag = true;
+			this._startDrag();
+		}
+		else
+		{
+			//if it is a touch event, force it to be the held drag type
+			if(!this.allowStickyClick || interactionData.originalEvent.type == &quot;touchstart&quot;)
+			{
+				this.isTouchMove = interactionData.originalEvent.type == &quot;touchstart&quot;;
+				this.isHeldDrag = true;
+				this._startDrag(interactionData);
+			}
+			//otherwise, wait for a movement or a mouse up in order to do a
+			//held drag or a sticky click drag
+			else
+			{
+				mouseDownStagePos.x = interactionData.global.x;
+				mouseDownStagePos.y = interactionData.global.y;
+				obj.mousemove = this._triggerHeldDrag;
+				this._theStage.interactionManager.stageUp = this._triggerStickyClick;
+			}
+		}
+	};
+	
+	/**
+	* Start the sticky click
+	* @method _triggerStickyClick
+	* @param {PIXI.InteractionData} interactionData The interaction data about
+	*                                                the input event that triggered this.
+	* @private
+	*/
+	p._triggerStickyClick = function(interactionData)
+	{
+		this.isStickyClick = true;
+		var draggedObj = this._multitouch ?
+							this.draggedObj[interactionData.id].obj :
+							this.draggedObj;
+		draggedObj.mousemove = null;
+		this._theStage.interactionManager.stageUp = null;
+		this._startDrag(interactionData);
+	};
+
+	/**
+	* Start hold dragging
+	* @method _triggerHeldDrag
+	* @private
+	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	*/
+	p._triggerHeldDrag = function(interactionData)
+	{
+		var mouseDownStagePos, draggedObj;
+		if(this._multitouch)
+		{
+			draggedObj = this.draggedObj[interactionData.id].obj;
+			mouseDownStagePos = this.draggedObj[interactionData.id].mouseDownStagePos;
+		}
+		else
+		{
+			draggedObj = this.draggedObj;
+			mouseDownStagePos = this.mouseDownStagePos;
+		}
+		var xDiff = interactionData.global.x - mouseDownStagePos.x;
+		var yDiff = interactionData.global.y - mouseDownStagePos.y;
+		if(xDiff * xDiff + yDiff * yDiff &gt;= this.dragStartThreshold * this.dragStartThreshold)
+		{
+			this.isHeldDrag = true;
+			draggedObj.mousemove = null;
+			this._theStage.interactionManager.stageUp = null;
+			this._startDrag(interactionData);
+		}
+	};
+
+	/**
+	* Internal start dragging on the stage
+	* @method _startDrag
+	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	* @private
+	*/
+	p._startDrag = function(interactionData)
+	{
+		var im = this._theStage.interactionManager;
+		im.stageUp = this._stopDrag;
+		
+		var draggedObj;
+		if(this._multitouch)
+			draggedObj = this.draggedObj[interactionData.id].obj;
+		else
+			draggedObj = this.draggedObj;
+		
+		draggedObj.mousemove = draggedObj.touchmove = this._updateObjPosition;
+		
+		this._dragStartCallback(draggedObj);
+	};
+	
+	/**
+	* Stops dragging the currently dragged object.
+	* @public
+	* @method stopDrag
+	* @param {Bool} [doCallback=false] If the drag end callback should be called.
+	* @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
+	*                                       is true. If this is omitted, it stops all drags.
+	*/
+	p.stopDrag = function(doCallback, obj)
+	{
+		var id = null;
+		if(this._multitouch &amp;&amp; obj)
+		{
+			for(var key in this.draggedObj)
+			{
+				if(this.draggedObj[key].obj == obj)
+				{
+					id = key;
+					break;
+				}
+			}
+		}
+		//pass true if it was explicitly passed to us, false and undefined -&gt; false
+		this._stopDrag(id, doCallback === true);
+	};
+
+	/**
+	* Internal stop dragging on the stage
+	* @method _stopDrag
+	* @private
+	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	* @param {Bool} doCallback If we should do the callback
+	*/
+	p._stopDrag = function(interactionData, doCallback)
+	{
+		var obj, id;
+		if(this._multitouch)
+		{
+			if(interactionData)
+			{
+				//stop a specific drag
+				id = interactionData;
+				if(interactionData instanceof PIXI.InteractionData)
+					id = interactionData.id;
+				
+				var data = this.draggedObj[id];
+				obj = data.obj;
+				//save the position that it started at so the callback can make use of it
+				//if they want
+				this.mouseDownObjPos.x = data.mouseDownObjPos.x;
+				this.mouseDownObjPos.y = data.mouseDownObjPos.y;
+				delete this.draggedObj[id];
+			}
+			else
+			{
+				//stop all drags
+				for(id in this.draggedObj)
+				{
+					this._stopDrag(id, doCallback);
+				}
+				return;
+			}
+		}
+		else
+		{
+			obj = this.draggedObj;
+			this.draggedObj = null;
+		}
+		
+		if(obj)
+			obj.touchmove = obj.mousemove = null;
+		
+		var removeGlobalListeners = !this._multitouch;
+		if(this._multitouch)
+		{
+			//determine if this was the last drag
+			var found = false;
+			for(id in this.draggedObj)
+			{
+				found = true;
+				break;
+			}
+			removeGlobalListeners = !found;
+		}
+		if(removeGlobalListeners)
+			this._theStage.interactionManager.stageUp = null;
+		
+		this.isTouchMove = false;
+		this.isStickyClick = false;
+		this.isHeldMove = false;
+
+		if(doCallback !== false) // true or undefined
+			this._dragEndCallback(obj);
+	};
+
+	/**
+	* Update the object position based on the mouse
+	* @method _updateObjPosition
+	* @private
+	* @param {PIXI.InteractionData} interactionData Mouse move event
+	*/
+	p._updateObjPosition = function(interactionData)
+	{
+		if(!this.isTouchMove &amp;&amp; !this._theStage.interactionManager.mouseInStage) return;
+		
+		var draggedObj, dragOffset;
+		if(this._multitouch)
+		{
+			var data = this.draggedObj[interactionData.id];
+			draggedObj = data.obj;
+			dragOffset = data.dragOffset;
+		}
+		else
+		{
+			draggedObj = this.draggedObj;
+			dragOffset = this._dragOffset;
+		}
+		
+		if(!draggedObj || !draggedObj.parent)//not quite sure what chain of events would lead to this, but we&#x27;ll stop dragging to be safe
+		{
+			this.stopDrag(false, draggedObj);
+			return;
+		}
+		
+		var mousePos = interactionData.getLocalPosition(draggedObj.parent, this.helperPoint);
+		var bounds = draggedObj._dragBounds;
+		if(bounds)
+		{
+			draggedObj.position.x = clamp(mousePos.x - dragOffset.x, bounds.x, bounds.right);
+			draggedObj.position.y = clamp(mousePos.y - dragOffset.y, bounds.y, bounds.bottom);
+		}
+		else
+		{
+			draggedObj.position.x = mousePos.x - dragOffset.x;
+			draggedObj.position.y = mousePos.y - dragOffset.y;
+		}
+		if(this.snapSettings)
+		{
+			switch(this.snapSettings.mode)
+			{
+				case &quot;points&quot;:
+					this._handlePointSnap(mousePos, dragOffset, draggedObj);
+					break;
+				case &quot;grid&quot;:
+					//not yet implemented
+					break;
+				case &quot;line&quot;:
+					//not yet implemented
+					break;
+			}
+		}
+	};
+
+	/**
+	* Handles snapping the dragged object to the nearest among a list of points
+	* @method _handlePointSnap
+	* @private
+	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
+	* @param {PIXI.Point} dragOffset The drag offset for the dragged object.
+	* @param {PIXI.DisplayObject} obj The object to snap.
+	*/
+	p._handlePointSnap = function(localMousePos, dragOffset, obj)
+	{
+		var snapSettings = this.snapSettings;
+		var minDistSq = snapSettings.dist * snapSettings.dist;
+		var points = snapSettings.points;
+		var objX = localMousePos.x - dragOffset.x;
+		var objY = localMousePos.y - dragOffset.y;
+		var leastDist = -1;
+		var closestPoint = null;
+		for(var i = points.length - 1; i &gt;= 0; --i)
+		{
+			var p = points[i];
+			var distSq = distSquared(objX, objY, p.x, p.y);
+			if(distSq &lt;= minDistSq &amp;&amp; (distSq &lt; leastDist || leastDist == -1))
+			{
+				leastDist = distSq;
+				closestPoint = p;
+			}
+		}
+		if(closestPoint)
+		{
+			draggedObj.position.x = closestPoint.x;
+			draggedObj.position.y = closestPoint.y;
+		}
+	};
+
+	/*
+	* Small distance squared function
+	*/
+	var distSquared = function(x1, y1, x2, y2)
+	{
+		var xDiff = x1 - x2;
+		var yDiff = y1 - y2;
+		return xDiff * xDiff + yDiff * yDiff;
+	};
+	
+	/**
+	* Simple clamp function
+	*/
+	var clamp = function(x,a,b)
+	{
+		return (x &lt; a ? a : (x &gt; b ? b : x));
+	};
+	
+	//=== Giving functions and properties to draggable objects objects
+	var enableDrag = function()
+	{
+		this.touchstart = this.mousedown = this._onMouseDownListener;
+		this.buttonMode = this.interactive = true;
+	};
+	
+	var disableDrag = function()
+	{
+		this.mousedown = this.touchstart = null;
+		this.buttonMode = this.interactive = false;
+	};
+	
+	var _onMouseDown = function(mouseData)
+	{
+		this._dragMan._objMouseDown(this, mouseData);
+	};
+	
+	/**
+	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
+	* objects to enable/disable them (they start out disabled). Properties added to objects:
+	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
+	* these will override any existing properties of the same name
+	* @method addObject
+	* @public
+	* @param {PIXI.DisplayObject} obj The display object
+	* @param {PIXI.Rectangle} [bounds] The rectangle bounds. &#x27;right&#x27; and &#x27;bottom&#x27; properties
+	*                                      will be added to this object.
+	*/
+	p.addObject = function(obj, bounds)
+	{
+		if(bounds)
+		{
+			bounds.right = bounds.x + bounds.width;
+			bounds.bottom = bounds.y + bounds.height;
+		}
+		obj._dragBounds = bounds;
+		if(this._draggableObjects.indexOf(obj) &gt;= 0)
+		{
+			//don&#x27;t change any of the functions or anything, just quit the function after having updated the bounds
+			return;
+		}
+		obj.enableDrag = enableDrag;
+		obj.disableDrag = disableDrag;
+		obj._onMouseDownListener = _onMouseDown.bind(obj);
+		obj._dragMan = this;
+		this._draggableObjects.push(obj);
+	};
+	
+	/**
+	* Removes properties and functions added by addObject().
+	* @public
+	* @method removeObject
+	* @param {PIXI.DisplayObject} obj The display object
+	*/
+	p.removeObject = function(obj)
+	{
+		var index = this._draggableObjects.indexOf(obj);
+		if(index &gt;= 0)
+		{
+			obj.disableDrag();
+			delete obj.enableDrag;
+			delete obj.disableDrag;
+			delete obj._onMouseDownListener;
+			delete obj._dragMan;
+			delete obj._dragBounds;
+			this._draggableObjects.splice(index, 1);
+		}
+	};
+	
+	/**
+	*  Destroy the manager
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		//clean up dragged obj
+		this.stopDrag(false);
+		
+		this._updateObjPosition = null;
+		this._dragStartCallback = null;
+		this._dragEndCallback = null;
+		this._triggerHeldDrag = null;
+		this._triggerStickyClick = null;
+		this._stopDrag = null;
+		this._theStage = null;
+		for(var i = this._draggableObjects.length - 1; i &gt;= 0; --i)
+		{
+			var obj = this._draggableObjects[i];
+			obj.disableDrag();
+			delete obj.enableDrag;
+			delete obj.disableDrag;
+			delete obj._onMouseDownListener;
+			delete obj._dragMan;
+			delete obj._dragBounds;
+		}
+		this._draggableObjects = null;
+	};
+	
+	/** Assign to the global namespace */
+	namespace(&#x27;springroll&#x27;).DragManager = DragManager;
+	namespace(&#x27;springroll.pixi&#x27;).DragManager = DragManager;
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
