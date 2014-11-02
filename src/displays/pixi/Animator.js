@@ -1,12 +1,12 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function() {
 	
 	var Spine = include('PIXI.Spine'),
-		AnimatorTimeline = include('cloudkid.pixi.AnimatorTimeline'),
-		Application = include('cloudkid.Application'),
+		AnimatorTimeline = include('springroll.pixi.AnimatorTimeline'),
+		Application = include('springroll.Application'),
 		Sound;
 
 	/**
@@ -41,7 +41,7 @@
 	
 	/**
 	*  The global captions object to use with animator
-	*  @property {cloudkid.Captions} captions
+	*  @property {springroll.Captions} captions
 	*  @public
 	*/
 	Animator.captions = null;
@@ -56,7 +56,7 @@
 		_animPool = [];
 		_timelines = [];
 
-		Sound = include('cloudkid.Sound', false);
+		Sound = include('springroll.Sound', false);
 	};
 	
 	/**
@@ -465,6 +465,6 @@
 	Application.registerInit(Animator.init);
 	Application.registerDestroy(Animator.destroy);
 	
-	namespace('cloudkid').Animator = Animator;
-	namespace('cloudkid.pixi').Animator = Animator;
+	namespace('springroll').Animator = Animator;
+	namespace('springroll.pixi').Animator = Animator;
 }());

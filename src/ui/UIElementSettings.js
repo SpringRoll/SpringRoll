@@ -1,6 +1,6 @@
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -53,6 +53,6 @@
 	};	
 	
 	// Assign to name space
-	namespace('cloudkid').UIElementSettings = UIElementSettings;
+	namespace('springroll').UIElementSettings = UIElementSettings;
 
 }());

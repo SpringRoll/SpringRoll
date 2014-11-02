@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(global, doc, undefined){
 		
@@ -124,6 +124,6 @@
 	};
 	
 	// Assign to the global space
-	namespace('cloudkid').PageVisibility = PageVisibility;
+	namespace('springroll').PageVisibility = PageVisibility;
 	
 }(window, document));

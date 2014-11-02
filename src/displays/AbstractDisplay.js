@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -183,6 +183,6 @@
 	};
 
 	// Assign to the global namespace
-	namespace('cloudkid').AbstractDisplay = AbstractDisplay;
+	namespace('springroll').AbstractDisplay = AbstractDisplay;
 
 }());

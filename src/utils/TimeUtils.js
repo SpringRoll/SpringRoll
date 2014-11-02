@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(window){
 		
@@ -41,6 +41,6 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid').TimeUtils = TimeUtils;
+	namespace('springroll').TimeUtils = TimeUtils;
 	
 }(window));

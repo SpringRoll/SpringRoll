@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Translate
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(window, undefined){
 
@@ -445,6 +445,6 @@
 	window._f = translateFile;
 
 	// Assign to namespace
-	namespace('cloudkid').Translate = Translate;
+	namespace('springroll').Translate = Translate;
 
 })(window);}();

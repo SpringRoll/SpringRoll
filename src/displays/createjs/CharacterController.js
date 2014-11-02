@@ -1,11 +1,11 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
 	// Imports
-	var Animator = include('cloudkid.createjs.Animator');
+	var Animator = include('springroll.createjs.Animator');
 	
 	/**
 	*   Character Controller class is designed to play animated
@@ -244,7 +244,7 @@
 		this._animationStack = null;
 	};
 	
-	// Assign to the cloudkid namespace
-	namespace('cloudkid').CharacterController = CharacterController;
-	namespace('cloudkid.createjs').CharacterController = CharacterController;
+	// Assign to the springroll namespace
+	namespace('springroll').CharacterController = CharacterController;
+	namespace('springroll.createjs').CharacterController = CharacterController;
 }());

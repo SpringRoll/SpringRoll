@@ -1,12 +1,12 @@
 /**
 *  @module Game
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
 	//Library depencencies
-	var Game = include('cloudkid.Game'),
-		Application = include('cloudkid.Application'),
+	var Game = include('springroll.Game'),
+		Application = include('springroll.Application'),
 		VOPlayer,
 		LoadTask,
 		Captions,
@@ -15,12 +15,12 @@
 	/**
 	*  A sub-application for Game which setups Sound, VOPlayer and Captions.
 	*  @example
-		var game = new cloudkid.SoundGame();
+		var game = new springroll.SoundGame();
 		game.on('soundReady', function(){
 			// Ready to use!
 		});
 	*  @class SoundGame
-	*  @extends cloudkid.Game
+	*  @extends springroll.Game
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
@@ -54,15 +54,15 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var SoundGame = function(options)
 	{
-		Sound = include('cloudkid.Sound');
-		VOPlayer = include('cloudkid.VOPlayer');
-		Captions = include('cloudkid.Captions', false);
+		Sound = include('springroll.Sound');
+		VOPlayer = include('springroll.VOPlayer');
+		Captions = include('springroll.Captions', false);
 
 		Game.call(this, Object.merge({
 			captionsPath : 'assets/config/captions.json',
@@ -116,7 +116,7 @@
 	{
 		if (this.options.captionsPath !== null)
 		{
-			LoadTask = include('cloudkid.LoadTask');
+			LoadTask = include('springroll.LoadTask');
 			tasks.push(new LoadTask(
 				'captions',
 				this.options.captionsPath,
@@ -273,6 +273,6 @@
 	};
 
 	// Assign to the namespace
-	namespace('cloudkid').SoundGame = SoundGame;
+	namespace('springroll').SoundGame = SoundGame;
 
 }());

@@ -1,21 +1,21 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function(undefined){
 
-	var AbstractDisplay = include('cloudkid.AbstractDisplay'),
+	var AbstractDisplay = include('springroll.AbstractDisplay'),
 		Stage = include('PIXI.Stage'),
 		CanvasRenderer = include('PIXI.CanvasRenderer'),
 		WebGLRenderer = include('PIXI.WebGLRenderer'),
 		autoDetectRenderer = include('PIXI.autoDetectRenderer');
 
 	/**
-	*   PixiDisplay is a display plugin for the CloudKid Framework 
+	*   PixiDisplay is a display plugin for the springroll Framework 
 	*	that uses the Pixi library for rendering.
 	*
 	*   @class PixiDisplay
-	*   @extends cloudkid.AbstractDisplay
+	*   @extends springroll.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
@@ -104,8 +104,8 @@
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		// Set the animator and display adapter classes
-		this.animator = include('cloudkid.pixi.Animator');
-		this.adapter = include('cloudkid.pixi.DisplayAdapter');
+		this.animator = include('springroll.pixi.Animator');
+		this.adapter = include('springroll.pixi.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -182,7 +182,7 @@
 	};
 
 	// Assign to the global namespace
-	namespace('cloudkid').PixiDisplay = PixiDisplay;
-	namespace('cloudkid.pixi').PixiDisplay = PixiDisplay;
+	namespace('springroll').PixiDisplay = PixiDisplay;
+	namespace('springroll.pixi').PixiDisplay = PixiDisplay;
 
 }());

@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -64,7 +64,7 @@
 	
 	// Assign to the name space
 	// MediaLoadeResult is deprecated
-	namespace('cloudkid').MediaLoaderResult = LoaderResult;
-	namespace('cloudkid').LoaderResult = LoaderResult;
+	namespace('springroll').MediaLoaderResult = LoaderResult;
+	namespace('springroll').LoaderResult = LoaderResult;
 	
 }());

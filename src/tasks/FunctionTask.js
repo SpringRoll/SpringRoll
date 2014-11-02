@@ -1,11 +1,11 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	// Imports
-	var Task = include('cloudkid.Task');
+	var Task = include('springroll.Task');
 	
 	/**
 	*   A task to do a generic asynchronous function task.
@@ -90,6 +90,6 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').FunctionTask = FunctionTask;
+	namespace('springroll').FunctionTask = FunctionTask;
 	
 }());

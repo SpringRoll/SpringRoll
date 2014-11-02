@@ -1,13 +1,13 @@
 /**
 *  @module States
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
 	// Imports
-	var EventDispatcher = include('cloudkid.EventDispatcher'),
-		BaseState = include('cloudkid.BaseState'),
-		StateEvent = include('cloudkid.StateEvent'),
+	var EventDispatcher = include('springroll.EventDispatcher'),
+		BaseState = include('springroll.BaseState'),
+		StateEvent = include('springroll.StateEvent'),
 		Sound;		
 	
 	/**
@@ -15,7 +15,7 @@
 	*  
 	*  @class StateManager
 	*  @constructor
-	*  @param {cloudkid.AbstractDisplay} display The display on which the transition animation is displayed.
+	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
 	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
 	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
@@ -24,12 +24,12 @@
 	{
 		EventDispatcher.call(this);
 
-		Sound = include('cloudkid.Sound', false);
+		Sound = include('springroll.Sound', false);
 
 		/**
 		* The display that holds the states this StateManager is managing.
 		* 
-		* @property {cloudkid.AbstractDisplay} _display
+		* @property {springroll.AbstractDisplay} _display
 		* @private
 		*/
 		this._display = display;
@@ -188,7 +188,7 @@
 	{
 		if (DEBUG) 
 		{
-			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass cloudkid.BaseState");
+			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
 		}
 		
 		// Add to the collection of states
@@ -664,5 +664,5 @@
 	};
 	
 	// Add to the name space
-	namespace('cloudkid').StateManager = StateManager;
+	namespace('springroll').StateManager = StateManager;
 })();

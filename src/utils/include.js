@@ -15,11 +15,11 @@
 	*  Import a class
 	*
 	*  @example
-		var Application = include('cloudkid.Application');
+		var Application = include('springroll.Application');
 	*
 	*  @constructor
 	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'cloudkid.Application'
+	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
 	*  @param {Boolean} [required=true] If the class we're trying to include is required.
 	* 		For classes that aren't found and are required, an error is thrown.
 	*  @return {object|function} The object attached at the given namespace

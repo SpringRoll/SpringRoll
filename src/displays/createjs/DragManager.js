@@ -1,11 +1,11 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function() {
 		
 	var Tween,
-		DragData = include("cloudkid.createjs.DragData");
+		DragData = include("springroll.createjs.DragData");
 
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
@@ -576,7 +576,7 @@
 	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
 	* _dragBounds (Rectangle), _onMouseDownListener (Function),
-	* _dragMan (cloudkid.DragManager) reference to the DragManager
+	* _dragMan (springroll.DragManager) reference to the DragManager
 	* these will override any existing properties of the same name
 	* @method addObject
 	* @public
@@ -654,6 +654,6 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragManager = DragManager;
-	namespace('cloudkid.createjs').DragManager = DragManager;
+	namespace('springroll').DragManager = DragManager;
+	namespace('springroll.createjs').DragManager = DragManager;
 }());

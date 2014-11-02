@@ -1,6 +1,6 @@
 /**
 *  @module States
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -20,7 +20,7 @@
 	{
 		if(!StateManager)
 		{
-			StateManager = include('cloudkid.StateManager');
+			StateManager = include('springroll.StateManager');
 		}
 
 		/** 
@@ -421,6 +421,6 @@
 	};
 	
 	// Add to the name space
-	namespace('cloudkid').BaseState = BaseState;
+	namespace('springroll').BaseState = BaseState;
 	
 }());

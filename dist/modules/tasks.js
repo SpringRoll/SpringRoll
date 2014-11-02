@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -58,12 +58,12 @@
 	TaskEvent.TASK_DONE = "onItemLoaded";
 	
 	// Assign to the namespace
-	namespace('cloudkid').TaskEvent = TaskEvent;
+	namespace('springroll').TaskEvent = TaskEvent;
 
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -166,17 +166,17 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').Task = Task;
+	namespace('springroll').Task = Task;
 	
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	// Imports
-	var Task = include('cloudkid.Task');
+	var Task = include('springroll.Task');
 	
 	/**
 	*   A task to do a generic asynchronous function task.
@@ -261,19 +261,19 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').FunctionTask = FunctionTask;
+	namespace('springroll').FunctionTask = FunctionTask;
 	
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
 	// Imports
 	var Loader,
 		LoaderQueueItem,
-		Task = include('cloudkid.Task');
+		Task = include('springroll.Task');
 	
 	/**
 	*  Load task is a common type of task used for loading assets
@@ -293,8 +293,8 @@
 	{
 		if(!Loader)
 		{
-			Loader = include('cloudkid.Loader');
-			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+			Loader = include('springroll.Loader');
+			LoaderQueueItem = include('springroll.LoaderQueueItem');
 		}
 
 		// Construct the parent
@@ -393,18 +393,18 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').LoadTask = LoadTask;
+	namespace('springroll').LoadTask = LoadTask;
 	
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
 	// Imports
 	var TaskEvent,
-		EventDispatcher = include('cloudkid.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -418,7 +418,7 @@
 	{
 		if(!TaskEvent)
 		{
-			TaskEvent = include('cloudkid.TaskEvent');
+			TaskEvent = include('springroll.TaskEvent');
 		}
 
 		EventDispatcher.call(this);
@@ -725,19 +725,19 @@
 		this.tasks = null;
 	};
 
-	namespace('cloudkid').TaskManager = TaskManager;
+	namespace('springroll').TaskManager = TaskManager;
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	// Imports
-	var Task = include('cloudkid.Task'),
-		LoadTask = include('cloudkid.LoadTask'),
-		TaskEvent = include('cloudkid.TaskEvent'),
-		TaskManager = include('cloudkid.TaskManager');
+	var Task = include('springroll.Task'),
+		LoadTask = include('springroll.LoadTask'),
+		TaskEvent = include('springroll.TaskEvent'),
+		TaskManager = include('springroll.TaskManager');
 	
 	/**
 	*   A task that performs a list of tasks
@@ -905,19 +905,19 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').ListTask = ListTask;
+	namespace('springroll').ListTask = ListTask;
 	
 }());
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	var Loader,
 		Application,
 		AssetLoader,
-		Task = include('cloudkid.Task');
+		Task = include('springroll.Task');
 
 	/**
 	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
@@ -935,8 +935,8 @@
 		if(!Loader)
 		{
 			AssetLoader = include('PIXI.AssetLoader');
-			Loader = include('cloudkid.Loader');
-			Application = include('cloudkid.Application');
+			Loader = include('springroll.Loader');
+			Application = include('springroll.Application');
 		}
 
 		Task.call(this, id, callback);
@@ -1051,6 +1051,6 @@
 	};
 	
 	// Assign to the namespace
-	namespace('cloudkid').PixiTask = PixiTask;
+	namespace('springroll').PixiTask = PixiTask;
 	
 }());}();

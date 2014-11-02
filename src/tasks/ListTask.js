@@ -1,14 +1,14 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	// Imports
-	var Task = include('cloudkid.Task'),
-		LoadTask = include('cloudkid.LoadTask'),
-		TaskEvent = include('cloudkid.TaskEvent'),
-		TaskManager = include('cloudkid.TaskManager');
+	var Task = include('springroll.Task'),
+		LoadTask = include('springroll.LoadTask'),
+		TaskEvent = include('springroll.TaskEvent'),
+		TaskManager = include('springroll.TaskManager');
 	
 	/**
 	*   A task that performs a list of tasks
@@ -176,6 +176,6 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').ListTask = ListTask;
+	namespace('springroll').ListTask = ListTask;
 	
 }());

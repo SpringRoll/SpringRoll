@@ -1,14 +1,14 @@
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined) {
 	
 	// Class imports
-	var UIElementSettings = include('cloudkid.UIElementSettings'),
-		UIElement = include('cloudkid.UIElement'),
-		Positioner = include('cloudkid.Positioner'),
-		Application = include('cloudkid.Application');
+	var UIElementSettings = include('springroll.UIElementSettings'),
+		UIElement = include('springroll.UIElement'),
+		Positioner = include('springroll.Positioner'),
+		Application = include('springroll.Application');
 
 	/**
 	*  The UI scale is responsible for scaling UI components
@@ -456,6 +456,6 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').UIScaler = UIScaler;
+	namespace('springroll').UIScaler = UIScaler;
 
 }());

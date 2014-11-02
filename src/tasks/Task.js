@@ -1,6 +1,6 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -103,6 +103,6 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').Task = Task;
+	namespace('springroll').Task = Task;
 	
 }());

@@ -1,6 +1,6 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function(undefined){
 	
@@ -247,6 +247,6 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid.pixi').DisplayAdapter = DisplayAdapter;
+	namespace('springroll.pixi').DisplayAdapter = DisplayAdapter;
 
 }());

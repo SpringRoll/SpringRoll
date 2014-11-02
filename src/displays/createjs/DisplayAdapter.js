@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 	
@@ -272,6 +272,6 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid.createjs').DisplayAdapter = DisplayAdapter;
+	namespace('springroll.createjs').DisplayAdapter = DisplayAdapter;
 
 }());

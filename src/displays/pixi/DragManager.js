@@ -1,13 +1,13 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function() {
 	
 	var Application,
 		Tween,
 		Point,
-		DragData = include("cloudkid.pixi.DragData");
+		DragData = include("springroll.pixi.DragData");
 
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements
@@ -23,7 +23,7 @@
 	{
 		if(!Application)
 		{
-			Application = include('cloudkid.Application');
+			Application = include('springroll.Application');
 			Tween = include('createjs.Tween', false);
 			Point = include('PIXI.Point');
 		}
@@ -582,7 +582,7 @@
 	/**
 	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
-	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (cloudkid.DragManager) reference to the DragManager
+	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
 	* these will override any existing properties of the same name
 	* @method addObject
 	* @public
@@ -662,6 +662,6 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragManager = DragManager;
-	namespace('cloudkid.pixi').DragManager = DragManager;
+	namespace('springroll').DragManager = DragManager;
+	namespace('springroll.pixi').DragManager = DragManager;
 }());

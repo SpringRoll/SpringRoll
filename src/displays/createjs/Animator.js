@@ -1,12 +1,12 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 
 	// Imports
-	var Application = include('cloudkid.Application'),
-		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline'),
+	var Application = include('springroll.Application'),
+		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
 		Sound;
 	
 	/**
@@ -29,7 +29,7 @@
 
 	/**
 	*  The global captions object to use with animator
-	*  @property {cloudkid.Captions} captions
+	*  @property {springroll.Captions} captions
 	*  @public
 	*  @static
 	*/
@@ -98,7 +98,7 @@
 		_timelinesMap = {};
 		_paused = false;
 
-		Sound = include('cloudkid.Sound', false);
+		Sound = include('springroll.Sound', false);
 	};
 	
 	/**
@@ -731,11 +731,11 @@
 	*/
 	Animator.toString = function()
 	{
-		return "[cloudkid.createjs.Animator]";
+		return "[springroll.createjs.Animator]";
 	};
 	
 	// Assign to the global namespace
-	namespace('cloudkid').Animator = Animator;
-	namespace('cloudkid.createjs').Animator = Animator;
+	namespace('springroll').Animator = Animator;
+	namespace('springroll.createjs').Animator = Animator;
 
 }());

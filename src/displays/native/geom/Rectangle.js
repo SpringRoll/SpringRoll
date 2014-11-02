@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -94,6 +94,6 @@
 	p.constructor = Rectangle;
 
     // Assign to namespace
-    namespace('cloudkid.native').Rectangle = Rectangle;
+    namespace('springroll.native').Rectangle = Rectangle;
 
 }());

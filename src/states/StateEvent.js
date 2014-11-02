@@ -1,6 +1,6 @@
 /**
 *  @module States
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
@@ -81,6 +81,6 @@
 	StateEvent.HIDDEN = "onHidden";
 	
 	// Add to the name space
-	namespace('cloudkid').StateEvent = StateEvent;
+	namespace('springroll').StateEvent = StateEvent;
 	
 }());

@@ -1,8 +1,8 @@
 {
-	"name" : "CloudKidFramework",
+	"name" : "SpringRoll",
 	"version" : "0.0.6",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
-	"url" : "http://github.com/CloudKidStudio/CloudKidFramework",
+	"url" : "http://github.com/springrollStudio/SpringRoll",
 	"output" : "core",
 	"main" : [
 		"src/utils/namespace.js",

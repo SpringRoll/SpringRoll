@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -91,6 +91,6 @@
     p.constructor = Ellipse;
 
     // Assign to namespace
-    namespace('cloudkid.native').Ellipse = Ellipse;
+    namespace('springroll.native').Ellipse = Ellipse;
 
 }());

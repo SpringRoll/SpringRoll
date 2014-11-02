@@ -1,10 +1,10 @@
 /**
 *  @modules Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
-	var Task = include('cloudkid.Task', false);
+	var Task = include('springroll.Task', false);
 
 	// Task is optional if we're using the task module
 	if (!Task) return;
@@ -14,7 +14,7 @@
 	*  be created through Sound.instance.createPreloadTask().
 	*  This class is not created if the Task library is not loaded before the Sound library.
 	*  @class SoundListTask
-	*  @extends {cloudkid.Task}
+	*  @extends {springroll.Task}
 	*  @constructor
 	*  @param {String} id The unique id of this task
 	*  @param {Array} list The collection of sounds
@@ -44,7 +44,7 @@
 	*/
 	p.start = function(callback)
 	{
-		cloudkid.Sound.instance.preload(this.list, callback);
+		springroll.Sound.instance.preload(this.list, callback);
 	};
 
 	/**
@@ -58,6 +58,6 @@
 	};
 
 	// Assign to name space
-	namespace('cloudkid').SoundListTask = SoundListTask;
+	namespace('springroll').SoundListTask = SoundListTask;
 	
 }());

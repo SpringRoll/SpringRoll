@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -133,6 +133,6 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').LoaderQueueItem = LoaderQueueItem;
+	namespace('springroll').LoaderQueueItem = LoaderQueueItem;
 	
 }());

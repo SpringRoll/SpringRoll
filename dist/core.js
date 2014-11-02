@@ -1,4 +1,4 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Framework
 */
@@ -18,11 +18,11 @@
 	*
 	*  @example
 		var SpriteUtils = function(){};
-		namespace('cloudkid').SpriteUtils = SpriteUtils;
+		namespace('springroll').SpriteUtils = SpriteUtils;
 	*
 	*  @constructor
 	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'cloudkid.utils'
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
 	*  @return {object} The namespace object attached to the current window
 	*/
 	var namespace = function(namespaceString) {
@@ -62,11 +62,11 @@
 	*  Import a class
 	*
 	*  @example
-		var Application = include('cloudkid.Application');
+		var Application = include('springroll.Application');
 	*
 	*  @constructor
 	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'cloudkid.Application'
+	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
 	*  @param {Boolean} [required=true] If the class we're trying to include is required.
 	* 		For classes that aren't found and are required, an error is thrown.
 	*  @return {object|function} The object attached at the given namespace
@@ -731,7 +731,7 @@
 }(window));
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(window){
 		
@@ -772,7 +772,7 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid').TimeUtils = TimeUtils;
+	namespace('springroll').TimeUtils = TimeUtils;
 	
 }(window));
 (function(){
@@ -791,7 +791,7 @@
 	// create a setTimeout based fallback if there wasn't an official or prefixed version
 	if (!window.requestAnimationFrame)
 	{
-		var TimeUtils = include('cloudkid.TimeUtils');
+		var TimeUtils = include('springroll.TimeUtils');
 		var lastTime = 0;
 		// Create the polyfill
 		window.requestAnimationFrame = function(callback)
@@ -815,7 +815,7 @@
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 		
@@ -1086,12 +1086,12 @@
 	};
 	
 	// Assign to name space
-	namespace('cloudkid').EventDispatcher = EventDispatcher;
+	namespace('springroll').EventDispatcher = EventDispatcher;
 	
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(global, doc, undefined){
 		
@@ -1215,12 +1215,12 @@
 	};
 	
 	// Assign to the global space
-	namespace('cloudkid').PageVisibility = PageVisibility;
+	namespace('springroll').PageVisibility = PageVisibility;
 	
 }(window, document));
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -1229,7 +1229,7 @@
 		Loader,
 		TimeUtils,
 		PageVisibility,
-		EventDispatcher = include('cloudkid.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -1266,9 +1266,9 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var Application = function(options)
 	{
@@ -1283,9 +1283,9 @@
 		if(!Debug)
 		{
 			Debug = include('Debug');
-			Loader = include('cloudkid.Loader');
-			TimeUtils = include('cloudkid.TimeUtils');
-			PageVisibility = include('cloudkid.PageVisibility');
+			Loader = include('springroll.Loader');
+			TimeUtils = include('springroll.TimeUtils');
+			PageVisibility = include('springroll.PageVisibility');
 		}
 
 		/**
@@ -2068,12 +2068,12 @@
 	};
 
 	// Add to the name space
-	namespace('cloudkid').Application = Application;
+	namespace('springroll').Application = Application;
 
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -2256,12 +2256,12 @@
 	};
 
 	// Assign to the global namespace
-	namespace('cloudkid').AbstractDisplay = AbstractDisplay;
+	namespace('springroll').AbstractDisplay = AbstractDisplay;
 
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -2281,8 +2281,8 @@
 	{
 		if(!Application)
 		{
-			Application = include('cloudkid.Application');
-			Loader = include('cloudkid.Loader');
+			Application = include('springroll.Application');
+			Loader = include('springroll.Loader');
 		}
 		
 		this._applySpecificVersion = this._applySpecificVersion.bind(this);
@@ -2555,12 +2555,12 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').CacheManager = CacheManager;
+	namespace('springroll').CacheManager = CacheManager;
 	
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -2693,12 +2693,12 @@
 	};
 	
 	// Assign to the name space
-	namespace('cloudkid').LoaderQueueItem = LoaderQueueItem;
+	namespace('springroll').LoaderQueueItem = LoaderQueueItem;
 	
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -2721,10 +2721,10 @@
 	{
 		if (!Application)
 		{
-			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
-			CacheManager = include('cloudkid.CacheManager');
-			Application = include('cloudkid.Application');
-			LoaderResult = include('cloudkid.LoaderResult');
+			LoaderQueueItem = include('springroll.LoaderQueueItem');
+			CacheManager = include('springroll.CacheManager');
+			Application = include('springroll.Application');
+			LoaderResult = include('springroll.LoaderResult');
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 		}
@@ -2837,7 +2837,7 @@
 	};
 
 	//register the global init function
-	cloudkid.Application.registerInit(Loader.init);
+	springroll.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
@@ -3167,12 +3167,12 @@
 	};
 	
 	// MediaLoader name is deprecated
-	namespace('cloudkid').MediaLoader = Loader;
-	namespace('cloudkid').Loader = Loader;
+	namespace('springroll').MediaLoader = Loader;
+	namespace('springroll').Loader = Loader;
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -3236,13 +3236,13 @@
 	
 	// Assign to the name space
 	// MediaLoadeResult is deprecated
-	namespace('cloudkid').MediaLoaderResult = LoaderResult;
-	namespace('cloudkid').LoaderResult = LoaderResult;
+	namespace('springroll').MediaLoaderResult = LoaderResult;
+	namespace('springroll').LoaderResult = LoaderResult;
 	
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 	
@@ -3250,8 +3250,8 @@
 	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
 	*  callbacks into one. For example usage:
 	*
-	*  var voPlayer = new cloudkid.VOPlayer();
-	*  var callback = cloudkid.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	*  var voPlayer = new springroll.VOPlayer();
+	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
 	*  Animator.play(myClip, "myAnim", callback);
 	*  
 	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
@@ -3287,11 +3287,11 @@
 		return CombinedCallback.bind(this, call, obj, prop, callProp);
 	};
 
-	namespace('cloudkid').CombinedCallback = CombinedCallback;
+	namespace('springroll').CombinedCallback = CombinedCallback;
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 		
@@ -3407,16 +3407,16 @@
 	};
 	
 	// Assign to the global space
-	namespace('cloudkid').SavedData = SavedData;
+	namespace('springroll').SavedData = SavedData;
 	
 }());
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined) {
 
-	var Application = include('cloudkid.Application');
+	var Application = include('springroll.Application');
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
@@ -3576,5 +3576,5 @@
 		this._callback = null;
 	};
 
-	namespace('cloudkid').DelayedCall = DelayedCall;
+	namespace('springroll').DelayedCall = DelayedCall;
 }());}();

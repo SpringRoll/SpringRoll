@@ -1,12 +1,12 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
 	// Imports
 	var TaskEvent,
-		EventDispatcher = include('cloudkid.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -20,7 +20,7 @@
 	{
 		if(!TaskEvent)
 		{
-			TaskEvent = include('cloudkid.TaskEvent');
+			TaskEvent = include('springroll.TaskEvent');
 		}
 
 		EventDispatcher.call(this);
@@ -327,5 +327,5 @@
 		this.tasks = null;
 	};
 
-	namespace('cloudkid').TaskManager = TaskManager;
+	namespace('springroll').TaskManager = TaskManager;
 }());

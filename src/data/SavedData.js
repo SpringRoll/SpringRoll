@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 		
@@ -116,6 +116,6 @@
 	};
 	
 	// Assign to the global space
-	namespace('cloudkid').SavedData = SavedData;
+	namespace('springroll').SavedData = SavedData;
 	
 }());

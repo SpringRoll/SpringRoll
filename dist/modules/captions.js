@@ -1,12 +1,12 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Captions
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
 	// Import class
-	var Application = include('cloudkid.Application');
+	var Application = include('springroll.Application');
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -24,7 +24,7 @@
 		};
 	
 		// initialize the captions
-		var captions = new cloudkid.Captions(captionsDictionary);
+		var captions = new springroll.Captions(captionsDictionary);
 		captions.play("Alias1");
 	*
 	* @class Captions
@@ -636,6 +636,6 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').Captions = Captions;
+	namespace('springroll').Captions = Captions;
 	
 }());}();

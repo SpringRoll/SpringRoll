@@ -1,22 +1,22 @@
 /**
 *  @module Game
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
 	//Library depencencies
-	var StateGame = include('cloudkid.StateGame'),
+	var StateGame = include('springroll.StateGame'),
 		UIScaler;
 
 	/**
 	*  A sub-game class to provide scaling functionality and responsive design.
 	*  @example
-		var game = new cloudkid.ScalingGame();
+		var game = new springroll.ScalingGame();
 		game.on('scalingReady', function(){
 			// Ready to use!
 		});
 	*  @class ScalingGame
-	*  @extends cloudkid.StateGame
+	*  @extends springroll.StateGame
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.state] The initial state
@@ -55,13 +55,13 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var ScalingGame = function(options)
 	{
-		UIScaler = include('cloudkid.UIScaler');
+		UIScaler = include('springroll.UIScaler');
 
 		StateGame.call(this, options);
 		
@@ -156,6 +156,6 @@
 	};
 
 	// Add to the namespace
-	namespace('cloudkid').ScalingGame = ScalingGame;
+	namespace('springroll').ScalingGame = ScalingGame;
 
 }());

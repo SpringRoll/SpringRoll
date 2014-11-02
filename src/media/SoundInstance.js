@@ -1,6 +1,6 @@
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
@@ -8,14 +8,14 @@
 
 	/**
 	*  A playing instance of a sound (or promise to play as soon as it loads). These can only
-	*  be created through cloudkid.Sound.instance.play().
+	*  be created through springroll.Sound.instance.play().
 	*  @class SoundInstance
 	*/
 	var SoundInstance = function()
 	{
 		if(!Sound)
 		{
-			Sound = include('cloudkid.Sound');
+			Sound = include('springroll.Sound');
 		}
 
 		/**
@@ -113,7 +113,7 @@
 		this.paused = false;
 
 		/**
-		*	An active SoundInstance should always be valid. This is primarily for compatability with cloudkid.Audio.
+		*	An active SoundInstance should always be valid. This is primarily for compatability with springroll.Audio.
 		*	@property {bool} isValid
 		*	@public
 		*	@readOnly
@@ -197,6 +197,6 @@
 		this._channel.resume();
 	};
 
-	namespace('cloudkid').SoundInstance = SoundInstance;
+	namespace('springroll').SoundInstance = SoundInstance;
 
 }());

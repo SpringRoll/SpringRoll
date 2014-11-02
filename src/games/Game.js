@@ -1,11 +1,11 @@
 /**
 *  @module Game
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
 	//Library depencencies
-	var Application = include('cloudkid.Application'),
+	var Application = include('springroll.Application'),
 		LoadTask,
 		TaskManager;
 
@@ -14,12 +14,12 @@
 	*  and additional events. Most importantly it provides preload functionalty though the state
 	*  manager. Assume loading a single configuration JSON file.
 	*  @example
-		var game = new cloudkid.Game();
+		var game = new springroll.Game();
 		game.on('loaded', function(){
 			// Ready to use!
 		});
 	*  @class Game
-	*  @extends cloudkid.Application
+	*  @extends springroll.Application
 	*  @constructor
 	*  @param {object} [options] The collection of options, see Application for more options.
 	*  @param {string} [options.name] The name of the game
@@ -48,14 +48,14 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var Game = function(options)
 	{
-		LoadTask = include('cloudkid.LoadTask');
-		TaskManager = include('cloudkid.TaskManager');
+		LoadTask = include('springroll.LoadTask');
+		TaskManager = include('springroll.TaskManager');
 
 		Application.call(this, Object.merge({
 			updateTween : true,
@@ -193,6 +193,6 @@
 	};
 
 	// Assign to the namespace
-	namespace('cloudkid').Game = Game;
+	namespace('springroll').Game = Game;
 
 }());

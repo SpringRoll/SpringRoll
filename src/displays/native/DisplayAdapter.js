@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(undefined){
 	
@@ -18,7 +18,7 @@
 	*  @static
 	*  @default PIXI.Circle
 	*/
-	DisplayAdapter.Circle = include('cloudkid.native.Circle');
+	DisplayAdapter.Circle = include('springroll.native.Circle');
 
 	/**
 	*  The geometry class for Ellipse
@@ -27,7 +27,7 @@
 	*  @static
 	*  @default PIXI.Ellipse
 	*/
-	DisplayAdapter.Ellipse = include('cloudkid.native.Ellipse');
+	DisplayAdapter.Ellipse = include('springroll.native.Ellipse');
 
 	/**
 	*  The geometry class for Rectangle
@@ -36,7 +36,7 @@
 	*  @static
 	*  @default PIXI.Rectangle
 	*/
-	DisplayAdapter.Rectangle = include('cloudkid.native.Rectangle');
+	DisplayAdapter.Rectangle = include('springroll.native.Rectangle');
 
 	/**
 	*  The geometry class for Sector
@@ -54,7 +54,7 @@
 	*  @static
 	*  @default PIXI.Point
 	*/
-	DisplayAdapter.Point = include('cloudkid.native.Point');
+	DisplayAdapter.Point = include('springroll.native.Point');
 
 	/**
 	*  The geometry class for Polygon
@@ -63,7 +63,7 @@
 	*  @static
 	*  @default PIXI.Polygon
 	*/
-	DisplayAdapter.Polygon = include('cloudkid.native.Polygon');
+	DisplayAdapter.Polygon = include('springroll.native.Polygon');
 
 	/**
 	*  If the rotation is expressed in radians
@@ -206,6 +206,6 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid.native').DisplayAdapter = DisplayAdapter;
+	namespace('springroll.native').DisplayAdapter = DisplayAdapter;
 
 }());

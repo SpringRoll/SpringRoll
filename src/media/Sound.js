@@ -1,10 +1,10 @@
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
-	var Application = include('cloudkid.Application'),
+	var Application = include('springroll.Application'),
 		Loader,
 		LoadTask,
 		TaskManager,
@@ -24,12 +24,12 @@
 		// Import classes
 		if(!Loader)
 		{
-			Loader = include('cloudkid.Loader');
-			LoadTask = include('cloudkid.LoadTask', false);
-			TaskManager = include('cloudkid.TaskManager', false);
-			SoundContext = include('cloudkid.SoundContext');
-			SoundInstance = include('cloudkid.SoundInstance');
-			SoundListTask = include('cloudkid.SoundListTask', false);
+			Loader = include('springroll.Loader');
+			LoadTask = include('springroll.LoadTask', false);
+			TaskManager = include('springroll.TaskManager', false);
+			SoundContext = include('springroll.SoundContext');
+			SoundInstance = include('springroll.SoundInstance');
+			SoundListTask = include('springroll.SoundListTask', false);
 		}
 
 		/**
@@ -133,7 +133,7 @@
 
 		if (!options.ready)
 		{
-			throw "cloudkid.Sound.init requires a ready callback";
+			throw "springroll.Sound.init requires a ready callback";
 		}
 
 		CJSSound.registerPlugins(options.plugins);
@@ -281,7 +281,7 @@
 	{
 		if (!config)
 		{
-			Debug.warn("Warning - cloudkid.Sound was told to load a null config");
+			Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
 		var list = config.soundManifest;
@@ -566,7 +566,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("cloudkid.Sound: alias '" + alias + "' not found!");
+			Debug.error("springroll.Sound: alias '" + alias + "' not found!");
 			
 			if (completeCallback)
 				completeCallback();
@@ -1027,7 +1027,7 @@
 			}
 			else
 			{
-				Debug.error("cloudkid.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
 		if (tasks.length > 0)
@@ -1070,14 +1070,14 @@
 	};
 	
 	/**
-	*	Creates a Task for the CloudKid Task library for preloading a list of sounds.
+	*	Creates a Task for the springroll Task library for preloading a list of sounds.
 	*	This function will not work if the Task library was not loaded before the Sound library.
 	*	@method createPreloadTask
 	*	@public
 	*	@param {String} id The id of the task.
 	*	@param {Array} list An array of sound aliases to load.
 	*	@param {function} callback The function to call when the task is complete.
-	*	@return {cloudkid.Task} A task to load up all of the sounds in the list.
+	*	@return {springroll.Task} A task to load up all of the sounds in the list.
 	*/
 	p.createPreloadTask = function(id, list, callback)
 	{
@@ -1127,7 +1127,7 @@
 	};
 	
 	/**
-	*	Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.
+	*	Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
 	*	@method destroy
 	*	@public
 	*/
@@ -1160,5 +1160,5 @@
 		this._pool = null;
 	};
 	
-	namespace('cloudkid').Sound = Sound;
+	namespace('springroll').Sound = Sound;
 }());

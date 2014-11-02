@@ -17,11 +17,11 @@
 	*
 	*  @example
 		var SpriteUtils = function(){};
-		namespace('cloudkid').SpriteUtils = SpriteUtils;
+		namespace('springroll').SpriteUtils = SpriteUtils;
 	*
 	*  @constructor
 	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'cloudkid.utils'
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
 	*  @return {object} The namespace object attached to the current window
 	*/
 	var namespace = function(namespaceString) {

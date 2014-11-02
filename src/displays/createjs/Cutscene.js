@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 	
@@ -14,7 +14,7 @@
 
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
-	*	single audio file with cloudkid.Sound, with optional captions. Utilizes the Tasks module.
+	*	single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
 	*
 	*   @class Cutscene
 	*	@constructor
@@ -31,11 +31,11 @@
 	{
 		if(!Application)
 		{
-			Application = include('cloudkid.Application');
-			LoadTask = include('cloudkid.LoadTask');
-			TaskManager = include('cloudkid.TaskManager');
-			Sound = include('cloudkid.Sound');
-			ListTask = include('cloudkid.ListTask');
+			Application = include('springroll.Application');
+			LoadTask = include('springroll.LoadTask');
+			TaskManager = include('springroll.TaskManager');
+			Sound = include('springroll.Sound');
+			ListTask = include('springroll.ListTask');
 			BitmapUtils = include('createjs.BitmapUtils');
 		}
 
@@ -471,6 +471,6 @@
 		this.display = null;
 	};
 	
-	namespace("cloudkid").Cutscene = Cutscene;
-	namespace("cloudkid.createjs").Cutscene = Cutscene;
+	namespace("springroll").Cutscene = Cutscene;
+	namespace("springroll.createjs").Cutscene = Cutscene;
 }());

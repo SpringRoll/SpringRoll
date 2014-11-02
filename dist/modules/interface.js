@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 
@@ -14,15 +14,15 @@
 	*
 	*  @class UIElement
 	*  @param {DisplayObject} item The item to affect  
-	*  @param {cloudkid.UIElementSettings} settings The scale settings
-	*  @param {cloudkid.ScreenSettings} designedScreen The original screen the item was designed for
+	*  @param {springroll.UIElementSettings} settings The scale settings
+	*  @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
 	*  @param {DisplayAdapter} adapter The display adapter
 	*/
 	var UIElement = function(item, settings, designedScreen, adapter)
 	{
 		if (!UIScaler)
 		{
-			UIScaler = include('cloudkid.UIScaler');
+			UIScaler = include('springroll.UIScaler');
 		}
 		
 		/**
@@ -260,12 +260,12 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').UIElement = UIElement;
+	namespace('springroll').UIElement = UIElement;
 
 }());
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -318,12 +318,12 @@
 	};	
 	
 	// Assign to name space
-	namespace('cloudkid').UIElementSettings = UIElementSettings;
+	namespace('springroll').UIElementSettings = UIElementSettings;
 
 }());
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -360,7 +360,7 @@
 	{
 		//get the default adapter if not specified
 		if(!adapter)
-			adapter = cloudkid.UIScaler._getAdapter();
+			adapter = springroll.UIScaler._getAdapter();
 		
 		if (settings.x !== undefined)
 		{
@@ -500,20 +500,20 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').Positioner = Positioner;
+	namespace('springroll').Positioner = Positioner;
 
 }());
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined) {
 	
 	// Class imports
-	var UIElementSettings = include('cloudkid.UIElementSettings'),
-		UIElement = include('cloudkid.UIElement'),
-		Positioner = include('cloudkid.Positioner'),
-		Application = include('cloudkid.Application');
+	var UIElementSettings = include('springroll.UIElementSettings'),
+		UIElement = include('springroll.UIElement'),
+		Positioner = include('springroll.Positioner'),
+		Application = include('springroll.Application');
 
 	/**
 	*  The UI scale is responsible for scaling UI components
@@ -961,6 +961,6 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').UIScaler = UIScaler;
+	namespace('springroll').UIScaler = UIScaler;
 
 }());}();

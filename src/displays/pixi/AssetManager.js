@@ -1,6 +1,6 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function() {
 	
@@ -370,6 +370,6 @@
 	};
 	
 	// Assign to the namespace
-	namespace('cloudkid').AssetManager = AssetManager;
-	namespace('cloudkid.pixi').AssetManager = AssetManager;
+	namespace('springroll').AssetManager = AssetManager;
+	namespace('springroll.pixi').AssetManager = AssetManager;
 }());

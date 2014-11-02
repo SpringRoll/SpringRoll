@@ -1,13 +1,13 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
 	// Imports
 	var Loader,
 		LoaderQueueItem,
-		Task = include('cloudkid.Task');
+		Task = include('springroll.Task');
 	
 	/**
 	*  Load task is a common type of task used for loading assets
@@ -27,8 +27,8 @@
 	{
 		if(!Loader)
 		{
-			Loader = include('cloudkid.Loader');
-			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
+			Loader = include('springroll.Loader');
+			LoaderQueueItem = include('springroll.LoaderQueueItem');
 		}
 
 		// Construct the parent
@@ -127,6 +127,6 @@
 	};
 	
 	// Assign to the namespacing
-	namespace('cloudkid').LoadTask = LoadTask;
+	namespace('springroll').LoadTask = LoadTask;
 	
 }());

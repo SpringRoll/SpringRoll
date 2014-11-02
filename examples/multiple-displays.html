@@ -42,8 +42,8 @@
 var Texture = include('PIXI.Texture'),
 	Sprite = include('PIXI.Sprite'),
 	Point = include('PIXI.Point'),
-	Loader = include('cloudkid.Loader'),
-	Application = include('cloudkid.Application');
+	Loader = include('springroll.Loader'),
+	Application = include('springroll.Application');
 
 var DrawingApp = function(options)
 {
@@ -79,12 +79,12 @@ p.init = function()
 {
 	Debug.log("DrawingApp is ready to use.");
 
-	this.addDisplay("pixiStage", cloudkid.PixiDisplay, 
+	this.addDisplay("pixiStage", springroll.PixiDisplay, 
 		{
 			clearView: true,
 			transparent: true
 		});
-	var cjsDisplay = this.addDisplay("createjsStage", cloudkid.CreateJSDisplay, 
+	var cjsDisplay = this.addDisplay("createjsStage", springroll.CreateJSDisplay, 
 		{
 			clearView: true
 		});
@@ -95,7 +95,7 @@ p.init = function()
 	createjsStage = this.getDisplay("createjsStage").stage;
 	
 	//fromImage automatically loads stuff it it wasn't preloaded
-	texture = new Texture.fromImage("assets/images/cloudkid.png");
+	texture = new Texture.fromImage("assets/images/springroll.png");
 	sprite = new Sprite(texture);		
 			
 	sprite.position.x = 0;
@@ -140,7 +140,7 @@ p.init = function()
 */
 p._onCompletedLoad = function()
 {
-	pixiClearButton = new cloudkid.pixi.Button(
+	pixiClearButton = new springroll.pixi.Button(
 		// the button states, from the button data loaded
 		{
 			up : Texture.fromFrame("button_up.png"),
@@ -164,7 +164,7 @@ p._onCompletedLoad = function()
 	
 	pixiStage.addChild(pixiClearButton);
 
-	pixiSwapButton = new cloudkid.pixi.Button(
+	pixiSwapButton = new springroll.pixi.Button(
 		// the button states, from the button data loaded
 		{
 			up : Texture.fromFrame("button_up.png"),
@@ -194,7 +194,7 @@ p._onCompletedLoad = function()
 */
 p._onCJSButtonLoaded = function(result)
 {		
-	createjsClearButton = new cloudkid.createjs.Button(result.content, {
+	createjsClearButton = new springroll.createjs.Button(result.content, {
 		text: "Clear",
 		font: "20px Arial",
 		color: "#ffffff"
@@ -204,13 +204,13 @@ p._onCJSButtonLoaded = function(result)
 	createjsClearButton.y = this.display.height - createjsClearButton.height - 5;
 	
 	createjsClearButton.addEventListener(
-		cloudkid.createjs.Button.BUTTON_PRESS, 
+		springroll.createjs.Button.BUTTON_PRESS, 
 		this._clear.bind(this)
 	);
 	
 	createjsStage.addChild(createjsClearButton);
 
-	createjsSwapButton = new cloudkid.createjs.Button(result.content, {
+	createjsSwapButton = new springroll.createjs.Button(result.content, {
 		text: "Pixi",
 		font: "20px Arial",
 		color: "#ffffff"
@@ -220,7 +220,7 @@ p._onCJSButtonLoaded = function(result)
 	createjsSwapButton.y = this.display.height - createjsSwapButton.height - 5;
 	
 	createjsSwapButton.addEventListener(
-		cloudkid.createjs.Button.BUTTON_PRESS, 
+		springroll.createjs.Button.BUTTON_PRESS, 
 		this.swapDisplay.bind(this)
 	);
 	
@@ -351,7 +351,7 @@ p.destroy = function()
 		createjsStage = null;
 	}
 
-	cloudkid.Application.prototype.destroy.call(this);
+	springroll.Application.prototype.destroy.call(this);
 };
 
 /**

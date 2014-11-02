@@ -1,6 +1,6 @@
 /**
 *  @modules Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -42,6 +42,6 @@
 	};
 
 	// Assign to name space
-	namespace('cloudkid').SoundContext = SoundContext;
+	namespace('springroll').SoundContext = SoundContext;
 	
 }());

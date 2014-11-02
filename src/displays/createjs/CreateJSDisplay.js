@@ -1,20 +1,20 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 
 	// Import createjs classes
-	var AbstractDisplay = include('cloudkid.AbstractDisplay'),
+	var AbstractDisplay = include('springroll.AbstractDisplay'),
 		Stage,
 		Touch;
 
 	/**
-	*   CreateJSDisplay is a display plugin for the CloudKid Framework
+	*   CreateJSDisplay is a display plugin for the springroll Framework
 	*	that uses the EaselJS library for rendering.
 	*
 	*   @class CreateJSDisplay
-	*   @extends cloudkid.AbstractDisplay
+	*   @extends springroll.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -59,8 +59,8 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 
-		this.animator = include('cloudkid.createjs.Animator');
-		this.adapter = include('cloudkid.createjs.DisplayAdapter');
+		this.animator = include('springroll.createjs.Animator');
+		this.adapter = include('springroll.createjs.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -134,7 +134,7 @@
 	};
 
 	// Assign to the global namespace
-	namespace('cloudkid').CreateJSDisplay = CreateJSDisplay;
-	namespace('cloudkid.createjs').CreateJSDisplay = CreateJSDisplay;
+	namespace('springroll').CreateJSDisplay = CreateJSDisplay;
+	namespace('springroll.createjs').CreateJSDisplay = CreateJSDisplay;
 
 }());

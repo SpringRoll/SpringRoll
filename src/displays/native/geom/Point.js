@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -142,6 +142,6 @@
 	p.constructor = Point;
 
     // Assign to namespace
-    namespace('cloudkid.native').Point = Point;
+    namespace('springroll.native').Point = Point;
 
 }());

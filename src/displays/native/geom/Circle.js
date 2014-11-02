@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -77,6 +77,6 @@
     p.constructor = Circle;
 
     // Assign to namespace
-    namespace('cloudkid.native').Circle = Circle;
+    namespace('springroll.native').Circle = Circle;
 
 }());

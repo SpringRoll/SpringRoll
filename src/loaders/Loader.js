@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -23,10 +23,10 @@
 	{
 		if (!Application)
 		{
-			LoaderQueueItem = include('cloudkid.LoaderQueueItem');
-			CacheManager = include('cloudkid.CacheManager');
-			Application = include('cloudkid.Application');
-			LoaderResult = include('cloudkid.LoaderResult');
+			LoaderQueueItem = include('springroll.LoaderQueueItem');
+			CacheManager = include('springroll.CacheManager');
+			Application = include('springroll.Application');
+			LoaderResult = include('springroll.LoaderResult');
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 		}
@@ -139,7 +139,7 @@
 	};
 
 	//register the global init function
-	cloudkid.Application.registerInit(Loader.init);
+	springroll.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
@@ -469,6 +469,6 @@
 	};
 	
 	// MediaLoader name is deprecated
-	namespace('cloudkid').MediaLoader = Loader;
-	namespace('cloudkid').Loader = Loader;
+	namespace('springroll').MediaLoader = Loader;
+	namespace('springroll').Loader = Loader;
 }());

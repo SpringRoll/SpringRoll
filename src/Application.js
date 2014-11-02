@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -9,7 +9,7 @@
 		Loader,
 		TimeUtils,
 		PageVisibility,
-		EventDispatcher = include('cloudkid.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -46,9 +46,9 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var Application = function(options)
 	{
@@ -63,9 +63,9 @@
 		if(!Debug)
 		{
 			Debug = include('Debug');
-			Loader = include('cloudkid.Loader');
-			TimeUtils = include('cloudkid.TimeUtils');
-			PageVisibility = include('cloudkid.PageVisibility');
+			Loader = include('springroll.Loader');
+			TimeUtils = include('springroll.TimeUtils');
+			PageVisibility = include('springroll.PageVisibility');
 		}
 
 		/**
@@ -848,6 +848,6 @@
 	};
 
 	// Add to the name space
-	namespace('cloudkid').Application = Application;
+	namespace('springroll').Application = Application;
 
 }());

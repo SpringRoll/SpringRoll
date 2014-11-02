@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function() {
 	
@@ -13,6 +13,6 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragData = DragData;
-	namespace('cloudkid.createjs').DragData = DragData;
+	namespace('springroll').DragData = DragData;
+	namespace('springroll.createjs').DragData = DragData;
 }());

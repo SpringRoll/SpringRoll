@@ -1,10 +1,10 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined) {
 
-	var Application = include('cloudkid.Application');
+	var Application = include('springroll.Application');
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
@@ -164,5 +164,5 @@
 		this._callback = null;
 	};
 
-	namespace('cloudkid').DelayedCall = DelayedCall;
+	namespace('springroll').DelayedCall = DelayedCall;
 }());

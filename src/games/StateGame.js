@@ -1,16 +1,16 @@
 /**
 *  @module Game
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 	
 	var StateManager,
-		SoundGame = include('cloudkid.SoundGame');
+		SoundGame = include('springroll.SoundGame');
 
 	/**
 	*  A game with state management, provides some convenience and events for adding states.
 	*  @example
-		var game = new cloudkid.StateGame();
+		var game = new springroll.StateGame();
 		game.on('addStates', function(){
 			//add some states with game.addState()
 		});
@@ -18,7 +18,7 @@
 			// Ready to use!
 		});
 	*  @class StateGame
-	*  @extends cloudkid.SoundGame
+	*  @extends springroll.SoundGame
 	*  @constructor
 	*  @param {object} [options] The Application options
 	*  @param {string} [options.state] The initial state
@@ -57,9 +57,9 @@
 	*		the debug module must be included to use this feature. Can be an IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `cloudkid.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `cloudkid.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
 	*/
 	var StateGame = function(options)
 	{
@@ -72,7 +72,7 @@
 			}
 		}, options));
 
-		StateManager = include('cloudkid.StateManager');
+		StateManager = include('springroll.StateManager');
 
 		/**
 		*  The transition animation to use between the StateManager state changes
@@ -82,7 +82,7 @@
 
 		/**
 		*  The state manager
-		*  @property {cloudkid.StateManager} manager
+		*  @property {springroll.StateManager} manager
 		*/
 		this.manager = null;
 
@@ -226,6 +226,6 @@
 	};
 	
 	// Assign to the global namespace
-	namespace('cloudkid').StateGame = StateGame;
+	namespace('springroll').StateGame = StateGame;
 	
 }());

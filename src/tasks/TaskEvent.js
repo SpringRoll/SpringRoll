@@ -1,6 +1,6 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -57,6 +57,6 @@
 	TaskEvent.TASK_DONE = "onItemLoaded";
 	
 	// Assign to the namespace
-	namespace('cloudkid').TaskEvent = TaskEvent;
+	namespace('springroll').TaskEvent = TaskEvent;
 
 }());

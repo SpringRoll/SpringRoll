@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -20,8 +20,8 @@
 	{
 		if(!Application)
 		{
-			Application = include('cloudkid.Application');
-			Loader = include('cloudkid.Loader');
+			Application = include('springroll.Application');
+			Loader = include('springroll.Loader');
 		}
 		
 		this._applySpecificVersion = this._applySpecificVersion.bind(this);
@@ -294,6 +294,6 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').CacheManager = CacheManager;
+	namespace('springroll').CacheManager = CacheManager;
 	
 }());

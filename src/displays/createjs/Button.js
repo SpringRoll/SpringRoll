@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 	
@@ -70,7 +70,7 @@
 	 *  @param {String} [label.font] The font name and size to use on the label, as createjs.Text expects.
 	 *  @param {String} [label.color] The color of the text to use on the label, as createjs.Text expects.
 	 *  @param {String} [label.textBaseline="middle"] The baseline for the label text, as createjs.Text expects.
-	 *  @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as createjs.Text (CloudKid fork only) expects.
+	 *  @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as createjs.Text (springroll fork only) expects.
 	 *  @param {createjs.Shadow} [label.shadow=null] A shadow object to apply to the label text.
 	 *  @param {String|Number} [label.x="center"] An x position to place the label text at relative to the button. If omitted,
 	 *         "center" is used, which attempts to horizontally center the label on the button.
@@ -83,7 +83,7 @@
 	{
 		if (!imageSettings && DEBUG)
 		{
-			throw "cloudkid.createjs.Button requires an image as the first parameter";
+			throw "springroll.createjs.Button requires an image as the first parameter";
 		}
 
 		Container.call(this);
@@ -799,6 +799,6 @@
 		return output;
 	};
 
-	namespace('cloudkid').Button = Button;
-	namespace('cloudkid.createjs').Button = Button;
+	namespace('springroll').Button = Button;
+	namespace('springroll.createjs').Button = Button;
 }());

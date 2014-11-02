@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 		
@@ -271,6 +271,6 @@
 	};
 	
 	// Assign to name space
-	namespace('cloudkid').EventDispatcher = EventDispatcher;
+	namespace('springroll').EventDispatcher = EventDispatcher;
 	
 }());

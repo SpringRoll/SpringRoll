@@ -1,6 +1,6 @@
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 
@@ -13,15 +13,15 @@
 	*
 	*  @class UIElement
 	*  @param {DisplayObject} item The item to affect  
-	*  @param {cloudkid.UIElementSettings} settings The scale settings
-	*  @param {cloudkid.ScreenSettings} designedScreen The original screen the item was designed for
+	*  @param {springroll.UIElementSettings} settings The scale settings
+	*  @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
 	*  @param {DisplayAdapter} adapter The display adapter
 	*/
 	var UIElement = function(item, settings, designedScreen, adapter)
 	{
 		if (!UIScaler)
 		{
-			UIScaler = include('cloudkid.UIScaler');
+			UIScaler = include('springroll.UIScaler');
 		}
 		
 		/**
@@ -259,6 +259,6 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').UIElement = UIElement;
+	namespace('springroll').UIElement = UIElement;
 
 }());

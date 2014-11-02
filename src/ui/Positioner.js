@@ -1,6 +1,6 @@
 /**
 *  @module Interface
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(undefined){
 
@@ -37,7 +37,7 @@
 	{
 		//get the default adapter if not specified
 		if(!adapter)
-			adapter = cloudkid.UIScaler._getAdapter();
+			adapter = springroll.UIScaler._getAdapter();
 		
 		if (settings.x !== undefined)
 		{
@@ -177,6 +177,6 @@
 	};
 	
 	// Assign to namespace
-	namespace('cloudkid').Positioner = Positioner;
+	namespace('springroll').Positioner = Positioner;
 
 }());

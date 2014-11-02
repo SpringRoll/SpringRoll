@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -78,12 +78,12 @@
     p.constructor = Circle;
 
     // Assign to namespace
-    namespace('cloudkid.native').Circle = Circle;
+    namespace('springroll.native').Circle = Circle;
 
 }());
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -174,12 +174,12 @@
     p.constructor = Ellipse;
 
     // Assign to namespace
-    namespace('cloudkid.native').Ellipse = Ellipse;
+    namespace('springroll.native').Ellipse = Ellipse;
 
 }());
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -321,12 +321,12 @@
 	p.constructor = Point;
 
     // Assign to namespace
-    namespace('cloudkid.native').Point = Point;
+    namespace('springroll.native').Point = Point;
 
 }());
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -409,13 +409,13 @@
     p.constructor = Polygon;
 
     // Assign to namespace
-    namespace('cloudkid.native').Polygon = Polygon;
+    namespace('springroll.native').Polygon = Polygon;
 
 }());
 
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -509,12 +509,12 @@
 	p.constructor = Rectangle;
 
     // Assign to namespace
-    namespace('cloudkid.native').Rectangle = Rectangle;
+    namespace('springroll.native').Rectangle = Rectangle;
 
 }());
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(undefined){
 	
@@ -532,7 +532,7 @@
 	*  @static
 	*  @default PIXI.Circle
 	*/
-	DisplayAdapter.Circle = include('cloudkid.native.Circle');
+	DisplayAdapter.Circle = include('springroll.native.Circle');
 
 	/**
 	*  The geometry class for Ellipse
@@ -541,7 +541,7 @@
 	*  @static
 	*  @default PIXI.Ellipse
 	*/
-	DisplayAdapter.Ellipse = include('cloudkid.native.Ellipse');
+	DisplayAdapter.Ellipse = include('springroll.native.Ellipse');
 
 	/**
 	*  The geometry class for Rectangle
@@ -550,7 +550,7 @@
 	*  @static
 	*  @default PIXI.Rectangle
 	*/
-	DisplayAdapter.Rectangle = include('cloudkid.native.Rectangle');
+	DisplayAdapter.Rectangle = include('springroll.native.Rectangle');
 
 	/**
 	*  The geometry class for Sector
@@ -568,7 +568,7 @@
 	*  @static
 	*  @default PIXI.Point
 	*/
-	DisplayAdapter.Point = include('cloudkid.native.Point');
+	DisplayAdapter.Point = include('springroll.native.Point');
 
 	/**
 	*  The geometry class for Polygon
@@ -577,7 +577,7 @@
 	*  @static
 	*  @default PIXI.Polygon
 	*/
-	DisplayAdapter.Polygon = include('cloudkid.native.Polygon');
+	DisplayAdapter.Polygon = include('springroll.native.Polygon');
 
 	/**
 	*  If the rotation is expressed in radians
@@ -720,23 +720,23 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid.native').DisplayAdapter = DisplayAdapter;
+	namespace('springroll.native').DisplayAdapter = DisplayAdapter;
 
 }());
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(undefined){
 
-	var AbstractDisplay = include('cloudkid.AbstractDisplay');
+	var AbstractDisplay = include('springroll.AbstractDisplay');
 
 	/**
 	*   NativeDisplay is a display plugin for doing native rendering. This represents
 	*   the bare minimum needed by the Application to render.
 	*
 	*   @class NativeDisplay
-	*   @extends cloudkid.AbstractDisplay
+	*   @extends springroll.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the display.
@@ -758,13 +758,13 @@
 		this.stage = this.canvas.getContext(options.contextId || "2d");
 
 		// Add the display adapter
-		this.adapter = include('cloudkid.native.DisplayAdapter');
+		this.adapter = include('springroll.native.DisplayAdapter');
 	};
 
 	var p = NativeDisplay.prototype = Object.create(AbstractDisplay.prototype);
 
 	// Assign to the global namespace
-	namespace('cloudkid').NativeDisplay = NativeDisplay;
-	namespace('cloudkid.native').NativeDisplay = NativeDisplay;
+	namespace('springroll').NativeDisplay = NativeDisplay;
+	namespace('springroll.native').NativeDisplay = NativeDisplay;
 
 }());}();

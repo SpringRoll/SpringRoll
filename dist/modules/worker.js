@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @module Worker
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 		
@@ -28,7 +28,7 @@
 	*	"};";
 	*
 	*	// Create the worker
-	*	var worker = cloudkid.Worker.init(workerCode);
+	*	var worker = springroll.Worker.init(workerCode);
 	*	worker.onmessage = function(e) {
 	*		// e.data is the returnVal
 	*	};
@@ -87,7 +87,7 @@
 	};
 
 	// Assign to namespace
-	namespace("cloudkid").Worker = Worker;
+	namespace("springroll").Worker = Worker;
 	
 	/**
 	*	Internal class that pretends to be a Web Worker's context.

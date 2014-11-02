@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 	
@@ -30,8 +30,8 @@
 	};
 		
 	
-	// Assign to the cloudkid namespace
-	namespace('cloudkid').CharacterClip = CharacterClip;
-	namespace('cloudkid.createjs').CharacterClip = CharacterClip;
+	// Assign to the springroll namespace
+	namespace('springroll').CharacterClip = CharacterClip;
+	namespace('springroll.createjs').CharacterClip = CharacterClip;
 
 }());

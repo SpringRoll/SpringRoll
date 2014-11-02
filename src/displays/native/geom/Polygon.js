@@ -1,6 +1,6 @@
 /**
 *  @module Native Display
-*  @namespace cloudkid.native
+*  @namespace springroll.native
 */
 (function(){
 
@@ -83,6 +83,6 @@
     p.constructor = Polygon;
 
     // Assign to namespace
-    namespace('cloudkid.native').Polygon = Polygon;
+    namespace('springroll.native').Polygon = Polygon;
 
 }());

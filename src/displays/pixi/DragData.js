@@ -1,6 +1,6 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function() {
 	
@@ -13,6 +13,6 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragData = DragData;
-	namespace('cloudkid.pixi').DragData = DragData;
+	namespace('springroll').DragData = DragData;
+	namespace('springroll.pixi').DragData = DragData;
 }());

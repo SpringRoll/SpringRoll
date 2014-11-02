@@ -1,12 +1,12 @@
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
-	var Sound = include('cloudkid.Sound'),
+	var Sound = include('springroll.Sound'),
 		Captions,
 		Application; 
 
@@ -24,8 +24,8 @@
 		// Import classes
 		if (!Application)
 		{
-			Captions = include('cloudkid.Captions');
-			Application = include('cloudkid.Application');
+			Captions = include('springroll.Captions');
+			Application = include('springroll.Application');
 		}
 
 		// Bound method calls
@@ -35,7 +35,7 @@
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
 		
 		/**
-		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
+		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
 		*	@property {Captions} captions
 		*	@public
@@ -374,7 +374,7 @@
 		}
 	};
 	
-	namespace('cloudkid').VOPlayer = VOPlayer;
-	namespace('cloudkid').Sound.VOPlayer = VOPlayer;
+	namespace('springroll').VOPlayer = VOPlayer;
+	namespace('springroll').Sound.VOPlayer = VOPlayer;
 
 }());

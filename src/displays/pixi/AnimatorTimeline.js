@@ -1,6 +1,6 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function(){
 	
@@ -158,6 +158,6 @@
 	});
 
 	// Assign to namespace
-	namespace("cloudkid.pixi").AnimatorTimeline = AnimatorTimeline;
+	namespace("springroll.pixi").AnimatorTimeline = AnimatorTimeline;
 
 }());

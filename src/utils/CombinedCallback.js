@@ -1,6 +1,6 @@
 /**
 *  @module Framework
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 	
@@ -8,8 +8,8 @@
 	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
 	*  callbacks into one. For example usage:
 	*
-	*  var voPlayer = new cloudkid.VOPlayer();
-	*  var callback = cloudkid.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	*  var voPlayer = new springroll.VOPlayer();
+	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
 	*  Animator.play(myClip, "myAnim", callback);
 	*  
 	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
@@ -45,5 +45,5 @@
 		return CombinedCallback.bind(this, call, obj, prop, callProp);
 	};
 
-	namespace('cloudkid').CombinedCallback = CombinedCallback;
+	namespace('springroll').CombinedCallback = CombinedCallback;
 }());

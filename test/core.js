@@ -18,8 +18,8 @@ test('Application', function(assert){
 
 	expect(5);
 
-	var Application = cloudkid.Application,
-		Loader = cloudkid.Loader;
+	var Application = springroll.Application,
+		Loader = springroll.Loader;
 
 	// New Application
 	var app = new Application();
@@ -37,8 +37,8 @@ test('Loader', function(assert){
 
 	//expect(9);
 
-	var Application = cloudkid.Application,
-		Loader = cloudkid.Loader;
+	var Application = springroll.Application,
+		Loader = springroll.Loader;
 
 	// New Application
 	var basePath = "http://example.com/";

@@ -1,26 +1,26 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
-	var Button = include('cloudkid.createjs.Button'),
+	var Button = include('springroll.createjs.Button'),
 		Sound;
 
 	/**
 	 *  A button with audio events for click and over mouse events
 	 *  @class SoundButton
-	 *  @extends cloudkid.createjs.Button
+	 *  @extends springroll.createjs.Button
 	 *  @constructor
-	 *  @param {DOMElement|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
-	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
+	 *  @param {DOMElement|object} imageSettings The loaded image element, see springroll.createjs.Button constructor
+	 *  @param {Object} [label=null] See springroll.createjs.Button constructor
 	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
 	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
 	 *  @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
 	 */
 	var SoundButton = function(imageSettings, label, enabled, clickAlias, overAlias)
 	{
-		Sound = include('cloudkid.Sound');
+		Sound = include('springroll.Sound');
 
 		Button.call(this, imageSettings, label, enabled);
 
@@ -112,7 +112,7 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid').SoundButton = SoundButton;
-	namespace('cloudkid.createjs').SoundButton = SoundButton;
+	namespace('springroll').SoundButton = SoundButton;
+	namespace('springroll.createjs').SoundButton = SoundButton;
 
 }());

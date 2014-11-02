@@ -1,13 +1,13 @@
 /**
 *  @module Tasks
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
 	var Loader,
 		Application,
 		AssetLoader,
-		Task = include('cloudkid.Task');
+		Task = include('springroll.Task');
 
 	/**
 	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
@@ -25,8 +25,8 @@
 		if(!Loader)
 		{
 			AssetLoader = include('PIXI.AssetLoader');
-			Loader = include('cloudkid.Loader');
-			Application = include('cloudkid.Application');
+			Loader = include('springroll.Loader');
+			Application = include('springroll.Application');
 		}
 
 		Task.call(this, id, callback);
@@ -141,6 +141,6 @@
 	};
 	
 	// Assign to the namespace
-	namespace('cloudkid').PixiTask = PixiTask;
+	namespace('springroll').PixiTask = PixiTask;
 	
 }());

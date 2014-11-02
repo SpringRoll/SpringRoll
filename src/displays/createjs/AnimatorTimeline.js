@@ -1,6 +1,6 @@
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
@@ -128,7 +128,7 @@
 		this.soundAlias = null;
 
 		/**
-		* A sound instance object from cloudkid.Sound used for tracking sound position.
+		* A sound instance object from springroll.Sound used for tracking sound position.
 		* @property {Object} soundInst
 		* @public
 		*/
@@ -178,7 +178,7 @@
 	});
 	
 	// Assign to the name space
-	namespace('cloudkid').AnimatorTimeline = AnimatorTimeline;
-	namespace('cloudkid.createjs').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll.createjs').AnimatorTimeline = AnimatorTimeline;
 	
 }());

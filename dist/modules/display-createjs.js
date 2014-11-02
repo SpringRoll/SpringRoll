@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
  * @module CreateJS Display
- * @namespace cloudkid.createjs
+ * @namespace springroll.createjs
  */
 (function()
 {
@@ -38,13 +38,13 @@
 	};
 
 	//assign to namespace
-	namespace('cloudkid').MovieClipUtils = MovieClipUtils;
-	namespace('cloudkid.createjs').MovieClipUtils = MovieClipUtils;
+	namespace('springroll').MovieClipUtils = MovieClipUtils;
+	namespace('springroll.createjs').MovieClipUtils = MovieClipUtils;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 	
@@ -316,26 +316,26 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid.createjs').DisplayAdapter = DisplayAdapter;
+	namespace('springroll.createjs').DisplayAdapter = DisplayAdapter;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 
 	// Import createjs classes
-	var AbstractDisplay = include('cloudkid.AbstractDisplay'),
+	var AbstractDisplay = include('springroll.AbstractDisplay'),
 		Stage,
 		Touch;
 
 	/**
-	*   CreateJSDisplay is a display plugin for the CloudKid Framework
+	*   CreateJSDisplay is a display plugin for the springroll Framework
 	*	that uses the EaselJS library for rendering.
 	*
 	*   @class CreateJSDisplay
-	*   @extends cloudkid.AbstractDisplay
+	*   @extends springroll.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the CreateJS stage.
@@ -380,8 +380,8 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 
-		this.animator = include('cloudkid.createjs.Animator');
-		this.adapter = include('cloudkid.createjs.DisplayAdapter');
+		this.animator = include('springroll.createjs.Animator');
+		this.adapter = include('springroll.createjs.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
@@ -455,13 +455,13 @@
 	};
 
 	// Assign to the global namespace
-	namespace('cloudkid').CreateJSDisplay = CreateJSDisplay;
-	namespace('cloudkid.createjs').CreateJSDisplay = CreateJSDisplay;
+	namespace('springroll').CreateJSDisplay = CreateJSDisplay;
+	namespace('springroll.createjs').CreateJSDisplay = CreateJSDisplay;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
@@ -589,7 +589,7 @@
 		this.soundAlias = null;
 
 		/**
-		* A sound instance object from cloudkid.Sound used for tracking sound position.
+		* A sound instance object from springroll.Sound used for tracking sound position.
 		* @property {Object} soundInst
 		* @public
 		*/
@@ -639,19 +639,19 @@
 	});
 	
 	// Assign to the name space
-	namespace('cloudkid').AnimatorTimeline = AnimatorTimeline;
-	namespace('cloudkid.createjs').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll.createjs').AnimatorTimeline = AnimatorTimeline;
 	
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 
 	// Imports
-	var Application = include('cloudkid.Application'),
-		AnimatorTimeline = include('cloudkid.createjs.AnimatorTimeline'),
+	var Application = include('springroll.Application'),
+		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
 		Sound;
 	
 	/**
@@ -674,7 +674,7 @@
 
 	/**
 	*  The global captions object to use with animator
-	*  @property {cloudkid.Captions} captions
+	*  @property {springroll.Captions} captions
 	*  @public
 	*  @static
 	*/
@@ -743,7 +743,7 @@
 		_timelinesMap = {};
 		_paused = false;
 
-		Sound = include('cloudkid.Sound', false);
+		Sound = include('springroll.Sound', false);
 	};
 	
 	/**
@@ -1376,17 +1376,17 @@
 	*/
 	Animator.toString = function()
 	{
-		return "[cloudkid.createjs.Animator]";
+		return "[springroll.createjs.Animator]";
 	};
 	
 	// Assign to the global namespace
-	namespace('cloudkid').Animator = Animator;
-	namespace('cloudkid.createjs').Animator = Animator;
+	namespace('springroll').Animator = Animator;
+	namespace('springroll.createjs').Animator = Animator;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(undefined){
 	
@@ -1456,7 +1456,7 @@
 	 *  @param {String} [label.font] The font name and size to use on the label, as createjs.Text expects.
 	 *  @param {String} [label.color] The color of the text to use on the label, as createjs.Text expects.
 	 *  @param {String} [label.textBaseline="middle"] The baseline for the label text, as createjs.Text expects.
-	 *  @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as createjs.Text (CloudKid fork only) expects.
+	 *  @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as createjs.Text (springroll fork only) expects.
 	 *  @param {createjs.Shadow} [label.shadow=null] A shadow object to apply to the label text.
 	 *  @param {String|Number} [label.x="center"] An x position to place the label text at relative to the button. If omitted,
 	 *         "center" is used, which attempts to horizontally center the label on the button.
@@ -1469,7 +1469,7 @@
 	{
 		if (!imageSettings && true)
 		{
-			throw "cloudkid.createjs.Button requires an image as the first parameter";
+			throw "springroll.createjs.Button requires an image as the first parameter";
 		}
 
 		Container.call(this);
@@ -2185,32 +2185,32 @@
 		return output;
 	};
 
-	namespace('cloudkid').Button = Button;
-	namespace('cloudkid.createjs').Button = Button;
+	namespace('springroll').Button = Button;
+	namespace('springroll.createjs').Button = Button;
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
-	var Button = include('cloudkid.createjs.Button'),
+	var Button = include('springroll.createjs.Button'),
 		Sound;
 
 	/**
 	 *  A button with audio events for click and over mouse events
 	 *  @class SoundButton
-	 *  @extends cloudkid.createjs.Button
+	 *  @extends springroll.createjs.Button
 	 *  @constructor
-	 *  @param {DOMElement|object} imageSettings The loaded image element, see cloudkid.createjs.Button constructor
-	 *  @param {Object} [label=null] See cloudkid.createjs.Button constructor
+	 *  @param {DOMElement|object} imageSettings The loaded image element, see springroll.createjs.Button constructor
+	 *  @param {Object} [label=null] See springroll.createjs.Button constructor
 	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
 	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
 	 *  @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
 	 */
 	var SoundButton = function(imageSettings, label, enabled, clickAlias, overAlias)
 	{
-		Sound = include('cloudkid.Sound');
+		Sound = include('springroll.Sound');
 
 		Button.call(this, imageSettings, label, enabled);
 
@@ -2302,13 +2302,13 @@
 	};
 
 	// Assign to namespace
-	namespace('cloudkid').SoundButton = SoundButton;
-	namespace('cloudkid.createjs').SoundButton = SoundButton;
+	namespace('springroll').SoundButton = SoundButton;
+	namespace('springroll.createjs').SoundButton = SoundButton;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 	
@@ -2338,19 +2338,19 @@
 	};
 		
 	
-	// Assign to the cloudkid namespace
-	namespace('cloudkid').CharacterClip = CharacterClip;
-	namespace('cloudkid.createjs').CharacterClip = CharacterClip;
+	// Assign to the springroll namespace
+	namespace('springroll').CharacterClip = CharacterClip;
+	namespace('springroll.createjs').CharacterClip = CharacterClip;
 
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 
 	// Imports
-	var Animator = include('cloudkid.createjs.Animator');
+	var Animator = include('springroll.createjs.Animator');
 	
 	/**
 	*   Character Controller class is designed to play animated
@@ -2589,13 +2589,13 @@
 		this._animationStack = null;
 	};
 	
-	// Assign to the cloudkid namespace
-	namespace('cloudkid').CharacterController = CharacterController;
-	namespace('cloudkid.createjs').CharacterController = CharacterController;
+	// Assign to the springroll namespace
+	namespace('springroll').CharacterController = CharacterController;
+	namespace('springroll.createjs').CharacterController = CharacterController;
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function() {
 	
@@ -2608,17 +2608,17 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragData = DragData;
-	namespace('cloudkid.createjs').DragData = DragData;
+	namespace('springroll').DragData = DragData;
+	namespace('springroll.createjs').DragData = DragData;
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function() {
 		
 	var Tween,
-		DragData = include("cloudkid.createjs.DragData");
+		DragData = include("springroll.createjs.DragData");
 
 	/**
 	*  Drag manager is responsible for handling the dragging of stage elements.
@@ -3189,7 +3189,7 @@
 	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
 	* _dragBounds (Rectangle), _onMouseDownListener (Function),
-	* _dragMan (cloudkid.DragManager) reference to the DragManager
+	* _dragMan (springroll.DragManager) reference to the DragManager
 	* these will override any existing properties of the same name
 	* @method addObject
 	* @public
@@ -3267,12 +3267,12 @@
 	};
 	
 	/** Assign to the global namespace */
-	namespace('cloudkid').DragManager = DragManager;
-	namespace('cloudkid.createjs').DragManager = DragManager;
+	namespace('springroll').DragManager = DragManager;
+	namespace('springroll.createjs').DragManager = DragManager;
 }());
 /**
 *  @module CreateJS Display
-*  @namespace cloudkid.createjs
+*  @namespace springroll.createjs
 */
 (function(){
 	
@@ -3286,7 +3286,7 @@
 
 	/**
 	*   Cutscene is a class for playing a single EaselJS animation synced to a
-	*	single audio file with cloudkid.Sound, with optional captions. Utilizes the Tasks module.
+	*	single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
 	*
 	*   @class Cutscene
 	*	@constructor
@@ -3303,11 +3303,11 @@
 	{
 		if(!Application)
 		{
-			Application = include('cloudkid.Application');
-			LoadTask = include('cloudkid.LoadTask');
-			TaskManager = include('cloudkid.TaskManager');
-			Sound = include('cloudkid.Sound');
-			ListTask = include('cloudkid.ListTask');
+			Application = include('springroll.Application');
+			LoadTask = include('springroll.LoadTask');
+			TaskManager = include('springroll.TaskManager');
+			Sound = include('springroll.Sound');
+			ListTask = include('springroll.ListTask');
 			BitmapUtils = include('createjs.BitmapUtils');
 		}
 
@@ -3743,6 +3743,6 @@
 		this.display = null;
 	};
 	
-	namespace("cloudkid").Cutscene = Cutscene;
-	namespace("cloudkid.createjs").Cutscene = Cutscene;
+	namespace("springroll").Cutscene = Cutscene;
+	namespace("springroll.createjs").Cutscene = Cutscene;
 }());}();

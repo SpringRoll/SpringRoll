@@ -1,7 +1,7 @@
-/*! CloudKidFramework 0.0.6 */
+/*! SpringRoll 0.0.6 */
 !function(){"use strict";/**
 *  @modules Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
@@ -43,12 +43,12 @@
 	};
 
 	// Assign to name space
-	namespace('cloudkid').SoundContext = SoundContext;
+	namespace('springroll').SoundContext = SoundContext;
 	
 }());
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
@@ -56,14 +56,14 @@
 
 	/**
 	*  A playing instance of a sound (or promise to play as soon as it loads). These can only
-	*  be created through cloudkid.Sound.instance.play().
+	*  be created through springroll.Sound.instance.play().
 	*  @class SoundInstance
 	*/
 	var SoundInstance = function()
 	{
 		if(!Sound)
 		{
-			Sound = include('cloudkid.Sound');
+			Sound = include('springroll.Sound');
 		}
 
 		/**
@@ -161,7 +161,7 @@
 		this.paused = false;
 
 		/**
-		*	An active SoundInstance should always be valid. This is primarily for compatability with cloudkid.Audio.
+		*	An active SoundInstance should always be valid. This is primarily for compatability with springroll.Audio.
 		*	@property {bool} isValid
 		*	@public
 		*	@readOnly
@@ -245,16 +245,16 @@
 		this._channel.resume();
 	};
 
-	namespace('cloudkid').SoundInstance = SoundInstance;
+	namespace('springroll').SoundInstance = SoundInstance;
 
 }());
 /**
 *  @modules Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 	
-	var Task = include('cloudkid.Task', false);
+	var Task = include('springroll.Task', false);
 
 	// Task is optional if we're using the task module
 	if (!Task) return;
@@ -264,7 +264,7 @@
 	*  be created through Sound.instance.createPreloadTask().
 	*  This class is not created if the Task library is not loaded before the Sound library.
 	*  @class SoundListTask
-	*  @extends {cloudkid.Task}
+	*  @extends {springroll.Task}
 	*  @constructor
 	*  @param {String} id The unique id of this task
 	*  @param {Array} list The collection of sounds
@@ -294,7 +294,7 @@
 	*/
 	p.start = function(callback)
 	{
-		cloudkid.Sound.instance.preload(this.list, callback);
+		springroll.Sound.instance.preload(this.list, callback);
 	};
 
 	/**
@@ -308,16 +308,16 @@
 	};
 
 	// Assign to name space
-	namespace('cloudkid').SoundListTask = SoundListTask;
+	namespace('springroll').SoundListTask = SoundListTask;
 	
 }());
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function(){
 
-	var Application = include('cloudkid.Application'),
+	var Application = include('springroll.Application'),
 		Loader,
 		LoadTask,
 		TaskManager,
@@ -337,12 +337,12 @@
 		// Import classes
 		if(!Loader)
 		{
-			Loader = include('cloudkid.Loader');
-			LoadTask = include('cloudkid.LoadTask', false);
-			TaskManager = include('cloudkid.TaskManager', false);
-			SoundContext = include('cloudkid.SoundContext');
-			SoundInstance = include('cloudkid.SoundInstance');
-			SoundListTask = include('cloudkid.SoundListTask', false);
+			Loader = include('springroll.Loader');
+			LoadTask = include('springroll.LoadTask', false);
+			TaskManager = include('springroll.TaskManager', false);
+			SoundContext = include('springroll.SoundContext');
+			SoundInstance = include('springroll.SoundInstance');
+			SoundListTask = include('springroll.SoundListTask', false);
 		}
 
 		/**
@@ -446,7 +446,7 @@
 
 		if (!options.ready)
 		{
-			throw "cloudkid.Sound.init requires a ready callback";
+			throw "springroll.Sound.init requires a ready callback";
 		}
 
 		CJSSound.registerPlugins(options.plugins);
@@ -594,7 +594,7 @@
 	{
 		if (!config)
 		{
-			Debug.warn("Warning - cloudkid.Sound was told to load a null config");
+			Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
 		var list = config.soundManifest;
@@ -879,7 +879,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("cloudkid.Sound: alias '" + alias + "' not found!");
+			Debug.error("springroll.Sound: alias '" + alias + "' not found!");
 			
 			if (completeCallback)
 				completeCallback();
@@ -1340,7 +1340,7 @@
 			}
 			else
 			{
-				Debug.error("cloudkid.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
 		if (tasks.length > 0)
@@ -1383,14 +1383,14 @@
 	};
 	
 	/**
-	*	Creates a Task for the CloudKid Task library for preloading a list of sounds.
+	*	Creates a Task for the springroll Task library for preloading a list of sounds.
 	*	This function will not work if the Task library was not loaded before the Sound library.
 	*	@method createPreloadTask
 	*	@public
 	*	@param {String} id The id of the task.
 	*	@param {Array} list An array of sound aliases to load.
 	*	@param {function} callback The function to call when the task is complete.
-	*	@return {cloudkid.Task} A task to load up all of the sounds in the list.
+	*	@return {springroll.Task} A task to load up all of the sounds in the list.
 	*/
 	p.createPreloadTask = function(id, list, callback)
 	{
@@ -1440,7 +1440,7 @@
 	};
 	
 	/**
-	*	Destroys cloudkid.Sound. This unloads loaded sounds in SoundJS.
+	*	Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
 	*	@method destroy
 	*	@public
 	*/
@@ -1473,18 +1473,18 @@
 		this._pool = null;
 	};
 	
-	namespace('cloudkid').Sound = Sound;
+	namespace('springroll').Sound = Sound;
 }());
 
 /**
 *  @module Sound
-*  @namespace cloudkid
+*  @namespace springroll
 */
 (function() {
 
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
-	var Sound = include('cloudkid.Sound'),
+	var Sound = include('springroll.Sound'),
 		Captions,
 		Application; 
 
@@ -1502,8 +1502,8 @@
 		// Import classes
 		if (!Application)
 		{
-			Captions = include('cloudkid.Captions');
-			Application = include('cloudkid.Application');
+			Captions = include('springroll.Captions');
+			Application = include('springroll.Application');
 		}
 
 		// Bound method calls
@@ -1513,7 +1513,7 @@
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
 		
 		/**
-		*	The cloudkid.Captions object used for captions. The developer is responsible for initializing this with a captions
+		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
 		*	@property {Captions} captions
 		*	@public
@@ -1852,7 +1852,7 @@
 		}
 	};
 	
-	namespace('cloudkid').VOPlayer = VOPlayer;
-	namespace('cloudkid').Sound.VOPlayer = VOPlayer;
+	namespace('springroll').VOPlayer = VOPlayer;
+	namespace('springroll').Sound.VOPlayer = VOPlayer;
 
 }());}();

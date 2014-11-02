@@ -14,7 +14,7 @@
 	// create a setTimeout based fallback if there wasn't an official or prefixed version
 	if (!window.requestAnimationFrame)
 	{
-		var TimeUtils = include('cloudkid.TimeUtils');
+		var TimeUtils = include('springroll.TimeUtils');
 		var lastTime = 0;
 		// Create the polyfill
 		window.requestAnimationFrame = function(callback)

@@ -1,6 +1,6 @@
 /**
 *  @module PIXI Display
-*  @namespace cloudkid.pixi
+*  @namespace springroll.pixi
 */
 (function(undefined) {
 	
@@ -64,7 +64,7 @@
 	{
 		if (!imageSettings && DEBUG)
 		{
-			throw "cloudkid.pixi.Button requires image as first parameter";
+			throw "springroll.pixi.Button requires image as first parameter";
 		}
 
 		DisplayObjectContainer.call(this);
@@ -682,6 +682,6 @@
 		this._upOutCB = null;
 	};
 	
-	namespace('cloudkid').Button = Button;
-	namespace('cloudkid.pixi').Button = Button;
+	namespace('springroll').Button = Button;
+	namespace('springroll.pixi').Button = Button;
 }());
