@@ -797,7 +797,7 @@
 			options = _optionsHelper;//use the helper instead of creating a new object
 		}
 
-		onComplete = options.onComplete || null;
+		onComplete = options.onComplete || onComplete || null;
 		onCompleteParams = options.onCompleteParams || null;
 		startTime = options.startTime;
 		//convert into seconds, as that is what the time uses internally
