@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/StateGame.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="http://github.com/springrollStudio/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterClip.html">springroll.createjs.CharacterClip</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CharacterController.html">springroll.createjs.CharacterController</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/StateGame.js      
+</script>
+<h1 class="file-heading">File:StateGame.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module Game
+*  @namespace springroll
+*/
+(function(undefined){
+	
+	var StateManager,
+		SoundGame = include(&#x27;springroll.SoundGame&#x27;);
+
+	/**
+	*  A game with state management, provides some convenience and events for adding states.
+	*  @example
+		var game = new springroll.StateGame();
+		game.on(&#x27;addStates&#x27;, function(){
+			//add some states with game.addState()
+		});
+		game.on(&#x27;statesReady&#x27;, function(){
+			// Ready to use!
+		});
+	*  @class StateGame
+	*  @extends springroll.SoundGame
+	*  @constructor
+	*  @param {object} [options] The Application options
+	*  @param {string} [options.state] The initial state
+	*  @param {createjs.MovieClip|PIXI.Spine} [options.transition] The StateManager transition animation
+	*  @param {Object} [options.transitionSounds] The transition sound data
+	*  @param {Object|String} [options.transitionSounds.in=&quot;TransitionIn&quot;] The transition in sound alias or sound object
+	*  @param {Object|String} [options.transitionSounds.out=&quot;TransitionOut&quot;] The transition out sound alias or sound object
+	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The captions text field object to use for the VOPlayer captions object.
+	*  @param {String} [options.captionsPath=&#x27;assets/config/captions.json&#x27;] The path to the captions dictionary. If this is set to null
+	*		captions will not be created or used by the VO player.
+	*  @param {string} [options.swfPath=&#x27;assets/swfs/&#x27;] The relative location to the FlashPlugin swf for SoundJS
+	*  @param {boolean} [options.mute=false] Set the initial mute state of the all the audio (unminifed library version only)
+	*  @param {string} [options.name] The name of the game
+	*  @param {string} [options.configPath=&#x27;assets/config/config.json&#x27;] The path to the default config to load
+	*  @param {boolean} [options.forceMobile=false] Manually override the check for isMobile (unminifed library version only)
+	*  @param {boolean} [options.updateTween=true] Have the application take care of the Tween updates
+	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
+	*  @param {Boolean} [options.raf=true] Use request animation frame
+	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
+	*		numbers for each asset. This is useful for controlling the live browser cache.
+	*		For instance, this text file would have an asset on each line followed by a number:
+	* 		&#x60;assets/config/config.json 2&#x60; this would load &#x60;assets/config/config.json?v=2&#x60;
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding &quot;?v=&quot;
+	*		to the end of each file path requested. Use for developmently, debugging only!
+	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
+	*		this is a great way to load all load requests with a CDN path.
+	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
+	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
+	*         This allows for &quot;title-safe&quot; responsiveness. Must be greater than the original aspect ratio of the canvas.
+	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
+	*  @param {Boolean} [options.debug=false] Enable the Debug class
+	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
+	*		the &#x60;Debug&#x60; class must be used for this feature.
+	*  @param {String} [options.debugRemote] The host computer for remote debugging,
+	*		the debug module must be included to use this feature. Can be an IP address or host name.
+	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
+	*  @param {String} [options.canvasId] The default display DOM ID name
+	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. &#x60;springroll.PixiDisplay&#x60;)
+	*  @param {Object} [options.displayOptions] Display-specific options
+	*  @param {Boolean} [options.crossOrigin=false] Used by &#x60;springroll.PixiTask&#x60;, default behavior is to load assets from the same domain.
+	*/
+	var StateGame = function(options)
+	{
+		SoundGame.call(this, Object.merge({
+			state : null,
+			transition : null,
+			transitionSounds : {
+				&#x27;in&#x27; : &#x27;TransitionIn&#x27;,
+				&#x27;out&#x27; : &#x27;TransitionOut&#x27;
+			}
+		}, options));
+
+		StateManager = include(&#x27;springroll.StateManager&#x27;);
+
+		/**
+		*  The transition animation to use between the StateManager state changes
+		*  @property {createjs.MovieClip|PIXI.Spine} transition
+		*/
+		this.transition = this.options.transition ||  null;
+
+		/**
+		*  The state manager
+		*  @property {springroll.StateManager} manager
+		*/
+		this.manager = null;
+
+		// Listen for the soundReady event
+		this.once(&#x27;soundReady&#x27;, onSoundReady.bind(this));
+	};
+
+	/**
+	*  Reference to the prototype extends application
+	*/
+	var s = SoundGame.prototype;
+	var p = StateGame.prototype = Object.create(s);
+
+	/**
+	*  Before creating the statemanager, a transition
+	*  should probably be added at this callback
+	*  @event initStates
+	*/
+	var INIT_STATES = &#x27;initStates&#x27;;
+
+	/**
+	*  The states are setup, this is the event to listen to
+	*  when the game ready to use.
+	*  @event statesReady
+	*/
+	var STATES_READY = &#x27;statesReady&#x27;;
+
+	/**
+	*  Initialize the states event, this is where state could be added
+	*  @event addStates
+	*/
+	var ADD_STATES = &#x27;addStates&#x27;;
+
+	/**
+	*  Callback when the game is loaded
+	*  @method onLoaded
+	*  @private
+	*/
+	var onSoundReady = function()
+	{
+		this.trigger(INIT_STATES);
+
+		// Goto the transition state
+		if (!this.transition)
+		{
+			if (DEBUG)
+			{
+				throw &quot;StateManager requires a &#x27;transition&#x27; property to be set or through constructor options&quot;;
+			}
+			else
+			{
+				throw &quot;No transition on StateGame&quot;;
+			}
+		}
+
+		//if the transition is a CreateJS movieclip, start it out
+		//at the end of the transition out animation. If it has a
+		//&#x27;transitionLoop&#x27; animation, that will be played as soon as a state is set
+		if(this.transition.gotoAndStop)
+			this.transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
+
+		// Create the state manager
+		this.manager = new StateManager(
+			this.display,
+			this.transition,
+			this.options.transitionSounds
+		);
+
+		// states should be added on this event!
+		this.trigger(ADD_STATES);
+
+		// Add the transition on top of everything else
+		this.display.stage.addChild(this.transition);
+
+		this.trigger(STATES_READY);
+
+		// Goto the first state
+		if (this.options.state)
+		{
+			this.manager.setState(this.options.state);
+		}
+	};
+
+	/**
+	*  Add a single state
+	*  @method addState
+	*  @param {string} alias The shortcut alias for the state
+	*  @param {BaseState} state The state manager state to add
+	*/
+	p.addState = function(alias, state)
+	{
+		// Add to the manager
+		this.manager.addState(alias, state);
+
+		// Add the state display object to the main display
+		this.display.stage.addChild(state.panel);
+	};
+
+	/**
+	*  Add a bunch of states at once by a dictionary of aliases to states
+	*  @method addStates
+	*  @param {object} states The collection of states where the key is the state alias
+	*/
+	p.addStates = function(states)
+	{
+		for(var alias in states)
+		{
+			this.addState(alias, states[alias]);
+		}
+	};
+
+	/**
+	*  Destroy and don&#x27;t use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		if (this.manager)
+		{
+			this.manager.destroy();
+			this.manager = null;
+		}
+
+		if (this.transition)
+		{
+			this.display.adapter.removeChildren(this.transition);
+			this.transition = null;
+		}
+		
+		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {string} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return &quot;[StateGame name=&#x27;&quot; + this.name + &quot;&#x27;&#x27;]&quot;;
+	};
+	
+	// Assign to the global namespace
+	namespace(&#x27;springroll&#x27;).StateGame = StateGame;
+	
+}());
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
