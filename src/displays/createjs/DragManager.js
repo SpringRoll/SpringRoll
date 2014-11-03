@@ -400,6 +400,7 @@
 					id = ev.pointerID;
 				
 				var data = this.draggedObj[id];
+				if(!data) return;
 				obj = data.obj;
 				//save the position that it started at so the callback can make use of it
 				//if they want
@@ -422,6 +423,8 @@
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
+		
+		if(!obj) return;
 		
 		obj.removeEventListener("pressmove", this._triggerHeldDrag);
 		obj.removeEventListener("pressup", this._triggerStickyClick);
