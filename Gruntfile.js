@@ -20,7 +20,12 @@ module.exports = function(grunt)
             loadGruntTasks: { pattern: [
                 'grunt-*', 
                 '!grunt-library-builder'
-            ]}
+            ]},
+
+            // Use the SpringRoll YUI theme
+            data: {
+                themePath: '../SpringRollTheme'
+            }
         })
     ));
 };
