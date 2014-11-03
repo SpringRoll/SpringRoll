@@ -2181,6 +2181,7 @@
 					id = interactionData.id;
 				
 				var data = this.draggedObj[id];
+				if(!data) return;
 				obj = data.obj;
 				//save the position that it started at so the callback can make use of it
 				//if they want
@@ -2204,8 +2205,9 @@
 			this.draggedObj = null;
 		}
 		
-		if(obj)
-			obj.touchmove = obj.mousemove = null;
+		if(!obj) return;
+		
+		obj.touchmove = obj.mousemove = null;
 		
 		var removeGlobalListeners = !this._multitouch;
 		if(this._multitouch)

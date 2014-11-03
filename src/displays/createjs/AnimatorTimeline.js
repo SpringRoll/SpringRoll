@@ -7,71 +7,71 @@
 	/**
 	*   Animator Timeline is a class designed to provide
 	*   base animation functionality
-	*   
+	*
 	*   @class AnimatorTimeline
 	*   @constructor
 	*/
 	var AnimatorTimeline = function()
 	{
 		/**
-		* The event to callback when we're done
-		* 
-		* @event onComplete
+		* The function to call when we're done
+		*
+		* @property {Function} onComplete
 		*/
 		this.onComplete = null;
 		
-		/** 
-		* The parameters to pass when completed 
-		* 
+		/**
+		* The parameters to pass when completed
+		*
 		* @property {Array} onCompleteParams
 		*/
 		this.onCompleteParams = null;
 		
 		/**
-		* The event label
-		* 
+		* The function to call when stopped early.
+		*
+		* @property {Function} onCancelled
+		*/
+		this.onCancelled = null;
+		
+		/**
+		* The animation label.
+		*
 		* @property {String} event
 		*/
 		this.event = null;
 		
 		/**
-		* The instance of the timeline to animate 
-		* 
+		* The instance of the timeline to animate
+		*
 		* @property {AnimatorTimeline} instance
 		*/
 		this.instance = null;
 		
 		/**
 		* The frame number of the first frame
-		* 
+		*
 		* @property {int} firstFrame
 		*/
 		this.firstFrame = -1;
 		
 		/**
 		* The frame number of the last frame
-		* 
+		*
 		* @property {int} lastFrame
 		*/
 		this.lastFrame = -1;
 		
 		/**
 		* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
-		* 
-		* @property {bool} isLooping
+		*
+		* @property {Boolean} isLooping
 		*/
 		this.isLooping = false;
 		
 		/**
-		* Ensure we show the last frame before looping
-		* 
-		* @property {bool} isLastFrame
-		*/
-		this.isLastFrame = false;
-		
-		/**
 		* length of timeline in frames
-		* 
+		*
 		* @property {int} length
 		*/
 		this.length = 0;
@@ -79,15 +79,15 @@
 		/**
 		*  If this timeline plays captions
 		*
-		*  @property {bool} useCaptions
+		*  @property {Boolean} useCaptions
 		*  @readOnly
 		*/
 		this.useCaptions = false;
 		
 		/**
 		* If the timeline is paused.
-		* 
-		* @property {bool} _paused
+		*
+		* @property {Boolean} _paused
 		* @private
 		*/
 		this._paused = false;
@@ -136,7 +136,7 @@
 
 		/**
 		* If the timeline will, but has yet to play a sound.
-		* @property {bool} playSound
+		* @property {Boolean} playSound
 		* @public
 		*/
 		this.playSound = false;
@@ -158,8 +158,8 @@
 	
 	/**
 	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
+	*
+	* @property {Boolean} paused
 	* @public
 	*/
 	Object.defineProperty(AnimatorTimeline.prototype, "paused", {
