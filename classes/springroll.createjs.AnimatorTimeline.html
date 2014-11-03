@@ -340,8 +340,6 @@ base animation functionality</p>
         
         
         
-            <li class="api-class-tab events"><a href="#events">Events</a></li>
-        
     </ul>
 
     <div>
@@ -392,13 +390,6 @@ base animation functionality</p>
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_isLastFrame">isLastFrame</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
                                 <a href="#property_isLooping">isLooping</a>
 
                                 
@@ -414,6 +405,20 @@ base animation functionality</p>
                         
                             <li class="index-item property">
                                 <a href="#property_length">length</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_onCancelled">onCancelled</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_onComplete">onComplete</a>
 
                                 
                                 
@@ -503,21 +508,6 @@ base animation functionality</p>
             
 
             
-                <div class="index-section events">
-                    <h3>Events</h3>
-
-                    <ul class="index-list events">
-                        
-                            <li class="index-item event">
-                                <a href="#event_onComplete">onComplete</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
         </div>
 
         
@@ -529,7 +519,7 @@ base animation functionality</p>
                 
                     <div id="property__paused" class="property item private">
     <h3 class="name"><code>_paused</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -644,7 +634,7 @@ base animation functionality</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l30"><code>event:30</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l37"><code>event:37</code></a>
         
         </p>
 
@@ -654,7 +644,7 @@ base animation functionality</p>
     </div>
 
     <div class="description">
-        <p>The event label</p>
+        <p>The animation label.</p>
 
     </div>
 
@@ -689,7 +679,7 @@ base animation functionality</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l44"><code>firstFrame:44</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l51"><code>firstFrame:51</code></a>
         
         </p>
 
@@ -734,7 +724,7 @@ base animation functionality</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l37"><code>instance:37</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l44"><code>instance:44</code></a>
         
         </p>
 
@@ -756,54 +746,9 @@ base animation functionality</p>
 </div>
 
                 
-                    <div id="property_isLastFrame" class="property item">
-    <h3 class="name"><code>isLastFrame</code></h3>
-    <span class="type">Bool</span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l65"><code>isLastFrame:65</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Ensure we show the last frame before looping</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
                     <div id="property_isLooping" class="property item">
     <h3 class="name"><code>isLooping</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -824,7 +769,7 @@ base animation functionality</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l58"><code>isLooping:58</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l65"><code>isLooping:65</code></a>
         
         </p>
 
@@ -869,7 +814,7 @@ base animation functionality</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l51"><code>lastFrame:51</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l58"><code>lastFrame:58</code></a>
         
         </p>
 
@@ -936,6 +881,96 @@ base animation functionality</p>
 </div>
 
                 
+                    <div id="property_onCancelled" class="property item">
+    <h3 class="name"><code>onCancelled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l30"><code>onCancelled:30</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The function to call when stopped early.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_onComplete" class="property item">
+    <h3 class="name"><code>onComplete</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l16"><code>onComplete:16</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The function to call when we&#39;re done</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_onCompleteParams" class="property item">
     <h3 class="name"><code>onCompleteParams</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
@@ -983,7 +1018,7 @@ base animation functionality</p>
                 
                     <div id="property_paused" class="property item public">
     <h3 class="name"><code>paused</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1030,7 +1065,7 @@ base animation functionality</p>
                 
                     <div id="property_playSound" class="property item public">
     <h3 class="name"><code>playSound</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1406,7 +1441,7 @@ base animation functionality</p>
                 
                     <div id="property_useCaptions" class="property item">
     <h3 class="name"><code>useCaptions</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1454,56 +1489,6 @@ base animation functionality</p>
 
         
 
-        
-            <div id="events" class="api-class-tabpanel">
-                <h2 class="off-left">Events</h2>
-
-                
-                    <div id="event_onComplete" class="events item">
-    <h3 class="name"><code>onComplete</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_AnimatorTimeline.js.html#l16"><code>onComplete:16</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The event to callback when we&#39;re done</p>
-
-    </div>
-
-    
-
-
-    
-</div>
-
-                
-            </div>
         
     </div>
 </div>

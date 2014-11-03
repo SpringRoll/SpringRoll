@@ -1832,7 +1832,7 @@
             "namespace": "springroll.pixi",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
             "line": 7,
-            "description": "Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,\nso please only keep references to them while they are actively playing an animation.",
+            "description": "Internal Animator class for keeping track of animations. AnimatorTimelines are pooled\ninternally, so please only keep references to them while they are actively playing an\nanimation.",
             "is_constructor": 1,
             "params": [
                 {
@@ -1849,6 +1849,11 @@
                     "name": "speed",
                     "description": "The speed at which the clip should be played",
                     "type": "Int"
+                },
+                {
+                    "name": "cancelledCallback",
+                    "description": "The function to call if the clip's playback is\n                                    interrupted.",
+                    "type": "Function"
                 }
             ]
         },
@@ -4281,7 +4286,7 @@
             "description": "If we fire debug statements",
             "itemtype": "property",
             "name": "debug",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "static": 1,
@@ -4347,7 +4352,7 @@
             "description": "If the Animator is paused",
             "itemtype": "property",
             "name": "_paused",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.createjs.Animator",
@@ -4370,19 +4375,6 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
             "line": 79,
-            "description": "An object to allow stop() calls to be better differentiated\nfrom animations ending naturally.",
-            "itemtype": "property",
-            "name": "EXTERNAL_STOP",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.Animator",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 87,
             "description": "Sets the variables of the Animator to their defaults. Use when _timelines is null,\nif the Animator data was cleaned up but was needed again later.",
             "itemtype": "method",
             "name": "init",
@@ -4393,7 +4385,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 104,
+            "line": 96,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -4404,7 +4396,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 124,
+            "line": 116,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -4421,27 +4413,25 @@
                 },
                 {
                     "name": "options",
-                    "description": "The object of optional parameters or onComplete callback function",
-                    "type": "Object|function",
+                    "description": "The object of optional parameters or onComplete\n                                   callback function",
+                    "type": "Object|Function",
                     "optional": true,
                     "props": [
                         {
                             "name": "onComplete",
                             "description": "The callback function when the animation is done",
                             "type": "Function",
-                            "optional": true,
-                            "optdefault": "null"
+                            "optional": true
                         },
                         {
                             "name": "onCompleteParams",
                             "description": "Parameters to pass to onComplete function",
                             "type": "Array",
-                            "optional": true,
-                            "optdefault": "null"
+                            "optional": true
                         },
                         {
                             "name": "startTime",
-                            "description": "The time in milliseconds into the animation to start. A value of -1 makes the animation play at a random startTime.",
+                            "description": "The time in milliseconds into the animation to start.\n                                   A value of -1 makes the animation play at a random\n                                   startTime.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
@@ -4455,17 +4445,15 @@
                         },
                         {
                             "name": "soundData",
-                            "description": "soundData Data about a sound to sync the animation to, as an alias or in the format {alias:\"MyAlias\", start:0}.\n\t\tstart is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.",
+                            "description": "Data about a sound to sync the animation to, as\n                                           an alias or in the format\n                                           {alias:\"MyAlias\", start:0}. start is the seconds\n                                           into the animation to start playing the sound.\n                                           If it is omitted or soundData is a String, it\n                                           defaults to 0.",
                             "type": "Object|String",
-                            "optional": true,
-                            "optdefault": "null"
+                            "optional": true
                         },
                         {
-                            "name": "doCancelledCallback",
-                            "description": "Should an overridden animation's callback function still run?",
-                            "type": "Bool",
-                            "optional": true,
-                            "optdefault": "false"
+                            "name": "onCancelled",
+                            "description": "A callback function for when an animation is stopped\n                                        with Animator.stop() or to play another animation.",
+                            "type": "Function",
+                            "optional": true
                         }
                     ]
                 }
@@ -4481,7 +4469,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 209,
+            "line": 214,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4515,6 +4503,11 @@
                     "name": "soundData",
                     "description": "Data about sound to sync the animation to.",
                     "type": "Object"
+                },
+                {
+                    "name": "onCancelled",
+                    "description": "The function to callback when cancelled",
+                    "type": "Function"
                 }
             ],
             "return": {
@@ -4530,8 +4523,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 295,
-            "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property with\n\ta unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,\n\tit needs to not have an id that is identical to anything from EaselJS.",
+            "line": 305,
+            "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
             "params": [
@@ -4554,7 +4547,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 326,
+            "line": 337,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4575,7 +4568,7 @@
             "static": 1,
             "return": {
                 "description": "does this animation exist?",
-                "type": "Bool"
+                "type": "Boolean"
             },
             "class": "springroll.createjs.Animator",
             "module": "CreateJS Display",
@@ -4583,7 +4576,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 360,
+            "line": 371,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4592,11 +4585,6 @@
                     "name": "instance",
                     "description": "The MovieClip to stop the action on",
                     "type": "createjs.MovieClip"
-                },
-                {
-                    "name": "doOnComplete",
-                    "description": "If we are suppose to do the complete callback when stopping (default is false)",
-                    "type": "Bool"
                 }
             ],
             "static": 1,
@@ -4606,15 +4594,16 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 386,
+            "line": 394,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
             "params": [
                 {
                     "name": "container",
-                    "description": "Optional - specify a container to stop timelines contained within",
-                    "type": "createjs.Container"
+                    "description": "Specify a container to stop timelines\n                                        contained within. This only checks one layer deep.",
+                    "type": "createjs.Container",
+                    "optional": true
                 }
             ],
             "static": 1,
@@ -4624,7 +4613,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 412,
+            "line": 421,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4635,9 +4624,9 @@
                     "type": "AnimatorTimeline"
                 },
                 {
-                    "name": "doOnComplete",
+                    "name": "doCancelled",
                     "description": "If we do the on complete callback",
-                    "type": "Bool"
+                    "type": "Boolean"
                 }
             ],
             "access": "private",
@@ -4649,7 +4638,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 469,
+            "line": 485,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4660,7 +4649,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 490,
+            "line": 506,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4671,7 +4660,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 512,
+            "line": 528,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4679,7 +4668,7 @@
                 {
                     "name": "paused",
                     "description": "If this should be paused or unpaused",
-                    "type": "Bool"
+                    "type": "Boolean"
                 },
                 {
                     "name": "container",
@@ -4694,7 +4683,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 534,
+            "line": 549,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4716,13 +4705,13 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 553,
+            "line": 568,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
             "return": {
                 "description": "if we're paused or not",
-                "type": "Bool"
+                "type": "Boolean"
             },
             "class": "springroll.createjs.Animator",
             "module": "CreateJS Display",
@@ -4730,7 +4719,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 564,
+            "line": 579,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4743,7 +4732,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 577,
+            "line": 592,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4756,7 +4745,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 590,
+            "line": 605,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4776,7 +4765,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 686,
+            "line": 701,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4795,7 +4784,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 698,
+            "line": 714,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4814,13 +4803,13 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 711,
+            "line": 727,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
             "return": {
                 "description": "if we have timelines",
-                "type": "Bool"
+                "type": "Boolean"
             },
             "access": "private",
             "tagname": "",
@@ -4831,7 +4820,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 725,
+            "line": 741,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -4846,9 +4835,10 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
             "line": 16,
-            "description": "The event to callback when we're done",
-            "itemtype": "event",
+            "description": "The function to call when we're done",
+            "itemtype": "property",
             "name": "onComplete",
+            "type": "Function",
             "class": "springroll.createjs.AnimatorTimeline",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
@@ -4867,7 +4857,18 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
             "line": 30,
-            "description": "The event label",
+            "description": "The function to call when stopped early.",
+            "itemtype": "property",
+            "name": "onCancelled",
+            "type": "Function",
+            "class": "springroll.createjs.AnimatorTimeline",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
+            "line": 37,
+            "description": "The animation label.",
             "itemtype": "property",
             "name": "event",
             "type": "String",
@@ -4877,7 +4878,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 37,
+            "line": 44,
             "description": "The instance of the timeline to animate",
             "itemtype": "property",
             "name": "instance",
@@ -4888,7 +4889,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 44,
+            "line": 51,
             "description": "The frame number of the first frame",
             "itemtype": "property",
             "name": "firstFrame",
@@ -4899,7 +4900,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 51,
+            "line": 58,
             "description": "The frame number of the last frame",
             "itemtype": "property",
             "name": "lastFrame",
@@ -4910,22 +4911,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 58,
+            "line": 65,
             "description": "If the animation loops - determined by looking to see if it ends in \" stop\" or \" loop\"",
             "itemtype": "property",
             "name": "isLooping",
-            "type": "Bool",
-            "class": "springroll.createjs.AnimatorTimeline",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 65,
-            "description": "Ensure we show the last frame before looping",
-            "itemtype": "property",
-            "name": "isLastFrame",
-            "type": "Bool",
+            "type": "Boolean",
             "class": "springroll.createjs.AnimatorTimeline",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
@@ -4947,7 +4937,7 @@
             "description": "If this timeline plays captions",
             "itemtype": "property",
             "name": "useCaptions",
-            "type": "Bool",
+            "type": "Boolean",
             "readonly": "",
             "class": "springroll.createjs.AnimatorTimeline",
             "module": "CreateJS Display",
@@ -4959,7 +4949,7 @@
             "description": "If the timeline is paused.",
             "itemtype": "property",
             "name": "_paused",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.createjs.AnimatorTimeline",
@@ -5050,7 +5040,7 @@
             "description": "If the timeline will, but has yet to play a sound.",
             "itemtype": "property",
             "name": "playSound",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.createjs.AnimatorTimeline",
@@ -5089,7 +5079,7 @@
             "description": "Sets and gets the animation's paused status.",
             "itemtype": "property",
             "name": "paused",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.createjs.AnimatorTimeline",
@@ -7037,7 +7027,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 453,
+            "line": 456,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -7056,7 +7046,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 504,
+            "line": 507,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -7085,7 +7075,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 575,
+            "line": 578,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -7110,7 +7100,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 607,
+            "line": 610,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -7129,7 +7119,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 626,
+            "line": 629,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -7141,7 +7131,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 656,
+            "line": 659,
             "class": "springroll.createjs.DragManager",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
@@ -8162,18 +8152,18 @@
                 },
                 {
                     "name": "anim",
-                    "description": "Depending on the type of clip, this could be one of several things.\n\nIf animating a MovieClip, this should be the array of Textures that is the animation (or null to use the existing array on the clip).\n\nIf animating a Spine object:\n- If anim is a string it will play that single animation by name.\n- If anim is an array of strings it will play as a list of animations (only the last one can loop).\n- If anim is an array of objects (with anim, loop, and speed properties) then multiple animations will be played simultaneously.\n   When multiple animations play, animation stops when any non looping animation ends.",
+                    "description": "Depending on the type of clip, this could be one of several things.\n\nIf animating a MovieClip, this should be the array of Textures that is the animation (or null\n to use the existing array on the clip).\n\nIf animating a Spine object:\n- If anim is a string it will play that single animation by name.\n- If anim is an array of strings it will play as a list of animations (only the last one\n  can loop).\n- If anim is an array of objects (with anim, loop, and speed properties) then multiple\n  animations will be played simultaneously.\n   When multiple animations play, animation stops when any non looping animation ends.",
                     "type": "String|Array"
                 },
                 {
                     "name": "options",
-                    "description": "The object of optional parameters or onComplete callback function",
-                    "type": "Object|function",
+                    "description": "The object of optional parameters or onComplete callback\n                                   function",
+                    "type": "Object|Function",
                     "optional": true,
                     "props": [
                         {
                             "name": "onComplete",
-                            "description": "The function to call once the animation has finished",
+                            "description": "The function to call once the animation has\n                                            finished",
                             "type": "Function",
                             "optional": true,
                             "optdefault": "null"
@@ -8181,7 +8171,7 @@
                         {
                             "name": "loop",
                             "description": "Whether the animation should loop",
-                            "type": "Bool",
+                            "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
@@ -8201,10 +8191,16 @@
                         },
                         {
                             "name": "soundData",
-                            "description": "Data about a sound to sync the animation to, as an alias or in the format {alias:\"MyAlias\", start:0}.\n       start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.",
+                            "description": "Data about a sound to sync the animation to,\n                                                as an alias or in the format\n                                                {alias:\"MyAlias\", start:0}. start is the\n                                                seconds into the animation to start playing\n                                                the sound. If it is omitted or soundData is\n                                                a string, it defaults to 0.",
                             "type": "Object|String",
                             "optional": true,
                             "optdefault": "null"
+                        },
+                        {
+                            "name": "onCancelled",
+                            "description": "A callback function for when an animation is stopped\n                                        with Animator.stop() or to play another animation.",
+                            "type": "Function",
+                            "optional": true
                         }
                     ]
                 }
@@ -8219,7 +8215,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 213,
+            "line": 233,
             "description": "Checks to see if a Spine animation includes a given animation alias",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -8245,7 +8241,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 228,
+            "line": 248,
             "description": "Checks to see if a Spine animation includes a given animation alias",
             "itemtype": "method",
             "name": "checkSpineForAnimation",
@@ -8271,7 +8267,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 241,
+            "line": 261,
             "description": "Stop a clip",
             "itemtype": "method",
             "name": "stop",
@@ -8280,11 +8276,6 @@
                     "name": "clip",
                     "description": "The clip to stop",
                     "type": "PIXI.MovieClip|PIXI.Spine"
-                },
-                {
-                    "name": "doCallback",
-                    "description": "Whether the animations callback should be run",
-                    "type": "Bool"
                 }
             ],
             "class": "springroll.pixi.Animator",
@@ -8293,7 +8284,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 268,
+            "line": 287,
             "description": "Stops all current animations",
             "itemtype": "method",
             "name": "stop",
@@ -8303,15 +8294,15 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 287,
-            "description": "Put an AnimatorTimeline back into the general pool after it's done playing\nor has been manually stopped",
+            "line": 308,
+            "description": "Put an AnimatorTimeline back into the general pool after it's done playing\nor has been manually stopped.",
             "itemtype": "method",
             "name": "_repool",
             "params": [
                 {
                     "name": "timeline",
                     "description": "",
-                    "type": "pixi.AnimatorTimeline"
+                    "type": "AnimatorTimeline"
                 }
             ],
             "access": "private",
@@ -8322,7 +8313,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 306,
+            "line": 328,
             "description": "Update each frame",
             "itemtype": "method",
             "name": "_update",
@@ -8341,7 +8332,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 422,
+            "line": 446,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -8360,7 +8351,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 451,
+            "line": 475,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -8370,7 +8361,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 27,
+            "line": 30,
             "description": "Initialize the AnimatorTimeline",
             "itemtype": "method",
             "name": "init",
@@ -8389,6 +8380,11 @@
                     "name": "speed",
                     "description": "The speed at which the clip should be played",
                     "type": "Number"
+                },
+                {
+                    "name": "cancelledCallback",
+                    "description": "The function to call if the clip's playback is\n                                    interrupted.",
+                    "type": "Function"
                 }
             ],
             "return": {
@@ -8401,7 +8397,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 38,
+            "line": 43,
             "description": "The clip for this AnimTimeLine",
             "itemtype": "property",
             "name": "clip",
@@ -8414,11 +8410,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 45,
+            "line": 50,
             "description": "Whether the clip is a PIXI.Spine",
             "itemtype": "property",
             "name": "isSpine",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.pixi.AnimatorTimeline",
@@ -8427,7 +8423,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 52,
+            "line": 57,
             "description": "The function to call when the clip is finished playing",
             "itemtype": "property",
             "name": "callback",
@@ -8440,7 +8436,20 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 59,
+            "line": 64,
+            "description": "The function to call if the clip's playback is interrupted.",
+            "itemtype": "property",
+            "name": "cancelledCallback",
+            "type": "Function",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.pixi.AnimatorTimeline",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
+            "line": 72,
             "description": "The speed at which the clip should be played",
             "itemtype": "property",
             "name": "speed",
@@ -8453,7 +8462,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 66,
+            "line": 79,
             "itemtype": "property",
             "name": "spineStates",
             "type": "Array",
@@ -8465,11 +8474,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 72,
-            "description": "Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played",
+            "line": 85,
+            "description": "Not used by Animator, but potentially useful for other code to keep track of what\ntype of animation is being played",
             "itemtype": "property",
             "name": "loop",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.pixi.AnimatorTimeline",
@@ -8478,7 +8487,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 79,
+            "line": 93,
             "description": "The position of the animation in seconds",
             "itemtype": "property",
             "name": "time",
@@ -8491,7 +8500,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 86,
+            "line": 100,
             "description": "Sound alias to sync to during the animation.",
             "itemtype": "property",
             "name": "soundAlias",
@@ -8504,7 +8513,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 93,
+            "line": 107,
             "description": "A sound instance object from Sound, used for tracking sound position.",
             "itemtype": "property",
             "name": "soundInst",
@@ -8517,11 +8526,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 100,
+            "line": 114,
             "description": "If the timeline will, but has yet to, play a sound",
             "itemtype": "property",
             "name": "playSound",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.pixi.AnimatorTimeline",
@@ -8530,7 +8539,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 107,
+            "line": 121,
             "description": "The time (seconds) into the animation that the sound starts.",
             "itemtype": "property",
             "name": "soundStart",
@@ -8543,7 +8552,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 114,
+            "line": 128,
             "description": "The time (seconds) into the animation that the sound ends",
             "itemtype": "property",
             "name": "soundEnd",
@@ -8556,11 +8565,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 121,
+            "line": 135,
             "description": "If this timeline plays captions",
             "itemtype": "property",
             "name": "useCaptions",
-            "type": "Bool",
+            "type": "Boolean",
             "readonly": "",
             "class": "springroll.pixi.AnimatorTimeline",
             "module": "PIXI Display",
@@ -8568,11 +8577,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 129,
+            "line": 143,
             "description": "If this animation is paused.",
             "itemtype": "property",
             "name": "_paused",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.pixi.AnimatorTimeline",
@@ -8581,11 +8590,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js",
-            "line": 139,
+            "line": 153,
             "description": "Sets and gets the animation's paused status.",
             "itemtype": "property",
             "name": "paused",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.pixi.AnimatorTimeline",
@@ -9861,7 +9870,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 454,
+            "line": 456,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -9880,7 +9889,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 512,
+            "line": 514,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -9909,7 +9918,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 556,
+            "line": 558,
             "description": "Simple clamp function",
             "class": "springroll.pixi.DragManager",
             "module": "PIXI Display",
@@ -9917,7 +9926,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 582,
+            "line": 584,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -9942,7 +9951,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 613,
+            "line": 615,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -9961,7 +9970,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 634,
+            "line": 636,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -9973,7 +9982,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js",
-            "line": 664,
+            "line": 666,
             "class": "springroll.pixi.DragManager",
             "module": "PIXI Display",
             "namespace": "springroll.pixi"
@@ -18968,79 +18977,79 @@
     "warnings": [
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:87"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:79"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:104"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:96"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:124"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:116"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:209"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:214"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:295"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:305"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:326"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:337"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:360"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:371"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:386"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:394"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:412"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:421"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:469"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:485"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:490"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:506"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:512"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:528"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:534"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:549"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:553"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:568"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:564"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:579"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:577"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:592"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:590"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:605"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:711"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:727"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:725"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:741"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19084,27 +19093,23 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:213"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:233"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:213"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:233"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:228"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:248"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:228"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:248"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:241"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:268"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:261"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19112,23 +19117,27 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:306"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:308"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:422"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:328"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:451"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:446"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js:27"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/Animator.js:475"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js:30"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js:27"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AnimatorTimeline.js:30"
         },
         {
             "message": "unknown tag: internal",
@@ -19380,7 +19389,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js:656"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js:659"
         },
         {
             "message": "Missing item type",
@@ -19392,11 +19401,11 @@
         },
         {
             "message": "Missing item type\nSimple clamp function",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js:556"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js:558"
         },
         {
             "message": "Missing item type",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js:664"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/DragManager.js:666"
         },
         {
             "message": "Missing item type\nCallback when the config is loaded",

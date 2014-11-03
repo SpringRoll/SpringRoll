@@ -543,13 +543,6 @@ base animation functionality, using frame labels of MovieClips</p>
                                 
                             </li>
                         
-                            <li class="index-item property private">
-                                <a href="#property_EXTERNAL_STOP">EXTERNAL_STOP</a>
-
-                                
-                                
-                            </li>
-                        
                     </ul>
                 </div>
             
@@ -614,7 +607,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l295"><code>_canAnimate:295</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l305"><code>_canAnimate:305</code></a>
         
         </p>
 
@@ -626,9 +619,10 @@ base animation functionality, using frame labels of MovieClips</p>
 
     <div class="description">
         <p>Determines if a given instance can be animated by Animator, to allow things that aren&#39;t
-    MovieClips from EaselJS to be animated if they share the same API. Note - &#39;id&#39; is a property with
-    a unique value for each createjs.DisplayObject. If a custom object is made that does not inherit from DisplayObject,
-    it needs to not have an id that is identical to anything from EaselJS.</p>
+    MovieClips from EaselJS to be animated if they share the same API. Note - &#39;id&#39; is a property
+    with a unique value for each createjs.DisplayObject. If a custom object is made that does
+    not inherit from DisplayObject, it needs to not have an id that is identical to anything
+    from EaselJS.</p>
 
     </div>
 
@@ -687,7 +681,7 @@ base animation functionality, using frame labels of MovieClips</p>
 
     
         <span class="returns-inline">
-            <span class="type">Bool</span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
         </span>
     
 
@@ -718,7 +712,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l711"><code>_hasTimelines:711</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l727"><code>_hasTimelines:727</code></a>
         
         </p>
 
@@ -742,7 +736,7 @@ base animation functionality, using frame labels of MovieClips</p>
             <div class="returns-description">
                 
                     
-                        <span class="type">Bool</span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
                     
                     <p>if we have timelines</p>
 
@@ -780,7 +774,7 @@ base animation functionality, using frame labels of MovieClips</p>
 
     
         <span class="returns-inline">
-            <span class="type">Bool</span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
         </span>
     
 
@@ -811,7 +805,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l326"><code>_makeTimeline:326</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l337"><code>_makeTimeline:337</code></a>
         
         </p>
 
@@ -875,7 +869,7 @@ base animation functionality, using frame labels of MovieClips</p>
             <div class="returns-description">
                 
                     
-                        <span class="type">Bool</span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
                     
                     <p>does this animation exist?</p>
 
@@ -931,6 +925,12 @@ base animation functionality, using frame labels of MovieClips</p>
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>onCancelled</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -968,7 +968,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l209"><code>_makeTimeline:209</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l214"><code>_makeTimeline:214</code></a>
         
         </p>
 
@@ -1085,6 +1085,22 @@ base animation functionality, using frame labels of MovieClips</p>
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">onCancelled</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to callback when cancelled</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -1124,7 +1140,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
                 <li class="arg">
                     
-                        <code>doOnComplete</code>
+                        <code>doCancelled</code>
                     
                 </li>
             
@@ -1161,7 +1177,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l412"><code>_remove:412</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l421"><code>_remove:421</code></a>
         
         </p>
 
@@ -1199,8 +1215,8 @@ base animation functionality, using frame labels of MovieClips</p>
             
                 <li class="param">
                     
-                        <code class="param-name">doOnComplete</code>
-                        <span class="type">Bool</span>
+                        <code class="param-name">doCancelled</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                     
 
                     
@@ -1259,7 +1275,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l564"><code>_startUpdate:564</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l579"><code>_startUpdate:579</code></a>
         
         </p>
 
@@ -1318,7 +1334,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l577"><code>_stopUpdate:577</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l592"><code>_stopUpdate:592</code></a>
         
         </p>
 
@@ -1375,7 +1391,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l104"><code>destroy:104</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l96"><code>destroy:96</code></a>
         
         </p>
 
@@ -1407,7 +1423,7 @@ base animation functionality, using frame labels of MovieClips</p>
 
     
         <span class="returns-inline">
-            <span class="type">Bool</span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
         </span>
     
 
@@ -1434,7 +1450,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l553"><code>getPaused:553</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l568"><code>getPaused:568</code></a>
         
         </p>
 
@@ -1458,7 +1474,7 @@ base animation functionality, using frame labels of MovieClips</p>
             <div class="returns-description">
                 
                     
-                        <span class="type">Bool</span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
                     
                     <p>if we&#39;re paused or not</p>
 
@@ -1519,7 +1535,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l534"><code>getTimeline:534</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l549"><code>getTimeline:549</code></a>
         
         </p>
 
@@ -1614,7 +1630,7 @@ base animation functionality, using frame labels of MovieClips</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l87"><code>init:87</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l79"><code>init:79</code></a>
         
         </p>
 
@@ -1682,7 +1698,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l698"><code>onSoundDone:698</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l714"><code>onSoundDone:714</code></a>
         
         </p>
 
@@ -1772,7 +1788,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l686"><code>onSoundStarted:686</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l701"><code>onSoundStarted:701</code></a>
         
         </p>
 
@@ -1852,7 +1868,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l469"><code>pause:469</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l485"><code>pause:485</code></a>
         
         </p>
 
@@ -1925,7 +1941,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l512"><code>pauseInGroup:512</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l528"><code>pauseInGroup:528</code></a>
         
         </p>
 
@@ -1949,7 +1965,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                 <li class="param">
                     
                         <code class="param-name">paused</code>
-                        <span class="type">Bool</span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                     
 
                     
@@ -2048,7 +2064,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l124"><code>play:124</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l116"><code>play:116</code></a>
         
         </p>
 
@@ -2111,7 +2127,8 @@ if the Animator data was cleaned up but was needed again later.</p>
                     
 
                     <div class="param-description">
-                        <p>The object of optional parameters or onComplete callback function</p>
+                        <p>The object of optional parameters or onComplete
+                                   callback function</p>
 
                     </div>
 
@@ -2120,7 +2137,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[onComplete=null]</code>
+                                    <code class="param-name optional">[onComplete]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
@@ -2135,7 +2152,7 @@ if the Animator data was cleaned up but was needed again later.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[onCompleteParams=null]</code>
+                                    <code class="param-name optional">[onCompleteParams]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
@@ -2156,7 +2173,9 @@ if the Animator data was cleaned up but was needed again later.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The time in milliseconds into the animation to start. A value of -1 makes the animation play at a random startTime.</p>
+                                    <p>The time in milliseconds into the animation to start.
+                                   A value of -1 makes the animation play at a random
+                                   startTime.</p>
 
                                 </div>
 
@@ -2180,14 +2199,18 @@ if the Animator data was cleaned up but was needed again later.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[soundData=null]</code>
+                                    <code class="param-name optional">[soundData]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>soundData Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-        start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.</p>
+                                    <p>Data about a sound to sync the animation to, as
+                                           an alias or in the format
+                                           {alias:"MyAlias", start:0}. start is the seconds
+                                           into the animation to start playing the sound.
+                                           If it is omitted or soundData is a String, it
+                                           defaults to 0.</p>
 
                                 </div>
 
@@ -2196,13 +2219,14 @@ if the Animator data was cleaned up but was needed again later.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[doCancelledCallback=false]</code>
-                                    <span class="type">Bool</span>
+                                    <code class="param-name optional">[onCancelled]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>Should an overridden animation&#39;s callback function still run?</p>
+                                    <p>A callback function for when an animation is stopped
+                                        with Animator.stop() or to play another animation.</p>
 
                                 </div>
 
@@ -2283,7 +2307,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l590"><code>:590</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l605"><code>:605</code></a>
         
         </p>
 
@@ -2364,7 +2388,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l490"><code>resume:490</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l506"><code>resume:506</code></a>
         
         </p>
 
@@ -2400,12 +2424,6 @@ if the Animator data was cleaned up but was needed again later.</p>
                     
                 </li>
             
-                <li class="arg">
-                    
-                        <code>doOnComplete</code>
-                    
-                </li>
-            
             </ul><span class="paren">)</span>
         </div>
     
@@ -2437,7 +2455,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l360"><code>stop:360</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l371"><code>stop:371</code></a>
         
         </p>
 
@@ -2474,22 +2492,6 @@ if the Animator data was cleaned up but was needed again later.</p>
                     
                 </li>
             
-                <li class="param">
-                    
-                        <code class="param-name">doOnComplete</code>
-                        <span class="type">Bool</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>If we are suppose to do the complete callback when stopping (default is false)</p>
-
-                    </div>
-
-                    
-                </li>
-            
             </ul>
         </div>
     
@@ -2509,7 +2511,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
                 <li class="arg">
                     
-                        <code>container</code>
+                        <code class="optional">[container]</code>
                     
                 </li>
             
@@ -2544,7 +2546,7 @@ if the Animator data was cleaned up but was needed again later.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l386"><code>stopAll:386</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l394"><code>stopAll:394</code></a>
         
         </p>
 
@@ -2568,14 +2570,16 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
             
                 <li class="param">
                     
-                        <code class="param-name">container</code>
+                        <code class="param-name optional">[container]</code>
                         <span class="type">createjs.Container</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Optional - specify a container to stop timelines contained within</p>
+                        <p>Specify a container to stop timelines
+                                        contained within. This only checks one layer deep.</p>
 
                     </div>
 
@@ -2630,7 +2634,7 @@ This is good for cleaning up all animation, as it doesn&#39;t do a callback on a
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l725"><code>toString:725</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l741"><code>toString:741</code></a>
         
         </p>
 
@@ -2723,7 +2727,7 @@ when an options object is not used for parameters.</p>
                 
                     <div id="property__paused" class="property item private">
     <h3 class="name"><code>_paused</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -2960,7 +2964,7 @@ reallocated every frame</p>
                 
                     <div id="property_debug" class="property item public">
     <h3 class="name"><code>debug</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -2996,54 +3000,6 @@ reallocated every frame</p>
 
     <div class="description">
         <p>If we fire debug statements</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_EXTERNAL_STOP" class="property item private">
-    <h3 class="name"><code>EXTERNAL_STOP</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_createjs_Animator.js.html#l79"><code>EXTERNAL_STOP:79</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>An object to allow stop() calls to be better differentiated
-from animations ending naturally.</p>
 
     </div>
 

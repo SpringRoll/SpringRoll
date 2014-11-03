@@ -468,7 +468,7 @@
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l422"><code>_onMovieClipDone:422</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l446"><code>_onMovieClipDone:446</code></a>
         
         </p>
 
@@ -559,7 +559,7 @@ callback if it has one</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l287"><code>_repool:287</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l308"><code>_repool:308</code></a>
         
         </p>
 
@@ -571,7 +571,7 @@ callback if it has one</p>
 
     <div class="description">
         <p>Put an AnimatorTimeline back into the general pool after it&#39;s done playing
-or has been manually stopped</p>
+or has been manually stopped.</p>
 
     </div>
 
@@ -584,7 +584,7 @@ or has been manually stopped</p>
                 <li class="param">
                     
                         <code class="param-name">timeline</code>
-                        <span class="type">pixi.AnimatorTimeline</span>
+                        <span class="type">AnimatorTimeline</span>
                     
 
                     
@@ -650,7 +650,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l306"><code>_update:306</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l328"><code>_update:328</code></a>
         
         </p>
 
@@ -749,7 +749,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l228"><code>checkSpineForAnimation:228</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l248"><code>checkSpineForAnimation:248</code></a>
         
         </p>
 
@@ -858,7 +858,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l451"><code>destroy:451</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l475"><code>destroy:475</code></a>
         
         </p>
 
@@ -990,7 +990,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l213"><code>instanceHasAnimation:213</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l233"><code>instanceHasAnimation:233</code></a>
         
         </p>
 
@@ -1172,12 +1172,15 @@ or has been manually stopped</p>
 
                     <div class="param-description">
                         <p>Depending on the type of clip, this could be one of several things.</p>
-<p>If animating a MovieClip, this should be the array of Textures that is the animation (or null to use the existing array on the clip).</p>
+<p>If animating a MovieClip, this should be the array of Textures that is the animation (or null
+ to use the existing array on the clip).</p>
 <p>If animating a Spine object:</p>
 <ul>
 <li>If anim is a string it will play that single animation by name.</li>
-<li>If anim is an array of strings it will play as a list of animations (only the last one can loop).</li>
-<li>If anim is an array of objects (with anim, loop, and speed properties) then multiple animations will be played simultaneously.
+<li>If anim is an array of strings it will play as a list of animations (only the last one
+can loop).</li>
+<li>If anim is an array of objects (with anim, loop, and speed properties) then multiple
+animations will be played simultaneously.
  When multiple animations play, animation stops when any non looping animation ends.</li>
 </ul>
 
@@ -1196,7 +1199,8 @@ or has been manually stopped</p>
                     
 
                     <div class="param-description">
-                        <p>The object of optional parameters or onComplete callback function</p>
+                        <p>The object of optional parameters or onComplete callback
+                                   function</p>
 
                     </div>
 
@@ -1211,7 +1215,8 @@ or has been manually stopped</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The function to call once the animation has finished</p>
+                                    <p>The function to call once the animation has
+                                            finished</p>
 
                                 </div>
 
@@ -1221,7 +1226,7 @@ or has been manually stopped</p>
                             <li class="param">
                                 
                                     <code class="param-name optional">[loop=false]</code>
-                                    <span class="type">Bool</span>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
@@ -1271,8 +1276,28 @@ or has been manually stopped</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-       start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.</p>
+                                    <p>Data about a sound to sync the animation to,
+                                                as an alias or in the format
+                                                {alias:"MyAlias", start:0}. start is the
+                                                seconds into the animation to start playing
+                                                the sound. If it is omitted or soundData is
+                                                a string, it defaults to 0.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[onCancelled]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>A callback function for when an animation is stopped
+                                        with Animator.stop() or to play another animation.</p>
 
                                 </div>
 
@@ -1320,12 +1345,6 @@ or has been manually stopped</p>
                     
                 </li>
             
-                <li class="arg">
-                    
-                        <code>doCallback</code>
-                    
-                </li>
-            
             </ul><span class="paren">)</span>
         </div>
     
@@ -1355,7 +1374,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l241"><code>stop:241</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l261"><code>stop:261</code></a>
         
         </p>
 
@@ -1386,22 +1405,6 @@ or has been manually stopped</p>
 
                     <div class="param-description">
                         <p>The clip to stop</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">doCallback</code>
-                        <span class="type">Bool</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Whether the animations callback should be run</p>
 
                     </div>
 
@@ -1450,7 +1453,7 @@ or has been manually stopped</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l268"><code>stop:268</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l287"><code>stop:287</code></a>
         
         </p>
 

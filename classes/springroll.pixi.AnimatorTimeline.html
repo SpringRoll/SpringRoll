@@ -266,8 +266,9 @@
 
 
 <div class="box intro">
-    <p>Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
-so please only keep references to them while they are actively playing an animation.</p>
+    <p>Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
+internally, so please only keep references to them while they are actively playing an
+animation.</p>
 
 </div>
 
@@ -296,6 +297,12 @@ so please only keep references to them while they are actively playing an animat
                 <li class="arg">
                     
                         <code>speed</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>cancelledCallback</code>
                     
                 </li>
             
@@ -396,6 +403,23 @@ so please only keep references to them while they are actively playing an animat
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">cancelledCallback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to call if the clip&#39;s playback is
+                                    interrupted.</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -458,6 +482,13 @@ so please only keep references to them while they are actively playing an animat
                         
                             <li class="index-item property public">
                                 <a href="#property_callback">callback</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property public">
+                                <a href="#property_cancelledCallback">cancelledCallback</a>
 
                                 
                                 
@@ -593,6 +624,12 @@ so please only keep references to them while they are actively playing an animat
                     
                 </li>
             
+                <li class="arg">
+                    
+                        <code>cancelledCallback</code>
+                    
+                </li>
+            
             </ul><span class="paren">)</span>
         </div>
     
@@ -626,7 +663,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l27"><code>init:27</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l30"><code>init:30</code></a>
         
         </p>
 
@@ -695,6 +732,23 @@ so please only keep references to them while they are actively playing an animat
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">cancelledCallback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to call if the clip&#39;s playback is
+                                    interrupted.</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
     
@@ -727,7 +781,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property__paused" class="property item private">
     <h3 class="name"><code>_paused</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -750,7 +804,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l129"><code>_paused:129</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l143"><code>_paused:143</code></a>
         
         </p>
 
@@ -797,7 +851,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l52"><code>callback:52</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l57"><code>callback:57</code></a>
         
         </p>
 
@@ -808,6 +862,53 @@ so please only keep references to them while they are actively playing an animat
 
     <div class="description">
         <p>The function to call when the clip is finished playing</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_cancelledCallback" class="property item public">
+    <h3 class="name"><code>cancelledCallback</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l64"><code>cancelledCallback:64</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The function to call if the clip&#39;s playback is interrupted.</p>
 
     </div>
 
@@ -844,7 +945,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l38"><code>clip:38</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l43"><code>clip:43</code></a>
         
         </p>
 
@@ -868,7 +969,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property_isSpine" class="property item public">
     <h3 class="name"><code>isSpine</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -891,7 +992,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l45"><code>isSpine:45</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l50"><code>isSpine:50</code></a>
         
         </p>
 
@@ -915,7 +1016,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property_loop" class="property item public">
     <h3 class="name"><code>loop</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -938,7 +1039,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l72"><code>loop:72</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l85"><code>loop:85</code></a>
         
         </p>
 
@@ -948,7 +1049,8 @@ so please only keep references to them while they are actively playing an animat
     </div>
 
     <div class="description">
-        <p>Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played</p>
+        <p>Not used by Animator, but potentially useful for other code to keep track of what
+type of animation is being played</p>
 
     </div>
 
@@ -962,7 +1064,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property_paused" class="property item public">
     <h3 class="name"><code>paused</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -985,7 +1087,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l139"><code>paused:139</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l153"><code>paused:153</code></a>
         
         </p>
 
@@ -1009,7 +1111,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property_playSound" class="property item public">
     <h3 class="name"><code>playSound</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1032,7 +1134,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l100"><code>playSound:100</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l114"><code>playSound:114</code></a>
         
         </p>
 
@@ -1079,7 +1181,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l86"><code>soundAlias:86</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l100"><code>soundAlias:100</code></a>
         
         </p>
 
@@ -1126,7 +1228,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l114"><code>soundEnd:114</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l128"><code>soundEnd:128</code></a>
         
         </p>
 
@@ -1173,7 +1275,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l93"><code>soundInst:93</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l107"><code>soundInst:107</code></a>
         
         </p>
 
@@ -1220,7 +1322,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l107"><code>soundStart:107</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l121"><code>soundStart:121</code></a>
         
         </p>
 
@@ -1267,7 +1369,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l59"><code>speed:59</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l72"><code>speed:72</code></a>
         
         </p>
 
@@ -1314,7 +1416,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l66"><code>spineStates:66</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l79"><code>spineStates:79</code></a>
         
         </p>
 
@@ -1360,7 +1462,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l79"><code>time:79</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l93"><code>time:93</code></a>
         
         </p>
 
@@ -1384,7 +1486,7 @@ so please only keep references to them while they are actively playing an animat
                 
                     <div id="property_useCaptions" class="property item">
     <h3 class="name"><code>useCaptions</code></h3>
-    <span class="type">Bool</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
     
 
@@ -1405,7 +1507,7 @@ so please only keep references to them while they are actively playing an animat
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l121"><code>useCaptions:121</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AnimatorTimeline.js.html#l135"><code>useCaptions:135</code></a>
         
         </p>
 
