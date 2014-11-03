@@ -352,9 +352,12 @@
 	*  @param {Number} [settings.pivot.x] The pivot point X location
 	*  @param {Number} [settings.pivot.y] The pivot point Y location
 	*  @param {Number} [settings.rotation] The initial rotation in degrees
-	*  @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item or an array of points.
-	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area, "rect", "ellipse", "circle", etc
-	*  @param {DisplayAdapter} adapter The current display adapter being positioned
+	*  @param {Object|Array} [settings.hitArea] An object which describes the hit area
+	*                                           of the item or an array of points.
+	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
+	*                                          "rect", "ellipse", "circle", etc
+	*  @param {DisplayAdapter} [adapter] The adapter for the display being positioned in. If
+	*                                    omitted, uses the Application's default display.
 	*/
 	Positioner.initItem = function(item, settings, adapter)
 	{
@@ -432,12 +435,19 @@
 	*
 	*		{type:"sector", x:0, y:0, r:20, start:0, end:90}
 	*  @param {Number} scale The size to scale hitArea by
-	*  @param {Display} adapter The current display adapter for creating Polygon, Point, Rectangle, Ellipse, Circle
-	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle, Ellipse, Circle,
-	*      or Sector, depending on the hitArea object. The shape will have a contains() function for hit testing.
+	*  @param {Display} adapter The current display adapter for creating Polygon, Point,
+	*                           Rectangle, Ellipse, Circle
+	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle,
+	*                     Ellipse, Circle, or Sector, depending on the hitArea object. The shape
+	*                     will have a contains() function for hit testing.
+	*  @param {DisplayAdapter} [adapter] The adapter for the display being positioned in. If
+	*                                    omitted, uses the Application's default display.
 	*/
 	Positioner.generateHitArea = function(hitArea, scale, adapter)
 	{
+		//get the default adapter if not specified
+		if(!adapter)
+			adapter = springroll.UIScaler._getAdapter();
 		if (!scale) scale = 1;
 
 		if (Array.isArray(hitArea))
