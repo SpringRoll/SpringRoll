@@ -446,18 +446,21 @@
 (function(){
 	
 	/**
-	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
-	 * so please only keep references to them while they are actively playing an animation.
-	 * 
+	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
+	 * internally, so please only keep references to them while they are actively playing an
+	 * animation.
+	 *
 	 * @class AnimatorTimeline
 	 * @constructor
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {int} speed The speed at which the clip should be played
+	 * @param {Function} cancelledCallback The function to call if the clip's playback is
+	 *                                     interrupted.
 	 */
-	var AnimatorTimeline = function(clip, callback, speed)
+	var AnimatorTimeline = function(clip, callback, speed, cancelledCallback)
 	{
-		this.init(clip, callback, speed);
+		this.init(clip, callback, speed, cancelledCallback);
 	};
 	
 	AnimatorTimeline.constructor = AnimatorTimeline;
@@ -467,14 +470,16 @@
 
 	/**
 	 * Initialize the AnimatorTimeline
-	 * 
+	 *
 	 * @function init
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
+	* @param {Function} cancelledCallback The function to call if the clip's playback is
+	*                                     interrupted.
 	 * @returns {Animator.AnimatorTimeline}
 	 */
-	p.init = function(clip, callback, speed)
+	p.init = function(clip, callback, speed, cancelledCallback)
 	{
 		/**
 		*	The clip for this AnimTimeLine
@@ -485,17 +490,25 @@
 
 		/**
 		*	Whether the clip is a PIXI.Spine
-		*	@property {bool} isSpine
+		*	@property {Boolean} isSpine
 		*	@public
 		*/
 		this.isSpine = clip instanceof PIXI.Spine;
 
 		/**
 		*	The function to call when the clip is finished playing
-		*	@property {function} callback
+		*	@property {Function} callback
 		*	@public
 		*/
 		this.callback = callback;
+		
+		/**
+		*	The function to call if the clip's playback is interrupted.
+		*	@property {Function} cancelledCallback
+		*	@public
+		*/
+		this.cancelledCallback = cancelledCallback;
+
 
 		/**
 		*	The speed at which the clip should be played
@@ -511,8 +524,9 @@
 		this.spineStates = null;
 
 		/**
-		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
-		*	@property {bool} loop
+		*	Not used by Animator, but potentially useful for other code to keep track of what
+		*	type of animation is being played
+		*	@property {Boolean} loop
 		*	@public
 		*/
 		this.loop = null;
@@ -540,7 +554,7 @@
 
 		/**
 		*	If the timeline will, but has yet to, play a sound
-		*	@property {bool} playSound
+		*	@property {Boolean} playSound
 		*	@public
 		*/
 		this.playSound = false;
@@ -562,14 +576,14 @@
 		/**
 		*  If this timeline plays captions
 		*
-		*  @property {bool} useCaptions
+		*  @property {Boolean} useCaptions
 		*  @readOnly
 		*/
 		this.useCaptions = false;
 
 		/**
 		*	If this animation is paused.
-		*	@property {bool} _paused
+		*	@property {Boolean} _paused
 		*	@private
 		*/
 		this._paused = false;
@@ -579,8 +593,8 @@
 	
 	/**
 	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
+	*
+	* @property {Boolean} paused
 	* @public
 	*/
 	Object.defineProperty(p, "paused", {
@@ -665,30 +679,41 @@
 	
 	/**
 	* Play a specified animation
-	* 
+	*
 	* @function play
 	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play
 	* @param {String|Array} anim Depending on the type of clip, this could be one of several things.
 	*
-	* If animating a MovieClip, this should be the array of Textures that is the animation (or null to use the existing array on the clip).
+	* If animating a MovieClip, this should be the array of Textures that is the animation (or null
+	*  to use the existing array on the clip).
 	*
 	* If animating a Spine object:
 	* - If anim is a string it will play that single animation by name.
-	* - If anim is an array of strings it will play as a list of animations (only the last one can loop).
-	* - If anim is an array of objects (with anim, loop, and speed properties) then multiple animations will be played simultaneously.
+	* - If anim is an array of strings it will play as a list of animations (only the last one
+	*   can loop).
+	* - If anim is an array of objects (with anim, loop, and speed properties) then multiple
+	*   animations will be played simultaneously.
 	*    When multiple animations play, animation stops when any non looping animation ends.
-	* @param {Object|function} [options] The object of optional parameters or onComplete callback function
-	* @param {function} [options.onComplete=null] The function to call once the animation has finished
-	* @param {bool} [options.loop=false] Whether the animation should loop
+	* @param {Object|Function} [options] The object of optional parameters or onComplete callback
+	*                                    function
+	* @param {Function} [options.onComplete=null] The function to call once the animation has
+	*                                             finished
+	* @param {Boolean} [options.loop=false] Whether the animation should loop
 	* @param {int} [options.speed=1] The speed at which to play the animation
 	* @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
-	* @param {Object|String} [options.soundData=null] Data about a sound to sync the animation to, as an alias or in the format {alias:"MyAlias", start:0}.
-	*        start is the seconds into the animation to start playing the sound. If it is omitted or soundData is a string, it defaults to 0.
+	* @param {Object|String} [options.soundData=null] Data about a sound to sync the animation to,
+	*                                                 as an alias or in the format
+	*                                                 {alias:"MyAlias", start:0}. start is the
+	*                                                 seconds into the animation to start playing
+	*                                                 the sound. If it is omitted or soundData is
+	*                                                 a string, it defaults to 0.
+	* @param {Function} [options.onCancelled] A callback function for when an animation is stopped
+	*                                         with Animator.stop() or to play another animation.
 	* @return {pixi.AnimatorTimeline} The timeline object
 	*/
-	Animator.play = function(clip, anim, options, loop, speed, startTime, soundData)
+	Animator.play = function(clip, anim, options)
 	{
-		var callback = null;
+		var callback, loop, speed, startTime, soundData, cancelledCallback;
 
 		if (options && typeof options == "function")
 		{
@@ -703,29 +728,33 @@
 		{
 			options = {};
 		}
-
-		if (clip === null || (!(clip instanceof Spine) && !(clip.updateAnim/*clip instanceof PIXI.MovieClip*/)))
+		
+		//ensure that we can play the clip
+		if (clip === null || (!(clip instanceof Spine) && !(clip.updateAnim)))
 		{
 			if (callback) callback();
 			return;
 		}
 		
 		Animator.stop(clip);
-		loop = options.loop || loop || false;
-		speed = options.speed || speed || 1;
-		startTime = options.startTime || startTime;
-		startTime = startTime ? startTime * 0.001 : 0;//convert into seconds, as that is what the time uses internally
-		soundData = options.soundData || soundData || null;
+		loop = options.loop || false;
+		speed = options.speed || 1;
+		startTime = options.startTime;
+		//convert into seconds, as that is what the time uses internally
+		startTime = startTime ? startTime * 0.001 : 0;
+		soundData = options.soundData || null;
+		cancelledCallback = options.onCancelled || null;
 
-		var t = _animPool.length ? 
-			_animPool.pop().init(clip, callback, speed) : 
-			new AnimatorTimeline(clip, callback, speed);
+		var t = _animPool.length ?
+			_animPool.pop().init(clip, callback, speed, cancelledCallback) :
+			new AnimatorTimeline(clip, callback, speed, cancelledCallback);
 
 		if (t.isSpine)
 		{
 			var i;
 			
-			if (typeof anim == "string")//allow the animations to be a string, or an array of strings
+			//allow the animations to be a string, or an array of strings
+			if (typeof anim == "string")
 			{
 				if (!checkSpineForAnimation(clip, anim))
 				{
@@ -737,9 +766,11 @@
 				clip.state.setAnimationByName(anim, loop);
 				clip.updateAnim(startTime > 0 ? startTime * t.speed : 0);
 			}
-			else//Array - either animations in order or animations at the same time
+			//Array - either animations in order or animations at the same time
+			else
 			{
-				if (typeof anim[0] == "string")//array of Strings, play animations by name in order
+				//array of Strings, play animations by name in order
+				if (typeof anim[0] == "string")
 				{
 					clip.state.setAnimationByName(anim[0], false);
 					for(i = 1; i < anim.length; ++i)
@@ -748,7 +779,8 @@
 					}
 					clip.updateAnim(startTime > 0 ? startTime * t.speed : 0);
 				}
-				else//array of objects - play different animations at the same time
+				//array of objects - play different animations at the same time
+				else
 				{
 					t.spineStates = new Array(anim.length);
 					t.speed = new Array(anim.length);
@@ -781,7 +813,8 @@
 			if (startTime > 0)
 				clip.updateAnim(startTime * t.speed);
 		}
-		if (soundData && Sound)//only do sound if the Sound library is in use
+		//only do sound if the Sound library is in use
+		if (soundData && Sound)
 		{
 			t.playSound = true;
 			if (typeof soundData == "string")
@@ -798,7 +831,8 @@
 
 			if (t.soundStart === 0)
 			{
-				t.soundInst = Sound.instance.play(t.soundAlias, onSoundDone.bind(this, t), onSoundStarted.bind(this, t));
+				t.soundInst = Sound.instance.play(t.soundAlias, onSoundDone.bind(this, t),
+													onSoundStarted.bind(this, t));
 			}
 			else
 			{
@@ -816,7 +850,7 @@
 
 	/**
 	 * Checks to see if a Spine animation includes a given animation alias
-	 * 
+	 *
 	 * @function instanceHasAnimation
 	 * @param {PIXI.Spine} instance The animation to search. This has to be a Spine animation.
 	 * @param {String} anim The animation alias to search for
@@ -831,7 +865,7 @@
 	
 	/**
 	 * Checks to see if a Spine animation includes a given animation alias
-	 * 
+	 *
 	 * @function checkSpineForAnimation
 	 * @param {PIXI.Spine} clip The spine to search
 	 * @param {String} anim The animation alias to search for
@@ -844,10 +878,9 @@
 	
 	/**
 	 * Stop a clip
-	 * 
+	 *
 	 * @function stop
 	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to stop
-	 * @param {bool} doCallback Whether the animations callback should be run
 	 */
 	Animator.stop = function(clip, doCallback)
 	{
@@ -859,8 +892,8 @@
 				_timelines.splice(i, 1);
 				if (--_numAnims === 0)
 					Application.instance.off("update", _update);
-				if (doCallback && t.callback)
-					t.callback();
+				if (t.cancelledCallback)
+					t.cancelledCallback();
 				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
@@ -871,7 +904,7 @@
 	
 	/**
 	 * Stops all current animations
-	 * 
+	 *
 	 * @function stop
 	 */
 	Animator.stopAll = function()
@@ -879,27 +912,30 @@
 		for(var i = 0; i < _numAnims; ++i)
 		{
 				var t = _timelines[i];
+				if (t.cancelledCallback)
+					t.cancelledCallback();
 				if (t.soundInst)
 					t.soundInst.stop();
 				_repool(t);
 				break;
-		}		
+		}
 		Application.instance.off("update", _update);
 		_timelines.length = _numAnims = 0;
 	};
 	
 	/**
 	 * Put an AnimatorTimeline back into the general pool after it's done playing
-	 * or has been manually stopped
-	 * 
+	 * or has been manually stopped.
+	 *
 	 * @function _repool
-	 * @param {pixi.AnimatorTimeline} timeline
+	 * @param {AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _repool = function(timeline)
 	{
 		timeline.clip = null;
 		timeline.callback = null;
+		timeline.cancelledCallback = null;
 		timeline.loop = false;
 		timeline.spineStates = null;
 		timeline.speed = null;
@@ -909,7 +945,7 @@
 	
 	/**
 	 * Update each frame
-	 * 
+	 *
 	 * @function _update
 	 * @param {int} elapsed The time since the last frame
 	 * @private
@@ -950,8 +986,8 @@
 				{
 					t.time = t.soundStart;
 					t.soundInst = Sound.instance.play(
-						t.soundAlias, 
-						onSoundDone.bind(this, t), 
+						t.soundAlias,
+						onSoundDone.bind(this, t),
 						onSoundStarted.bind(this, t)
 					);
 					if (t.useCaptions)
@@ -989,7 +1025,8 @@
 				{
 					c.updateAnim((t.time - prevTime) * t.speed);
 					var state = c.state;
-					if (!state.currentLoop && state.queue.length === 0 && state.currentTime >= state.current.duration)
+					if (!state.currentLoop && state.queue.length === 0 &&
+						state.currentTime >= state.current.duration)
 					{
 						_timelines.splice(i, 1);
 						_numAnims--;
@@ -1013,7 +1050,8 @@
 	var onSoundStarted = function(timeline)
 	{
 		timeline.playSound = false;
-		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;//convert sound length to seconds
+		//convert sound length to seconds
+		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
 	
 	var onSoundDone = function(timeline)
@@ -1026,7 +1064,7 @@
 	/**
 	 * Called when a movie clip is done playing, calls the AnimatorTimeline's
 	 * callback if it has one
-	 * 
+	 *
 	 * @function _onMovieClipDone
 	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
@@ -1054,7 +1092,7 @@
 	
 	/**
 	 * Destroy this
-	 * 
+	 *
 	 * @function destroy
 	 */
 	Animator.destroy = function()

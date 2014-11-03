@@ -5,18 +5,21 @@
 (function(){
 	
 	/**
-	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled internally,
-	 * so please only keep references to them while they are actively playing an animation.
-	 * 
+	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
+	 * internally, so please only keep references to them while they are actively playing an
+	 * animation.
+	 *
 	 * @class AnimatorTimeline
 	 * @constructor
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {int} speed The speed at which the clip should be played
+	 * @param {Function} cancelledCallback The function to call if the clip's playback is
+	 *                                     interrupted.
 	 */
-	var AnimatorTimeline = function(clip, callback, speed)
+	var AnimatorTimeline = function(clip, callback, speed, cancelledCallback)
 	{
-		this.init(clip, callback, speed);
+		this.init(clip, callback, speed, cancelledCallback);
 	};
 	
 	AnimatorTimeline.constructor = AnimatorTimeline;
@@ -26,14 +29,16 @@
 
 	/**
 	 * Initialize the AnimatorTimeline
-	 * 
+	 *
 	 * @function init
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
-	 * @param {function} callback The function to call when the clip is finished playing
+	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
+	* @param {Function} cancelledCallback The function to call if the clip's playback is
+	*                                     interrupted.
 	 * @returns {Animator.AnimatorTimeline}
 	 */
-	p.init = function(clip, callback, speed)
+	p.init = function(clip, callback, speed, cancelledCallback)
 	{
 		/**
 		*	The clip for this AnimTimeLine
@@ -44,17 +49,25 @@
 
 		/**
 		*	Whether the clip is a PIXI.Spine
-		*	@property {bool} isSpine
+		*	@property {Boolean} isSpine
 		*	@public
 		*/
 		this.isSpine = clip instanceof PIXI.Spine;
 
 		/**
 		*	The function to call when the clip is finished playing
-		*	@property {function} callback
+		*	@property {Function} callback
 		*	@public
 		*/
 		this.callback = callback;
+		
+		/**
+		*	The function to call if the clip's playback is interrupted.
+		*	@property {Function} cancelledCallback
+		*	@public
+		*/
+		this.cancelledCallback = cancelledCallback;
+
 
 		/**
 		*	The speed at which the clip should be played
@@ -70,8 +83,9 @@
 		this.spineStates = null;
 
 		/**
-		*	Not used by Animator, but potentially useful for other code to keep track of what type of animation is being played
-		*	@property {bool} loop
+		*	Not used by Animator, but potentially useful for other code to keep track of what
+		*	type of animation is being played
+		*	@property {Boolean} loop
 		*	@public
 		*/
 		this.loop = null;
@@ -99,7 +113,7 @@
 
 		/**
 		*	If the timeline will, but has yet to, play a sound
-		*	@property {bool} playSound
+		*	@property {Boolean} playSound
 		*	@public
 		*/
 		this.playSound = false;
@@ -121,14 +135,14 @@
 		/**
 		*  If this timeline plays captions
 		*
-		*  @property {bool} useCaptions
+		*  @property {Boolean} useCaptions
 		*  @readOnly
 		*/
 		this.useCaptions = false;
 
 		/**
 		*	If this animation is paused.
-		*	@property {bool} _paused
+		*	@property {Boolean} _paused
 		*	@private
 		*/
 		this._paused = false;
@@ -138,8 +152,8 @@
 	
 	/**
 	* Sets and gets the animation's paused status.
-	* 
-	* @property {bool} paused
+	*
+	* @property {Boolean} paused
 	* @public
 	*/
 	Object.defineProperty(p, "paused", {

@@ -119,7 +119,7 @@
 	*   @function play
 	*   @param {AnimatorTimeline} instance The timeline to animate
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
-	*   @param {Object|function} [options] The object of optional parameters or onComplete
+	*   @param {Object|Function} [options] The object of optional parameters or onComplete
 	*                                      callback function
 	*   @param {Function} [options.onComplete] The callback function when the animation is done
 	*   @param {Array} [options.onCompleteParams] Parameters to pass to onComplete function
