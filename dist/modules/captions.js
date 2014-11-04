@@ -323,7 +323,7 @@
 	 * this can be useful for debugging purposes.
 	 *
 	 * @method  getFullCaption
-	 * @param {String} alias The alias to get the text of
+	 * @param {String|Array} alias The alias or Array of aliases for which to get the text (any non-String values in this Array are silently and harmlessly ignored)
 	 * @param {String} [separator=" "] The separation between each line
 	 * @return {String} The entire captions concatinated by the separator
 	 */
@@ -333,24 +333,47 @@
 
 		separator = separator || " ";
 
-		var result,
+		var result, 
 			content,
-			lines = this._captionDict[alias].lines,
-			len = lines.length;
+			i;
 
-		for (var i = 0; i < len; i++)
+		if(Array.isArray(alias))
 		{
-			content = lines[i].content;
-
-			if (i === 0)
+			for(i = 0; i < alias.length; i++)
 			{
-				result = content;
-			}
-			else
-			{
-				result += separator + content;
+				if(typeof alias[i] == 'string')
+				{
+					content = this.getFullCaption(alias[i], separator);
+					if (!result)
+					{
+						result = content;
+					}
+					else
+					{
+						result += separator + content;
+					}
+				}
 			}
 		}
+		else
+		{
+			var lines = this._captionDict[alias].lines,
+			len = lines.length;
+
+			for (i = 0; i < len; i++)
+			{
+				content = lines[i].content;
+
+				if (!result)
+				{
+					result = content;
+				}
+				else
+				{
+					result += separator + content;
+				}
+			}
+		}		
 		return result;
 	};
 	
@@ -612,6 +635,39 @@
 			this._textField,
 			(this._currentLine == -1 || _muteAll) ? '' : this._lines[this._currentLine].content
 		);
+	};
+
+	/**
+	 * Returns duration in ms of given captioned sound alias
+	 *
+	 * @method  getLength
+	 * @param {String | Array} alias The alias or array of aliases for which to get duration. Array may contain integers (ms) to account for un-captioned gaps.
+	 * @return {int} Length/duration of caption in ms
+	 */
+	p.getLength = function(alias)
+	{
+		var length = 0;
+		if(Array.isArray(alias))
+		{
+			for(var i = 0; i < alias.length; i++)
+			{
+				if (typeof alias[i] == 'string')
+				{
+					length += this.getLength(alias[i]);
+				}
+				else if(typeof alias[i] == 'number')
+				{
+					length += alias[i];
+				}
+			}
+		}
+		else
+		{
+			var lines = this._captionDict[alias].lines;
+			length += lines[lines.length - 1].end;
+		}
+
+		return parseInt(length);
 	};
 	
 	/**
