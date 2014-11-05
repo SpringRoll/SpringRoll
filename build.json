@@ -2,7 +2,7 @@
 	"name" : "SpringRoll",
 	"version" : "0.0.6",
 	"description" : "An application framework for building HTML5 Canvas games and applications",
-	"url" : "http://github.com/springrollStudio/SpringRoll",
+	"url" : "https://github.com/SpringRoll/SpringRoll",
 	"output" : "core",
 	"main" : [
 		"src/utils/namespace.js",
