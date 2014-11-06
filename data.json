@@ -4577,7 +4577,7 @@
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
             "line": 371,
-            "description": "Get duration of animation event in seconds",
+            "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
             "params": [
@@ -4588,8 +4588,8 @@
                 },
                 {
                     "name": "event",
-                    "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\")",
-                    "type": "String"
+                    "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\") or Array of event labels",
+                    "type": "String|Array"
                 }
             ],
             "access": "public",
@@ -4605,7 +4605,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 407,
+            "line": 419,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4623,7 +4623,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 430,
+            "line": 442,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4642,7 +4642,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 457,
+            "line": 469,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4667,7 +4667,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 521,
+            "line": 533,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4678,7 +4678,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 542,
+            "line": 554,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4689,7 +4689,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 564,
+            "line": 576,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4712,7 +4712,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 585,
+            "line": 597,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4734,7 +4734,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 604,
+            "line": 616,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4748,7 +4748,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 615,
+            "line": 627,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4761,7 +4761,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 628,
+            "line": 640,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4774,7 +4774,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 641,
+            "line": 653,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4794,7 +4794,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 737,
+            "line": 749,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4813,7 +4813,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 750,
+            "line": 762,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4832,7 +4832,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 763,
+            "line": 775,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4849,7 +4849,7 @@
         },
         {
             "file": "/LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 777,
+            "line": 789,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -19055,55 +19055,55 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:407"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:419"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:430"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:442"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:457"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:469"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:521"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:533"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:542"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:554"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:564"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:576"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:585"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:597"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:604"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:616"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:615"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:627"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:628"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:640"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:641"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:653"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:763"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:775"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:777"
+            "line": " /LocalStorage/EricEnte/Projects/porting/SpringRoll/src/displays/createjs/Animator.js:789"
         },
         {
             "message": "replacing incorrect tag: function with method",
