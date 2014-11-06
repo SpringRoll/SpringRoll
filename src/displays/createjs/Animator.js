@@ -337,7 +337,7 @@
 	/**
 	*   Checks if animation exists
 	*
-	*   @function _makeTimeline
+	*   @function instanceHasAnimation
 	*   @param {easeljs.MovieClip} instance The timeline to check
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
 	*   @public
