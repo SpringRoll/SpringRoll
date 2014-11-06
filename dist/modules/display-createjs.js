@@ -1014,39 +1014,51 @@
 	};
 
 	/**
-	*   Get duration of animation event in seconds
+	*   Get duration of animation event (or sequence of events) in seconds
 	*
 	*   @function getDuration
 	*   @param {easeljs.MovieClip} instance The timeline to check
-	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
+	*   @param {String|Array} event The frame label event (e.g. "onClose" to "onClose stop") or Array of event labels
 	*   @public
 	*   @static
 	*	@return {Number} duration of animation event in seconds
 	*/
 	Animator.getDuration = function(instance, event)
 	{
-		if(typeof instance.getLabels != "function") return false;
-		var labels = instance.getLabels();
-		var startFrame = -1, stopFrame = -1;
-		var stopLabel = event + "_stop";
-		var loopLabel = event + "_loop";
-		for(var i = 0, len = labels.length; i < len; ++i)
+		if(typeof instance.getLabels != "function") return 0;
+		if(Array.isArray(event))
 		{
-			var l = labels[i];
-			if (l.label == event)
+			var duration = 0;
+			for(var j = 0; j < event.length; j++)
 			{
-				startFrame = l.position;
+				duration += Animator.getDuration(instance, event[j]);
 			}
-			else if (l.label == stopLabel || l.label == loopLabel)
-			{
-				stopFrame = l.position;
-				break;
-			}
+			return duration;
 		}
-		if(startFrame >= 0 && stopFrame >= 0)
-			return (stopFrame - startFrame) / instance.framerate;
 		else
-			return 0;
+		{
+			var labels = instance.getLabels();
+			var startFrame = -1, stopFrame = -1;
+			var stopLabel = event + "_stop";
+			var loopLabel = event + "_loop";
+			for(var i = 0, len = labels.length; i < len; ++i)
+			{
+				var l = labels[i];
+				if (l.label == event)
+				{
+					startFrame = l.position;
+				}
+				else if (l.label == stopLabel || l.label == loopLabel)
+				{
+					stopFrame = l.position;
+					break;
+				}
+			}
+			if(startFrame >= 0 && stopFrame >= 0)
+				return (stopFrame - startFrame) / instance.framerate;
+			else
+				return 0;
+		}
 	};
 	
 	/**
