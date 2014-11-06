@@ -367,6 +367,42 @@
 
 		return startFrame >= 0 && stopFrame >= 0;
 	};
+
+	/**
+	*   Get duration of animation event in seconds
+	*
+	*   @function getDuration
+	*   @param {easeljs.MovieClip} instance The timeline to check
+	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
+	*   @public
+	*   @static
+	*	@return {Number} duration of animation event in seconds
+	*/
+	Animator.getDuration = function(instance, event)
+	{
+		if(typeof instance.getLabels != "function") return false;
+		var labels = instance.getLabels();
+		var startFrame = -1, stopFrame = -1;
+		var stopLabel = event + "_stop";
+		var loopLabel = event + "_loop";
+		for(var i = 0, len = labels.length; i < len; ++i)
+		{
+			var l = labels[i];
+			if (l.label == event)
+			{
+				startFrame = l.position;
+			}
+			else if (l.label == stopLabel || l.label == loopLabel)
+			{
+				stopFrame = l.position;
+				break;
+			}
+		}
+		if(startFrame >= 0 && stopFrame >= 0)
+			return (stopFrame - startFrame) / instance.framerate;
+		else
+			return 0;
+	};
 	
 	/**
 	*   Stop the animation.
