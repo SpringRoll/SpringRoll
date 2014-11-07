@@ -30,6 +30,9 @@
 	*  @param {String} [options.captionsPath='assets/config/captions.json'] The path to the captions dictionary. If this is set to null
 	*		captions will not be created or used by the VO player.
 	*  @param {string} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin swf for SoundJS
+	*  @param {Array} [options.audioTypes=['ogg', 'mp3'] The order in which file types are
+	*                                             preferred, where "ogg" becomes a ".ogg" extension
+	*                                             on all sound file urls.
 	*  @param {boolean} [options.mute=false] Set the initial mute state of the all the audio (unminifed library version only)
 	*  @param {string} [options.name] The name of the game
 	*  @param {string} [options.configPath='assets/config/config.json'] The path to the default config to load

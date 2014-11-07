@@ -96,7 +96,7 @@
 	*	@method init
 	*	@static
 	*   @param {Object|Function} options Either the options object or the ready function
-	*	@param {Array} [options.plugins=createjs.WebAudioPlugin, createjs.FlashPlugin] The SoundJS plugins to pass to createjs.Sound.registerPlugins().
+	*	@param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashPlugin] The SoundJS plugins to pass to createjs.Sound.registerPlugins().
 	*	@param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred, where "ogg"
 	*		becomes a ".ogg" extension on all sound file urls.
 	*   @param {String} [options.swfPath='assets/swfs/'] The required path to the createjs.FlashPlugin SWF
