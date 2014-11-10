@@ -65,6 +65,13 @@
 		*/
 		this.languages = config.languages;
 		
+		/**
+		*  A dictionary of translated strings, set with setStringTable().
+		*  @property {Dictionary} _stringTable
+		*  @private
+		*/
+		this._stringTable = null;
+		
 		//set the initial language
 		this.setLanguage(this.getPreferredLanguages());
 		
@@ -187,6 +194,28 @@
 			this._current = chosen;
 			this.trigger(CHANGED, chosen);
 		}
+	};
+	
+	/**
+	* Sets the string table for later reference.
+	* @method setStringTable
+	* @param {Dictionary} dictionary The string table, with keys that you would use to reference
+	*                                the translations.
+	*/
+	p.setStringTable = function(dictionary)
+	{
+		this._stringTable = dictionary;
+	};
+	
+	/**
+	* Gets a string from the current string table.
+	* @method getString
+	* @param {String} key The key of the string to get.
+	* @return {String} The translated string.
+	*/
+	p.getString = function(key)
+	{
+		return this._stringTable ? this._stringTable[key] : null;
 	};
 	
 	/**

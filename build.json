@@ -94,8 +94,7 @@
 		],
 		"captions" : ["src/media/Captions.js"],
 		"translate" : [
-			"src/utils/Language.js",
-			"src/utils/Translate.js"
+			"src/utils/Language.js"
 		]
 	}
 }
