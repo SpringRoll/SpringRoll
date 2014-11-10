@@ -180,8 +180,8 @@
 	*/
 	p.cancelTask = function(taskId)
 	{
-		var i, len;
-		for (i = 0, len = this._currentTasks.length; i < len; ++i)
+		var i;
+		for (i = this._currentTasks.length - 1; i >= 0; --i)
 		{
 			if(this._currentTasks[i].id == taskId)
 			{
@@ -190,17 +190,15 @@
 					this._currentTasks[i].destroy();
 					this._currentTasks.splice(i, 1);
 					--this._tasksInProgress;
-					--i;
 				}
 			}
 		}
-		for (i = 0, len = this.tasks.length; i < len; ++i)
+		for (i = this.tasks.length - 1; i >= 0; --i)
 		{
 			if(this.tasks[i].id == taskId)
 			{
 				this.tasks[i].destroy();
 				this.tasks.splice(i, 1);
-				--i;
 			}
 		}
 	};
