@@ -325,7 +325,7 @@
 		SoundInstance,
 		SoundListTask,
 		CJSSound = include('createjs.Sound');
-		
+
 	/**
 	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
 	*  for managing sounds.
@@ -384,7 +384,7 @@
 		this._update = this._update.bind(this);
 		this._markLoaded = this._markLoaded.bind(this);
 		this._playAfterLoad = this._playAfterLoad.bind(this);
-		
+
 		/**
 		*  If sound is enabled. This will only be false if Sound was unable to initialize
 		*  a SoundJS plugin.
@@ -393,16 +393,16 @@
 		*/
 		this.soundEnabled = true;
 	};
-	
+
 	var p = Sound.prototype = {};
-	
+
 	var _instance = null;
 
 	//sound states
 	var UNLOADED = 0;
 	var LOADING = 1;
 	var LOADED = 2;
-	
+
 	/**
 	*	Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for setting
 	*	createjs.FlashPlugin.BASE_PATH.
@@ -434,7 +434,7 @@
 		options = options || {};
 
 		//set up default options
-		for(var key in _defaultOptions)
+		for (var key in _defaultOptions)
 		{
 			if (!options.hasOwnProperty(key))
 				options[key] = _defaultOptions[key];
@@ -471,7 +471,7 @@
 
 		// New sound object
 		_instance = new Sound();
-		
+
 		//make sure the capabilities are ready (looking at you, Cordova plugin)
 		if (CJSSound.getCapabilities())
 		{
@@ -532,9 +532,10 @@
 		}
 		else
 		{
-			for(var i = 0; i < filetypeOrder.length; ++i)
+			var type;
+			for (var i = 0, len = filetypeOrder.length; i < len; ++i)
 			{
-				var type = filetypeOrder[i];
+				type = filetypeOrder[i];
 				if (CJSSound.getCapability(type))
 				{
 					_instance.supportedSound = "." + type;
@@ -559,7 +560,7 @@
 			callback();
 		}
 	};
-	
+
 	/**
 	*  The singleton instance of Sound.
 	*  @property {Sound} instance
@@ -570,7 +571,7 @@
 	{
 		get: function() { return _instance; }
 	});
-	
+
 	/**
 	*	Loads a config object. This should not be called until after Sound.init() is complete.
 	*	@method loadConfig
@@ -600,13 +601,16 @@
 		var list = config.soundManifest;
 		var path = config.path || "";
 		var defaultContext = config.context;
-		for(var i = 0, len = list.length; i < len; ++i)
+
+		var s;
+		var temp = {};
+		for (var i = 0, len = list.length; i < len; ++i)
 		{
-			var s = list[i];
+			s = list[i];
 			if (typeof s == "string") {
 				s = {id: s};
 			}
-			var temp = this._sounds[s.id] = {
+			temp = this._sounds[s.id] = {
 				id: s.id,
 				src: path + (s.src ? s.src : s.id) + this.supportedSound,
 				volume: s.volume ? s.volume : 1,
@@ -789,16 +793,18 @@
 	{
 		var fades = this._fades;
 		var trim = 0;
-		for(var i = fades.length - 1; i >= 0; --i)
+
+		var inst, time, sound,swapIndex, lerp, vol;
+		for (var i = fades.length - 1; i >= 0; --i)
 		{
-			var inst = fades[i];
+			inst = fades[i];
 			if (inst.paused) continue;
-			var time = inst._fTime += elapsed;
+			time = inst._fTime += elapsed;
 			if (time >= inst._fDur)
 			{
 				if (inst._fEnd === 0)
 				{
-					var sound = this._sounds[inst.alias];
+					sound = this._sounds[inst.alias];
 					sound.playing = sound.playing.splice(sound.playing.indexOf(inst), 1);
 					this._stopInst(inst);
 				}
@@ -808,7 +814,7 @@
 					inst.updateVolume();
 				}
 				++trim;
-				var swapIndex = fades.length - trim;
+				swapIndex = fades.length - trim;
 				if (i != swapIndex)//don't bother swapping if it is already last
 				{
 					fades[i] = fades[swapIndex];
@@ -816,8 +822,7 @@
 			}
 			else
 			{
-				var lerp = time / inst._fDur;
-				var vol;
+				lerp = time / inst._fDur;
 				if (inst._fEnd > inst._fStart)
 					vol = inst._fStart + (inst._fEnd - inst._fStart) * lerp;
 				else
@@ -832,7 +837,7 @@
 			Application.instance.off("update", this._update);
 		}
 	};
-	
+
 	/**
 	*	Plays a sound.
 	*	@method play
@@ -856,7 +861,7 @@
 	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
 		if(!this.soundEnabled) return;
-		
+
 		var completeCallback;
 		if (options && typeof options == "function")
 		{
@@ -880,7 +885,7 @@
 		if (!sound)
 		{
 			Debug.error("springroll.Sound: alias '" + alias + "' not found!");
-			
+
 			if (completeCallback)
 				completeCallback();
 			return;
@@ -897,7 +902,7 @@
 		{
 			var channel = CJSSound.play(alias, interrupt, delay, offset, loop, volume, pan);
 			//have Sound manage the playback of the sound
-			
+
 			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
 			{
 				if (completeCallback)
@@ -1009,18 +1014,20 @@
 		var alias = typeof result == "string" ? result : result.id;
 		var sound = this._sounds[alias];
 		sound.state = LOADED;
-		
+
 		//If the sound was stopped before it finished loading, then don't play anything
 		if (!sound.playAfterLoad) return;
-		
+
 		//Go through the list of sound instances that are waiting to start and start them
 		var waiting = sound.waitingToPlay;
-		for(var i = 0; i < waiting.length; ++i)
+
+		var inst, startParams, volume, channel;
+		for (var i = 0, len = waiting.length; i < len; ++i)
 		{
-			var inst = waiting[i];
-			var startParams = inst._startParams;
-			var volume = inst.curVol;
-			var channel = CJSSound.play(alias, startParams[0], startParams[1], startParams[2], startParams[3], volume, startParams[4]);
+			inst = waiting[i];
+			startParams = inst._startParams;
+			volume = inst.curVol;
+			channel = CJSSound.play(alias, startParams[0], startParams[1], startParams[2], startParams[3], volume, startParams[4]);
 
 			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
 			{
@@ -1045,7 +1052,7 @@
 		}
 		waiting.length = 0;
 	};
-	
+
 	/**
 	*	The callback used for when a sound instance is complete.
 	*	@method _onSoundComplete
@@ -1062,7 +1069,7 @@
 		if (callback)
 			callback();
 	};
-	
+
 	/**
 	*	Stops all playing or loading instances of a given sound.
 	*	@method stop
@@ -1079,9 +1086,10 @@
 		{
 			s.playAfterLoad = false;
 			var waiting = s.waitingToPlay;
-			for(var i = 0; i < waiting.length; ++i)
+			var inst;
+			for (var i = 0, len = waiting.length; i < len; ++i)
 			{
-				var inst = waiting[i];
+				inst = waiting[i];
 				/*if(inst._endCallback)
 					inst._endCallback();*/
 				this._poolInst(inst);
@@ -1089,7 +1097,7 @@
 			waiting.length = 0;
 		}
 	};
-	
+
 	/**
 	*	Stops all playing SoundInstances for a sound.
 	*	@method _stopSound
@@ -1099,13 +1107,13 @@
 	p._stopSound = function(s)
 	{
 		var arr = s.playing;
-		for(var i = arr.length -1; i >= 0; --i)
+		for (var i = arr.length -1; i >= 0; --i)
 		{
 			this._stopInst(arr[i]);
 		}
 		arr.length = 0;
 	};
-	
+
 	/**
 	*	Stops and repools a specific SoundInstance.
 	*	@method _stopInst
@@ -1118,7 +1126,7 @@
 		inst._channel.stop();
 		this._poolInst(inst);
 	};
-	
+
 	/**
 	*	Stops all sounds in a given context.
 	*	@method stopContext
@@ -1131,9 +1139,10 @@
 		if (context)
 		{
 			var arr = context.sounds;
-			for(var i = arr.length - 1; i >= 0; --i)
+			var s;
+			for (var i = arr.length - 1; i >= 0; --i)
 			{
-				var s = arr[i];
+				s = arr[i];
 				if (s.playing.length)
 					this._stopSound(s);
 				else if(s.state == LOADING)
@@ -1157,7 +1166,7 @@
 		else
 			sound = alias;
 		var arr = sound.playing;
-		for(var i = arr.length - 1; i >= 0; --i)
+		for (var i = arr.length - 1; i >= 0; --i)
 			arr[i].pause();
 	};
 
@@ -1176,7 +1185,7 @@
 		else
 			sound = alias;
 		var arr = sound.playing;
-		for(var i = arr.length - 1; i >= 0; --i)
+		for (var i = arr.length - 1; i >= 0; --i)
 		{
 			arr[i].unpause();
 		}
@@ -1190,7 +1199,7 @@
 	p.pauseAll = function()
 	{
 		var arr = this._sounds;
-		for(var i in arr)
+		for (var i in arr)
 			this.pauseSound(arr[i]);
 	};
 
@@ -1202,7 +1211,7 @@
 	p.unpauseAll = function()
 	{
 		var arr = this._sounds;
-		for(var i in arr)
+		for (var i in arr)
 			this.unpauseSound(arr[i]);
 	};
 
@@ -1221,13 +1230,15 @@
 			context.muted = muted;
 			var volume = context.volume;
 			var arr = context.sounds;
-			for(var i = arr.length - 1; i >= 0; --i)
+
+			var s, playing, j;
+			for (var i = arr.length - 1; i >= 0; --i)
 			{
-				var s = arr[i];
+				s = arr[i];
 				if (s.playing.length)
 				{
-					var playing = s.playing;
-					for(var j = playing.length - 1; j >= 0; --j)
+					playing = s.playing;
+					for (j = playing.length - 1; j >= 0; --j)
 					{
 						playing[j].updateVolume(muted ? 0 : volume);
 					}
@@ -1262,13 +1273,14 @@
 			var muted = context.muted;
 			context.volume = volume;
 			var arr = context.sounds;
-			for(var i = arr.length - 1; i >= 0; --i)
+			var s, playing, j;
+			for (var i = arr.length - 1; i >= 0; --i)
 			{
-				var s = arr[i];
+				s = arr[i];
 				if (s.playing.length)
 				{
-					var playing = s.playing;
-					for(var j = playing.length - 1; j >= 0; --j)
+					playing = s.playing;
+					for (j = playing.length - 1; j >= 0; --j)
 					{
 						playing[j].updateVolume(muted ? 0 : volume);
 					}
@@ -1276,7 +1288,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*	Preloads a specific sound.
 	*	@method preloadSound
@@ -1326,9 +1338,10 @@
 		}
 
 		var tasks = [];
-		for(var i = 0, len = list.length; i < len; ++i)
+		var sound;
+		for (var i = 0, len = list.length; i < len; ++i)
 		{
-			var sound = this._sounds[list[i]];
+			sound = this._sounds[list[i]];
 			if (sound)
 			{
 				if (sound.state == UNLOADED)
@@ -1356,7 +1369,7 @@
 			callback();
 		}
 	};
-	
+
 	/**
 	*	Marks a sound as loaded. If it needs to play after the load, then it is played.
 	*	@method _markLoaded
@@ -1381,7 +1394,7 @@
 			callback();
 		}
 	};
-	
+
 	/**
 	*	Creates a Task for the springroll Task library for preloading a list of sounds.
 	*	This function will not work if the Task library was not loaded before the Sound library.
@@ -1397,7 +1410,7 @@
 		if (!SoundListTask) return null;
 		return new SoundListTask(id, list, callback);
 	};
-	
+
 	/**
 	*	Unloads a list of sounds to reclaim memory if possible.
 	*	If the sounds are playing, they are stopped.
@@ -1408,10 +1421,11 @@
 	p.unload = function(list)
 	{
 		if (!list) return;
-		
-		for(var i = 0, len = list.length; i < len; ++i)
+
+		var sound;
+		for (var i = 0, len = list.length; i < len; ++i)
 		{
-			var sound = this._sounds[list[i]];
+			sound = this._sounds[list[i]];
 			if (sound)
 			{
 				this._stopSound(sound);
@@ -1438,7 +1452,7 @@
 		inst.isValid = false;
 		this._pool.push(inst);
 	};
-	
+
 	/**
 	*	Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
 	*	@method destroy
@@ -1472,7 +1486,7 @@
 		this._contexts = null;
 		this._pool = null;
 	};
-	
+
 	namespace('springroll').Sound = Sound;
 }());
 
@@ -1486,15 +1500,15 @@
 	// in case these classes were included after in the load-order
 	var Sound = include('springroll.Sound'),
 		Captions,
-		Application; 
+		Application;
 
 	/**
 	*	A class for managing audio by only playing one at a time, playing a list, and even
 	*	managing captions (Captions library) at the same time.
-	* 
+	*
 	*	@class VOPlayer
 	*	@constructor
-	*	@param {Captions} [captions=null] If a Captions object should be created for use 
+	*	@param {Captions} [captions=null] If a Captions object should be created for use
 	*			or the captions object to use
 	*/
 	var VOPlayer = function(captions)
@@ -1511,7 +1525,7 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-		
+
 		/**
 		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
@@ -1593,9 +1607,9 @@
 		*/
 		this._timer = 0;
 	};
-	
+
 	var p = VOPlayer.prototype = {};
-	
+
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
 	*	@property {bool} playing
@@ -1606,7 +1620,7 @@
 	{
 		get: function(){ return this._currentSound !== null || this._timer > 0; }
 	});
-	
+
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
 	*	Alternatively, plays a list of audio files, timers, and/or functions.
@@ -1620,7 +1634,7 @@
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
-		
+
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
 		{
@@ -1633,7 +1647,7 @@
 		this._cancelledCallback = cancelledCallback;
 		this._onSoundFinished();
 	};
-	
+
 	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
 	*	@method _onSoundFinished
@@ -1647,7 +1661,7 @@
 			this._syncCaptionToSound,
 			this._updateSilence
 		]);
-		
+
 		//if we have captions and an audio instance, set the caption time to the length of the audio
 		if (this.captions && this._soundInstance)
 		{
@@ -1655,7 +1669,7 @@
 		}
 		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
-		
+
 		//if the list is complete
 		if (this._listCounter >= this.soundList.length)
 		{
@@ -1672,7 +1686,7 @@
 			this._currentSound = this.soundList[this._listCounter];
 			if (typeof this._currentSound == "string")
 			{
-				// If the sound doesn't exist, then we play it and let it fail, 
+				// If the sound doesn't exist, then we play it and let it fail,
 				// an error should be shown and playback will continue
 				this._playSound();
 			}
@@ -1739,7 +1753,7 @@
 		this.captions.seek(this._soundInstance.position);
 	};
 
-	/** 
+	/**
 	*	Plays the current audio item and begins preloading the next item.
 	*	@method _playSound
 	*	@private
@@ -1775,9 +1789,11 @@
 				Application.instance.on("update", this._syncCaptionToSound);
 			}
 		}
-		for(var i = this._listCounter + 1; i < this.soundList.length; ++i)
+		var len = this.soundList.length;
+		var next;
+		for (var i = this._listCounter + 1; i < len; ++i)
 		{
-			var next = this.soundList[i];
+			next = this.soundList[i];
 			if (typeof next == "string")
 			{
 				if (!s.isLoaded(next))
@@ -1788,7 +1804,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*	Stops playback of any audio/timer.
 	*	@method stop
@@ -1851,8 +1867,9 @@
 			this.captions = null;
 		}
 	};
-	
+
 	namespace('springroll').VOPlayer = VOPlayer;
 	namespace('springroll').Sound.VOPlayer = VOPlayer;
 
-}());}();
+}());
+}();

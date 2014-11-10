@@ -409,7 +409,7 @@
 	/**
 	*  The task manager is responsible for doing a series
 	*  of asyncronous tasks
-	*  
+	*
 	*  @class TaskManager
 	*  @constructor
 	*  @param {Array} tasks The series of tasks to do
@@ -425,56 +425,56 @@
 
 		/**
 		* Collection of all tasks
-		* 
+		*
 		* @property {Array} tasks
 		*/
 		this.tasks = tasks || [];
-		
+
 		/**
 		* The current tasks
-		* 
+		*
 		* @property {Array} _currentTaskes
 		* @private
 		*/
 		this._currentTasks = [];
-		
+
 		/**
 		* If we're paused and should therefore not automatically proceed to the
 		* next task after each task completes
-		* 
+		*
 		* @property {bool} paused
 		*/
 		this.paused = true;
-		
+
 		/**
 		* The number of tasks that are currently in progress
-		* 
+		*
 		* @property {int} _tasksInProgress
 		* @private
 		*/
 		this._tasksInProgress = 0;
-		
+
 		/**
 		* If the manager is destroyed
-		* 
+		*
 		* @property {bool} _isDestroyed
 		* @private
 		*/
 		this._isDestroyed = false;
 	};
-	
+
 	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
-	
+
 	/**
 	* Event dispatched when tasks are all done
-	* 
+	*
 	* @event onAllTasksDone
 	*/
 	TaskManager.ALL_TASKS_DONE = "onAllTasksDone";
-	
+
 	/**
 	*  Convenience method to execute tasks without having to setup the event listener
-	* 
+	*
 	*  @method process
 	*  @static
 	*  @param {Array} tasks The collection of tasks
@@ -508,15 +508,15 @@
 		// Decide if we should start all tasks or just the next one
 		if (startAll)
 			manager.startAll();
-		else 
+		else
 			manager.startNext();
 
 		return manager;
 	};
-	
+
 	/**
 	*  Convenience function to add a task
-	*  
+	*
 	*  @function addTask
 	*  @param {Task} task The task object to load
 	*/
@@ -524,10 +524,10 @@
 	{
 		this.tasks.push(task);
 	};
-	
+
 	/**
 	*  Add bunch of tasks
-	*  
+	*
 	*  @function addTasks
 	*  @param {Array} tasks Collection of tasks to add
 	*
@@ -537,28 +537,31 @@
 		this.removeAll();
 		this.tasks = tasks;
 	};
-	
+
 	/**
 	*   Cancel and remove all tasks
-	*   
+	*
 	*   @function removeAll
 	*/
 	p.removeAll = function()
 	{
 		this._tasksInProgress = 0;
 		this.paused = true;
-		var task, i;
+		var task, i, len;
 		if (this._currentTasks && this._currentTasks.length > 0)
 		{
-			for (i = 0; i < this._currentTasks.length; i++)
+			for (i = 0, this._currentTasks.length; i < len; i++)
 			{
 				task = this._currentTasks[i];
-				if (task.cancel()) task.destroy();
+				if (task.cancel())
+				{
+					task.destroy();
+				}
 			}
 		}
 		if (this.tasks && this.tasks.length > 0)
 		{
-			for (i = 0; i < this.tasks.length; i++)
+			for (i = 0, len = this.tasks.length; i < len; i++)
 			{
 				task = this.tasks[i];
 				task.destroy();
@@ -567,7 +570,7 @@
 		this._currentTasks.length = 0;
 		this.tasks.length = 0;
 	};
-	
+
 	/**
 	*	Cancels all tasks with a given id
 	*	@function cancelTask
@@ -575,8 +578,8 @@
 	*/
 	p.cancelTask = function(taskId)
 	{
-		var i;
-		for(i = 0; i < this._currentTasks.length; ++i)
+		var i, len;
+		for (i = 0, len = this._currentTasks.length; i < len; ++i)
 		{
 			if(this._currentTasks[i].id == taskId)
 			{
@@ -589,7 +592,7 @@
 				}
 			}
 		}
-		for(i = 0; i < this.tasks.length; ++i)
+		for (i = 0, len = this.tasks.length; i < len; ++i)
 		{
 			if(this.tasks[i].id == taskId)
 			{
@@ -599,7 +602,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*   Start the next task in the tasks list. When it is done, the
 	*   task's callback will be called.  If the manager is not paused after
@@ -611,9 +614,9 @@
 	p.startNext = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		Debug.assert(!!this.tasks, "startNext(): There are no task for this Task Manager");
-		
+
 		var task;
 		while (this.tasks.length > 0 && !(task = this.tasks.shift()))
 		{
@@ -622,32 +625,32 @@
 		{
 			return null;
 		}
-		
+
 		this._currentTasks.push(task);
-		
+
 		this.paused = false;
-		
+
 		// Give warning that a task is about to be started and respect pauses
 		if(this.has(TaskEvent.TASK_ABOUT_TO_START))
 			this.trigger(TaskEvent.TASK_ABOUT_TO_START, new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
-	
+
 		if (this.paused)
 		{
 			return null;
 		}
-		
+
 		if(this.has(TaskEvent.TASK_STARTING))
 			this.trigger(TaskEvent.TASK_STARTING, new TaskEvent(TaskEvent.TASK_STARTING, task));
 		this._tasksInProgress++;
-		
+
 		task.start(this.onTaskDone.bind(this, task));
-		
+
 		return task;
 	};
-	
+
 	/**
 	*   Callback for when an task is done
-	*   
+	*
 	*   @function onTaskDone
 	*   @param {*} result Result of the task
 	*   @param {Task} task Task that is done
@@ -655,13 +658,13 @@
 	p.onTaskDone = function(task, result)
 	{
 		if (this._isDestroyed) return;
-		
+
 		this._tasksInProgress--;
-		
+
 		if(this.has(TaskEvent.TASK_DONE))
 			this.trigger(TaskEvent.TASK_DONE, new TaskEvent(TaskEvent.TASK_DONE, task, result));
 		task.done(result, this);
-		
+
 		// Remove from the current tasks
 		// and destroy
 		var index = this._currentTasks.indexOf(task);
@@ -684,7 +687,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*   Start the next task until there are no more tasks to start
 	*   @function startAll
@@ -693,9 +696,9 @@
 	p.startAll = function()
 	{
 		Debug.assert(!!this.tasks, "startAll(): There are no task for this Task Manager");
-		
+
 		var ret = [];
-		
+
 		while (true)
 		{
 			var task = this.startNext();
@@ -707,7 +710,7 @@
 		}
 		return ret;
 	};
-	
+
 	/**
 	*   We don't want to use the task manager after this
 	*   @function destroy
@@ -715,11 +718,11 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		this._isDestroyed = true;
 
 		this.off();
-		
+
 		this.removeAll();
 		this._currentTasks = null;
 		this.tasks = null;
@@ -727,6 +730,7 @@
 
 	namespace('springroll').TaskManager = TaskManager;
 }());
+
 /**
 *  @module Tasks
 *  @namespace springroll
@@ -913,14 +917,14 @@
 *  @namespace springroll
 */
 (function(){
-	
+
 	var Loader,
 		Application,
 		AssetLoader,
 		Task = include('springroll.Task');
 
 	/**
-	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
+	*  PixiTask loads things through PIXI.AssetLoader for pixi.js.
 	*  This means textures, spritesheets, and bitmap fonts.
 	*  @class PixiTask
 	*  @constructor
@@ -940,21 +944,21 @@
 		}
 
 		Task.call(this, id, callback);
-		
+
 		/**
 		*	The optional callback to get updates (to show load progress)
 		*	@property {Function} updateCallback
 		*	@private
 		*/
 		this.updateCallback = updateCallback;
-		
+
 		/**
 		*	If loaded images should be drawn to a canvas and used from there.
 		*	@property {Boolean} generateCanvas
 		*	@private
 		*/
 		this.generateCanvas = generateCanvasTexture || false;
-		
+
 		/**
 		*	The AssetLoader used to load all files.
 		*	@property {PIXI.AssetLoader} _assetLoader
@@ -964,7 +968,7 @@
 
 		var cm = Loader.instance.cacheManager;
 
-		for(var i = 0; i < urls.length; ++i)
+		for(var i = 0, len = urls.length; i < len; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
 		}
@@ -976,11 +980,11 @@
 		*/
 		this.urls = urls;
 	};
-	
+
 	var s = Task.prototype;
 
 	var p = PixiTask.prototype = Object.create(s);
-	
+
 	/**
 	*   Start the load
 	*	@method start
@@ -1005,12 +1009,12 @@
 	{
 		this.updateCallback();
 	};
-	
+
 	/**
 	*	Cancel the task
 	*	@method cancel
-	*	@return If the loader removed it from the queue successfully - 
-	*			false means that there is a 'load finished' event inbound 
+	*	@return If the loader removed it from the queue successfully -
+	*			false means that there is a 'load finished' event inbound
 	*			for the task manager
 	*/
 	p.cancel = function()
@@ -1019,7 +1023,7 @@
 		this._assetLoader.onProgress = null;
 		return true;
 	};
-	
+
 	/**
 	*   Get a string representation of this task
 	*	@method toString
@@ -1029,7 +1033,7 @@
 	{
 		return "[PixiTask ID (" + this.id + "), URLs (" + this.urls.join(", ") + ")]";
 	};
-	
+
 	/**
 	*  Destroy this load task and don't use after this.
 	*  @method destroy
@@ -1037,7 +1041,7 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		s.destroy.call(this);
 
 		this.updateCallback = null;
@@ -1049,8 +1053,9 @@
 		}
 		this._assetLoader = null;
 	};
-	
+
 	// Assign to the namespace
 	namespace('springroll').PixiTask = PixiTask;
-	
-}());}();
+
+}());
+}();

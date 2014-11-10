@@ -211,7 +211,7 @@
 *  @module Framework
 */
 (function(window, undefined){
-	
+
 	/**
 	*  A static closure to provide easy access to the console
 	*  without having errors if the console doesn't exist
@@ -221,7 +221,7 @@
 	*  @static
 	*/
 	var Debug = function(){};
-	
+
 	/**
 	*  If we have a console
 	*
@@ -229,7 +229,7 @@
 	*  @property {bool} hasConsole
 	*/
 	var hasConsole = (window.console !== undefined);
-	
+
 	/**
 	* The most general default debug level
 	* @static
@@ -237,7 +237,7 @@
 	* @property {int} GENERAL
 	*/
 	Debug.GENERAL = 0;
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -245,7 +245,7 @@
 	* @property {int} true
 	*/
 	Debug['DE'+'BUG'] = 1; // jshint ignore:line
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -253,7 +253,7 @@
 	* @property {int} INFO
 	*/
 	Debug.INFO = 2;
-	
+
 	/**
 	* Log level for warning messages
 	* @static
@@ -261,7 +261,7 @@
 	* @property {int} WARN
 	*/
 	Debug.WARN = 3;
-	
+
 	/**
 	* Log level for error messages
 	* @static
@@ -269,7 +269,7 @@
 	* @property {int} ERROR
 	*/
 	Debug.ERROR = 4;
-	
+
 	/**
 	* The minimum log level to show, by default it's set to
 	* show all levels of logging.
@@ -278,7 +278,7 @@
 	* @property {int} minLogLevel
 	*/
 	Debug.minLogLevel = Debug.GENERAL;
-	
+
 	/**
 	* Boolean to turn on or off the debugging
 	* @public
@@ -286,7 +286,7 @@
 	* @property {bool} enabled
 	*/
 	Debug.enabled = true;
-	
+
 	/**
 	*  The jQuery element to output debug messages to
 	*
@@ -303,7 +303,7 @@
 	*	@property {bool} _isJSConsole
 	*/
 	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as 'remote' and trys to overwrite 'console'
-	
+
 	/**
 	* Browser port for the websocket browsers tend to block ports
 	*  @static
@@ -312,7 +312,7 @@
 	*  @default 1025
 	*/
 	Debug._NET_PORT = 1025;
-	
+
 	/**
 	* If the web socket is connected
 	* @static
@@ -321,7 +321,7 @@
 	* @property {bool} _isConnected
 	*/
 	Debug._isConnected = false;
-	
+
 	/**
 	* The socket connection
 	* @static
@@ -329,7 +329,7 @@
 	* @property {WebSocket} _socket
 	*/
 	Debug._socket = null;
-	
+
 	/**
 	* The current message object being sent to the `WebSocket`
 	* @static
@@ -337,7 +337,7 @@
 	* @property {object} _messageObj
 	*/
 	Debug._messageObj = null;
-	
+
 	/**
 	* The `WebSocket` message queue
 	* @static
@@ -345,7 +345,7 @@
 	* @property {Array} _messageQueue
 	*/
 	Debug._messageQueue = null;
-	
+
 	/**
 	*  Connect to the `WebSocket`
 	*  @public
@@ -357,9 +357,9 @@
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
-		
+
 		window.WebSocket = WebSocket || MozWebSocket;
-		
+
 		try
 		{
 			var s = Debug._socket = new WebSocket("ws://" + host + ":" + Debug._NET_PORT);
@@ -376,7 +376,7 @@
 		}
 		return true;
 	};
-	
+
 	/**
 	*  Disconnect from the `WebSocket`
 	*  @public
@@ -391,7 +391,7 @@
 			onClose();
 		}
 	};
-	
+
 	/**
 	*  Callback when the `WebSocket` is connected
 	*  @private
@@ -402,20 +402,20 @@
 	{
 		// set up a function to handle all messages
 		window.onerror = globalErrorHandler;
-		
+
 		// create and send a new session message
 		Debug._messageObj = {level:"session", message:""};
 		Debug._socket.send(JSON.stringify(Debug._messageObj));
-		
+
 		// send any queued logs
-		for(var i = 0; i < Debug._messageQueue.length; ++i)
+		for (var i = 0, len = Debug._messageQueue.length; i < len; ++i)
 		{
 			Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
 		}
 		// get rid of this, since we are connected
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Global window error handler, used for remote connections.
 	*  @static
@@ -437,7 +437,7 @@
 		Debug.remoteLog(logMessage, "ERROR");
 		return false;
 	};
-	
+
 	/**
 	*  Callback for when the websocket is closed
 	*  @private
@@ -457,7 +457,7 @@
 		Debug._messageObj = null;
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Sent to the output
 	*  @private
@@ -473,7 +473,7 @@
 			Debug.output.append("<div class=\""+level+"\">" + args + "</div>");
 		}
 	}
-	
+
 	/**
 	*  Send a remote log message using the socket connection
 	*  @public
@@ -504,14 +504,14 @@
 			depth = 1;
 		var spacing = "";
 		var endSpacing = "";
-		for(var i = 0; i < depth * 4; ++i)
+		for (var i = 0, len = depth * 4; i < len; ++i)
 		{
 			spacing += "&nbsp;";
 			if(i < (depth - 1) * 4)
 				endSpacing += "&nbsp;";
 		}
 		var rtn = "{<br />";
-		for(var key in obj)
+		for (var key in obj)
 		{
 			//avoid doing properties that are known to be DOM objects, because those have circular references
 			if(key == "document" || key == "window" || key == "ownerDocument" || key == "view")
@@ -555,7 +555,7 @@
 		}
 		return input;
 	}
-	
+
 	/**
 	*  Log something in the console or remote
 	*  @static
@@ -576,7 +576,7 @@
 			output("general", params);
 		}
 	};
-	
+
 	/**
 	*  Debug something in the console or remote
 	*  @static
@@ -597,7 +597,7 @@
 			output("debug", params);
 		}
 	};
-	
+
 	/**
 	*  Info something in the console or remote
 	*  @static
@@ -618,7 +618,7 @@
 			output("info", params);
 		}
 	};
-	
+
 	/**
 	*  Warn something in the console or remote
 	*  @static
@@ -639,7 +639,7 @@
 			output("warn", params);
 		}
 	};
-	
+
 	/**
 	*  Error something in the console or remote
 	*  @static
@@ -660,7 +660,7 @@
 			output("error", params);
 		}
 	};
-	
+
 	/**
 	*  Assert that something is true
 	*  @static
@@ -677,7 +677,7 @@
 			if (!truth) output("error", params);
 		}
 	};
-	
+
 	/**
 	*  Method to describe an object in the console
 	*  @static
@@ -692,7 +692,7 @@
 			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	/**
 	*  Method to clear the console
 	*
@@ -708,7 +708,7 @@
 			if (Debug.output) Debug.output.html("");
 		}
 	};
-	
+
 	/**
 	*  Generate a stack track in the output
 	*  @static
@@ -723,12 +723,13 @@
 			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	// Make the debug class globally accessible
 	// If the console doesn't exist, use the dummy to prevent errors
 	window.Debug = Debug;
-	
+
 }(window));
+
 /**
 *  @module Framework
 *  @namespace springroll
@@ -782,7 +783,8 @@
 	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
 	// MIT license
 	var vendors = ['ms', 'moz', 'webkit', 'o'];
-	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x)
+	var	len = vendors.length;
+	for(var x = 0; x < len  && !window.requestAnimationFrame; ++x)
 	{
 		window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
 		window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
@@ -813,16 +815,17 @@
 	window.requestAnimFrame = window.requestAnimationFrame;
 
 }());
+
 /**
 *  @module Framework
 *  @namespace springroll
 */
 (function(undefined){
-		
+
 	/**
-	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, 
+	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher,
 	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
-	*  
+	*
 	*  @class EventDispatcher
 	*  @constructor
 	*/
@@ -842,10 +845,10 @@
 		 */
 		this._destroyed = false;
 	},
-	
-	// Reference to the prototype 
+
+	// Reference to the prototype
 	p = EventDispatcher.prototype;
-	
+
 	/**
 	*  Dispatch an event
 	*  @method trigger
@@ -855,9 +858,9 @@
 	p.trigger = function(type)
 	{
 		if (this._destroyed) return;
-		
-		if (this._listeners[type] !== undefined) 
-		{	
+
+		if (this._listeners[type] !== undefined)
+		{
 			// copy the listeners array
 			var listeners = this._listeners[type].slice();
 
@@ -867,8 +870,8 @@
 			{
 				args = Array.prototype.slice.call(arguments, 1);
 			}
-			
-			for(var i = listeners.length - 1; i >= 0; --i) 
+
+			for(var i = listeners.length - 1; i >= 0; --i)
 			{
 				listeners[i].apply(this, args);
 
@@ -883,9 +886,9 @@
 
 	/**
 	*  Add an event listener but only handle it one time.
-	*  
+	*
 	*  @method once
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
 	*          or a map of events to handlers
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
 	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
@@ -895,12 +898,12 @@
 	{
 		return this.on(name, callback, priority, true);
 	};
-	
+
 	/**
 	*  Add an event listener. The parameters for the listener functions depend on the event.
-	*  
+	*
 	*  @method on
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces), 
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
 	*          or a map of events to handlers
 	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
 	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
@@ -925,13 +928,15 @@
 		else if (type(callback) === 'function')
 		{
 			var names = name.split(' '), n = null;
+
+			var listener;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				var listener = this._listeners[n];
+				listener = this._listeners[n];
 				if(!listener)
 					listener = this._listeners[n] = [];
-				
+
 				if (once)
 				{
 					callback._eventDispatcherOnce = true;
@@ -961,10 +966,10 @@
 	{
 		return a._priority - b._priority;
 	}
-	
+
 	/**
 	*  Remove the event listener
-	*  
+	*
 	*  @method off
 	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
 	*  @param {Function|Array*} callback The listener function or collection of callback functions
@@ -974,7 +979,7 @@
 	{
 		if (this._destroyed) return;
 
-		// remove all 
+		// remove all
 		if (name === undefined)
 		{
 			this._listeners = [];
@@ -982,7 +987,7 @@
 		// remove multiple callbacks
 		else if (Array.isArray(callback))
 		{
-			for (var f = 0, fl = callback.length; f < fl; f++) 
+			for (var f = 0, fl = callback.length; f < fl; f++)
 			{
 				this.off(name, callback[f]);
 			}
@@ -990,10 +995,11 @@
 		else
 		{
 			var names = name.split(' '), n = null;
+			var listener, index; 
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
-				var listener = this._listeners[n];
+				listener = this._listeners[n];
 				if(listener)
 				{
 					// remove all listeners for that event
@@ -1004,7 +1010,7 @@
 					else
 					{
 						//remove single listener
-						var index = listener.indexOf(callback);
+						index = listener.indexOf(callback);
 						if (index !== -1)
 						{
 							listener.splice(index, 1);
@@ -1018,7 +1024,7 @@
 
 	/**
 	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
-	*  
+	*
 	*  @method has
 	*  @param {String} name The name of the single event type to check for
 	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
@@ -1034,7 +1040,7 @@
 			return listeners.length > 0;
 		return listeners.indexOf(callback) >= 0;
 	};
-	
+
 	/**
 	*  Destroy and don't use after this
 	*  @method destroy
@@ -1047,7 +1053,7 @@
 
 	/**
 	*  Return type of the value.
-	*  
+	*
 	*  @private
 	*  @method type
 	*  @param  {*} value
@@ -1084,11 +1090,12 @@
 		if(callConstructor)
 			EventDispatcher.call(object);
 	};
-	
+
 	// Assign to name space
 	namespace('springroll').EventDispatcher = EventDispatcher;
-	
+
 }());
+
 /**
 *  @module Framework
 *  @namespace springroll
@@ -1243,7 +1250,7 @@
 	*  @param {Object} [options] The options for creating the application
 	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
 	*  @param {Boolean} [options.raf=true] Use request animation frame
-	*  @param {String|int} [options.version] The current version number for your application. This 
+	*  @param {String|int} [options.version] The current version number for your application. This
 	*       number will automatically be appended to all file requests. For instance, if the version
 	*       is "0.0.1" all file requests will be appended with "?v=0.0.1"
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
@@ -1351,21 +1358,21 @@
 	*  @property {DOMObject} _framerate
 	*/
 	var _framerate = null,
-	
+
 	/**
 	*  The number of ms since the last frame update
 	*  @private
 	*  @property {int} _lastFrameTime
 	*/
 	_lastFrameTime = 0,
-	
+
 	/**
 	*  The last time since the last fps update
 	*  @private
 	*  @property {int} _lastFPSUpdateTime
 	*/
 	_lastFPSUpdateTime = 0,
-	
+
 	/**
 	*  The number of frames since the last fps update
 	*  @private
@@ -1577,12 +1584,12 @@
 	{
 		//grab the query string parameters if we should be doing so
 		var query = !!this.options.parseQueryString ? parseQueryStringParams() : {};
-		
+
 		// Assemble all of the options, the last takes precedence
 		this.options = Object.merge({}, _defaultOptions, this.options, query);
 
 		// Call any global libraries to initialize
-		for(var i = 0; i < Application._globalInit.length; ++i)
+		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
 		{
 			Application._globalInit[i]();
 		}
@@ -1611,7 +1618,7 @@
 		// Turn on debugging
 		if (this.options.debug !== undefined)
 			Debug.enabled = this.options.debug === true || this.options.debug === "true";
-		
+
 		if (this.options.minLogLevel !== undefined)
 			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
@@ -1632,7 +1639,7 @@
 			}
 			this.on('update', Tween.tick);
 		}
-		
+
 		//set up the page visibility listener
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
@@ -1698,13 +1705,15 @@
 		var output = {};
 		var href = window.location.search;
 		if(!href)//empty string is false
+		{
 			return output;
+		}
 		var vars = href.substr(href.indexOf("?")+1);
 		var pound = vars.indexOf('#');
 		vars = pound < 0 ? vars : vars.substring(0, pound);
 		var splitFlashVars = vars.split("&");
 		var myVar;
-		for (var i = 0; i < splitFlashVars.length; i++)
+		for (var i = 0, len = splitFlashVars.length; i < len; i++)
 		{
 			myVar = splitFlashVars[i].split("=");
 			if (true)
@@ -1814,13 +1823,13 @@
 		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
 
 		this.calculateDisplaySize(_resizeHelper);
-		
+
 		//round down, as canvases require integer sizes
 		_resizeHelper.width |= 0;
 		_resizeHelper.height |= 0;
 
 		//resize the displays
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
 		}
@@ -1921,7 +1930,7 @@
 	p.getDisplays = function(each)
 	{
 		var output = [];
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			output.push(_displays[key]);
 			if (typeof each === "function")
@@ -1996,7 +2005,7 @@
 
 		var now = TimeUtils.now();
 		var dTime = now - _lastFrameTime;
-		
+
 		// Only update the framerate every second
 		if(_framerate)
 		{
@@ -2016,7 +2025,7 @@
 		this.trigger(UPDATE, dTime);
 
 		//then update all displays
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			_displays[key].render(dTime);
 		}
@@ -2037,14 +2046,14 @@
 		this._readyToInit = false;
 		this.paused = true;
 		this.trigger(DESTROY);
-		
-		for(var key in _displays)
+
+		for (var key in _displays)
 		{
 			_displays[key].destroy();
 		}
 		_displays = null;
 
-		for(var i = 0; i < Application._globalDestroy.length; ++i)
+		for (var i = 0, len = Application._globalDestroy.length; i < len; ++i)
 		{
 			Application._globalDestroy[i]();
 		}
@@ -2071,6 +2080,7 @@
 	namespace('springroll').Application = Application;
 
 }());
+
 /**
 *  @module Framework
 *  @namespace springroll
@@ -2284,7 +2294,7 @@
 			Application = include('springroll.Application');
 			Loader = include('springroll.Loader');
 		}
-		
+
 		this._applySpecificVersion = this._applySpecificVersion.bind(this);
 		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
 
@@ -2294,32 +2304,32 @@
 		*  @property {Dictionary} _versions
 		*/
 		this._versions = {};
-		
+
 		/**
 		*  The list of URL filtering functions.
 		*  @protected
 		*  @property {Array} _filters
 		*/
 		this._filters = [];
-		
+
 		/**
 		*  A global version or cache busting string to apply to every url.
 		*  @property {String} _globalVersion
 		*/
 		this._globalVersion = null;
-		
+
 		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = (cb === "true" || cb === true);
-		
+
 		if(true)
 		{
 			if (this.cacheBust) Debug.log("CacheBust all files is on.");
 		}
 	};
-	
+
 	/* Easy access to the prototype */
 	var p = CacheManager.prototype = {};
-	
+
 	/**
 	*  If we are suppose to cache bust every file
 	*  @property {Boolean} cacheBust
@@ -2357,7 +2367,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	*  Destroy the cache manager, don't use after this.
 	*  @public
@@ -2370,7 +2380,7 @@
 		this._applySpecificVersion = null;
 		this._applyGlobalVersion = null;
 	};
-	
+
 	/**
 	*  Adds a versions text file containing versions for different assets.
 	*  @public
@@ -2382,24 +2392,24 @@
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
 		Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
-				
+
 		var loader = Loader.instance;
-		
+
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
 		{
 			if (callback) callback();
 			return;
 		}
-		
+
 		// Add a random version number to never cache the text file
 		this.addVersion(url, Date.now().toString());
-		
+
 		//ensure that that cache busting version is applied
 		url = this._applySpecificVersion(url);
-		
+
 		var cm = this;
-		
+
 		// Load the version
 		loader.load(url,
 			function(result)
@@ -2412,7 +2422,7 @@
 					var i, parts;
 
 					// Go line by line
-					for(i = 0; i < lines.length; i++)
+					for (i = 0, len = lines.length; i < len; i++)
 					{
 						// Check for a valid line
 						if (!lines[i]) continue;
@@ -2431,7 +2441,7 @@
 			}
 		);
 	};
-	
+
 	/**
 	*  Add a version number for a file
 	*  @method addVersion
@@ -2444,7 +2454,7 @@
 		if (!this._versions[url])
 			this._versions[url] = version;
 	};
-	
+
 	/**
 	*  Adds a function for running all urls through, to modify them if needed.
 	*  Functions used should accept one string parameter (the url), and return the
@@ -2458,7 +2468,7 @@
 		if(this._filters.indexOf(filter) == -1)
 			this._filters.push(filter);
 	};
-	
+
 	/**
 	*  Removes a function from the list of filtering functions.
 	*  @method unregisterURLFilter
@@ -2471,7 +2481,7 @@
 		if(index > -1)
 			this._filters.splice(index, 1);
 	};
-	
+
 	/**
 	*  Applies a url specific version to a url from the versions file.
 	*  @method _applySpecificVersion
@@ -2490,7 +2500,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Applies cache busting or a global version to a url.
 	*  @method _applyGlobalVersion
@@ -2509,7 +2519,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Applies a base path to a relative url. This is not used in the filtering
 	*  system because PreloadJS has its own method of prepending the base path
@@ -2528,7 +2538,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Prepare a URL with the necessary cache busting and/or versioning
 	*  as well as the base directory.
@@ -2542,22 +2552,23 @@
 	*/
 	p.prepare = function(url, applyBasePath)
 	{
-		for(var i = 0; i < this._filters.length; ++i)
+		for (var i = 0, len = this._filters.length; i < len; ++i)
 		{
 			url = this._filters[i](url);
 		}
-		
+
 		if(applyBasePath)
 		{
 			url = this._applyBasePath(url);
 		}
 		return url;
 	};
-	
+
 	// Assign to namespace
 	namespace('springroll').CacheManager = CacheManager;
-	
+
 }());
+
 /**
 *  @module Framework
 *  @namespace springroll
@@ -3294,17 +3305,17 @@
 *  @namespace springroll
 */
 (function(undefined){
-		
-	/** 
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	*
 	*  @class SavedData
 	*/
 	var SavedData = {},
-	
+
 	/** A constant to determine if we can use localStorage and sessionStorage */
 	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
-	
+
 	/** A constant for cookie fallback for SavedData.clear() */
 	ERASE_COOKIE = -1;
 
@@ -3321,8 +3332,8 @@
 			WEB_STORAGE_SUPPORT = false;
 		}
 	}
-	
-	/** 
+
+	/**
 	*  Remove a saved variable by name.
 	*  @method remove
 	*  @static
@@ -3338,7 +3349,7 @@
 		else
 			SavedData.write(name,"",ERASE_COOKIE);
 	};
-	
+
 	/**
 	*  Save a variable.
 	*  @method write
@@ -3368,11 +3379,11 @@
 			}
 			else
 				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
-				
+
 			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
 		}
 	};
-	
+
 	/**
 	*  Read the value of a saved variable
 	*  @method read
@@ -3395,8 +3406,8 @@
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
 				i = 0, c;
-				
-			for(i=0;i < ca.length;i++)
+
+			for(i=0, len=ca.length; i<len;i++)
 			{
 				c = ca[i];
 				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
@@ -3405,11 +3416,12 @@
 			return null;
 		}
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').SavedData = SavedData;
-	
+
 }());
+
 /**
 *  @module Framework
 *  @namespace springroll

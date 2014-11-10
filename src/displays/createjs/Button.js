@@ -3,7 +3,7 @@
 *  @namespace springroll.createjs
 */
 (function(undefined){
-	
+
 	var Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
@@ -246,7 +246,9 @@
 		{
 			image = imageSettings.image;
 			this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
+
 			//each rects object has a src property (createjs.Rectangle), and optionally a trim rectangle
+			var inputData, stateLabel;
 			for (i = this._statePriority.length - 1; i >= 0; --i) //start at the end to start at the up state
 			{
 				state = this._statePriority[i];
@@ -254,8 +256,10 @@
 				this._addProperty(state);
 				//set the default value for the state flag
 				if (state != "disabled" && state != "up")
+				{
 					this._stateFlags[state] = false;
-				var inputData = imageSettings[state];
+				}
+				inputData = imageSettings[state];
 				//it's established that over, down, and particularly disabled default to the up state
 				_stateData[state] = inputData ? clone(inputData) : _stateData.up;
 				//set up the label info for this state
@@ -265,7 +269,7 @@
 					if (inputData && inputData.label)
 					{
 						inputData = inputData.label;
-						var stateLabel = _stateData[state].label = {};
+						stateLabel = _stateData[state].label = {};
 						stateLabel.font = inputData.font || labelData.font;
 						stateLabel.color = inputData.color || labelData.color;
 						stateLabel.stroke = inputData.hasOwnProperty("stroke") ? inputData.stroke : labelData.stroke;
@@ -276,9 +280,12 @@
 					}
 					//otherwise use the default
 					else
+					{
 						_stateData[state].label = labelData;
+					}
 				}
 			}
+
 			if (_stateData.up.trim) //if the texture is trimmed, use that for the sizing
 			{
 				var upTrim = _stateData.up.trim;
@@ -297,11 +304,17 @@
 				Debug.error(imageSettings);
 			}
 			if (!_stateData.over)
+			{
 				_stateData.over = _stateData.up;
+			}
 			if (!_stateData.down)
+			{
 				_stateData.down = _stateData.up;
+			}
 			if (!_stateData.disabled)
+			{
 				_stateData.disabled = _stateData.up;
+			}
 			//set up the offset
 			if (imageSettings.offset)
 			{
@@ -364,7 +377,10 @@
 			copy = {};
 		for (var attr in obj)
 		{
-			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+			if (obj.hasOwnProperty(attr))
+			{
+				copy[attr] = obj[attr];
+			}
 		}
 		return copy;
 	}
@@ -413,7 +429,7 @@
 		{
 			this.label.text = text;
 			var data;
-			for (var i = 0; i < this._statePriority.length; ++i)
+			for (var i = 0, len = this._statePriority.length; i < len; ++i)
 			{
 				if (this._stateFlags[this._statePriority[i]])
 				{
@@ -508,7 +524,7 @@
 		if (!this.back) return;
 		var data;
 		//use the highest priority state
-		for (var i = 0; i < this._statePriority.length; ++i)
+		for (var i = 0, len = this._statePriority.length; i < len; ++i)
 		{
 			if (this._stateFlags[this._statePriority[i]])
 			{

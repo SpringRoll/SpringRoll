@@ -348,7 +348,7 @@
         //if this is a flat array of numbers, convert it to points
         if(typeof points[0] === 'number') {
             var p = [];
-            for(var i = 0, il = points.length; i < il; i+=2) {
+            for (var i = 0, len = points.length; i < len; i+=2) {
                 p.push(
                     new Point(points[i], points[i + 1])
                 );
@@ -371,7 +371,7 @@
     p.clone = function()
     {
         var points = [];
-        for (var i=0; i<this.points.length; i++) {
+        for (var i = 0, len = this.points.length; i < len; i++) {
             points.push(this.points[i].clone());
         }
 
@@ -393,11 +393,17 @@
         // use some raycasting to test hits
         // https://github.com/substack/point-in-polygon/blob/master/index.js
         var p = this.points;
-        for(var i = 0, len = p.length, j = p.length - 1; i < len; j = i++) {
-            var pi = p[i], pj = p[j];
-            var xi = pi.x, yi = pi.y,
-                xj = pj.x, yj = pj.y,
-                intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+
+        var pi, pj, xi, yi, xj, yj, intersect;
+        for (var i = 0, len = p.length, j = p.length - 1; i < len; j = i++)
+        {
+             pi = p[i];
+             pj = p[j];
+             xi = pi.x;
+             yi = pi.y;
+             xj = pj.x;
+             yj = pj.y;
+             intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
 
             if(intersect) inside = !inside;
         }

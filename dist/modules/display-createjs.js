@@ -653,7 +653,7 @@
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
 		Sound;
-	
+
 	/**
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
@@ -662,7 +662,7 @@
 	*   @static
 	*/
 	var Animator = {};
-	
+
 	/**
 	* If we fire debug statements
 	*
@@ -679,7 +679,7 @@
 	*  @static
 	*/
 	Animator.captions = null;
-	
+
 	/**
 	* The collection of timelines
 	*
@@ -687,7 +687,7 @@
 	* @private
 	*/
 	var _timelines = null;
-	
+
 	/**
 	* A collection of timelines for removal - kept out here so it doesn't need to be
 	* reallocated every frame
@@ -696,14 +696,14 @@
 	* @private
 	*/
 	var _removedTimelines = null;
-	
+
 	/** Look up a timeline by the instance
 	*
 	* @property {Dictionary} _timelinesMap
 	* @private
 	*/
 	var _timelinesMap = null;
-	
+
 	/**
 	* If the Animator is paused
 	*
@@ -720,7 +720,7 @@
 	* @private
 	*/
 	var _optionsHelper = {};
-	
+
 	/**
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
 	*	if the Animator data was cleaned up but was needed again later.
@@ -737,7 +737,7 @@
 
 		Sound = include('springroll.Sound', false);
 	};
-	
+
 	/**
 	*	Stops all animations and cleans up the variables used.
 	*
@@ -757,7 +757,7 @@
 
 	Application.registerInit(Animator.init);
 	Application.registerDestroy(Animator.destroy);
-	
+
 	/**
 	*   Play an animation for a frame label event
 	*
@@ -808,30 +808,30 @@
 
 		if (!_timelines)
 			Animator.init();
-		
+
 		if (_timelinesMap[instance.id] !== undefined)
 		{
 			Animator.stop(instance);
 		}
 		var timeline = Animator._makeTimeline(instance, event, onComplete, onCompleteParams, speed,
 												soundData, onCancelled);
-		
+
 		//if the animation is present and complete
 		if (timeline.firstFrame > -1 && timeline.lastFrame > -1)
 		{
 			timeline.time = startTime == -1 ? Math.random() * timeline.duration : startTime;
-			
+
 			instance.elapsedTime = timeline.startTime + timeline.time;
 			//have it set its 'paused' variable to false
 			instance.play();
 			//update the movieclip to make sure it is redrawn correctly at the next opportunity
 			instance._tick();
-			
+
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
 			// updating
 			if (!Animator._hasTimelines()) Animator._startUpdate();
-			
+
 			_timelines.push(timeline);
 			_timelinesMap[instance.id] = timeline;
 
@@ -840,22 +840,22 @@
 			{
 				Sound.instance.preloadSound(timeline.soundAlias);
 			}
-			
+
 			return timeline;
 		}
-		
+
 		if (true)
 		{
 			Debug.log("No event " + event + " was found, or it lacks an end, on this MovieClip " + instance);
 		}
-		
+
 		if (onComplete)
 		{
 			onComplete.apply(null, onCompleteParams);
 		}
 		return null;
 	};
-	
+
 	/**
 	*   Creates the AnimatorTimeline for a given animation
 	*
@@ -915,14 +915,16 @@
 			}
 			timeline.useCaptions = Animator.captions && Animator.captions.hasCaption(timeline.soundAlias);
 		}
-		
+
 		//go through the list of labels (they are sorted by frame number)
 		var labels = instance.getLabels();
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
+
+		var l;
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
-			var l = labels[i];
+			l = labels[i];
 			if (l.label == event)
 			{
 				timeline.firstFrame = l.position;
@@ -943,7 +945,7 @@
 		timeline.length = timeline.lastFrame - timeline.firstFrame;
 		timeline.startTime = timeline.firstFrame / fps;
 		timeline.duration = timeline.length / fps;
-		
+
 		return timeline;
 	};
 
@@ -996,9 +998,10 @@
 		var startFrame = -1, stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
+		var l;
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
-			var l = labels[i];
+			l = labels[i];
 			if (l.label == event)
 			{
 				startFrame = l.position;
@@ -1029,7 +1032,7 @@
 		if(Array.isArray(event))
 		{
 			var duration = 0;
-			for(var j = 0; j < event.length; j++)
+			for (var j = 0, eventLength = event.length; j < eventLength; j++)
 			{
 				duration += Animator.getDuration(instance, event[j]);
 			}
@@ -1041,9 +1044,10 @@
 			var startFrame = -1, stopFrame = -1;
 			var stopLabel = event + "_stop";
 			var loopLabel = event + "_loop";
-			for(var i = 0, len = labels.length; i < len; ++i)
+			var l;
+			for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
 			{
-				var l = labels[i];
+				l = labels[i];
 				if (l.label == event)
 				{
 					startFrame = l.position;
@@ -1060,7 +1064,7 @@
 				return 0;
 		}
 	};
-	
+
 	/**
 	*   Stop the animation.
 	*
@@ -1071,7 +1075,7 @@
 	Animator.stop = function(instance)
 	{
 		if (!_timelines) return;
-		
+
 		if (!_timelinesMap[instance.id])
 		{
 			if (true)
@@ -1083,7 +1087,7 @@
 		var timeline = _timelinesMap[instance.id];
 		Animator._remove(timeline, true);
 	};
-	
+
 	/**
 	*   Stop all current Animator animations.
 	*   This is good for cleaning up all animation, as it doesn't do a callback on any of them.
@@ -1096,21 +1100,21 @@
 	Animator.stopAll = function(container)
 	{
 		if (!Animator._hasTimelines()) return;
-		
+
 		var timeline;
 		var removedTimelines = _timelines.slice();
 
-		for(var i=0; i < removedTimelines.length; i++)
+		for (var i=0, len = removedTimelines.length; i < len; i++)
 		{
 			timeline = removedTimelines[i];
-			
+
 			if (!container || container.contains(timeline.instance))
 			{
 				Animator._remove(timeline, true);
 			}
 		}
 	};
-	
+
 	/**
 	*   Remove a timeline from the stack
 	*
@@ -1127,15 +1131,15 @@
 		{
 			_removedTimelines.splice(index, 1);
 		}
-		
+
 		index = _timelines.indexOf(timeline);
-		
+
 		// We can't remove an animation twice
 		if (index < 0) return;
-		
+
 		var onComplete = timeline.onComplete, onCompleteParams = timeline.onCompleteParams,
 			onCancelled = timeline.onCancelled;
-		
+
 		// Stop the animation
 		timeline.instance.stop();
 
@@ -1143,7 +1147,7 @@
 		//be allowed to continue
 		if (doCancelled && timeline.soundInst)
 			timeline.soundInst.stop();//stop the sound from playing
-		
+
 		// Remove from the stack
 		_timelines.splice(index, 1);
 		delete _timelinesMap[timeline.instance.id];
@@ -1153,16 +1157,16 @@
 		{
 			Animator.captions.stop();
 		}
-		
+
 		// Clear the timeline
 		timeline.instance = null;
 		timeline.event = null;
 		timeline.onComplete = null;
 		timeline.onCompleteParams = null;
-		
+
 		// Check if we should stop the update
 		if (!Animator._hasTimelines()) Animator._stopUpdate();
-		
+
 		//call the appropriate callback
 		if(doCancelled)
 		{
@@ -1174,7 +1178,7 @@
 			onComplete.apply(null, onCompleteParams);
 		}
 	};
-	
+
 	/**
 	*   Pause all tweens which have been excuted by Animator.play()
 	*
@@ -1184,18 +1188,18 @@
 	Animator.pause = function()
 	{
 		if (!_timelines) return;
-		
+
 		if (_paused) return;
-		
+
 		_paused = true;
-		
-		for(var i = 0; i < _timelines.length; i++)
+
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			_timelines[i].paused = true;
 		}
 		Animator._stopUpdate();
 	};
-	
+
 	/**
 	*   Resumes all tweens executed by the Animator.play()
 	*
@@ -1205,19 +1209,19 @@
 	Animator.resume = function()
 	{
 		if (!_timelines) return;
-		
+
 		if (!_paused) return;
-		
+
 		_paused = false;
-		
+
 		// Resume playing of all the instances
-		for(var i = 0; i < _timelines.length; i++)
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			_timelines[i].paused = false;
 		}
 		if (Animator._hasTimelines()) Animator._startUpdate();
 	};
-	
+
 	/**
 	*   Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
 	*
@@ -1229,8 +1233,8 @@
 	Animator.pauseInGroup = function(paused, container)
 	{
 		if (!Animator._hasTimelines() || !container) return;
-		
-		for(var i=0; i< _timelines.length; i++)
+
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			if (container.contains(_timelines[i].instance))
 			{
@@ -1238,7 +1242,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*   Get the timeline object for an instance
 	*
@@ -1250,14 +1254,14 @@
 	Animator.getTimeline = function(instance)
 	{
 		if (!Animator._hasTimelines()) return null;
-		
+
 		if (_timelinesMap[instance.id] !== undefined)
 		{
 			return _timelinesMap[instance.id];
 		}
 		return null;
 	};
-	
+
 	/**
 	*  Whether the Animator class is currently paused.
 	*
@@ -1268,7 +1272,7 @@
 	{
 		return _paused;
 	};
-	
+
 	/**
 	*  Start the updating
 	*
@@ -1281,7 +1285,7 @@
 		if (Application.instance)
 			Application.instance.on("update", Animator._update);
 	};
-	
+
 	/**
 	*   Stop the updating
 	*
@@ -1294,7 +1298,7 @@
 		if (Application.instance)
 			Application.instance.off("update", Animator._update);
 	};
-	
+
 	/**
 	*   The update every frame
 	*
@@ -1306,26 +1310,26 @@
 	Animator._update = function(elapsed)
 	{
 		if (!_timelines) return;
-		
+
 		var delta = elapsed * 0.001;//ms -> sec
-		
-		var t;
+
+		var t, instance, audioPos;
 		for(var i = _timelines.length - 1; i >= 0; --i)
 		{
 			t = _timelines[i];
-			var instance = t.instance;
+			instance = t.instance;
 			if (t.paused) continue;
-			
+
 			if (t.soundInst)
 			{
 				if (t.soundInst.isValid)
 				{
 					//convert sound position ms -> sec
-					var audioPos = t.soundInst.position * 0.001;
+					audioPos = t.soundInst.position * 0.001;
 					if (audioPos < 0)
 						audioPos = 0;
 					t.time = t.soundStart + audioPos;
-					
+
 					if (t.useCaptions)
 					{
 						Animator.captions.seek(t.soundInst.position);
@@ -1390,7 +1394,7 @@
 			Animator._remove(t);
 		}
 	};
-	
+
 	/**
 	*  The sound has been started
 	*  @method onSoundStarted
@@ -1403,7 +1407,7 @@
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
-	
+
 	/**
 	*  The sound is done
 	*  @method onSoundDone
@@ -1416,7 +1420,7 @@
 			timeline.time = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
-	
+
 	/**
 	*  Check to see if we have timeline
 	*
@@ -1430,7 +1434,7 @@
 		if (!_timelines) return false;
 		return _timelines.length > 0;
 	};
-	
+
 	/**
 	*  String representation of this class
 	*
@@ -1442,18 +1446,19 @@
 	{
 		return "[springroll.createjs.Animator]";
 	};
-	
+
 	// Assign to the global namespace
 	namespace('springroll').Animator = Animator;
 	namespace('springroll.createjs').Animator = Animator;
 
 }());
+
 /**
 *  @module CreateJS Display
 *  @namespace springroll.createjs
 */
 (function(undefined){
-	
+
 	var Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
@@ -1696,7 +1701,9 @@
 		{
 			image = imageSettings.image;
 			this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
+
 			//each rects object has a src property (createjs.Rectangle), and optionally a trim rectangle
+			var inputData, stateLabel;
 			for (i = this._statePriority.length - 1; i >= 0; --i) //start at the end to start at the up state
 			{
 				state = this._statePriority[i];
@@ -1704,8 +1711,10 @@
 				this._addProperty(state);
 				//set the default value for the state flag
 				if (state != "disabled" && state != "up")
+				{
 					this._stateFlags[state] = false;
-				var inputData = imageSettings[state];
+				}
+				inputData = imageSettings[state];
 				//it's established that over, down, and particularly disabled default to the up state
 				_stateData[state] = inputData ? clone(inputData) : _stateData.up;
 				//set up the label info for this state
@@ -1715,7 +1724,7 @@
 					if (inputData && inputData.label)
 					{
 						inputData = inputData.label;
-						var stateLabel = _stateData[state].label = {};
+						stateLabel = _stateData[state].label = {};
 						stateLabel.font = inputData.font || labelData.font;
 						stateLabel.color = inputData.color || labelData.color;
 						stateLabel.stroke = inputData.hasOwnProperty("stroke") ? inputData.stroke : labelData.stroke;
@@ -1726,9 +1735,12 @@
 					}
 					//otherwise use the default
 					else
+					{
 						_stateData[state].label = labelData;
+					}
 				}
 			}
+
 			if (_stateData.up.trim) //if the texture is trimmed, use that for the sizing
 			{
 				var upTrim = _stateData.up.trim;
@@ -1747,11 +1759,17 @@
 				Debug.error(imageSettings);
 			}
 			if (!_stateData.over)
+			{
 				_stateData.over = _stateData.up;
+			}
 			if (!_stateData.down)
+			{
 				_stateData.down = _stateData.up;
+			}
 			if (!_stateData.disabled)
+			{
 				_stateData.disabled = _stateData.up;
+			}
 			//set up the offset
 			if (imageSettings.offset)
 			{
@@ -1814,7 +1832,10 @@
 			copy = {};
 		for (var attr in obj)
 		{
-			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+			if (obj.hasOwnProperty(attr))
+			{
+				copy[attr] = obj[attr];
+			}
 		}
 		return copy;
 	}
@@ -1863,7 +1884,7 @@
 		{
 			this.label.text = text;
 			var data;
-			for (var i = 0; i < this._statePriority.length; ++i)
+			for (var i = 0, len = this._statePriority.length; i < len; ++i)
 			{
 				if (this._stateFlags[this._statePriority[i]])
 				{
@@ -1958,7 +1979,7 @@
 		if (!this.back) return;
 		var data;
 		//use the highest priority state
-		for (var i = 0; i < this._statePriority.length; ++i)
+		for (var i = 0, len = this._statePriority.length; i < len; ++i)
 		{
 			if (this._stateFlags[this._statePriority[i]])
 			{
@@ -2252,6 +2273,7 @@
 	namespace('springroll').Button = Button;
 	namespace('springroll.createjs').Button = Button;
 }());
+
 /**
 *  @module CreateJS Display
 *  @namespace springroll.createjs
@@ -2680,7 +2702,7 @@
 *  @namespace springroll.createjs
 */
 (function() {
-		
+
 	var Tween,
 		DragData = include("springroll.createjs.DragData");
 
@@ -2709,7 +2731,7 @@
 		* @property {createjs.DisplayObject|Dictionary} draggedObj
 		*/
 		this.draggedObj = null;
-		
+
 		/**
 		* The radius in pixel to allow for dragging, or else does sticky click
 		* @public
@@ -2717,7 +2739,7 @@
 		* @default 20
 		*/
 		this.dragStartThreshold = 20;
-		
+
 		/**
 		* The position x, y of the mouse down on the stage. This is only used
 		* when multitouch is false - the DragData has it when multitouch is true.
@@ -2741,7 +2763,7 @@
 		* @default true
 		*/
 		this.allowStickyClick = true;
-		
+
 		/**
 		* Is the move touch based
 		* @public
@@ -2750,7 +2772,7 @@
 		* @default false
 		*/
 		this.isTouchMove = false;
-		
+
 		/**
 		* Is the drag being held on mouse down (not sticky clicking)
 		* @public
@@ -2759,7 +2781,7 @@
 		* @default false
 		*/
 		this.isHeldDrag = false;
-		
+
 		/**
 		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
 		* @public
@@ -2787,14 +2809,14 @@
 		* @default null
 		*/
 		this.snapSettings = null;
-		
+
 		/**
 		* Reference to the stage
 		* @private
 		* @property {createjsStage} _theStage
 		*/
 		this._theStage = stage;
-		
+
 		/**
 		* The offset from the dragged object's position that the initial mouse event
 		* was at. This is only used when multitouch is false - the DragData has
@@ -2803,26 +2825,26 @@
 		* @property {createjs.Point} _dragOffset
 		*/
 		this._dragOffset = null;
-		
+
 		/**
 		* Callback when we start dragging
 		* @private
 		* @property {Function} _dragStartCallback
 		*/
 		this._dragStartCallback = startCallback;
-		
+
 		/**
 		* Callback when we are done dragging
 		* @private
 		* @property {Function} _dragEndCallback
 		*/
 		this._dragEndCallback = endCallback;
-		
+
 		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
 		this._triggerStickyClick = this._triggerStickyClick.bind(this);
 		this._stopDrag = this._stopDrag.bind(this);
 		this._updateObjPosition = this._updateObjPosition.bind(this);
-		
+
 		/**
 		* The collection of draggable objects
 		* @private
@@ -2836,7 +2858,7 @@
 		* @property {createjs.Point} _helperPoint
 		*/
 		this._helperPoint = null;
-		
+
 		/**
 		* If this DragManager is using multitouch for dragging.
 		* @private
@@ -2844,10 +2866,10 @@
 		*/
 		this._multitouch = false;
 	};
-	
+
 	/** Reference to the drag manager */
 	var p = DragManager.prototype = {};
-	
+
 	/**
 	* If the DragManager allows multitouch dragging. Setting this stops any current
 	* drags.
@@ -2861,7 +2883,7 @@
 			{
 				if(this._multitouch)
 				{
-					for(var id in this.draggedObj)
+					for (var id in this.draggedObj)
 					{
 						this._stopDrag(id, true);
 					}
@@ -2872,7 +2894,7 @@
 			this._multitouch = !!value;
 			this.draggedObj = value ? {} : null;
 		}});
-	
+
 	/**
 	*  Manually starts dragging an object. If a mouse down event is not
 	*  supplied as the second argument, it defaults to a held drag, that ends as
@@ -2889,7 +2911,7 @@
 	{
 		this._objMouseDown(ev, object);
 	};
-	
+
 	/**
 	* Mouse down on an obmect
 	*  @method _objMouseDown
@@ -2904,7 +2926,7 @@
 		// until we release the currently dragged stuff
 		if((!this._multitouch && this.draggedObj) ||
 			(this._multitouch && !ev)) return;
-		
+
 		var dragData, mouseDownObjPos, mouseDownStagePos, dragOffset;
 		if(this._multitouch)
 		{
@@ -2924,7 +2946,7 @@
 		//stop any active tweens on the object, in case it is moving around or something
 		if(Tween)
 			Tween.removeTweens(obj);
-		
+
 		if(ev)
 		{
 			//get the mouse position in global space and convert it to parent space
@@ -2937,7 +2959,7 @@
 		//save the position of the object before dragging began, for easy restoration, if desired
 		mouseDownObjPos.x = obj.x;
 		mouseDownObjPos.y = obj.y;
-		
+
 		//if we don't get an event (manual call neglected to pass one) then default to a held drag
 		if(!ev)
 		{
@@ -2967,7 +2989,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	* Start the sticky click
 	* @method _triggerStickyClick
@@ -3025,12 +3047,12 @@
 		//duplicate listeners are ignored
 		stage.addEventListener("stagemousemove", this._updateObjPosition);
 		stage.addEventListener("stagemouseup", this._stopDrag);
-		
+
 		this._dragStartCallback(this._multitouch ?
 									this.draggedObj[ev.pointerID].obj :
 									this.draggedObj);
 	};
-	
+
 	/**
 	* Stops dragging the currently dragged object.
 	* @public
@@ -3044,7 +3066,7 @@
 		var id = null;
 		if(this._multitouch && obj)
 		{
-			for(var key in this.draggedObj)
+			for (var key in this.draggedObj)
 			{
 				if(this.draggedObj[key].obj == obj)
 				{
@@ -3075,7 +3097,7 @@
 				id = ev;
 				if(ev instanceof createjs.MouseEvent)
 					id = ev.pointerID;
-				
+
 				var data = this.draggedObj[id];
 				if(!data) return;
 				obj = data.obj;
@@ -3088,7 +3110,7 @@
 			else
 			{
 				//stop all drags
-				for(id in this.draggedObj)
+				for (id in this.draggedObj)
 				{
 					this._stopDrag(id, doCallback);
 				}
@@ -3100,9 +3122,9 @@
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
-		
+
 		if(!obj) return;
-		
+
 		obj.removeEventListener("pressmove", this._triggerHeldDrag);
 		obj.removeEventListener("pressup", this._triggerStickyClick);
 		var removeGlobalListeners = !this._multitouch;
@@ -3110,7 +3132,7 @@
 		{
 			//determine if this was the last drag
 			var found = false;
-			for(id in this.draggedObj)
+			for (id in this.draggedObj)
 			{
 				found = true;
 				break;
@@ -3139,7 +3161,7 @@
 	p._updateObjPosition = function(ev)
 	{
 		if(!this.isTouchMove && !this._theStage.mouseInBounds) return;
-		
+
 		var draggedObj, dragOffset;
 		if(this._multitouch)
 		{
@@ -3199,10 +3221,12 @@
 		var objY = localMousePos.y - dragOffset.y;
 		var leastDist = -1;
 		var closestPoint = null;
-		for(var i = points.length - 1; i >= 0; --i)
+
+		var p, distSq;
+		for (var i = points.length - 1; i >= 0; --i)
 		{
-			var p = points[i];
-			var distSq = distSquared(objX, objY, p.x, p.y);
+			p = points[i];
+			distSq = distSquared(objX, objY, p.x, p.y);
 			if(distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
@@ -3225,7 +3249,7 @@
 		var yDiff = y1 - y2;
 		return xDiff * xDiff + yDiff * yDiff;
 	};
-	
+
 	/*
 	* Simple clamp function
 	*/
@@ -3233,25 +3257,25 @@
 	{
 		return (x < a ? a : (x > b ? b : x));
 	};
-	
+
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function()
 	{
 		this.addEventListener("mousedown", this._onMouseDownListener);
 		this.cursor = "pointer";
 	};
-	
+
 	var disableDrag = function()
 	{
 		this.removeEventListener("mousedown", this._onMouseDownListener);
 		this.cursor = null;
 	};
-	
+
 	var _onMouseDown = function(ev)
 	{
 		this._dragMan._objMouseDown(ev, this);
 	};
-	
+
 	/**
 	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
@@ -3283,7 +3307,7 @@
 		obj._dragMan = this;
 		this._draggableObjects.push(obj);
 	};
-	
+
 	/**
 	* Removes properties and functions added by addObject().
 	* @public
@@ -3302,7 +3326,7 @@
 		if(index >= 0)
 			this._draggableObjects.splice(index, 1);
 	};
-	
+
 	/**
 	*  Destroy the manager
 	*  @public
@@ -3319,9 +3343,11 @@
 		this._triggerStickyClick = null;
 		this._stopDrag = null;
 		this._theStage = null;
-		for(var i = this._draggableObjects.length - 1; i >= 0; --i)
+
+		var obj;
+		for (var i = this._draggableObjects.length - 1; i >= 0; --i)
 		{
-			var obj = this._draggableObjects[i];
+			obj = this._draggableObjects[i];
 			obj.disableDrag();
 			delete obj.enableDrag;
 			delete obj.disableDrag;
@@ -3332,17 +3358,18 @@
 		this._draggableObjects = null;
 		this._helperPoint = null;
 	};
-	
+
 	/** Assign to the global namespace */
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.createjs').DragManager = DragManager;
 }());
+
 /**
 *  @module CreateJS Display
 *  @namespace springroll.createjs
 */
 (function(){
-	
+
 	var Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
@@ -3389,21 +3416,21 @@
 		*	@public
 		*/
 		this.isReady = false;
-		
+
 		/**
 		*	The framerate the cutscene should play at.
 		*	@property {int} framerate
 		*	@private
 		*/
 		this.framerate = 0;
-		
+
 		/**
 		*	Reference to the display we are drawing on
 		*	@property {Display} display
 		*	@public
 		*/
 		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
-		
+
 		/**
 		*	The source url for the config until it is loaded, then the config object.
 		*	@property {String|Object} config
@@ -3506,9 +3533,9 @@
 
 		this.setup();
 	};
-	
+
 	var p = Cutscene.prototype = new Container();
-	
+
 	/**
 	*   Called from the constructor to complete setup and start loading.
 	*
@@ -3527,7 +3554,7 @@
 		this._taskMan.on(TaskManager.ALL_TASKS_DONE, this.onLoadComplete.bind(this));
 		this._taskMan.startAll();
 	};
-	
+
 	/**
 	*	Callback for when the config file is loaded.
 	*	@method onConfigLoaded
@@ -3537,33 +3564,36 @@
 	p.onConfigLoaded = function(result)
 	{
 		this.config = result.content;
-		
+
 		if(this._captionsObj)
 		{
 			this._captionsObj.setDictionary(this.config.captions);
 		}
-		
+
 		//parse config
 		this.framerate = this.config.settings.fps;
-		
+
 		//figure out what to load
 		var manifest = [];
 		//the javascript file
 		manifest.push({id:"clip", src:this.config.settings.clip});
 		//all the images
-		for(var key in this.config.images)
+		var url;
+		for (var key in this.config.images)
 		{
-			var url = this.pathReplaceTarg ? this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) : this.config.images[key];
+			url = this.pathReplaceTarg ?
+				this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) :
+				this.config.images[key];
 			manifest.push({id:key, src:url});
 		}
-		
+
 		var soundConfig = this.config.audio;
 		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
-		
+
 		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
 		this._taskMan.addTask(Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
 	};
-	
+
 	/**
 	*	Callback for when the audio has been preloaded.
 	*	@method onAudioLoaded
@@ -3573,7 +3603,7 @@
 	{
 		//do nothing
 	};
-	
+
 	/**
 	*	Callback for when all art assets have been loaded.
 	*	@method onArtLoaded
@@ -3585,9 +3615,11 @@
 		if(!window.images)
 			window.images = {};
 		var atlasData = {}, atlasImages = {}, id;
-		for(id in results)
+
+		var result, imgScale, key;
+		for (id in results)
 		{
-			var result = results[id].content;
+			result = results[id].content;
 			if(id.indexOf("atlasData_") === 0)//look for spritesheet data
 			{
 				atlasData[id.replace("atlasData_", "")] = result;
@@ -3602,8 +3634,8 @@
 				//if bitmaps need scaling, then do black magic to the object prototypes so the scaling is built in
 				if(this.imageScale != 1)
 				{
-					var imgScale = this.imageScale;
-					for(var key in this.config.images)
+					imgScale = this.imageScale;
+					for (key in this.config.images)
 					{
 						BitmapUtils.replaceWithScaledBitmap(key, imgScale);
 					}
@@ -3614,11 +3646,14 @@
 				images[id] = result;
 			}
 		}
-		for(id in atlasData)//if we loaded any spritesheets, load them up
+		for (id in atlasData)//if we loaded any spritesheets, load them up
 		{
 			if(atlasData[id] && atlasImages[id])
 			{
-				BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+				BitmapUtils.loadSpriteSheet(
+					atlasData[id].frames,
+					atlasImages[id],
+					this.imageScale);
 			}
 		}
 	};
@@ -3634,31 +3669,33 @@
 		this._taskMan.off();
 		this._taskMan.destroy();
 		this._taskMan = null;
-		
+
 		var clip = this._clip = new lib[this.config.settings.clipClass]();
 		//if the animation was for the older ComicCutscene, we should handle it gracefully
 		//so if the clip only has one frame or is a container, then we get the child of the clip as the animation
 		if(!this._clip.timeline || this._clip.timeline.duration == 1)
+		{
 			clip = this._clip.getChildAt(0);
+		}
 		clip.mouseEnabled = false;
 		clip.framerate = this.framerate;
 		clip.advanceDuringTicks = false;
 		clip.gotoAndPlay(0);//internally, movieclip has to be playing to change frames during tick() or advance().
 		clip.loop = false;
 		this.addChild(this._clip);
-		
+
 		this.resize(this.display.width, this.display.height);
 		Application.instance.on("resize", this.resize);
-		
+
 		this.isReady = true;
-		
+
 		if(this._loadCallback)
 		{
 			this._loadCallback();
 			this._loadCallback = null;
 		}
 	};
-	
+
 	/**
 	*	Listener for when the Application is resized.
 	*	@method resize
@@ -3669,7 +3706,7 @@
 	p.resize = function(width, height)
 	{
 		if(!this._clip) return;
-		
+
 		var scale = height / this.config.settings.designedHeight;
 		this._clip.scaleX = this._clip.scaleY = scale;
 		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
@@ -3682,7 +3719,7 @@
 			this.display.paused = true;
 		}
 	};
-	
+
 	/**
 	*	Starts playing the cutscene.
 	*	@method start
@@ -3704,7 +3741,7 @@
 		}
 		Application.instance.on("update", this.update);
 	};
-	
+
 	/**
 	*	Callback for when the audio has finished playing.
 	*	@method _audioCallback
@@ -3719,7 +3756,7 @@
 			this.stop(true);
 		}
 	};
-	
+
 	/**
 	*	Listener for frame updates.
 	*	@method update
@@ -3729,7 +3766,7 @@
 	p.update = function(elapsed)
 	{
 		if(this._animFinished) return;
-		
+
 		if(this._currentAudioInstance)
 		{
 			var pos = this._currentAudioInstance.position * 0.001;
@@ -3745,7 +3782,7 @@
 		{
 			this._timeElapsed += elapsed * 0.001;
 		}
-			
+
 		if(this._captionsObj)
 		{
 			this._captionsObj.seek(this._timeElapsed * 1000);
@@ -3782,7 +3819,7 @@
 			this._endCallback = null;
 		}
 	};
-	
+
 	/**
 	*	Destroys the cutscene.
 	*	@method destroy
@@ -3809,7 +3846,8 @@
 			this.parent.removeChild(this);
 		this.display = null;
 	};
-	
+
 	namespace("springroll").Cutscene = Cutscene;
 	namespace("springroll.createjs").Cutscene = Cutscene;
-}());}();
+}());
+}();

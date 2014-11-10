@@ -3,7 +3,7 @@
 *  @namespace springroll.createjs
 */
 (function(){
-	
+
 	var Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
@@ -50,21 +50,21 @@
 		*	@public
 		*/
 		this.isReady = false;
-		
+
 		/**
 		*	The framerate the cutscene should play at.
 		*	@property {int} framerate
 		*	@private
 		*/
 		this.framerate = 0;
-		
+
 		/**
 		*	Reference to the display we are drawing on
 		*	@property {Display} display
 		*	@public
 		*/
 		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
-		
+
 		/**
 		*	The source url for the config until it is loaded, then the config object.
 		*	@property {String|Object} config
@@ -167,9 +167,9 @@
 
 		this.setup();
 	};
-	
+
 	var p = Cutscene.prototype = new Container();
-	
+
 	/**
 	*   Called from the constructor to complete setup and start loading.
 	*
@@ -188,7 +188,7 @@
 		this._taskMan.on(TaskManager.ALL_TASKS_DONE, this.onLoadComplete.bind(this));
 		this._taskMan.startAll();
 	};
-	
+
 	/**
 	*	Callback for when the config file is loaded.
 	*	@method onConfigLoaded
@@ -198,33 +198,36 @@
 	p.onConfigLoaded = function(result)
 	{
 		this.config = result.content;
-		
+
 		if(this._captionsObj)
 		{
 			this._captionsObj.setDictionary(this.config.captions);
 		}
-		
+
 		//parse config
 		this.framerate = this.config.settings.fps;
-		
+
 		//figure out what to load
 		var manifest = [];
 		//the javascript file
 		manifest.push({id:"clip", src:this.config.settings.clip});
 		//all the images
-		for(var key in this.config.images)
+		var url;
+		for (var key in this.config.images)
 		{
-			var url = this.pathReplaceTarg ? this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) : this.config.images[key];
+			url = this.pathReplaceTarg ?
+				this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) :
+				this.config.images[key];
 			manifest.push({id:key, src:url});
 		}
-		
+
 		var soundConfig = this.config.audio;
 		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
-		
+
 		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
 		this._taskMan.addTask(Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
 	};
-	
+
 	/**
 	*	Callback for when the audio has been preloaded.
 	*	@method onAudioLoaded
@@ -234,7 +237,7 @@
 	{
 		//do nothing
 	};
-	
+
 	/**
 	*	Callback for when all art assets have been loaded.
 	*	@method onArtLoaded
@@ -246,9 +249,11 @@
 		if(!window.images)
 			window.images = {};
 		var atlasData = {}, atlasImages = {}, id;
-		for(id in results)
+
+		var result, imgScale, key;
+		for (id in results)
 		{
-			var result = results[id].content;
+			result = results[id].content;
 			if(id.indexOf("atlasData_") === 0)//look for spritesheet data
 			{
 				atlasData[id.replace("atlasData_", "")] = result;
@@ -263,8 +268,8 @@
 				//if bitmaps need scaling, then do black magic to the object prototypes so the scaling is built in
 				if(this.imageScale != 1)
 				{
-					var imgScale = this.imageScale;
-					for(var key in this.config.images)
+					imgScale = this.imageScale;
+					for (key in this.config.images)
 					{
 						BitmapUtils.replaceWithScaledBitmap(key, imgScale);
 					}
@@ -275,11 +280,14 @@
 				images[id] = result;
 			}
 		}
-		for(id in atlasData)//if we loaded any spritesheets, load them up
+		for (id in atlasData)//if we loaded any spritesheets, load them up
 		{
 			if(atlasData[id] && atlasImages[id])
 			{
-				BitmapUtils.loadSpriteSheet(atlasData[id].frames, atlasImages[id], this.imageScale);
+				BitmapUtils.loadSpriteSheet(
+					atlasData[id].frames,
+					atlasImages[id],
+					this.imageScale);
 			}
 		}
 	};
@@ -295,31 +303,33 @@
 		this._taskMan.off();
 		this._taskMan.destroy();
 		this._taskMan = null;
-		
+
 		var clip = this._clip = new lib[this.config.settings.clipClass]();
 		//if the animation was for the older ComicCutscene, we should handle it gracefully
 		//so if the clip only has one frame or is a container, then we get the child of the clip as the animation
 		if(!this._clip.timeline || this._clip.timeline.duration == 1)
+		{
 			clip = this._clip.getChildAt(0);
+		}
 		clip.mouseEnabled = false;
 		clip.framerate = this.framerate;
 		clip.advanceDuringTicks = false;
 		clip.gotoAndPlay(0);//internally, movieclip has to be playing to change frames during tick() or advance().
 		clip.loop = false;
 		this.addChild(this._clip);
-		
+
 		this.resize(this.display.width, this.display.height);
 		Application.instance.on("resize", this.resize);
-		
+
 		this.isReady = true;
-		
+
 		if(this._loadCallback)
 		{
 			this._loadCallback();
 			this._loadCallback = null;
 		}
 	};
-	
+
 	/**
 	*	Listener for when the Application is resized.
 	*	@method resize
@@ -330,7 +340,7 @@
 	p.resize = function(width, height)
 	{
 		if(!this._clip) return;
-		
+
 		var scale = height / this.config.settings.designedHeight;
 		this._clip.scaleX = this._clip.scaleY = scale;
 		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
@@ -343,7 +353,7 @@
 			this.display.paused = true;
 		}
 	};
-	
+
 	/**
 	*	Starts playing the cutscene.
 	*	@method start
@@ -365,7 +375,7 @@
 		}
 		Application.instance.on("update", this.update);
 	};
-	
+
 	/**
 	*	Callback for when the audio has finished playing.
 	*	@method _audioCallback
@@ -380,7 +390,7 @@
 			this.stop(true);
 		}
 	};
-	
+
 	/**
 	*	Listener for frame updates.
 	*	@method update
@@ -390,7 +400,7 @@
 	p.update = function(elapsed)
 	{
 		if(this._animFinished) return;
-		
+
 		if(this._currentAudioInstance)
 		{
 			var pos = this._currentAudioInstance.position * 0.001;
@@ -406,7 +416,7 @@
 		{
 			this._timeElapsed += elapsed * 0.001;
 		}
-			
+
 		if(this._captionsObj)
 		{
 			this._captionsObj.seek(this._timeElapsed * 1000);
@@ -443,7 +453,7 @@
 			this._endCallback = null;
 		}
 	};
-	
+
 	/**
 	*	Destroys the cutscene.
 	*	@method destroy
@@ -470,7 +480,7 @@
 			this.parent.removeChild(this);
 		this.display = null;
 	};
-	
+
 	namespace("springroll").Cutscene = Cutscene;
 	namespace("springroll.createjs").Cutscene = Cutscene;
 }());

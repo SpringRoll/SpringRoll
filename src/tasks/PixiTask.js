@@ -3,14 +3,14 @@
 *  @namespace springroll
 */
 (function(){
-	
+
 	var Loader,
 		Application,
 		AssetLoader,
 		Task = include('springroll.Task');
 
 	/**
-	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
+	*  PixiTask loads things through PIXI.AssetLoader for pixi.js.
 	*  This means textures, spritesheets, and bitmap fonts.
 	*  @class PixiTask
 	*  @constructor
@@ -30,21 +30,21 @@
 		}
 
 		Task.call(this, id, callback);
-		
+
 		/**
 		*	The optional callback to get updates (to show load progress)
 		*	@property {Function} updateCallback
 		*	@private
 		*/
 		this.updateCallback = updateCallback;
-		
+
 		/**
 		*	If loaded images should be drawn to a canvas and used from there.
 		*	@property {Boolean} generateCanvas
 		*	@private
 		*/
 		this.generateCanvas = generateCanvasTexture || false;
-		
+
 		/**
 		*	The AssetLoader used to load all files.
 		*	@property {PIXI.AssetLoader} _assetLoader
@@ -54,7 +54,7 @@
 
 		var cm = Loader.instance.cacheManager;
 
-		for(var i = 0; i < urls.length; ++i)
+		for(var i = 0, len = urls.length; i < len; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
 		}
@@ -66,11 +66,11 @@
 		*/
 		this.urls = urls;
 	};
-	
+
 	var s = Task.prototype;
 
 	var p = PixiTask.prototype = Object.create(s);
-	
+
 	/**
 	*   Start the load
 	*	@method start
@@ -95,12 +95,12 @@
 	{
 		this.updateCallback();
 	};
-	
+
 	/**
 	*	Cancel the task
 	*	@method cancel
-	*	@return If the loader removed it from the queue successfully - 
-	*			false means that there is a 'load finished' event inbound 
+	*	@return If the loader removed it from the queue successfully -
+	*			false means that there is a 'load finished' event inbound
 	*			for the task manager
 	*/
 	p.cancel = function()
@@ -109,7 +109,7 @@
 		this._assetLoader.onProgress = null;
 		return true;
 	};
-	
+
 	/**
 	*   Get a string representation of this task
 	*	@method toString
@@ -119,7 +119,7 @@
 	{
 		return "[PixiTask ID (" + this.id + "), URLs (" + this.urls.join(", ") + ")]";
 	};
-	
+
 	/**
 	*  Destroy this load task and don't use after this.
 	*  @method destroy
@@ -127,7 +127,7 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		s.destroy.call(this);
 
 		this.updateCallback = null;
@@ -139,8 +139,8 @@
 		}
 		this._assetLoader = null;
 	};
-	
+
 	// Assign to the namespace
 	namespace('springroll').PixiTask = PixiTask;
-	
+
 }());

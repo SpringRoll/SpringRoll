@@ -3,17 +3,17 @@
 *  @namespace springroll
 */
 (function(undefined){
-		
-	/** 
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	*
 	*  @class SavedData
 	*/
 	var SavedData = {},
-	
+
 	/** A constant to determine if we can use localStorage and sessionStorage */
 	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
-	
+
 	/** A constant for cookie fallback for SavedData.clear() */
 	ERASE_COOKIE = -1;
 
@@ -30,8 +30,8 @@
 			WEB_STORAGE_SUPPORT = false;
 		}
 	}
-	
-	/** 
+
+	/**
 	*  Remove a saved variable by name.
 	*  @method remove
 	*  @static
@@ -47,7 +47,7 @@
 		else
 			SavedData.write(name,"",ERASE_COOKIE);
 	};
-	
+
 	/**
 	*  Save a variable.
 	*  @method write
@@ -77,11 +77,11 @@
 			}
 			else
 				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
-				
+
 			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
 		}
 	};
-	
+
 	/**
 	*  Read the value of a saved variable
 	*  @method read
@@ -104,8 +104,8 @@
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
 				i = 0, c;
-				
-			for(i=0;i < ca.length;i++)
+
+			for(i=0, len=ca.length; i<len;i++)
 			{
 				c = ca[i];
 				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
@@ -114,8 +114,8 @@
 			return null;
 		}
 	};
-	
+
 	// Assign to the global space
 	namespace('springroll').SavedData = SavedData;
-	
+
 }());

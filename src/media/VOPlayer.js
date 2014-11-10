@@ -8,15 +8,15 @@
 	// in case these classes were included after in the load-order
 	var Sound = include('springroll.Sound'),
 		Captions,
-		Application; 
+		Application;
 
 	/**
 	*	A class for managing audio by only playing one at a time, playing a list, and even
 	*	managing captions (Captions library) at the same time.
-	* 
+	*
 	*	@class VOPlayer
 	*	@constructor
-	*	@param {Captions} [captions=null] If a Captions object should be created for use 
+	*	@param {Captions} [captions=null] If a Captions object should be created for use
 	*			or the captions object to use
 	*/
 	var VOPlayer = function(captions)
@@ -33,7 +33,7 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-		
+
 		/**
 		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
@@ -115,9 +115,9 @@
 		*/
 		this._timer = 0;
 	};
-	
+
 	var p = VOPlayer.prototype = {};
-	
+
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
 	*	@property {bool} playing
@@ -128,7 +128,7 @@
 	{
 		get: function(){ return this._currentSound !== null || this._timer > 0; }
 	});
-	
+
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
 	*	Alternatively, plays a list of audio files, timers, and/or functions.
@@ -142,7 +142,7 @@
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
-		
+
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
 		{
@@ -155,7 +155,7 @@
 		this._cancelledCallback = cancelledCallback;
 		this._onSoundFinished();
 	};
-	
+
 	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
 	*	@method _onSoundFinished
@@ -169,7 +169,7 @@
 			this._syncCaptionToSound,
 			this._updateSilence
 		]);
-		
+
 		//if we have captions and an audio instance, set the caption time to the length of the audio
 		if (this.captions && this._soundInstance)
 		{
@@ -177,7 +177,7 @@
 		}
 		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
-		
+
 		//if the list is complete
 		if (this._listCounter >= this.soundList.length)
 		{
@@ -194,7 +194,7 @@
 			this._currentSound = this.soundList[this._listCounter];
 			if (typeof this._currentSound == "string")
 			{
-				// If the sound doesn't exist, then we play it and let it fail, 
+				// If the sound doesn't exist, then we play it and let it fail,
 				// an error should be shown and playback will continue
 				this._playSound();
 			}
@@ -261,7 +261,7 @@
 		this.captions.seek(this._soundInstance.position);
 	};
 
-	/** 
+	/**
 	*	Plays the current audio item and begins preloading the next item.
 	*	@method _playSound
 	*	@private
@@ -297,9 +297,11 @@
 				Application.instance.on("update", this._syncCaptionToSound);
 			}
 		}
-		for(var i = this._listCounter + 1; i < this.soundList.length; ++i)
+		var len = this.soundList.length;
+		var next;
+		for (var i = this._listCounter + 1; i < len; ++i)
 		{
-			var next = this.soundList[i];
+			next = this.soundList[i];
 			if (typeof next == "string")
 			{
 				if (!s.isLoaded(next))
@@ -310,7 +312,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*	Stops playback of any audio/timer.
 	*	@method stop
@@ -373,7 +375,7 @@
 			this.captions = null;
 		}
 	};
-	
+
 	namespace('springroll').VOPlayer = VOPlayer;
 	namespace('springroll').Sound.VOPlayer = VOPlayer;
 

@@ -3,7 +3,7 @@
 *  @namespace springroll.createjs
 */
 (function() {
-		
+
 	var Tween,
 		DragData = include("springroll.createjs.DragData");
 
@@ -32,7 +32,7 @@
 		* @property {createjs.DisplayObject|Dictionary} draggedObj
 		*/
 		this.draggedObj = null;
-		
+
 		/**
 		* The radius in pixel to allow for dragging, or else does sticky click
 		* @public
@@ -40,7 +40,7 @@
 		* @default 20
 		*/
 		this.dragStartThreshold = 20;
-		
+
 		/**
 		* The position x, y of the mouse down on the stage. This is only used
 		* when multitouch is false - the DragData has it when multitouch is true.
@@ -64,7 +64,7 @@
 		* @default true
 		*/
 		this.allowStickyClick = true;
-		
+
 		/**
 		* Is the move touch based
 		* @public
@@ -73,7 +73,7 @@
 		* @default false
 		*/
 		this.isTouchMove = false;
-		
+
 		/**
 		* Is the drag being held on mouse down (not sticky clicking)
 		* @public
@@ -82,7 +82,7 @@
 		* @default false
 		*/
 		this.isHeldDrag = false;
-		
+
 		/**
 		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
 		* @public
@@ -110,14 +110,14 @@
 		* @default null
 		*/
 		this.snapSettings = null;
-		
+
 		/**
 		* Reference to the stage
 		* @private
 		* @property {createjsStage} _theStage
 		*/
 		this._theStage = stage;
-		
+
 		/**
 		* The offset from the dragged object's position that the initial mouse event
 		* was at. This is only used when multitouch is false - the DragData has
@@ -126,26 +126,26 @@
 		* @property {createjs.Point} _dragOffset
 		*/
 		this._dragOffset = null;
-		
+
 		/**
 		* Callback when we start dragging
 		* @private
 		* @property {Function} _dragStartCallback
 		*/
 		this._dragStartCallback = startCallback;
-		
+
 		/**
 		* Callback when we are done dragging
 		* @private
 		* @property {Function} _dragEndCallback
 		*/
 		this._dragEndCallback = endCallback;
-		
+
 		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
 		this._triggerStickyClick = this._triggerStickyClick.bind(this);
 		this._stopDrag = this._stopDrag.bind(this);
 		this._updateObjPosition = this._updateObjPosition.bind(this);
-		
+
 		/**
 		* The collection of draggable objects
 		* @private
@@ -159,7 +159,7 @@
 		* @property {createjs.Point} _helperPoint
 		*/
 		this._helperPoint = null;
-		
+
 		/**
 		* If this DragManager is using multitouch for dragging.
 		* @private
@@ -167,10 +167,10 @@
 		*/
 		this._multitouch = false;
 	};
-	
+
 	/** Reference to the drag manager */
 	var p = DragManager.prototype = {};
-	
+
 	/**
 	* If the DragManager allows multitouch dragging. Setting this stops any current
 	* drags.
@@ -184,7 +184,7 @@
 			{
 				if(this._multitouch)
 				{
-					for(var id in this.draggedObj)
+					for (var id in this.draggedObj)
 					{
 						this._stopDrag(id, true);
 					}
@@ -195,7 +195,7 @@
 			this._multitouch = !!value;
 			this.draggedObj = value ? {} : null;
 		}});
-	
+
 	/**
 	*  Manually starts dragging an object. If a mouse down event is not
 	*  supplied as the second argument, it defaults to a held drag, that ends as
@@ -212,7 +212,7 @@
 	{
 		this._objMouseDown(ev, object);
 	};
-	
+
 	/**
 	* Mouse down on an obmect
 	*  @method _objMouseDown
@@ -227,7 +227,7 @@
 		// until we release the currently dragged stuff
 		if((!this._multitouch && this.draggedObj) ||
 			(this._multitouch && !ev)) return;
-		
+
 		var dragData, mouseDownObjPos, mouseDownStagePos, dragOffset;
 		if(this._multitouch)
 		{
@@ -247,7 +247,7 @@
 		//stop any active tweens on the object, in case it is moving around or something
 		if(Tween)
 			Tween.removeTweens(obj);
-		
+
 		if(ev)
 		{
 			//get the mouse position in global space and convert it to parent space
@@ -260,7 +260,7 @@
 		//save the position of the object before dragging began, for easy restoration, if desired
 		mouseDownObjPos.x = obj.x;
 		mouseDownObjPos.y = obj.y;
-		
+
 		//if we don't get an event (manual call neglected to pass one) then default to a held drag
 		if(!ev)
 		{
@@ -290,7 +290,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	* Start the sticky click
 	* @method _triggerStickyClick
@@ -348,12 +348,12 @@
 		//duplicate listeners are ignored
 		stage.addEventListener("stagemousemove", this._updateObjPosition);
 		stage.addEventListener("stagemouseup", this._stopDrag);
-		
+
 		this._dragStartCallback(this._multitouch ?
 									this.draggedObj[ev.pointerID].obj :
 									this.draggedObj);
 	};
-	
+
 	/**
 	* Stops dragging the currently dragged object.
 	* @public
@@ -367,7 +367,7 @@
 		var id = null;
 		if(this._multitouch && obj)
 		{
-			for(var key in this.draggedObj)
+			for (var key in this.draggedObj)
 			{
 				if(this.draggedObj[key].obj == obj)
 				{
@@ -398,7 +398,7 @@
 				id = ev;
 				if(ev instanceof createjs.MouseEvent)
 					id = ev.pointerID;
-				
+
 				var data = this.draggedObj[id];
 				if(!data) return;
 				obj = data.obj;
@@ -411,7 +411,7 @@
 			else
 			{
 				//stop all drags
-				for(id in this.draggedObj)
+				for (id in this.draggedObj)
 				{
 					this._stopDrag(id, doCallback);
 				}
@@ -423,9 +423,9 @@
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
-		
+
 		if(!obj) return;
-		
+
 		obj.removeEventListener("pressmove", this._triggerHeldDrag);
 		obj.removeEventListener("pressup", this._triggerStickyClick);
 		var removeGlobalListeners = !this._multitouch;
@@ -433,7 +433,7 @@
 		{
 			//determine if this was the last drag
 			var found = false;
-			for(id in this.draggedObj)
+			for (id in this.draggedObj)
 			{
 				found = true;
 				break;
@@ -462,7 +462,7 @@
 	p._updateObjPosition = function(ev)
 	{
 		if(!this.isTouchMove && !this._theStage.mouseInBounds) return;
-		
+
 		var draggedObj, dragOffset;
 		if(this._multitouch)
 		{
@@ -522,10 +522,12 @@
 		var objY = localMousePos.y - dragOffset.y;
 		var leastDist = -1;
 		var closestPoint = null;
-		for(var i = points.length - 1; i >= 0; --i)
+
+		var p, distSq;
+		for (var i = points.length - 1; i >= 0; --i)
 		{
-			var p = points[i];
-			var distSq = distSquared(objX, objY, p.x, p.y);
+			p = points[i];
+			distSq = distSquared(objX, objY, p.x, p.y);
 			if(distSq <= minDistSq && (distSq < leastDist || leastDist == -1))
 			{
 				leastDist = distSq;
@@ -548,7 +550,7 @@
 		var yDiff = y1 - y2;
 		return xDiff * xDiff + yDiff * yDiff;
 	};
-	
+
 	/*
 	* Simple clamp function
 	*/
@@ -556,25 +558,25 @@
 	{
 		return (x < a ? a : (x > b ? b : x));
 	};
-	
+
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function()
 	{
 		this.addEventListener("mousedown", this._onMouseDownListener);
 		this.cursor = "pointer";
 	};
-	
+
 	var disableDrag = function()
 	{
 		this.removeEventListener("mousedown", this._onMouseDownListener);
 		this.cursor = null;
 	};
-	
+
 	var _onMouseDown = function(ev)
 	{
 		this._dragMan._objMouseDown(ev, this);
 	};
-	
+
 	/**
 	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
 	* objects to enable/disable them (they start out disabled). Properties added to objects:
@@ -606,7 +608,7 @@
 		obj._dragMan = this;
 		this._draggableObjects.push(obj);
 	};
-	
+
 	/**
 	* Removes properties and functions added by addObject().
 	* @public
@@ -625,7 +627,7 @@
 		if(index >= 0)
 			this._draggableObjects.splice(index, 1);
 	};
-	
+
 	/**
 	*  Destroy the manager
 	*  @public
@@ -642,9 +644,11 @@
 		this._triggerStickyClick = null;
 		this._stopDrag = null;
 		this._theStage = null;
-		for(var i = this._draggableObjects.length - 1; i >= 0; --i)
+
+		var obj;
+		for (var i = this._draggableObjects.length - 1; i >= 0; --i)
 		{
-			var obj = this._draggableObjects[i];
+			obj = this._draggableObjects[i];
 			obj.disableDrag();
 			delete obj.enableDrag;
 			delete obj.disableDrag;
@@ -655,7 +659,7 @@
 		this._draggableObjects = null;
 		this._helperPoint = null;
 	};
-	
+
 	/** Assign to the global namespace */
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.createjs').DragManager = DragManager;

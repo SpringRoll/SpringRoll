@@ -2,7 +2,7 @@
 *  @module Framework
 */
 (function(window, undefined){
-	
+
 	/**
 	*  A static closure to provide easy access to the console
 	*  without having errors if the console doesn't exist
@@ -12,7 +12,7 @@
 	*  @static
 	*/
 	var Debug = function(){};
-	
+
 	/**
 	*  If we have a console
 	*
@@ -20,7 +20,7 @@
 	*  @property {bool} hasConsole
 	*/
 	var hasConsole = (window.console !== undefined);
-	
+
 	/**
 	* The most general default debug level
 	* @static
@@ -28,7 +28,7 @@
 	* @property {int} GENERAL
 	*/
 	Debug.GENERAL = 0;
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -36,7 +36,7 @@
 	* @property {int} DEBUG
 	*/
 	Debug['DE'+'BUG'] = 1; // jshint ignore:line
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -44,7 +44,7 @@
 	* @property {int} INFO
 	*/
 	Debug.INFO = 2;
-	
+
 	/**
 	* Log level for warning messages
 	* @static
@@ -52,7 +52,7 @@
 	* @property {int} WARN
 	*/
 	Debug.WARN = 3;
-	
+
 	/**
 	* Log level for error messages
 	* @static
@@ -60,7 +60,7 @@
 	* @property {int} ERROR
 	*/
 	Debug.ERROR = 4;
-	
+
 	/**
 	* The minimum log level to show, by default it's set to
 	* show all levels of logging.
@@ -69,7 +69,7 @@
 	* @property {int} minLogLevel
 	*/
 	Debug.minLogLevel = Debug.GENERAL;
-	
+
 	/**
 	* Boolean to turn on or off the debugging
 	* @public
@@ -77,7 +77,7 @@
 	* @property {bool} enabled
 	*/
 	Debug.enabled = true;
-	
+
 	/**
 	*  The jQuery element to output debug messages to
 	*
@@ -94,7 +94,7 @@
 	*	@property {bool} _isJSConsole
 	*/
 	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as 'remote' and trys to overwrite 'console'
-	
+
 	/**
 	* Browser port for the websocket browsers tend to block ports
 	*  @static
@@ -103,7 +103,7 @@
 	*  @default 1025
 	*/
 	Debug._NET_PORT = 1025;
-	
+
 	/**
 	* If the web socket is connected
 	* @static
@@ -112,7 +112,7 @@
 	* @property {bool} _isConnected
 	*/
 	Debug._isConnected = false;
-	
+
 	/**
 	* The socket connection
 	* @static
@@ -120,7 +120,7 @@
 	* @property {WebSocket} _socket
 	*/
 	Debug._socket = null;
-	
+
 	/**
 	* The current message object being sent to the `WebSocket`
 	* @static
@@ -128,7 +128,7 @@
 	* @property {object} _messageObj
 	*/
 	Debug._messageObj = null;
-	
+
 	/**
 	* The `WebSocket` message queue
 	* @static
@@ -136,7 +136,7 @@
 	* @property {Array} _messageQueue
 	*/
 	Debug._messageQueue = null;
-	
+
 	/**
 	*  Connect to the `WebSocket`
 	*  @public
@@ -148,9 +148,9 @@
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!("WebSocket" in window) && !("MozWebSocket" in window)) return false;
-		
+
 		window.WebSocket = WebSocket || MozWebSocket;
-		
+
 		try
 		{
 			var s = Debug._socket = new WebSocket("ws://" + host + ":" + Debug._NET_PORT);
@@ -167,7 +167,7 @@
 		}
 		return true;
 	};
-	
+
 	/**
 	*  Disconnect from the `WebSocket`
 	*  @public
@@ -182,7 +182,7 @@
 			onClose();
 		}
 	};
-	
+
 	/**
 	*  Callback when the `WebSocket` is connected
 	*  @private
@@ -193,20 +193,20 @@
 	{
 		// set up a function to handle all messages
 		window.onerror = globalErrorHandler;
-		
+
 		// create and send a new session message
 		Debug._messageObj = {level:"session", message:""};
 		Debug._socket.send(JSON.stringify(Debug._messageObj));
-		
+
 		// send any queued logs
-		for(var i = 0; i < Debug._messageQueue.length; ++i)
+		for (var i = 0, len = Debug._messageQueue.length; i < len; ++i)
 		{
 			Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
 		}
 		// get rid of this, since we are connected
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Global window error handler, used for remote connections.
 	*  @static
@@ -228,7 +228,7 @@
 		Debug.remoteLog(logMessage, "ERROR");
 		return false;
 	};
-	
+
 	/**
 	*  Callback for when the websocket is closed
 	*  @private
@@ -248,7 +248,7 @@
 		Debug._messageObj = null;
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Sent to the output
 	*  @private
@@ -264,7 +264,7 @@
 			Debug.output.append("<div class=\""+level+"\">" + args + "</div>");
 		}
 	}
-	
+
 	/**
 	*  Send a remote log message using the socket connection
 	*  @public
@@ -295,14 +295,14 @@
 			depth = 1;
 		var spacing = "";
 		var endSpacing = "";
-		for(var i = 0; i < depth * 4; ++i)
+		for (var i = 0, len = depth * 4; i < len; ++i)
 		{
 			spacing += "&nbsp;";
 			if(i < (depth - 1) * 4)
 				endSpacing += "&nbsp;";
 		}
 		var rtn = "{<br />";
-		for(var key in obj)
+		for (var key in obj)
 		{
 			//avoid doing properties that are known to be DOM objects, because those have circular references
 			if(key == "document" || key == "window" || key == "ownerDocument" || key == "view")
@@ -346,7 +346,7 @@
 		}
 		return input;
 	}
-	
+
 	/**
 	*  Log something in the console or remote
 	*  @static
@@ -367,7 +367,7 @@
 			output("general", params);
 		}
 	};
-	
+
 	/**
 	*  Debug something in the console or remote
 	*  @static
@@ -388,7 +388,7 @@
 			output("debug", params);
 		}
 	};
-	
+
 	/**
 	*  Info something in the console or remote
 	*  @static
@@ -409,7 +409,7 @@
 			output("info", params);
 		}
 	};
-	
+
 	/**
 	*  Warn something in the console or remote
 	*  @static
@@ -430,7 +430,7 @@
 			output("warn", params);
 		}
 	};
-	
+
 	/**
 	*  Error something in the console or remote
 	*  @static
@@ -451,7 +451,7 @@
 			output("error", params);
 		}
 	};
-	
+
 	/**
 	*  Assert that something is true
 	*  @static
@@ -468,7 +468,7 @@
 			if (!truth) output("error", params);
 		}
 	};
-	
+
 	/**
 	*  Method to describe an object in the console
 	*  @static
@@ -483,7 +483,7 @@
 			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	/**
 	*  Method to clear the console
 	*
@@ -499,7 +499,7 @@
 			if (Debug.output) Debug.output.html("");
 		}
 	};
-	
+
 	/**
 	*  Generate a stack track in the output
 	*  @static
@@ -514,9 +514,9 @@
 			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	// Make the debug class globally accessible
 	// If the console doesn't exist, use the dummy to prevent errors
 	window.Debug = Debug;
-	
+
 }(window));

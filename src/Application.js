@@ -23,7 +23,7 @@
 	*  @param {Object} [options] The options for creating the application
 	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
 	*  @param {Boolean} [options.raf=true] Use request animation frame
-	*  @param {String|int} [options.version] The current version number for your application. This 
+	*  @param {String|int} [options.version] The current version number for your application. This
 	*       number will automatically be appended to all file requests. For instance, if the version
 	*       is "0.0.1" all file requests will be appended with "?v=0.0.1"
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
@@ -131,21 +131,21 @@
 	*  @property {DOMObject} _framerate
 	*/
 	var _framerate = null,
-	
+
 	/**
 	*  The number of ms since the last frame update
 	*  @private
 	*  @property {int} _lastFrameTime
 	*/
 	_lastFrameTime = 0,
-	
+
 	/**
 	*  The last time since the last fps update
 	*  @private
 	*  @property {int} _lastFPSUpdateTime
 	*/
 	_lastFPSUpdateTime = 0,
-	
+
 	/**
 	*  The number of frames since the last fps update
 	*  @private
@@ -357,12 +357,12 @@
 	{
 		//grab the query string parameters if we should be doing so
 		var query = !!this.options.parseQueryString ? parseQueryStringParams() : {};
-		
+
 		// Assemble all of the options, the last takes precedence
 		this.options = Object.merge({}, _defaultOptions, this.options, query);
 
 		// Call any global libraries to initialize
-		for(var i = 0; i < Application._globalInit.length; ++i)
+		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
 		{
 			Application._globalInit[i]();
 		}
@@ -391,7 +391,7 @@
 		// Turn on debugging
 		if (this.options.debug !== undefined)
 			Debug.enabled = this.options.debug === true || this.options.debug === "true";
-		
+
 		if (this.options.minLogLevel !== undefined)
 			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
 
@@ -412,7 +412,7 @@
 			}
 			this.on('update', Tween.tick);
 		}
-		
+
 		//set up the page visibility listener
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
@@ -478,13 +478,15 @@
 		var output = {};
 		var href = window.location.search;
 		if(!href)//empty string is false
+		{
 			return output;
+		}
 		var vars = href.substr(href.indexOf("?")+1);
 		var pound = vars.indexOf('#');
 		vars = pound < 0 ? vars : vars.substring(0, pound);
 		var splitFlashVars = vars.split("&");
 		var myVar;
-		for (var i = 0; i < splitFlashVars.length; i++)
+		for (var i = 0, len = splitFlashVars.length; i < len; i++)
 		{
 			myVar = splitFlashVars[i].split("=");
 			if (DEBUG)
@@ -594,13 +596,13 @@
 		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
 
 		this.calculateDisplaySize(_resizeHelper);
-		
+
 		//round down, as canvases require integer sizes
 		_resizeHelper.width |= 0;
 		_resizeHelper.height |= 0;
 
 		//resize the displays
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
 		}
@@ -701,7 +703,7 @@
 	p.getDisplays = function(each)
 	{
 		var output = [];
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			output.push(_displays[key]);
 			if (typeof each === "function")
@@ -776,7 +778,7 @@
 
 		var now = TimeUtils.now();
 		var dTime = now - _lastFrameTime;
-		
+
 		// Only update the framerate every second
 		if(_framerate)
 		{
@@ -796,7 +798,7 @@
 		this.trigger(UPDATE, dTime);
 
 		//then update all displays
-		for(var key in _displays)
+		for (var key in _displays)
 		{
 			_displays[key].render(dTime);
 		}
@@ -817,14 +819,14 @@
 		this._readyToInit = false;
 		this.paused = true;
 		this.trigger(DESTROY);
-		
-		for(var key in _displays)
+
+		for (var key in _displays)
 		{
 			_displays[key].destroy();
 		}
 		_displays = null;
 
-		for(var i = 0; i < Application._globalDestroy.length; ++i)
+		for (var i = 0, len = Application._globalDestroy.length; i < len; ++i)
 		{
 			Application._globalDestroy[i]();
 		}

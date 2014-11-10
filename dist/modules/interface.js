@@ -518,7 +518,7 @@
 *  @namespace springroll
 */
 (function(undefined) {
-	
+
 	// Class imports
 	var UIElementSettings = include('springroll.UIElementSettings'),
 		UIElement = include('springroll.UIElement'),
@@ -613,7 +613,7 @@
 		*   @property {boolean} _enabled
 		*   @private
 		*/
-		
+
 		// Add a collection of items to the UIScaler
 		if (items)
 		{
@@ -623,10 +623,10 @@
 		this._resize = this._resize.bind(this);
 		this.enabled = enabled !== undefined ? !!enabled : true;
 	};
-	
+
 	// Reference to the prototype
 	var p = UIScaler.prototype = {};
-	
+
 	/**
 	*  Vertically align to the top
 	*  @property {String} ALIGN_TOP
@@ -743,7 +743,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	*  Register a dictionary of items to the UIScaler to control.
 	*  @method addItems
@@ -756,7 +756,7 @@
 	{
 		// Temp variables
 		var settings, name;
-		
+
 		// Loop through all the items and register
 		// each dpending on the settings
 		for (name in items)
@@ -842,7 +842,7 @@
 		{
 			throw "Item align '" + align + "' is invalid for " + item;
 		}
-		
+
 		// Do the intial positioning of the item
 		Positioner.initItem(item, settings, this._adapter);
 
@@ -851,14 +851,14 @@
 
 		// Create the item settings
 		var element = new UIElementSettings();
-		
+
 		element.vertAlign = align[0];
 		element.horiAlign = align[1];
 		element.titleSafe = !!settings.titleSafe;
 		element.maxScale = settings.maxScale || NaN;
 		element.minScale = settings.minScale || NaN;
 		element.centeredHorizontally = !!settings.centeredHorizontally;
-				
+
 		this._items.push(new UIElement(item, element, this._designedSize, this._adapter));
 
 		return this;
@@ -890,7 +890,7 @@
 	*/
 	p.removeBackground = function(bitmap)
 	{
-		for (var i = 0; i < this._backgrounds.length; i++)
+		for (var i = 0, len = this._backgrounds.length; i < len; i++)
 		{
 			if (bitmap === this._backgrounds[i])
 			{
@@ -900,7 +900,7 @@
 		}
 		return this;
 	};
-	
+
 	/**
 	*  Scale the UI items that have been registered to the current screen
 	*  @method _resize
@@ -916,7 +916,7 @@
 
 		if (len > 0)
 		{
-			for(i = 0; i < len; ++i)
+			for (i = 0; i < len; ++i)
 			{
 				this._items[i].resize(w, h);
 			}
@@ -936,7 +936,7 @@
 
 				//scale the background
 				this._adapter.setScale(bitmap, scale);
-				
+
 				//center the background
 				this._adapter.setPosition(
 					bitmap,
@@ -946,7 +946,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*  Destroy the scaler object
 	*  @method destroy
@@ -957,20 +957,21 @@
 
 		if (this._items.length > 0)
 		{
-			for(var i = 0, len = this._items.length; i < len; ++i)
+			for (var i = 0, len = this._items.length; i < len; ++i)
 			{
 				this._items[i].destroy();
 			}
 		}
-		
+
 		this._backgrounds = null;
 		this._adapter = null;
 		this._parent = null;
 		this._designedSize = null;
 		this._items = null;
 	};
-	
+
 	// Assign to namespace
 	namespace('springroll').UIScaler = UIScaler;
 
-}());}();
+}());
+}();

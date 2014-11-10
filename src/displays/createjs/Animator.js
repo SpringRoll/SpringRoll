@@ -8,7 +8,7 @@
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
 		Sound;
-	
+
 	/**
 	*   Animator is a static class designed to provided
 	*   base animation functionality, using frame labels of MovieClips
@@ -17,7 +17,7 @@
 	*   @static
 	*/
 	var Animator = {};
-	
+
 	/**
 	* If we fire debug statements
 	*
@@ -34,7 +34,7 @@
 	*  @static
 	*/
 	Animator.captions = null;
-	
+
 	/**
 	* The collection of timelines
 	*
@@ -42,7 +42,7 @@
 	* @private
 	*/
 	var _timelines = null;
-	
+
 	/**
 	* A collection of timelines for removal - kept out here so it doesn't need to be
 	* reallocated every frame
@@ -51,14 +51,14 @@
 	* @private
 	*/
 	var _removedTimelines = null;
-	
+
 	/** Look up a timeline by the instance
 	*
 	* @property {Dictionary} _timelinesMap
 	* @private
 	*/
 	var _timelinesMap = null;
-	
+
 	/**
 	* If the Animator is paused
 	*
@@ -75,7 +75,7 @@
 	* @private
 	*/
 	var _optionsHelper = {};
-	
+
 	/**
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
 	*	if the Animator data was cleaned up but was needed again later.
@@ -92,7 +92,7 @@
 
 		Sound = include('springroll.Sound', false);
 	};
-	
+
 	/**
 	*	Stops all animations and cleans up the variables used.
 	*
@@ -112,7 +112,7 @@
 
 	Application.registerInit(Animator.init);
 	Application.registerDestroy(Animator.destroy);
-	
+
 	/**
 	*   Play an animation for a frame label event
 	*
@@ -163,30 +163,30 @@
 
 		if (!_timelines)
 			Animator.init();
-		
+
 		if (_timelinesMap[instance.id] !== undefined)
 		{
 			Animator.stop(instance);
 		}
 		var timeline = Animator._makeTimeline(instance, event, onComplete, onCompleteParams, speed,
 												soundData, onCancelled);
-		
+
 		//if the animation is present and complete
 		if (timeline.firstFrame > -1 && timeline.lastFrame > -1)
 		{
 			timeline.time = startTime == -1 ? Math.random() * timeline.duration : startTime;
-			
+
 			instance.elapsedTime = timeline.startTime + timeline.time;
 			//have it set its 'paused' variable to false
 			instance.play();
 			//update the movieclip to make sure it is redrawn correctly at the next opportunity
 			instance._tick();
-			
+
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
 			// updating
 			if (!Animator._hasTimelines()) Animator._startUpdate();
-			
+
 			_timelines.push(timeline);
 			_timelinesMap[instance.id] = timeline;
 
@@ -195,22 +195,22 @@
 			{
 				Sound.instance.preloadSound(timeline.soundAlias);
 			}
-			
+
 			return timeline;
 		}
-		
+
 		if (DEBUG)
 		{
 			Debug.log("No event " + event + " was found, or it lacks an end, on this MovieClip " + instance);
 		}
-		
+
 		if (onComplete)
 		{
 			onComplete.apply(null, onCompleteParams);
 		}
 		return null;
 	};
-	
+
 	/**
 	*   Creates the AnimatorTimeline for a given animation
 	*
@@ -270,14 +270,16 @@
 			}
 			timeline.useCaptions = Animator.captions && Animator.captions.hasCaption(timeline.soundAlias);
 		}
-		
+
 		//go through the list of labels (they are sorted by frame number)
 		var labels = instance.getLabels();
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
+
+		var l;
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
-			var l = labels[i];
+			l = labels[i];
 			if (l.label == event)
 			{
 				timeline.firstFrame = l.position;
@@ -298,7 +300,7 @@
 		timeline.length = timeline.lastFrame - timeline.firstFrame;
 		timeline.startTime = timeline.firstFrame / fps;
 		timeline.duration = timeline.length / fps;
-		
+
 		return timeline;
 	};
 
@@ -351,9 +353,10 @@
 		var startFrame = -1, stopFrame = -1;
 		var stopLabel = event + "_stop";
 		var loopLabel = event + "_loop";
+		var l;
 		for(var i = 0, len = labels.length; i < len; ++i)
 		{
-			var l = labels[i];
+			l = labels[i];
 			if (l.label == event)
 			{
 				startFrame = l.position;
@@ -384,7 +387,7 @@
 		if(Array.isArray(event))
 		{
 			var duration = 0;
-			for(var j = 0; j < event.length; j++)
+			for (var j = 0, eventLength = event.length; j < eventLength; j++)
 			{
 				duration += Animator.getDuration(instance, event[j]);
 			}
@@ -396,9 +399,10 @@
 			var startFrame = -1, stopFrame = -1;
 			var stopLabel = event + "_stop";
 			var loopLabel = event + "_loop";
-			for(var i = 0, len = labels.length; i < len; ++i)
+			var l;
+			for (var i = 0, labelsLength = labels.length; i < labelsLength; ++i)
 			{
-				var l = labels[i];
+				l = labels[i];
 				if (l.label == event)
 				{
 					startFrame = l.position;
@@ -415,7 +419,7 @@
 				return 0;
 		}
 	};
-	
+
 	/**
 	*   Stop the animation.
 	*
@@ -426,7 +430,7 @@
 	Animator.stop = function(instance)
 	{
 		if (!_timelines) return;
-		
+
 		if (!_timelinesMap[instance.id])
 		{
 			if (DEBUG)
@@ -438,7 +442,7 @@
 		var timeline = _timelinesMap[instance.id];
 		Animator._remove(timeline, true);
 	};
-	
+
 	/**
 	*   Stop all current Animator animations.
 	*   This is good for cleaning up all animation, as it doesn't do a callback on any of them.
@@ -451,21 +455,21 @@
 	Animator.stopAll = function(container)
 	{
 		if (!Animator._hasTimelines()) return;
-		
+
 		var timeline;
 		var removedTimelines = _timelines.slice();
 
-		for(var i=0; i < removedTimelines.length; i++)
+		for (var i=0, len = removedTimelines.length; i < len; i++)
 		{
 			timeline = removedTimelines[i];
-			
+
 			if (!container || container.contains(timeline.instance))
 			{
 				Animator._remove(timeline, true);
 			}
 		}
 	};
-	
+
 	/**
 	*   Remove a timeline from the stack
 	*
@@ -482,15 +486,15 @@
 		{
 			_removedTimelines.splice(index, 1);
 		}
-		
+
 		index = _timelines.indexOf(timeline);
-		
+
 		// We can't remove an animation twice
 		if (index < 0) return;
-		
+
 		var onComplete = timeline.onComplete, onCompleteParams = timeline.onCompleteParams,
 			onCancelled = timeline.onCancelled;
-		
+
 		// Stop the animation
 		timeline.instance.stop();
 
@@ -498,7 +502,7 @@
 		//be allowed to continue
 		if (doCancelled && timeline.soundInst)
 			timeline.soundInst.stop();//stop the sound from playing
-		
+
 		// Remove from the stack
 		_timelines.splice(index, 1);
 		delete _timelinesMap[timeline.instance.id];
@@ -508,16 +512,16 @@
 		{
 			Animator.captions.stop();
 		}
-		
+
 		// Clear the timeline
 		timeline.instance = null;
 		timeline.event = null;
 		timeline.onComplete = null;
 		timeline.onCompleteParams = null;
-		
+
 		// Check if we should stop the update
 		if (!Animator._hasTimelines()) Animator._stopUpdate();
-		
+
 		//call the appropriate callback
 		if(doCancelled)
 		{
@@ -529,7 +533,7 @@
 			onComplete.apply(null, onCompleteParams);
 		}
 	};
-	
+
 	/**
 	*   Pause all tweens which have been excuted by Animator.play()
 	*
@@ -539,18 +543,18 @@
 	Animator.pause = function()
 	{
 		if (!_timelines) return;
-		
+
 		if (_paused) return;
-		
+
 		_paused = true;
-		
-		for(var i = 0; i < _timelines.length; i++)
+
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			_timelines[i].paused = true;
 		}
 		Animator._stopUpdate();
 	};
-	
+
 	/**
 	*   Resumes all tweens executed by the Animator.play()
 	*
@@ -560,19 +564,19 @@
 	Animator.resume = function()
 	{
 		if (!_timelines) return;
-		
+
 		if (!_paused) return;
-		
+
 		_paused = false;
-		
+
 		// Resume playing of all the instances
-		for(var i = 0; i < _timelines.length; i++)
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			_timelines[i].paused = false;
 		}
 		if (Animator._hasTimelines()) Animator._startUpdate();
 	};
-	
+
 	/**
 	*   Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
 	*
@@ -584,8 +588,8 @@
 	Animator.pauseInGroup = function(paused, container)
 	{
 		if (!Animator._hasTimelines() || !container) return;
-		
-		for(var i=0; i< _timelines.length; i++)
+
+		for (var i = 0, len = _timelines.length; i < len; i++)
 		{
 			if (container.contains(_timelines[i].instance))
 			{
@@ -593,7 +597,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*   Get the timeline object for an instance
 	*
@@ -605,14 +609,14 @@
 	Animator.getTimeline = function(instance)
 	{
 		if (!Animator._hasTimelines()) return null;
-		
+
 		if (_timelinesMap[instance.id] !== undefined)
 		{
 			return _timelinesMap[instance.id];
 		}
 		return null;
 	};
-	
+
 	/**
 	*  Whether the Animator class is currently paused.
 	*
@@ -623,7 +627,7 @@
 	{
 		return _paused;
 	};
-	
+
 	/**
 	*  Start the updating
 	*
@@ -636,7 +640,7 @@
 		if (Application.instance)
 			Application.instance.on("update", Animator._update);
 	};
-	
+
 	/**
 	*   Stop the updating
 	*
@@ -649,7 +653,7 @@
 		if (Application.instance)
 			Application.instance.off("update", Animator._update);
 	};
-	
+
 	/**
 	*   The update every frame
 	*
@@ -661,26 +665,26 @@
 	Animator._update = function(elapsed)
 	{
 		if (!_timelines) return;
-		
+
 		var delta = elapsed * 0.001;//ms -> sec
-		
-		var t;
+
+		var t, instance, audioPos;
 		for(var i = _timelines.length - 1; i >= 0; --i)
 		{
 			t = _timelines[i];
-			var instance = t.instance;
+			instance = t.instance;
 			if (t.paused) continue;
-			
+
 			if (t.soundInst)
 			{
 				if (t.soundInst.isValid)
 				{
 					//convert sound position ms -> sec
-					var audioPos = t.soundInst.position * 0.001;
+					audioPos = t.soundInst.position * 0.001;
 					if (audioPos < 0)
 						audioPos = 0;
 					t.time = t.soundStart + audioPos;
-					
+
 					if (t.useCaptions)
 					{
 						Animator.captions.seek(t.soundInst.position);
@@ -745,7 +749,7 @@
 			Animator._remove(t);
 		}
 	};
-	
+
 	/**
 	*  The sound has been started
 	*  @method onSoundStarted
@@ -758,7 +762,7 @@
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
-	
+
 	/**
 	*  The sound is done
 	*  @method onSoundDone
@@ -771,7 +775,7 @@
 			timeline.time = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
-	
+
 	/**
 	*  Check to see if we have timeline
 	*
@@ -785,7 +789,7 @@
 		if (!_timelines) return false;
 		return _timelines.length > 0;
 	};
-	
+
 	/**
 	*  String representation of this class
 	*
@@ -797,7 +801,7 @@
 	{
 		return "[springroll.createjs.Animator]";
 	};
-	
+
 	// Assign to the global namespace
 	namespace('springroll').Animator = Animator;
 	namespace('springroll.createjs').Animator = Animator;
