@@ -3980,7 +3980,7 @@
                         },
                         {
                             "name": "languages",
-                            "description": "A dictionary of all supported languages, indexed by locale\n                                 name (dialects allowed). You may want other data in each\n                                 entry, like the language name in that language, or number\n                                 separator.",
+                            "description": "A dictionary of all supported languages, indexed by locale\n                                 id (dialects allowed). You may want other data in each\n                                 entry, like the language name in that language, or number\n                                 separator. Locale ids should be lower case.",
                             "type": "Object"
                         },
                         {
