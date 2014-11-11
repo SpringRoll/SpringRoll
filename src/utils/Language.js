@@ -238,9 +238,10 @@
 	p.destroy = function()
 	{
 		s.destroy.call(this);
-		if(CacheManager.instance)
-			CacheManager.instance.unregisterURLFilter(this.modifyUrl);
+		if(Loader.instance)
+			Loader.instance.cacheManager.unregisterURLFilter(this.modifyUrl);
 		this.modifyUrl = this.languages = null;
+		_instance = null;
 	};
 	
 	// Assign to namespace
