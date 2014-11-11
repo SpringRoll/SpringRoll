@@ -714,7 +714,7 @@
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
             "modules": {
-                "Language": 1
+                "Translate": 1
             },
             "classes": {
                 "springroll.Language": 1
@@ -1012,8 +1012,8 @@
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/ui/UIScaler.js",
             "line": 13
         },
-        "Language": {
-            "name": "Language",
+        "Translate": {
+            "name": "Translate",
             "submodules": {},
             "classes": {
                 "springroll.Language": 1
@@ -3960,7 +3960,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
             "line": 10,
@@ -17712,7 +17712,7 @@
             "tagname": "",
             "default": "\"%LANG%\"",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17725,7 +17725,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17738,7 +17738,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17751,7 +17751,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17764,7 +17764,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17781,7 +17781,7 @@
                 }
             ],
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17795,7 +17795,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17809,7 +17809,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17823,7 +17823,7 @@
                 "type": "Array"
             },
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17837,7 +17837,7 @@
                 "type": "Array"
             },
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17854,7 +17854,7 @@
                 }
             ],
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17871,7 +17871,7 @@
                 }
             ],
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17892,7 +17892,7 @@
                 "type": "String"
             },
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17909,7 +17909,7 @@
                 }
             ],
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -17919,7 +17919,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.Language",
-            "module": "Language",
+            "module": "Translate",
             "namespace": "springroll"
         },
         {
