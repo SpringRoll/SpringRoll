@@ -11,7 +11,7 @@ test('namespace & include', function(assert){
 	assert.strictEqual(MyClass, my.namespace.MyClass, "namespace() works");
 	assert.strictEqual(MyClass, includedMyClass, "include() works");
 
-	delete my;
+	delete window.my;
 });
 
 test('Application', function(assert){
