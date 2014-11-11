@@ -4,7 +4,8 @@
 */
 (function(window, undefined){
 	
-	var CacheManager = springroll.CacheManager;
+	var CacheManager = springroll.CacheManager,
+		EventDispatcher = springroll.EventDispatcher;
 	
 	/**
 	*  Keeps track of the user locale, by auto-detecting the browser language, allowing a user
