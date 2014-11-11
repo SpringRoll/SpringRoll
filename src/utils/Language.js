@@ -1,5 +1,5 @@
 /**
-*  @module Language
+*  @module Translate
 *  @namespace springroll
 */
 (function(window, undefined){
