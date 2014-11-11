@@ -271,6 +271,12 @@
 		}
 	});
 	
+	/**
+	 * Sets the dicitonary for the captions used by player. If a Captions object
+	 * did not exist previously, then it creates one, and sets it up on all Animators.
+	 * @method setCaptionsDictionary
+	 * @param {Object} captionData The captions data to give to the Captions object
+	 */
 	p.setCaptionsDictionary = function(captionData)
 	{
 		if(!this.player.captions)
