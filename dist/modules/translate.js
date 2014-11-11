@@ -19,9 +19,9 @@
 	*  @param {String} config.default The default language name to use if asked for one that is
 	*                                 not present.
 	*  @param {Object} config.languages A dictionary of all supported languages, indexed by locale
-	*                                   name (dialects allowed). You may want other data in each
+	*                                   id (dialects allowed). You may want other data in each
 	*                                   entry, like the language name in that language, or number
-	*                                   separator.
+	*                                   separator. Locale ids should be lower case.
 	*  @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
 	*                                            language.
 	*/
@@ -171,7 +171,7 @@
 		var chosen;
 		for(var i = 0, len = languageList.length; i < len; ++i)
 		{
-			var language = languageList[i];
+			var language = languageList[i].toLowerCase();
 			if(this.languages[language])
 			{
 				//check to see if we have the full language and dialect (if included)
@@ -181,7 +181,7 @@
 			else if(language.indexOf("-") >= 0)
 			{
 				//check to see if we have the language without the dialect
-				language = language.split("-")[0];
+				language = language.split("-")[0].toLowerCase();
 				if(this.languages[language])
 				{
 					chosen = language;
