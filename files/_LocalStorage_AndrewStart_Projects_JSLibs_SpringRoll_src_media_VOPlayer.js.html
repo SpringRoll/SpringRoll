@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -259,15 +259,15 @@
 	// in case these classes were included after in the load-order
 	var Sound = include(&#x27;springroll.Sound&#x27;),
 		Captions,
-		Application; 
+		Application;
 
 	/**
 	*	A class for managing audio by only playing one at a time, playing a list, and even
 	*	managing captions (Captions library) at the same time.
-	* 
+	*
 	*	@class VOPlayer
 	*	@constructor
-	*	@param {Captions} [captions=null] If a Captions object should be created for use 
+	*	@param {Captions} [captions=null] If a Captions object should be created for use
 	*			or the captions object to use
 	*/
 	var VOPlayer = function(captions)
@@ -284,7 +284,7 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-		
+
 		/**
 		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
 		*	dictionary config file and a reference to a text field.
@@ -366,9 +366,9 @@
 		*/
 		this._timer = 0;
 	};
-	
+
 	var p = VOPlayer.prototype = {};
-	
+
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
 	*	@property {bool} playing
@@ -379,7 +379,7 @@
 	{
 		get: function(){ return this._currentSound !== null || this._timer &gt; 0; }
 	});
-	
+
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
 	*	Alternatively, plays a list of audio files, timers, and/or functions.
@@ -393,7 +393,7 @@
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
 		this.stop();
-		
+
 		this._listCounter = -1;
 		if (typeof idOrList == &quot;string&quot;)
 		{
@@ -406,7 +406,7 @@
 		this._cancelledCallback = cancelledCallback;
 		this._onSoundFinished();
 	};
-	
+
 	/**
 	*	Callback for when audio/timer is finished to advance to the next item in the list.
 	*	@method _onSoundFinished
@@ -420,7 +420,7 @@
 			this._syncCaptionToSound,
 			this._updateSilence
 		]);
-		
+
 		//if we have captions and an audio instance, set the caption time to the length of the audio
 		if (this.captions &amp;&amp; this._soundInstance)
 		{
@@ -428,7 +428,7 @@
 		}
 		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
-		
+
 		//if the list is complete
 		if (this._listCounter &gt;= this.soundList.length)
 		{
@@ -445,7 +445,7 @@
 			this._currentSound = this.soundList[this._listCounter];
 			if (typeof this._currentSound == &quot;string&quot;)
 			{
-				// If the sound doesn&#x27;t exist, then we play it and let it fail, 
+				// If the sound doesn&#x27;t exist, then we play it and let it fail,
 				// an error should be shown and playback will continue
 				this._playSound();
 			}
@@ -512,7 +512,7 @@
 		this.captions.seek(this._soundInstance.position);
 	};
 
-	/** 
+	/**
 	*	Plays the current audio item and begins preloading the next item.
 	*	@method _playSound
 	*	@private
@@ -548,9 +548,11 @@
 				Application.instance.on(&quot;update&quot;, this._syncCaptionToSound);
 			}
 		}
-		for(var i = this._listCounter + 1; i &lt; this.soundList.length; ++i)
+		var len = this.soundList.length;
+		var next;
+		for (var i = this._listCounter + 1; i &lt; len; ++i)
 		{
-			var next = this.soundList[i];
+			next = this.soundList[i];
 			if (typeof next == &quot;string&quot;)
 			{
 				if (!s.isLoaded(next))
@@ -561,7 +563,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*	Stops playback of any audio/timer.
 	*	@method stop
@@ -624,11 +626,12 @@
 			this.captions = null;
 		}
 	};
-	
+
 	namespace(&#x27;springroll&#x27;).VOPlayer = VOPlayer;
 	namespace(&#x27;springroll&#x27;).Sound.VOPlayer = VOPlayer;
 
 }());
+
     </pre>
 </div>
 

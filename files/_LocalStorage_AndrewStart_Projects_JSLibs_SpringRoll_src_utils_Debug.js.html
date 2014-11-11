@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -253,7 +253,7 @@
 *  @module Framework
 */
 (function(window, undefined){
-	
+
 	/**
 	*  A static closure to provide easy access to the console
 	*  without having errors if the console doesn&#x27;t exist
@@ -263,7 +263,7 @@
 	*  @static
 	*/
 	var Debug = function(){};
-	
+
 	/**
 	*  If we have a console
 	*
@@ -271,7 +271,7 @@
 	*  @property {bool} hasConsole
 	*/
 	var hasConsole = (window.console !== undefined);
-	
+
 	/**
 	* The most general default debug level
 	* @static
@@ -279,7 +279,7 @@
 	* @property {int} GENERAL
 	*/
 	Debug.GENERAL = 0;
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -287,7 +287,7 @@
 	* @property {int} DEBUG
 	*/
 	Debug[&#x27;DE&#x27;+&#x27;BUG&#x27;] = 1; // jshint ignore:line
-	
+
 	/**
 	* Log level for debug messages
 	* @static
@@ -295,7 +295,7 @@
 	* @property {int} INFO
 	*/
 	Debug.INFO = 2;
-	
+
 	/**
 	* Log level for warning messages
 	* @static
@@ -303,7 +303,7 @@
 	* @property {int} WARN
 	*/
 	Debug.WARN = 3;
-	
+
 	/**
 	* Log level for error messages
 	* @static
@@ -311,7 +311,7 @@
 	* @property {int} ERROR
 	*/
 	Debug.ERROR = 4;
-	
+
 	/**
 	* The minimum log level to show, by default it&#x27;s set to
 	* show all levels of logging.
@@ -320,7 +320,7 @@
 	* @property {int} minLogLevel
 	*/
 	Debug.minLogLevel = Debug.GENERAL;
-	
+
 	/**
 	* Boolean to turn on or off the debugging
 	* @public
@@ -328,7 +328,7 @@
 	* @property {bool} enabled
 	*/
 	Debug.enabled = true;
-	
+
 	/**
 	*  The jQuery element to output debug messages to
 	*
@@ -345,7 +345,7 @@
 	*	@property {bool} _isJSConsole
 	*/
 	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as &#x27;remote&#x27; and trys to overwrite &#x27;console&#x27;
-	
+
 	/**
 	* Browser port for the websocket browsers tend to block ports
 	*  @static
@@ -354,7 +354,7 @@
 	*  @default 1025
 	*/
 	Debug._NET_PORT = 1025;
-	
+
 	/**
 	* If the web socket is connected
 	* @static
@@ -363,7 +363,7 @@
 	* @property {bool} _isConnected
 	*/
 	Debug._isConnected = false;
-	
+
 	/**
 	* The socket connection
 	* @static
@@ -371,7 +371,7 @@
 	* @property {WebSocket} _socket
 	*/
 	Debug._socket = null;
-	
+
 	/**
 	* The current message object being sent to the &#x60;WebSocket&#x60;
 	* @static
@@ -379,7 +379,7 @@
 	* @property {object} _messageObj
 	*/
 	Debug._messageObj = null;
-	
+
 	/**
 	* The &#x60;WebSocket&#x60; message queue
 	* @static
@@ -387,7 +387,7 @@
 	* @property {Array} _messageQueue
 	*/
 	Debug._messageQueue = null;
-	
+
 	/**
 	*  Connect to the &#x60;WebSocket&#x60;
 	*  @public
@@ -399,9 +399,9 @@
 	{
 		// Make sure WebSocket exists without prefixes for us
 		if(!(&quot;WebSocket&quot; in window) &amp;&amp; !(&quot;MozWebSocket&quot; in window)) return false;
-		
+
 		window.WebSocket = WebSocket || MozWebSocket;
-		
+
 		try
 		{
 			var s = Debug._socket = new WebSocket(&quot;ws://&quot; + host + &quot;:&quot; + Debug._NET_PORT);
@@ -418,7 +418,7 @@
 		}
 		return true;
 	};
-	
+
 	/**
 	*  Disconnect from the &#x60;WebSocket&#x60;
 	*  @public
@@ -433,7 +433,7 @@
 			onClose();
 		}
 	};
-	
+
 	/**
 	*  Callback when the &#x60;WebSocket&#x60; is connected
 	*  @private
@@ -444,20 +444,20 @@
 	{
 		// set up a function to handle all messages
 		window.onerror = globalErrorHandler;
-		
+
 		// create and send a new session message
 		Debug._messageObj = {level:&quot;session&quot;, message:&quot;&quot;};
 		Debug._socket.send(JSON.stringify(Debug._messageObj));
-		
+
 		// send any queued logs
-		for(var i = 0; i &lt; Debug._messageQueue.length; ++i)
+		for (var i = 0, len = Debug._messageQueue.length; i &lt; len; ++i)
 		{
 			Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
 		}
 		// get rid of this, since we are connected
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Global window error handler, used for remote connections.
 	*  @static
@@ -479,7 +479,7 @@
 		Debug.remoteLog(logMessage, &quot;ERROR&quot;);
 		return false;
 	};
-	
+
 	/**
 	*  Callback for when the websocket is closed
 	*  @private
@@ -499,7 +499,7 @@
 		Debug._messageObj = null;
 		Debug._messageQueue = null;
 	};
-	
+
 	/**
 	*  Sent to the output
 	*  @private
@@ -515,7 +515,7 @@
 			Debug.output.append(&quot;&lt;div class=\&quot;&quot;+level+&quot;\&quot;&gt;&quot; + args + &quot;&lt;/div&gt;&quot;);
 		}
 	}
-	
+
 	/**
 	*  Send a remote log message using the socket connection
 	*  @public
@@ -546,14 +546,14 @@
 			depth = 1;
 		var spacing = &quot;&quot;;
 		var endSpacing = &quot;&quot;;
-		for(var i = 0; i &lt; depth * 4; ++i)
+		for (var i = 0, len = depth * 4; i &lt; len; ++i)
 		{
 			spacing += &quot;&amp;nbsp;&quot;;
 			if(i &lt; (depth - 1) * 4)
 				endSpacing += &quot;&amp;nbsp;&quot;;
 		}
 		var rtn = &quot;{&lt;br /&gt;&quot;;
-		for(var key in obj)
+		for (var key in obj)
 		{
 			//avoid doing properties that are known to be DOM objects, because those have circular references
 			if(key == &quot;document&quot; || key == &quot;window&quot; || key == &quot;ownerDocument&quot; || key == &quot;view&quot;)
@@ -597,7 +597,7 @@
 		}
 		return input;
 	}
-	
+
 	/**
 	*  Log something in the console or remote
 	*  @static
@@ -618,7 +618,7 @@
 			output(&quot;general&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Debug something in the console or remote
 	*  @static
@@ -639,7 +639,7 @@
 			output(&quot;debug&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Info something in the console or remote
 	*  @static
@@ -660,7 +660,7 @@
 			output(&quot;info&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Warn something in the console or remote
 	*  @static
@@ -681,7 +681,7 @@
 			output(&quot;warn&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Error something in the console or remote
 	*  @static
@@ -702,7 +702,7 @@
 			output(&quot;error&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Assert that something is true
 	*  @static
@@ -719,7 +719,7 @@
 			if (!truth) output(&quot;error&quot;, params);
 		}
 	};
-	
+
 	/**
 	*  Method to describe an object in the console
 	*  @static
@@ -734,7 +734,7 @@
 			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	/**
 	*  Method to clear the console
 	*
@@ -750,7 +750,7 @@
 			if (Debug.output) Debug.output.html(&quot;&quot;);
 		}
 	};
-	
+
 	/**
 	*  Generate a stack track in the output
 	*  @static
@@ -765,12 +765,13 @@
 			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
 		}
 	};
-	
+
 	// Make the debug class globally accessible
 	// If the console doesn&#x27;t exist, use the dummy to prevent errors
 	window.Debug = Debug;
-	
+
 }(window));
+
     </pre>
 </div>
 

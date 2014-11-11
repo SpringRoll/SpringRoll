@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.6 API Documentation : springroll.SoundInstance</title>  
+	<title>SpringRoll v0.0.6 API Documentation : springroll.Language</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -242,21 +242,25 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>springroll.SoundInstance Class</h1>
+                        <h1>springroll.Language Class</h1>
 <div class="box meta">
     
 
     
+        <div class="extends">
+            Extends EventDispatcher
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l9"><code>springroll.SoundInstance:9</code></a>
+            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l10"><code>springroll.Language:10</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Sound.html">Sound</a>
+            Module: <a href="../modules/Language.html">Language</a>
         
     
 
@@ -266,11 +270,154 @@
 
 
 <div class="box intro">
-    <p>A playing instance of a sound (or promise to play as soon as it loads). These can only
-be created through springroll.Sound.instance.play().</p>
+    <p>Keeps track of the user locale, by auto-detecting the browser language, allowing a user
+selection, and automatically modifying any url that runs through the CacheManager.</p>
 
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_springroll.Language" class="method item">
+    <h3 class="name"><code>springroll.Language</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>config</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l10"><code>springroll.Language:10</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">config</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The language settings to be used.</p>
+
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">default</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                
+
+                                <div class="param-description">
+                                    <p>The default language name to use if asked for one that is
+                               not present.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">languages</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                
+
+                                <div class="param-description">
+                                    <p>A dictionary of all supported languages, indexed by locale
+                                 name (dialects allowed). You may want other data in each
+                                 entry, like the language name in that language, or number
+                                 separator.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[replace=&quot;%LANG%&quot;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>A string to replace in urls with the current
+                                          language.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -285,6 +432,8 @@ be created through springroll.Sound.instance.play().</p>
         
         
         
+            <li class="api-class-tab events"><a href="#events">Events</a></li>
+        
     </ul>
 
     <div>
@@ -295,31 +444,52 @@ be created through springroll.Sound.instance.play().</p>
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
+                    <ul class="index-list methods extends">
                         
-                            <li class="index-item method public">
-                                <a href="#method_pause">pause</a>
+                            <li class="index-item method">
+                                <a href="#method_destroy">destroy</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_stop">stop</a>
+                            <li class="index-item method">
+                                <a href="#method_getPreferredLanguages">getPreferredLanguages</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_unpause">unpause</a>
+                            <li class="index-item method">
+                                <a href="#method_getString">getString</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item method public">
-                                <a href="#method_updateVolume">updateVolume</a>
+                            <li class="index-item method">
+                                <a href="#method_getSupportedLanguages">getSupportedLanguages</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_modifyUrl">modifyUrl</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setLanguage">setLanguage</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_setStringTable">setStringTable</a>
 
                                 
                                 
@@ -333,108 +503,54 @@ be created through springroll.Sound.instance.play().</p>
                 <div class="index-section properties">
                     <h3>Properties</h3>
 
-                    <ul class="index-list properties">
+                    <ul class="index-list properties extends">
                         
                             <li class="index-item property private">
-                                <a href="#property__channel">_channel</a>
+                                <a href="#property__current">_current</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__endCallback">_endCallback</a>
+                                <a href="#property__default">_default</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__endFunc">_endFunc</a>
+                                <a href="#property__replace">_replace</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property private">
-                                <a href="#property__fDur">_fDur</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__fEnd">_fEnd</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__fEnd">_fEnd</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__fTime">_fTime</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__startFunc">_startFunc</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property private">
-                                <a href="#property__startParams">_startParams</a>
+                                <a href="#property__stringTable">_stringTable</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property public">
-                                <a href="#property_alias">alias</a>
+                                <a href="#property_current">current</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property public">
-                                <a href="#property_curVol">curVol</a>
+                                <a href="#property_instance">instance</a>
 
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
                         
                             <li class="index-item property public">
-                                <a href="#property_isValid">isValid</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_length">length</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_paused">paused</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property public">
-                                <a href="#property_position">position</a>
+                                <a href="#property_languages">languages</a>
 
                                 
                                 
@@ -447,6 +563,21 @@ be created through springroll.Sound.instance.play().</p>
             
 
             
+                <div class="index-section events">
+                    <h3>Events</h3>
+
+                    <ul class="index-list events extends">
+                        
+                            <li class="index-item event">
+                                <a href="#event_changed">changed</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
         </div>
 
         
@@ -454,8 +585,8 @@ be created through springroll.Sound.instance.play().</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_pause" class="method item public">
-    <h3 class="name"><code>pause</code></h3>
+                    <div id="method_destroy" class="method item">
+    <h3 class="name"><code>destroy</code></h3>
 
     
         <span class="paren">()</span>
@@ -465,8 +596,6 @@ be created through springroll.Sound.instance.play().</p>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -488,7 +617,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l174"><code>pause:174</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l234"><code>destroy:234</code></a>
         
         </p>
 
@@ -499,7 +628,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Pauses this SoundInstance.</p>
+        <p>Destroys the Language object.</p>
 
     </div>
 
@@ -511,19 +640,21 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="method_stop" class="method item public">
-    <h3 class="name"><code>stop</code></h3>
+                    <div id="method_getPreferredLanguages" class="method item">
+    <h3 class="name"><code>getPreferredLanguages</code></h3>
 
     
         <span class="paren">()</span>
     
 
     
-
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
     
 
     
-        <span class="flag public">public</span>
+
     
 
     
@@ -545,7 +676,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l137"><code>stop:137</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l133"><code>getPreferredLanguages:133</code></a>
         
         </p>
 
@@ -556,77 +687,34 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Stops this SoundInstance.</p>
+        <p>Gets the preferred languages from the browser.</p>
 
     </div>
 
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                    <p>The list of preferred languages in order of preference.</p>
+
+                
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_unpause" class="method item public">
-    <h3 class="name"><code>unpause</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l187"><code>unpause:187</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Unpauses this SoundInstance.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_updateVolume" class="method item public">
-    <h3 class="name"><code>updateVolume</code></h3>
+                    <div id="method_getString" class="method item">
+    <h3 class="name"><code>getString</code></h3>
 
     
         <div class="args">
@@ -634,7 +722,187 @@ be created through springroll.Sound.instance.play().</p>
             
                 <li class="arg">
                     
-                        <code>contextVol</code>
+                        <code>key</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l211"><code>getString:211</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets a string from the current string table.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">key</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The key of the string to get.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                    <p>The translated string.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getSupportedLanguages" class="method item">
+    <h3 class="name"><code>getSupportedLanguages</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l120"><code>getSupportedLanguages:120</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the languages currently supported.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    
+                    <p>The list of languages that this Language object recognizes.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_modifyUrl" class="method item">
+    <h3 class="name"><code>modifyUrl</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>url</code>
                     
                 </li>
             
@@ -647,7 +915,94 @@ be created through springroll.Sound.instance.play().</p>
     
 
     
-        <span class="flag public">public</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l222"><code>modifyUrl:222</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Modifies a url, replacing a specified value with the current language.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">url</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The url to modify to a language specific version.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setLanguage" class="method item">
+    <h3 class="name"><code>setLanguage</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>languageList</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
     
 
     
@@ -669,7 +1024,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l150"><code>updateVolume:150</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l157"><code>setLanguage:157</code></a>
         
         </p>
 
@@ -680,7 +1035,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Updates the volume of this SoundInstance.</p>
+        <p>Sets the current language, based on specified preferences and what is available.</p>
 
     </div>
 
@@ -692,14 +1047,105 @@ be created through springroll.Sound.instance.play().</p>
             
                 <li class="param">
                     
-                        <code class="param-name">contextVol</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <code class="param-name">languageList</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The volume of the sound context that the sound belongs to. If omitted, the volume is automatically collected.</p>
+                        <p>The list of preferred languages in order of preference,
+                                   or a single language.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_setStringTable" class="method item">
+    <h3 class="name"><code>setStringTable</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>dictionary</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l200"><code>setStringTable:200</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sets the string table for later reference.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">dictionary</code>
+                        <span class="type">Dictionary</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The string table, with keys that you would use to reference
+                               the translations.</p>
 
                     </div>
 
@@ -724,9 +1170,9 @@ be created through springroll.Sound.instance.play().</p>
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property__channel" class="property item private">
-    <h3 class="name"><code>_channel</code></h3>
-    <span class="type">createjs.SoundInstanceance</span>
+                    <div id="property__current" class="property item private">
+    <h3 class="name"><code>_current</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -749,7 +1195,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l21"><code>_channel:21</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l48"><code>_current:48</code></a>
         
         </p>
 
@@ -759,7 +1205,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>SoundJS SoundInstanceance, essentially a sound channel.</p>
+        <p>The current language.</p>
 
     </div>
 
@@ -771,9 +1217,9 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property__endCallback" class="property item private">
-    <h3 class="name"><code>_endCallback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    <div id="property__default" class="property item private">
+    <h3 class="name"><code>_default</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -796,7 +1242,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l35"><code>_endCallback:35</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l55"><code>_default:55</code></a>
         
         </p>
 
@@ -806,7 +1252,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>User&#39;s callback function for when the sound ends.</p>
+        <p>The default language.</p>
 
     </div>
 
@@ -818,9 +1264,9 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property__endFunc" class="property item private">
-    <h3 class="name"><code>_endFunc</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    <div id="property__replace" class="property item private">
+    <h3 class="name"><code>_replace</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
 
@@ -843,7 +1289,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l28"><code>_endFunc:28</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l40"><code>_replace:40</code></a>
         
         </p>
 
@@ -853,10 +1299,12 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>Internal callback function for when the sound ends.</p>
+        <p>The value to replace with the current language in URLS.</p>
 
     </div>
 
+    
+        <p><strong>Default:</strong> &quot;%LANG%&quot;</p>
     
 
     
@@ -865,9 +1313,9 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property__fDur" class="property item private">
-    <h3 class="name"><code>_fDur</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="property__stringTable" class="property item private">
+    <h3 class="name"><code>_stringTable</code></h3>
+    <span class="type">Dictionary</span>
 
     
 
@@ -890,7 +1338,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l71"><code>_fDur:71</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l69"><code>_stringTable:69</code></a>
         
         </p>
 
@@ -900,7 +1348,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>The duration in milliseconds for the fade that this sound instance is performing.</p>
+        <p>A dictionary of translated strings, set with setStringTable().</p>
 
     </div>
 
@@ -912,243 +1360,8 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property__fEnd" class="property item private">
-    <h3 class="name"><code>_fEnd</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l85"><code>_fEnd:85</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The ending volume for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fEnd" class="property item private">
-    <h3 class="name"><code>_fEnd</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l78"><code>_fEnd:78</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The starting volume for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__fTime" class="property item private">
-    <h3 class="name"><code>_fTime</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l64"><code>_fTime:64</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The current time in milliseconds for the fade that this sound instance is performing.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__startFunc" class="property item private">
-    <h3 class="name"><code>_startFunc</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l42"><code>_startFunc:42</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>User&#39;s callback function for when the sound starts. This is only used if the sound wasn&#39;t loaded before play() was called.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property__startParams" class="property item private">
-    <h3 class="name"><code>_startParams</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-
-    
-
-    
-        <span class="flag private">private</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l49"><code>_startParams:49</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>An array of relevant parameters passed to play(). This is only used if the sound wasn&#39;t loaded before play() was called.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_alias" class="property item public">
-    <h3 class="name"><code>alias</code></h3>
+                    <div id="property_current" class="property item public">
+    <h3 class="name"><code>current</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
     
@@ -1172,7 +1385,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l56"><code>alias:56</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l108"><code>current:108</code></a>
         
         </p>
 
@@ -1182,7 +1395,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>The alias for the sound that this instance was created from.</p>
+        <p>The current language.</p>
 
     </div>
 
@@ -1194,9 +1407,58 @@ be created through springroll.Sound.instance.play().</p>
 </div>
 
                 
-                    <div id="property_curVol" class="property item public">
-    <h3 class="name"><code>curVol</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="property_instance" class="property item public">
+    <h3 class="name"><code>instance</code></h3>
+    <span class="type">Language</span>
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l95"><code>instance:95</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get the singleton instance of the Language object.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_languages" class="property item public">
+    <h3 class="name"><code>languages</code></h3>
+    <span class="type">Dictionary</span>
 
     
 
@@ -1219,7 +1481,7 @@ be created through springroll.Sound.instance.play().</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l92"><code>curVol:92</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l62"><code>languages:62</code></a>
         
         </p>
 
@@ -1229,196 +1491,7 @@ be created through springroll.Sound.instance.play().</p>
     </div>
 
     <div class="description">
-        <p>The current sound volume (0 to 1). This is multiplied by the sound context&#39;s volume.
-Setting this won&#39;t take effect until updateVolume() is called.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_isValid" class="property item public">
-    <h3 class="name"><code>isValid</code></h3>
-    <span class="type">Bool</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l115"><code>isValid:115</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>An active SoundInstance should always be valid. This is primarily for compatability with springroll.Audio.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_length" class="property item public">
-    <h3 class="name"><code>length</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l100"><code>length:100</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The length of the sound in milliseconds. This is 0 if it hasn&#39;t finished loading.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_paused" class="property item public">
-    <h3 class="name"><code>paused</code></h3>
-    <span class="type">Bool</span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l107"><code>paused:107</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>If the sound is currently paused. Setting this has no effect - use pause() and unpause().</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_position" class="property item public">
-    <h3 class="name"><code>position</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-        <span class="flag public">public</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_media_SoundInstance.js.html#l127"><code>position:127</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The position of the sound playhead in milliseconds, or 0 if it hasn&#39;t started playing yet.</p>
+        <p>Available languages, with any data specific to that language.</p>
 
     </div>
 
@@ -1435,6 +1508,80 @@ Setting this won&#39;t take effect until updateVolume() is called.</p>
 
         
 
+        
+            <div id="events" class="api-class-tabpanel">
+                <h2 class="off-left">Events</h2>
+
+                
+                    <div id="event_changed" class="events item">
+    <h3 class="name"><code>changed</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l88"><code>changed:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Fired when the chosen language has changed.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Event Payload:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">language</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The newly chosen language.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+
+    
+</div>
+
+                
+            </div>
         
     </div>
 </div>

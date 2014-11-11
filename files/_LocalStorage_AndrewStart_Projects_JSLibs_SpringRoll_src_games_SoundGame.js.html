@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -521,6 +521,31 @@
 			return this._music;
 		}
 	});
+	
+	/**
+	 * Sets the dicitonary for the captions used by player. If a Captions object
+	 * did not exist previously, then it creates one, and sets it up on all Animators.
+	 * @method setCaptionsDictionary
+	 * @param {Object} captionData The captions data to give to the Captions object
+	 */
+	p.setCaptionsDictionary = function(captionData)
+	{
+		if(!this.player.captions)
+		{
+			var captions = this.player.captions = new Captions(captionData, this.options.captions);
+			this.captions = captions.textField;
+			// Give the display to the animators
+			this.getDisplays(function(display){
+				//ensure that displays without Animators don&#x27;t break anything
+				if(display.animator)
+					display.animator.captions = captions;
+			});
+		}
+		else
+		{
+			this.player.captions.setDictionary(captionData);
+		}
+	};
 
 	/**
 	*  Destroy the game, don&#x27;t use after this

@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -254,17 +254,17 @@
 *  @namespace springroll
 */
 (function(undefined){
-		
-	/** 
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback. 
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
 	*
 	*  @class SavedData
 	*/
 	var SavedData = {},
-	
+
 	/** A constant to determine if we can use localStorage and sessionStorage */
 	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
-	
+
 	/** A constant for cookie fallback for SavedData.clear() */
 	ERASE_COOKIE = -1;
 
@@ -281,8 +281,8 @@
 			WEB_STORAGE_SUPPORT = false;
 		}
 	}
-	
-	/** 
+
+	/**
 	*  Remove a saved variable by name.
 	*  @method remove
 	*  @static
@@ -298,7 +298,7 @@
 		else
 			SavedData.write(name,&quot;&quot;,ERASE_COOKIE);
 	};
-	
+
 	/**
 	*  Save a variable.
 	*  @method write
@@ -328,11 +328,11 @@
 			}
 			else
 				expires = &quot;; expires=&quot;+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
-				
+
 			document.cookie = name+&quot;=&quot;+escape(JSON.stringify(value))+expires+&quot;; path=/&quot;;
 		}
 	};
-	
+
 	/**
 	*  Read the value of a saved variable
 	*  @method read
@@ -355,8 +355,8 @@
 			var nameEQ = name + &quot;=&quot;,
 				ca = document.cookie.split(&#x27;;&#x27;),
 				i = 0, c;
-				
-			for(i=0;i &lt; ca.length;i++)
+
+			for(i=0, len=ca.length; i&lt;len;i++)
 			{
 				c = ca[i];
 				while (c.charAt(0) == &#x27; &#x27;) c = c.substring(1,c.length);
@@ -365,11 +365,12 @@
 			return null;
 		}
 	};
-	
+
 	// Assign to the global space
 	namespace(&#x27;springroll&#x27;).SavedData = SavedData;
-	
+
 }());
+
     </pre>
 </div>
 

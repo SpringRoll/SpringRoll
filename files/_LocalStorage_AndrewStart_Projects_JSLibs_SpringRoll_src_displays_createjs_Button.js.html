@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -254,7 +254,7 @@
 *  @namespace springroll.createjs
 */
 (function(undefined){
-	
+
 	var Rectangle = include(&#x27;createjs.Rectangle&#x27;),
 		Container = include(&#x27;createjs.Container&#x27;),
 		ColorMatrix = include(&#x27;createjs.ColorMatrix&#x27;),
@@ -497,7 +497,9 @@
 		{
 			image = imageSettings.image;
 			this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
+
 			//each rects object has a src property (createjs.Rectangle), and optionally a trim rectangle
+			var inputData, stateLabel;
 			for (i = this._statePriority.length - 1; i &gt;= 0; --i) //start at the end to start at the up state
 			{
 				state = this._statePriority[i];
@@ -505,8 +507,10 @@
 				this._addProperty(state);
 				//set the default value for the state flag
 				if (state != &quot;disabled&quot; &amp;&amp; state != &quot;up&quot;)
+				{
 					this._stateFlags[state] = false;
-				var inputData = imageSettings[state];
+				}
+				inputData = imageSettings[state];
 				//it&#x27;s established that over, down, and particularly disabled default to the up state
 				_stateData[state] = inputData ? clone(inputData) : _stateData.up;
 				//set up the label info for this state
@@ -516,7 +520,7 @@
 					if (inputData &amp;&amp; inputData.label)
 					{
 						inputData = inputData.label;
-						var stateLabel = _stateData[state].label = {};
+						stateLabel = _stateData[state].label = {};
 						stateLabel.font = inputData.font || labelData.font;
 						stateLabel.color = inputData.color || labelData.color;
 						stateLabel.stroke = inputData.hasOwnProperty(&quot;stroke&quot;) ? inputData.stroke : labelData.stroke;
@@ -527,9 +531,12 @@
 					}
 					//otherwise use the default
 					else
+					{
 						_stateData[state].label = labelData;
+					}
 				}
 			}
+
 			if (_stateData.up.trim) //if the texture is trimmed, use that for the sizing
 			{
 				var upTrim = _stateData.up.trim;
@@ -548,11 +555,17 @@
 				Debug.error(imageSettings);
 			}
 			if (!_stateData.over)
+			{
 				_stateData.over = _stateData.up;
+			}
 			if (!_stateData.down)
+			{
 				_stateData.down = _stateData.up;
+			}
 			if (!_stateData.disabled)
+			{
 				_stateData.disabled = _stateData.up;
+			}
 			//set up the offset
 			if (imageSettings.offset)
 			{
@@ -615,7 +628,10 @@
 			copy = {};
 		for (var attr in obj)
 		{
-			if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+			if (obj.hasOwnProperty(attr))
+			{
+				copy[attr] = obj[attr];
+			}
 		}
 		return copy;
 	}
@@ -664,7 +680,7 @@
 		{
 			this.label.text = text;
 			var data;
-			for (var i = 0; i &lt; this._statePriority.length; ++i)
+			for (var i = 0, len = this._statePriority.length; i &lt; len; ++i)
 			{
 				if (this._stateFlags[this._statePriority[i]])
 				{
@@ -759,7 +775,7 @@
 		if (!this.back) return;
 		var data;
 		//use the highest priority state
-		for (var i = 0; i &lt; this._statePriority.length; ++i)
+		for (var i = 0, len = this._statePriority.length; i &lt; len; ++i)
 		{
 			if (this._stateFlags[this._statePriority[i]])
 			{
@@ -1053,6 +1069,7 @@
 	namespace(&#x27;springroll&#x27;).Button = Button;
 	namespace(&#x27;springroll.createjs&#x27;).Button = Button;
 }());
+
     </pre>
 </div>
 

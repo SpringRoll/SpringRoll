@@ -18,6 +18,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.FallbackWorker",
         "springroll.FunctionTask",
         "springroll.Game",
+        "springroll.Language",
         "springroll.ListTask",
         "springroll.LoadTask",
         "springroll.Loader",
@@ -41,7 +42,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.TaskEvent",
         "springroll.TaskManager",
         "springroll.TimeUtils",
-        "springroll.Translate",
         "springroll.UIElement",
         "springroll.UIElementSettings",
         "springroll.UIScaler",
@@ -79,12 +79,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "Framework",
         "Game",
         "Interface",
+        "Language",
         "Native Display",
         "PIXI Display",
         "Sound",
         "States",
         "Tasks",
-        "Translate",
         "Worker"
     ],
     "allModules": [
@@ -109,6 +109,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "Interface"
         },
         {
+            "displayName": "Language",
+            "name": "Language"
+        },
+        {
             "displayName": "Native Display",
             "name": "Native Display"
         },
@@ -127,10 +131,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Tasks",
             "name": "Tasks"
-        },
-        {
-            "displayName": "Translate",
-            "name": "Translate"
         },
         {
             "displayName": "Worker",

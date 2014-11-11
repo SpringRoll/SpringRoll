@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -254,7 +254,7 @@
 *  @namespace springroll
 */
 (function(undefined) {
-	
+
 	// Class imports
 	var UIElementSettings = include(&#x27;springroll.UIElementSettings&#x27;),
 		UIElement = include(&#x27;springroll.UIElement&#x27;),
@@ -349,7 +349,7 @@
 		*   @property {boolean} _enabled
 		*   @private
 		*/
-		
+
 		// Add a collection of items to the UIScaler
 		if (items)
 		{
@@ -359,10 +359,10 @@
 		this._resize = this._resize.bind(this);
 		this.enabled = enabled !== undefined ? !!enabled : true;
 	};
-	
+
 	// Reference to the prototype
 	var p = UIScaler.prototype = {};
-	
+
 	/**
 	*  Vertically align to the top
 	*  @property {String} ALIGN_TOP
@@ -479,7 +479,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	*  Register a dictionary of items to the UIScaler to control.
 	*  @method addItems
@@ -492,7 +492,7 @@
 	{
 		// Temp variables
 		var settings, name;
-		
+
 		// Loop through all the items and register
 		// each dpending on the settings
 		for (name in items)
@@ -578,7 +578,7 @@
 		{
 			throw &quot;Item align &#x27;&quot; + align + &quot;&#x27; is invalid for &quot; + item;
 		}
-		
+
 		// Do the intial positioning of the item
 		Positioner.initItem(item, settings, this._adapter);
 
@@ -587,14 +587,14 @@
 
 		// Create the item settings
 		var element = new UIElementSettings();
-		
+
 		element.vertAlign = align[0];
 		element.horiAlign = align[1];
 		element.titleSafe = !!settings.titleSafe;
 		element.maxScale = settings.maxScale || NaN;
 		element.minScale = settings.minScale || NaN;
 		element.centeredHorizontally = !!settings.centeredHorizontally;
-				
+
 		this._items.push(new UIElement(item, element, this._designedSize, this._adapter));
 
 		return this;
@@ -626,7 +626,7 @@
 	*/
 	p.removeBackground = function(bitmap)
 	{
-		for (var i = 0; i &lt; this._backgrounds.length; i++)
+		for (var i = 0, len = this._backgrounds.length; i &lt; len; i++)
 		{
 			if (bitmap === this._backgrounds[i])
 			{
@@ -636,7 +636,7 @@
 		}
 		return this;
 	};
-	
+
 	/**
 	*  Scale the UI items that have been registered to the current screen
 	*  @method _resize
@@ -652,7 +652,7 @@
 
 		if (len &gt; 0)
 		{
-			for(i = 0; i &lt; len; ++i)
+			for (i = 0; i &lt; len; ++i)
 			{
 				this._items[i].resize(w, h);
 			}
@@ -672,7 +672,7 @@
 
 				//scale the background
 				this._adapter.setScale(bitmap, scale);
-				
+
 				//center the background
 				this._adapter.setPosition(
 					bitmap,
@@ -682,7 +682,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*  Destroy the scaler object
 	*  @method destroy
@@ -693,23 +693,24 @@
 
 		if (this._items.length &gt; 0)
 		{
-			for(var i = 0, len = this._items.length; i &lt; len; ++i)
+			for (var i = 0, len = this._items.length; i &lt; len; ++i)
 			{
 				this._items[i].destroy();
 			}
 		}
-		
+
 		this._backgrounds = null;
 		this._adapter = null;
 		this._parent = null;
 		this._designedSize = null;
 		this._items = null;
 	};
-	
+
 	// Assign to namespace
 	namespace(&#x27;springroll&#x27;).UIScaler = UIScaler;
 
 }());
+
     </pre>
 </div>
 

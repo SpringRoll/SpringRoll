@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -254,14 +254,14 @@
 *  @namespace springroll
 */
 (function(){
-	
+
 	var Loader,
 		Application,
 		AssetLoader,
 		Task = include(&#x27;springroll.Task&#x27;);
 
 	/**
-	*  PixiTask loads things through PIXI.AssetLoader for pixi.js. 
+	*  PixiTask loads things through PIXI.AssetLoader for pixi.js.
 	*  This means textures, spritesheets, and bitmap fonts.
 	*  @class PixiTask
 	*  @constructor
@@ -281,21 +281,21 @@
 		}
 
 		Task.call(this, id, callback);
-		
+
 		/**
 		*	The optional callback to get updates (to show load progress)
 		*	@property {Function} updateCallback
 		*	@private
 		*/
 		this.updateCallback = updateCallback;
-		
+
 		/**
 		*	If loaded images should be drawn to a canvas and used from there.
 		*	@property {Boolean} generateCanvas
 		*	@private
 		*/
 		this.generateCanvas = generateCanvasTexture || false;
-		
+
 		/**
 		*	The AssetLoader used to load all files.
 		*	@property {PIXI.AssetLoader} _assetLoader
@@ -305,7 +305,7 @@
 
 		var cm = Loader.instance.cacheManager;
 
-		for(var i = 0; i &lt; urls.length; ++i)
+		for(var i = 0, len = urls.length; i &lt; len; ++i)
 		{
 			urls[i] = cm.prepare(urls[i]);
 		}
@@ -317,11 +317,11 @@
 		*/
 		this.urls = urls;
 	};
-	
+
 	var s = Task.prototype;
 
 	var p = PixiTask.prototype = Object.create(s);
-	
+
 	/**
 	*   Start the load
 	*	@method start
@@ -346,12 +346,12 @@
 	{
 		this.updateCallback();
 	};
-	
+
 	/**
 	*	Cancel the task
 	*	@method cancel
-	*	@return If the loader removed it from the queue successfully - 
-	*			false means that there is a &#x27;load finished&#x27; event inbound 
+	*	@return If the loader removed it from the queue successfully -
+	*			false means that there is a &#x27;load finished&#x27; event inbound
 	*			for the task manager
 	*/
 	p.cancel = function()
@@ -360,7 +360,7 @@
 		this._assetLoader.onProgress = null;
 		return true;
 	};
-	
+
 	/**
 	*   Get a string representation of this task
 	*	@method toString
@@ -370,7 +370,7 @@
 	{
 		return &quot;[PixiTask ID (&quot; + this.id + &quot;), URLs (&quot; + this.urls.join(&quot;, &quot;) + &quot;)]&quot;;
 	};
-	
+
 	/**
 	*  Destroy this load task and don&#x27;t use after this.
 	*  @method destroy
@@ -378,7 +378,7 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		s.destroy.call(this);
 
 		this.updateCallback = null;
@@ -390,11 +390,12 @@
 		}
 		this._assetLoader = null;
 	};
-	
+
 	// Assign to the namespace
 	namespace(&#x27;springroll&#x27;).PixiTask = PixiTask;
-	
+
 }());
+
     </pre>
 </div>
 

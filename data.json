@@ -711,6 +711,19 @@
                 "springroll": 1
             }
         },
+        "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js": {
+            "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "modules": {
+                "Language": 1
+            },
+            "classes": {
+                "springroll.Language": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll": 1
+            }
+        },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Math.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Math.js",
             "modules": {
@@ -724,7 +737,9 @@
         },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Object.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Object.js",
-            "modules": {},
+            "modules": {
+                "Framework": 1
+            },
             "classes": {
                 "Object": 1
             },
@@ -753,24 +768,9 @@
                 "springroll": 1
             }
         },
-        "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js": {
-            "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "modules": {
-                "Translate": 1
-            },
-            "classes": {
-                "springroll.Translate": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            }
-        },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/include.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/include.js",
-            "modules": {
-                "Framework": 1
-            },
+            "modules": {},
             "classes": {
                 "include": 1
             },
@@ -1012,19 +1012,19 @@
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/ui/UIScaler.js",
             "line": 13
         },
-        "Translate": {
-            "name": "Translate",
+        "Language": {
+            "name": "Language",
             "submodules": {},
             "classes": {
-                "springroll.Translate": 1
+                "springroll.Language": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 9
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 10
         }
     },
     "classes": {
@@ -2247,7 +2247,7 @@
             "namespace": "springroll",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
             "line": 7,
-            "description": "The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher, \nbut is more robust in terms of inputs for the `on()` and `off()` methods.",
+            "description": "The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher,\nbut is more robust in terms of inputs for the `on()` and `off()` methods.",
             "is_constructor": 1
         },
         "springroll.Game": {
@@ -3170,7 +3170,7 @@
             "line": 10,
             "description": "A class that creates captioning for multimedia content. Captions are\ncreated from a dictionary of captions and can be played by alias. Captions\nis a singleton class.",
             "example": [
-                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\t\n\t\t// initialize the captions\n\t\tvar captions = new springroll.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
+                "\n\t\tvar captionsDictionary = {\n\t\t\t\"Alias1\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Ohh that looks awesome!\"}\n\t\t\t],\n\t\t\t\"Alias2\": [\n\t\t\t\t{\"start\":0, \"end\":2000, \"content\":\"Love it, absolutely love it!\"}\n\t\t\t]\n\t\t};\n\n\t\t// initialize the captions\n\t\tvar captions = new springroll.Captions(captionsDictionary);\n\t\tcaptions.play(\"Alias1\");"
             ],
             "is_constructor": 1,
             "params": [
@@ -3297,7 +3297,7 @@
             "params": [
                 {
                     "name": "captions",
-                    "description": "If a Captions object should be created for use \n\t\tor the captions object to use",
+                    "description": "If a Captions object should be created for use\n\t\tor the captions object to use",
                     "type": "Captions",
                     "optional": true,
                     "optdefault": "null"
@@ -3598,7 +3598,7 @@
             "namespace": "springroll",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
             "line": 12,
-            "description": "PixiTask loads things through PIXI.AssetLoader for pixi.js. \nThis means textures, spritesheets, and bitmap fonts.",
+            "description": "PixiTask loads things through PIXI.AssetLoader for pixi.js.\nThis means textures, spritesheets, and bitmap fonts.",
             "is_constructor": 1,
             "params": [
                 {
@@ -3952,6 +3952,48 @@
                 }
             ]
         },
+        "springroll.Language": {
+            "name": "springroll.Language",
+            "shortname": "Language",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Language",
+            "namespace": "springroll",
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 10,
+            "description": "Keeps track of the user locale, by auto-detecting the browser language, allowing a user\nselection, and automatically modifying any url that runs through the CacheManager.",
+            "extends": "EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "The language settings to be used.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "default",
+                            "description": "The default language name to use if asked for one that is\n                               not present.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "languages",
+                            "description": "A dictionary of all supported languages, indexed by locale\n                                 name (dialects allowed). You may want other data in each\n                                 entry, like the language name in that language, or number\n                                 separator.",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "replace",
+                            "description": "A string to replace in urls with the current\n                                          language.",
+                            "type": "String",
+                            "optional": true,
+                            "optdefault": "\"%LANG%\""
+                        }
+                    ]
+                }
+            ]
+        },
         "Math": {
             "name": "Math",
             "shortname": "Math",
@@ -4021,21 +4063,6 @@
             "line": 23,
             "description": "A collection of Time related utility functions"
         },
-        "springroll.Translate": {
-            "name": "springroll.Translate",
-            "shortname": "Translate",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Translate",
-            "namespace": "springroll",
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 9,
-            "description": "Internationalization/translation object with convenient jquery plugin",
-            "static": 1
-        },
         "include": {
             "name": "include",
             "shortname": "include",
@@ -4104,7 +4131,7 @@
                         },
                         {
                             "name": "version",
-                            "description": "The current version number for your application. This \n     number will automatically be appended to all file requests. For instance, if the version\n     is \"0.0.1\" all file requests will be appended with \"?v=0.0.1\"",
+                            "description": "The current version number for your application. This\n     number will automatically be appended to all file requests. For instance, if the version\n     is \"0.0.1\" all file requests will be appended with \"?v=0.0.1\"",
                             "type": "String|int",
                             "optional": true
                         },
@@ -4538,7 +4565,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 305,
+            "line": 307,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4562,7 +4589,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 337,
+            "line": 339,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -4591,7 +4618,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 371,
+            "line": 374,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -4620,7 +4647,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 419,
+            "line": 423,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4638,7 +4665,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 442,
+            "line": 446,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4657,7 +4684,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 469,
+            "line": 473,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4682,7 +4709,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 533,
+            "line": 537,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4693,7 +4720,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 554,
+            "line": 558,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4704,7 +4731,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 576,
+            "line": 580,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4727,7 +4754,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 597,
+            "line": 601,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4749,7 +4776,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 616,
+            "line": 620,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4763,7 +4790,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 627,
+            "line": 631,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4776,7 +4803,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 640,
+            "line": 644,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4789,7 +4816,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 653,
+            "line": 657,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4809,7 +4836,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 749,
+            "line": 753,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4828,7 +4855,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 762,
+            "line": 766,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4847,7 +4874,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 775,
+            "line": 779,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4864,7 +4891,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 789,
+            "line": 793,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -5349,7 +5376,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 372,
+            "line": 388,
             "description": "The width of the button, based on the width of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "width",
@@ -5360,7 +5387,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 388,
+            "line": 404,
             "description": "The height of the button, based on the height of back. This value is affected by scale.",
             "itemtype": "property",
             "name": "height",
@@ -5371,7 +5398,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 404,
+            "line": 420,
             "description": "Sets the text of the label. This does nothing if the button was not initialized with a label.",
             "access": "public",
             "tagname": "",
@@ -5390,7 +5417,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 438,
+            "line": 454,
             "description": "Whether or not the button is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -5402,7 +5429,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 475,
+            "line": 491,
             "description": "Adds a property to the button. Setting the property sets the value in\n_stateFlags and calls _updateState().",
             "access": "private",
             "tagname": "",
@@ -5421,7 +5448,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 501,
+            "line": 517,
             "description": "Updates back based on the current button state.",
             "access": "private",
             "tagname": "",
@@ -5433,7 +5460,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 556,
+            "line": 572,
             "description": "The callback for when the button receives a mouse down event.",
             "access": "private",
             "tagname": "",
@@ -5445,7 +5472,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 569,
+            "line": 585,
             "description": "The callback for when the button for when the mouse/touch is released on the button\n- only when the button was held down initially.",
             "access": "private",
             "tagname": "",
@@ -5457,7 +5484,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 584,
+            "line": 600,
             "description": "The callback for when the button the button is clicked or tapped on. This is\nthe most reliable way of detecting mouse up/touch end events that are on this button\nwhile letting the pressup event handle the mouse up/touch ends on and outside the button.",
             "access": "private",
             "tagname": "",
@@ -5469,7 +5496,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 596,
+            "line": 612,
             "description": "The callback for when the button is moused over.",
             "access": "private",
             "tagname": "",
@@ -5481,7 +5508,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 607,
+            "line": 623,
             "description": "The callback for when the mouse leaves the button area.",
             "access": "private",
             "tagname": "",
@@ -5493,7 +5520,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 618,
+            "line": 634,
             "description": "Destroys the button.",
             "access": "public",
             "tagname": "",
@@ -5505,7 +5532,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Button.js",
-            "line": 638,
+            "line": 654,
             "description": "Generates a desaturated up state as a disabled state, and an update with a solid colored glow for a highlighted state.",
             "itemtype": "method",
             "name": "generateDefaultStates",
@@ -6155,7 +6182,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 228,
+            "line": 231,
             "description": "Callback for when the audio has been preloaded.",
             "itemtype": "method",
             "name": "onAudioLoaded",
@@ -6167,7 +6194,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 238,
+            "line": 241,
             "description": "Callback for when all art assets have been loaded.",
             "itemtype": "method",
             "name": "onArtLoaded",
@@ -6186,7 +6213,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 287,
+            "line": 295,
             "description": "Callback for when all loading is complete.",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -6205,7 +6232,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 323,
+            "line": 333,
             "description": "Listener for when the Application is resized.",
             "itemtype": "method",
             "name": "resize",
@@ -6229,7 +6256,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 347,
+            "line": 357,
             "description": "Starts playing the cutscene.",
             "itemtype": "method",
             "name": "start",
@@ -6248,7 +6275,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 369,
+            "line": 379,
             "description": "Callback for when the audio has finished playing.",
             "itemtype": "method",
             "name": "_audioCallback",
@@ -6260,7 +6287,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 384,
+            "line": 394,
             "description": "Listener for frame updates.",
             "itemtype": "method",
             "name": "update",
@@ -6279,7 +6306,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 427,
+            "line": 437,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -6300,7 +6327,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 447,
+            "line": 457,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -7119,7 +7146,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 578,
+            "line": 580,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -7144,7 +7171,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 610,
+            "line": 612,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -7163,7 +7190,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 629,
+            "line": 631,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -7175,7 +7202,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js",
-            "line": 659,
+            "line": 663,
             "class": "springroll.createjs.DragManager",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
@@ -10412,7 +10439,7 @@
             "params": [
                 {
                     "name": "name",
-                    "description": "The type of event (can be multiple events separated by spaces), \n        or a map of events to handlers",
+                    "description": "The type of event (can be multiple events separated by spaces),\n        or a map of events to handlers",
                     "type": "String|object"
                 },
                 {
@@ -10445,7 +10472,7 @@
             "params": [
                 {
                     "name": "name",
-                    "description": "The type of event (can be multiple events separated by spaces), \n        or a map of events to handlers",
+                    "description": "The type of event (can be multiple events separated by spaces),\n        or a map of events to handlers",
                     "type": "String|object"
                 },
                 {
@@ -10471,7 +10498,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
-            "line": 150,
+            "line": 152,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -10497,7 +10524,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
-            "line": 204,
+            "line": 207,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -10524,7 +10551,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
-            "line": 223,
+            "line": 226,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10534,7 +10561,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
-            "line": 233,
+            "line": 236,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -10557,7 +10584,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/events/EventDispatcher.js",
-            "line": 255,
+            "line": 258,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -10907,6 +10934,23 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/SoundGame.js",
             "line": 274,
+            "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
+            "itemtype": "method",
+            "name": "setCaptionsDictionary",
+            "params": [
+                {
+                    "name": "captionData",
+                    "description": "The captions data to give to the Captions object",
+                    "type": "Object"
+                }
+            ],
+            "class": "springroll.SoundGame",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/SoundGame.js",
+            "line": 299,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10916,7 +10960,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/SoundGame.js",
-            "line": 288,
+            "line": 313,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -12178,7 +12222,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 256,
+            "line": 259,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12189,7 +12233,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 272,
+            "line": 275,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12218,7 +12262,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 308,
+            "line": 311,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12239,7 +12283,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 320,
+            "line": 323,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12412,7 +12456,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 560,
+            "line": 559,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12431,7 +12475,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 574,
+            "line": 573,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12450,7 +12494,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 589,
+            "line": 588,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12462,7 +12506,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 625,
+            "line": 624,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12474,7 +12518,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 639,
+            "line": 638,
             "description": "Returns duration in ms of given captioned sound alias",
             "itemtype": "method",
             "name": "getLength",
@@ -12495,7 +12539,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 672,
+            "line": 671,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -12669,7 +12713,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 250,
+            "line": 251,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -12683,7 +12727,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 261,
+            "line": 262,
             "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "loadConfig",
@@ -12764,7 +12808,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 320,
+            "line": 324,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -12787,7 +12831,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 332,
+            "line": 336,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -12810,7 +12854,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 344,
+            "line": 348,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -12833,7 +12877,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 356,
+            "line": 360,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -12856,7 +12900,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 368,
+            "line": 372,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -12879,7 +12923,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 381,
+            "line": 385,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -12918,7 +12962,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 422,
+            "line": 426,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -12957,7 +13001,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 469,
+            "line": 473,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -12976,7 +13020,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 523,
+            "line": 528,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13060,7 +13104,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 663,
+            "line": 668,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13088,7 +13132,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 688,
+            "line": 693,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13107,7 +13151,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 736,
+            "line": 743,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13126,7 +13170,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 753,
+            "line": 760,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13145,7 +13189,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 780,
+            "line": 788,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13164,7 +13208,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 796,
+            "line": 804,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13183,7 +13227,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 809,
+            "line": 817,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13202,7 +13246,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 832,
+            "line": 841,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13221,7 +13265,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 851,
+            "line": 860,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13240,7 +13284,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 872,
+            "line": 881,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13252,7 +13296,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 884,
+            "line": 893,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13264,7 +13308,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 896,
+            "line": 905,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13288,7 +13332,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 926,
+            "line": 937,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13307,7 +13351,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 937,
+            "line": 948,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13331,7 +13375,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 967,
+            "line": 979,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13355,7 +13399,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 994,
+            "line": 1006,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13379,7 +13423,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1047,
+            "line": 1060,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13403,7 +13447,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1072,
+            "line": 1085,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13436,7 +13480,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1088,
+            "line": 1101,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13455,7 +13499,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1111,
+            "line": 1125,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13474,7 +13518,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1129,
+            "line": 1143,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -14114,7 +14158,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/VOPlayer.js",
-            "line": 314,
+            "line": 316,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -14126,7 +14170,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/VOPlayer.js",
-            "line": 343,
+            "line": 345,
             "description": "Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadSound",
@@ -14138,7 +14182,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/VOPlayer.js",
-            "line": 354,
+            "line": 356,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
@@ -15672,7 +15716,7 @@
             "itemtype": "method",
             "name": "cancel",
             "return": {
-                "description": "If the loader removed it from the queue successfully - \n\t\tfalse means that there is a 'load finished' event inbound \n\t\tfor the task manager"
+                "description": "If the loader removed it from the queue successfully -\n\t\tfalse means that there is a 'load finished' event inbound\n\t\tfor the task manager"
             },
             "class": "springroll.PixiTask",
             "module": "Tasks",
@@ -16039,7 +16083,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js",
-            "line": 173,
+            "line": 176,
             "description": "Cancels all tasks with a given id",
             "itemtype": "method",
             "name": "cancelTask",
@@ -16056,7 +16100,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js",
-            "line": 205,
+            "line": 206,
             "description": "Start the next task in the tasks list. When it is done, the\ntask's callback will be called.  If the manager is not paused after\nthe task's callback returns, the manager will start the next task.",
             "itemtype": "method",
             "name": "startNext",
@@ -16070,7 +16114,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js",
-            "line": 250,
+            "line": 251,
             "description": "Callback for when an task is done",
             "itemtype": "method",
             "name": "onTaskDone",
@@ -16092,7 +16136,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js",
-            "line": 290,
+            "line": 291,
             "description": "Start the next task until there are no more tasks to start",
             "itemtype": "method",
             "name": "startAll",
@@ -16106,7 +16150,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js",
-            "line": 313,
+            "line": 314,
             "description": "We don't want to use the task manager after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17658,6 +17702,227 @@
             "namespace": "springroll"
         },
         {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 40,
+            "description": "The value to replace with the current language in URLS.",
+            "itemtype": "property",
+            "name": "_replace",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "default": "\"%LANG%\"",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 48,
+            "description": "The current language.",
+            "itemtype": "property",
+            "name": "_current",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 55,
+            "description": "The default language.",
+            "itemtype": "property",
+            "name": "_default",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 62,
+            "description": "Available languages, with any data specific to that language.",
+            "itemtype": "property",
+            "name": "languages",
+            "type": "Dictionary",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 69,
+            "description": "A dictionary of translated strings, set with setStringTable().",
+            "itemtype": "property",
+            "name": "_stringTable",
+            "type": "Dictionary",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 88,
+            "description": "Fired when the chosen language has changed.",
+            "itemtype": "event",
+            "name": "changed",
+            "params": [
+                {
+                    "name": "language",
+                    "description": "The newly chosen language.",
+                    "type": "String"
+                }
+            ],
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 95,
+            "description": "Get the singleton instance of the Language object.",
+            "itemtype": "property",
+            "name": "instance",
+            "type": "Language",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 108,
+            "description": "The current language.",
+            "itemtype": "property",
+            "name": "current",
+            "type": "String",
+            "readonly": "",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 120,
+            "description": "Gets the languages currently supported.",
+            "itemtype": "method",
+            "name": "getSupportedLanguages",
+            "return": {
+                "description": "The list of languages that this Language object recognizes.",
+                "type": "Array"
+            },
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 133,
+            "description": "Gets the preferred languages from the browser.",
+            "itemtype": "method",
+            "name": "getPreferredLanguages",
+            "return": {
+                "description": "The list of preferred languages in order of preference.",
+                "type": "Array"
+            },
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 157,
+            "description": "Sets the current language, based on specified preferences and what is available.",
+            "itemtype": "method",
+            "name": "setLanguage",
+            "params": [
+                {
+                    "name": "languageList",
+                    "description": "The list of preferred languages in order of preference,\n                                   or a single language.",
+                    "type": "Array|String"
+                }
+            ],
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 200,
+            "description": "Sets the string table for later reference.",
+            "itemtype": "method",
+            "name": "setStringTable",
+            "params": [
+                {
+                    "name": "dictionary",
+                    "description": "The string table, with keys that you would use to reference\n                               the translations.",
+                    "type": "Dictionary"
+                }
+            ],
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 211,
+            "description": "Gets a string from the current string table.",
+            "itemtype": "method",
+            "name": "getString",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key of the string to get.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The translated string.",
+                "type": "String"
+            },
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 222,
+            "description": "Modifies a url, replacing a specified value with the current language.",
+            "itemtype": "method",
+            "name": "modifyUrl",
+            "params": [
+                {
+                    "name": "url",
+                    "description": "The url to modify to a language specific version.",
+                    "type": "String"
+                }
+            ],
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 234,
+            "description": "Destroys the Language object.",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "springroll.Language",
+            "module": "Language",
+            "namespace": "springroll"
+        },
+        {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Math.js",
             "line": 11,
             "description": "Return a random int between minimum and maximum",
@@ -17858,398 +18123,6 @@
             },
             "class": "springroll.TimeUtils",
             "module": "Framework",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 16,
-            "description": "The full language dictionary containing all languages as keys",
-            "itemtype": "property",
-            "name": "_dict",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 24,
-            "description": "The current set of translations to use",
-            "itemtype": "property",
-            "name": "_current",
-            "type": "Object",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 32,
-            "description": "The currently selected locale",
-            "itemtype": "property",
-            "name": "_locale",
-            "type": "String|Array",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 40,
-            "description": "The fallback locale if no translation is found",
-            "itemtype": "property",
-            "name": "_fallbackLocale",
-            "type": "String",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 48,
-            "description": "Reference to the slice method",
-            "itemtype": "property",
-            "name": "_slice",
-            "type": "Function",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 56,
-            "description": "Load the full dictionary containing all translations, this can also be used to load\nseparate JSON files which contain the translation. Each JSON file can contain keys\nmatching the locale which to use, or a single locale:\n\n\t// Load external json for all locales\n\tTranslate.load(\"lang.json\", function(){ \n\t\t// Finished loading\n\t});\n\t\n\t// Or load all locales directly\n\tvar dict = {\n\t\t\"en\" : {\n\t\t\t\"title\" : \"My Site\"\n\t\t}\n\t};\n\tTranslate.load(dict);\n\t\n\t// Or loading a single local externally\n\tTranslate.load(\"locale/en/lang.json\", \"en\", function(){\n\t\t// Finished loading\n\t});\n\t\n\t// Or load a single local directly\n\tvar dict = {\n\t\t\"title\" : \"My Site\"\n\t};\n\tTranslate.load(dict, \"en\");",
-            "itemtype": "method",
-            "name": "load",
-            "static": 1,
-            "params": [
-                {
-                    "name": "dict",
-                    "description": "The translation dictionary or file path to the translation dictionary",
-                    "type": "Object|String"
-                },
-                {
-                    "name": "langOrCallback",
-                    "description": "Either the language code or the function callback for file loading",
-                    "type": "String|Function",
-                    "optional": true
-                },
-                {
-                    "name": "callback",
-                    "description": "The methond to callback if we're loading a file",
-                    "type": "Function",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "The Translate object for chaining",
-                "type": "Translate"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 137,
-            "description": "The separator between the file name and the locale\nif using the filename translation. For instance, \"myfile.png\" becomes \"myfile_en-US.png\"\njoining \"myfile\" with the separator, locale then file extension.",
-            "itemtype": "property",
-            "name": "fileSeparator",
-            "type": "String",
-            "static": 1,
-            "default": "\"_\"",
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 147,
-            "description": "Remove all of the current dictionaries stored and the saved locale",
-            "itemtype": "method",
-            "name": "reset",
-            "static": 1,
-            "return": {
-                "description": "The Translate object for chaining",
-                "type": "Translate"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 163,
-            "description": "Auto detect the locale based on the window navigator object",
-            "itemtype": "method",
-            "name": "autoDetect",
-            "static": 1,
-            "params": [
-                {
-                    "name": "useCountryLocale",
-                    "description": "If we should use the country locale (e.g., \"en-US\")\n       as well as the language.",
-                    "type": "Boolean",
-                    "optional": true,
-                    "optdefault": "true"
-                }
-            ],
-            "return": {
-                "description": "The new locale selected, returns a string if `useCountryLocale` is false.",
-                "type": "Array|String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 181,
-            "description": "The optional fallback locale to use in all cases",
-            "itemtype": "property",
-            "name": "fallbackLocale",
-            "type": "String",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 199,
-            "description": "The current ISO-639-1 two-letter language locale",
-            "itemtype": "property",
-            "name": "locale",
-            "type": "String|Array",
-            "static": 1,
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 217,
-            "description": "Rebuild the current dictionary of translations to use",
-            "itemtype": "method",
-            "name": "refresh",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 245,
-            "description": "Get the locales with the fallback",
-            "itemtype": "method",
-            "name": "getLocales",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "return": {
-                "description": "The collection of locales where the first index is the highest priority",
-                "type": "Array"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 265,
-            "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
-            "itemtype": "method",
-            "name": "translateString",
-            "static": 1,
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "key",
-                    "description": "The translation key look-up to translate.",
-                    "type": "String"
-                },
-                {
-                    "name": "params..",
-                    "description": "params for using printf() on the string.",
-                    "type": "Object"
-                }
-            ],
-            "return": {
-                "description": "Translated word.",
-                "type": "String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 298,
-            "description": "Converts a file to a localized version using the first locale. If no locale\nis set, returns the original file.",
-            "itemtype": "method",
-            "name": "translateFile",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "file",
-                    "description": "The file path",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The updated file path containing local",
-                "type": "String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 336,
-            "description": "Substitutes %s with parameters given in list. %%s is used to escape %s.",
-            "itemtype": "method",
-            "name": "printf",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "str",
-                    "description": "String to perform printf on.",
-                    "type": "String"
-                },
-                {
-                    "name": "args",
-                    "description": "Array of arguments for printf.",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "Substituted string",
-                "type": "String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 362,
-            "description": "Allows you to translate a jQuery selector. See window._t for more information.\n\n\t$('h1')._t('some text')",
-            "itemtype": "method",
-            "name": "$.fn._t",
-            "static": 1,
-            "params": [
-                {
-                    "name": "key",
-                    "description": "The string to translate .",
-                    "type": "String"
-                },
-                {
-                    "name": "params",
-                    "description": "Params for using printf() on the string.",
-                    "type": "Mixed",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "Chained and translated element(s).",
-                "type": "Element"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 403,
-            "description": "Allows you to swap an localized file path with jQuery selector. See window._f for more information.\n\n\t$('img#example')._f()",
-            "itemtype": "method",
-            "name": "$.fn._f",
-            "static": 1,
-            "params": [
-                {
-                    "name": "attr",
-                    "description": "The attribute to change the file for",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\"src\""
-                }
-            ],
-            "return": {
-                "description": "Chained and translated element(s).",
-                "type": "Element"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 425,
-            "description": "Looks the given string up in the dictionary and returns the translation if\none exists. If a translation is not found, returns the original word.",
-            "itemtype": "method",
-            "name": "window._t",
-            "static": 1,
-            "params": [
-                {
-                    "name": "str",
-                    "description": "The string to translate.",
-                    "type": "String"
-                },
-                {
-                    "name": "params*",
-                    "description": "params for using printf() on the string.",
-                    "type": "Mixed",
-                    "optional": true
-                }
-            ],
-            "return": {
-                "description": "Translated word.",
-                "type": "String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Translate.js",
-            "line": 436,
-            "description": "Converts a file to a localized version using the locale preferences. If no locale\nis set or no valid files are found, returns the original file.",
-            "itemtype": "method",
-            "name": "window._f",
-            "static": 1,
-            "params": [
-                {
-                    "name": "file",
-                    "description": "The file path",
-                    "type": "String"
-                }
-            ],
-            "return": {
-                "description": "The updated file path containing local",
-                "type": "String"
-            },
-            "class": "springroll.Translate",
-            "module": "Translate",
             "namespace": "springroll"
         },
         {
@@ -18788,7 +18661,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 499,
+            "line": 501,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -18800,7 +18673,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 506,
+            "line": 508,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -18812,7 +18685,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 516,
+            "line": 518,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -18824,7 +18697,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 526,
+            "line": 528,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -18835,7 +18708,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 567,
+            "line": 569,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18859,7 +18732,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 584,
+            "line": 586,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -18869,7 +18742,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 611,
+            "line": 613,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18900,7 +18773,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 641,
+            "line": 643,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18932,7 +18805,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 683,
+            "line": 685,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18953,7 +18826,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 694,
+            "line": 696,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18977,7 +18850,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 715,
+            "line": 717,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18994,7 +18867,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 730,
+            "line": 732,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -19007,7 +18880,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 748,
+            "line": 750,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -19020,7 +18893,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 764,
+            "line": 766,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -19032,7 +18905,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/Application.js",
-            "line": 811,
+            "line": 813,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -19060,67 +18933,67 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:305"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:307"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:337"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:339"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:371"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:374"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:419"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:423"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:442"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:446"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:469"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:473"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:533"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:537"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:554"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:558"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:576"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:580"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:597"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:601"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:616"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:620"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:627"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:631"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:640"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:644"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:653"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:657"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:775"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:779"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:789"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:793"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19420,23 +19293,27 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:173"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:176"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:205"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:206"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:250"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:251"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:290"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:291"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:313"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/TaskManager.js:314"
+        },
+        {
+            "message": "replacing incorrect tag: extend with extends",
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js:10"
         },
         {
             "message": "replacing incorrect tag: extend with extends",
@@ -19460,7 +19337,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js:659"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/DragManager.js:663"
         },
         {
             "message": "Missing item type",

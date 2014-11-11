@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -273,7 +273,7 @@
         //if this is a flat array of numbers, convert it to points
         if(typeof points[0] === &#x27;number&#x27;) {
             var p = [];
-            for(var i = 0, il = points.length; i &lt; il; i+=2) {
+            for (var i = 0, len = points.length; i &lt; len; i+=2) {
                 p.push(
                     new Point(points[i], points[i + 1])
                 );
@@ -296,7 +296,7 @@
     p.clone = function()
     {
         var points = [];
-        for (var i=0; i&lt;this.points.length; i++) {
+        for (var i = 0, len = this.points.length; i &lt; len; i++) {
             points.push(this.points[i].clone());
         }
 
@@ -318,11 +318,17 @@
         // use some raycasting to test hits
         // https://github.com/substack/point-in-polygon/blob/master/index.js
         var p = this.points;
-        for(var i = 0, len = p.length, j = p.length - 1; i &lt; len; j = i++) {
-            var pi = p[i], pj = p[j];
-            var xi = pi.x, yi = pi.y,
-                xj = pj.x, yj = pj.y,
-                intersect = ((yi &gt; y) != (yj &gt; y)) &amp;&amp; (x &lt; (xj - xi) * (y - yi) / (yj - yi) + xi);
+
+        var pi, pj, xi, yi, xj, yj, intersect;
+        for (var i = 0, len = p.length, j = p.length - 1; i &lt; len; j = i++)
+        {
+             pi = p[i];
+             pj = p[j];
+             xi = pi.x;
+             yi = pi.y;
+             xj = pj.x;
+             yj = pj.y;
+             intersect = ((yi &gt; y) != (yj &gt; y)) &amp;&amp; (x &lt; (xj - xi) * (y - yi) / (yj - yi) + xi);
 
             if(intersect) inside = !inside;
         }

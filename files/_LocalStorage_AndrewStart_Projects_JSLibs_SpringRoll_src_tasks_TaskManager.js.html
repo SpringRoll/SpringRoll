@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -262,7 +262,7 @@
 	/**
 	*  The task manager is responsible for doing a series
 	*  of asyncronous tasks
-	*  
+	*
 	*  @class TaskManager
 	*  @constructor
 	*  @param {Array} tasks The series of tasks to do
@@ -278,56 +278,56 @@
 
 		/**
 		* Collection of all tasks
-		* 
+		*
 		* @property {Array} tasks
 		*/
 		this.tasks = tasks || [];
-		
+
 		/**
 		* The current tasks
-		* 
+		*
 		* @property {Array} _currentTaskes
 		* @private
 		*/
 		this._currentTasks = [];
-		
+
 		/**
 		* If we&#x27;re paused and should therefore not automatically proceed to the
 		* next task after each task completes
-		* 
+		*
 		* @property {bool} paused
 		*/
 		this.paused = true;
-		
+
 		/**
 		* The number of tasks that are currently in progress
-		* 
+		*
 		* @property {int} _tasksInProgress
 		* @private
 		*/
 		this._tasksInProgress = 0;
-		
+
 		/**
 		* If the manager is destroyed
-		* 
+		*
 		* @property {bool} _isDestroyed
 		* @private
 		*/
 		this._isDestroyed = false;
 	};
-	
+
 	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
-	
+
 	/**
 	* Event dispatched when tasks are all done
-	* 
+	*
 	* @event onAllTasksDone
 	*/
 	TaskManager.ALL_TASKS_DONE = &quot;onAllTasksDone&quot;;
-	
+
 	/**
 	*  Convenience method to execute tasks without having to setup the event listener
-	* 
+	*
 	*  @method process
 	*  @static
 	*  @param {Array} tasks The collection of tasks
@@ -361,15 +361,15 @@
 		// Decide if we should start all tasks or just the next one
 		if (startAll)
 			manager.startAll();
-		else 
+		else
 			manager.startNext();
 
 		return manager;
 	};
-	
+
 	/**
 	*  Convenience function to add a task
-	*  
+	*
 	*  @function addTask
 	*  @param {Task} task The task object to load
 	*/
@@ -377,10 +377,10 @@
 	{
 		this.tasks.push(task);
 	};
-	
+
 	/**
 	*  Add bunch of tasks
-	*  
+	*
 	*  @function addTasks
 	*  @param {Array} tasks Collection of tasks to add
 	*
@@ -390,28 +390,31 @@
 		this.removeAll();
 		this.tasks = tasks;
 	};
-	
+
 	/**
 	*   Cancel and remove all tasks
-	*   
+	*
 	*   @function removeAll
 	*/
 	p.removeAll = function()
 	{
 		this._tasksInProgress = 0;
 		this.paused = true;
-		var task, i;
+		var task, i, len;
 		if (this._currentTasks &amp;&amp; this._currentTasks.length &gt; 0)
 		{
-			for (i = 0; i &lt; this._currentTasks.length; i++)
+			for (i = 0, this._currentTasks.length; i &lt; len; i++)
 			{
 				task = this._currentTasks[i];
-				if (task.cancel()) task.destroy();
+				if (task.cancel())
+				{
+					task.destroy();
+				}
 			}
 		}
 		if (this.tasks &amp;&amp; this.tasks.length &gt; 0)
 		{
-			for (i = 0; i &lt; this.tasks.length; i++)
+			for (i = 0, len = this.tasks.length; i &lt; len; i++)
 			{
 				task = this.tasks[i];
 				task.destroy();
@@ -420,7 +423,7 @@
 		this._currentTasks.length = 0;
 		this.tasks.length = 0;
 	};
-	
+
 	/**
 	*	Cancels all tasks with a given id
 	*	@function cancelTask
@@ -429,7 +432,7 @@
 	p.cancelTask = function(taskId)
 	{
 		var i;
-		for(i = 0; i &lt; this._currentTasks.length; ++i)
+		for (i = this._currentTasks.length - 1; i &gt;= 0; --i)
 		{
 			if(this._currentTasks[i].id == taskId)
 			{
@@ -438,21 +441,19 @@
 					this._currentTasks[i].destroy();
 					this._currentTasks.splice(i, 1);
 					--this._tasksInProgress;
-					--i;
 				}
 			}
 		}
-		for(i = 0; i &lt; this.tasks.length; ++i)
+		for (i = this.tasks.length - 1; i &gt;= 0; --i)
 		{
 			if(this.tasks[i].id == taskId)
 			{
 				this.tasks[i].destroy();
 				this.tasks.splice(i, 1);
-				--i;
 			}
 		}
 	};
-	
+
 	/**
 	*   Start the next task in the tasks list. When it is done, the
 	*   task&#x27;s callback will be called.  If the manager is not paused after
@@ -464,9 +465,9 @@
 	p.startNext = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		Debug.assert(!!this.tasks, &quot;startNext(): There are no task for this Task Manager&quot;);
-		
+
 		var task;
 		while (this.tasks.length &gt; 0 &amp;&amp; !(task = this.tasks.shift()))
 		{
@@ -475,32 +476,32 @@
 		{
 			return null;
 		}
-		
+
 		this._currentTasks.push(task);
-		
+
 		this.paused = false;
-		
+
 		// Give warning that a task is about to be started and respect pauses
 		if(this.has(TaskEvent.TASK_ABOUT_TO_START))
 			this.trigger(TaskEvent.TASK_ABOUT_TO_START, new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
-	
+
 		if (this.paused)
 		{
 			return null;
 		}
-		
+
 		if(this.has(TaskEvent.TASK_STARTING))
 			this.trigger(TaskEvent.TASK_STARTING, new TaskEvent(TaskEvent.TASK_STARTING, task));
 		this._tasksInProgress++;
-		
+
 		task.start(this.onTaskDone.bind(this, task));
-		
+
 		return task;
 	};
-	
+
 	/**
 	*   Callback for when an task is done
-	*   
+	*
 	*   @function onTaskDone
 	*   @param {*} result Result of the task
 	*   @param {Task} task Task that is done
@@ -508,13 +509,13 @@
 	p.onTaskDone = function(task, result)
 	{
 		if (this._isDestroyed) return;
-		
+
 		this._tasksInProgress--;
-		
+
 		if(this.has(TaskEvent.TASK_DONE))
 			this.trigger(TaskEvent.TASK_DONE, new TaskEvent(TaskEvent.TASK_DONE, task, result));
 		task.done(result, this);
-		
+
 		// Remove from the current tasks
 		// and destroy
 		var index = this._currentTasks.indexOf(task);
@@ -537,7 +538,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*   Start the next task until there are no more tasks to start
 	*   @function startAll
@@ -546,9 +547,9 @@
 	p.startAll = function()
 	{
 		Debug.assert(!!this.tasks, &quot;startAll(): There are no task for this Task Manager&quot;);
-		
+
 		var ret = [];
-		
+
 		while (true)
 		{
 			var task = this.startNext();
@@ -560,7 +561,7 @@
 		}
 		return ret;
 	};
-	
+
 	/**
 	*   We don&#x27;t want to use the task manager after this
 	*   @function destroy
@@ -568,11 +569,11 @@
 	p.destroy = function()
 	{
 		if (this._isDestroyed) return;
-		
+
 		this._isDestroyed = true;
 
 		this.off();
-		
+
 		this.removeAll();
 		this._currentTasks = null;
 		this.tasks = null;
@@ -580,6 +581,7 @@
 
 	namespace(&#x27;springroll&#x27;).TaskManager = TaskManager;
 }());
+
     </pre>
 </div>
 

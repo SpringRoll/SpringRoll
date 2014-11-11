@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -274,7 +274,7 @@
 			Application = include(&#x27;springroll.Application&#x27;);
 			Loader = include(&#x27;springroll.Loader&#x27;);
 		}
-		
+
 		this._applySpecificVersion = this._applySpecificVersion.bind(this);
 		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
 
@@ -284,32 +284,32 @@
 		*  @property {Dictionary} _versions
 		*/
 		this._versions = {};
-		
+
 		/**
 		*  The list of URL filtering functions.
 		*  @protected
 		*  @property {Array} _filters
 		*/
 		this._filters = [];
-		
+
 		/**
 		*  A global version or cache busting string to apply to every url.
 		*  @property {String} _globalVersion
 		*/
 		this._globalVersion = null;
-		
+
 		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = (cb === &quot;true&quot; || cb === true);
-		
+
 		if(DEBUG)
 		{
 			if (this.cacheBust) Debug.log(&quot;CacheBust all files is on.&quot;);
 		}
 	};
-	
+
 	/* Easy access to the prototype */
 	var p = CacheManager.prototype = {};
-	
+
 	/**
 	*  If we are suppose to cache bust every file
 	*  @property {Boolean} cacheBust
@@ -347,7 +347,7 @@
 			}
 		}
 	});
-	
+
 	/**
 	*  Destroy the cache manager, don&#x27;t use after this.
 	*  @public
@@ -360,7 +360,7 @@
 		this._applySpecificVersion = null;
 		this._applyGlobalVersion = null;
 	};
-	
+
 	/**
 	*  Adds a versions text file containing versions for different assets.
 	*  @public
@@ -372,24 +372,24 @@
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
 		Debug.assert(/^.*\.txt$/.test(url), &quot;The versions file must be a *.txt file&quot;);
-				
+
 		var loader = Loader.instance;
-		
+
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
 		{
 			if (callback) callback();
 			return;
 		}
-		
+
 		// Add a random version number to never cache the text file
 		this.addVersion(url, Date.now().toString());
-		
+
 		//ensure that that cache busting version is applied
 		url = this._applySpecificVersion(url);
-		
+
 		var cm = this;
-		
+
 		// Load the version
 		loader.load(url,
 			function(result)
@@ -402,7 +402,7 @@
 					var i, parts;
 
 					// Go line by line
-					for(i = 0; i &lt; lines.length; i++)
+					for (i = 0, len = lines.length; i &lt; len; i++)
 					{
 						// Check for a valid line
 						if (!lines[i]) continue;
@@ -421,7 +421,7 @@
 			}
 		);
 	};
-	
+
 	/**
 	*  Add a version number for a file
 	*  @method addVersion
@@ -434,7 +434,7 @@
 		if (!this._versions[url])
 			this._versions[url] = version;
 	};
-	
+
 	/**
 	*  Adds a function for running all urls through, to modify them if needed.
 	*  Functions used should accept one string parameter (the url), and return the
@@ -448,7 +448,7 @@
 		if(this._filters.indexOf(filter) == -1)
 			this._filters.push(filter);
 	};
-	
+
 	/**
 	*  Removes a function from the list of filtering functions.
 	*  @method unregisterURLFilter
@@ -461,7 +461,7 @@
 		if(index &gt; -1)
 			this._filters.splice(index, 1);
 	};
-	
+
 	/**
 	*  Applies a url specific version to a url from the versions file.
 	*  @method _applySpecificVersion
@@ -480,7 +480,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Applies cache busting or a global version to a url.
 	*  @method _applyGlobalVersion
@@ -499,7 +499,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Applies a base path to a relative url. This is not used in the filtering
 	*  system because PreloadJS has its own method of prepending the base path
@@ -518,7 +518,7 @@
 		}
 		return url;
 	};
-	
+
 	/**
 	*  Prepare a URL with the necessary cache busting and/or versioning
 	*  as well as the base directory.
@@ -532,22 +532,23 @@
 	*/
 	p.prepare = function(url, applyBasePath)
 	{
-		for(var i = 0; i &lt; this._filters.length; ++i)
+		for (var i = 0, len = this._filters.length; i &lt; len; ++i)
 		{
 			url = this._filters[i](url);
 		}
-		
+
 		if(applyBasePath)
 		{
 			url = this._applyBasePath(url);
 		}
 		return url;
 	};
-	
+
 	// Assign to namespace
 	namespace(&#x27;springroll&#x27;).CacheManager = CacheManager;
-	
+
 }());
+
     </pre>
 </div>
 

@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
             
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
                 <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
             
                 <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
@@ -169,8 +171,6 @@
             
                 <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
             
-                <li><a href="../classes/springroll.Translate.html">springroll.Translate</a></li>
-            
                 <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
             
                 <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
@@ -195,6 +195,8 @@
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
             
+                <li><a href="../modules/Language.html">Language</a></li>
+            
                 <li><a href="../modules/Native Display.html">Native Display</a></li>
             
                 <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
@@ -204,8 +206,6 @@
                 <li><a href="../modules/States.html">States</a></li>
             
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
             
                 <li><a href="../modules/Worker.html">Worker</a></li>
             
@@ -254,7 +254,7 @@
 *  @namespace springroll
 */
 (function(undefined){
-	
+
 	// Import class
 	var Application = include(&#x27;springroll.Application&#x27;);
 
@@ -272,7 +272,7 @@
 				{&quot;start&quot;:0, &quot;end&quot;:2000, &quot;content&quot;:&quot;Love it, absolutely love it!&quot;}
 			]
 		};
-	
+
 		// initialize the captions
 		var captions = new springroll.Captions(captionsDictionary);
 		captions.play(&quot;Alias1&quot;);
@@ -296,7 +296,7 @@
 		* @property {Dictionary} _captionDict
 		*/
 		this._captionDict = null;
-		
+
 		/**
 		* A reference to the Text object that Captions should be controlling.
 		* Only one text field can be controlled at a time.
@@ -305,7 +305,7 @@
 		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
 		*/
 		this._textField = (typeof field === &quot;string&quot; ? document.getElementById(field) : (field || null));
-		
+
 		/**
 		* The function to call when playback is complete.
 		*
@@ -313,7 +313,7 @@
 		* @property {Function} _completeCallback
 		*/
 		this._completeCallback = null;
-		
+
 		/**
 		* The collection of line objects {start:0, end:0, content:&quot;&quot;}
 		*
@@ -321,7 +321,7 @@
 		* @property {Array} _lines
 		*/
 		this._lines = [];
-		
+
 		/**
 		* The duration in milliseconds of the current sound.
 		*
@@ -329,7 +329,7 @@
 		* @property {int} _currentDuration
 		*/
 		this._currentDuration = 0;
-		
+
 		/**
 		* The current playback time
 		*
@@ -337,7 +337,7 @@
 		* @property {int} _currentTime
 		*/
 		this._currentTime = 0;
-		
+
 		/**
 		* Save the current line index
 		*
@@ -345,7 +345,7 @@
 		* @property {int} _currentLine
 		*/
 		this._currentLine = -1;
-		
+
 		/**
 		* Cache the last active line
 		*
@@ -353,7 +353,7 @@
 		* @property {int} _lastActiveLine
 		*/
 		this._lastActiveLine = -1;
-		
+
 		/**
 		* If we&#x27;re playing
 		*
@@ -361,7 +361,7 @@
 		* @property {bool} _playing
 		*/
 		this._playing = false;
-		
+
 		/**
 		* If this instance has been destroyed already
 		*
@@ -384,7 +384,7 @@
 		// Set the captions dictionary
 		this.setDictionary(captionDictionary || null);
 	};
-	
+
 	/**
 	* Reference to the inherieted task
 	*
@@ -392,7 +392,7 @@
 	* @property {Object} p
 	*/
 	var p = Captions.prototype;
-	
+
 	/**
 	* If you want to mute the captions, doesn&#x27;t remove the current caption
 	*
@@ -423,7 +423,7 @@
 		{
 			_muteAll = muteAll;
 
-			for(var i = 0; i &lt; _instances.length; i++)
+			for (var i = 0, len = _instances.length; i &lt; len; i++)
 			{
 				_instances[i]._updateCaptions();
 			}
@@ -453,7 +453,7 @@
 			return this._selfUpdate;
 		}
 	});
-	
+
 	/**
 	* Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
 	*
@@ -469,7 +469,9 @@
 
 		var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
 		//Loop through each line and make sure the times are formatted correctly
-		for(var alias in dict)
+
+		var lines, i, l, len;
+		for (var alias in dict)
 		{
 			//account for a compressed format that is just an array of lines
 			//and convert it to an object with a lines property.
@@ -477,15 +479,16 @@
 			{
 				dict[alias] = {lines:dict[alias]};
 			}
-			var lines = dict[alias].lines;
+			lines = dict[alias].lines;
 			if(!lines)
 			{
 				Debug.log(&quot;alias &#x27;&quot; + alias + &quot;&#x27; has no lines!&quot;);
 				continue;
 			}
-			for(var i = 0, len = lines.length; i &lt; len; ++i)
+			len = lines.length;
+			for (i = 0; i &lt; len; ++i)
 			{
-				var l = lines[i];
+				l = lines[i];
 				if(typeof l.start == &quot;string&quot;)
 				{
 					if(timeFormat.test(l.start))
@@ -555,7 +558,7 @@
 		}
 		return field;
 	};
-	
+
 	/**
 	 * Returns if there is a caption under that alias or not.
 	 *
@@ -583,13 +586,10 @@
 
 		separator = separator || &quot; &quot;;
 
-		var result, 
-			content,
-			i;
-
+		var result, content, i, len;
 		if(Array.isArray(alias))
 		{
-			for(i = 0; i &lt; alias.length; i++)
+			for (i = 0, len = alias.length; i &lt; len; i++)
 			{
 				if(typeof alias[i] == &#x27;string&#x27;)
 				{
@@ -607,7 +607,7 @@
 		}
 		else
 		{
-			var lines = this._captionDict[alias].lines,
+			var lines = this._captionDict[alias].lines;
 			len = lines.length;
 
 			for (i = 0; i &lt; len; i++)
@@ -623,10 +623,10 @@
 					result += separator + content;
 				}
 			}
-		}		
+		}
 		return result;
 	};
-	
+
 	/**
 	* Sets an array of line data as the current caption data to play.
 	*
@@ -637,10 +637,10 @@
 	p._load = function(data)
 	{
 		if (this._isDestroyed) return;
-		
+
 		// Set the current playhead time
 		this._reset();
-		
+
 		//make sure there is data to load, otherwise take it as an empty initialization
 		if (!data)
 		{
@@ -649,7 +649,7 @@
 		}
 		this._lines = data.lines;
 	};
-	
+
 	/**
 	*  Reset the captions
 	*
@@ -661,7 +661,7 @@
 		this._currentLine = -1;
 		this._lastActiveLine = -1;
 	};
-	
+
 	/**
 	*  Take the captions timecode and convert to milliseconds
 	*  format is in HH:MM:ss:mmm
@@ -679,10 +679,10 @@
 		var h = parseInt(parts[0], 10) * 3600000;//* 60 * 60 * 1000;
 		var m = parseInt(parts[1], 10) * 6000;// * 60 * 1000;
 		var s = parseInt(parts[2], 10) * 1000;
-		
+
 		return h + m + s + ms;
 	}
-	
+
 	/**
 	* The playing status.
 	*
@@ -696,7 +696,7 @@
 			return this._playing;
 		}
 	});
-	
+
 	/**
 	*  Calculate the total duration of the current caption
 	*  @private
@@ -707,7 +707,7 @@
 		var lines = this._lines;
 		return lines ? lines[lines.length - 1].end : 0;
 	};
-	
+
 	/**
 	*  Get the current duration of the current caption
 	*  @property {int} currentDuration
@@ -719,7 +719,7 @@
 			return this._currentDuration;
 		}
 	});
-	
+
 	/**
 	*  Start the caption playback.
 	*
@@ -738,7 +738,7 @@
 
 		this.seek(0);
 	};
-	
+
 	/**
 	* Convience function for stopping captions.
 	*
@@ -753,7 +753,7 @@
 		this._reset();
 		this._updateCaptions();
 	};
-	
+
 	/**
 	* Goto a specific time.
 	*
@@ -765,24 +765,23 @@
 	{
 		// Update the current time
 		var currentTime = this._currentTime = time;
-		
+
 		var lines = this._lines;
 		if(!lines)
 		{
 			this._updateCaptions();
 			return;
 		}
-		
+
 		if (currentTime &lt; lines[0].start)
 		{
 			this._currentLine = this._lastActiveLine = -1;
 			this._updateCaptions();
 			return;
 		}
-		
+
 		var len = lines.length;
-		
-		for(var i = 0; i &lt; len; i++)
+		for (var i = 0; i &lt; len; i++)
 		{
 			if (currentTime &gt;= lines[i].start &amp;&amp; currentTime &lt;= lines[i].end)
 			{
@@ -807,7 +806,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	* Callback for when a frame is entered.
 	*
@@ -821,7 +820,7 @@
 		this._currentTime = progress * this._currentDuration;
 		this._calcUpdate();
 	};
-	
+
 	/**
 	* Function to update the amount of time elapsed for the caption playback.
 	* Call this to advance the caption by a given amount of time.
@@ -836,7 +835,7 @@
 		this._currentTime += elapsed;
 		this._calcUpdate();
 	};
-	
+
 	/**
 	* Calculates the captions after increasing the current time.
 	*
@@ -848,13 +847,13 @@
 		var lines = this._lines;
 		if(!lines)
 			return;
-		
+
 		// Check for the end of the captions
 		var len = lines.length;
 		var nextLine = this._lastActiveLine + 1;
 		var lastLine = len - 1;
 		var currentTime = this._currentTime;
-		
+
 		// If we are outside of the bounds of captions, stop
 		if (currentTime &gt;= lines[lastLine].end)
 		{
@@ -872,7 +871,7 @@
 			this._updateCaptions();
 		}
 	};
-	
+
 	/**
 	*  Updates the text in the managed text field.
 	*
@@ -899,7 +898,7 @@
 		var length = 0;
 		if(Array.isArray(alias))
 		{
-			for(var i = 0; i &lt; alias.length; i++)
+			for (var i = 0, len = alias.length; i &lt; len; i++)
 			{
 				if (typeof alias[i] == &#x27;string&#x27;)
 				{
@@ -919,7 +918,7 @@
 
 		return parseInt(length);
 	};
-	
+
 	/**
 	*  Destroy this load task and don&#x27;t use after this
 	*
@@ -934,17 +933,18 @@
 		{
 			_instances.splice(i, 1);
 		}
-		
+
 		this._isDestroyed = true;
-		
+
 		this._captionDict = null;
 		this._lines = null;
 	};
-	
+
 	// Assign to the namespacing
 	namespace(&#x27;springroll&#x27;).Captions = Captions;
-	
+
 }());
+
     </pre>
 </div>
 
