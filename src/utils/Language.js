@@ -4,7 +4,7 @@
 */
 (function(window, undefined){
 	
-	var CacheManager = springroll.CacheManager,
+	var Loader = springroll.Loader,
 		EventDispatcher = springroll.EventDispatcher;
 	
 	/**
@@ -78,7 +78,7 @@
 		
 		//connect to the CacheManager
 		this.modifyUrl = this.modifyUrl.bind(this);
-		CacheManager.instance.registerURLFilter(this.modifyUrl);
+		Loader.instance.cacheManager.registerURLFilter(this.modifyUrl);
 	};
 	
 	// Reference to the prototype
