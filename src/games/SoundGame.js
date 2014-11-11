@@ -286,7 +286,7 @@
 		}
 		else
 		{
-			this.captions.setDictionary(captionData);
+			this.player.captions.setDictionary(captionData);
 		}
 	};
 
