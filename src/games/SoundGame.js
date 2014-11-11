@@ -270,6 +270,25 @@
 			return this._music;
 		}
 	});
+	
+	p.setCaptionsDictionary = function(captionData)
+	{
+		if(!this.player.captions)
+		{
+			var captions = this.player.captions = new Captions(captionData, this.options.captions);
+			this.captions = captions.textField;
+			// Give the display to the animators
+			this.getDisplays(function(display){
+				//ensure that displays without Animators don't break anything
+				if(display.animator)
+					display.animator.captions = captions;
+			});
+		}
+		else
+		{
+			this.player.captions.setDictionary(captionData);
+		}
+	};
 
 	/**
 	*  Destroy the game, don't use after this

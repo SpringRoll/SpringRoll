@@ -93,6 +93,8 @@
 			"src/ui/UIScaler.js"
 		],
 		"captions" : ["src/media/Captions.js"],
-		"translate" : ["src/utils/Translate.js"]
+		"translate" : [
+			"src/utils/Language.js"
+		]
 	}
 }
