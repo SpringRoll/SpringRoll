@@ -5,8 +5,8 @@
 */
 (function(window, undefined){
 	
-	var Loader = springroll.Loader,
-		EventDispatcher = springroll.EventDispatcher;
+	var Loader = include('springroll.Loader'),
+		EventDispatcher = include('springroll.EventDispatcher');
 	
 	/**
 	*  Keeps track of the user locale, by auto-detecting the browser language, allowing a user
@@ -35,8 +35,10 @@
 		
 		EventDispatcher.call(this);
 		
-		if(!config.languages || !config.default)
+		if   (!config.languages || !config.default)
+		{
 			throw "Language requires a language dictionary and a default language!";
+		}
 		
 		/**
 		*  The value to replace with the current language in URLS.
@@ -119,9 +121,9 @@
 	});
 	
 	/**
-	* Gets the languages currently supported.
-	* @method getSupportedLanguages
-	* @return {Array} The list of languages that this Language object recognizes.
+	*  Gets the languages currently supported.
+	*  @method getSupportedLanguages
+	*  @return {Array} The list of languages that this Language object recognizes.
 	*/
 	p.getSupportedLanguages = function()
 	{
@@ -132,10 +134,10 @@
 	};
 	
 	/**
-	 * Gets the preferred languages from the browser.
-	 * @method getPreferredLanguages
-	 * @return {Array} The list of preferred languages in order of preference.
-	 */
+	*  Gets the preferred languages from the browser.
+	*  @method getPreferredLanguages
+	*  @return {Array} The list of preferred languages in order of preference.
+	*/    
 	p.getPreferredLanguages = function()
 	{
 		var rtn;
@@ -156,9 +158,9 @@
 	};
 	
 	/**
-	* Sets the current language, based on specified preferences and what is available.
-	* @method setLanguage
-	* @param {Array|String} languageList The list of preferred languages in order of preference,
+	*  Sets the current language, based on specified preferences and what is available.
+	*  @method setLanguage
+	*  @param {Array|String} languageList The list of preferred languages in order of preference,
 	*                                    or a single language.
 	*/
 	p.setLanguage = function(languageList)
@@ -199,9 +201,9 @@
 	};
 	
 	/**
-	* Sets the string table for later reference.
-	* @method setStringTable
-	* @param {Dictionary} dictionary The string table, with keys that you would use to reference
+	*  Sets the string table for later reference.
+	*  @method setStringTable
+	*  @param {Dictionary} dictionary The string table, with keys that you would use to reference
 	*                                the translations.
 	*/
 	p.setStringTable = function(dictionary)
@@ -210,10 +212,10 @@
 	};
 	
 	/**
-	* Gets a string from the current string table.
-	* @method getString
-	* @param {String} key The key of the string to get.
-	* @return {String} The translated string.
+	*  Gets a string from the current string table.
+	*  @method getString
+	*  @param {String} key The key of the string to get.
+	*  @return {String} The translated string.
 	*/
 	p.getString = function(key)
 	{
@@ -221,9 +223,9 @@
 	};
 	
 	/**
-	* Modifies a url, replacing a specified value with the current language.
-	* @method modifyUrl
-	* @param {String} url The url to modify to a language specific version.
+	*  Modifies a url, replacing a specified value with the current language.
+	*  @method modifyUrl
+	*  @param {String} url The url to modify to a language specific version.
 	*/
 	p.modifyUrl = function(url)
 	{
@@ -233,8 +235,8 @@
 	};
 	
 	/**
-	* Destroys the Language object.
-	* @method destroy
+	*  Destroys the Language object.
+	*  @method destroy
 	*/
 	p.destroy = function()
 	{
