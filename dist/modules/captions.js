@@ -332,14 +332,17 @@
 	 */
 	p.getFullCaption = function(alias, separator)
 	{
-		if (!this._captionDict || !this._captionDict[alias]) return;
+		if (!this._captionDict) return;
 
 		separator = separator || " ";
 
-		var result, content, i, len;
+		var result, 
+			content,
+			i;
+
 		if(Array.isArray(alias))
 		{
-			for (i = 0, len = alias.length; i < len; i++)
+			for(i = 0; i < alias.length; i++)
 			{
 				if(typeof alias[i] == 'string')
 				{
@@ -357,10 +360,11 @@
 		}
 		else
 		{
-			var lines = this._captionDict[alias].lines;
-			len = lines.length;
+			if(!this._captionDict[alias])
+				return alias;//return name if no caption so as not to break lists of mixed SFX and VO
 
-			for (i = 0; i < len; i++)
+			var lines = this._captionDict[alias].lines;
+			for (i = 0; i < lines.length; i++)
 			{
 				content = lines[i].content;
 
@@ -373,7 +377,7 @@
 					result += separator + content;
 				}
 			}
-		}
+		}		
 		return result;
 	};
 
