@@ -414,7 +414,20 @@
 				}
 			}
 			if(startFrame >= 0 && stopFrame >= 0)
+			{
+				//make sure the movieclip has a framerate
+				if (!instance.framerate)
+				{
+					var fps = Application.instance.options.fps;
+					if (!fps)
+						fps = Application.instance.fps;
+					if (!fps)
+						fps = 15;
+					instance.framerate = fps;
+				}
+
 				return (stopFrame - startFrame) / instance.framerate;
+			}
 			else
 				return 0;
 		}
