@@ -13,11 +13,11 @@ test('Language', function(assert){
 	{
 		default:"en",
 		languages:
-		{
-			en:{},
-			es:{},
-			"en-gb":{}
-		}
+		[
+			"en",
+			"es",
+			"en-gb"
+		]
 	};
 	var language = new Language(config);
 	assert.strictEqual(language, Language.instance, "Language's singleton works");
@@ -34,10 +34,12 @@ test('Language', function(assert){
 	
 	var stringTable =
 	{
-		myKey:"This is a string"
+		myKey:"This is a string",
+		myFormattingKey:"This is a %s string"
 	};
 	language.setStringTable(stringTable);
 	assert.equal(language.getString("myKey"), stringTable.myKey, "String table works");
+	assert.equal(language.getFormattedString("myFormattingKey", "formatted"), "This is a formatted string", "String table works");
 
 	// Tests cleanup
 	language.destroy();

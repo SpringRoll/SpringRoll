@@ -17,10 +17,9 @@
 	*  @param {Object} config The language settings to be used.
 	*  @param {String} config.default The default language name to use if asked for one that is
 	*                                 not present.
-	*  @param {Object} config.languages A dictionary of all supported languages, indexed by locale
-	*                                   id (dialects allowed). You may want other data in each
-	*                                   entry, like the language name in that language, or number
-	*                                   separator. Locale ids should be lower case.
+	*  @param {Array} config.languages An array of all supported languages, with entries being
+	*                                  locale ids (dialects allowed). Locale ids should be lower
+	*                                  case.
 	*  @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
 	*                                            language.
 	*/
@@ -62,8 +61,8 @@
 		this._default = config.default;
 		
 		/**
-		*  Available languages, with any data specific to that language.
-		*  @property {Dictionary} languages
+		*  Available languages.
+		*  @property {Array} languages
 		*  @public
 		*/
 		this.languages = config.languages;
@@ -120,23 +119,10 @@
 	});
 	
 	/**
-	*  Gets the languages currently supported.
-	*  @method getSupportedLanguages
-	*  @return {Array} The list of languages that this Language object recognizes.
-	*/
-	p.getSupportedLanguages = function()
-	{
-		var rtn = [];
-		for(var locale in this.languages)
-			rtn.push(locale);
-		return rtn;
-	};
-	
-	/**
 	*  Gets the preferred languages from the browser.
 	*  @method getPreferredLanguages
 	*  @return {Array} The list of preferred languages in order of preference.
-	*/    
+	*/
 	p.getPreferredLanguages = function()
 	{
 		var rtn;
@@ -173,7 +159,7 @@
 		for(var i = 0, len = languageList.length; i < len; ++i)
 		{
 			var language = languageList[i].toLowerCase();
-			if(this.languages[language])
+			if(this.languages.indexOf(language) >= 0)
 			{
 				//check to see if we have the full language and dialect (if included)
 				chosen = language;
@@ -183,7 +169,7 @@
 			{
 				//check to see if we have the language without the dialect
 				language = language.split("-")[0].toLowerCase();
-				if(this.languages[language])
+				if(this.languages.indexOf(language) >= 0)
 				{
 					chosen = language;
 					break;
@@ -219,6 +205,23 @@
 	p.getString = function(key)
 	{
 		return this._stringTable ? this._stringTable[key] : null;
+	};
+	
+	/**
+	*  Gets a formatted string from the current string table. See String.format() in the Core
+	*  module.
+	*  @method getFormattedString
+	*  @param {String} key The key of the string to get.
+	*  @param {Array|*} args An array or list of arguments for formatting.
+	*  @return {String} The translated string.
+	*/
+	p.getFormattedString = function(key)
+	{
+		var string = this._stringTable ? this._stringTable[key] : null;
+		if(string)
+			return string.format(Array.prototype.slice.call(arguments, 1));
+		else
+			return null;
 	};
 	
 	/**

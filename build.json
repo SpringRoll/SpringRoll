@@ -22,7 +22,8 @@
 		"src/loaders/LoaderResult.js",
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
-		"src/utils/DelayedCall.js"
+		"src/utils/DelayedCall.js",
+		"src/utils/String.js"
 	],
 	"modules" : {
 		"worker" : [
