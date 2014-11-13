@@ -181,11 +181,15 @@
             
                 <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
             
+                <li><a href="../classes/String.html">String</a></li>
+            
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
                 <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/Core.html">Core</a></li>
             
                 <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
             
@@ -359,7 +363,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                             <li class="param">
                                 
                                     <code class="param-name">default</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                                 
 
                                 <div class="param-description">
@@ -374,14 +378,13 @@ selection, and automatically modifying any url that runs through the CacheManage
                             <li class="param">
                                 
                                     <code class="param-name">languages</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
                                 
 
                                 <div class="param-description">
-                                    <p>A dictionary of all supported languages, indexed by locale
-                                 id (dialects allowed). You may want other data in each
-                                 entry, like the language name in that language, or number
-                                 separator. Locale ids should be lower case.</p>
+                                    <p>An array of all supported languages, with entries being
+                                locale ids (dialects allowed). Locale ids should be lower
+                                case.</p>
 
                                 </div>
 
@@ -391,7 +394,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                             <li class="param">
                                 
                                     <code class="param-name optional">[replace=&quot;%LANG%&quot;]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
@@ -454,6 +457,13 @@ selection, and automatically modifying any url that runs through the CacheManage
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_getFormattedString">getFormattedString</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_getPreferredLanguages">getPreferredLanguages</a>
 
                                 
@@ -462,13 +472,6 @@ selection, and automatically modifying any url that runs through the CacheManage
                         
                             <li class="index-item method">
                                 <a href="#method_getString">getString</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_getSupportedLanguages">getSupportedLanguages</a>
 
                                 
                                 
@@ -617,7 +620,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l234"><code>destroy:234</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l239"><code>destroy:239</code></a>
         
         </p>
 
@@ -634,6 +637,136 @@ selection, and automatically modifying any url that runs through the CacheManage
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_getFormattedString" class="method item">
+    <h3 class="name"><code>getFormattedString</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>key</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>args</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l210"><code>getFormattedString:210</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets a formatted string from the current string table. See String.format() in the Core
+module.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">key</code>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The key of the string to get.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">args</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | </span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An array or list of arguments for formatting.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>:
+                    
+                    <p>The translated string.</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -676,7 +809,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l133"><code>getPreferredLanguages:133</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l121"><code>getPreferredLanguages:121</code></a>
         
         </p>
 
@@ -732,7 +865,7 @@ selection, and automatically modifying any url that runs through the CacheManage
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+            <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
         </span>
     
 
@@ -759,7 +892,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l211"><code>getString:211</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l199"><code>getString:199</code></a>
         
         </p>
 
@@ -783,7 +916,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 <li class="param">
                     
                         <code class="param-name">key</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
                     
@@ -807,82 +940,9 @@ selection, and automatically modifying any url that runs through the CacheManage
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>:
                     
                     <p>The translated string.</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_getSupportedLanguages" class="method item">
-    <h3 class="name"><code>getSupportedLanguages</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l120"><code>getSupportedLanguages:120</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets the languages currently supported.</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
-                    
-                    <p>The list of languages that this Language object recognizes.</p>
 
                 
             </div>
@@ -935,7 +995,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l222"><code>modifyUrl:222</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l227"><code>modifyUrl:227</code></a>
         
         </p>
 
@@ -959,7 +1019,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 <li class="param">
                     
                         <code class="param-name">url</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
                     
@@ -1024,7 +1084,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l157"><code>setLanguage:157</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l145"><code>setLanguage:145</code></a>
         
         </p>
 
@@ -1048,14 +1108,14 @@ selection, and automatically modifying any url that runs through the CacheManage
                 <li class="param">
                     
                         <code class="param-name">languageList</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>The list of preferred languages in order of preference,
-                                   or a single language.</p>
+                                  or a single language.</p>
 
                     </div>
 
@@ -1114,7 +1174,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l200"><code>setStringTable:200</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l188"><code>setStringTable:188</code></a>
         
         </p>
 
@@ -1145,7 +1205,7 @@ selection, and automatically modifying any url that runs through the CacheManage
 
                     <div class="param-description">
                         <p>The string table, with keys that you would use to reference
-                               the translations.</p>
+                              the translations.</p>
 
                     </div>
 
@@ -1172,7 +1232,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 
                     <div id="property__current" class="property item private">
     <h3 class="name"><code>_current</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
 
@@ -1195,7 +1255,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l48"><code>_current:48</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l49"><code>_current:49</code></a>
         
         </p>
 
@@ -1219,7 +1279,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 
                     <div id="property__default" class="property item private">
     <h3 class="name"><code>_default</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
 
@@ -1242,7 +1302,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l55"><code>_default:55</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l56"><code>_default:56</code></a>
         
         </p>
 
@@ -1266,7 +1326,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 
                     <div id="property__replace" class="property item private">
     <h3 class="name"><code>_replace</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
 
@@ -1289,7 +1349,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l40"><code>_replace:40</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l41"><code>_replace:41</code></a>
         
         </p>
 
@@ -1338,7 +1398,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l69"><code>_stringTable:69</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l70"><code>_stringTable:70</code></a>
         
         </p>
 
@@ -1362,7 +1422,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 
                     <div id="property_current" class="property item public">
     <h3 class="name"><code>current</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
 
@@ -1385,7 +1445,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l108"><code>current:108</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l109"><code>current:109</code></a>
         
         </p>
 
@@ -1434,7 +1494,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l95"><code>instance:95</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l96"><code>instance:96</code></a>
         
         </p>
 
@@ -1458,7 +1518,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 
                     <div id="property_languages" class="property item public">
     <h3 class="name"><code>languages</code></h3>
-    <span class="type">Dictionary</span>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 
     
 
@@ -1481,7 +1541,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l62"><code>languages:62</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l63"><code>languages:63</code></a>
         
         </p>
 
@@ -1491,7 +1551,7 @@ selection, and automatically modifying any url that runs through the CacheManage
     </div>
 
     <div class="description">
-        <p>Available languages, with any data specific to that language.</p>
+        <p>Available languages.</p>
 
     </div>
 
@@ -1536,7 +1596,7 @@ selection, and automatically modifying any url that runs through the CacheManage
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l88"><code>changed:88</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_utils_Language.js.html#l89"><code>changed:89</code></a>
         
         </p>
 
@@ -1559,7 +1619,7 @@ selection, and automatically modifying any url that runs through the CacheManage
                 <li class="param">
                     
                         <code class="param-name">language</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
                     

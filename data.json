@@ -737,9 +737,7 @@
         },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Object.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Object.js",
-            "modules": {
-                "Framework": 1
-            },
+            "modules": {},
             "classes": {
                 "Object": 1
             },
@@ -757,9 +755,22 @@
                 "springroll": 1
             }
         },
+        "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/String.js": {
+            "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/String.js",
+            "modules": {
+                "Core": 1
+            },
+            "classes": {
+                "String": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/TimeUtils.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/TimeUtils.js",
-            "modules": {},
+            "modules": {
+                "Framework": 1
+            },
             "classes": {
                 "springroll.TimeUtils": 1
             },
@@ -1025,6 +1036,18 @@
             "tag": "module",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
             "line": 10
+        },
+        "Core": {
+            "name": "Core",
+            "submodules": {},
+            "classes": {
+                "String": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/String.js",
+            "line": 5
         }
     },
     "classes": {
@@ -3980,8 +4003,8 @@
                         },
                         {
                             "name": "languages",
-                            "description": "A dictionary of all supported languages, indexed by locale\n                                 id (dialects allowed). You may want other data in each\n                                 entry, like the language name in that language, or number\n                                 separator. Locale ids should be lower case.",
-                            "type": "Object"
+                            "description": "An array of all supported languages, with entries being\n                                locale ids (dialects allowed). Locale ids should be lower\n                                case.",
+                            "type": "Array"
                         },
                         {
                             "name": "replace",
@@ -4048,6 +4071,20 @@
                     "type": "Function"
                 }
             ]
+        },
+        "String": {
+            "name": "String",
+            "shortname": "String",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "",
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/String.js",
+            "line": 5,
+            "description": "Add methods to String\nSee https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
         },
         "springroll.TimeUtils": {
             "name": "springroll.TimeUtils",
@@ -12309,7 +12346,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 379,
+            "line": 383,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12328,7 +12365,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 402,
+            "line": 406,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12340,7 +12377,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 414,
+            "line": 418,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12363,7 +12400,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 435,
+            "line": 439,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12377,7 +12414,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 449,
+            "line": 453,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12389,7 +12426,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 460,
+            "line": 464,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12401,7 +12438,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 472,
+            "line": 476,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12425,7 +12462,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 491,
+            "line": 495,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12437,7 +12474,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 506,
+            "line": 510,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12456,7 +12493,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 559,
+            "line": 563,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12475,7 +12512,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 573,
+            "line": 577,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12494,7 +12531,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 588,
+            "line": 592,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12506,7 +12543,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 624,
+            "line": 628,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12518,7 +12555,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 638,
+            "line": 642,
             "description": "Returns duration in ms of given captioned sound alias",
             "itemtype": "method",
             "name": "getLength",
@@ -12539,7 +12576,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 671,
+            "line": 675,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17703,7 +17740,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 40,
+            "line": 41,
             "description": "The value to replace with the current language in URLS.",
             "itemtype": "property",
             "name": "_replace",
@@ -17717,7 +17754,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 48,
+            "line": 49,
             "description": "The current language.",
             "itemtype": "property",
             "name": "_current",
@@ -17730,7 +17767,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 55,
+            "line": 56,
             "description": "The default language.",
             "itemtype": "property",
             "name": "_default",
@@ -17743,11 +17780,11 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 62,
-            "description": "Available languages, with any data specific to that language.",
+            "line": 63,
+            "description": "Available languages.",
             "itemtype": "property",
             "name": "languages",
-            "type": "Dictionary",
+            "type": "Array",
             "access": "public",
             "tagname": "",
             "class": "springroll.Language",
@@ -17756,7 +17793,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 69,
+            "line": 70,
             "description": "A dictionary of translated strings, set with setStringTable().",
             "itemtype": "property",
             "name": "_stringTable",
@@ -17769,7 +17806,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 88,
+            "line": 89,
             "description": "Fired when the chosen language has changed.",
             "itemtype": "event",
             "name": "changed",
@@ -17786,7 +17823,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 95,
+            "line": 96,
             "description": "Get the singleton instance of the Language object.",
             "itemtype": "property",
             "name": "instance",
@@ -17800,7 +17837,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 108,
+            "line": 109,
             "description": "The current language.",
             "itemtype": "property",
             "name": "current",
@@ -17814,21 +17851,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 120,
-            "description": "Gets the languages currently supported.",
-            "itemtype": "method",
-            "name": "getSupportedLanguages",
-            "return": {
-                "description": "The list of languages that this Language object recognizes.",
-                "type": "Array"
-            },
-            "class": "springroll.Language",
-            "module": "Translate",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 133,
+            "line": 121,
             "description": "Gets the preferred languages from the browser.",
             "itemtype": "method",
             "name": "getPreferredLanguages",
@@ -17842,14 +17865,14 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 157,
+            "line": 145,
             "description": "Sets the current language, based on specified preferences and what is available.",
             "itemtype": "method",
             "name": "setLanguage",
             "params": [
                 {
                     "name": "languageList",
-                    "description": "The list of preferred languages in order of preference,\n                                   or a single language.",
+                    "description": "The list of preferred languages in order of preference,\n                                  or a single language.",
                     "type": "Array|String"
                 }
             ],
@@ -17859,14 +17882,14 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 200,
+            "line": 188,
             "description": "Sets the string table for later reference.",
             "itemtype": "method",
             "name": "setStringTable",
             "params": [
                 {
                     "name": "dictionary",
-                    "description": "The string table, with keys that you would use to reference\n                               the translations.",
+                    "description": "The string table, with keys that you would use to reference\n                              the translations.",
                     "type": "Dictionary"
                 }
             ],
@@ -17876,7 +17899,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 211,
+            "line": 199,
             "description": "Gets a string from the current string table.",
             "itemtype": "method",
             "name": "getString",
@@ -17897,7 +17920,33 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 222,
+            "line": 210,
+            "description": "Gets a formatted string from the current string table. See String.format() in the Core\nmodule.",
+            "itemtype": "method",
+            "name": "getFormattedString",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key of the string to get.",
+                    "type": "String"
+                },
+                {
+                    "name": "args",
+                    "description": "An array or list of arguments for formatting.",
+                    "type": "Array|*"
+                }
+            ],
+            "return": {
+                "description": "The translated string.",
+                "type": "String"
+            },
+            "class": "springroll.Language",
+            "module": "Translate",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
+            "line": 227,
             "description": "Modifies a url, replacing a specified value with the current language.",
             "itemtype": "method",
             "name": "modifyUrl",
@@ -17914,7 +17963,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/Language.js",
-            "line": 234,
+            "line": 239,
             "description": "Destroys the Language object.",
             "itemtype": "method",
             "name": "destroy",
@@ -18109,6 +18158,26 @@
             "class": "springroll.PageVisibility",
             "module": "Framework",
             "namespace": "springroll"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/String.js",
+            "line": 11,
+            "description": "Returns a formatted string, similar to the printf() function in many languages.\nThis simplified version substitutes \"%s\" with the arguments in order. To escape \"%s\",\nuse \"%%s\".",
+            "itemtype": "method",
+            "name": "format",
+            "params": [
+                {
+                    "name": "args",
+                    "description": "An array or list of arguments for formatting.",
+                    "type": "Array|*"
+                }
+            ],
+            "return": {
+                "description": "The substituted string.",
+                "type": "String"
+            },
+            "class": "String",
+            "module": "Core"
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/TimeUtils.js",

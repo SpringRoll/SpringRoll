@@ -5,6 +5,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Debug",
         "Math",
         "Object",
+        "String",
         "include",
         "namespace",
         "springroll.AbstractDisplay",
@@ -75,6 +76,7 @@ YUI.add("yuidoc-meta", function(Y) {
     ],
     "modules": [
         "Captions",
+        "Core",
         "CreateJS Display",
         "Framework",
         "Game",
@@ -91,6 +93,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Captions",
             "name": "Captions"
+        },
+        {
+            "displayName": "Core",
+            "name": "Core"
         },
         {
             "displayName": "CreateJS Display",
