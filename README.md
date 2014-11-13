@@ -94,7 +94,7 @@ Modules are components which contain common code classes, documentation and/or r
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
 * **States Module**
 * **Tasks Module**
-* **Translate Module**
+* **[Translate Module](https://github.com/SpringRoll/SpringRoll/wiki/Translate-Module)**
 * **Worker Module**
 
 ##Displays
