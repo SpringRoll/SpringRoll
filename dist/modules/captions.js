@@ -666,6 +666,8 @@
 		}
 		else
 		{
+			if(!this._captionDict[alias]) return length;
+			
 			var lines = this._captionDict[alias].lines;
 			length += lines[lines.length - 1].end;
 		}
