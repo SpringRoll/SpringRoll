@@ -29,8 +29,10 @@
 	* @class Captions
 	* @constructor
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] An text field to use as the output for this captions object,
-	*  if a string type is supplied, captions will use the DOMElement by id.
+	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] A text field
+	*                                               to use as the output for this captions object,
+	*                                               if a string type is supplied, captions will use
+	*                                               the DOMElement by id.
 	* @param {Boolean} [selfUpdate=true] If the captions should update itself
 	*/
 	var Captions = function(captionDictionary, field, selfUpdate)
@@ -64,7 +66,7 @@
 		this._completeCallback = null;
 
 		/**
-		* The collection of line objects {start:0, end:0, content:""}
+		* The collection of line objects - {start:0, end:0, content:""}
 		*
 		* @private
 		* @property {Array} _lines
@@ -80,7 +82,7 @@
 		this._currentDuration = 0;
 
 		/**
-		* The current playback time
+		* The current playback time, in milliseconds.
 		*
 		* @private
 		* @property {int} _currentTime
@@ -88,7 +90,7 @@
 		this._currentTime = 0;
 
 		/**
-		* Save the current line index
+		* The current line index.
 		*
 		* @private
 		* @property {int} _currentLine
@@ -96,7 +98,7 @@
 		this._currentLine = -1;
 
 		/**
-		* Cache the last active line
+		* The last active line index.
 		*
 		* @private
 		* @property {int} _lastActiveLine
@@ -104,18 +106,18 @@
 		this._lastActiveLine = -1;
 
 		/**
-		* If we're playing
+		* If we're playing.
 		*
 		* @private
-		* @property {bool} _playing
+		* @property {Boolean} _playing
 		*/
 		this._playing = false;
 
 		/**
-		* If this instance has been destroyed already
+		* If this instance has been destroyed already.
 		*
 		* @private
-		* @property {bool} _isDestroyed
+		* @property {Boolean} _isDestroyed
 		*/
 		this._isDestroyed = false;
 
@@ -123,7 +125,7 @@
 		this.update = this.update.bind(this);
 
 		/**
-		*  If the captions object should do it's own update
+		*  If the captions object should do its own update.
 		*  @property {Boolean} _selfUpdate
 		*  @private
 		*  @default true
@@ -135,8 +137,9 @@
 	};
 
 	/**
-	* Reference to the inherieted task
+	* Reference to the prototype
 	*
+	* @static
 	* @private
 	* @property {Object} p
 	*/
@@ -145,8 +148,9 @@
 	/**
 	* If you want to mute the captions, doesn't remove the current caption
 	*
+	* @static
 	* @private
-	* @property {bool} _muteAll
+	* @property {Boolean} _muteAll
 	*/
 	var _muteAll = false;
 
@@ -278,7 +282,7 @@
 	 * @private
 	 * @static
 	 * @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} field The text field to change
-	 * @param {string} text The text to set it to
+	 * @param {String} text The text to set it to
 	 * @return {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} The text field
 	 */
 	var setText = function(field, text)
@@ -313,7 +317,7 @@
 	 *
 	 * @method  hasCaption
 	 * @param {String} alias The alias to check against
-	 * @return {bool} Whether the caption was found or not
+	 * @return {Boolean} Whether the caption was found or not
 	 */
 	p.hasCaption = function(alias)
 	{
@@ -322,12 +326,14 @@
 
 	/**
 	 * A utility function for getting the full text of a caption by alias
-	 * this can be useful for debugging purposes.
+	 * this can be useful for debugging or tracking purposes.
 	 *
 	 * @method  getFullCaption
-	 * @param {String|Array} alias The alias or Array of aliases for which to get the text (any non-String values in this Array are silently and harmlessly ignored)
-	 * @param {String} [separator=" "] The separation between each line
-	 * @return {String} The entire captions concatinated by the separator
+	 * @param {String|Array} alias The alias or Array of aliases for which to get the text.
+	 *                             Any non-String values in this Array are silently and
+	 *                             harmlessly ignored.
+	 * @param {String} [separator=" "] The separation between each line.
+	 * @return {String} The entire caption, concatinated by the separator.
 	 */
 	p.getFullCaption = function(alias, separator)
 	{
@@ -335,7 +341,7 @@
 
 		separator = separator || " ";
 
-		var result, 
+		var result,
 			content,
 			i;
 
@@ -359,8 +365,9 @@
 		}
 		else
 		{
+			//return name if no caption so as not to break lists of mixed SFX and VO
 			if(!this._captionDict[alias])
-				return alias;//return name if no caption so as not to break lists of mixed SFX and VO
+				return alias;
 
 			var lines = this._captionDict[alias].lines;
 			for (i = 0; i < lines.length; i++)
@@ -376,7 +383,7 @@
 					result += separator + content;
 				}
 			}
-		}		
+		}
 		return result;
 	};
 
@@ -640,11 +647,13 @@
 	};
 
 	/**
-	 * Returns duration in ms of given captioned sound alias
+	 * Returns duration in milliseconds of given captioned sound alias or alias list.
 	 *
-	 * @method  getLength
-	 * @param {String | Array} alias The alias or array of aliases for which to get duration. Array may contain integers (ms) to account for un-captioned gaps.
-	 * @return {int} Length/duration of caption in ms
+	 * @method getLength
+	 * @param {String|Array} alias The alias or array of aliases for which to get duration.
+	 *                             Array may contain integers (milliseconds) to account for
+	 *                             un-captioned gaps.
+	 * @return {int} Length/duration of caption in milliseconds.
 	 */
 	p.getLength = function(alias)
 	{
@@ -665,6 +674,8 @@
 		}
 		else
 		{
+			if(!this._captionDict[alias])
+				return length;
 			var lines = this._captionDict[alias].lines;
 			length += lines[lines.length - 1].end;
 		}
