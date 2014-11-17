@@ -3392,19 +3392,24 @@
 		ListTask;
 
 	/**
-	*   Cutscene is a class for playing a single EaselJS animation synced to a
-	*	single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
+	*  Cutscene is a class for playing a single EaselJS animation synced to a
+	*  single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
 	*
-	*   @class Cutscene
-	*	@constructor
-	*	@param {Object} options The runtime specific setup data for the cutscene.
-	*	@param {String|Display} options.display The display or display id of the CreateJSDisplay to draw on.
-	*	@param {String} options.configUrl The url of the json config file describing the cutscene. See the example project.
-	*	@param {Function} [options.loadCallback] A function to call when loading is complete.
-	*	@param {String} [options.pathReplaceTarg] A string found in the paths of images that should be replaced with another value.
-	*	@param {String} [options.pathReplaceVal] The string to use when replacing options.pathReplaceTarg.
-	*	@param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the cutscene.
-	*	@param {Captions} [options.captions] A Captions instance to display captions text on.
+	*  @class Cutscene
+	*  @constructor
+	*  @param {Object} options The runtime specific setup data for the cutscene.
+	*  @param {String|Display} options.display The display or display id of the CreateJSDisplay
+	*                                          to draw on.
+	*  @param {String} options.configUrl The url of the json config file describing the cutscene.
+	*                                    See the example project.
+	*  @param {Function} [options.loadCallback] A function to call when loading is complete.
+	*  @param {String} [options.pathReplaceTarg] A string found in the paths of images that should
+	*                                            be replaced with another value.
+	*  @param {String} [options.pathReplaceVal] The string to use when replacing
+	*                                           options.pathReplaceTarg.
+	*  @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
+	*                                         cutscene.
+	*  @param {Captions} [options.captions] A Captions instance to display captions text on.
 	*/
 	var Cutscene = function(options)
 	{
@@ -3442,7 +3447,9 @@
 		*	@property {Display} display
 		*	@public
 		*/
-		this.display = typeof options.display == "string" ? Application.instance.getDisplay(options.display) : options.display;
+		this.display = typeof options.display == "string" ?
+			Application.instance.getDisplay(options.display) :
+			options.display;
 
 		/**
 		*	The source url for the config until it is loaded, then the config object.
@@ -3578,11 +3585,6 @@
 	{
 		this.config = result.content;
 
-		if(this._captionsObj)
-		{
-			this._captionsObj.setDictionary(this.config.captions);
-		}
-
 		//parse config
 		this.framerate = this.config.settings.fps;
 
@@ -3600,11 +3602,9 @@
 			manifest.push({id:key, src:url});
 		}
 
-		var soundConfig = this.config.audio;
-		Sound.instance.loadConfig(soundConfig);//make sure Sound knows about the audio
-
 		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
-		this._taskMan.addTask(Sound.instance.createPreloadTask("audio", [soundConfig.soundManifest[0].id], this.onAudioLoaded));
+		this._taskMan.addTask(Sound.instance.createPreloadTask("audio",
+			[config.settings.audioAlias], this.onAudioLoaded));
 	};
 
 	/**
@@ -3644,7 +3644,8 @@
 			else if(id == "clip")//look for the javascript animation file
 			{
 				//the javascript file
-				//if bitmaps need scaling, then do black magic to the object prototypes so the scaling is built in
+				//if bitmaps need scaling, then do black magic to the object prototypes so the
+				//scaling is built in
 				if(this.imageScale != 1)
 				{
 					imgScale = this.imageScale;
@@ -3685,7 +3686,8 @@
 
 		var clip = this._clip = new lib[this.config.settings.clipClass]();
 		//if the animation was for the older ComicCutscene, we should handle it gracefully
-		//so if the clip only has one frame or is a container, then we get the child of the clip as the animation
+		//so if the clip only has one frame or is a container, then we get the child of the clip
+		//as the animation
 		if(!this._clip.timeline || this._clip.timeline.duration == 1)
 		{
 			clip = this._clip.getChildAt(0);
@@ -3693,7 +3695,8 @@
 		clip.mouseEnabled = false;
 		clip.framerate = this.framerate;
 		clip.advanceDuringTicks = false;
-		clip.gotoAndPlay(0);//internally, movieclip has to be playing to change frames during tick() or advance().
+		//internally, movieclip has to be playing to change frames during tick() or advance().
+		clip.gotoAndPlay(0);
 		clip.loop = false;
 		this.addChild(this._clip);
 
@@ -3746,7 +3749,7 @@
 		this._timeElapsed = 0;
 		this._animFinished = false;
 		this._audioFinished = false;
-		var id = this.config.audio.soundManifest[0].id;
+		var id = this.config.settings.audioAlias;
 		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
 		if(this._captionsObj)
 		{
@@ -3783,13 +3786,19 @@
 		if(this._currentAudioInstance)
 		{
 			var pos = this._currentAudioInstance.position * 0.001;
-			//sometimes (at least with the flash plugin), the first check of the position would be very incorrect
+			//sometimes (at least with the flash plugin), the first check of the
+			//position would be very incorrect
 			if(this._timeElapsed === 0 && pos > elapsed * 2)
 			{
 				//do nothing here
 			}
-			else if(this._currentAudioInstance)//random bug? - check avoids an unlikely null ref error
-				this._timeElapsed = this._currentAudioInstance.position * 0.001;//save the time elapsed
+			else if(this._currentAudioInstance)
+			{
+				//random bug? - else if check avoids an unlikely null ref error
+				
+				//save the time elapsed
+				this._timeElapsed = this._currentAudioInstance.position * 0.001;
+			}
 		}
 		else
 		{
@@ -3801,7 +3810,9 @@
 			this._captionsObj.seek(this._timeElapsed * 1000);
 		}
 		//set the elapsed time of the clip
-		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ? this._clip.getChildAt(0) : this._clip;
+		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ?
+			this._clip.getChildAt(0) :
+			this._clip;
 		clip.elapsedTime = this._timeElapsed;
 		if(clip.currentFrame == clip.timeline.duration)
 		{
@@ -3823,7 +3834,7 @@
 	{
 		Application.instance.off("update", this.update);
 		if(this._currentAudioInstance)
-			Sound.instance.stop(this.config.audio.soundManifest[0].id);
+			Sound.instance.stop(this.config.settings.audioAlias);
 		this._captionsObj.stop();
 
 		if(doCallback && this._endCallback)
@@ -3842,7 +3853,7 @@
 	{
 		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		Sound.instance.unload([this.config.audio.soundManifest[0].id]);//unload audio
+		Sound.instance.unload([this.config.settings.audioAlias]);//unload audio
 		this.config = null;
 		if(this._taskMan)
 		{
