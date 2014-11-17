@@ -775,13 +775,18 @@
 	*/
 	p._onSoundComplete = function(inst)
 	{
-		inst._channel.removeEventListener("complete", inst._endFunc);
-		var sound = this._sounds[inst.alias];
-		sound.playing.splice(sound.playing.indexOf(inst), 1);
-		var callback = inst._endCallback;
-		this._poolInst(inst);
-		if (callback)
-			callback();
+		if(inst._channel)
+		{
+			inst._channel.removeEventListener("complete", inst._endFunc);
+			var sound = this._sounds[inst.alias];
+			var index = sound.playing.indexOf(inst);
+			if(index > -1)
+				sound.playing.splice(index, 1);
+			var callback = inst._endCallback;
+			this._poolInst(inst);
+			if (callback)
+				callback();
+		}
 	};
 
 	/**
