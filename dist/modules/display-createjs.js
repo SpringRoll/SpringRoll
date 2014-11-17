@@ -3604,7 +3604,7 @@
 
 		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
 		this._taskMan.addTask(Sound.instance.createPreloadTask("audio",
-			[config.settings.audioAlias], this.onAudioLoaded));
+			[this.config.settings.audioAlias], this.onAudioLoaded));
 	};
 
 	/**
