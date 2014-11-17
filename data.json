@@ -3206,7 +3206,7 @@
                 },
                 {
                     "name": "field",
-                    "description": "An text field to use as the output for this captions object,\n if a string type is supplied, captions will use the DOMElement by id.",
+                    "description": "A text field\n                                              to use as the output for this captions object,\n                                              if a string type is supplied, captions will use\n                                              the DOMElement by id.",
                     "type": "createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String",
                     "optional": true,
                     "optdefault": "null"
@@ -4684,7 +4684,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 423,
+            "line": 436,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4702,7 +4702,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 446,
+            "line": 459,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4721,7 +4721,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 473,
+            "line": 486,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4746,7 +4746,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 537,
+            "line": 550,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4757,7 +4757,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 558,
+            "line": 571,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4768,7 +4768,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 580,
+            "line": 593,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4791,7 +4791,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 601,
+            "line": 614,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4813,7 +4813,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 620,
+            "line": 633,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4827,7 +4827,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 631,
+            "line": 644,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4840,7 +4840,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 644,
+            "line": 657,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4853,7 +4853,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 657,
+            "line": 670,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4873,7 +4873,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 753,
+            "line": 766,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4892,7 +4892,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 766,
+            "line": 779,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4911,7 +4911,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 779,
+            "line": 792,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4928,7 +4928,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 793,
+            "line": 806,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -12033,7 +12033,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 41,
+            "line": 43,
             "description": "An object used as a dictionary with keys that should be the same as sound aliases",
             "access": "private",
             "tagname": "",
@@ -12046,7 +12046,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 49,
+            "line": 51,
             "description": "A reference to the Text object that Captions should be controlling.\nOnly one text field can be controlled at a time.",
             "access": "private",
             "tagname": "",
@@ -12059,7 +12059,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 58,
+            "line": 60,
             "description": "The function to call when playback is complete.",
             "access": "private",
             "tagname": "",
@@ -12072,8 +12072,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 66,
-            "description": "The collection of line objects {start:0, end:0, content:\"\"}",
+            "line": 68,
+            "description": "The collection of line objects - {start:0, end:0, content:\"\"}",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12085,7 +12085,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 74,
+            "line": 76,
             "description": "The duration in milliseconds of the current sound.",
             "access": "private",
             "tagname": "",
@@ -12098,8 +12098,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 82,
-            "description": "The current playback time",
+            "line": 84,
+            "description": "The current playback time, in milliseconds.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12111,8 +12111,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 90,
-            "description": "Save the current line index",
+            "line": 92,
+            "description": "The current line index.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12124,8 +12124,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 98,
-            "description": "Cache the last active line",
+            "line": 100,
+            "description": "The last active line index.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12137,34 +12137,34 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 106,
-            "description": "If we're playing",
+            "line": 108,
+            "description": "If we're playing.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
             "name": "_playing",
-            "type": "Bool",
+            "type": "Boolean",
             "class": "springroll.Captions",
             "module": "Captions",
             "namespace": "springroll"
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 114,
-            "description": "If this instance has been destroyed already",
+            "line": 116,
+            "description": "If this instance has been destroyed already.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
             "name": "_isDestroyed",
-            "type": "Bool",
+            "type": "Boolean",
             "class": "springroll.Captions",
             "module": "Captions",
             "namespace": "springroll"
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 125,
-            "description": "If the captions object should do it's own update",
+            "line": 127,
+            "description": "If the captions object should do its own update.",
             "itemtype": "property",
             "name": "_selfUpdate",
             "type": "Boolean",
@@ -12177,8 +12177,9 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 137,
-            "description": "Reference to the inherieted task",
+            "line": 139,
+            "description": "Reference to the prototype",
+            "static": 1,
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12190,20 +12191,21 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 145,
+            "line": 148,
             "description": "If you want to mute the captions, doesn't remove the current caption",
+            "static": 1,
             "access": "private",
             "tagname": "",
             "itemtype": "property",
             "name": "_muteAll",
-            "type": "Bool",
+            "type": "Boolean",
             "class": "springroll.Captions",
             "module": "Captions",
             "namespace": "springroll"
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 153,
+            "line": 157,
             "description": "The collection of instances created",
             "itemtype": "property",
             "name": "_instances",
@@ -12216,7 +12218,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 160,
+            "line": 164,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "muteAll",
@@ -12228,7 +12230,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 182,
+            "line": 186,
             "description": "If the captions object should do it's own updating unless you want to manuall\nseek. In general, self-updating should not be set to false unless the sync\nof the captions needs to be exact with something else.",
             "itemtype": "property",
             "name": "selfUpdate",
@@ -12240,7 +12242,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 206,
+            "line": 210,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12259,7 +12261,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 259,
+            "line": 263,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12270,7 +12272,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 275,
+            "line": 279,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12299,7 +12301,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 311,
+            "line": 315,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12312,7 +12314,7 @@
             ],
             "return": {
                 "description": "Whether the caption was found or not",
-                "type": "Bool"
+                "type": "Boolean"
             },
             "class": "springroll.Captions",
             "module": "Captions",
@@ -12320,24 +12322,24 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 323,
-            "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging purposes.",
+            "line": 327,
+            "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging or tracking purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
             "params": [
                 {
                     "name": "alias",
-                    "description": "The alias or Array of aliases for which to get the text (any non-String values in this Array are silently and harmlessly ignored)",
+                    "description": "The alias or Array of aliases for which to get the text.\n                            Any non-String values in this Array are silently and\n                            harmlessly ignored.",
                     "type": "String|Array"
                 },
                 {
                     "name": "[separator=\"",
-                    "description": "\"] The separation between each line",
+                    "description": "\"] The separation between each line.",
                     "type": "String"
                 }
             ],
             "return": {
-                "description": "The entire captions concatinated by the separator",
+                "description": "The entire caption, concatinated by the separator.",
                 "type": "String"
             },
             "class": "springroll.Captions",
@@ -12346,7 +12348,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 383,
+            "line": 390,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12365,7 +12367,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 406,
+            "line": 413,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12377,7 +12379,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 418,
+            "line": 425,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12400,7 +12402,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 439,
+            "line": 446,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12414,7 +12416,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 453,
+            "line": 460,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12426,7 +12428,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 464,
+            "line": 471,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12438,7 +12440,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 476,
+            "line": 483,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12462,7 +12464,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 495,
+            "line": 502,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12474,7 +12476,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 510,
+            "line": 517,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12493,7 +12495,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 563,
+            "line": 570,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12512,7 +12514,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 577,
+            "line": 584,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12531,7 +12533,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 592,
+            "line": 599,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12543,7 +12545,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 628,
+            "line": 635,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12555,19 +12557,19 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 642,
-            "description": "Returns duration in ms of given captioned sound alias",
+            "line": 649,
+            "description": "Returns duration in milliseconds of given captioned sound alias or alias list.",
             "itemtype": "method",
             "name": "getLength",
             "params": [
                 {
                     "name": "alias",
-                    "description": "The alias or array of aliases for which to get duration. Array may contain integers (ms) to account for un-captioned gaps.",
-                    "type": "String | Array"
+                    "description": "The alias or array of aliases for which to get duration.\n                            Array may contain integers (milliseconds) to account for\n                            un-captioned gaps.",
+                    "type": "String|Array"
                 }
             ],
             "return": {
-                "description": "Length/duration of caption in ms",
+                "description": "Length/duration of caption in milliseconds.",
                 "type": "Int"
             },
             "class": "springroll.Captions",
@@ -12576,7 +12578,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Captions.js",
-            "line": 675,
+            "line": 686,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -19014,39 +19016,35 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:423"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:436"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:446"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:459"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:473"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:486"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:537"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:550"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:558"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:571"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:580"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:593"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:601"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:614"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:620"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:631"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:633"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19058,11 +19056,15 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:779"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:670"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:793"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:792"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:806"
         },
         {
             "message": "replacing incorrect tag: function with method",
