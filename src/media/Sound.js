@@ -841,7 +841,7 @@
 	*/
 	p._stopInst = function(inst)
 	{
-		if(inst.channel)
+		if(inst._channel)
 		{
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
