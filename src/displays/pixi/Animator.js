@@ -83,11 +83,11 @@
 	* @param {Boolean} [options.loop=false] Whether the animation should loop
 	* @param {int} [options.speed=1] The speed at which to play the animation
 	* @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
-	* @param {Object|String} [options.soundData=null] Data about a sound to sync the animation to,
+	* @param {Object|String} [options.audio=null] Data about a sound to sync the animation to,
 	*                                                 as an alias or in the format
 	*                                                 {alias:"MyAlias", start:0}. start is the
 	*                                                 seconds into the animation to start playing
-	*                                                 the sound. If it is omitted or soundData is
+	*                                                 the sound. If it is omitted or audio is
 	*                                                 a string, it defaults to 0.
 	* @param {Function} [options.onCancelled] A callback function for when an animation is stopped
 	*                                         with Animator.stop() or to play another animation.
@@ -95,7 +95,7 @@
 	*/
 	Animator.play = function(clip, anim, options)
 	{
-		var callback, loop, speed, startTime, soundData, cancelledCallback;
+		var callback, loop, speed, startTime, audio, cancelledCallback;
 
 		if (options && typeof options == "function")
 		{
@@ -124,7 +124,7 @@
 		startTime = options.startTime;
 		//convert into seconds, as that is what the time uses internally
 		startTime = startTime ? startTime * 0.001 : 0;
-		soundData = options.soundData || null;
+		audio = options.audio || options.soundData || null;
 		cancelledCallback = options.onCancelled || null;
 
 		var t = _animPool.length ?
@@ -196,18 +196,18 @@
 				clip.updateAnim(startTime * t.speed);
 		}
 		//only do sound if the Sound library is in use
-		if (soundData && Sound)
+		if (audio && Sound)
 		{
 			t.playSound = true;
-			if (typeof soundData == "string")
+			if (typeof audio == "string")
 			{
 				t.soundStart = 0;
-				t.soundAlias = soundData;
+				t.soundAlias = audio;
 			}
 			else
 			{
-				t.soundStart = soundData.start > 0 ? soundData.start : 0;//seconds
-				t.soundAlias = soundData.alias;
+				t.soundStart = audio.start > 0 ? audio.start : 0;//seconds
+				t.soundAlias = audio.alias;
 			}
 			t.useCaptions = Animator.captions && Animator.captions.hasCaption(t.soundAlias);
 
@@ -219,7 +219,7 @@
 			else
 			{
 				//start preloading the sound, for less wait time when the animation gets to it
-				Sound.instance.preloadSound(soundData.alias);
+				Sound.instance.preloadSound(audio.alias);
 			}
 		}
 		t.loop = loop;

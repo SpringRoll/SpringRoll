@@ -127,11 +127,11 @@
 	*                                      A value of -1 makes the animation play at a random
 	*                                      startTime.
 	*   @param {Number} [options.speed=1] The speed at which to play the animation.
-	*   @param {Object|String} [options.soundData] Data about a sound to sync the animation to, as
-	*                                              an alias or in the format
+	*   @param {Object|String} [options.audio] Data about a sound to sync the animation to, as
+	*                                              just an alias or in the format
 	*                                              {alias:"MyAlias", start:0}. start is the seconds
 	*                                              into the animation to start playing the sound.
-	*                                              If it is omitted or soundData is a String, it
+	*                                              If it is omitted or audio is a String, it
 	*                                              defaults to 0.
 	*   @param {Function} [options.onCancelled] A callback function for when an animation is stopped
 	*                                           with Animator.stop() or to play another animation.
@@ -140,7 +140,7 @@
 	*/
 	Animator.play = function(instance, event, options)
 	{
-		var onComplete, onCompleteParams, startTime, speed, soundData, onCancelled;
+		var onComplete, onCompleteParams, startTime, speed, audio, onCancelled;
 
 		if (options && typeof options == "function")
 		{
@@ -159,7 +159,7 @@
 		startTime = startTime ? startTime * 0.001 : 0;
 		speed = options.speed || 1;
 		onCancelled = options.onCancelled || null;
-		soundData = options.soundData || null;
+		audio = options.audio || options.soundData || null;
 
 		if (!_timelines)
 			Animator.init();
@@ -169,7 +169,7 @@
 			Animator.stop(instance);
 		}
 		var timeline = Animator._makeTimeline(instance, event, onComplete, onCompleteParams, speed,
-												soundData, onCancelled);
+												audio, onCancelled);
 
 		//if the animation is present and complete
 		if (timeline.firstFrame > -1 && timeline.lastFrame > -1)
@@ -220,14 +220,14 @@
 	*   @param {Function} onComplete The function to callback when we're done
 	*   @param {Function} onCompleteParams Parameters to pass to onComplete function
 	*   @param {Number} speed The speed at which to play the animation.
-	*   @param {Object} soundData Data about sound to sync the animation to.
+	*   @param {Object|String} audio Data about sound to sync the animation to.
 	*   @param {Function} onCancelled The function to callback when cancelled
 	*   @return {AnimatorTimeline} The Timeline object
 	*   @private
 	*   @static
 	*/
 	Animator._makeTimeline = function(instance, event, onComplete, onCompleteParams, speed,
-										soundData, onCancelled)
+										audio, onCancelled)
 	{
 		var timeline = new AnimatorTimeline();
 		if (!Animator._canAnimate(instance))//not a movieclip
@@ -255,20 +255,21 @@
 		timeline.onCompleteParams = onCompleteParams;
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
-		if (soundData && Sound)
+		if (audio && Sound)
 		{
 			timeline.playSound = true;
-			if (typeof soundData == "string")
+			if (typeof audio == "string")
 			{
 				timeline.soundStart = 0;
-				timeline.soundAlias = soundData;
+				timeline.soundAlias = audio;
 			}
 			else
 			{
-				timeline.soundStart = soundData.start > 0 ? soundData.start : 0;//seconds
-				timeline.soundAlias = soundData.alias;
+				timeline.soundStart = audio.start > 0 ? audio.start : 0;//seconds
+				timeline.soundAlias = audio.alias;
 			}
-			timeline.useCaptions = Animator.captions && Animator.captions.hasCaption(timeline.soundAlias);
+			timeline.useCaptions = Animator.captions &&
+									Animator.captions.hasCaption(timeline.soundAlias);
 		}
 
 		//go through the list of labels (they are sorted by frame number)

@@ -521,11 +521,11 @@
 	var EventDispatcher = include('springroll.EventDispatcher'),
 		BaseState = include('springroll.BaseState'),
 		StateEvent = include('springroll.StateEvent'),
-		Sound;		
+		Sound;
 	
 	/**
 	*  The State Manager used for managing the different states of a game or site
-	*  
+	*
 	*  @class StateManager
 	*  @constructor
 	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
@@ -541,7 +541,7 @@
 
 		/**
 		* The display that holds the states this StateManager is managing.
-		* 
+		*
 		* @property {springroll.AbstractDisplay} _display
 		* @private
 		*/
@@ -549,7 +549,7 @@
 		
 		/**
 		* The click to play in between transitioning states
-		* 
+		*
 		* @property {createjs.MovieClip|PIXI.Spine} _transition
 		* @private
 		*/
@@ -557,7 +557,7 @@
 		
 		/**
 		* The sounds for the transition
-		* 
+		*
 		* @property {object} _transitionSounds
 		* @private
 		*/
@@ -565,7 +565,7 @@
 		
 		/**
 		* The collection of states map
-		* 
+		*
 		* @property {Object} _states
 		* @private
 		*/
@@ -573,15 +573,15 @@
 		
 		/**
 		* The currently selected state
-		* 
+		*
 		* @property {BaseState} _state
 		* @private
 		*/
 		this._state = null;
 		
-		/** 
+		/**
 		* The currently selected state id
-		* 
+		*
 		* @property {String} _stateID
 		* @private
 		*/
@@ -589,7 +589,7 @@
 		
 		/**
 		* The old state
-		* 
+		*
 		* @property {BaseState} _oldState
 		* @private
 		*/
@@ -597,15 +597,15 @@
 		
 		/**
 		* If the manager is loading a state
-		* 
+		*
 		* @property {bool} name description
 		* @private
 		*/
 		this._isLoading = false;
 		
-		/** 
+		/**
 		* If the state or manager is current transitioning
-		* 
+		*
 		* @property {bool} _isTransitioning
 		* @private
 		*/
@@ -613,7 +613,7 @@
 		
 		/**
 		* If the current object is destroyed
-		* 
+		*
 		* @property {bool} _destroyed
 		* @private
 		*/
@@ -621,7 +621,7 @@
 		
 		/**
 		* If we're transitioning the state, the queue the id of the next one
-		* 
+		*
 		* @property {String} _queueStateId
 		* @private
 		*/
@@ -635,7 +635,7 @@
 		// Hide the blocker
 		this.hideBlocker();
 
-		// Binding		
+		// Binding
 		this._loopTransition = this._loopTransition.bind(this);
 	};
 	
@@ -643,63 +643,63 @@
 
 	/**
 	* The name of the Animator label and event for transitioning state in
-	* 
+	*
 	* @event onTransitionIn
 	*/
 	StateManager.TRANSITION_IN = "onTransitionIn";
 	
 	/**
 	* The name of the event for done with transitioning state in
-	* 
+	*
 	* @event onTransitionInDone
 	*/
 	StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
 	
 	/**
 	* The name of the Animator label and event for transitioning state out
-	* 
+	*
 	* @event onTransitionOut
 	*/
 	StateManager.TRANSITION_OUT = "onTransitionOut";
 	
 	/**
 	* The name of the event for done with transitioning state out
-	* 
+	*
 	* @event onTransitionOutDone
 	*/
 	StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
 	
 	/**
 	* The name of the event for done with initializing
-	* 
+	*
 	* @event onInitDone
 	*/
 	StateManager.TRANSITION_INIT_DONE = "onInitDone";
 	
 	/**
 	* Event when the state transitions the first time
-	* 
+	*
 	* @event onLoadingStart
 	*/
 	StateManager.LOADING_START = "onLoadingStart";
 	
 	/**
 	* Event when the state transitions the first time
-	* 
+	*
 	* @event onLoadingDone
 	*/
 	StateManager.LOADING_DONE = "onLoadingDone";
 	
 	/**
 	*  Register a state with the state manager, done initially
-	*  
+	*
 	*  @function addState
 	*  @param {String} id The string alias for a state
 	*  @param {BaseState} state State object reference
 	*/
 	p.addState = function(id, state)
 	{
-		if (true) 
+		if (true)
 		{
 			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
 		}
@@ -719,7 +719,7 @@
 	
 	/**
 	*  Dynamically change the transition
-	*  
+	*
 	*  @function changeTransition
 	*  @param {createjs.MovieClip|PIXI.Spine} Clip to swap for transition
 	*/
@@ -730,7 +730,7 @@
 	
 	/**
 	*  Get the currently selected state
-	*  
+	*
 	*  @function getState
 	*  @return {String} The id of the current state
 	*/
@@ -741,7 +741,7 @@
 	
 	/**
 	*   Get the current selected state (state object)
-	*   
+	*
 	*   @function getCurrentState
 	*   @return {BaseState} The Base State object
 	*/
@@ -752,7 +752,7 @@
 	
 	/**
 	*   Access a certain state by the ID
-	*   
+	*
 	*   @function getStateById
 	*   @param {String} id State alias
 	*   @return {BaseState} The base State object
@@ -763,9 +763,9 @@
 		return this._states[id];
 	};
 	
-	/** 
+	/**
 	* If the StateManager is busy because it is currently loading or transitioning.
-	* 
+	*
 	* @function isBusy
 	* @return {bool} If StateManager is busy
 	*/
@@ -777,7 +777,7 @@
 	/**
 	*   If the state needs to do some asyncronous tasks,
 	*   The state can tell the manager to stop the animation
-	*   
+	*
 	*   @function loadingStart
 	*/
 	p.loadingStart = function()
@@ -792,7 +792,7 @@
 	/**
 	*   If the state has finished it's asyncronous task loading
 	*   Lets enter the state
-	*   
+	*
 	*   @function loadingDone
 	*/
 	p.loadingDone = function()
@@ -804,7 +804,7 @@
 	
 	/**
 	*   Show, enable the blocker clip to disable mouse clicks
-	*   
+	*
 	*   @function showBlocker
 	*/
 	p.showBlocker = function()
@@ -814,7 +814,7 @@
 	
 	/**
 	*   Re-enable interaction with the stage
-	*   
+	*
 	*   @function hideBlocker
 	*/
 	p.hideBlocker = function()
@@ -823,9 +823,9 @@
 	};
 	
 	/**
-	*   This transitions out of the current state and 
+	*   This transitions out of the current state and
 	*   enters it again. Can be useful for clearing a state
-	*   
+	*
 	*   @function refresh
 	*/
 	p.refresh = function()
@@ -851,7 +851,7 @@
 
 	/**
 	*  Set the current State
-	*  
+	*
 	*  @function setState
 	*  @param {String} id The state id
 	*/
@@ -933,7 +933,7 @@
 								{
 									sm._isLoading = true;
 									sm._state._internalEnter(sm._onStateLoaded.bind(sm));
-								}	
+								}
 							}
 						);
 					}
@@ -945,7 +945,7 @@
 	/**
 	*   When the state has completed it's loading sequence
 	*   this should be treated as an asyncronous process
-	*   
+	*
 	*   @function _onStateLoaded
 	*   @private
 	*/
@@ -988,7 +988,7 @@
 	
 	/**
 	*  Process the state queue
-	*  
+	*
 	*  @function _processQueue
 	*  @return If there is a queue to process
 	*  @private
@@ -1011,7 +1011,7 @@
 	/**
 	*  Plays the animation "transitionLoop" on the transition. Also serves as the animation callback.
 	*  Manually looping the animation allows the animation to be synced to the audio while looping.
-	*  
+	*
 	*  @function _loopTransition
 	*  @private
 	*/
@@ -1028,15 +1028,15 @@
 		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
 		{
 			animator.play(this._transition, "transitionLoop", {
-				onComplete: this._loopTransition, 
-				soundData: audio
+				onComplete: this._loopTransition,
+				audio: audio
 			});
 		}
 	};
 	
 	/**
 	 * Displays the transition out animation, without changing states.
-	 * 
+	 *
 	 * @function showTransitionOut
 	 * @param {function} callback The function to call when the animation is complete.
 	 */
@@ -1056,7 +1056,7 @@
 
 	/**
 	 * Displays the transition in animation, without changing states.
-	 * 
+	 *
 	 * @function showTransitionIn
 	 * @param {function} callback The function to call when the animation is complete.
 	 */
@@ -1068,7 +1068,7 @@
 	
 	/**
 	*   Generalized function for transitioning with the manager
-	*   
+	*
 	*   @function _transitioning
 	*   @param {String} The animator event to play
 	*   @param {Function} The callback function after transition is done
@@ -1084,13 +1084,13 @@
 
 		if (this._transitionSounds && Sound)
 		{
-			audio = event == StateManager.TRANSITION_IN ? 
-				this._transitionSounds.in : 
+			audio = event == StateManager.TRANSITION_IN ?
+				this._transitionSounds.in :
 				this._transitionSounds.out;
 		}
 		animator.play(this._transition, event, {
-			onComplete: callback, 
-			soundData: audio
+			onComplete: callback,
+			audio: audio
 		});
 	};
 
@@ -1149,7 +1149,7 @@
 	
 	/**
 	*   Remove the state manager
-	*   
+	*
 	*   @function destroy
 	*/
 	p.destroy = function()

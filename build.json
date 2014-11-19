@@ -42,8 +42,6 @@
 			"src/displays/createjs/Animator.js",
 			"src/displays/createjs/Button.js",
 			"src/displays/createjs/SoundButton.js",
-			"src/displays/createjs/CharacterClip.js",
-			"src/displays/createjs/CharacterController.js",
 			"src/displays/createjs/DragData.js",
 			"src/displays/createjs/DragManager.js",
 			"src/displays/createjs/Cutscene.js"

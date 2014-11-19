@@ -772,11 +772,11 @@
 	*                                      A value of -1 makes the animation play at a random
 	*                                      startTime.
 	*   @param {Number} [options.speed=1] The speed at which to play the animation.
-	*   @param {Object|String} [options.soundData] Data about a sound to sync the animation to, as
-	*                                              an alias or in the format
+	*   @param {Object|String} [options.audio] Data about a sound to sync the animation to, as
+	*                                              just an alias or in the format
 	*                                              {alias:"MyAlias", start:0}. start is the seconds
 	*                                              into the animation to start playing the sound.
-	*                                              If it is omitted or soundData is a String, it
+	*                                              If it is omitted or audio is a String, it
 	*                                              defaults to 0.
 	*   @param {Function} [options.onCancelled] A callback function for when an animation is stopped
 	*                                           with Animator.stop() or to play another animation.
@@ -785,7 +785,7 @@
 	*/
 	Animator.play = function(instance, event, options)
 	{
-		var onComplete, onCompleteParams, startTime, speed, soundData, onCancelled;
+		var onComplete, onCompleteParams, startTime, speed, audio, onCancelled;
 
 		if (options && typeof options == "function")
 		{
@@ -804,7 +804,7 @@
 		startTime = startTime ? startTime * 0.001 : 0;
 		speed = options.speed || 1;
 		onCancelled = options.onCancelled || null;
-		soundData = options.soundData || null;
+		audio = options.audio || options.soundData || null;
 
 		if (!_timelines)
 			Animator.init();
@@ -814,7 +814,7 @@
 			Animator.stop(instance);
 		}
 		var timeline = Animator._makeTimeline(instance, event, onComplete, onCompleteParams, speed,
-												soundData, onCancelled);
+												audio, onCancelled);
 
 		//if the animation is present and complete
 		if (timeline.firstFrame > -1 && timeline.lastFrame > -1)
@@ -865,14 +865,14 @@
 	*   @param {Function} onComplete The function to callback when we're done
 	*   @param {Function} onCompleteParams Parameters to pass to onComplete function
 	*   @param {Number} speed The speed at which to play the animation.
-	*   @param {Object} soundData Data about sound to sync the animation to.
+	*   @param {Object|String} audio Data about sound to sync the animation to.
 	*   @param {Function} onCancelled The function to callback when cancelled
 	*   @return {AnimatorTimeline} The Timeline object
 	*   @private
 	*   @static
 	*/
 	Animator._makeTimeline = function(instance, event, onComplete, onCompleteParams, speed,
-										soundData, onCancelled)
+										audio, onCancelled)
 	{
 		var timeline = new AnimatorTimeline();
 		if (!Animator._canAnimate(instance))//not a movieclip
@@ -900,20 +900,21 @@
 		timeline.onCompleteParams = onCompleteParams;
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
-		if (soundData && Sound)
+		if (audio && Sound)
 		{
 			timeline.playSound = true;
-			if (typeof soundData == "string")
+			if (typeof audio == "string")
 			{
 				timeline.soundStart = 0;
-				timeline.soundAlias = soundData;
+				timeline.soundAlias = audio;
 			}
 			else
 			{
-				timeline.soundStart = soundData.start > 0 ? soundData.start : 0;//seconds
-				timeline.soundAlias = soundData.alias;
+				timeline.soundStart = audio.start > 0 ? audio.start : 0;//seconds
+				timeline.soundAlias = audio.alias;
 			}
-			timeline.useCaptions = Animator.captions && Animator.captions.hasCaption(timeline.soundAlias);
+			timeline.useCaptions = Animator.captions &&
+									Animator.captions.hasCaption(timeline.soundAlias);
 		}
 
 		//go through the list of labels (they are sorted by frame number)
@@ -2404,293 +2405,6 @@
 	namespace('springroll').SoundButton = SoundButton;
 	namespace('springroll.createjs').SoundButton = SoundButton;
 
-}());
-/**
-*  @module CreateJS Display
-*  @namespace springroll.createjs
-*/
-(function(){
-	
-	/**
-	*   CharacterClip is used by the CharacterController class
-	*   
-	*   @class CharacterClip
-	*   @constructor
-	*   @param {String} event Animator event to play
-	*   @param {int} loops The number of loops
-	*/
-	var CharacterClip = function(event, loops)
-	{
-		/**
-		* The event to play
-		*
-		* @property {String} event
-		*/
-		this.event = event;
-		
-		/**
-		* The number of times to loop
-		* 
-		* @property {int} loops
-		*/
-		this.loops = loops || 0;
-	};
-		
-	
-	// Assign to the springroll namespace
-	namespace('springroll').CharacterClip = CharacterClip;
-	namespace('springroll.createjs').CharacterClip = CharacterClip;
-
-}());
-/**
-*  @module CreateJS Display
-*  @namespace springroll.createjs
-*/
-(function(){
-
-	// Imports
-	var Animator = include('springroll.createjs.Animator');
-	
-	/**
-	*   Character Controller class is designed to play animated
-	*   sequences on the timeline. This is a flexible way to
-	*   animate characters on a timeline
-	*   
-	*   @class CharacterController
-	*/
-	var CharacterController = function()
-	{
-		/**
-		* The current stack of animations to play
-		*
-		* @property {Array} _animationStack
-		* @private
-		*/
-		this._animationStack = [];
-		
-		/**
-		* The currently playing animation 
-		* 
-		* @property {CharacterClip} _currentAnimation
-		* @private
-		*/
-		this._currentAnimation = null;
-		
-		/**
-		* Current number of loops for the current animation
-		* 
-		* @property {int} _loops
-		* @private
-		*/
-		this._loops = 0;
-		
-		/**
-		* If the current animation choreographies can't be interrupted 
-		* 
-		* @property {bool} _interruptable
-		* @private
-		*/
-		this._interruptable = true;
-		
-		/**
-		* If frame dropping is allowed for this animation set
-		* 
-		* @property {bool} _allowFrameDropping
-		* @private
-		*/
-		this._allowFrameDropping = false;
-		
-		/**
-		* The current character
-		* 
-		* @property {createjs.MovieClip} _character
-		* @private
-		*/
-		this._character = null;
-		
-		/**
-		* Callback function for playing animation 
-		* 
-		* @property {function} _callback
-		* @private
-		*/
-		this._callback = null;
-		
-		/** 
-		* If this instance has been destroyed
-		* 
-		* @property {bool} _destroyed
-		* @private
-		*/
-		this._destroyed = false;
-	};
-	
-	var p = CharacterController.prototype;
-	
-	/**
-	*   Set the current character, setting to null clears character
-	*   
-	*   @function setCharacter
-	*   @param {createjs.MovieClip} character MovieClip
-	*/
-	p.setCharacter = function(character)
-	{
-		this.clear();
-		this._character = character;
-		if (this._character)
-		{
-			Debug.assert(this._character instanceof createjs.MovieClip, "character must subclass MovieClip");
-			this._character.stop();
-		}
-	};
-	
-	/**
-	*   If we want to play a static frame
-	*   
-	*   @function gotoFrameAndStop
-	*   @param {String} event The frame label to stop on
-	*/
-	p.gotoFrameAndStop = function(event)
-	{
-		Debug.assert(this._character, "gotoFrameAndStop() requires a character!");
-		Animator.stop(this._character);
-		this._animationStack.length = 0;
-		this._character.gotoAndStop(event);
-	};
-	
-	/**
-	 * Will play a sequence of animations
-	 * 
-	 * @function playClips
-	 * @param {Array} clips an array of CharacterClip objects
-	 * @param {function} callback Callback for when the animations are either done, or
-	 *             have been interrupted. Will pass true is interrupted,
-	 *             false if they completed
-	 * @param {bool} interruptable If calling this can interrupt the current animation(s)
-	 * @param {bool} cancelPreviousCallback Cancel the callback the last time this was called
-	 * @param {bool} allowFrameDropping If frame dropping is allowed for this frame, if the Animator is doing frame drop checks
-	 */
-	p.playClips = function(clips, callback, interruptable, cancelPreviousCallback, allowFrameDropping)
-	{
-		callback = callback || null;
-		interruptable = interruptable || true;
-		cancelPreviousCallback = cancelPreviousCallback || true;
-		allowFrameDropping = allowFrameDropping || true;
-		
-		Debug.assert(this._character, "playClips requires a character!");
-		
-		if (!this._interruptable) return;
-		
-		Animator.stop(this._character);
-		
-		this._interruptable = interruptable;
-		
-		if (this._callback && !cancelPreviousCallback)
-		{
-			this._callback(true);
-		}
-		
-		this._callback = callback;
-		this._animationStack.length = 0;
-		for(var c in clips)
-		{
-			this._animationStack.push(clips[c]);
-		}
-		this._allowFrameDropping = allowFrameDropping;
-		
-		this.startNext();
-	};
-	
-	/**
-	*   Start the next animation in the sequence
-	*   
-	*   @function startNext
-	*/
-	p.startNext = function()
-	{
-		this._loops = 0;
-		if (this._animationStack.length > 0)
-		{
-			this._currentAnimation = this._animationStack.shift();
-			Animator.play(
-				this._character, 
-				this._currentAnimation.event, 
-				this._animationComplete.bind(this), 
-				[this], 
-				this._allowFrameDropping
-			);	
-		}
-		else if(this._callback)
-		{
-			this._interruptable = true;
-			var cb = this._callback;
-			this._callback = null;
-			cb(false);
-		}
-	};
-	
-	/**
-	*   When the animation has completed playing
-	*   
-	*   @function _animationComplete
-	*   @private
-	*/
-	p._animationComplete = function()
-	{		
-		this._loops++;
-		
-		if(this._currentAnimation.loops === 0 || this._loops < this._currentAnimation.loops)
-		{
-			Animator.play(
-				this._character, 
-				this._currentAnimation.event, 
-				this._animationComplete.bind(this), 
-				null, 
-				this._allowFrameDropping
-			);
-		}
-		else if (this._currentAnimation.loops == this._loops)
-		{
-			this.startNext();
-		}
-	};
-	
-	/**
-	*   Clear any animations for the current character
-	*   
-	*   @function clear
-	*/
-	p.clear = function()
-	{
-		if (this._character)
-		{
-			Animator.stop(this._character);
-		}
-		this._currentAnimation = null;
-		this._interruptable = true;
-		this._callback = null;
-		this._animationStack.length = 0;
-		this._loops = 0;
-	};
-	
-	/**
-	*  Don't use after this
-	*  
-	*  @function destroy
-	*/
-	p.destroy = function()
-	{
-		if(this._destroyed) return;
-		
-		this._destroyed = true;
-		this.clear();
-		this._character = null;
-		this._animationStack = null;
-	};
-	
-	// Assign to the springroll namespace
-	namespace('springroll').CharacterController = CharacterController;
-	namespace('springroll.createjs').CharacterController = CharacterController;
 }());
 /**
 *  @module CreateJS Display
