@@ -69,10 +69,6 @@
             
                 <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
             
-                <li><a href="../classes/springroll.createjs.CharacterClip.html">springroll.createjs.CharacterClip</a></li>
-            
-                <li><a href="../classes/springroll.createjs.CharacterController.html">springroll.createjs.CharacterController</a></li>
-            
                 <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
             
                 <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
@@ -1030,13 +1026,18 @@
 	*/
 	p._onSoundComplete = function(inst)
 	{
-		inst._channel.removeEventListener(&quot;complete&quot;, inst._endFunc);
-		var sound = this._sounds[inst.alias];
-		sound.playing.splice(sound.playing.indexOf(inst), 1);
-		var callback = inst._endCallback;
-		this._poolInst(inst);
-		if (callback)
-			callback();
+		if(inst._channel)
+		{
+			inst._channel.removeEventListener(&quot;complete&quot;, inst._endFunc);
+			var sound = this._sounds[inst.alias];
+			var index = sound.playing.indexOf(inst);
+			if(index &gt; -1)
+				sound.playing.splice(index, 1);
+			var callback = inst._endCallback;
+			this._poolInst(inst);
+			if (callback)
+				callback();
+		}
 	};
 
 	/**
@@ -1091,7 +1092,7 @@
 	*/
 	p._stopInst = function(inst)
 	{
-		if(inst.channel)
+		if(inst._channel)
 		{
 			inst._channel.removeEventListener(&quot;complete&quot;, inst._endFunc);
 			inst._channel.stop();

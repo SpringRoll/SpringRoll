@@ -52,28 +52,6 @@
                 "springroll.createjs": 1
             }
         },
-        "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterClip.js": {
-            "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterClip.js",
-            "modules": {},
-            "classes": {
-                "springroll.createjs.CharacterClip": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll.createjs": 1
-            }
-        },
-        "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js": {
-            "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "modules": {},
-            "classes": {
-                "springroll.createjs.CharacterController": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll.createjs": 1
-            }
-        },
         "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CreateJSDisplay.js": {
             "name": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CreateJSDisplay.js",
             "modules": {},
@@ -846,8 +824,6 @@
                 "springroll.createjs.Animator": 1,
                 "springroll.createjs.AnimatorTimeline": 1,
                 "springroll.createjs.Button": 1,
-                "springroll.createjs.CharacterClip": 1,
-                "springroll.createjs.CharacterController": 1,
                 "springroll.createjs.CreateJSDisplay": 1,
                 "springroll.createjs.Cutscene": 1,
                 "springroll.createjs.DisplayAdapter": 1,
@@ -1354,47 +1330,6 @@
                 }
             ]
         },
-        "springroll.createjs.CharacterClip": {
-            "name": "springroll.createjs.CharacterClip",
-            "shortname": "CharacterClip",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs",
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterClip.js",
-            "line": 7,
-            "description": "CharacterClip is used by the CharacterController class",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "event",
-                    "description": "Animator event to play",
-                    "type": "String"
-                },
-                {
-                    "name": "loops",
-                    "description": "The number of loops",
-                    "type": "Int"
-                }
-            ]
-        },
-        "springroll.createjs.CharacterController": {
-            "name": "springroll.createjs.CharacterController",
-            "shortname": "CharacterController",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs",
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 10,
-            "description": "Character Controller class is designed to play animated\nsequences on the timeline. This is a flexible way to\nanimate characters on a timeline"
-        },
         "springroll.createjs.CreateJSDisplay": {
             "name": "springroll.createjs.CreateJSDisplay",
             "shortname": "CreateJSDisplay",
@@ -1458,7 +1393,7 @@
             "namespace": "springroll.createjs",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
             "line": 15,
-            "description": "Cutscene is a class for playing a single EaselJS animation synced to a\n\tsingle audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.",
+            "description": "Cutscene is a class for playing a single EaselJS animation synced to a\nsingle audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.",
             "is_constructor": 1,
             "params": [
                 {
@@ -1468,12 +1403,12 @@
                     "props": [
                         {
                             "name": "display",
-                            "description": "The display or display id of the CreateJSDisplay to draw on.",
+                            "description": "The display or display id of the CreateJSDisplay\n                                        to draw on.",
                             "type": "String|Display"
                         },
                         {
                             "name": "configUrl",
-                            "description": "The url of the json config file describing the cutscene. See the example project.",
+                            "description": "The url of the json config file describing the cutscene.\n                                  See the example project.",
                             "type": "String"
                         },
                         {
@@ -1484,19 +1419,19 @@
                         },
                         {
                             "name": "pathReplaceTarg",
-                            "description": "A string found in the paths of images that should be replaced with another value.",
+                            "description": "A string found in the paths of images that should\n                                          be replaced with another value.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "pathReplaceVal",
-                            "description": "The string to use when replacing options.pathReplaceTarg.",
+                            "description": "The string to use when replacing\n                                         options.pathReplaceTarg.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "imageScale",
-                            "description": "Scaling to apply to all images loaded for the cutscene.",
+                            "description": "Scaling to apply to all images loaded for the\n                                       cutscene.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
@@ -4523,8 +4458,8 @@
                             "optdefault": "1"
                         },
                         {
-                            "name": "soundData",
-                            "description": "Data about a sound to sync the animation to, as\n                                           an alias or in the format\n                                           {alias:\"MyAlias\", start:0}. start is the seconds\n                                           into the animation to start playing the sound.\n                                           If it is omitted or soundData is a String, it\n                                           defaults to 0.",
+                            "name": "audio",
+                            "description": "Data about a sound to sync the animation to, as\n                                           just an alias or in the format\n                                           {alias:\"MyAlias\", start:0}. start is the seconds\n                                           into the animation to start playing the sound.\n                                           If it is omitted or audio is a String, it\n                                           defaults to 0.",
                             "type": "Object|String",
                             "optional": true
                         },
@@ -4579,9 +4514,9 @@
                     "type": "Number"
                 },
                 {
-                    "name": "soundData",
+                    "name": "audio",
                     "description": "Data about sound to sync the animation to.",
-                    "type": "Object"
+                    "type": "Object|String"
                 },
                 {
                     "name": "onCancelled",
@@ -4602,7 +4537,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 307,
+            "line": 308,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4626,7 +4561,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 339,
+            "line": 340,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -4655,7 +4590,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 374,
+            "line": 375,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -4684,7 +4619,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 436,
+            "line": 437,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4702,7 +4637,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 459,
+            "line": 460,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4721,7 +4656,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 486,
+            "line": 487,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4746,7 +4681,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 550,
+            "line": 551,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4757,7 +4692,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 571,
+            "line": 572,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4768,7 +4703,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 593,
+            "line": 594,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4791,7 +4726,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 614,
+            "line": 615,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4813,7 +4748,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 633,
+            "line": 634,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4827,7 +4762,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 644,
+            "line": 645,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4840,7 +4775,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 657,
+            "line": 658,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4853,7 +4788,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 670,
+            "line": 671,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4873,7 +4808,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 766,
+            "line": 767,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4892,7 +4827,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 779,
+            "line": 780,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4911,7 +4846,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 792,
+            "line": 793,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4928,7 +4863,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 806,
+            "line": 807,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -5657,245 +5592,6 @@
             "namespace": "springroll.createjs"
         },
         {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterClip.js",
-            "line": 17,
-            "description": "The event to play",
-            "itemtype": "property",
-            "name": "event",
-            "type": "String",
-            "class": "springroll.createjs.CharacterClip",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterClip.js",
-            "line": 24,
-            "description": "The number of times to loop",
-            "itemtype": "property",
-            "name": "loops",
-            "type": "Int",
-            "class": "springroll.createjs.CharacterClip",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 19,
-            "description": "The current stack of animations to play",
-            "itemtype": "property",
-            "name": "_animationStack",
-            "type": "Array",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 27,
-            "description": "The currently playing animation",
-            "itemtype": "property",
-            "name": "_currentAnimation",
-            "type": "CharacterClip",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 35,
-            "description": "Current number of loops for the current animation",
-            "itemtype": "property",
-            "name": "_loops",
-            "type": "Int",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 43,
-            "description": "If the current animation choreographies can't be interrupted",
-            "itemtype": "property",
-            "name": "_interruptable",
-            "type": "Bool",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 51,
-            "description": "If frame dropping is allowed for this animation set",
-            "itemtype": "property",
-            "name": "_allowFrameDropping",
-            "type": "Bool",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 59,
-            "description": "The current character",
-            "itemtype": "property",
-            "name": "_character",
-            "type": "createjs.MovieClip",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 67,
-            "description": "Callback function for playing animation",
-            "itemtype": "property",
-            "name": "_callback",
-            "type": "Function",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 75,
-            "description": "If this instance has been destroyed",
-            "itemtype": "property",
-            "name": "_destroyed",
-            "type": "Bool",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 86,
-            "description": "Set the current character, setting to null clears character",
-            "itemtype": "method",
-            "name": "setCharacter",
-            "params": [
-                {
-                    "name": "character",
-                    "description": "MovieClip",
-                    "type": "createjs.MovieClip"
-                }
-            ],
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 103,
-            "description": "If we want to play a static frame",
-            "itemtype": "method",
-            "name": "gotoFrameAndStop",
-            "params": [
-                {
-                    "name": "event",
-                    "description": "The frame label to stop on",
-                    "type": "String"
-                }
-            ],
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 117,
-            "description": "Will play a sequence of animations",
-            "itemtype": "method",
-            "name": "playClips",
-            "params": [
-                {
-                    "name": "clips",
-                    "description": "an array of CharacterClip objects",
-                    "type": "Array"
-                },
-                {
-                    "name": "callback",
-                    "description": "Callback for when the animations are either done, or\n            have been interrupted. Will pass true is interrupted,\n            false if they completed",
-                    "type": "Function"
-                },
-                {
-                    "name": "interruptable",
-                    "description": "If calling this can interrupt the current animation(s)",
-                    "type": "Bool"
-                },
-                {
-                    "name": "cancelPreviousCallback",
-                    "description": "Cancel the callback the last time this was called",
-                    "type": "Bool"
-                },
-                {
-                    "name": "allowFrameDropping",
-                    "description": "If frame dropping is allowed for this frame, if the Animator is doing frame drop checks",
-                    "type": "Bool"
-                }
-            ],
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 160,
-            "description": "Start the next animation in the sequence",
-            "itemtype": "method",
-            "name": "startNext",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 188,
-            "description": "When the animation has completed playing",
-            "itemtype": "method",
-            "name": "_animationComplete",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 214,
-            "description": "Clear any animations for the current character",
-            "itemtype": "method",
-            "name": "clear",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js",
-            "line": 232,
-            "description": "Don't use after this",
-            "itemtype": "method",
-            "name": "destroy",
-            "class": "springroll.createjs.CharacterController",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CreateJSDisplay.js",
             "line": 37,
             "description": "The rate at which EaselJS calculates mouseover events, in times/second.",
@@ -5980,7 +5676,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 47,
+            "line": 52,
             "description": "When the cutscene is ready to use",
             "itemtype": "property",
             "name": "isReady",
@@ -5993,7 +5689,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 54,
+            "line": 59,
             "description": "The framerate the cutscene should play at.",
             "itemtype": "property",
             "name": "framerate",
@@ -6006,7 +5702,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 61,
+            "line": 66,
             "description": "Reference to the display we are drawing on",
             "itemtype": "property",
             "name": "display",
@@ -6019,7 +5715,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 68,
+            "line": 75,
             "description": "The source url for the config until it is loaded, then the config object.",
             "itemtype": "property",
             "name": "config",
@@ -6032,7 +5728,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 75,
+            "line": 82,
             "description": "The scaling value for all images.",
             "itemtype": "property",
             "name": "imageScale",
@@ -6045,7 +5741,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 82,
+            "line": 89,
             "description": "A string found in the paths of images that should be replaced with another value.",
             "itemtype": "property",
             "name": "pathReplaceTarg",
@@ -6058,7 +5754,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 89,
+            "line": 96,
             "description": "The string to use when replacing options.pathReplaceTarg.",
             "itemtype": "property",
             "name": "pathReplaceVal",
@@ -6071,7 +5767,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 96,
+            "line": 103,
             "description": "The TaskManager used to load up assets.",
             "itemtype": "property",
             "name": "_taskMan",
@@ -6084,7 +5780,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 103,
+            "line": 110,
             "description": "The time elapsed in seconds.",
             "itemtype": "property",
             "name": "_elapsedTime",
@@ -6097,7 +5793,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 110,
+            "line": 117,
             "description": "The clip that is being animated.",
             "itemtype": "property",
             "name": "_clip",
@@ -6110,7 +5806,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 117,
+            "line": 124,
             "description": "The sound instance of the playing audio",
             "itemtype": "property",
             "name": "_currentAudioInstance",
@@ -6123,7 +5819,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 124,
+            "line": 131,
             "description": "If the animation has finished playing.",
             "itemtype": "property",
             "name": "_animFinished",
@@ -6136,7 +5832,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 131,
+            "line": 138,
             "description": "If the audio has finished playing.",
             "itemtype": "property",
             "name": "_audioFinished",
@@ -6149,7 +5845,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 138,
+            "line": 145,
             "description": "The Captions object to use to manage captions.",
             "itemtype": "property",
             "name": "_captionsObj",
@@ -6162,7 +5858,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 148,
+            "line": 155,
             "description": "The function to call when loading is complete.",
             "itemtype": "property",
             "name": "_loadCallback",
@@ -6175,7 +5871,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 155,
+            "line": 162,
             "description": "The function to call when playback is complete.",
             "itemtype": "property",
             "name": "_endCallback",
@@ -6188,7 +5884,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 173,
+            "line": 180,
             "description": "Called from the constructor to complete setup and start loading.",
             "itemtype": "method",
             "name": "setup",
@@ -6200,7 +5896,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 192,
+            "line": 199,
             "description": "Callback for when the config file is loaded.",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -6250,7 +5946,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 295,
+            "line": 296,
             "description": "Callback for when all loading is complete.",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -6269,7 +5965,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 333,
+            "line": 336,
             "description": "Listener for when the Application is resized.",
             "itemtype": "method",
             "name": "resize",
@@ -6293,7 +5989,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 357,
+            "line": 360,
             "description": "Starts playing the cutscene.",
             "itemtype": "method",
             "name": "start",
@@ -6312,7 +6008,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 379,
+            "line": 382,
             "description": "Callback for when the audio has finished playing.",
             "itemtype": "method",
             "name": "_audioCallback",
@@ -6324,7 +6020,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 394,
+            "line": 397,
             "description": "Listener for frame updates.",
             "itemtype": "method",
             "name": "update",
@@ -6343,7 +6039,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 437,
+            "line": 448,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -6364,7 +6060,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Cutscene.js",
-            "line": 457,
+            "line": 468,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -8298,8 +7994,8 @@
                             "optdefault": "0"
                         },
                         {
-                            "name": "soundData",
-                            "description": "Data about a sound to sync the animation to,\n                                                as an alias or in the format\n                                                {alias:\"MyAlias\", start:0}. start is the\n                                                seconds into the animation to start playing\n                                                the sound. If it is omitted or soundData is\n                                                a string, it defaults to 0.",
+                            "name": "audio",
+                            "description": "Data about a sound to sync the animation to,\n                                                as an alias or in the format\n                                                {alias:\"MyAlias\", start:0}. start is the\n                                                seconds into the animation to start playing\n                                                the sound. If it is omitted or audio is\n                                                a string, it defaults to 0.",
                             "type": "Object|String",
                             "optional": true,
                             "optdefault": "null"
@@ -13209,7 +12905,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 787,
+            "line": 792,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13228,7 +12924,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 815,
+            "line": 820,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13247,7 +12943,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 831,
+            "line": 836,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13266,7 +12962,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 847,
+            "line": 852,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13285,7 +12981,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 871,
+            "line": 876,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13304,7 +13000,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 890,
+            "line": 895,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13323,7 +13019,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 911,
+            "line": 916,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13335,7 +13031,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 923,
+            "line": 928,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13347,7 +13043,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 935,
+            "line": 940,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13371,7 +13067,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 967,
+            "line": 972,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13390,7 +13086,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 978,
+            "line": 983,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13414,7 +13110,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1009,
+            "line": 1014,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13438,7 +13134,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1036,
+            "line": 1041,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13462,7 +13158,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1090,
+            "line": 1095,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13486,7 +13182,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1115,
+            "line": 1120,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13519,7 +13215,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1131,
+            "line": 1136,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13538,7 +13234,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1155,
+            "line": 1160,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13557,7 +13253,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/media/Sound.js",
-            "line": 1176,
+            "line": 1181,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -15215,7 +14911,7 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
             "line": 312,
-            "description": "This transitions out of the current state and \nenters it again. Can be useful for clearing a state",
+            "description": "This transitions out of the current state and\nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
             "class": "springroll.StateManager",
@@ -19004,95 +18700,67 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:307"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:308"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:339"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:340"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:374"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:375"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:436"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:437"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:459"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:460"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:486"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:487"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:550"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:551"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:571"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:572"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:593"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:594"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:614"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:615"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:633"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:634"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:644"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:645"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:657"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:658"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:670"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:671"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:792"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:793"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:806"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:86"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:103"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:117"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:160"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:188"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:214"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/CharacterController.js:232"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:807"
         },
         {
             "message": "unknown tag: internal",

@@ -51,8 +51,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.createjs.Animator",
         "springroll.createjs.AnimatorTimeline",
         "springroll.createjs.Button",
-        "springroll.createjs.CharacterClip",
-        "springroll.createjs.CharacterController",
         "springroll.createjs.CreateJSDisplay",
         "springroll.createjs.Cutscene",
         "springroll.createjs.DisplayAdapter",
