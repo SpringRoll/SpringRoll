@@ -1,8 +1,9 @@
 {
   "private": true,
+  "version": "0.0.6",
   "dependencies": {
     "grunt": "~0.4.5",
-    "grunt-library-builder": "*",
+    "library-grunt": "*",
     "load-grunt-config": "~0.16.0",
     "lodash": "~2.4.1",
     "grunt-contrib-qunit": "~0.5.2",

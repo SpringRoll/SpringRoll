@@ -8,7 +8,7 @@ module.exports = function(grunt)
     grunt.initConfig(_.extend(
 
         // Setup the default game tasks
-        require('grunt-library-builder')(grunt, { autoInit: false }), 
+        require('library-grunt')(grunt, { autoInit: false }), 
 
         // Setup the current project tasks
         require('load-grunt-config')(grunt, {
@@ -17,10 +17,7 @@ module.exports = function(grunt)
             autoInit: false, 
 
             // We don't want to reload builder
-            loadGruntTasks: { pattern: [
-                'grunt-*', 
-                '!grunt-library-builder'
-            ]},
+            loadGruntTasks: { pattern: [ 'grunt-*' ]},
 
             // Use the SpringRoll YUI theme
             data: {
