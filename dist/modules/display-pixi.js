@@ -264,7 +264,7 @@
 		autoDetectRenderer = include('PIXI.autoDetectRenderer');
 
 	/**
-	*   PixiDisplay is a display plugin for the springroll Framework 
+	*   PixiDisplay is a display plugin for the springroll Framework
 	*	that uses the Pixi library for rendering.
 	*
 	*   @class PixiDisplay
@@ -272,7 +272,7 @@
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
-	*	@param {String} [options.forceContext=null] If a specific renderer should be used instead of WebGL 
+	*	@param {String} [options.forceContext=null] If a specific renderer should be used instead of WebGL
 	*	                                            falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
 	*	@param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
 	*	@param {uint} [options.backgroundColor=0x000000] The background color of the stage (if it is not transparent).
@@ -306,46 +306,29 @@
 		this.renderer = null;
 
 		//make the renderer
-		var preMultAlpha = !!options.preMultAlpha;
-		var transparent = !!options.transparent;
-		var antiAlias = !!options.antiAlias;
-		var preserveDrawingBuffer = !!options.preserveDrawingBuffer;
-		
-		if(transparent && !preMultAlpha)
+		var rendererOptions =
 		{
-			transparent = "notMultiplied";
-		}	
-
+			view: this.canvas,
+			transparent: !!options.transparent,
+			antialias: !!options.antiAlias,
+			preserveDrawingBuffer: !!options.preserveDrawingBuffer,
+			clearBeforeRender: !!options.clearView,
+		};
+		var preMultAlpha = !!options.preMultAlpha;
+		if(rendererOptions.transparent && !preMultAlpha)
+			rendererOptions.transparent = "notMultiplied";
+			
 		if(options.forceContext == "canvas2d")
 		{
-			this.renderer = new CanvasRenderer(
-				this.width, 
-				this.height, 
-				this.canvas, 
-				transparent
-			);
+			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
 		}
 		else if(options.forceContext == "webgl")
 		{
-			this.renderer = new WebGLRenderer(
-				this.width, 
-				this.height,
-				this.canvas, 
-				transparent,
-				antiAlias,//antiAlias, not all browsers may support it
-				preserveDrawingBuffer
-			);
+			this.renderer = new WebGLRenderer(this.width, this.height, rendererOptions);
 		}
 		else
 		{
-			this.renderer = autoDetectRenderer(
-				this.width, 
-				this.height,
-				this.canvas, 
-				transparent,
-				false,//antialias, not all browsers may support it
-				preMultAlpha
-			);
+			this.renderer = autoDetectRenderer(this.width, this.height, rendererOptions);
 		}
 
 		/**
@@ -402,7 +385,7 @@
 		this.renderer.resize(width, height);
 	};
 
-	/** 
+	/**
 	* Updates the stage and draws it. This is only called by the Application.
 	* This method does nothing if paused is true or visible is false.
 	* @method render
@@ -418,8 +401,8 @@
 	};
 
 	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
+	*  Destroys the display. This method is called by the Application and should
+	*  not be called directly, use Application.removeDisplay(id).
 	*  The stage recursively removes all display objects here.
 	*  @method destroy
 	*  @internal
