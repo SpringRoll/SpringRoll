@@ -762,7 +762,7 @@
 	*   Play an animation for a frame label event
 	*
 	*   @function play
-	*   @param {AnimatorTimeline} instance The timeline to animate
+	*   @param {createjs.DisplayObject} instance The timeline to animate
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
 	*   @param {Object|Function} [options] The object of optional parameters or onComplete
 	*                                      callback function
