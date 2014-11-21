@@ -254,7 +254,6 @@
 		timeline.speed = speed;
 		var labels = instance.getLabels();
 		var anim, audio;
-		Debug.log(eventList);
 		for(var j = 0, jLen = eventList.length; j < jLen; ++j)
 		{
 			var listItem = eventList[j];
