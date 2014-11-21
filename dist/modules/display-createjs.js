@@ -482,13 +482,6 @@
 		this.onComplete = null;
 		
 		/**
-		* The parameters to pass when completed
-		*
-		* @property {Array} onCompleteParams
-		*/
-		this.onCompleteParams = null;
-		
-		/**
 		* The function to call when stopped early.
 		*
 		* @property {Function} onCancelled
@@ -496,11 +489,17 @@
 		this.onCancelled = null;
 		
 		/**
-		* The animation label.
+		* An array of animations and pauses.
 		*
-		* @property {String} event
+		* @property {Array} event
 		*/
-		this.event = null;
+		this.eventList = null;
+		
+		/**
+		 * The index of the active animation in eventList.
+		 * @property {int} listIndex
+		 */
+		this.listIndex = -1;
 		
 		/**
 		* The instance of the timeline to animate
@@ -510,35 +509,37 @@
 		this.instance = null;
 		
 		/**
-		* The frame number of the first frame
+		* The frame number of the first frame of the current animation. If this is -1, then the
+		* animation is currently a pause instead of an animation.
 		*
 		* @property {int} firstFrame
 		*/
 		this.firstFrame = -1;
 		
 		/**
-		* The frame number of the last frame
+		* The frame number of the last frame of the current animation.
 		*
 		* @property {int} lastFrame
 		*/
 		this.lastFrame = -1;
 		
 		/**
-		* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
+		* If the current animation loops - determined by looking to see if it ends
+		in "_stop" or "_loop"
 		*
 		* @property {Boolean} isLooping
 		*/
 		this.isLooping = false;
 		
 		/**
-		* length of timeline in frames
+		* Length of current animation in frames.
 		*
 		* @property {int} length
 		*/
 		this.length = 0;
 
 		/**
-		*  If this timeline plays captions
+		*  If this timeline plays captions for the current sound.
 		*
 		*  @property {Boolean} useCaptions
 		*  @readOnly
@@ -554,14 +555,14 @@
 		this._paused = false;
 		
 		/**
-		* The animation start time in seconds on the movieclip's timeline.
+		* The start time of the current animation on the movieclip's timeline.
 		* @property {Number} startTime
 		* @public
 		*/
 		this.startTime = 0;
 		
 		/**
-		* The animation duration in seconds.
+		* The current animation duration in seconds.
 		* @property {Number} duration
 		* @public
 		*/
@@ -575,35 +576,36 @@
 		this.speed = 1;
 
 		/**
-		* The position of the animation in seconds.
+		* The position of the current animation in seconds, or the current pause timer.
 		* @property {Number} time
 		* @public
 		*/
 		this.time = 0;
 
 		/**
-		* Sound alias to sync to during the animation.
+		* Sound alias to sync to during the current animation.
 		* @property {String} soundAlias
 		* @public
 		*/
 		this.soundAlias = null;
 
 		/**
-		* A sound instance object from springroll.Sound used for tracking sound position.
+		* A sound instance object from springroll.Sound, used for tracking sound position for the
+		* current animation.
 		* @property {Object} soundInst
 		* @public
 		*/
 		this.soundInst = null;
 
 		/**
-		* If the timeline will, but has yet to play a sound.
+		* If the timeline will, but has yet to play a sound for the current animation.
 		* @property {Boolean} playSound
 		* @public
 		*/
 		this.playSound = false;
 
 		/**
-		* The time (seconds) into the animation that the sound starts.
+		* The time (seconds) into the current animation that the sound starts.
 		* @property {Number} soundStart
 		* @public
 		*/
@@ -615,6 +617,62 @@
 		* @public
 		*/
 		this.soundEnd = 0;
+		
+		/**
+		* If the timeline is complete. Looping timelines will never complete.
+		* @property {Boolean} complete
+		* @public
+		* @readOnly
+		*/
+		this.complete = false;
+	};
+	
+	var p = AnimatorTimeline.prototype;
+	
+	p._nextItem = function()
+	{
+		//reset variables
+		this.soundEnd = this.soundStart = 0;
+		this.isLooping = this.playSound = this.useCaptions = false;
+		this.soundInst = this.soundAlias = null;
+		this.startTime = this.length = 0;
+		this.firstFrame = this.lastFrame = -1;
+		//see if the animation list is complete
+		if(++this.listIndex >= this.eventList.length)
+		{
+			this.complete = true;
+			return;
+		}
+		//take action based on the type of item in the list
+		var listItem = this.eventList[this.listIndex];
+		switch(typeof listItem)
+		{
+			case "object":
+				this.time = 0;
+				this.firstFrame = listItem.first;
+				this.lastFrame = listItem.last;
+				this.length = this.lastFrame - this.firstFrame;
+				var fps = this.instance.framerate;
+				this.startTime = this.firstFrame / fps;
+				this.duration = this.length / fps;
+				this.isLooping = listItem.loop;
+				if(listItem.alias)
+				{
+					this.soundAlias = listItem.alias;
+					this.soundStart = listItem.start;
+					this.playSound = true;
+					this.useCaptions = listItem.useCaptions;
+				}
+				break;
+			case "number":
+				this.duration = listItem * 0.001;
+				this.time = 0;
+				break;
+			case "function":
+				listItem();
+				this._nextItem();
+				break;
+		}
 	};
 	
 	/**
@@ -623,7 +681,7 @@
 	* @property {Boolean} paused
 	* @public
 	*/
-	Object.defineProperty(AnimatorTimeline.prototype, "paused", {
+	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value) {
 			if(value == this._paused) return;
@@ -762,30 +820,32 @@
 	*   Play an animation for a frame label event
 	*
 	*   @function play
-	*   @param {createjs.DisplayObject} instance The timeline to animate
-	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
+	*   @param {createjs.DisplayObject} instance The MovieClip or display object with the same API
+	*                                            to animate.
+	*   @param {String|Object|Array} eventList One of or an array of the following:
+	*                            * objects with 'audio' and 'anim' properties, where audio is an
+	*                                alias for Sound; or an object in the format
+	*                                {alias:"MyAlias", start:300} with start being milliseconds into
+	*                                the animation that the sound starts.
+	*                            * strings - frame labels, e.g. "onClose" to "onClose_stop"
+	*                            * numbers - milliseconds to wait
+	*                            * functions - called upon reaching
 	*   @param {Object|Function} [options] The object of optional parameters or onComplete
 	*                                      callback function
 	*   @param {Function} [options.onComplete] The callback function when the animation is done
-	*   @param {Array} [options.onCompleteParams] Parameters to pass to onComplete function
 	*   @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
 	*                                      A value of -1 makes the animation play at a random
-	*                                      startTime.
+	*                                      startTime. If used in a list, this only affects the first
+	*                                      item in the list.
 	*   @param {Number} [options.speed=1] The speed at which to play the animation.
-	*   @param {Object|String} [options.audio] Data about a sound to sync the animation to, as
-	*                                              just an alias or in the format
-	*                                              {alias:"MyAlias", start:0}. start is the seconds
-	*                                              into the animation to start playing the sound.
-	*                                              If it is omitted or audio is a String, it
-	*                                              defaults to 0.
 	*   @param {Function} [options.onCancelled] A callback function for when an animation is stopped
 	*                                           with Animator.stop() or to play another animation.
 	*   @return {AnimatorTimeline} The Timeline object
 	*   @static
 	*/
-	Animator.play = function(instance, event, options)
+	Animator.play = function(instance, eventList, options)
 	{
-		var onComplete, onCompleteParams, startTime, speed, audio, onCancelled;
+		var onComplete, startTime, speed, audio, onCancelled;
 
 		if (options && typeof options == "function")
 		{
@@ -798,13 +858,18 @@
 		}
 
 		onComplete = options.onComplete || onComplete || null;
-		onCompleteParams = options.onCompleteParams || null;
 		startTime = options.startTime;
 		//convert into seconds, as that is what the time uses internally
 		startTime = startTime ? startTime * 0.001 : 0;
 		speed = options.speed || 1;
 		onCancelled = options.onCancelled || null;
-		audio = options.audio || options.soundData || null;
+		if(typeof eventList == "string")
+		{
+			audio = options.audio || options.soundData || null;
+			eventList = {anim: eventList, audio: audio};
+		}
+		if(!Array.isArray(eventList))
+			eventList = [eventList];
 
 		if (!_timelines)
 			Animator.init();
@@ -813,12 +878,12 @@
 		{
 			Animator.stop(instance);
 		}
-		var timeline = Animator._makeTimeline(instance, event, onComplete, onCompleteParams, speed,
-												audio, onCancelled);
+		var timeline = Animator._makeTimeline(instance, eventList, onComplete, speed, onCancelled);
 
 		//if the animation is present and complete
-		if (timeline.firstFrame > -1 && timeline.lastFrame > -1)
+		if (timeline.eventList && timeline.eventList.length >= 1)
 		{
+			timeline._nextItem();//advance the timeline to the first item
 			timeline.time = startTime == -1 ? Math.random() * timeline.duration : startTime;
 
 			instance.elapsedTime = timeline.startTime + timeline.time;
@@ -835,23 +900,17 @@
 			_timelines.push(timeline);
 			_timelinesMap[instance.id] = timeline;
 
-			//start preloading the sound, for less wait time when the animation gets to it
-			if (timeline.soundStart > 0)
-			{
-				Sound.instance.preloadSound(timeline.soundAlias);
-			}
-
 			return timeline;
 		}
 
 		if (true)
 		{
-			Debug.log("No event " + event + " was found, or it lacks an end, on this MovieClip " + instance);
+			Debug.log("No valid animations found in " + eventList + " on this MovieClip " + instance);
 		}
 
 		if (onComplete)
 		{
-			onComplete.apply(null, onCompleteParams);
+			onComplete();
 		}
 		return null;
 	};
@@ -860,19 +919,16 @@
 	*   Creates the AnimatorTimeline for a given animation
 	*
 	*   @function _makeTimeline
-	*   @param {easeljs.MovieClip} instance The timeline to animate
-	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
+	*   @param {createjs.MovieClip} instance The timeline to animate
+	*   @param {String} eventList The frame label event (e.g. "onClose" to "onClose stop")
 	*   @param {Function} onComplete The function to callback when we're done
-	*   @param {Function} onCompleteParams Parameters to pass to onComplete function
 	*   @param {Number} speed The speed at which to play the animation.
-	*   @param {Object|String} audio Data about sound to sync the animation to.
 	*   @param {Function} onCancelled The function to callback when cancelled
 	*   @return {AnimatorTimeline} The Timeline object
 	*   @private
 	*   @static
 	*/
-	Animator._makeTimeline = function(instance, event, onComplete, onCompleteParams, speed,
-										audio, onCancelled)
+	Animator._makeTimeline = function(instance, eventList, onComplete, speed, onCancelled)
 	{
 		var timeline = new AnimatorTimeline();
 		if (!Animator._canAnimate(instance))//not a movieclip
@@ -895,57 +951,103 @@
 		else
 			fps = instance.framerate;//we'll want this for some math later
 		timeline.instance = instance;
-		timeline.event = event;
+		timeline.eventList = [];//we'll create a duplicate event list with specific info
 		timeline.onComplete = onComplete;
-		timeline.onCompleteParams = onCompleteParams;
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
-		if (audio && Sound)
+		var labels = instance.getLabels();
+		var anim, audio;
+		Debug.log(eventList);
+		for(var j = 0, jLen = eventList.length; j < jLen; ++j)
 		{
-			timeline.playSound = true;
-			if (typeof audio == "string")
+			var listItem = eventList[j];
+			switch(typeof listItem)
 			{
-				timeline.soundStart = 0;
-				timeline.soundAlias = audio;
+				case "string":
+					anim = listItem;
+					audio = null;
+					break;
+				case "object":
+					anim = listItem.anim;
+					audio = listItem.audio;
+					break;
+				case "number":
+					//convert to seconds
+					timeline.eventList.push(listItem * 0.001);
+					continue;
+				case "function":
+					//add functions directly
+					timeline.eventList.push(listItem);
+					continue;
+				default:
+					//anything else we'll ignore
+					continue;
+			}
+			
+			//go through the list of labels (they are sorted by frame number)
+			var stopLabel = anim + "_stop";
+			var loopLabel = anim + "_loop";
+
+			var l, first = -1, last = -1, loop = false;
+			for(var i = 0, len = labels.length; i < len; ++i)
+			{
+				l = labels[i];
+				if (l.label == anim)
+				{
+					first = l.position;
+				}
+				else if (l.label == stopLabel)
+				{
+					last = l.position;
+					break;
+				}
+				else if (l.label == loopLabel)
+				{
+					last = l.position;
+					loop = true;
+					break;
+				}
+			}
+			var animData;
+			if(first >= 0 && last > 0)
+			{
+				animData =
+				{
+					first: first,
+					last: last,
+					loop: loop
+				};
 			}
 			else
 			{
-				timeline.soundStart = audio.start > 0 ? audio.start : 0;//seconds
-				timeline.soundAlias = audio.alias;
+				//if the animation doesn't exist, skip it
+				continue;
 			}
-			timeline.useCaptions = Animator.captions &&
-									Animator.captions.hasCaption(timeline.soundAlias);
+			//figure out audio stuff if it is okay to use
+			if (audio && Sound)
+			{
+				var alias, start;
+				if (typeof audio == "string")
+				{
+					start = 0;
+					alias = audio;
+				}
+				else
+				{
+					start = audio.start > 0 ? audio.start * 0.001 : 0;//seconds
+					alias = audio.alias;
+				}
+				if(Sound.instance.exists(alias))
+				{
+					Sound.instance.preloadSound(alias);
+					animData.alias = alias;
+					animData.start = start;
+				
+					animData.useCaptions = Animator.captions && Animator.captions.hasCaption(alias);
+				}
+			}
+			timeline.eventList.push(animData);
 		}
-
-		//go through the list of labels (they are sorted by frame number)
-		var labels = instance.getLabels();
-		var stopLabel = event + "_stop";
-		var loopLabel = event + "_loop";
-
-		var l;
-		for(var i = 0, len = labels.length; i < len; ++i)
-		{
-			l = labels[i];
-			if (l.label == event)
-			{
-				timeline.firstFrame = l.position;
-			}
-			else if (l.label == stopLabel)
-			{
-				timeline.lastFrame = l.position;
-				break;
-			}
-			else if (l.label == loopLabel)
-			{
-				timeline.lastFrame = l.position;
-				timeline.isLooping = true;
-				break;
-			}
-		}
-
-		timeline.length = timeline.lastFrame - timeline.firstFrame;
-		timeline.startTime = timeline.firstFrame / fps;
-		timeline.duration = timeline.length / fps;
 
 		return timeline;
 	};
@@ -958,7 +1060,7 @@
 	*	from EaselJS.
 	*
 	*   @function _canAnimate
-	*   @param {easeljs.MovieClip} instance The object to check for animation properties.
+	*   @param {createjs.MovieClip} instance The object to check for animation properties.
 	*   @return {Boolean} If the instance can be animated or not.
 	*   @private
 	*   @static
@@ -986,8 +1088,8 @@
 	*   Checks if animation exists
 	*
 	*   @function instanceHasAnimation
-	*   @param {easeljs.MovieClip} instance The timeline to check
-	*   @param {String} event The frame label event (e.g. "onClose" to "onClose stop")
+	*   @param {createjs.MovieClip} instance The timeline to check
+	*   @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
 	*   @public
 	*   @static
 	*	@return {Boolean} does this animation exist?
@@ -1021,11 +1123,11 @@
 	*   Get duration of animation event (or sequence of events) in seconds
 	*
 	*   @function getDuration
-	*   @param {easeljs.MovieClip} instance The timeline to check
-	*   @param {String|Array} event The frame label event (e.g. "onClose" to "onClose stop") or Array of event labels
+	*   @param {createjs.MovieClip} instance The timeline to check
+	*   @param {String|Array} event The frame label event or array, in the format that play() uses.
 	*   @public
 	*   @static
-	*	@return {Number} duration of animation event in seconds
+	*	@return {Number} Duration of animation event in milliseconds
 	*/
 	Animator.getDuration = function(instance, event)
 	{
@@ -1041,6 +1143,13 @@
 		}
 		else
 		{
+			if(typeof event == "number")
+				return event;
+			else if(typeof event == "object" && event.anim)
+				event = event.anim;
+			else if(typeof event != "string")
+				return 0;
+			
 			var labels = instance.getLabels();
 			var startFrame = -1, stopFrame = -1;
 			var stopLabel = event + "_stop";
@@ -1059,7 +1168,7 @@
 					break;
 				}
 			}
-			if(startFrame >= 0 && stopFrame >= 0)
+			if(startFrame >= 0 && stopFrame > 0)
 			{
 				//make sure the movieclip has a framerate
 				if (!instance.framerate)
@@ -1072,7 +1181,7 @@
 					instance.framerate = fps;
 				}
 
-				return (stopFrame - startFrame) / instance.framerate;
+				return (stopFrame - startFrame) / instance.framerate * 1000;
 			}
 			else
 				return 0;
@@ -1089,8 +1198,9 @@
 	Animator.stop = function(instance)
 	{
 		if (!_timelines) return;
-
-		if (!_timelinesMap[instance.id])
+		
+		var timeline = _timelinesMap[instance.id];
+		if (!timeline)
 		{
 			if (true)
 			{
@@ -1098,7 +1208,6 @@
 			}
 			return;
 		}
-		var timeline = _timelinesMap[instance.id];
 		Animator._remove(timeline, true);
 	};
 
@@ -1151,8 +1260,7 @@
 		// We can't remove an animation twice
 		if (index < 0) return;
 
-		var onComplete = timeline.onComplete, onCompleteParams = timeline.onCompleteParams,
-			onCancelled = timeline.onCancelled;
+		var onComplete = timeline.onComplete, onCancelled = timeline.onCancelled;
 
 		// Stop the animation
 		timeline.instance.stop();
@@ -1174,9 +1282,9 @@
 
 		// Clear the timeline
 		timeline.instance = null;
-		timeline.event = null;
+		timeline.eventList = null;
 		timeline.onComplete = null;
-		timeline.onCompleteParams = null;
+		timeline.onCancelled = null;
 
 		// Check if we should stop the update
 		if (!Animator._hasTimelines()) Animator._stopUpdate();
@@ -1189,7 +1297,7 @@
 		}
 		else if (onComplete)
 		{
-			onComplete.apply(null, onCompleteParams);
+			onComplete();
 		}
 	};
 
@@ -1327,12 +1435,17 @@
 
 		var delta = elapsed * 0.001;//ms -> sec
 
-		var t, instance, audioPos;
+		var t, instance, audioPos, extraTime, onNext;
 		for(var i = _timelines.length - 1; i >= 0; --i)
 		{
 			t = _timelines[i];
 			instance = t.instance;
 			if (t.paused) continue;
+			
+			//we'll use this to figure out if the timeline is on the next item
+			//to avoid code repetition
+			onNext = false;
+			extraTime = 0;
 
 			if (t.soundInst)
 			{
@@ -1354,15 +1467,32 @@
 					if (t.time >= t.duration)
 					{
 						instance.gotoAndStop(t.lastFrame);
-						_removedTimelines.push(t);
-						continue;
+						extraTime = t.time - t.duration;
+						t._nextItem();
+						if(t.complete)
+						{
+							_removedTimelines.push(t);
+							continue;
+						}
+						else
+						{
+							onNext = true;
+						}
 					}
 				}
 				//if sound is no longer valid, stop animation playback immediately
 				else
 				{
-					_removedTimelines.push(t);
-					continue;
+					t._nextItem();
+					if(t.complete)
+					{
+						_removedTimelines.push(t);
+						continue;
+					}
+					else
+					{
+						onNext = true;
+					}
 				}
 			}
 			else
@@ -1373,14 +1503,24 @@
 					if (t.isLooping)
 					{
 						t.time -= t.duration;
+						//call the on complete function each time
 						if (t.onComplete)
-							t.onComplete.apply(null, t.onCompleteParams);
+							t.onComplete();
 					}
 					else
 					{
+						extraTime = t.time - t.duration;
 						instance.gotoAndStop(t.lastFrame);
-						_removedTimelines.push(t);
-						continue;
+						t._nextItem();
+						if(t.complete)
+						{
+							_removedTimelines.push(t);
+							continue;
+						}
+						else
+						{
+							onNext = true;
+						}
 					}
 				}
 				if (t.playSound && t.time >= t.soundStart)
@@ -1397,10 +1537,34 @@
 					}
 				}
 			}
-			instance.elapsedTime = t.startTime + t.time;
-			//because the movieclip only checks the elapsed time here (advanceDuringTicks is false),
-			//calling advance() with no parameters is fine
-			instance.advance();
+			if(onNext)
+			{
+				t.time += extraTime;
+				if(t.firstFrame >= 0)
+					instance.gotoAndPlay(t.firstFrame);
+				if(t.playSound && t.time >= t.soundStart)
+				{
+					t.time = t.soundStart;
+					t.soundInst = Sound.instance.play(
+						t.soundAlias,
+						onSoundDone.bind(this, t),
+						onSoundStarted.bind(this, t)
+					);
+					if (t.useCaptions)
+					{
+						Animator.captions.play(t.soundAlias);
+					}
+				}
+			}
+			//if on an animation, not a pause
+			if(t.firstFrame >= 0)
+			{
+				instance.elapsedTime = t.startTime + t.time;
+				//because the movieclip only checks the elapsed time here
+				//(advanceDuringTicks is false),
+				//calling advance() with no parameters is fine
+				instance.advance();
+			}
 		}
 		for(i = 0; i < _removedTimelines.length; i++)
 		{

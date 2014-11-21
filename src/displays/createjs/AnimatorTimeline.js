@@ -21,13 +21,6 @@
 		this.onComplete = null;
 		
 		/**
-		* The parameters to pass when completed
-		*
-		* @property {Array} onCompleteParams
-		*/
-		this.onCompleteParams = null;
-		
-		/**
 		* The function to call when stopped early.
 		*
 		* @property {Function} onCancelled
@@ -35,11 +28,17 @@
 		this.onCancelled = null;
 		
 		/**
-		* The animation label.
+		* An array of animations and pauses.
 		*
-		* @property {String} event
+		* @property {Array} event
 		*/
-		this.event = null;
+		this.eventList = null;
+		
+		/**
+		 * The index of the active animation in eventList.
+		 * @property {int} listIndex
+		 */
+		this.listIndex = -1;
 		
 		/**
 		* The instance of the timeline to animate
@@ -49,35 +48,37 @@
 		this.instance = null;
 		
 		/**
-		* The frame number of the first frame
+		* The frame number of the first frame of the current animation. If this is -1, then the
+		* animation is currently a pause instead of an animation.
 		*
 		* @property {int} firstFrame
 		*/
 		this.firstFrame = -1;
 		
 		/**
-		* The frame number of the last frame
+		* The frame number of the last frame of the current animation.
 		*
 		* @property {int} lastFrame
 		*/
 		this.lastFrame = -1;
 		
 		/**
-		* If the animation loops - determined by looking to see if it ends in " stop" or " loop"
+		* If the current animation loops - determined by looking to see if it ends
+		in "_stop" or "_loop"
 		*
 		* @property {Boolean} isLooping
 		*/
 		this.isLooping = false;
 		
 		/**
-		* length of timeline in frames
+		* Length of current animation in frames.
 		*
 		* @property {int} length
 		*/
 		this.length = 0;
 
 		/**
-		*  If this timeline plays captions
+		*  If this timeline plays captions for the current sound.
 		*
 		*  @property {Boolean} useCaptions
 		*  @readOnly
@@ -93,14 +94,14 @@
 		this._paused = false;
 		
 		/**
-		* The animation start time in seconds on the movieclip's timeline.
+		* The start time of the current animation on the movieclip's timeline.
 		* @property {Number} startTime
 		* @public
 		*/
 		this.startTime = 0;
 		
 		/**
-		* The animation duration in seconds.
+		* The current animation duration in seconds.
 		* @property {Number} duration
 		* @public
 		*/
@@ -114,35 +115,36 @@
 		this.speed = 1;
 
 		/**
-		* The position of the animation in seconds.
+		* The position of the current animation in seconds, or the current pause timer.
 		* @property {Number} time
 		* @public
 		*/
 		this.time = 0;
 
 		/**
-		* Sound alias to sync to during the animation.
+		* Sound alias to sync to during the current animation.
 		* @property {String} soundAlias
 		* @public
 		*/
 		this.soundAlias = null;
 
 		/**
-		* A sound instance object from springroll.Sound used for tracking sound position.
+		* A sound instance object from springroll.Sound, used for tracking sound position for the
+		* current animation.
 		* @property {Object} soundInst
 		* @public
 		*/
 		this.soundInst = null;
 
 		/**
-		* If the timeline will, but has yet to play a sound.
+		* If the timeline will, but has yet to play a sound for the current animation.
 		* @property {Boolean} playSound
 		* @public
 		*/
 		this.playSound = false;
 
 		/**
-		* The time (seconds) into the animation that the sound starts.
+		* The time (seconds) into the current animation that the sound starts.
 		* @property {Number} soundStart
 		* @public
 		*/
@@ -154,6 +156,62 @@
 		* @public
 		*/
 		this.soundEnd = 0;
+		
+		/**
+		* If the timeline is complete. Looping timelines will never complete.
+		* @property {Boolean} complete
+		* @public
+		* @readOnly
+		*/
+		this.complete = false;
+	};
+	
+	var p = AnimatorTimeline.prototype;
+	
+	p._nextItem = function()
+	{
+		//reset variables
+		this.soundEnd = this.soundStart = 0;
+		this.isLooping = this.playSound = this.useCaptions = false;
+		this.soundInst = this.soundAlias = null;
+		this.startTime = this.length = 0;
+		this.firstFrame = this.lastFrame = -1;
+		//see if the animation list is complete
+		if(++this.listIndex >= this.eventList.length)
+		{
+			this.complete = true;
+			return;
+		}
+		//take action based on the type of item in the list
+		var listItem = this.eventList[this.listIndex];
+		switch(typeof listItem)
+		{
+			case "object":
+				this.time = 0;
+				this.firstFrame = listItem.first;
+				this.lastFrame = listItem.last;
+				this.length = this.lastFrame - this.firstFrame;
+				var fps = this.instance.framerate;
+				this.startTime = this.firstFrame / fps;
+				this.duration = this.length / fps;
+				this.isLooping = listItem.loop;
+				if(listItem.alias)
+				{
+					this.soundAlias = listItem.alias;
+					this.soundStart = listItem.start;
+					this.playSound = true;
+					this.useCaptions = listItem.useCaptions;
+				}
+				break;
+			case "number":
+				this.duration = listItem * 0.001;
+				this.time = 0;
+				break;
+			case "function":
+				listItem();
+				this._nextItem();
+				break;
+		}
 	};
 	
 	/**
@@ -162,7 +220,7 @@
 	* @property {Boolean} paused
 	* @public
 	*/
-	Object.defineProperty(AnimatorTimeline.prototype, "paused", {
+	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value) {
 			if(value == this._paused) return;
