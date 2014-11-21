@@ -264,7 +264,7 @@
 		autoDetectRenderer = include('PIXI.autoDetectRenderer');
 
 	/**
-	*   PixiDisplay is a display plugin for the springroll Framework 
+	*   PixiDisplay is a display plugin for the springroll Framework
 	*	that uses the Pixi library for rendering.
 	*
 	*   @class PixiDisplay
@@ -272,7 +272,7 @@
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
 	*	@param {Object} options The setup data for the Pixi stage.
-	*	@param {String} [options.forceContext=null] If a specific renderer should be used instead of WebGL 
+	*	@param {String} [options.forceContext=null] If a specific renderer should be used instead of WebGL
 	*	                                            falling back to Canvas. Use "webgl" or "canvas2d" to specify a renderer.
 	*	@param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
 	*	@param {uint} [options.backgroundColor=0x000000] The background color of the stage (if it is not transparent).
@@ -306,46 +306,29 @@
 		this.renderer = null;
 
 		//make the renderer
-		var preMultAlpha = !!options.preMultAlpha;
-		var transparent = !!options.transparent;
-		var antiAlias = !!options.antiAlias;
-		var preserveDrawingBuffer = !!options.preserveDrawingBuffer;
-		
-		if(transparent && !preMultAlpha)
+		var rendererOptions =
 		{
-			transparent = "notMultiplied";
-		}	
-
+			view: this.canvas,
+			transparent: !!options.transparent,
+			antialias: !!options.antiAlias,
+			preserveDrawingBuffer: !!options.preserveDrawingBuffer,
+			clearBeforeRender: !!options.clearView,
+		};
+		var preMultAlpha = !!options.preMultAlpha;
+		if(rendererOptions.transparent && !preMultAlpha)
+			rendererOptions.transparent = "notMultiplied";
+			
 		if(options.forceContext == "canvas2d")
 		{
-			this.renderer = new CanvasRenderer(
-				this.width, 
-				this.height, 
-				this.canvas, 
-				transparent
-			);
+			this.renderer = new CanvasRenderer(this.width, this.height, rendererOptions);
 		}
 		else if(options.forceContext == "webgl")
 		{
-			this.renderer = new WebGLRenderer(
-				this.width, 
-				this.height,
-				this.canvas, 
-				transparent,
-				antiAlias,//antiAlias, not all browsers may support it
-				preserveDrawingBuffer
-			);
+			this.renderer = new WebGLRenderer(this.width, this.height, rendererOptions);
 		}
 		else
 		{
-			this.renderer = autoDetectRenderer(
-				this.width, 
-				this.height,
-				this.canvas, 
-				transparent,
-				false,//antialias, not all browsers may support it
-				preMultAlpha
-			);
+			this.renderer = autoDetectRenderer(this.width, this.height, rendererOptions);
 		}
 
 		/**
@@ -402,7 +385,7 @@
 		this.renderer.resize(width, height);
 	};
 
-	/** 
+	/**
 	* Updates the stage and draws it. This is only called by the Application.
 	* This method does nothing if paused is true or visible is false.
 	* @method render
@@ -418,8 +401,8 @@
 	};
 
 	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
+	*  Destroys the display. This method is called by the Application and should
+	*  not be called directly, use Application.removeDisplay(id).
 	*  The stage recursively removes all display objects here.
 	*  @method destroy
 	*  @internal
@@ -2491,20 +2474,26 @@
 (function() {
 	
 	var BitmapText = include('PIXI.BitmapText'),
-		Texture = include('PIXI.Texture');
+		Texture = include('PIXI.Texture'),
+		Loader = include('springroll.Loader'),
+		AssetLoader = include('PIXI.AssetLoader'),
+		Application = include('springroll.Application'),
+		PixiTask,
+		TaskManager;
 
 	/**
 	*  AssetManager is responsible for managing different resolutions of assets and spritesheets
-	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
-	*  devices have a problem keeping up with larger images, or just refuse large images entirely.
-	*  The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
-	*  loading the appropriate assets, as well as easily unloading assets when you are done using them.
+	*  based on the resolution of the stage. This is a helpful optimization for PIXI because some
+	*  low-hardware devices have a problem keeping up with larger images, or just refuse large
+	*  images entirely. The AssetManager does not load assets itself, or keep track of what is
+	*  loaded. It merely assists in loading the appropriate assets, as well as easily unloading
+	*  assets when you are done using them.
 	*
 	*  @class AssetManager
 	*/
 	var AssetManager = {};
 	
-	/** 
+	/**
 	*  Dictionary of scales by asset id. Use this to return your asset to normal size.
 	*  Assets are only added to this dictionary after a url has been retrieved with getUrl().
 	*  @property {Object} scales
@@ -2521,15 +2510,15 @@
 	*/
 	var sizes = null;
 
-	/** 
-	*  Dictionary of assets by asset id 
+	/**
+	*  Dictionary of assets by asset id
 	*  @property {Object} assets
 	*  @private
 	*  @static
 	*/
 	var assets = null;
 
-	/** 
+	/**
 	*  The cache of asset url paths
 	*  @property {Object} assetUrlCache
 	*  @private
@@ -2537,8 +2526,8 @@
 	*/
 	var assetUrlCache = null;
 
-	/** 
-	*  The scaling value for each asset size id, e.g., {"sd" : 1, "tiny" : 2}
+	/**
+	*  The scaling value for each asset size id, e.g., {"sd" : 1, "tiny" : 0.5}
 	*  @property {Object} scales
 	*  @private
 	*  @static
@@ -2570,8 +2559,9 @@
 	
 	/**
 	*  Initialize the asset manager. The asset manager is capable of taking different paths for
-	*  each size of image as well as an animation file path for Spine animations. Image assets do not
-	*  have to exist in each size. Fonts are marked for unloading purposes. Example config file:
+	*  each size of image as well as an animation file path for Spine animations. Image assets
+	*  do not have to exist in each size. Fonts are marked for unloading purposes.
+	*  Example config file:
 	*
 			{
 				"path": {
@@ -2619,22 +2609,25 @@
 						"sd":true,
 						"tiny":false
 					},
-			        "LevelTitleFont": {
+					"LevelTitleFont": {
 						"src": "ui/LevelTitleFont.xml",
 						"sd": true,
 						"tiny": false,
 						"isFont": true
 					}
-        		}
+				}
 	*
 	*  @method init
 	*  @static
-	*  @param {Object} config The configuration file which contains keys for "path", "scale", "sizing", "assets"
+	*  @param {Object} config The configuration file which contains keys for "path", "scale",
+	*                         "sizing", "assets"
 	*  @param {Number} width The stage width
 	*  @param {Number} height The stage height
 	*/
 	AssetManager.init = function(config, width, height)
 	{
+		PixiTask = include("springroll.PixiTask", false);
+		TaskManager = include("springroll.TaskManager", false);
 		AssetManager.scales = {};
 		assets = config.assets;
 		assetUrlCache = {};
@@ -2682,7 +2675,7 @@
 		{
 			if(sizes[i].maxSize > minSize)
 				s = sizes[i];
-			else	
+			else
 				break;
 		}
 		sizeOrder = s.order;
@@ -2731,10 +2724,87 @@
 	};
 	
 	/**
+	*  Loads an asset or list of assets, attempting to correctly apply texture resolution to all
+	*  loaded textures.
+	*  @method load
+	*  @static
+	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id
+	*  @param {Function} callback A function to call when load is complete
+	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a PixiTask to for
+	*                                        loading. If omitted, loads immediately with
+	*                                        PIXI.AssetLoader.
+	*/
+	AssetManager.load = function(assetOrAssets, callback, taskList)
+	{
+		var i, length, urls = [];
+		if(!Array.isArray(assetOrAssets))
+			assetOrAssets = [assetOrAssets];
+		if(taskList)
+		{
+			//add to a list of tasks or a running TaskManager
+			if(!PixiTask)
+			{
+				Debug.error("AssetManager.load() can't find springroll.PixiTask!");
+				return;
+			}
+			for(i = 0, length = assetOrAssets.length; i < length; ++i)
+			{
+				urls.push(AssetManager.getUrl(assetOrAssets[i]));
+			}
+			var task = new PixiTask("", urls, onLoaded.bind(AssetManager, assetOrAssets, callback));
+			if(Array.isArray(taskList))
+				taskList.push(task);
+			else if(taskList instanceof TaskManager)
+				taskList.addTask(task);
+			else
+			{
+				Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
+			}
+		}
+		else
+		{
+			//load immediately
+			var cm = Loader.instance.cacheManager;
+			for(i = 0, length = assetOrAssets.length; i < length; ++i)
+			{
+				urls[i] = cm.prepare(AssetManager.getUrl(assetOrAssets[i]));
+			}
+			var opts = Application.instance.options;
+			this._assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
+			this._assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
+			this._assetLoader.load();
+		}
+	};
+	
+	/**
+	*  Callback for when assets are loaded, to automatically apply the resolution of textures.
+	*  @method onLoaded
+	*  @static
+	*  @private
+	*  @param {Array} assets Array of asset ids that were just loaded.
+	*  @param {Function} callback The user callback for the load.
+	*/
+	var onLoaded = function(assets, callback)
+	{
+		for(var i = 0, length = assets.length; i < length; ++i)
+		{
+			var asset = assets[i];
+			var url = AssetManager.getUrl(asset);
+			var texture = Texture.fromFrame(url, true);
+			if(texture)
+			{
+				texture.baseTexture.resolution = this.scales[asset];
+			}
+		}
+		if(callback)
+			callback();
+	};
+	
+	/**
 	*  Unload an asset or list of assets.
 	*  @method unload
 	*  @static
-	*  @param {Array|String} assetOrAsset The collection of asset ids or single asset id
+	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id
 	*/
 	AssetManager.unload = function(assetOrAssets)
 	{
@@ -2777,7 +2847,8 @@
 	};
 
 	/**
-	*  Assemble a dictionary of Texture arrays representing animations from the PixiJS texture cache.
+	*  Assemble a dictionary of Texture arrays representing animations from the PixiJS
+	*  texture cache.
 	*  Example of a getAnims() call:
 
 			var animationDictionary = AssetManager.getAnims(
@@ -2793,9 +2864,11 @@
 	*  @method getAnims
 	*  @static
 	*  @param {Object} anims The dictionary of animation assets
-	*  @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as anim_0001.png
+	*  @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported
+	*                             as anim_0001.png
 	*  @param {Object} [outObj] If already using an return object
-	*  @return {Object} An collection of PIXI.Textures for each animation id suitable for use in PIXI.MovieClip
+	*  @return {Object} An collection of PIXI.Textures for each animation id suitable for
+	*                   use in PIXI.MovieClip
 	*/
 	AssetManager.getAnims = function(anims, maxDigits, outObj)
 	{
@@ -2842,8 +2915,8 @@
 				if(!num)
 					num = i.toString();
 				
-				//If the texture doesn't exist, use the previous texture - this should allow us to use fewer textures
-				//that are in fact the same
+				//If the texture doesn't exist, use the previous texture - this should
+				//allow us to use fewer textures that are in fact the same
 				var texName = data.name.replace("#", num);
 				var tex = fromFrame(texName, true);
 				if(tex)
