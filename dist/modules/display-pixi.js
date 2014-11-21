@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module PIXI Display
 *  @namespace springroll.pixi
 */
@@ -2858,4 +2858,4 @@
 	// Assign to the namespace
 	namespace('springroll').AssetManager = AssetManager;
 	namespace('springroll.pixi').AssetManager = AssetManager;
-}());}();
+}());

@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Translate
 *  @namespace springroll
 */
@@ -253,4 +253,4 @@
 	// Assign to namespace
 	namespace('springroll').Language = Language;
 
-})(window);}();
+})(window);

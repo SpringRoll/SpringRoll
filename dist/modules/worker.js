@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Worker
 *  @namespace springroll
 */
@@ -178,4 +178,4 @@
 	*/
 	p._wChild = null;
 	
-}());}();
+}());

@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Framework
 */
 /**
@@ -3631,4 +3631,3 @@
 		}
 	});
 }());
-}();

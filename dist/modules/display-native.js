@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Native Display
 *  @namespace springroll.native
 */
@@ -773,4 +773,4 @@
 	namespace('springroll').NativeDisplay = NativeDisplay;
 	namespace('springroll.native').NativeDisplay = NativeDisplay;
 
-}());}();
+}());

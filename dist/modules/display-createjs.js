@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
  * @module CreateJS Display
  * @namespace springroll.createjs
  */
@@ -3588,4 +3588,3 @@
 	namespace("springroll").Cutscene = Cutscene;
 	namespace("springroll.createjs").Cutscene = Cutscene;
 }());
-}();

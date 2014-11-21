@@ -29,33 +29,42 @@
 		"worker" : [
 			"src/polyfills/Worker.js"
 		],
-		"displaynative" : [
-			"src/displays/native/geom/*.js",
-			"src/displays/native/DisplayAdapter.js",
-			"src/displays/native/NativeDisplay.js"
-		],
-		"displaycreatejs" : [
-			"src/displays/createjs/MovieClipUtils.js",
-			"src/displays/createjs/DisplayAdapter.js",
-			"src/displays/createjs/CreateJSDisplay.js",
-			"src/displays/createjs/AnimatorTimeline.js",
-			"src/displays/createjs/Animator.js",
-			"src/displays/createjs/Button.js",
-			"src/displays/createjs/SoundButton.js",
-			"src/displays/createjs/DragData.js",
-			"src/displays/createjs/DragManager.js",
-			"src/displays/createjs/Cutscene.js"
-		],
-		"displaypixi" : [
-			"src/displays/pixi/DisplayAdapter.js",
-			"src/displays/pixi/PixiDisplay.js",
-			"src/displays/pixi/AnimatorTimeline.js",
-			"src/displays/pixi/Animator.js",
-			"src/displays/pixi/Button.js",
-			"src/displays/pixi/DragData.js",
-			"src/displays/pixi/DragManager.js",
-			"src/displays/pixi/AssetManager.js"
-		],
+		"displaynative" : {
+			"output": "display-native",
+			"main": [
+				"src/displays/native/geom/*.js",
+				"src/displays/native/DisplayAdapter.js",
+				"src/displays/native/NativeDisplay.js"
+			]
+		},
+		"displaycreatejs" : {
+			"output": "display-createjs",
+			"main": [
+				"src/displays/createjs/MovieClipUtils.js",
+				"src/displays/createjs/DisplayAdapter.js",
+				"src/displays/createjs/CreateJSDisplay.js",
+				"src/displays/createjs/AnimatorTimeline.js",
+				"src/displays/createjs/Animator.js",
+				"src/displays/createjs/Button.js",
+				"src/displays/createjs/SoundButton.js",
+				"src/displays/createjs/DragData.js",
+				"src/displays/createjs/DragManager.js",
+				"src/displays/createjs/Cutscene.js"
+			]
+		},
+		"displaypixi" : {
+			"output": "display-pixi",
+			"main": [
+				"src/displays/pixi/DisplayAdapter.js",
+				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/AnimatorTimeline.js",
+				"src/displays/pixi/Animator.js",
+				"src/displays/pixi/Button.js",
+				"src/displays/pixi/DragData.js",
+				"src/displays/pixi/DragManager.js",
+				"src/displays/pixi/AssetManager.js"
+			]
+		},
 		"game" : [
 			"src/utils/Array.js",
 			"src/utils/Math.js",
@@ -92,8 +101,6 @@
 			"src/ui/UIScaler.js"
 		],
 		"captions" : ["src/media/Captions.js"],
-		"translate" : [
-			"src/utils/Language.js"
-		]
+		"translate" : ["src/utils/Language.js"]
 	}
 }

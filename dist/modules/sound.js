@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @modules Sound
 *  @namespace springroll
 */
@@ -1910,4 +1910,3 @@
 	namespace('springroll').Sound.VOPlayer = VOPlayer;
 
 }());
-}();

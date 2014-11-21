@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Tasks
 *  @namespace springroll
 */
@@ -1056,4 +1056,3 @@
 	namespace('springroll').PixiTask = PixiTask;
 
 }());
-}();

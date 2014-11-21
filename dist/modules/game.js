@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Game
 */
 (function() {
@@ -1030,4 +1030,4 @@
 	// Add to the namespace
 	namespace('springroll').ScalingGame = ScalingGame;
 
-}());}();
+}());

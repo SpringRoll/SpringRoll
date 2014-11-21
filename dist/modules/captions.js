@@ -1,5 +1,5 @@
 /*! SpringRoll 0.0.6 */
-!function(){"use strict";/**
+/**
 *  @module Captions
 *  @namespace springroll
 */
@@ -709,4 +709,3 @@
 	namespace('springroll').Captions = Captions;
 
 }());
-}();
