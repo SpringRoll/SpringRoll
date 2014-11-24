@@ -551,7 +551,7 @@
 	*  @param {Object|function} [options] The object of optional parameters or complete callback
 	*                                     function.
 	*  @param {Function} [options.complete] An optional function to call when the sound is finished.
-	*  @param {Function} [opitons.start] An optional function to call when the sound starts
+	*  @param {Function} [options.start] An optional function to call when the sound starts
 	*                                    playback. If the sound is loaded, this is called
 	*                                    immediately, if not, it calls when the sound is finished
 	*                                    loading.

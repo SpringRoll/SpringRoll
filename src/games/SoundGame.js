@@ -30,7 +30,7 @@
 	*          player.
 	*  @param {String} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin swf
 	*                                                   for SoundJS.
-	*  @param {Array} [options.audioTypes=['ogg', 'mp3'] The order in which file types are
+	*  @param {Array} [options.audioTypes=['ogg','mp3'] The order in which file types are
 	*                                             preferred, where "ogg" becomes a ".ogg" extension
 	*                                             on all sound file urls.
 	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
