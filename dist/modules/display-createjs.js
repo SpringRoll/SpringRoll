@@ -577,10 +577,10 @@
 
 		/**
 		* The position of the current animation in seconds, or the current pause timer.
-		* @property {Number} time
-		* @public
+		* @property {Number} _time_sec
+		* @private
 		*/
-		this.time = 0;
+		this._time_sec = 0;
 
 		/**
 		* Sound alias to sync to during the current animation.
@@ -629,6 +629,11 @@
 	
 	var p = AnimatorTimeline.prototype;
 	
+	/**
+	 * Advances to the next item in the list of things to play.
+	 * @method _nextItem
+	 * @private
+	 */
 	p._nextItem = function()
 	{
 		//reset variables
@@ -648,7 +653,7 @@
 		switch(typeof listItem)
 		{
 			case "object":
-				this.time = 0;
+				this._time_sec = 0;
 				this.firstFrame = listItem.first;
 				this.lastFrame = listItem.last;
 				this.length = this.lastFrame - this.firstFrame;
@@ -666,7 +671,7 @@
 				break;
 			case "number":
 				this.duration = listItem * 0.001;
-				this.time = 0;
+				this._time_sec = 0;
 				break;
 			case "function":
 				listItem();
@@ -674,6 +679,16 @@
 				break;
 		}
 	};
+	
+	/**
+	* The position of the current animation, or the current pause timer, in milliseconds.
+	* @property {Number} time
+	* @public
+	*/
+	Object.defineProperty(p, "time", {
+		get: function() { return this._time_sec * 1000; },
+		set: function(value) { this._time_sec = value * 0.001; }
+	});
 	
 	/**
 	* Sets and gets the animation's paused status.
@@ -884,9 +899,9 @@
 		if (timeline.eventList && timeline.eventList.length >= 1)
 		{
 			timeline._nextItem();//advance the timeline to the first item
-			timeline.time = startTime == -1 ? Math.random() * timeline.duration : startTime;
+			timeline._time_sec = startTime == -1 ? Math.random() * timeline.duration : startTime;
 
-			instance.elapsedTime = timeline.startTime + timeline.time;
+			instance.elapsedTime = timeline.startTime + timeline._time_sec;
 			//have it set its 'paused' variable to false
 			instance.play();
 			//update the movieclip to make sure it is redrawn correctly at the next opportunity
@@ -1454,7 +1469,7 @@
 					audioPos = t.soundInst.position * 0.001;
 					if (audioPos < 0)
 						audioPos = 0;
-					t.time = t.soundStart + audioPos;
+					t._time_sec = t.soundStart + audioPos;
 
 					if (t.useCaptions)
 					{
@@ -1463,10 +1478,10 @@
 					//if the sound goes beyond the animation, then stop the animation
 					//audio animations shouldn't loop, because doing that properly is difficult
 					//letting the audio continue should be okay though
-					if (t.time >= t.duration)
+					if (t._time_sec >= t.duration)
 					{
 						instance.gotoAndStop(t.lastFrame);
-						extraTime = t.time - t.duration;
+						extraTime = t._time_sec - t.duration;
 						t._nextItem();
 						if(t.complete)
 						{
@@ -1496,19 +1511,19 @@
 			}
 			else
 			{
-				t.time += delta * t.speed;
-				if (t.time >= t.duration)
+				t._time_sec += delta * t.speed;
+				if (t._time_sec >= t.duration)
 				{
 					if (t.isLooping)
 					{
-						t.time -= t.duration;
+						t._time_sec -= t.duration;
 						//call the on complete function each time
 						if (t.onComplete)
 							t.onComplete();
 					}
 					else
 					{
-						extraTime = t.time - t.duration;
+						extraTime = t._time_sec - t.duration;
 						instance.gotoAndStop(t.lastFrame);
 						t._nextItem();
 						if(t.complete)
@@ -1522,9 +1537,9 @@
 						}
 					}
 				}
-				if (t.playSound && t.time >= t.soundStart)
+				if (t.playSound && t._time_sec >= t.soundStart)
 				{
-					t.time = t.soundStart;
+					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
 						onSoundDone.bind(this, t),
@@ -1538,12 +1553,12 @@
 			}
 			if(onNext)
 			{
-				t.time += extraTime;
+				t._time_sec += extraTime;
 				if(t.firstFrame >= 0)
 					instance.gotoAndPlay(t.firstFrame);
-				if(t.playSound && t.time >= t.soundStart)
+				if(t.playSound && t._time_sec >= t.soundStart)
 				{
-					t.time = t.soundStart;
+					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
 						onSoundDone.bind(this, t),
@@ -1558,7 +1573,7 @@
 			//if on an animation, not a pause
 			if(t.firstFrame >= 0)
 			{
-				instance.elapsedTime = t.startTime + t.time;
+				instance.elapsedTime = t.startTime + t._time_sec;
 				//because the movieclip only checks the elapsed time here
 				//(advanceDuringTicks is false),
 				//calling advance() with no parameters is fine
@@ -1593,8 +1608,8 @@
 	*/
 	var onSoundDone = function(timeline)
 	{
-		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline.time)
-			timeline.time = timeline.soundEnd;
+		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline._time_sec)
+			timeline._time_sec = timeline.soundEnd;
 		timeline.soundInst = null;
 	};
 

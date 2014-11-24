@@ -116,10 +116,10 @@
 
 		/**
 		* The position of the current animation in seconds, or the current pause timer.
-		* @property {Number} time
-		* @public
+		* @property {Number} _time_sec
+		* @private
 		*/
-		this.time = 0;
+		this._time_sec = 0;
 
 		/**
 		* Sound alias to sync to during the current animation.
@@ -168,6 +168,11 @@
 	
 	var p = AnimatorTimeline.prototype;
 	
+	/**
+	 * Advances to the next item in the list of things to play.
+	 * @method _nextItem
+	 * @private
+	 */
 	p._nextItem = function()
 	{
 		//reset variables
@@ -187,7 +192,7 @@
 		switch(typeof listItem)
 		{
 			case "object":
-				this.time = 0;
+				this._time_sec = 0;
 				this.firstFrame = listItem.first;
 				this.lastFrame = listItem.last;
 				this.length = this.lastFrame - this.firstFrame;
@@ -205,7 +210,7 @@
 				break;
 			case "number":
 				this.duration = listItem * 0.001;
-				this.time = 0;
+				this._time_sec = 0;
 				break;
 			case "function":
 				listItem();
@@ -213,6 +218,16 @@
 				break;
 		}
 	};
+	
+	/**
+	* The position of the current animation, or the current pause timer, in milliseconds.
+	* @property {Number} time
+	* @public
+	*/
+	Object.defineProperty(p, "time", {
+		get: function() { return this._time_sec * 1000; },
+		set: function(value) { this._time_sec = value * 0.001; }
+	});
 	
 	/**
 	* Sets and gets the animation's paused status.
