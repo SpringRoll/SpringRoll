@@ -1086,7 +1086,7 @@
 				this._transitionSounds.in :
 				this._transitionSounds.out;
 		}
-		animator.play(this._transition, {anim:event, audio:audio}, onComplete);
+		animator.play(this._transition, {anim:event, audio:audio}, callback);
 	};
 
 
