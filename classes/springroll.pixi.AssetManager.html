@@ -250,7 +250,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l10"><code>springroll.pixi.AssetManager:10</code></a>
+            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l15"><code>springroll.pixi.AssetManager:15</code></a>
         </div>
     
 
@@ -267,10 +267,11 @@
 
 <div class="box intro">
     <p>AssetManager is responsible for managing different resolutions of assets and spritesheets
-based on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware
-devices have a problem keeping up with larger images, or just refuse large images entirely.
-The AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in 
-loading the appropriate assets, as well as easily unloading assets when you are done using them.</p>
+based on the resolution of the stage. This is a helpful optimization for PIXI because some
+low-hardware devices have a problem keeping up with larger images, or just refuse large
+images entirely. The AssetManager does not load assets itself, or keep track of what is
+loaded. It merely assists in loading the appropriate assets, as well as easily unloading
+assets when you are done using them.</p>
 
 </div>
 
@@ -338,6 +339,24 @@ loading the appropriate assets, as well as easily unloading assets when you are 
                         
                             <li class="index-item method">
                                 <a href="#method_init">init</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_load">load</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_onLoaded">onLoaded</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -528,7 +547,7 @@ loading the appropriate assets, as well as easily unloading assets when you are 
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l293"><code>getAnims:293</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l380"><code>getAnims:380</code></a>
         
         </p>
 
@@ -539,7 +558,8 @@ loading the appropriate assets, as well as easily unloading assets when you are 
     </div>
 
     <div class="description">
-        <p>Assemble a dictionary of Texture arrays representing animations from the PixiJS texture cache.
+        <p>Assemble a dictionary of Texture arrays representing animations from the PixiJS
+texture cache.
 Example of a getAnims() call:</p>
 <pre class="code prettyprint"><code>        var animationDictionary = AssetManager.getAnims(
             {
@@ -585,7 +605,8 @@ Example of a getAnims() call:</p>
                     
 
                     <div class="param-description">
-                        <p>Maximum number of digits, like 4 for an animation exported as anim_0001.png</p>
+                        <p>Maximum number of digits, like 4 for an animation exported
+                           as anim_0001.png</p>
 
                     </div>
 
@@ -622,7 +643,8 @@ Example of a getAnims() call:</p>
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
                     
-                    <p>An collection of PIXI.Textures for each animation id suitable for use in PIXI.MovieClip</p>
+                    <p>An collection of PIXI.Textures for each animation id suitable for
+                 use in PIXI.MovieClip</p>
 
                 
             </div>
@@ -671,7 +693,7 @@ Example of a getAnims() call:</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l172"><code>getPreferredScale:172</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l182"><code>getPreferredScale:182</code></a>
         
         </p>
 
@@ -746,7 +768,7 @@ Example of a getAnims() call:</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l161"><code>getPreferredSize:161</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l171"><code>getPreferredSize:171</code></a>
         
         </p>
 
@@ -831,7 +853,7 @@ Example of a getAnims() call:</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l205"><code>getUrl:205</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l215"><code>getUrl:215</code></a>
         
         </p>
 
@@ -946,7 +968,7 @@ Example of a getAnims() call:</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l85"><code>init:85</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l91"><code>init:91</code></a>
         
         </p>
 
@@ -958,8 +980,9 @@ Example of a getAnims() call:</p>
 
     <div class="description">
         <p>Initialize the asset manager. The asset manager is capable of taking different paths for
-each size of image as well as an animation file path for Spine animations. Image assets do not
-have to exist in each size. Fonts are marked for unloading purposes. Example config file:</p>
+each size of image as well as an animation file path for Spine animations. Image assets
+do not have to exist in each size. Fonts are marked for unloading purposes.
+Example config file:</p>
 <pre class="code prettyprint"><code>        {
             "path": {
                 "sd": "images/sd/",
@@ -1012,7 +1035,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
                     "tiny": false,
                     "isFont": true
                 }
-          }</code></pre>
+            }</code></pre>
 
     </div>
 
@@ -1031,7 +1054,8 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
                     
 
                     <div class="param-description">
-                        <p>The configuration file which contains keys for "path", "scale", "sizing", "assets"</p>
+                        <p>The configuration file which contains keys for "path", "scale",
+                       "sizing", "assets"</p>
 
                     </div>
 
@@ -1064,6 +1088,260 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
 
                     <div class="param-description">
                         <p>The stage height</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_load" class="method item">
+    <h3 class="name"><code>load</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>assetOrAssets</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[taskList]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l257"><code>load:257</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Loads an asset or list of assets, attempting to correctly apply texture resolution to all
+loaded textures.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">assetOrAssets</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The collection of asset ids or single asset id</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A function to call when load is complete</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[taskList]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | TaskManager</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An array or TaskManager to add a PixiTask to for
+                                      loading. If omitted, loads immediately with
+                                      PIXI.AssetLoader.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_onLoaded" class="method item private">
+    <h3 class="name"><code>onLoaded</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>assets</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l310"><code>onLoaded:310</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Callback for when assets are loaded, to automatically apply the resolution of textures.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">assets</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Array of asset ids that were just loaded.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The user callback for the load.</p>
 
                     </div>
 
@@ -1132,7 +1410,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l183"><code>pickScale:183</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l193"><code>pickScale:193</code></a>
         
         </p>
 
@@ -1204,7 +1482,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
                 <li class="arg">
                     
-                        <code>assetOrAsset</code>
+                        <code>assetOrAssets</code>
                     
                 </li>
             
@@ -1239,7 +1517,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l247"><code>unload:247</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l334"><code>unload:334</code></a>
         
         </p>
 
@@ -1262,7 +1540,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
                 <li class="param">
                     
-                        <code class="param-name">assetOrAsset</code>
+                        <code class="param-name">assetOrAssets</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
@@ -1332,7 +1610,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l269"><code>unloadAsset:269</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l356"><code>unloadAsset:356</code></a>
         
         </p>
 
@@ -1414,7 +1692,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l38"><code>assets:38</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l44"><code>assets:44</code></a>
         
         </p>
 
@@ -1463,7 +1741,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l46"><code>assetUrlCache:46</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l52"><code>assetUrlCache:52</code></a>
         
         </p>
 
@@ -1510,7 +1788,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l78"><code>lowHW:78</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l84"><code>lowHW:84</code></a>
         
         </p>
 
@@ -1559,7 +1837,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l62"><code>paths:62</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l68"><code>paths:68</code></a>
         
         </p>
 
@@ -1608,7 +1886,7 @@ have to exist in each size. Fonts are marked for unloading purposes. Example con
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l21"><code>scales:21</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l27"><code>scales:27</code></a>
         
         </p>
 
@@ -1658,7 +1936,7 @@ Assets are only added to this dictionary after a url has been retrieved with get
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l54"><code>scales:54</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l60"><code>scales:60</code></a>
         
         </p>
 
@@ -1668,7 +1946,7 @@ Assets are only added to this dictionary after a url has been retrieved with get
     </div>
 
     <div class="description">
-        <p>The scaling value for each asset size id, e.g., {"sd" : 1, "tiny" : 2}</p>
+        <p>The scaling value for each asset size id, e.g., {"sd" : 1, "tiny" : 0.5}</p>
 
     </div>
 
@@ -1707,7 +1985,7 @@ Assets are only added to this dictionary after a url has been retrieved with get
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l70"><code>sizeOrder:70</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l76"><code>sizeOrder:76</code></a>
         
         </p>
 
@@ -1756,7 +2034,7 @@ Assets are only added to this dictionary after a url has been retrieved with get
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l30"><code>sizes:30</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_AssetManager.js.html#l36"><code>sizes:36</code></a>
         
         </p>
 

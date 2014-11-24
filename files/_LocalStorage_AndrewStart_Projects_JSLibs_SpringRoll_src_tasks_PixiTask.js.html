@@ -268,10 +268,10 @@
 	*  @param {String} id The id of the task
 	*  @param {Array} urls The urls to load using PIXI.AssetLoader
 	*  @param {Function} callback The callback to call when the load is completed
-	*  @param {Function} updateCallback The optional callback to call each time an item finishes loading
-	*  @param {Boolean} generateCanvasTexture=false If loaded images should be drawn to a canvas and used from there.
+	*  @param {Function} updateCallback The optional callback to call each time an item
+	*                                   finishes loading
 	*/
-	var PixiTask = function(id, urls, callback, updateCallback, generateCanvasTexture)
+	var PixiTask = function(id, urls, callback, updateCallback)
 	{
 		if(!Loader)
 		{
@@ -288,13 +288,6 @@
 		*	@private
 		*/
 		this.updateCallback = updateCallback;
-
-		/**
-		*	If loaded images should be drawn to a canvas and used from there.
-		*	@property {Boolean} generateCanvas
-		*	@private
-		*/
-		this.generateCanvas = generateCanvasTexture || false;
 
 		/**
 		*	The AssetLoader used to load all files.
@@ -330,7 +323,7 @@
 	p.start = function(callback)
 	{
 		var opts = Application.instance.options;
-		this._assetLoader = new AssetLoader(this.urls, opts.crossOrigin, this.generateCanvas, opts.basePath);
+		this._assetLoader = new AssetLoader(this.urls, opts.crossOrigin, opts.basePath);
 		this._assetLoader.onComplete = callback;
 		if(this.updateCallback)
 			this._assetLoader.onProgress = this.onProgress.bind(this);

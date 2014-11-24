@@ -1826,8 +1826,8 @@
             "module": "PIXI Display",
             "namespace": "springroll.pixi",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 10,
-            "description": "AssetManager is responsible for managing different resolutions of assets and spritesheets\nbased on the resolution of the stage. This is a helpful optimization for PIXI because some low-hardware\ndevices have a problem keeping up with larger images, or just refuse large images entirely.\nThe AssetManager does not load assets itself, or keep track of what is loaded. It merely assists in \nloading the appropriate assets, as well as easily unloading assets when you are done using them."
+            "line": 15,
+            "description": "AssetManager is responsible for managing different resolutions of assets and spritesheets\nbased on the resolution of the stage. This is a helpful optimization for PIXI because some\nlow-hardware devices have a problem keeping up with larger images, or just refuse large\nimages entirely. The AssetManager does not load assets itself, or keep track of what is\nloaded. It merely assists in loading the appropriate assets, as well as easily unloading\nassets when you are done using them."
         },
         "springroll.pixi.Button": {
             "name": "springroll.pixi.Button",
@@ -2090,7 +2090,7 @@
             "namespace": "springroll.pixi",
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
             "line": 13,
-            "description": "PixiDisplay is a display plugin for the springroll Framework \n\tthat uses the Pixi library for rendering.",
+            "description": "PixiDisplay is a display plugin for the springroll Framework\n\tthat uses the Pixi library for rendering.",
             "extends": "springroll.AbstractDisplay",
             "is_constructor": 1,
             "params": [
@@ -2106,7 +2106,7 @@
                     "props": [
                         {
                             "name": "forceContext",
-                            "description": "If a specific renderer should be used instead of WebGL \n\t                                            falling back to Canvas. Use \"webgl\" or \"canvas2d\" to specify a renderer.",
+                            "description": "If a specific renderer should be used instead of WebGL\n\t                                            falling back to Canvas. Use \"webgl\" or \"canvas2d\" to specify a renderer.",
                             "type": "String",
                             "optional": true,
                             "optdefault": "null"
@@ -2408,7 +2408,7 @@
                         },
                         {
                             "name": "transition",
-                            "description": "The StateManager transition animation",
+                            "description": "The StateManager transition\n                                                            animation",
                             "type": "createjs.MovieClip|PIXI.Spine",
                             "optional": true
                         },
@@ -2420,14 +2420,14 @@
                             "props": [
                                 {
                                     "name": "in",
-                                    "description": "The transition in sound alias or sound object",
+                                    "description": "The transition in sound\n                                                                    alias or sound object",
                                     "type": "Object|String",
                                     "optional": true,
                                     "optdefault": "\"TransitionIn\""
                                 },
                                 {
                                     "name": "out",
-                                    "description": "The transition out sound alias or sound object",
+                                    "description": "The transition out\n                                                                      sound alias or sound\n                                                                      object",
                                     "type": "Object|String",
                                     "optional": true,
                                     "optdefault": "\"TransitionOut\""
@@ -2436,27 +2436,34 @@
                         },
                         {
                             "name": "captions",
-                            "description": "The captions text field object to use for the VOPlayer captions object.",
+                            "description": "The\n                        captions text field object to use for the VOPlayer captions object.",
                             "type": "DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText",
                             "optional": true
                         },
                         {
                             "name": "captionsPath",
-                            "description": "The path to the captions dictionary. If this is set to null\n\t\tcaptions will not be created or used by the VO player.",
+                            "description": "The path to the\n                                                                     captions dictionary. If\n                                                                     this is set to null\n                                                                     captions will not be\n                                                                     created or used by the\n                                                                     VO player.",
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/config/captions.json'"
                         },
                         {
                             "name": "swfPath",
-                            "description": "The relative location to the FlashPlugin swf for SoundJS",
+                            "description": "The relative location to the FlashPlugin\n                                                 swf for SoundJS",
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
                         },
                         {
+                            "name": "audioTypes",
+                            "description": "The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "['ogg','mp3'"
+                        },
+                        {
                             "name": "mute",
-                            "description": "Set the initial mute state of the all the audio (unminifed library version only)",
+                            "description": "Set the initial mute state of the all the audio\n                                      (unminifed library version only)",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2469,21 +2476,21 @@
                         },
                         {
                             "name": "configPath",
-                            "description": "The path to the default config to load",
+                            "description": "The path to the default\n                                                                 config to load",
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/config/config.json'"
                         },
                         {
                             "name": "forceMobile",
-                            "description": "Manually override the check for isMobile (unminifed library version only)",
+                            "description": "Manually override the check for isMobile\n                                             (unminifed library version only)",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "updateTween",
-                            "description": "Have the application take care of the Tween updates",
+                            "description": "Have the application take care of the Tween\n                                            updates",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
@@ -2504,20 +2511,20 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n \t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n                                       numbers for each asset. This is useful for\n                                       controlling the live browser cache. For instance,\n                                       this text file would have an asset on each line\n                                       followed by a number: `assets/config/config.json 2`\n                                       this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding\n                                           \"?v=\" to the end of each file path requested. Use\n                                           for development, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "basePath",
-                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "description": "The optional file path to prefix to any relative file\n                                   requests. This is a great way to load all load requests\n                                   with a CDN path.",
                             "type": "String",
                             "optional": true
                         },
@@ -2529,20 +2536,20 @@
                         },
                         {
                             "name": "uniformResize",
-                            "description": "Whether to resize the displays to the original aspect ratio",
+                            "description": "Whether to resize the displays to the original\n                                              aspect ratio",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to\n                                         add a maximum aspect ratio. This allows for\n                                         \"title-safe\" responsiveness. Must be greater than\n                                         the original aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
                         {
                             "name": "queryStringParameters",
-                            "description": "Parse the query string paramenters as options",
+                            "description": "Parse the query string paramenters as\n                                                       options",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2556,20 +2563,20 @@
                         },
                         {
                             "name": "minLogLevel",
-                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
+                            "description": "The minimum log level to show debug messages for from 0\n                                     (general) to 4 (error), the `Debug` class must be used\n                                     for this feature.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
                         },
                         {
                             "name": "debugRemote",
-                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
+                            "description": "The host computer for remote debugging, the debug\n                                      module must be included to use this feature. Can be an\n                                      IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "updateTween",
-                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "description": "If using TweenJS, the Application will update\n                                             the Tween itself",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2582,7 +2589,7 @@
                         },
                         {
                             "name": "display",
-                            "description": "The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)",
+                            "description": "The name of the class to instaniate as the display (e.g.\n                                    `springroll.PixiDisplay`)",
                             "type": "Function",
                             "optional": true
                         },
@@ -2594,17 +2601,12 @@
                         },
                         {
                             "name": "crossOrigin",
-                            "description": "Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.",
+                            "description": "Used by `springroll.PixiTask`, default behavior\n                                             is to load assets from the same domain.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         }
                     ]
-                },
-                {
-                    "name": "[options.audioTypes=['ogg',",
-                    "description": "'mp3'] The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
-                    "type": "Array"
                 }
             ]
         },
@@ -2652,6 +2654,13 @@
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
+                        },
+                        {
+                            "name": "audioTypes",
+                            "description": "The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "['ogg','mp3'"
                         },
                         {
                             "name": "mute",
@@ -2799,11 +2808,6 @@
                             "optdefault": "false"
                         }
                     ]
-                },
-                {
-                    "name": "[options.audioTypes=['ogg',",
-                    "description": "'mp3'] The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
-                    "type": "Array"
                 }
             ]
         },
@@ -2885,6 +2889,13 @@
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
+                        },
+                        {
+                            "name": "audioTypes",
+                            "description": "The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "['ogg','mp3'"
                         },
                         {
                             "name": "mute",
@@ -3032,11 +3043,6 @@
                             "optdefault": "false"
                         }
                     ]
-                },
-                {
-                    "name": "[options.audioTypes=['ogg',",
-                    "description": "'mp3'] The order in which file types are\n                                           preferred, where \"ogg\" becomes a \".ogg\" extension\n                                           on all sound file urls.",
-                    "type": "Array"
                 }
             ]
         },
@@ -3576,13 +3582,8 @@
                 },
                 {
                     "name": "updateCallback",
-                    "description": "The optional callback to call each time an item finishes loading",
+                    "description": "The optional callback to call each time an item\n                                 finishes loading",
                     "type": "Function"
-                },
-                {
-                    "name": "generateCanvasTexture=false",
-                    "description": "If loaded images should be drawn to a canvas and used from there.",
-                    "type": "Boolean"
                 }
             ]
         },
@@ -4417,13 +4418,13 @@
             "params": [
                 {
                     "name": "instance",
-                    "description": "The timeline to animate",
-                    "type": "AnimatorTimeline"
+                    "description": "The MovieClip or display object with the same API\n                                         to animate.",
+                    "type": "createjs.DisplayObject"
                 },
                 {
-                    "name": "event",
-                    "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\")",
-                    "type": "String"
+                    "name": "eventList",
+                    "description": "One of or an array of the following:\n                         * objects with 'audio' and 'anim' properties, where audio is an\n                             alias for Sound; or an object in the format\n                             {alias:\"MyAlias\", start:300} with start being milliseconds into\n                             the animation that the sound starts.\n                         * strings - frame labels, e.g. \"onClose\" to \"onClose_stop\"\n                         * numbers - milliseconds to wait\n                         * functions - called upon reaching",
+                    "type": "String|Object|Array"
                 },
                 {
                     "name": "options",
@@ -4438,14 +4439,8 @@
                             "optional": true
                         },
                         {
-                            "name": "onCompleteParams",
-                            "description": "Parameters to pass to onComplete function",
-                            "type": "Array",
-                            "optional": true
-                        },
-                        {
                             "name": "startTime",
-                            "description": "The time in milliseconds into the animation to start.\n                                   A value of -1 makes the animation play at a random\n                                   startTime.",
+                            "description": "The time in milliseconds into the animation to start.\n                                   A value of -1 makes the animation play at a random\n                                   startTime. If used in a list, this only affects the first\n                                   item in the list.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
@@ -4456,12 +4451,6 @@
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
-                        },
-                        {
-                            "name": "audio",
-                            "description": "Data about a sound to sync the animation to, as\n                                           just an alias or in the format\n                                           {alias:\"MyAlias\", start:0}. start is the seconds\n                                           into the animation to start playing the sound.\n                                           If it is omitted or audio is a String, it\n                                           defaults to 0.",
-                            "type": "Object|String",
-                            "optional": true
                         },
                         {
                             "name": "onCancelled",
@@ -4483,7 +4472,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 214,
+            "line": 215,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -4491,10 +4480,10 @@
                 {
                     "name": "instance",
                     "description": "The timeline to animate",
-                    "type": "easeljs.MovieClip"
+                    "type": "createjs.MovieClip"
                 },
                 {
-                    "name": "event",
+                    "name": "eventList",
                     "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\")",
                     "type": "String"
                 },
@@ -4504,19 +4493,9 @@
                     "type": "Function"
                 },
                 {
-                    "name": "onCompleteParams",
-                    "description": "Parameters to pass to onComplete function",
-                    "type": "Function"
-                },
-                {
                     "name": "speed",
                     "description": "The speed at which to play the animation.",
                     "type": "Number"
-                },
-                {
-                    "name": "audio",
-                    "description": "Data about sound to sync the animation to.",
-                    "type": "Object|String"
                 },
                 {
                     "name": "onCancelled",
@@ -4537,7 +4516,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 308,
+            "line": 351,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4545,7 +4524,7 @@
                 {
                     "name": "instance",
                     "description": "The object to check for animation properties.",
-                    "type": "easeljs.MovieClip"
+                    "type": "createjs.MovieClip"
                 }
             ],
             "return": {
@@ -4561,7 +4540,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 340,
+            "line": 383,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -4569,11 +4548,11 @@
                 {
                     "name": "instance",
                     "description": "The timeline to check",
-                    "type": "easeljs.MovieClip"
+                    "type": "createjs.MovieClip"
                 },
                 {
                     "name": "event",
-                    "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\")",
+                    "description": "The frame label event (e.g. \"onClose\" to \"onClose_stop\")",
                     "type": "String"
                 }
             ],
@@ -4590,7 +4569,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 375,
+            "line": 418,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -4598,11 +4577,11 @@
                 {
                     "name": "instance",
                     "description": "The timeline to check",
-                    "type": "easeljs.MovieClip"
+                    "type": "createjs.MovieClip"
                 },
                 {
                     "name": "event",
-                    "description": "The frame label event (e.g. \"onClose\" to \"onClose stop\") or Array of event labels",
+                    "description": "The frame label event or array, in the format that play() uses.",
                     "type": "String|Array"
                 }
             ],
@@ -4610,7 +4589,7 @@
             "tagname": "",
             "static": 1,
             "return": {
-                "description": "duration of animation event in seconds",
+                "description": "Duration of animation event in milliseconds",
                 "type": "Number"
             },
             "class": "springroll.createjs.Animator",
@@ -4619,7 +4598,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 437,
+            "line": 487,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4637,7 +4616,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 460,
+            "line": 510,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4656,7 +4635,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 487,
+            "line": 537,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4681,7 +4660,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 551,
+            "line": 600,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4692,7 +4671,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 572,
+            "line": 621,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4703,7 +4682,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 594,
+            "line": 643,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4726,7 +4705,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 615,
+            "line": 664,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4748,7 +4727,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 634,
+            "line": 683,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4762,7 +4741,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 645,
+            "line": 694,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4775,7 +4754,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 658,
+            "line": 707,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4788,7 +4767,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 671,
+            "line": 720,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4808,7 +4787,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 767,
+            "line": 872,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4827,7 +4806,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 780,
+            "line": 885,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4846,7 +4825,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 793,
+            "line": 898,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4863,7 +4842,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js",
-            "line": 807,
+            "line": 912,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -4889,17 +4868,6 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
             "line": 23,
-            "description": "The parameters to pass when completed",
-            "itemtype": "property",
-            "name": "onCompleteParams",
-            "type": "Array",
-            "class": "springroll.createjs.AnimatorTimeline",
-            "module": "CreateJS Display",
-            "namespace": "springroll.createjs"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 30,
             "description": "The function to call when stopped early.",
             "itemtype": "property",
             "name": "onCancelled",
@@ -4910,18 +4878,29 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 37,
-            "description": "The animation label.",
+            "line": 30,
+            "description": "An array of animations and pauses.",
             "itemtype": "property",
             "name": "event",
-            "type": "String",
+            "type": "Array",
             "class": "springroll.createjs.AnimatorTimeline",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 44,
+            "line": 37,
+            "description": "The index of the active animation in eventList.",
+            "itemtype": "property",
+            "name": "listIndex",
+            "type": "Int",
+            "class": "springroll.createjs.AnimatorTimeline",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
+            "line": 43,
             "description": "The instance of the timeline to animate",
             "itemtype": "property",
             "name": "instance",
@@ -4932,8 +4911,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 51,
-            "description": "The frame number of the first frame",
+            "line": 50,
+            "description": "The frame number of the first frame of the current animation. If this is -1, then the\nanimation is currently a pause instead of an animation.",
             "itemtype": "property",
             "name": "firstFrame",
             "type": "Int",
@@ -4944,7 +4923,7 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
             "line": 58,
-            "description": "The frame number of the last frame",
+            "description": "The frame number of the last frame of the current animation.",
             "itemtype": "property",
             "name": "lastFrame",
             "type": "Int",
@@ -4955,7 +4934,7 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
             "line": 65,
-            "description": "If the animation loops - determined by looking to see if it ends in \" stop\" or \" loop\"",
+            "description": "If the current animation loops - determined by looking to see if it ends\n\t\tin \"_stop\" or \"_loop\"",
             "itemtype": "property",
             "name": "isLooping",
             "type": "Boolean",
@@ -4965,8 +4944,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 72,
-            "description": "length of timeline in frames",
+            "line": 73,
+            "description": "Length of current animation in frames.",
             "itemtype": "property",
             "name": "length",
             "type": "Int",
@@ -4976,8 +4955,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 79,
-            "description": "If this timeline plays captions",
+            "line": 80,
+            "description": "If this timeline plays captions for the current sound.",
             "itemtype": "property",
             "name": "useCaptions",
             "type": "Boolean",
@@ -4988,7 +4967,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 87,
+            "line": 88,
             "description": "If the timeline is paused.",
             "itemtype": "property",
             "name": "_paused",
@@ -5001,8 +4980,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 95,
-            "description": "The animation start time in seconds on the movieclip's timeline.",
+            "line": 96,
+            "description": "The start time of the current animation on the movieclip's timeline.",
             "itemtype": "property",
             "name": "startTime",
             "type": "Number",
@@ -5014,8 +4993,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 102,
-            "description": "The animation duration in seconds.",
+            "line": 103,
+            "description": "The current animation duration in seconds.",
             "itemtype": "property",
             "name": "duration",
             "type": "Number",
@@ -5027,7 +5006,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 109,
+            "line": 110,
             "description": "The animation speed. Default is 1.",
             "itemtype": "property",
             "name": "speed",
@@ -5040,8 +5019,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 116,
-            "description": "The position of the animation in seconds.",
+            "line": 117,
+            "description": "The position of the current animation in seconds, or the current pause timer.",
             "itemtype": "property",
             "name": "time",
             "type": "Number",
@@ -5053,8 +5032,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 123,
-            "description": "Sound alias to sync to during the animation.",
+            "line": 124,
+            "description": "Sound alias to sync to during the current animation.",
             "itemtype": "property",
             "name": "soundAlias",
             "type": "String",
@@ -5066,8 +5045,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 130,
-            "description": "A sound instance object from springroll.Sound used for tracking sound position.",
+            "line": 131,
+            "description": "A sound instance object from springroll.Sound, used for tracking sound position for the\ncurrent animation.",
             "itemtype": "property",
             "name": "soundInst",
             "type": "Object",
@@ -5079,8 +5058,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 137,
-            "description": "If the timeline will, but has yet to play a sound.",
+            "line": 139,
+            "description": "If the timeline will, but has yet to play a sound for the current animation.",
             "itemtype": "property",
             "name": "playSound",
             "type": "Boolean",
@@ -5092,8 +5071,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 144,
-            "description": "The time (seconds) into the animation that the sound starts.",
+            "line": 146,
+            "description": "The time (seconds) into the current animation that the sound starts.",
             "itemtype": "property",
             "name": "soundStart",
             "type": "Number",
@@ -5105,7 +5084,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 151,
+            "line": 153,
             "description": "The time (seconds) into the animation that the sound ends",
             "itemtype": "property",
             "name": "soundEnd",
@@ -5118,7 +5097,21 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
-            "line": 159,
+            "line": 160,
+            "description": "If the timeline is complete. Looping timelines will never complete.",
+            "itemtype": "property",
+            "name": "complete",
+            "type": "Boolean",
+            "access": "public",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.createjs.AnimatorTimeline",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/AnimatorTimeline.js",
+            "line": 217,
             "description": "Sets and gets the animation's paused status.",
             "itemtype": "property",
             "name": "paused",
@@ -8407,7 +8400,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 21,
+            "line": 27,
             "description": "Dictionary of scales by asset id. Use this to return your asset to normal size.\nAssets are only added to this dictionary after a url has been retrieved with getUrl().",
             "itemtype": "property",
             "name": "scales",
@@ -8420,7 +8413,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 30,
+            "line": 36,
             "description": "The available size definitions, e.g., {\"maxSize\":400, \"order\": [\"tiny\", \"sd\"]}",
             "itemtype": "property",
             "name": "sizes",
@@ -8434,7 +8427,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 38,
+            "line": 44,
             "description": "Dictionary of assets by asset id",
             "itemtype": "property",
             "name": "assets",
@@ -8448,7 +8441,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 46,
+            "line": 52,
             "description": "The cache of asset url paths",
             "itemtype": "property",
             "name": "assetUrlCache",
@@ -8462,8 +8455,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 54,
-            "description": "The scaling value for each asset size id, e.g., {\"sd\" : 1, \"tiny\" : 2}",
+            "line": 60,
+            "description": "The scaling value for each asset size id, e.g., {\"sd\" : 1, \"tiny\" : 0.5}",
             "itemtype": "property",
             "name": "scales",
             "type": "Object",
@@ -8476,7 +8469,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 62,
+            "line": 68,
             "description": "The paths to each resolution folder, e.g., {\"sd\":\"images/sd/\", \"tiny\":\"images/tiny/\"}",
             "itemtype": "property",
             "name": "paths",
@@ -8490,7 +8483,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 70,
+            "line": 76,
             "description": "The collection of perferred size to load",
             "itemtype": "property",
             "name": "sizeOrder",
@@ -8504,7 +8497,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 78,
+            "line": 84,
             "description": "If we should use low hardware, if we know we're on a slow device",
             "itemtype": "property",
             "name": "lowHW",
@@ -8516,15 +8509,15 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 85,
-            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets do not\nhave to exist in each size. Fonts are marked for unloading purposes. Example config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t        \"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t}\n      \t\t}",
+            "line": 91,
+            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets\ndo not have to exist in each size. Fonts are marked for unloading purposes.\nExample config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t\t\t\"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t}\n\t\t\t\t}",
             "itemtype": "method",
             "name": "init",
             "static": 1,
             "params": [
                 {
                     "name": "config",
-                    "description": "The configuration file which contains keys for \"path\", \"scale\", \"sizing\", \"assets\"",
+                    "description": "The configuration file which contains keys for \"path\", \"scale\",\n                       \"sizing\", \"assets\"",
                     "type": "Object"
                 },
                 {
@@ -8544,7 +8537,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 161,
+            "line": 171,
             "description": "Get the alias of the preferred size to use",
             "itemtype": "method",
             "name": "getPreferredSize",
@@ -8559,7 +8552,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 172,
+            "line": 182,
             "description": "Get the preferred scale amount",
             "itemtype": "method",
             "name": "getPreferredScale",
@@ -8574,7 +8567,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 183,
+            "line": 193,
             "description": "Pick the preferred scale based on the screen resolution",
             "itemtype": "method",
             "name": "pickScale",
@@ -8599,7 +8592,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 205,
+            "line": 215,
             "description": "Get a asset url by asset id",
             "itemtype": "method",
             "name": "getUrl",
@@ -8620,14 +8613,68 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 247,
+            "line": 257,
+            "description": "Loads an asset or list of assets, attempting to correctly apply texture resolution to all\nloaded textures.",
+            "itemtype": "method",
+            "name": "load",
+            "static": 1,
+            "params": [
+                {
+                    "name": "assetOrAssets",
+                    "description": "The collection of asset ids or single asset id",
+                    "type": "Array|String"
+                },
+                {
+                    "name": "callback",
+                    "description": "A function to call when load is complete",
+                    "type": "Function"
+                },
+                {
+                    "name": "taskList",
+                    "description": "An array or TaskManager to add a PixiTask to for\n                                      loading. If omitted, loads immediately with\n                                      PIXI.AssetLoader.",
+                    "type": "Array|TaskManager",
+                    "optional": true
+                }
+            ],
+            "class": "springroll.pixi.AssetManager",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
+            "line": 310,
+            "description": "Callback for when assets are loaded, to automatically apply the resolution of textures.",
+            "itemtype": "method",
+            "name": "onLoaded",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "assets",
+                    "description": "Array of asset ids that were just loaded.",
+                    "type": "Array"
+                },
+                {
+                    "name": "callback",
+                    "description": "The user callback for the load.",
+                    "type": "Function"
+                }
+            ],
+            "class": "springroll.pixi.AssetManager",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
+            "line": 334,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
             "static": 1,
             "params": [
                 {
-                    "name": "assetOrAsset",
+                    "name": "assetOrAssets",
                     "description": "The collection of asset ids or single asset id",
                     "type": "Array|String"
                 }
@@ -8638,7 +8685,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 269,
+            "line": 356,
             "description": "Unload an asset",
             "itemtype": "method",
             "name": "unloadAsset",
@@ -8658,8 +8705,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/AssetManager.js",
-            "line": 293,
-            "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS texture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
+            "line": 380,
+            "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS\ntexture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
             "itemtype": "method",
             "name": "getAnims",
             "static": 1,
@@ -8671,7 +8718,7 @@
                 },
                 {
                     "name": "maxDigits",
-                    "description": "Maximum number of digits, like 4 for an animation exported as anim_0001.png",
+                    "description": "Maximum number of digits, like 4 for an animation exported\n                           as anim_0001.png",
                     "type": "Int",
                     "optional": true,
                     "optdefault": "4"
@@ -8684,7 +8731,7 @@
                 }
             ],
             "return": {
-                "description": "An collection of PIXI.Textures for each animation id suitable for use in PIXI.MovieClip",
+                "description": "An collection of PIXI.Textures for each animation id suitable for\n                 use in PIXI.MovieClip",
                 "type": "Object"
             },
             "class": "springroll.pixi.AssetManager",
@@ -9821,7 +9868,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
-            "line": 98,
+            "line": 81,
             "description": "If Pixi is being rendered with WebGL.",
             "itemtype": "property",
             "name": "isWebGL",
@@ -9835,7 +9882,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
-            "line": 114,
+            "line": 97,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -9848,7 +9895,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
-            "line": 139,
+            "line": 122,
             "description": "Resizes the canvas and the renderer. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -9871,7 +9918,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
-            "line": 152,
+            "line": 135,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -9889,8 +9936,8 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js",
-            "line": 167,
-            "description": "Destroys the display. This method is called by the Application and should \nnot be called directly, use Application.removeDisplay(id). \nThe stage recursively removes all display objects here.",
+            "line": 150,
+            "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
             "internal": "",
@@ -10490,7 +10537,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/ScalingGame.js",
-            "line": 71,
+            "line": 98,
             "description": "The main UIScaler for any display object references in the main game.",
             "itemtype": "property",
             "name": "scaler",
@@ -10501,7 +10548,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/ScalingGame.js",
-            "line": 85,
+            "line": 112,
             "description": "When the scaling has been initialized",
             "itemtype": "event",
             "name": "scalingReady",
@@ -10511,7 +10558,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/ScalingGame.js",
-            "line": 91,
+            "line": 118,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -10523,7 +10570,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/ScalingGame.js",
-            "line": 137,
+            "line": 164,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10533,7 +10580,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/games/ScalingGame.js",
-            "line": 151,
+            "line": 178,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -12780,6 +12827,12 @@
                             "optional": true
                         },
                         {
+                            "name": "start",
+                            "description": "An optional function to call when the sound starts\n                                  playback. If the sound is loaded, this is called\n                                  immediately, if not, it calls when the sound is finished\n                                  loading.",
+                            "type": "Function",
+                            "optional": true
+                        },
+                        {
                             "name": "interrupt",
                             "description": "If the sound should interrupt previous sounds\n                                           (SoundJS parameter). Default is false.",
                             "type": "Boolean",
@@ -12821,12 +12874,6 @@
                             "optdefault": "0"
                         }
                     ]
-                },
-                {
-                    "name": "opitons.start",
-                    "description": "An optional function to call when the sound starts\n                                  playback. If the sound is loaded, this is called\n                                  immediately, if not, it calls when the sound is finished\n                                  loading.",
-                    "type": "Function",
-                    "optional": true
                 }
             ],
             "return": {
@@ -14987,7 +15034,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 524,
+            "line": 522,
             "description": "Displays the transition out animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -15004,7 +15051,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 544,
+            "line": 542,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -15021,7 +15068,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 556,
+            "line": 554,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -15045,7 +15092,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 585,
+            "line": 580,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -15055,7 +15102,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 611,
+            "line": 606,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -15065,7 +15112,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js",
-            "line": 637,
+            "line": 632,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -15380,19 +15427,6 @@
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
             "line": 41,
-            "description": "If loaded images should be drawn to a canvas and used from there.",
-            "itemtype": "property",
-            "name": "generateCanvas",
-            "type": "Boolean",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.PixiTask",
-            "module": "Tasks",
-            "namespace": "springroll"
-        },
-        {
-            "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 48,
             "description": "The AssetLoader used to load all files.",
             "itemtype": "property",
             "name": "_assetLoader",
@@ -15405,7 +15439,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 62,
+            "line": 55,
             "description": "The urls of the files to load",
             "itemtype": "property",
             "name": "urls",
@@ -15418,7 +15452,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 74,
+            "line": 67,
             "description": "Start the load",
             "itemtype": "method",
             "name": "start",
@@ -15434,7 +15468,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 89,
+            "line": 82,
             "description": "A callback for when an individual item has been loaded.",
             "itemtype": "method",
             "name": "onProgress",
@@ -15446,7 +15480,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 99,
+            "line": 92,
             "description": "Cancel the task",
             "itemtype": "method",
             "name": "cancel",
@@ -15459,7 +15493,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 113,
+            "line": 106,
             "description": "Get a string representation of this task",
             "itemtype": "method",
             "name": "toString",
@@ -15472,7 +15506,7 @@
         },
         {
             "file": "/LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/tasks/PixiTask.js",
-            "line": 123,
+            "line": 116,
             "description": "Destroy this load task and don't use after this.",
             "itemtype": "method",
             "name": "destroy",
@@ -18696,27 +18730,19 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:214"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:215"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:308"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:351"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:340"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:383"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:375"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:437"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:460"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:418"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -18724,43 +18750,51 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:551"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:510"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:572"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:537"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:594"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:600"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:615"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:621"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:634"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:643"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:645"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:664"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:658"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:683"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:671"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:694"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:793"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:707"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:807"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:720"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:898"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/createjs/Animator.js:912"
         },
         {
             "message": "unknown tag: internal",
@@ -18824,15 +18858,15 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:139"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:122"
         },
         {
             "message": "unknown tag: internal",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:152"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:135"
         },
         {
             "message": "unknown tag: internal",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:167"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/PixiDisplay.js:150"
         },
         {
             "message": "unknown tag: internal",
@@ -18932,19 +18966,19 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:524"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:522"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:544"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:542"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:556"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:554"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:637"
+            "line": " /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/states/StateManager.js:632"
         },
         {
             "message": "replacing incorrect tag: function with method",
