@@ -514,10 +514,8 @@
 
 		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
 		{
-			animator.play(this._transition, "transitionLoop", {
-				onComplete: this._loopTransition,
-				audio: audio
-			});
+			animator.play(this._transition, {anim:"transitionLoop", audio:audio},
+							this._loopTransition);
 		}
 	};
 	
@@ -575,10 +573,7 @@
 				this._transitionSounds.in :
 				this._transitionSounds.out;
 		}
-		animator.play(this._transition, event, {
-			onComplete: callback,
-			audio: audio
-		});
+		animator.play(this._transition, {anim:event, audio:audio}, onComplete);
 	};
 
 
