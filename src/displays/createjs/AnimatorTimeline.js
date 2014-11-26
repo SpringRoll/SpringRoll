@@ -108,7 +108,7 @@
 		this.duration = 0;
 
 		/**
-		* The animation speed. Default is 1.
+		* The animation speed for the current animation. Default is 1.
 		* @property {Number} speed
 		* @public
 		*/
@@ -192,18 +192,20 @@
 		switch(typeof listItem)
 		{
 			case "object":
-				this._time_sec = 0;
 				this.firstFrame = listItem.first;
 				this.lastFrame = listItem.last;
 				this.length = this.lastFrame - this.firstFrame;
 				var fps = this.instance.framerate;
 				this.startTime = this.firstFrame / fps;
 				this.duration = this.length / fps;
+				this.speed = listItem.speed;
 				this.isLooping = listItem.loop;
+				var animStart = listItem.animStart;
+				this._time_sec = animStart < 0 ? Math.random() * this.duration : animStart;
 				if(listItem.alias)
 				{
 					this.soundAlias = listItem.alias;
-					this.soundStart = listItem.start;
+					this.soundStart = listItem.audioStart;
 					this.playSound = true;
 					this.useCaptions = listItem.useCaptions;
 				}

@@ -119,48 +119,43 @@
 	*   @function play
 	*   @param {createjs.DisplayObject} instance The MovieClip or display object with the same API
 	*                                            to animate.
-	*   @param {String|Object|Array} eventList One of or an array of the following:
-	*                            * objects with 'audio' and 'anim' properties, where audio is an
-	*                                alias for Sound; or an object in the format
-	*                                {alias:"MyAlias", start:300} with start being milliseconds into
-	*                                the animation that the sound starts.
-	*                            * strings - frame labels, e.g. "onClose" to "onClose_stop"
-	*                            * numbers - milliseconds to wait
-	*                            * functions - called upon reaching
-	*   @param {Object|Function} [options] The object of optional parameters or onComplete
-	*                                      callback function
-	*   @param {Function} [options.onComplete] The callback function when the animation is done
-	*   @param {int} [options.startTime=0] The time in milliseconds into the animation to start.
-	*                                      A value of -1 makes the animation play at a random
-	*                                      startTime. If used in a list, this only affects the first
-	*                                      item in the list.
-	*   @param {Number} [options.speed=1] The speed at which to play the animation.
-	*   @param {Function} [options.onCancelled] A callback function for when an animation is stopped
-	*                                           with Animator.stop() or to play another animation.
-	*   @return {AnimatorTimeline} The Timeline object
+	*   @param {String|Object|Array} eventList One of or an array of the following
+	*   * objects in the format:
+	*
+	*       {
+	*           anim:"myAnim",
+	*           start:0,
+	*           speed:1,
+	*           audio:{alias:"MyAlias", start:300}
+	*       }
+	*
+	*       * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
+	*       * start is milliseconds into the animation to start (0 if omitted). A value of -1
+	*           starts from a random time in the animation.
+	*       * speed is a multiplier for the animation speed (1 if omitted).
+	*       * audio is audio to sync the animation to using springroll.Sound. audio can be a String
+	*           if you want the audio to start 0 milliseconds into the animation.
+	*   * strings - frame labels, e.g. "onClose" to "onClose_stop".
+	*   * numbers - milliseconds to wait.
+	*   * functions - called upon reaching, followed immediately by the next item.
+	*   @param {Function} [onComplete] The callback function for when the animation is done.
+	*   @param {Function} [onCancelled] A callback function for when an animation is stopped with
+	*                                   Animator.stop() or to play another animation.
+	*   @return {AnimatorTimeline} The Timeline object that represents this play() call.
 	*   @static
 	*/
-	Animator.play = function(instance, eventList, options)
+	Animator.play = function(instance, eventList, onComplete, onCancelled)
 	{
-		var onComplete, startTime, speed, audio, onCancelled;
+		var audio, options;
 
-		if (options && typeof options == "function")
+		if (onComplete && typeof onComplete != "function")
 		{
-			onComplete = options;
-			options = _optionsHelper;//use the helper instead of creating a new object
+			options = onComplete;
+			onComplete = options.onComplete;
+			onCancelled = options.onCancelled;
 		}
-		else if (!options)
-		{
-			options = _optionsHelper;//use the helper instead of creating a new object
-		}
-
-		onComplete = options.onComplete || onComplete || null;
-		startTime = options.startTime;
-		//convert into seconds, as that is what the time uses internally
-		startTime = startTime ? startTime * 0.001 : 0;
-		speed = options.speed || 1;
-		onCancelled = options.onCancelled || null;
-		if(typeof eventList == "string")
+		//deprecation fallback
+		if(typeof eventList == "string" && options)
 		{
 			audio = options.audio || options.soundData || null;
 			eventList = {anim: eventList, audio: audio};
@@ -175,13 +170,12 @@
 		{
 			Animator.stop(instance);
 		}
-		var timeline = Animator._makeTimeline(instance, eventList, onComplete, speed, onCancelled);
+		var timeline = Animator._makeTimeline(instance, eventList, onComplete, onCancelled);
 
 		//if the animation is present and complete
 		if (timeline.eventList && timeline.eventList.length >= 1)
 		{
 			timeline._nextItem();//advance the timeline to the first item
-			timeline._time_sec = startTime == -1 ? Math.random() * timeline.duration : startTime;
 
 			instance.elapsedTime = timeline.startTime + timeline._time_sec;
 			//have it set its 'paused' variable to false
@@ -225,7 +219,7 @@
 	*   @private
 	*   @static
 	*/
-	Animator._makeTimeline = function(instance, eventList, onComplete, speed, onCancelled)
+	Animator._makeTimeline = function(instance, eventList, onComplete, onCancelled)
 	{
 		var timeline = new AnimatorTimeline();
 		if (!Animator._canAnimate(instance))//not a movieclip
@@ -253,7 +247,7 @@
 		timeline.onCancelled = onCancelled;
 		timeline.speed = speed;
 		var labels = instance.getLabels();
-		var anim, audio;
+		var anim, audio, start, speed, alias;
 		for(var j = 0, jLen = eventList.length; j < jLen; ++j)
 		{
 			var listItem = eventList[j];
@@ -262,10 +256,15 @@
 				case "string":
 					anim = listItem;
 					audio = null;
+					start = 0;
+					speed = 1;
 					break;
 				case "object":
 					anim = listItem.anim;
 					audio = listItem.audio;
+					//convert into seconds, as that is what the time uses internally
+					start = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
+					speed = listItem.speed > 0 ? listItem.speed : 1;
 					break;
 				case "number":
 					//convert to seconds
@@ -311,7 +310,9 @@
 				{
 					first: first,
 					last: last,
-					loop: loop
+					loop: loop,
+					speed: speed,
+					animStart: start
 				};
 			}
 			else
@@ -322,7 +323,6 @@
 			//figure out audio stuff if it is okay to use
 			if (audio && Sound)
 			{
-				var alias, start;
 				if (typeof audio == "string")
 				{
 					start = 0;
@@ -337,7 +337,7 @@
 				{
 					Sound.instance.preloadSound(alias);
 					animData.alias = alias;
-					animData.start = start;
+					animData.audioStart = start;
 				
 					animData.useCaptions = Animator.captions && Animator.captions.hasCaption(alias);
 				}
