@@ -139,8 +139,10 @@
 	*   * numbers - milliseconds to wait.
 	*   * functions - called upon reaching, followed immediately by the next item.
 	*   @param {Function} [onComplete] The callback function for when the animation is done.
-	*   @param {Function} [onCancelled] A callback function for when an animation is stopped with
-	*                                   Animator.stop() or to play another animation.
+	*   @param {Function|Boolean} [onCancelled] A callback function for when an animation is
+	*                                           stopped with Animator.stop() or to play another
+	*                                           animation. A value of 'true' uses onComplete for
+	*                                           onCancelled.
 	*   @return {AnimatorTimeline} The Timeline object that represents this play() call.
 	*   @static
 	*/
@@ -154,6 +156,8 @@
 			onComplete = options.onComplete;
 			onCancelled = options.onCancelled;
 		}
+		else if(onCancelled === true)
+			onCancelled = onComplete;
 		//deprecation fallback
 		if(typeof eventList == "string" && options)
 		{
