@@ -17,7 +17,7 @@ A light-weight, extensible, future-forward framework for building HTML5 canvas-b
 The primary objective of the framework is to build content which supports WebAudio API and WebGL (with Context2d fallback). With the exception of the WebAudio API fallback to Flash, there are very few fallbacks implemented. We want to produce canvas content that is about the future. Here are the currently planned browser support:
 
 * Internet Explorer 9+
-* iOS Safari & iOS WebView 7+
+* iOS Safari & iOS WebView 6+
 * Chrome for Android 37+
 * Chrome 30+
 * Firefox 25+
@@ -90,7 +90,7 @@ Modules are components which contain common code classes, documentation and/or r
 * **CreateJS Display Module**
 * **Native Display Module**
 * **PIXI Display Module**
-* **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)** 
+* **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)**
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
 * **States Module**
 * **Tasks Module**
@@ -99,7 +99,7 @@ Modules are components which contain common code classes, documentation and/or r
 
 ##Displays
 
-The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [CreateJS](http://createjs.com/) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all there displays methods simultaneously.
+The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [CreateJS](http://createjs.com/) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
 ##Documentation
 

@@ -68,15 +68,6 @@
 	var _paused = false;
 
 	/**
-	* An empty object to avoid creating new objects in play()
-	* when an options object is not used for parameters.
-	*
-	* @property {Object} _optionsHelper
-	* @private
-	*/
-	var _optionsHelper = {};
-
-	/**
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
 	*	if the Animator data was cleaned up but was needed again later.
 	*
@@ -214,10 +205,9 @@
 	*   Creates the AnimatorTimeline for a given animation
 	*
 	*   @function _makeTimeline
-	*   @param {createjs.MovieClip} instance The timeline to animate
-	*   @param {String} eventList The frame label event (e.g. "onClose" to "onClose stop")
+	*   @param {createjs.MovieClip} instance The instance to animate
+	*   @param {Array} eventList List of animation events
 	*   @param {Function} onComplete The function to callback when we're done
-	*   @param {Number} speed The speed at which to play the animation.
 	*   @param {Function} onCancelled The function to callback when cancelled
 	*   @return {AnimatorTimeline} The Timeline object
 	*   @private
@@ -360,13 +350,15 @@
 	*	from EaselJS.
 	*
 	*   @function _canAnimate
-	*   @param {createjs.MovieClip} instance The object to check for animation properties.
+	*   @param {createjs.DisplayObject} instance The object to check for animation properties.
 	*   @return {Boolean} If the instance can be animated or not.
 	*   @private
 	*   @static
 	*/
 	Animator._canAnimate = function(instance)
 	{
+		if(!instance)
+			return false;
 		if (instance instanceof createjs.MovieClip)//all createjs.MovieClips are A-OK
 			return true;
 		if (instance.framerate !== undefined &&//property - calculate timing

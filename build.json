@@ -57,6 +57,7 @@
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/ConcurrentSpineAnimData.js",
 				"src/displays/pixi/AnimatorTimeline.js",
 				"src/displays/pixi/Animator.js",
 				"src/displays/pixi/Button.js",
