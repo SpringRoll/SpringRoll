@@ -127,6 +127,8 @@
             
                 <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
             
+                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
+            
                 <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
             
                 <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
@@ -250,7 +252,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l12"><code>springroll.pixi.Animator:12</code></a>
+            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l15"><code>springroll.pixi.Animator:15</code></a>
         </div>
     
 
@@ -295,6 +297,24 @@
                     <h3>Methods</h3>
 
                     <ul class="index-list methods">
+                        
+                            <li class="index-item method private">
+                                <a href="#method__canAnimate">_canAnimate</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method__makeTimeline">_makeTimeline</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
                         
                             <li class="index-item method private">
                                 <a href="#method__onMovieClipDone">_onMovieClipDone</a>
@@ -424,6 +444,294 @@
                 <h2 class="off-left">Methods</h2>
 
                 
+                    <div id="method__canAnimate" class="method item private">
+    <h3 class="name"><code>_canAnimate</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l276"><code>_canAnimate:276</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Determines if a given instance can be animated by Animator.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type">PIXI.DisplayObject</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The object to check for animation properties.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    <p>If the instance can be animated or not.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method__makeTimeline" class="method item private">
+    <h3 class="name"><code>_makeTimeline</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>clip</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>animData</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>cancelledCallback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">AnimatorTimeline</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l168"><code>_makeTimeline:168</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Creates the AnimatorTimeline for a given animation</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">clip</code>
+                        <span class="type">PIXI.Spine | PIXI.MovieClip</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The instance to animate</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">animData</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>List of animation events.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to callback when we&#39;re done</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">cancelledCallback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The function to callback when cancelled</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">AnimatorTimeline</span>:
+                    
+                    <p>The Timeline object</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method__onMovieClipDone" class="method item private">
     <h3 class="name"><code>_onMovieClipDone</code></h3>
 
@@ -468,7 +776,7 @@
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l446"><code>_onMovieClipDone:446</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l646"><code>_onMovieClipDone:646</code></a>
         
         </p>
 
@@ -559,7 +867,7 @@ callback if it has one</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l308"><code>_repool:308</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l372"><code>_repool:372</code></a>
         
         </p>
 
@@ -650,7 +958,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l328"><code>_update:328</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l392"><code>_update:392</code></a>
         
         </p>
 
@@ -749,7 +1057,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l248"><code>checkSpineForAnimation:248</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l312"><code>checkSpineForAnimation:312</code></a>
         
         </p>
 
@@ -858,7 +1166,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l475"><code>destroy:475</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l671"><code>destroy:671</code></a>
         
         </p>
 
@@ -915,7 +1223,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l49"><code>init:49</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l52"><code>init:52</code></a>
         
         </p>
 
@@ -990,7 +1298,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l233"><code>instanceHasAnimation:233</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l297"><code>instanceHasAnimation:297</code></a>
         
         </p>
 
@@ -1082,13 +1390,19 @@ or has been manually stopped.</p>
             
                 <li class="arg">
                     
-                        <code>anim</code>
+                        <code>animData</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code class="optional">[options]</code>
+                        <code class="optional">[onComplete]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[onCancelled]</code>
                     
                 </li>
             
@@ -1098,7 +1412,7 @@ or has been manually stopped.</p>
 
     
         <span class="returns-inline">
-            <span class="type">pixi.AnimatorTimeline</span>
+            <span class="type">AnimatorTimeline</span>
         </span>
     
 
@@ -1125,7 +1439,7 @@ or has been manually stopped.</p>
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l62"><code>play:62</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l65"><code>play:65</code></a>
         
         </p>
 
@@ -1155,7 +1469,8 @@ or has been manually stopped.</p>
                     
 
                     <div class="param-description">
-                        <p>The clip to play</p>
+                        <p>The clip to play. Animation options vary depending on
+                                        object type.</p>
 
                     </div>
 
@@ -1164,24 +1479,40 @@ or has been manually stopped.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">anim</code>
+                        <code class="param-name">animData</code>
                         <span class="type"><a href="../classes/String.html" class="crosslink">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Depending on the type of clip, this could be one of several things.</p>
-<p>If animating a MovieClip, this should be the array of Textures that is the animation (or null
- to use the existing array on the clip).</p>
-<p>If animating a Spine object:</p>
+                        <p>One of or an array of the following</p>
 <ul>
-<li>If anim is a string it will play that single animation by name.</li>
-<li>If anim is an array of strings it will play as a list of animations (only the last one
-can loop).</li>
-<li>If anim is an array of objects (with anim, loop, and speed properties) then multiple
-animations will be played simultaneously.
- When multiple animations play, animation stops when any non looping animation ends.</li>
+<li><p>objects in the format:</p>
+<p>  {</p>
+<pre><code>  anim:&lt;string|array of strings|array of ConcurrentSpineAnimData|array of Textures&gt;,
+  start:0,
+  speed:1,
+  loop:false,
+  audio:{alias:"MyAlias", start:300}</code></pre>
+<p>  }</p>
+<ul>
+<li>anim is the data about the animation to play. See below for more info</li>
+<li>start is milliseconds into the animation to start (0 if omitted). A value of -1
+  starts from a random time in the animation.</li>
+<li>speed is a multiplier for the animation speed (1 if omitted).</li>
+<li>loop is if the animation should loop (false if omitted).</li>
+<li>audio is audio to sync the animation to using springroll.Sound. audio can be a String
+  if you want the audio to start 0 milliseconds into the animation.</li>
+</ul>
+</li>
+<li>strings - A single animation to play on a Spine skeleton.</li>
+<li>arrays of strings - An array of animations to play sequentially on a Spine skeleton.</li>
+<li>arrays of ConcurrentSpineAnimData - An array of animations to play at the same time on a
+  Spine skeleton.</li>
+<li>arrays of Textures - An array of textures to play on a MovieClip.</li>
+<li>numbers - milliseconds to wait.</li>
+<li>functions - called upon reaching, followed immediately by the next item.</li>
 </ul>
 
                     </div>
@@ -1191,120 +1522,36 @@ animations will be played simultaneously.
             
                 <li class="param">
                     
-                        <code class="param-name optional">[options]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <code class="param-name optional">[onComplete]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                         <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The object of optional parameters or onComplete callback
-                                   function</p>
+                        <p>The function to call once the animation has finished.</p>
 
                     </div>
 
                     
-                        <ul class="params-list">
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[onComplete=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[onCancelled]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
 
-                                <div class="param-description">
-                                    <p>The function to call once the animation has
-                                            finished</p>
+                    
 
-                                </div>
+                    <div class="param-description">
+                        <p>A callback function for when an animation is stopped with
+                                Animator.stop() or to play another animation.</p>
 
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[loop=false]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
+                    </div>
 
-                                <div class="param-description">
-                                    <p>Whether the animation should loop</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[speed=1]</code>
-                                    <span class="type">Int</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The speed at which to play the animation</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[startTime=0]</code>
-                                    <span class="type">Int</span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The time in milliseconds into the animation to start.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[audio=null]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>Data about a sound to sync the animation to,
-                                                as an alias or in the format
-                                                {alias:"MyAlias", start:0}. start is the
-                                                seconds into the animation to start playing
-                                                the sound. If it is omitted or audio is
-                                                a string, it defaults to 0.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
-                                    <code class="param-name optional">[onCancelled]</code>
-                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>A callback function for when an animation is stopped
-                                        with Animator.stop() or to play another animation.</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                        </ul>
                     
                 </li>
             
@@ -1319,13 +1566,68 @@ animations will be played simultaneously.
             <div class="returns-description">
                 
                     
-                        <span class="type">pixi.AnimatorTimeline</span>:
+                        <span class="type">AnimatorTimeline</span>:
                     
                     <p>The timeline object</p>
 
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_stop" class="method item">
+    <h3 class="name"><code>stop</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l351"><code>stop:351</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Stops all current animations</p>
+
+    </div>
+
+    
+
     
 
     
@@ -1374,7 +1676,7 @@ animations will be played simultaneously.
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l261"><code>stop:261</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l325"><code>stop:325</code></a>
         
         </p>
 
@@ -1421,61 +1723,6 @@ animations will be played simultaneously.
 </div>
 
                 
-                    <div id="method_stop" class="method item">
-    <h3 class="name"><code>stop</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l287"><code>stop:287</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Stops all current animations</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
             </div>
         
 
@@ -1511,7 +1758,7 @@ animations will be played simultaneously.
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l34"><code>_animPool:34</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l37"><code>_animPool:37</code></a>
         
         </p>
 
@@ -1560,7 +1807,7 @@ animations will be played simultaneously.
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l26"><code>_numAnims:26</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l29"><code>_numAnims:29</code></a>
         
         </p>
 
@@ -1607,7 +1854,7 @@ animations will be played simultaneously.
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l19"><code>_timelines:19</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l22"><code>_timelines:22</code></a>
         
         </p>
 
@@ -1654,7 +1901,7 @@ animations will be played simultaneously.
             
         
         
-        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l42"><code>captions:42</code></a>
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_Animator.js.html#l45"><code>captions:45</code></a>
         
         </p>
 

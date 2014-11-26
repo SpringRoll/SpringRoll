@@ -68,6 +68,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.pixi.AnimatorTimeline",
         "springroll.pixi.AssetManager",
         "springroll.pixi.Button",
+        "springroll.pixi.ConcurrentSpineAnimData",
         "springroll.pixi.DisplayAdapter",
         "springroll.pixi.DragManager",
         "springroll.pixi.PixiDisplay"

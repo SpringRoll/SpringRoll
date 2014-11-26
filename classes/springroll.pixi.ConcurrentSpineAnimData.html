@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.6 API Documentation : /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/PageVisibility.js</title>  
+	<title>SpringRoll v0.0.6 API Documentation : springroll.pixi.ConcurrentSpineAnimData</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -244,143 +244,206 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <script>
-	var name = /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/PageVisibility.js      
-</script>
-<h1 class="file-heading">File:PageVisibility.js</h1>
+                        <h1>springroll.pixi.ConcurrentSpineAnimData Class</h1>
+<div class="box meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
-*  @module Framework
-*  @namespace springroll
-*/
-(function(global, doc, undefined){
-		
-	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to &quot;pause&quot;, &quot;paused&quot;, 
-	*  or &quot;unpaused&quot; events on the application instead of using one of these yourself.
-	*  
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {function} onFocus Callback when the page becomes visible
-	*  @param {function} onBlur Callback when the page loses visibility
-	*/
-	var PageVisibility = function(onFocus, onBlur)
-	{
-		/**
-		* Callback when the page becomes visible
-		* @property {function} _onFocus
-		* @private
-		*/
-		this._onFocus = onFocus;
-		
-		/**
-		* Callback when the page loses visibility
-		* @property {function} _onBlur
-		* @private
-		*/
-		this._onBlur = onBlur;
-		
-		/**
-		* The visibility toggle function
-		* @property {function} _onToggle
-		* @private
-		*/
-		this._onToggle = null;
+    
 
-		this.initialize();
-	},
-	
-	// Reference to the prototype 
-	p = PageVisibility.prototype,
-	
-	/** 
-	* The name of the visibility change event for the browser
-	* 
-	* @property {String} _visibilityChange
-	* @private
-	*/
-	_visibilityChange = null;
-	
-	// Select the visiblity change event name
-	if (doc.hidden !== undefined)
-	{
-		_visibilityChange = &quot;visibilitychange&quot;;
-	} 
-	else if (doc.mozHidden !== undefined)
-	{
-		_visibilityChange = &quot;mozvisibilitychange&quot;;
-	} 
-	else if (doc.msHidden !== undefined)
-	{
-		_visibilityChange = &quot;msvisibilitychange&quot;;
-	} 
-	else if (doc.webkitHidden !== undefined)
-	{
-		_visibilityChange = &quot;webkitvisibilitychange&quot;;
-	}
-	
-	/**
-	*  Create new Page visibility
-	*  
-	*  @method initialize
-	*/
-	p.initialize = function()
-	{
-		// If this browser doesn&#x27;t support visibility
-		if (!_visibilityChange) return;
-		
-		// The visibility toggle function
-		var onVisibilityChange = function() 
-		{
-			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				this._onBlur();
-			else 
-				this._onFocus();
-		}.bind(this);
-		
-		// Listen to visibility change
-		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
-		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
-		
-		// Listen for page events (when clicking the home button on iOS)
-		global.addEventListener(&quot;pagehide&quot;, this._onBlur);
-		global.addEventListener(&quot;pageshow&quot;, this._onFocus);
-		global.addEventListener(&quot;blur&quot;, this._onBlur);
-		global.addEventListener(&quot;focus&quot;, this._onFocus);
-		global.addEventListener(&quot;visibilitychange&quot;, onVisibilityChange, false);
-		
-		this._onToggle = onVisibilityChange;
-	};
-	
-	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		// If this browser doesn&#x27;t support visibility
-		if (!_visibilityChange) return;
-		
-		global.removeEventListener(&quot;pagehide&quot;, this._onBlur);
-		global.removeEventListener(&quot;pageshow&quot;, this._onFocus);
-		global.removeEventListener(&quot;blur&quot;, this._onBlur);
-		global.removeEventListener(&quot;focus&quot;, this._onFocus);
-		global.removeEventListener(&quot;visibilitychange&quot;, this._onToggle);
-		
-		doc.removeEventListener(_visibilityChange, this._onToggle, false);
-		
-		this._onFocus = null;
-		this._onBlur = null;
-	};
-	
-	// Assign to the global space
-	namespace(&#x27;springroll&#x27;).PageVisibility = PageVisibility;
-	
-}(window, document));
-    </pre>
+    
+        <div class="foundat">
+            Defined in: <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_ConcurrentSpineAnimData.js.html#l7"><code>springroll.pixi.ConcurrentSpineAnimData:7</code></a>
+        </div>
+    
+
+    
+        
+            Module: <a href="../modules/PIXI Display.html">PIXI Display</a>
+        
+    
+
+    
+</div>
+
+
+
+<div class="box intro">
+    <p>Class for assisting in creating an array of Spine animations to play at the same time
+on one skeleton through Animator. Concurrent animations will play until one non-looping
+animation ends.</p>
+
+</div>
+
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_springroll.pixi.ConcurrentSpineAnimData" class="method item">
+    <h3 class="name"><code>springroll.pixi.ConcurrentSpineAnimData</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>anim</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[loop=false]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[speed=1]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/_LocalStorage_AndrewStart_Projects_JSLibs_SpringRoll_src_displays_pixi_ConcurrentSpineAnimData.js.html#l7"><code>springroll.pixi.ConcurrentSpineAnimData:7</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">anim</code>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the animation on the skeleton.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[loop=false]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>If this animation should loop.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[speed=1]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The speed at which this animation should be played.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+
+            
+
+            
+
+            
+        </div>
+
+        
+
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

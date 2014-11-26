@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.6 API Documentation : /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/PageVisibility.js</title>  
+	<title>SpringRoll v0.0.6 API Documentation : /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/ConcurrentSpineAnimData.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -245,141 +245,40 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/utils/PageVisibility.js      
+	var name = /LocalStorage/AndrewStart/Projects/JSLibs/SpringRoll/src/displays/pixi/ConcurrentSpineAnimData.js      
 </script>
-<h1 class="file-heading">File:PageVisibility.js</h1>
+<h1 class="file-heading">File:ConcurrentSpineAnimData.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-*  @module Framework
-*  @namespace springroll
+*  @module PIXI Display
+*  @namespace springroll.pixi
 */
-(function(global, doc, undefined){
-		
+(function(){
+	
 	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to &quot;pause&quot;, &quot;paused&quot;, 
-	*  or &quot;unpaused&quot; events on the application instead of using one of these yourself.
-	*  
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {function} onFocus Callback when the page becomes visible
-	*  @param {function} onBlur Callback when the page loses visibility
+	* Class for assisting in creating an array of Spine animations to play at the same time
+	* on one skeleton through Animator. Concurrent animations will play until one non-looping
+	* animation ends.
+	*
+	* @class ConcurrentSpineAnimData
+	* @constructor
+	* @param {String} anim The name of the animation on the skeleton.
+	* @param {Boolean} [loop=false] If this animation should loop.
+	* @param {Number} [speed=1] The speed at which this animation should be played.
 	*/
-	var PageVisibility = function(onFocus, onBlur)
+	var ConcurrentSpineAnimData = function(anim, loop, speed)
 	{
-		/**
-		* Callback when the page becomes visible
-		* @property {function} _onFocus
-		* @private
-		*/
-		this._onFocus = onFocus;
-		
-		/**
-		* Callback when the page loses visibility
-		* @property {function} _onBlur
-		* @private
-		*/
-		this._onBlur = onBlur;
-		
-		/**
-		* The visibility toggle function
-		* @property {function} _onToggle
-		* @private
-		*/
-		this._onToggle = null;
+		this.anim = anim;
+		this.loop = !!loop;
+		this.speed = speed &gt; 0 ? speed : 1;
+	};
+	
+	// Assign to namespace
+	namespace(&quot;springroll.pixi&quot;).ConcurrentSpineAnimData = ConcurrentSpineAnimData;
 
-		this.initialize();
-	},
-	
-	// Reference to the prototype 
-	p = PageVisibility.prototype,
-	
-	/** 
-	* The name of the visibility change event for the browser
-	* 
-	* @property {String} _visibilityChange
-	* @private
-	*/
-	_visibilityChange = null;
-	
-	// Select the visiblity change event name
-	if (doc.hidden !== undefined)
-	{
-		_visibilityChange = &quot;visibilitychange&quot;;
-	} 
-	else if (doc.mozHidden !== undefined)
-	{
-		_visibilityChange = &quot;mozvisibilitychange&quot;;
-	} 
-	else if (doc.msHidden !== undefined)
-	{
-		_visibilityChange = &quot;msvisibilitychange&quot;;
-	} 
-	else if (doc.webkitHidden !== undefined)
-	{
-		_visibilityChange = &quot;webkitvisibilitychange&quot;;
-	}
-	
-	/**
-	*  Create new Page visibility
-	*  
-	*  @method initialize
-	*/
-	p.initialize = function()
-	{
-		// If this browser doesn&#x27;t support visibility
-		if (!_visibilityChange) return;
-		
-		// The visibility toggle function
-		var onVisibilityChange = function() 
-		{
-			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				this._onBlur();
-			else 
-				this._onFocus();
-		}.bind(this);
-		
-		// Listen to visibility change
-		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
-		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
-		
-		// Listen for page events (when clicking the home button on iOS)
-		global.addEventListener(&quot;pagehide&quot;, this._onBlur);
-		global.addEventListener(&quot;pageshow&quot;, this._onFocus);
-		global.addEventListener(&quot;blur&quot;, this._onBlur);
-		global.addEventListener(&quot;focus&quot;, this._onFocus);
-		global.addEventListener(&quot;visibilitychange&quot;, onVisibilityChange, false);
-		
-		this._onToggle = onVisibilityChange;
-	};
-	
-	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		// If this browser doesn&#x27;t support visibility
-		if (!_visibilityChange) return;
-		
-		global.removeEventListener(&quot;pagehide&quot;, this._onBlur);
-		global.removeEventListener(&quot;pageshow&quot;, this._onFocus);
-		global.removeEventListener(&quot;blur&quot;, this._onBlur);
-		global.removeEventListener(&quot;focus&quot;, this._onFocus);
-		global.removeEventListener(&quot;visibilitychange&quot;, this._onToggle);
-		
-		doc.removeEventListener(_visibilityChange, this._onToggle, false);
-		
-		this._onFocus = null;
-		this._onBlur = null;
-	};
-	
-	// Assign to the global space
-	namespace(&#x27;springroll&#x27;).PageVisibility = PageVisibility;
-	
-}(window, document));
+}());
     </pre>
 </div>
 
