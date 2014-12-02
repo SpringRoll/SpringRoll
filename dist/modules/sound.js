@@ -324,7 +324,9 @@
 		SoundContext,
 		SoundInstance,
 		SoundListTask,
-		CJSSound = include('createjs.Sound');
+		WebAudioPlugin = include('createjs.WebAudioPlugin'),
+		FlashPlugin = include('createjs.FlashPlugin', false),
+		SoundJS = include('createjs.Sound');
 
 	/**
 	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
@@ -335,7 +337,7 @@
 	var Sound = function()
 	{
 		// Import classes
-		if(!Loader)
+		if (!Loader)
 		{
 			Loader = include('springroll.Loader');
 			LoadTask = include('springroll.LoadTask', false);
@@ -428,7 +430,7 @@
 		}
 
 		var _defaultOptions = {
-			plugins : [createjs.WebAudioPlugin, createjs.FlashPlugin],
+			plugins : [WebAudioPlugin, FlashPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
@@ -452,22 +454,22 @@
 			throw "springroll.Sound.init requires a ready callback";
 		}
 
-		CJSSound.registerPlugins(options.plugins);
+		SoundJS.registerPlugins(options.plugins);
 
 		// Apply the base path if available
 		var basePath = Application.instance.options.basePath;
-		if(createjs.FlashPlugin)
+		if (FlashPlugin)
 		{
-			if(createjs.FlashPlugin.hasOwnProperty("swfPath"))
-				createjs.FlashPlugin.swfPath = (basePath || "") + options.swfPath;
+			if (FlashPlugin.hasOwnProperty("swfPath"))
+				FlashPlugin.swfPath = (basePath || "") + options.swfPath;
 			else
-				createjs.FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
+				FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
 		}
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
-		if (CJSSound.BrowserDetect.isIOS &&
-			CJSSound.activePlugin instanceof createjs.WebAudioPlugin)
+		if (SoundJS.BrowserDetect.isIOS &&
+			SoundJS.activePlugin instanceof WebAudioPlugin)
 		{
 			document.addEventListener("touchstart", _playEmpty);
 		}
@@ -476,21 +478,21 @@
 		_instance = new Sound();
 
 		//make sure the capabilities are ready (looking at you, Cordova plugin)
-		if (CJSSound.getCapabilities())
+		if (SoundJS.getCapabilities())
 		{
 			_instance._initComplete(options.types, options.ready);
 		}
-		else if(CJSSound.activePlugin)
+		else if (SoundJS.activePlugin)
 		{
 			if (true)
 			{
-				Debug.log("SoundJS Plugin " + CJSSound.activePlugin + " was not ready, waiting until it is");
+				Debug.log("SoundJS Plugin " + SoundJS.activePlugin + " was not ready, waiting until it is");
 			}
 			//if the sound plugin is not ready, then just wait until it is
 			var waitFunction;
 			waitFunction = function()
 			{
-				if (CJSSound.getCapabilities())
+				if (SoundJS.getCapabilities())
 				{
 					Application.instance.off("update", waitFunction);
 					_instance._initComplete(options.types, options.ready);
@@ -503,7 +505,7 @@
 		{
 			Debug.error("Unable to initialize SoundJS with a plugin!");
 			this.soundEnabled = false;
-			if(options.ready)
+			if (options.ready)
 				options.ready();
 		}
 		return _instance;
@@ -517,7 +519,7 @@
 	function _playEmpty()
 	{
 		document.removeEventListener("touchstart", _playEmpty);
-		createjs.WebAudioPlugin.playEmptySound();
+		WebAudioPlugin.playEmptySound();
 	}
 
 	/**
@@ -529,7 +531,7 @@
 	*/
 	p._initComplete = function(filetypeOrder, callback)
 	{
-		if (createjs.FlashPlugin && CJSSound.activePlugin instanceof createjs.FlashPlugin)
+		if (FlashPlugin && SoundJS.activePlugin instanceof FlashPlugin)
 		{
 			_instance.supportedSound = ".mp3";
 		}
@@ -539,7 +541,7 @@
 			for (var i = 0, len = filetypeOrder.length; i < len; ++i)
 			{
 				type = filetypeOrder[i];
-				if (CJSSound.getCapability(type))
+				if (SoundJS.getCapability(type))
 				{
 					_instance.supportedSound = "." + type;
 					break;
@@ -885,7 +887,7 @@
 	*/
 	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
 	{
-		if(!this.soundEnabled) return;
+		if (!this.soundEnabled) return;
 
 		var completeCallback;
 		if (options && typeof options == "function")
@@ -916,7 +918,7 @@
 			return;
 		}
 		//check for sound loop settings
-		if(sound.loop && loop === undefined || loop === null)
+		if (sound.loop && loop === undefined || loop === null)
 			loop = -1;
 		//check for sound volume settings
 		volume = (typeof(volume) == "number") ? volume : sound.volume;
@@ -925,10 +927,10 @@
 		var inst, arr;
 		if (state == LOADED)
 		{
-			var channel = CJSSound.play(alias, interrupt, delay, offset, loop, volume, pan);
+			var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 			//have Sound manage the playback of the sound
 
-			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
+			if (!channel || channel.playState == SoundJS.PLAY_FAILED)
 			{
 				if (completeCallback)
 					completeCallback();
@@ -950,7 +952,7 @@
 				return inst;
 			}
 		}
-		else if(state == UNLOADED)
+		else if (state == UNLOADED)
 		{
 			sound.state = LOADING;
 			sound.playAfterLoad = true;
@@ -979,7 +981,7 @@
 			);
 			return inst;
 		}
-		else if(state == LOADING)
+		else if (state == LOADING)
 		{
 			//tell the sound to play after loading
 			sound.playAfterLoad = true;
@@ -1053,10 +1055,10 @@
 			inst = waiting[i];
 			startParams = inst._startParams;
 			volume = inst.curVol;
-			channel = CJSSound.play(alias, startParams[0], startParams[1], startParams[2],
+			channel = SoundJS.play(alias, startParams[0], startParams[1], startParams[2],
 									startParams[3], volume, startParams[4]);
 
-			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
+			if (!channel || channel.playState == SoundJS.PLAY_FAILED)
 			{
 				if (inst._endCallback)
 					inst._endCallback();
@@ -1088,12 +1090,12 @@
 	*/
 	p._onSoundComplete = function(inst)
 	{
-		if(inst._channel)
+		if (inst._channel)
 		{
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			var sound = this._sounds[inst.alias];
 			var index = sound.playing.indexOf(inst);
-			if(index > -1)
+			if (index > -1)
 				sound.playing.splice(index, 1);
 			var callback = inst._endCallback;
 			this._poolInst(inst);
@@ -1114,7 +1116,7 @@
 		if (!s) return;
 		if (s.playing.length)
 			this._stopSound(s);
-		else if(s.state == LOADING)
+		else if (s.state == LOADING)
 		{
 			s.playAfterLoad = false;
 			var waiting = s.waitingToPlay;
@@ -1122,7 +1124,7 @@
 			for (var i = 0, len = waiting.length; i < len; ++i)
 			{
 				inst = waiting[i];
-				/*if(inst._endCallback)
+				/*if (inst._endCallback)
 					inst._endCallback();*/
 				this._poolInst(inst);
 			}
@@ -1154,7 +1156,7 @@
 	*/
 	p._stopInst = function(inst)
 	{
-		if(inst._channel)
+		if (inst._channel)
 		{
 			inst._channel.removeEventListener("complete", inst._endFunc);
 			inst._channel.stop();
@@ -1180,7 +1182,7 @@
 				s = arr[i];
 				if (s.playing.length)
 					this._stopSound(s);
-				else if(s.state == LOADING)
+				else if (s.state == LOADING)
 					s.playAfterLoad = false;
 			}
 		}
@@ -1284,13 +1286,28 @@
 
 	/**
 	*  Set the mute status of all sounds
+	*  @property {Boolean} muteAll
+	*/
+	Object.defineProperty(p, 'muteAll', {
+		set: function(muted)
+		{
+			SoundJS.setMute(!!muted);
+		}
+	});
+
+	/**
+	*  Set the mute status of all sounds
 	*  @method setMuteAll
-	*  @public
-	*  @param {Boolean} mute If the sounds should be muted.
+	*  @deprecated Use the muteAll setter instead
+	*  @param {Boolean} muted If all sounds should be muted
 	*/
 	p.setMuteAll = function(muted)
 	{
-		CJSSound.setMute(!!muted);
+		if (true)
+		{
+			Debug.warn("Sound's setMuteAll() is deprecated, use Sound's muteAll property.");
+		}
+		this.muteAll = muted;
 	};
 
 	/**
@@ -1399,7 +1416,7 @@
 					callback();
 			});
 		}
-		else if(callback)
+		else if (callback)
 		{
 			callback();
 		}
@@ -1466,7 +1483,7 @@
 				this._stopSound(sound);
 				sound.state = UNLOADED;
 			}
-			CJSSound.removeSound(list[i]);
+			SoundJS.removeSound(list[i]);
 		}
 	};
 
@@ -1478,7 +1495,7 @@
 	*/
 	p._poolInst = function(inst)
 	{
-		if(this._pool.indexOf(inst) == -1)
+		if (this._pool.indexOf(inst) == -1)
 		{
 			inst._endCallback = null;
 			inst.alias = null;
@@ -1499,10 +1516,10 @@
 	p.destroy = function()
 	{
 		// Remove all sounds
-		CJSSound.removeAllSounds();
+		SoundJS.removeAllSounds();
 
 		// Remove the SWF from the page
-		if (createjs.FlashPlugin && CJSSound.activePlugin instanceof createjs.FlashPlugin)
+		if (FlashPlugin && SoundJS.activePlugin instanceof FlashPlugin)
 		{
 			var swf = document.getElementById("SoundJSFlashContainer");
 			if (swf && swf.parentNode)

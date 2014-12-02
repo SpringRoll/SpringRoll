@@ -529,7 +529,7 @@
 		if (true)
 		{
 			// For testing, mute the game if requested
-			sound.setMuteAll(!!this.options.mute);
+			sound.muteAll = !!this.options.mute;
 		}
 
 		this._readyToInit = true;
