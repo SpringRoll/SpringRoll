@@ -791,7 +791,7 @@
 	*	Sets the variables of the Animator to their defaults. Use when _timelines is null,
 	*	if the Animator data was cleaned up but was needed again later.
 	*
-	*	@function init
+	*	@method init
 	*	@static
 	*/
 	Animator.init = function()
@@ -807,7 +807,7 @@
 	/**
 	*	Stops all animations and cleans up the variables used.
 	*
-	*	@function destroy
+	*	@method destroy
 	*	@static
 	*/
 	Animator.destroy = function()
@@ -827,7 +827,7 @@
 	/**
 	*   Play an animation for a frame label event
 	*
-	*   @function play
+	*   @method play
 	*   @param {createjs.DisplayObject} instance The MovieClip or display object with the same API
 	*                                            to animate.
 	*   @param {String|Object|Array} eventList One of or an array of the following
@@ -854,7 +854,7 @@
 	*                                           stopped with Animator.stop() or to play another
 	*                                           animation. A value of 'true' uses onComplete for
 	*                                           onCancelled.
-	*   @return {AnimatorTimeline} The Timeline object that represents this play() call.
+	*   @return {springroll.createjs.AnimatorTimeline} The Timeline object that represents this play() call.
 	*   @static
 	*/
 	Animator.play = function(instance, eventList, onComplete, onCancelled)
@@ -924,19 +924,19 @@
 	/**
 	*   Creates the AnimatorTimeline for a given animation
 	*
-	*   @function _makeTimeline
+	*   @method _makeTimeline
 	*   @param {createjs.MovieClip} instance The instance to animate
 	*   @param {Array} eventList List of animation events
 	*   @param {Function} onComplete The function to callback when we're done
 	*   @param {Function} onCancelled The function to callback when cancelled
-	*   @return {AnimatorTimeline} The Timeline object
+	*   @return {springroll.createjs.AnimatorTimeline} The Timeline object
 	*   @private
 	*   @static
 	*/
 	Animator._makeTimeline = function(instance, eventList, onComplete, onCancelled)
 	{
 		var timeline = new AnimatorTimeline();
-		if (!Animator._canAnimate(instance))//not a movieclip
+		if (!Animator.canAnimate(instance))//not a movieclip
 		{
 			return timeline;
 		}
@@ -1069,13 +1069,12 @@
 	*	not inherit from DisplayObject, it needs to not have an id that is identical to anything
 	*	from EaselJS.
 	*
-	*   @function _canAnimate
+	*   @method canAnimate
 	*   @param {createjs.DisplayObject} instance The object to check for animation properties.
 	*   @return {Boolean} If the instance can be animated or not.
-	*   @private
 	*   @static
 	*/
-	Animator._canAnimate = function(instance)
+	Animator.canAnimate = function(instance)
 	{
 		if(!instance)
 			return false;
@@ -1097,9 +1096,28 @@
 	};
 
 	/**
+	*   Determines if a given instance can be animated by Animator, to allow things that aren't
+	*	MovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property
+	*	with a unique value for each createjs.DisplayObject. If a custom object is made that does
+	*	not inherit from DisplayObject, it needs to not have an id that is identical to anything
+	*	from EaselJS.
+	*
+	*   @method _canAnimate
+	*   @deprecated Use the public method Animator.canAnimate
+	*   @param {createjs.DisplayObject} instance The object to check for animation properties.
+	*   @return {Boolean} If the instance can be animated or not.
+	*   @private
+	*   @static
+	*/
+	Animator._canAnimate = function(instance)
+	{
+		return Animator.canAnimate(instance);
+	};
+
+	/**
 	*   Checks if animation exists
 	*
-	*   @function instanceHasAnimation
+	*   @method instanceHasAnimation
 	*   @param {createjs.MovieClip} instance The timeline to check
 	*   @param {String} event The frame label event (e.g. "onClose" to "onClose_stop")
 	*   @public
@@ -1134,7 +1152,7 @@
 	/**
 	*   Get duration of animation event (or sequence of events) in seconds
 	*
-	*   @function getDuration
+	*   @method getDuration
 	*   @param {createjs.MovieClip} instance The timeline to check
 	*   @param {String|Array} event The frame label event or array, in the format that play() uses.
 	*   @public
@@ -1203,7 +1221,7 @@
 	/**
 	*   Stop the animation.
 	*
-	*   @function stop
+	*   @method stop
 	*   @param {createjs.MovieClip} instance The MovieClip to stop the action on
 	*   @static
 	*/
@@ -1227,7 +1245,7 @@
 	*   Stop all current Animator animations.
 	*   This is good for cleaning up all animation, as it doesn't do a callback on any of them.
 	*
-	*   @function stopAll
+	*   @method stopAll
 	*   @param {createjs.Container} [container] Specify a container to stop timelines
 	*                                           contained within. This only checks one layer deep.
 	*   @static
@@ -1253,8 +1271,8 @@
 	/**
 	*   Remove a timeline from the stack
 	*
-	*   @function _remove
-	*   @param {AnimatorTimeline} timeline
+	*   @method _remove
+	*   @param {springroll.createjs.AnimatorTimeline} timeline
 	*   @param {Boolean} doCancelled If we do the on complete callback
 	*   @private
 	*   @static
@@ -1316,7 +1334,7 @@
 	/**
 	*   Pause all tweens which have been excuted by Animator.play()
 	*
-	*   @function pause
+	*   @method pause
 	*   @static
 	*/
 	Animator.pause = function()
@@ -1337,7 +1355,7 @@
 	/**
 	*   Resumes all tweens executed by the Animator.play()
 	*
-	*   @function resume
+	*   @method resume
 	*   @static
 	*/
 	Animator.resume = function()
@@ -1359,7 +1377,7 @@
 	/**
 	*   Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.
 	*
-	*   @function pauseInGroup
+	*   @method pauseInGroup
 	*   @param {Boolean} paused If this should be paused or unpaused
 	*   @param {createjs.Container} container The container to stop timelines contained within
 	*   @static
@@ -1380,9 +1398,9 @@
 	/**
 	*   Get the timeline object for an instance
 	*
-	*   @function getTimeline
+	*   @method getTimeline
 	*   @param {createjs.MovieClip} instance MovieClip
-	*   @return {AnimatorTimeline} The timeline
+	*   @return {springroll.createjs.AnimatorTimeline} The timeline
 	*   @static
 	*/
 	Animator.getTimeline = function(instance)
@@ -1399,7 +1417,7 @@
 	/**
 	*  Whether the Animator class is currently paused.
 	*
-	*  @function getPaused
+	*  @method getPaused
 	*  @return {Boolean} if we're paused or not
 	*/
 	Animator.getPaused = function()
@@ -1410,7 +1428,7 @@
 	/**
 	*  Start the updating
 	*
-	*  @function _startUpdate
+	*  @method _startUpdate
 	*  @private
 	*  @static
 	*/
@@ -1423,7 +1441,7 @@
 	/**
 	*   Stop the updating
 	*
-	*   @function _stopUpdate
+	*   @method _stopUpdate
 	*   @private
 	*   @static
 	*/
@@ -1436,7 +1454,7 @@
 	/**
 	*   The update every frame
 	*
-	*   @function
+	*   @method
 	*   @param {int} elapsed The time in milliseconds since the last frame
 	*   @private
 	*   @static
@@ -1589,7 +1607,7 @@
 	*  The sound has been started
 	*  @method onSoundStarted
 	*  @private
-	*  @param {AnimatorTimeline} timeline
+	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
 	var onSoundStarted = function(timeline)
 	{
@@ -1602,7 +1620,7 @@
 	*  The sound is done
 	*  @method onSoundDone
 	*  @private
-	*  @param {AnimatorTimeline} timeline
+	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
 	var onSoundDone = function(timeline)
 	{
@@ -1614,7 +1632,7 @@
 	/**
 	*  Check to see if we have timeline
 	*
-	*  @function _hasTimelines
+	*  @method _hasTimelines
 	*  @return {Boolean} if we have timelines
 	*  @private
 	*  @static
@@ -1628,7 +1646,7 @@
 	/**
 	*  String representation of this class
 	*
-	*  @function toString
+	*  @method toString
 	*  @return String
 	*  @static
 	*/

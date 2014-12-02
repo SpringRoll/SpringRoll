@@ -65,7 +65,7 @@
 	/**
 	* Play a specified animation
 	*
-	* @function play
+	* @method play
 	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
 	*                                         object type.
 	* @param {String|Array} animData One of or an array of the following
@@ -96,7 +96,7 @@
 	* @param {Function} [onComplete] The function to call once the animation has finished.
 	* @param {Function} [onCancelled] A callback function for when an animation is stopped with
 	*                                 Animator.stop() or to play another animation.
-	* @return {AnimatorTimeline} The timeline object
+	* @return {springroll.pixi.AnimatorTimeline} The timeline object
 	*/
 	Animator.play = function(clip, animData, onComplete, onCancelled)
 	{
@@ -112,7 +112,7 @@
 			onCancelled = onComplete;
 		
 		//ensure that we can play the clip
-		if (!Animator._canAnimate(clip))
+		if (!Animator.canAnimate(clip))
 		{
 			if (onComplete) onComplete();
 			return;
@@ -168,12 +168,12 @@
 	/**
 	*   Creates the AnimatorTimeline for a given animation
 	*
-	*   @function _makeTimeline
+	*   @method _makeTimeline
 	*   @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
 	*   @param {Array} animData List of animation events.
 	*   @param {Function} callback The function to callback when we're done
 	*   @param {Function} cancelledCallback The function to callback when cancelled
-	*   @return {AnimatorTimeline} The Timeline object
+	*   @return {springroll.pixi.AnimatorTimeline} The Timeline object
 	*   @private
 	*   @static
 	*/
@@ -275,13 +275,12 @@
 	
 	/**
 	*   Determines if a given instance can be animated by Animator.
-	*   @function _canAnimate
+	*   @method canAnimate
 	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
 	*   @return {Boolean} If the instance can be animated or not.
-	*   @private
 	*   @static
 	*/
-	Animator._canAnimate = function(instance)
+	Animator.canAnimate = function(instance)
 	{
 		if(!instance)
 			return false;
@@ -295,9 +294,23 @@
 	};
 
 	/**
+	*   Determines if a given instance can be animated by Animator.
+	*   @method _canAnimate
+	*   @deprecated Use the public method Animator.canAnimate
+	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
+	*   @return {Boolean} If the instance can be animated or not.
+	*   @private
+	*   @static
+	*/
+	Animator._canAnimate = function(instance)
+	{
+		return Animator.canAnimate(instance);
+	};
+
+	/**
 	 * Checks to see if a Spine animation includes a given animation alias
 	 *
-	 * @function instanceHasAnimation
+	 * @method instanceHasAnimation
 	 * @param {PIXI.Spine} instance The animation to search. This has to be a Spine animation.
 	 * @param {String} anim The animation alias to search for
 	 * @returns {Boolean} Returns true if the animation is found
@@ -312,7 +325,7 @@
 	/**
 	 * Checks to see if a Spine animation includes a given animation alias
 	 *
-	 * @function checkSpineForAnimation
+	 * @method checkSpineForAnimation
 	 * @param {PIXI.Spine} clip The spine to search
 	 * @param {String} anim The animation alias to search for
 	 * @returns {Boolean} Returns true if the animation is found
@@ -325,7 +338,7 @@
 	/**
 	 * Stop a clip
 	 *
-	 * @function stop
+	 * @method stop
 	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to stop
 	 */
 	Animator.stop = function(clip, doCallback)
@@ -351,7 +364,7 @@
 	/**
 	 * Stops all current animations
 	 *
-	 * @function stop
+	 * @method stop
 	 */
 	Animator.stopAll = function()
 	{
@@ -373,8 +386,8 @@
 	 * Put an AnimatorTimeline back into the general pool after it's done playing
 	 * or has been manually stopped.
 	 *
-	 * @function _repool
-	 * @param {AnimatorTimeline} timeline
+	 * @method _repool
+	 * @param {springroll.pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
 	var _repool = function(timeline)
@@ -392,7 +405,7 @@
 	/**
 	 * Update each frame
 	 *
-	 * @function _update
+	 * @method _update
 	 * @param {int} elapsed The time since the last frame
 	 * @private
 	 */
@@ -647,7 +660,7 @@
 	 * Called when a movie clip is done playing, calls the AnimatorTimeline's
 	 * callback if it has one
 	 *
-	 * @function _onMovieClipDone
+	 * @method _onMovieClipDone
 	 * @param {pixi.AnimatorTimeline} timeline
 	 * @private
 	 */
@@ -671,7 +684,7 @@
 	/**
 	 * Destroy this
 	 *
-	 * @function destroy
+	 * @method destroy
 	 */
 	Animator.destroy = function()
 	{
