@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll"></a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+                <li><a href="../classes/String.html">String</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/Core.html">Core</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js      
+</script>
+<h1 class="file-heading">File:Sound.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module Sound
+*  @namespace springroll
+*/
+(function(){
+
+	var Application = include(&#x27;springroll.Application&#x27;),
+		Loader,
+		LoadTask,
+		TaskManager,
+		SoundContext,
+		SoundInstance,
+		SoundListTask,
+		CJSSound = include(&#x27;createjs.Sound&#x27;);
+
+	/**
+	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
+	*  for managing sounds.
+	*
+	*  @class Sound
+	*/
+	var Sound = function()
+	{
+		// Import classes
+		if(!Loader)
+		{
+			Loader = include(&#x27;springroll.Loader&#x27;);
+			LoadTask = include(&#x27;springroll.LoadTask&#x27;, false);
+			TaskManager = include(&#x27;springroll.TaskManager&#x27;, false);
+			SoundContext = include(&#x27;springroll.SoundContext&#x27;);
+			SoundInstance = include(&#x27;springroll.SoundInstance&#x27;);
+			SoundListTask = include(&#x27;springroll.SoundListTask&#x27;, false);
+		}
+
+		/**
+		*  Dictionary of sound objects, containing configuration info and playback objects.
+		*  @property {Object} _sounds
+		*  @private
+		*/
+		this._sounds = {};
+
+		/**
+		*  Array of SoundInstance objects that are being faded in or out.
+		*  @property {Array} _fades
+		*  @private
+		*/
+		this._fades = [];
+
+		/**
+		*  Array of SoundInstance objects waiting to be used.
+		*  @property {Array} _pool
+		*  @private
+		*/
+		this._pool = [];
+
+		/**
+		*  The extension of the supported sound type that will be used.
+		*  @property {string} supportedSound
+		*  @public
+		*/
+		this.supportedSound = null;
+
+		/**
+		*  Dictionary of SoundContexts.
+		*  @property {Object} _contexts
+		*  @private
+		*/
+		this._contexts = {};
+
+		// Bindings
+		this._update = this._update.bind(this);
+		this._markLoaded = this._markLoaded.bind(this);
+		this._playAfterLoad = this._playAfterLoad.bind(this);
+
+		/**
+		*  If sound is enabled. This will only be false if Sound was unable to initialize
+		*  a SoundJS plugin.
+		*  @property {Boolean} soundEnabled
+		*  @readOnly
+		*/
+		this.soundEnabled = true;
+	};
+
+	var p = Sound.prototype = {};
+
+	var _instance = null;
+
+	//sound states
+	var UNLOADED = 0;
+	var LOADING = 1;
+	var LOADED = 2;
+
+	/**
+	*  Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for
+	*  setting createjs.FlashPlugin.BASE_PATH.
+	*  @method init
+	*  @static
+	*  @param {Object|Function} options Either the options object or the ready function
+	*  @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashPlugin] The SoundJS
+	*                                         plugins to pass to createjs.Sound.registerPlugins().
+	*  @param {Array} [options.types=[&#x27;ogg&#x27;,&#x27;mp3&#x27;]] The order in which file types are preferred,
+	*                                               where &quot;ogg&quot; becomes a &quot;.ogg&quot; extension on all
+	*                                               sound file urls.
+	*  @param {String} [options.swfPath=&#x27;assets/swfs/&#x27;] The required path to the
+	*                                                   createjs.FlashPlugin SWF
+	*  @param {Function} [options.ready] A function to call when initialization is complete.
+	*  @return {Sound} The new instance of the sound object
+	*/
+	Sound.init = function(options, readyCallback)
+	{
+		// First argument is function
+		if (typeof options == &#x27;function&#x27;)
+		{
+			options = { ready: options };
+		}
+
+		var _defaultOptions = {
+			plugins : [createjs.WebAudioPlugin, createjs.FlashPlugin],
+			types: [&#x27;ogg&#x27;, &#x27;mp3&#x27;],
+			swfPath: &#x27;assets/swfs/&#x27;,
+			ready: null
+		};
+
+		options = options || {};
+
+		//set up default options
+		for (var key in _defaultOptions)
+		{
+			if (!options.hasOwnProperty(key))
+				options[key] = _defaultOptions[key];
+		}
+
+		// Check if the ready callback is the second argument
+		// this is deprecated
+		options.ready = options.ready || readyCallback;
+
+		if (!options.ready)
+		{
+			throw &quot;springroll.Sound.init requires a ready callback&quot;;
+		}
+
+		CJSSound.registerPlugins(options.plugins);
+
+		// Apply the base path if available
+		var basePath = Application.instance.options.basePath;
+		if(createjs.FlashPlugin)
+		{
+			if(createjs.FlashPlugin.hasOwnProperty(&quot;swfPath&quot;))
+				createjs.FlashPlugin.swfPath = (basePath || &quot;&quot;) + options.swfPath;
+			else
+				createjs.FlashPlugin.BASE_PATH = (basePath || &quot;&quot;) + options.swfPath;
+		}
+
+		//If on iOS, then we need to add a touch listener to unmute sounds.
+		//playback pretty much has to be createjs.WebAudioPlugin for iOS
+		if (CJSSound.BrowserDetect.isIOS &amp;&amp;
+			CJSSound.activePlugin instanceof createjs.WebAudioPlugin)
+		{
+			document.addEventListener(&quot;touchstart&quot;, _playEmpty);
+		}
+
+		// New sound object
+		_instance = new Sound();
+
+		//make sure the capabilities are ready (looking at you, Cordova plugin)
+		if (CJSSound.getCapabilities())
+		{
+			_instance._initComplete(options.types, options.ready);
+		}
+		else if(CJSSound.activePlugin)
+		{
+			if (DEBUG)
+			{
+				Debug.log(&quot;SoundJS Plugin &quot; + CJSSound.activePlugin + &quot; was not ready, waiting until it is&quot;);
+			}
+			//if the sound plugin is not ready, then just wait until it is
+			var waitFunction;
+			waitFunction = function()
+			{
+				if (CJSSound.getCapabilities())
+				{
+					Application.instance.off(&quot;update&quot;, waitFunction);
+					_instance._initComplete(options.types, options.ready);
+				}
+			};
+
+			Application.instance.on(&quot;update&quot;, waitFunction);
+		}
+		else
+		{
+			Debug.error(&quot;Unable to initialize SoundJS with a plugin!&quot;);
+			this.soundEnabled = false;
+			if(options.ready)
+				options.ready();
+		}
+		return _instance;
+	};
+
+	/**
+	*  Statisfies the iOS event needed to initialize the audio
+	*  @private
+	*  @method _playEmpty
+	*/
+	function _playEmpty()
+	{
+		document.removeEventListener(&quot;touchstart&quot;, _playEmpty);
+		createjs.WebAudioPlugin.playEmptySound();
+	}
+
+	/**
+	*  When the initialization as completed
+	*  @method
+	*  @private
+	*  @param {Array} filetypeOrder The list of files types
+	*  @param {Function} callback The callback function
+	*/
+	p._initComplete = function(filetypeOrder, callback)
+	{
+		if (createjs.FlashPlugin &amp;&amp; CJSSound.activePlugin instanceof createjs.FlashPlugin)
+		{
+			_instance.supportedSound = &quot;.mp3&quot;;
+		}
+		else
+		{
+			var type;
+			for (var i = 0, len = filetypeOrder.length; i &lt; len; ++i)
+			{
+				type = filetypeOrder[i];
+				if (CJSSound.getCapability(type))
+				{
+					_instance.supportedSound = &quot;.&quot; + type;
+					break;
+				}
+			}
+		}
+
+		this.pauseAll = this.pauseAll.bind(this);
+		this.unpauseAll = this.unpauseAll.bind(this);
+		this.destroy = this.destroy.bind(this);
+
+		// Add listeners to pause and resume the sounds
+		Application.instance.on({
+			paused : this.pauseAll,
+			resumed : this.unpauseAll,
+			destroy : this.destroy
+		});
+
+		if (callback)
+		{
+			callback();
+		}
+	};
+
+	/**
+	*  The singleton instance of Sound.
+	*  @property {Sound} instance
+	*  @public
+	*  @static
+	*/
+	Object.defineProperty(Sound, &quot;instance&quot;,
+	{
+		get: function() { return _instance; }
+	});
+
+	/**
+	*  Loads a config object. This should not be called until after Sound.init() is complete.
+	*  @method loadConfig
+	*  @public
+	*  @param {Object} config The config to load.
+	*  @param {String} [config.context] The optional sound context to load sounds into unless
+	*                                   otherwise specified by the individual sound. Sounds do not
+	*                                   require a context.
+	*  @param {String} [config.path=&quot;&quot;] The path to prepend to all sound source urls in this config.
+	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
+	*                                      settings.
+	*  @param {Object|String} config.soundManifest.listItem Not actually a property called listItem,
+	*                                                       but an entry in the array. If this is a
+	*                                                       string, then it is the same as
+	*                                                       {&#x27;id&#x27;:&#x27;&lt;yourString&gt;&#x27;}.
+	*  @param {String} config.soundManifest.listItem.id The id to reference the sound by.
+	*  @param {String} [config.soundManifest.listItem.src] The src path to the file, without an
+	*                                                      extension. If omitted, defaults to id.
+	*  @param {Number} [config.soundManifest.listItem.volume=1] The default volume for the sound,
+	*                                                           from 0 to 1.
+	*  @param {Boolean} [config.soundManifest.listItem.loop=false] If the sound should loop by
+	*                                                              default whenever the loop
+	*                                                              parameter in play() is not
+	*                                                              specified.
+	*  @param {String} [config.soundManifest.listItem.context] A context name to override
+	*                                                          config.context with.
+	*  @return {Sound} The sound object for chaining
+	*/
+	p.loadConfig = function(config)
+	{
+		if (!config)
+		{
+			Debug.warn(&quot;Warning - springroll.Sound was told to load a null config&quot;);
+			return;
+		}
+		var list = config.soundManifest;
+		var path = config.path || &quot;&quot;;
+		var defaultContext = config.context;
+
+		var s;
+		var temp = {};
+		for (var i = 0, len = list.length; i &lt; len; ++i)
+		{
+			s = list[i];
+			if (typeof s == &quot;string&quot;) {
+				s = {id: s};
+			}
+			temp = this._sounds[s.id] = {
+				id: s.id,
+				src: path + (s.src ? s.src : s.id) + this.supportedSound,
+				volume: s.volume ? s.volume : 1,
+				loop: !!s.loop,
+				state: UNLOADED,
+				playing: [],
+				waitingToPlay: [],
+				context: s.context || defaultContext,
+				playAfterLoad: false,
+				preloadCallback: null,
+				data:s//save data for potential use by SoundJS plugins
+			};
+			if (temp.context)
+			{
+				if (!this._contexts[temp.context])
+					this._contexts[temp.context] = new SoundContext(temp.context);
+				this._contexts[temp.context].sounds.push(temp);
+			}
+		}
+		//return the Sound instance for chaining
+		return this;
+	};
+
+	/**
+	*	If a sound exists in the list of recognized sounds.
+	*	@method exists
+	*	@public
+	*	@param {String} alias The alias of the sound to look for.
+	*	@return {Boolean} true if the sound exists, false otherwise.
+	*/
+	p.exists = function(alias)
+	{
+		return !!this._sounds[alias];
+	};
+
+	/**
+	*	If a sound is unloaded.
+	*	@method isUnloaded
+	*	@public
+	*	@param {String} alias The alias of the sound to look for.
+	*	@return {Boolean} true if the sound is unloaded, false if it is loaded, loading or does not exist.
+	*/
+	p.isUnloaded = function(alias)
+	{
+		return this._sounds[alias] ? this._sounds[alias].state == UNLOADED : false;
+	};
+
+	/**
+	*	If a sound is loaded.
+	*	@method isLoaded
+	*	@public
+	*	@param {String} alias The alias of the sound to look for.
+	*	@return {Boolean} true if the sound is loaded, false if it is not loaded or does not exist.
+	*/
+	p.isLoaded = function(alias)
+	{
+		return this._sounds[alias] ? this._sounds[alias].state == LOADED : false;
+	};
+
+	/**
+	*  If a sound is in the process of being loaded
+	*  @method isLoading
+	*  @public
+	*  @param {String} alias The alias of the sound to look for.
+	*  @return {Boolean} A value of true if the sound is currently loading, false if it is loaded,
+	*                    unloaded, or does not exist.
+	*/
+	p.isLoading = function(alias)
+	{
+		return this._sounds[alias] ? this._sounds[alias].state == LOADING : false;
+	};
+
+	/**
+	*  If a sound is playing.
+	*  @method isPlaying
+	*  @public
+	*  @param {String} alias The alias of the sound to look for.
+	*  @return {Boolean} A value of true if the sound is currently playing or loading with an intent
+	*                    to play, false if it is not playing or does not exist.
+	*/
+	p.isPlaying = function(alias)
+	{
+		var sound = this._sounds[alias];
+		return sound ? sound.playing.length + sound.waitingToPlay.length &gt; 0 : false;
+	};
+
+	/**
+	*  Fades a sound from 0 to a specified volume.
+	*  @method fadeIn
+	*  @public
+	*  @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
+	*                                            instance of, or an instance returned from play().
+	*  @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
+	*                                 500ms.
+	*  @param {Number} [targetVol] The volume to fade to. The default is the sound&#x27;s default volume.
+	*  @param {Number} [startVol=0] The volume to start from. The default is 0.
+	*/
+	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
+	{
+		var sound, inst;
+		if (typeof(aliasOrInst) == &quot;string&quot;)
+		{
+			sound = this._sounds[aliasOrInst];
+			if (!sound) return;
+			if (sound.playing.length)
+				inst = sound.playing[sound.playing.length - 1];//fade the last played instance
+		}
+		else
+		{
+			inst = aliasOrInst;
+			sound = this._sounds[inst.alias];
+		}
+		if (!inst || !inst._channel) return;
+		inst._fTime = 0;
+		inst._fDur = duration &gt; 0 ? duration : 500;
+		var v = startVol &gt; 0 ? startVol : 0;
+		inst._channel.setVolume(v);
+		inst.curVol = inst._fStart = v;
+		inst._fEnd = targetVol || sound.volume;
+		if (this._fades.indexOf(inst) == -1)
+		{
+			this._fades.push(inst);
+			if (this._fades.length == 1)
+			{
+				Application.instance.on(&quot;update&quot;, this._update);
+			}
+		}
+	};
+
+	/**
+	*  Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume
+	*  is stopped after the fade.
+	*  @method fadeOut
+	*  @public
+	*  @param {String|SoundInstance} aliasOrInst The alias of the sound to fade the last played
+	*                                            instance of, or an instance returned from play().
+	*  @param {Number} [duration=500] The duration in milliseconds to fade for. The default is
+	*                                 500ms.
+	*  @param {Number} [targetVol=0] The volume to fade to. The default is 0.
+	*  @param {Number} [startVol] The volume to fade from. The default is the current volume.
+	*/
+	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
+	{
+		var sound, inst;
+		if (typeof(aliasOrInst) == &quot;string&quot;)
+		{
+			sound = this._sounds[aliasOrInst];
+			if (!sound) return;
+			if (sound.playing.length)
+				inst = sound.playing[sound.playing.length - 1];//fade the last played instance
+		}
+		else
+		{
+			inst = aliasOrInst;
+			//sound = this._sounds[inst.alias];
+		}
+		if (!inst || !inst._channel) return;
+		inst._fTime = 0;
+		inst._fDur = duration &gt; 0 ? duration : 500;
+		if (startVol &gt; 0)
+		{
+			inst._channel.setVolume(startVol);
+			inst._fStart = startVol;
+		}
+		else
+			inst._fStart = inst._channel.getVolume();
+		inst.curVol = inst._fStart;
+		inst._fEnd = targetVol || 0;
+		if (this._fades.indexOf(inst) == -1)
+		{
+			this._fades.push(inst);
+			if (this._fades.length == 1)
+			{
+				Application.instance.on(&quot;update&quot;, this._update);
+			}
+		}
+	};
+
+	/**
+	*	The update call, used for fading sounds. This is bound to the instance of Sound
+	*	@method _update
+	*	@private
+	*	@param {int} elapsed The time elapsed since the previous frame, in milliseconds.
+	*/
+	p._update = function(elapsed)
+	{
+		var fades = this._fades;
+		var trim = 0;
+
+		var inst, time, sound,swapIndex, lerp, vol;
+		for (var i = fades.length - 1; i &gt;= 0; --i)
+		{
+			inst = fades[i];
+			if (inst.paused) continue;
+			time = inst._fTime += elapsed;
+			if (time &gt;= inst._fDur)
+			{
+				if (inst._fEnd === 0)
+				{
+					sound = this._sounds[inst.alias];
+					sound.playing = sound.playing.splice(sound.playing.indexOf(inst), 1);
+					this._stopInst(inst);
+				}
+				else
+				{
+					inst.curVol = inst._fEnd;
+					inst.updateVolume();
+				}
+				++trim;
+				swapIndex = fades.length - trim;
+				if (i != swapIndex)//don&#x27;t bother swapping if it is already last
+				{
+					fades[i] = fades[swapIndex];
+				}
+			}
+			else
+			{
+				lerp = time / inst._fDur;
+				if (inst._fEnd &gt; inst._fStart)
+					vol = inst._fStart + (inst._fEnd - inst._fStart) * lerp;
+				else
+					vol = inst._fEnd + (inst._fStart - inst._fEnd) * lerp;
+				inst.curVol = vol;
+				inst.updateVolume();
+			}
+		}
+		fades.length = fades.length - trim;
+		if (fades.length === 0)
+		{
+			Application.instance.off(&quot;update&quot;, this._update);
+		}
+	};
+
+	/**
+	*  Plays a sound.
+	*  @method play
+	*  @public
+	*  @param {String} alias The alias of the sound to play.
+	*  @param {Object|function} [options] The object of optional parameters or complete callback
+	*                                     function.
+	*  @param {Function} [options.complete] An optional function to call when the sound is finished.
+	*  @param {Function} [options.start] An optional function to call when the sound starts
+	*                                    playback. If the sound is loaded, this is called
+	*                                    immediately, if not, it calls when the sound is finished
+	*                                    loading.
+	*  @param {Boolean} [options.interrupt=false] If the sound should interrupt previous sounds
+	*                                             (SoundJS parameter). Default is false.
+	*  @param {Number} [options.delay=0] The delay to play the sound at in milliseconds (SoundJS
+	*                                    parameter). Default is 0.
+	*  @param {Number} [options.offset=0] The offset into the sound to play in milliseconds
+	*                                     (SoundJS parameter). Default is 0.
+	*  @param {int} [options.loop=0] How many times the sound should loop. Use -1 (or true) for
+	*                                infinite loops (SoundJS parameter). Default is no looping.
+	*  @param {Number} [options.volume] The volume to play the sound at (0 to 1). Omit to use the
+	*                                   default for the sound.
+	*  @param {Number} [options.pan=0] The panning to start the sound at (-1 to 1). Default is
+	*                                  centered (0).
+	*  @return {SoundInstance} An internal SoundInstance object that can be used for fading in/out
+	*                             as well as pausing and getting the sound&#x27;s current position.
+	*/
+	p.play = function (alias, options, startCallback, interrupt, delay, offset, loop, volume, pan)
+	{
+		if(!this.soundEnabled) return;
+
+		var completeCallback;
+		if (options &amp;&amp; typeof options == &quot;function&quot;)
+		{
+			completeCallback = options;
+			options = null;
+		}
+		completeCallback = (options ? options.complete : completeCallback) || null;
+		startCallback = (options ? options.start : startCallback) || null;
+		interrupt = !!(options ? options.interrupt : interrupt);
+		delay = (options ? options.delay : delay) || 0;
+		offset = (options ? options.offset : offset) || 0;
+		loop = (options ? options.loop : loop);
+		volume = (options ? options.volume : volume);
+		pan = (options ? options.pan : pan) || 0;
+
+		//Replace with correct infinite looping.
+		if (loop === true)
+			loop = -1;
+
+		var sound = this._sounds[alias];
+		if (!sound)
+		{
+			Debug.error(&quot;springroll.Sound: alias &#x27;&quot; + alias + &quot;&#x27; not found!&quot;);
+
+			if (completeCallback)
+				completeCallback();
+			return;
+		}
+		//check for sound loop settings
+		if(sound.loop &amp;&amp; loop === undefined || loop === null)
+			loop = -1;
+		//check for sound volume settings
+		volume = (typeof(volume) == &quot;number&quot;) ? volume : sound.volume;
+		//take action based on the sound state
+		var state = sound.state;
+		var inst, arr;
+		if (state == LOADED)
+		{
+			var channel = CJSSound.play(alias, interrupt, delay, offset, loop, volume, pan);
+			//have Sound manage the playback of the sound
+
+			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
+			{
+				if (completeCallback)
+					completeCallback();
+				return null;
+			}
+			else
+			{
+				inst = this._getSoundInst(channel, sound.id);
+				if (channel.handleExtraData)
+					channel.handleExtraData(sound.data);
+				inst.curVol = volume;
+				sound.playing.push(inst);
+				inst._endCallback = completeCallback;
+				inst.updateVolume();
+				inst.length = channel.getDuration();
+				inst._channel.addEventListener(&quot;complete&quot;, inst._endFunc);
+				if (startCallback)
+					setTimeout(startCallback, 0);
+				return inst;
+			}
+		}
+		else if(state == UNLOADED)
+		{
+			sound.state = LOADING;
+			sound.playAfterLoad = true;
+			inst = this._getSoundInst(null, sound.id);
+			inst.curVol = volume;
+			sound.waitingToPlay.push(inst);
+			inst._endCallback = completeCallback;
+			inst._startFunc = startCallback;
+			if (inst._startParams)
+			{
+				arr = inst._startParams;
+				arr[0] = interrupt;
+				arr[1] = delay;
+				arr[2] = offset;
+				arr[3] = loop;
+				arr[4] = pan;
+			}
+			else
+				inst._startParams = [interrupt, delay, offset, loop, pan];
+			Loader.instance.load(
+				sound.src, //url to load
+				this._playAfterLoad,//complete callback
+				null,//progress callback
+				0,//priority
+				sound//the sound object (contains properties for PreloadJS/SoundJS)
+			);
+			return inst;
+		}
+		else if(state == LOADING)
+		{
+			//tell the sound to play after loading
+			sound.playAfterLoad = true;
+			inst = this._getSoundInst(null, sound.id);
+			inst.curVol = volume;
+			sound.waitingToPlay.push(inst);
+			inst._endCallback = completeCallback;
+			inst._startFunc = startCallback;
+			if (inst._startParams)
+			{
+				arr = inst._startParams;
+				arr[0] = interrupt;
+				arr[1] = delay;
+				arr[2] = offset;
+				arr[3] = loop;
+				arr[4] = pan;
+			}
+			else
+				inst._startParams = [interrupt, delay, offset, loop, pan];
+			return inst;
+		}
+	};
+
+	/**
+	*  Gets a SoundInstance, from the pool if available or maks a new one if not.
+	*  @method _getSoundInst
+	*  @private
+	*  @param {createjs.SoundInstance} channel A createjs SoundInstance to initialize the object
+	*                                          with.
+	*  @param {String} id The alias of the sound that is going to be used.
+	*  @return {SoundInstance} The SoundInstance that is ready to use.
+	*/
+	p._getSoundInst = function(channel, id)
+	{
+		var rtn;
+		if (this._pool.length)
+			rtn = this._pool.pop();
+		else
+		{
+			rtn = new SoundInstance();
+			rtn._endFunc = this._onSoundComplete.bind(this, rtn);
+		}
+		rtn._channel = channel;
+		rtn.alias = id;
+		rtn.length = channel ? channel.getDuration() : 0;//set or reset this
+		rtn.isValid = true;
+		return rtn;
+	};
+
+	/**
+	*	Plays a sound after it finishes loading.
+	*	@method _playAfterload
+	*	@private
+	*	@param {String} alias The sound to play.
+	*/
+	p._playAfterLoad = function(result)
+	{
+		var alias = typeof result == &quot;string&quot; ? result : result.id;
+		var sound = this._sounds[alias];
+		sound.state = LOADED;
+
+		//If the sound was stopped before it finished loading, then don&#x27;t play anything
+		if (!sound.playAfterLoad) return;
+
+		//Go through the list of sound instances that are waiting to start and start them
+		var waiting = sound.waitingToPlay;
+
+		var inst, startParams, volume, channel;
+		for (var i = 0, len = waiting.length; i &lt; len; ++i)
+		{
+			inst = waiting[i];
+			startParams = inst._startParams;
+			volume = inst.curVol;
+			channel = CJSSound.play(alias, startParams[0], startParams[1], startParams[2],
+									startParams[3], volume, startParams[4]);
+
+			if (!channel || channel.playState == CJSSound.PLAY_FAILED)
+			{
+				if (inst._endCallback)
+					inst._endCallback();
+				this._poolInst(inst);
+			}
+			else
+			{
+				sound.playing.push(inst);
+				inst._channel = channel;
+				if (channel.handleExtraData)
+					channel.handleExtraData(sound.data);
+				inst.length = channel.getDuration();
+				inst.updateVolume();
+				channel.addEventListener(&quot;complete&quot;, inst._endFunc);
+				if (inst._startFunc)
+					inst._startFunc();
+				if (inst.paused)//if the sound got paused while loading, then pause it
+					channel.pause();
+			}
+		}
+		waiting.length = 0;
+	};
+
+	/**
+	*	The callback used for when a sound instance is complete.
+	*	@method _onSoundComplete
+	*	@private
+	*	@param {SoundInstance} inst The SoundInstance that is complete.s
+	*/
+	p._onSoundComplete = function(inst)
+	{
+		if(inst._channel)
+		{
+			inst._channel.removeEventListener(&quot;complete&quot;, inst._endFunc);
+			var sound = this._sounds[inst.alias];
+			var index = sound.playing.indexOf(inst);
+			if(index &gt; -1)
+				sound.playing.splice(index, 1);
+			var callback = inst._endCallback;
+			this._poolInst(inst);
+			if (callback)
+				callback();
+		}
+	};
+
+	/**
+	*	Stops all playing or loading instances of a given sound.
+	*	@method stop
+	*	@public
+	*	@param {String} alias The alias of the sound to stop.
+	*/
+	p.stop = function(alias)
+	{
+		var s = this._sounds[alias];
+		if (!s) return;
+		if (s.playing.length)
+			this._stopSound(s);
+		else if(s.state == LOADING)
+		{
+			s.playAfterLoad = false;
+			var waiting = s.waitingToPlay;
+			var inst;
+			for (var i = 0, len = waiting.length; i &lt; len; ++i)
+			{
+				inst = waiting[i];
+				/*if(inst._endCallback)
+					inst._endCallback();*/
+				this._poolInst(inst);
+			}
+			waiting.length = 0;
+		}
+	};
+
+	/**
+	*	Stops all playing SoundInstances for a sound.
+	*	@method _stopSound
+	*	@private
+	*	@param {Object} s The sound (from the _sounds dictionary) to stop.
+	*/
+	p._stopSound = function(s)
+	{
+		var arr = s.playing;
+		for (var i = arr.length -1; i &gt;= 0; --i)
+		{
+			this._stopInst(arr[i]);
+		}
+		arr.length = 0;
+	};
+
+	/**
+	*	Stops and repools a specific SoundInstance.
+	*	@method _stopInst
+	*	@private
+	*	@param {SoundInstance} inst The SoundInstance to stop.
+	*/
+	p._stopInst = function(inst)
+	{
+		if(inst._channel)
+		{
+			inst._channel.removeEventListener(&quot;complete&quot;, inst._endFunc);
+			inst._channel.stop();
+		}
+		this._poolInst(inst);
+	};
+
+	/**
+	*	Stops all sounds in a given context.
+	*	@method stopContext
+	*	@public
+	*	@param {String} context The name of the context to stop.
+	*/
+	p.stopContext = function(context)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var arr = context.sounds;
+			var s;
+			for (var i = arr.length - 1; i &gt;= 0; --i)
+			{
+				s = arr[i];
+				if (s.playing.length)
+					this._stopSound(s);
+				else if(s.state == LOADING)
+					s.playAfterLoad = false;
+			}
+		}
+	};
+
+	/**
+	*	Pauses a specific sound.
+	*	@method pauseSound
+	*	@public
+	*	@param {String} alias The alias of the sound to pause.
+	*		Internally, this can also be the object from the _sounds dictionary directly.
+	*/
+	p.pauseSound = function(alias)
+	{
+		var sound;
+		if (typeof alias == &quot;string&quot;)
+			sound = this._sounds[alias];
+		else
+			sound = alias;
+		var arr = sound.playing;
+		for (var i = arr.length - 1; i &gt;= 0; --i)
+			arr[i].pause();
+	};
+
+	/**
+	*	Unpauses a specific sound.
+	*	@method unpauseSound
+	*	@public
+	*	@param {String} alias The alias of the sound to pause.
+	*		Internally, this can also be the object from the _sounds dictionary directly.
+	*/
+	p.unpauseSound = function(alias)
+	{
+		var sound;
+		if (typeof alias == &quot;string&quot;)
+			sound = this._sounds[alias];
+		else
+			sound = alias;
+		var arr = sound.playing;
+		for (var i = arr.length - 1; i &gt;= 0; --i)
+		{
+			arr[i].unpause();
+		}
+	};
+
+	/**
+	*	Pauses all sounds.
+	*	@method pauseAll
+	*	@public
+	*/
+	p.pauseAll = function()
+	{
+		var arr = this._sounds;
+		for (var i in arr)
+			this.pauseSound(arr[i]);
+	};
+
+	/**
+	*	Unpauses all sounds.
+	*	@method unpauseAll
+	*	@public
+	*/
+	p.unpauseAll = function()
+	{
+		var arr = this._sounds;
+		for (var i in arr)
+			this.unpauseSound(arr[i]);
+	};
+
+	/**
+	*	Sets mute status of all sounds in a context
+	*	@method setContextMute
+	*	@public
+	*	@param {String} context The name of the context to modify.
+	*	@param {Boolean} muted If the context should be muted.
+	*/
+	p.setContextMute = function(context, muted)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			context.muted = muted;
+			var volume = context.volume;
+			var arr = context.sounds;
+
+			var s, playing, j;
+			for (var i = arr.length - 1; i &gt;= 0; --i)
+			{
+				s = arr[i];
+				if (s.playing.length)
+				{
+					playing = s.playing;
+					for (j = playing.length - 1; j &gt;= 0; --j)
+					{
+						playing[j].updateVolume(muted ? 0 : volume);
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	*  Set the mute status of all sounds
+	*  @method setMuteAll
+	*  @public
+	*  @param {Boolean} mute If the sounds should be muted.
+	*/
+	p.setMuteAll = function(muted)
+	{
+		CJSSound.setMute(!!muted);
+	};
+
+	/**
+	*	Sets volume of a context. Individual sound volumes are multiplied by this value.
+	*	@method setContextVolume
+	*	@public
+	*	@param {String} context The name of the context to modify.
+	*	@param {Number} volume The volume for the context (0 to 1).
+	*/
+	p.setContextVolume = function(context, volume)
+	{
+		context = this._contexts[context];
+		if (context)
+		{
+			var muted = context.muted;
+			context.volume = volume;
+			var arr = context.sounds;
+			var s, playing, j;
+			for (var i = arr.length - 1; i &gt;= 0; --i)
+			{
+				s = arr[i];
+				if (s.playing.length)
+				{
+					playing = s.playing;
+					for (j = playing.length - 1; j &gt;= 0; --j)
+					{
+						playing[j].updateVolume(muted ? 0 : volume);
+					}
+				}
+			}
+		}
+	};
+
+	/**
+	*	Preloads a specific sound.
+	*	@method preloadSound
+	*	@public
+	*	@param {String} alias The alias of the sound to load.
+	*	@param {function} callback The function to call when the sound is finished loading.
+	*/
+	p.preloadSound = function(alias, callback)
+	{
+		var sound = this._sounds[alias];
+		if (!sound)
+		{
+			Debug.error(&quot;Sound does not exist: &quot; + alias + &quot; - can&#x27;t preload!&quot;);
+			return;
+		}
+		if (sound.state != UNLOADED) return;
+		sound.state = LOADING;
+		sound.preloadCallback = callback || null;
+		Loader.instance.load(
+			sound.src, //url to load
+			this._markLoaded,//complete callback
+			null,//progress callback
+			0,//priority
+			sound//the sound object (contains properties for PreloadJS/SoundJS)
+		);
+	};
+
+	/**
+	*	Preloads a list of sounds.
+	*	@method preload
+	*	@public
+	*	@param {Array} list An array of sound aliases to load.
+	*	@param {function} callback The function to call when all sounds have been loaded.
+	*/
+	p.preload = function(list, callback)
+	{
+		if (!LoadTask || !TaskManager)
+		{
+			throw &quot;The Task Module is needed to preload audio!&quot;;
+		}
+
+		if (!list || list.length === 0)
+		{
+			if (callback)
+				callback();
+			return;
+		}
+
+		var tasks = [];
+		var sound;
+		for (var i = 0, len = list.length; i &lt; len; ++i)
+		{
+			sound = this._sounds[list[i]];
+			if (sound)
+			{
+				if (sound.state == UNLOADED)
+				{
+					sound.state = LOADING;
+					//sound is passed last so that SoundJS gets the sound ID
+					tasks.push(new LoadTask(sound.id, sound.src, this._markLoaded, null, 0, sound));
+				}
+			}
+			else
+			{
+				Debug.error(&quot;springroll.Sound was asked to preload &quot; + list[i] + &quot; but it is not a registered sound!&quot;);
+			}
+		}
+		if (tasks.length &gt; 0)
+		{
+			TaskManager.process(tasks, function()
+			{
+				if (callback)
+					callback();
+			});
+		}
+		else if(callback)
+		{
+			callback();
+		}
+	};
+
+	/**
+	*	Marks a sound as loaded. If it needs to play after the load, then it is played.
+	*	@method _markLoaded
+	*	@private
+	*	@param {String} alias The alias of the sound to mark.
+	*	@param {function} callback A function to call to show that the sound is loaded.
+	*/
+	p._markLoaded = function(result)
+	{
+		var alias = result.id;
+		var sound = this._sounds[alias];
+		if (sound)
+		{
+			sound.state = LOADED;
+			if (sound.playAfterLoad)
+				this._playAfterLoad(alias);
+		}
+		var callback = sound.preloadCallback;
+		if (callback)
+		{
+			sound.preloadCallback = null;
+			callback();
+		}
+	};
+
+	/**
+	*	Creates a Task for the springroll Task library for preloading a list of sounds.
+	*	This function will not work if the Task library was not loaded before the Sound library.
+	*	@method createPreloadTask
+	*	@public
+	*	@param {String} id The id of the task.
+	*	@param {Array} list An array of sound aliases to load.
+	*	@param {function} callback The function to call when the task is complete.
+	*	@return {springroll.Task} A task to load up all of the sounds in the list.
+	*/
+	p.createPreloadTask = function(id, list, callback)
+	{
+		if (!SoundListTask) return null;
+		return new SoundListTask(id, list, callback);
+	};
+
+	/**
+	*	Unloads a list of sounds to reclaim memory if possible.
+	*	If the sounds are playing, they are stopped.
+	*	@method unload
+	*	@public
+	*	@param {Array} list An array of sound aliases to unload.
+	*/
+	p.unload = function(list)
+	{
+		if (!list) return;
+
+		var sound;
+		for (var i = 0, len = list.length; i &lt; len; ++i)
+		{
+			sound = this._sounds[list[i]];
+			if (sound)
+			{
+				this._stopSound(sound);
+				sound.state = UNLOADED;
+			}
+			CJSSound.removeSound(list[i]);
+		}
+	};
+
+	/**
+	*	Places a SoundInstance back in the pool for reuse.
+	*	@method _poolinst
+	*	@private
+	*	@param {SoundInstance} inst The instance to repool.
+	*/
+	p._poolInst = function(inst)
+	{
+		if(this._pool.indexOf(inst) == -1)
+		{
+			inst._endCallback = null;
+			inst.alias = null;
+			inst._channel = null;
+			inst._startFunc = null;
+			inst.curVol = 0;
+			inst.paused = false;
+			inst.isValid = false;
+			this._pool.push(inst);
+		}
+	};
+
+	/**
+	*	Destroys springroll.Sound. This unloads loaded sounds in SoundJS.
+	*	@method destroy
+	*	@public
+	*/
+	p.destroy = function()
+	{
+		// Remove all sounds
+		CJSSound.removeAllSounds();
+
+		// Remove the SWF from the page
+		if (createjs.FlashPlugin &amp;&amp; CJSSound.activePlugin instanceof createjs.FlashPlugin)
+		{
+			var swf = document.getElementById(&quot;SoundJSFlashContainer&quot;);
+			if (swf &amp;&amp; swf.parentNode)
+			{
+				swf.parentNode.removeChild(swf);
+			}
+		}
+		if (Application.instance)
+		{
+			Application.instance.off(&#x27;paused&#x27;, this.pauseAll);
+			Application.instance.off(&#x27;resumed&#x27;, this.unpauseAll);
+			Application.instance.off(&#x27;destroy&#x27;, this.destroy);
+		}
+
+		_instance = null;
+
+		this._volumes = null;
+		this._fades = null;
+		this._contexts = null;
+		this._pool = null;
+	};
+
+	namespace(&#x27;springroll&#x27;).Sound = Sound;
+}());
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
