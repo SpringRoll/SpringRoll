@@ -192,8 +192,6 @@
             
                 <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
             
-                <li><a href="../modules/Framework.html">Framework</a></li>
-            
                 <li><a href="../modules/Game.html">Game</a></li>
             
                 <li><a href="../modules/Interface.html">Interface</a></li>
@@ -803,11 +801,11 @@
 						else
 						{
 							extraTime = t._time_sec - t.duration;
-							instance.gotoAndStop(c.textures.length - 1);
+							c.gotoAndStop(c.textures.length - 1);
 							t._nextItem();
 							if(t.complete)
 							{
-								_removedTimelines.push(t);
+								_onMovieClipDone(t);
 								continue;
 							}
 							else

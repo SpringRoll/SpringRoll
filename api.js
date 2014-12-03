@@ -77,7 +77,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "Captions",
         "Core",
         "CreateJS Display",
-        "Framework",
         "Game",
         "Interface",
         "Native Display",
@@ -100,10 +99,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "CreateJS Display",
             "name": "CreateJS Display"
-        },
-        {
-            "displayName": "Framework",
-            "name": "Framework"
         },
         {
             "displayName": "Game",

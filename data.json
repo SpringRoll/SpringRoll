@@ -726,7 +726,9 @@
         },
         "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Object.js": {
             "name": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Object.js",
-            "modules": {},
+            "modules": {
+                "Core": 1
+            },
             "classes": {
                 "Object": 1
             },
@@ -746,9 +748,7 @@
         },
         "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/String.js": {
             "name": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/String.js",
-            "modules": {
-                "Core": 1
-            },
+            "modules": {},
             "classes": {
                 "String": 1
             },
@@ -757,9 +757,7 @@
         },
         "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/TimeUtils.js": {
             "name": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/TimeUtils.js",
-            "modules": {
-                "Framework": 1
-            },
+            "modules": {},
             "classes": {
                 "springroll.TimeUtils": 1
             },
@@ -799,8 +797,8 @@
         }
     },
     "modules": {
-        "Framework": {
-            "name": "Framework",
+        "Core": {
+            "name": "Core",
             "submodules": {},
             "classes": {
                 "springroll.SavedData": 1,
@@ -815,6 +813,7 @@
                 "springroll.DelayedCall": 1,
                 "Object": 1,
                 "springroll.PageVisibility": 1,
+                "String": 1,
                 "springroll.TimeUtils": 1,
                 "include": 1,
                 "namespace": 1,
@@ -1024,18 +1023,6 @@
             "tag": "module",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Language.js",
             "line": 10
-        },
-        "Core": {
-            "name": "Core",
-            "submodules": {},
-            "classes": {
-                "String": 1
-            },
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/String.js",
-            "line": 5
         }
     },
     "classes": {
@@ -1047,7 +1034,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/data/SavedData.js",
             "line": 7,
@@ -2213,7 +2200,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/AbstractDisplay.js",
             "line": 7,
@@ -2249,7 +2236,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/events/EventDispatcher.js",
             "line": 7,
@@ -3102,7 +3089,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/CacheManager.js",
             "line": 11,
@@ -3116,7 +3103,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/Loader.js",
             "line": 15,
@@ -3130,7 +3117,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/LoaderQueueItem.js",
             "line": 7,
@@ -3144,7 +3131,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/LoaderResult.js",
             "line": 7,
@@ -3874,7 +3861,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/CombinedCallback.js",
             "line": 7,
@@ -3911,7 +3898,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
             "line": 6,
@@ -3926,7 +3913,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/DelayedCall.js",
             "line": 9,
@@ -4023,7 +4010,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Object.js",
             "line": 6,
@@ -4037,7 +4024,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/PageVisibility.js",
             "line": 7,
@@ -4078,7 +4065,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/TimeUtils.js",
             "line": 23,
@@ -4092,7 +4079,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/include.js",
             "line": 4,
@@ -4107,7 +4094,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/namespace.js",
             "line": 4,
@@ -4122,7 +4109,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/Application.js",
             "line": 14,
@@ -4263,14 +4250,14 @@
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/data/SavedData.js",
             "line": 14,
             "class": "springroll.SavedData",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/data/SavedData.js",
             "line": 17,
             "class": "springroll.SavedData",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -4288,7 +4275,7 @@
                 }
             ],
             "class": "springroll.SavedData",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -4318,7 +4305,7 @@
                 }
             ],
             "class": "springroll.SavedData",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -4340,7 +4327,7 @@
                 "type": "Mixed"
             },
             "class": "springroll.SavedData",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10152,7 +10139,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10166,7 +10153,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10180,7 +10167,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10194,7 +10181,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10208,7 +10195,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10221,7 +10208,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10234,7 +10221,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10247,7 +10234,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10262,7 +10249,7 @@
             "tagname": "",
             "default": "null",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10277,7 +10264,7 @@
             "tagname": "",
             "default": "null",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10290,7 +10277,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10303,7 +10290,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10326,7 +10313,7 @@
                 }
             ],
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10344,7 +10331,7 @@
                 }
             ],
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10355,7 +10342,7 @@
             "name": "destroy",
             "internal": "",
             "class": "springroll.AbstractDisplay",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10368,7 +10355,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10381,7 +10368,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10403,7 +10390,7 @@
                 }
             ],
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10436,7 +10423,7 @@
                 "type": "EventDispatcher"
             },
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10469,7 +10456,7 @@
                 "type": "EventDispatcher"
             },
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10495,7 +10482,7 @@
                 "type": "EventDispatcher"
             },
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10522,7 +10509,7 @@
                 "type": "Boolean"
             },
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10532,7 +10519,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10555,7 +10542,7 @@
                 "type": "String"
             },
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -10582,7 +10569,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.EventDispatcher",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11093,7 +11080,7 @@
             "name": "_versions",
             "type": "Dictionary",
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11106,7 +11093,7 @@
             "name": "_filters",
             "type": "Array",
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11117,7 +11104,7 @@
             "name": "_globalVersion",
             "type": "String",
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11131,7 +11118,7 @@
             "tagname": "",
             "default": "false",
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11143,7 +11130,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11172,7 +11159,7 @@
                 }
             ],
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11196,7 +11183,7 @@
                 }
             ],
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11215,7 +11202,7 @@
                 }
             ],
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11234,7 +11221,7 @@
                 }
             ],
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11257,7 +11244,7 @@
                 "type": "String"
             },
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11280,7 +11267,7 @@
                 "type": "String"
             },
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11303,7 +11290,7 @@
                 "type": "String"
             },
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11333,7 +11320,7 @@
                 "type": "String"
             },
             "class": "springroll.CacheManager",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11343,7 +11330,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11357,7 +11344,7 @@
             "type": "Int",
             "default": "2",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11370,14 +11357,14 @@
             "name": "cacheManager",
             "type": "CacheManager",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/Loader.js",
             "line": 56,
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11388,7 +11375,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11398,7 +11385,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11408,7 +11395,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11421,7 +11408,7 @@
             "name": "loaders",
             "type": "Object",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11434,7 +11421,7 @@
             "name": "loaders",
             "type": "Array",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11447,7 +11434,7 @@
             "name": "loaders",
             "type": "Array",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11460,7 +11447,7 @@
             "name": "loaders",
             "type": "Array",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11474,7 +11461,7 @@
             "type": "Int",
             "default": "0",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11487,7 +11474,7 @@
             "name": "retries",
             "type": "Object",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11500,7 +11487,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11515,7 +11502,7 @@
             "name": "instance",
             "type": "Loader",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11527,7 +11514,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11539,7 +11526,7 @@
             "itemtype": "method",
             "name": "_initialize",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11578,7 +11565,7 @@
                 }
             ],
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11597,7 +11584,7 @@
                 }
             ],
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11621,7 +11608,7 @@
                 }
             ],
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11645,7 +11632,7 @@
                 }
             ],
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11657,7 +11644,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11681,7 +11668,7 @@
                 }
             ],
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11704,7 +11691,7 @@
                 "type": "Bool"
             },
             "class": "springroll.Loader",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11717,7 +11704,7 @@
             "name": "url",
             "type": "String",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11730,7 +11717,7 @@
             "name": "data",
             "type": "*",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11743,7 +11730,7 @@
             "name": "callback",
             "type": "Function",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11756,7 +11743,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11769,7 +11756,7 @@
             "name": "progress",
             "type": "Number",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11780,7 +11767,7 @@
             "tagname": "",
             "proprty": "{function} updateCallback",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11791,7 +11778,7 @@
             "tagname": "",
             "proprty": "{function} _boundFail",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11802,7 +11789,7 @@
             "tagname": "",
             "proprty": "{function} _boundProgress",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11813,14 +11800,14 @@
             "tagname": "",
             "proprty": "{function} _boundComplete",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/LoaderQueueItem.js",
             "line": 79,
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11835,7 +11822,7 @@
             "name": "PRIORITY_HIGH",
             "type": "Int",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11850,7 +11837,7 @@
             "name": "PRIORITY_NORMAL",
             "type": "Int",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11865,7 +11852,7 @@
             "name": "PRIORITY_LOW",
             "type": "Int",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11881,7 +11868,7 @@
                 "type": "String"
             },
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11893,7 +11880,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.LoaderQueueItem",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11906,7 +11893,7 @@
             "name": "content",
             "type": "*",
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11919,7 +11906,7 @@
             "name": "url",
             "type": "String",
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11932,14 +11919,14 @@
             "name": "loader",
             "type": "createjs.LoaderQueue",
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/loaders/LoaderResult.js",
             "line": 39,
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11955,7 +11942,7 @@
                 "type": "String"
             },
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11967,7 +11954,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.LoaderResult",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17024,7 +17011,7 @@
                 }
             ],
             "class": "springroll.CombinedCallback",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17037,7 +17024,7 @@
             "name": "hasConsole",
             "type": "Bool",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17049,7 +17036,7 @@
             "name": "GENERAL",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17061,7 +17048,7 @@
             "name": "DEBUG",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17073,7 +17060,7 @@
             "name": "INFO",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17085,7 +17072,7 @@
             "name": "WARN",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17097,7 +17084,7 @@
             "name": "ERROR",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17110,7 +17097,7 @@
             "name": "minLogLevel",
             "type": "Int",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17123,7 +17110,7 @@
             "name": "enabled",
             "type": "Bool",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17136,7 +17123,7 @@
             "name": "output",
             "type": "JQuery",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17149,7 +17136,7 @@
             "name": "_isJSConsole",
             "type": "Bool",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17163,7 +17150,7 @@
             "type": "Int",
             "default": "1025",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17177,7 +17164,7 @@
             "name": "_isConnected",
             "type": "Bool",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17190,7 +17177,7 @@
             "name": "_socket",
             "type": "WebSocket",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17203,7 +17190,7 @@
             "name": "_messageObj",
             "type": "Object",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17216,7 +17203,7 @@
             "name": "_messageQueue",
             "type": "Array",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17235,7 +17222,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17247,7 +17234,7 @@
             "itemtype": "method",
             "name": "disconnect",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17259,7 +17246,7 @@
             "itemtype": "method",
             "name": "onConnect",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17298,7 +17285,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17310,7 +17297,7 @@
             "itemtype": "method",
             "name": "onClose",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17334,7 +17321,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17358,7 +17345,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17377,7 +17364,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17396,7 +17383,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17415,7 +17402,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17434,7 +17421,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17453,7 +17440,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17477,7 +17464,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17496,7 +17483,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17508,7 +17495,7 @@
             "itemtype": "method",
             "name": "clear",
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Debug.js",
@@ -17527,7 +17514,7 @@
                 }
             ],
             "class": "Debug",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/DelayedCall.js",
@@ -17539,7 +17526,7 @@
             "name": "_callback",
             "type": "Function",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17552,7 +17539,7 @@
             "name": "_delay",
             "type": "Int",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17565,7 +17552,7 @@
             "name": "_timer",
             "type": "Int",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17579,7 +17566,7 @@
             "type": "Boolean",
             "default": "false",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17593,7 +17580,7 @@
             "type": "Boolean",
             "default": "true",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17606,7 +17593,7 @@
             "name": "_paused",
             "type": "Boolean",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17625,7 +17612,7 @@
                 }
             ],
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17637,7 +17624,7 @@
             "itemtype": "method",
             "name": "restart",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17649,7 +17636,7 @@
             "itemtype": "method",
             "name": "stop",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17662,7 +17649,7 @@
             "name": "paused",
             "type": "Boolean",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -17674,7 +17661,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.DelayedCall",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18003,7 +17990,7 @@
                 }
             ],
             "class": "Object",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Object.js",
@@ -18024,7 +18011,7 @@
                 "type": "Boolean"
             },
             "class": "Object",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/PageVisibility.js",
@@ -18036,7 +18023,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18049,7 +18036,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18062,7 +18049,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18075,7 +18062,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18085,7 +18072,7 @@
             "itemtype": "method",
             "name": "initialize",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18095,7 +18082,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.PageVisibility",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18130,7 +18117,7 @@
                 "type": "Int"
             },
             "class": "springroll.TimeUtils",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18162,7 +18149,7 @@
                 "type": "Object|function"
             },
             "class": "include",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/namespace.js",
@@ -18186,7 +18173,7 @@
                 "type": "Object"
             },
             "class": "namespace",
-            "module": "Framework"
+            "module": "Core"
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/Application.js",
@@ -18197,7 +18184,7 @@
             "type": "Object",
             "readonly": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18210,7 +18197,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18223,7 +18210,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18237,7 +18224,7 @@
             "tagname": "",
             "static": 1,
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18251,7 +18238,7 @@
             "tagname": "",
             "static": 1,
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18264,7 +18251,7 @@
             "name": "_framerate",
             "type": "DOMObject",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18277,7 +18264,7 @@
             "name": "_lastFrameTime",
             "type": "Int",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18290,7 +18277,7 @@
             "name": "_lastFPSUpdateTime",
             "type": "Int",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18303,7 +18290,7 @@
             "name": "_frameCount",
             "type": "Int",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18316,7 +18303,7 @@
             "name": "_tickCallback",
             "type": "Function",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18329,7 +18316,7 @@
             "name": "_paused",
             "type": "Boolean",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18342,7 +18329,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18356,7 +18343,7 @@
             "type": "Bool",
             "default": "false",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18370,7 +18357,7 @@
             "tagname": "",
             "default": "0",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18383,7 +18370,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18397,7 +18384,7 @@
             "tagname": "",
             "default": "null",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18410,7 +18397,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18423,7 +18410,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18436,7 +18423,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18449,7 +18436,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18462,7 +18449,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18472,7 +18459,7 @@
             "itemtype": "event",
             "name": "init",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18484,7 +18471,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18501,7 +18488,7 @@
                 }
             ],
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18523,7 +18510,7 @@
                 }
             ],
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18540,7 +18527,7 @@
                 }
             ],
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18550,7 +18537,7 @@
             "itemtype": "event",
             "name": "paused",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18560,7 +18547,7 @@
             "itemtype": "event",
             "name": "resumed",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18570,7 +18557,7 @@
             "itemtype": "event",
             "name": "destroy",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18590,7 +18577,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18610,7 +18597,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18624,7 +18611,7 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18636,7 +18623,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18648,7 +18635,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18664,7 +18651,7 @@
                 "type": "Object"
             },
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18676,7 +18663,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18688,7 +18675,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18700,7 +18687,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18711,7 +18698,7 @@
             "name": "paused",
             "type": "Boolean",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18735,7 +18722,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18745,7 +18732,7 @@
             "itemtype": "method",
             "name": "triggerResize",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18776,7 +18763,7 @@
                 }
             ],
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18808,7 +18795,7 @@
                 "type": "Display"
             },
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18829,7 +18816,7 @@
                 "type": "Display"
             },
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18853,7 +18840,7 @@
                 "type": "Array"
             },
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18870,7 +18857,7 @@
                 }
             ],
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18883,7 +18870,7 @@
             "name": "fps",
             "type": "Number",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18896,7 +18883,7 @@
             "name": "raf",
             "type": "Boolean",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18908,7 +18895,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -18918,7 +18905,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.Application",
-            "module": "Framework",
+            "module": "Core",
             "namespace": "springroll"
         }
     ],
