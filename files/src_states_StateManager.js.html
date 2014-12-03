@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.0.6 API Documentation : src/states/StateManager.js</title>  
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll">SpringRoll</a></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.0.6</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+		<ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+			<li><a href="#api-modules">Modules</a></li>
+        </ul>
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Array.html">Array</a></li>
+            
+                <li><a href="../classes/Debug.html">Debug</a></li>
+            
+                <li><a href="../classes/include.html">include</a></li>
+            
+                <li><a href="../classes/Math.html">Math</a></li>
+            
+                <li><a href="../classes/namespace.html">namespace</a></li>
+            
+                <li><a href="../classes/Object.html">Object</a></li>
+            
+                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+            
+                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+            
+                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+            
+                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+            
+                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+            
+                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+            
+                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+            
+                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+            
+                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+            
+                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+            
+                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+            
+                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+            
+                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+            
+                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+            
+                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+            
+                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+            
+                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+            
+                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+            
+                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+            
+                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+            
+                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+            
+                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+            
+                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+            
+                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+            
+                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+            
+                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+            
+                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+            
+                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+            
+                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+            
+                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+            
+                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+            
+                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+            
+                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+            
+                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+            
+                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+            
+                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
+            
+                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+            
+                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+            
+                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
+            
+                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+            
+                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+            
+                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+            
+                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
+            
+                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+            
+                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+            
+                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+            
+                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+            
+                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+            
+                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+            
+                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+            
+                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+            
+                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+            
+                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+            
+                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+            
+                <li><a href="../classes/String.html">String</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Captions.html">Captions</a></li>
+            
+                <li><a href="../modules/Core.html">Core</a></li>
+            
+                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+            
+                <li><a href="../modules/Game.html">Game</a></li>
+            
+                <li><a href="../modules/Interface.html">Interface</a></li>
+            
+                <li><a href="../modules/Native Display.html">Native Display</a></li>
+            
+                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+            
+                <li><a href="../modules/Sound.html">Sound</a></li>
+            
+                <li><a href="../modules/States.html">States</a></li>
+            
+                <li><a href="../modules/Tasks.html">Tasks</a></li>
+            
+                <li><a href="../modules/Translate.html">Translate</a></li>
+            
+                <li><a href="../modules/Worker.html">Worker</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+	var name = src/states/StateManager.js      
+</script>
+<h1 class="file-heading">File:StateManager.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+*  @module States
+*  @namespace springroll
+*/
+(function(undefined){
+	
+	// Imports
+	var EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;),
+		BaseState = include(&#x27;springroll.BaseState&#x27;),
+		StateEvent = include(&#x27;springroll.StateEvent&#x27;),
+		Sound;
+	
+	/**
+	*  The State Manager used for managing the different states of a game or site
+	*
+	*  @class StateManager
+	*  @constructor
+	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
+	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
+	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:&quot;myAlias&quot;, start:0.2}}.
+	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
+	*/
+	var StateManager = function(display, transition, transitionSounds)
+	{
+		EventDispatcher.call(this);
+
+		Sound = include(&#x27;springroll.Sound&#x27;, false);
+
+		/**
+		* The display that holds the states this StateManager is managing.
+		*
+		* @property {springroll.AbstractDisplay} _display
+		* @private
+		*/
+		this._display = display;
+		
+		/**
+		* The click to play in between transitioning states
+		*
+		* @property {createjs.MovieClip|PIXI.Spine} _transition
+		* @private
+		*/
+		this._transition = transition;
+		
+		/**
+		* The sounds for the transition
+		*
+		* @property {object} _transitionSounds
+		* @private
+		*/
+		this._transitionSounds = transitionSounds || null;
+		
+		/**
+		* The collection of states map
+		*
+		* @property {Object} _states
+		* @private
+		*/
+		this._states = {};
+		
+		/**
+		* The currently selected state
+		*
+		* @property {BaseState} _state
+		* @private
+		*/
+		this._state = null;
+		
+		/**
+		* The currently selected state id
+		*
+		* @property {String} _stateID
+		* @private
+		*/
+		this._stateId = null;
+		
+		/**
+		* The old state
+		*
+		* @property {BaseState} _oldState
+		* @private
+		*/
+		this._oldState = null;
+		
+		/**
+		* If the manager is loading a state
+		*
+		* @property {bool} name description
+		* @private
+		*/
+		this._isLoading = false;
+		
+		/**
+		* If the state or manager is current transitioning
+		*
+		* @property {bool} _isTransitioning
+		* @private
+		*/
+		this._isTransitioning = false;
+		
+		/**
+		* If the current object is destroyed
+		*
+		* @property {bool} _destroyed
+		* @private
+		*/
+		this._destroyed = false;
+		
+		/**
+		* If we&#x27;re transitioning the state, the queue the id of the next one
+		*
+		* @property {String} _queueStateId
+		* @private
+		*/
+		this._queueStateId = null;
+
+		// Construct
+		if (this._transition.stop)
+		{
+			this._transition.stop();
+		}
+		// Hide the blocker
+		this.hideBlocker();
+
+		// Binding
+		this._loopTransition = this._loopTransition.bind(this);
+	};
+	
+	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
+
+	/**
+	* The name of the Animator label and event for transitioning state in
+	*
+	* @event onTransitionIn
+	*/
+	StateManager.TRANSITION_IN = &quot;onTransitionIn&quot;;
+	
+	/**
+	* The name of the event for done with transitioning state in
+	*
+	* @event onTransitionInDone
+	*/
+	StateManager.TRANSITION_IN_DONE = &quot;onTransitionInDone&quot;;
+	
+	/**
+	* The name of the Animator label and event for transitioning state out
+	*
+	* @event onTransitionOut
+	*/
+	StateManager.TRANSITION_OUT = &quot;onTransitionOut&quot;;
+	
+	/**
+	* The name of the event for done with transitioning state out
+	*
+	* @event onTransitionOutDone
+	*/
+	StateManager.TRANSITION_OUT_DONE = &quot;onTransitionOutDone&quot;;
+	
+	/**
+	* The name of the event for done with initializing
+	*
+	* @event onInitDone
+	*/
+	StateManager.TRANSITION_INIT_DONE = &quot;onInitDone&quot;;
+	
+	/**
+	* Event when the state transitions the first time
+	*
+	* @event onLoadingStart
+	*/
+	StateManager.LOADING_START = &quot;onLoadingStart&quot;;
+	
+	/**
+	* Event when the state transitions the first time
+	*
+	* @event onLoadingDone
+	*/
+	StateManager.LOADING_DONE = &quot;onLoadingDone&quot;;
+	
+	/**
+	*  Register a state with the state manager, done initially
+	*
+	*  @function addState
+	*  @param {String} id The string alias for a state
+	*  @param {BaseState} state State object reference
+	*/
+	p.addState = function(id, state)
+	{
+		if (DEBUG)
+		{
+			Debug.assert(state instanceof BaseState, &quot;State (&quot;+id+&quot;) needs to subclass springroll.BaseState&quot;);
+		}
+		
+		// Add to the collection of states
+		this._states[id] = state;
+		
+		// Give the state a reference to the id
+		state.stateId = id;
+		
+		// Give the state a reference to the manager
+		state.manager = this;
+		
+		// Make sure the state ie exited initially
+		state._internalExit();
+	};
+	
+	/**
+	*  Dynamically change the transition
+	*
+	*  @function changeTransition
+	*  @param {createjs.MovieClip|PIXI.Spine} Clip to swap for transition
+	*/
+	p.changeTransition = function(clip)
+	{
+		this._transition = clip;
+	};
+	
+	/**
+	*  Get the currently selected state
+	*
+	*  @function getState
+	*  @return {String} The id of the current state
+	*/
+	p.getState = function()
+	{
+		return this._stateId;
+	};
+	
+	/**
+	*   Get the current selected state (state object)
+	*
+	*   @function getCurrentState
+	*   @return {BaseState} The Base State object
+	*/
+	p.getCurrentState = function()
+	{
+		return this._state;
+	};
+	
+	/**
+	*   Access a certain state by the ID
+	*
+	*   @function getStateById
+	*   @param {String} id State alias
+	*   @return {BaseState} The base State object
+	*/
+	p.getStateById = function(id)
+	{
+		Debug.assert(this._states[id] !== undefined, &quot;No alias matching &quot; + id);
+		return this._states[id];
+	};
+	
+	/**
+	* If the StateManager is busy because it is currently loading or transitioning.
+	*
+	* @function isBusy
+	* @return {bool} If StateManager is busy
+	*/
+	p.isBusy = function()
+	{
+		return this._isLoading || this._isTransitioning;
+	};
+	
+	/**
+	*   If the state needs to do some asyncronous tasks,
+	*   The state can tell the manager to stop the animation
+	*
+	*   @function loadingStart
+	*/
+	p.loadingStart = function()
+	{
+		if (this._destroyed) return;
+		
+		this.trigger(StateManager.LOADING_START);
+		
+		this._loopTransition();
+	};
+	
+	/**
+	*   If the state has finished it&#x27;s asyncronous task loading
+	*   Lets enter the state
+	*
+	*   @function loadingDone
+	*/
+	p.loadingDone = function()
+	{
+		if (this._destroyed) return;
+		
+		this.trigger(StateManager.LOADING_DONE);
+	};
+	
+	/**
+	*   Show, enable the blocker clip to disable mouse clicks
+	*
+	*   @function showBlocker
+	*/
+	p.showBlocker = function()
+	{
+		this._display.enabled = false;
+	};
+	
+	/**
+	*   Re-enable interaction with the stage
+	*
+	*   @function hideBlocker
+	*/
+	p.hideBlocker = function()
+	{
+		this._display.enabled = true;
+	};
+	
+	/**
+	*   This transitions out of the current state and
+	*   enters it again. Can be useful for clearing a state
+	*
+	*   @function refresh
+	*/
+	p.refresh = function()
+	{
+		Debug.assert(!!this._state, &quot;No current state to refresh!&quot;);
+		this.setState(this._stateId);
+	};
+	
+	/**
+	*  Get or change the current state
+	*  @property {String} state
+	*/
+	Object.defineProperty(p, &quot;state&quot;, {
+		set : function(id)
+		{
+			this.setState(id);
+		},
+		get : function()
+		{
+			return this._stateId;
+		}
+	});
+
+	/**
+	*  Set the current State
+	*
+	*  @function setState
+	*  @param {String} id The state id
+	*/
+	p.setState = function(id)
+	{
+		Debug.assert(this._states[id] !== undefined, &quot;No current state mattching id &#x27;&quot;+id+&quot;&#x27;&quot;);
+		
+		// If we try to transition while the transition or state
+		// is transition, then we queue the state and proceed
+		// after an animation has played out, to avoid abrupt changes
+		if (this._isTransitioning)
+		{
+			this._queueStateId = id;
+			return;
+		}
+		
+		this._stateId = id;
+		this.showBlocker();
+		this._oldState = this._state;
+		this._state = this._states[id];
+		
+		var sm;
+		if (!this._oldState)
+		{
+			// There is not current state
+			// this is only possible if this is the first
+			// state we&#x27;re loading
+			this._isTransitioning = true;
+			this._transition.visible = true;
+			sm = this;
+			this._loopTransition();
+			sm.trigger(StateManager.TRANSITION_INIT_DONE);
+			sm._isLoading = true;
+			sm._state._internalEnter(sm._onStateLoaded.bind(sm));
+		}
+		else
+		{
+			// Check to see if the state is currently in a load
+			// if so cancel the state
+			if (this._isLoading)
+			{
+				this._oldState._internalCancel();
+				this._isLoading = false;
+				this._state._internalEnter(this._onStateLoaded);
+			}
+			else
+			{
+				this._isTransitioning = true;
+				this._oldState._internalExitStart();
+				this.showBlocker();
+				sm = this;
+				
+				if (this.has(StateEvent.TRANSITION_OUT))
+					this.trigger(StateEvent.TRANSITION_OUT, new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
+				this._oldState.transitionOut(
+					function()
+					{
+						if (sm.has(StateEvent.TRANSITION_OUT_DONE))
+							sm.trigger(StateEvent.TRANSITION_OUT_DONE, new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
+						sm.trigger(StateManager.TRANSITION_OUT);
+						
+						sm._transitioning(
+							StateManager.TRANSITION_OUT,
+							function()
+							{
+								sm.trigger(StateManager.TRANSITION_OUT_DONE);
+								
+								sm._isTransitioning = false;
+								
+								if (sm.has(StateEvent.HIDDEN))
+									sm.trigger(StateEvent.HIDDEN, new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
+								sm._oldState.panel.visible = false;
+								sm._oldState._internalExit();
+								sm._oldState = null;
+
+								sm._loopTransition();//play the transition loop animation
+								
+								if (!sm._processQueue())
+								{
+									sm._isLoading = true;
+									sm._state._internalEnter(sm._onStateLoaded.bind(sm));
+								}
+							}
+						);
+					}
+				);
+			}
+		}
+	};
+	
+	/**
+	*   When the state has completed it&#x27;s loading sequence
+	*   this should be treated as an asyncronous process
+	*
+	*   @function _onStateLoaded
+	*   @private
+	*/
+	p._onStateLoaded = function()
+	{
+		this._isLoading = false;
+		this._isTransitioning = true;
+		
+		if (this.has(StateEvent.VISIBLE))
+			this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
+		this._state.panel.visible = true;
+		
+		this.trigger(StateManager.TRANSITION_IN);
+		var sm = this;
+		this._transitioning(
+			StateManager.TRANSITION_IN,
+			function()
+			{
+				sm._transition.visible = false;
+				sm.trigger(StateManager.TRANSITION_IN_DONE);
+				if (sm.has(StateEvent.TRANSITION_IN))
+					sm.trigger(StateEvent.TRANSITION_IN, new StateEvent(StateEvent.TRANSITION_IN, sm._state));
+				sm._state.transitionIn(
+					function()
+					{
+						if (sm.has(StateEvent.TRANSITION_IN_DONE))
+							sm.trigger(StateEvent.TRANSITION_IN_DONE, new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
+						sm._isTransitioning = false;
+						sm.hideBlocker();
+						
+						if (!sm._processQueue())
+						{
+							sm._state._internalEnterDone();
+						}
+					}
+				);
+			}
+		);
+	};
+	
+	/**
+	*  Process the state queue
+	*
+	*  @function _processQueue
+	*  @return If there is a queue to process
+	*  @private
+	*/
+	p._processQueue = function()
+	{
+		// If we have a state queued up
+		// then don&#x27;t start loading the new state
+		// enter a new one
+		if (this._queueStateId)
+		{
+			var queueStateId = this._queueStateId;
+			this._queueStateId = null;
+			this.setState(queueStateId);
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	*  Plays the animation &quot;transitionLoop&quot; on the transition. Also serves as the animation callback.
+	*  Manually looping the animation allows the animation to be synced to the audio while looping.
+	*
+	*  @function _loopTransition
+	*  @private
+	*/
+	p._loopTransition = function()
+	{
+		var audio,
+			animator = this._display.animator;
+
+		if (this._transitionSounds &amp;&amp; Sound)
+		{
+			audio = this._transitionSounds.loop;
+		}
+
+		if (animator.instanceHasAnimation(this._transition, &quot;transitionLoop&quot;))
+		{
+			animator.play(this._transition, {anim:&quot;transitionLoop&quot;, audio:audio},
+							this._loopTransition);
+		}
+	};
+	
+	/**
+	 * Displays the transition out animation, without changing states.
+	 *
+	 * @function showTransitionOut
+	 * @param {function} callback The function to call when the animation is complete.
+	 */
+	p.showTransitionOut = function(callback)
+	{
+		this.showBlocker();
+		var sm = this;
+		var func = function()
+		{
+			sm._loopTransition();
+
+			if (callback)
+				callback();
+		};
+		this._transitioning(StateManager.TRANSITION_OUT, func);
+	};
+
+	/**
+	 * Displays the transition in animation, without changing states.
+	 *
+	 * @function showTransitionIn
+	 * @param {function} callback The function to call when the animation is complete.
+	 */
+	p.showTransitionIn = function(callback)
+	{
+		var sm = this;
+		this._transitioning(StateManager.TRANSITION_IN, function() { sm.hideBlocker(); if (callback) callback(); });
+	};
+	
+	/**
+	*   Generalized function for transitioning with the manager
+	*
+	*   @function _transitioning
+	*   @param {String} The animator event to play
+	*   @param {Function} The callback function after transition is done
+	*   @private
+	*/
+	p._transitioning = function(event, callback)
+	{
+		var clip = this._transition;
+		clip.visible = true;
+
+		var audio,
+			animator = this._display.animator;
+
+		if (this._transitionSounds &amp;&amp; Sound)
+		{
+			audio = event == StateManager.TRANSITION_IN ?
+				this._transitionSounds.in :
+				this._transitionSounds.out;
+		}
+		animator.play(this._transition, {anim:event, audio:audio}, callback);
+	};
+
+
+	/**
+	*  Goto the next state
+	*  @method next
+	*/
+	p.next = function()
+	{
+		var type = typeof this._state.nextState;
+
+		if (!this._state.nextState)
+		{
+			if (DEBUG)
+			{
+				Debug.info(&quot;&#x27;nextState&#x27; is undefined in current state, ignoring&quot;);
+			}
+			return;
+		}
+		else if (type === &quot;function&quot;)
+		{
+			this._state.nextState();
+		}
+		else if (type === &quot;string&quot;)
+		{
+			this.setState(this._state.nextState);
+		}
+	};
+
+	/**
+	*  Goto the previous state
+	*  @method previous
+	*/
+	p.previous = function()
+	{
+		var type = typeof this._state.prevState;
+
+		if (!this._state.prevState)
+		{
+			if (DEBUG)
+			{
+				Debug.info(&quot;&#x27;prevState&#x27; is undefined in current state, ignoring&quot;);
+			}
+			return;
+		}
+		else if (type === &quot;function&quot;)
+		{
+			this._state.prevState();
+		}
+		else if (type === &quot;string&quot;)
+		{
+			this.setState(this._state.prevState);
+		}
+	};
+	
+	/**
+	*   Remove the state manager
+	*
+	*   @function destroy
+	*/
+	p.destroy = function()
+	{
+		this._destroyed = true;
+
+		this.off();
+		
+		this._display.animator.stop(this._transition);
+		
+		this._transition = null;
+		
+		this._state = null;
+		this._oldState = null;
+		
+		if (this._states)
+		{
+			for(var id in this._states)
+			{
+				this._states[id].destroy();
+				delete this._states[id];
+			}
+		}
+		this._states = null;
+	};
+	
+	// Add to the name space
+	namespace(&#x27;springroll&#x27;).StateManager = StateManager;
+})();
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
