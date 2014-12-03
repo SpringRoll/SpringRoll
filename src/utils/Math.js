@@ -9,21 +9,21 @@
 	 */
 
 	/**
-	 * Return a random int between minimum and maximum
-	 * @method dist
+	 * Return a random int between minimum and maximum values.
+	 * @method getRandomInt
 	 * @static
-	 * @param {Int} min lowest number
-	 * @param {Int} max highest number
-	 * @return {Int} The random value
+	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {int} max Highest number.
+	 * @return {int} The random value
 	 */
 	Math.getRandomInt = function(min, max)
 	{
-		/** OVERRIDE
-		 * 	allow single-parameter use, where min is
-		 * 	assumed to be 0, and max is the supplied single-parameter
-		 * 	i.e. function(max) {
-		 *		return <value between 0 and parameter>
-		 * 	}
+		/*  OVERRIDE
+		 *  allow single-parameter use, where min is
+		 *  assumed to be 0, and max is the supplied single-parameter
+		 *  i.e. function(max) {
+		 *      return <value between 0 and parameter>
+		 *  }
 		 */
 		if (max === undefined)
 		{

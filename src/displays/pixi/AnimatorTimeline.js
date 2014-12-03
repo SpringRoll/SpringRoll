@@ -233,7 +233,7 @@
 					{
 						clip.textures = anim;
 						clip.updateDuration();
-						this.duration = clip._animDuration;
+						this.duration = clip._duration;
 						clip.gotoAndPlay(0);
 					}
 					//concurrent spine anims

@@ -685,7 +685,7 @@
 					{
 						clip.textures = anim;
 						clip.updateDuration();
-						this.duration = clip._animDuration;
+						this.duration = clip._duration;
 						clip.gotoAndPlay(0);
 					}
 					//concurrent spine anims
@@ -1098,9 +1098,113 @@
 	*   @private
 	*   @static
 	*/
-	Animator._canAnimate = function(instance)
+	Animator._canAnimate = Animator.canAnimate;
+	
+	/**
+	*   Get duration of animation (or sequence of animations) in seconds
+	*
+	*   @method getDuration
+	*   @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
+	*   @param {String|Array} animData The animation data or array, in the format that play() uses.
+	*   @public
+	*   @static
+	*	@return {Number} Duration of animation event in milliseconds
+	*/
+	Animator.getDuration = function(clip, animData)
 	{
-		return Animator.canAnimate(instance);
+		//calculated in seconds
+		var duration = 0;
+		
+		//ensure one format
+		if(typeof animData == "string")
+		{
+			animData = [{anim: animData}];
+		}
+		else if(Array.isArray(animData))
+		{
+			var firstItem = animData[0];
+			if(firstItem instanceof Texture)
+			{
+				animData = [{anim: animData}];
+			}
+			else if(typeof firstItem == "string")
+			{
+				animData = [{anim: animData}];
+			}
+			else if(firstItem instanceof ConcurrentSpineAnimData)
+			{
+				animData = [{anim: animData}];
+			}
+		}
+		else
+			animData = [animData];
+		
+		for(var i = 0; i < animData.length; ++i)
+		{
+			var listItem = animData[i];
+			switch(typeof listItem)
+			{
+				case "object":
+					var anim = listItem.anim;
+					if(typeof anim == "string")
+					{
+						//single spine anim
+						duration += clip.stateData.skeletonData.findAnimation(anim).duration;
+					}
+					else //if(Array.isArray(anim))
+					{
+						//MovieClip
+						if(anim[0] instanceof Texture)
+						{
+							duration += anim.length / clip.fps;
+						}
+						//concurrent spine anims
+						else if(anim[0] instanceof ConcurrentSpineAnimData)
+						{
+							this.spineStates = new Array(anim.length);
+							this.spineSpeeds = new Array(anim.length);
+							var maxDuration = 0, maxLoopDuration = 0, tempDuration;
+							skeletonData = clip.stateData.skeletonData;
+							for(i = 0; i < anim.length; ++i)
+							{
+								var animLoop = anim[i].loop;
+								tempDuration = skeletonData.findAnimation(anim[i].anim).duration;
+								if(animLoop)
+								{
+									if(duration > maxLoopDuration)
+										maxLoopDuration = tempDuration;
+								}
+								else
+								{
+									if(duration > maxDuration)
+										maxDuration = tempDuration;
+								}
+							}
+							//set the duration to be the longest of the non looping animations
+							//or the longest loop if they all loop
+							if(maxDuration)
+								duration += maxDuration;
+							else
+								duration += maxLoopDuration;
+						}
+						//list of sequential spine anims
+						else
+						{
+							skeletonData = clip.stateData.skeletonData;
+							for(i = 0; i < anim.length; ++i)
+							{
+								duration += skeletonData.findAnimation(anim[i]).duration;
+							}
+						}
+					}
+					break;
+				case "number":
+					duration += listItem * 0.001;
+					break;
+			}
+		}
+		
+		return duration * 1000;//convert into milliseconds
 	};
 
 	/**
