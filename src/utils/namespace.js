@@ -1,5 +1,5 @@
 /**
-*  @module Framework
+*  @module Core
 */
 /**
 *  Static class for namespacing objects and adding

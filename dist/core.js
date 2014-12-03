@@ -1,6 +1,6 @@
 /*! SpringRoll 0.0.6 */
 /**
-*  @module Framework
+*  @module Core
 */
 /**
 *  Static class for namespacing objects and adding
@@ -46,7 +46,7 @@
 
 
 /**
-*  @module Framework
+*  @module Core
 */
 /**
 *  Used to include required classes by name
@@ -107,7 +107,7 @@
 	
 }(window));
 /**
-*  @module Framework
+*  @module Core
 */
 (function(Object, undefined){
 
@@ -208,7 +208,7 @@
 
 }(Object));
 /**
-*  @module Framework
+*  @module Core
 */
 (function(window, undefined){
 
@@ -731,7 +731,7 @@
 }(window));
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(window){
@@ -817,7 +817,7 @@
 }());
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined){
@@ -1097,7 +1097,7 @@
 }());
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(global, doc, undefined){
@@ -1226,7 +1226,7 @@
 	
 }(window, document));
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined){
@@ -2082,7 +2082,7 @@
 }());
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined){
@@ -2270,7 +2270,7 @@
 
 }());
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined){
@@ -2570,7 +2570,7 @@
 }());
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(){
@@ -2708,7 +2708,7 @@
 	
 }());
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(){
@@ -3182,7 +3182,7 @@
 	namespace('springroll').Loader = Loader;
 }());
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(){
@@ -3252,7 +3252,7 @@
 	
 }());
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function() {
@@ -3301,7 +3301,7 @@
 	namespace('springroll').CombinedCallback = CombinedCallback;
 }());
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined){
@@ -3423,7 +3423,7 @@
 }());
 
 /**
-*  @module Framework
+*  @module Core
 *  @namespace springroll
 */
 (function(undefined) {

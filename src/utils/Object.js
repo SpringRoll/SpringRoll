@@ -1,5 +1,5 @@
 /**
-*  @module Framework
+*  @module Core
 */
 (function(Object, undefined){
 

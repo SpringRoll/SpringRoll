@@ -1,5 +1,5 @@
 /**
-*  @module Framework
+*  @module Core
 */
 /**
 *  Used to include required classes by name
