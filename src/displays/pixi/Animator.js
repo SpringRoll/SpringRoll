@@ -549,7 +549,7 @@
 						else
 						{
 							extraTime = t._time_sec - t.duration;
-							instance.gotoAndStop(c.textures.length - 1);
+							c.gotoAndStop(c.textures.length - 1);
 							t._nextItem();
 							if(t.complete)
 							{
