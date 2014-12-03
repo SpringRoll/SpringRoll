@@ -553,7 +553,7 @@
 							t._nextItem();
 							if(t.complete)
 							{
-								_removedTimelines.push(t);
+								_onMovieClipDone(t);
 								continue;
 							}
 							else
