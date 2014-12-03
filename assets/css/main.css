@@ -18,7 +18,7 @@ Here's a quick lookup table:
 20px - 153.846%
 */
 html {
-  background: #e6e6e6;
+  background: #E2E6E9;
   color: #111111;
   overflow-y: scroll;
 }
@@ -29,7 +29,7 @@ body {
 }
 /* -- Links ----------------------------------------------------------------- */
 a {
-  color: #356de4;
+  color: #06A1DC;
   text-decoration: none;
 }
 .hidden {
@@ -69,9 +69,8 @@ h4,
 h5,
 h6 {
   color: #111111 !important;
-  /*was #f80*/
-
-  font-weight: 100;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 300;
   line-height: 1.1;
   margin: 1.1em 0 0.5em;
 }
@@ -144,7 +143,7 @@ pre.cmd {
 }
 pre.code {
   background: #fff;
-  border: 1px solid #c3c3c3;
+  border: 1px solid #C2C7CD;
   border-left-width: 5px;
   line-height: 150%;
 }
@@ -315,20 +314,40 @@ th {
 .newwindow {
   text-align: center;
 }
+#hd {
+  padding: 0 15px 1px 20px;
+  background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #e2e6e9 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e2e6e9)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#e2e6e9 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#e2e6e9 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#e2e6e9 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#e2e6e9 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e2e6e9',GradientType=0 ); /* IE6-9 */
+
+}
+#hd img {
+  margin:15px 20px 15px 0;
+  vertical-align: middle;
+}
 #hd h1 {
-  font-size: 100%;
-  text-transform: uppercase;
+  color:#A3B1BB;
+  font-size:180%;
+}
+#hd a {
+  font-size: 36px;
+  color: #A3B1BB;
+}
+#hd a:hover {
+  text-decoration: none;
 }
 
 .header .version em {
   display: block;
   text-align: right;
   margin-top: 33px;
-  color: #40EBFF;
   font-style: normal !important;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 80%;
+  font-family:'Titillium Web', sans-serif;
 }
 #classdocs .item {
   border-bottom: 0; /*1px solid #c3c3c3*/
@@ -396,14 +415,7 @@ ul li p {
 .apidocs .events .extends .inherited {
   font-weight: normal;
 }
-#hd {
-  padding: 0 15px 1px 20px;
-  background-color:#192240;
-  margin-bottom:20px;
-}
-#hd img {
-  margin:15px 0;
-}
+
 /* -- API Docs CSS ---------------------------------------------------------- */
 /*
 This file is organized so that more generic styles are nearer the top, and more
@@ -428,7 +440,7 @@ specific tabview, see the other sections below.
 .apidocs .tabview .yui3-tabview-panel {
   background: #fff;
   padding: 1em;
-  border: 1px solid #c3c3c3 !important;
+  border: 1px solid #C2C7CD !important;
 }
 /* -- Generic Content Styles ------------------------------------------------ */
 /* Headings */
@@ -462,7 +474,7 @@ h6 {
    indicate private and protected items, item return types, etc. in an
    attractive and unobtrusive way. */
 .apidocs .flag {
-  background: #999;
+  background: #C2C7CD;
   border-radius: 3px;
   color: #fff;
   font-size: 11px;
@@ -619,7 +631,7 @@ kbd .cmd {
   background: #fd6b1b;
 }
 .apidocs .flag.async {
-  background: #356de4;
+  background: #06AAD4;
 }
 .apidocs .flag.required {
   background: #e60923;
@@ -739,7 +751,7 @@ kbd .cmd {
 #api-filter {
   	width: 100%;
 	font-size: 16px;
-	border: 1px solid #bebebe;
+	border: 1px solid #C2C7CD;
 	padding: 5px;
 	border-radius: 5px;
 	border-top-width: 2px;
@@ -793,7 +805,7 @@ kbd .cmd {
 }
 .apis a:hover,
 .apis a:focus {
-  background: #1DCBE0;
+  background: #06A1DC;
   color: white !important;
   color: #444444;
   outline: none;
@@ -826,10 +838,10 @@ kbd .cmd {
   padding: 1em !important;
   border: none !important;
   background: none !important;
-  background-color: #c3c3c3 !important;
+  background-color: #C2C7CD !important;
 }
 .yui3-skin-sam .yui3-tab-label:hover {
-  background-color: #1DCBE0 !important;
+  background-color: #06A1DC !important;
   color: white !important;
 }
 /*  Important Library Specifics, find and replace
@@ -845,7 +857,7 @@ kbd .cmd {
 .yui3-skin-sam .yui3-tab-selected .yui3-tab-label:hover {
   background: none !important;
   border: none !important;
-  background-color: #192240 !important;
+  background-color: #123550 !important;
 }
 .yui3-skin-sam .yui3-tabview-list {
   /*border-bottom: 5px solid #3399ff !important;*/

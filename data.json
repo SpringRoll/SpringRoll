@@ -3220,7 +3220,7 @@
             "module": "Sound",
             "namespace": "springroll",
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 16,
+            "line": 18,
             "description": "Acts as a wrapper for SoundJS as well as adding lots of other functionality\nfor managing sounds."
         },
         "springroll.SoundContext": {
@@ -12527,7 +12527,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 35,
+            "line": 37,
             "description": "Dictionary of sound objects, containing configuration info and playback objects.",
             "itemtype": "property",
             "name": "_sounds",
@@ -12540,7 +12540,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 42,
+            "line": 44,
             "description": "Array of SoundInstance objects that are being faded in or out.",
             "itemtype": "property",
             "name": "_fades",
@@ -12553,7 +12553,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 49,
+            "line": 51,
             "description": "Array of SoundInstance objects waiting to be used.",
             "itemtype": "property",
             "name": "_pool",
@@ -12566,7 +12566,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 56,
+            "line": 58,
             "description": "The extension of the supported sound type that will be used.",
             "itemtype": "property",
             "name": "supportedSound",
@@ -12579,7 +12579,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 63,
+            "line": 65,
             "description": "Dictionary of SoundContexts.",
             "itemtype": "property",
             "name": "_contexts",
@@ -12592,7 +12592,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 75,
+            "line": 77,
             "description": "If sound is enabled. This will only be false if Sound was unable to initialize\na SoundJS plugin.",
             "itemtype": "property",
             "name": "soundEnabled",
@@ -12604,7 +12604,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 93,
+            "line": 95,
             "description": "Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for\nsetting createjs.FlashPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
@@ -12655,7 +12655,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 199,
+            "line": 201,
             "description": "Statisfies the iOS event needed to initialize the audio",
             "access": "private",
             "tagname": "",
@@ -12667,7 +12667,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 210,
+            "line": 212,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -12691,7 +12691,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 254,
+            "line": 256,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -12705,7 +12705,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 265,
+            "line": 267,
             "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "loadConfig",
@@ -12786,7 +12786,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 336,
+            "line": 338,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -12809,7 +12809,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 348,
+            "line": 350,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -12832,7 +12832,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 360,
+            "line": 362,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -12855,7 +12855,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 372,
+            "line": 374,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -12878,7 +12878,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 385,
+            "line": 387,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -12901,7 +12901,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 399,
+            "line": 401,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -12940,7 +12940,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 442,
+            "line": 444,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -12979,7 +12979,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 491,
+            "line": 493,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -12998,7 +12998,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 546,
+            "line": 548,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13082,7 +13082,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 693,
+            "line": 695,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13110,7 +13110,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 719,
+            "line": 721,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13129,7 +13129,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 770,
+            "line": 772,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13148,7 +13148,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 792,
+            "line": 794,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13167,7 +13167,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 820,
+            "line": 822,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13186,7 +13186,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 836,
+            "line": 838,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13205,7 +13205,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 852,
+            "line": 854,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13224,7 +13224,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 876,
+            "line": 878,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13243,7 +13243,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 895,
+            "line": 897,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13262,7 +13262,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 916,
+            "line": 918,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13274,7 +13274,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 928,
+            "line": 930,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13286,7 +13286,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 940,
+            "line": 942,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13310,16 +13310,27 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 972,
+            "line": 974,
+            "description": "Set the mute status of all sounds",
+            "itemtype": "property",
+            "name": "muteAll",
+            "type": "Boolean",
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
+            "line": 985,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
-            "access": "public",
-            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Use the muteAll setter instead",
             "params": [
                 {
-                    "name": "mute",
-                    "description": "If the sounds should be muted.",
+                    "name": "muted",
+                    "description": "If all sounds should be muted",
                     "type": "Boolean"
                 }
             ],
@@ -13329,7 +13340,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 983,
+            "line": 1000,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13353,7 +13364,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1014,
+            "line": 1031,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13377,7 +13388,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1041,
+            "line": 1058,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13401,7 +13412,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1095,
+            "line": 1112,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13425,7 +13436,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1120,
+            "line": 1137,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13458,7 +13469,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1136,
+            "line": 1153,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13477,7 +13488,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1160,
+            "line": 1177,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13496,7 +13507,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/media/Sound.js",
-            "line": 1181,
+            "line": 1198,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
