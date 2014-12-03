@@ -8106,7 +8106,36 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 310,
+            "line": 307,
+            "description": "Get duration of animation (or sequence of animations) in seconds",
+            "itemtype": "method",
+            "name": "getDuration",
+            "params": [
+                {
+                    "name": "clip",
+                    "description": "The display object that the animation matches.",
+                    "type": "PIXI.MovieClip|PIXI.Spine"
+                },
+                {
+                    "name": "animData",
+                    "description": "The animation data or array, in the format that play() uses.",
+                    "type": "String|Array"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "return": {
+                "description": "Duration of animation event in milliseconds",
+                "type": "Number"
+            },
+            "class": "springroll.pixi.Animator",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
+            "line": 414,
             "description": "Checks to see if a Spine animation includes a given animation alias",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -8132,7 +8161,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 325,
+            "line": 429,
             "description": "Checks to see if a Spine animation includes a given animation alias",
             "itemtype": "method",
             "name": "checkSpineForAnimation",
@@ -8158,7 +8187,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 338,
+            "line": 442,
             "description": "Stop a clip",
             "itemtype": "method",
             "name": "stop",
@@ -8175,7 +8204,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 364,
+            "line": 468,
             "description": "Stops all current animations",
             "itemtype": "method",
             "name": "stop",
@@ -8185,7 +8214,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 385,
+            "line": 489,
             "description": "Put an AnimatorTimeline back into the general pool after it's done playing\nor has been manually stopped.",
             "itemtype": "method",
             "name": "_repool",
@@ -8204,7 +8233,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 405,
+            "line": 509,
             "description": "Update each frame",
             "itemtype": "method",
             "name": "_update",
@@ -8223,7 +8252,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 659,
+            "line": 763,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -8242,7 +8271,7 @@
         },
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js",
-            "line": 684,
+            "line": 788,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -17900,19 +17929,19 @@
         {
             "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Math.js",
             "line": 11,
-            "description": "Return a random int between minimum and maximum",
+            "description": "Return a random int between minimum and maximum values.",
             "itemtype": "method",
-            "name": "dist",
+            "name": "getRandomInt",
             "static": 1,
             "params": [
                 {
                     "name": "min",
-                    "description": "lowest number",
+                    "description": "Lowest number. If max is omitted, then this becomes max.",
                     "type": "Int"
                 },
                 {
                     "name": "max",
-                    "description": "highest number",
+                    "description": "Highest number.",
                     "type": "Int"
                 }
             ],
@@ -17920,13 +17949,6 @@
                 "description": "The random value",
                 "type": "Int"
             },
-            "class": "Math",
-            "module": "Game"
-        },
-        {
-            "file": "/Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Math.js",
-            "line": 21,
-            "description": "allow single-parameter use, where min is\nassumed to be 0, and max is the supplied single-parameter\ni.e. function(max) {\n\t\treturn <value between 0 and parameter>\n}",
             "class": "Math",
             "module": "Game"
         },
@@ -18920,11 +18942,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js:310"
+            "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js:414"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js:325"
+            "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/displays/pixi/Animator.js:429"
         },
         {
             "message": "replacing incorrect tag: function with method",
@@ -19273,10 +19295,6 @@
         {
             "message": "Missing item type\nA task is now starting\nevent onItemLoading",
             "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/tasks/TaskEvent.js:47"
-        },
-        {
-            "message": "Missing item type\nallow single-parameter use, where min is\nassumed to be 0, and max is the supplied single-parameter\ni.e. function(max) {\n\t\treturn <value between 0 and parameter>\n}",
-            "line": " /Users/mattkarl/Sites/SpringRoll/SpringRoll/src/utils/Math.js:21"
         }
     ]
 }
