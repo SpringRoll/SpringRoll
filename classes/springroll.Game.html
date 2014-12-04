@@ -142,21 +142,15 @@
             
                 <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
             
-                <li><a href="../classes/springroll.ScalingGame.html">springroll.ScalingGame</a></li>
-            
                 <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
             
                 <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
-            
-                <li><a href="../classes/springroll.SoundGame.html">springroll.SoundGame</a></li>
             
                 <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
             
                 <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
             
                 <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
-            
-                <li><a href="../classes/springroll.StateGame.html">springroll.StateGame</a></li>
             
                 <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
             
@@ -255,7 +249,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_games_Game.js.html#l12"><code>springroll.Game:12</code></a>
+            Defined in: <a href="../files/src_games_Game.js.html#l14"><code>springroll.Game:14</code></a>
         </div>
     
 
@@ -271,9 +265,10 @@
 
 
 <div class="box intro">
-    <p>A game extends the main application and provides some game specific convenience function
-and additional events. Most importantly it provides preload functionalty though the state
-manager. Assume loading a single configuration JSON file.</p>
+    <p>A sub-class of Application which provides automatic Sound initialization. Also
+provides StateManager architecture to manage game screens and transitions between
+them. Last, the Game class will allow for easily setting captions for use
+by the VOPlayer and Animator classes.</p>
 
 </div>
 
@@ -322,7 +317,7 @@ manager. Assume loading a single configuration JSON file.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l12"><code>springroll.Game:12</code></a>
+        <a href="../files/src_games_Game.js.html#l14"><code>springroll.Game:14</code></a>
         
         </p>
 
@@ -361,6 +356,146 @@ manager. Assume loading a single configuration JSON file.</p>
                             
                             <li class="param">
                                 
+                                    <code class="param-name optional">[state]</code>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The initial state</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[transition]</code>
+                                    <span class="type">createjs.MovieClip | PIXI.Spine</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The StateManager transition
+       animation</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[transitionSounds]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The transition sound data</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[in=&quot;TransitionIn&quot;]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The transition in sound
+       alias or sound object
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[out=&quot;TransitionOut&quot;]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The transition out
+       sound alias or sound object
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[captions]</code>
+                                    <span class="type">DOMElement | <a href="../classes/String.html" class="crosslink">String</a> | createjs.Text | PIXI.Text | PIXI.BitmapText</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The
+                        captions text field object to use for the VOPlayer captions object.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[swfPath=&#x27;assets/swfs/&#x27;]</code>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The relative location to the FlashPlugin
+       swf for SoundJS</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[audioTypes=[&#x27;ogg&#x27;,&#x27;mp3&#x27;]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The order in which file types are
+       preferred, where "ogg" becomes a ".ogg" extension on all sound file urls.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[mute=false]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>Set the initial mute state of the all the audio
+       (unminifed library version only)</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
                                     <code class="param-name optional">[name]</code>
                                     <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
@@ -376,28 +511,14 @@ manager. Assume loading a single configuration JSON file.</p>
                             
                             <li class="param">
                                 
-                                    <code class="param-name optional">[configPath=&#x27;assets/config/config.json&#x27;]</code>
-                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
-                                    <span class="flag optional" title="This parameter is optional.">optional</span>
-                                
-
-                                <div class="param-description">
-                                    <p>The path to the default config to load</p>
-
-                                </div>
-
-                                
-                            </li>
-                            
-                            <li class="param">
-                                
                                     <code class="param-name optional">[forceMobile=false]</code>
                                     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
                                 
 
                                 <div class="param-description">
-                                    <p>Manually override the check for isMobile (unminifed library version only)</p>
+                                    <p>Manually override the check for isMobile
+       (unminifed library version only)</p>
 
                                 </div>
 
@@ -412,7 +533,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Have the application take care of the Tween updates</p>
+                                    <p>Have the application take care of the Tween
+       updates</p>
 
                                 </div>
 
@@ -458,9 +580,11 @@ manager. Assume loading a single configuration JSON file.</p>
 
                                 <div class="param-description">
                                     <p>Path to a text file which contains explicit version
-        numbers for each asset. This is useful for controlling the live browser cache.
-        For instance, this text file would have an asset on each line followed by a number:
-         <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
+       numbers for each asset. This is useful for
+       controlling the live browser cache. For instance,
+       this text file would have an asset on each line
+       followed by a number: <code>assets/config/config.json 2</code>
+       this would load <code>assets/config/config.json?v=2</code></p>
 
                                 </div>
 
@@ -475,8 +599,9 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Override the end-user browser cache by adding "?v="
-        to the end of each file path requested. Use for developmently, debugging only!</p>
+                                    <p>Override the end-user browser cache by adding
+       "?v=" to the end of each file path requested. Use
+       for development, debugging only!</p>
 
                                 </div>
 
@@ -491,8 +616,9 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The optional file path to prefix to any relative file requests
-        this is a great way to load all load requests with a CDN path.</p>
+                                    <p>The optional file path to prefix to any relative file
+       requests. This is a great way to load all load requests
+       with a CDN path.</p>
 
                                 </div>
 
@@ -522,7 +648,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Whether to resize the displays to the original aspect ratio</p>
+                                    <p>Whether to resize the displays to the original
+       aspect ratio</p>
 
                                 </div>
 
@@ -537,8 +664,10 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio.
-       This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.</p>
+                                    <p>If doing uniform resizing, optional parameter to
+       add a maximum aspect ratio. This allows for
+       "title-safe" responsiveness. Must be greater than
+       the original aspect ratio of the canvas.</p>
 
                                 </div>
 
@@ -553,7 +682,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Parse the query string paramenters as options</p>
+                                    <p>Parse the query string paramenters as
+       options</p>
 
                                 </div>
 
@@ -583,8 +713,9 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The minimum log level to show debug messages for from 0 (general) to 4 (error),
-        the <code>Debug</code> class must be used for this feature.</p>
+                                    <p>The minimum log level to show debug messages for from 0
+       (general) to 4 (error), the <code>Debug</code> class must be used
+       for this feature.</p>
 
                                 </div>
 
@@ -599,8 +730,9 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The host computer for remote debugging,
-        the debug module must be included to use this feature. Can be an IP address or host name.</p>
+                                    <p>The host computer for remote debugging, the debug
+       module must be included to use this feature. Can be an
+       IP address or host name.</p>
 
                                 </div>
 
@@ -615,7 +747,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If using TweenJS, the Application will update the Tween itself</p>
+                                    <p>If using TweenJS, the Application will update
+       the Tween itself</p>
 
                                 </div>
 
@@ -645,7 +778,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The name of the class to instaniate as the display (e.g. <code>springroll.PixiDisplay</code>)</p>
+                                    <p>The name of the class to instaniate as the display (e.g.
+       <code>springroll.PixiDisplay</code>)</p>
 
                                 </div>
 
@@ -675,7 +809,8 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Used by <code>springroll.PixiTask</code>, default behavior is to load assets from the same domain.</p>
+                                    <p>Used by <code>springroll.PixiTask</code>, default behavior
+       is to load assets from the same domain.</p>
 
                                 </div>
 
@@ -698,7 +833,7 @@ manager. Assume loading a single configuration JSON file.</p>
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>    var game = new springroll.Game();
-    game.on(&#39;loaded&#39;, function(){
+    game.on(&#39;init&#39;, function(){
         // Ready to use!
     });</code></pre>
 
@@ -771,8 +906,36 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
                             </li>
                         
+                            <li class="index-item method">
+                                <a href="#method_addCaptions">addCaptions</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item method inherited">
                                 <a href="#method_addDisplay">addDisplay</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method public">
+                                <a href="#method_addSounds">addSounds</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addState">addState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_addStates">addStates</a>
 
                                 
                                 
@@ -814,6 +977,13 @@ manager. Assume loading a single configuration JSON file.</p>
                             </li>
                         
                             <li class="index-item method protected">
+                                <a href="#method_initStates">initStates</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method protected">
                                 <a href="#method_onBeforeInit">onBeforeInit</a>
 
                                 
@@ -821,7 +991,7 @@ manager. Assume loading a single configuration JSON file.</p>
                             </li>
                         
                             <li class="index-item method private">
-                                <a href="#method_onTasksComplete">onTasksComplete</a>
+                                <a href="#method_onSoundReady">onSoundReady</a>
 
                                 
                                 
@@ -838,6 +1008,15 @@ manager. Assume loading a single configuration JSON file.</p>
                                 <a href="#method_removeDisplay">removeDisplay</a>
 
                                 
+                                
+                            </li>
+                        
+                            <li class="index-item method deprecated">
+                                <a href="#method_setCaptionsDictionary">setCaptionsDictionary</a>
+
+                                
+                                
+                                    <span class="flag deprecated">deprecated</span>
                                 
                             </li>
                         
@@ -935,6 +1114,13 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
                             </li>
                         
+                            <li class="index-item property private">
+                                <a href="#property__music">_music</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property private inherited">
                                 <a href="#property__pageVisibility">_pageVisibility</a>
 
@@ -992,7 +1178,7 @@ manager. Assume loading a single configuration JSON file.</p>
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_config">config</a>
+                                <a href="#property_captions">captions</a>
 
                                 
                                 
@@ -1013,7 +1199,28 @@ manager. Assume loading a single configuration JSON file.</p>
                             </li>
                         
                             <li class="index-item property">
+                                <a href="#property_isIOS">isIOS</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
                                 <a href="#property_isMobile">isMobile</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_manager">manager</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_music">music</a>
 
                                 
                                 
@@ -1040,8 +1247,22 @@ manager. Assume loading a single configuration JSON file.</p>
                                 
                             </li>
                         
+                            <li class="index-item property">
+                                <a href="#property_player">player</a>
+
+                                
+                                
+                            </li>
+                        
                             <li class="index-item property public inherited">
                                 <a href="#property_raf">raf</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_transition">transition</a>
 
                                 
                                 
@@ -1060,7 +1281,7 @@ manager. Assume loading a single configuration JSON file.</p>
                     <ul class="index-list events extends">
                         
                             <li class="index-item event">
-                                <a href="#event_configLoaded">configLoaded</a>
+                                <a href="#event_addStates">addStates</a>
 
                                 
                                 
@@ -1081,14 +1302,7 @@ manager. Assume loading a single configuration JSON file.</p>
                             </li>
                         
                             <li class="index-item event">
-                                <a href="#event_loaded">loaded</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item event">
-                                <a href="#event_loading">loading</a>
+                                <a href="#event_initStates">initStates</a>
 
                                 
                                 
@@ -1124,6 +1338,20 @@ manager. Assume loading a single configuration JSON file.</p>
                         
                             <li class="index-item event inherited">
                                 <a href="#event_resumed">resumed</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_soundReady">soundReady</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item event">
+                                <a href="#event_statesReady">statesReady</a>
 
                                 
                                 
@@ -1416,6 +1644,96 @@ manager. Assume loading a single configuration JSON file.</p>
 </div>
 
                 
+                    <div id="method_addCaptions" class="method item">
+    <h3 class="name"><code>addCaptions</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>captionData</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l403"><code>addCaptions:403</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sets the dicitonary for the captions used by player. If a Captions object
+did not exist previously, then it creates one, and sets it up on all Animators.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">captionData</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The captions data to give to the Captions object</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_addDisplay" class="method item inherited">
     <h3 class="name"><code>addDisplay</code></h3>
 
@@ -1561,6 +1879,448 @@ manager. Assume loading a single configuration JSON file.</p>
                 
             </div>
         </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_addSounds" class="method item public">
+    <h3 class="name"><code>addSounds</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>config</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Sound</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag public">public</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l371"><code>addSounds:371</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Convenience method to loads a Sound config object.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">config</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The config to load.</p>
+
+                    </div>
+
+                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[context]</code>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The optional sound context to load sounds into unless
+                                 otherwise specified by the individual sound. Sounds do not
+                                 require a context.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[path=&quot;&quot;]</code>
+                                    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The path to prepend to all sound source urls in this config.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name">soundManifest</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                
+
+                                <div class="param-description">
+                                    <p>The list of sounds, either as String ids or Objects with
+                                    settings.</p>
+
+                                </div>
+
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name"></code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="../classes/String.html" class="crosslink">String</a></span>
+                                            
+
+                                            <div class="param-description">
+                                                An entry in the array. If this is a
+                                                     string, then it is the same as
+                                                     {'id':'<yourString>'}.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name">*.id</code>
+                                                <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                            
+
+                                            <div class="param-description">
+                                                The id to reference the sound by.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[*.src]</code>
+                                                <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The src path to the file, without an
+                                                    extension. If omitted, defaults to id.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[*.volume=1]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                The default volume for the sound,
+                                                         from 0 to 1.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[*.loop=false]</code>
+                                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                If the sound should loop by
+                                                            default whenever the loop
+                                                            parameter in play() is not
+                                                            specified.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[*.context]</code>
+                                                <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
+
+                                            <div class="param-description">
+                                                A context name to override
+                                                        config.context with.
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Sound</span>:
+                    
+                    <p>The sound object for chaining</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_addState" class="method item">
+    <h3 class="name"><code>addState</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>alias</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>state</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l293"><code>addState:293</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add a single state</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">alias</code>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The shortcut alias for the state</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">state</code>
+                        <span class="type">BaseState</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The state manager state to add</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_addStates" class="method item">
+    <h3 class="name"><code>addStates</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>states</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l320"><code>addStates:320</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Add a bunch of states at once by a dictionary of aliases to states</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">states</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The collection of states where the key is the state alias</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
     
 
     
@@ -1722,7 +2482,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l174"><code>destroy:174</code></a>
+        <a href="../files/src_games_Game.js.html#l453"><code>destroy:453</code></a>
         
         </p>
 
@@ -2010,6 +2770,63 @@ if you need variable aspect ratios.</p>
 </div>
 
                 
+                    <div id="method_initStates" class="method item protected">
+    <h3 class="name"><code>initStates</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+        <span class="flag protected">protected</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l241"><code>initStates:241</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Manual initialization of the states</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_onBeforeInit" class="method item protected">
     <h3 class="name"><code>onBeforeInit</code></h3>
 
@@ -2044,7 +2861,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l129"><code>onBeforeInit:129</code></a>
+        <a href="../files/src_games_Game.js.html#l207"><code>onBeforeInit:207</code></a>
         
         </p>
 
@@ -2067,8 +2884,8 @@ if you need variable aspect ratios.</p>
 </div>
 
                 
-                    <div id="method_onTasksComplete" class="method item private">
-    <h3 class="name"><code>onTasksComplete</code></h3>
+                    <div id="method_onSoundReady" class="method item private">
+    <h3 class="name"><code>onSoundReady</code></h3>
 
     
         <span class="paren">()</span>
@@ -2101,7 +2918,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l162"><code>onTasksComplete:162</code></a>
+        <a href="../files/src_games_Game.js.html#l224"><code>onSoundReady:224</code></a>
         
         </p>
 
@@ -2112,7 +2929,7 @@ if you need variable aspect ratios.</p>
     </div>
 
     <div class="description">
-        <p>Callback when tasks are completed</p>
+        <p>Callback when the sound has been initialized</p>
 
     </div>
 
@@ -2282,6 +3099,100 @@ if you need variable aspect ratios.</p>
 </div>
 
                 
+                    <div id="method_setCaptionsDictionary" class="method item deprecated">
+    <h3 class="name"><code>setCaptionsDictionary</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>captionData</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+        <span class="flag deprecated" title="Use Game.addCaptions">deprecated</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l437"><code>setCaptionsDictionary:437</code></a>
+        
+        </p>
+
+
+        
+            <p>Deprecated: Use Game.addCaptions</p>
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sets the dicitonary for the captions used by player. If a Captions object
+did not exist previously, then it creates one, and sets it up on all Animators.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">captionData</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The captions data to give to the Captions object</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="method_setTargetedTimeout" class="method item private inherited">
     <h3 class="name"><code>setTargetedTimeout</code></h3>
 
@@ -2429,7 +3340,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l185"><code>toString:185</code></a>
+        <a href="../files/src_games_Game.js.html#l478"><code>toString:478</code></a>
         
         </p>
 
@@ -2924,6 +3835,53 @@ current tick.</p>
 </div>
 
                 
+                    <div id="property__music" class="property item private">
+    <h3 class="name"><code>_music</code></h3>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l117"><code>_music:117</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The current music alias playing</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property__pageVisibility" class="property item private inherited">
     <h3 class="name"><code>_pageVisibility</code></h3>
     <span class="type">PageVisibility</span>
@@ -3281,9 +4239,9 @@ Application but want to do some extra stuff before init is actually called.</p>
 </div>
 
                 
-                    <div id="property_config" class="property item">
-    <h3 class="name"><code>config</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    <div id="property_captions" class="property item">
+    <h3 class="name"><code>captions</code></h3>
+    <span class="type"><a href="../classes/springroll.Captions.html" class="crosslink">springroll.Captions</a></span>
 
     
 
@@ -3304,7 +4262,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l74"><code>config:74</code></a>
+        <a href="../files/src_games_Game.js.html#l130"><code>captions:130</code></a>
         
         </p>
 
@@ -3314,7 +4272,7 @@ Application but want to do some extra stuff before init is actually called.</p>
     </div>
 
     <div class="description">
-        <p>The game configuration loaded from and external JSON file</p>
+        <p>The global captions object</p>
 
     </div>
 
@@ -3415,6 +4373,51 @@ The first display added becomes the primary display automatically.</p>
 </div>
 
                 
+                    <div id="property_isIOS" class="property item">
+    <h3 class="name"><code>isIOS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l164"><code>isIOS:164</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If the current brower is iOS</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_isMobile" class="property item">
     <h3 class="name"><code>isMobile</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -3438,7 +4441,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l80"><code>isMobile:80</code></a>
+        <a href="../files/src_games_Game.js.html#l148"><code>isMobile:148</code></a>
         
         </p>
 
@@ -3452,6 +4455,98 @@ The first display added becomes the primary display automatically.</p>
 
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_manager" class="property item">
+    <h3 class="name"><code>manager</code></h3>
+    <span class="type"><a href="../classes/springroll.StateManager.html" class="crosslink">springroll.StateManager</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l142"><code>manager:142</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The state manager</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_music" class="property item">
+    <h3 class="name"><code>music</code></h3>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l333"><code>music:333</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Set the current music alias to play</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
     
 
     
@@ -3483,7 +4578,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l67"><code>name:67</code></a>
+        <a href="../files/src_games_Game.js.html#l110"><code>name:110</code></a>
         
         </p>
 
@@ -3592,6 +4687,51 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
 </div>
 
                 
+                    <div id="property_player" class="property item">
+    <h3 class="name"><code>player</code></h3>
+    <span class="type"><a href="../classes/springroll.VOPlayer.html" class="crosslink">springroll.VOPlayer</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l124"><code>player:124</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The global player for playing voice over</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property_raf" class="property item public inherited">
     <h3 class="name"><code>raf</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -3636,6 +4776,51 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
 </div>
 
                 
+                    <div id="property_transition" class="property item">
+    <h3 class="name"><code>transition</code></h3>
+    <span class="type">createjs.MovieClip | PIXI.Spine</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l136"><code>transition:136</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The transition animation to use between the StateManager state changes</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
@@ -3646,8 +4831,8 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
                 <h2 class="off-left">Events</h2>
 
                 
-                    <div id="event_configLoaded" class="events item">
-    <h3 class="name"><code>configLoaded</code></h3>
+                    <div id="event_addStates" class="events item">
+    <h3 class="name"><code>addStates</code></h3>
     <span class="type"></span>
 
     
@@ -3669,7 +4854,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_games_Game.js.html#l113"><code>configLoaded:113</code></a>
+        <a href="../files/src_games_Game.js.html#l201"><code>addStates:201</code></a>
         
         </p>
 
@@ -3679,51 +4864,10 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
     </div>
 
     <div class="description">
-        <p>The config has finished loading, in case you want to
-add additional tasks to the manager after this.</p>
+        <p>Initialize the states event, this is where state could be added</p>
 
     </div>
 
-    
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">config</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The JSON object for config</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">manager</code>
-                        <span class="type">TaskManager</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The task manager</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
 
@@ -3813,8 +4957,8 @@ add additional tasks to the manager after this.</p>
 </div>
 
                 
-                    <div id="event_loaded" class="events item">
-    <h3 class="name"><code>loaded</code></h3>
+                    <div id="event_initStates" class="events item">
+    <h3 class="name"><code>initStates</code></h3>
     <span class="type"></span>
 
     
@@ -3836,7 +4980,7 @@ add additional tasks to the manager after this.</p>
             
         
         
-        <a href="../files/src_games_Game.js.html#l107"><code>loaded:107</code></a>
+        <a href="../files/src_games_Game.js.html#l187"><code>initStates:187</code></a>
         
         </p>
 
@@ -3846,78 +4990,11 @@ add additional tasks to the manager after this.</p>
     </div>
 
     <div class="description">
-        <p>The game has finished loading</p>
+        <p>Before creating the statemanager, a transition
+should probably be added at this callback</p>
 
     </div>
 
-    
-
-
-    
-</div>
-
-                
-                    <div id="event_loading" class="events item">
-    <h3 class="name"><code>loading</code></h3>
-    <span class="type"></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_games_Game.js.html#l122"><code>loading:122</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The game has started loading</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Event Payload:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">tasks</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The list of tasks to preload</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
 
@@ -4186,6 +5263,95 @@ add additional tasks to the manager after this.</p>
 
     <div class="description">
         <p>Fired when the application resumes from a paused state</p>
+
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_soundReady" class="events item">
+    <h3 class="name"><code>soundReady</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l181"><code>soundReady:181</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The sound is ready to use</p>
+
+    </div>
+
+    
+
+
+    
+</div>
+
+                
+                    <div id="event_statesReady" class="events item">
+    <h3 class="name"><code>statesReady</code></h3>
+    <span class="type"></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_games_Game.js.html#l194"><code>statesReady:194</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The states are setup, this is the event to listen to
+when the game ready to use.</p>
 
     </div>
 
