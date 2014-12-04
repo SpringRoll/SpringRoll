@@ -55,13 +55,12 @@
 
 			for(var i = listeners.length - 1; i >= 0; --i)
 			{
-				listeners[i].apply(this, args);
-
 				if (listeners[i]._eventDispatcherOnce)
 				{
 					delete listeners[i]._eventDispatcherOnce;
 					this.off(type, listeners[i]);
 				}
+				listeners[i].apply(this, args);
 			}
 		}
 	};

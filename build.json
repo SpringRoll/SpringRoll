@@ -69,6 +69,9 @@
 		"game" : [
 			"src/utils/Array.js",
 			"src/utils/Math.js",
+			"src/games/states/BaseState.js",
+			"src/games/states/StateEvent.js",
+			"src/games/states/StateManager.js",
 			"src/games/Game.js",
 			"src/games/SoundGame.js",
 			"src/games/StateGame.js",
@@ -82,11 +85,6 @@
 			"src/tasks/TaskManager.js",
 			"src/tasks/ListTask.js",
 			"src/tasks/PixiTask.js"
-		],
-		"states" : [
-			"src/states/BaseState.js",
-			"src/states/StateEvent.js",
-			"src/states/StateManager.js"
 		],
 		"sound" : [
 			"src/media/SoundContext.js",

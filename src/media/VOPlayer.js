@@ -42,9 +42,6 @@
 		*/
 		this.captions = captions || null;
 
-		// Make sure the captions don't update themselves
-		if (captions) captions.selfUpdate = false;
-
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.
 		*	@property {Array} _listHelper
@@ -130,6 +127,28 @@
 	});
 
 	/**
+	*	If VOPlayer is currently playing (audio or silence).
+	*	@property {bool} playing
+	*	@public
+	*	@readOnly
+	*/
+	Object.defineProperty(p, "captions",
+	{
+		set: function(captions)
+		{
+			this._captions = captions;
+			if (captions)
+			{
+				captions.selfUpdate = false;
+			}
+		},
+		get: function()
+		{ 
+			return this._captions; 
+		}
+	});
+
+	/**
 	*	Plays a single audio alias, interrupting any current playback.
 	*	Alternatively, plays a list of audio files, timers, and/or functions.
 	*	Audio in the list will be preloaded to minimize pauses for loading.
@@ -171,9 +190,9 @@
 		]);
 
 		//if we have captions and an audio instance, set the caption time to the length of the audio
-		if (this.captions && this._soundInstance)
+		if (this._captions && this._soundInstance)
 		{
-			this.captions.seek(this._soundInstance.length);
+			this._captions.seek(this._soundInstance.length);
 		}
 		this._soundInstance = null;//clear the audio instance
 		this._listCounter++;//advance list
@@ -181,8 +200,8 @@
 		//if the list is complete
 		if (this._listCounter >= this.soundList.length)
 		{
-			if (this.captions)
-				this.captions.stop();
+			if (this._captions)
+				this._captions.stop();
 			this._currentSound = null;
 			this._cancelledCallback = null;
 			var c = this._callback;
@@ -239,9 +258,9 @@
 	p._updateSoloCaption = function(elapsed)
 	{
 		this._timer += elapsed;
-		this.captions.seek(this._timer);
+		this._captions.seek(this._timer);
 
-		if (this._timer >= this.captions.duration)
+		if (this._timer >= this._captions.duration)
 		{
 			this._onSoundFinished();
 		}
@@ -258,7 +277,7 @@
 	{
 		if (!this._soundInstance) return;
 
-		this.captions.seek(this._soundInstance.position);
+		this._captions.seek(this._soundInstance.position);
 	};
 
 	/**
@@ -281,9 +300,9 @@
 			}
 		}
 		var s = Sound.instance;
-		if (!s.exists(this._currentSound) && this.captions && this.captions.hasCaption(this._currentSound))
+		if (!s.exists(this._currentSound) && this._captions && this._captions.hasCaption(this._currentSound))
 		{
-			this.captions.play(this._currentSound);
+			this._captions.play(this._currentSound);
 			this._timer = 0;
 			this._currentSound = null;
 			Application.instance.on("update", this._updateSoloCaption);
@@ -291,9 +310,9 @@
 		else
 		{
 			this._soundInstance = s.play(this._currentSound, this._onSoundFinished);
-			if (this.captions)
+			if (this._captions)
 			{
-				this.captions.play(this._currentSound);
+				this._captions.play(this._currentSound);
 				Application.instance.on("update", this._syncCaptionToSound);
 			}
 		}
@@ -325,9 +344,9 @@
 			Sound.instance.stop(this._currentSound);
 			this._currentSound = null;
 		}
-		if (this.captions)
+		if (this._captions)
 		{
-			this.captions.stop();
+			this._captions.stop();
 		}
 		Application.instance.off('update', [
 			this._updateSoloCaption,
@@ -369,10 +388,10 @@
 		this._cancelledCallback = null;
 		this._playedSound = null;
 
-		if (this.captions)
+		if (this._captions)
 		{
-			this.captions.destroy();
-			this.captions = null;
+			this._captions.destroy();
+			this._captions = null;
 		}
 	};
 
