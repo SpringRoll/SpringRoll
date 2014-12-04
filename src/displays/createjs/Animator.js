@@ -820,7 +820,8 @@
 					else
 					{
 						extraTime = t._time_sec - t.duration;
-						instance.gotoAndStop(t.lastFrame);
+						if(t.firstFrame >= 0)
+							instance.gotoAndStop(t.lastFrame);
 						t._nextItem();
 						if(t.complete)
 						{
