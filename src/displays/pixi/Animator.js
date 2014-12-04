@@ -187,7 +187,12 @@
 		for(i = 0; i < animData.length; ++i)
 		{
 			var data = animData[i];
-			if(typeof data == "number" || typeof data == "function")
+			if(typeof data == "number")
+			{
+				t.eventList.push(data * 0.001);
+				continue;
+			}
+			if(typeof data == "function")
 			{
 				t.eventList.push(data);
 				continue;

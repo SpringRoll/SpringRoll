@@ -672,7 +672,7 @@
 				}
 				break;
 			case "number":
-				this.duration = listItem * 0.001;
+				this.duration = listItem;
 				this._time_sec = 0;
 				break;
 			case "function":
