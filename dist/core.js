@@ -873,12 +873,13 @@
 
 			for(var i = listeners.length - 1; i >= 0; --i)
 			{
-				if (listeners[i]._eventDispatcherOnce)
+				var listener = listeners[i];
+				if (listener._eventDispatcherOnce)
 				{
-					delete listeners[i]._eventDispatcherOnce;
-					this.off(type, listeners[i]);
+					delete listener._eventDispatcherOnce;
+					this.off(type, listener);
 				}
-				listeners[i].apply(this, args);
+				listener.apply(this, args);
 			}
 		}
 	};
@@ -994,7 +995,7 @@
 		else
 		{
 			var names = name.split(' '), n = null;
-			var listener, index; 
+			var listener, index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];
