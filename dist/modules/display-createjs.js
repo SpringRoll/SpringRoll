@@ -1559,8 +1559,8 @@
 					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t),
-						onSoundStarted.bind(this, t)
+						onSoundDone.bind(this, t, t.listIndex),
+						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
 					{
@@ -1578,8 +1578,8 @@
 					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t),
-						onSoundStarted.bind(this, t)
+						onSoundDone.bind(this, t, t.listIndex),
+						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
 					{
@@ -1610,8 +1610,10 @@
 	*  @private
 	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
-	var onSoundStarted = function(timeline)
+	var onSoundStarted = function(timeline, playIndex)
 	{
+		if(timeline.listIndex != playIndex) return;
+
 		timeline.playSound = false;
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
@@ -1623,8 +1625,10 @@
 	*  @private
 	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
-	var onSoundDone = function(timeline)
+	var onSoundDone = function(timeline, playIndex)
 	{
+		if(timeline.listIndex != playIndex) return;
+
 		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline._time_sec)
 			timeline._time_sec = timeline.soundEnd;
 		timeline.soundInst = null;
