@@ -72,10 +72,7 @@
 			"src/games/states/BaseState.js",
 			"src/games/states/StateEvent.js",
 			"src/games/states/StateManager.js",
-			"src/games/Game.js",
-			"src/games/SoundGame.js",
-			"src/games/StateGame.js",
-			"src/games/ScalingGame.js"
+			"src/games/Game.js"
 		],
 		"tasks" : [
 			"src/tasks/TaskEvent.js",
