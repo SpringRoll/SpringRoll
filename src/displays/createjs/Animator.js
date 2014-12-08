@@ -218,6 +218,10 @@
 		var timeline = new AnimatorTimeline();
 		if (!Animator.canAnimate(instance))//not a movieclip
 		{
+			if (DEBUG)
+			{
+				Debug.warn("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
+			}
 			return timeline;
 		}
 		//make sure the movieclip doesn't play outside the control of Animator
@@ -272,7 +276,7 @@
 					//anything else we'll ignore
 					continue;
 			}
-			
+
 			//go through the list of labels (they are sorted by frame number)
 			var stopLabel = anim + "_stop";
 			var loopLabel = anim + "_loop";
@@ -332,7 +336,7 @@
 					Sound.instance.preloadSound(alias);
 					animData.alias = alias;
 					animData.audioStart = start;
-				
+
 					animData.useCaptions = Animator.captions && Animator.captions.hasCaption(alias);
 				}
 			}
@@ -368,10 +372,7 @@
 			instance.play !== undefined &&//method - start playing
 			instance.id !== undefined)//property - used to avoid duplication of timelines
 			return true;
-		if (DEBUG)
-		{
-			Debug.warn("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
-		}
+
 		return false;
 	};
 
@@ -459,7 +460,7 @@
 				event = event.anim;
 			else if(typeof event != "string")
 				return 0;
-			
+
 			var labels = instance.getLabels();
 			var startFrame = -1, stopFrame = -1;
 			var stopLabel = event + "_stop";
@@ -508,7 +509,7 @@
 	Animator.stop = function(instance)
 	{
 		if (!_timelines) return;
-		
+
 		var timeline = _timelinesMap[instance.id];
 		if (!timeline)
 		{
@@ -751,7 +752,7 @@
 			t = _timelines[i];
 			instance = t.instance;
 			if (t.paused) continue;
-			
+
 			//we'll use this to figure out if the timeline is on the next item
 			//to avoid code repetition
 			onNext = false;
