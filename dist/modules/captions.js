@@ -73,9 +73,17 @@
 		* @property {Array} _lines
 		*/
 		this._lines = [];
+		
+		/**
+		* The alias of the current caption.
+		*
+		* @private
+		* @property {String} _currentAlias
+		*/
+		this._currentAlias = 0;
 
 		/**
-		* The duration in milliseconds of the current sound.
+		* The duration in milliseconds of the current caption.
 		*
 		* @private
 		* @property {int} _currentDuration
@@ -480,6 +488,18 @@
 			return this._currentDuration;
 		}
 	});
+	
+	/**
+	*  Get the current caption alias.
+	*  @property {String} currentAlias
+	*  @readOnly
+	*/
+	Object.defineProperty(p, 'currentAlias', {
+		get: function()
+		{
+			return this._currentAlias;
+		}
+	});
 
 	/**
 	*  Start the caption playback.
@@ -494,6 +514,7 @@
 		this.stop();
 		this._completeCallback = callback;
 		this._playing = true;
+		this._currentAlias = alias;
 		this._load(this._captionDict[alias]);
 		this._currentDuration = this._getTotalDuration();
 
@@ -509,6 +530,7 @@
 	p.stop = function()
 	{
 		this._playing = false;
+		this._currentAlias = null;
 		this._lines = null;
 		this._completeCallback = null;
 		this._reset();

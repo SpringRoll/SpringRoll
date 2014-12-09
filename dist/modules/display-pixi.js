@@ -1388,8 +1388,8 @@
 						t._time_sec = t.soundStart;
 						t.soundInst = Sound.instance.play(
 							t.soundAlias,
-							onSoundDone.bind(this, t),
-							onSoundStarted.bind(this, t)
+							onSoundDone.bind(this, t, t.listIndex),
+							onSoundStarted.bind(this, t, t.listIndex)
 						);
 						if (t.useCaptions)
 						{
@@ -1501,8 +1501,8 @@
 					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t),
-						onSoundStarted.bind(this, t)
+						onSoundDone.bind(this, t, t.listIndex),
+						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
 					{
@@ -1547,15 +1547,22 @@
 		return complete;
 	};
 	
-	var onSoundStarted = function(timeline)
+	var onSoundStarted = function(timeline, playIndex)
 	{
+		if(timeline.listIndex != playIndex) return;
+		
 		timeline.playSound = false;
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
 	
-	var onSoundDone = function(timeline)
+	var onSoundDone = function(timeline, playIndex)
 	{
+		if (timeline.useCaptions && Animator.captions.currentAlias == timeline.soundAlias)
+			Animator.captions.stop();
+		
+		if(timeline.listIndex != playIndex) return;
+		
 		if (timeline.soundEnd > 0 && timeline._time_sec < timeline.soundEnd)
 			timeline._time_sec = timeline.soundEnd;
 		timeline.soundInst = null;

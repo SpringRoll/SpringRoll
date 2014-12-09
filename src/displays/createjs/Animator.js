@@ -908,6 +908,9 @@
 	*/
 	var onSoundDone = function(timeline, playIndex)
 	{
+		if (timeline.useCaptions && Animator.captions.currentAlias == timeline.soundAlias)
+			Animator.captions.stop();
+		
 		if(timeline.listIndex != playIndex) return;
 
 		if (timeline.soundEnd > 0 && timeline.soundEnd > timeline._time_sec)
