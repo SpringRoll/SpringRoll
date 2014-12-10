@@ -1,5 +1,5 @@
 /**
-*  @module States
+*  @module Game
 *  @namespace springroll
 */
 (function(){

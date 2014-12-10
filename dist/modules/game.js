@@ -110,7 +110,7 @@
 }(Math));
 
 /**
-*  @module States
+*  @module Game
 *  @namespace springroll
 */
 (function(){
@@ -536,7 +536,7 @@
 	
 }());
 /**
-*  @module States
+*  @module Game
 *  @namespace springroll
 */
 (function(undefined){
@@ -622,7 +622,7 @@
 	
 }());
 /**
-*  @module States
+*  @module Game
 *  @namespace springroll
 */
 (function(undefined){
