@@ -196,8 +196,6 @@
             
                 <li><a href="../modules/Sound.html">Sound</a></li>
             
-                <li><a href="../modules/States.html">States</a></li>
-            
                 <li><a href="../modules/Tasks.html">Tasks</a></li>
             
                 <li><a href="../modules/Translate.html">Translate</a></li>
@@ -464,6 +462,10 @@
 		var timeline = new AnimatorTimeline();
 		if (!Animator.canAnimate(instance))//not a movieclip
 		{
+			if (DEBUG)
+			{
+				Debug.warn(&quot;Attempting to use Animator to play something that is not movieclip compatible: &quot; + instance);
+			}
 			return timeline;
 		}
 		//make sure the movieclip doesn&#x27;t play outside the control of Animator
@@ -518,7 +520,7 @@
 					//anything else we&#x27;ll ignore
 					continue;
 			}
-			
+
 			//go through the list of labels (they are sorted by frame number)
 			var stopLabel = anim + &quot;_stop&quot;;
 			var loopLabel = anim + &quot;_loop&quot;;
@@ -578,7 +580,7 @@
 					Sound.instance.preloadSound(alias);
 					animData.alias = alias;
 					animData.audioStart = start;
-				
+
 					animData.useCaptions = Animator.captions &amp;&amp; Animator.captions.hasCaption(alias);
 				}
 			}
@@ -614,10 +616,7 @@
 			instance.play !== undefined &amp;&amp;//method - start playing
 			instance.id !== undefined)//property - used to avoid duplication of timelines
 			return true;
-		if (DEBUG)
-		{
-			Debug.warn(&quot;Attempting to use Animator to play something that is not movieclip compatible: &quot; + instance);
-		}
+
 		return false;
 	};
 
@@ -705,7 +704,7 @@
 				event = event.anim;
 			else if(typeof event != &quot;string&quot;)
 				return 0;
-			
+
 			var labels = instance.getLabels();
 			var startFrame = -1, stopFrame = -1;
 			var stopLabel = event + &quot;_stop&quot;;
@@ -754,7 +753,7 @@
 	Animator.stop = function(instance)
 	{
 		if (!_timelines) return;
-		
+
 		var timeline = _timelinesMap[instance.id];
 		if (!timeline)
 		{
@@ -997,7 +996,7 @@
 			t = _timelines[i];
 			instance = t.instance;
 			if (t.paused) continue;
-			
+
 			//we&#x27;ll use this to figure out if the timeline is on the next item
 			//to avoid code repetition
 			onNext = false;
@@ -1085,8 +1084,8 @@
 					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t),
-						onSoundStarted.bind(this, t)
+						onSoundDone.bind(this, t, t.listIndex),
+						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
 					{
@@ -1104,8 +1103,8 @@
 					t._time_sec = t.soundStart;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t),
-						onSoundStarted.bind(this, t)
+						onSoundDone.bind(this, t, t.listIndex),
+						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
 					{
@@ -1136,8 +1135,10 @@
 	*  @private
 	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
-	var onSoundStarted = function(timeline)
+	var onSoundStarted = function(timeline, playIndex)
 	{
+		if(timeline.listIndex != playIndex) return;
+
 		timeline.playSound = false;
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
@@ -1149,8 +1150,13 @@
 	*  @private
 	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
-	var onSoundDone = function(timeline)
+	var onSoundDone = function(timeline, playIndex)
 	{
+		if (timeline.useCaptions &amp;&amp; Animator.captions.currentAlias == timeline.soundAlias)
+			Animator.captions.stop();
+		
+		if(timeline.listIndex != playIndex) return;
+
 		if (timeline.soundEnd &gt; 0 &amp;&amp; timeline.soundEnd &gt; timeline._time_sec)
 			timeline._time_sec = timeline.soundEnd;
 		timeline.soundInst = null;

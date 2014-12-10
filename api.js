@@ -79,7 +79,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "Native Display",
         "PIXI Display",
         "Sound",
-        "States",
         "Tasks",
         "Translate",
         "Worker"
@@ -116,10 +115,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Sound",
             "name": "Sound"
-        },
-        {
-            "displayName": "States",
-            "name": "States"
         },
         {
             "displayName": "Tasks",

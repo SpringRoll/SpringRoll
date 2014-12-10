@@ -329,9 +329,7 @@
         },
         "src/games/states/BaseState.js": {
             "name": "src/games/states/BaseState.js",
-            "modules": {
-                "States": 1
-            },
+            "modules": {},
             "classes": {
                 "springroll.BaseState": 1
             },
@@ -857,26 +855,13 @@
             "file": "src/displays/pixi/PixiDisplay.js",
             "line": 13
         },
-        "States": {
-            "name": "States",
-            "submodules": {},
-            "classes": {
-                "springroll.BaseState": 1,
-                "springroll.StateEvent": 1,
-                "springroll.StateManager": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/games/states/StateManager.js",
-            "line": 13
-        },
         "Game": {
             "name": "Game",
             "submodules": {},
             "classes": {
+                "springroll.BaseState": 1,
+                "springroll.StateEvent": 1,
+                "springroll.StateManager": 1,
                 "springroll.Game": 1,
                 "Array": 1,
                 "Math": 1
@@ -2215,7 +2200,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll",
             "file": "src/games/states/BaseState.js",
             "line": 10,
@@ -2251,7 +2236,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll",
             "file": "src/games/states/StateEvent.js",
             "line": 7,
@@ -2283,7 +2268,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll",
             "file": "src/games/states/StateManager.js",
             "line": 13,
@@ -3858,7 +3843,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 345,
+            "line": 349,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
@@ -3880,7 +3865,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 378,
+            "line": 379,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -3906,7 +3891,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 397,
+            "line": 398,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -3935,7 +3920,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 432,
+            "line": 433,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -3964,7 +3949,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 501,
+            "line": 502,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -3982,7 +3967,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 524,
+            "line": 525,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4001,7 +3986,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 551,
+            "line": 552,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4026,7 +4011,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 614,
+            "line": 615,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4037,7 +4022,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 635,
+            "line": 636,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4048,7 +4033,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 657,
+            "line": 658,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4071,7 +4056,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 678,
+            "line": 679,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4093,7 +4078,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 697,
+            "line": 698,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4107,7 +4092,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 708,
+            "line": 709,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4120,7 +4105,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 721,
+            "line": 722,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4133,7 +4118,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 734,
+            "line": 735,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4153,7 +4138,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 887,
+            "line": 888,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4172,7 +4157,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 900,
+            "line": 903,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4191,7 +4176,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 913,
+            "line": 921,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4208,7 +4193,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 927,
+            "line": 935,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -7599,7 +7584,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 768,
+            "line": 775,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -7618,7 +7603,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 793,
+            "line": 800,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -9771,7 +9756,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 68,
+            "line": 69,
             "description": "Add an event listener but only handle it one time.",
             "itemtype": "method",
             "name": "once",
@@ -9804,7 +9789,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 83,
+            "line": 84,
             "description": "Add an event listener. The parameters for the listener functions depend on the event.",
             "itemtype": "method",
             "name": "on",
@@ -9837,7 +9822,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 151,
+            "line": 152,
             "description": "Remove the event listener",
             "itemtype": "method",
             "name": "off",
@@ -9863,7 +9848,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 206,
+            "line": 207,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -9890,7 +9875,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 225,
+            "line": 226,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -9900,7 +9885,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 235,
+            "line": 236,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -9923,7 +9908,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 257,
+            "line": 258,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -9956,7 +9941,7 @@
             "name": "stateID",
             "type": "String",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -9967,7 +9952,7 @@
             "name": "manager",
             "type": "StateManager",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -9978,7 +9963,7 @@
             "name": "panel",
             "type": "createjs.Container|PIXI.DisplayObjectContainer",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -9991,7 +9976,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10004,7 +9989,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10017,7 +10002,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10030,7 +10015,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10043,7 +10028,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10055,7 +10040,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10067,7 +10052,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10080,7 +10065,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10093,7 +10078,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10106,7 +10091,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10120,7 +10105,7 @@
                 "type": "Bool"
             },
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10132,7 +10117,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10142,7 +10127,7 @@
             "itemtype": "method",
             "name": "exit",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10154,7 +10139,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10164,7 +10149,7 @@
             "itemtype": "method",
             "name": "exitStart",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10183,7 +10168,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10193,7 +10178,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10203,7 +10188,7 @@
             "itemtype": "method",
             "name": "loadingDone",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10215,7 +10200,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10225,7 +10210,7 @@
             "itemtype": "method",
             "name": "cancel",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10235,7 +10220,7 @@
             "itemtype": "method",
             "name": "enter",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10247,7 +10232,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10257,7 +10242,7 @@
             "itemtype": "method",
             "name": "enterDone",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10271,7 +10256,7 @@
                 "type": "Bool"
             },
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10288,7 +10273,7 @@
                 }
             ],
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10305,7 +10290,7 @@
                 }
             ],
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10319,7 +10304,7 @@
                 "type": "Bool"
             },
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10336,7 +10321,7 @@
                 }
             ],
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10350,7 +10335,7 @@
                 "type": "Bool"
             },
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10360,7 +10345,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.BaseState",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10371,7 +10356,7 @@
             "name": "currentState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10382,7 +10367,7 @@
             "name": "visibleState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10392,7 +10377,7 @@
             "name": "type",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10402,7 +10387,7 @@
             "itemtype": "event",
             "name": "onTransitionStateIn",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10413,7 +10398,7 @@
             "name": "onTransitionStateInDone",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10424,7 +10409,7 @@
             "name": "onTransitionStateOut",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10435,7 +10420,7 @@
             "name": "onTransitionStateOutDone",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10446,7 +10431,7 @@
             "name": "onVisible",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10457,7 +10442,7 @@
             "name": "onHidden",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10470,7 +10455,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10483,7 +10468,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10496,7 +10481,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10509,7 +10494,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10522,7 +10507,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10535,7 +10520,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10548,7 +10533,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10561,7 +10546,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10574,7 +10559,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10587,7 +10572,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10600,7 +10585,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10610,7 +10595,7 @@
             "itemtype": "event",
             "name": "onTransitionIn",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10620,7 +10605,7 @@
             "itemtype": "event",
             "name": "onTransitionInDone",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10630,7 +10615,7 @@
             "itemtype": "event",
             "name": "onTransitionOut",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10640,7 +10625,7 @@
             "itemtype": "event",
             "name": "onTransitionOutDone",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10650,7 +10635,7 @@
             "itemtype": "event",
             "name": "onInitDone",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10660,7 +10645,7 @@
             "itemtype": "event",
             "name": "onLoadingStart",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10670,7 +10655,7 @@
             "itemtype": "event",
             "name": "onLoadingDone",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10692,7 +10677,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10709,7 +10694,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10723,7 +10708,7 @@
                 "type": "String"
             },
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10737,7 +10722,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10758,7 +10743,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10772,7 +10757,7 @@
                 "type": "Bool"
             },
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10782,7 +10767,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10792,7 +10777,7 @@
             "itemtype": "method",
             "name": "loadingDone",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10802,7 +10787,7 @@
             "itemtype": "method",
             "name": "showBlocker",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10812,7 +10797,7 @@
             "itemtype": "method",
             "name": "hideBlocker",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10822,7 +10807,7 @@
             "itemtype": "method",
             "name": "refresh",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10833,7 +10818,7 @@
             "name": "state",
             "type": "String",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10850,7 +10835,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10862,7 +10847,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10877,7 +10862,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10889,7 +10874,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10906,7 +10891,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10923,7 +10908,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10947,7 +10932,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10957,7 +10942,7 @@
             "itemtype": "method",
             "name": "next",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10967,7 +10952,7 @@
             "itemtype": "method",
             "name": "previous",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -10977,7 +10962,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.StateManager",
-            "module": "States",
+            "module": "Game",
             "namespace": "springroll"
         },
         {
@@ -12282,7 +12267,20 @@
         {
             "file": "src/media/Captions.js",
             "line": 76,
-            "description": "The duration in milliseconds of the current sound.",
+            "description": "The alias of the current caption.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_currentAlias",
+            "type": "String",
+            "class": "springroll.Captions",
+            "module": "Captions",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 84,
+            "description": "The duration in milliseconds of the current caption.",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -12294,7 +12292,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 84,
+            "line": 92,
             "description": "The current playback time, in milliseconds.",
             "access": "private",
             "tagname": "",
@@ -12307,7 +12305,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 92,
+            "line": 100,
             "description": "The current line index.",
             "access": "private",
             "tagname": "",
@@ -12320,7 +12318,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 100,
+            "line": 108,
             "description": "The last active line index.",
             "access": "private",
             "tagname": "",
@@ -12333,7 +12331,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 108,
+            "line": 116,
             "description": "If we're playing.",
             "access": "private",
             "tagname": "",
@@ -12346,7 +12344,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 116,
+            "line": 124,
             "description": "If this instance has been destroyed already.",
             "access": "private",
             "tagname": "",
@@ -12359,7 +12357,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 127,
+            "line": 135,
             "description": "If the captions object should do its own update.",
             "itemtype": "property",
             "name": "_selfUpdate",
@@ -12373,7 +12371,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 139,
+            "line": 147,
             "description": "Reference to the prototype",
             "static": 1,
             "access": "private",
@@ -12387,7 +12385,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 148,
+            "line": 156,
             "description": "If you want to mute the captions, doesn't remove the current caption",
             "static": 1,
             "access": "private",
@@ -12401,7 +12399,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 157,
+            "line": 165,
             "description": "The collection of instances created",
             "itemtype": "property",
             "name": "_instances",
@@ -12414,7 +12412,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 164,
+            "line": 172,
             "description": "Set if all captions are currently muted.",
             "itemtype": "property",
             "name": "muteAll",
@@ -12426,7 +12424,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 186,
+            "line": 194,
             "description": "If the captions object should do it's own updating unless you want to manuall\nseek. In general, self-updating should not be set to false unless the sync\nof the captions needs to be exact with something else.",
             "itemtype": "property",
             "name": "selfUpdate",
@@ -12438,7 +12436,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 210,
+            "line": 218,
             "description": "Sets the dictionary object to use for captions. This overrides the current dictionary, if present.",
             "access": "public",
             "tagname": "",
@@ -12457,7 +12455,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 263,
+            "line": 271,
             "description": "The text field that the captions uses to update.",
             "itemtype": "property",
             "name": "textField",
@@ -12468,7 +12466,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 279,
+            "line": 287,
             "description": "Automatically determine how to set the text field text",
             "itemtype": "method",
             "name": "setText",
@@ -12497,7 +12495,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 315,
+            "line": 323,
             "description": "Returns if there is a caption under that alias or not.",
             "itemtype": "method",
             "name": "hasCaption",
@@ -12518,7 +12516,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 327,
+            "line": 335,
             "description": "A utility function for getting the full text of a caption by alias\nthis can be useful for debugging or tracking purposes.",
             "itemtype": "method",
             "name": "getFullCaption",
@@ -12544,7 +12542,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 390,
+            "line": 398,
             "description": "Sets an array of line data as the current caption data to play.",
             "access": "private",
             "tagname": "",
@@ -12563,7 +12561,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 413,
+            "line": 421,
             "description": "Reset the captions",
             "access": "private",
             "tagname": "",
@@ -12575,7 +12573,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 425,
+            "line": 433,
             "description": "Take the captions timecode and convert to milliseconds\nformat is in HH:MM:ss:mmm",
             "access": "private",
             "tagname": "",
@@ -12598,7 +12596,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 446,
+            "line": 454,
             "description": "The playing status.",
             "access": "public",
             "tagname": "",
@@ -12612,7 +12610,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 460,
+            "line": 468,
             "description": "Calculate the total duration of the current caption",
             "access": "private",
             "tagname": "",
@@ -12624,7 +12622,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 471,
+            "line": 479,
             "description": "Get the current duration of the current caption",
             "itemtype": "property",
             "name": "currentDuration",
@@ -12636,7 +12634,19 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 483,
+            "line": 491,
+            "description": "Get the current caption alias.",
+            "itemtype": "property",
+            "name": "currentAlias",
+            "type": "String",
+            "readonly": "",
+            "class": "springroll.Captions",
+            "module": "Captions",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Captions.js",
+            "line": 503,
             "description": "Start the caption playback.",
             "access": "public",
             "tagname": "",
@@ -12660,7 +12670,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 502,
+            "line": 523,
             "description": "Convience function for stopping captions.",
             "access": "public",
             "tagname": "",
@@ -12672,7 +12682,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 517,
+            "line": 539,
             "description": "Goto a specific time.",
             "access": "public",
             "tagname": "",
@@ -12691,7 +12701,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 570,
+            "line": 592,
             "description": "Callback for when a frame is entered.",
             "access": "private",
             "tagname": "",
@@ -12710,7 +12720,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 584,
+            "line": 606,
             "description": "Function to update the amount of time elapsed for the caption playback.\nCall this to advance the caption by a given amount of time.",
             "access": "public",
             "tagname": "",
@@ -12729,7 +12739,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 599,
+            "line": 621,
             "description": "Calculates the captions after increasing the current time.",
             "access": "private",
             "tagname": "",
@@ -12741,7 +12751,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 635,
+            "line": 657,
             "description": "Updates the text in the managed text field.",
             "access": "private",
             "tagname": "",
@@ -12753,7 +12763,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 649,
+            "line": 671,
             "description": "Returns duration in milliseconds of given captioned sound alias or alias list.",
             "itemtype": "method",
             "name": "getLength",
@@ -12774,7 +12784,7 @@
         },
         {
             "file": "src/media/Captions.js",
-            "line": 686,
+            "line": 708,
             "description": "Destroy this load task and don't use after this",
             "itemtype": "method",
             "name": "destroy",
