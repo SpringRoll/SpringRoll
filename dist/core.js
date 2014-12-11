@@ -1251,31 +1251,46 @@
 	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String|int} [options.version] The current version number for your application. This
-	*       number will automatically be appended to all file requests. For instance, if the version
-	*       is "0.0.1" all file requests will be appended with "?v=0.0.1"
+	*                                        number will automatically be appended to all file
+	*                                        requests. For instance, if the version is "0.0.1" all
+	*                                        file requests will be appended with "?v=0.0.1"
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
-	*		numbers for each asset. This is useful for controlling the live browser cache.
-	*		For instance, this text file would have an asset on each line followed by a number:
-	*		`assets/config/config.json 2` this would load `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding "?v="
-	*		to the end of each file path requested. Use for developmently, debugging only!
-	*  @param {String} [options.basePath] The optional file path to prefix to any relative file requests
-	*		this is a great way to load all load requests with a CDN path.
+	*                                         numbers for each asset. This is useful for controlling
+	*                                         the live browser cache. For instance, this text file
+	*                                         would have an asset on each line followed by a number:
+	*                                         `assets/config/config.json 2` would load
+	*                                         `assets/config/config.json?v=2`
+	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding
+	*                                             "?v=" to the end of each file path requested. Use
+	*                                             for developmently, debugging only!
+	*  @param {String} [options.basePath] The optional file path to prefix to any relative file
+	*                                     requests this is a great way to load all load requests
+	*                                     with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
-	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add a maximum aspect ratio.
-	*         This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.
-	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as options
+	*                                                            fit.
+	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original
+	*                                                aspect ratio
+	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add
+	*                                           a maximum aspect ratio. This allows for "title-safe"
+	*                                           responsiveness. Must be greater than the original
+	*                                           aspect ratio of the canvas.
+	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as
+	*                                                         options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
-	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0 (general) to 4 (error),
-	*		the `Debug` class must be used for this feature.
-	*  @param {String} [options.debugRemote] The host computer for remote debugging,
-	*		the debug module must be included to use this feature. Can be an IP address or host name.
-	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update the Tween itself
+	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from
+	*                                       0 (general) to 4 (error), the `Debug` class must be used
+	*                                       for this feature.
+	*  @param {String} [options.debugRemote] The host computer for remote debugging, the debug
+	*                                        module must be included to use this feature. Can be an
+	*                                        IP address or host name.
+	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
+	*                                               the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to instaniate as the display
+	*                                      (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.
+	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior
+	*                                               is to load assets from the same domain.
 	*/
 	var Application = function(options)
 	{
@@ -1304,7 +1319,8 @@
 		this.options = options || {};
 
 		/**
-		*  Primary renderer for the application, for simply accessing Application.instance.display.stage;
+		*  Primary renderer for the application, for simply accessing
+		*  Application.instance.display.stage;
 		*  The first display added becomes the primary display automatically.
 		*  @property {Display} display
 		*  @public
@@ -1324,7 +1340,8 @@
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
-		//call init after handling loading up a versions file or any other needed asynchronous stuff?
+		//call init after handling loading up a versions file or any other needed asynchronous
+		//stuff?
 		this._internalInit();
 	};
 
@@ -1644,7 +1661,8 @@
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 
 		if(this.options.canvasId && this.options.display)
-			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
+			this.addDisplay(this.options.canvasId, this.options.display,
+							this.options.displayOptions);
 
 
 		// Bind the do init
@@ -1844,7 +1862,8 @@
 	*  @method calculateDisplaySize
 	*  @protected
 	*  @param {Object} size A size object containing the width and height of the resized container.
-	* 				The size parameter is also the output of the function, so the size properties are edited in place.
+	*                       The size parameter is also the output of the function, so the size
+	*                       properties are edited in place.
 	*  @param {int} size.width The width of the resized container.
 	*  @param {int} size.height The height of the resized container.
 	*/
@@ -1871,8 +1890,9 @@
 	*  Add a display. If this is the first display added, then it will be stored as this.display.
 	*  @method addDisplay
 	*  @param {String} id The id of the canvas element, this will be used to grab the Display later
-	*                also the Display should be the one to called document.getElementById(id)
-	*                and not the application sinc we don't care about the DOMElement as this point
+	*                     also the Display should be the one to called document.getElementById(id)
+	*                     and not the application sinc we don't care about the DOMElement as this
+	*                     point
 	*  @param {function} displayConstructor The function to call to create the display instance
 	*  @param {Object} [options] Optional Display specific options
 	*  @return {Display} The created display.
@@ -1924,7 +1944,8 @@
 	*  Gets a specific renderer by the canvas id.
 	*  @method getDisplays
 	*  @public
-	*  @param {function} [each] Optional looping method, callback takes a single parameter of the display
+	*  @param {function} [each] Optional looping method, callback takes a single parameter of the
+	*                           display
 	*  @return {Array} The collection of Display objects
 	*/
 	p.getDisplays = function(each)
@@ -2038,7 +2059,8 @@
 	};
 
 	/**
-	* Destroys the application, global libraries registered via Application.registerDestroy() and all active displays
+	* Destroys the application, global libraries registered via Application.registerDestroy() and
+	* all active displays
 	* @method destroy
 	*/
 	p.destroy = function()
