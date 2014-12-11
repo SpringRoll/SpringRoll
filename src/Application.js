@@ -645,12 +645,13 @@
 		if (!_aspectRatio || !this.options.uniformResize) return;
 
 		var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio,
+			minAspectRatio = this.options.minAspectRatio || _aspectRatio,
 			currentAspect = size.width / size.height;
 
-		if (currentAspect < _aspectRatio)
+		if (currentAspect < minAspectRatio)
 		{
 			//limit to the narrower width
-			size.height = size.width / _aspectRatio;
+			size.height = size.width / minAspectRatio;
 		}
 		else if (currentAspect > maxAspectRatio)
 		{

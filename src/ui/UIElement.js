@@ -9,10 +9,10 @@
 
 	/**
 	*  A single UI item that needs to be resized,
-	*  this is an internal class that you would not need to interact with.	
+	*  this is an internal class that you would not need to interact with.
 	*
 	*  @class UIElement
-	*  @param {DisplayObject} item The item to affect  
+	*  @param {DisplayObject} item The item to affect
 	*  @param {springroll.UIElementSettings} settings The scale settings
 	*  @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
 	*  @param {DisplayAdapter} adapter The display adapter
@@ -29,7 +29,7 @@
 		*  @private
 		*  @property {DisplayObject} _item
 		*/
-		this._item = item;	
+		this._item = item;
 
 		/**
 		*  The reference to the scale settings
@@ -52,7 +52,7 @@
 		*/
 		this._adapter = adapter;
 		
-		var scale = adapter.getScale(item), 
+		var scale = adapter.getScale(item),
 			position = adapter.getPosition(item);
 
 		/**
@@ -69,8 +69,8 @@
 		*/
 		this.origScaleY = scale.y || 1;
 
-		/** 
-		*  Original width in pixels 
+		/**
+		*  Original width in pixels
 		*  @property {Number} origWidth
 		*  @default 0
 		*/
@@ -156,31 +156,53 @@
 	*/
 	p.resize = function(displayWidth, displayHeight)
 	{
-		var adapter = this._adapter;
-		var overallScale = displayHeight / this._designedScreen.height;
-		var letterBoxWidth = (displayWidth - this._designedScreen.width * overallScale) / 2;
+		var adapter = this._adapter,
+			_item = this._item,
+			_settings = this._settings,
+			_designedScreen = this._designedScreen,
+			origBounds = this.origBounds,
+			origScaleX = this.origScaleX,
+			origScaleY = this.origScaleY;
+		var defaultRatio = _designedScreen.width / _designedScreen.height,
+			currentRatio = displayWidth / displayHeight;
+		var overallScale = currentRatio >= defaultRatio ?
+						displayHeight / _designedScreen.height :
+						displayWidth / _designedScreen.width;
+		var scaleToHeight = currentRatio >= defaultRatio;
+		var letterBoxWidth = 0, letterBoxHeight = 0;
+		if(scaleToHeight)
+			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
+		else
+			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
 
-		// Optional clamps on the min and max scale of the item 
+		// Optional clamps on the min and max scale of the item
 		var itemScale = overallScale;
-		if(this._settings.minScale && itemScale < this._settings.minScale)
-			itemScale = this._settings.minScale;
-		else if(this._settings.maxScale && itemScale > this._settings.maxScale)
-			itemScale = this._settings.maxScale;
+		if(_settings.minScale && itemScale < _settings.minScale)
+			itemScale = _settings.minScale;
+		else if(_settings.maxScale && itemScale > _settings.maxScale)
+			itemScale = _settings.maxScale;
 
-		adapter.setScale(this._item, this.origScaleX * itemScale, "x");
-		adapter.setScale(this._item, this.origScaleY * itemScale, "y");
+		adapter.setScale(_item, origScaleX * itemScale, "x");
+		adapter.setScale(_item, origScaleY * itemScale, "y");
 
 		// positioning
 		var m, x = null, y = null;
 
-		// vertical move
+		// vertical margin
 		m = this.origMarginVert * overallScale;
 		
-		switch(this._settings.vertAlign)
+		switch(_settings.vertAlign)
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				y = m - this.origBounds.y * this.origScaleY * itemScale;
+				if(_settings.titleSafe)
+				{
+					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
+				}
+				else
+				{
+					y = m - origBounds.y * origScaleY * itemScale;
+				}
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
@@ -190,59 +212,68 @@
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				y = displayHeight - m - this.origBounds.bottom * this.origScaleY * itemScale;
+				if(_settings.titleSafe)
+				{
+					y = displayHeight - letterBoxHeight - m -
+							origBounds.bottom * origScaleY * itemScale;
+				}
+				else
+				{
+					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
+				}
 				break;
 			}
 		}
 
 		// Set the position
-		if (y !== null) adapter.setPosition(this._item, y, "y");
+		if (y !== null) adapter.setPosition(_item, y, "y");
 
-		// horizontal move
+		// horizontal margin
 		m = this.origMarginHori * overallScale;
 		
-		switch(this._settings.horiAlign)
+		switch(_settings.horiAlign)
 		{
 			case UIScaler.ALIGN_LEFT:
 			{
-				if(this._settings.titleSafe)
+				if(_settings.titleSafe)
 				{
-					x = letterBoxWidth + m - this.origBounds.x * this.origScaleX * itemScale;
+					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
 				}
 				else
 				{
-					x = m - this.origBounds.x * this.origScaleX * itemScale;
+					x = m - origBounds.x * origScaleX * itemScale;
 				}
 				break;
 			}
 			case UIScaler.ALIGN_CENTER:
 			{
-				if(this._settings.centeredHorizontally)
+				if(_settings.centeredHorizontally)
 				{
-					x = (displayWidth - this._item.width) * 0.5;
+					x = (displayWidth - _item.width) * 0.5;
 				}
 				else
 				{
 					x = displayWidth * 0.5 - m;
 				}
 				break;
-			}	
+			}
 			case UIScaler.ALIGN_RIGHT:
 			{
-				if(this._settings.titleSafe)
+				if(_settings.titleSafe)
 				{
-					x = displayWidth - letterBoxWidth - m - this.origBounds.right * this.origScaleX * itemScale;
+					x = displayWidth - letterBoxWidth - m -
+							origBounds.right * origScaleX * itemScale;
 				}
 				else
 				{
-					x = displayWidth - m - this.origBounds.right * this.origScaleX * itemScale;
+					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
 				}
 				break;
-			}		
+			}
 		}
 
 		// Set the position
-		if (x !== null) adapter.setPosition(this._item, x, "x");
+		if (x !== null) adapter.setPosition(_item, x, "x");
 	};
 	
 	/**
