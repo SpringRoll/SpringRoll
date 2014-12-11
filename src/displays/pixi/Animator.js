@@ -590,6 +590,7 @@
 					if (t.playSound && t._time_sec >= t.soundStart)
 					{
 						t._time_sec = t.soundStart;
+						t.playSound = false;
 						t.soundInst = Sound.instance.play(
 							t.soundAlias,
 							onSoundDone.bind(this, t, t.listIndex),
@@ -703,6 +704,7 @@
 				if(t.playSound && t._time_sec >= t.soundStart)
 				{
 					t._time_sec = t.soundStart;
+					t.playSound = false;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
 						onSoundDone.bind(this, t, t.listIndex),
@@ -755,7 +757,6 @@
 	{
 		if(timeline.listIndex != playIndex) return;
 		
-		timeline.playSound = false;
 		//convert sound length to seconds
 		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
 	};
