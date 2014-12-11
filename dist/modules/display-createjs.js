@@ -1561,7 +1561,7 @@
 					t.playSound = false;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t, t.listIndex),
+						onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
 						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
@@ -1581,7 +1581,7 @@
 					t.playSound = false;
 					t.soundInst = Sound.instance.play(
 						t.soundAlias,
-						onSoundDone.bind(this, t, t.listIndex),
+						onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
 						onSoundStarted.bind(this, t, t.listIndex)
 					);
 					if (t.useCaptions)
@@ -1627,9 +1627,9 @@
 	*  @private
 	*  @param {springroll.createjs.AnimatorTimeline} timeline
 	*/
-	var onSoundDone = function(timeline, playIndex)
+	var onSoundDone = function(timeline, playIndex, soundAlias)
 	{
-		if (timeline.useCaptions && Animator.captions.currentAlias == timeline.soundAlias)
+		if (Animator.captions && Animator.captions.currentAlias == soundAlias)
 			Animator.captions.stop();
 		
 		if(timeline.listIndex != playIndex) return;
