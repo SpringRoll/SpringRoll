@@ -316,17 +316,17 @@
 	*  @method onLoaded
 	*  @static
 	*  @private
-	*  @param {Array} assets Array of asset ids that were just loaded.
+	*  @param {Array} assetList Array of asset ids that were just loaded.
 	*  @param {Function} callback The user callback for the load.
 	*/
-	var onLoaded = function(assets, callback)
+	var onLoaded = function(assetList, callback)
 	{
-		for(var i = 0, length = assets.length; i < length; ++i)
+		for(var i = 0, length = assetList.length; i < length; ++i)
 		{
-			var asset = assets[i];
-			if(!asset) continue;
-			asset._isLoaded = true;//keep track of the loaded status
-			var url = AssetManager.getUrl(asset);
+			var assetName = assetList[i];
+			if(!assetName) continue;
+			assets[assetName]._isLoaded = true;//keep track of the loaded status
+			var url = AssetManager.getUrl(assetName);
 			var texture = Texture.fromFrame(url, true);
 			if(texture)
 			{
