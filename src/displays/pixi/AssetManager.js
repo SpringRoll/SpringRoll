@@ -330,7 +330,7 @@
 			var texture = Texture.fromFrame(url, true);
 			if(texture)
 			{
-				texture.baseTexture.resolution = this.scales[asset];
+				texture.baseTexture.resolution = this.scales[assetName];
 			}
 		}
 		if(callback)
