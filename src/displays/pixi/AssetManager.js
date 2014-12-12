@@ -284,14 +284,21 @@
 				if(asset && !asset._isLoaded)
 					urls.push(AssetManager.getUrl(assetOrAssets[i]));
 			}
-			var task = new PixiTask("", urls, onLoaded.bind(AssetManager, assetOrAssets, callback));
-			if(Array.isArray(taskList))
-				taskList.push(task);
-			else if(taskList instanceof TaskManager)
-				taskList.addTask(task);
-			else
+			if(urls.length)
 			{
-				Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
+				var task = new PixiTask("", urls, onLoaded.bind(AssetManager, assetOrAssets, callback));
+				if(Array.isArray(taskList))
+					taskList.push(task);
+				else if(taskList instanceof TaskManager)
+					taskList.addTask(task);
+				else
+				{
+					Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
+				}
+			}
+			else if(callback)
+			{
+				callback();
 			}
 		}
 		else
@@ -304,10 +311,15 @@
 				if(asset && !asset._isLoaded)
 					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i])));
 			}
-			var opts = Application.instance.options;
-			var assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
-			assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
-			assetLoader.load();
+			if(urls.length)
+			{
+				var opts = Application.instance.options;
+				var assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
+				assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
+				assetLoader.load();
+			}
+			else if(callback)
+				callback();
 		}
 	};
 	
