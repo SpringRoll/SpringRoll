@@ -2325,7 +2325,7 @@
                         },
                         {
                             "name": "transition",
-                            "description": "The StateManager transition\n       animation",
+                            "description": "The StateManager transition\n                                                            animation",
                             "type": "createjs.MovieClip|PIXI.Spine",
                             "optional": true
                         },
@@ -2337,14 +2337,14 @@
                             "props": [
                                 {
                                     "name": "in",
-                                    "description": "The transition in sound\n       alias or sound object",
+                                    "description": "The transition in sound\n                                                                    alias or sound object",
                                     "type": "Object|String",
                                     "optional": true,
                                     "optdefault": "\"TransitionIn\""
                                 },
                                 {
                                     "name": "out",
-                                    "description": "The transition out\n       sound alias or sound object",
+                                    "description": "The transition out\n                                                                      sound alias or sound\n                                                                      object",
                                     "type": "Object|String",
                                     "optional": true,
                                     "optdefault": "\"TransitionOut\""
@@ -2359,21 +2359,21 @@
                         },
                         {
                             "name": "swfPath",
-                            "description": "The relative location to the FlashPlugin\n       swf for SoundJS",
+                            "description": "The relative location to the FlashPlugin\n                                                 swf for SoundJS",
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
                         },
                         {
                             "name": "audioTypes",
-                            "description": "The order in which file types are\n       preferred, where \"ogg\" becomes a \".ogg\" extension on all sound file urls.",
+                            "description": "The order in which file types are\n                                                 preferred, where \"ogg\" becomes a \".ogg\"\n                                                 extension on all sound file urls.",
                             "type": "Array",
                             "optional": true,
                             "optdefault": "['ogg','mp3'"
                         },
                         {
                             "name": "mute",
-                            "description": "Set the initial mute state of the all the audio\n       (unminifed library version only)",
+                            "description": "Set the initial mute state of the all the audio\n                                      (unminifed library version only)",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2386,14 +2386,14 @@
                         },
                         {
                             "name": "forceMobile",
-                            "description": "Manually override the check for isMobile\n       (unminifed library version only)",
+                            "description": "Manually override the check for isMobile\n                                             (unminifed library version only)",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "updateTween",
-                            "description": "Have the application take care of the Tween\n       updates",
+                            "description": "Have the application take care of the Tween\n                                            updates",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
@@ -2414,20 +2414,20 @@
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n       numbers for each asset. This is useful for\n       controlling the live browser cache. For instance,\n       this text file would have an asset on each line\n       followed by a number: `assets/config/config.json 2`\n       this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n                                       numbers for each asset. This is useful for\n                                       controlling the live browser cache. For instance,\n                                       this text file would have an asset on each line\n                                       followed by a number: `assets/config/config.json 2`\n                                       this would load `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding\n       \"?v=\" to the end of each file path requested. Use\n       for development, debugging only!",
+                            "description": "Override the end-user browser cache by adding\n                                           \"?v=\" to the end of each file path requested. Use\n                                           for development, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "basePath",
-                            "description": "The optional file path to prefix to any relative file\n       requests. This is a great way to load all load requests\n       with a CDN path.",
+                            "description": "The optional file path to prefix to any relative file\n                                   requests. This is a great way to load all load requests\n                                   with a CDN path.",
                             "type": "String",
                             "optional": true
                         },
@@ -2439,20 +2439,26 @@
                         },
                         {
                             "name": "uniformResize",
-                            "description": "Whether to resize the displays to the original\n       aspect ratio",
+                            "description": "Whether to resize the displays to the original\n                                              aspect ratio",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to\n       add a maximum aspect ratio. This allows for\n       \"title-safe\" responsiveness. Must be greater than\n       the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to\n                                         add a maximum aspect ratio. This allows for\n                                         \"title-safe\" responsiveness. Must be greater than\n                                         the original aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "minAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add\n                                         a minimum aspect ratio. This allows for \"title-safe\"\n                                         responsiveness. Must be less than the original\n                                         aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
                         {
                             "name": "queryStringParameters",
-                            "description": "Parse the query string paramenters as\n       options",
+                            "description": "Parse the query string paramenters as\n                                                       options",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2466,23 +2472,23 @@
                         },
                         {
                             "name": "minLogLevel",
-                            "description": "The minimum log level to show debug messages for from 0\n       (general) to 4 (error), the `Debug` class must be used\n       for this feature.",
+                            "description": "The minimum log level to show debug messages for from 0\n                                     (general) to 4 (error). the `Debug` class must be used\n                                     for this feature.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
                         },
                         {
                             "name": "debugRemote",
-                            "description": "The host computer for remote debugging, the debug\n       module must be included to use this feature. Can be an\n       IP address or host name.",
+                            "description": "The host computer for remote debugging, the debug\n                                      module must be included to use this feature. Can be an\n                                      IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "updateTween",
-                            "description": "If using TweenJS, the Application will update\n       the Tween itself",
+                            "description": "If using TweenJS, the Application will update\n                                            the Tween itself",
                             "type": "Boolean",
                             "optional": true,
-                            "optdefault": "false"
+                            "optdefault": "true"
                         },
                         {
                             "name": "canvasId",
@@ -2492,7 +2498,7 @@
                         },
                         {
                             "name": "display",
-                            "description": "The name of the class to instaniate as the display (e.g.\n       `springroll.PixiDisplay`)",
+                            "description": "The name of the class to automatically instantiate as the\n                                    display (e.g. `springroll.PixiDisplay`)",
                             "type": "Function",
                             "optional": true
                         },
@@ -2504,7 +2510,7 @@
                         },
                         {
                             "name": "crossOrigin",
-                            "description": "Used by `springroll.PixiTask`, default behavior\n       is to load assets from the same domain.",
+                            "description": "Used by `springroll.PixiTask`, default behavior\n                                             is to load assets from the same domain.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -3112,7 +3118,7 @@
             "namespace": "springroll",
             "file": "src/ui/UIScaler.js",
             "line": 13,
-            "description": "The UI scale is responsible for scaling UI components\nto help easy the burden of different device aspect ratios.",
+            "description": "The UI scale is responsible for scaling UI components to help easy the burden of different\ndevice aspect ratios. The UI can expand either vertically or horizontally to fill excess\nspace.",
             "is_constructor": 1,
             "params": [
                 {
@@ -3137,16 +3143,23 @@
                         },
                         {
                             "name": "maxWidth",
-                            "description": "The designed maximum width of the interface",
+                            "description": "The designed maximum width of the\n                                                        interface.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "designedSize.width"
+                        },
+                        {
+                            "name": "maxHeight",
+                            "description": "The designed maximum height of the\n                                                          interface.",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "designedSize.height"
                         }
                     ]
                 },
                 {
                     "name": "items",
-                    "description": "The items object where the keys are the name of the property on the parent and the value\n       is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\", \"centerHorizontally\", \"align\"",
+                    "description": "The items object where the keys are the name of the property on\n                             the parent and the value\n                             is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\",\n                             \"centerHorizontally\", \"align\"",
                     "type": "Object",
                     "optional": true,
                     "optdefault": "null"
@@ -3160,7 +3173,7 @@
                 },
                 {
                     "name": "display",
-                    "description": "The display which to use for the scaler",
+                    "description": "The display which to use for the\n                                                        scaler",
                     "type": "Display",
                     "optional": true,
                     "optdefault": "Application.instance.display"
@@ -3471,51 +3484,57 @@
                         },
                         {
                             "name": "version",
-                            "description": "The current version number for your application. This\n     number will automatically be appended to all file requests. For instance, if the version\n     is \"0.0.1\" all file requests will be appended with \"?v=0.0.1\"",
+                            "description": "The current version number for your application. This\n                                      number will automatically be appended to all file\n                                      requests. For instance, if the version is \"0.0.1\" all\n                                      file requests will be appended with \"?v=0.0.1\"",
                             "type": "String|int",
                             "optional": true
                         },
                         {
                             "name": "versionsFile",
-                            "description": "Path to a text file which contains explicit version\n\t\tnumbers for each asset. This is useful for controlling the live browser cache.\n\t\tFor instance, this text file would have an asset on each line followed by a number:\n\t\t`assets/config/config.json 2` this would load `assets/config/config.json?v=2`",
+                            "description": "Path to a text file which contains explicit version\n                                       numbers for each asset. This is useful for controlling\n                                       the live browser cache. For instance, this text file\n                                       would have an asset on each line followed by a number:\n                                       `assets/config/config.json 2` would load\n                                       `assets/config/config.json?v=2`",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "cacheBust",
-                            "description": "Override the end-user browser cache by adding \"?v=\"\n\t\tto the end of each file path requested. Use for developmently, debugging only!",
+                            "description": "Override the end-user browser cache by adding\n                                           \"?v=\" to the end of each file path requested. Use\n                                           for developmently, debugging only!",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "basePath",
-                            "description": "The optional file path to prefix to any relative file requests\n\t\tthis is a great way to load all load requests with a CDN path.",
+                            "description": "The optional file path to prefix to any relative file\n                                   requests this is a great way to load all load requests\n                                   with a CDN path.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "resizeElement",
-                            "description": "The element to resize the canvas to",
+                            "description": "The element to resize the canvas to\n                                                          fit.",
                             "type": "String|DOMElement|Window",
                             "optional": true
                         },
                         {
                             "name": "uniformResize",
-                            "description": "Whether to resize the displays to the original aspect ratio",
+                            "description": "Whether to resize the displays to the original\n                                              aspect ratio",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "true"
                         },
                         {
                             "name": "maxAspectRatio",
-                            "description": "If doing uniform resizing, optional parameter to add a maximum aspect ratio.\n       This allows for \"title-safe\" responsiveness. Must be greater than the original aspect ratio of the canvas.",
+                            "description": "If doing uniform resizing, optional parameter to add\n                                         a maximum aspect ratio. This allows for \"title-safe\"\n                                         responsiveness. Must be greater than the original\n                                         aspect ratio of the canvas.",
+                            "type": "Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "minAspectRatio",
+                            "description": "If doing uniform resizing, optional parameter to add\n                                         a minimum aspect ratio. This allows for \"title-safe\"\n                                         responsiveness. Must be less than the original\n                                         aspect ratio of the canvas.",
                             "type": "Number",
                             "optional": true
                         },
                         {
                             "name": "queryStringParameters",
-                            "description": "Parse the query string paramenters as options",
+                            "description": "Parse the query string paramenters as\n                                                       options",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -3529,20 +3548,20 @@
                         },
                         {
                             "name": "minLogLevel",
-                            "description": "The minimum log level to show debug messages for from 0 (general) to 4 (error),\n\t\tthe `Debug` class must be used for this feature.",
+                            "description": "The minimum log level to show debug messages for from\n                                     0 (general) to 4 (error). the `Debug` class must be used\n                                     for this feature.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
                         },
                         {
                             "name": "debugRemote",
-                            "description": "The host computer for remote debugging,\n\t\tthe debug module must be included to use this feature. Can be an IP address or host name.",
+                            "description": "The host computer for remote debugging, the debug\n                                      module must be included to use this feature. Can be an\n                                      IP address or host name.",
                             "type": "String",
                             "optional": true
                         },
                         {
                             "name": "updateTween",
-                            "description": "If using TweenJS, the Application will update the Tween itself",
+                            "description": "If using TweenJS, the Application will update\n                                             the Tween itself",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -3555,7 +3574,7 @@
                         },
                         {
                             "name": "display",
-                            "description": "The name of the class to instaniate as the display (e.g. `springroll.PixiDisplay`)",
+                            "description": "The name of the class to automatically instantiate as the\n                                    display (e.g. `springroll.PixiDisplay`)",
                             "type": "Function",
                             "optional": true
                         },
@@ -3567,7 +3586,7 @@
                         },
                         {
                             "name": "crossOrigin",
-                            "description": "Used by `springroll.PixiTask`, default behavior is to load assets from the same domain.",
+                            "description": "Used by `springroll.PixiTask`, default behavior\n                                             is to load assets from the same domain.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -4138,7 +4157,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 888,
+            "line": 890,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4157,7 +4176,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 903,
+            "line": 904,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4176,7 +4195,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 921,
+            "line": 922,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4193,7 +4212,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 935,
+            "line": 936,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -7584,7 +7603,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 775,
+            "line": 776,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -7603,7 +7622,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 800,
+            "line": 801,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -10967,7 +10986,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 110,
+            "line": 116,
             "description": "The name of the game, useful for debugging purposes",
             "itemtype": "property",
             "name": "name",
@@ -10979,7 +10998,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 117,
+            "line": 123,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -10992,7 +11011,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 124,
+            "line": 130,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -11003,7 +11022,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 130,
+            "line": 136,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -11014,7 +11033,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 136,
+            "line": 142,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -11025,7 +11044,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 142,
+            "line": 148,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -11036,7 +11055,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 148,
+            "line": 154,
             "description": "If the current brower is mobile",
             "itemtype": "property",
             "name": "isMobile",
@@ -11047,7 +11066,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 164,
+            "line": 170,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -11058,7 +11077,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 181,
+            "line": 187,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
@@ -11068,7 +11087,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 187,
+            "line": 193,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
             "itemtype": "event",
             "name": "initStates",
@@ -11078,7 +11097,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 194,
+            "line": 200,
             "description": "The states are setup, this is the event to listen to\nwhen the game ready to use.",
             "itemtype": "event",
             "name": "statesReady",
@@ -11088,7 +11107,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 201,
+            "line": 207,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "addStates",
@@ -11098,7 +11117,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 207,
+            "line": 213,
             "description": "Override the do init method",
             "itemtype": "method",
             "name": "onBeforeInit",
@@ -11110,7 +11129,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 224,
+            "line": 230,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -11122,7 +11141,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 241,
+            "line": 247,
             "description": "Manual initialization of the states",
             "itemtype": "method",
             "name": "initStates",
@@ -11134,7 +11153,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 293,
+            "line": 299,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -11156,7 +11175,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 320,
+            "line": 326,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -11173,7 +11192,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 333,
+            "line": 339,
             "description": "Set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -11185,7 +11204,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 371,
+            "line": 377,
             "description": "Convenience method to loads a Sound config object.",
             "itemtype": "method",
             "name": "addSounds",
@@ -11217,7 +11236,7 @@
                             "props": [
                                 {
                                     "name": "",
-                                    "description": "An entry in the array. If this is a\n                                                     string, then it is the same as\n                                                     {'id':'<yourString>'}.",
+                                    "description": "An entry in the array. If this is a\n                                              string, then it is the same as\n                                              {'id':'<yourString>'}.",
                                     "type": "Object|String",
                                     "multiple": true
                                 },
@@ -11228,27 +11247,27 @@
                                 },
                                 {
                                     "name": "*.src",
-                                    "description": "The src path to the file, without an\n                                                    extension. If omitted, defaults to id.",
+                                    "description": "The src path to the file, without an\n                                             extension. If omitted, defaults to id.",
                                     "type": "String",
                                     "optional": true
                                 },
                                 {
                                     "name": "*.volume",
-                                    "description": "The default volume for the sound,\n                                                         from 0 to 1.",
+                                    "description": "The default volume for the sound,\n                                                  from 0 to 1.",
                                     "type": "Number",
                                     "optional": true,
                                     "optdefault": "1"
                                 },
                                 {
                                     "name": "*.loop",
-                                    "description": "If the sound should loop by\n                                                            default whenever the loop\n                                                            parameter in play() is not\n                                                            specified.",
+                                    "description": "If the sound should loop by\n                                                     default whenever the loop\n                                                     parameter in play() is not\n                                                     specified.",
                                     "type": "Boolean",
                                     "optional": true,
                                     "optdefault": "false"
                                 },
                                 {
                                     "name": "*.context",
-                                    "description": "A context name to override\n                                                        config.context with.",
+                                    "description": "A context name to override\n                                                 config.context with.",
                                     "type": "String",
                                     "optional": true
                                 }
@@ -11267,7 +11286,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 403,
+            "line": 409,
             "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
             "itemtype": "method",
             "name": "addCaptions",
@@ -11284,7 +11303,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 437,
+            "line": 443,
             "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
             "itemtype": "method",
             "name": "setCaptionsDictionary",
@@ -11303,7 +11322,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 453,
+            "line": 459,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -11313,7 +11332,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 478,
+            "line": 484,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -15671,7 +15690,7 @@
         },
         {
             "file": "src/ui/UIElement.js",
-            "line": 248,
+            "line": 279,
             "description": "Destroy this item, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -15751,7 +15770,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 32,
+            "line": 39,
             "description": "The UI display object to update",
             "itemtype": "property",
             "name": "_parent",
@@ -15764,7 +15783,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 39,
+            "line": 46,
             "description": "The configuration for each items",
             "itemtype": "property",
             "name": "_items",
@@ -15777,7 +15796,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 59,
+            "line": 66,
             "description": "The screen settings object, contains information about designed size",
             "itemtype": "property",
             "name": "_designedSize",
@@ -15790,7 +15809,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 74,
+            "line": 88,
             "description": "The current overall scale of the game",
             "itemtype": "property",
             "name": "_scale",
@@ -15804,7 +15823,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 82,
+            "line": 96,
             "description": "The adapter for universal scale, rotation size access",
             "itemtype": "property",
             "name": "_adapter",
@@ -15817,7 +15836,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 89,
+            "line": 103,
             "description": "The collection of bitmaps to full screen scale",
             "itemtype": "property",
             "name": "_backgrounds",
@@ -15830,7 +15849,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 96,
+            "line": 110,
             "description": "The internal enabled",
             "itemtype": "property",
             "name": "_enabled",
@@ -15843,7 +15862,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 115,
+            "line": 129,
             "description": "Vertically align to the top",
             "itemtype": "property",
             "name": "ALIGN_TOP",
@@ -15858,7 +15877,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 125,
+            "line": 139,
             "description": "Vertically align to the bottom",
             "itemtype": "property",
             "name": "ALIGN_BOTTOM",
@@ -15873,7 +15892,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 135,
+            "line": 149,
             "description": "Horizontally align to the left",
             "itemtype": "property",
             "name": "ALIGN_LEFT",
@@ -15888,7 +15907,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 145,
+            "line": 159,
             "description": "Horizontally align to the right",
             "itemtype": "property",
             "name": "ALIGN_RIGHT",
@@ -15903,7 +15922,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 155,
+            "line": 169,
             "description": "Vertically or horizontally align to the center",
             "itemtype": "property",
             "name": "ALIGN_CENTER",
@@ -15918,7 +15937,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 165,
+            "line": 179,
             "description": "Get the adapter by display",
             "itemtype": "method",
             "name": "_getAdapter",
@@ -15937,7 +15956,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 193,
+            "line": 207,
             "description": "Get the current scale of the screen relative to the designed screen size",
             "itemtype": "property",
             "name": "scale",
@@ -15949,7 +15968,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 205,
+            "line": 219,
             "description": "Whether the UIScaler should listen to the stage resize. Setting to true\ninitialized a resize.",
             "itemtype": "property",
             "name": "enabled",
@@ -15961,14 +15980,14 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 232,
+            "line": 246,
             "description": "Register a dictionary of items to the UIScaler to control.",
             "itemtype": "method",
             "name": "addItems",
             "params": [
                 {
                     "name": "items",
-                    "description": "The items object where the keys are the name of the property on the parent and the value\n      is an object with keys of \"titleSafe\", \"minScale\", \"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem\n      for a description of the different keys.",
+                    "description": "The items object where the keys are the name of the property on the\n                      parent and the value is an object with keys of \"titleSafe\", \"minScale\",\n                      \"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem for a\n                      description of the different keys.",
                     "type": "Object"
                 }
             ],
@@ -15982,7 +16001,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 273,
+            "line": 288,
             "description": "Manually add an item",
             "itemtype": "method",
             "name": "addItem",
@@ -16000,35 +16019,35 @@
                     "props": [
                         {
                             "name": "align",
-                            "description": "The vertical alignment (\"top\", \"bottom\", \"center\") then horizontal\n       alignment (\"left\", \"right\" and \"center\"). Or you can use the short-handed versions: \"center\" = \"center-center\",\n       \"top\" = \"top-center\", \"bottom\" = \"bottom-center\", \"left\" = \"center-left\", \"right\" = \"center-right\".",
+                            "description": "The vertical alignment (\"top\", \"bottom\", \"center\")\n                                          then horizontal alignment (\"left\", \"right\" and\n                                          \"center\"). Or you can use the short-handed\n                                          versions: \"center\" = \"center-center\",\n                                          \"top\" = \"top-center\", \"bottom\" = \"bottom-center\",\n                                          \"left\" = \"center-left\", \"right\" = \"center-right\".",
                             "type": "String",
                             "optional": true,
                             "optdefault": "\"center\""
                         },
                         {
                             "name": "titleSafe",
-                            "description": "If the item needs to be in the title safe area (default is false)",
+                            "description": "If the item needs to be in the title safe area\n                                            (default is false)",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "minScale",
-                            "description": "The minimum scale amount (default, scales the same size as the stage)",
+                            "description": "The minimum scale amount (default, scales the same\n                                        size as the stage)",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "NaN"
                         },
                         {
                             "name": "maxScale",
-                            "description": "The maximum scale amount (default, scales the same size as the stage)",
+                            "description": "The maximum scale amount (default, scales the same\n                                        size as the stage)",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "NaN"
                         },
                         {
                             "name": "centeredHorizontally",
-                            "description": "Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.",
+                            "description": "Makes sure that the center of the\n                                                       object is directly in the center of\n                                                       the stage assuming origin point is in\n                                                       the upper-left corner.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -16093,13 +16112,13 @@
                         },
                         {
                             "name": "hitArea",
-                            "description": "An object which describes the hit area of the item or an array of points.",
+                            "description": "An object which describes the hit area of the item\n                                         or an array of points.",
                             "type": "Object|Array",
                             "optional": true,
                             "props": [
                                 {
                                     "name": "type",
-                                    "description": "If the hitArea is an object, the type of hit area, \"rect\", \"ellipse\", \"circle\", etc\n       center of the screen, assuming an origin at the top left of the object.",
+                                    "description": "If the hitArea is an object, the type of hit area,\n                                        \"rect\", \"ellipse\", \"circle\", etc",
                                     "type": "String",
                                     "optional": true
                                 }
@@ -16118,7 +16137,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 352,
+            "line": 377,
             "description": "Add background bitmaps to scale full screen, this will attempt to\nscale the background to the height of the display and crop on\nthe left and right.",
             "itemtype": "method",
             "name": "addBackground",
@@ -16139,7 +16158,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 370,
+            "line": 395,
             "description": "Remove background",
             "itemtype": "method",
             "name": "removeBackground",
@@ -16160,7 +16179,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 389,
+            "line": 414,
             "description": "Scale the UI items that have been registered to the current screen",
             "itemtype": "method",
             "name": "_resize",
@@ -16184,7 +16203,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 435,
+            "line": 475,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -17432,7 +17451,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 71,
+            "line": 90,
             "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
             "itemtype": "property",
             "name": "options",
@@ -17444,8 +17463,8 @@
         },
         {
             "file": "src/Application.js",
-            "line": 79,
-            "description": "Primary renderer for the application, for simply accessing Application.instance.display.stage;\nThe first display added becomes the primary display automatically.",
+            "line": 98,
+            "description": "Primary renderer for the application, for simply accessing\nApplication.instance.display.stage;\nThe first display added becomes the primary display automatically.",
             "itemtype": "property",
             "name": "display",
             "type": "Display",
@@ -17457,7 +17476,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 87,
+            "line": 107,
             "description": "If we should wait to init the Application, this is useful is something is inheriting\nApplication but want to do some extra stuff before init is actually called.",
             "itemtype": "property",
             "name": "_readyToInit",
@@ -17470,7 +17489,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 108,
+            "line": 129,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -17484,7 +17503,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 118,
+            "line": 139,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -17498,7 +17517,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 128,
+            "line": 149,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -17511,7 +17530,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 135,
+            "line": 156,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -17524,7 +17543,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 142,
+            "line": 163,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -17537,7 +17556,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 149,
+            "line": 170,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -17550,7 +17569,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 156,
+            "line": 177,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -17563,7 +17582,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 163,
+            "line": 184,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -17576,7 +17595,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 170,
+            "line": 191,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -17589,7 +17608,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 177,
+            "line": 198,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -17603,7 +17622,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 185,
+            "line": 206,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -17617,7 +17636,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 193,
+            "line": 214,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -17630,7 +17649,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 200,
+            "line": 221,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -17644,7 +17663,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 208,
+            "line": 229,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -17657,7 +17676,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 215,
+            "line": 236,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -17670,7 +17689,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 223,
+            "line": 244,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -17683,7 +17702,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 230,
+            "line": 251,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -17696,7 +17715,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 253,
+            "line": 274,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -17709,7 +17728,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 260,
+            "line": 281,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -17719,7 +17738,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 266,
+            "line": 287,
             "description": "Event when everything's done but we haven't actually inited",
             "itemtype": "event",
             "name": "preInit",
@@ -17731,7 +17750,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 273,
+            "line": 294,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -17748,7 +17767,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 280,
+            "line": 301,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -17770,7 +17789,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 288,
+            "line": 309,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -17787,7 +17806,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 295,
+            "line": 316,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -17797,7 +17816,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 301,
+            "line": 322,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -17807,7 +17826,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 307,
+            "line": 328,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -17817,7 +17836,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 313,
+            "line": 334,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -17837,7 +17856,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 325,
+            "line": 346,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -17857,7 +17876,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 338,
+            "line": 359,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -17871,7 +17890,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 351,
+            "line": 372,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -17883,7 +17902,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 445,
+            "line": 467,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -17895,7 +17914,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 470,
+            "line": 492,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -17911,7 +17930,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 501,
+            "line": 523,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -17923,7 +17942,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 508,
+            "line": 530,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -17935,7 +17954,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 518,
+            "line": 540,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -17947,7 +17966,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 528,
+            "line": 550,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -17958,7 +17977,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 569,
+            "line": 591,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -17982,7 +18001,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 586,
+            "line": 608,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -17992,7 +18011,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 613,
+            "line": 635,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18001,7 +18020,7 @@
             "params": [
                 {
                     "name": "size",
-                    "description": "A size object containing the width and height of the resized container.\n \t\t\t\tThe size parameter is also the output of the function, so the size properties are edited in place.",
+                    "description": "A size object containing the width and height of the resized container.\n                     The size parameter is also the output of the function, so the size\n                     properties are edited in place.",
                     "type": "Object",
                     "props": [
                         {
@@ -18023,14 +18042,14 @@
         },
         {
             "file": "src/Application.js",
-            "line": 643,
+            "line": 667,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
             "params": [
                 {
                     "name": "id",
-                    "description": "The id of the canvas element, this will be used to grab the Display later\n              also the Display should be the one to called document.getElementById(id)\n              and not the application sinc we don't care about the DOMElement as this point",
+                    "description": "The id of the canvas element, this will be used to grab the Display later\n                   also the Display should be the one to called document.getElementById(id)\n                   and not the application sinc we don't care about the DOMElement as this\n                   point",
                     "type": "String"
                 },
                 {
@@ -18055,7 +18074,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 685,
+            "line": 710,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18076,7 +18095,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 696,
+            "line": 721,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18085,7 +18104,7 @@
             "params": [
                 {
                     "name": "each",
-                    "description": "Optional looping method, callback takes a single parameter of the display",
+                    "description": "Optional looping method, callback takes a single parameter of the\n                         display",
                     "type": "Function",
                     "optional": true
                 }
@@ -18100,7 +18119,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 717,
+            "line": 743,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18117,7 +18136,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 732,
+            "line": 758,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18130,7 +18149,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 750,
+            "line": 776,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18143,7 +18162,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 766,
+            "line": 792,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18155,8 +18174,8 @@
         },
         {
             "file": "src/Application.js",
-            "line": 813,
-            "description": "Destroys the application, global libraries registered via Application.registerDestroy() and all active displays",
+            "line": 839,
+            "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.Application",

@@ -255,8 +255,9 @@
 		Application = include(&#x27;springroll.Application&#x27;);
 
 	/**
-	*  The UI scale is responsible for scaling UI components
-	*  to help easy the burden of different device aspect ratios.
+	*  The UI scale is responsible for scaling UI components to help easy the burden of different
+	*  device aspect ratios. The UI can expand either vertically or horizontally to fill excess
+	*  space.
 	*
 	*  @class UIScaler
 	*  @constructor
@@ -264,11 +265,17 @@
 	*  @param {Object} designedSize The designed settings of the interface {width:800, height:600}
 	*  @param {int} designedSize.width The designed width of the interface
 	*  @param {int} designedSize.height The designed height of the interface
-	*  @param {int} [designedSize.maxWidth=designedSize.width] The designed maximum width of the interface
-	*  @param {Object} [items=null] The items object where the keys are the name of the property on the parent and the value
-	*         is an object with keys of &quot;titleSafe&quot;, &quot;minScale&quot;, &quot;maxScale&quot;, &quot;centerHorizontally&quot;, &quot;align&quot;
+	*  @param {int} [designedSize.maxWidth=designedSize.width] The designed maximum width of the
+	*                                                          interface.
+	*  @param {int} [designedSize.maxHeight=designedSize.height] The designed maximum height of the
+	*                                                            interface.
+	*  @param {Object} [items=null] The items object where the keys are the name of the property on
+	*                               the parent and the value
+	*                               is an object with keys of &quot;titleSafe&quot;, &quot;minScale&quot;, &quot;maxScale&quot;,
+	*                               &quot;centerHorizontally&quot;, &quot;align&quot;
 	*  @param {boolean} [enabled=true] If the UIScaler should be enabled by default
-	*  @param {Display} [display=Application.instance.display] The display which to use for the scaler
+	*  @param {Display} [display=Application.instance.display] The display which to use for the
+	*                                                          scaler
 	*  @return {UIScaler} The scaler object that can be reused
 	*/
 	var UIScaler = function(parent, designedSize, items, enabled, display)
@@ -306,13 +313,20 @@
 		*  @private
 		*/
 		this._designedSize = designedSize;
-
+		
 		// Allow for responsive designs if they&#x27;re a max width
+		var options = Application.instance.options;
 		if (designedSize.maxWidth)
 		{
 			// Calculate the max aspect ratio based on the maxWidth and override
 			// the application default option
-			Application.instance.options.maxAspectRatio = designedSize.maxWidth / designedSize.height;
+			options.maxAspectRatio = designedSize.maxWidth / designedSize.height;
+		}
+		if(designedSize.maxHeight)
+		{
+			// Calculate the minimum aspect ratio based on the maxHeight and override
+			// the application default option
+			options.minAspectRatio = designedSize.width / designedSize.maxHeight;
 		}
 
 		/**
@@ -476,9 +490,10 @@
 	/**
 	*  Register a dictionary of items to the UIScaler to control.
 	*  @method addItems
-	*  @param {object} items The items object where the keys are the name of the property on the parent and the value
-	*        is an object with keys of &quot;titleSafe&quot;, &quot;minScale&quot;, &quot;maxScale&quot;, &quot;centerHorizontally&quot;, &quot;align&quot;, see UIScaler.addItem
-	*        for a description of the different keys.
+	*  @param {object} items The items object where the keys are the name of the property on the
+	*                        parent and the value is an object with keys of &quot;titleSafe&quot;, &quot;minScale&quot;,
+	*                        &quot;maxScale&quot;, &quot;centerHorizontally&quot;, &quot;align&quot;, see UIScaler.addItem for a
+	*                        description of the different keys.
 	*  @return {UIScaler} The instance of this UIScaler for chaining
 	*/
 	p.addItems = function(items)
@@ -519,13 +534,22 @@
 	*  @method addItem
 	*  @param {object} item The display object item to add
 	*  @param {object} [settings] The collection of settings
-	*  @param {String} [settings.align=&quot;center&quot;] The vertical alignment (&quot;top&quot;, &quot;bottom&quot;, &quot;center&quot;) then horizontal
-	*         alignment (&quot;left&quot;, &quot;right&quot; and &quot;center&quot;). Or you can use the short-handed versions: &quot;center&quot; = &quot;center-center&quot;,
-	*         &quot;top&quot; = &quot;top-center&quot;, &quot;bottom&quot; = &quot;bottom-center&quot;, &quot;left&quot; = &quot;center-left&quot;, &quot;right&quot; = &quot;center-right&quot;.
-	*  @param {Boolean} [settings.titleSafe=false] If the item needs to be in the title safe area (default is false)
-	*  @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same size as the stage)
-	*  @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same size as the stage)
-	*  @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.
+	*  @param {String} [settings.align=&quot;center&quot;] The vertical alignment (&quot;top&quot;, &quot;bottom&quot;, &quot;center&quot;)
+	*                                            then horizontal alignment (&quot;left&quot;, &quot;right&quot; and
+	*                                            &quot;center&quot;). Or you can use the short-handed
+	*                                            versions: &quot;center&quot; = &quot;center-center&quot;,
+	*                                            &quot;top&quot; = &quot;top-center&quot;, &quot;bottom&quot; = &quot;bottom-center&quot;,
+	*                                            &quot;left&quot; = &quot;center-left&quot;, &quot;right&quot; = &quot;center-right&quot;.
+	*  @param {Boolean} [settings.titleSafe=false] If the item needs to be in the title safe area
+	*                                              (default is false)
+	*  @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
+	*                                          size as the stage)
+	*  @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
+	*                                          size as the stage)
+	*  @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
+	*                                                         object is directly in the center of
+	*                                                         the stage assuming origin point is in
+	*                                                         the upper-left corner.
 	*  @param {Number} [settings.x] The initial X position of the item
 	*  @param {Number} [settings.y] The initial Y position of the item
 	*  @param {Object} [settings.scale] The initial scale
@@ -535,9 +559,10 @@
 	*  @param {Number} [settings.pivot.x] The pivot point X location
 	*  @param {Number} [settings.pivot.y] The pivot point Y location
 	*  @param {Number} [settings.rotation] The initial rotation in degrees
-	*  @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item or an array of points.
-	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area, &quot;rect&quot;, &quot;ellipse&quot;, &quot;circle&quot;, etc
-	*         center of the screen, assuming an origin at the top left of the object.
+	*  @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
+	*                                           or an array of points.
+	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
+	*                                          &quot;rect&quot;, &quot;ellipse&quot;, &quot;circle&quot;, etc
 	*  @return {UIScaler} The instance of this UIScaler for chaining
 	*/
 	p.addItem = function(item, settings)
@@ -639,38 +664,53 @@
 	*/
 	p._resize = function(w, h)
 	{
-		this._scale = h / this._designedSize.height;
-
-		var i, len = this._items.length;
+		var _designedSize = this._designedSize;
+		var defaultRatio = _designedSize.width / _designedSize.height,
+			currentRatio = w / h;
+		this._scale = currentRatio &gt; defaultRatio ?
+						h / _designedSize.height :
+						w / _designedSize.width;
+		var scaleToHeight = currentRatio &gt;= defaultRatio;
+		
+		var _items = this._items;
+		var i, len = _items.length;
 
 		if (len &gt; 0)
 		{
 			for (i = 0; i &lt; len; ++i)
 			{
-				this._items[i].resize(w, h);
+				_items[i].resize(w, h);
 			}
 		}
-
-		len = this._backgrounds.length;
+		
+		var _backgrounds = this._backgrounds, _adapter = this._adapter;
+		len = _backgrounds.length;
 
 		if (len &gt; 0)
 		{
-			var bitmap, size, scale;
+			var expectedBGWidth = _designedSize.maxWidth || _designedSize.width;
+			var bitmap, size, scale, positionHelper = {x: 0, y:0}, bgScale, activeBGSize;
 			for (i = 0; i &lt; len; i++)
 			{
-				bitmap = this._backgrounds[i];
-
-				size = this._adapter.getBitmapSize(bitmap);
-				scale = h / size.h;
+				bitmap = _backgrounds[i];
+				
+				size = _adapter.getBitmapSize(bitmap);
+				//a double resolution image would have a bgScale of 2
+				bgScale = size.w / expectedBGWidth;
+				//determine the size of the active dimension, width or height
+				activeBGSize = bgScale * scaleToHeight ? _designedSize.height : _designedSize.width;
+				//determine scale the bg should be used at to fill the display properly
+				scale = (scaleToHeight ? h : w) / activeBGSize;
 
 				//scale the background
-				this._adapter.setScale(bitmap, scale);
-
+				_adapter.setScale(bitmap, scale);
+				
 				//center the background
-				this._adapter.setPosition(
+				positionHelper.x = (w - size.w * scale) * 0.5;
+				positionHelper.y = (h - size.h * scale) * 0.5;
+				_adapter.setPosition(
 					bitmap,
-					(w - size.w * scale) * 0.5,
-					&quot;x&quot;
+					positionHelper
 				);
 			}
 		}

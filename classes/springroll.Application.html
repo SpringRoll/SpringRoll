@@ -390,8 +390,9 @@ manages displays, update loop controlling, handles resizing</p>
 
                                 <div class="param-description">
                                     <p>The current version number for your application. This
-     number will automatically be appended to all file requests. For instance, if the version
-     is "0.0.1" all file requests will be appended with "?v=0.0.1"</p>
+                                      number will automatically be appended to all file
+                                      requests. For instance, if the version is "0.0.1" all
+                                      file requests will be appended with "?v=0.0.1"</p>
 
                                 </div>
 
@@ -407,9 +408,11 @@ manages displays, update loop controlling, handles resizing</p>
 
                                 <div class="param-description">
                                     <p>Path to a text file which contains explicit version
-        numbers for each asset. This is useful for controlling the live browser cache.
-        For instance, this text file would have an asset on each line followed by a number:
-        <code>assets/config/config.json 2</code> this would load <code>assets/config/config.json?v=2</code></p>
+                                       numbers for each asset. This is useful for controlling
+                                       the live browser cache. For instance, this text file
+                                       would have an asset on each line followed by a number:
+                                       <code>assets/config/config.json 2</code> would load
+                                       <code>assets/config/config.json?v=2</code></p>
 
                                 </div>
 
@@ -424,8 +427,9 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Override the end-user browser cache by adding "?v="
-        to the end of each file path requested. Use for developmently, debugging only!</p>
+                                    <p>Override the end-user browser cache by adding
+                                           "?v=" to the end of each file path requested. Use
+                                           for developmently, debugging only!</p>
 
                                 </div>
 
@@ -440,8 +444,9 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The optional file path to prefix to any relative file requests
-        this is a great way to load all load requests with a CDN path.</p>
+                                    <p>The optional file path to prefix to any relative file
+                                   requests this is a great way to load all load requests
+                                   with a CDN path.</p>
 
                                 </div>
 
@@ -456,7 +461,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The element to resize the canvas to</p>
+                                    <p>The element to resize the canvas to
+                                                          fit.</p>
 
                                 </div>
 
@@ -471,7 +477,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Whether to resize the displays to the original aspect ratio</p>
+                                    <p>Whether to resize the displays to the original
+                                              aspect ratio</p>
 
                                 </div>
 
@@ -486,8 +493,28 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If doing uniform resizing, optional parameter to add a maximum aspect ratio.
-       This allows for "title-safe" responsiveness. Must be greater than the original aspect ratio of the canvas.</p>
+                                    <p>If doing uniform resizing, optional parameter to add
+                                         a maximum aspect ratio. This allows for "title-safe"
+                                         responsiveness. Must be greater than the original
+                                         aspect ratio of the canvas.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[minAspectRatio]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>If doing uniform resizing, optional parameter to add
+                                         a minimum aspect ratio. This allows for "title-safe"
+                                         responsiveness. Must be less than the original
+                                         aspect ratio of the canvas.</p>
 
                                 </div>
 
@@ -502,7 +529,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Parse the query string paramenters as options</p>
+                                    <p>Parse the query string paramenters as
+                                                       options</p>
 
                                 </div>
 
@@ -532,8 +560,9 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The minimum log level to show debug messages for from 0 (general) to 4 (error),
-        the <code>Debug</code> class must be used for this feature.</p>
+                                    <p>The minimum log level to show debug messages for from
+                                     0 (general) to 4 (error). the <code>Debug</code> class must be used
+                                     for this feature.</p>
 
                                 </div>
 
@@ -548,8 +577,9 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The host computer for remote debugging,
-        the debug module must be included to use this feature. Can be an IP address or host name.</p>
+                                    <p>The host computer for remote debugging, the debug
+                                      module must be included to use this feature. Can be an
+                                      IP address or host name.</p>
 
                                 </div>
 
@@ -564,7 +594,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If using TweenJS, the Application will update the Tween itself</p>
+                                    <p>If using TweenJS, the Application will update
+                                             the Tween itself</p>
 
                                 </div>
 
@@ -594,7 +625,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The name of the class to instaniate as the display (e.g. <code>springroll.PixiDisplay</code>)</p>
+                                    <p>The name of the class to automatically instantiate as the
+                                    display (e.g. <code>springroll.PixiDisplay</code>)</p>
 
                                 </div>
 
@@ -624,7 +656,8 @@ manages displays, update loop controlling, handles resizing</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Used by <code>springroll.PixiTask</code>, default behavior is to load assets from the same domain.</p>
+                                    <p>Used by <code>springroll.PixiTask</code>, default behavior
+                                             is to load assets from the same domain.</p>
 
                                 </div>
 
@@ -1099,7 +1132,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l445"><code>_doInit:445</code></a>
+        <a href="../files/src_Application.js.html#l467"><code>_doInit:467</code></a>
         
         </p>
 
@@ -1156,7 +1189,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l351"><code>_internalInit:351</code></a>
+        <a href="../files/src_Application.js.html#l372"><code>_internalInit:372</code></a>
         
         </p>
 
@@ -1213,7 +1246,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l508"><code>_onHidden:508</code></a>
+        <a href="../files/src_Application.js.html#l530"><code>_onHidden:530</code></a>
         
         </p>
 
@@ -1270,7 +1303,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l518"><code>_onVisible:518</code></a>
+        <a href="../files/src_Application.js.html#l540"><code>_onVisible:540</code></a>
         
         </p>
 
@@ -1327,7 +1360,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l766"><code>_tick:766</code></a>
+        <a href="../files/src_Application.js.html#l792"><code>_tick:792</code></a>
         
         </p>
 
@@ -1408,7 +1441,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l643"><code>addDisplay:643</code></a>
+        <a href="../files/src_Application.js.html#l667"><code>addDisplay:667</code></a>
         
         </p>
 
@@ -1439,8 +1472,9 @@ manages displays, update loop controlling, handles resizing</p>
 
                     <div class="param-description">
                         <p>The id of the canvas element, this will be used to grab the Display later
-              also the Display should be the one to called document.getElementById(id)
-              and not the application sinc we don&#39;t care about the DOMElement as this point</p>
+                   also the Display should be the one to called document.getElementById(id)
+                   and not the application sinc we don&#39;t care about the DOMElement as this
+                   point</p>
 
                     </div>
 
@@ -1548,7 +1582,7 @@ manages displays, update loop controlling, handles resizing</p>
             
         
         
-        <a href="../files/src_Application.js.html#l613"><code>calculateDisplaySize:613</code></a>
+        <a href="../files/src_Application.js.html#l635"><code>calculateDisplaySize:635</code></a>
         
         </p>
 
@@ -1581,7 +1615,8 @@ if you need variable aspect ratios.</p>
 
                     <div class="param-description">
                         <p>A size object containing the width and height of the resized container.
-                 The size parameter is also the output of the function, so the size properties are edited in place.</p>
+                     The size parameter is also the output of the function, so the size
+                     properties are edited in place.</p>
 
                     </div>
 
@@ -1662,7 +1697,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l813"><code>destroy:813</code></a>
+        <a href="../files/src_Application.js.html#l839"><code>destroy:839</code></a>
         
         </p>
 
@@ -1673,7 +1708,8 @@ if you need variable aspect ratios.</p>
     </div>
 
     <div class="description">
-        <p>Destroys the application, global libraries registered via Application.registerDestroy() and all active displays</p>
+        <p>Destroys the application, global libraries registered via Application.registerDestroy() and
+all active displays</p>
 
     </div>
 
@@ -1731,7 +1767,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l685"><code>getDisplay:685</code></a>
+        <a href="../files/src_Application.js.html#l710"><code>getDisplay:710</code></a>
         
         </p>
 
@@ -1840,7 +1876,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l696"><code>getDisplays:696</code></a>
+        <a href="../files/src_Application.js.html#l721"><code>getDisplays:721</code></a>
         
         </p>
 
@@ -1871,7 +1907,8 @@ if you need variable aspect ratios.</p>
                     
 
                     <div class="param-description">
-                        <p>Optional looping method, callback takes a single parameter of the display</p>
+                        <p>Optional looping method, callback takes a single parameter of the
+                         display</p>
 
                     </div>
 
@@ -1936,7 +1973,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l501"><code>init:501</code></a>
+        <a href="../files/src_Application.js.html#l523"><code>init:523</code></a>
         
         </p>
 
@@ -1997,7 +2034,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l470"><code>parseQueryStringParams:470</code></a>
+        <a href="../files/src_Application.js.html#l492"><code>parseQueryStringParams:492</code></a>
         
         </p>
 
@@ -2080,7 +2117,7 @@ if you need variable aspect ratios.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l325"><code>registerDestroy:325</code></a>
+        <a href="../files/src_Application.js.html#l346"><code>registerDestroy:346</code></a>
         
         </p>
 
@@ -2173,7 +2210,7 @@ Application.registerInit(Loader.instance.destroy.bind(Loader.instance));</p>
             
         
         
-        <a href="../files/src_Application.js.html#l313"><code>registerInit:313</code></a>
+        <a href="../files/src_Application.js.html#l334"><code>registerInit:334</code></a>
         
         </p>
 
@@ -2262,7 +2299,7 @@ Application.registerInit(Loader.init);</p>
             
         
         
-        <a href="../files/src_Application.js.html#l717"><code>removeDisplay:717</code></a>
+        <a href="../files/src_Application.js.html#l743"><code>removeDisplay:743</code></a>
         
         </p>
 
@@ -2359,7 +2396,7 @@ Application.registerInit(Loader.init);</p>
             
         
         
-        <a href="../files/src_Application.js.html#l569"><code>setTargetedTimeout:569</code></a>
+        <a href="../files/src_Application.js.html#l591"><code>setTargetedTimeout:591</code></a>
         
         </p>
 
@@ -2455,7 +2492,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l586"><code>triggerResize:586</code></a>
+        <a href="../files/src_Application.js.html#l608"><code>triggerResize:608</code></a>
         
         </p>
 
@@ -2511,7 +2548,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l208"><code>_aspectRatio:208</code></a>
+        <a href="../files/src_Application.js.html#l229"><code>_aspectRatio:229</code></a>
         
         </p>
 
@@ -2558,7 +2595,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l230"><code>_defaultOptions:230</code></a>
+        <a href="../files/src_Application.js.html#l251"><code>_defaultOptions:251</code></a>
         
         </p>
 
@@ -2605,7 +2642,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l223"><code>_displays:223</code></a>
+        <a href="../files/src_Application.js.html#l244"><code>_displays:244</code></a>
         
         </p>
 
@@ -2652,7 +2689,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l185"><code>_fps:185</code></a>
+        <a href="../files/src_Application.js.html#l206"><code>_fps:206</code></a>
         
         </p>
 
@@ -2701,7 +2738,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l149"><code>_frameCount:149</code></a>
+        <a href="../files/src_Application.js.html#l170"><code>_frameCount:170</code></a>
         
         </p>
 
@@ -2748,7 +2785,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l128"><code>_framerate:128</code></a>
+        <a href="../files/src_Application.js.html#l149"><code>_framerate:149</code></a>
         
         </p>
 
@@ -2797,7 +2834,7 @@ current tick.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l118"><code>_globalDestroy:118</code></a>
+        <a href="../files/src_Application.js.html#l139"><code>_globalDestroy:139</code></a>
         
         </p>
 
@@ -2848,7 +2885,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l108"><code>_globalInit:108</code></a>
+        <a href="../files/src_Application.js.html#l129"><code>_globalInit:129</code></a>
         
         </p>
 
@@ -2897,7 +2934,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l142"><code>_lastFPSUpdateTime:142</code></a>
+        <a href="../files/src_Application.js.html#l163"><code>_lastFPSUpdateTime:163</code></a>
         
         </p>
 
@@ -2944,7 +2981,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l135"><code>_lastFrameTime:135</code></a>
+        <a href="../files/src_Application.js.html#l156"><code>_lastFrameTime:156</code></a>
         
         </p>
 
@@ -2991,7 +3028,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l193"><code>_msPerFrame:193</code></a>
+        <a href="../files/src_Application.js.html#l214"><code>_msPerFrame:214</code></a>
         
         </p>
 
@@ -3038,7 +3075,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l215"><code>_pageVisibility:215</code></a>
+        <a href="../files/src_Application.js.html#l236"><code>_pageVisibility:236</code></a>
         
         </p>
 
@@ -3085,7 +3122,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l163"><code>_paused:163</code></a>
+        <a href="../files/src_Application.js.html#l184"><code>_paused:184</code></a>
         
         </p>
 
@@ -3132,7 +3169,7 @@ for instance Loader</p>
             
         
         
-        <a href="../files/src_Application.js.html#l87"><code>_readyToInit:87</code></a>
+        <a href="../files/src_Application.js.html#l107"><code>_readyToInit:107</code></a>
         
         </p>
 
@@ -3180,7 +3217,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l200"><code>_resizeElement:200</code></a>
+        <a href="../files/src_Application.js.html#l221"><code>_resizeElement:221</code></a>
         
         </p>
 
@@ -3229,7 +3266,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l253"><code>_resizeHelper:253</code></a>
+        <a href="../files/src_Application.js.html#l274"><code>_resizeHelper:274</code></a>
         
         </p>
 
@@ -3276,7 +3313,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l156"><code>_tickCallback:156</code></a>
+        <a href="../files/src_Application.js.html#l177"><code>_tickCallback:177</code></a>
         
         </p>
 
@@ -3323,7 +3360,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l170"><code>_tickId:170</code></a>
+        <a href="../files/src_Application.js.html#l191"><code>_tickId:191</code></a>
         
         </p>
 
@@ -3370,7 +3407,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l177"><code>_useRAF:177</code></a>
+        <a href="../files/src_Application.js.html#l198"><code>_useRAF:198</code></a>
         
         </p>
 
@@ -3419,7 +3456,7 @@ Application but want to do some extra stuff before init is actually called.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l79"><code>display:79</code></a>
+        <a href="../files/src_Application.js.html#l98"><code>display:98</code></a>
         
         </p>
 
@@ -3429,7 +3466,8 @@ Application but want to do some extra stuff before init is actually called.</p>
     </div>
 
     <div class="description">
-        <p>Primary renderer for the application, for simply accessing Application.instance.display.stage;
+        <p>Primary renderer for the application, for simply accessing
+Application.instance.display.stage;
 The first display added becomes the primary display automatically.</p>
 
     </div>
@@ -3467,7 +3505,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l732"><code>fps:732</code></a>
+        <a href="../files/src_Application.js.html#l758"><code>fps:758</code></a>
         
         </p>
 
@@ -3516,7 +3554,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l338"><code>instance:338</code></a>
+        <a href="../files/src_Application.js.html#l359"><code>instance:359</code></a>
         
         </p>
 
@@ -3561,7 +3599,7 @@ The first display added becomes the primary display automatically.</p>
             
         
         
-        <a href="../files/src_Application.js.html#l71"><code>options:71</code></a>
+        <a href="../files/src_Application.js.html#l90"><code>options:90</code></a>
         
         </p>
 
@@ -3607,7 +3645,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l528"><code>paused:528</code></a>
+        <a href="../files/src_Application.js.html#l550"><code>paused:550</code></a>
         
         </p>
 
@@ -3654,7 +3692,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l750"><code>raf:750</code></a>
+        <a href="../files/src_Application.js.html#l776"><code>raf:776</code></a>
         
         </p>
 
@@ -3709,7 +3747,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l307"><code>destroy:307</code></a>
+        <a href="../files/src_Application.js.html#l328"><code>destroy:328</code></a>
         
         </p>
 
@@ -3753,7 +3791,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l260"><code>init:260</code></a>
+        <a href="../files/src_Application.js.html#l281"><code>init:281</code></a>
         
         </p>
 
@@ -3797,7 +3835,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l288"><code>pause:288</code></a>
+        <a href="../files/src_Application.js.html#l309"><code>pause:309</code></a>
         
         </p>
 
@@ -3865,7 +3903,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l295"><code>paused:295</code></a>
+        <a href="../files/src_Application.js.html#l316"><code>paused:316</code></a>
         
         </p>
 
@@ -3911,7 +3949,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l266"><code>preInit:266</code></a>
+        <a href="../files/src_Application.js.html#l287"><code>preInit:287</code></a>
         
         </p>
 
@@ -3955,7 +3993,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l280"><code>resize:280</code></a>
+        <a href="../files/src_Application.js.html#l301"><code>resize:301</code></a>
         
         </p>
 
@@ -4039,7 +4077,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l301"><code>resumed:301</code></a>
+        <a href="../files/src_Application.js.html#l322"><code>resumed:322</code></a>
         
         </p>
 
@@ -4083,7 +4121,7 @@ Application properties like raf, fps, don&#39;t have any affect on the options o
             
         
         
-        <a href="../files/src_Application.js.html#l273"><code>update:273</code></a>
+        <a href="../files/src_Application.js.html#l294"><code>update:294</code></a>
         
         </p>
 

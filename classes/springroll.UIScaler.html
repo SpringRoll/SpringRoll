@@ -259,8 +259,9 @@
 
 
 <div class="box intro">
-    <p>The UI scale is responsible for scaling UI components
-to help easy the burden of different device aspect ratios.</p>
+    <p>The UI scale is responsible for scaling UI components to help easy the burden of different
+device aspect ratios. The UI can expand either vertically or horizontally to fill excess
+space.</p>
 
 </div>
 
@@ -425,7 +426,24 @@ to help easy the burden of different device aspect ratios.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The designed maximum width of the interface</p>
+                                    <p>The designed maximum width of the
+                                                        interface.</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[maxHeight=designedSize.height]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>The designed maximum height of the
+                                                          interface.</p>
 
                                 </div>
 
@@ -446,8 +464,10 @@ to help easy the burden of different device aspect ratios.</p>
                     
 
                     <div class="param-description">
-                        <p>The items object where the keys are the name of the property on the parent and the value
-       is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align"</p>
+                        <p>The items object where the keys are the name of the property on
+                             the parent and the value
+                             is an object with keys of "titleSafe", "minScale", "maxScale",
+                             "centerHorizontally", "align"</p>
 
                     </div>
 
@@ -481,7 +501,8 @@ to help easy the burden of different device aspect ratios.</p>
                     
 
                     <div class="param-description">
-                        <p>The display which to use for the scaler</p>
+                        <p>The display which to use for the
+                                                        scaler</p>
 
                     </div>
 
@@ -763,7 +784,7 @@ to help easy the burden of different device aspect ratios.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l165"><code>_getAdapter:165</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l179"><code>_getAdapter:179</code></a>
         
         </p>
 
@@ -860,7 +881,7 @@ to help easy the burden of different device aspect ratios.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l389"><code>_resize:389</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l414"><code>_resize:414</code></a>
         
         </p>
 
@@ -969,7 +990,7 @@ to help easy the burden of different device aspect ratios.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l352"><code>addBackground:352</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l377"><code>addBackground:377</code></a>
         
         </p>
 
@@ -1084,7 +1105,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l273"><code>addItem:273</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l288"><code>addItem:288</code></a>
         
         </p>
 
@@ -1146,9 +1167,12 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The vertical alignment ("top", "bottom", "center") then horizontal
-       alignment ("left", "right" and "center"). Or you can use the short-handed versions: "center" = "center-center",
-       "top" = "top-center", "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".</p>
+                                    <p>The vertical alignment ("top", "bottom", "center")
+                                          then horizontal alignment ("left", "right" and
+                                          "center"). Or you can use the short-handed
+                                          versions: "center" = "center-center",
+                                          "top" = "top-center", "bottom" = "bottom-center",
+                                          "left" = "center-left", "right" = "center-right".</p>
 
                                 </div>
 
@@ -1163,7 +1187,8 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>If the item needs to be in the title safe area (default is false)</p>
+                                    <p>If the item needs to be in the title safe area
+                                            (default is false)</p>
 
                                 </div>
 
@@ -1178,7 +1203,8 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The minimum scale amount (default, scales the same size as the stage)</p>
+                                    <p>The minimum scale amount (default, scales the same
+                                        size as the stage)</p>
 
                                 </div>
 
@@ -1193,7 +1219,8 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The maximum scale amount (default, scales the same size as the stage)</p>
+                                    <p>The maximum scale amount (default, scales the same
+                                        size as the stage)</p>
 
                                 </div>
 
@@ -1208,7 +1235,10 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Makes sure that the center of the object is directly in the center of the stage assuming origin point is in the upper-left corner.</p>
+                                    <p>Makes sure that the center of the
+                                                       object is directly in the center of
+                                                       the stage assuming origin point is in
+                                                       the upper-left corner.</p>
 
                                 </div>
 
@@ -1354,7 +1384,8 @@ the left and right.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>An object which describes the hit area of the item or an array of points.</p>
+                                    <p>An object which describes the hit area of the item
+                                         or an array of points.</p>
 
                                 </div>
 
@@ -1369,8 +1400,8 @@ the left and right.</p>
                                             
 
                                             <div class="param-description">
-                                                If the hitArea is an object, the type of hit area, "rect", "ellipse", "circle", etc
-       center of the screen, assuming an origin at the top left of the object.
+                                                If the hitArea is an object, the type of hit area,
+                                        "rect", "ellipse", "circle", etc
                                             </div>
                                         </li>
                                         
@@ -1452,7 +1483,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l232"><code>addItems:232</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l246"><code>addItems:246</code></a>
         
         </p>
 
@@ -1482,9 +1513,10 @@ the left and right.</p>
                     
 
                     <div class="param-description">
-                        <p>The items object where the keys are the name of the property on the parent and the value
-      is an object with keys of "titleSafe", "minScale", "maxScale", "centerHorizontally", "align", see UIScaler.addItem
-      for a description of the different keys.</p>
+                        <p>The items object where the keys are the name of the property on the
+                      parent and the value is an object with keys of "titleSafe", "minScale",
+                      "maxScale", "centerHorizontally", "align", see UIScaler.addItem for a
+                      description of the different keys.</p>
 
                     </div>
 
@@ -1547,7 +1579,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l435"><code>destroy:435</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l475"><code>destroy:475</code></a>
         
         </p>
 
@@ -1616,7 +1648,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l370"><code>removeBackground:370</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l395"><code>removeBackground:395</code></a>
         
         </p>
 
@@ -1710,7 +1742,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l82"><code>_adapter:82</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l96"><code>_adapter:96</code></a>
         
         </p>
 
@@ -1757,7 +1789,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l89"><code>_backgrounds:89</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l103"><code>_backgrounds:103</code></a>
         
         </p>
 
@@ -1804,7 +1836,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l59"><code>_designedSize:59</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l66"><code>_designedSize:66</code></a>
         
         </p>
 
@@ -1851,7 +1883,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l96"><code>_enabled:96</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l110"><code>_enabled:110</code></a>
         
         </p>
 
@@ -1898,7 +1930,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l39"><code>_items:39</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l46"><code>_items:46</code></a>
         
         </p>
 
@@ -1945,7 +1977,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l32"><code>_parent:32</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l39"><code>_parent:39</code></a>
         
         </p>
 
@@ -1992,7 +2024,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l74"><code>_scale:74</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l88"><code>_scale:88</code></a>
         
         </p>
 
@@ -2043,7 +2075,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l125"><code>ALIGN_BOTTOM:125</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l139"><code>ALIGN_BOTTOM:139</code></a>
         
         </p>
 
@@ -2094,7 +2126,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l155"><code>ALIGN_CENTER:155</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l169"><code>ALIGN_CENTER:169</code></a>
         
         </p>
 
@@ -2145,7 +2177,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l135"><code>ALIGN_LEFT:135</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l149"><code>ALIGN_LEFT:149</code></a>
         
         </p>
 
@@ -2196,7 +2228,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l145"><code>ALIGN_RIGHT:145</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l159"><code>ALIGN_RIGHT:159</code></a>
         
         </p>
 
@@ -2247,7 +2279,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l115"><code>ALIGN_TOP:115</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l129"><code>ALIGN_TOP:129</code></a>
         
         </p>
 
@@ -2294,7 +2326,7 @@ the left and right.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l205"><code>enabled:205</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l219"><code>enabled:219</code></a>
         
         </p>
 
@@ -2342,7 +2374,7 @@ initialized a resize.</p>
             
         
         
-        <a href="../files/src_ui_UIScaler.js.html#l193"><code>scale:193</code></a>
+        <a href="../files/src_ui_UIScaler.js.html#l207"><code>scale:207</code></a>
         
         </p>
 
