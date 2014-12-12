@@ -267,7 +267,7 @@
 	*/
 	AssetManager.load = function(assetOrAssets, callback, taskList)
 	{
-		var i, length, urls = [];
+		var i, length, urls = [], asset;
 		if(!Array.isArray(assetOrAssets))
 			assetOrAssets = [assetOrAssets];
 		if(taskList)
@@ -280,7 +280,9 @@
 			}
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
 			{
-				urls.push(AssetManager.getUrl(assetOrAssets[i]));
+				asset = assets[assetOrAssets[i]];
+				if(asset && !asset._isLoaded)
+					urls.push(AssetManager.getUrl(assetOrAssets[i]));
 			}
 			var task = new PixiTask("", urls, onLoaded.bind(AssetManager, assetOrAssets, callback));
 			if(Array.isArray(taskList))
@@ -298,12 +300,14 @@
 			var cm = Loader.instance.cacheManager;
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
 			{
-				urls[i] = cm.prepare(AssetManager.getUrl(assetOrAssets[i]));
+				asset = assets[assetOrAssets[i]];
+				if(asset && !asset._isLoaded)
+					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i])));
 			}
 			var opts = Application.instance.options;
-			this._assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
-			this._assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
-			this._assetLoader.load();
+			var assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
+			assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
+			assetLoader.load();
 		}
 	};
 	
@@ -320,6 +324,8 @@
 		for(var i = 0, length = assets.length; i < length; ++i)
 		{
 			var asset = assets[i];
+			if(!asset) continue;
+			asset._isLoaded = true;//keep track of the loaded status
 			var url = AssetManager.getUrl(asset);
 			var texture = Texture.fromFrame(url, true);
 			if(texture)
@@ -366,6 +372,7 @@
 		var a = assets[asset];
 		if(!a) return;//asset never existed in the master list
 		if(a.anim) return;//don't unload these, they are pretty small
+		a._isLoaded = false;//remember that it is unloaded
 		if(a.isFont)
 		{
 			if(BitmapText.fonts[asset])
