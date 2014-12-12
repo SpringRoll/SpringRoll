@@ -11,8 +11,9 @@
 		Application = include('springroll.Application');
 
 	/**
-	*  The UI scale is responsible for scaling UI components
-	*  to help easy the burden of different device aspect ratios.
+	*  The UI scale is responsible for scaling UI components to help easy the burden of different
+	*  device aspect ratios. The UI can expand either vertically or horizontally to fill excess
+	*  space.
 	*
 	*  @class UIScaler
 	*  @constructor
@@ -21,7 +22,9 @@
 	*  @param {int} designedSize.width The designed width of the interface
 	*  @param {int} designedSize.height The designed height of the interface
 	*  @param {int} [designedSize.maxWidth=designedSize.width] The designed maximum width of the
-	*                                                          interface
+	*                                                          interface.
+	*  @param {int} [designedSize.maxHeight=designedSize.height] The designed maximum height of the
+	*                                                            interface.
 	*  @param {Object} [items=null] The items object where the keys are the name of the property on
 	*                               the parent and the value
 	*                               is an object with keys of "titleSafe", "minScale", "maxScale",

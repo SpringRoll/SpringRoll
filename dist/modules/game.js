@@ -1313,63 +1313,69 @@
 	*  @param {Object} [options] The collection of options, see Application for more options.
 	*  @param {String} [options.state] The initial state
 	*  @param {createjs.MovieClip|PIXI.Spine} [options.transition] The StateManager transition
-	*         animation
+	*                                                              animation
 	*  @param {Object} [options.transitionSounds] The transition sound data
 	*  @param {Object|String} [options.transitionSounds.in="TransitionIn"] The transition in sound
-	*         alias or sound object
+	*                                                                      alias or sound object
 	*  @param {Object|String} [options.transitionSounds.out="TransitionOut"] The transition out
-	*         sound alias or sound object
+	*                                                                        sound alias or sound
+	*                                                                        object
 	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The
 	*                          captions text field object to use for the VOPlayer captions object.
 	*  @param {String} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin
-	*         swf for SoundJS
+	*                                                   swf for SoundJS
 	*  @param {Array} [options.audioTypes=['ogg','mp3'] The order in which file types are
-	*         preferred, where "ogg" becomes a ".ogg" extension on all sound file urls.
+	*                                                   preferred, where "ogg" becomes a ".ogg"
+	*                                                   extension on all sound file urls.
 	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
-	*         (unminifed library version only)
+	*                                        (unminifed library version only)
 	*  @param {String} [options.name] The name of the game
 	*  @param {Boolean} [options.forceMobile=false] Manually override the check for isMobile
-	*         (unminifed library version only)
+	*                                               (unminifed library version only)
 	*  @param {Boolean} [options.updateTween=true] Have the application take care of the Tween
-	*         updates
+	*                                              updates
 	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
 	*  @param {Boolean} [options.raf=true] Use request animation frame
 	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
-	*         numbers for each asset. This is useful for
-	*         controlling the live browser cache. For instance,
-	*         this text file would have an asset on each line
-	*         followed by a number: `assets/config/config.json 2`
-	*         this would load `assets/config/config.json?v=2`
+	*                                         numbers for each asset. This is useful for
+	*                                         controlling the live browser cache. For instance,
+	*                                         this text file would have an asset on each line
+	*                                         followed by a number: `assets/config/config.json 2`
+	*                                         this would load `assets/config/config.json?v=2`
 	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding
-	*         "?v=" to the end of each file path requested. Use
-	*         for development, debugging only!
+	*                                             "?v=" to the end of each file path requested. Use
+	*                                             for development, debugging only!
 	*  @param {String} [options.basePath] The optional file path to prefix to any relative file
-	*         requests. This is a great way to load all load requests
-	*         with a CDN path.
+	*                                     requests. This is a great way to load all load requests
+	*                                     with a CDN path.
 	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original
-	*         aspect ratio
+	*                                                aspect ratio
 	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to
-	*         add a maximum aspect ratio. This allows for
-	*         "title-safe" responsiveness. Must be greater than
-	*         the original aspect ratio of the canvas.
+	*                                           add a maximum aspect ratio. This allows for
+	*                                           "title-safe" responsiveness. Must be greater than
+	*                                           the original aspect ratio of the canvas.
+	*  @param {Number} [options.minAspectRatio] If doing uniform resizing, optional parameter to add
+	*                                           a minimum aspect ratio. This allows for "title-safe"
+	*                                           responsiveness. Must be less than the original
+	*                                           aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as
-	*         options
+	*                                                         options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from 0
-	*         (general) to 4 (error), the `Debug` class must be used
-	*         for this feature.
+	*                                       (general) to 4 (error). the `Debug` class must be used
+	*                                       for this feature.
 	*  @param {String} [options.debugRemote] The host computer for remote debugging, the debug
-	*         module must be included to use this feature. Can be an
-	*         IP address or host name.
-	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
-	*         the Tween itself
+	*                                        module must be included to use this feature. Can be an
+	*                                        IP address or host name.
+	*  @param {Boolean} [options.updateTween=true] If using TweenJS, the Application will update
+	*                                              the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display (e.g.
-	*         `springroll.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to automatically instantiate as the
+	*                                      display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
 	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior
-	*         is to load assets from the same domain.
+	*                                               is to load assets from the same domain.
 	*/
 	var Game = function(options)
 	{
@@ -1395,7 +1401,7 @@
 
 		/**
 		*  The name of the game, useful for debugging purposes
-		*  @property {string} name
+		*  @property {String} name
 		*  @default "Untitled"
 		*/
 		this.name = this.options.name;
@@ -1433,7 +1439,7 @@
 
 		/**
 		*  If the current brower is mobile
-		*  @property {boolean} isMobile
+		*  @property {Boolean} isMobile
 		*/
 		if (true && this.options.forceMobile)
 		{
@@ -1449,13 +1455,13 @@
 
 			/**
 			*  If the current brower is iOS
-			*  @property {boolean} isIOS
+			*  @property {Boolean} isIOS
 			*/
 			this.isIOS = agent.search(/iPhone|iPad|iPod/) > -1;
 			this.isMobile = this.isIOS || agent.search(/Android|Blackberry/) > -1;
 		}
 
-		// Callback right before init is called, we'll 
+		// Callback right before init is called, we'll
 		// override the init and load the sound first
 		this.once('beforeInit', onBeforeInit.bind(this));
 	};
@@ -1579,7 +1585,7 @@
 	/**
 	*  Add a single state
 	*  @method addState
-	*  @param {string} alias The shortcut alias for the state
+	*  @param {String} alias The shortcut alias for the state
 	*  @param {BaseState} state The state manager state to add
 	*/
 	p.addState = function(alias, state)
@@ -1606,7 +1612,7 @@
 	/**
 	*  Add a bunch of states at once by a dictionary of aliases to states
 	*  @method addStates
-	*  @param {object} states The collection of states where the key is the state alias
+	*  @param {Object} states The collection of states where the key is the state alias
 	*/
 	p.addStates = function(states)
 	{
@@ -1666,19 +1672,19 @@
 	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
 	*                                      settings.
 	*  @param {Object|String} config.soundManifest.* An entry in the array. If this is a
-	*                                                       string, then it is the same as
-	*                                                       {'id':'<yourString>'}.
+	*                                                string, then it is the same as
+	*                                                {'id':'<yourString>'}.
 	*  @param {String} config.soundManifest.*.id The id to reference the sound by.
 	*  @param {String} [config.soundManifest.*.src] The src path to the file, without an
-	*                                                      extension. If omitted, defaults to id.
+	*                                               extension. If omitted, defaults to id.
 	*  @param {Number} [config.soundManifest.*.volume=1] The default volume for the sound,
-	*                                                           from 0 to 1.
+	*                                                    from 0 to 1.
 	*  @param {Boolean} [config.soundManifest.*.loop=false] If the sound should loop by
-	*                                                              default whenever the loop
-	*                                                              parameter in play() is not
-	*                                                              specified.
+	*                                                       default whenever the loop
+	*                                                       parameter in play() is not
+	*                                                       specified.
 	*  @param {String} [config.soundManifest.*.context] A context name to override
-	*                                                          config.context with.
+	*                                                   config.context with.
 	*  @return {Sound} The sound object for chaining
 	*/
 	p.addSounds = function(config)
@@ -1718,7 +1724,7 @@
 			// Update the player captions
 			this.captions.setDictionary(captionData);
 		}
-	}; 
+	};
 
 	/**
 	*  Sets the dicitonary for the captions used by player. If a Captions object
@@ -1764,7 +1770,7 @@
 	/**
 	*  The toString debugging method
 	*  @method toString
-	*  @return {string} The reprsentation of this class
+	*  @return {String} The reprsentation of this class
 	*/
 	p.toString = function()
 	{

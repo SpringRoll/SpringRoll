@@ -1274,11 +1274,15 @@
 	*                                           a maximum aspect ratio. This allows for "title-safe"
 	*                                           responsiveness. Must be greater than the original
 	*                                           aspect ratio of the canvas.
+	*  @param {Number} [options.minAspectRatio] If doing uniform resizing, optional parameter to add
+	*                                           a minimum aspect ratio. This allows for "title-safe"
+	*                                           responsiveness. Must be less than the original
+	*                                           aspect ratio of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as
 	*                                                         options
 	*  @param {Boolean} [options.debug=false] Enable the Debug class
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from
-	*                                       0 (general) to 4 (error), the `Debug` class must be used
+	*                                       0 (general) to 4 (error). the `Debug` class must be used
 	*                                       for this feature.
 	*  @param {String} [options.debugRemote] The host computer for remote debugging, the debug
 	*                                        module must be included to use this feature. Can be an
@@ -1286,8 +1290,8 @@
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
 	*                                               the Tween itself
 	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to instaniate as the display
-	*                                      (e.g. `springroll.PixiDisplay`)
+	*  @param {Function} [options.display] The name of the class to automatically instantiate as the
+	*                                      display (e.g. `springroll.PixiDisplay`)
 	*  @param {Object} [options.displayOptions] Display-specific options
 	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior
 	*                                               is to load assets from the same domain.
