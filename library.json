@@ -1,10 +1,10 @@
 {
-	"name" : "SpringRoll",
-	"version" : "0.0.6",
-	"description" : "An application framework for building HTML5 Canvas games and applications",
-	"url" : "https://github.com/SpringRoll/SpringRoll",
-	"output" : "core",
-	"main" : [
+	"name": "SpringRoll",
+	"version": "0.0.7",
+	"description": "An application framework for building HTML5 Canvas games and applications",
+	"url": "https://github.com/SpringRoll/SpringRoll",
+	"output": "core",
+	"main": [
 		"src/utils/namespace.js",
 		"src/utils/include.js",
 		"src/utils/Object.js",
@@ -25,11 +25,11 @@
 		"src/utils/DelayedCall.js",
 		"src/utils/String.js"
 	],
-	"modules" : {
-		"worker" : [
+	"modules": {
+		"worker": [
 			"src/polyfills/Worker.js"
 		],
-		"displaynative" : {
+		"displaynative": {
 			"output": "display-native",
 			"main": [
 				"src/displays/native/geom/*.js",
@@ -37,7 +37,7 @@
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"displaycreatejs" : {
+		"displaycreatejs": {
 			"output": "display-createjs",
 			"main": [
 				"src/displays/createjs/MovieClipUtils.js",
@@ -52,7 +52,7 @@
 				"src/displays/createjs/Cutscene.js"
 			]
 		},
-		"displaypixi" : {
+		"displaypixi": {
 			"output": "display-pixi",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
@@ -66,7 +66,7 @@
 				"src/displays/pixi/AssetManager.js"
 			]
 		},
-		"game" : [
+		"game": [
 			"src/utils/Array.js",
 			"src/utils/Math.js",
 			"src/games/states/BaseState.js",
@@ -74,7 +74,7 @@
 			"src/games/states/StateManager.js",
 			"src/games/Game.js"
 		],
-		"tasks" : [
+		"tasks": [
 			"src/tasks/TaskEvent.js",
 			"src/tasks/Task.js",
 			"src/tasks/FunctionTask.js",
@@ -83,20 +83,24 @@
 			"src/tasks/ListTask.js",
 			"src/tasks/PixiTask.js"
 		],
-		"sound" : [
+		"sound": [
 			"src/media/SoundContext.js",
 			"src/media/SoundInstance.js",
 			"src/media/SoundListTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js"
 		],
-		"interface" : [
+		"interface": [
 			"src/ui/UIElement.js",
 			"src/ui/UIElementSettings.js",
 			"src/ui/Positioner.js",
 			"src/ui/UIScaler.js"
 		],
-		"captions" : ["src/media/Captions.js"],
-		"translate" : ["src/utils/Language.js"]
+		"captions": [
+			"src/media/Captions.js"
+		],
+		"translate": [
+			"src/utils/Language.js"
+		]
 	}
 }
