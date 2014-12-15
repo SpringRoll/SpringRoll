@@ -114,7 +114,7 @@
 			else
 			{
 				//remove event listeners
-				interactionManager.removeEvents();
+				interactionManager.removeInteractionEvents();
 			}
 		}
 	});
