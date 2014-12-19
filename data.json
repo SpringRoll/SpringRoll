@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -329,7 +329,9 @@
         },
         "src/games/states/BaseState.js": {
             "name": "src/games/states/BaseState.js",
-            "modules": {},
+            "modules": {
+                "Game": 1
+            },
             "classes": {
                 "springroll.BaseState": 1
             },
@@ -681,7 +683,7 @@
         "src/utils/Math.js": {
             "name": "src/utils/Math.js",
             "modules": {
-                "Game": 1
+                "Core": 1
             },
             "classes": {
                 "Math": 1
@@ -691,9 +693,7 @@
         },
         "src/utils/Object.js": {
             "name": "src/utils/Object.js",
-            "modules": {
-                "Core": 1
-            },
+            "modules": {},
             "classes": {
                 "Object": 1
             },
@@ -773,9 +773,11 @@
                 "springroll.Loader": 1,
                 "springroll.LoaderQueueItem": 1,
                 "springroll.LoaderResult": 1,
+                "Array": 1,
                 "springroll.CombinedCallback": 1,
                 "Debug": 1,
                 "springroll.DelayedCall": 1,
+                "Math": 1,
                 "Object": 1,
                 "springroll.PageVisibility": 1,
                 "String": 1,
@@ -862,17 +864,15 @@
                 "springroll.BaseState": 1,
                 "springroll.StateEvent": 1,
                 "springroll.StateManager": 1,
-                "springroll.Game": 1,
-                "Array": 1,
-                "Math": 1
+                "springroll.Game": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/utils/Math.js",
-            "line": 6
+            "file": "src/games/Game.js",
+            "line": 14
         },
         "Captions": {
             "name": "Captions",
@@ -3192,7 +3192,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "Core",
             "namespace": "",
             "file": "src/utils/Array.js",
             "line": 5,
@@ -3341,7 +3341,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "Core",
             "namespace": "",
             "file": "src/utils/Math.js",
             "line": 6,
@@ -8073,7 +8073,7 @@
         {
             "file": "src/displays/pixi/AssetManager.js",
             "line": 91,
-            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets\ndo not have to exist in each size. Fonts are marked for unloading purposes.\nExample config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t\t\t\"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t}\n\t\t\t\t}",
+            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets\ndo not have to exist in each size. Fonts are marked for unloading purposes.\nExample config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t\t\t\"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"AnAssetCollection\": {\n\t\t\t\t\t\t\"format\": {\n\t\t\t\t\t\t\t\"src\": \"backgrounds/%NAME%.jpg\",\n\t\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\t\"tiny\": true\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"assets\": [\n\t\t\t\t\t\t\t\"Select_Background\",\n\t\t\t\t\t\t\t\"Result_Background\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t}",
             "itemtype": "method",
             "name": "init",
             "static": 1,
@@ -8100,7 +8100,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 171,
+            "line": 199,
             "description": "Get the alias of the preferred size to use",
             "itemtype": "method",
             "name": "getPreferredSize",
@@ -8115,7 +8115,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 182,
+            "line": 210,
             "description": "Get the preferred scale amount",
             "itemtype": "method",
             "name": "getPreferredScale",
@@ -8130,7 +8130,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 193,
+            "line": 221,
             "description": "Pick the preferred scale based on the screen resolution",
             "itemtype": "method",
             "name": "pickScale",
@@ -8155,7 +8155,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 215,
+            "line": 243,
             "description": "Get a asset url by asset id",
             "itemtype": "method",
             "name": "getUrl",
@@ -8176,7 +8176,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 257,
+            "line": 285,
             "description": "Loads an asset or list of assets, attempting to correctly apply texture resolution to all\nloaded textures.",
             "itemtype": "method",
             "name": "load",
@@ -8205,7 +8205,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 310,
+            "line": 401,
             "description": "Callback for when assets are loaded, to automatically apply the resolution of textures.",
             "itemtype": "method",
             "name": "onLoaded",
@@ -8214,7 +8214,7 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "assets",
+                    "name": "assetList",
                     "description": "Array of asset ids that were just loaded.",
                     "type": "Array"
                 },
@@ -8230,7 +8230,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 334,
+            "line": 427,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -8248,7 +8248,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 356,
+            "line": 449,
             "description": "Unload an asset",
             "itemtype": "method",
             "name": "unloadAsset",
@@ -8268,7 +8268,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 380,
+            "line": 485,
             "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS\ntexture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
             "itemtype": "method",
             "name": "getAnims",
@@ -16218,11 +16218,11 @@
             "itemtype": "method",
             "name": "shuffle",
             "class": "Array",
-            "module": "Game"
+            "module": "Core"
         },
         {
             "file": "src/utils/Array.js",
-            "line": 26,
+            "line": 29,
             "description": "Get a random item from an array",
             "itemtype": "method",
             "name": "random",
@@ -16239,11 +16239,11 @@
                 "type": "*"
             },
             "class": "Array",
-            "module": "Game"
+            "module": "Core"
         },
         {
             "file": "src/utils/Array.js",
-            "line": 41,
+            "line": 47,
             "description": "Get the last item in the array",
             "itemtype": "method",
             "name": "last",
@@ -16260,7 +16260,7 @@
                 "type": "*"
             },
             "class": "Array",
-            "module": "Game"
+            "module": "Core"
         },
         {
             "file": "src/utils/CombinedCallback.js",
@@ -17202,7 +17202,7 @@
                 "type": "Int"
             },
             "class": "Math",
-            "module": "Game"
+            "module": "Core"
         },
         {
             "file": "src/utils/Math.js",
@@ -17238,7 +17238,7 @@
                 "type": "Number"
             },
             "class": "Math",
-            "module": "Game"
+            "module": "Core"
         },
         {
             "file": "src/utils/Object.js",
@@ -17283,6 +17283,19 @@
             "return": {
                 "description": "If the object is plain",
                 "type": "Boolean"
+            },
+            "class": "Object",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Object.js",
+            "line": 101,
+            "description": "Creates a shallow copy of the object.",
+            "itemtype": "method",
+            "name": "clone",
+            "return": {
+                "description": "The shallow copy.",
+                "type": "Object"
             },
             "class": "Object",
             "module": "Core"
