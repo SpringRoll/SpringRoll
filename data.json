@@ -3373,7 +3373,7 @@
             "namespace": "springroll",
             "file": "src/utils/PageVisibility.js",
             "line": 7,
-            "description": "Handle the page visiblity change, if supported. Application uses one of these to\nmonitor page visibility. It is suggested that you listen to \"pause\", \"paused\", \nor \"unpaused\" events on the application instead of using one of these yourself.",
+            "description": "Handle the page visiblity change, if supported. Application uses one of these to\nmonitor page visibility. It is suggested that you listen to \"pause\", \"paused\",\nor \"unpaused\" events on the application instead of using one of these yourself.",
             "is_constructor": 1,
             "params": [
                 {
@@ -3565,6 +3565,13 @@
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
+                        },
+                        {
+                            "name": "autoPause",
+                            "description": "The application pauses automatically when\n                                          the window loses focus.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
                         },
                         {
                             "name": "canvasId",
@@ -17329,7 +17336,20 @@
         {
             "file": "src/utils/PageVisibility.js",
             "line": 33,
-            "description": "The visibility toggle function",
+            "description": "If this object is enabled.",
+            "itemtype": "property",
+            "name": "_enabled",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.PageVisibility",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/PageVisibility.js",
+            "line": 43,
+            "description": "The visibility toggle listener function",
             "itemtype": "property",
             "name": "_onToggle",
             "type": "Function",
@@ -17341,7 +17361,7 @@
         },
         {
             "file": "src/utils/PageVisibility.js",
-            "line": 46,
+            "line": 62,
             "description": "The name of the visibility change event for the browser",
             "itemtype": "property",
             "name": "_visibilityChange",
@@ -17354,17 +17374,20 @@
         },
         {
             "file": "src/utils/PageVisibility.js",
-            "line": 72,
-            "description": "Create new Page visibility",
-            "itemtype": "method",
-            "name": "initialize",
+            "line": 88,
+            "description": "If this object is enabled.",
+            "itemtype": "property",
+            "name": "enabled",
+            "type": "Function",
+            "access": "private",
+            "tagname": "",
             "class": "springroll.PageVisibility",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/utils/PageVisibility.js",
-            "line": 105,
+            "line": 123,
             "description": "Disable the detection",
             "itemtype": "method",
             "name": "destroy",
@@ -17464,7 +17487,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 90,
+            "line": 92,
             "description": "Initialization options/query string parameters, these properties are read-only\nApplication properties like raf, fps, don't have any affect on the options object.",
             "itemtype": "property",
             "name": "options",
@@ -17476,7 +17499,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 98,
+            "line": 100,
             "description": "Primary renderer for the application, for simply accessing\nApplication.instance.display.stage;\nThe first display added becomes the primary display automatically.",
             "itemtype": "property",
             "name": "display",
@@ -17489,7 +17512,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 107,
+            "line": 109,
             "description": "If we should wait to init the Application, this is useful is something is inheriting\nApplication but want to do some extra stuff before init is actually called.",
             "itemtype": "property",
             "name": "_readyToInit",
@@ -17502,7 +17525,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 129,
+            "line": 131,
             "description": "The collection of function references to call when initializing the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalInit",
@@ -17516,7 +17539,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 139,
+            "line": 141,
             "description": "The collection of function references to call when destroying the application\nthese are registered by external libraries that need to setup, destroyed\nfor instance Loader",
             "itemtype": "property",
             "name": "_globalDestroy",
@@ -17530,7 +17553,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 149,
+            "line": 151,
             "description": "The frame rate object",
             "access": "private",
             "tagname": "",
@@ -17543,7 +17566,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 156,
+            "line": 158,
             "description": "The number of ms since the last frame update",
             "access": "private",
             "tagname": "",
@@ -17556,7 +17579,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 163,
+            "line": 165,
             "description": "The last time since the last fps update",
             "access": "private",
             "tagname": "",
@@ -17569,7 +17592,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 170,
+            "line": 172,
             "description": "The number of frames since the last fps update",
             "access": "private",
             "tagname": "",
@@ -17582,7 +17605,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 177,
+            "line": 179,
             "description": "The bound callback for listening to tick events",
             "access": "private",
             "tagname": "",
@@ -17595,7 +17618,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 184,
+            "line": 186,
             "description": "If the current application is paushed",
             "access": "private",
             "tagname": "",
@@ -17608,7 +17631,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 191,
+            "line": 193,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -17621,7 +17644,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 198,
+            "line": 200,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -17635,7 +17658,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 206,
+            "line": 208,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -17649,7 +17672,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 214,
+            "line": 216,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -17662,7 +17685,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 221,
+            "line": 223,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -17676,7 +17699,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 229,
+            "line": 231,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -17689,7 +17712,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 236,
+            "line": 238,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -17702,7 +17725,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 244,
+            "line": 246,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -17715,7 +17738,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 251,
+            "line": 253,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -17728,7 +17751,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 274,
+            "line": 278,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -17741,7 +17764,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 281,
+            "line": 285,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -17751,7 +17774,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 287,
+            "line": 291,
             "description": "Event when everything's done but we haven't actually inited",
             "itemtype": "event",
             "name": "preInit",
@@ -17763,7 +17786,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 294,
+            "line": 298,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -17780,7 +17803,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 301,
+            "line": 305,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -17802,7 +17825,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 309,
+            "line": 313,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -17819,7 +17842,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 316,
+            "line": 320,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -17829,7 +17852,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 322,
+            "line": 326,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -17839,7 +17862,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 328,
+            "line": 332,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -17849,7 +17872,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 334,
+            "line": 338,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -17869,7 +17892,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 346,
+            "line": 350,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -17889,7 +17912,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 359,
+            "line": 363,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -17903,7 +17926,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 372,
+            "line": 376,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -17915,7 +17938,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 467,
+            "line": 472,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -17927,7 +17950,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 492,
+            "line": 497,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -17943,7 +17966,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 523,
+            "line": 528,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -17955,7 +17978,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 530,
+            "line": 535,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -17967,7 +17990,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 540,
+            "line": 545,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -17979,7 +18002,18 @@
         },
         {
             "file": "src/Application.js",
-            "line": 550,
+            "line": 555,
+            "description": "If the Application should automatically pause when the window loses focus.",
+            "itemtype": "property",
+            "name": "autoPause",
+            "type": "Boolean",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 570,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -17990,7 +18024,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 591,
+            "line": 611,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18014,7 +18048,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 608,
+            "line": 628,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -18024,7 +18058,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 635,
+            "line": 655,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18055,7 +18089,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 667,
+            "line": 687,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18087,7 +18121,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 710,
+            "line": 730,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18108,7 +18142,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 721,
+            "line": 741,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18132,7 +18166,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 743,
+            "line": 763,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18149,7 +18183,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 758,
+            "line": 778,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18162,7 +18196,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 776,
+            "line": 796,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18175,7 +18209,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 792,
+            "line": 812,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18187,7 +18221,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 839,
+            "line": 859,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",

@@ -260,7 +260,7 @@
 
 <div class="box intro">
     <p>Handle the page visiblity change, if supported. Application uses one of these to
-monitor page visibility. It is suggested that you listen to "pause", "paused", 
+monitor page visibility. It is suggested that you listen to "pause", "paused",
 or "unpaused" events on the application instead of using one of these yourself.</p>
 
 </div>
@@ -411,13 +411,6 @@ or "unpaused" events on the application instead of using one of these yourself.<
                                 
                             </li>
                         
-                            <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
-
-                                
-                                
-                            </li>
-                        
                     </ul>
                 </div>
             
@@ -427,6 +420,13 @@ or "unpaused" events on the application instead of using one of these yourself.<
                     <h3>Properties</h3>
 
                     <ul class="index-list properties">
+                        
+                            <li class="index-item property private">
+                                <a href="#property__enabled">_enabled</a>
+
+                                
+                                
+                            </li>
                         
                             <li class="index-item property private">
                                 <a href="#property__onBlur">_onBlur</a>
@@ -451,6 +451,13 @@ or "unpaused" events on the application instead of using one of these yourself.<
                         
                             <li class="index-item property private">
                                 <a href="#property__visibilityChange">_visibilityChange</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property_enabled">enabled</a>
 
                                 
                                 
@@ -502,7 +509,7 @@ or "unpaused" events on the application instead of using one of these yourself.<
             
         
         
-        <a href="../files/src_utils_PageVisibility.js.html#l105"><code>destroy:105</code></a>
+        <a href="../files/src_utils_PageVisibility.js.html#l123"><code>destroy:123</code></a>
         
         </p>
 
@@ -525,21 +532,22 @@ or "unpaused" events on the application instead of using one of these yourself.<
 </div>
 
                 
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
+            </div>
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property__enabled" class="property item private">
+    <h3 class="name"><code>_enabled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 
     
-        <span class="paren">()</span>
-    
 
     
-
-    
-
-    
-
-    
-
+        <span class="flag private">private</span>
     
 
     
@@ -557,10 +565,9 @@ or "unpaused" events on the application instead of using one of these yourself.<
             
         
         
-        <a href="../files/src_utils_PageVisibility.js.html#l72"><code>initialize:72</code></a>
+        <a href="../files/src_utils_PageVisibility.js.html#l33"><code>_enabled:33</code></a>
         
         </p>
-
 
         
 
@@ -568,7 +575,7 @@ or "unpaused" events on the application instead of using one of these yourself.<
     </div>
 
     <div class="description">
-        <p>Create new Page visibility</p>
+        <p>If this object is enabled.</p>
 
     </div>
 
@@ -578,14 +585,6 @@ or "unpaused" events on the application instead of using one of these yourself.<
 
     
 </div>
-
-                
-            </div>
-        
-
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
 
                 
                     <div id="property__onBlur" class="property item private">
@@ -707,7 +706,7 @@ or "unpaused" events on the application instead of using one of these yourself.<
             
         
         
-        <a href="../files/src_utils_PageVisibility.js.html#l33"><code>_onToggle:33</code></a>
+        <a href="../files/src_utils_PageVisibility.js.html#l43"><code>_onToggle:43</code></a>
         
         </p>
 
@@ -717,7 +716,7 @@ or "unpaused" events on the application instead of using one of these yourself.<
     </div>
 
     <div class="description">
-        <p>The visibility toggle function</p>
+        <p>The visibility toggle listener function</p>
 
     </div>
 
@@ -754,7 +753,7 @@ or "unpaused" events on the application instead of using one of these yourself.<
             
         
         
-        <a href="../files/src_utils_PageVisibility.js.html#l46"><code>_visibilityChange:46</code></a>
+        <a href="../files/src_utils_PageVisibility.js.html#l62"><code>_visibilityChange:62</code></a>
         
         </p>
 
@@ -765,6 +764,53 @@ or "unpaused" events on the application instead of using one of these yourself.<
 
     <div class="description">
         <p>The name of the visibility change event for the browser</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_enabled" class="property item private">
+    <h3 class="name"><code>enabled</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_utils_PageVisibility.js.html#l88"><code>enabled:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>If this object is enabled.</p>
 
     </div>
 
