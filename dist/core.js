@@ -1907,12 +1907,18 @@
 		_resizeHelper.height |= 0;
 
 		//resize the displays
-		for (var key in _displays)
+		var key;
+		for (key in _displays)
 		{
 			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
 		}
 		//send out the resize event
 		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+		//redraw all displays
+		for (key in _displays)
+		{
+			_displays[key].render(0);
+		}
 	};
 
 	/**
