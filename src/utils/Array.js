@@ -1,5 +1,5 @@
 /**
-*  @module Game
+*  @module Core
 */
 (function() {
 	/**
@@ -14,14 +14,17 @@
 	*/
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(Array.prototype, 'shuffle', {
-		enumerable: false,
-		writable:false, 
-		value: function() {
-			for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
-			return this;
-		}
-	});
+	if(!Array.prototype.shuffle)
+	{
+		Object.defineProperty(Array.prototype, 'shuffle', {
+			enumerable: false,
+			writable:false,
+			value: function() {
+				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+				return this;
+			}
+		});
+	}
 
 	/**
 	*  Get a random item from an array
@@ -30,13 +33,16 @@
 	*  @param {Array} array The array
 	*  @return {*} The random item
 	*/
-	Object.defineProperty(Array.prototype, 'random', {
-		enumerable: false,
-		writable: false,
-		value: function() {
-			return this[Math.floor(Math.random() * this.length)];
-		}
-	});
+	if(!Array.prototype.random)
+	{
+		Object.defineProperty(Array.prototype, 'random', {
+			enumerable: false,
+			writable: false,
+			value: function() {
+				return this[Math.floor(Math.random() * this.length)];
+			}
+		});
+	}
 
 	/**
 	*  Get the last item in the array
@@ -45,13 +51,16 @@
 	*  @param {Array} array The array
 	*  @return {*} The last item
 	*/
-	Object.defineProperty(Array.prototype, 'last',
+	if(!Array.prototype.last)
 	{
-		enumerable: false,
-		writable: false,
-		value: function()
+		Object.defineProperty(Array.prototype, 'last',
 		{
-			return this[this.length - 1];
-		}
-	});
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				return this[this.length - 1];
+			}
+		});
+	}
 }());

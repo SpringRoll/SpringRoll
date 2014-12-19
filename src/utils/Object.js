@@ -16,12 +16,12 @@
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
 	*  @static
-	*  @param {object} target The target object
-	*  @param {object} source* Additional objects to add
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
 	*/
 	Object.merge = function(target, source)
-	{		
-		if (typeof target !== 'object') 
+	{
+		if (typeof target !== 'object')
 		{
 			target = {};
 		}
@@ -52,8 +52,8 @@
 	*  Check to see if an object is a plain object definition
 	*  @method isPlain
 	*  @static
-	*  @param {object} target The target object
-	*  @return {boolean} If the object is plain
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
 	*/
 	Object.isPlain = function(obj)
 	{
@@ -74,8 +74,8 @@
 				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
 				return false;
 			}
-		} 
-		catch (e) 
+		}
+		catch (e)
 		{
 			// IE8,9 Will throw exceptions on certain host objects #9897
 			return false;
@@ -97,5 +97,29 @@
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
+	
+	/**
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
+	{
+		Object.defineProperty(Object.prototype, 'clone',
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
 
 }(Object));

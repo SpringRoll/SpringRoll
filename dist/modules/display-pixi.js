@@ -3135,6 +3135,17 @@
 						"sd": true,
 						"tiny": false,
 						"isFont": true
+					},
+					"AnAssetCollection": {
+						"format": {
+							"src": "backgrounds/%NAME%.jpg",
+							"sd": true,
+							"tiny": true
+						},
+						"assets": [
+							"Select_Background",
+							"Result_Background
+						]
 					}
 				}
 	*
@@ -3156,6 +3167,23 @@
 		sizes = config.sizing;
 		scales = config.scale;
 		pickScale(width, height);
+		
+		//go through the assets to look for collections
+		for(var key in assets)
+		{
+			var asset = assets[key];
+			if(asset && asset.format)
+			{
+				asset.isCollection = true;
+				var assetArray = asset.assets;
+				for(var i = 0, length = assetArray.length; i < length; ++i)
+				{
+					var newAsset = asset.format.clone();
+					newAsset.src = newAsset.src.replace("%NAME%", assetArray[i]);
+					assets[assetArray[i]] = newAsset;
+				}
+			}
+		}
 	};
 	
 	/**
@@ -3257,9 +3285,12 @@
 	*/
 	AssetManager.load = function(assetOrAssets, callback, taskList)
 	{
-		var i, length, urls = [], asset;
+		var i, length, urls = [], asset, j, jLength, assetCollection, madeCopy = false;
 		if(!Array.isArray(assetOrAssets))
+		{
 			assetOrAssets = [assetOrAssets];
+			madeCopy = true;
+		}
 		if(taskList)
 		{
 			//add to a list of tasks or a running TaskManager
@@ -3271,7 +3302,29 @@
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
 			{
 				asset = assets[assetOrAssets[i]];
-				if(asset && !asset._isLoaded)
+				if(!asset)
+				{
+					if(true)
+						Debug.warn("Asset not found: " + assetOrAssets[i]);
+					continue;
+				}
+				//If a collection was requested, go through and load all the sub assets
+				if(asset.isCollection)
+				{
+					if(!madeCopy)
+					{
+						assetOrAssets = assetOrAssets.slice();
+						madeCopy = true;
+					}
+					assetCollection = asset.assets;
+					for(j = 0, jLength = assetCollection.length; j < jLength; ++j)
+					{
+						asset = assets[assetCollection[j]];
+						if(asset && !asset._isLoaded)
+							urls.push(AssetManager.getUrl(assetCollection[j]));
+					}
+				}
+				else if(!asset._isLoaded)
 					urls.push(AssetManager.getUrl(assetOrAssets[i]));
 			}
 			if(urls.length)
@@ -3298,7 +3351,29 @@
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
 			{
 				asset = assets[assetOrAssets[i]];
-				if(asset && !asset._isLoaded)
+				if(!asset)
+				{
+					if(true)
+						Debug.warn("Asset not found: " + assetOrAssets[i]);
+					continue;
+				}
+				//If a collection was requested, go through and load all the sub assets
+				if(asset.isCollection)
+				{
+					if(!madeCopy)
+					{
+						assetOrAssets = assetOrAssets.slice();
+						madeCopy = true;
+					}
+					assetCollection = asset.assets;
+					for(j = 0, jLength = assetCollection.length; j < jLength; ++j)
+					{
+						asset = assets[assetCollection[j]];
+						if(asset && !asset._isLoaded)
+							urls.push(cm.prepare(AssetManager.getUrl(assetCollection[j])));
+					}
+				}
+				else if(!asset._isLoaded)
 					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i])));
 			}
 			if(urls.length)
@@ -3370,11 +3445,22 @@
 	*/
 	var unloadAsset = function(asset)
 	{
-		if(!assetUrlCache[asset]) return;//if this doesn't exist, then it wasn't loaded
+		//if this doesn't exist, then it wasn't loaded
+		if(!assetUrlCache[asset]) return;
 		var a = assets[asset];
-		if(!a) return;//asset never existed in the master list
-		if(a.anim) return;//don't unload these, they are pretty small
-		a._isLoaded = false;//remember that it is unloaded
+		//asset never existed in the master list
+		if(!a) return;
+		//don't unload animations, they are pretty small
+		if(a.anim) return;
+		//If the asset is a collection, unload each subasset
+		if(a.isCollection)
+		{
+			AssetManager.unload(a.assets);
+			return;
+		}
+		//remember that the asset is unloaded
+		a._isLoaded = false;
+		//unload the bitmap font if relevant
 		if(a.isFont)
 		{
 			if(BitmapText.fonts[asset])

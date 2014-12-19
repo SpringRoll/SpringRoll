@@ -124,12 +124,12 @@
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
 	*  @static
-	*  @param {object} target The target object
-	*  @param {object} source* Additional objects to add
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
 	*/
 	Object.merge = function(target, source)
-	{		
-		if (typeof target !== 'object') 
+	{
+		if (typeof target !== 'object')
 		{
 			target = {};
 		}
@@ -160,8 +160,8 @@
 	*  Check to see if an object is a plain object definition
 	*  @method isPlain
 	*  @static
-	*  @param {object} target The target object
-	*  @return {boolean} If the object is plain
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
 	*/
 	Object.isPlain = function(obj)
 	{
@@ -182,8 +182,8 @@
 				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
 				return false;
 			}
-		} 
-		catch (e) 
+		}
+		catch (e)
 		{
 			// IE8,9 Will throw exceptions on certain host objects #9897
 			return false;
@@ -205,6 +205,30 @@
 
 		return key === undefined || hasOwn.call(obj, key);
 	};
+	
+	/**
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
+	{
+		Object.defineProperty(Object.prototype, 'clone',
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
 
 }(Object));
 /**
@@ -3658,3 +3682,122 @@
 		}
 	});
 }());
+
+/**
+*  @module Core
+*/
+(function() {
+	/**
+	*  Add methods to Array
+	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	*  @class Array
+	*/
+
+	/**
+	*  Shuffles the array
+	*  @method shuffle
+	*/
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	if(!Array.prototype.shuffle)
+	{
+		Object.defineProperty(Array.prototype, 'shuffle', {
+			enumerable: false,
+			writable:false,
+			value: function() {
+				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+				return this;
+			}
+		});
+	}
+
+	/**
+	*  Get a random item from an array
+	*  @method random
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The random item
+	*/
+	if(!Array.prototype.random)
+	{
+		Object.defineProperty(Array.prototype, 'random', {
+			enumerable: false,
+			writable: false,
+			value: function() {
+				return this[Math.floor(Math.random() * this.length)];
+			}
+		});
+	}
+
+	/**
+	*  Get the last item in the array
+	*  @method last
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The last item
+	*/
+	if(!Array.prototype.last)
+	{
+		Object.defineProperty(Array.prototype, 'last',
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				return this[this.length - 1];
+			}
+		});
+	}
+}());
+
+/**
+ *  @module Core
+ */
+(function(Math)
+{
+	/**
+	 *  Add methods to Math
+	 *  @class Math
+	 */
+
+	/**
+	 * Return a random int between minimum and maximum values.
+	 * @method getRandomInt
+	 * @static
+	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {int} max Highest number.
+	 * @return {int} The random value
+	 */
+	Math.getRandomInt = function(min, max)
+	{
+		/*  OVERRIDE
+		 *  allow single-parameter use, where min is
+		 *  assumed to be 0, and max is the supplied single-parameter
+		 *  i.e. function(max) {
+		 *      return <value between 0 and parameter>
+		 *  }
+		 */
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+	/**
+	 * Return dist between two points
+	 * @method dist
+	 * @static
+	 * @param {Number} x The x position of the first point
+	 * @param {Number} y The y position of the first point
+	 * @param {Number} x0 The x position of the second point
+	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	Math.dist = function(x, y, x0, y0)
+	{
+		return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+	};
+
+}(Math));

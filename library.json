@@ -23,7 +23,9 @@
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
 		"src/utils/DelayedCall.js",
-		"src/utils/String.js"
+		"src/utils/String.js",
+		"src/utils/Array.js",
+		"src/utils/Math.js"
 	],
 	"modules": {
 		"worker": [
@@ -67,8 +69,6 @@
 			]
 		},
 		"game": [
-			"src/utils/Array.js",
-			"src/utils/Math.js",
 			"src/games/states/BaseState.js",
 			"src/games/states/StateEvent.js",
 			"src/games/states/StateManager.js",
