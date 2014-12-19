@@ -17,11 +17,17 @@
 	},
 	"ignore": [
 		"Gruntfile.js",
-		"build.json",
 		"tasks",
 		"examples",
 		"docs",
 		"src",
-		"test"
+		"test",
+		"tools",
+		".bowerrc",
+		".editorconfig",
+		".travis.yml",
+		".gitattributes",
+		"library.json",
+		"package.json"
 	]
 }
