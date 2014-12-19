@@ -103,7 +103,7 @@
 		{
 			var nameEQ = name + "=",
 				ca = document.cookie.split(';'),
-				i = 0, c;
+				i = 0, c, len;
 
 			for(i=0, len=ca.length; i<len;i++)
 			{
