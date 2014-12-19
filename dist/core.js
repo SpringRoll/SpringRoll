@@ -1128,46 +1128,62 @@
 		
 	/**
 	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused", 
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
 	*  or "unpaused" events on the application instead of using one of these yourself.
-	*  
+	*
 	*  @class PageVisibility
 	*  @constructor
-	*  @param {function} onFocus Callback when the page becomes visible
-	*  @param {function} onBlur Callback when the page loses visibility
+	*  @param {Function} onFocus Callback when the page becomes visible
+	*  @param {Function} onBlur Callback when the page loses visibility
 	*/
 	var PageVisibility = function(onFocus, onBlur)
 	{
 		/**
 		* Callback when the page becomes visible
-		* @property {function} _onFocus
+		* @property {Function} _onFocus
 		* @private
 		*/
 		this._onFocus = onFocus;
 		
 		/**
 		* Callback when the page loses visibility
-		* @property {function} _onBlur
+		* @property {Function} _onBlur
 		* @private
 		*/
 		this._onBlur = onBlur;
 		
 		/**
-		* The visibility toggle function
-		* @property {function} _onToggle
+		* If this object is enabled.
+		* @property {Function} _enabled
 		* @private
 		*/
-		this._onToggle = null;
+		this._enabled = false;
 
-		this.initialize();
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		/**
+		* The visibility toggle listener function
+		* @property {Function} _onToggle
+		* @private
+		*/
+		this._onToggle = function()
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				this._onBlur();
+			else
+				this._onFocus();
+		}.bind(this);
+		
+		this.enabled = true;
 	},
 	
-	// Reference to the prototype 
+	// Reference to the prototype
 	p = PageVisibility.prototype,
 	
-	/** 
+	/**
 	* The name of the visibility change event for the browser
-	* 
+	*
 	* @property {String} _visibilityChange
 	* @private
 	*/
@@ -1177,52 +1193,54 @@
 	if (doc.hidden !== undefined)
 	{
 		_visibilityChange = "visibilitychange";
-	} 
+	}
 	else if (doc.mozHidden !== undefined)
 	{
 		_visibilityChange = "mozvisibilitychange";
-	} 
+	}
 	else if (doc.msHidden !== undefined)
 	{
 		_visibilityChange = "msvisibilitychange";
-	} 
+	}
 	else if (doc.webkitHidden !== undefined)
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
 	
 	/**
-	*  Create new Page visibility
-	*  
-	*  @method initialize
+	* If this object is enabled.
+	* @property {Function} enabled
+	* @private
 	*/
-	p.initialize = function()
-	{
-		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
-		
-		// The visibility toggle function
-		var onVisibilityChange = function() 
+	Object.definePropery(p, "enabled", {
+		get: function() { return this._enabled; },
+		set: function(value)
 		{
-			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				this._onBlur();
-			else 
-				this._onFocus();
-		}.bind(this);
-		
-		// Listen to visibility change
-		// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
-		doc.addEventListener(_visibilityChange, onVisibilityChange, false);
-		
-		// Listen for page events (when clicking the home button on iOS)
-		global.addEventListener("pagehide", this._onBlur);
-		global.addEventListener("pageshow", this._onFocus);
-		global.addEventListener("blur", this._onBlur);
-		global.addEventListener("focus", this._onFocus);
-		global.addEventListener("visibilitychange", onVisibilityChange, false);
-		
-		this._onToggle = onVisibilityChange;
-	};
+			value = !!value;
+			if(this._enabled == value) return;
+			this._enabled = value;
+			
+			global.removeEventListener("pagehide", this._onBlur);
+			global.removeEventListener("pageshow", this._onFocus);
+			global.removeEventListener("blur", this._onBlur);
+			global.removeEventListener("focus", this._onFocus);
+			global.removeEventListener("visibilitychange", this._onToggle);
+			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			
+			if(value)
+			{
+				// Listen to visibility change
+				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
+				doc.addEventListener(_visibilityChange, this._onToggle, false);
+				// Listen for page events (when clicking the home button on iOS)
+				global.addEventListener("pagehide", this._onBlur);
+				global.addEventListener("pageshow", this._onFocus);
+				global.addEventListener("blur", this._onBlur);
+				global.addEventListener("focus", this._onFocus);
+				global.addEventListener("visibilitychange", this._onToggle, false);
+			}
+		}
+	});
 	
 	/**
 	*  Disable the detection
@@ -1231,16 +1249,10 @@
 	p.destroy = function()
 	{
 		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
+		if (!_visibilityChange || !this._onToggle) return;
 		
-		global.removeEventListener("pagehide", this._onBlur);
-		global.removeEventListener("pageshow", this._onFocus);
-		global.removeEventListener("blur", this._onBlur);
-		global.removeEventListener("focus", this._onFocus);
-		global.removeEventListener("visibilitychange", this._onToggle);
-		
-		doc.removeEventListener(_visibilityChange, this._onToggle, false);
-		
+		this.enabled = false;
+		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
@@ -1313,6 +1325,8 @@
 	*                                        IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
 	*                                               the Tween itself
+	*  @param {Boolean} [options.autoPause=true] The application pauses automatically when
+	*                                            the window loses focus.
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to automatically instantiate as the
 	*                                      display (e.g. `springroll.PixiDisplay`)
@@ -1519,7 +1533,9 @@
 		canvasId: null,
 		display: null,
 		displayOptions: null,
-		updateTween: false
+		
+		updateTween: false,
+		autoPause: true
 	},
 
 	/**
@@ -1687,6 +1703,7 @@
 
 		//set up the page visibility listener
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
+		this.autoPause = this.options.autoPause;
 
 		if(this.options.canvasId && this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display,
@@ -1797,6 +1814,21 @@
 	{
 		this.paused = false;
 	};
+	
+	/**
+	*  If the Application should automatically pause when the window loses focus.
+	*  @property {Boolean} autoPause
+	*/
+	Object.defineProperty(p, "autoPause", {
+		get: function()
+		{
+			return _pageVisibility.enabled;
+		},
+		set: function(value)
+		{
+			_pageVisibility.enabled = value;
+		}
+	});
 
 	/**
 	*  Pause updates at the application level

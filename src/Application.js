@@ -62,6 +62,8 @@
 	*                                        IP address or host name.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
 	*                                               the Tween itself
+	*  @param {Boolean} [options.autoPause=true] The application pauses automatically when
+	*                                            the window loses focus.
 	*  @param {String} [options.canvasId] The default display DOM ID name
 	*  @param {Function} [options.display] The name of the class to automatically instantiate as the
 	*                                      display (e.g. `springroll.PixiDisplay`)
@@ -268,7 +270,9 @@
 		canvasId: null,
 		display: null,
 		displayOptions: null,
-		updateTween: false
+		
+		updateTween: false,
+		autoPause: true
 	},
 
 	/**
@@ -436,6 +440,7 @@
 
 		//set up the page visibility listener
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
+		this.autoPause = this.options.autoPause;
 
 		if(this.options.canvasId && this.options.display)
 			this.addDisplay(this.options.canvasId, this.options.display,
@@ -546,6 +551,21 @@
 	{
 		this.paused = false;
 	};
+	
+	/**
+	*  If the Application should automatically pause when the window loses focus.
+	*  @property {Boolean} autoPause
+	*/
+	Object.defineProperty(p, "autoPause", {
+		get: function()
+		{
+			return _pageVisibility.enabled;
+		},
+		set: function(value)
+		{
+			_pageVisibility.enabled = value;
+		}
+	});
 
 	/**
 	*  Pause updates at the application level
