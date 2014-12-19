@@ -28,6 +28,7 @@
 		".travis.yml",
 		".gitattributes",
 		"library.json",
-		"package.json"
+		"package.json",
+		".gitignore"
 	]
 }
