@@ -213,21 +213,16 @@
 	*/
 	if(!Object.prototype.clone)
 	{
-		Object.defineProperty(Object.prototype, 'clone',
+		Object.prototype.clone = function()
 		{
-			enumerable: false,
-			writable: false,
-			value: function()
+			var rtn = {};
+			var thisObj = this;
+			for(var key in thisObj)
 			{
-				var rtn = {};
-				var thisObj = this;
-				for(var key in thisObj)
-				{
-					rtn[key] = thisObj[key];
-				}
-				return rtn;
+				rtn[key] = thisObj[key];
 			}
-		});
+			return rtn;
+		};
 	}
 
 }(Object));
