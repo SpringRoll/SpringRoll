@@ -1212,7 +1212,7 @@
 	* @property {Function} enabled
 	* @private
 	*/
-	Object.definePropery(p, "enabled", {
+	Object.defineProperty(p, "enabled", {
 		get: function() { return this._enabled; },
 		set: function(value)
 		{
