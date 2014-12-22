@@ -290,6 +290,8 @@
 	*                                                              specified.
 	*  @param {String} [config.soundManifest.listItem.context] A context name to override
 	*                                                          config.context with.
+	*  @param {Boolean} [config.soundManifest.listItem.preload] If the sound should be preloaded
+	*                                                           immediately.
 	*  @return {Sound} The sound object for chaining
 	*/
 	p.loadConfig = function(config)
@@ -329,6 +331,11 @@
 				if (!this._contexts[temp.context])
 					this._contexts[temp.context] = new SoundContext(temp.context);
 				this._contexts[temp.context].sounds.push(temp);
+			}
+			//preload the sound for immediate-ish use
+			if(s.preload === true)
+			{
+				this.preloadSound(temp.id);
 			}
 		}
 		//return the Sound instance for chaining
