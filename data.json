@@ -13063,6 +13063,12 @@
                                     "description": "A context name to override\n                                                        config.context with.",
                                     "type": "String",
                                     "optional": true
+                                },
+                                {
+                                    "name": "listItem.preload",
+                                    "description": "If the sound should be preloaded\n                                                         immediately.",
+                                    "type": "Boolean",
+                                    "optional": true
                                 }
                             ]
                         }
@@ -13079,7 +13085,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 338,
+            "line": 345,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -13102,7 +13108,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 350,
+            "line": 357,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -13125,7 +13131,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 362,
+            "line": 369,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -13148,7 +13154,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 374,
+            "line": 381,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -13171,7 +13177,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 387,
+            "line": 394,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -13194,7 +13200,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 401,
+            "line": 408,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -13233,7 +13239,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 444,
+            "line": 451,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -13272,7 +13278,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 493,
+            "line": 500,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -13291,7 +13297,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 548,
+            "line": 555,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13375,7 +13381,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 695,
+            "line": 702,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13403,7 +13409,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 721,
+            "line": 728,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13422,7 +13428,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 772,
+            "line": 779,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13441,7 +13447,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 794,
+            "line": 801,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13460,7 +13466,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 822,
+            "line": 829,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13479,7 +13485,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 838,
+            "line": 845,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13498,7 +13504,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 854,
+            "line": 861,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13517,7 +13523,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 878,
+            "line": 885,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13536,7 +13542,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 897,
+            "line": 904,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13555,7 +13561,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 918,
+            "line": 925,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13567,7 +13573,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 930,
+            "line": 937,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13579,7 +13585,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 942,
+            "line": 949,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13603,7 +13609,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 974,
+            "line": 981,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -13614,7 +13620,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 985,
+            "line": 992,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13633,7 +13639,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1000,
+            "line": 1007,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13657,7 +13663,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1031,
+            "line": 1038,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13681,7 +13687,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1058,
+            "line": 1065,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13705,7 +13711,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1112,
+            "line": 1119,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13729,7 +13735,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1137,
+            "line": 1144,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13762,7 +13768,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1153,
+            "line": 1160,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13781,7 +13787,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1177,
+            "line": 1184,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13800,7 +13806,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1198,
+            "line": 1205,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -18058,7 +18064,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 655,
+            "line": 661,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18089,7 +18095,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 687,
+            "line": 693,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18121,7 +18127,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 730,
+            "line": 736,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18142,7 +18148,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 741,
+            "line": 747,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18166,7 +18172,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 763,
+            "line": 769,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18183,7 +18189,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 778,
+            "line": 784,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18196,7 +18202,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 796,
+            "line": 802,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18209,7 +18215,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 812,
+            "line": 818,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18221,7 +18227,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 859,
+            "line": 865,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",
