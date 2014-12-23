@@ -554,7 +554,7 @@
 						//letting the audio continue should be okay though
 						if (t._time_sec >= t.duration)
 						{
-							updateClip(t.duration, prevTime);
+							updateClip(t, t.duration, prevTime);
 							extraTime = t._time_sec - t.duration;
 							t._nextItem();
 							if(t.complete)
