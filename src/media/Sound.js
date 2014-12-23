@@ -141,8 +141,6 @@
 			throw "springroll.Sound.init requires a ready callback";
 		}
 
-		SoundJS.registerPlugins(options.plugins);
-
 		// Apply the base path if available
 		var basePath = Application.instance.options.basePath;
 		if (FlashPlugin)
@@ -152,6 +150,8 @@
 			else
 				FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
 		}
+
+		SoundJS.registerPlugins(options.plugins);
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
