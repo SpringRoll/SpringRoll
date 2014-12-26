@@ -651,10 +651,11 @@
 		}
 		//send out the resize event
 		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+
 		//redraw all displays
 		for (key in _displays)
 		{
-			_displays[key].render(0);
+			_displays[key].render(0, true); // force renderer
 		}
 	};
 

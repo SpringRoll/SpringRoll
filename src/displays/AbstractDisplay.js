@@ -160,10 +160,11 @@
 	* @method render
 	* @internal
 	* @param {int} elapsed The time elapsed since the previous frame.
+	* @param {Boolean} [force=false] For the re-render
 	*/
-	p.render = function(elapsed)
+	p.render = function(elapsed, force)
 	{
-		if(this.paused || !this._visible) return;
+		// implement specific
 	};
 
 	/**

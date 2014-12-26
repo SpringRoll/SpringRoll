@@ -1914,10 +1914,11 @@
 		}
 		//send out the resize event
 		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+
 		//redraw all displays
 		for (key in _displays)
 		{
-			_displays[key].render(0);
+			_displays[key].render(0, true); // force renderer
 		}
 	};
 
@@ -2332,10 +2333,11 @@
 	* @method render
 	* @internal
 	* @param {int} elapsed The time elapsed since the previous frame.
+	* @param {Boolean} [force=false] For the re-render
 	*/
-	p.render = function(elapsed)
+	p.render = function(elapsed, force)
 	{
-		if(this.paused || !this._visible) return;
+		// implement specific
 	};
 
 	/**

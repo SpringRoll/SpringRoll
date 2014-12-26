@@ -108,10 +108,11 @@
 	* @method render
 	* @internal
 	* @param {int} elapsed The time elapsed since the previous frame.
+	* @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	*/
-	p.render = function(elapsed)
+	p.render = function(elapsed, force)
 	{
-		if (!this.paused && this._visible)
+		if (force || (!this.paused && this._visible))
 		{
 			DELTA_HELPER.delta = elapsed;
 			this.stage.update(DELTA_HELPER);
