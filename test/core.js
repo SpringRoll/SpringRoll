@@ -16,22 +16,23 @@ test('namespace & include', function(assert){
 
 test('Enum', function(assert){
 
-	expect(5);
+	expect(6);
 
 	var Enum = springroll.Enum;
 	
 	var myEnum = new Enum("valueOf0",
 						"valueOf1",
 						"valueOf2");
-	var myOtherEnum = new Enum({name: "one", value:"1"},
+	var myOtherEnum = new Enum({name: "one", value:"1", toString:"I am the One!"},
 								"two",
 								{name:"screwSequentialNumbers", value:42});
-	assert.ok(myEnum.valueOf0, "EnumValue was created");
-	assert.notEqual(myEnum.valueOf0, 0, "EnumValues are not integers");
-	assert.notEqual(myEnum.valueOf1, myOtherEnum.one, "EnumValues with the same integer value are not the same");
-	assert.equal(myEnum.valueOf2.asInt, 2, "EnumValue.asInt is correct");
+	assert.ok(myEnum.valueOf0, "EnumValue was created.");
+	assert.notEqual(myEnum.valueOf0, 0, "EnumValues are not integers.");
+	assert.notEqual(myEnum.valueOf1, myOtherEnum.one, "EnumValues with the same integer value are not the same.");
+	assert.equal(myEnum.valueOf2.asInt, 2, "EnumValue.asInt is correct.");
 	assert.equal(myOtherEnum.screwSequentialNumbers, myOtherEnum.valueFromInt(42),
 				"Enum.valueFromInt() returns the correct value, even when nonsequential.");
+	assert.equal(myOtherEnum.one.toString(), "I am the One!", "toString() override works.");
 });
 
 test('Application', function(assert){

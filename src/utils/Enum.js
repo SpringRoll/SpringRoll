@@ -11,8 +11,9 @@
 	*  @constructor
 	*  @param {String} name The name of the enum value.
 	*  @param {int} value The integer value of the enum.
+	*  @param {String} toString A string for toString() to return, instead of the name.
 	*/
-	var EnumValue = function(name, value)
+	var EnumValue = function(name, value, toString)
 	{
 		/**
 		 * The name of the value, for reflection or logging purposes.
@@ -25,6 +26,12 @@
 		 * @private
 		 */
 		this._value = value;
+		/**
+		 * A string for toString() to return, instead of the name.
+		 * @property {String} _toString
+		 * @private
+		 */
+		this._toString = toString || this.name;
 	};
 	/**
 	* The integer value of this enum entry.
@@ -35,7 +42,7 @@
 	});
 	EnumValue.prototype.toString = function()
 	{
-		return "[Enum: " + this.name + "]";
+		return this._toString;
 	};
 	
 	/**
@@ -45,13 +52,14 @@
 		var myEnum = new springroll.Enum("valueOf0",
 										"valueOf1",
 										"valueOf2");
-		var myOtherEnum = new springroll.Enum({name: "one", value:"1"},
+		var myOtherEnum = new springroll.Enum({name: "one", value:"1", toString:"I am the One!"},
 											"two",
 											{name:"screwSequentialNumbers", value:42});
 		myEnum.valueOf0 != 0;//enum values are not integers
 		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
 		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
+		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 	*
 	*  @class Enum
 	*  @constructor
@@ -84,7 +92,7 @@
 					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that name.");
 					continue;
 				}
-				item = this._byValue[counter] = new EnumValue(name, counter);
+				item = this._byValue[counter] = new EnumValue(name, counter, name);
 				this[item.name] = item;
 			}
 			else
@@ -101,7 +109,7 @@
 					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that name.");
 					continue;
 				}
-				item = new EnumValue(name, value);
+				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
 				this._byValue[item._value] = item;
 				counter = item._value;
