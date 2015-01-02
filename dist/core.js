@@ -847,7 +847,7 @@
 (function() {
 	
 	/**
-	*  An enumeration value.
+	*  An enumeration value. This class is private, and is only used by Enum.
 	*  @class EnumValue
 	*  @private
 	*  @constructor
@@ -884,12 +884,12 @@
 	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
 	*  referenced as a property with the same name as the EnumValue. Examples:
 	*
-		window.myEnum = new springroll.Enum("valueOf0",
-											"valueOf1",
-											"valueOf2");
-		window.myOtherEnum = new springroll.Enum({name: "one", value:"1"},
-												"two",
-												{name:"screwSequentialNumbers", value:42});
+		var myEnum = new springroll.Enum("valueOf0",
+										"valueOf1",
+										"valueOf2");
+		var myOtherEnum = new springroll.Enum({name: "one", value:"1"},
+											"two",
+											{name:"screwSequentialNumbers", value:42});
 		myEnum.valueOf0 != 0;//enum values are not integers
 		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
