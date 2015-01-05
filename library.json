@@ -11,6 +11,7 @@
 		"src/utils/Debug.js",
 		"src/utils/TimeUtils.js",
 		"src/polyfills/requestAnimationFrame.js",
+		"src/utils/Enum.js",
 		"src/events/EventDispatcher.js",
 		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",

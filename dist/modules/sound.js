@@ -326,7 +326,8 @@
 		SoundListTask,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
 		FlashPlugin = include('createjs.FlashPlugin', false),
-		SoundJS = include('createjs.Sound');
+		SoundJS = include('createjs.Sound'),
+		Enum = include('springroll.Enum');
 
 	/**
 	*  Acts as a wrapper for SoundJS as well as adding lots of other functionality
@@ -399,11 +400,9 @@
 	var p = Sound.prototype = {};
 
 	var _instance = null;
-
+	
 	//sound states
-	var UNLOADED = 0;
-	var LOADING = 1;
-	var LOADED = 2;
+	var LoadStates = new Enum("unloaded", "loading", "loaded");
 
 	/**
 	*  Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for
@@ -631,7 +630,7 @@
 				src: path + (s.src ? s.src : s.id) + this.supportedSound,
 				volume: s.volume ? s.volume : 1,
 				loop: !!s.loop,
-				state: UNLOADED,
+				loadState: LoadStates.unloaded,
 				playing: [],
 				waitingToPlay: [],
 				context: s.context || defaultContext,
@@ -676,7 +675,7 @@
 	*/
 	p.isUnloaded = function(alias)
 	{
-		return this._sounds[alias] ? this._sounds[alias].state == UNLOADED : false;
+		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.unloaded : false;
 	};
 
 	/**
@@ -688,7 +687,7 @@
 	*/
 	p.isLoaded = function(alias)
 	{
-		return this._sounds[alias] ? this._sounds[alias].state == LOADED : false;
+		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.loaded : false;
 	};
 
 	/**
@@ -701,7 +700,7 @@
 	*/
 	p.isLoading = function(alias)
 	{
-		return this._sounds[alias] ? this._sounds[alias].state == LOADING : false;
+		return this._sounds[alias] ? this._sounds[alias].loadState == LoadStates.loading : false;
 	};
 
 	/**
@@ -930,9 +929,9 @@
 		//check for sound volume settings
 		volume = (typeof(volume) == "number") ? volume : sound.volume;
 		//take action based on the sound state
-		var state = sound.state;
+		var loadState = sound.loadState;
 		var inst, arr;
-		if (state == LOADED)
+		if (loadState == LoadStates.loaded)
 		{
 			var channel = SoundJS.play(alias, interrupt, delay, offset, loop, volume, pan);
 			//have Sound manage the playback of the sound
@@ -959,9 +958,9 @@
 				return inst;
 			}
 		}
-		else if (state == UNLOADED)
+		else if (loadState == LoadStates.unloaded)
 		{
-			sound.state = LOADING;
+			sound.loadState = LoadStates.loading;
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
@@ -988,7 +987,7 @@
 			);
 			return inst;
 		}
-		else if (state == LOADING)
+		else if (loadState == LoadStates.loading)
 		{
 			//tell the sound to play after loading
 			sound.playAfterLoad = true;
@@ -1048,7 +1047,7 @@
 	{
 		var alias = typeof result == "string" ? result : result.id;
 		var sound = this._sounds[alias];
-		sound.state = LOADED;
+		sound.loadState = LoadStates.loaded;
 
 		//If the sound was stopped before it finished loading, then don't play anything
 		if (!sound.playAfterLoad) return;
@@ -1123,7 +1122,7 @@
 		if (!s) return;
 		if (s.playing.length)
 			this._stopSound(s);
-		else if (s.state == LOADING)
+		else if (s.loadState == LoadStates.loading)
 		{
 			s.playAfterLoad = false;
 			var waiting = s.waitingToPlay;
@@ -1189,7 +1188,7 @@
 				s = arr[i];
 				if (s.playing.length)
 					this._stopSound(s);
-				else if (s.state == LOADING)
+				else if (s.loadState == LoadStates.loading)
 					s.playAfterLoad = false;
 			}
 		}
@@ -1363,8 +1362,8 @@
 			Debug.error("Sound does not exist: " + alias + " - can't preload!");
 			return;
 		}
-		if (sound.state != UNLOADED) return;
-		sound.state = LOADING;
+		if (sound.loadState != LoadStates.unloaded) return;
+		sound.loadState = LoadStates.loading;
 		sound.preloadCallback = callback || null;
 		Loader.instance.load(
 			sound.src, //url to load
@@ -1403,9 +1402,9 @@
 			sound = this._sounds[list[i]];
 			if (sound)
 			{
-				if (sound.state == UNLOADED)
+				if (sound.loadState == LoadStates.unloaded)
 				{
-					sound.state = LOADING;
+					sound.loadState = LoadStates.loading;
 					//sound is passed last so that SoundJS gets the sound ID
 					tasks.push(new LoadTask(sound.id, sound.src, this._markLoaded, null, 0, sound));
 				}
@@ -1442,7 +1441,7 @@
 		var sound = this._sounds[alias];
 		if (sound)
 		{
-			sound.state = LOADED;
+			sound.loadState = LoadStates.loaded;
 			if (sound.playAfterLoad)
 				this._playAfterLoad(alias);
 		}
@@ -1488,7 +1487,7 @@
 			if (sound)
 			{
 				this._stopSound(sound);
-				sound.state = UNLOADED;
+				sound.loadState = LoadStates.unloaded;
 			}
 			SoundJS.removeSound(list[i]);
 		}
