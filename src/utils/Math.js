@@ -9,7 +9,7 @@
 	 */
 
 	/**
-	 * Return a random int between minimum and maximum values.
+	 * Return a random int between minimum and maximum values. If a single value is supplied, it will return a number between 0 and the supplied value.
 	 * @method getRandomInt
 	 * @static
 	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
