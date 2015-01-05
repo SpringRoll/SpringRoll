@@ -3791,32 +3791,37 @@
 }());
 
 /**
- *  @module Core
+ * @module Core
  */
 (function(Math)
 {
 	/**
-	 *  Add methods to Math
-	 *  @class Math
+	 * Add methods to Math
+	 * @class Math
 	 */
 
 	/**
 	 * Return a random int between minimum and maximum values.
-	 * @method getRandomInt
+	 * If a single value is supplied, it will return a number between 0 and the supplied value.
+	 * @method randomInt
 	 * @static
 	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.getRandomInt = function(min, max)
+
+	/**
+	 * Return a random int between minimum and maximum values.
+	 * If a single value is supplied, it will return a number between 0 and the supplied value.
+	 * @method getRandomInt
+	 * @static
+	 * @deprecated
+	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {int} max Highest number.
+	 * @return {int} The random value
+	 */
+	Math.randomInt = Math.getRandomInt = function(min, max)
 	{
-		/*  OVERRIDE
-		 *  allow single-parameter use, where min is
-		 *  assumed to be 0, and max is the supplied single-parameter
-		 *  i.e. function(max) {
-		 *      return <value between 0 and parameter>
-		 *  }
-		 */
 		if (max === undefined)
 		{
 			max = min;

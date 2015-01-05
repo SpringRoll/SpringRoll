@@ -17,35 +17,19 @@
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.randomInt = function(min, max)
-	{
-		if (max === undefined)
-		{
-			max = min;
-			min = 0;
-		}
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
 
 	/**
 	 * Return a random int between minimum and maximum values.
 	 * If a single value is supplied, it will return a number between 0 and the supplied value.
 	 * @method getRandomInt
 	 * @static
-	* @deprecated
+	 * @deprecated
 	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.getRandomInt = function(min, max)
+	Math.randomInt = Math.getRandomInt = function(min, max)
 	{
-		/* OVERRIDE
-		 * allow single-parameter use, where min is
-		 * assumed to be 0, and max is the supplied single-parameter
-		 * i.e. function(max) {
-		 *     return <value between 0 and parameter>
-		 * }
-		 */
 		if (max === undefined)
 		{
 			max = min;
