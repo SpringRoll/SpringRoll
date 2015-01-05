@@ -1,18 +1,18 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
-(function() {
-	
+ *  @module Core
+ *  @namespace springroll
+ */
+(function()
+{
 	/**
-	*  An enumeration value. This class is private, and is only used by Enum.
-	*  @class EnumValue
-	*  @private
-	*  @constructor
-	*  @param {String} name The name of the enum value.
-	*  @param {int} value The integer value of the enum.
-	*  @param {String} toString A string for toString() to return, instead of the name.
-	*/
+	 *  An enumeration value. This class is private, and is only used by Enum.
+	 *  @class EnumValue
+	 *  @private
+	 *  @constructor
+	 *  @param {String} name The name of the enum value.
+	 *  @param {int} value The integer value of the enum.
+	 *  @param {String} toString A string for toString() to return, instead of the name.
+	 */
 	var EnumValue = function(name, value, toString)
 	{
 		/**
@@ -33,28 +33,37 @@
 		 */
 		this._toString = toString || this.name;
 	};
+
 	/**
-	* The integer value of this enum entry.
-	* @property {int} asInt
-	*/
-	Object.defineProperty(EnumValue.prototype, "asInt", {
-		get: function() { return this._value; }
+	 * The integer value of this enum entry.
+	 * @property {int} asInt
+	 */
+	Object.defineProperty(EnumValue.prototype, "asInt",
+	{
+		get: function()
+		{
+			return this._value;
+		}
 	});
+
 	EnumValue.prototype.toString = function()
 	{
 		return this._toString;
 	};
-	
+
 	/**
 	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
 	*  referenced as a property with the same name as the EnumValue. Examples:
 	*
-		var myEnum = new springroll.Enum("valueOf0",
-										"valueOf1",
-										"valueOf2");
-		var myOtherEnum = new springroll.Enum({name: "one", value:"1", toString:"I am the One!"},
-											"two",
-											{name:"screwSequentialNumbers", value:42});
+		var myEnum = new springroll.Enum(
+			"valueOf0",
+			"valueOf1",
+			"valueOf2");
+		var myOtherEnum = new springroll.Enum(
+			{name: "one", value:"1", toString:"I am the One!"},
+			"two",
+			{name:"screwSequentialNumbers", value:42});
+			
 		myEnum.valueOf0 != 0;//enum values are not integers
 		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
@@ -72,22 +81,26 @@
 	var Enum = function()
 	{
 		var args = Array.isArray(arguments[0]) ?
-												arguments[0] :
-												Array.prototype.slice.call(arguments);
+			arguments[0] :
+			Array.prototype.slice.call(arguments);
 		/**
 		 * A potentially sparse array of each enum value, stored by integer values.
 		 * @property {Array} _byValue
 		 * @private
 		 */
 		this._byValue = [];
-		var counter = 0, item, i, value, name;
+
+		var counter = 0,
+			len = args.length,
+			item, i, value, name;
+
 		//create each value
-		for(i = 0; i < args.length; ++i)
+		for (i = 0; i < len; ++i)
 		{
-			if(typeof args[i] == "string")
+			if (typeof args[i] == "string")
 			{
 				name = args[i];
-				if(this[name])
+				if (this[name])
 				{
 					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that name.");
 					continue;
@@ -99,14 +112,16 @@
 			{
 				name = args[i].name;
 				value = args[i].value || counter;
-				if(this._byValue[value])
+				if (this._byValue[value])
 				{
-					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that integer value.");
+					Debug.error("Error creating enum value " + name + ": " + value +
+						" - an enum value already exists with that integer value.");
 					continue;
 				}
-				else if(this[name])
+				else if (this[name])
 				{
-					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that name.");
+					Debug.error("Error creating enum value " + name + ": " + value +
+						" - an enum value already exists with that name.");
 					continue;
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
@@ -117,13 +132,13 @@
 			counter++;
 		}
 	};
-	
+
 	/**
-	* A potentially sparse array of each enum value, stored by integer values.
-	* @method {Array} valueFromInt
-	* @param {int} input The integer value to get an enum value for.
-	* @return {EnumValue} The EnumValue that represents
-	*/
+	 * A potentially sparse array of each enum value, stored by integer values.
+	 * @method {Array} valueFromInt
+	 * @param {int} input The integer value to get an enum value for.
+	 * @return {EnumValue} The EnumValue that represents
+	 */
 	Enum.prototype.valueFromInt = function(input)
 	{
 		return this._byValue[input] || null;
