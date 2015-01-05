@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.7 API Documentation : springroll.Task</title>  
+	<title>SpringRoll v0.0.7 API Documentation : springroll.EnumValue</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -239,7 +239,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>springroll.Task Class</h1>
+                        <h1>springroll.EnumValue Class</h1>
 <div class="box meta">
     
 
@@ -247,13 +247,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_tasks_Task.js.html#l7"><code>springroll.Task:7</code></a>
+            Defined in: <a href="../files/src_utils_Enum.js.html#l7"><code>springroll.EnumValue:7</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Tasks.html">Tasks</a>
+            Module: <a href="../modules/Core.html">Core</a>
         
     
 
@@ -263,16 +263,15 @@
 
 
 <div class="box intro">
-    <p>A task is used by the Task Manager to do an 
-asyncronous task (like loading or playback)</p>
+    <p>An enumeration value. This class is private, and is only used by Enum.</p>
 
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_springroll.Task" class="method item">
-    <h3 class="name"><code>springroll.Task</code></h3>
+        <div id="method_springroll.EnumValue" class="method item private">
+    <h3 class="name"><code>springroll.EnumValue</code></h3>
 
     
         <div class="args">
@@ -280,13 +279,19 @@ asyncronous task (like loading or playback)</p>
             
                 <li class="arg">
                     
-                        <code>id</code>
+                        <code>name</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>callback</code>
+                        <code>value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>toString</code>
                     
                 </li>
             
@@ -298,6 +303,8 @@ asyncronous task (like loading or playback)</p>
 
     
 
+    
+        <span class="flag private">private</span>
     
 
     
@@ -319,7 +326,7 @@ asyncronous task (like loading or playback)</p>
             
         
         
-        <a href="../files/src_tasks_Task.js.html#l7"><code>springroll.Task:7</code></a>
+        <a href="../files/src_utils_Enum.js.html#l7"><code>springroll.EnumValue:7</code></a>
         
         </p>
 
@@ -341,14 +348,14 @@ asyncronous task (like loading or playback)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">id</code>
+                        <code class="param-name">name</code>
                         <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Alias for the task</p>
+                        <p>The name of the enum value.</p>
 
                     </div>
 
@@ -357,14 +364,30 @@ asyncronous task (like loading or playback)</p>
             
                 <li class="param">
                     
-                        <code class="param-name">callback</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <code class="param-name">value</code>
+                        <span class="type">Int</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Function to call when the task is completed</p>
+                        <p>The integer value of the enum.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">toString</code>
+                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A string for toString() to return, instead of the name.</p>
 
                     </div>
 
@@ -388,8 +411,6 @@ asyncronous task (like loading or playback)</p>
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
         
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
         
             <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
@@ -402,49 +423,6 @@ asyncronous task (like loading or playback)</p>
             <h2 class="off-left">Item Index</h2>
 
             
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method">
-                                <a href="#method_cancel">cancel</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_destroy">destroy</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_done">done</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_start">start</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_toString">toString</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
 
             
                 <div class="index-section properties">
@@ -452,22 +430,29 @@ asyncronous task (like loading or playback)</p>
 
                     <ul class="index-list properties">
                         
-                            <li class="index-item property protected">
-                                <a href="#property__isDestroyed">_isDestroyed</a>
+                            <li class="index-item property private">
+                                <a href="#property__toString">_toString</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property private">
+                                <a href="#property__value">_value</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_callback">callback</a>
+                                <a href="#property_asInt">asInt</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_id">id</a>
+                                <a href="#property_name">name</a>
 
                                 
                                 
@@ -483,473 +468,20 @@ asyncronous task (like loading or playback)</p>
         </div>
 
         
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_cancel" class="method item">
-    <h3 class="name"><code>cancel</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type">Bool</span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l69"><code>cancel:69</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Cancel the task - for use in inherited classes</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type">Bool</span>:
-                    
-                    <p>If the cancel was successful</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_destroy" class="method item">
-    <h3 class="name"><code>destroy</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l90"><code>destroy:90</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>If this task has been __isDestroyed
-Don&#39;t use after this</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_done" class="method item">
-    <h3 class="name"><code>done</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>result</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>manager</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l44"><code>done:44</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Called from the task manager when a Task is finished</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">result</code>
-                        <span class="type">Type</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The resulting data from the return</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">manager</code>
-                        <span class="type">TaskManager</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The reference to the manager</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_start" class="method item">
-    <h3 class="name"><code>start</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>callback</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l58"><code>start:58</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Start the load. This implementation is a NOP.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">callback</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Callback to call when the load is done</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_toString" class="method item">
-    <h3 class="name"><code>toString</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l79"><code>toString:79</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Get a string representation of this task</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>:
-                    
-                    <p>A string representation of this task</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-            </div>
-        
 
         
             <div id="properties" class="api-class-tabpanel">
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property__isDestroyed" class="property item protected">
-    <h3 class="name"><code>_isDestroyed</code></h3>
-    <span class="type">Bool</span>
+                    <div id="property__toString" class="property item private">
+    <h3 class="name"><code>_toString</code></h3>
+    <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
 
     
-        <span class="flag protected">protected</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/src_tasks_Task.js.html#l32"><code>_isDestroyed:32</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Bool to keep track if this has been destroyed</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_callback" class="property item">
-    <h3 class="name"><code>callback</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-
-    
-
+        <span class="flag private">private</span>
     
 
     
@@ -967,7 +499,7 @@ Don&#39;t use after this</p>
             
         
         
-        <a href="../files/src_tasks_Task.js.html#l25"><code>callback:25</code></a>
+        <a href="../files/src_utils_Enum.js.html#l29"><code>_toString:29</code></a>
         
         </p>
 
@@ -977,7 +509,7 @@ Don&#39;t use after this</p>
     </div>
 
     <div class="description">
-        <p>Callback to call when the task is completed</p>
+        <p>A string for toString() to return, instead of the name.</p>
 
     </div>
 
@@ -989,8 +521,100 @@ Don&#39;t use after this</p>
 </div>
 
                 
-                    <div id="property_id" class="property item">
-    <h3 class="name"><code>id</code></h3>
+                    <div id="property__value" class="property item private">
+    <h3 class="name"><code>_value</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_utils_Enum.js.html#l23"><code>_value:23</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The integer value of this enum entry.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_asInt" class="property item">
+    <h3 class="name"><code>asInt</code></h3>
+    <span class="type">Int</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/src_utils_Enum.js.html#l36"><code>asInt:36</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The integer value of this enum entry.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_name" class="property item">
+    <h3 class="name"><code>name</code></h3>
     <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
 
     
@@ -1012,7 +636,7 @@ Don&#39;t use after this</p>
             
         
         
-        <a href="../files/src_tasks_Task.js.html#l18"><code>id:18</code></a>
+        <a href="../files/src_utils_Enum.js.html#l18"><code>name:18</code></a>
         
         </p>
 
@@ -1022,7 +646,7 @@ Don&#39;t use after this</p>
     </div>
 
     <div class="description">
-        <p>The unique id of the task</p>
+        <p>The name of the value, for reflection or logging purposes.</p>
 
     </div>
 

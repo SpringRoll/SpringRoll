@@ -84,6 +84,10 @@
             
                 <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
             
+                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+            
+                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+            
                 <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
             
                 <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
@@ -895,10 +899,11 @@
 		}
 		//send out the resize event
 		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+
 		//redraw all displays
 		for (key in _displays)
 		{
-			_displays[key].render(0);
+			_displays[key].render(0, true); // force renderer
 		}
 	};
 

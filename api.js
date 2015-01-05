@@ -15,6 +15,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.Captions",
         "springroll.CombinedCallback",
         "springroll.DelayedCall",
+        "springroll.Enum",
+        "springroll.EnumValue",
         "springroll.EventDispatcher",
         "springroll.FallbackWorker",
         "springroll.FunctionTask",

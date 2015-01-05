@@ -667,6 +667,18 @@
                 "springroll": 1
             }
         },
+        "src/utils/Enum.js": {
+            "name": "src/utils/Enum.js",
+            "modules": {},
+            "classes": {
+                "springroll.EnumValue": 1,
+                "springroll.Enum": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll": 1
+            }
+        },
         "src/utils/Language.js": {
             "name": "src/utils/Language.js",
             "modules": {
@@ -777,6 +789,8 @@
                 "springroll.CombinedCallback": 1,
                 "Debug": 1,
                 "springroll.DelayedCall": 1,
+                "springroll.EnumValue": 1,
+                "springroll.Enum": 1,
                 "Math": 1,
                 "Object": 1,
                 "springroll.PageVisibility": 1,
@@ -2645,7 +2659,7 @@
             "module": "Sound",
             "namespace": "springroll",
             "file": "src/media/Sound.js",
-            "line": 18,
+            "line": 19,
             "description": "Acts as a wrapper for SoundJS as well as adding lots of other functionality\nfor managing sounds."
         },
         "springroll.SoundContext": {
@@ -3288,6 +3302,62 @@
                     "type": "Boolean",
                     "optional": true,
                     "optdefault": "true"
+                }
+            ]
+        },
+        "springroll.EnumValue": {
+            "name": "springroll.EnumValue",
+            "shortname": "EnumValue",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "springroll",
+            "file": "src/utils/Enum.js",
+            "line": 7,
+            "description": "An enumeration value. This class is private, and is only used by Enum.",
+            "access": "private",
+            "tagname": "",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the enum value.",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "The integer value of the enum.",
+                    "type": "Int"
+                },
+                {
+                    "name": "toString",
+                    "description": "A string for toString() to return, instead of the name.",
+                    "type": "String"
+                }
+            ]
+        },
+        "springroll.Enum": {
+            "name": "springroll.Enum",
+            "shortname": "Enum",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "springroll",
+            "file": "src/utils/Enum.js",
+            "line": 48,
+            "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\"valueOf0\",\n\t\t\t\t\t\t\t\t\t\t\"valueOf1\",\n\t\t\t\t\t\t\t\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum({name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\t\t\t\t\t\t\t\t\"two\",\n\t\t\t\t\t\t\t\t\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "arguments",
+                    "description": "The list of enumeration values. You can pass either an\n                                       array or a list of parameters. Each string will be\n                                       the previous value plus one, while objects with\n                                       'name' and 'value' properties will have the specified\n                                       numeric value.",
+                    "type": "Array|String|Object"
                 }
             ]
         },
@@ -5052,6 +5122,13 @@
                     "name": "elapsed",
                     "description": "The time elapsed since the previous frame.",
                     "type": "Int"
+                },
+                {
+                    "name": "force",
+                    "description": "Will re-render even if the game is paused or not visible",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
                 }
             ],
             "class": "springroll.createjs.CreateJSDisplay",
@@ -5060,7 +5137,7 @@
         },
         {
             "file": "src/displays/createjs/CreateJSDisplay.js",
-            "line": 121,
+            "line": 122,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -9498,6 +9575,13 @@
                     "name": "elapsed",
                     "description": "",
                     "type": "Int"
+                },
+                {
+                    "name": "force",
+                    "description": "Will re-render even if the game is paused or not visible",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
                 }
             ],
             "class": "springroll.pixi.PixiDisplay",
@@ -9506,7 +9590,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 150,
+            "line": 151,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -9715,6 +9799,13 @@
                     "name": "elapsed",
                     "description": "The time elapsed since the previous frame.",
                     "type": "Int"
+                },
+                {
+                    "name": "force",
+                    "description": "For the re-render",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
                 }
             ],
             "class": "springroll.AbstractDisplay",
@@ -9723,7 +9814,7 @@
         },
         {
             "file": "src/displays/AbstractDisplay.js",
-            "line": 169,
+            "line": 170,
             "description": "Destroys the display. This method is called by the Application and should \nnot be called directly, use Application.removeDisplay(id). \nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -12820,7 +12911,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 37,
+            "line": 38,
             "description": "Dictionary of sound objects, containing configuration info and playback objects.",
             "itemtype": "property",
             "name": "_sounds",
@@ -12833,7 +12924,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 44,
+            "line": 45,
             "description": "Array of SoundInstance objects that are being faded in or out.",
             "itemtype": "property",
             "name": "_fades",
@@ -12846,7 +12937,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 51,
+            "line": 52,
             "description": "Array of SoundInstance objects waiting to be used.",
             "itemtype": "property",
             "name": "_pool",
@@ -12859,7 +12950,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 58,
+            "line": 59,
             "description": "The extension of the supported sound type that will be used.",
             "itemtype": "property",
             "name": "supportedSound",
@@ -12872,7 +12963,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 65,
+            "line": 66,
             "description": "Dictionary of SoundContexts.",
             "itemtype": "property",
             "name": "_contexts",
@@ -12885,7 +12976,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 77,
+            "line": 78,
             "description": "If sound is enabled. This will only be false if Sound was unable to initialize\na SoundJS plugin.",
             "itemtype": "property",
             "name": "soundEnabled",
@@ -12897,7 +12988,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 95,
+            "line": 94,
             "description": "Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for\nsetting createjs.FlashPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
@@ -12948,7 +13039,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 201,
+            "line": 200,
             "description": "Statisfies the iOS event needed to initialize the audio",
             "access": "private",
             "tagname": "",
@@ -12960,7 +13051,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 212,
+            "line": 211,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -12984,7 +13075,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 256,
+            "line": 255,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -12998,7 +13089,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 267,
+            "line": 266,
             "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "loadConfig",
@@ -13085,7 +13176,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 345,
+            "line": 344,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -13108,7 +13199,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 357,
+            "line": 356,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -13131,7 +13222,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 369,
+            "line": 368,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -13154,7 +13245,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 381,
+            "line": 380,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -13177,7 +13268,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 394,
+            "line": 393,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -13200,7 +13291,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 408,
+            "line": 407,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -13239,7 +13330,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 451,
+            "line": 450,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -13278,7 +13369,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 500,
+            "line": 499,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -13297,7 +13388,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 555,
+            "line": 554,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13381,7 +13472,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 702,
+            "line": 701,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13409,7 +13500,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 728,
+            "line": 727,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13428,7 +13519,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 779,
+            "line": 778,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13447,7 +13538,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 801,
+            "line": 800,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13466,7 +13557,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 829,
+            "line": 828,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13485,7 +13576,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 845,
+            "line": 844,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13504,7 +13595,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 861,
+            "line": 860,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13523,7 +13614,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 885,
+            "line": 884,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13542,7 +13633,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 904,
+            "line": 903,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13561,7 +13652,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 925,
+            "line": 924,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13573,7 +13664,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 937,
+            "line": 936,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13585,7 +13676,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 949,
+            "line": 948,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13609,7 +13700,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 981,
+            "line": 980,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -13620,7 +13711,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 992,
+            "line": 991,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13639,7 +13730,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1007,
+            "line": 1006,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13663,7 +13754,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1038,
+            "line": 1037,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13687,7 +13778,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1065,
+            "line": 1064,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13711,7 +13802,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1119,
+            "line": 1118,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13735,7 +13826,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1144,
+            "line": 1143,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13768,7 +13859,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1160,
+            "line": 1159,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13787,7 +13878,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1184,
+            "line": 1183,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13806,7 +13897,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1205,
+            "line": 1204,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -16959,6 +17050,89 @@
             "namespace": "springroll"
         },
         {
+            "file": "src/utils/Enum.js",
+            "line": 18,
+            "description": "The name of the value, for reflection or logging purposes.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "springroll.EnumValue",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 23,
+            "description": "The integer value of this enum entry.",
+            "itemtype": "property",
+            "name": "_value",
+            "type": "Int",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.EnumValue",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 29,
+            "description": "A string for toString() to return, instead of the name.",
+            "itemtype": "property",
+            "name": "_toString",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.EnumValue",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 36,
+            "description": "The integer value of this enum entry.",
+            "itemtype": "property",
+            "name": "asInt",
+            "type": "Int",
+            "class": "springroll.EnumValue",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 77,
+            "description": "A potentially sparse array of each enum value, stored by integer values.",
+            "itemtype": "property",
+            "name": "_byValue",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 121,
+            "description": "A potentially sparse array of each enum value, stored by integer values.",
+            "itemtype": "method",
+            "name": "valueFromInt",
+            "type": "Array",
+            "params": [
+                {
+                    "name": "input",
+                    "description": "The integer value to get an enum value for.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The EnumValue that represents",
+                "type": "EnumValue"
+            },
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
             "file": "src/utils/Language.js",
             "line": 41,
             "description": "The value to replace with the current language in URLS.",
@@ -17194,9 +17368,9 @@
         {
             "file": "src/utils/Math.js",
             "line": 11,
-            "description": "Return a random int between minimum and maximum values.",
+            "description": "Return a random int between minimum and maximum values.\nIf a single value is supplied, it will return a number between 0 and the supplied value.",
             "itemtype": "method",
-            "name": "getRandomInt",
+            "name": "randomInt",
             "static": 1,
             "params": [
                 {
@@ -17219,7 +17393,34 @@
         },
         {
             "file": "src/utils/Math.js",
-            "line": 36,
+            "line": 21,
+            "description": "Return a random int between minimum and maximum values.\nIf a single value is supplied, it will return a number between 0 and the supplied value.",
+            "itemtype": "method",
+            "name": "getRandomInt",
+            "static": 1,
+            "deprecated": true,
+            "params": [
+                {
+                    "name": "min",
+                    "description": "Lowest number. If max is omitted, then this becomes max.",
+                    "type": "Int"
+                },
+                {
+                    "name": "max",
+                    "description": "Highest number.",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "The random value",
+                "type": "Int"
+            },
+            "class": "Math",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Math.js",
+            "line": 41,
             "description": "Return dist between two points",
             "itemtype": "method",
             "name": "dist",
@@ -18064,7 +18265,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 661,
+            "line": 662,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18095,7 +18296,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 693,
+            "line": 694,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18127,7 +18328,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 736,
+            "line": 737,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18148,7 +18349,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 747,
+            "line": 748,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18172,7 +18373,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 769,
+            "line": 770,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18189,7 +18390,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 784,
+            "line": 785,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18202,7 +18403,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 802,
+            "line": 803,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18215,7 +18416,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 818,
+            "line": 819,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18227,7 +18428,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 865,
+            "line": 866,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -18243,7 +18444,7 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/createjs/CreateJSDisplay.js:121"
+            "line": " src/displays/createjs/CreateJSDisplay.js:122"
         },
         {
             "message": "replacing incorrect tag: returns with return",
@@ -18271,7 +18472,7 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:150"
+            "line": " src/displays/pixi/PixiDisplay.js:151"
         },
         {
             "message": "unknown tag: internal",
@@ -18283,7 +18484,7 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/AbstractDisplay.js:169"
+            "line": " src/displays/AbstractDisplay.js:170"
         },
         {
             "message": "replacing incorrect tag: function with method",

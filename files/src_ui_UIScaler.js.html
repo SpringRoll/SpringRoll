@@ -84,6 +84,10 @@
             
                 <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
             
+                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+            
+                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+            
                 <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
             
                 <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
@@ -698,7 +702,7 @@
 				//a double resolution image would have a bgScale of 2
 				bgScale = size.w / expectedBGWidth;
 				//determine the size of the active dimension, width or height
-				activeBGSize = bgScale * scaleToHeight ? _designedSize.height : _designedSize.width;
+				activeBGSize = bgScale * (scaleToHeight ? _designedSize.height : _designedSize.width);
 				//determine scale the bg should be used at to fill the display properly
 				scale = (scaleToHeight ? h : w) / activeBGSize;
 

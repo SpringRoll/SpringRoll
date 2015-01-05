@@ -8,7 +8,7 @@
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.7 API Documentation : src/tasks/TaskManager.js</title>  
+	<title>SpringRoll v0.0.7 API Documentation : src/utils/Enum.js</title>  
 </head>
 <body class="yui3-skin-sam">
 
@@ -240,345 +240,145 @@
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/tasks/TaskManager.js      
+	var name = src/utils/Enum.js      
 </script>
-<h1 class="file-heading">File:TaskManager.js</h1>
+<h1 class="file-heading">File:Enum.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-*  @module Tasks
+*  @module Core
 *  @namespace springroll
 */
-(function(){
-
-	// Imports
-	var TaskEvent,
-		EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;);
-
+(function() {
+	
 	/**
-	*  The task manager is responsible for doing a series
-	*  of asyncronous tasks
-	*
-	*  @class TaskManager
+	*  An enumeration value. This class is private, and is only used by Enum.
+	*  @class EnumValue
+	*  @private
 	*  @constructor
-	*  @param {Array} tasks The series of tasks to do
+	*  @param {String} name The name of the enum value.
+	*  @param {int} value The integer value of the enum.
+	*  @param {String} toString A string for toString() to return, instead of the name.
 	*/
-	var TaskManager = function(tasks)
+	var EnumValue = function(name, value, toString)
 	{
-		if(!TaskEvent)
+		/**
+		 * The name of the value, for reflection or logging purposes.
+		 * @property {String} name
+		 */
+		this.name = name;
+		/**
+		 * The integer value of this enum entry.
+		 * @property {int} _value
+		 * @private
+		 */
+		this._value = value;
+		/**
+		 * A string for toString() to return, instead of the name.
+		 * @property {String} _toString
+		 * @private
+		 */
+		this._toString = toString || this.name;
+	};
+	/**
+	* The integer value of this enum entry.
+	* @property {int} asInt
+	*/
+	Object.defineProperty(EnumValue.prototype, &quot;asInt&quot;, {
+		get: function() { return this._value; }
+	});
+	EnumValue.prototype.toString = function()
+	{
+		return this._toString;
+	};
+	
+	/**
+	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	*  referenced as a property with the same name as the EnumValue. Examples:
+	*
+		var myEnum = new springroll.Enum(&quot;valueOf0&quot;,
+										&quot;valueOf1&quot;,
+										&quot;valueOf2&quot;);
+		var myOtherEnum = new springroll.Enum({name: &quot;one&quot;, value:&quot;1&quot;, toString:&quot;I am the One!&quot;},
+											&quot;two&quot;,
+											{name:&quot;screwSequentialNumbers&quot;, value:42});
+		myEnum.valueOf0 != 0;//enum values are not integers
+		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
+		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
+		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
+		console.log(myOtherEnum.one.toString());//outputs &quot;I am the One!&quot;
+	*
+	*  @class Enum
+	*  @constructor
+	*  @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
+	*                                         array or a list of parameters. Each string will be
+	*                                         the previous value plus one, while objects with
+	*                                         &#x27;name&#x27; and &#x27;value&#x27; properties will have the specified
+	*                                         numeric value.
+	*/
+	var Enum = function()
+	{
+		var args = Array.isArray(arguments[0]) ?
+												arguments[0] :
+												Array.prototype.slice.call(arguments);
+		/**
+		 * A potentially sparse array of each enum value, stored by integer values.
+		 * @property {Array} _byValue
+		 * @private
+		 */
+		this._byValue = [];
+		var counter = 0, item, i, value, name;
+		//create each value
+		for(i = 0; i &lt; args.length; ++i)
 		{
-			TaskEvent = include(&#x27;springroll.TaskEvent&#x27;);
-		}
-
-		EventDispatcher.call(this);
-
-		/**
-		* Collection of all tasks
-		*
-		* @property {Array} tasks
-		*/
-		this.tasks = tasks || [];
-
-		/**
-		* The current tasks
-		*
-		* @property {Array} _currentTaskes
-		* @private
-		*/
-		this._currentTasks = [];
-
-		/**
-		* If we&#x27;re paused and should therefore not automatically proceed to the
-		* next task after each task completes
-		*
-		* @property {bool} paused
-		*/
-		this.paused = true;
-
-		/**
-		* The number of tasks that are currently in progress
-		*
-		* @property {int} _tasksInProgress
-		* @private
-		*/
-		this._tasksInProgress = 0;
-
-		/**
-		* If the manager is destroyed
-		*
-		* @property {bool} _isDestroyed
-		* @private
-		*/
-		this._isDestroyed = false;
-	};
-
-	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
-
-	/**
-	* Event dispatched when tasks are all done
-	*
-	* @event onAllTasksDone
-	*/
-	TaskManager.ALL_TASKS_DONE = &quot;onAllTasksDone&quot;;
-
-	/**
-	*  Convenience method to execute tasks without having to setup the event listener
-	*
-	*  @method process
-	*  @static
-	*  @param {Array} tasks The collection of tasks
-	*  @param {Function} callback The callback
-	*  @param {Boolean} [startAll=true] If we should start all tasks
-	*  @param {Boolean} [immediateDestroy=true] Destroy after load
-	*  @return {TaskManager} The instance of the task manager created
-	*/
-	TaskManager.process = function(tasks, callback, startAll, immediateDestroy)
-	{
-		immediateDestroy = immediateDestroy || true;
-		startAll = startAll || true;
-
-		var allDone = TaskManager.ALL_TASKS_DONE;
-		var manager = new TaskManager(tasks);
-		manager.on(
-			allDone,
-			function()
+			if(typeof args[i] == &quot;string&quot;)
 			{
-				// Remove the listener
-				manager.off(allDone);
-
-				// Destroy the manager
-				if (immediateDestroy) manager.destroy();
-
-				// Callback
-				if (callback !== null) callback();
-			}
-		);
-
-		// Decide if we should start all tasks or just the next one
-		if (startAll)
-			manager.startAll();
-		else
-			manager.startNext();
-
-		return manager;
-	};
-
-	/**
-	*  Convenience function to add a task
-	*
-	*  @function addTask
-	*  @param {Task} task The task object to load
-	*/
-	p.addTask = function(task)
-	{
-		this.tasks.push(task);
-	};
-
-	/**
-	*  Add bunch of tasks
-	*
-	*  @function addTasks
-	*  @param {Array} tasks Collection of tasks to add
-	*
-	*/
-	p.addTasks = function(tasks)
-	{
-		this.removeAll();
-		this.tasks = tasks;
-	};
-
-	/**
-	*   Cancel and remove all tasks
-	*
-	*   @function removeAll
-	*/
-	p.removeAll = function()
-	{
-		this._tasksInProgress = 0;
-		this.paused = true;
-		var task, i, len;
-		if (this._currentTasks &amp;&amp; this._currentTasks.length &gt; 0)
-		{
-			for (i = 0, this._currentTasks.length; i &lt; len; i++)
-			{
-				task = this._currentTasks[i];
-				if (task.cancel())
+				name = args[i];
+				if(this[name])
 				{
-					task.destroy();
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that name.&quot;);
+					continue;
 				}
+				item = this._byValue[counter] = new EnumValue(name, counter, name);
+				this[item.name] = item;
 			}
-		}
-		if (this.tasks &amp;&amp; this.tasks.length &gt; 0)
-		{
-			for (i = 0, len = this.tasks.length; i &lt; len; i++)
+			else
 			{
-				task = this.tasks[i];
-				task.destroy();
-			}
-		}
-		this._currentTasks.length = 0;
-		this.tasks.length = 0;
-	};
-
-	/**
-	*	Cancels all tasks with a given id
-	*	@function cancelTask
-	*	@param {String} taskId The task id to remove.
-	*/
-	p.cancelTask = function(taskId)
-	{
-		var i;
-		for (i = this._currentTasks.length - 1; i &gt;= 0; --i)
-		{
-			if(this._currentTasks[i].id == taskId)
-			{
-				if(this._currentTasks[i].cancel())
+				name = args[i].name;
+				value = args[i].value || counter;
+				if(this._byValue[value])
 				{
-					this._currentTasks[i].destroy();
-					this._currentTasks.splice(i, 1);
-					--this._tasksInProgress;
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that integer value.&quot;);
+					continue;
 				}
+				else if(this[name])
+				{
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that name.&quot;);
+					continue;
+				}
+				item = new EnumValue(name, value, args[i].toString || name);
+				this[item.name] = item;
+				this._byValue[item._value] = item;
+				counter = item._value;
 			}
-		}
-		for (i = this.tasks.length - 1; i &gt;= 0; --i)
-		{
-			if(this.tasks[i].id == taskId)
-			{
-				this.tasks[i].destroy();
-				this.tasks.splice(i, 1);
-			}
+			counter++;
 		}
 	};
-
+	
 	/**
-	*   Start the next task in the tasks list. When it is done, the
-	*   task&#x27;s callback will be called.  If the manager is not paused after
-	*   the task&#x27;s callback returns, the manager will start the next task.
-	*   @function startNext
-	*   @return {Task} The task that was started or null if the list contained no
-	*           tasks to be processed
+	* A potentially sparse array of each enum value, stored by integer values.
+	* @method {Array} valueFromInt
+	* @param {int} input The integer value to get an enum value for.
+	* @return {EnumValue} The EnumValue that represents
 	*/
-	p.startNext = function()
+	Enum.prototype.valueFromInt = function(input)
 	{
-		if (this._isDestroyed) return;
-
-		Debug.assert(!!this.tasks, &quot;startNext(): There are no task for this Task Manager&quot;);
-
-		var task;
-		while (this.tasks.length &gt; 0 &amp;&amp; !(task = this.tasks.shift()))
-		{
-		}
-		if (!task)
-		{
-			return null;
-		}
-
-		this._currentTasks.push(task);
-
-		this.paused = false;
-
-		// Give warning that a task is about to be started and respect pauses
-		if(this.has(TaskEvent.TASK_ABOUT_TO_START))
-			this.trigger(TaskEvent.TASK_ABOUT_TO_START, new TaskEvent(TaskEvent.TASK_ABOUT_TO_START, task));
-
-		if (this.paused)
-		{
-			return null;
-		}
-
-		if(this.has(TaskEvent.TASK_STARTING))
-			this.trigger(TaskEvent.TASK_STARTING, new TaskEvent(TaskEvent.TASK_STARTING, task));
-		this._tasksInProgress++;
-
-		task.start(this.onTaskDone.bind(this, task));
-
-		return task;
+		return this._byValue[input] || null;
 	};
 
-	/**
-	*   Callback for when an task is done
-	*
-	*   @function onTaskDone
-	*   @param {*} result Result of the task
-	*   @param {Task} task Task that is done
-	*/
-	p.onTaskDone = function(task, result)
-	{
-		if (this._isDestroyed) return;
-
-		this._tasksInProgress--;
-
-		if(this.has(TaskEvent.TASK_DONE))
-			this.trigger(TaskEvent.TASK_DONE, new TaskEvent(TaskEvent.TASK_DONE, task, result));
-		task.done(result, this);
-
-		// Remove from the current tasks
-		// and destroy
-		var index = this._currentTasks.indexOf(task);
-		if (index &gt; -1)
-		{
-			this._currentTasks.splice(index, 1);
-		}
-		task.destroy();
-
-		// No more valid tasks
-		if (this._tasksInProgress === 0 &amp;&amp; this.tasks.length === 0)
-		{
-			this.trigger(TaskManager.ALL_TASKS_DONE);
-		}
-		else
-		{
-			if (!this.paused)
-			{
-				this.startNext();
-			}
-		}
-	};
-
-	/**
-	*   Start the next task until there are no more tasks to start
-	*   @function startAll
-	*   @return {Array} All tasks that were started
-	*/
-	p.startAll = function()
-	{
-		Debug.assert(!!this.tasks, &quot;startAll(): There are no task for this Task Manager&quot;);
-
-		var ret = [];
-
-		while (true)
-		{
-			var task = this.startNext();
-			if (!task)
-			{
-				break;
-			}
-			ret.push(task);
-		}
-		return ret;
-	};
-
-	/**
-	*   We don&#x27;t want to use the task manager after this
-	*   @function destroy
-	*/
-	p.destroy = function()
-	{
-		if (this._isDestroyed) return;
-
-		this._isDestroyed = true;
-
-		this.off();
-
-		this.removeAll();
-		this._currentTasks = null;
-		this.tasks = null;
-	};
-
-	namespace(&#x27;springroll&#x27;).TaskManager = TaskManager;
+	namespace(&#x27;springroll&#x27;).Enum = Enum;
 }());
-
     </pre>
 </div>
 

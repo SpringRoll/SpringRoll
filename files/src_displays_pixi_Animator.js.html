@@ -84,6 +84,10 @@
             
                 <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
             
+                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+            
+                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+            
                 <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
             
                 <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
@@ -798,7 +802,7 @@
 						//letting the audio continue should be okay though
 						if (t._time_sec &gt;= t.duration)
 						{
-							updateClip(t.duration, prevTime);
+							updateClip(t, t.duration, prevTime);
 							extraTime = t._time_sec - t.duration;
 							t._nextItem();
 							if(t.complete)

@@ -84,6 +84,10 @@
             
                 <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
             
+                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+            
+                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+            
                 <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
             
                 <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
@@ -591,7 +595,7 @@ the bare minimum needed by the Application to render.</p>
             
         
         
-        <a href="../files/src_displays_AbstractDisplay.js.html#l169"><code>destroy:169</code></a>
+        <a href="../files/src_displays_AbstractDisplay.js.html#l170"><code>destroy:170</code></a>
         
         </p>
 
@@ -626,6 +630,12 @@ The stage recursively removes all display objects here.</p>
                 <li class="arg">
                     
                         <code>elapsed</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[force=false]</code>
                     
                 </li>
             
@@ -687,6 +697,23 @@ This method does nothing if paused is true or visible is false.</p>
 
                     <div class="param-description">
                         <p>The time elapsed since the previous frame.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name optional">[force=false]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>For the re-render</p>
 
                     </div>
 
