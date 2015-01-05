@@ -944,23 +944,27 @@
 				name = args[i];
 				if (this[name])
 				{
-					Debug.error("Error creating enum value " + name + ": " + value + " - an enum value already exists with that name.");
+					Debug.error("Error creating enum value " + name + ": " + value +
+						" - an enum value already exists with that name.");
 					continue;
 				}
-				item = this._byValue[counter] = new EnumValue(name, counter, name);
+				item = new EnumValue(name, counter, name);
 				this[item.name] = item;
+				if(this._byValue[counter])
+				{
+					if(Array.isArray(this._byValue[counter]))
+						this._byValue[counter].push(item);
+					else
+						this._byValue[counter] = [this._byValue[counter], item];
+				}
+				else
+					this._byValue[counter] = item;
 			}
 			else
 			{
 				name = args[i].name;
 				value = args[i].value || counter;
-				if (this._byValue[value])
-				{
-					Debug.error("Error creating enum value " + name + ": " + value +
-						" - an enum value already exists with that integer value.");
-					continue;
-				}
-				else if (this[name])
+				if(this[name])
 				{
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
@@ -968,22 +972,36 @@
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
-				this._byValue[item._value] = item;
-				counter = item._value;
+				if(this._byValue[value])
+				{
+					if(Array.isArray(this._byValue[value]))
+						this._byValue[value].push(item);
+					else
+						this._byValue[value] = [this._byValue[value], item];
+				}
+				else
+					this._byValue[value] = item;
+				counter = value;
 			}
 			counter++;
 		}
 	};
 
 	/**
-	 * A potentially sparse array of each enum value, stored by integer values.
+	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
+	 * value, this will always retrieve the first enum value.
 	 * @method {Array} valueFromInt
 	 * @param {int} input The integer value to get an enum value for.
-	 * @return {EnumValue} The EnumValue that represents
+	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
 	Enum.prototype.valueFromInt = function(input)
 	{
-		return this._byValue[input] || null;
+		var rtn = this._byValue[input];
+		if(rtn)
+		{
+			return Array.isArray(rtn) ? rtn[0] : rtn;
+		}
+		return null;
 	};
 
 	namespace('springroll').Enum = Enum;

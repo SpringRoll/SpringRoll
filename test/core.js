@@ -16,7 +16,7 @@ test('namespace & include', function(assert){
 
 test('Enum', function(assert){
 
-	expect(6);
+	expect(7);
 
 	var Enum = springroll.Enum;
 	
@@ -25,13 +25,15 @@ test('Enum', function(assert){
 						"valueOf2");
 	var myOtherEnum = new Enum({name: "one", value:"1", toString:"I am the One!"},
 								"two",
-								{name:"screwSequentialNumbers", value:42});
+								{name:"screwSequentialNumbers", value:42},
+								{name:"duplicateValue", value:42});
 	assert.ok(myEnum.valueOf0, "EnumValue was created.");
 	assert.notEqual(myEnum.valueOf0, 0, "EnumValues are not integers.");
 	assert.notEqual(myEnum.valueOf1, myOtherEnum.one, "EnumValues with the same integer value are not the same.");
 	assert.equal(myEnum.valueOf2.asInt, 2, "EnumValue.asInt is correct.");
+	assert.ok(myOtherEnum.duplicateValue, "Duplicate value was created properly.");
 	assert.equal(myOtherEnum.screwSequentialNumbers, myOtherEnum.valueFromInt(42),
-				"Enum.valueFromInt() returns the correct value, even when nonsequential.");
+				"Enum.valueFromInt() returns the correct value, even when nonsequential and duplicate.");
 	assert.equal(myOtherEnum.one.toString(), "I am the One!", "toString() override works.");
 });
 
