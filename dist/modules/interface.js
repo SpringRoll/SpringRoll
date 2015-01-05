@@ -1000,7 +1000,7 @@
 				//a double resolution image would have a bgScale of 2
 				bgScale = size.w / expectedBGWidth;
 				//determine the size of the active dimension, width or height
-				activeBGSize = bgScale * scaleToHeight ? _designedSize.height : _designedSize.width;
+				activeBGSize = bgScale * (scaleToHeight ? _designedSize.height : _designedSize.width);
 				//determine scale the bg should be used at to fill the display properly
 				scale = (scaleToHeight ? h : w) / activeBGSize;
 
