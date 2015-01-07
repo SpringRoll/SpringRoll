@@ -247,20 +247,20 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-*  @module Core
-*  @namespace springroll
-*/
-(function() {
-	
+ *  @module Core
+ *  @namespace springroll
+ */
+(function()
+{
 	/**
-	*  An enumeration value. This class is private, and is only used by Enum.
-	*  @class EnumValue
-	*  @private
-	*  @constructor
-	*  @param {String} name The name of the enum value.
-	*  @param {int} value The integer value of the enum.
-	*  @param {String} toString A string for toString() to return, instead of the name.
-	*/
+	 *  An enumeration value. This class is private, and is only used by Enum.
+	 *  @class EnumValue
+	 *  @private
+	 *  @constructor
+	 *  @param {String} name The name of the enum value.
+	 *  @param {int} value The integer value of the enum.
+	 *  @param {String} toString A string for toString() to return, instead of the name.
+	 */
 	var EnumValue = function(name, value, toString)
 	{
 		/**
@@ -281,28 +281,37 @@
 		 */
 		this._toString = toString || this.name;
 	};
+
 	/**
-	* The integer value of this enum entry.
-	* @property {int} asInt
-	*/
-	Object.defineProperty(EnumValue.prototype, &quot;asInt&quot;, {
-		get: function() { return this._value; }
+	 * The integer value of this enum entry.
+	 * @property {int} asInt
+	 */
+	Object.defineProperty(EnumValue.prototype, &quot;asInt&quot;,
+	{
+		get: function()
+		{
+			return this._value;
+		}
 	});
+
 	EnumValue.prototype.toString = function()
 	{
 		return this._toString;
 	};
-	
+
 	/**
 	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
 	*  referenced as a property with the same name as the EnumValue. Examples:
 	*
-		var myEnum = new springroll.Enum(&quot;valueOf0&quot;,
-										&quot;valueOf1&quot;,
-										&quot;valueOf2&quot;);
-		var myOtherEnum = new springroll.Enum({name: &quot;one&quot;, value:&quot;1&quot;, toString:&quot;I am the One!&quot;},
-											&quot;two&quot;,
-											{name:&quot;screwSequentialNumbers&quot;, value:42});
+		var myEnum = new springroll.Enum(
+			&quot;valueOf0&quot;,
+			&quot;valueOf1&quot;,
+			&quot;valueOf2&quot;);
+		var myOtherEnum = new springroll.Enum(
+			{name: &quot;one&quot;, value:&quot;1&quot;, toString:&quot;I am the One!&quot;},
+			&quot;two&quot;,
+			{name:&quot;screwSequentialNumbers&quot;, value:42});
+			
 		myEnum.valueOf0 != 0;//enum values are not integers
 		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
@@ -320,61 +329,85 @@
 	var Enum = function()
 	{
 		var args = Array.isArray(arguments[0]) ?
-												arguments[0] :
-												Array.prototype.slice.call(arguments);
+			arguments[0] :
+			Array.prototype.slice.call(arguments);
 		/**
 		 * A potentially sparse array of each enum value, stored by integer values.
 		 * @property {Array} _byValue
 		 * @private
 		 */
 		this._byValue = [];
-		var counter = 0, item, i, value, name;
+
+		var counter = 0,
+			len = args.length,
+			item, i, value, name;
+
 		//create each value
-		for(i = 0; i &lt; args.length; ++i)
+		for (i = 0; i &lt; len; ++i)
 		{
-			if(typeof args[i] == &quot;string&quot;)
+			if (typeof args[i] == &quot;string&quot;)
 			{
 				name = args[i];
-				if(this[name])
+				if (this[name])
 				{
-					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that name.&quot;);
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value +
+						&quot; - an enum value already exists with that name.&quot;);
 					continue;
 				}
-				item = this._byValue[counter] = new EnumValue(name, counter, name);
+				item = new EnumValue(name, counter, name);
 				this[item.name] = item;
+				if(this._byValue[counter])
+				{
+					if(Array.isArray(this._byValue[counter]))
+						this._byValue[counter].push(item);
+					else
+						this._byValue[counter] = [this._byValue[counter], item];
+				}
+				else
+					this._byValue[counter] = item;
 			}
 			else
 			{
 				name = args[i].name;
 				value = args[i].value || counter;
-				if(this._byValue[value])
+				if(this[name])
 				{
-					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that integer value.&quot;);
-					continue;
-				}
-				else if(this[name])
-				{
-					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value + &quot; - an enum value already exists with that name.&quot;);
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value +
+						&quot; - an enum value already exists with that name.&quot;);
 					continue;
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
-				this._byValue[item._value] = item;
-				counter = item._value;
+				if(this._byValue[value])
+				{
+					if(Array.isArray(this._byValue[value]))
+						this._byValue[value].push(item);
+					else
+						this._byValue[value] = [this._byValue[value], item];
+				}
+				else
+					this._byValue[value] = item;
+				counter = value;
 			}
 			counter++;
 		}
 	};
-	
+
 	/**
-	* A potentially sparse array of each enum value, stored by integer values.
-	* @method {Array} valueFromInt
-	* @param {int} input The integer value to get an enum value for.
-	* @return {EnumValue} The EnumValue that represents
-	*/
+	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
+	 * value, this will always retrieve the first enum value.
+	 * @method {Array} valueFromInt
+	 * @param {int} input The integer value to get an enum value for.
+	 * @return {EnumValue} The EnumValue that represents the input integer.
+	 */
 	Enum.prototype.valueFromInt = function(input)
 	{
-		return this._byValue[input] || null;
+		var rtn = this._byValue[input];
+		if(rtn)
+		{
+			return Array.isArray(rtn) ? rtn[0] : rtn;
+		}
+		return null;
 	};
 
 	namespace(&#x27;springroll&#x27;).Enum = Enum;

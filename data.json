@@ -1788,7 +1788,7 @@
             "module": "PIXI Display",
             "namespace": "springroll.pixi",
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 15,
+            "line": 16,
             "description": "AssetManager is responsible for managing different resolutions of assets and spritesheets\nbased on the resolution of the stage. This is a helpful optimization for PIXI because some\nlow-hardware devices have a problem keeping up with larger images, or just refuse large\nimages entirely. The AssetManager does not load assets itself, or keep track of what is\nloaded. It merely assists in loading the appropriate assets, as well as easily unloading\nassets when you are done using them."
         },
         "springroll.pixi.Button": {
@@ -3350,8 +3350,8 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/utils/Enum.js",
-            "line": 48,
-            "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\"valueOf0\",\n\t\t\t\t\t\t\t\t\t\t\"valueOf1\",\n\t\t\t\t\t\t\t\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum({name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\t\t\t\t\t\t\t\t\"two\",\n\t\t\t\t\t\t\t\t\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"",
+            "line": 54,
+            "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\n\t\t\t\"valueOf0\",\n\t\t\t\"valueOf1\",\n\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum(\n\t\t\t{name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\"two\",\n\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\t\t\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"",
             "is_constructor": 1,
             "params": [
                 {
@@ -8047,7 +8047,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 27,
+            "line": 28,
             "description": "Dictionary of scales by asset id. Use this to return your asset to normal size.\nAssets are only added to this dictionary after a url has been retrieved with getUrl().",
             "itemtype": "property",
             "name": "scales",
@@ -8060,7 +8060,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 36,
+            "line": 37,
             "description": "The available size definitions, e.g., {\"maxSize\":400, \"order\": [\"tiny\", \"sd\"]}",
             "itemtype": "property",
             "name": "sizes",
@@ -8074,7 +8074,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 44,
+            "line": 45,
             "description": "Dictionary of assets by asset id",
             "itemtype": "property",
             "name": "assets",
@@ -8088,7 +8088,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 52,
+            "line": 53,
             "description": "The cache of asset url paths",
             "itemtype": "property",
             "name": "assetUrlCache",
@@ -8102,7 +8102,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 60,
+            "line": 61,
             "description": "The scaling value for each asset size id, e.g., {\"sd\" : 1, \"tiny\" : 0.5}",
             "itemtype": "property",
             "name": "scales",
@@ -8116,7 +8116,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 68,
+            "line": 69,
             "description": "The paths to each resolution folder, e.g., {\"sd\":\"images/sd/\", \"tiny\":\"images/tiny/\"}",
             "itemtype": "property",
             "name": "paths",
@@ -8130,7 +8130,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 76,
+            "line": 77,
             "description": "The collection of perferred size to load",
             "itemtype": "property",
             "name": "sizeOrder",
@@ -8144,7 +8144,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 84,
+            "line": 85,
             "description": "If we should use low hardware, if we know we're on a slow device",
             "itemtype": "property",
             "name": "lowHW",
@@ -8156,8 +8156,8 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 91,
-            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets\ndo not have to exist in each size. Fonts are marked for unloading purposes.\nExample config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t\t\t\"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"AnAssetCollection\": {\n\t\t\t\t\t\t\"format\": {\n\t\t\t\t\t\t\t\"src\": \"backgrounds/%NAME%.jpg\",\n\t\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\t\"tiny\": true\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"assets\": [\n\t\t\t\t\t\t\t\"Select_Background\",\n\t\t\t\t\t\t\t\"Result_Background\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t}",
+            "line": 92,
+            "description": "Initialize the asset manager. The asset manager is capable of taking different paths for\neach size of image as well as an animation file path for Spine animations. Image assets\ndo not have to exist in each size. Fonts are marked for unloading purposes.\nExample config file:\n\n\t\t\t{\n\t\t\t\t\"path\": {\n\t\t\t\t\t\"sd\": \"images/sd/\",\n\t\t\t\t\t\"tiny\": \"images/tiny/\",\n\t\t\t\t\t\"anim\": \"anims/\"\n\t\t\t\t},\n\t\t\t\t\"scale\": {\n\t\t\t\t\t\"sd\": 1,\n\t\t\t\t\t\"tiny\": 2\n\t\t\t\t},\n\t\t\t\t\"sizing\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 400,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"tiny\",\n\t\t\t\t\t\t\t\"sd\"\n\t\t\t\t\t\t]\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"maxSize\": 10000,\n\t\t\t\t\t\t\"order\": [\n\t\t\t\t\t\t\t\"sd\",\n\t\t\t\t\t\t\t\"tiny\"\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"assets\": {\n\t\t\t\t\t\"transition\": {\n\t\t\t\t\t\t\"src\": \"transition.json\",\n\t\t\t\t\t\t\"anim\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"TransitionSheet\": {\n\t\t\t\t\t\t\"src\": \"ui/TransitionSheet.json\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"FoodTruck_Title\": {\n\t\t\t\t\t\t\"src\": \"backgrounds/FoodTruck_Title.jpg\",\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":true\n\t\t\t\t\t},\n\t\t\t\t\t\"StartButton\": {\n\t\t\t\t\t\t\"src\": \"ui/StartButton.png\",\n\t\t\t\t\t\t\"split\": {\n\t\t\t\t\t\t\t\"srcReplace\":\".png\",\n\t\t\t\t\t\t\t\"alpha\":\"-alpha.png\",\n\t\t\t\t\t\t\t\"color\":\"-color.jpg\"\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"sd\":true,\n\t\t\t\t\t\t\"tiny\":false\n\t\t\t\t\t},\n\t\t\t\t\t\"LevelTitleFont\": {\n\t\t\t\t\t\t\"src\": \"ui/LevelTitleFont.xml\",\n\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\"tiny\": false,\n\t\t\t\t\t\t\"isFont\": true\n\t\t\t\t\t},\n\t\t\t\t\t\"AnAssetCollection\": {\n\t\t\t\t\t\t\"format\": {\n\t\t\t\t\t\t\t\"src\": \"backgrounds/%NAME%.jpg\",\n\t\t\t\t\t\t\t\"sd\": true,\n\t\t\t\t\t\t\t\"tiny\": true\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"assets\": [\n\t\t\t\t\t\t\t\"Select_Background\",\n\t\t\t\t\t\t\t\"Result_Background\n\t\t\t\t\t\t]\n\t\t\t\t\t}\n\t\t\t\t}",
             "itemtype": "method",
             "name": "init",
             "static": 1,
@@ -8184,7 +8184,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 199,
+            "line": 206,
             "description": "Get the alias of the preferred size to use",
             "itemtype": "method",
             "name": "getPreferredSize",
@@ -8199,7 +8199,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 210,
+            "line": 217,
             "description": "Get the preferred scale amount",
             "itemtype": "method",
             "name": "getPreferredScale",
@@ -8214,7 +8214,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 221,
+            "line": 228,
             "description": "Pick the preferred scale based on the screen resolution",
             "itemtype": "method",
             "name": "pickScale",
@@ -8239,7 +8239,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 243,
+            "line": 250,
             "description": "Get a asset url by asset id",
             "itemtype": "method",
             "name": "getUrl",
@@ -8260,8 +8260,8 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 285,
-            "description": "Loads an asset or list of assets, attempting to correctly apply texture resolution to all\nloaded textures.",
+            "line": 292,
+            "description": "Loads an asset or list of assets, attempting to correctly apply texture resolution to all\nloaded textures, as well as recombining images that have been split into alpha and color\nportions. Currently the alpha/color split will only work when loading with a task list.",
             "itemtype": "method",
             "name": "load",
             "static": 1,
@@ -8289,7 +8289,67 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 401,
+            "line": 443,
+            "description": "Callback for when a pair of split images are loaded to be reassembled.",
+            "itemtype": "method",
+            "name": "onSplitLoaded",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "results",
+                    "description": "Dictionary of LoaderResults.",
+                    "type": "Object"
+                },
+                {
+                    "name": "task",
+                    "description": "The ListTask that loaded the manifest.",
+                    "type": "ListTask"
+                }
+            ],
+            "class": "springroll.pixi.AssetManager",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "src/displays/pixi/AssetManager.js",
+            "line": 460,
+            "description": "Callback for when all split textures have been loaded and recombined. This starts the loading\nof assets within PixiJS.",
+            "itemtype": "method",
+            "name": "onAllSplitsLoaded",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "pixiTask",
+                    "description": "The PixiTask to load up all assets for PixiJS.",
+                    "type": "PixiTask"
+                },
+                {
+                    "name": "results",
+                    "description": "Dictionary of LoaderResults.",
+                    "type": "Object"
+                },
+                {
+                    "name": "task",
+                    "description": "The ListTask that loaded the manifest.",
+                    "type": "ListTask"
+                },
+                {
+                    "name": "taskManager",
+                    "description": "The TaskManager that should run pixiTask.",
+                    "type": "TaskManager"
+                }
+            ],
+            "class": "springroll.pixi.AssetManager",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "src/displays/pixi/AssetManager.js",
+            "line": 476,
             "description": "Callback for when assets are loaded, to automatically apply the resolution of textures.",
             "itemtype": "method",
             "name": "onLoaded",
@@ -8314,7 +8374,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 427,
+            "line": 502,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -8332,7 +8392,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 449,
+            "line": 524,
             "description": "Unload an asset",
             "itemtype": "method",
             "name": "unloadAsset",
@@ -8352,7 +8412,7 @@
         },
         {
             "file": "src/displays/pixi/AssetManager.js",
-            "line": 485,
+            "line": 560,
             "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS\ntexture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
             "itemtype": "method",
             "name": "getAnims",
@@ -8380,6 +8440,41 @@
             "return": {
                 "description": "An collection of PIXI.Textures for each animation id suitable for\n                 use in PIXI.MovieClip",
                 "type": "Object"
+            },
+            "class": "springroll.pixi.AssetManager",
+            "module": "PIXI Display",
+            "namespace": "springroll.pixi"
+        },
+        {
+            "file": "src/displays/pixi/AssetManager.js",
+            "line": 642,
+            "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
+            "itemtype": "method",
+            "name": "mergeAlpha",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "rbgImage",
+                    "description": "The image (or canvas) containing the RGB channels to use.",
+                    "type": "Image"
+                },
+                {
+                    "name": "alphaImage",
+                    "description": "The image (or canvas) containing the alpha channel to use.",
+                    "type": "Image"
+                },
+                {
+                    "name": "canvas",
+                    "description": "If specified, this canvas will be used and returned. If not, a new\n                         canvas will be created.",
+                    "type": "Canvas",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "A canvas with the combined image data. This can be used as a source for a\n                 Texture.",
+                "type": "Canvas"
             },
             "class": "springroll.pixi.AssetManager",
             "module": "PIXI Display",
@@ -17088,7 +17183,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 36,
+            "line": 37,
             "description": "The integer value of this enum entry.",
             "itemtype": "property",
             "name": "asInt",
@@ -17099,7 +17194,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 77,
+            "line": 86,
             "description": "A potentially sparse array of each enum value, stored by integer values.",
             "itemtype": "property",
             "name": "_byValue",
@@ -17112,8 +17207,8 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 121,
-            "description": "A potentially sparse array of each enum value, stored by integer values.",
+            "line": 148,
+            "description": "Gets an enum value by integer value. If you have multiple enum values with the same integer\nvalue, this will always retrieve the first enum value.",
             "itemtype": "method",
             "name": "valueFromInt",
             "type": "Array",
@@ -17125,7 +17220,7 @@
                 }
             ],
             "return": {
-                "description": "The EnumValue that represents",
+                "description": "The EnumValue that represents the input integer.",
                 "type": "EnumValue"
             },
             "class": "springroll.Enum",

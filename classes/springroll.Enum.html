@@ -247,7 +247,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_utils_Enum.js.html#l48"><code>springroll.Enum:48</code></a>
+            Defined in: <a href="../files/src_utils_Enum.js.html#l54"><code>springroll.Enum:54</code></a>
         </div>
     
 
@@ -265,12 +265,15 @@
 <div class="box intro">
     <p>An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
 referenced as a property with the same name as the EnumValue. Examples:</p>
-<pre class="code prettyprint"><code>    var myEnum = new springroll.Enum("valueOf0",
-                                    "valueOf1",
-                                    "valueOf2");
-    var myOtherEnum = new springroll.Enum({name: "one", value:"1", toString:"I am the One!"},
-                                        "two",
-                                        {name:"screwSequentialNumbers", value:42});
+<pre class="code prettyprint"><code>    var myEnum = new springroll.Enum(
+        "valueOf0",
+        "valueOf1",
+        "valueOf2");
+    var myOtherEnum = new springroll.Enum(
+        {name: "one", value:"1", toString:"I am the One!"},
+        "two",
+        {name:"screwSequentialNumbers", value:42});
+
     myEnum.valueOf0 != 0;//enum values are not integers
     myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
     myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
@@ -324,7 +327,7 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
             
         
         
-        <a href="../files/src_utils_Enum.js.html#l48"><code>springroll.Enum:48</code></a>
+        <a href="../files/src_utils_Enum.js.html#l54"><code>springroll.Enum:54</code></a>
         
         </p>
 
@@ -484,7 +487,7 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
             
         
         
-        <a href="../files/src_utils_Enum.js.html#l121"><code>valueFromInt:121</code></a>
+        <a href="../files/src_utils_Enum.js.html#l148"><code>valueFromInt:148</code></a>
         
         </p>
 
@@ -495,7 +498,8 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
     </div>
 
     <div class="description">
-        <p>A potentially sparse array of each enum value, stored by integer values.</p>
+        <p>Gets an enum value by integer value. If you have multiple enum values with the same integer
+value, this will always retrieve the first enum value.</p>
 
     </div>
 
@@ -534,7 +538,7 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
                     
                         <span class="type">EnumValue</span>:
                     
-                    <p>The EnumValue that represents</p>
+                    <p>The EnumValue that represents the input integer.</p>
 
                 
             </div>
@@ -578,7 +582,7 @@ referenced as a property with the same name as the EnumValue. Examples:</p>
             
         
         
-        <a href="../files/src_utils_Enum.js.html#l77"><code>_byValue:77</code></a>
+        <a href="../files/src_utils_Enum.js.html#l86"><code>_byValue:86</code></a>
         
         </p>
 
