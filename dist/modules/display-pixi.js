@@ -3001,6 +3001,7 @@
 		AssetLoader = include('PIXI.AssetLoader'),
 		Application = include('springroll.Application'),
 		PixiTask,
+		ListTask,
 		TaskManager;
 
 	/**
@@ -3128,6 +3129,11 @@
 					},
 					"StartButton": {
 						"src": "ui/StartButton.png",
+						"split": {
+							"srcReplace":".png",
+							"alpha":"-alpha.png",
+							"color":"-color.jpg"
+						},
 						"sd":true,
 						"tiny":false
 					},
@@ -3161,6 +3167,7 @@
 	{
 		PixiTask = include("springroll.PixiTask", false);
 		TaskManager = include("springroll.TaskManager", false);
+		ListTask = include("springroll.ListTask", false);
 		AssetManager.scales = {};
 		assets = config.assets;
 		assetUrlCache = {};
@@ -3275,7 +3282,8 @@
 	
 	/**
 	*  Loads an asset or list of assets, attempting to correctly apply texture resolution to all
-	*  loaded textures.
+	*  loaded textures, as well as recombining images that have been split into alpha and color
+	*  portions. Currently the alpha/color split will only work when loading with a task list.
 	*  @method load
 	*  @static
 	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id
@@ -3286,7 +3294,7 @@
 	*/
 	AssetManager.load = function(assetOrAssets, callback, taskList)
 	{
-		var i, length, urls = [], asset, j, jLength, assetCollection, madeCopy = false;
+		var i, length, urls = [], asset, j, jLength, assetCollection, madeCopy = false, splits;
 		if(!Array.isArray(assetOrAssets))
 		{
 			assetOrAssets = [assetOrAssets];
@@ -3320,17 +3328,51 @@
 					assetCollection = asset.assets;
 					for(j = 0, jLength = assetCollection.length; j < jLength; ++j)
 					{
-						asset = assets[assetCollection[j]];
-						if(asset && !asset._isLoaded)
-							urls.push(AssetManager.getUrl(assetCollection[j]));
+						assetOrAssets.push(assetCollection[j]);
+						length++;
 					}
 				}
 				else if(!asset._isLoaded)
-					urls.push(AssetManager.getUrl(assetOrAssets[i]));
+				{
+					var url = AssetManager.getUrl(assetOrAssets[i]);
+					if(asset.split)
+					{
+						if(!splits)
+						{
+							splits = {};
+						}
+						var manifest = splits[url] = [];
+						manifest.push(
+							{
+								"id":"color",
+								"src":url.replace(asset.split.srcReplace, asset.split.color)
+							});
+						manifest.push(
+							{
+								"id":"alpha",
+								"src":url.replace(asset.split.srcReplace, asset.split.alpha)
+							});
+					}
+					urls.push(url);
+				}
 			}
 			if(urls.length)
 			{
-				var task = new PixiTask("", urls, onLoaded.bind(AssetManager, assetOrAssets, callback));
+				var task = new PixiTask("", urls,
+										onLoaded.bind(AssetManager, assetOrAssets, callback));
+				//if we have split textures to load, load them up first, then load the pixi tasks
+				//this way spritesheets can be loaded properly
+				if(splits)
+				{
+					var pixiTask = task;
+					var splitTasks = [];
+					for(var id in splits)
+					{
+						splitTasks.push(new ListTask(id, splits[id], onSplitLoaded));
+					}
+					task = new ListTask("", splitTasks,
+										onAllSplitsLoaded.bind(AssetManager, pixiTask));
+				}
 				if(Array.isArray(taskList))
 					taskList.push(task);
 				else if(taskList instanceof TaskManager)
@@ -3387,6 +3429,39 @@
 			else if(callback)
 				callback();
 		}
+	};
+	
+	/**
+	*  Callback for when a pair of split images are loaded to be reassembled.
+	*  @method onSplitLoaded
+	*  @static
+	*  @private
+	*  @param {Object} results Dictionary of LoaderResults.
+	*  @param {ListTask} task The ListTask that loaded the manifest.
+	*/
+	var onSplitLoaded = function(results, task)
+	{
+		var canvas = mergeAlpha(results.color.content, results.alpha.content);
+		var baseTexture = new PIXI.BaseTexture(canvas);
+		var id = PIXI.filenameFromUrl(task.id);
+		baseTexture.imageUrl = id;
+		PIXI.BaseTextureCache[id] = baseTexture;
+	};
+	
+	/**
+	*  Callback for when all split textures have been loaded and recombined. This starts the loading
+	*  of assets within PixiJS.
+	*  @method onAllSplitsLoaded
+	*  @static
+	*  @private
+	*  @param {PixiTask} pixiTask The PixiTask to load up all assets for PixiJS.
+	*  @param {Object} results Dictionary of LoaderResults.
+	*  @param {ListTask} task The ListTask that loaded the manifest.
+	*  @param {TaskManager} taskManager The TaskManager that should run pixiTask.
+	*/
+	var onAllSplitsLoaded = function(pixiTask, results, task, taskManager)
+	{
+		taskManager.addTask(pixiTask);
 	};
 	
 	/**
@@ -3553,6 +3628,37 @@
 			rtnDict[a] = list;
 		}
 		return rtnDict;
+	};
+	
+	/**
+	 * Pulled from EaselJS's SpriteSheetUtils.
+	 * Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	 * combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	 * containing alpha data. With certain types of images (those with detail that lend itself to
+	 * JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	 * This method is very fast (generally on the order of 1-2 ms to run).
+	 * @method mergeAlpha
+	 * @static
+	 * @private
+	 * @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	 * @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	 * @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	 *                          canvas will be created.
+	 * @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	 *                  Texture.
+	 */
+	var mergeAlpha = function(rgbImage, alphaImage, canvas) {
+		if (!canvas)
+			canvas = document.createElement("canvas");
+		canvas.width = Math.max(alphaImage.width, rgbImage.width);
+		canvas.height = Math.max(alphaImage.height, rgbImage.height);
+		var ctx = canvas.getContext("2d");
+		ctx.save();
+		ctx.drawImage(rgbImage,0,0);
+		ctx.globalCompositeOperation = "destination-in";
+		ctx.drawImage(alphaImage,0,0);
+		ctx.restore();
+		return canvas;
 	};
 	
 	// Assign to the namespace
