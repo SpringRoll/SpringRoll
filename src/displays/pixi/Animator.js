@@ -504,7 +504,7 @@
 		timeline.clip = null;
 		timeline.callback = null;
 		timeline.cancelledCallback = null;
-		timeline.loop = false;
+		timeline.isLooping = false;
 		timeline.spineStates = null;
 		timeline.speed = null;
 		timeline.soundInst = null;
@@ -649,7 +649,7 @@
 				{
 					if (t._time_sec >= t.duration)
 					{
-						if (t.loop && t.listIndex == t.eventList.length - 1)
+						if (t.isLooping && t.listIndex == t.eventList.length - 1)
 						{
 							t._time_sec -= t.duration;
 							//call the on complete function each time
