@@ -113,20 +113,64 @@
 		*	@private
 		*/
 		this._elapsedTime = 0;
+		
+		/**
+		*	All audio aliases used by this Cutscene, for preloading and later unloading.
+		*	@property {Array} _audioAliases
+		*	@private
+		*/
+		this._audioAliases = null;
+		
+		/**
+		*	Time sorted list of audio that needs to be played, as well as information on if they
+		*	should be synced or not.
+		*	@property {Array} _audio
+		*	@private
+		*/
+		this._audio = null;
+		
+		/**
+		*	Index of the sound that is next up in _audio.
+		*	@property {int} _audioIndex
+		*	@private
+		*/
+		this._audioIndex = 0;
+		
+		/**
+		*	Time sorted list of audio that needs to be played, as well as information on if they
+		*	should be synced or not.
+		*	@property {Array} _audio
+		*	@private
+		*/
+		this._audio = null;
 
 		/**
 		*	The clip that is being animated.
-		*	@property {easeljs.MovieClip} _clip
+		*	@property {createjs.MovieClip} _clip
 		*	@private
 		*/
 		this._clip = null;
 
 		/**
-		*	The sound instance of the playing audio
-		*	@property {Sound.soundInst} _currentAudioInstance
+		*	The sound instance of the playing audio that the animation should be synced to.
+		*	@property {springroll.SoundInstance} _currentAudioInstance
 		*	@private
 		*/
 		this._currentAudioInstance = null;
+		
+		/**
+		*	The time in seconds into the animation that the current synced audio started.
+		*	@property {Number} _soundStartTime
+		*	@private
+		*/
+		this._soundStartTime = -1;
+		
+		/**
+		*	Array of active SoundInstances that are not the currently synced one.
+		*	@property {Array} _activeAudio
+		*	@private
+		*/
+		this._activeAudio = [];
 
 		/**
 		*	If the animation has finished playing.
@@ -168,8 +212,6 @@
 
 		//bind some callbacks
 		this.update = this.update.bind(this);
-		this._audioCallback = this._audioCallback.bind(this);
-
 		this.resize = this.resize.bind(this);
 
 		this.setup();
@@ -224,9 +266,38 @@
 		}
 
 		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
-		this._taskMan.addTask(Sound.instance.createPreloadTask("audio",
-			[this.config.settings.audioAlias], this.onAudioLoaded));
+		if(this.config.settings.audioAlias)
+		{
+			this._audioAliases = [this.config.settings.audioAlias];
+			this._audio = [{alias:this.config.settings.audioAlias, start:0, sync:true}];
+		}
+		else if(this.config.settings.audio)
+		{
+			this._audio = this.config.settings.audio.slice();
+			this._audio.sort(audioSorter);
+			this._audioAliases = [];
+			for(var i = 0, length = this._audio.length; i < length; ++i)
+			{
+				if(this._audioAliases.indexOf(this._audio[i].alias) == -1)
+					this._audioAliases.push(this._audio[i].alias);
+			}
+		}
+		else
+		{
+			Debug.error("Cutscene really needs some audio to play");
+			return;
+		}
+		if(this._audioAliases.length)
+		{
+			this._taskMan.addTask(Sound.instance.createPreloadTask("audio",
+				this._audioAliases, this.onAudioLoaded));
+		}
 	};
+	
+	function audioSorter(a, b)
+	{
+		return a.start - b.start;
+	}
 
 	/**
 	*	Callback for when the audio has been preloaded.
@@ -347,14 +418,6 @@
 		var scale = height / this.config.settings.designedHeight;
 		this._clip.scaleX = this._clip.scaleY = scale;
 		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
-
-		//if the display is paused, tell it to render once since the display just got wiped
-		if(this.isReady && this.display.paused)
-		{
-			this.display.paused = false;
-			this.display.render(0);
-			this.display.paused = true;
-		}
 	};
 
 	/**
@@ -370,12 +433,41 @@
 		this._timeElapsed = 0;
 		this._animFinished = false;
 		this._audioFinished = false;
-		var id = this.config.settings.audioAlias;
-		this._currentAudioInstance = Sound.instance.play(id, this._audioCallback);
-		if(this._captionsObj)
+		for(var i = 0; i < this._audio.length; ++i)
 		{
-			this._captionsObj.play(id);
+			var data = this._audio[i];
+			if(data.start === 0)
+			{
+				var alias = data.alias;
+				var instanceRef = {};
+				if(data.sync)
+				{
+					if(this._currentAudioInstance)
+						this._activeAudio.push(this._currentAudioInstance);
+					this._currentAudioInstance = Sound.instance.play(
+						alias,
+						this._audioCallback.bind(this, instanceRef));
+					instanceRef.instance = this._currentAudioInstance;
+					this._soundStartTime = data.start;
+					if(this._captionsObj)
+					{
+						this._captionsObj.play(alias);
+					}
+				}
+				else
+				{
+					var instance = Sound.instance.play(
+						alias,
+						this._audioCallback.bind(this, instanceRef));
+					instanceRef.instance = instance;
+					this._activeAudio.push(instance);
+				}
+				++this._audioIndex;
+			}
+			else
+				break;
 		}
+		
 		Application.instance.on("update", this.update);
 	};
 
@@ -384,13 +476,25 @@
 	*	@method _audioCallback
 	*	@private
 	*/
-	p._audioCallback = function()
+	p._audioCallback = function(instanceRef)
 	{
-		this._audioFinished = true;
-		this._currentAudioInstance = null;
-		if(this._animFinished)
+		if(instanceRef.instance == this._currentAudioInstance)
 		{
-			this.stop(true);
+			this._audioFinished = true;
+			this._currentAudioInstance = null;
+			this._soundStartTime = -1;
+			if(this._captionsObj)
+				this._captionsObj.stop();
+			if(this._animFinished)
+			{
+				this.stop(true);
+			}
+		}
+		else
+		{
+			var index = this._activeAudio.indexOf(instanceRef.instance);
+			if(index != -1)
+				this._activeAudio.splice(index, 1);
 		}
 	};
 
@@ -403,6 +507,45 @@
 	p.update = function(elapsed)
 	{
 		if(this._animFinished) return;
+		
+		for(var i = this._audioIndex; i < this._audio.length; ++i)
+		{
+			var data = this._audio[i];
+			if(data.start <= this._timeElapsed)
+			{
+				var alias = data.alias;
+				var instanceRef = {};
+				if(data.sync)
+				{
+					this._audioFinished = false;
+					if(this._currentAudioInstance)
+						this._activeAudio.push(this._currentAudioInstance);
+					this._currentAudioInstance = Sound.instance.play(
+						alias,
+						this._audioCallback.bind(this, instanceRef));
+					instanceRef.instance = this._currentAudioInstance;
+					this._soundStartTime = data.start;
+					if(this._captionsObj)
+					{
+						this._captionsObj.play(alias);
+					}
+				}
+				else
+				{
+					var instance = Sound.instance.play(
+						alias,
+						{
+							complete: this._audioCallback.bind(this, instanceRef),
+							offset: (this._timeElapsed - data.start) * 1000
+						});
+					instanceRef.instance = instance;
+					this._activeAudio.push(instance);
+				}
+				++this._audioIndex;
+			}
+			else
+				break;
+		}
 
 		if(this._currentAudioInstance)
 		{
@@ -418,7 +561,8 @@
 				//random bug? - else if check avoids an unlikely null ref error
 				
 				//save the time elapsed
-				this._timeElapsed = this._currentAudioInstance.position * 0.001;
+				this._timeElapsed = this._soundStartTime +
+										this._currentAudioInstance.position * 0.001;
 			}
 		}
 		else
@@ -426,21 +570,25 @@
 			this._timeElapsed += elapsed * 0.001;
 		}
 
-		if(this._captionsObj)
+		if(this._captionsObj && this._soundStartTime >= 0)
 		{
-			this._captionsObj.seek(this._timeElapsed * 1000);
+			this._captionsObj.seek(this._currentAudioInstance.position);
 		}
-		//set the elapsed time of the clip
-		var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ?
-			this._clip.getChildAt(0) :
-			this._clip;
-		clip.elapsedTime = this._timeElapsed;
-		if(clip.currentFrame == clip.timeline.duration)
+		if(!this._animFinished)
 		{
-			this._animFinished = true;
-			if(this._audioFinished)
+			//set the elapsed time of the clip
+			var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ?
+				this._clip.getChildAt(0) :
+				this._clip;
+			clip.elapsedTime = this._timeElapsed;
+			clip.advance();
+			if(clip.currentFrame == clip.timeline.duration)
 			{
-				this.stop(true);
+				this._animFinished = true;
+				if(this._audioFinished)
+				{
+					this.stop(true);
+				}
 			}
 		}
 	};
@@ -455,8 +603,11 @@
 	{
 		Application.instance.off("update", this.update);
 		if(this._currentAudioInstance)
-			Sound.instance.stop(this.config.settings.audioAlias);
-		this._captionsObj.stop();
+			this._currentAudioInstance.stop();
+		for(var i = 0; i < this._activeAudio.length; ++i)
+			this._activeAudio[i].stop();
+		if(this._captionsObj)
+			this._captionsObj.stop();
 
 		if(doCallback && this._endCallback)
 		{
@@ -474,7 +625,7 @@
 	{
 		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		Sound.instance.unload([this.config.settings.audioAlias]);//unload audio
+		Sound.instance.unload(this._audioAliases);//unload audio
 		this.config = null;
 		if(this._taskMan)
 		{
@@ -483,6 +634,8 @@
 			this._taskMan = null;
 		}
 		this._currentAudioInstance = null;
+		this._activeAudio = null;
+		this._audioAliases = this._audio = null;
 		this._loadCallback = null;
 		this._endCallback = null;
 		this._clip = null;
