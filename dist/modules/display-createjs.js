@@ -3712,10 +3712,26 @@
 	p.resize = function(width, height)
 	{
 		if(!this._clip) return;
-
-		var scale = height / this.config.settings.designedHeight;
+		
+		var settings = this.config.settings;
+		var designedRatio = settings.designedWidth / settings.designedHeight,
+			currentRatio = width / height,
+			scale;
+		
+		if(designedRatio > currentRatio)
+		{
+			//current ratio is narrower than the designed ratio, scale to width
+			scale = width / settings.designedWidth;
+			this.x = 0;
+			this.y = (height - settings.designedHeight * scale) * 0.5;
+		}
+		else
+		{
+			scale = height / settings.designedHeight;
+			this.x = (width - settings.designedWidth * scale) * 0.5;
+			this.y = 0;
+		}
 		this._clip.scaleX = this._clip.scaleY = scale;
-		this.x = (width - this.config.settings.designedWidth * scale) * 0.5;
 	};
 
 	/**
