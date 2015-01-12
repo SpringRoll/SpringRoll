@@ -1695,11 +1695,18 @@
 	_tickCallback = null,
 
 	/**
-	*  If the current application is paushed
+	*  If the current application is paused
 	*  @private
 	*  @property {Boolean} _paused
 	*/
 	_paused = false,
+
+	/**
+	*  If the current application is enabled
+	*  @private
+	*  @property {Boolean} _enabled
+	*/
+	_enabled = true,
 
 	/**
 	*  The id of the active requestAnimationFrame or setTimeout call.
@@ -2079,6 +2086,26 @@
 	});
 
 	/**
+	*  Enables at the application level which enables
+	*  and disables all the displays.
+	*  @property {Boolean} enabled
+	*  @default true
+	*/
+	Object.defineProperty(p, "enabled", {
+		set: function(enabled)
+		{
+			_enabled = enabled;
+			this.getDisplays(function(display){
+				display.enabled = enabled;
+			});
+		},
+		get: function()
+		{
+			return _enabled;
+		}
+	});
+
+	/**
 	*  Pause updates at the application level
 	*  @property {Boolean} paused
 	*/
@@ -2242,6 +2269,8 @@
 				}
 			}
 		}
+		// Inherit the enabled state from the application
+		display.enabled = _enabled;
 		return display;
 	};
 
@@ -2600,6 +2629,11 @@
 		this.enabled = false;
 		this.animator = null;
 		this.adapter = null;
+		this.stage = null;
+		if (this.canvas.parentNode)
+		{
+			this.canvas.parentNode.removeChild(this.canvas);
+		}
 		this.canvas.onmousedown = null;
 		this.canvas = null;
 	};

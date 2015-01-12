@@ -142,9 +142,19 @@
 	p.stop = function()
 	{
 		var s = Sound.instance;
-		var sound = s._sounds[this.alias];
-		sound.playing.splice(sound.playing.indexOf(this), 1);
-		Sound.instance._stopInst(this);
+		if (s)
+		{
+			var sound = s._sounds[this.alias];
+			var index = sound.playing.indexOf(this);
+			if(index > -1)
+				sound.playing.splice(index, 1);
+
+			index = sound.waitingToPlay.indexOf(this);
+			if(index > -1)
+				sound.waitingToPlay.splice(index, 1);
+
+			s._stopInst(this);
+		}
 	};
 
 	/**

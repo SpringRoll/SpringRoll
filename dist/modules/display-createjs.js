@@ -449,10 +449,9 @@
 	*/
 	p.destroy = function()
 	{
-		s.destroy.call(this);
-
 		this.stage.removeAllChildren(true);
-		this.stage = null;
+		
+		s.destroy.call(this);
 	};
 
 	// Assign to the global namespace
@@ -816,7 +815,6 @@
 		Animator.stopAll();
 		Animator.captions = null;
 
-		_optionsHelper = null;
 		_timelines = null;
 		_removedTimelines = null;
 		_timelinesMap = null;
