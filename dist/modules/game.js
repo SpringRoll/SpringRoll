@@ -411,9 +411,7 @@
 	*   @method destroy
 	*/
 	p.destroy = function()
-	{		
-		this.exit();
-		
+	{
 		this.panel = null;
 		this.manager = null;
 		this._destroyed = true;
@@ -1155,11 +1153,11 @@
 		
 		this._display.animator.stop(this._transition);
 		
-		this._transition = null;
-		
-		this._state = null;
-		this._oldState = null;
-		
+		if (this._stage)
+		{
+			this._state._internalExit();
+		}
+
 		if (this._states)
 		{
 			for(var id in this._states)
@@ -1168,6 +1166,10 @@
 				delete this._states[id];
 			}
 		}
+
+		this._transition = 
+		this._state = 
+		this._oldState = 
 		this._states = null;
 	};
 	

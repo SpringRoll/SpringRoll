@@ -410,9 +410,7 @@
 	*   @method destroy
 	*/
 	p.destroy = function()
-	{		
-		this.exit();
-		
+	{
 		this.panel = null;
 		this.manager = null;
 		this._destroyed = true;
