@@ -427,6 +427,11 @@
 		this.enabled = false;
 		this.animator = null;
 		this.adapter = null;
+		this.stage = null;
+		if (this.canvas.parentNode)
+		{
+			this.canvas.parentNode.removeChild(this.canvas);
+		}
 		this.canvas.onmousedown = null;
 		this.canvas = null;
 	};

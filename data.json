@@ -5266,10 +5266,10 @@
         {
             "file": "src/displays/createjs/Cutscene.js",
             "line": 117,
-            "description": "The clip that is being animated.",
+            "description": "All audio aliases used by this Cutscene, for preloading and later unloading.",
             "itemtype": "property",
-            "name": "_clip",
-            "type": "easeljs.MovieClip",
+            "name": "_audioAliases",
+            "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "springroll.createjs.Cutscene",
@@ -5279,10 +5279,10 @@
         {
             "file": "src/displays/createjs/Cutscene.js",
             "line": 124,
-            "description": "The sound instance of the playing audio",
+            "description": "Time sorted list of audio that needs to be played, as well as information on if they\nshould be synced or not.",
             "itemtype": "property",
-            "name": "_currentAudioInstance",
-            "type": "Sound.soundInst",
+            "name": "_audio",
+            "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "springroll.createjs.Cutscene",
@@ -5291,7 +5291,85 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 131,
+            "line": 132,
+            "description": "Index of the sound that is next up in _audio.",
+            "itemtype": "property",
+            "name": "_audioIndex",
+            "type": "Int",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 139,
+            "description": "Time sorted list of audio that needs to be played, as well as information on if they\nshould be synced or not.",
+            "itemtype": "property",
+            "name": "_audio",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 147,
+            "description": "The clip that is being animated.",
+            "itemtype": "property",
+            "name": "_clip",
+            "type": "createjs.MovieClip",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 154,
+            "description": "The sound instance of the playing audio that the animation should be synced to.",
+            "itemtype": "property",
+            "name": "_currentAudioInstance",
+            "type": "springroll.SoundInstance",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 161,
+            "description": "The time in seconds into the animation that the current synced audio started.",
+            "itemtype": "property",
+            "name": "_soundStartTime",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 168,
+            "description": "Array of active SoundInstances that are not the currently synced one.",
+            "itemtype": "property",
+            "name": "_activeAudio",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.Cutscene",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/Cutscene.js",
+            "line": 175,
             "description": "If the animation has finished playing.",
             "itemtype": "property",
             "name": "_animFinished",
@@ -5304,7 +5382,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 138,
+            "line": 182,
             "description": "If the audio has finished playing.",
             "itemtype": "property",
             "name": "_audioFinished",
@@ -5317,7 +5395,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 145,
+            "line": 189,
             "description": "The Captions object to use to manage captions.",
             "itemtype": "property",
             "name": "_captionsObj",
@@ -5330,7 +5408,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 155,
+            "line": 199,
             "description": "The function to call when loading is complete.",
             "itemtype": "property",
             "name": "_loadCallback",
@@ -5343,7 +5421,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 162,
+            "line": 206,
             "description": "The function to call when playback is complete.",
             "itemtype": "property",
             "name": "_endCallback",
@@ -5356,7 +5434,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 180,
+            "line": 222,
             "description": "Called from the constructor to complete setup and start loading.",
             "itemtype": "method",
             "name": "setup",
@@ -5368,7 +5446,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 199,
+            "line": 241,
             "description": "Callback for when the config file is loaded.",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -5387,7 +5465,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 231,
+            "line": 302,
             "description": "Callback for when the audio has been preloaded.",
             "itemtype": "method",
             "name": "onAudioLoaded",
@@ -5399,7 +5477,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 241,
+            "line": 312,
             "description": "Callback for when all art assets have been loaded.",
             "itemtype": "method",
             "name": "onArtLoaded",
@@ -5418,7 +5496,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 296,
+            "line": 367,
             "description": "Callback for when all loading is complete.",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -5437,7 +5515,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 336,
+            "line": 407,
             "description": "Listener for when the Application is resized.",
             "itemtype": "method",
             "name": "resize",
@@ -5461,7 +5539,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 360,
+            "line": 439,
             "description": "Starts playing the cutscene.",
             "itemtype": "method",
             "name": "start",
@@ -5480,7 +5558,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 382,
+            "line": 490,
             "description": "Callback for when the audio has finished playing.",
             "itemtype": "method",
             "name": "_audioCallback",
@@ -5492,7 +5570,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 397,
+            "line": 517,
             "description": "Listener for frame updates.",
             "itemtype": "method",
             "name": "update",
@@ -5511,7 +5589,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 448,
+            "line": 612,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -5532,7 +5610,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 468,
+            "line": 635,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -13710,6 +13788,16 @@
         {
             "file": "src/media/Sound.js",
             "line": 884,
+            "description": "Stop all sounds that are playing, regardless of context.",
+            "itemtype": "method",
+            "name": "stopAll",
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 896,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13728,7 +13816,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 903,
+            "line": 915,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13747,7 +13835,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 924,
+            "line": 936,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13759,7 +13847,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 936,
+            "line": 948,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13771,7 +13859,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 948,
+            "line": 960,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13795,7 +13883,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 980,
+            "line": 992,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -13806,7 +13894,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 991,
+            "line": 1003,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13825,7 +13913,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1006,
+            "line": 1018,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13849,7 +13937,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1037,
+            "line": 1049,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13873,7 +13961,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1064,
+            "line": 1076,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -13897,7 +13985,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1118,
+            "line": 1130,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -13921,7 +14009,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1143,
+            "line": 1155,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -13954,7 +14042,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1159,
+            "line": 1171,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -13973,7 +14061,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1183,
+            "line": 1195,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -13992,7 +14080,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1204,
+            "line": 1216,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -14274,7 +14362,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 150,
+            "line": 153,
             "description": "Updates the volume of this SoundInstance.",
             "itemtype": "method",
             "name": "updateVolume",
@@ -14293,7 +14381,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 174,
+            "line": 177,
             "description": "Pauses this SoundInstance.",
             "itemtype": "method",
             "name": "pause",
@@ -14305,7 +14393,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 187,
+            "line": 190,
             "description": "Unpauses this SoundInstance.",
             "itemtype": "method",
             "name": "unpause",
@@ -17921,7 +18009,7 @@
         {
             "file": "src/Application.js",
             "line": 186,
-            "description": "If the current application is paushed",
+            "description": "If the current application is paused",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
@@ -17934,6 +18022,19 @@
         {
             "file": "src/Application.js",
             "line": 193,
+            "description": "If the current application is enabled",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_enabled",
+            "type": "Boolean",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 200,
             "description": "The id of the active requestAnimationFrame or setTimeout call.",
             "itemtype": "property",
             "name": "_tickId",
@@ -17946,7 +18047,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 200,
+            "line": 207,
             "description": "If requestionAnimationFrame should be used",
             "access": "private",
             "tagname": "",
@@ -17960,7 +18061,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 208,
+            "line": 215,
             "description": "The current internal frames per second",
             "itemtype": "property",
             "name": "_fps",
@@ -17974,7 +18075,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 216,
+            "line": 223,
             "description": "The number of milliseconds per frame",
             "itemtype": "property",
             "name": "_msPerFrame",
@@ -17987,7 +18088,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 223,
+            "line": 230,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -18001,7 +18102,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 231,
+            "line": 238,
             "description": "The aspect ratio of the primary display, as width / height.",
             "itemtype": "property",
             "name": "_aspectRatio",
@@ -18014,7 +18115,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 238,
+            "line": 245,
             "description": "A PageVisibility object to automatically pause Application when the page is hidden.",
             "itemtype": "property",
             "name": "_pageVisibility",
@@ -18027,7 +18128,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 246,
+            "line": 253,
             "description": "Rendering plugins, in a dictionary by canvas id",
             "itemtype": "property",
             "name": "_displays",
@@ -18040,7 +18141,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 253,
+            "line": 260,
             "description": "Default initialization options.",
             "itemtype": "property",
             "name": "_defaultOptions",
@@ -18053,7 +18154,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 278,
+            "line": 285,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -18066,7 +18167,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 285,
+            "line": 292,
             "description": "Fired when initialization of the application is done",
             "itemtype": "event",
             "name": "init",
@@ -18076,7 +18177,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 291,
+            "line": 298,
             "description": "Event when everything's done but we haven't actually inited",
             "itemtype": "event",
             "name": "preInit",
@@ -18088,7 +18189,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 298,
+            "line": 305,
             "description": "Fired when an update is called, every frame update",
             "itemtype": "event",
             "name": "update",
@@ -18105,7 +18206,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 305,
+            "line": 312,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -18127,7 +18228,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 313,
+            "line": 320,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -18144,7 +18245,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 320,
+            "line": 327,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -18154,7 +18255,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 326,
+            "line": 333,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -18164,7 +18265,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 332,
+            "line": 339,
             "description": "Fired when the application is destroyed",
             "itemtype": "event",
             "name": "destroy",
@@ -18174,7 +18275,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 338,
+            "line": 345,
             "description": "Libraries would register global initialization functions when they are created, e.g.\nApplication.registerInit(Loader.init);",
             "itemtype": "method",
             "name": "registerInit",
@@ -18194,7 +18295,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 350,
+            "line": 357,
             "description": "Libraries would register global destroy functions when they are created or initialized, e.g.\nApplication.registerInit(Loader.instance.destroy.bind(Loader.instance));",
             "itemtype": "method",
             "name": "registerDestroy",
@@ -18214,7 +18315,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 363,
+            "line": 370,
             "description": "Get the singleton instance of the application",
             "itemtype": "property",
             "name": "instance",
@@ -18228,7 +18329,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 376,
+            "line": 383,
             "description": "The internal initialization",
             "itemtype": "method",
             "name": "_internalInit",
@@ -18240,7 +18341,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 472,
+            "line": 479,
             "description": "Initialize the application",
             "itemtype": "method",
             "name": "_doInit",
@@ -18252,7 +18353,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 497,
+            "line": 504,
             "description": "Define all of the query string parameters",
             "access": "private",
             "tagname": "",
@@ -18268,7 +18369,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 528,
+            "line": 535,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -18280,7 +18381,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 535,
+            "line": 542,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -18292,7 +18393,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 545,
+            "line": 552,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -18304,7 +18405,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 555,
+            "line": 562,
             "description": "If the Application should automatically pause when the window loses focus.",
             "itemtype": "property",
             "name": "autoPause",
@@ -18315,7 +18416,19 @@
         },
         {
             "file": "src/Application.js",
-            "line": 570,
+            "line": 577,
+            "description": "Enables at the application level which enables\nand disables all the displays.",
+            "itemtype": "property",
+            "name": "enabled",
+            "type": "Boolean",
+            "default": "true",
+            "class": "springroll.Application",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/Application.js",
+            "line": 597,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -18326,7 +18439,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 611,
+            "line": 638,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18350,7 +18463,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 628,
+            "line": 655,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -18360,7 +18473,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 662,
+            "line": 689,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18391,7 +18504,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 694,
+            "line": 721,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18423,7 +18536,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 737,
+            "line": 766,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18444,7 +18557,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 748,
+            "line": 777,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -18468,7 +18581,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 770,
+            "line": 799,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -18485,7 +18598,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 785,
+            "line": 814,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -18498,7 +18611,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 803,
+            "line": 832,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -18511,7 +18624,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 819,
+            "line": 848,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -18523,7 +18636,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 866,
+            "line": 895,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",

@@ -284,7 +284,8 @@
 		this.adapter = include(&#x27;springroll.native.DisplayAdapter&#x27;);
 	};
 
-	var p = NativeDisplay.prototype = Object.create(AbstractDisplay.prototype);
+	var s = AbstractDisplay.prototype;
+	var p = NativeDisplay.prototype = Object.create(s);
 
 	// Assign to the global namespace
 	namespace(&#x27;springroll&#x27;).NativeDisplay = NativeDisplay;
