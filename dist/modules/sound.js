@@ -190,9 +190,12 @@
 	p.stop = function()
 	{
 		var s = Sound.instance;
-		var sound = s._sounds[this.alias];
-		sound.playing.splice(sound.playing.indexOf(this), 1);
-		Sound.instance._stopInst(this);
+		if (s)
+		{
+			var sound = s._sounds[this.alias];
+			sound.playing.splice(sound.playing.indexOf(this), 1);
+			s._stopInst(this);
+		}
 	};
 
 	/**
@@ -1195,6 +1198,18 @@
 	};
 
 	/**
+	 * Stop all sounds that are playing, regardless of context.
+	 * @method stopAll
+	 */
+	p.stopAll = function()
+	{
+		for(var alias in this._sounds)
+		{
+			this.stop(alias);
+		}
+	};
+
+	/**
 	*	Pauses a specific sound.
 	*	@method pauseSound
 	*	@public
@@ -1521,7 +1536,10 @@
 	*/
 	p.destroy = function()
 	{
-		// Remove all sounds
+		// Stop all sounds
+		this.stopAll();
+
+		// Remove all sounds from memeory
 		SoundJS.removeAllSounds();
 
 		// Remove the SWF from the page
@@ -1542,6 +1560,7 @@
 
 		_instance = null;
 
+		this._sounds = null;
 		this._volumes = null;
 		this._fades = null;
 		this._contexts = null;
