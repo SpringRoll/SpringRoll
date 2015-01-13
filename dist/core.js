@@ -2333,6 +2333,7 @@
 						requestAnimFrame(_tickCallback):
 						setTargetedTimeout(_tickCallback);
 				}
+				_frameCount = 0;
 				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
@@ -2569,7 +2570,7 @@
 		{
 			_frameCount++;
 			var elapsed = now - _lastFPSUpdateTime;
-			if (elapsed > 1000)
+			if (elapsed >= 1000)
 			{
 				var framerateValue = 1000 / elapsed * _frameCount;
 				_framerate.innerHTML = "FPS: " + (Math.round(framerateValue * 1000) / 1000);
