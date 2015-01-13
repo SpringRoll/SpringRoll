@@ -320,12 +320,12 @@
 		{
 			_socketQueue.push({
 				message: message,
-				level: level
+				level: level.name
 			});
 		}
 		else // send the log immediately
 		{
-			_socketMessage.level = level;
+			_socketMessage.level = level.name;
 			_socketMessage.message = message;
 			_socket.send(JSON.stringify(_socketMessage));
 		}
