@@ -442,7 +442,8 @@
 		console.error = bind.call(console.error, console);
 		console.dir = bind.call(console.dir, console);
 		console.assert = bind.call(console.assert, console);
-		console.trace = bind.call(console.trace, console);
+		if(console.trace)
+			console.trace = bind.call(console.trace, console);
 		if(console.group)
 		{
 			console.group = bind.call(console.group, console);
