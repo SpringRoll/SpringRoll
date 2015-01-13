@@ -425,7 +425,11 @@
 			Debug.enabled = this.options.debug === true || this.options.debug === "true";
 
 		if (this.options.minLogLevel !== undefined)
-			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+		{
+			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(this.options.minLogLevel, 10));
+			if(!Debug.minLogLevel)
+				Debug.minLogLevel = Debug.Levels.GENERAL;
+		}
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
 		if(typeof this.options.debugRemote == "string")

@@ -423,12 +423,33 @@
 	 */
 	var _hasConsole = (window.console !== undefined);
 
-	// Because of the compile constants, we need to 
+	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
 	var trueKEY = 'DE' + 'BUG';
-
-	// Reference to the bind function
-	var bind = Function.prototype.bind;
+	
+	//detect IE9's issue with apply on console functions
+	try
+	{
+		console.assert.apply(console, [true, "IE9 test"]);
+	}
+	catch(error)
+	{
+		var bind = Function.prototype.bind;
+		console.log = bind.call(console.log, console);
+		if(console.debug)
+			console.debug = bind.call(console.debug, console);
+		console.warn = bind.call(console.warn, console);
+		console.error = bind.call(console.error, console);
+		console.dir = bind.call(console.dir, console);
+		console.assert = bind.call(console.assert, console);
+		console.trace = bind.call(console.trace, console);
+		if(console.group)
+		{
+			console.group = bind.call(console.group, console);
+			console.groupCollapsed = bind.call(console.groupCollapsed, console);
+			console.groupEnd = bind.call(console.groupEnd, console);
+		}
+	}
 
 	/**
 	 * The levels of logging
@@ -448,7 +469,7 @@
 		 * The debug log level, more priority than GENERAL
 		 * @property {int} Levels.true
 		 * @static
-		 */ 
+		 */
 		trueKEY,
 
 		/**
@@ -694,7 +715,7 @@
 		level = level || Levels.GENERAL;
 		
 		// If we are still in the process of connecting, queue up the log
-		if (_socketQueue) 
+		if (_socketQueue)
 		{
 			_socketQueue.push({
 				message: message,
@@ -728,8 +749,10 @@
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
 		{
-			var log = bind.call(console.log, console);
-			log.apply(console, arguments);
+			if(arguments.length === 1)
+				console.log(params);
+			else
+				console.log.apply(console, arguments);
 			domOutput('general', params);
 		}
 		return Debug;
@@ -751,18 +774,22 @@
 		{
 			Debug.remoteLog(params, Levels[trueKEY]);
 		}
-		else if (Debug.minLogLevel <= Levels[trueKEY] && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt && _hasConsole)
 		{
 			// debug() is officially deprecated
 			if (console.debug)
 			{
-				var debug = bind.call(console.debug, console);
-				debug.apply(console, arguments);
+				if(arguments.length === 1)
+					console.debug(params);
+				else
+					console.debug.apply(console, arguments);
 			}
 			else
 			{
-				var log = bind.call(console.log, console);
-				log.apply(console, arguments);
+				if(arguments.length === 1)
+					console.log(params);
+				else
+					console.log.apply(console, arguments);
 			}
 			domOutput('debug', params);
 		}
@@ -785,11 +812,13 @@
 		{
 			Debug.remoteLog(params, Levels.INFO);
 		}
-		else if (Debug.minLogLevel <= Levels.INFO && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
 		{
-			var info = bind.call(console.info, console);
-			info.apply(console, arguments);
-			domOutput('info', params); 
+			if(arguments.length === 1)
+				console.info(params);
+			else
+				console.info.apply(console, arguments);
+			domOutput('info', params);
 		}
 		return Debug;
 	};
@@ -810,10 +839,12 @@
 		{
 			Debug.remoteLog(params, Levels.WARN);
 		}
-		else if (Debug.minLogLevel <= Levels.WARN && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
 		{
-			var warn = bind.call(console.warn, console);
-			warn.apply(console, arguments);
+			if(arguments.length === 1)
+				console.warn(params);
+			else
+				console.warn.apply(console, arguments);
 			domOutput('warn', params);
 		}
 		return Debug;
@@ -836,8 +867,10 @@
 		}
 		else if (_hasConsole)
 		{
-			var error = bind.call(console.error, console);
-			error.apply(console, arguments);
+			if(arguments.length === 1)
+				console.error(params);
+			else
+				console.error.apply(console, arguments);
 			domOutput('error', params);
 		}
 		return Debug;
@@ -878,8 +911,10 @@
 	{
 		if (_hasConsole && Debug.enabled)
 		{
-			var dir = bind.call(console.dir, console);
-			dir.apply(console, arguments);
+			if(arguments.length === 1)
+				console.dir(params);
+			else
+				console.dir.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -897,7 +932,7 @@
 		{
 			console.clear();
 
-			if (Debug.output) 
+			if (Debug.output)
 			{
 				Debug.output.innerHTML = "";
 			}
@@ -917,15 +952,17 @@
 	{
 		if (_hasConsole && Debug.enabled)
 		{
-			var trace = bind.call(console.trace, console);
-			trace.apply(console, arguments);
+			if(arguments.length === 1)
+				console.trace(params);
+			else
+				console.trace.apply(console, arguments);
 		}
 		return Debug;
 	};
 
 	/**
-	 * Starts a new logging group with an optional title. All console output that 
-	 * occurs after calling this method and calling `Debug.groupEnd()` appears in 
+	 * Starts a new logging group with an optional title. All console output that
+	 * occurs after calling this method and calling `Debug.groupEnd()` appears in
 	 * the same visual group.
 	 * @static
 	 * @public
@@ -937,14 +974,13 @@
 	{
 		if (_hasConsole && Debug.enabled && console.group)
 		{
-			var group = bind.call(console.group, console);
-			group.apply(console, arguments);
+			console.group.apply(console, arguments);
 		}
 		return Debug;
 	};
 
 	/**
-	 * Creates a new logging group that is initially collapsed instead of open, 
+	 * Creates a new logging group that is initially collapsed instead of open,
 	 * as with `Debug.group()`.
 	 * @static
 	 * @public
@@ -956,15 +992,14 @@
 	{
 		if (_hasConsole && Debug.enabled && console.groupCollapsed)
 		{
-			var groupCollapsed = bind.call(console.groupCollapsed, console);
-			groupCollapsed.apply(console, arguments);
+			console.groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
 	};
 
 	/**
-	 * Starts a new logging group with an optional title. All console output that 
-	 * occurs after calling this method and calling console.groupEnd() appears in 
+	 * Starts a new logging group with an optional title. All console output that
+	 * occurs after calling this method and calling console.groupEnd() appears in
 	 * the same visual group.
 	 * @static
 	 * @public
@@ -1139,6 +1174,14 @@
 	{
 		return function(message)
 		{
+			if(arguments.length > 1)
+			{
+				var params = Array.prototype.slice.call(arguments);
+				var first = '%c' + params[0];
+				params[0] = 'color:' + hex;
+				params.unshift(first);
+				return Debug.log.apply(Debug, params);
+			}
 			return Debug.log('%c' + message, 'color:' + hex);
 		};
 	}
@@ -2082,7 +2125,11 @@
 			Debug.enabled = this.options.debug === true || this.options.debug === "true";
 
 		if (this.options.minLogLevel !== undefined)
-			Debug.minLogLevel = parseInt(this.options.minLogLevel, 10);
+		{
+			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(this.options.minLogLevel, 10));
+			if(!Debug.minLogLevel)
+				Debug.minLogLevel = Debug.Levels.GENERAL;
+		}
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
 		if(typeof this.options.debugRemote == "string")
