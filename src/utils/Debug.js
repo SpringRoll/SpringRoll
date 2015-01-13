@@ -757,21 +757,19 @@
 	 */
 	for (var key in _palette)
 	{
-		Debug[key] = _lintingWorkAroundClosure(_palette[key]);
+		Debug[key] = _colorClosure(_palette[key]);
 	}
 
 	/**
-	 * Linting will not allow for functions to be inside a loop.
-	 * Returning the function in closure placed outside the for-loop
-	 * that generates the Debug[<color>] functions will bypass
-	 * this linting restriction.
+	 * Due to the way closures and variables work, _colorClosure returns
+	 * the color logging function needed for the color that you pass it.
 	 *
-	 * @method _lintingWorkAroundClosure
+	 * @method _colorClosure
 	 * @private
 	 * @param {String} hex Hex value to apply to CSS color
 	 * @return {Function}
 	 */
-	function _lintingWorkAroundClosure(hex)
+	function _colorClosure(hex)
 	{
 		return function(message)
 		{
