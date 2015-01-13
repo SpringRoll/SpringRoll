@@ -296,7 +296,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
                     <ul class="index-list methods">
                         
                             <li class="index-item method private">
-                                <a href="#method__lintingWorkAroundClosure">_lintingWorkAroundClosure</a>
+                                <a href="#method__colorClosure">_colorClosure</a>
 
                                 
                                 
@@ -735,8 +735,8 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method__lintingWorkAroundClosure" class="method item private">
-    <h3 class="name"><code>_lintingWorkAroundClosure</code></h3>
+                    <div id="method__colorClosure" class="method item private">
+    <h3 class="name"><code>_colorClosure</code></h3>
 
     
         <div class="args">
@@ -783,7 +783,7 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l715"><code>_lintingWorkAroundClosure:715</code></a>
+        <a href="../files/src_utils_Debug.js.html#l763"><code>_colorClosure:763</code></a>
         
         </p>
 
@@ -794,10 +794,8 @@ to use call: Debug.log(&#39;Your log here&#39;)</p>
     </div>
 
     <div class="description">
-        <p>Linting will not allow for functions to be inside a loop.
-Returning the function in closure placed outside the for-loop
-that generates the Debug[<color>] functions will bypass
-this linting restriction.</p>
+        <p>Due to the way closures and variables work, _colorClosure returns
+the color logging function needed for the color that you pass it.</p>
 
     </div>
 
@@ -891,7 +889,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l600"><code>aqua:600</code></a>
+        <a href="../files/src_utils_Debug.js.html#l648"><code>aqua:648</code></a>
         
         </p>
 
@@ -1008,7 +1006,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l438"><code>assert:438</code></a>
+        <a href="../files/src_utils_Debug.js.html#l480"><code>assert:480</code></a>
         
         </p>
 
@@ -1131,7 +1129,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l592"><code>blue:592</code></a>
+        <a href="../files/src_utils_Debug.js.html#l640"><code>blue:640</code></a>
         
         </p>
 
@@ -1232,7 +1230,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l478"><code>clear:478</code></a>
+        <a href="../files/src_utils_Debug.js.html#l523"><code>clear:523</code></a>
         
         </p>
 
@@ -1319,7 +1317,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l142"><code>connect:142</code></a>
+        <a href="../files/src_utils_Debug.js.html#l166"><code>connect:166</code></a>
         
         </p>
 
@@ -1430,7 +1428,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l335"><code>debug:335</code></a>
+        <a href="../files/src_utils_Debug.js.html#l362"><code>debug:362</code></a>
         
         </p>
 
@@ -1541,7 +1539,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l461"><code>dir:461</code></a>
+        <a href="../files/src_utils_Debug.js.html#l503"><code>dir:503</code></a>
         
         </p>
 
@@ -1638,7 +1636,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l173"><code>disconnect:173</code></a>
+        <a href="../files/src_utils_Debug.js.html#l197"><code>disconnect:197</code></a>
         
         </p>
 
@@ -1713,7 +1711,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l265"><code>domOutput:265</code></a>
+        <a href="../files/src_utils_Debug.js.html#l289"><code>domOutput:289</code></a>
         
         </p>
 
@@ -1822,7 +1820,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l415"><code>error:415</code></a>
+        <a href="../files/src_utils_Debug.js.html#l454"><code>error:454</code></a>
         
         </p>
 
@@ -1939,7 +1937,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l216"><code>globalErrorHandler:216</code></a>
+        <a href="../files/src_utils_Debug.js.html#l240"><code>globalErrorHandler:240</code></a>
         
         </p>
 
@@ -2096,7 +2094,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l696"><code>gray:696</code></a>
+        <a href="../files/src_utils_Debug.js.html#l744"><code>gray:744</code></a>
         
         </p>
 
@@ -2203,7 +2201,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l624"><code>green:624</code></a>
+        <a href="../files/src_utils_Debug.js.html#l672"><code>green:672</code></a>
         
         </p>
 
@@ -2314,7 +2312,7 @@ this linting restriction.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l516"><code>group:516</code></a>
+        <a href="../files/src_utils_Debug.js.html#l564"><code>group:564</code></a>
         
         </p>
 
@@ -2325,8 +2323,8 @@ this linting restriction.</p>
     </div>
 
     <div class="description">
-        <p>Starts a new logging group with an optional title. All console output that 
-occurs after calling this method and calling <code>Debug.groupEnd()</code> appears in 
+        <p>Starts a new logging group with an optional title. All console output that
+occurs after calling this method and calling <code>Debug.groupEnd()</code> appears in
 the same visual group.</p>
 
     </div>
@@ -2427,7 +2425,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l535"><code>groupCollapsed:535</code></a>
+        <a href="../files/src_utils_Debug.js.html#l583"><code>groupCollapsed:583</code></a>
         
         </p>
 
@@ -2438,7 +2436,7 @@ the same visual group.</p>
     </div>
 
     <div class="description">
-        <p>Creates a new logging group that is initially collapsed instead of open, 
+        <p>Creates a new logging group that is initially collapsed instead of open,
 as with <code>Debug.group()</code>.</p>
 
     </div>
@@ -2529,7 +2527,7 @@ as with <code>Debug.group()</code>.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l553"><code>groupEnd:553</code></a>
+        <a href="../files/src_utils_Debug.js.html#l601"><code>groupEnd:601</code></a>
         
         </p>
 
@@ -2540,8 +2538,8 @@ as with <code>Debug.group()</code>.</p>
     </div>
 
     <div class="description">
-        <p>Starts a new logging group with an optional title. All console output that 
-occurs after calling this method and calling console.groupEnd() appears in 
+        <p>Starts a new logging group with an optional title. All console output that
+occurs after calling this method and calling console.groupEnd() appears in
 the same visual group.</p>
 
     </div>
@@ -2618,7 +2616,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l367"><code>info:367</code></a>
+        <a href="../files/src_utils_Debug.js.html#l400"><code>info:400</code></a>
         
         </p>
 
@@ -2725,7 +2723,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l632"><code>lime:632</code></a>
+        <a href="../files/src_utils_Debug.js.html#l680"><code>lime:680</code></a>
         
         </p>
 
@@ -2836,7 +2834,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l311"><code>log:311</code></a>
+        <a href="../files/src_utils_Debug.js.html#l335"><code>log:335</code></a>
         
         </p>
 
@@ -2943,7 +2941,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l680"><code>maroon:680</code></a>
+        <a href="../files/src_utils_Debug.js.html#l728"><code>maroon:728</code></a>
         
         </p>
 
@@ -3050,7 +3048,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l584"><code>navy:584</code></a>
+        <a href="../files/src_utils_Debug.js.html#l632"><code>navy:632</code></a>
         
         </p>
 
@@ -3157,7 +3155,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l616"><code>olive:616</code></a>
+        <a href="../files/src_utils_Debug.js.html#l664"><code>olive:664</code></a>
         
         </p>
 
@@ -3254,7 +3252,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l246"><code>onClose:246</code></a>
+        <a href="../files/src_utils_Debug.js.html#l270"><code>onClose:270</code></a>
         
         </p>
 
@@ -3313,7 +3311,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l188"><code>onConnect:188</code></a>
+        <a href="../files/src_utils_Debug.js.html#l212"><code>onConnect:212</code></a>
         
         </p>
 
@@ -3382,7 +3380,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l648"><code>orange:648</code></a>
+        <a href="../files/src_utils_Debug.js.html#l696"><code>orange:696</code></a>
         
         </p>
 
@@ -3489,7 +3487,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l664"><code>pink:664</code></a>
+        <a href="../files/src_utils_Debug.js.html#l712"><code>pink:712</code></a>
         
         </p>
 
@@ -3596,7 +3594,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l672"><code>purple:672</code></a>
+        <a href="../files/src_utils_Debug.js.html#l720"><code>purple:720</code></a>
         
         </p>
 
@@ -3703,7 +3701,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l656"><code>red:656</code></a>
+        <a href="../files/src_utils_Debug.js.html#l704"><code>red:704</code></a>
         
         </p>
 
@@ -3820,7 +3818,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l281"><code>remoteLog:281</code></a>
+        <a href="../files/src_utils_Debug.js.html#l305"><code>remoteLog:305</code></a>
         
         </p>
 
@@ -3944,7 +3942,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l688"><code>silver:688</code></a>
+        <a href="../files/src_utils_Debug.js.html#l736"><code>silver:736</code></a>
         
         </p>
 
@@ -4051,7 +4049,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l608"><code>teal:608</code></a>
+        <a href="../files/src_utils_Debug.js.html#l656"><code>teal:656</code></a>
         
         </p>
 
@@ -4162,7 +4160,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l499"><code>trace:499</code></a>
+        <a href="../files/src_utils_Debug.js.html#l544"><code>trace:544</code></a>
         
         </p>
 
@@ -4273,7 +4271,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l391"><code>warn:391</code></a>
+        <a href="../files/src_utils_Debug.js.html#l427"><code>warn:427</code></a>
         
         </p>
 
@@ -4380,7 +4378,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l640"><code>yellow:640</code></a>
+        <a href="../files/src_utils_Debug.js.html#l688"><code>yellow:688</code></a>
         
         </p>
 
@@ -4523,7 +4521,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l118"><code>_socket:118</code></a>
+        <a href="../files/src_utils_Debug.js.html#l142"><code>_socket:142</code></a>
         
         </p>
 
@@ -4572,7 +4570,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l126"><code>_socketMessage:126</code></a>
+        <a href="../files/src_utils_Debug.js.html#l150"><code>_socketMessage:150</code></a>
         
         </p>
 
@@ -4621,7 +4619,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l134"><code>_socketQueue:134</code></a>
+        <a href="../files/src_utils_Debug.js.html#l158"><code>_socketQueue:158</code></a>
         
         </p>
 
@@ -4670,7 +4668,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l109"><code>_useSocket:109</code></a>
+        <a href="../files/src_utils_Debug.js.html#l133"><code>_useSocket:133</code></a>
         
         </p>
 
@@ -4721,7 +4719,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l83"><code>enabled:83</code></a>
+        <a href="../files/src_utils_Debug.js.html#l107"><code>enabled:107</code></a>
         
         </p>
 
@@ -4768,7 +4766,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l31"><code>Levels:31</code></a>
+        <a href="../files/src_utils_Debug.js.html#l55"><code>Levels:55</code></a>
         
         </p>
 
@@ -4815,7 +4813,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l52"><code>Levels.DEBUG:52</code></a>
+        <a href="../files/src_utils_Debug.js.html#l76"><code>Levels.DEBUG:76</code></a>
         
         </p>
 
@@ -4862,7 +4860,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l45"><code>Levels.DEBUG:45</code></a>
+        <a href="../files/src_utils_Debug.js.html#l69"><code>Levels.DEBUG:69</code></a>
         
         </p>
 
@@ -4909,7 +4907,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l66"><code>Levels.ERROR:66</code></a>
+        <a href="../files/src_utils_Debug.js.html#l90"><code>Levels.ERROR:90</code></a>
         
         </p>
 
@@ -4956,7 +4954,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l38"><code>Levels.GENERAL:38</code></a>
+        <a href="../files/src_utils_Debug.js.html#l62"><code>Levels.GENERAL:62</code></a>
         
         </p>
 
@@ -5003,7 +5001,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l59"><code>Levels.WARN:59</code></a>
+        <a href="../files/src_utils_Debug.js.html#l83"><code>Levels.WARN:83</code></a>
         
         </p>
 
@@ -5052,7 +5050,7 @@ the same visual group.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l74"><code>minLogLevel:74</code></a>
+        <a href="../files/src_utils_Debug.js.html#l98"><code>minLogLevel:98</code></a>
         
         </p>
 
@@ -5102,7 +5100,7 @@ show all levels of logging.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l100"><code>NET_PORT:100</code></a>
+        <a href="../files/src_utils_Debug.js.html#l124"><code>NET_PORT:124</code></a>
         
         </p>
 
@@ -5153,7 +5151,7 @@ show all levels of logging.</p>
             
         
         
-        <a href="../files/src_utils_Debug.js.html#l91"><code>output:91</code></a>
+        <a href="../files/src_utils_Debug.js.html#l115"><code>output:115</code></a>
         
         </p>
 

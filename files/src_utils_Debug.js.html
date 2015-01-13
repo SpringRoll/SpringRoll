@@ -272,9 +272,33 @@
 	 */
 	var _hasConsole = (window.console !== undefined);
 
-	// Because of the compile constants, we need to 
+	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
 	var DEBUGKEY = &#x27;DE&#x27; + &#x27;BUG&#x27;;
+	
+	//detect IE9&#x27;s issue with apply on console functions
+	try
+	{
+		console.assert.apply(console, [true, &quot;IE9 test&quot;]);
+	}
+	catch(error)
+	{
+		var bind = Function.prototype.bind;
+		console.log = bind.call(console.log, console);
+		if(console.debug)
+			console.debug = bind.call(console.debug, console);
+		console.warn = bind.call(console.warn, console);
+		console.error = bind.call(console.error, console);
+		console.dir = bind.call(console.dir, console);
+		console.assert = bind.call(console.assert, console);
+		console.trace = bind.call(console.trace, console);
+		if(console.group)
+		{
+			console.group = bind.call(console.group, console);
+			console.groupCollapsed = bind.call(console.groupCollapsed, console);
+			console.groupEnd = bind.call(console.groupEnd, console);
+		}
+	}
 
 	/**
 	 * The levels of logging
@@ -294,7 +318,7 @@
 		 * The debug log level, more priority than GENERAL
 		 * @property {int} Levels.DEBUG
 		 * @static
-		 */ 
+		 */
 		DEBUGKEY,
 
 		/**
@@ -540,7 +564,7 @@
 		level = level || Levels.GENERAL;
 		
 		// If we are still in the process of connecting, queue up the log
-		if (_socketQueue) 
+		if (_socketQueue)
 		{
 			_socketQueue.push({
 				message: message,
@@ -574,7 +598,10 @@
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL &amp;&amp; _hasConsole)
 		{
-			console.log.apply(console, arguments);
+			if(arguments.length === 1)
+				console.log(params);
+			else
+				console.log.apply(console, arguments);
 			domOutput(&#x27;general&#x27;, params);
 		}
 		return Debug;
@@ -596,16 +623,22 @@
 		{
 			Debug.remoteLog(params, Levels[DEBUGKEY]);
 		}
-		else if (Debug.minLogLevel &lt;= Levels[DEBUGKEY] &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels[DEBUGKEY].asInt &amp;&amp; _hasConsole)
 		{
 			// debug() is officially deprecated
 			if (console.debug)
 			{
-				console.debug.apply(console, arguments);
+				if(arguments.length === 1)
+					console.debug(params);
+				else
+					console.debug.apply(console, arguments);
 			}
 			else
 			{
-				console.log.apply(console, arguments);
+				if(arguments.length === 1)
+					console.log(params);
+				else
+					console.log.apply(console, arguments);
 			}
 			domOutput(&#x27;debug&#x27;, params);
 		}
@@ -628,10 +661,13 @@
 		{
 			Debug.remoteLog(params, Levels.INFO);
 		}
-		else if (Debug.minLogLevel &lt;= Levels.INFO &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels.INFO.asInt &amp;&amp; _hasConsole)
 		{
-			console.info.apply(console, arguments);
-			domOutput(&#x27;info&#x27;, params); 
+			if(arguments.length === 1)
+				console.info(params);
+			else
+				console.info.apply(console, arguments);
+			domOutput(&#x27;info&#x27;, params);
 		}
 		return Debug;
 	};
@@ -652,9 +688,12 @@
 		{
 			Debug.remoteLog(params, Levels.WARN);
 		}
-		else if (Debug.minLogLevel &lt;= Levels.WARN &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels.WARN.asInt &amp;&amp; _hasConsole)
 		{
-			console.warn.apply(console, arguments);
+			if(arguments.length === 1)
+				console.warn(params);
+			else
+				console.warn.apply(console, arguments);
 			domOutput(&#x27;warn&#x27;, params);
 		}
 		return Debug;
@@ -677,7 +716,10 @@
 		}
 		else if (_hasConsole)
 		{
-			console.error.apply(console, arguments);
+			if(arguments.length === 1)
+				console.error(params);
+			else
+				console.error.apply(console, arguments);
 			domOutput(&#x27;error&#x27;, params);
 		}
 		return Debug;
@@ -718,7 +760,10 @@
 	{
 		if (_hasConsole &amp;&amp; Debug.enabled)
 		{
-			console.dir.apply(console, arguments);
+			if(arguments.length === 1)
+				console.dir(params);
+			else
+				console.dir.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -736,7 +781,7 @@
 		{
 			console.clear();
 
-			if (Debug.output) 
+			if (Debug.output)
 			{
 				Debug.output.innerHTML = &quot;&quot;;
 			}
@@ -756,14 +801,17 @@
 	{
 		if (_hasConsole &amp;&amp; Debug.enabled)
 		{
-			console.trace.apply(console, arguments);
+			if(arguments.length === 1)
+				console.trace(params);
+			else
+				console.trace.apply(console, arguments);
 		}
 		return Debug;
 	};
 
 	/**
-	 * Starts a new logging group with an optional title. All console output that 
-	 * occurs after calling this method and calling &#x60;Debug.groupEnd()&#x60; appears in 
+	 * Starts a new logging group with an optional title. All console output that
+	 * occurs after calling this method and calling &#x60;Debug.groupEnd()&#x60; appears in
 	 * the same visual group.
 	 * @static
 	 * @public
@@ -781,7 +829,7 @@
 	};
 
 	/**
-	 * Creates a new logging group that is initially collapsed instead of open, 
+	 * Creates a new logging group that is initially collapsed instead of open,
 	 * as with &#x60;Debug.group()&#x60;.
 	 * @static
 	 * @public
@@ -799,8 +847,8 @@
 	};
 
 	/**
-	 * Starts a new logging group with an optional title. All console output that 
-	 * occurs after calling this method and calling console.groupEnd() appears in 
+	 * Starts a new logging group with an optional title. All console output that
+	 * occurs after calling this method and calling console.groupEnd() appears in
 	 * the same visual group.
 	 * @static
 	 * @public
@@ -957,24 +1005,30 @@
 	 */
 	for (var key in _palette)
 	{
-		Debug[key] = _lintingWorkAroundClosure(_palette[key]);
+		Debug[key] = _colorClosure(_palette[key]);
 	}
 
 	/**
-	 * Linting will not allow for functions to be inside a loop.
-	 * Returning the function in closure placed outside the for-loop
-	 * that generates the Debug[&lt;color&gt;] functions will bypass
-	 * this linting restriction.
+	 * Due to the way closures and variables work, _colorClosure returns
+	 * the color logging function needed for the color that you pass it.
 	 *
-	 * @method _lintingWorkAroundClosure
+	 * @method _colorClosure
 	 * @private
 	 * @param {String} hex Hex value to apply to CSS color
 	 * @return {Function}
 	 */
-	function _lintingWorkAroundClosure(hex)
+	function _colorClosure(hex)
 	{
 		return function(message)
 		{
+			if(arguments.length &gt; 1)
+			{
+				var params = Array.prototype.slice.call(arguments);
+				var first = &#x27;%c&#x27; + params[0];
+				params[0] = &#x27;color:&#x27; + hex;
+				params.unshift(first);
+				return Debug.log.apply(Debug, params);
+			}
 			return Debug.log(&#x27;%c&#x27; + message, &#x27;color:&#x27; + hex);
 		};
 	}
