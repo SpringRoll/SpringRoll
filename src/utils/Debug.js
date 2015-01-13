@@ -28,6 +28,9 @@
 	// cut this word into pieces and do a dynamic access
 	var DEBUGKEY = 'DE' + 'BUG';
 
+	// Reference to the bind function
+	var bind = Function.prototype.bind;
+
 	/**
 	 * The levels of logging
 	 * @property {springroll.Enum} Levels
@@ -326,7 +329,8 @@
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
 		{
-			console.log.apply(console, arguments);
+			var log = bind.call(console.log, console);
+			log.apply(console, arguments);
 			domOutput('general', params);
 		}
 		return Debug;
@@ -353,11 +357,13 @@
 			// debug() is officially deprecated
 			if (console.debug)
 			{
-				console.debug.apply(console, arguments);
+				var debug = bind.call(console.debug, console);
+				debug.apply(console, arguments);
 			}
 			else
 			{
-				console.log.apply(console, arguments);
+				var log = bind.call(console.log, console);
+				log.apply(console, arguments);
 			}
 			domOutput('debug', params);
 		}
@@ -382,7 +388,8 @@
 		}
 		else if (Debug.minLogLevel <= Levels.INFO && _hasConsole)
 		{
-			console.info.apply(console, arguments);
+			var info = bind.call(console.info, console);
+			info.apply(console, arguments);
 			domOutput('info', params); 
 		}
 		return Debug;
@@ -406,7 +413,8 @@
 		}
 		else if (Debug.minLogLevel <= Levels.WARN && _hasConsole)
 		{
-			console.warn.apply(console, arguments);
+			var warn = bind.call(console.warn, console);
+			warn.apply(console, arguments);
 			domOutput('warn', params);
 		}
 		return Debug;
@@ -429,7 +437,8 @@
 		}
 		else if (_hasConsole)
 		{
-			console.error.apply(console, arguments);
+			var error = bind.call(console.error, console);
+			error.apply(console, arguments);
 			domOutput('error', params);
 		}
 		return Debug;
@@ -470,7 +479,8 @@
 	{
 		if (_hasConsole && Debug.enabled)
 		{
-			console.dir.apply(console, arguments);
+			var dir = bind.call(console.dir, console);
+			dir.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -508,7 +518,8 @@
 	{
 		if (_hasConsole && Debug.enabled)
 		{
-			console.trace.apply(console, arguments);
+			var trace = bind.call(console.trace, console);
+			trace.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -527,7 +538,8 @@
 	{
 		if (_hasConsole && Debug.enabled && console.group)
 		{
-			console.group.apply(console, arguments);
+			var group = bind.call(console.group, console);
+			group.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -545,7 +557,8 @@
 	{
 		if (_hasConsole && Debug.enabled && console.groupCollapsed)
 		{
-			console.groupCollapsed.apply(console, arguments);
+			var groupCollapsed = bind.call(console.groupCollapsed, console);
+			groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
 	};
