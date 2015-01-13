@@ -247,167 +247,169 @@
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
-*  @module Core
-*/
-(function(window, undefined){
+ * @module Core
+ */
+(function(window, undefined)
+{
+	// Import classes
+	var Enum = include(&#x27;springroll.Enum&#x27;);
 
 	/**
-	*  A static closure to provide easy access to the console
-	*  without having errors if the console doesn&#x27;t exist
-	*  to use call: Debug.log(&#x27;Your log here&#x27;)
-	*
-	*  @class Debug
-	*  @static
-	*/
-	var Debug = function(){};
+	 * A static closure to provide easy access to the console
+	 * without having errors if the console doesn&#x27;t exist
+	 * to use call: Debug.log(&#x27;Your log here&#x27;)
+	 *
+	 * @class Debug
+	 * @static
+	 */
+	var Debug = {};
 
 	/**
-	*  If we have a console
-	*
-	*  @private
-	*  @property {bool} hasConsole
-	*/
-	var hasConsole = (window.console !== undefined);
+	 * If we have a console
+	 *
+	 * @private
+	 * @property {bool} _hasConsole
+	 */
+	var _hasConsole = (window.console !== undefined);
+
+	// Because of the compile constants, we need to 
+	// cut this word into pieces and do a dynamic access
+	var DEBUGKEY = &#x27;DE&#x27; + &#x27;BUG&#x27;;
 
 	/**
-	* The most general default debug level
-	* @static
-	* @final
-	* @property {int} GENERAL
-	*/
-	Debug.GENERAL = 0;
+	 * The levels of logging
+	 * @property {springroll.Enum} Levels
+	 * @static
+	 */
+	var Levels = Debug.Levels = new Enum(
+
+		/**
+		 * The most basic general log level
+		 * @property {int} Levels.GENERAL
+		 * @static
+		 */
+		&#x27;GENERAL&#x27;,
+
+		/**
+		 * The debug log level, more priority than GENERAL
+		 * @property {int} Levels.DEBUG
+		 * @static
+		 */ 
+		DEBUGKEY,
+
+		/**
+		 * The info log level, more priority than DEBUG
+		 * @property {int} Levels.DEBUG
+		 * @static
+		 */
+		&#x27;INFO&#x27;,
+
+		/**
+		 * The warn log level, more priority than WARN
+		 * @property {int} Levels.WARN
+		 * @static
+		 */
+		&#x27;WARN&#x27;,
+
+		/**
+		 * The error log level, the most priority log level
+		 * @property {int} Levels.ERROR
+		 * @static
+		 */
+		&#x27;ERROR&#x27;
+	);
 
 	/**
-	* Log level for debug messages
-	* @static
-	* @final
-	* @property {int} DEBUG
-	*/
-	Debug[&#x27;DE&#x27;+&#x27;BUG&#x27;] = 1; // jshint ignore:line
+	 * The minimum log level to show, by default it&#x27;s set to
+	 * show all levels of logging.
+	 * @public
+	 * @static
+	 * @property {int} minLogLevel
+	 */
+	Debug.minLogLevel = Levels.GENERAL;
 
 	/**
-	* Log level for debug messages
-	* @static
-	* @final
-	* @property {int} INFO
-	*/
-	Debug.INFO = 2;
-
-	/**
-	* Log level for warning messages
-	* @static
-	* @final
-	* @property {int} WARN
-	*/
-	Debug.WARN = 3;
-
-	/**
-	* Log level for error messages
-	* @static
-	* @final
-	* @property {int} ERROR
-	*/
-	Debug.ERROR = 4;
-
-	/**
-	* The minimum log level to show, by default it&#x27;s set to
-	* show all levels of logging.
-	* @public
-	* @static
-	* @property {int} minLogLevel
-	*/
-	Debug.minLogLevel = Debug.GENERAL;
-
-	/**
-	* Boolean to turn on or off the debugging
-	* @public
-	* @static
-	* @property {bool} enabled
-	*/
+	 * Boolean to turn on or off the debugging
+	 * @public
+	 * @static
+	 * @property {bool} enabled
+	 */
 	Debug.enabled = true;
 
 	/**
-	*  The jQuery element to output debug messages to
-	*
-	*  @public
-	*  @static
-	*  @property {jQuery} output
-	*/
+	 * The jQuery element to output debug messages to
+	 *
+	 * @public
+	 * @static
+	 * @property {DOMElement} output
+	 */
 	Debug.output = null;
 
 	/**
-	*	If the console is currently connected with JSConsole (jsconsole.com).
-	*	@private
-	*	@static
-	*	@property {bool} _isJSConsole
-	*/
-	Debug._isJSConsole = window.remote === window.console;//The JSConsole script sets one object as &#x27;remote&#x27; and trys to overwrite &#x27;console&#x27;
+	 * Browser port for the websocket browsers tend to block ports
+	 * @static
+	 * @private
+	 * @property {int} NET_PORT
+	 * @default 1025
+	 */
+	var NET_PORT = 1025;
 
 	/**
-	* Browser port for the websocket browsers tend to block ports
-	*  @static
-	*  @private
-	*  @property {int} _NET_PORT
-	*  @default 1025
-	*/
-	Debug._NET_PORT = 1025;
+	 * If the WebSocket is connected
+	 * @static
+	 * @private
+	 * @default false
+	 * @property {bool} _useSocket
+	 */
+	var _useSocket = false;
 
 	/**
-	* If the web socket is connected
-	* @static
-	* @private
-	* @default false
-	* @property {bool} _isConnected
-	*/
-	Debug._isConnected = false;
+	 * The socket connection
+	 * @static
+	 * @private
+	 * @property {WebSocket} _socket
+	 */
+	var _socket = null;
 
 	/**
-	* The socket connection
-	* @static
-	* @private
-	* @property {WebSocket} _socket
-	*/
-	Debug._socket = null;
+	 * The current message object being sent to the &#x60;WebSocket&#x60;
+	 * @static
+	 * @private
+	 * @property {object} _socketMessage
+	 */
+	var _socketMessage = null;
 
 	/**
-	* The current message object being sent to the &#x60;WebSocket&#x60;
-	* @static
-	* @private
-	* @property {object} _messageObj
-	*/
-	Debug._messageObj = null;
+	 * The &#x60;WebSocket&#x60; message queue
+	 * @static
+	 * @private
+	 * @property {Array} _socketQueue
+	 */
+	var _socketQueue = null;
 
 	/**
-	* The &#x60;WebSocket&#x60; message queue
-	* @static
-	* @private
-	* @property {Array} _messageQueue
-	*/
-	Debug._messageQueue = null;
-
-	/**
-	*  Connect to the &#x60;WebSocket&#x60;
-	*  @public
-	*  @static
-	*  @method connect
-	*  @param {string} host The remote address to connect to, IP address or host name
-	*/
+	 * Connect to the &#x60;WebSocket&#x60;
+	 * @public
+	 * @static
+	 * @method connect
+	 * @param {string} host The remote address to connect to, IP address or host name
+	 * @return {boolean} If a connection was attempted
+	 */
 	Debug.connect = function(host)
 	{
-		// Make sure WebSocket exists without prefixes for us
-		if(!(&quot;WebSocket&quot; in window) &amp;&amp; !(&quot;MozWebSocket&quot; in window)) return false;
+		//Make sure WebSocket exists without prefixes for us
+		if (!(&#x27;WebSocket&#x27; in window) &amp;&amp; !(&#x27;MozWebSocket&#x27; in window)) return false;
 
 		window.WebSocket = WebSocket || MozWebSocket;
 
 		try
 		{
-			var s = Debug._socket = new WebSocket(&quot;ws://&quot; + host + &quot;:&quot; + Debug._NET_PORT);
-			s.onopen = onConnect;
-			s.onmessage = function(){};
-			s.onclose = onClose;
-			s.onerror = onClose;
-			Debug._messageQueue = [];
-			Debug._isConnected = true;
+			_socket = new WebSocket(&#x27;ws://&#x27; + host + &#x27;:&#x27; + NET_PORT);
+			_socket.onopen = onConnect;
+			_socket.onclose = onClose;
+			_socket.onerror = onClose;
+			_socketQueue = [];
+			_useSocket = true;
 		}
 		catch(error)
 		{
@@ -417,358 +419,571 @@
 	};
 
 	/**
-	*  Disconnect from the &#x60;WebSocket&#x60;
-	*  @public
-	*  @static
-	*  @method disconnect
-	*/
+	 * Disconnect from the &#x60;WebSocket&#x60;
+	 * @public
+	 * @static
+	 * @method disconnect
+	 */
 	Debug.disconnect = function()
 	{
-		if(Debug._isConnected)
+		if (_useSocket)
 		{
-			Debug._socket.close();
+			_socket.close();
 			onClose();
 		}
 	};
 
 	/**
-	*  Callback when the &#x60;WebSocket&#x60; is connected
-	*  @private
-	*  @static
-	*  @method onConnect
-	*/
+	 * Callback when the &#x60;WebSocket&#x60; is connected
+	 * @private
+	 * @static
+	 * @method onConnect
+	 */
 	var onConnect = function()
 	{
-		// set up a function to handle all messages
+		//set up a function to handle all messages
 		window.onerror = globalErrorHandler;
 
-		// create and send a new session message
-		Debug._messageObj = {level:&quot;session&quot;, message:&quot;&quot;};
-		Debug._socket.send(JSON.stringify(Debug._messageObj));
+		//create and send a new session message
+		_socketMessage = {
+			level: &#x27;session&#x27;,
+			message: &#x27;&#x27;
+		};
+		_socket.send(JSON.stringify(_socketMessage));
 
-		// send any queued logs
-		for (var i = 0, len = Debug._messageQueue.length; i &lt; len; ++i)
+		//send any queued logs
+		for (var i = 0, len = _socketQueue.length; i &lt; len; ++i)
 		{
-			Debug._socket.send(JSON.stringify(Debug._messageQueue[i]));
+			_socket.send(JSON.stringify(_socketQueue[i]));
 		}
-		// get rid of this, since we are connected
-		Debug._messageQueue = null;
+
+		//get rid of this, since we are connected
+		_socketQueue = null;
 	};
 
 	/**
-	*  Global window error handler, used for remote connections.
-	*  @static
-	*  @private
-	*  @method globalErrorHandler
-	*  @param {String} message The error message
-	*  @param {String} file The url of the file
-	*  @param {int} line The line within the file
-	*  @param {int} column The column within the line
-	*  @param {Error} error The error itself
-	*/
+	 * Global window error handler, used for remote connections.
+	 * @static
+	 * @private
+	 * @method globalErrorHandler
+	 * @param {String} message The error message
+	 * @param {String} file The url of the file
+	 * @param {int} line The line within the file
+	 * @param {int} column The column within the line
+	 * @param {Error} error The error itself
+	 */
 	var globalErrorHandler = function(message, file, line, column, error)
 	{
-		var logMessage = &quot;Error: &quot; + message + &quot; in &quot; + file + &quot; at line &quot; + line;
-		if(column !== undefined)
-			logMessage += &quot;:&quot; + column;
-		if(error)
+		var logMessage = &#x27;Error: &#x27; + message + &#x27; in &#x27; + file + &#x27; at line &#x27; + line;
+		
+		if (column !== undefined)
+		{
+			logMessage += &#x27;:&#x27; + column;
+		}
+
+		if (error)
+		{
 			logMessage += &quot;\n&quot; + error.stack;
-		Debug.remoteLog(logMessage, &quot;ERROR&quot;);
+		}
+
+		Debug.remoteLog(logMessage, Levels.ERROR);
+
 		return false;
 	};
 
 	/**
-	*  Callback for when the websocket is closed
-	*  @private
-	*  @static
-	*  @method onClose
-	*/
+	 * Callback for when the websocket is closed
+	 * @private
+	 * @static
+	 * @method onClose
+	 */
 	var onClose = function()
 	{
 		window.onerror = null;
-		Debug._isConnected = false;
-		var s = Debug._socket;
-		s.onopen = null;
-		s.onmessage = null;
-		s.onclose = null;
-		s.onerror = null;
-		Debug._socket = null;
-		Debug._messageObj = null;
-		Debug._messageQueue = null;
+		_useSocket = false;
+		_socket.onopen = null;
+		_socket.onmessage = null;
+		_socket.onclose = null;
+		_socket.onerror = null;
+		_socket = null;
+		_socketMessage = null;
+		_socketQueue = null;
 	};
 
 	/**
-	*  Sent to the output
-	*  @private
-	*  @static
-	*  @method output
-	*  @param {string} level The log level
-	*  @param {string} args Additional arguments
-	*/
-	function output(level, args)
+	 * Sent to the output
+	 * @private
+	 * @static
+	 * @method domOutput
+	 * @param {string} level The log level
+	 * @param {string} args Additional arguments
+	 */
+	var domOutput = function(level, args)
 	{
 		if (Debug.output)
 		{
-			Debug.output.append(&quot;&lt;div class=\&quot;&quot;+level+&quot;\&quot;&gt;&quot; + args + &quot;&lt;/div&gt;&quot;);
+			Debug.output.innerHTML += &#x27;&lt;div class=&quot;&#x27; + level + &#x27;&quot;&gt;&#x27; + args + &#x27;&lt;/div&gt;&#x27;;
 		}
-	}
+	};
 
 	/**
-	*  Send a remote log message using the socket connection
-	*  @public
-	*  @static
-	*  @method remoteLog
-	*  @param {string} message The message to send
-	*  @param {level} level The log level to send
-	*/
+	 * Send a remote log message using the socket connection
+	 * @public
+	 * @static
+	 * @method remoteLog
+	 * @param {string} message The message to send
+	 * @param {level} [level=0] The log level to send
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.remoteLog = function(message, level)
 	{
-		if(!level)
-			level = &quot;GENERAL&quot;;
-		if(Debug._messageQueue)//If we are still in the process of connecting, queue up the log
+		level = level || Levels.GENERAL;
+		
+		// If we are still in the process of connecting, queue up the log
+		if (_socketQueue) 
 		{
-			Debug._messageQueue.push({message:message, level:level});
+			_socketQueue.push({
+				message: message,
+				level: level
+			});
 		}
-		else//send the log immediately
+		else // send the log immediately
 		{
-			Debug._messageObj.level = level;
-			Debug._messageObj.message = message;
-			Debug._socket.send(JSON.stringify(Debug._messageObj));
+			_socketMessage.level = level;
+			_socketMessage.message = message;
+			_socket.send(JSON.stringify(_socketMessage));
 		}
+		return Debug;
 	};
 
-	function JSC_stringify(obj, depth)
-	{
-		if(!depth)
-			depth = 1;
-		var spacing = &quot;&quot;;
-		var endSpacing = &quot;&quot;;
-		for (var i = 0, len = depth * 4; i &lt; len; ++i)
-		{
-			spacing += &quot;&amp;nbsp;&quot;;
-			if(i &lt; (depth - 1) * 4)
-				endSpacing += &quot;&amp;nbsp;&quot;;
-		}
-		var rtn = &quot;{&lt;br /&gt;&quot;;
-		for (var key in obj)
-		{
-			//avoid doing properties that are known to be DOM objects, because those have circular references
-			if(key == &quot;document&quot; || key == &quot;window&quot; || key == &quot;ownerDocument&quot; || key == &quot;view&quot;)
-				continue;
-			if(key == &quot;target&quot; || key == &quot;currentTarget&quot; || key == &quot;originalTarget&quot; || key == &quot;explicitOriginalTarget&quot; || key == &quot;rangeParent&quot;)
-				continue;
-			if(key == &quot;srcElement&quot; || key == &quot;relatedTarget&quot; || key == &quot;fromElement&quot; || key == &quot;toElement&quot;)
-				continue;
-			switch(typeof obj[key])
-			{
-				case &quot;string&quot;:
-				case &quot;number&quot;:
-				case &quot;boolean&quot;:
-				case &quot;bool&quot;:
-					rtn += spacing + key + &quot;: &quot; + obj[key] + &quot;&lt;br /&gt;&quot;;
-					break;
-				case &quot;object&quot;:
-					rtn += spacing + key + &quot;: &quot; + JSC_stringify(obj[key], depth + 1) + &quot;&lt;br /&gt;&quot;;
-					break;
-				case &quot;function&quot;:
-					rtn += spacing + key + &quot;: (function)&lt;br /&gt;&quot;;
-					break;
-				default:
-					rtn += spacing + key + &quot;: &quot; + obj[key] + &quot;&lt;br /&gt;&quot;;
-					break;
-			}
-		}
-		rtn += endSpacing + &quot;}&quot;;
-		return rtn;
-	}
-
-	function JSC_format(input)
-	{
-		if(typeof input == &quot;string&quot;)
-		{
-			return input.replace(/\t/g, &quot;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&quot;).replace(/\n/g, &quot;&lt;br /&gt;&quot;);
-		}
-		else if(typeof input == &quot;object&quot;)
-		{
-			return JSC_stringify(input);
-		}
-		return input;
-	}
-
 	/**
-	*  Log something in the console or remote
-	*  @static
-	*  @public
-	*  @method log
-	*  @param {*} params The statement or object to log
-	*/
+	 * Log something in the console or remote
+	 * @static
+	 * @public
+	 * @method log
+	 * @param {*} params The statement or object to log
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.log = function(params)
 	{
-		if(!Debug.enabled) return;
-		if(Debug._isConnected)
+		if (!Debug.enabled) return Debug;
+
+		if (_useSocket)
 		{
-			Debug.remoteLog(params, &quot;GENERAL&quot;);
+			Debug.remoteLog(params);
 		}
-		else if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole)
+		else if (Debug.minLogLevel == Levels.GENERAL &amp;&amp; _hasConsole)
 		{
-			console.log(Debug._isJSConsole ? JSC_format(params) : params);
-			output(&quot;general&quot;, params);
+			console.log.apply(console, arguments);
+			domOutput(&#x27;general&#x27;, params);
 		}
+		return Debug;
 	};
 
 	/**
-	*  Debug something in the console or remote
-	*  @static
-	*  @public
-	*  @method debug
-	*  @param {*} params The statement or object to debug
-	*/
+	 * Debug something in the console or remote
+	 * @static
+	 * @public
+	 * @method debug
+	 * @param {*} params The statement or object to debug
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.debug = function(params)
 	{
-		if(!Debug.enabled) return;
-		if(Debug._isConnected)
+		if (!Debug.enabled) return Debug;
+
+		if (_useSocket)
 		{
-			Debug.remoteLog(params, &#x27;DE&#x27;+&#x27;BUG&#x27;);
+			Debug.remoteLog(params, Levels[DEBUGKEY]);
 		}
-		else if (Debug.minLogLevel &lt;= Debug[&#x27;DE&#x27;+&#x27;BUG&#x27;] &amp;&amp; hasConsole) // jshint ignore:line
+		else if (Debug.minLogLevel &lt;= Levels[DEBUGKEY] &amp;&amp; _hasConsole)
 		{
-			console.debug(Debug._isJSConsole ? JSC_format(params) : params);
-			output(&quot;debug&quot;, params);
+			// debug() is officially deprecated
+			if (console.debug)
+			{
+				console.debug.apply(console, arguments);
+			}
+			else
+			{
+				console.log.apply(console, arguments);
+			}
+			domOutput(&#x27;debug&#x27;, params);
 		}
+		return Debug;
 	};
 
 	/**
-	*  Info something in the console or remote
-	*  @static
-	*  @public
-	*  @method info
-	*  @param {*} params The statement or object to info
-	*/
+	 * Info something in the console or remote
+	 * @static
+	 * @public
+	 * @method info
+	 * @param {*} params The statement or object to info
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.info = function(params)
 	{
-		if(!Debug.enabled) return;
-		if(Debug._isConnected)
+		if (!Debug.enabled) return Debug;
+
+		if (_useSocket)
 		{
-			Debug.remoteLog(params, &quot;INFO&quot;);
+			Debug.remoteLog(params, Levels.INFO);
 		}
-		else if (Debug.minLogLevel &lt;= Debug.INFO &amp;&amp; hasConsole)
+		else if (Debug.minLogLevel &lt;= Levels.INFO &amp;&amp; _hasConsole)
 		{
-			console.info(Debug._isJSConsole ? JSC_format(params) : params);
-			output(&quot;info&quot;, params);
+			console.info.apply(console, arguments);
+			domOutput(&#x27;info&#x27;, params); 
 		}
+		return Debug;
 	};
 
 	/**
-	*  Warn something in the console or remote
-	*  @static
-	*  @public
-	*  @method warn
-	*  @param {*} params The statement or object to warn
-	*/
+	 * Warn something in the console or remote
+	 * @static
+	 * @public
+	 * @method warn
+	 * @param {*} params The statement or object to warn
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.warn = function(params)
 	{
-		if(!Debug.enabled) return;
-		if(Debug._isConnected)
+		if (!Debug.enabled) return Debug;
+
+		if (_useSocket)
 		{
-			Debug.remoteLog(params, &quot;WARNING&quot;);
+			Debug.remoteLog(params, Levels.WARN);
 		}
-		else if (Debug.minLogLevel &lt;= Debug.WARN &amp;&amp; hasConsole)
+		else if (Debug.minLogLevel &lt;= Levels.WARN &amp;&amp; _hasConsole)
 		{
-			console.warn(Debug._isJSConsole ? JSC_format(params) : params);
-			output(&quot;warn&quot;, params);
+			console.warn.apply(console, arguments);
+			domOutput(&#x27;warn&#x27;, params);
 		}
+		return Debug;
 	};
 
 	/**
-	*  Error something in the console or remote
-	*  @static
-	*  @public
-	*  @method error
-	*  @param {*} params The statement or object to error
-	*/
+	 * Error something in the console or remote
+	 * @static
+	 * @public
+	 * @method error
+	 * @param {*} params The statement or object to error
+	 */
 	Debug.error = function(params)
 	{
-		if(!Debug.enabled) return;
-		if(Debug._isConnected)
+		if (!Debug.enabled) return;
+
+		if (_useSocket)
 		{
-			Debug.remoteLog(params, &quot;ERROR&quot;);
+			Debug.remoteLog(params, Levels.ERROR);
 		}
-		else if (hasConsole)
+		else if (_hasConsole)
 		{
-			console.error(Debug._isJSConsole ? JSC_format(params) : params);
-			output(&quot;error&quot;, params);
+			console.error.apply(console, arguments);
+			domOutput(&#x27;error&#x27;, params);
 		}
+		return Debug;
 	};
 
 	/**
-	*  Assert that something is true
-	*  @static
-	*  @public
-	*  @method assert
-	*  @param {bool} truth As statement that is assumed true
-	*  @param {*} params The message to error if the assert is false
-	*/
+	 * Assert that something is true
+	 * @static
+	 * @public
+	 * @method assert
+	 * @param {bool} truth As statement that is assumed true
+	 * @param {*} params The message to error if the assert is false
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.assert = function(truth, params)
 	{
-		if (hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.assert)
+		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.assert)
 		{
-			console.assert(truth, Debug._isJSConsole ? JSC_format(params) : params);
-			if (!truth) output(&quot;error&quot;, params);
+			console.assert(truth, params);
+
+			if (!truth)
+			{
+				domOutput(&#x27;error&#x27;, params);
+			}
 		}
+		return Debug;
 	};
 
 	/**
-	*  Method to describe an object in the console
-	*  @static
-	*  @method dir
-	*  @public
-	*  @param {object} params The object to describe in the console
-	*/
+	 * Method to describe an object in the console
+	 * @static
+	 * @method dir
+	 * @public
+	 * @param {object} params The object to describe in the console
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.dir = function(params)
 	{
-		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled)
+		if (_hasConsole &amp;&amp; Debug.enabled)
 		{
-			console.dir(Debug._isJSConsole ? JSC_format(params) : params);
+			console.dir.apply(console, arguments);
 		}
+		return Debug;
 	};
 
 	/**
-	*  Method to clear the console
-	*
-	*  @static
-	*  @public
-	*  @method clear
-	*/
+	 * Method to clear the console
+	 * @static
+	 * @public
+	 * @method clear
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.clear = function()
 	{
-		if (hasConsole &amp;&amp; Debug.enabled)
+		if (_hasConsole &amp;&amp; Debug.enabled)
 		{
 			console.clear();
-			if (Debug.output) Debug.output.html(&quot;&quot;);
+
+			if (Debug.output) 
+			{
+				Debug.output.innerHTML = &quot;&quot;;
+			}
 		}
+		return Debug;
 	};
 
 	/**
-	*  Generate a stack track in the output
-	*  @static
-	*  @public
-	*  @method trace
-	*  @param {*} params Optional parameters to log
-	*/
+	 * Generate a stack track in the output
+	 * @static
+	 * @public
+	 * @method trace
+	 * @param {*} params Optional parameters to log
+	 * @return {Debug} The instance of debug for chaining
+	 */
 	Debug.trace = function(params)
 	{
-		if (Debug.minLogLevel == Debug.GENERAL &amp;&amp; hasConsole &amp;&amp; Debug.enabled)
+		if (_hasConsole &amp;&amp; Debug.enabled)
 		{
-			console.trace(Debug._isJSConsole ? JSC_format(params) : params);
+			console.trace.apply(console, arguments);
 		}
+		return Debug;
 	};
 
-	// Make the debug class globally accessible
-	// If the console doesn&#x27;t exist, use the dummy to prevent errors
+	/**
+	 * Starts a new logging group with an optional title. All console output that 
+	 * occurs after calling this method and calling &#x60;Debug.groupEnd()&#x60; appears in 
+	 * the same visual group.
+	 * @static
+	 * @public
+	 * @method group
+	 * @param {*} params Optional parameters to log
+	 * @return {Debug} The instance of debug for chaining
+	 */
+	Debug.group = function(params)
+	{
+		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.group)
+		{
+			console.group.apply(console, arguments);
+		}
+		return Debug;
+	};
+
+	/**
+	 * Creates a new logging group that is initially collapsed instead of open, 
+	 * as with &#x60;Debug.group()&#x60;.
+	 * @static
+	 * @public
+	 * @method groupCollapsed
+	 * @param {*} params Optional parameters to log
+	 * @return {Debug} The instance of debug for chaining
+	 */
+	Debug.groupCollapsed = function(params)
+	{
+		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.groupCollapsed)
+		{
+			console.groupCollapsed.apply(console, arguments);
+		}
+		return Debug;
+	};
+
+	/**
+	 * Starts a new logging group with an optional title. All console output that 
+	 * occurs after calling this method and calling console.groupEnd() appears in 
+	 * the same visual group.
+	 * @static
+	 * @public
+	 * @method groupEnd
+	 * @return {Debug} The instance of debug for chaining
+	 */
+	Debug.groupEnd = function()
+	{
+		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.groupEnd)
+		{
+			console.groupEnd();
+		}
+		return Debug;
+	};
+
+	/**
+	 * List of hex colors to create Debug shortcuts for.
+	 * Each key will become a function Debug[key]() that outputs
+	 * the message in the specified color to the console if
+	 * the browsers allows colored logging.
+	 * Color Palette pulled from &quot;Better CSS Defaults&quot;
+	 * (https://github.com/mrmrs/colors)
+	 *
+	 * @private
+	 * @param {Object} _palette
+	 */
+	var _palette = {
+
+		/**
+		 * Output a general log colored as navy
+		 * @method navy
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		navy: &#x27;#001F3F&#x27;,
+
+		/**
+		 * Output a general log colored as blue
+		 * @method blue
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		blue: &#x27;#0074D9&#x27;,
+
+		/**
+		 * Output a general log colored as aqua
+		 * @method aqua
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		aqua: &#x27;#7FDBFF&#x27;,
+
+		/**
+		 * Output a general log colored as teal
+		 * @method teal
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		teal: &#x27;#39CCCC&#x27;,
+
+		/**
+		 * Output a general log colored as olive
+		 * @method olive
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		olive: &#x27;#3D9970&#x27;,
+
+		/**
+		 * Output a general log colored as green
+		 * @method green
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		green: &#x27;#2ECC40&#x27;,
+
+		/**
+		 * Output a general log colored as lime
+		 * @method lime
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		lime: &#x27;#01FF70&#x27;,
+
+		/**
+		 * Output a general log colored as yellow
+		 * @method yellow
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		yellow: &#x27;#FFDC00&#x27;,
+
+		/**
+		 * Output a general log colored as orange
+		 * @method orange
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		orange: &#x27;#FF851B&#x27;,
+
+		/**
+		 * Output a general log colored as red
+		 * @method red
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		red: &#x27;#FF4136&#x27;,
+
+		/**
+		 * Output a general log colored as pink
+		 * @method pink
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		pink: &#x27;#F012BE&#x27;,
+
+		/**
+		 * Output a general log colored as purple
+		 * @method purple
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		purple: &#x27;#B10DC9&#x27;,
+
+		/**
+		 * Output a general log colored as maroon
+		 * @method maroon
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		maroon: &#x27;#85144B&#x27;,
+
+		/**
+		 * Output a general log colored as silver
+		 * @method silver
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		silver: &#x27;#ddd&#x27;,
+
+		/**
+		 * Output a general log colored as gray
+		 * @method gray
+		 * @param {*} message The message to log
+		 * @return {Debug} The instance of debug for chaining
+		 */
+		gray: &#x27;#aaa&#x27;
+	};
+
+	/**
+	 * Loop through each item in the _palette object and create
+	 * a static function in Debug via the key (the color name) that
+	 * outputs a message to the console in key&#x27;s value (a hex color).
+	 */
+	for (var key in _palette)
+	{
+		Debug[key] = _lintingWorkAroundClosure(_palette[key]);
+	}
+
+	/**
+	 * Linting will not allow for functions to be inside a loop.
+	 * Returning the function in closure placed outside the for-loop
+	 * that generates the Debug[&lt;color&gt;] functions will bypass
+	 * this linting restriction.
+	 *
+	 * @method _lintingWorkAroundClosure
+	 * @private
+	 * @param {String} hex Hex value to apply to CSS color
+	 * @return {Function}
+	 */
+	function _lintingWorkAroundClosure(hex)
+	{
+		return function(message)
+		{
+			return Debug.log(&#x27;%c&#x27; + message, &#x27;color:&#x27; + hex);
+		};
+	}
+
+	// Make the debug class globally accessible.
+	// If the console doesn&#x27;t exist, use the dummy to prevent errors.
 	window.Debug = Debug;
 
 }(window));
-
     </pre>
 </div>
 

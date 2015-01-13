@@ -3260,7 +3260,7 @@
             "module": "Core",
             "namespace": "",
             "file": "src/utils/Debug.js",
-            "line": 6,
+            "line": 9,
             "description": "A static closure to provide easy access to the console\nwithout having errors if the console doesn't exist\nto use call: Debug.log('Your log here')",
             "static": 1
         },
@@ -3861,7 +3861,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 107,
+            "line": 106,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -3900,7 +3900,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 204,
+            "line": 203,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -3939,7 +3939,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 349,
+            "line": 348,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
@@ -3961,7 +3961,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 379,
+            "line": 378,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -3987,7 +3987,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 398,
+            "line": 397,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -4016,7 +4016,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 433,
+            "line": 432,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -4045,7 +4045,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 502,
+            "line": 501,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4063,7 +4063,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 525,
+            "line": 524,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4082,7 +4082,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 552,
+            "line": 551,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4107,7 +4107,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 615,
+            "line": 614,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4118,7 +4118,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 636,
+            "line": 635,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4129,7 +4129,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 658,
+            "line": 657,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4152,7 +4152,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 679,
+            "line": 678,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4174,7 +4174,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 698,
+            "line": 697,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4188,7 +4188,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 709,
+            "line": 708,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4201,7 +4201,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 722,
+            "line": 721,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4214,7 +4214,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 735,
+            "line": 734,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4234,7 +4234,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 890,
+            "line": 889,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4253,7 +4253,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 904,
+            "line": 903,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4272,7 +4272,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 922,
+            "line": 921,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4289,7 +4289,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 936,
+            "line": 935,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -14362,7 +14362,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 153,
+            "line": 160,
             "description": "Updates the volume of this SoundInstance.",
             "itemtype": "method",
             "name": "updateVolume",
@@ -14381,7 +14381,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 177,
+            "line": 184,
             "description": "Pauses this SoundInstance.",
             "itemtype": "method",
             "name": "pause",
@@ -14393,7 +14393,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 190,
+            "line": 197,
             "description": "Unpauses this SoundInstance.",
             "itemtype": "method",
             "name": "unpause",
@@ -16584,79 +16584,85 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 16,
+            "line": 19,
             "description": "If we have a console",
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "hasConsole",
+            "name": "_hasConsole",
             "type": "Bool",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 24,
-            "description": "The most general default debug level",
-            "static": 1,
-            "final": 1,
+            "line": 31,
+            "description": "The levels of logging",
             "itemtype": "property",
-            "name": "GENERAL",
-            "type": "Int",
+            "name": "Levels",
+            "type": "springroll.Enum",
+            "static": 1,
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 32,
-            "description": "Log level for debug messages",
-            "static": 1,
-            "final": 1,
+            "line": 38,
+            "description": "The most basic general log level",
             "itemtype": "property",
-            "name": "DEBUG",
+            "name": "Levels.GENERAL",
             "type": "Int",
+            "static": 1,
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 40,
-            "description": "Log level for debug messages",
-            "static": 1,
-            "final": 1,
+            "line": 45,
+            "description": "The debug log level, more priority than GENERAL",
             "itemtype": "property",
-            "name": "INFO",
+            "name": "Levels.DEBUG",
             "type": "Int",
+            "static": 1,
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 48,
-            "description": "Log level for warning messages",
-            "static": 1,
-            "final": 1,
+            "line": 52,
+            "description": "The info log level, more priority than DEBUG",
             "itemtype": "property",
-            "name": "WARN",
+            "name": "Levels.DEBUG",
             "type": "Int",
+            "static": 1,
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 56,
-            "description": "Log level for error messages",
-            "static": 1,
-            "final": 1,
+            "line": 59,
+            "description": "The warn log level, more priority than WARN",
             "itemtype": "property",
-            "name": "ERROR",
+            "name": "Levels.WARN",
             "type": "Int",
+            "static": 1,
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 64,
+            "line": 66,
+            "description": "The error log level, the most priority log level",
+            "itemtype": "property",
+            "name": "Levels.ERROR",
+            "type": "Int",
+            "static": 1,
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 74,
             "description": "The minimum log level to show, by default it's set to\nshow all levels of logging.",
             "access": "public",
             "tagname": "",
@@ -16669,7 +16675,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 73,
+            "line": 83,
             "description": "Boolean to turn on or off the debugging",
             "access": "public",
             "tagname": "",
@@ -16682,39 +16688,26 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 81,
+            "line": 91,
             "description": "The jQuery element to output debug messages to",
             "access": "public",
             "tagname": "",
             "static": 1,
             "itemtype": "property",
             "name": "output",
-            "type": "JQuery",
+            "type": "DOMElement",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 90,
-            "description": "If the console is currently connected with JSConsole (jsconsole.com).",
-            "access": "private",
-            "tagname": "",
-            "static": 1,
-            "itemtype": "property",
-            "name": "_isJSConsole",
-            "type": "Bool",
-            "class": "Debug",
-            "module": "Core"
-        },
-        {
-            "file": "src/utils/Debug.js",
-            "line": 98,
+            "line": 100,
             "description": "Browser port for the websocket browsers tend to block ports",
             "static": 1,
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "_NET_PORT",
+            "name": "NET_PORT",
             "type": "Int",
             "default": "1025",
             "class": "Debug",
@@ -16722,21 +16715,21 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 107,
-            "description": "If the web socket is connected",
+            "line": 109,
+            "description": "If the WebSocket is connected",
             "static": 1,
             "access": "private",
             "tagname": "",
             "default": "false",
             "itemtype": "property",
-            "name": "_isConnected",
+            "name": "_useSocket",
             "type": "Bool",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 116,
+            "line": 118,
             "description": "The socket connection",
             "static": 1,
             "access": "private",
@@ -16749,33 +16742,33 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 124,
+            "line": 126,
             "description": "The current message object being sent to the `WebSocket`",
             "static": 1,
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "_messageObj",
+            "name": "_socketMessage",
             "type": "Object",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 132,
+            "line": 134,
             "description": "The `WebSocket` message queue",
             "static": 1,
             "access": "private",
             "tagname": "",
             "itemtype": "property",
-            "name": "_messageQueue",
+            "name": "_socketQueue",
             "type": "Array",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 140,
+            "line": 142,
             "description": "Connect to the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16789,12 +16782,16 @@
                     "type": "String"
                 }
             ],
+            "return": {
+                "description": "If a connection was attempted",
+                "type": "Boolean"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 171,
+            "line": 173,
             "description": "Disconnect from the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16806,7 +16803,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 186,
+            "line": 188,
             "description": "Callback when the `WebSocket` is connected",
             "access": "private",
             "tagname": "",
@@ -16818,7 +16815,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 210,
+            "line": 216,
             "description": "Global window error handler, used for remote connections.",
             "static": 1,
             "access": "private",
@@ -16857,7 +16854,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 232,
+            "line": 246,
             "description": "Callback for when the websocket is closed",
             "access": "private",
             "tagname": "",
@@ -16869,13 +16866,13 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 252,
+            "line": 265,
             "description": "Sent to the output",
             "access": "private",
             "tagname": "",
             "static": 1,
             "itemtype": "method",
-            "name": "output",
+            "name": "domOutput",
             "params": [
                 {
                     "name": "level",
@@ -16893,7 +16890,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 268,
+            "line": 281,
             "description": "Send a remote log message using the socket connection",
             "access": "public",
             "tagname": "",
@@ -16909,15 +16906,21 @@
                 {
                     "name": "level",
                     "description": "The log level to send",
-                    "type": "Level"
+                    "type": "Level",
+                    "optional": true,
+                    "optdefault": "0"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 350,
+            "line": 311,
             "description": "Log something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16931,12 +16934,16 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 371,
+            "line": 335,
             "description": "Debug something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16950,12 +16957,16 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 392,
+            "line": 367,
             "description": "Info something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16969,12 +16980,16 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 413,
+            "line": 391,
             "description": "Warn something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16988,12 +17003,16 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 434,
+            "line": 415,
             "description": "Error something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17012,7 +17031,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 455,
+            "line": 438,
             "description": "Assert that something is true",
             "static": 1,
             "access": "public",
@@ -17031,12 +17050,16 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 472,
+            "line": 461,
             "description": "Method to describe an object in the console",
             "static": 1,
             "itemtype": "method",
@@ -17050,24 +17073,32 @@
                     "type": "Object"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 487,
+            "line": 478,
             "description": "Method to clear the console",
             "static": 1,
             "access": "public",
             "tagname": "",
             "itemtype": "method",
             "name": "clear",
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 503,
+            "line": 499,
             "description": "Generate a stack track in the output",
             "static": 1,
             "access": "public",
@@ -17081,6 +17112,417 @@
                     "type": "*"
                 }
             ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 516,
+            "description": "Starts a new logging group with an optional title. All console output that \noccurs after calling this method and calling `Debug.groupEnd()` appears in \nthe same visual group.",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "group",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Optional parameters to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 535,
+            "description": "Creates a new logging group that is initially collapsed instead of open, \nas with `Debug.group()`.",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "groupCollapsed",
+            "params": [
+                {
+                    "name": "params",
+                    "description": "Optional parameters to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 553,
+            "description": "Starts a new logging group with an optional title. All console output that \noccurs after calling this method and calling console.groupEnd() appears in \nthe same visual group.",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "itemtype": "method",
+            "name": "groupEnd",
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 571,
+            "description": "List of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "_palette",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 584,
+            "description": "Output a general log colored as navy",
+            "itemtype": "method",
+            "name": "navy",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 592,
+            "description": "Output a general log colored as blue",
+            "itemtype": "method",
+            "name": "blue",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 600,
+            "description": "Output a general log colored as aqua",
+            "itemtype": "method",
+            "name": "aqua",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 608,
+            "description": "Output a general log colored as teal",
+            "itemtype": "method",
+            "name": "teal",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 616,
+            "description": "Output a general log colored as olive",
+            "itemtype": "method",
+            "name": "olive",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 624,
+            "description": "Output a general log colored as green",
+            "itemtype": "method",
+            "name": "green",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 632,
+            "description": "Output a general log colored as lime",
+            "itemtype": "method",
+            "name": "lime",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 640,
+            "description": "Output a general log colored as yellow",
+            "itemtype": "method",
+            "name": "yellow",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 648,
+            "description": "Output a general log colored as orange",
+            "itemtype": "method",
+            "name": "orange",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 656,
+            "description": "Output a general log colored as red",
+            "itemtype": "method",
+            "name": "red",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 664,
+            "description": "Output a general log colored as pink",
+            "itemtype": "method",
+            "name": "pink",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 672,
+            "description": "Output a general log colored as purple",
+            "itemtype": "method",
+            "name": "purple",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 680,
+            "description": "Output a general log colored as maroon",
+            "itemtype": "method",
+            "name": "maroon",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 688,
+            "description": "Output a general log colored as silver",
+            "itemtype": "method",
+            "name": "silver",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 696,
+            "description": "Output a general log colored as gray",
+            "itemtype": "method",
+            "name": "gray",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 705,
+            "description": "Loop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 715,
+            "description": "Linting will not allow for functions to be inside a loop.\nReturning the function in closure placed outside the for-loop\nthat generates the Debug[<color>] functions will bypass\nthis linting restriction.",
+            "itemtype": "method",
+            "name": "_lintingWorkAroundClosure",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "hex",
+                    "description": "Hex value to apply to CSS color",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Function"
+            },
             "class": "Debug",
             "module": "Core"
         },
@@ -19001,6 +19443,14 @@
         {
             "message": "Missing item type\nA task is now starting\nevent onItemLoading",
             "line": " src/tasks/TaskEvent.js:47"
+        },
+        {
+            "message": "Missing item type\nList of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
+            "line": " src/utils/Debug.js:571"
+        },
+        {
+            "message": "Missing item type\nLoop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
+            "line": " src/utils/Debug.js:705"
         }
     ]
 }
