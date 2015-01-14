@@ -427,28 +427,42 @@
 	// cut this word into pieces and do a dynamic access
 	var trueKEY = 'DE' + 'BUG';
 	
-	//detect IE9's issue with apply on console functions
-	try
+	if (_hasConsole)
 	{
-		console.assert.apply(console, [true, "IE9 test"]);
-	}
-	catch(error)
-	{
-		var bind = Function.prototype.bind;
-		console.log = bind.call(console.log, console);
-		if(console.debug)
-			console.debug = bind.call(console.debug, console);
-		console.warn = bind.call(console.warn, console);
-		console.error = bind.call(console.error, console);
-		console.dir = bind.call(console.dir, console);
-		console.assert = bind.call(console.assert, console);
-		if(console.trace)
-			console.trace = bind.call(console.trace, console);
-		if(console.group)
+		try
 		{
-			console.group = bind.call(console.group, console);
-			console.groupCollapsed = bind.call(console.groupCollapsed, console);
-			console.groupEnd = bind.call(console.groupEnd, console);
+			// detect IE9's issue with apply on console functions
+			console.assert.apply(console, [true, "IE9 test"]);
+		}
+		catch(error)
+		{
+			// Reference to the bind method
+			var bind = Function.prototype.bind;
+
+			// Bind all these methods in order to use apply
+			// this is ONLY needed for IE9
+			var methods = [
+				'log',
+				'debug',
+				'warn',
+				'error',
+				'assert',
+				'dir',
+				'trace',
+				'group',
+				'groupCollapsed',
+				'groupEnd'
+			];
+
+			// Loop through console methods
+			for (var method, i = 0; i < methods.length; i++)
+			{
+				method = methods[i];
+				if (console[method])
+				{
+					console[method] = bind.call(console[method], console);
+				}
+			}
 		}
 	}
 

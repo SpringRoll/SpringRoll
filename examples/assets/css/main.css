@@ -23,6 +23,9 @@ body, html {
 	position:absolute;
 	left:50%;
 	top:50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 }
 
@@ -138,6 +141,9 @@ a:hover {
 	left:20px;
 	bottom:20px;
 	right:20px;
+	-webkit-transform:none;
+	-moz-transform:none;
+	-ms-transform:none;
 	transform:none;
 	margin:0;
 
@@ -149,6 +155,9 @@ a:hover {
 	position:absolute;
 	left:50%;
 	top:50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	background:transparent;
 }
