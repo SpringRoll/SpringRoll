@@ -1221,7 +1221,7 @@
 	*                                                   extension on all sound file urls.
 	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
 	*                                        (unminifed library version only)
-	*  @param {String} [options.name] The name of the game
+	*  @param {String} [options.name=''] The name of the game
 	*  @param {Boolean} [options.forceMobile=false] Manually override the check for isMobile
 	*                                               (unminifed library version only)
 	*  @param {Boolean} [options.updateTween=true] Have the application take care of the Tween
@@ -1281,7 +1281,7 @@
 			mute : false,
 			captions : null,
 			updateTween : true,
-			name : 'Untitled',
+			name : '',
 			forceMobile : false,
 			state : null,
 			transition : null,
@@ -1294,7 +1294,7 @@
 		/**
 		*  The name of the game, useful for debugging purposes
 		*  @property {String} name
-		*  @default "Untitled"
+		*  @default ""
 		*/
 		this.name = this.options.name;
 
