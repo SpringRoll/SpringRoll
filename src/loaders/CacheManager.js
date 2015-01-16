@@ -222,7 +222,7 @@
 	{
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = Application.instance.options.basePath;
-		if(basePath.indexOf("?") > 0) return url;
+		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		var ver = this._versions[url];
 		//if a version exists for this url, and the url doesn't already have 'v=' in it
@@ -246,7 +246,7 @@
 		if(!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
 		var basePath = Application.instance.options.basePath;
-		if(basePath.indexOf("?") > 0) return url;
+		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		//apply the versioning if it isn't already on the url
 		var test = this._globalVersion.indexOf("cb=") === 0 ?
@@ -270,7 +270,7 @@
 	p._applyBasePath = function(url)
 	{
 		var basePath = Application.instance.options.basePath;
-		if (/^http(s)?\:/.test(url) === false && basePath && url.search(basePath) == -1)
+		if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			url = basePath + url;
 		}
