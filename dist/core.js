@@ -3305,7 +3305,7 @@
 	*  The Loader is the singleton loader for loading all assets
 	*  including images, data, code and sounds. Loader supports cache-busting
 	*  in the browser using dynamic query string parameters.
-	* 
+	*
 	*  @class Loader
 	*/
 	var Loader = function()
@@ -3499,7 +3499,7 @@
 	};
 	
 	/**
-	*  Load a file 
+	*  Load a file
 	*  @method load
 	*  @public
 	*  @param {string} url The file path to load
@@ -3579,7 +3579,7 @@
 		qi.progress = event.progress;
 		if (qi.updateCallback){
 			qi.updateCallback(qi.progress);
-		}	
+		}
 	};
 	
 	/**
@@ -3639,7 +3639,7 @@
 	
 	/**
 	*  Alert that the loading is finished
-	*  @private 
+	*  @private
 	*  @method _loadDone
 	*  @param {LoaderQueueItem} qi The loader queue item
 	*  @param {object} result The event from preloadjs or null
@@ -3687,7 +3687,7 @@
 				return true;
 			}
 		}
-		return false;		
+		return false;
 	};
 	
 	p._getQI = function()
@@ -3721,7 +3721,7 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new LoadQueue(true, basePath);
+			rtn = new LoadQueue(true, basePath, Application.instance.options.crossOrigin);
 		//allow the loader to handle sound as well
 		if(Sound)
 		{
