@@ -49,7 +49,7 @@
 
 		for(var i = 0, len = urls.length; i < len; ++i)
 		{
-			urls[i] = cm.prepare(urls[i]);
+			urls[i] = cm.prepare(urls[i], true);
 		}
 
 		/**

@@ -3413,11 +3413,11 @@
 					{
 						asset = assets[assetCollection[j]];
 						if(asset && !asset._isLoaded)
-							urls.push(cm.prepare(AssetManager.getUrl(assetCollection[j])));
+							urls.push(cm.prepare(AssetManager.getUrl(assetCollection[j]), true));
 					}
 				}
 				else if(!asset._isLoaded)
-					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i])));
+					urls.push(cm.prepare(AssetManager.getUrl(assetOrAssets[i]), true));
 			}
 			if(urls.length)
 			{
