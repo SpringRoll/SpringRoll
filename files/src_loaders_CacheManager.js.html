@@ -468,6 +468,10 @@
 	*/
 	p._applySpecificVersion = function(url)
 	{
+		//don&#x27;t apply versioning if the asset is retrieved from a php service
+		var basePath = Application.instance.options.basePath;
+		if(basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
+		
 		var ver = this._versions[url];
 		//if a version exists for this url, and the url doesn&#x27;t already have &#x27;v=&#x27; in it
 		//then apply the url specific version.
@@ -488,6 +492,11 @@
 	p._applyGlobalVersion = function(url)
 	{
 		if(!this._globalVersion) return url;
+		//don&#x27;t apply versioning if the asset is retrieved from a php service
+		var basePath = Application.instance.options.basePath;
+		if(basePath &amp;&amp; basePath.indexOf(&quot;?&quot;) &gt; 0) return url;
+		
+		//apply the versioning if it isn&#x27;t already on the url
 		var test = this._globalVersion.indexOf(&quot;cb=&quot;) === 0 ?
 			(/(\?|\&amp;)cb\=[0-9]*/) : (/(\?|\&amp;)v\=/);
 		if(test.test(url) === false)
@@ -509,7 +518,7 @@
 	p._applyBasePath = function(url)
 	{
 		var basePath = Application.instance.options.basePath;
-		if (/^http(s)?\:/.test(url) === false &amp;&amp; basePath &amp;&amp; url.search(basePath) == -1)
+		if (basePath &amp;&amp; /^http(s)?\:/.test(url) === false &amp;&amp; url.search(basePath) == -1)
 		{
 			url = basePath + url;
 		}
@@ -529,14 +538,15 @@
 	*/
 	p.prepare = function(url, applyBasePath)
 	{
-		for (var i = 0, len = this._filters.length; i &lt; len; ++i)
-		{
-			url = this._filters[i](url);
-		}
-
+		//apply first in case the base path is strange and makes the rest of the path a query string
 		if(applyBasePath)
 		{
 			url = this._applyBasePath(url);
+		}
+		
+		for (var i = 0, len = this._filters.length; i &lt; len; ++i)
+		{
+			url = this._filters[i](url);
 		}
 		return url;
 	};

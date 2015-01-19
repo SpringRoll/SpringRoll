@@ -2396,7 +2396,8 @@
                             "name": "name",
                             "description": "The name of the game",
                             "type": "String",
-                            "optional": true
+                            "optional": true,
+                            "optdefault": "''"
                         },
                         {
                             "name": "forceMobile",
@@ -4073,6 +4074,13 @@
                     "description": "Specify a container to stop timelines\n                                        contained within. This only checks one layer deep.",
                     "type": "createjs.Container",
                     "optional": true
+                },
+                {
+                    "name": "doCancelled",
+                    "description": "If we should do the cancelled callback",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
                 }
             ],
             "static": 1,
@@ -4082,7 +4090,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 551,
+            "line": 553,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4107,7 +4115,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 614,
+            "line": 616,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4118,7 +4126,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 635,
+            "line": 637,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4129,7 +4137,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 657,
+            "line": 659,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4152,7 +4160,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 678,
+            "line": 680,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4174,7 +4182,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 697,
+            "line": 699,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4188,7 +4196,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 708,
+            "line": 710,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4201,7 +4209,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 721,
+            "line": 723,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4214,7 +4222,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 734,
+            "line": 736,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4234,7 +4242,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 889,
+            "line": 891,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4253,7 +4261,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 903,
+            "line": 905,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4272,7 +4280,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 921,
+            "line": 923,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4289,7 +4297,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 935,
+            "line": 937,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -7721,13 +7729,23 @@
             "description": "Stops all current animations",
             "itemtype": "method",
             "name": "stop",
+            "static": 1,
+            "params": [
+                {
+                    "name": "doCancelled",
+                    "description": "We if should do the cancelled callback, if available.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "true"
+                }
+            ],
             "class": "springroll.pixi.Animator",
             "module": "PIXI Display",
             "namespace": "springroll.pixi"
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 494,
+            "line": 498,
             "description": "Put an AnimatorTimeline back into the general pool after it's done playing\nor has been manually stopped.",
             "itemtype": "method",
             "name": "_repool",
@@ -7746,7 +7764,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 514,
+            "line": 518,
             "description": "Update each frame",
             "itemtype": "method",
             "name": "_update",
@@ -7765,7 +7783,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 776,
+            "line": 780,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -7784,7 +7802,7 @@
         },
         {
             "file": "src/displays/pixi/Animator.js",
-            "line": 801,
+            "line": 805,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -10138,7 +10156,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 207,
+            "line": 209,
             "description": "Checks if the EventDispatcher has a specific listener or any listener for a given event.",
             "itemtype": "method",
             "name": "has",
@@ -10165,7 +10183,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 226,
+            "line": 228,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10175,7 +10193,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 236,
+            "line": 238,
             "description": "Return type of the value.",
             "access": "private",
             "tagname": "",
@@ -10198,7 +10216,7 @@
         },
         {
             "file": "src/events/EventDispatcher.js",
-            "line": 258,
+            "line": 260,
             "description": "Adds EventDispatcher methods and properties to an object or object prototype.",
             "itemtype": "method",
             "name": "mixIn",
@@ -11262,7 +11280,7 @@
             "itemtype": "property",
             "name": "name",
             "type": "String",
-            "default": "\"Untitled\"",
+            "default": "\"\"",
             "class": "springroll.Game",
             "module": "Game",
             "namespace": "springroll"
@@ -11794,7 +11812,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 233,
+            "line": 237,
             "description": "Applies cache busting or a global version to a url.",
             "itemtype": "method",
             "name": "_applyGlobalVersion",
@@ -11817,7 +11835,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 252,
+            "line": 261,
             "description": "Applies a base path to a relative url. This is not used in the filtering\nsystem because PreloadJS has its own method of prepending the base path\nthat we use. Instead, it is used with an extra parameter to prepare().",
             "itemtype": "method",
             "name": "_applyBasePath",
@@ -11840,7 +11858,7 @@
         },
         {
             "file": "src/loaders/CacheManager.js",
-            "line": 271,
+            "line": 280,
             "description": "Prepare a URL with the necessary cache busting and/or versioning\nas well as the base directory.",
             "access": "public",
             "tagname": "",
@@ -16596,7 +16614,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 55,
+            "line": 70,
             "description": "The levels of logging",
             "itemtype": "property",
             "name": "Levels",
@@ -16607,7 +16625,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 62,
+            "line": 77,
             "description": "The most basic general log level",
             "itemtype": "property",
             "name": "Levels.GENERAL",
@@ -16618,7 +16636,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 69,
+            "line": 84,
             "description": "The debug log level, more priority than GENERAL",
             "itemtype": "property",
             "name": "Levels.DEBUG",
@@ -16629,7 +16647,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 76,
+            "line": 91,
             "description": "The info log level, more priority than DEBUG",
             "itemtype": "property",
             "name": "Levels.DEBUG",
@@ -16640,7 +16658,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 83,
+            "line": 98,
             "description": "The warn log level, more priority than WARN",
             "itemtype": "property",
             "name": "Levels.WARN",
@@ -16651,7 +16669,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 90,
+            "line": 105,
             "description": "The error log level, the most priority log level",
             "itemtype": "property",
             "name": "Levels.ERROR",
@@ -16662,7 +16680,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 98,
+            "line": 113,
             "description": "The minimum log level to show, by default it's set to\nshow all levels of logging.",
             "access": "public",
             "tagname": "",
@@ -16675,7 +16693,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 107,
+            "line": 122,
             "description": "Boolean to turn on or off the debugging",
             "access": "public",
             "tagname": "",
@@ -16688,7 +16706,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 115,
+            "line": 130,
             "description": "The jQuery element to output debug messages to",
             "access": "public",
             "tagname": "",
@@ -16701,7 +16719,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 124,
+            "line": 139,
             "description": "Browser port for the websocket browsers tend to block ports",
             "static": 1,
             "access": "private",
@@ -16715,7 +16733,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 133,
+            "line": 148,
             "description": "If the WebSocket is connected",
             "static": 1,
             "access": "private",
@@ -16729,7 +16747,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 142,
+            "line": 157,
             "description": "The socket connection",
             "static": 1,
             "access": "private",
@@ -16742,7 +16760,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 150,
+            "line": 165,
             "description": "The current message object being sent to the `WebSocket`",
             "static": 1,
             "access": "private",
@@ -16755,7 +16773,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 158,
+            "line": 173,
             "description": "The `WebSocket` message queue",
             "static": 1,
             "access": "private",
@@ -16768,7 +16786,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 166,
+            "line": 181,
             "description": "Connect to the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16791,7 +16809,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 197,
+            "line": 212,
             "description": "Disconnect from the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16803,7 +16821,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 212,
+            "line": 227,
             "description": "Callback when the `WebSocket` is connected",
             "access": "private",
             "tagname": "",
@@ -16815,7 +16833,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 240,
+            "line": 255,
             "description": "Global window error handler, used for remote connections.",
             "static": 1,
             "access": "private",
@@ -16854,7 +16872,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 270,
+            "line": 285,
             "description": "Callback for when the websocket is closed",
             "access": "private",
             "tagname": "",
@@ -16866,7 +16884,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 289,
+            "line": 304,
             "description": "Sent to the output",
             "access": "private",
             "tagname": "",
@@ -16890,7 +16908,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 305,
+            "line": 320,
             "description": "Send a remote log message using the socket connection",
             "access": "public",
             "tagname": "",
@@ -16920,7 +16938,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 335,
+            "line": 350,
             "description": "Log something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16943,7 +16961,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 362,
+            "line": 377,
             "description": "Debug something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16966,7 +16984,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 400,
+            "line": 415,
             "description": "Info something in the console or remote",
             "static": 1,
             "access": "public",
@@ -16989,7 +17007,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 427,
+            "line": 442,
             "description": "Warn something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17012,7 +17030,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 454,
+            "line": 469,
             "description": "Error something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17031,7 +17049,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 480,
+            "line": 495,
             "description": "Assert that something is true",
             "static": 1,
             "access": "public",
@@ -17059,7 +17077,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 503,
+            "line": 518,
             "description": "Method to describe an object in the console",
             "static": 1,
             "itemtype": "method",
@@ -17082,7 +17100,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 523,
+            "line": 538,
             "description": "Method to clear the console",
             "static": 1,
             "access": "public",
@@ -17098,7 +17116,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 544,
+            "line": 559,
             "description": "Generate a stack track in the output",
             "static": 1,
             "access": "public",
@@ -17121,7 +17139,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 564,
+            "line": 579,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling `Debug.groupEnd()` appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -17144,7 +17162,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 583,
+            "line": 598,
             "description": "Creates a new logging group that is initially collapsed instead of open,\nas with `Debug.group()`.",
             "static": 1,
             "access": "public",
@@ -17167,7 +17185,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 601,
+            "line": 616,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling console.groupEnd() appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -17183,7 +17201,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 619,
+            "line": 634,
             "description": "List of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
             "access": "private",
             "tagname": "",
@@ -17199,7 +17217,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 632,
+            "line": 647,
             "description": "Output a general log colored as navy",
             "itemtype": "method",
             "name": "navy",
@@ -17219,7 +17237,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 640,
+            "line": 655,
             "description": "Output a general log colored as blue",
             "itemtype": "method",
             "name": "blue",
@@ -17239,7 +17257,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 648,
+            "line": 663,
             "description": "Output a general log colored as aqua",
             "itemtype": "method",
             "name": "aqua",
@@ -17259,7 +17277,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 656,
+            "line": 671,
             "description": "Output a general log colored as teal",
             "itemtype": "method",
             "name": "teal",
@@ -17279,7 +17297,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 664,
+            "line": 679,
             "description": "Output a general log colored as olive",
             "itemtype": "method",
             "name": "olive",
@@ -17299,7 +17317,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 672,
+            "line": 687,
             "description": "Output a general log colored as green",
             "itemtype": "method",
             "name": "green",
@@ -17319,7 +17337,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 680,
+            "line": 695,
             "description": "Output a general log colored as lime",
             "itemtype": "method",
             "name": "lime",
@@ -17339,7 +17357,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 688,
+            "line": 703,
             "description": "Output a general log colored as yellow",
             "itemtype": "method",
             "name": "yellow",
@@ -17359,7 +17377,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 696,
+            "line": 711,
             "description": "Output a general log colored as orange",
             "itemtype": "method",
             "name": "orange",
@@ -17379,7 +17397,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 704,
+            "line": 719,
             "description": "Output a general log colored as red",
             "itemtype": "method",
             "name": "red",
@@ -17399,7 +17417,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 712,
+            "line": 727,
             "description": "Output a general log colored as pink",
             "itemtype": "method",
             "name": "pink",
@@ -17419,7 +17437,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 720,
+            "line": 735,
             "description": "Output a general log colored as purple",
             "itemtype": "method",
             "name": "purple",
@@ -17439,7 +17457,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 728,
+            "line": 743,
             "description": "Output a general log colored as maroon",
             "itemtype": "method",
             "name": "maroon",
@@ -17459,7 +17477,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 736,
+            "line": 751,
             "description": "Output a general log colored as silver",
             "itemtype": "method",
             "name": "silver",
@@ -17479,7 +17497,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 744,
+            "line": 759,
             "description": "Output a general log colored as gray",
             "itemtype": "method",
             "name": "gray",
@@ -17499,14 +17517,14 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 753,
+            "line": 768,
             "description": "Loop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 763,
+            "line": 778,
             "description": "Due to the way closures and variables work, _colorClosure returns\nthe color logging function needed for the color that you pass it.",
             "itemtype": "method",
             "name": "_colorClosure",
@@ -18881,7 +18899,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 642,
+            "line": 643,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -18905,7 +18923,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 659,
+            "line": 660,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -18915,7 +18933,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 693,
+            "line": 694,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -18946,7 +18964,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 725,
+            "line": 726,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -18978,7 +18996,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 770,
+            "line": 771,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -18999,7 +19017,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 781,
+            "line": 782,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -19023,7 +19041,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 803,
+            "line": 804,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -19040,7 +19058,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 818,
+            "line": 819,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -19053,7 +19071,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 836,
+            "line": 837,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -19066,7 +19084,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 852,
+            "line": 853,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -19078,7 +19096,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 899,
+            "line": 900,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -19446,11 +19464,11 @@
         },
         {
             "message": "Missing item type\nList of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
-            "line": " src/utils/Debug.js:619"
+            "line": " src/utils/Debug.js:634"
         },
         {
             "message": "Missing item type\nLoop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
-            "line": " src/utils/Debug.js:753"
+            "line": " src/utils/Debug.js:768"
         }
     ]
 }

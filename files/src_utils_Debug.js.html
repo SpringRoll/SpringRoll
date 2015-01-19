@@ -276,27 +276,42 @@
 	// cut this word into pieces and do a dynamic access
 	var DEBUGKEY = &#x27;DE&#x27; + &#x27;BUG&#x27;;
 	
-	//detect IE9&#x27;s issue with apply on console functions
-	try
+	if (_hasConsole)
 	{
-		console.assert.apply(console, [true, &quot;IE9 test&quot;]);
-	}
-	catch(error)
-	{
-		var bind = Function.prototype.bind;
-		console.log = bind.call(console.log, console);
-		if(console.debug)
-			console.debug = bind.call(console.debug, console);
-		console.warn = bind.call(console.warn, console);
-		console.error = bind.call(console.error, console);
-		console.dir = bind.call(console.dir, console);
-		console.assert = bind.call(console.assert, console);
-		console.trace = bind.call(console.trace, console);
-		if(console.group)
+		try
 		{
-			console.group = bind.call(console.group, console);
-			console.groupCollapsed = bind.call(console.groupCollapsed, console);
-			console.groupEnd = bind.call(console.groupEnd, console);
+			// detect IE9&#x27;s issue with apply on console functions
+			console.assert.apply(console, [true, &quot;IE9 test&quot;]);
+		}
+		catch(error)
+		{
+			// Reference to the bind method
+			var bind = Function.prototype.bind;
+
+			// Bind all these methods in order to use apply
+			// this is ONLY needed for IE9
+			var methods = [
+				&#x27;log&#x27;,
+				&#x27;debug&#x27;,
+				&#x27;warn&#x27;,
+				&#x27;error&#x27;,
+				&#x27;assert&#x27;,
+				&#x27;dir&#x27;,
+				&#x27;trace&#x27;,
+				&#x27;group&#x27;,
+				&#x27;groupCollapsed&#x27;,
+				&#x27;groupEnd&#x27;
+			];
+
+			// Loop through console methods
+			for (var method, i = 0; i &lt; methods.length; i++)
+			{
+				method = methods[i];
+				if (console[method])
+				{
+					console[method] = bind.call(console[method], console);
+				}
+			}
 		}
 	}
 
@@ -568,12 +583,12 @@
 		{
 			_socketQueue.push({
 				message: message,
-				level: level
+				level: level.name
 			});
 		}
 		else // send the log immediately
 		{
-			_socketMessage.level = level;
+			_socketMessage.level = level.name;
 			_socketMessage.message = message;
 			_socket.send(JSON.stringify(_socketMessage));
 		}
