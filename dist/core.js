@@ -1468,8 +1468,10 @@
 		}
 		else
 		{
-			var names = name.split(' '), n = null;
-			var listener, index;
+			var names = name.split(' '); 
+			var	n = null;
+			var listener; 
+			var	index;
 			for (var i = 0, nl = names.length; i < nl; i++)
 			{
 				n = names[i];

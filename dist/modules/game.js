@@ -1153,7 +1153,7 @@
 		
 		this._display.animator.stop(this._transition);
 		
-		if (this._stage)
+		if (this._state)
 		{
 			this._state._internalExit();
 		}
@@ -1167,9 +1167,9 @@
 			}
 		}
 
-		this._transition = 
-		this._state = 
-		this._oldState = 
+		this._transition = null;
+		this._state = null;
+		this._oldState = null;
 		this._states = null;
 	};
 	
