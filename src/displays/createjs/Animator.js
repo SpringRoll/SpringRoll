@@ -92,7 +92,7 @@
 	*/
 	Animator.destroy = function()
 	{
-		Animator.stopAll();
+		Animator.stopAll(null, false);
 		Animator.captions = null;
 
 		_timelines = null;
@@ -528,12 +528,14 @@
 	*   @method stopAll
 	*   @param {createjs.Container} [container] Specify a container to stop timelines
 	*                                           contained within. This only checks one layer deep.
+	*   @param {boolean} [doCancelled=true] If we should do the cancelled callback
 	*   @static
 	*/
-	Animator.stopAll = function(container)
+	Animator.stopAll = function(container, doCancelled)
 	{
 		if (!Animator._hasTimelines()) return;
 
+		doCancelled = doCancelled !== undefined ? !!doCancelled : true;
 		var timeline;
 		var removedTimelines = _timelines.slice();
 
@@ -543,7 +545,7 @@
 
 			if (!container || container.contains(timeline.instance))
 			{
-				Animator._remove(timeline, true);
+				Animator._remove(timeline, doCancelled);
 			}
 		}
 	};

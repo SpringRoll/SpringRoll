@@ -799,7 +799,7 @@
 *  @module PIXI Display
 *  @namespace springroll.pixi
 */
-(function() {
+(function(undefined) {
 	
 	var Spine = include('PIXI.Spine'),
 		Texture = include('PIXI.Texture'),
@@ -1269,15 +1269,19 @@
 	
 	/**
 	 * Stops all current animations
-	 *
+	 * 
 	 * @method stop
+	 * @static
+	 * @param {boolean} [doCancelled=true] We if should do the cancelled callback, if available.
 	 */
-	Animator.stopAll = function()
+	Animator.stopAll = function(doCancelled)
 	{
+		doCancelled = doCancelled !== undefined ? true : !!doCancelled;
+
 		for(var i = 0; i < _numAnims; ++i)
 		{
 				var t = _timelines[i];
-				if (t.cancelledCallback)
+				if (doCancelled && t.cancelledCallback)
 					t.cancelledCallback();
 				if (t.soundInst)
 					t.soundInst.stop();
@@ -1602,6 +1606,7 @@
 	 */
 	Animator.destroy = function()
 	{
+		Animator.stopAll(false);
 		Animator.captions = null;
 		_animPool = null;
 		_timelines = null;
