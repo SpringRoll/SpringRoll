@@ -812,7 +812,7 @@
 	*/
 	Animator.destroy = function()
 	{
-		Animator.stopAll(null, false);
+		Animator.stopAll(null, true);
 		Animator.captions = null;
 
 		_timelines = null;
@@ -1247,15 +1247,15 @@
 	*
 	*   @method stopAll
 	*   @param {createjs.Container} [container] Specify a container to stop timelines
-	*                                           contained within. This only checks one layer deep.
-	*   @param {boolean} [doCancelled=true] If we should do the cancelled callback
+	*          contained within. This only checks one layer deep.
+	*   @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
+	*                                            on cancelled callback of the current animations.
 	*   @static
 	*/
-	Animator.stopAll = function(container, doCancelled)
+	Animator.stopAll = function(container, removeCallbacks)
 	{
 		if (!Animator._hasTimelines()) return;
 
-		doCancelled = doCancelled !== undefined ? !!doCancelled : true;
 		var timeline;
 		var removedTimelines = _timelines.slice();
 
@@ -1265,7 +1265,11 @@
 
 			if (!container || container.contains(timeline.instance))
 			{
-				Animator._remove(timeline, doCancelled);
+				if (removeCallbacks)
+				{
+					timeline.onComplete = timeline.onCancelled = null;
+				}
+				Animator._remove(timeline, true);
 			}
 		}
 	};
