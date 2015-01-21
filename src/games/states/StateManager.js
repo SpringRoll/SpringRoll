@@ -199,9 +199,6 @@
 		
 		// Give the state a reference to the manager
 		state.manager = this;
-		
-		// Make sure the state ie exited initially
-		state._internalExit();
 	};
 	
 	/**
@@ -631,7 +628,6 @@
 	
 	/**
 	*   Remove the state manager
-	*
 	*   @function destroy
 	*/
 	p.destroy = function()
