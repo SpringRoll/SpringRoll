@@ -174,6 +174,7 @@
 			else if(typeof item == "number")
 				total += item - this._timer;
 		}
+		return total;
 	};
 
 	/**
