@@ -646,7 +646,8 @@
 				context: s.context || defaultContext,
 				playAfterLoad: false,
 				preloadCallback: null,
-				data:s//save data for potential use by SoundJS plugins
+				data:s,//save data for potential use by SoundJS plugins
+				duration:0
 			};
 			if (temp.context)
 			{
@@ -725,6 +726,35 @@
 	{
 		var sound = this._sounds[alias];
 		return sound ? sound.playing.length + sound.waitingToPlay.length > 0 : false;
+	};
+	
+	/**
+	*  Gets the duration of a sound in milliseconds, if it has been loaded.
+	*  @method getDuration
+	*  @public
+	*  @param {String} alias The alias of the sound to look for.
+	*  @return {int|null} The duration of the sound in milliseconds. If the sound has not been
+	*                     loaded, 0 is returned. If no sound exists by that alias, null is returned.
+	*/
+	p.getDuration = function(alias)
+	{
+		var sound = this._sounds[alias];
+		
+		if(!sound) return null;
+		
+		if(!sound.duration)//sound hasn't been loaded yet
+		{
+			if(sound.loadState == LoadStates.loaded)
+			{
+				//play the sound once to get the duration of it
+				var channel = SoundJS.play(alias, null, null, null, null, /*volume*/0);
+				sound.duration = channel.getDuration();
+				//stop the sound
+				channel.stop();
+			}
+		}
+		
+		return sound.duration;
 	};
 
 	/**
@@ -962,6 +992,8 @@
 				inst._endCallback = completeCallback;
 				inst.updateVolume();
 				inst.length = channel.getDuration();
+				if(!sound.duration)
+					sound.duration = inst.length;
 				inst._channel.addEventListener("complete", inst._endFunc);
 				if (startCallback)
 					setTimeout(startCallback, 0);
@@ -1087,6 +1119,8 @@
 				if (channel.handleExtraData)
 					channel.handleExtraData(sound.data);
 				inst.length = channel.getDuration();
+				if(!sound.duration)
+					sound.duration = inst.length;
 				inst.updateVolume();
 				channel.addEventListener("complete", inst._endFunc);
 				if (inst._startFunc)
@@ -1140,8 +1174,6 @@
 			for (var i = 0, len = waiting.length; i < len; ++i)
 			{
 				inst = waiting[i];
-				/*if (inst._endCallback)
-					inst._endCallback();*/
 				this._poolInst(inst);
 			}
 			waiting.length = 0;
@@ -1463,6 +1495,7 @@
 		var sound = this._sounds[alias];
 		if (sound)
 		{
+			
 			sound.loadState = LoadStates.loaded;
 			if (sound.playAfterLoad)
 				this._playAfterLoad(alias);
