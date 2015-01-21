@@ -143,10 +143,38 @@
 			}
 		},
 		get: function()
-		{ 
-			return this._captions; 
+		{
+			return this._captions;
 		}
 	});
+	
+	/**
+	 * Calculates the amount of time elapsed in the current playlist of audio/silence.
+	 * @method getElapsed
+	 * @return {int} The elapsed time in milliseconds.
+	 */
+	p.getElapsed = function()
+	{
+		var total = 0, item, i;
+		for(i = 0; i < this._listCounter; ++i)
+		{
+			item = this.soundList[i];
+			if(typeof item == "string")
+				total += Sound.instance.getDuration(item);
+			else if(typeof item == "number")
+				total += item;
+		}
+		//get the current item
+		i = this._listCounter;
+		if(i < this.soundList.length)
+		{
+			item = this.soundList[i];
+			if(typeof item == "string")
+				total += this._soundInstance.position;
+			else if(typeof item == "number")
+				total += item - this._timer;
+		}
+	};
 
 	/**
 	*	Plays a single audio alias, interrupting any current playback.
