@@ -3555,6 +3555,9 @@
 	*/
 	p._onLoadFailed = function(qi, event)
 	{
+		if(!_instance)
+			return;
+		
 		Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
 		
 		var loader = loaders[qi.url];
@@ -3603,6 +3606,9 @@
 	*/
 	p._onLoadCompleted = function(qi, ev)
 	{
+		if(!_instance)
+			return;
+
 		if(true)
 		{
 			Debug.log("File loaded successfully from " + qi.url);
