@@ -503,9 +503,11 @@
 	*
 	*   @method stop
 	*   @param {createjs.MovieClip} instance The MovieClip to stop the action on
+	*   @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
+	*                                            on cancelled callback of this animation.
 	*   @static
 	*/
-	Animator.stop = function(instance)
+	Animator.stop = function(instance, removeCallbacks)
 	{
 		if (!_timelines) return;
 
@@ -517,6 +519,10 @@
 				Debug.log("No timeline was found matching the instance id " + instance);
 			}
 			return;
+		}
+		if (removeCallbacks)
+		{
+			timeline.onComplete = timeline.onCancelled = null;
 		}
 		Animator._remove(timeline, true);
 	};
