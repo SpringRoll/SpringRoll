@@ -359,6 +359,7 @@
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 			
 			var interactionManager = this.stage.interactionManager;
+			if(!interactionManager) return;
 			if(value)
 			{
 				//add events to the interaction manager's target
