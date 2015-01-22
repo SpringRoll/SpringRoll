@@ -3214,7 +3214,7 @@
 	};
 
 	//=== Giving functions and properties to draggable objects objects
-	var enableDrag = function()
+	var enableDrag = function(enable)
 	{
 		// Allow for the enableDrag(false) 
 		if (enable === false)
