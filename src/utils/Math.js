@@ -42,31 +42,33 @@
 	 * Return dist between two points
 	 * @method dist
 	 * @static
-	 * @param {Number|Point|Object} x
-	 * 		The x position of the first point,
-	 *		or a Point|Object with x and y values
-	 * @param {Number|Point|Object} y
-	 *		The y position of the first point,
-	 * 		or a Point|Object with x and y values
-	 * @param {Number} x0 The x position of the second point
+	 * @param {Number|Point|Object} x The x position of the first point,
+	 *                                or a Point/Object with x and y values
+	 * @param {Number|Point|Object} y The y position of the first point,
+	 *                                or a second Point/Object with x and y values
+	 * @param {Number|Point|Object} x0 The x position of the second point
+	 *                                 or a Point/Object with x and y values (if x&y were Numbers)
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
 	Math.dist = function(x, y, x0, y0)
 	{
-		if (x.x !== undefined && !isNaN(x.x))
+		//see if the first parameter is a point
+		if(typeof x.x == "number" && x.x == x.x)//faster !isNaN
 		{
-			// If parameter 'x' has a value of .x, and that value is 
-			// a valid number, assume we are using sending through 
-			// two points or two objects that each have an .x and .y value
-			var p1 = x;
-			var p2 = y;
-
-			var twoParamDist = Math.sqrt((p1.x -= p2.x) * p1.x + (p1.y -= p2.y) * p1.y);
-			return twoParamDist;
+			//shift later parameters back
+			y0 = x0;
+			x0 = y;
+			
+			y = x.y;
+			x = x.x;
 		}
-
-		var fourParamDist = Math.sqrt((x -= x0) * x + (y -= y0) * y);
-		return fourParamDist;
+		//see if the 2nd parameter is a point
+		if(typeof x0.x == "number" && x0.x == x0.x)
+		{
+			y0 = x0.y;
+			x0 = x0.x;
+		}
+		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
 	};
 }(Math));

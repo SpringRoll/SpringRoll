@@ -4016,7 +4016,7 @@
 	};
 
 	/**
-	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function. 
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
 	 * In our case, this will check if the object has a specially-named property (`__classname`).
 	 * If it does, we will attempt to construct a new instance of that class, rather than using a
 	 * plain old Object. Note that this recurses through the object.
@@ -4025,25 +4025,25 @@
 	 * @param  {Object} value Object that we wish to restore
 	 * @return {Object}       The object that was parsed - either cast to a class, or not
 	 */
-	SavedData.reviver = function(key, value) {
-	    if(value.__classname)
-	    {
-	        var _class = include(value.__classname);
-	        if(_class)
-	        {
-	            var rtn = new _class();
-	            //if we may call fromJSON, do so
-	            if(rtn.fromJSON)
-	            {
-	                rtn.fromJSON(value);
-	                //return the cast Object
-	                return rtn;
-	            }
-	        }
-	    }
-	    //return the object we were passed in
-	    return value;
-
+	SavedData.reviver = function(key, value)
+	{
+		if(value && typeof value.__classname == "string")
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
 	};
 
 	// Assign to the global space
@@ -4372,31 +4372,33 @@
 	 * Return dist between two points
 	 * @method dist
 	 * @static
-	 * @param {Number|Point|Object} x
-	 * 		The x position of the first point,
-	 *		or a Point|Object with x and y values
-	 * @param {Number|Point|Object} y
-	 *		The y position of the first point,
-	 * 		or a Point|Object with x and y values
-	 * @param {Number} x0 The x position of the second point
+	 * @param {Number|Point|Object} x The x position of the first point,
+	 *                                or a Point/Object with x and y values
+	 * @param {Number|Point|Object} y The y position of the first point,
+	 *                                or a second Point/Object with x and y values
+	 * @param {Number|Point|Object} x0 The x position of the second point
+	 *                                 or a Point/Object with x and y values (if x&y were Numbers)
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
 	Math.dist = function(x, y, x0, y0)
 	{
-		if (x.x !== undefined && !isNaN(x.x))
+		//see if the first parameter is a point
+		if(typeof x.x == "number" && x.x == x.x)//faster !isNaN
 		{
-			// If parameter 'x' has a value of .x, and that value is 
-			// a valid number, assume we are using sending through 
-			// two points or two objects that each have an .x and .y value
-			var p1 = x;
-			var p2 = y;
-
-			var twoParamDist = Math.sqrt((p1.x -= p2.x) * p1.x + (p1.y -= p2.y) * p1.y);
-			return twoParamDist;
+			//shift later parameters back
+			y0 = x0;
+			x0 = y;
+			
+			y = x.y;
+			x = x.x;
 		}
-
-		var fourParamDist = Math.sqrt((x -= x0) * x + (y -= y0) * y);
-		return fourParamDist;
+		//see if the 2nd parameter is a point
+		if(typeof x0.x == "number" && x0.x == x0.x)
+		{
+			y0 = x0.y;
+			x0 = x0.x;
+		}
+		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
 	};
 }(Math));
