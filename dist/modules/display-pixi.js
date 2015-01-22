@@ -357,7 +357,7 @@
 		set: function(value)
 		{
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
-
+			
 			var interactionManager = this.stage.interactionManager;
 			if(value)
 			{
@@ -410,12 +410,12 @@
 	*/
 	p.destroy = function()
 	{
-		s.destroy.call(this);
-		
 		this.stage.removeChildren(true);
 		this.stage.destroy();
 		this.renderer.destroy();
 		this.renderer = null;
+		
+		s.destroy.call(this);
 	};
 
 	// Assign to the global namespace

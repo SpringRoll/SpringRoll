@@ -85,7 +85,7 @@
 		set: function(value)
 		{
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
-
+			
 			if(value)
 			{
 				this.stage.enableMouseOver(this.mouseOverRate);
@@ -128,9 +128,9 @@
 	*/
 	p.destroy = function()
 	{
-		s.destroy.call(this);
-		
 		this.stage.removeAllChildren(true);
+		
+		s.destroy.call(this);
 	};
 
 	// Assign to the global namespace
