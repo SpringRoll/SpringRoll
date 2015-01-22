@@ -3754,7 +3754,7 @@
 	{
 		this._endCallback = callback;
 
-		this._timeElapsed = 0;
+		this._elapsedTime = 0;
 		this._animFinished = false;
 		this._audioFinished = false;
 		for(var i = 0; i < this._audio.length; ++i)
@@ -3835,7 +3835,7 @@
 		for(var i = this._audioIndex; i < this._audio.length; ++i)
 		{
 			var data = this._audio[i];
-			if(data.start <= this._timeElapsed)
+			if(data.start <= this._elapsedTime)
 			{
 				var alias = data.alias;
 				var instanceRef = {};
@@ -3860,7 +3860,7 @@
 						alias,
 						{
 							complete: this._audioCallback.bind(this, instanceRef),
-							offset: (this._timeElapsed - data.start) * 1000
+							offset: (this._elapsedTime - data.start) * 1000
 						});
 					instanceRef.instance = instance;
 					this._activeAudio.push(instance);
@@ -3876,7 +3876,7 @@
 			var pos = this._currentAudioInstance.position * 0.001;
 			//sometimes (at least with the flash plugin), the first check of the
 			//position would be very incorrect
-			if(this._timeElapsed === 0 && pos > elapsed * 2)
+			if(this._elapsedTime === 0 && pos > elapsed * 2)
 			{
 				//do nothing here
 			}
@@ -3885,13 +3885,13 @@
 				//random bug? - else if check avoids an unlikely null ref error
 				
 				//save the time elapsed
-				this._timeElapsed = this._soundStartTime +
+				this._elapsedTime = this._soundStartTime +
 										this._currentAudioInstance.position * 0.001;
 			}
 		}
 		else
 		{
-			this._timeElapsed += elapsed * 0.001;
+			this._elapsedTime += elapsed * 0.001;
 		}
 
 		if(this._captionsObj && this._soundStartTime >= 0)
@@ -3904,7 +3904,7 @@
 			var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ?
 				this._clip.getChildAt(0) :
 				this._clip;
-			clip.elapsedTime = this._timeElapsed;
+			clip.elapsedTime = this._elapsedTime;
 			clip.advance();
 			if(clip.currentFrame == clip.timeline.duration)
 			{
