@@ -4341,15 +4341,31 @@
 	 * Return dist between two points
 	 * @method dist
 	 * @static
-	 * @param {Number} x The x position of the first point
-	 * @param {Number} y The y position of the first point
+	 * @param {Number|Point|Object} x
+	 * 		The x position of the first point,
+	 *		or a Point|Object with x and y values
+	 * @param {Number|Point|Object} y
+	 *		The y position of the first point,
+	 * 		or a Point|Object with x and y values
 	 * @param {Number} x0 The x position of the second point
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
 	Math.dist = function(x, y, x0, y0)
 	{
-		return Math.sqrt((x -= x0) * x + (y -= y0) * y);
-	};
+		if (x.x !== undefined && !isNaN(x.x))
+		{
+			// If parameter 'x' has a value of .x, and that value is 
+			// a valid number, assume we are using sending through 
+			// two points or two objects that each have an .x and .y value
+			var p1 = x;
+			var p2 = y;
 
+			var twoParamDist = Math.sqrt((p1.x -= p2.x) * p1.x + (p1.y -= p2.y) * p1.y);
+			return twoParamDist;
+		}
+
+		var fourParamDist = Math.sqrt((x -= x0) * x + (y -= y0) * y);
+		return fourParamDist;
+	};
 }(Math));
