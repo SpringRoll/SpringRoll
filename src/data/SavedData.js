@@ -95,7 +95,7 @@
 		{
 			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
 			if(value)
-				return JSON.parse(value);
+				return JSON.parse(value, SavedData.reviver);
 			else
 				return null;
 		}
@@ -109,10 +109,41 @@
 			{
 				c = ca[i];
 				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)));
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
 			}
 			return null;
 		}
+	};
+
+	/**
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function. 
+	 * In our case, this will check if the object has a specially-named property (`__classname`).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	SavedData.reviver = function(key, value) {
+	    if(value.__classname)
+	    {
+	        var _class = include(value.__classname);
+	        if(_class)
+	        {
+	            var rtn = new _class();
+	            //if we may call fromJSON, do so
+	            if(rtn.fromJSON)
+	            {
+	                rtn.fromJSON(value);
+	                //return the cast Object
+	                return rtn;
+	            }
+	        }
+	    }
+	    //return the object we were passed in
+	    return value;
+
 	};
 
 	// Assign to the global space

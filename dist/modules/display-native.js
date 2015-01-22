@@ -311,6 +311,32 @@
 		this.x *= value;
 		this.y *= value;
 	};
+
+	/**
+	 * creates a serializable form of this object so it may be saved or passed via Bellhop.
+	 * Note that it adds a special property named `__classname` to tell the Reviver
+	 * how to restore a pristine `Object`
+	 * @method toJSON
+	 * @return {Object} serializable object
+	 */
+	p.toJSON = function() {
+		return {
+			__classname: "springroll.native.Point",
+			x: this.x,
+			y: this.y
+		};	
+	};
+	
+	/**
+	 * Works with a reviver function to restore from a native Object 
+	 * to an instance of this type.
+	 * @param  {Object} inputObj serialized object
+	 * @method fromJSON
+	 */
+	p.fromJSON = function(inputObj) {
+		this.x = inputObj.x;
+		this.y = inputObj.y;
+	};
 	
 	p.toString = function()
 	{
