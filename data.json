@@ -743,6 +743,15 @@
                 "springroll": 1
             }
         },
+        "src/utils/extend.js": {
+            "name": "src/utils/extend.js",
+            "modules": {},
+            "classes": {
+                "extend": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/utils/include.js": {
             "name": "src/utils/include.js",
             "modules": {},
@@ -796,6 +805,7 @@
                 "springroll.PageVisibility": 1,
                 "String": 1,
                 "springroll.TimeUtils": 1,
+                "extend": 1,
                 "include": 1,
                 "namespace": 1,
                 "springroll.Application": 1
@@ -1433,7 +1443,7 @@
             "module": "CreateJS Display",
             "namespace": "springroll.createjs",
             "file": "src/displays/createjs/DragManager.js",
-            "line": 10,
+            "line": 11,
             "description": "Drag manager is responsible for handling the dragging of stage elements.\nSupports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.",
             "is_constructor": 1,
             "params": [
@@ -2287,6 +2297,7 @@
             "file": "src/games/states/StateManager.js",
             "line": 13,
             "description": "The State Manager used for managing the different states of a game or site",
+            "extends": "springroll.EventDispatcher",
             "is_constructor": 1,
             "params": [
                 {
@@ -3487,6 +3498,21 @@
             "line": 23,
             "description": "A collection of Time related utility functions"
         },
+        "extend": {
+            "name": "extend",
+            "shortname": "extend",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "",
+            "file": "src/utils/extend.js",
+            "line": 4,
+            "description": "Use to do class inheritence",
+            "static": 1
+        },
         "include": {
             "name": "include",
             "shortname": "include",
@@ -3754,6 +3780,33 @@
             "return": {
                 "description": "The value (run through `JSON.parse()`) or null if it doesn't exist",
                 "type": "Mixed"
+            },
+            "class": "springroll.SavedData",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/data/SavedData.js",
+            "line": 118,
+            "description": "When restoring from JSON via `JSON.parse`, we may pass a reviver function.\nIn our case, this will check if the object has a specially-named property (`__classname`).\nIf it does, we will attempt to construct a new instance of that class, rather than using a\nplain old Object. Note that this recurses through the object.",
+            "see": [
+                "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"
+            ],
+            "params": [
+                {
+                    "name": "key",
+                    "description": "each key name",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "Object that we wish to restore",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The object that was parsed - either cast to a class, or not",
+                "type": "Object"
             },
             "class": "springroll.SavedData",
             "module": "Core",
@@ -4055,6 +4108,13 @@
                     "name": "instance",
                     "description": "The MovieClip to stop the action on",
                     "type": "createjs.MovieClip"
+                },
+                {
+                    "name": "removeCallbacks",
+                    "description": "Completely disregard the on complete or\n                                         on cancelled callback of this animation.",
+                    "type": "Boolean",
+                    "optional": true,
+                    "optdefault": "false"
                 }
             ],
             "static": 1,
@@ -4064,23 +4124,23 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 524,
+            "line": 530,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
             "params": [
                 {
                     "name": "container",
-                    "description": "Specify a container to stop timelines\n                                        contained within. This only checks one layer deep.",
+                    "description": "Specify a container to stop timelines\n       contained within. This only checks one layer deep.",
                     "type": "createjs.Container",
                     "optional": true
                 },
                 {
-                    "name": "doCancelled",
-                    "description": "If we should do the cancelled callback",
+                    "name": "removeCallbacks",
+                    "description": "Completely disregard the on complete or\n                                         on cancelled callback of the current animations.",
                     "type": "Boolean",
                     "optional": true,
-                    "optdefault": "true"
+                    "optdefault": "false"
                 }
             ],
             "static": 1,
@@ -4090,7 +4150,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 553,
+            "line": 563,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4115,7 +4175,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 616,
+            "line": 626,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4126,7 +4186,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 637,
+            "line": 647,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4137,7 +4197,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 659,
+            "line": 669,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4160,7 +4220,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 680,
+            "line": 690,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4182,7 +4242,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 699,
+            "line": 709,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4196,7 +4256,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 710,
+            "line": 720,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4209,7 +4269,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 723,
+            "line": 733,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4222,7 +4282,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 736,
+            "line": 746,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4242,7 +4302,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 891,
+            "line": 901,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4261,7 +4321,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 905,
+            "line": 915,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4280,7 +4340,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 923,
+            "line": 933,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4297,7 +4357,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 937,
+            "line": 947,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -6007,7 +6067,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 27,
+            "line": 28,
             "description": "The object that's being dragged, or a dictionary of DragData being dragged\nby id if multitouch is true.",
             "access": "public",
             "tagname": "",
@@ -6021,7 +6081,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 36,
+            "line": 37,
             "description": "The radius in pixel to allow for dragging, or else does sticky click",
             "access": "public",
             "tagname": "",
@@ -6034,7 +6094,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 44,
+            "line": 45,
             "description": "The position x, y of the mouse down on the stage. This is only used\nwhen multitouch is false - the DragData has it when multitouch is true.",
             "access": "private",
             "tagname": "",
@@ -6047,7 +6107,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 52,
+            "line": 56,
             "description": "The position x, y of the object when interaction with it started. If multitouch is\ntrue, then this will only be set during a drag stop callback, for the object that just\nstopped getting dragged.",
             "itemtype": "property",
             "name": "mouseDownObjPos",
@@ -6058,7 +6118,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 60,
+            "line": 67,
             "description": "If sticky click dragging is allowed.",
             "access": "public",
             "tagname": "",
@@ -6072,7 +6132,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 68,
+            "line": 75,
             "description": "Is the move touch based",
             "access": "public",
             "tagname": "",
@@ -6087,7 +6147,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 77,
+            "line": 84,
             "description": "Is the drag being held on mouse down (not sticky clicking)",
             "access": "public",
             "tagname": "",
@@ -6102,7 +6162,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 86,
+            "line": 93,
             "description": "Is the drag a sticky clicking (click on a item, then mouse the mouse)",
             "access": "public",
             "tagname": "",
@@ -6117,7 +6177,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 95,
+            "line": 102,
             "description": "Settings for snapping.\n\n Format for snapping to a list of points:\n\t{\n\t\tmode:\"points\",\n\t\tdist:20,//snap when within 20 pixels/units\n\t\tpoints:[\n\t\t\t{ x: 20, y:30 },\n\t\t\t{ x: 50, y:10 }\n\t\t]\n\t}",
             "access": "public",
             "tagname": "",
@@ -6131,7 +6191,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 114,
+            "line": 121,
             "description": "Reference to the stage",
             "access": "private",
             "tagname": "",
@@ -6144,7 +6204,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 121,
+            "line": 128,
             "description": "The offset from the dragged object's position that the initial mouse event\nwas at. This is only used when multitouch is false - the DragData has\nit when multitouch is true.",
             "access": "private",
             "tagname": "",
@@ -6157,7 +6217,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 130,
+            "line": 137,
             "description": "Callback when we start dragging",
             "access": "private",
             "tagname": "",
@@ -6170,7 +6230,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 137,
+            "line": 144,
             "description": "Callback when we are done dragging",
             "access": "private",
             "tagname": "",
@@ -6183,7 +6243,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 149,
+            "line": 156,
             "description": "The collection of draggable objects",
             "access": "private",
             "tagname": "",
@@ -6196,7 +6256,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 156,
+            "line": 163,
             "description": "A point for reuse instead of lots of object creation.",
             "access": "private",
             "tagname": "",
@@ -6209,7 +6269,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 163,
+            "line": 170,
             "description": "If this DragManager is using multitouch for dragging.",
             "access": "private",
             "tagname": "",
@@ -6222,14 +6282,14 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 171,
+            "line": 178,
             "class": "springroll.createjs.DragManager",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 174,
+            "line": 181,
             "description": "If the DragManager allows multitouch dragging. Setting this stops any current\ndrags.",
             "itemtype": "property",
             "name": "multitouch",
@@ -6240,7 +6300,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 199,
+            "line": 212,
             "description": "Manually starts dragging an object. If a mouse down event is not\nsupplied as the second argument, it defaults to a held drag, that ends as\nsoon as the mouse is released. When using multitouch, passing a mouse event is\nrequired.",
             "itemtype": "method",
             "name": "startDrag",
@@ -6264,7 +6324,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 216,
+            "line": 229,
             "description": "Mouse down on an obmect",
             "itemtype": "method",
             "name": "_objMouseDown",
@@ -6288,7 +6348,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 294,
+            "line": 307,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -6307,7 +6367,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 309,
+            "line": 322,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -6326,7 +6386,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 340,
+            "line": 353,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -6338,7 +6398,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 357,
+            "line": 370,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -6365,7 +6425,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 383,
+            "line": 396,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -6389,7 +6449,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 456,
+            "line": 469,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -6408,7 +6468,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 507,
+            "line": 520,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -6437,7 +6497,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 580,
+            "line": 600,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -6462,7 +6522,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 612,
+            "line": 632,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -6481,7 +6541,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 631,
+            "line": 651,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -6493,7 +6553,7 @@
         },
         {
             "file": "src/displays/createjs/DragManager.js",
-            "line": 663,
+            "line": 683,
             "class": "springroll.createjs.DragManager",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
@@ -6923,6 +6983,37 @@
                     "type": "Number"
                 }
             ],
+            "class": "springroll.native.Point",
+            "module": "Native Display",
+            "namespace": "springroll.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 136,
+            "description": "creates a serializable form of this object so it may be saved or passed via Bellhop.\nNote that it adds a special property named `__classname` to tell the Reviver\nhow to restore a pristine `Object`",
+            "itemtype": "method",
+            "name": "toJSON",
+            "return": {
+                "description": "serializable object",
+                "type": "Object"
+            },
+            "class": "springroll.native.Point",
+            "module": "Native Display",
+            "namespace": "springroll.native"
+        },
+        {
+            "file": "src/displays/native/geom/Point.js",
+            "line": 151,
+            "description": "Works with a reviver function to restore from a native Object \nto an instance of this type.",
+            "params": [
+                {
+                    "name": "inputObj",
+                    "description": "serialized object",
+                    "type": "Object"
+                }
+            ],
+            "itemtype": "method",
+            "name": "fromJSON",
             "class": "springroll.native.Point",
             "module": "Native Display",
             "namespace": "springroll.native"
@@ -9733,7 +9824,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 122,
+            "line": 123,
             "description": "Resizes the canvas and the renderer. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -9756,7 +9847,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 135,
+            "line": 136,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -9781,7 +9872,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 151,
+            "line": 152,
             "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
             "itemtype": "method",
             "name": "destroy",
@@ -10404,7 +10495,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 130,
+            "line": 133,
             "description": "Status of whether the panel load was canceled",
             "itemtype": "method",
             "name": "getCanceled",
@@ -10418,7 +10509,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 141,
+            "line": 144,
             "description": "This is called by the State Manager to exit the state",
             "itemtype": "method",
             "name": "_internalExit",
@@ -10430,7 +10521,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 161,
+            "line": 164,
             "description": "When the state is exited",
             "itemtype": "method",
             "name": "exit",
@@ -10440,7 +10531,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 168,
+            "line": 171,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalExitStart",
@@ -10452,7 +10543,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 179,
+            "line": 182,
             "description": "When the state has requested to be exit, pre-transition",
             "itemtype": "method",
             "name": "exitStart",
@@ -10462,7 +10553,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 185,
+            "line": 188,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnter",
@@ -10481,7 +10572,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 215,
+            "line": 218,
             "description": "Internal function to start the preloading",
             "itemtype": "method",
             "name": "loadingStart",
@@ -10491,7 +10582,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 240,
+            "line": 243,
             "description": "Internal function to finish the preloading",
             "itemtype": "method",
             "name": "loadingDone",
@@ -10501,7 +10592,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 263,
+            "line": 266,
             "description": "Cancel the loading of this state",
             "itemtype": "method",
             "name": "_internalCancel",
@@ -10513,7 +10604,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 279,
+            "line": 282,
             "description": "Cancel the load, implementation-specific\nthis is where any async actions are removed",
             "itemtype": "method",
             "name": "cancel",
@@ -10523,7 +10614,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 287,
+            "line": 290,
             "description": "When the state is entered",
             "itemtype": "method",
             "name": "enter",
@@ -10533,7 +10624,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 294,
+            "line": 297,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnterDone",
@@ -10545,7 +10636,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 308,
+            "line": 311,
             "description": "When the state is visually entered fully\nthat is, after the transition is done",
             "itemtype": "method",
             "name": "enterDone",
@@ -10555,10 +10646,12 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 316,
+            "line": 319,
             "description": "Get if this is the active state",
             "itemtype": "method",
             "name": "getActive",
+            "deprecated": true,
+            "deprecationMessage": "Use the BaseState.active property getter instead",
             "return": {
                 "description": "If this is the active state",
                 "type": "Bool"
@@ -10569,7 +10662,19 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 327,
+            "line": 331,
+            "description": "Get if this is the active state",
+            "itemtype": "property",
+            "name": "active",
+            "type": "Boolean",
+            "readonly": "",
+            "class": "springroll.BaseState",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/states/BaseState.js",
+            "line": 344,
             "description": "Transition the panel in",
             "itemtype": "method",
             "name": "transitionIn",
@@ -10586,7 +10691,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 350,
+            "line": 367,
             "description": "Transition the panel out",
             "itemtype": "method",
             "name": "transitionOut",
@@ -10603,7 +10708,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 374,
+            "line": 391,
             "description": "Get if this State has been destroyed",
             "itemtype": "method",
             "name": "getDestroyed",
@@ -10617,7 +10722,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 385,
+            "line": 402,
             "description": "Enable this panel, true is only non-loading and non-transitioning state",
             "itemtype": "method",
             "name": "setEnabled",
@@ -10634,7 +10739,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 396,
+            "line": 413,
             "description": "Get the enabled status",
             "itemtype": "method",
             "name": "getEnabled",
@@ -10648,7 +10753,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 407,
+            "line": 424,
             "description": "Don't use the state object after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10755,7 +10860,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 29,
+            "line": 30,
             "description": "The display that holds the states this StateManager is managing.",
             "itemtype": "property",
             "name": "_display",
@@ -10768,7 +10873,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 37,
+            "line": 38,
             "description": "The click to play in between transitioning states",
             "itemtype": "property",
             "name": "_transition",
@@ -10781,7 +10886,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 45,
+            "line": 46,
             "description": "The sounds for the transition",
             "itemtype": "property",
             "name": "_transitionSounds",
@@ -10794,7 +10899,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 53,
+            "line": 54,
             "description": "The collection of states map",
             "itemtype": "property",
             "name": "_states",
@@ -10807,7 +10912,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 61,
+            "line": 62,
             "description": "The currently selected state",
             "itemtype": "property",
             "name": "_state",
@@ -10820,7 +10925,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 69,
+            "line": 70,
             "description": "The currently selected state id",
             "itemtype": "property",
             "name": "_stateID",
@@ -10833,7 +10938,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 77,
+            "line": 78,
             "description": "The old state",
             "itemtype": "property",
             "name": "_oldState",
@@ -10846,7 +10951,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 85,
+            "line": 86,
             "description": "If the manager is loading a state",
             "itemtype": "property",
             "name": "name description",
@@ -10859,7 +10964,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 93,
+            "line": 94,
             "description": "If the state or manager is current transitioning",
             "itemtype": "property",
             "name": "_isTransitioning",
@@ -10872,7 +10977,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 101,
+            "line": 102,
             "description": "If the current object is destroyed",
             "itemtype": "property",
             "name": "_destroyed",
@@ -10885,7 +10990,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 109,
+            "line": 110,
             "description": "If we're transitioning the state, the queue the id of the next one",
             "itemtype": "property",
             "name": "_queueStateId",
@@ -10898,7 +11003,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 131,
+            "line": 132,
             "description": "The name of the Animator label and event for transitioning state in",
             "itemtype": "event",
             "name": "onTransitionIn",
@@ -10908,7 +11013,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 138,
+            "line": 139,
             "description": "The name of the event for done with transitioning state in",
             "itemtype": "event",
             "name": "onTransitionInDone",
@@ -10918,7 +11023,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 145,
+            "line": 146,
             "description": "The name of the Animator label and event for transitioning state out",
             "itemtype": "event",
             "name": "onTransitionOut",
@@ -10928,7 +11033,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 152,
+            "line": 153,
             "description": "The name of the event for done with transitioning state out",
             "itemtype": "event",
             "name": "onTransitionOutDone",
@@ -10938,7 +11043,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 159,
+            "line": 160,
             "description": "The name of the event for done with initializing",
             "itemtype": "event",
             "name": "onInitDone",
@@ -10948,7 +11053,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 166,
+            "line": 167,
             "description": "Event when the state transitions the first time",
             "itemtype": "event",
             "name": "onLoadingStart",
@@ -10958,7 +11063,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 173,
+            "line": 174,
             "description": "Event when the state transitions the first time",
             "itemtype": "event",
             "name": "onLoadingDone",
@@ -10968,7 +11073,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 180,
+            "line": 181,
             "description": "Register a state with the state manager, done initially",
             "itemtype": "method",
             "name": "addState",
@@ -10990,7 +11095,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 207,
+            "line": 205,
             "description": "Dynamically change the transition",
             "itemtype": "method",
             "name": "changeTransition",
@@ -11007,7 +11112,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 218,
+            "line": 216,
             "description": "Get the currently selected state",
             "itemtype": "method",
             "name": "getState",
@@ -11021,7 +11126,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 229,
+            "line": 227,
             "description": "Get the current selected state (state object)",
             "itemtype": "method",
             "name": "getCurrentState",
@@ -11035,7 +11140,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 240,
+            "line": 238,
             "description": "Access a certain state by the ID",
             "itemtype": "method",
             "name": "getStateById",
@@ -11056,7 +11161,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 253,
+            "line": 251,
             "description": "If the StateManager is busy because it is currently loading or transitioning.",
             "itemtype": "method",
             "name": "isBusy",
@@ -11070,7 +11175,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 264,
+            "line": 262,
             "description": "If the state needs to do some asyncronous tasks,\nThe state can tell the manager to stop the animation",
             "itemtype": "method",
             "name": "loadingStart",
@@ -11080,7 +11185,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 279,
+            "line": 277,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -11090,7 +11195,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 292,
+            "line": 290,
             "description": "Show, enable the blocker clip to disable mouse clicks",
             "itemtype": "method",
             "name": "showBlocker",
@@ -11100,7 +11205,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 302,
+            "line": 300,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -11110,7 +11215,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 312,
+            "line": 310,
             "description": "This transitions out of the current state and\nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -11120,7 +11225,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 324,
+            "line": 322,
             "description": "Get or change the current state",
             "itemtype": "property",
             "name": "state",
@@ -11131,7 +11236,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 339,
+            "line": 337,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
@@ -11148,7 +11253,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 432,
+            "line": 430,
             "description": "When the state has completed it's loading sequence\nthis should be treated as an asyncronous process",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -11160,7 +11265,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 476,
+            "line": 474,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -11175,7 +11280,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 498,
+            "line": 496,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -11187,7 +11292,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 522,
+            "line": 520,
             "description": "Displays the transition out animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -11204,7 +11309,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 542,
+            "line": 540,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -11221,7 +11326,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 554,
+            "line": 552,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -11245,7 +11350,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 580,
+            "line": 578,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -11255,7 +11360,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 606,
+            "line": 604,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -11265,7 +11370,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 632,
+            "line": 630,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -12152,7 +12257,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 281,
+            "line": 284,
             "description": "The file load progress event",
             "itemtype": "method",
             "name": "_onLoadProgress",
@@ -12176,7 +12281,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 296,
+            "line": 299,
             "description": "The file was loaded successfully",
             "access": "private",
             "tagname": "",
@@ -12200,7 +12305,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 319,
+            "line": 325,
             "description": "Attempt to do the next load",
             "itemtype": "method",
             "name": "_tryNextLoad",
@@ -12212,7 +12317,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 351,
+            "line": 357,
             "description": "Alert that the loading is finished",
             "access": "private",
             "tagname": "",
@@ -12236,7 +12341,7 @@
         },
         {
             "file": "src/loaders/Loader.js",
-            "line": 369,
+            "line": 375,
             "description": "Cancel a load that's currently in progress",
             "access": "public",
             "tagname": "",
@@ -13367,7 +13472,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 344,
+            "line": 345,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -13390,7 +13495,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 356,
+            "line": 357,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -13413,7 +13518,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 368,
+            "line": 369,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -13436,7 +13541,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 380,
+            "line": 381,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -13459,7 +13564,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 393,
+            "line": 394,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -13482,7 +13587,30 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 407,
+            "line": 408,
+            "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
+            "itemtype": "method",
+            "name": "getDuration",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "alias",
+                    "description": "The alias of the sound to look for.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The duration of the sound in milliseconds. If the sound has not been\n                   loaded, 0 is returned. If no sound exists by that alias, null is returned.",
+                "type": "Int|null"
+            },
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 437,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -13521,7 +13649,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 450,
+            "line": 480,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -13560,7 +13688,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 499,
+            "line": 529,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -13579,7 +13707,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 554,
+            "line": 584,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13663,7 +13791,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 701,
+            "line": 733,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13691,7 +13819,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 727,
+            "line": 759,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13710,7 +13838,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 778,
+            "line": 812,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13729,7 +13857,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 800,
+            "line": 834,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13748,7 +13876,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 828,
+            "line": 860,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13767,7 +13895,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 844,
+            "line": 876,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13786,7 +13914,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 860,
+            "line": 892,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13805,7 +13933,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 884,
+            "line": 916,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -13815,7 +13943,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 896,
+            "line": 928,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13834,7 +13962,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 915,
+            "line": 947,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13853,7 +13981,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 936,
+            "line": 968,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13865,7 +13993,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 948,
+            "line": 980,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -13877,7 +14005,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 960,
+            "line": 992,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -13901,7 +14029,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 992,
+            "line": 1024,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -13912,7 +14040,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1003,
+            "line": 1035,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -13931,7 +14059,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1018,
+            "line": 1050,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -13955,7 +14083,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1049,
+            "line": 1081,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -13979,7 +14107,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1076,
+            "line": 1108,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -14003,7 +14131,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1130,
+            "line": 1162,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -14027,7 +14155,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1155,
+            "line": 1188,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -14060,7 +14188,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1171,
+            "line": 1204,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -14079,7 +14207,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1195,
+            "line": 1228,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -14098,7 +14226,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1216,
+            "line": 1249,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -14641,6 +14769,20 @@
         {
             "file": "src/media/VOPlayer.js",
             "line": 151,
+            "description": "Calculates the amount of time elapsed in the current playlist of audio/silence.",
+            "itemtype": "method",
+            "name": "getElapsed",
+            "return": {
+                "description": "The elapsed time in milliseconds.",
+                "type": "Int"
+            },
+            "class": "springroll.VOPlayer",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/VOPlayer.js",
+            "line": 180,
             "description": "Plays a single audio alias, interrupting any current playback.\nAlternatively, plays a list of audio files, timers, and/or functions.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "play",
@@ -14671,7 +14813,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 178,
+            "line": 207,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onSoundFinished",
@@ -14683,7 +14825,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 234,
+            "line": 263,
             "description": "The update callback used for silence timers.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateSilence",
@@ -14702,7 +14844,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 251,
+            "line": 280,
             "description": "The update callback used for updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateSoloCaption",
@@ -14721,7 +14863,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 269,
+            "line": 298,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_syncCaptionToSound",
@@ -14740,7 +14882,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 283,
+            "line": 312,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playSound",
@@ -14752,7 +14894,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 335,
+            "line": 364,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -14764,7 +14906,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 364,
+            "line": 393,
             "description": "Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadSound",
@@ -14776,7 +14918,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 375,
+            "line": 404,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
@@ -18071,18 +18213,18 @@
             "params": [
                 {
                     "name": "x",
-                    "description": "The x position of the first point",
-                    "type": "Number"
+                    "description": "The x position of the first point,\n                               or a Point/Object with x and y values",
+                    "type": "Number|Point|Object"
                 },
                 {
                     "name": "y",
-                    "description": "The y position of the first point",
-                    "type": "Number"
+                    "description": "The y position of the first point,\n                               or a second Point/Object with x and y values",
+                    "type": "Number|Point|Object"
                 },
                 {
                     "name": "x0",
-                    "description": "The x position of the second point",
-                    "type": "Number"
+                    "description": "The x position of the second point\n                                or a Point/Object with x and y values (if x&y were Numbers)",
+                    "type": "Number|Point|Object"
                 },
                 {
                     "name": "y0",
@@ -18279,6 +18421,35 @@
             "class": "springroll.TimeUtils",
             "module": "Core",
             "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/extend.js",
+            "line": 14,
+            "description": "Extend prototype",
+            "example": [
+                "\n\t\tvar p = extend(MyClass, ParentClass);"
+            ],
+            "is_constructor": 1,
+            "itemtype": "method",
+            "name": "extend",
+            "params": [
+                {
+                    "name": "subClass",
+                    "description": "The reference to the class",
+                    "type": "Function"
+                },
+                {
+                    "name": "superClass",
+                    "description": "The parent reference or full classname",
+                    "type": "Function|String"
+                }
+            ],
+            "return": {
+                "description": "Reference to the subClass's prototype",
+                "type": "Object"
+            },
+            "class": "extend",
+            "module": "Core"
         },
         {
             "file": "src/utils/include.js",
@@ -19132,15 +19303,15 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:122"
+            "line": " src/displays/pixi/PixiDisplay.js:123"
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:135"
+            "line": " src/displays/pixi/PixiDisplay.js:136"
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:151"
+            "line": " src/displays/pixi/PixiDisplay.js:152"
         },
         {
             "message": "unknown tag: internal",
@@ -19156,79 +19327,79 @@
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:180"
+            "line": " src/games/states/StateManager.js:181"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:207"
+            "line": " src/games/states/StateManager.js:205"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:218"
+            "line": " src/games/states/StateManager.js:216"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:229"
+            "line": " src/games/states/StateManager.js:227"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:240"
+            "line": " src/games/states/StateManager.js:238"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:253"
+            "line": " src/games/states/StateManager.js:251"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:264"
+            "line": " src/games/states/StateManager.js:262"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:279"
+            "line": " src/games/states/StateManager.js:277"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:292"
+            "line": " src/games/states/StateManager.js:290"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:302"
+            "line": " src/games/states/StateManager.js:300"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:312"
+            "line": " src/games/states/StateManager.js:310"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:339"
+            "line": " src/games/states/StateManager.js:337"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:432"
+            "line": " src/games/states/StateManager.js:430"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:476"
+            "line": " src/games/states/StateManager.js:474"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:498"
+            "line": " src/games/states/StateManager.js:496"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:522"
+            "line": " src/games/states/StateManager.js:520"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:542"
+            "line": " src/games/states/StateManager.js:540"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:554"
+            "line": " src/games/states/StateManager.js:552"
         },
         {
             "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:632"
+            "line": " src/games/states/StateManager.js:630"
         },
         {
             "message": "unknown tag: proprty",
@@ -19375,16 +19546,20 @@
             "line": " src/data/SavedData.js:17"
         },
         {
+            "message": "Missing item type\nWhen restoring from JSON via `JSON.parse`, we may pass a reviver function.\nIn our case, this will check if the object has a specially-named property (`__classname`).\nIf it does, we will attempt to construct a new instance of that class, rather than using a\nplain old Object. Note that this recurses through the object.",
+            "line": " src/data/SavedData.js:118"
+        },
+        {
             "message": "Missing item type",
             "line": " src/displays/createjs/DragData.js:15"
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/createjs/DragManager.js:171"
+            "line": " src/displays/createjs/DragManager.js:178"
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/createjs/DragManager.js:663"
+            "line": " src/displays/createjs/DragManager.js:683"
         },
         {
             "message": "Missing item type",

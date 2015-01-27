@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -310,7 +312,7 @@
 
 	var s = Task.prototype;
 
-	var p = PixiTask.prototype = Object.create(s);
+	var p = extend(PixiTask, Task);
 
 	/**
 	*   Start the load

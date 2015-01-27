@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -262,6 +264,7 @@
 	*  The State Manager used for managing the different states of a game or site
 	*
 	*  @class StateManager
+	*  @extends springroll.EventDispatcher
 	*  @constructor
 	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
@@ -374,7 +377,7 @@
 		this._loopTransition = this._loopTransition.bind(this);
 	};
 	
-	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
+	var p = extend(StateManager, EventDispatcher);
 
 	/**
 	* The name of the Animator label and event for transitioning state in
@@ -447,9 +450,6 @@
 		
 		// Give the state a reference to the manager
 		state.manager = this;
-		
-		// Make sure the state ie exited initially
-		state._internalExit();
 	};
 	
 	/**
@@ -879,7 +879,6 @@
 	
 	/**
 	*   Remove the state manager
-	*
 	*   @function destroy
 	*/
 	p.destroy = function()

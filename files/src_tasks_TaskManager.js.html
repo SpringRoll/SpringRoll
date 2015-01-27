@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -313,7 +315,7 @@
 		this._isDestroyed = false;
 	};
 
-	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
+	var p = extend(TaskManager, EventDispatcher);
 
 	/**
 	* Event dispatched when tasks are all done

@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -285,7 +287,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = NativeDisplay.prototype = Object.create(s);
+	var p = extend(NativeDisplay, AbstractDisplay);
 
 	// Assign to the global namespace
 	namespace(&#x27;springroll&#x27;).NativeDisplay = NativeDisplay;

@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -340,7 +342,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = PixiDisplay.prototype = Object.create(s);
+	var p = extend(PixiDisplay, AbstractDisplay);
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.
@@ -352,8 +354,9 @@
 		set: function(value)
 		{
 			Object.getOwnPropertyDescriptor(s, &#x27;enabled&#x27;).set.call(this, value);
-
+			
 			var interactionManager = this.stage.interactionManager;
+			if(!interactionManager) return;
 			if(value)
 			{
 				//add events to the interaction manager&#x27;s target

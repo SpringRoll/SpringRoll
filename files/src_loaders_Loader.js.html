@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -502,6 +504,9 @@
 	*/
 	p._onLoadFailed = function(qi, event)
 	{
+		if(!_instance)
+			return;
+		
 		Debug.error(&quot;Unable to load file: &quot; + qi.url  + &quot; - reason: &quot; + event.error);
 		
 		var loader = loaders[qi.url];
@@ -550,6 +555,9 @@
 	*/
 	p._onLoadCompleted = function(qi, ev)
 	{
+		if(!_instance)
+			return;
+
 		if(DEBUG)
 		{
 			Debug.log(&quot;File loaded successfully from &quot; + qi.url);

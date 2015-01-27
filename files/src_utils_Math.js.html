@@ -44,6 +44,8 @@
             
                 <li><a href="../classes/Debug.html">Debug</a></li>
             
+                <li><a href="../classes/extend.html">extend</a></li>
+            
                 <li><a href="../classes/include.html">include</a></li>
             
                 <li><a href="../classes/Math.html">Math</a></li>
@@ -290,17 +292,35 @@
 	 * Return dist between two points
 	 * @method dist
 	 * @static
-	 * @param {Number} x The x position of the first point
-	 * @param {Number} y The y position of the first point
-	 * @param {Number} x0 The x position of the second point
+	 * @param {Number|Point|Object} x The x position of the first point,
+	 *                                or a Point/Object with x and y values
+	 * @param {Number|Point|Object} y The y position of the first point,
+	 *                                or a second Point/Object with x and y values
+	 * @param {Number|Point|Object} x0 The x position of the second point
+	 *                                 or a Point/Object with x and y values (if x&amp;y were Numbers)
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
 	Math.dist = function(x, y, x0, y0)
 	{
-		return Math.sqrt((x -= x0) * x + (y -= y0) * y);
+		//see if the first parameter is a point
+		if(typeof x.x == &quot;number&quot; &amp;&amp; x.x == x.x)//faster !isNaN
+		{
+			//shift later parameters back
+			y0 = x0;
+			x0 = y;
+			
+			y = x.y;
+			x = x.x;
+		}
+		//see if the 2nd parameter is a point
+		if(typeof x0.x == &quot;number&quot; &amp;&amp; x0.x == x0.x)
+		{
+			y0 = x0.y;
+			x0 = x0.x;
+		}
+		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
 	};
-
 }(Math));
     </pre>
 </div>

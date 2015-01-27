@@ -6,6 +6,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Math",
         "Object",
         "String",
+        "extend",
         "include",
         "namespace",
         "springroll.AbstractDisplay",
