@@ -37,7 +37,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = NativeDisplay.prototype = Object.create(s);
+	var p = extend(NativeDisplay, AbstractDisplay);
 
 	// Assign to the global namespace
 	namespace('springroll').NativeDisplay = NativeDisplay;

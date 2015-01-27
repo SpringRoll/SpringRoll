@@ -35,7 +35,7 @@
 	var s = Task.prototype;
 
 	// Reference to the prototype
-	var p = SoundListTask.prototype = Object.create(s);
+	var p = extend(SoundListTask, Task);
 
 	/**
 	*  Begin the task

@@ -62,7 +62,7 @@
 
 	var s = Task.prototype;
 
-	var p = PixiTask.prototype = Object.create(s);
+	var p = extend(PixiTask, Task);
 
 	/**
 	*   Start the load

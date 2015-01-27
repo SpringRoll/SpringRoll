@@ -65,7 +65,7 @@
 		this._isDestroyed = false;
 	};
 
-	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
+	var p = extend(TaskManager, EventDispatcher);
 
 	/**
 	* Event dispatched when tasks are all done
