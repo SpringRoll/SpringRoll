@@ -224,7 +224,7 @@
 			return timeline;
 		}
 		//make sure the movieclip doesn't play outside the control of Animator
-		instance.advanceDuringTicks = false;
+		instance.tickEnabled = false;
 		var fps;
 		//make sure the movieclip is framerate independent
 		if (!instance.framerate)
@@ -885,9 +885,8 @@
 			if(t.firstFrame >= 0)
 			{
 				instance.elapsedTime = t.startTime + t._time_sec;
-				//because the movieclip only checks the elapsed time here
-				//(advanceDuringTicks is false),
-				//calling advance() with no parameters is fine
+				//because the movieclip only checks the elapsed time here (tickEnabled is false),
+				//calling advance() with no parameters is fine - it won't advance the time
 				instance.advance();
 			}
 		}
