@@ -123,6 +123,9 @@
 		*  @protected
 		*/
 		this.prevState = prevState || null;
+
+		// Hide the panel by default
+		this.panel.visible = false;
 	};
 	
 	var p = BaseState.prototype;
@@ -317,12 +320,26 @@
 	*   Get if this is the active state
 	*   
 	*   @method getActive
+	*   @deprecated Use the BaseState.active property getter instead
 	*   @return {bool} If this is the active state
 	*/
 	p.getActive = function()
 	{
 		return this._active;
 	};
+
+	/**
+	*   Get if this is the active state
+	*   
+	*   @property {boolean} active
+	*   @readOnly
+	*/
+	Object.defineProperty(p, 'active', {
+		get: function()
+		{
+			return this._active;
+		}
+	});
 	
 	/**
 	*   Transition the panel in
