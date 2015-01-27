@@ -43,7 +43,9 @@
 		"displaycreatejs": {
 			"output": "display-createjs",
 			"main": [
+				"src/displays/createjs/Point.js",
 				"src/displays/createjs/MovieClipUtils.js",
+				"src/displays/createjs/BitmapUtils.js",
 				"src/displays/createjs/DisplayAdapter.js",
 				"src/displays/createjs/CreateJSDisplay.js",
 				"src/displays/createjs/AnimatorTimeline.js",
@@ -52,7 +54,9 @@
 				"src/displays/createjs/SoundButton.js",
 				"src/displays/createjs/DragData.js",
 				"src/displays/createjs/DragManager.js",
-				"src/displays/createjs/Cutscene.js"
+				"src/displays/createjs/Cutscene.js",
+				"src/displays/createjs/TextureAtlas.js",
+				"src/displays/createjs/BitmapMovieClip.js"
 			]
 		},
 		"displaypixi": {
