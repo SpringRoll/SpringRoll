@@ -335,7 +335,7 @@
 		SoundInstance,
 		SoundListTask,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
-		FlashPlugin = include('createjs.FlashPlugin', false),
+		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
 		Enum = include('springroll.Enum');
 
@@ -415,23 +415,24 @@
 	var LoadStates = new Enum("unloaded", "loading", "loaded");
 
 	/**
-	*  Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for
-	*  setting createjs.FlashPlugin.BASE_PATH.
+	*  Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will be responsible for
+	*  setting createjs.FlashAudioPlugin.BASE_PATH.
 	*  @method init
 	*  @static
 	*  @param {Object|Function} options Either the options object or the ready function
-	*  @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashPlugin] The SoundJS
+	*  @param {Array} [options.plugins=createjs.WebAudioPlugin,createjs.FlashAudioPlugin] The SoundJS
 	*                                         plugins to pass to createjs.Sound.registerPlugins().
 	*  @param {Array} [options.types=['ogg','mp3']] The order in which file types are preferred,
 	*                                               where "ogg" becomes a ".ogg" extension on all
 	*                                               sound file urls.
 	*  @param {String} [options.swfPath='assets/swfs/'] The required path to the
-	*                                                   createjs.FlashPlugin SWF
+	*                                                   createjs.FlashAudioPlugin SWF
 	*  @param {Function} [options.ready] A function to call when initialization is complete.
 	*  @return {Sound} The new instance of the sound object
 	*/
 	Sound.init = function(options, readyCallback)
 	{
+		var appOptions = Application.instance.options;
 		// First argument is function
 		if (typeof options == 'function')
 		{
@@ -439,7 +440,8 @@
 		}
 
 		var _defaultOptions = {
-			plugins : [WebAudioPlugin, FlashPlugin],
+			plugins : options.forceFlashAudio ?
+						[FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
@@ -464,13 +466,10 @@
 		}
 
 		// Apply the base path if available
-		var basePath = Application.instance.options.basePath;
-		if (FlashPlugin)
+		var basePath = appOptions.basePath;
+		if (FlashAudioPlugin)
 		{
-			if (FlashPlugin.hasOwnProperty("swfPath"))
-				FlashPlugin.swfPath = (basePath || "") + options.swfPath;
-			else
-				FlashPlugin.BASE_PATH = (basePath || "") + options.swfPath;
+			FlashAudioPlugin.swfPath = (basePath || "") + options.swfPath;
 		}
 
 		SoundJS.registerPlugins(options.plugins);
@@ -540,7 +539,7 @@
 	*/
 	p._initComplete = function(filetypeOrder, callback)
 	{
-		if (FlashPlugin && SoundJS.activePlugin instanceof FlashPlugin)
+		if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
 		{
 			_instance.supportedSound = ".mp3";
 		}
@@ -1583,7 +1582,7 @@
 		SoundJS.removeAllSounds();
 
 		// Remove the SWF from the page
-		if (FlashPlugin && SoundJS.activePlugin instanceof FlashPlugin)
+		if (FlashAudioPlugin && SoundJS.activePlugin instanceof FlashAudioPlugin)
 		{
 			var swf = document.getElementById("SoundJSFlashContainer");
 			if (swf && swf.parentNode)
