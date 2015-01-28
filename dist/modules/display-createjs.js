@@ -1,5 +1,139 @@
 /*! SpringRoll 0.0.7 */
 /**
+*  @module CreateJS Display
+*/
+
+(function(undefined) {
+
+	"use strict";
+	
+	/**
+	*  Added methods to createjs.Point.
+	*
+	*  @class Array
+	*/
+	
+	var p = include("createjs.Point").prototype;
+	
+	/**
+	* Returns the dot product between this point and another one.
+	* @method dotProd
+	* @param other {Point} The point to form a dot product with
+	* @return The dot product between the two points.
+	*/
+	p.dotProd = function(other)
+	{
+		return this.x * other.x + this.y * other.y;
+	};
+
+	/**
+	* Returns the length (or magnitude) of this point.
+	* @method length
+	* @return The length of this point.
+	*/
+	p.length = function()
+	{
+		return Math.sqrt(this.x * this.x + this.y * this.y);
+	};
+
+	/**
+	* Returns the squared length (or magnitude) of this point. This is faster than length().
+	* @method lengthSq
+	* @return The length squared of this point.
+	*/
+	p.lengthSq = function()
+	{
+		return this.x * this.x + this.y * this.y;
+	};
+
+	/**
+	* Reduces the point to a length of 1.
+	* @method normalize
+	*/
+	p.normalize = function()
+	{
+		var oneOverLen = 1 / this.length();
+		this.x *= oneOverLen;
+		this.y *= oneOverLen;
+	};
+
+	/**
+	* Subtracts the x and y values of a point from this point.
+	* @method subtract
+	* @param other {Point} The point to subtract from this one
+	*/
+	p.subtract = function(other)
+	{
+		this.x -= other.x;
+		this.y -= other.y;
+	};
+
+	/**
+	* Adds the x and y values of a point to this point.
+	* @method add
+	* @param other {Point} The point to add to this one
+	*/
+	p.add = function(other)
+	{
+		this.x += other.x;
+		this.y += other.y;
+	};
+
+	/**
+	* Truncate the length of the point to a maximum.
+	* @method truncate
+	* @param maxLength {Number} The maximum length to allow in this point.
+	*/
+	p.truncate = function(maxLength)
+	{
+		var l = this.length();
+		if(l > maxLength)
+		{
+			var maxOverLen = maxLength / l;
+			this.x *= maxOverLen;
+			this.y *= maxOverLen;
+		}
+	};
+
+	/**
+	* Multiplies the x and y values of this point by a value.
+	* @method scaleBy
+	* @param value {Number} The value to scale by.
+	*/
+	p.scaleBy = function(value)
+	{
+		this.x *= value;
+		this.y *= value;
+	};
+
+	/**
+	* Calculates the distance between this and another point.
+	* @method distance
+	* @param other {Point} The point to calculate the distance to.
+	* @return {Number} The distance.
+	*/
+	p.distance = function(other)
+	{
+		var xDiff = this.x - other.x;
+		var yDiff = this.y - other.y;
+		return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+	};
+
+	/**
+	* Calculates the squared distance between this and another point.
+	* @method distanceSq
+	* @param other {Point} The point to calculate the distance to.
+	* @return {Number} The distance squared.
+	*/
+	p.distanceSq = function(other)
+	{
+		var xDiff = this.x - other.x;
+		var yDiff = this.y - other.y;
+		return xDiff * xDiff + yDiff * yDiff;
+	};
+	
+}());
+/**
  * @module CreateJS Display
  * @namespace springroll.createjs
  */
@@ -41,6 +175,198 @@
 	namespace('springroll').MovieClipUtils = MovieClipUtils;
 	namespace('springroll.createjs').MovieClipUtils = MovieClipUtils;
 
+}());
+/**
+*  @module CreateJS Display
+*/
+
+(function() {
+
+	"use strict";
+
+	/**
+	*  Designed to provide utility related to Bitmaps.
+	*  @class BitmapUtils
+	*/
+	var BitmapUtils = {};
+
+	/**
+	*	Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	*	that pulls the image from a spritesheet. This function should be
+	*	called after you have loaded up javascript assets exported from Flash,
+	*	but before you have instantiated those assets.
+	*
+	*	@method loadSpriteSheet
+	*	@static
+	*	@param {Object} frameDict A dictionary of frame information, with frame, trimmed,
+	*		and spriteSourceSize properties (like the JSON hash output from TexturePacker).
+	*	@param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of the frames.
+	*	@param {Number} [scale=1] The scale to apply to all sprites from the spritesheet.
+	*		For example, a half sized spritesheet should have a scale of 2.
+	*/
+	BitmapUtils.loadSpriteSheet = function(frameDict, spritesheetImage, scale)
+	{
+		if(scale > 0)
+		{
+			// Do nothing
+		}
+		else
+		{
+			scale = 1;//scale should default to 1
+		}
+
+		for(var key in frameDict)
+		{
+			var frame = frameDict[key];
+			var index = key.indexOf(".");
+			if(index > 0)
+				key = key.substring(0, index);//remove any file extension from the frame id
+			var bitmap = lib[key];
+			/* jshint ignore:start */
+			var newBitmap = lib[key] = function()
+			{
+				createjs.Container.call(this);
+				var child = new createjs.Bitmap(this._image);
+				this.addChild(child);
+				child.sourceRect = this._frameRect;
+				var s = this._scale;
+				child.setTransform(this._frameOffsetX * s, this._frameOffsetY * s, s, s);
+			};
+			/* jshint ignore:end */
+			var p = newBitmap.prototype = new createjs.Container();
+			p._image = spritesheetImage;//give it a reference to the spritesheet
+			p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
+			var frameRect = frame.frame;
+			//save the source rectangle of the sprite
+			p._frameRect = new createjs.Rectangle(frameRect.x,
+												frameRect.y,
+												frameRect.w,
+												frameRect.h);
+			//if the sprite is trimmed, then save the amount that was trimmed
+			//off the left and top sides
+			if(frame.trimmed)
+			{
+				p._frameOffsetX = frame.spriteSourceSize.x;
+				p._frameOffsetY = frame.spriteSourceSize.y;
+			}
+			else
+				p._frameOffsetX = p._frameOffsetY = 0;
+			if(bitmap && bitmap.prototype.nominalBounds)
+			{
+				//keep the nominal bounds from the original bitmap, if it existed
+				p.nominalBounds = bitmap.prototype.nominalBounds;
+			}
+			else
+			{
+				p.nominalBounds = new createjs.Rectangle(0, 0,
+														frame.sourceSize.w * scale,
+														frame.sourceSize.h * scale);
+			}
+		}
+	};
+	
+	/**
+	 * Creates a faux Bitmap from a TextureAtlas entry.
+	 * @method bitmapFromTexture
+	 * @static
+	 * @param {Texture} texture The texture from a TextureAtlas to create the Bitmap analogue from.
+	 * @param {[type]} scale A scale for the spritesheet to undo, e.g. a half sized spritesheet
+	 *                       gets a scale of 2 to restore it to normal size.
+	 */
+	BitmapUtils.bitmapFromTexture = function(texture, scale)
+	{
+		if(scale > 0)
+		{
+			// Do nothing
+		}
+		else
+		{
+			scale = 1;//scale should default to 1
+		}
+		var output = new createjs.Container();
+		var bitmap = new createjs.Bitmap(texture.image);
+		output.addChild(bitmap);
+		bitmap.sourceRect = texture.frame;
+		bitmap.setTransform(texture.offset.x * scale, texture.offset.y * scale, scale, scale);
+		//set up a nominal bounds to be kind
+		output.nominalBounds = new createjs.Rectangle(0, 0,
+												texture.width * scale,
+												texture.height * scale);
+		return output;
+	};
+
+	/**
+	*	Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	*	that uses a scaled bitmap, so you can load up smaller bitmaps behind
+	*	the scenes that are scaled back up to normal size, or high res bitmaps
+	*	that are scaled down.
+	*
+	*	@method replaceWithScaledBitmap
+	*	@static
+	*	@param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
+	*	@param {Number} [scale=1] The scale to apply to the image(s).
+	*/
+	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
+	{
+		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
+		if(scale != 1 && scale > 0)
+		{
+			// Do nothing
+		}
+		else
+		{
+			return;
+		}
+
+		var key, bitmap, newBitmap, p;
+		if(typeof idOrDict == "string")
+		{
+			key = idOrDict;
+			bitmap = lib[key];
+			if(bitmap)
+			{
+				/* jshint ignore:start */
+				newBitmap = lib[key] = function()
+				{
+					createjs.Container.call(this);
+					var child = new this._oldBM();
+					this.addChild(child);
+					child.setTransform(0, 0, this._scale, this._scale);
+				};
+				/* jshint ignore:end */
+				p = newBitmap.prototype = new createjs.Container();
+				p._oldBM = bitmap;//give it a reference to the Bitmap
+				p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
+				p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+			}
+		}
+		else
+		{
+			for(key in idOrDict)
+			{
+				bitmap = lib[key];
+				if(bitmap)
+				{
+					/* jshint ignore:start */
+					newBitmap = lib[key] = function()
+					{
+						createjs.Container.call(this);
+						var child = new this._oldBM();
+						this.addChild(child);
+						child.setTransform(0, 0, this._scale, this._scale);
+					};
+					/* jshint ignore:end */
+					p = newBitmap.prototype = new createjs.Container();
+					p._oldBM = bitmap;//give it a reference to the Bitmap
+					p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
+					p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
+				}
+			}
+		}
+	};
+
+	namespace("createjs").BitmapUtils = BitmapUtils;
+	namespace("springroll.createjs").BitmapUtils = BitmapUtils;
 }());
 /**
 *  @module CreateJS Display
@@ -944,7 +1270,7 @@
 			return timeline;
 		}
 		//make sure the movieclip doesn't play outside the control of Animator
-		instance.advanceDuringTicks = false;
+		instance.tickEnabled = false;
 		var fps;
 		//make sure the movieclip is framerate independent
 		if (!instance.framerate)
@@ -1605,9 +1931,8 @@
 			if(t.firstFrame >= 0)
 			{
 				instance.elapsedTime = t.startTime + t._time_sec;
-				//because the movieclip only checks the elapsed time here
-				//(advanceDuringTicks is false),
-				//calling advance() with no parameters is fine
+				//because the movieclip only checks the elapsed time here (tickEnabled is false),
+				//calling advance() with no parameters is fine - it won't advance the time
 				instance.advance();
 			}
 		}
@@ -3990,4 +4315,763 @@
 
 	namespace("springroll").Cutscene = Cutscene;
 	namespace("springroll.createjs").Cutscene = Cutscene;
+}());
+
+/**
+*  @module CreateJS Display
+*/
+
+(function(undefined) {
+
+	"use strict";
+
+	/**
+	*  Handles a spritesheet. File extensions and folder paths are dropped from frame names upon loading.
+	*  @class TextureAtlas
+	*  @constructor
+	*  @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from.
+	*       This can also be an array of images, if the TextureAtlas should be built from several spritesheets.
+	*  @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas.
+	*       This is expected to fit the JSON Hash format as exported from TexturePacker.
+	*       This can also be an array of data objects, if the TextureAtlas should be built from several spritesheets.
+	*/
+	var TextureAtlas = function(image, spritesheetData)
+	{
+		/**
+		*  The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
+		*  @property {Array} _image
+		*  @private
+		*/
+		if(Array.isArray(image))
+		{
+			this._images = image;
+		}
+		else
+		{
+			this._images = [image];
+			spritesheetData = [spritesheetData];
+		}
+
+		/**
+		*  The dictionary of Textures that this atlas consists of.
+		*  @property {Object} frames
+		*/
+		this.frames = {};
+
+		for(var i = 0; i < this._images.length; ++i)
+		{
+			image = this._images[i];
+
+			var dataFrames = spritesheetData[i].frames;
+			for(var name in dataFrames)
+			{
+				var data = dataFrames[name];
+				var index = name.lastIndexOf(".");
+				if(index > 0)
+					name = name.substring(0, index);//strip off any ".png" or ".jpg" at the end
+				index = name.lastIndexOf("/");
+				if(index < 0)
+					name = name.substring(index + 1);//strip off any folder structure included in the name
+				this.frames[name] = new Texture(image, data);
+			}
+		}
+	};
+	
+	// Extend Object
+	var p = TextureAtlas.prototype = {};
+
+	/**
+	*  Gets a frame by name.
+	*  @method getFrame
+	*  @param {String} name The frame name to get.
+	*  @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
+	*/
+	p.getFrame = function(name)
+	{
+		return this.frames[name] || null;
+	};
+
+	/**
+	*  Get an array of Textures that match a specific name. If a frame in a sequence is not in the atlas,
+	*  the previous frame in the sequence is used in place of it.
+	*  @method getFrames
+	*  @param {String} name The base name of all frames to look for, like "anim_#" to search for an animation exported
+	*         as anim_0001.png (the ".png" is dropped when the TextureAtlas is loaded).
+	*  @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences generally start at 1.
+	*  @param {int} numberMax The number to go until while looking for frames.
+	*         If your animation runs from frame 0001 to frame 0014, numberMax would be 14.
+	*  @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as anim_0001.png
+	*  @param {Array} [outArray] If already using an array, this can fill it instead of creating a new one.
+	*  @return {Array} The collection of createjs.TextureAtlas.Textures.
+	*/
+	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
+	{
+		if(maxDigits === undefined)
+			maxDigits = 4;
+		if(maxDigits < 0)
+			maxDigits = 0;
+		if(!outArray)
+			outArray = [];
+		//set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
+		var zeros = [];//preceding zeroes array
+		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var i, c;
+		for(i = 1; i < maxDigits; ++i)
+		{
+			var s = "";
+			c = 1;
+			for(var j = 0; j < i; ++j)
+			{
+				s += "0";
+				c *= 10;
+			}
+			zeros.unshift(s);
+			compares.push(c);
+		}
+		var compareLength = compares.length;//the length of the compar
+
+		var prevTex;//the previous Texture, so we can place the same object in multiple times to control animation rate
+		var len;
+		for(i = numberMin, len = numberMax; i <= len; ++i)
+		{
+			var num = null;
+			//calculate the number of preceding zeroes needed, then create the full number string.
+			for(c = 0; c < compareLength; ++c)
+			{
+				if(i < compares[c])
+				{
+					num = zeros[c] + i;
+					break;
+				}
+			}
+			if(!num)
+				num = i.toString();
+			
+			//If the texture doesn't exist, use the previous texture - this should allow us to use fewer textures
+			//that are in fact the same, if those textures were removed before making the spritesheet
+			var texName = name.replace("#", num);
+			var tex = this.frames[texName];
+			if(tex)
+				prevTex = tex;
+			if(prevTex)
+				outArray.push(prevTex);
+		}
+
+		return outArray;
+	};
+
+	/**
+	*  Destroys the TextureAtlas by nulling the image and frame dictionary references.
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this.image = null;
+		this.frames = null;
+	};
+
+	namespace("createjs").TextureAtlas = TextureAtlas;
+	namespace("springroll.createjs").TextureAtlas = TextureAtlas;
+
+	/**
+	*  A Texture - a specific portion of an image that can then be drawn by a Bitmap.
+	*  This class is hidden within TextureAtlas, and can't be manually created.
+	*  @class Texture
+	*/
+	var Texture = function(image, data)
+	{
+		/**
+		*  The image element that this texture references.
+		*  @property {Image|HTMLCanvasElement} image
+		*/
+		this.image = image;
+		var f = data.frame;
+		/**
+		*  The frame rectangle within the image.
+		*  @property {createjs.Rectangle} frame
+		*/
+		this.frame = new createjs.Rectangle(f.x, f.y, f.w, f.h);
+		/**
+		*  If this texture has been trimmed.
+		*  @property {Boolean} trimmed
+		*/
+		this.trimmed = data.trimmed;
+		/**
+		*  The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
+		*  @property {createjs.Point} offset
+		*/
+		this.offset = new createjs.Point(data.spriteSourceSize.x, data.spriteSourceSize.y);
+		/**
+		*  The width of the untrimmed texture.
+		*  @property {Number} width
+		*/
+		this.width = data.sourceSize.w;
+		/**
+		*  The height of the untrimmed texture.
+		*  @property {Number} height
+		*/
+		this.height = data.sourceSize.h;
+	};
+}());
+/**
+*  @module CreateJS Display
+*/
+
+(function(undefined) {
+
+	"use strict";
+
+	/**
+	*  A class similar to createjs.MovieClip, but made to play animations from a createjs.TextureAtlas.
+	*  The CreateJS Sprite class requires a spritesheet with equal sized and spaced frames. By using createjs.TextureAtlas,
+	*  you can use a much smaller spritesheet, sprites on screen with fewer extra transparent pixels, and use the same
+	*  API as MovieClip.
+	*
+	*  @class BitmapMovieClip
+	*  @extends createjs.Container
+	*  @constructor
+	*  @param {TextureAtlas} atlas=null The texture atlas to pull frames from.
+	*  @param {Object} data=null Initialization data
+	*   @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
+	*   @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
+	*   @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	*   @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	*   @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+	*   @param {int} [data.frames.min] The first frame number in the frame sequence.
+	*   @param {int} [data.frames.max] The last frame number in the frame sequence.
+	*   @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
+	*   @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
+	*          in size to 140% before exporting and should be scaled back down before drawing to the screen.
+	*
+	*  Format for data:
+	*	{
+	*		fps:30,
+	*		labels:
+	*		{
+	*			animStart:0,
+	*			animStart_loop:15
+	*		},
+	*		origin:{ x: 20, y:30 },
+	*		frames:
+	*		[
+	*			{
+	*				name:"myAnim#",
+	*				min:1,
+	*				max:20,
+	*				digits:4
+	*			}
+	*		],
+	*		scale:1
+	*	}
+	*
+	* The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,
+	* with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.
+	*/
+	var BitmapMovieClip = function(atlas, data)
+	{
+		createjs.Container.call(this);
+		this.mouseChildren = false;//mouse events should reference this, not the child bitmap
+		this._bitmap = new createjs.Bitmap();
+		this.addChild(this._bitmap);
+		if(atlas && data)
+			this.init(atlas, data);
+	};
+
+	var p = BitmapMovieClip.prototype = new createjs.Container();
+	var s = createjs.Container.prototype;
+
+	//==== Public properties =====
+
+	/**
+	 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
+	 * @property loop
+	 * @type Boolean
+	 * @default true
+	 */
+	p.loop = true;
+
+	/**
+	 * The current frame of the movieclip.
+	 * @property currentFrame
+	 * @type Number
+	 * @default 0
+	 * @readonly
+	 */
+	p.currentFrame = 0;
+
+	/**
+	 * If true, the BitmapMovieClip's position will not advance when ticked.
+	 * @property paused
+	 * @type Boolean
+	 * @default false
+	 */
+	p.paused = false;
+
+	/**
+	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip
+	 * will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+	 * framerate.
+	 *
+	 * For example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the BitmapMovieClip will
+	 * advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will
+	 * vary slightly between frames.
+	 *
+	 * This feature is dependent on the tick event object (or an object with an appropriate "delta" property) being
+	 * passed into {{#crossLink "Stage/update"}}{{/crossLink}}.
+	 * @property framerate
+	 * @type {Number}
+	 * @default 0
+	 **/
+	Object.defineProperty(p, 'framerate', {
+		get: function() {
+			return this._framerate;
+		},
+		set: function(value) {
+			if(value > 0)
+			{
+				this._framerate = value;
+				this._duration = value ? this._frames.length / value : 0;
+			}
+			else
+				this._framerate = this._duration = 0;
+		}
+	});
+
+	/**
+	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
+	 * @property elapsedTime
+	 * @type Number
+	 * @default 0
+	 * @public
+	 */
+	Object.defineProperty(p, 'elapsedTime', {
+		get: function() {
+			return this._t;
+		},
+		set: function(value) {
+			this._t = value;
+		}
+	});
+
+	/**
+	 * (Read-Only) The total number of frames in the timeline
+	 * @property totalFrames
+	 * @type Int
+	 * @default 0
+	 * @readOnly
+	 */
+	Object.defineProperty(p, 'totalFrames', {
+		get: function() {
+			return this._frames.length;
+		}
+	});
+
+	/**
+	 * (Read-Only) The Texture of the current frame
+	 * @property currentTexture
+	 * @type createjs.TextureAtlas.Texture
+	 * @readOnly
+	 */
+	Object.defineProperty(p, 'currentTexture', {
+		get: function() {
+			return this._currentTexture;
+		}
+	});
+
+	//==== Private properties =====
+
+	/**
+	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip
+	 * will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
+	 * framerate.
+	 *
+	 * @property _framerate
+	 * @type {Number}
+	 * @default 0
+	 * @private
+	 **/
+	p._framerate = 0;
+
+	/**
+	 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the animation.
+	 * @property _duration
+	 * @type Number
+	 * @default 0
+	 * @private
+	 */
+	p._duration = 0;
+
+	/**
+	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
+	 * @property _t
+	 * @type Number
+	 * @default 0
+	 * @private
+	 */
+	p._t = 0;
+
+	/**
+	 * @property _prevPosition
+	 * @type Number
+	 * @default 0
+	 * @private
+	 */
+	p._prevPosition = 0;
+
+	/**
+	 * The Bitmap used to render the current frame of the animation.
+	 * @property _bitmap
+	 * @type createjs.Bitmap
+	 * @private
+	 */
+	p._bitmap = 0;
+
+	/**
+	 * An array of frame labels.
+	 * @property _labels
+	 * @type Array
+	 * @private
+	 */
+	p._labels = 0;
+
+	/**
+	 * An array of textures.
+	 * @property _frames
+	 * @type Array
+	 * @private
+	 */
+	p._frames = null;
+
+	/**
+	 * The current texture.
+	 * @property _currentTexture
+	 * @type createjs.TextureAtlas.Texture
+	 * @private
+	 */
+	p._currentTexture = null;
+
+	/**
+	 * The origin point of the BitmapMovieClip.
+	 * @property _origin
+	 * @type createjs.Point
+	 * @private
+	 */
+	p._origin = null;
+
+	/**
+	 * A scale to apply to the images in the BitmapMovieClip
+	 * to restore normal size (if spritesheet was exported at a smaller or larger size).
+	 * @property _scale
+	 * @type Number
+	 * @private
+	 */
+	p._scale = 1;
+
+	//==== Public Methods =====
+
+	/**
+	 * Returns true or false indicating whether the display object would be visible if drawn to a canvas.
+	 * This does not account for whether it would be visible within the boundaries of the stage.
+	 * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+	 * @method isVisible
+	 * @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
+	 **/
+	p.isVisible = function() {
+		// children are placed in draw, so we can't determine if we have content.
+		return !!(this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0);
+	};
+
+	/**
+	 * Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.
+	 * Returns true if the draw was handled (useful for overriding functionality).
+	 * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
+	 * @method draw
+	 * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
+	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
+	 * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
+	 * into itself).
+	 **/
+	p.draw = function(ctx, ignoreCache) {
+		// draw to cache first:
+		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
+		this._updateTimeline();
+		s.draw.call(this, ctx, ignoreCache);//Container's call
+		return true;
+	};
+
+	/**
+	 * Sets paused to false.
+	 * @method play
+	 **/
+	p.play = function() {
+		this.paused = false;
+	};
+	
+	/**
+	 * Sets paused to true.
+	 * @method stop
+	 **/
+	p.stop = function() {
+		this.paused = true;
+	};
+	
+	/**
+	 * Advances this movie clip to the specified position or label and sets paused to false.
+	 * @method gotoAndPlay
+	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
+	 **/
+	p.gotoAndPlay = function(positionOrLabel) {
+		this.paused = false;
+		this._goto(positionOrLabel);
+	};
+	
+	/**
+	 * Advances this movie clip to the specified position or label and sets paused to true.
+	 * @method gotoAndStop
+	 * @param {String|Number} positionOrLabel The animation or frame name to go to.
+	 **/
+	p.gotoAndStop = function(positionOrLabel) {
+		this.paused = true;
+		this._goto(positionOrLabel);
+	};
+
+	/**
+	 * Advances the playhead. This occurs automatically each tick by default.
+	 * @param [time] {Number} The amount of time in ms to advance by. If 0 or null, time is not
+	 *                        advanced but the timeline is still updated.
+	 * @method advance
+	*/
+	p.advance = function(time) {
+		if(!this.paused)
+		{
+			if(this._framerate > 0)
+			{
+				if(time)
+					this._t += time * 0.001;//milliseconds -> seconds
+				if(this._t > this._duration)
+					this._t = this.loop ? this._t - this._duration : this._duration;
+				this._prevPosition = Math.floor(this._t * this._framerate);
+				if(this._prevPosition >= this._frames.length)
+					this._prevPosition = this._frames.length - 1;
+			}
+			else
+				this._prevPosition = this._prevPosition + 1;
+			this._updateTimeline();
+		}
+	};
+	
+	/**
+	 * Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS: Timeline.getLabels();
+	 * @method getLabels
+	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame) properties.
+	 **/
+	p.getLabels = function() {
+		return this._labels;
+	};
+	
+	/**
+	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
+	 * for more information.
+	 * @method getCurrentLabel
+	 * @return {String} The name of the current label or null if there is no label.
+	 **/
+	p.getCurrentLabel = function() {
+		var labels = this._labels;
+		var current = null;
+		for(var i = 0, len = labels.length; i < len; ++i)
+		{
+			if(labels[i].position <= this.currentFrame)
+				current = labels[i].label;
+			else
+				break;
+		}
+		return current;
+	};
+
+	/**
+	 *  Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
+	 *  for more information.
+	 *  @method init
+	 *  @param {TextureAtlas} atlas The texture atlas to pull frames from.
+	 *  @param {Object} data Initialization data
+	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
+	 *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
+	 *  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	 *  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	 *  @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+	 *  @param {int} [data.frames.min] The first frame number in the frame sequence.
+	 *  @param {int} [data.frames.max] The last frame number in the frame sequence.
+	 *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
+	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
+	 *          in size to 140% before exporting and should be scaled back down before drawing to the screen.
+	 *
+	 *  Format for data:
+	 *	{
+	 *		fps:30,
+	 *		labels:
+	 *		{
+	 *			animStart:0,
+	 *			animStart_loop:15
+	 *		},
+	 *		origin:{ x: 20, y:30 },
+	 *		frames:
+	 *		[
+	 *			{
+	 *				name:"myAnim#",
+	 *				min:1,
+	 *				max:20,
+	 *				digits:4
+	 *			}
+	 *		],
+	 *  	scale: 1
+	 *	}
+	 *
+	 * The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,
+	 * with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.
+	 **/
+	p.init = function(atlas, data)
+	{
+		//collect the frame labels
+		var labels = this._labels = [];
+		if(data.labels)
+		{
+			for(var name in data.labels)
+			{
+				labels.push({label:name, position: data.labels[name]});
+			}
+			labels.sort(labelSorter);
+		}
+		//collect the frames
+		this._frames = [];
+		for(var i = 0; i < data.frames.length; ++i)
+		{
+			var frameSet = data.frames[i];
+			atlas.getFrames(frameSet.name, frameSet.min, frameSet.max, frameSet.digits, this._frames);
+		}
+		//set up the framerate
+		if(data.fps)
+			this.framerate = data.fps;
+		else if(this._framerate)
+			this.framerate = this._framerate;
+		if(data.scale && data.scale > 0)
+			this._scale = 1 / data.scale;
+		else
+			this._scale = 1;
+		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
+		if(data.origin)
+			this._origin = new createjs.Point(data.origin.x * this._scale, data.origin.y * this._scale);
+		else
+			this._origin = new createjs.Point();
+	};
+
+	function labelSorter(a, b)
+	{
+		return a.position - b.position;
+	}
+
+	/**
+	*	Copies the labels, textures, origin, and framerate from another BitmapMovieClip.
+	*	The labels and textures are copied by reference, instead of a deep copy.
+	*	@method copyFrom
+	*	@param {BitmapMovieClip} other The movieclip to copy data from.
+	*/
+	p.copyFrom = function(other)
+	{
+		this._frames = other._frames;
+		this._labels = other._labels;
+		this._origin = other._origin;
+		this._framerate = other._framerate;
+		this._duration = other._duration;
+		this._scale = other._scale;
+		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
+	};
+
+	/**
+	*	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
+	*	@method destroy
+	*/
+	p.destroy = function()
+	{
+		this.removeAllChildren();
+		this._bitmap = null;
+		this._frames = null;
+		this._origin = null;
+		this._currentTexture = null;
+	};
+
+	//===== Private Methods =====
+
+	/**
+	 * @method _tick
+	 * @param {Object} props Properties to copy to the DisplayObject {{#crossLink "DisplayObject/tick"}}{{/crossLink}} event object.
+	 * function.
+	 * @protected
+	 **/
+	p._tick = function(props) {
+		this.advance(props&&props.delta);
+		s._tick.call(this, props);
+	};
+	
+	/**
+	 * @method _goto
+	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
+	 * @protected
+	 **/
+	p._goto = function(positionOrLabel) {
+		var pos = null;
+		if(typeof positionOrLabel == "string")
+		{
+			var labels = this._labels;
+			for(var i = 0, len = labels.length; i < len; ++i)
+			{
+				if(labels[i].label == positionOrLabel)
+				{
+					pos = labels[i].position;
+					break;
+				}
+			}
+		}
+		else
+			pos = positionOrLabel;
+		if (pos === null) { return; }
+		this._prevPosition = pos;
+		if(this._framerate > 0)
+			this._t = pos / this._framerate;
+		else
+			this._t = 0;
+		this._updateTimeline();
+	};
+
+	/**
+	 * @method _updateTimeline
+	 * @protected
+	 **/
+	p._updateTimeline = function() {
+		if(this._prevPosition < 0)
+			this._prevPosition = 0;
+		else if(this._prevPosition >= this._frames.length)
+			this._prevPosition = this._frames.length - 1;
+		this.currentFrame = this._prevPosition;
+		if(this._currentTexture != this._frames[this.currentFrame])
+		{
+			var tex = this._currentTexture = this._frames[this.currentFrame];
+			this._bitmap.image = tex.image;
+			this._bitmap.sourceRect = tex.frame;
+			this._bitmap.x = -this._origin.x + tex.offset.x * this._bitmap.scaleX;
+			this._bitmap.y = -this._origin.y + tex.offset.y * this._bitmap.scaleY;
+		}
+	};
+	
+	/**
+	 * @method _reset
+	 * @private
+	 **/
+	p._reset = function() {
+		this._prevPosition = 0;
+		this._t = 0;
+		this.currentFrame = 0;
+	};
+
+	namespace("createjs").BitmapMovieClip = BitmapMovieClip;
+	namespace("springroll.createjs").BitmapMovieClip = BitmapMovieClip;
 }());
