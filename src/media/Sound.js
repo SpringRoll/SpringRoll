@@ -142,10 +142,10 @@
 			throw "springroll.Sound.init requires a ready callback";
 		}
 
-		// Apply the base path if available
-		var basePath = appOptions.basePath;
 		if (FlashAudioPlugin)
 		{
+			// Apply the base path if available
+			var basePath = appOptions.basePath;
 			FlashAudioPlugin.swfPath = (basePath || "") + options.swfPath;
 		}
 
