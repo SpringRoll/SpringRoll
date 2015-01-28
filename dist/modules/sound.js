@@ -440,7 +440,7 @@
 		}
 
 		var _defaultOptions = {
-			plugins : options.forceFlashAudio ?
+			plugins : appOptions.forceFlashAudio ?
 						[FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
