@@ -154,7 +154,7 @@
 
 		//If on iOS, then we need to add a touch listener to unmute sounds.
 		//playback pretty much has to be createjs.WebAudioPlugin for iOS
-		if (SoundJS.BrowserDetect.isIOS &&
+		if (createjs.BrowserDetect.isIOS &&
 			SoundJS.activePlugin instanceof WebAudioPlugin)
 		{
 			document.addEventListener("touchstart", _playEmpty);
