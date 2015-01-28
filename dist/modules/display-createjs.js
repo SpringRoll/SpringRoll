@@ -4176,6 +4176,10 @@
 	{
 		if(this._animFinished) return;
 		
+		//update the elapsed time first, in case it starts audio
+		if(!this._currentAudioInstance)
+			this._elapsedTime += elapsed * 0.001;
+		
 		for(var i = this._audioIndex; i < this._audio.length; ++i)
 		{
 			var data = this._audio[i];
@@ -4224,13 +4228,10 @@
 			{
 				//do nothing here
 			}
-			else if(this._currentAudioInstance)
+			else
 			{
-				//random bug? - else if check avoids an unlikely null ref error
-				
 				//save the time elapsed
-				this._elapsedTime = this._soundStartTime +
-										this._currentAudioInstance.position * 0.001;
+				this._elapsedTime = this._soundStartTime + pos;
 			}
 		}
 		else
