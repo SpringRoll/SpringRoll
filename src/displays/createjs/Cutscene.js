@@ -386,7 +386,7 @@
 		}
 		clip.mouseEnabled = false;
 		clip.framerate = this.framerate;
-		clip.advanceDuringTicks = false;
+		clip.tickEnabled = false;
 		//internally, movieclip has to be playing to change frames during tick() or advance().
 		clip.gotoAndPlay(0);
 		clip.loop = false;
