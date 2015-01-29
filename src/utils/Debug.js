@@ -647,6 +647,7 @@
 		/**
 		 * Output a general log colored as navy
 		 * @method navy
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -655,6 +656,7 @@
 		/**
 		 * Output a general log colored as blue
 		 * @method blue
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -663,6 +665,7 @@
 		/**
 		 * Output a general log colored as aqua
 		 * @method aqua
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -671,6 +674,7 @@
 		/**
 		 * Output a general log colored as teal
 		 * @method teal
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -687,6 +691,7 @@
 		/**
 		 * Output a general log colored as green
 		 * @method green
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -695,6 +700,7 @@
 		/**
 		 * Output a general log colored as lime
 		 * @method lime
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -711,6 +717,7 @@
 		/**
 		 * Output a general log colored as orange
 		 * @method orange
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -719,6 +726,7 @@
 		/**
 		 * Output a general log colored as red
 		 * @method red
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -727,6 +735,7 @@
 		/**
 		 * Output a general log colored as pink
 		 * @method pink
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -735,6 +744,7 @@
 		/**
 		 * Output a general log colored as purple
 		 * @method purple
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -743,6 +753,7 @@
 		/**
 		 * Output a general log colored as maroon
 		 * @method maroon
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -751,6 +762,7 @@
 		/**
 		 * Output a general log colored as silver
 		 * @method silver
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -759,6 +771,7 @@
 		/**
 		 * Output a general log colored as gray
 		 * @method gray
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
