@@ -189,7 +189,7 @@
 	};
 
 	// Extend Container
-	var p = Button.prototype = Object.create(Container.prototype);
+	var p = extend(Button, Container);
 
 	var s = Container.prototype; //super
 

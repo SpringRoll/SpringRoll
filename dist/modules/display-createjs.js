@@ -711,7 +711,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = CreateJSDisplay.prototype = Object.create(s);
+	var p = extend(CreateJSDisplay, AbstractDisplay);
 	
 	/**
 	 * An internal helper to avoid creating an object each render
@@ -2198,7 +2198,7 @@
 	};
 
 	// Extend Container
-	var p = Button.prototype = Object.create(Container.prototype);
+	var p = extend(Button, Container);
 
 	var s = Container.prototype; //super
 
@@ -2885,7 +2885,7 @@
 	var s = Button.prototype;
 
 	// Reference to the prototype
-	var p = SoundButton.prototype = Object.create(s);
+	var p = extend(SoundButton, Button);
 
 	/**
 	 *  Handler for the BUTTON_PRESS event

@@ -48,7 +48,7 @@
 	var s = Task.prototype;
 
 	// Reference to the inherieted task
-	var p = FunctionTask.prototype = Object.create(s);
+	var p = extend(FunctionTask, Task);
 	
 	/**
 	*   Start the load

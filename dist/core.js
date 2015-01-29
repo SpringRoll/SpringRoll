@@ -109,6 +109,44 @@
 /**
 *  @module Core
 */
+/**
+*  Use to do class inheritence
+*  @class extend
+*  @static
+*/
+(function(window){
+	
+	// The extend function already exists
+	if ("extend" in window) return;
+
+	/**
+	*  Extend prototype
+	*
+	*  @example
+		var p = extend(MyClass, ParentClass);
+	*
+	*  @constructor
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
+	*/
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
+		{
+			superClass = window.include(superClass);
+		}
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
+	};
+
+}(window));
+/**
+*  @module Core
+*/
 (function(Object, undefined){
 
 	/**
@@ -1046,6 +1084,7 @@
 		/**
 		 * Output a general log colored as navy
 		 * @method navy
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1054,6 +1093,7 @@
 		/**
 		 * Output a general log colored as blue
 		 * @method blue
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1062,6 +1102,7 @@
 		/**
 		 * Output a general log colored as aqua
 		 * @method aqua
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1070,6 +1111,7 @@
 		/**
 		 * Output a general log colored as teal
 		 * @method teal
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1086,6 +1128,7 @@
 		/**
 		 * Output a general log colored as green
 		 * @method green
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1094,6 +1137,7 @@
 		/**
 		 * Output a general log colored as lime
 		 * @method lime
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1102,6 +1146,7 @@
 		/**
 		 * Output a general log colored as yellow
 		 * @method yellow
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1110,6 +1155,7 @@
 		/**
 		 * Output a general log colored as orange
 		 * @method orange
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1118,6 +1164,7 @@
 		/**
 		 * Output a general log colored as red
 		 * @method red
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1126,6 +1173,7 @@
 		/**
 		 * Output a general log colored as pink
 		 * @method pink
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1134,6 +1182,7 @@
 		/**
 		 * Output a general log colored as purple
 		 * @method purple
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1142,6 +1191,7 @@
 		/**
 		 * Output a general log colored as maroon
 		 * @method maroon
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1150,6 +1200,7 @@
 		/**
 		 * Output a general log colored as silver
 		 * @method silver
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1158,6 +1209,7 @@
 		/**
 		 * Output a general log colored as gray
 		 * @method gray
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
@@ -1841,7 +1893,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = Application.prototype = Object.create(s);
+	var p = extend(Application, EventDispatcher);
 
 	/**
 	*  The collection of function references to call when initializing the application

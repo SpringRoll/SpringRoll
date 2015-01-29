@@ -80,7 +80,7 @@
 	var s = Task.prototype;
 
 	// Reference to the inherieted task
-	var p = ListTask.prototype = Object.create(s);
+	var p = extend(ListTask, Task);
 	
 	/**
 	*   Start the load

@@ -126,7 +126,7 @@
 
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = Application.prototype = Object.create(s);
+	var p = extend(Application, EventDispatcher);
 
 	/**
 	*  The collection of function references to call when initializing the application

@@ -359,7 +359,7 @@
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = PixiDisplay.prototype = Object.create(s);
+	var p = extend(PixiDisplay, AbstractDisplay);
 
 	/**
 	*  If input is enabled on the stage for this display. The default is true.

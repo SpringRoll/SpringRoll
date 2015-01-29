@@ -219,7 +219,7 @@
 	var s = Task.prototype;
 
 	// Reference to the inherieted task
-	var p = FunctionTask.prototype = Object.create(s);
+	var p = extend(FunctionTask, Task);
 	
 	/**
 	*   Start the load
@@ -333,7 +333,7 @@
 	var s = Task.prototype;
 
 	// Reference to the inherieted task
-	var p = LoadTask.prototype = Object.create(s);
+	var p = extend(LoadTask, Task);
 	
 	/**
 	*   Start the load
@@ -463,7 +463,7 @@
 		this._isDestroyed = false;
 	};
 
-	var p = TaskManager.prototype = Object.create(EventDispatcher.prototype);
+	var p = extend(TaskManager, EventDispatcher);
 
 	/**
 	* Event dispatched when tasks are all done
@@ -811,7 +811,7 @@
 	var s = Task.prototype;
 
 	// Reference to the inherieted task
-	var p = ListTask.prototype = Object.create(s);
+	var p = extend(ListTask, Task);
 	
 	/**
 	*   Start the load
@@ -974,7 +974,7 @@
 
 	var s = Task.prototype;
 
-	var p = PixiTask.prototype = Object.create(s);
+	var p = extend(PixiTask, Task);
 
 	/**
 	*   Start the load

@@ -542,6 +542,7 @@
 	*  The State Manager used for managing the different states of a game or site
 	*
 	*  @class StateManager
+	*  @extends springroll.EventDispatcher
 	*  @constructor
 	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
 	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
@@ -654,7 +655,7 @@
 		this._loopTransition = this._loopTransition.bind(this);
 	};
 	
-	var p = StateManager.prototype = Object.create(EventDispatcher.prototype);
+	var p = extend(StateManager, EventDispatcher);
 
 	/**
 	* The name of the Animator label and event for transitioning state in
@@ -1373,7 +1374,7 @@
 
 	// Extend application
 	var s = Application.prototype;
-	var p = Game.prototype = Object.create(s);
+	var p = extend(Game, Application);
 
 	/**
 	*  The sound is ready to use

@@ -182,7 +182,7 @@
 
 	// Extend application
 	var s = Application.prototype;
-	var p = Game.prototype = Object.create(s);
+	var p = extend(Game, Application);
 
 	/**
 	*  The sound is ready to use
