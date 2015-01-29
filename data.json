@@ -17363,6 +17363,7 @@
             "description": "Output a general log colored as navy",
             "itemtype": "method",
             "name": "navy",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17379,10 +17380,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 655,
+            "line": 656,
             "description": "Output a general log colored as blue",
             "itemtype": "method",
             "name": "blue",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17399,10 +17401,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 663,
+            "line": 665,
             "description": "Output a general log colored as aqua",
             "itemtype": "method",
             "name": "aqua",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17419,10 +17422,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 671,
+            "line": 674,
             "description": "Output a general log colored as teal",
             "itemtype": "method",
             "name": "teal",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17439,7 +17443,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 679,
+            "line": 683,
             "description": "Output a general log colored as olive",
             "itemtype": "method",
             "name": "olive",
@@ -17459,10 +17463,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 687,
+            "line": 691,
             "description": "Output a general log colored as green",
             "itemtype": "method",
             "name": "green",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17479,10 +17484,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 695,
+            "line": 700,
             "description": "Output a general log colored as lime",
             "itemtype": "method",
             "name": "lime",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17499,7 +17505,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 703,
+            "line": 709,
             "description": "Output a general log colored as yellow",
             "itemtype": "method",
             "name": "yellow",
@@ -17519,10 +17525,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 711,
+            "line": 717,
             "description": "Output a general log colored as orange",
             "itemtype": "method",
             "name": "orange",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17539,30 +17546,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 719,
+            "line": 726,
             "description": "Output a general log colored as red",
             "itemtype": "method",
             "name": "red",
-            "params": [
-                {
-                    "name": "message",
-                    "description": "The message to log",
-                    "type": "*"
-                }
-            ],
-            "return": {
-                "description": "The instance of debug for chaining",
-                "type": "Debug"
-            },
-            "class": "Debug",
-            "module": "Core"
-        },
-        {
-            "file": "src/utils/Debug.js",
-            "line": 727,
-            "description": "Output a general log colored as pink",
-            "itemtype": "method",
-            "name": "pink",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17580,9 +17568,31 @@
         {
             "file": "src/utils/Debug.js",
             "line": 735,
+            "description": "Output a general log colored as pink",
+            "itemtype": "method",
+            "name": "pink",
+            "static": 1,
+            "params": [
+                {
+                    "name": "message",
+                    "description": "The message to log",
+                    "type": "*"
+                }
+            ],
+            "return": {
+                "description": "The instance of debug for chaining",
+                "type": "Debug"
+            },
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 744,
             "description": "Output a general log colored as purple",
             "itemtype": "method",
             "name": "purple",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17599,10 +17609,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 743,
+            "line": 753,
             "description": "Output a general log colored as maroon",
             "itemtype": "method",
             "name": "maroon",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17619,10 +17630,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 751,
+            "line": 762,
             "description": "Output a general log colored as silver",
             "itemtype": "method",
             "name": "silver",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17639,10 +17651,11 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 759,
+            "line": 771,
             "description": "Output a general log colored as gray",
             "itemtype": "method",
             "name": "gray",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17659,14 +17672,14 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 768,
+            "line": 781,
             "description": "Loop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 778,
+            "line": 791,
             "description": "Due to the way closures and variables work, _colorClosure returns\nthe color logging function needed for the color that you pass it.",
             "itemtype": "method",
             "name": "_colorClosure",
@@ -19643,7 +19656,7 @@
         },
         {
             "message": "Missing item type\nLoop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
-            "line": " src/utils/Debug.js:768"
+            "line": " src/utils/Debug.js:781"
         }
     ]
 }
