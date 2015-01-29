@@ -17509,6 +17509,7 @@
             "description": "Output a general log colored as yellow",
             "itemtype": "method",
             "name": "yellow",
+            "static": 1,
             "params": [
                 {
                     "name": "message",
@@ -17525,7 +17526,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 717,
+            "line": 718,
             "description": "Output a general log colored as orange",
             "itemtype": "method",
             "name": "orange",
@@ -17546,7 +17547,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 726,
+            "line": 727,
             "description": "Output a general log colored as red",
             "itemtype": "method",
             "name": "red",
@@ -17567,7 +17568,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 735,
+            "line": 736,
             "description": "Output a general log colored as pink",
             "itemtype": "method",
             "name": "pink",
@@ -17588,7 +17589,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 744,
+            "line": 745,
             "description": "Output a general log colored as purple",
             "itemtype": "method",
             "name": "purple",
@@ -17609,7 +17610,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 753,
+            "line": 754,
             "description": "Output a general log colored as maroon",
             "itemtype": "method",
             "name": "maroon",
@@ -17630,7 +17631,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 762,
+            "line": 763,
             "description": "Output a general log colored as silver",
             "itemtype": "method",
             "name": "silver",
@@ -17651,7 +17652,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 771,
+            "line": 772,
             "description": "Output a general log colored as gray",
             "itemtype": "method",
             "name": "gray",
@@ -17672,14 +17673,14 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 781,
+            "line": 782,
             "description": "Loop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 791,
+            "line": 792,
             "description": "Due to the way closures and variables work, _colorClosure returns\nthe color logging function needed for the color that you pass it.",
             "itemtype": "method",
             "name": "_colorClosure",
@@ -19656,7 +19657,7 @@
         },
         {
             "message": "Missing item type\nLoop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
-            "line": " src/utils/Debug.js:781"
+            "line": " src/utils/Debug.js:782"
         }
     ]
 }
