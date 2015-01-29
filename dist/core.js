@@ -1146,6 +1146,7 @@
 		/**
 		 * Output a general log colored as yellow
 		 * @method yellow
+		 * @static
 		 * @param {*} message The message to log
 		 * @return {Debug} The instance of debug for chaining
 		 */
