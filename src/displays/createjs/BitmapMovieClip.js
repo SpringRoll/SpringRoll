@@ -5,6 +5,8 @@
 (function(undefined) {
 
 	"use strict";
+	
+	var Container = include("createjs.Container");
 
 	/**
 	*  A class similar to createjs.MovieClip, but made to play animations from a createjs.TextureAtlas.
@@ -17,15 +19,15 @@
 	*  @constructor
 	*  @param {TextureAtlas} atlas=null The texture atlas to pull frames from.
 	*  @param {Object} data=null Initialization data
-	*   @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
-	*   @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
-	*   @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	*   @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	*   @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
-	*   @param {int} [data.frames.min] The first frame number in the frame sequence.
-	*   @param {int} [data.frames.max] The last frame number in the frame sequence.
-	*   @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
-	*   @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
+	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
+	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
+	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
+	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
+	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
+	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
 	*          in size to 140% before exporting and should be scaled back down before drawing to the screen.
 	*
 	*  Format for data:
@@ -54,7 +56,7 @@
 	*/
 	var BitmapMovieClip = function(atlas, data)
 	{
-		createjs.Container.call(this);
+		Container.call(this);
 		this.mouseChildren = false;//mouse events should reference this, not the child bitmap
 		this._bitmap = new createjs.Bitmap();
 		this.addChild(this._bitmap);
@@ -62,8 +64,8 @@
 			this.init(atlas, data);
 	};
 
-	var p = BitmapMovieClip.prototype = new createjs.Container();
-	var s = createjs.Container.prototype;
+	var p = extend(BitmapMovieClip, Container);
+	var s = Container.prototype;
 
 	//==== Public properties =====
 

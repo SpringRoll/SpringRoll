@@ -217,7 +217,7 @@
 		this.setup();
 	};
 
-	var p = Cutscene.prototype = new Container();
+	var p = extend(Cutscene, Container);
 
 	/**
 	*   Called from the constructor to complete setup and start loading.
@@ -581,10 +581,6 @@
 				//save the time elapsed
 				this._elapsedTime = this._soundStartTime + pos;
 			}
-		}
-		else
-		{
-			this._elapsedTime += elapsed * 0.001;
 		}
 
 		if(this._captionsObj && this._soundStartTime >= 0)
