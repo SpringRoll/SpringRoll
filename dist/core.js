@@ -1625,85 +1625,74 @@
 }());
 
 /**
- * @module Core
- * @namespace springroll
- */
-(function(global, doc, undefined)
-{
-	Debug.purple(doc);
-	Debug.log(doc);
+*  @module Core
+*  @namespace springroll
+*/
+(function(global, doc, undefined){
+		
 	/**
-	 * Handle the page visiblity change, if supported. Application uses one of these to
-	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
-	 * or "unpaused" events on the application instead of using one of these yourself.
-	 * @class PageVisibility
-	 * @constructor
-	 * @param {Function} onFocus Callback when the page becomes visible
-	 * @param {Function} onBlur Callback when the page loses visibility
-	 */
+	*  Handle the page visiblity change, if supported. Application uses one of these to
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
+	*  or "unpaused" events on the application instead of using one of these yourself.
+	*
+	*  @class PageVisibility
+	*  @constructor
+	*  @param {Function} onFocus Callback when the page becomes visible
+	*  @param {Function} onBlur Callback when the page loses visibility
+	*/
 	var PageVisibility = function(onFocus, onBlur)
-		{
-			/**
-			 * Callback when the page becomes visible
-			 * @property {Function} _onFocus
-			 * @private
-			 */
-			this._onFocus = onFocus;
-
-			/**
-			 * Callback when the page loses visibility
-			 * @property {Function} _onBlur
-			 * @private
-			 */
-			this._onBlur = onBlur;
-
-			/**
-			 * If this object is enabled.
-			 * @property {Function} _enabled
-			 * @private
-			 */
-			this._enabled = false;
-
-			// If this browser doesn't support visibility
-			if (!_visibilityChange) return;
-
-			/**
-			 * The visibility toggle listener function
-			 * @property {Function} _onToggle
-			 * @private
-			 */
-			this._onToggle = function()
-			{
-				if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				{
-					this._onBlur();
-				}
-				else
-				{
-					this._onFocus();
-				}
-			}.bind(this);
-
-			this.enabled = true;
-
-			Debug.purple('this.messenger ' + this.messenger);
-			this.messenger.on('pause', function()
-			{
-				Debug.purple("pause???");
-			});
-		},
-
-		// Reference to the prototype
-		p = PageVisibility.prototype,
-
+	{
 		/**
-		 * The name of the visibility change event for the browser
-		 *
-		 * @property {String} _visibilityChange
-		 * @private
-		 */
-		_visibilityChange = null;
+		* Callback when the page becomes visible
+		* @property {Function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {Function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* If this object is enabled.
+		* @property {Function} _enabled
+		* @private
+		*/
+		this._enabled = false;
 
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		/**
+		* The visibility toggle listener function
+		* @property {Function} _onToggle
+		* @private
+		*/
+		this._onToggle = function()
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				this._onBlur();
+			else
+				this._onFocus();
+		}.bind(this);
+		
+		this.enabled = true;
+	},
+	
+	// Reference to the prototype
+	p = PageVisibility.prototype,
+	
+	/**
+	* The name of the visibility change event for the browser
+	*
+	* @property {String} _visibilityChange
+	* @private
+	*/
+	_visibilityChange = null;
+	
 	// Select the visiblity change event name
 	if (doc.hidden !== undefined)
 	{
@@ -1721,32 +1710,28 @@
 	{
 		_visibilityChange = "webkitvisibilitychange";
 	}
-
+	
 	/**
-	 * If this object is enabled.
-	 * @property {Function} enabled
-	 * @private
-	 */
-	Object.defineProperty(p, "enabled",
-	{
-		get: function()
-		{
-			return this._enabled;
-		},
+	* If this object is enabled.
+	* @property {Function} enabled
+	* @private
+	*/
+	Object.defineProperty(p, "enabled", {
+		get: function() { return this._enabled; },
 		set: function(value)
 		{
 			value = !!value;
-			if (this._enabled == value) return;
+			if(this._enabled == value) return;
 			this._enabled = value;
-
+			
 			global.removeEventListener("pagehide", this._onBlur);
 			global.removeEventListener("pageshow", this._onFocus);
 			global.removeEventListener("blur", this._onBlur);
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-
-			if (value)
+			
+			if(value)
 			{
 				// Listen to visibility change
 				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
@@ -1760,24 +1745,25 @@
 			}
 		}
 	});
-
+	
 	/**
-	 * Disable the detection
-	 * @method destroy
-	 */
+	*  Disable the detection
+	*  @method destroy
+	*/
 	p.destroy = function()
 	{
 		// If this browser doesn't support visibility
 		if (!_visibilityChange || !this._onToggle) return;
-
+		
 		this.enabled = false;
 		this._onToggle = null;
 		this._onFocus = null;
 		this._onBlur = null;
 	};
-
+	
 	// Assign to the global space
 	namespace('springroll').PageVisibility = PageVisibility;
+	
 }(window, document));
 /**
 *  @module Core
@@ -2209,15 +2195,13 @@
 		{
 			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(this.options.minLogLevel, 10));
 			if(!Debug.minLogLevel)
-			{	Debug.minLogLevel = Debug.Levels.GENERAL;}
+				Debug.minLogLevel = Debug.Levels.GENERAL;
 		}
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if (typeof this.options.debugRemote == "string")
-		{
+		if(typeof this.options.debugRemote == "string")
 			Debug.connect(this.options.debugRemote);
-		}
-		
+
 		// If tween and/or ticker are included
 		var Tween = include('createjs.Tween', false),
 			Ticker = include('createjs.Ticker', false);
@@ -2236,11 +2220,11 @@
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 		this.autoPause = this.options.autoPause;
 
-		if(this.options.canvasId && this.options.display) 
-		{
-			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
-		}
-		
+		if(this.options.canvasId && this.options.display)
+			this.addDisplay(this.options.canvasId, this.options.display,
+							this.options.displayOptions);
+
+
 		// Bind the do init
 		this._doInit = this._doInit.bind(this);
 
@@ -2333,7 +2317,6 @@
 	*/
 	p._onHidden = function()
 	{
-		Debug.purple('this.paused '+this.paused);
 		this.paused = true;
 	};
 
@@ -2345,7 +2328,6 @@
 	p._onVisible = function()
 	{
 		this.paused = false;
-		Debug.purple('this.paused '+this.paused);
 	};
 	
 	/**
