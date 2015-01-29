@@ -402,39 +402,51 @@
 		_useRAF = this.options.raf;
 		this.fps = this.options.fps;
 		var framerate = this.options.framerate;
-		if(framerate)
+		if (framerate)
 		{
-			if(typeof framerate == "string")
+			if (typeof framerate == "string")
+			{
 				_framerate = document.getElementById(framerate);
+			}
 			else
+			{
 				_framerate = framerate;
+			}
 		}
 		var resizeElement = this.options.resizeElement;
 		if(resizeElement)
 		{
-			if(typeof resizeElement == "string")
+			if (typeof resizeElement == "string")
+			{
 				_resizeElement = document.getElementById(resizeElement);
+			}
 			else
+			{
 				_resizeElement = resizeElement;
+			}
 			this.triggerResize = this.triggerResize.bind(this);
 			window.addEventListener("resize", this.triggerResize);
 		}
 
 		// Turn on debugging
-		if (this.options.debug !== undefined)
+		if (this.options.debug !== undefined) 
+		{
 			Debug.enabled = this.options.debug === true || this.options.debug === "true";
-
+		}
+		
 		if (this.options.minLogLevel !== undefined)
 		{
 			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(this.options.minLogLevel, 10));
 			if(!Debug.minLogLevel)
-				Debug.minLogLevel = Debug.Levels.GENERAL;
+			{	Debug.minLogLevel = Debug.Levels.GENERAL;}
 		}
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if(typeof this.options.debugRemote == "string")
+		if (typeof this.options.debugRemote == "string")
+		{
 			Debug.connect(this.options.debugRemote);
-
+		}
+		
 		// If tween and/or ticker are included
 		var Tween = include('createjs.Tween', false),
 			Ticker = include('createjs.Ticker', false);
@@ -453,11 +465,11 @@
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
 		this.autoPause = this.options.autoPause;
 
-		if(this.options.canvasId && this.options.display)
-			this.addDisplay(this.options.canvasId, this.options.display,
-							this.options.displayOptions);
-
-
+		if(this.options.canvasId && this.options.display) 
+		{
+			this.addDisplay(this.options.canvasId, this.options.display, this.options.displayOptions);
+		}
+		
 		// Bind the do init
 		this._doInit = this._doInit.bind(this);
 
@@ -550,6 +562,7 @@
 	*/
 	p._onHidden = function()
 	{
+		Debug.purple('this.paused '+this.paused);
 		this.paused = true;
 	};
 
@@ -561,6 +574,7 @@
 	p._onVisible = function()
 	{
 		this.paused = false;
+		Debug.purple('this.paused '+this.paused);
 	};
 	
 	/**
