@@ -1,17 +1,17 @@
 /**
- *  @module Core
- *  @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
 	/**
-	 *  An enumeration value. This class is private, and is only used by Enum.
-	 *  @class EnumValue
-	 *  @private
-	 *  @constructor
-	 *  @param {String} name The name of the enum value.
-	 *  @param {int} value The integer value of the enum.
-	 *  @param {String} toString A string for toString() to return, instead of the name.
+	 * An enumeration value. This class is private, and is only used by Enum.
+	 * @class EnumValue
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the enum value.
+	 * @param {int} value The integer value of the enum.
+	 * @param {String} toString A string for toString() to return, instead of the name.
 	 */
 	var EnumValue = function(name, value, toString)
 	{
@@ -52,8 +52,8 @@
 	};
 
 	/**
-	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	*  referenced as a property with the same name as the EnumValue. Examples:
+	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	* referenced as a property with the same name as the EnumValue. Examples:
 	*
 		var myEnum = new springroll.Enum(
 			"valueOf0",
@@ -70,13 +70,13 @@
 		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 	*
-	*  @class Enum
-	*  @constructor
-	*  @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
-	*                                         array or a list of parameters. Each string will be
-	*                                         the previous value plus one, while objects with
-	*                                         'name' and 'value' properties will have the specified
-	*                                         numeric value.
+	* @class Enum
+	* @constructor
+	* @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
+	*                                        array or a list of parameters. Each string will be
+	*                                        the previous value plus one, while objects with
+	*                                        'name' and 'value' properties will have the specified
+	*                                        numeric value.
 	*/
 	var Enum = function()
 	{
@@ -90,9 +90,12 @@
 		 */
 		this._byValue = [];
 
-		var counter = 0,
-			len = args.length,
-			item, i, value, name;
+		var counter = 0;
+		var len = args.length;
+		var item;
+		var i;
+		var value;
+		var name;
 
 		//create each value
 		for (i = 0; i < len; ++i)
@@ -108,21 +111,27 @@
 				}
 				item = new EnumValue(name, counter, name);
 				this[item.name] = item;
-				if(this._byValue[counter])
+				if (this._byValue[counter])
 				{
-					if(Array.isArray(this._byValue[counter]))
+					if (Array.isArray(this._byValue[counter]))
+					{
 						this._byValue[counter].push(item);
+					}
 					else
+					{
 						this._byValue[counter] = [this._byValue[counter], item];
+					}
 				}
 				else
+				{
 					this._byValue[counter] = item;
+				}
 			}
 			else
 			{
 				name = args[i].name;
 				value = args[i].value || counter;
-				if(this[name])
+				if (this[name])
 				{
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
@@ -130,15 +139,21 @@
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
-				if(this._byValue[value])
+				if (this._byValue[value])
 				{
-					if(Array.isArray(this._byValue[value]))
+					if (Array.isArray(this._byValue[value]))
+					{
 						this._byValue[value].push(item);
+					}
 					else
+					{
 						this._byValue[value] = [this._byValue[value], item];
+					}
 				}
 				else
+				{
 					this._byValue[value] = item;
+				}
 				counter = value;
 			}
 			counter++;
@@ -155,7 +170,7 @@
 	Enum.prototype.valueFromInt = function(input)
 	{
 		var rtn = this._byValue[input];
-		if(rtn)
+		if (rtn)
 		{
 			return Array.isArray(rtn) ? rtn[0] : rtn;
 		}
