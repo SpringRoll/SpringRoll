@@ -578,9 +578,9 @@
 	 * @static
 	 * @private
 	 * @property {int} NET_PORT
-	 * @default 1025
+	 * @default 1026
 	 */
-	var NET_PORT = 1025;
+	var NET_PORT = 1026;
 
 	/**
 	 * If the WebSocket is connected
