@@ -1,7 +1,6 @@
 /**
 *  @module CreateJS Display
 */
-
 (function(undefined) {
 
 	"use strict";

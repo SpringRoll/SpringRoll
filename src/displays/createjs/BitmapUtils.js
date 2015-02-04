@@ -1,7 +1,7 @@
 /**
 *  @module CreateJS Display
+*  @namespace springroll.createjs
 */
-
 (function() {
 
 	"use strict";
