@@ -16,7 +16,7 @@ test('namespace & include', function(assert){
 
 test('Enum', function(assert){
 
-	expect(7);
+	expect(8);
 
 	var Enum = springroll.Enum;
 	
@@ -35,6 +35,12 @@ test('Enum', function(assert){
 	assert.equal(myOtherEnum.screwSequentialNumbers, myOtherEnum.valueFromInt(42),
 				"Enum.valueFromInt() returns the correct value, even when nonsequential and duplicate.");
 	assert.equal(myOtherEnum.one.toString(), "I am the One!", "toString() override works.");
+	//test to make sure we only enumrate the EnumValues
+	var count = 0;
+	for (var enumVal in myEnum) {
+		count++;
+	}
+	assert.equal(count, 3, "Enum's only enumerable properties are EnumValues.");
 });
 
 test('Application', function(assert){

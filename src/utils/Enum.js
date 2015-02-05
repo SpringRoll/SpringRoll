@@ -2,8 +2,7 @@
  * @module Core
  * @namespace springroll
  */
-(function()
-{
+(function() {
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -13,8 +12,7 @@
 	 * @param {int} value The integer value of the enum.
 	 * @param {String} toString A string for toString() to return, instead of the name.
 	 */
-	var EnumValue = function(name, value, toString)
-	{
+	var EnumValue = function(name, value, toString) {
 		/**
 		 * The name of the value, for reflection or logging purposes.
 		 * @property {String} name
@@ -38,16 +36,13 @@
 	 * The integer value of this enum entry.
 	 * @property {int} asInt
 	 */
-	Object.defineProperty(EnumValue.prototype, "asInt",
-	{
-		get: function()
-		{
+	Object.defineProperty(EnumValue.prototype, "asInt", {
+		get: function() {
 			return this._value;
 		}
 	});
 
-	EnumValue.prototype.toString = function()
-	{
+	EnumValue.prototype.toString = function() {
 		return this._toString;
 	};
 
@@ -69,6 +64,8 @@
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
 		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
+
+		for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
 	*
 	* @class Enum
 	* @constructor
@@ -78,8 +75,7 @@
 	*                                        'name' and 'value' properties will have the specified
 	*                                        numeric value.
 	*/
-	var Enum = function()
-	{
+	var Enum = function() {
 		var args = Array.isArray(arguments[0]) ?
 			arguments[0] :
 			Array.prototype.slice.call(arguments);
@@ -88,7 +84,13 @@
 		 * @property {Array} _byValue
 		 * @private
 		 */
-		this._byValue = [];
+		// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+		// to make it not enumerable set the enumerable property to false
+		Object.defineProperty(this, '_byValue', {
+			enumerable: false,
+			writable: false,
+			value: []
+		});
 
 		var counter = 0;
 		var len = args.length;
@@ -98,60 +100,47 @@
 		var name;
 
 		//create each value
-		for (i = 0; i < len; ++i)
-		{
-			if (typeof args[i] == "string")
-			{
+		for (i = 0; i < len; ++i) {
+			if (typeof args[i] == "string") {
 				name = args[i];
-				if (this[name])
-				{
+				if (this[name]) {
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}
 				item = new EnumValue(name, counter, name);
 				this[item.name] = item;
-				if (this._byValue[counter])
-				{
-					if (Array.isArray(this._byValue[counter]))
-					{
+				if (this._byValue[counter]) {
+					if (Array.isArray(this._byValue[counter])) {
 						this._byValue[counter].push(item);
 					}
-					else
-					{
+					else {
 						this._byValue[counter] = [this._byValue[counter], item];
 					}
 				}
-				else
-				{
+				else {
 					this._byValue[counter] = item;
 				}
 			}
-			else
-			{
+			else {
 				name = args[i].name;
 				value = args[i].value || counter;
-				if (this[name])
-				{
+				if (this[name]) {
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
-				if (this._byValue[value])
-				{
-					if (Array.isArray(this._byValue[value]))
-					{
+				if (this._byValue[value]) {
+					if (Array.isArray(this._byValue[value])) {
 						this._byValue[value].push(item);
 					}
-					else
-					{
+					else {
 						this._byValue[value] = [this._byValue[value], item];
 					}
 				}
-				else
-				{
+				else {
 					this._byValue[value] = item;
 				}
 				counter = value;
@@ -167,15 +156,19 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Enum.prototype.valueFromInt = function(input)
-	{
-		var rtn = this._byValue[input];
-		if (rtn)
-		{
-			return Array.isArray(rtn) ? rtn[0] : rtn;
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	Object.defineProperty(Enum.prototype, 'valueFromInt', {
+		enumerable: false,
+		writable: false,
+		value: function(input) {
+			var rtn = this._byValue[input];
+			if (rtn) {
+				return Array.isArray(rtn) ? rtn[0] : rtn;
+			}
+			return null;
 		}
-		return null;
-	};
+	});
 
 	namespace('springroll').Enum = Enum;
 }());
