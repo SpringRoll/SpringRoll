@@ -166,13 +166,12 @@
 	/**
 	*  Destroys the display. This method is called by the Application and should
 	*  not be called directly, use Application.removeDisplay(id).
-	*  The stage recursively removes all display objects here.
 	*  @method destroy
 	*  @internal
 	*/
 	p.destroy = function()
 	{
-		this.stage.removeChildren(true);
+		this.stage.removeChildren();
 		this.stage.destroy();
 		this.renderer.destroy();
 		this.renderer = null;
