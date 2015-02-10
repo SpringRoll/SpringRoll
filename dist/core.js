@@ -449,7 +449,8 @@
 (function(window, undefined)
 {
 	// Import classes
-	var Enum = include('springroll.Enum');
+	var Enum = include('springroll.Enum'),
+		slice = Array.prototype.slice;
 
 	/**
 	 * A static closure to provide easy access to the console
@@ -767,14 +768,33 @@
 	 * @public
 	 * @static
 	 * @method remoteLog
-	 * @param {string} message The message to send
+	 * @param {array} message The message to send
 	 * @param {level} [level=0] The log level to send
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.remoteLog = function(message, level)
 	{
 		level = level || Levels.GENERAL;
-		
+		message = slice.call(message);
+
+		// Go through each argument and replace any circular
+		// references with simplified objects
+		for (var i = 0; i < message.length; i++)
+		{
+			if (typeof message[i] == "object")
+			{
+				try 
+				{
+					message[i] = removeCircular(message[i], 2);
+				}
+				catch(e)
+				{
+					message[i] = String(message[i]);
+				}
+				console.log(message[i]);
+			}
+		}
+
 		// If we are still in the process of connecting, queue up the log
 		if (_socketQueue)
 		{
@@ -787,9 +807,86 @@
 		{
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
-			_socket.send(JSON.stringify(_socketMessage));
+			var send;
+			try 
+			{
+				send = JSON.stringify(_socketMessage);
+			}
+			catch(e)
+			{
+				_socketMessage.message = ["[circular object]"];
+				send = JSON.stringify(_socketMessage);
+			}
+			_socket.send(send);
 		}
 		return Debug;
+	};
+
+	/**
+	 * Strip out known circular references
+	 * @method removeCircular
+	 * @private
+	 * @param {object} obj The object to remove references from
+	 */
+	var removeCircular = function(obj, maxDepth, depth)
+	{
+		if (Array.isArray(obj)) return obj;
+
+		depth = depth || 0;
+
+		var result = {};
+		for (var key in obj)
+		{
+			// avoid doing properties that are known to be DOM objects, 
+			// because those have circular references
+			if (obj[key] instanceof Window ||
+				obj[key] instanceof Document ||
+				obj[key] instanceof HTMLElement ||
+				key == "document" || 
+				key == "window" || 
+				key == "ownerDocument" || 
+				key == "view" ||
+				key == "target" || 
+				key == "currentTarget" || 
+				key == "originalTarget" || 
+				key == "explicitOriginalTarget" || 
+				key == "rangeParent" ||
+				key == "srcElement" || 
+				key == "relatedTarget" || 
+				key == "fromElement" || 
+				key == "toElement")
+					continue;
+
+			switch(typeof obj[key])
+			{
+				case "object":
+				{
+					result[key] = depth > maxDepth ? 
+						String(obj[key]) : 
+						removeCircular(obj[key], maxDepth, depth + 1);
+					break;
+				}
+				case "function":
+				{
+					result[key] = "[function]";
+					break;
+				}
+				case "string":
+				case "number":
+				case "boolean":
+				case "bool":
+				{
+					result[key] = obj[key];
+					break;
+				}
+				default: 
+				{
+					result[key] = obj[key];
+					break;
+				}	
+			}
+		}
+		return result;
 	};
 
 	/**
@@ -806,7 +903,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params);
+			Debug.remoteLog(arguments);
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
 		{
@@ -833,7 +930,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels[trueKEY]);
+			Debug.remoteLog(arguments, Levels[trueKEY]);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt && _hasConsole)
 		{
@@ -871,7 +968,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.INFO);
+			Debug.remoteLog(arguments, Levels.INFO);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
 		{
@@ -898,7 +995,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.WARN);
+			Debug.remoteLog(arguments, Levels.WARN);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
 		{
@@ -924,7 +1021,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.ERROR);
+			Debug.remoteLog(arguments, Levels.ERROR);
 		}
 		else if (_hasConsole)
 		{
@@ -1249,7 +1346,7 @@
 		{
 			if(arguments.length > 1)
 			{
-				var params = Array.prototype.slice.call(arguments);
+				var params = slice.call(arguments);
 				var first = '%c' + params[0];
 				params[0] = 'color:' + hex;
 				params.unshift(first);
