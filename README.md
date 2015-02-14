@@ -46,6 +46,10 @@ grunt examples
 ##Dependencies
 
 * [PreloadJS](https://github.com/SpringRoll/PreloadJS) SpringRoll's fork of PreloadJS
+* [NPM](http://nodejs.org/download/) Version 2.1.18 or higher is required because of a dependency within imagemin. To update:
+```bash 
+sudo npm install npm@2.1.18 -g
+```
 
 ##Usage
 

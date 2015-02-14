@@ -270,22 +270,20 @@
 
 }(Object));
 /**
- *  @module Core
- *  @namespace springroll
+ * @module Core
+ * @namespace springroll
  */
-(function()
-{
+(function() {
 	/**
-	 *  An enumeration value. This class is private, and is only used by Enum.
-	 *  @class EnumValue
-	 *  @private
-	 *  @constructor
-	 *  @param {String} name The name of the enum value.
-	 *  @param {int} value The integer value of the enum.
-	 *  @param {String} toString A string for toString() to return, instead of the name.
+	 * An enumeration value. This class is private, and is only used by Enum.
+	 * @class EnumValue
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the enum value.
+	 * @param {int} value The integer value of the enum.
+	 * @param {String} toString A string for toString() to return, instead of the name.
 	 */
-	var EnumValue = function(name, value, toString)
-	{
+	var EnumValue = function(name, value, toString) {
 		/**
 		 * The name of the value, for reflection or logging purposes.
 		 * @property {String} name
@@ -309,22 +307,19 @@
 	 * The integer value of this enum entry.
 	 * @property {int} asInt
 	 */
-	Object.defineProperty(EnumValue.prototype, "asInt",
-	{
-		get: function()
-		{
+	Object.defineProperty(EnumValue.prototype, "asInt", {
+		get: function() {
 			return this._value;
 		}
 	});
 
-	EnumValue.prototype.toString = function()
-	{
+	EnumValue.prototype.toString = function() {
 		return this._toString;
 	};
 
 	/**
-	*  An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	*  referenced as a property with the same name as the EnumValue. Examples:
+	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	* referenced as a property with the same name as the EnumValue. Examples:
 	*
 		var myEnum = new springroll.Enum(
 			"valueOf0",
@@ -340,17 +335,18 @@
 		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
 		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
+
+		for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
 	*
-	*  @class Enum
-	*  @constructor
-	*  @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
-	*                                         array or a list of parameters. Each string will be
-	*                                         the previous value plus one, while objects with
-	*                                         'name' and 'value' properties will have the specified
-	*                                         numeric value.
+	* @class Enum
+	* @constructor
+	* @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
+	*                                        array or a list of parameters. Each string will be
+	*                                        the previous value plus one, while objects with
+	*                                        'name' and 'value' properties will have the specified
+	*                                        numeric value.
 	*/
-	var Enum = function()
-	{
+	var Enum = function() {
 		var args = Array.isArray(arguments[0]) ?
 			arguments[0] :
 			Array.prototype.slice.call(arguments);
@@ -359,57 +355,65 @@
 		 * @property {Array} _byValue
 		 * @private
 		 */
-		this._byValue = [];
+		// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+		// to make it not enumerable set the enumerable property to false
+		Object.defineProperty(this, '_byValue', {
+			enumerable: false,
+			writable: false,
+			value: []
+		});
 
-		var counter = 0,
-			len = args.length,
-			item, i, value, name;
+		var counter = 0;
+		var len = args.length;
+		var item;
+		var i;
+		var value;
+		var name;
 
 		//create each value
-		for (i = 0; i < len; ++i)
-		{
-			if (typeof args[i] == "string")
-			{
+		for (i = 0; i < len; ++i) {
+			if (typeof args[i] == "string") {
 				name = args[i];
-				if (this[name])
-				{
+				if (this[name]) {
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}
 				item = new EnumValue(name, counter, name);
 				this[item.name] = item;
-				if(this._byValue[counter])
-				{
-					if(Array.isArray(this._byValue[counter]))
+				if (this._byValue[counter]) {
+					if (Array.isArray(this._byValue[counter])) {
 						this._byValue[counter].push(item);
-					else
+					}
+					else {
 						this._byValue[counter] = [this._byValue[counter], item];
+					}
 				}
-				else
+				else {
 					this._byValue[counter] = item;
+				}
 			}
-			else
-			{
+			else {
 				name = args[i].name;
 				value = args[i].value || counter;
-				if(this[name])
-				{
+				if (this[name]) {
 					Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}
 				item = new EnumValue(name, value, args[i].toString || name);
 				this[item.name] = item;
-				if(this._byValue[value])
-				{
-					if(Array.isArray(this._byValue[value]))
+				if (this._byValue[value]) {
+					if (Array.isArray(this._byValue[value])) {
 						this._byValue[value].push(item);
-					else
+					}
+					else {
 						this._byValue[value] = [this._byValue[value], item];
+					}
 				}
-				else
+				else {
 					this._byValue[value] = item;
+				}
 				counter = value;
 			}
 			counter++;
@@ -423,15 +427,19 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	Enum.prototype.valueFromInt = function(input)
-	{
-		var rtn = this._byValue[input];
-		if(rtn)
-		{
-			return Array.isArray(rtn) ? rtn[0] : rtn;
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	Object.defineProperty(Enum.prototype, 'valueFromInt', {
+		enumerable: false,
+		writable: false,
+		value: function(input) {
+			var rtn = this._byValue[input];
+			if (rtn) {
+				return Array.isArray(rtn) ? rtn[0] : rtn;
+			}
+			return null;
 		}
-		return null;
-	};
+	});
 
 	namespace('springroll').Enum = Enum;
 }());
@@ -441,7 +449,8 @@
 (function(window, undefined)
 {
 	// Import classes
-	var Enum = include('springroll.Enum');
+	var Enum = include('springroll.Enum'),
+		slice = Array.prototype.slice;
 
 	/**
 	 * A static closure to provide easy access to the console
@@ -578,9 +587,9 @@
 	 * @static
 	 * @private
 	 * @property {int} NET_PORT
-	 * @default 1025
+	 * @default 1026
 	 */
-	var NET_PORT = 1025;
+	var NET_PORT = 1026;
 
 	/**
 	 * If the WebSocket is connected
@@ -759,14 +768,33 @@
 	 * @public
 	 * @static
 	 * @method remoteLog
-	 * @param {string} message The message to send
+	 * @param {array} message The message to send
 	 * @param {level} [level=0] The log level to send
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.remoteLog = function(message, level)
 	{
 		level = level || Levels.GENERAL;
-		
+		message = slice.call(message);
+
+		// Go through each argument and replace any circular
+		// references with simplified objects
+		for (var i = 0; i < message.length; i++)
+		{
+			if (typeof message[i] == "object")
+			{
+				try 
+				{
+					message[i] = removeCircular(message[i], 2);
+				}
+				catch(e)
+				{
+					message[i] = String(message[i]);
+				}
+				console.log(message[i]);
+			}
+		}
+
 		// If we are still in the process of connecting, queue up the log
 		if (_socketQueue)
 		{
@@ -779,9 +807,86 @@
 		{
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
-			_socket.send(JSON.stringify(_socketMessage));
+			var send;
+			try 
+			{
+				send = JSON.stringify(_socketMessage);
+			}
+			catch(e)
+			{
+				_socketMessage.message = ["[circular object]"];
+				send = JSON.stringify(_socketMessage);
+			}
+			_socket.send(send);
 		}
 		return Debug;
+	};
+
+	/**
+	 * Strip out known circular references
+	 * @method removeCircular
+	 * @private
+	 * @param {object} obj The object to remove references from
+	 */
+	var removeCircular = function(obj, maxDepth, depth)
+	{
+		if (Array.isArray(obj)) return obj;
+
+		depth = depth || 0;
+
+		var result = {};
+		for (var key in obj)
+		{
+			// avoid doing properties that are known to be DOM objects, 
+			// because those have circular references
+			if (obj[key] instanceof Window ||
+				obj[key] instanceof Document ||
+				obj[key] instanceof HTMLElement ||
+				key == "document" || 
+				key == "window" || 
+				key == "ownerDocument" || 
+				key == "view" ||
+				key == "target" || 
+				key == "currentTarget" || 
+				key == "originalTarget" || 
+				key == "explicitOriginalTarget" || 
+				key == "rangeParent" ||
+				key == "srcElement" || 
+				key == "relatedTarget" || 
+				key == "fromElement" || 
+				key == "toElement")
+					continue;
+
+			switch(typeof obj[key])
+			{
+				case "object":
+				{
+					result[key] = depth > maxDepth ? 
+						String(obj[key]) : 
+						removeCircular(obj[key], maxDepth, depth + 1);
+					break;
+				}
+				case "function":
+				{
+					result[key] = "[function]";
+					break;
+				}
+				case "string":
+				case "number":
+				case "boolean":
+				case "bool":
+				{
+					result[key] = obj[key];
+					break;
+				}
+				default: 
+				{
+					result[key] = obj[key];
+					break;
+				}	
+			}
+		}
+		return result;
 	};
 
 	/**
@@ -798,7 +903,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params);
+			Debug.remoteLog(arguments);
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
 		{
@@ -825,7 +930,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels[trueKEY]);
+			Debug.remoteLog(arguments, Levels[trueKEY]);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt && _hasConsole)
 		{
@@ -863,7 +968,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.INFO);
+			Debug.remoteLog(arguments, Levels.INFO);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
 		{
@@ -890,7 +995,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.WARN);
+			Debug.remoteLog(arguments, Levels.WARN);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
 		{
@@ -916,7 +1021,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(params, Levels.ERROR);
+			Debug.remoteLog(arguments, Levels.ERROR);
 		}
 		else if (_hasConsole)
 		{
@@ -1241,7 +1346,7 @@
 		{
 			if(arguments.length > 1)
 			{
-				var params = Array.prototype.slice.call(arguments);
+				var params = slice.call(arguments);
 				var first = '%c' + params[0];
 				params[0] = 'color:' + hex;
 				params.unshift(first);

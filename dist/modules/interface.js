@@ -466,13 +466,11 @@
 	*
 	*		{type:"sector", x:0, y:0, r:20, start:0, end:90}
 	*  @param {Number} scale The size to scale hitArea by
-	*  @param {Display} adapter The current display adapter for creating Polygon, Point,
-	*                           Rectangle, Ellipse, Circle
+	*  @param {DisplayAdapter} [adapter] The adapter for the display being positioned in. If
+	*                                    omitted, uses the Application's default display.
 	*  @return {Object} A geometric shape object for hit testing, either a Polygon, Rectangle,
 	*                     Ellipse, Circle, or Sector, depending on the hitArea object. The shape
 	*                     will have a contains() function for hit testing.
-	*  @param {DisplayAdapter} [adapter] The adapter for the display being positioned in. If
-	*                                    omitted, uses the Application's default display.
 	*/
 	Positioner.generateHitArea = function(hitArea, scale, adapter)
 	{
