@@ -2399,11 +2399,16 @@
 		for (var i = 0, len = splitFlashVars.length; i < len; i++)
 		{
 			myVar = splitFlashVars[i].split("=");
+			var value = myVar[1];
+			if(value === "true" || value === undefined)
+				value = true;
+			else if(value === "false")
+				value = false;
 			if (true)
 			{
-				Debug.log(myVar[0] + " -> " + myVar[1]);
+				Debug.log(myVar[0] + " -> " + value);
 			}
-			output[myVar[0]] = myVar[1];
+			output[myVar[0]] = value;
 		}
 		return output;
 	};
