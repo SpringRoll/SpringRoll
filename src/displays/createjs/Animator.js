@@ -206,10 +206,8 @@
 				instance.toString() ||
 				instance;
 			Debug.groupCollapsed("No valid animation label \"" + label + "\" in MovieClip " + readableInstance);
-			Debug.red('eventList:');
-			Debug.log(eventList);
-			Debug.red('instance:');
-			Debug.log(instance);
+			Debug.red('eventList:', eventList);
+			Debug.red('instance:', instance);
 			Debug.groupEnd();
 		}
 
