@@ -200,14 +200,16 @@
 				eventList[0].audio ||
 				eventList[0] ||
 				'<label unknown>';
-			var readableInstance = instance.name ||
+			var readableInstance = instance.id ||
+				instance.name ||
 				instance.key ||
 				instance.label ||
 				instance.toString() ||
 				instance;
 			Debug.groupCollapsed("No valid animation label \"" + label + "\" in MovieClip " + readableInstance);
-			Debug.red('eventList:', eventList);
-			Debug.red('instance:', instance);
+			Debug.red("eventList:", eventList);
+			Debug.red("instance:", instance);
+			Debug.trace("Animator.play");
 			Debug.groupEnd();
 		}
 
@@ -537,7 +539,17 @@
 		{
 			if (DEBUG)
 			{
-				Debug.log("No timeline was found matching the instance id " + instance);
+				var readableInstance = instance.id ||
+					instance.name ||
+					instance.key ||
+					instance.label ||
+					instance;
+				Debug.groupCollapsed("Animator.stop could not find " +
+					"a valid timeline matching the instance id: " + readableInstance);
+				Debug.red('_timelinesMap:', _timelinesMap);
+				Debug.red('instance:', instance);
+				Debug.trace("Animator.play");
+				Debug.groupEnd();
 			}
 			return;
 		}
