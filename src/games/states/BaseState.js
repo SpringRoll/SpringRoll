@@ -12,9 +12,10 @@
 	*
 	*  @class BaseState
 	*  @constructor
-	*  @param {createjs.MovieClip|PIXI.DisplayObjectContainer} panel The panel to associate with this panel
-	*  @param {string|function} [nextState=null] The next state alias
-	*  @param {string|function} [prevState=null] The previous state alias
+	*  @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
+	*                                                                this state.
+	*  @param {String|Function} [nextState=null] The next state alias
+	*  @param {String|Function} [prevState=null] The previous state alias
 	*/
 	var BaseState = function(panel, nextState, prevState)
 	{
@@ -23,94 +24,88 @@
 			StateManager = include('springroll.StateManager');
 		}
 
-		/** 
+		/**
 		* The id reference
-		* 
+		*
 		* @property {String} stateID
 		*/
 		this.stateId = null;
 		
 		/**
 		* A reference to the state manager
-		* 
+		*
 		* @property {StateManager} manager
 		*/
 		this.manager = null;
 		
-		/** 
-		* Save the panel
-		* 
+		/**
+		* The panel for the state.
+		*
 		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
 		*/
 		this.panel = panel;
 		
 		/**
-		* Check to see if we've been destroyed 
-		* 
-		* @property {bool} _destroyed
+		* If the state has been destroyed.
+		*
+		* @property {Boolean} _destroyed
 		* @private
 		*/
 		this._destroyed = false;
 		
 		/**
 		* If the manager considers this the active panel
-		* 
-		* @property {bool} _active
+		*
+		* @property {Boolean} _active
 		* @private
 		*/
 		this._active = false;
 		
 		/**
 		* If we are pre-loading the state
-		* 
-		* @property {bool} _isLoading
+		*
+		* @property {Boolean} _isLoading
 		* @private
 		*/
 		this._isLoading = false;
 		
 		/**
 		* If we canceled entering the state
-		* 
-		* @property {bool} _canceled
+		*
+		* @property {Boolean} _canceled
 		* @private
 		*/
 		this._canceled = false;
 		
 		/**
 		* When we're finishing loading
-		* 
-		* @property {function} _onEnterProceed
+		*
+		* @property {Function} _onEnterProceed
 		* @private
 		*/
 		this._onEnterProceed = null;
 		
-		/** If we start doing a load in enter, assign the onEnterComplete here
-		* 
-		* @property {function} _onLoadingComplete
+		/**
+		* If we start doing a load in enter, assign the onEnterComplete here
+		*
+		* @property {Function} _onLoadingComplete
 		* @private
 		*/
 		this._onLoadingComplete = null;
 		
-		/** If the state is enabled that means it click ready
-		* 
-		* @property {bool} _enabled
+		/**
+		* If the state is enabled, meaning that it is click ready
+		*
+		* @property {Boolean} _enabled
 		* @private
 		*/
 		this._enabled = false;
 
 		/**
-		* If we are currently transitioning
-		* 
-		* @property {bool} isTransitioning
-		* @private
-		*/
-		this._isTransitioning = false;
-
-		/**
 		*  Either the alias of the next state or a function
 		*  to call when going to the next state.
 		*
-		*  @property {string|function} nextState
+		*  @property {String|Function} nextState
 		*  @protected
 		*/
 		this.nextState = nextState || null;
@@ -119,7 +114,7 @@
 		*  Either the alias of the previous state or a function
 		*  to call when going to the previous state.
 		*
-		*  @property {string|function} prevState
+		*  @property {String|Function} prevState
 		*  @protected
 		*/
 		this.prevState = prevState || null;
@@ -132,18 +127,17 @@
 	
 	/**
 	*  Status of whether the panel load was canceled
-	*  
-	*  @method  getCanceled
-	*  @return {bool} If the load was canceled
+	*
+	*  @property {Boolean} canceled
+	*  @readOnly
 	*/
-	p.getCanceled = function()
-	{
-		return this._canceled;
-	};
+	Object.defineProperty(p, 'canceled', {
+		get: function() { return this._canceled; }
+	});
 	
 	/**
-	*   This is called by the State Manager to exit the state 
-	*   
+	*   This is called by the State Manager to exit the state
+	*
 	*   @method _internalExit
 	*   @private
 	*/
@@ -162,15 +156,15 @@
 	};
 	
 	/**
-	*  When the state is exited
-	*  
+	*  When the state is exited. Override this to provide state cleanup.
+	*
 	*  @method exit
 	*/
 	p.exit = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
-	*   
+	*
 	*   @method _internalExitStart
 	*   @private
 	*/
@@ -180,16 +174,18 @@
 	};
 	
 	/**
-	*   When the state has requested to be exit, pre-transition
+	*   When the state has requested to be exit, pre-transition. Override this to ensure
+	*   that animation/audio is stopped when leaving the state.
+	*
 	*   @method exitStart
 	*/
 	p.exitStart = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
-	*   
+	*
 	*   @method _internalEnter
-	*   @param {functon} proceed The function to call after enter has been called
+	*   @param {Function} proceed The function to call after enter has been called
 	*   @private
 	*/
 	p._internalEnter = function(proceed)
@@ -217,7 +213,7 @@
 	
 	/**
 	*   Internal function to start the preloading
-	*   
+	*
 	*   @method loadingStart
 	*/
 	p.loadingStart = function()
@@ -231,7 +227,7 @@
 		this._isLoading = true;
 		this.manager.loadingStart();
 		
-		// Starting a load is optional and 
+		// Starting a load is optional and
 		// need to be called from the enter function
 		// We'll override the existing behavior
 		// of internalEnter, by passing
@@ -242,7 +238,7 @@
 	
 	/**
 	*   Internal function to finish the preloading
-	*   
+	*
 	*   @method loadingDone
 	*/
 	p.loadingDone = function()
@@ -265,7 +261,7 @@
 	
 	/**
 	*   Cancel the loading of this state
-	*   
+	*
 	*   @method _internalCancel
 	*   @private
 	*/
@@ -280,23 +276,24 @@
 	};
 	
 	/**
-	*   Cancel the load, implementation-specific
-	*   this is where any async actions are removed
-	*   
+	*   Cancel the load, implementation-specific.
+	*   This is where any async actions should be removed.
+	*
 	*   @method cancel
 	*/
 	p.cancel = function(){};
 	
 	/**
-	*   When the state is entered
-	*   
+	*   When the state is entered. Override this to start loading assets - call loadingStart()
+	*   to tell the StateManager that that is going on.
+	*
 	*   @method enter
 	*/
 	p.enter = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
-	*   
+	*
 	*   @method _internalEnterDone
 	*   @private
 	*/
@@ -304,126 +301,54 @@
 	{
 		if (this._canceled) return;
 		
-		this.setEnabled(true);
+		this.enabled = true;
 		this.enterDone();
 	};
 	
 	/**
-	*   When the state is visually entered fully
-	*   that is, after the transition is done
-	*   
+	*   When the state is visually entered fully - after the transition is done.
+	*   Override this to begin your state's activities.
+	*
 	*   @method enterDone
 	*/
 	p.enterDone = function(){};
-	
-	/**
-	*   Get if this is the active state
-	*   
-	*   @method getActive
-	*   @deprecated Use the BaseState.active property getter instead
-	*   @return {bool} If this is the active state
-	*/
-	p.getActive = function()
-	{
-		return this._active;
-	};
 
 	/**
 	*   Get if this is the active state
-	*   
-	*   @property {boolean} active
+	*
+	*   @property {Boolean} active
 	*   @readOnly
 	*/
 	Object.defineProperty(p, 'active', {
-		get: function()
+		get: function() { return this._active; }
+	});
+	
+	/**
+	* If the state is enabled, meaning that it is click ready
+	*
+	* @property {Boolean} enabled
+	*/
+	Object.defineProperty(p, 'enabled', {
+		get: function() { return this._enabled; },
+		set: function(value)
 		{
-			return this._active;
+			this._enabled = value;
 		}
 	});
 	
 	/**
-	*   Transition the panel in
-	*   
-	*   @method transitionIn
-	*   @param {function} callback
+	* If the state has been destroyed.
+	*
+	* @property {Boolean} destroyed
+	* @readOnly
 	*/
-	p.transitionIn = function(callback)
-	{
-		this._isTransitioning = true;
-		
-		var s = this;
-		
-		this.manager._display.animator.play(
-			this.panel, 
-			StateManager.TRANSITION_IN,
-			function()
-			{
-				s._isTransitioning = false;
-				callback();
-			}
-		);
-	};
-	
-	/**
-	*   Transition the panel out
-	*   
-	*   @method transitionOut
-	*   @param {function} callback
-	*/
-	p.transitionOut = function(callback)
-	{
-		this._enabled = false;
-		this._isTransitioning = true;
-		
-		var s = this;
-		
-		this.manager._display.animator.play(
-			this.panel, 
-			StateManager.TRANSITION_OUT,
-			function()
-			{
-				s._isTransitioning = false;
-				callback();
-			}
-		);
-	};
-	
-	/**
-	*   Get if this State has been destroyed
-	*   
-	*   @method  getDestroyed
-	*   @return {bool} If this has been destroyed
-	*/
-	p.getDestroyed = function()
-	{
-		return this._destroyed;
-	};
-	
-	/**
-	*   Enable this panel, true is only non-loading and non-transitioning state
-	*   
-	*   @method setEnabled
-	*   @param {bool} enabled The enabled state
-	*/
-	p.setEnabled = function(enabled)
-	{
-		this._enabled = enabled;
-	};
-	
-	/**
-	*   Get the enabled status
-	*   
-	*   @method getEnabled
-	*   @return {bool} If this state is enabled
-	*/
-	p.getEnabled = function()
-	{
-		return this._enabled;
-	};
+	Object.defineProperty(p, 'destroyed', {
+		get: function() { return this._destroyed; }
+	});
 	
 	/**
 	*   Don't use the state object after this
-	*   
+	*
 	*   @method destroy
 	*/
 	p.destroy = function()

@@ -7,8 +7,7 @@
 	// Imports
 	var EventDispatcher = include('springroll.EventDispatcher'),
 		BaseState = include('springroll.BaseState'),
-		StateEvent = include('springroll.StateEvent'),
-		Sound;
+		StateEvent = include('springroll.StateEvent');
 	
 	/**
 	*  The State Manager used for managing the different states of a game or site
@@ -16,16 +15,20 @@
 	*  @class StateManager
 	*  @extends springroll.EventDispatcher
 	*  @constructor
-	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is displayed.
-	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between transitions
-	*  @param {object} transitionSounds Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:"myAlias", start:0.2}}.
-	*		These objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.
+	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is
+	*                                              displayed.
+	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	*                                                    transitions.
+	*  @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	*                                   transition in, loop and out sounds. Example:
+	*                                   {in:{alias:"myAlias", start:0.2}}.
+	*                                   These objects are in the format for Animator from
+	*                                   CreateJSDisplay or PixiDisplay, so they can be just the
+	*                                   sound alias instead of an object.
 	*/
 	var StateManager = function(display, transition, transitionSounds)
 	{
 		EventDispatcher.call(this);
-
-		Sound = include('springroll.Sound', false);
 
 		/**
 		* The display that holds the states this StateManager is managing.
@@ -46,7 +49,7 @@
 		/**
 		* The sounds for the transition
 		*
-		* @property {object} _transitionSounds
+		* @property {Object} _transitionSounds
 		* @private
 		*/
 		this._transitionSounds = transitionSounds || null;
@@ -86,7 +89,7 @@
 		/**
 		* If the manager is loading a state
 		*
-		* @property {bool} name description
+		* @property {Boolean} name description
 		* @private
 		*/
 		this._isLoading = false;
@@ -94,7 +97,7 @@
 		/**
 		* If the state or manager is current transitioning
 		*
-		* @property {bool} _isTransitioning
+		* @property {Boolean} _isTransitioning
 		* @private
 		*/
 		this._isTransitioning = false;
@@ -102,7 +105,7 @@
 		/**
 		* If the current object is destroyed
 		*
-		* @property {bool} _destroyed
+		* @property {Boolean} _destroyed
 		* @private
 		*/
 		this._destroyed = false;
@@ -125,54 +128,57 @@
 
 		// Binding
 		this._loopTransition = this._loopTransition.bind(this);
+		this._onTransitionOut = this._onTransitionOut.bind(this);
+		this._onStateLoaded = this._onStateLoaded.bind(this);
+		this._onTransitionIn = this._onTransitionIn.bind(this);
 	};
 	
 	var p = extend(StateManager, EventDispatcher);
 
 	/**
-	* The name of the Animator label and event for transitioning state in
+	* The name of the Animator label and event for transitioning into a state.
 	*
 	* @event onTransitionIn
 	*/
 	StateManager.TRANSITION_IN = "onTransitionIn";
 	
 	/**
-	* The name of the event for done with transitioning state in
+	* The name of the event for completing transitioning into a state.
 	*
 	* @event onTransitionInDone
 	*/
 	StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
 	
 	/**
-	* The name of the Animator label and event for transitioning state out
+	* The name of the Animator label and event for transitioning out of a state.
 	*
 	* @event onTransitionOut
 	*/
 	StateManager.TRANSITION_OUT = "onTransitionOut";
 	
 	/**
-	* The name of the event for done with transitioning state out
+	* The name of the event for completing transitioning out of a state.
 	*
 	* @event onTransitionOutDone
 	*/
 	StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
 	
 	/**
-	* The name of the event for done with initializing
+	* The name of the event for initialization complete - the first state is then being entered.
 	*
 	* @event onInitDone
 	*/
 	StateManager.TRANSITION_INIT_DONE = "onInitDone";
 	
 	/**
-	* Event when the state transitions the first time
+	* Event when the state begins loading assets when it is entered.
 	*
 	* @event onLoadingStart
 	*/
 	StateManager.LOADING_START = "onLoadingStart";
 	
 	/**
-	* Event when the state transitions the first time
+	* Event when the state finishes loading assets when it is entered.
 	*
 	* @event onLoadingDone
 	*/
@@ -181,7 +187,7 @@
 	/**
 	*  Register a state with the state manager, done initially
 	*
-	*  @function addState
+	*  @method addState
 	*  @param {String} id The string alias for a state
 	*  @param {BaseState} state State object reference
 	*/
@@ -205,7 +211,7 @@
 	/**
 	*  Dynamically change the transition
 	*
-	*  @function changeTransition
+	*  @method changeTransition
 	*  @param {createjs.MovieClip|PIXI.Spine} Clip to swap for transition
 	*/
 	p.changeTransition = function(clip)
@@ -214,20 +220,9 @@
 	};
 	
 	/**
-	*  Get the currently selected state
-	*
-	*  @function getState
-	*  @return {String} The id of the current state
-	*/
-	p.getState = function()
-	{
-		return this._stateId;
-	};
-	
-	/**
 	*   Get the current selected state (state object)
 	*
-	*   @function getCurrentState
+	*   @method getCurrentState
 	*   @return {BaseState} The Base State object
 	*/
 	p.getCurrentState = function()
@@ -238,7 +233,7 @@
 	/**
 	*   Access a certain state by the ID
 	*
-	*   @function getStateById
+	*   @method getStateById
 	*   @param {String} id State alias
 	*   @return {BaseState} The base State object
 	*/
@@ -251,8 +246,8 @@
 	/**
 	* If the StateManager is busy because it is currently loading or transitioning.
 	*
-	* @function isBusy
-	* @return {bool} If StateManager is busy
+	* @method isBusy
+	* @return {Boolean} If StateManager is busy
 	*/
 	p.isBusy = function()
 	{
@@ -263,7 +258,7 @@
 	*   If the state needs to do some asyncronous tasks,
 	*   The state can tell the manager to stop the animation
 	*
-	*   @function loadingStart
+	*   @method loadingStart
 	*/
 	p.loadingStart = function()
 	{
@@ -278,7 +273,7 @@
 	*   If the state has finished it's asyncronous task loading
 	*   Lets enter the state
 	*
-	*   @function loadingDone
+	*   @method loadingDone
 	*/
 	p.loadingDone = function()
 	{
@@ -290,7 +285,7 @@
 	/**
 	*   Show, enable the blocker clip to disable mouse clicks
 	*
-	*   @function showBlocker
+	*   @method showBlocker
 	*/
 	p.showBlocker = function()
 	{
@@ -300,7 +295,7 @@
 	/**
 	*   Re-enable interaction with the stage
 	*
-	*   @function hideBlocker
+	*   @method hideBlocker
 	*/
 	p.hideBlocker = function()
 	{
@@ -311,7 +306,7 @@
 	*   This transitions out of the current state and
 	*   enters it again. Can be useful for clearing a state
 	*
-	*   @function refresh
+	*   @method refresh
 	*/
 	p.refresh = function()
 	{
@@ -320,7 +315,7 @@
 	};
 	
 	/**
-	*  Get or change the current state
+	*  Get or change the current state, using the state id.
 	*  @property {String} state
 	*/
 	Object.defineProperty(p, "state", {
@@ -337,7 +332,7 @@
 	/**
 	*  Set the current State
 	*
-	*  @function setState
+	*  @method setState
 	*  @param {String} id The state id
 	*/
 	p.setState = function(id)
@@ -358,7 +353,6 @@
 		this._oldState = this._state;
 		this._state = this._states[id];
 		
-		var sm;
 		if (!this._oldState)
 		{
 			// There is not current state
@@ -366,11 +360,10 @@
 			// state we're loading
 			this._isTransitioning = true;
 			this._transition.visible = true;
-			sm = this;
 			this._loopTransition();
-			sm.trigger(StateManager.TRANSITION_INIT_DONE);
-			sm._isLoading = true;
-			sm._state._internalEnter(sm._onStateLoaded.bind(sm));
+			this.trigger(StateManager.TRANSITION_INIT_DONE);
+			this._isLoading = true;
+			this._state._internalEnter(this._onStateLoaded);
 		}
 		else
 		{
@@ -387,51 +380,49 @@
 				this._isTransitioning = true;
 				this._oldState._internalExitStart();
 				this.showBlocker();
-				sm = this;
 				
-				if (this.has(StateEvent.TRANSITION_OUT))
-					this.trigger(StateEvent.TRANSITION_OUT, new StateEvent(StateEvent.TRANSITION_OUT, this._state, this._oldState));
-				this._oldState.transitionOut(
-					function()
-					{
-						if (sm.has(StateEvent.TRANSITION_OUT_DONE))
-							sm.trigger(StateEvent.TRANSITION_OUT_DONE, new StateEvent(StateEvent.TRANSITION_OUT_DONE, sm._state, sm._oldState));
-						sm.trigger(StateManager.TRANSITION_OUT);
-						
-						sm._transitioning(
-							StateManager.TRANSITION_OUT,
-							function()
-							{
-								sm.trigger(StateManager.TRANSITION_OUT_DONE);
-								
-								sm._isTransitioning = false;
-								
-								if (sm.has(StateEvent.HIDDEN))
-									sm.trigger(StateEvent.HIDDEN, new StateEvent(StateEvent.HIDDEN, sm._state, sm._oldState));
-								sm._oldState.panel.visible = false;
-								sm._oldState._internalExit();
-								sm._oldState = null;
-
-								sm._loopTransition();//play the transition loop animation
-								
-								if (!sm._processQueue())
-								{
-									sm._isLoading = true;
-									sm._state._internalEnter(sm._onStateLoaded.bind(sm));
-								}
-							}
-						);
-					}
-				);
+				this.trigger(StateManager.TRANSITION_OUT);
+				
+				this._transitioning(StateManager.TRANSITION_OUT, this._onTransitionOut);
 			}
 		}
 	};
 	
 	/**
-	*   When the state has completed it's loading sequence
-	*   this should be treated as an asyncronous process
+	 * When the transition out of a state has finished playing during a state change.
+	 * @method _onTransitionOut
+	 * @private
+	 */
+	p._onTransitionOut = function()
+	{
+		this.trigger(StateManager.TRANSITION_OUT_DONE);
+		
+		this._isTransitioning = false;
+		
+		if (this.has(StateEvent.HIDDEN))
+		{
+			this.trigger(
+				StateEvent.HIDDEN,
+				new StateEvent(StateEvent.HIDDEN, this._state, this._oldState));
+		}
+		this._oldState.panel.visible = false;
+		this._oldState._internalExit();
+		this._oldState = null;
+
+		this._loopTransition();//play the transition loop animation
+		
+		if (!this._processQueue())
+		{
+			this._isLoading = true;
+			this._state._internalEnter(this._onStateLoaded);
+		}
+	};
+	
+	/**
+	*   When the state has completed its loading sequence.
+	*   This should be treated as an asynchronous process.
 	*
-	*   @function _onStateLoaded
+	*   @method _onStateLoaded
 	*   @private
 	*/
 	p._onStateLoaded = function()
@@ -444,37 +435,31 @@
 		this._state.panel.visible = true;
 		
 		this.trigger(StateManager.TRANSITION_IN);
-		var sm = this;
-		this._transitioning(
-			StateManager.TRANSITION_IN,
-			function()
-			{
-				sm._transition.visible = false;
-				sm.trigger(StateManager.TRANSITION_IN_DONE);
-				if (sm.has(StateEvent.TRANSITION_IN))
-					sm.trigger(StateEvent.TRANSITION_IN, new StateEvent(StateEvent.TRANSITION_IN, sm._state));
-				sm._state.transitionIn(
-					function()
-					{
-						if (sm.has(StateEvent.TRANSITION_IN_DONE))
-							sm.trigger(StateEvent.TRANSITION_IN_DONE, new StateEvent(StateEvent.TRANSITION_IN_DONE, sm._state));
-						sm._isTransitioning = false;
-						sm.hideBlocker();
-						
-						if (!sm._processQueue())
-						{
-							sm._state._internalEnterDone();
-						}
-					}
-				);
-			}
-		);
+		this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
+	};
+	
+	/**
+	 * When the transition into a state has finished playing during a state change.
+	 * @method _onTransitionIn
+	 * @private
+	 */
+	p._onTransitionIn = function()
+	{
+		this._transition.visible = false;
+		this.trigger(StateManager.TRANSITION_IN_DONE);
+		this._isTransitioning = false;
+		this.hideBlocker();
+		
+		if (!this._processQueue())
+		{
+			this._state._internalEnterDone();
+		}
 	};
 	
 	/**
 	*  Process the state queue
 	*
-	*  @function _processQueue
+	*  @method _processQueue
 	*  @return If there is a queue to process
 	*  @private
 	*/
@@ -497,7 +482,7 @@
 	*  Plays the animation "transitionLoop" on the transition. Also serves as the animation callback.
 	*  Manually looping the animation allows the animation to be synced to the audio while looping.
 	*
-	*  @function _loopTransition
+	*  @method _loopTransition
 	*  @private
 	*/
 	p._loopTransition = function()
@@ -505,22 +490,24 @@
 		var audio,
 			animator = this._display.animator;
 
-		if (this._transitionSounds && Sound)
+		if (this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
 		}
 
 		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
 		{
-			animator.play(this._transition, {anim:"transitionLoop", audio:audio},
+			animator.play(this._transition,
+							{anim:"transitionLoop", audio:audio},
 							this._loopTransition);
 		}
 	};
 	
 	/**
-	 * Displays the transition out animation, without changing states.
+	 * Displays the transition out animation, without changing states. Upon completion, the
+	 * transition looping animation automatically starts playing.
 	 *
-	 * @function showTransitionOut
+	 * @method showTransitionOut
 	 * @param {function} callback The function to call when the animation is complete.
 	 */
 	p.showTransitionOut = function(callback)
@@ -540,19 +527,26 @@
 	/**
 	 * Displays the transition in animation, without changing states.
 	 *
-	 * @function showTransitionIn
+	 * @method showTransitionIn
 	 * @param {function} callback The function to call when the animation is complete.
 	 */
 	p.showTransitionIn = function(callback)
 	{
 		var sm = this;
-		this._transitioning(StateManager.TRANSITION_IN, function() { sm.hideBlocker(); if (callback) callback(); });
+		var func = function()
+		{
+			sm.hideBlocker();
+			sm._transition.visible = false;
+			if (callback)
+				callback();
+		};
+		this._transitioning(StateManager.TRANSITION_IN, func);
 	};
 	
 	/**
 	*   Generalized function for transitioning with the manager
 	*
-	*   @function _transitioning
+	*   @method _transitioning
 	*   @param {String} The animator event to play
 	*   @param {Function} The callback function after transition is done
 	*   @private
@@ -562,16 +556,15 @@
 		var clip = this._transition;
 		clip.visible = true;
 
-		var audio,
-			animator = this._display.animator;
+		var audio;
 
-		if (this._transitionSounds && Sound)
+		if (this._transitionSounds)
 		{
 			audio = event == StateManager.TRANSITION_IN ?
 				this._transitionSounds.in :
 				this._transitionSounds.out;
 		}
-		animator.play(this._transition, {anim:event, audio:audio}, callback);
+		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
 	};
 
 
@@ -629,7 +622,7 @@
 	
 	/**
 	*   Remove the state manager
-	*   @function destroy
+	*   @method destroy
 	*/
 	p.destroy = function()
 	{
