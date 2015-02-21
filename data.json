@@ -41,6 +41,28 @@
                 "springroll.createjs": 1
             }
         },
+        "src/displays/createjs/BitmapMovieClip.js": {
+            "name": "src/displays/createjs/BitmapMovieClip.js",
+            "modules": {},
+            "classes": {
+                "springroll.createjs.BitmapMovieClip": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll.createjs": 1
+            }
+        },
+        "src/displays/createjs/BitmapUtils.js": {
+            "name": "src/displays/createjs/BitmapUtils.js",
+            "modules": {},
+            "classes": {
+                "springroll.createjs.BitmapUtils": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll.createjs": 1
+            }
+        },
         "src/displays/createjs/Button.js": {
             "name": "src/displays/createjs/Button.js",
             "modules": {},
@@ -116,11 +138,30 @@
                 "springroll.createjs": 1
             }
         },
+        "src/displays/createjs/Point.js": {
+            "name": "src/displays/createjs/Point.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/displays/createjs/SoundButton.js": {
             "name": "src/displays/createjs/SoundButton.js",
             "modules": {},
             "classes": {
                 "springroll.createjs.SoundButton": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll.createjs": 1
+            }
+        },
+        "src/displays/createjs/TextureAtlas.js": {
+            "name": "src/displays/createjs/TextureAtlas.js",
+            "modules": {},
+            "classes": {
+                "springroll.createjs.TextureAtlas": 1,
+                "springroll.createjs.Texture": 1
             },
             "fors": {},
             "namespaces": {
@@ -788,13 +829,13 @@
             "submodules": {},
             "classes": {
                 "springroll.SavedData": 1,
+                "Array": 1,
                 "springroll.AbstractDisplay": 1,
                 "springroll.EventDispatcher": 1,
                 "springroll.CacheManager": 1,
                 "springroll.Loader": 1,
                 "springroll.LoaderQueueItem": 1,
                 "springroll.LoaderResult": 1,
-                "Array": 1,
                 "springroll.CombinedCallback": 1,
                 "Debug": 1,
                 "springroll.DelayedCall": 1,
@@ -824,21 +865,25 @@
             "classes": {
                 "springroll.createjs.Animator": 1,
                 "springroll.createjs.AnimatorTimeline": 1,
+                "springroll.createjs.BitmapMovieClip": 1,
+                "springroll.createjs.BitmapUtils": 1,
                 "springroll.createjs.Button": 1,
                 "springroll.createjs.CreateJSDisplay": 1,
                 "springroll.createjs.Cutscene": 1,
                 "springroll.createjs.DisplayAdapter": 1,
                 "springroll.createjs.DragManager": 1,
                 "springroll.createjs.MovieClipUtils": 1,
-                "springroll.createjs.SoundButton": 1
+                "springroll.createjs.SoundButton": 1,
+                "springroll.createjs.TextureAtlas": 1,
+                "springroll.createjs.Texture": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll.createjs": 1
             },
             "tag": "module",
-            "file": "src/displays/createjs/SoundButton.js",
-            "line": 10
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 157
         },
         "Native Display": {
             "name": "Native Display",
@@ -1024,7 +1069,7 @@
             "module": "CreateJS Display",
             "namespace": "springroll.createjs",
             "file": "src/displays/createjs/Animator.js",
-            "line": 12,
+            "line": 13,
             "description": "Animator is a static class designed to provided\nbase animation functionality, using frame labels of MovieClips",
             "static": 1
         },
@@ -1042,6 +1087,103 @@
             "line": 7,
             "description": "Animator Timeline is a class designed to provide\nbase animation functionality",
             "is_constructor": 1
+        },
+        "springroll.createjs.BitmapMovieClip": {
+            "name": "springroll.createjs.BitmapMovieClip",
+            "shortname": "BitmapMovieClip",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs",
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 11,
+            "description": "A class similar to createjs.MovieClip, but made to play animations from a createjs.TextureAtlas.\nThe CreateJS Sprite class requires a spritesheet with equal sized and spaced frames. By using createjs.TextureAtlas,\nyou can use a much smaller spritesheet, sprites on screen with fewer extra transparent pixels, and use the same\nAPI as MovieClip.",
+            "extends": "createjs.Container",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "atlas=null",
+                    "description": "The texture atlas to pull frames from.",
+                    "type": "TextureAtlas"
+                },
+                {
+                    "name": "data=null",
+                    "description": "Initialization data",
+                    "type": "Object"
+                },
+                {
+                    "name": "data.fps",
+                    "description": "Framerate to play the movieclip at. Omitting this will use the current framerate.",
+                    "type": "Int",
+                    "optional": true
+                },
+                {
+                    "name": "data.labels",
+                    "description": "A dictionary of the labels in the movieclip to assist in playing animations.",
+                    "type": "Object",
+                    "optional": true
+                },
+                {
+                    "name": "data.origin",
+                    "description": "The origin of the movieclip.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{x:0,y:0}"
+                },
+                {
+                    "name": "data.frames",
+                    "description": "An array of frame sequences to pull from the texture atlas.",
+                    "type": "Array",
+                    "optional": true
+                },
+                {
+                    "name": "data.frames.name",
+                    "description": "The name to use for the frame sequence. This should include a \"#\" to be replaced with the image number.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "data.frames.min",
+                    "description": "The first frame number in the frame sequence.",
+                    "type": "Int",
+                    "optional": true
+                },
+                {
+                    "name": "data.frames.max",
+                    "description": "The last frame number in the frame sequence.",
+                    "type": "Int",
+                    "optional": true
+                },
+                {
+                    "name": "data.frames.digits",
+                    "description": "The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.",
+                    "type": "Int",
+                    "optional": true,
+                    "optdefault": "4"
+                },
+                {
+                    "name": "[data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t]",
+                    "description": ",\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                    "type": "Number"
+                }
+            ]
+        },
+        "springroll.createjs.BitmapUtils": {
+            "name": "springroll.createjs.BitmapUtils",
+            "shortname": "BitmapUtils",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs",
+            "file": "src/displays/createjs/BitmapUtils.js",
+            "line": 9,
+            "description": "Designed to provide utility related to Bitmaps."
         },
         "springroll.createjs.Button": {
             "name": "springroll.createjs.Button",
@@ -1070,13 +1212,6 @@
                             "description": "The image to use for all of the button states.",
                             "type": "Image|HTMLCanvasElement",
                             "optional": true
-                        },
-                        {
-                            "name": "priority",
-                            "description": "The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
-                            "type": "Array",
-                            "optional": true,
-                            "optdefault": "null"
                         },
                         {
                             "name": "up",
@@ -1230,6 +1365,11 @@
                             "optdefault": "null"
                         }
                     ]
+                },
+                {
+                    "name": "[imageSettings.priority=null] The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"]",
+                    "description": ".",
+                    "type": "Array"
                 },
                 {
                     "name": "label",
@@ -1478,6 +1618,20 @@
             "line": 7,
             "description": "Utility methods for dealing with createjs movieclips"
         },
+        "Array": {
+            "name": "Array",
+            "shortname": "Array",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "",
+            "file": "src/utils/Array.js",
+            "line": 5,
+            "description": "Add methods to Array\nSee https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
+        },
         "springroll.createjs.SoundButton": {
             "name": "springroll.createjs.SoundButton",
             "shortname": "SoundButton",
@@ -1528,6 +1682,47 @@
                     "optdefault": "\"ButtonRollover\""
                 }
             ]
+        },
+        "springroll.createjs.TextureAtlas": {
+            "name": "springroll.createjs.TextureAtlas",
+            "shortname": "TextureAtlas",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs",
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 9,
+            "description": "Handles a spritesheet. File extensions and folder paths are dropped from frame names upon loading.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "image",
+                    "description": "The image that all textures pull from.\n     This can also be an array of images, if the TextureAtlas should be built from several spritesheets.",
+                    "type": "Image|HTMLCanvasElement|Array"
+                },
+                {
+                    "name": "spritesheetData",
+                    "description": "The JSON object describing the frames in the atlas.\n     This is expected to fit the JSON Hash format as exported from TexturePacker.\n     This can also be an array of data objects, if the TextureAtlas should be built from several spritesheets.",
+                    "type": "Object|Array"
+                }
+            ]
+        },
+        "springroll.createjs.Texture": {
+            "name": "springroll.createjs.Texture",
+            "shortname": "Texture",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs",
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 157,
+            "description": "A Texture - a specific portion of an image that can then be drawn by a Bitmap.\nThis class is hidden within TextureAtlas, and can't be manually created."
         },
         "springroll.native.Circle": {
             "name": "springroll.native.Circle",
@@ -1823,13 +2018,6 @@
                     "type": "Object",
                     "props": [
                         {
-                            "name": "priority",
-                            "description": "The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
-                            "type": "Array",
-                            "optional": true,
-                            "optdefault": "null"
-                        },
-                        {
                             "name": "up",
                             "description": "The texture for the up state of the button. This can be either the texture itself,\n       or an object with 'tex' and 'label' properties.",
                             "type": "Object|PIXI.Texture",
@@ -1953,6 +2141,11 @@
                             "optdefault": "1"
                         }
                     ]
+                },
+                {
+                    "name": "[imageSettings.priority=null] The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"]",
+                    "description": ".",
+                    "type": "Array"
                 },
                 {
                     "name": "label",
@@ -2098,7 +2291,7 @@
             "namespace": "springroll.pixi",
             "file": "src/displays/pixi/PixiDisplay.js",
             "line": 13,
-            "description": "PixiDisplay is a display plugin for the springroll Framework\n\tthat uses the Pixi library for rendering.",
+            "description": "PixiDisplay is a display plugin for the springroll Framework\nthat uses the Pixi library for rendering.",
             "extends": "springroll.AbstractDisplay",
             "is_constructor": 1,
             "params": [
@@ -2114,21 +2307,21 @@
                     "props": [
                         {
                             "name": "forceContext",
-                            "description": "If a specific renderer should be used instead of WebGL\n\t                                            falling back to Canvas. Use \"webgl\" or \"canvas2d\" to specify a renderer.",
+                            "description": "If a specific renderer should be used instead of\n                                            WebGL falling back to Canvas. Use \"webgl\" or\n                                            \"canvas2d\" to specify a renderer.",
                             "type": "String",
                             "optional": true,
                             "optdefault": "null"
                         },
                         {
                             "name": "clearView",
-                            "description": "If the stage should wipe the canvas between renders.",
+                            "description": "If the stage should wipe the canvas between\n                                           renders.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "backgroundColor",
-                            "description": "The background color of the stage (if it is not transparent).",
+                            "description": "The background color of the stage (if it is\n                                                 not transparent).",
                             "type": "Uint",
                             "optional": true,
                             "optdefault": "0x000000"
@@ -2149,14 +2342,14 @@
                         },
                         {
                             "name": "preMultAlpha",
-                            "description": "If the WebGL renderer should draw with all images as pre-multiplied alpha.\n\t                                              In most cases, you probably do not want to set this option to true.",
+                            "description": "If the WebGL renderer should draw with all\n                                              images as pre-multiplied alpha. In most cases,\n                                              you probably do not want to set this option to\n                                              true.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
                         },
                         {
                             "name": "preserveDrawingBuffer",
-                            "description": "Set this to true if you want to call toDataUrl\n\t                                                       on the WebGL rendering context.",
+                            "description": "Set this to true if you want to call\n                                                       toDataUrl on the WebGL rendering\n                                                       context.",
                             "type": "Boolean",
                             "optional": true,
                             "optdefault": "false"
@@ -2233,20 +2426,20 @@
             "params": [
                 {
                     "name": "panel",
-                    "description": "The panel to associate with this panel",
-                    "type": "createjs.MovieClip|PIXI.DisplayObjectContainer"
+                    "description": "The panel to associate with\n                                                              this state.",
+                    "type": "createjs.Container|PIXI.DisplayObjectContainer"
                 },
                 {
                     "name": "nextState",
                     "description": "The next state alias",
-                    "type": "String|function",
+                    "type": "String|Function",
                     "optional": true,
                     "optdefault": "null"
                 },
                 {
                     "name": "prevState",
                     "description": "The previous state alias",
-                    "type": "String|function",
+                    "type": "String|Function",
                     "optional": true,
                     "optdefault": "null"
                 }
@@ -2269,7 +2462,7 @@
             "params": [
                 {
                     "name": "type",
-                    "description": "See createjs.Event",
+                    "description": "The type of event.",
                     "type": "String"
                 },
                 {
@@ -2279,7 +2472,7 @@
                 },
                 {
                     "name": "visibleState",
-                    "description": "The current state being transitioned or changing visibility, default to currentState",
+                    "description": "The current state being transitioned or changing visibility,\n                                default to currentState",
                     "type": "BaseState"
                 }
             ]
@@ -2295,24 +2488,24 @@
             "module": "Game",
             "namespace": "springroll",
             "file": "src/games/states/StateManager.js",
-            "line": 13,
+            "line": 12,
             "description": "The State Manager used for managing the different states of a game or site",
             "extends": "springroll.EventDispatcher",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "display",
-                    "description": "The display on which the transition animation is displayed.",
+                    "description": "The display on which the transition animation is\n                                            displayed.",
                     "type": "springroll.AbstractDisplay"
                 },
                 {
                     "name": "transition",
-                    "description": "The transition MovieClip to play between transitions",
+                    "description": "The transition MovieClip to play between\n                                                  transitions.",
                     "type": "createjs.MovieClip|PIXI.Spine"
                 },
                 {
                     "name": "transitionSounds",
-                    "description": "Data object with aliases and start times (seconds) for transition in, loop and out sounds: {in:{alias:\"myAlias\", start:0.2}}.\n\t\tThese objects are in the format for Animator from CreateJSDisplay or PixiDisplay, so they can be the alias instead of an object.",
+                    "description": "Data object with aliases and start times (seconds) for\n                                 transition in, loop and out sounds. Example:\n                                 {in:{alias:\"myAlias\", start:0.2}}.\n                                 These objects are in the format for Animator from\n                                 CreateJSDisplay or PixiDisplay, so they can be just the\n                                 sound alias instead of an object.",
                     "type": "Object"
                 }
             ]
@@ -3210,20 +3403,6 @@
                 "type": "UIScaler"
             }
         },
-        "Array": {
-            "name": "Array",
-            "shortname": "Array",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Core",
-            "namespace": "",
-            "file": "src/utils/Array.js",
-            "line": 5,
-            "description": "Add methods to Array\nSee https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
-        },
         "springroll.CombinedCallback": {
             "name": "springroll.CombinedCallback",
             "shortname": "CombinedCallback",
@@ -3272,7 +3451,7 @@
             "module": "Core",
             "namespace": "",
             "file": "src/utils/Debug.js",
-            "line": 9,
+            "line": 10,
             "description": "A static closure to provide easy access to the console\nwithout having errors if the console doesn't exist\nto use call: Debug.log('Your log here')",
             "static": 1
         },
@@ -3328,7 +3507,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/utils/Enum.js",
-            "line": 7,
+            "line": 6,
             "description": "An enumeration value. This class is private, and is only used by Enum.",
             "access": "private",
             "tagname": "",
@@ -3362,8 +3541,8 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/utils/Enum.js",
-            "line": 54,
-            "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\n\t\t\t\"valueOf0\",\n\t\t\t\"valueOf1\",\n\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum(\n\t\t\t{name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\"two\",\n\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\t\t\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"",
+            "line": 49,
+            "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\n\t\t\t\"valueOf0\",\n\t\t\t\"valueOf1\",\n\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum(\n\t\t\t{name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\"two\",\n\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\t\t\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"\n\n\t\tfor (var i in myEnum) console.log(i); //outputs \"valueOf0\",\"valueOf1\",\"valueOf2\"",
             "is_constructor": 1,
             "params": [
                 {
@@ -3814,7 +3993,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 21,
+            "line": 22,
             "description": "If we fire debug statements",
             "itemtype": "property",
             "name": "debug",
@@ -3828,7 +4007,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 30,
+            "line": 31,
             "description": "The global captions object to use with animator",
             "itemtype": "property",
             "name": "captions",
@@ -3842,7 +4021,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 38,
+            "line": 39,
             "description": "The collection of timelines",
             "itemtype": "property",
             "name": "_timelines",
@@ -3855,7 +4034,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 46,
+            "line": 47,
             "description": "A collection of timelines for removal - kept out here so it doesn't need to be\nreallocated every frame",
             "itemtype": "property",
             "name": "_removedTimelines",
@@ -3868,7 +4047,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 55,
+            "line": 56,
             "itemtype": "property",
             "name": "_timelinesMap",
             "type": "Dictionary",
@@ -3880,7 +4059,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 62,
+            "line": 63,
             "description": "If the Animator is paused",
             "itemtype": "property",
             "name": "_paused",
@@ -3893,7 +4072,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 70,
+            "line": 71,
             "description": "Sets the variables of the Animator to their defaults. Use when _timelines is null,\nif the Animator data was cleaned up but was needed again later.",
             "itemtype": "method",
             "name": "init",
@@ -3904,7 +4083,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 87,
+            "line": 88,
             "description": "Stops all animations and cleans up the variables used.",
             "itemtype": "method",
             "name": "destroy",
@@ -3915,7 +4094,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 106,
+            "line": 107,
             "description": "Play an animation for a frame label event",
             "itemtype": "method",
             "name": "play",
@@ -3954,7 +4133,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 203,
+            "line": 223,
             "description": "Creates the AnimatorTimeline for a given animation",
             "itemtype": "method",
             "name": "_makeTimeline",
@@ -3993,7 +4172,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 348,
+            "line": 369,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
@@ -4015,7 +4194,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 378,
+            "line": 399,
             "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
             "itemtype": "method",
             "name": "_canAnimate",
@@ -4041,7 +4220,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 397,
+            "line": 418,
             "description": "Checks if animation exists",
             "itemtype": "method",
             "name": "instanceHasAnimation",
@@ -4070,7 +4249,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 432,
+            "line": 454,
             "description": "Get duration of animation event (or sequence of events) in seconds",
             "itemtype": "method",
             "name": "getDuration",
@@ -4099,7 +4278,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 501,
+            "line": 524,
             "description": "Stop the animation.",
             "itemtype": "method",
             "name": "stop",
@@ -4124,7 +4303,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 530,
+            "line": 563,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4150,7 +4329,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 563,
+            "line": 596,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4175,7 +4354,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 626,
+            "line": 660,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4186,7 +4365,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 647,
+            "line": 681,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4197,7 +4376,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 669,
+            "line": 703,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4220,7 +4399,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 690,
+            "line": 724,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4242,7 +4421,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 709,
+            "line": 743,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4256,7 +4435,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 720,
+            "line": 754,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4269,7 +4448,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 733,
+            "line": 767,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4282,7 +4461,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 746,
+            "line": 780,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4302,7 +4481,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 901,
+            "line": 934,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4321,7 +4500,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 915,
+            "line": 948,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4340,7 +4519,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 933,
+            "line": 966,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4357,7 +4536,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 947,
+            "line": 980,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -4659,6 +4838,607 @@
             "access": "public",
             "tagname": "",
             "class": "springroll.createjs.AnimatorTimeline",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 72,
+            "description": "Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.",
+            "itemtype": "property",
+            "name": "loop",
+            "type": "Boolean",
+            "default": "true",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 80,
+            "description": "The current frame of the movieclip.",
+            "itemtype": "property",
+            "name": "currentFrame",
+            "type": "Number",
+            "default": "0",
+            "readonly": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 89,
+            "description": "If true, the BitmapMovieClip's position will not advance when ticked.",
+            "itemtype": "property",
+            "name": "paused",
+            "type": "Boolean",
+            "default": "false",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 97,
+            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the BitmapMovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
+            "itemtype": "property",
+            "name": "framerate",
+            "type": "{Number}",
+            "default": "0",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 127,
+            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "elapsedTime",
+            "type": "Number",
+            "default": "0",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 143,
+            "description": "(Read-Only) The total number of frames in the timeline",
+            "itemtype": "property",
+            "name": "totalFrames",
+            "type": "Int",
+            "default": "0",
+            "readonly": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 156,
+            "description": "(Read-Only) The Texture of the current frame",
+            "itemtype": "property",
+            "name": "currentTexture",
+            "type": "createjs.TextureAtlas.Texture",
+            "readonly": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 170,
+            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
+            "itemtype": "property",
+            "name": "_framerate",
+            "type": "{Number}",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 182,
+            "description": "When the BitmapMovieClip is framerate independent, this is the total time in seconds for the animation.",
+            "itemtype": "property",
+            "name": "_duration",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 191,
+            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "itemtype": "property",
+            "name": "_t",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 200,
+            "itemtype": "property",
+            "name": "_prevPosition",
+            "type": "Number",
+            "default": "0",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 208,
+            "description": "The Bitmap used to render the current frame of the animation.",
+            "itemtype": "property",
+            "name": "_bitmap",
+            "type": "createjs.Bitmap",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 216,
+            "description": "An array of frame labels.",
+            "itemtype": "property",
+            "name": "_labels",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 224,
+            "description": "An array of textures.",
+            "itemtype": "property",
+            "name": "_frames",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 232,
+            "description": "The current texture.",
+            "itemtype": "property",
+            "name": "_currentTexture",
+            "type": "createjs.TextureAtlas.Texture",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 240,
+            "description": "The origin point of the BitmapMovieClip.",
+            "itemtype": "property",
+            "name": "_origin",
+            "type": "createjs.Point",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 248,
+            "description": "A scale to apply to the images in the BitmapMovieClip\nto restore normal size (if spritesheet was exported at a smaller or larger size).",
+            "itemtype": "property",
+            "name": "_scale",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 259,
+            "description": "Returns true or false indicating whether the display object would be visible if drawn to a canvas.\nThis does not account for whether it would be visible within the boundaries of the stage.\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
+            "itemtype": "method",
+            "name": "isVisible",
+            "return": {
+                "description": "Boolean indicating whether the display object would be visible if drawn to a canvas",
+                "type": "Boolean"
+            },
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 271,
+            "description": "Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.\nReturns true if the draw was handled (useful for overriding functionality).\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "ctx",
+                    "description": "The canvas 2D context object to draw into.",
+                    "type": "CanvasRenderingContext2D"
+                },
+                {
+                    "name": "ignoreCache",
+                    "description": "Indicates whether the draw operation should ignore any current cache.\nFor example, used for drawing the cache (to prevent it from simply drawing an existing cache back\ninto itself).",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 289,
+            "description": "Sets paused to false.",
+            "itemtype": "method",
+            "name": "play",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 297,
+            "description": "Sets paused to true.",
+            "itemtype": "method",
+            "name": "stop",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 305,
+            "description": "Advances this movie clip to the specified position or label and sets paused to false.",
+            "itemtype": "method",
+            "name": "gotoAndPlay",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 315,
+            "description": "Advances this movie clip to the specified position or label and sets paused to true.",
+            "itemtype": "method",
+            "name": "gotoAndStop",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation or frame name to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 325,
+            "description": "Advances the playhead. This occurs automatically each tick by default.",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "The amount of time in ms to advance by. If 0 or null, time is not\n                       advanced but the timeline is still updated.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "advance",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 350,
+            "description": "Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS: Timeline.getLabels();",
+            "itemtype": "method",
+            "name": "getLabels",
+            "return": {
+                "description": "A sorted array of objects with label and position (aka frame) properties.",
+                "type": "Array[Object]"
+            },
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 359,
+            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "itemtype": "method",
+            "name": "getCurrentLabel",
+            "return": {
+                "description": "The name of the current label or null if there is no label.",
+                "type": "String"
+            },
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 378,
+            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "itemtype": "method",
+            "name": "init",
+            "params": [
+                {
+                    "name": "atlas",
+                    "description": "The texture atlas to pull frames from.",
+                    "type": "TextureAtlas"
+                },
+                {
+                    "name": "data",
+                    "description": "Initialization data",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "fps",
+                            "description": "Framerate to play the movieclip at. Omitting this will use the current framerate.",
+                            "type": "Int",
+                            "optional": true
+                        },
+                        {
+                            "name": "labels",
+                            "description": "A dictionary of the labels in the movieclip to assist in playing animations.",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "origin",
+                            "description": "The origin of the movieclip.",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "{x:0,y:0}"
+                        },
+                        {
+                            "name": "frames",
+                            "description": "An array of frame sequences to pull from the texture atlas.",
+                            "type": "Array",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "name",
+                                    "description": "The name to use for the frame sequence. This should include a \"#\" to be replaced with the image number.",
+                                    "type": "String",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "min",
+                                    "description": "The first frame number in the frame sequence.",
+                                    "type": "Int",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "max",
+                                    "description": "The last frame number in the frame sequence.",
+                                    "type": "Int",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "digits",
+                                    "description": "The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.",
+                                    "type": "Int",
+                                    "optional": true,
+                                    "optdefault": "4"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "[data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t]",
+                    "description": ",\n\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                    "type": "Number"
+                }
+            ],
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 459,
+            "description": "Copies the labels, textures, origin, and framerate from another BitmapMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
+            "itemtype": "method",
+            "name": "copyFrom",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The movieclip to copy data from.",
+                    "type": "BitmapMovieClip"
+                }
+            ],
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 476,
+            "description": "Destroys the BitmapMovieClip, removing all children and nulling all reference variables.",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 491,
+            "itemtype": "method",
+            "name": "_tick",
+            "params": [
+                {
+                    "name": "props",
+                    "description": "Properties to copy to the DisplayObject {{#crossLink \"DisplayObject/tick\"}}{{/crossLink}} event object.\nfunction.",
+                    "type": "Object"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 502,
+            "itemtype": "method",
+            "name": "_goto",
+            "params": [
+                {
+                    "name": "positionOrLabel",
+                    "description": "The animation name or frame number to go to.",
+                    "type": "String|Number"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 532,
+            "itemtype": "method",
+            "name": "_updateTimeline",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapMovieClip.js",
+            "line": 552,
+            "itemtype": "method",
+            "name": "_reset",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.BitmapMovieClip",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapUtils.js",
+            "line": 15,
+            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet. This function should be\ncalled after you have loaded up javascript assets exported from Flash,\nbut before you have instantiated those assets.",
+            "itemtype": "method",
+            "name": "loadSpriteSheet",
+            "static": 1,
+            "params": [
+                {
+                    "name": "frameDict",
+                    "description": "A dictionary of frame information, with frame, trimmed,\n\tand spriteSourceSize properties (like the JSON hash output from TexturePacker).",
+                    "type": "Object"
+                },
+                {
+                    "name": "spritesheetImage",
+                    "description": "The spritesheet image that contains all of the frames.",
+                    "type": "Image|HTMLCanvasElement"
+                },
+                {
+                    "name": "scale",
+                    "description": "The scale to apply to all sprites from the spritesheet.\n\tFor example, a half sized spritesheet should have a scale of 2.",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "1"
+                }
+            ],
+            "class": "springroll.createjs.BitmapUtils",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapUtils.js",
+            "line": 90,
+            "description": "Creates a faux Bitmap from a TextureAtlas entry.",
+            "itemtype": "method",
+            "name": "bitmapFromTexture",
+            "static": 1,
+            "params": [
+                {
+                    "name": "texture",
+                    "description": "The texture from a TextureAtlas to create the Bitmap analogue from.",
+                    "type": "Texture"
+                },
+                {
+                    "name": "scale",
+                    "description": "A scale for the spritesheet to undo, e.g. a half sized spritesheet\n                      gets a scale of 2 to restore it to normal size.",
+                    "type": "[type]"
+                }
+            ],
+            "class": "springroll.createjs.BitmapUtils",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/BitmapUtils.js",
+            "line": 120,
+            "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat uses a scaled bitmap, so you can load up smaller bitmaps behind\nthe scenes that are scaled back up to normal size, or high res bitmaps\nthat are scaled down.",
+            "itemtype": "method",
+            "name": "replaceWithScaledBitmap",
+            "static": 1,
+            "params": [
+                {
+                    "name": "idOrDict",
+                    "description": "A dictionary of Bitmap ids to replace, or a single id.",
+                    "type": "String|Object"
+                },
+                {
+                    "name": "scale",
+                    "description": "The scale to apply to the image(s).",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "1"
+                }
+            ],
+            "class": "springroll.createjs.BitmapUtils",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
         },
@@ -5657,7 +6437,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 612,
+            "line": 609,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -5678,7 +6458,7 @@
         },
         {
             "file": "src/displays/createjs/Cutscene.js",
-            "line": 635,
+            "line": 632,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -6591,6 +7371,162 @@
             "namespace": "springroll.createjs"
         },
         {
+            "file": "src/displays/createjs/Point.js",
+            "line": 16,
+            "description": "Returns the dot product between this point and another one.",
+            "itemtype": "method",
+            "name": "dotProd",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to form a dot product with",
+                    "type": "Point"
+                }
+            ],
+            "return": {
+                "description": "The dot product between the two points."
+            },
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 27,
+            "description": "Returns the length (or magnitude) of this point.",
+            "itemtype": "method",
+            "name": "length",
+            "return": {
+                "description": "The length of this point."
+            },
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 37,
+            "description": "Returns the squared length (or magnitude) of this point. This is faster than length().",
+            "itemtype": "method",
+            "name": "lengthSq",
+            "return": {
+                "description": "The length squared of this point."
+            },
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 47,
+            "description": "Reduces the point to a length of 1.",
+            "itemtype": "method",
+            "name": "normalize",
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 58,
+            "description": "Subtracts the x and y values of a point from this point.",
+            "itemtype": "method",
+            "name": "subtract",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to subtract from this one",
+                    "type": "Point"
+                }
+            ],
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 69,
+            "description": "Adds the x and y values of a point to this point.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to add to this one",
+                    "type": "Point"
+                }
+            ],
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 80,
+            "description": "Truncate the length of the point to a maximum.",
+            "itemtype": "method",
+            "name": "truncate",
+            "params": [
+                {
+                    "name": "maxLength",
+                    "description": "The maximum length to allow in this point.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 96,
+            "description": "Multiplies the x and y values of this point by a value.",
+            "itemtype": "method",
+            "name": "scaleBy",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The value to scale by.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 107,
+            "description": "Calculates the distance between this and another point.",
+            "itemtype": "method",
+            "name": "distance",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to calculate the distance to.",
+                    "type": "Point"
+                }
+            ],
+            "return": {
+                "description": "The distance.",
+                "type": "Number"
+            },
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
+            "file": "src/displays/createjs/Point.js",
+            "line": 120,
+            "description": "Calculates the squared distance between this and another point.",
+            "itemtype": "method",
+            "name": "distanceSq",
+            "params": [
+                {
+                    "name": "other",
+                    "description": "The point to calculate the distance to.",
+                    "type": "Point"
+                }
+            ],
+            "return": {
+                "description": "The distance squared.",
+                "type": "Number"
+            },
+            "class": "Array",
+            "module": "CreateJS Display"
+        },
+        {
             "file": "src/displays/createjs/SoundButton.js",
             "line": 27,
             "description": "The audio alias to use for click events",
@@ -6667,6 +7603,171 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.createjs.SoundButton",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 21,
+            "description": "The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.",
+            "itemtype": "property",
+            "name": "_image",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.createjs.TextureAtlas",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 36,
+            "description": "The dictionary of Textures that this atlas consists of.",
+            "itemtype": "property",
+            "name": "frames",
+            "type": "Object",
+            "class": "springroll.createjs.TextureAtlas",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 64,
+            "description": "Gets a frame by name.",
+            "itemtype": "method",
+            "name": "getFrame",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The frame name to get.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The texture by that name, or null if it doesn't exist.",
+                "type": "createjs.TextureAtlas.Texture"
+            },
+            "class": "springroll.createjs.TextureAtlas",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 75,
+            "description": "Get an array of Textures that match a specific name. If a frame in a sequence is not in the atlas,\nthe previous frame in the sequence is used in place of it.",
+            "itemtype": "method",
+            "name": "getFrames",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The base name of all frames to look for, like \"anim_#\" to search for an animation exported\n       as anim_0001.png (the \".png\" is dropped when the TextureAtlas is loaded).",
+                    "type": "String"
+                },
+                {
+                    "name": "numberMin",
+                    "description": "The number to start on while looking for frames. Flash PNG sequences generally start at 1.",
+                    "type": "Int"
+                },
+                {
+                    "name": "numberMax",
+                    "description": "The number to go until while looking for frames.\n       If your animation runs from frame 0001 to frame 0014, numberMax would be 14.",
+                    "type": "Int"
+                },
+                {
+                    "name": "maxDigits",
+                    "description": "Maximum number of digits, like 4 for an animation exported as anim_0001.png",
+                    "type": "Int",
+                    "optional": true,
+                    "optdefault": "4"
+                },
+                {
+                    "name": "outArray",
+                    "description": "If already using an array, this can fill it instead of creating a new one.",
+                    "type": "Array",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The collection of createjs.TextureAtlas.Textures.",
+                "type": "Array"
+            },
+            "class": "springroll.createjs.TextureAtlas",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 144,
+            "description": "Destroys the TextureAtlas by nulling the image and frame dictionary references.",
+            "itemtype": "method",
+            "name": "destroy",
+            "class": "springroll.createjs.TextureAtlas",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 164,
+            "description": "The image element that this texture references.",
+            "itemtype": "property",
+            "name": "image",
+            "type": "Image|HTMLCanvasElement",
+            "class": "springroll.createjs.Texture",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 170,
+            "description": "The frame rectangle within the image.",
+            "itemtype": "property",
+            "name": "frame",
+            "type": "createjs.Rectangle",
+            "class": "springroll.createjs.Texture",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 175,
+            "description": "If this texture has been trimmed.",
+            "itemtype": "property",
+            "name": "trimmed",
+            "type": "Boolean",
+            "class": "springroll.createjs.Texture",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 180,
+            "description": "The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.",
+            "itemtype": "property",
+            "name": "offset",
+            "type": "createjs.Point",
+            "class": "springroll.createjs.Texture",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 185,
+            "description": "The width of the untrimmed texture.",
+            "itemtype": "property",
+            "name": "width",
+            "type": "Number",
+            "class": "springroll.createjs.Texture",
+            "module": "CreateJS Display",
+            "namespace": "springroll.createjs"
+        },
+        {
+            "file": "src/displays/createjs/TextureAtlas.js",
+            "line": 190,
+            "description": "The height of the untrimmed texture.",
+            "itemtype": "property",
+            "name": "height",
+            "type": "Number",
+            "class": "springroll.createjs.Texture",
             "module": "CreateJS Display",
             "namespace": "springroll.createjs"
         },
@@ -9769,7 +10870,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 39,
+            "line": 45,
             "description": "The rendering library's stage element, the root display object",
             "itemtype": "property",
             "name": "stage",
@@ -9783,7 +10884,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 47,
+            "line": 53,
             "description": "The Pixi renderer.",
             "itemtype": "property",
             "name": "renderer",
@@ -9797,7 +10898,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 81,
+            "line": 95,
             "description": "If Pixi is being rendered with WebGL.",
             "itemtype": "property",
             "name": "isWebGL",
@@ -9811,7 +10912,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 97,
+            "line": 111,
             "description": "If input is enabled on the stage for this display. The default is true.",
             "itemtype": "property",
             "name": "enabled",
@@ -9824,7 +10925,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 123,
+            "line": 137,
             "description": "Resizes the canvas and the renderer. This is only called by the Application.",
             "itemtype": "method",
             "name": "resize",
@@ -9847,7 +10948,7 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 136,
+            "line": 150,
             "description": "Updates the stage and draws it. This is only called by the Application.\nThis method does nothing if paused is true or visible is false.",
             "itemtype": "method",
             "name": "render",
@@ -9872,8 +10973,8 @@
         },
         {
             "file": "src/displays/pixi/PixiDisplay.js",
-            "line": 152,
-            "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).\nThe stage recursively removes all display objects here.",
+            "line": 166,
+            "description": "Destroys the display. This method is called by the Application and should\nnot be called directly, use Application.removeDisplay(id).",
             "itemtype": "method",
             "name": "destroy",
             "internal": "",
@@ -10334,7 +11435,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 26,
+            "line": 27,
             "description": "The id reference",
             "itemtype": "property",
             "name": "stateID",
@@ -10345,7 +11446,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 33,
+            "line": 34,
             "description": "A reference to the state manager",
             "itemtype": "property",
             "name": "manager",
@@ -10356,8 +11457,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 40,
-            "description": "Save the panel",
+            "line": 41,
+            "description": "The panel for the state.",
             "itemtype": "property",
             "name": "panel",
             "type": "createjs.Container|PIXI.DisplayObjectContainer",
@@ -10367,11 +11468,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 47,
-            "description": "Check to see if we've been destroyed",
+            "line": 48,
+            "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "_destroyed",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10380,11 +11481,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 55,
+            "line": 56,
             "description": "If the manager considers this the active panel",
             "itemtype": "property",
             "name": "_active",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10393,11 +11494,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 63,
+            "line": 64,
             "description": "If we are pre-loading the state",
             "itemtype": "property",
             "name": "_isLoading",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10406,11 +11507,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 71,
+            "line": 72,
             "description": "If we canceled entering the state",
             "itemtype": "property",
             "name": "_canceled",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10419,7 +11520,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 79,
+            "line": 80,
             "description": "When we're finishing loading",
             "itemtype": "property",
             "name": "_onEnterProceed",
@@ -10432,7 +11533,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 87,
+            "line": 88,
+            "description": "If we start doing a load in enter, assign the onEnterComplete here",
             "itemtype": "property",
             "name": "_onLoadingComplete",
             "type": "Function",
@@ -10444,10 +11546,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 94,
+            "line": 96,
+            "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "_enabled",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10456,24 +11559,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 101,
-            "description": "If we are currently transitioning",
-            "itemtype": "property",
-            "name": "isTransitioning",
-            "type": "Bool",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/BaseState.js",
-            "line": 109,
+            "line": 104,
             "description": "Either the alias of the next state or a function\nto call when going to the next state.",
             "itemtype": "property",
             "name": "nextState",
-            "type": "String|function",
+            "type": "String|Function",
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10482,11 +11572,11 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 118,
+            "line": 113,
             "description": "Either the alias of the previous state or a function\nto call when going to the previous state.",
             "itemtype": "property",
             "name": "prevState",
-            "type": "String|function",
+            "type": "String|Function",
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
@@ -10495,21 +11585,19 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 133,
+            "line": 128,
             "description": "Status of whether the panel load was canceled",
-            "itemtype": "method",
-            "name": "getCanceled",
-            "return": {
-                "description": "If the load was canceled",
-                "type": "Bool"
-            },
+            "itemtype": "property",
+            "name": "canceled",
+            "type": "Boolean",
+            "readonly": "",
             "class": "springroll.BaseState",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 144,
+            "line": 138,
             "description": "This is called by the State Manager to exit the state",
             "itemtype": "method",
             "name": "_internalExit",
@@ -10521,8 +11609,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 164,
-            "description": "When the state is exited",
+            "line": 158,
+            "description": "When the state is exited. Override this to provide state cleanup.",
             "itemtype": "method",
             "name": "exit",
             "class": "springroll.BaseState",
@@ -10531,7 +11619,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 171,
+            "line": 165,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalExitStart",
@@ -10543,8 +11631,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 182,
-            "description": "When the state has requested to be exit, pre-transition",
+            "line": 176,
+            "description": "When the state has requested to be exit, pre-transition. Override this to ensure\nthat animation/audio is stopped when leaving the state.",
             "itemtype": "method",
             "name": "exitStart",
             "class": "springroll.BaseState",
@@ -10553,7 +11641,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 188,
+            "line": 184,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnter",
@@ -10561,7 +11649,7 @@
                 {
                     "name": "proceed",
                     "description": "The function to call after enter has been called",
-                    "type": "Functon"
+                    "type": "Function"
                 }
             ],
             "access": "private",
@@ -10572,7 +11660,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 218,
+            "line": 214,
             "description": "Internal function to start the preloading",
             "itemtype": "method",
             "name": "loadingStart",
@@ -10582,7 +11670,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 243,
+            "line": 239,
             "description": "Internal function to finish the preloading",
             "itemtype": "method",
             "name": "loadingDone",
@@ -10592,7 +11680,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 266,
+            "line": 262,
             "description": "Cancel the loading of this state",
             "itemtype": "method",
             "name": "_internalCancel",
@@ -10604,8 +11692,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 282,
-            "description": "Cancel the load, implementation-specific\nthis is where any async actions are removed",
+            "line": 278,
+            "description": "Cancel the load, implementation-specific.\nThis is where any async actions should be removed.",
             "itemtype": "method",
             "name": "cancel",
             "class": "springroll.BaseState",
@@ -10614,8 +11702,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 290,
-            "description": "When the state is entered",
+            "line": 286,
+            "description": "When the state is entered. Override this to start loading assets - call loadingStart()\nto tell the StateManager that that is going on.",
             "itemtype": "method",
             "name": "enter",
             "class": "springroll.BaseState",
@@ -10624,7 +11712,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 297,
+            "line": 294,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnterDone",
@@ -10636,8 +11724,8 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 311,
-            "description": "When the state is visually entered fully\nthat is, after the transition is done",
+            "line": 308,
+            "description": "When the state is visually entered fully - after the transition is done.\nOverride this to begin your state's activities.",
             "itemtype": "method",
             "name": "enterDone",
             "class": "springroll.BaseState",
@@ -10646,23 +11734,7 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 319,
-            "description": "Get if this is the active state",
-            "itemtype": "method",
-            "name": "getActive",
-            "deprecated": true,
-            "deprecationMessage": "Use the BaseState.active property getter instead",
-            "return": {
-                "description": "If this is the active state",
-                "type": "Bool"
-            },
-            "class": "springroll.BaseState",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/BaseState.js",
-            "line": 331,
+            "line": 316,
             "description": "Get if this is the active state",
             "itemtype": "property",
             "name": "active",
@@ -10674,86 +11746,30 @@
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 344,
-            "description": "Transition the panel in",
-            "itemtype": "method",
-            "name": "transitionIn",
-            "params": [
-                {
-                    "name": "callback",
-                    "description": "",
-                    "type": "Function"
-                }
-            ],
+            "line": 326,
+            "description": "If the state is enabled, meaning that it is click ready",
+            "itemtype": "property",
+            "name": "enabled",
+            "type": "Boolean",
             "class": "springroll.BaseState",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 367,
-            "description": "Transition the panel out",
-            "itemtype": "method",
-            "name": "transitionOut",
-            "params": [
-                {
-                    "name": "callback",
-                    "description": "",
-                    "type": "Function"
-                }
-            ],
+            "line": 339,
+            "description": "If the state has been destroyed.",
+            "itemtype": "property",
+            "name": "destroyed",
+            "type": "Boolean",
+            "readonly": "",
             "class": "springroll.BaseState",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/states/BaseState.js",
-            "line": 391,
-            "description": "Get if this State has been destroyed",
-            "itemtype": "method",
-            "name": "getDestroyed",
-            "return": {
-                "description": "If this has been destroyed",
-                "type": "Bool"
-            },
-            "class": "springroll.BaseState",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/BaseState.js",
-            "line": 402,
-            "description": "Enable this panel, true is only non-loading and non-transitioning state",
-            "itemtype": "method",
-            "name": "setEnabled",
-            "params": [
-                {
-                    "name": "enabled",
-                    "description": "The enabled state",
-                    "type": "Bool"
-                }
-            ],
-            "class": "springroll.BaseState",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/BaseState.js",
-            "line": 413,
-            "description": "Get the enabled status",
-            "itemtype": "method",
-            "name": "getEnabled",
-            "return": {
-                "description": "If this state is enabled",
-                "type": "Bool"
-            },
-            "class": "springroll.BaseState",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/BaseState.js",
-            "line": 424,
+            "line": 349,
             "description": "Don't use the state object after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10763,7 +11779,7 @@
         },
         {
             "file": "src/games/states/StateEvent.js",
-            "line": 18,
+            "line": 19,
             "description": "A reference to the current state of the state manager",
             "itemtype": "property",
             "name": "currentState",
@@ -10774,7 +11790,7 @@
         },
         {
             "file": "src/games/states/StateEvent.js",
-            "line": 25,
+            "line": 26,
             "description": "A reference to the state who's actually being transitioned or being changed",
             "itemtype": "property",
             "name": "visibleState",
@@ -10785,7 +11801,7 @@
         },
         {
             "file": "src/games/states/StateEvent.js",
-            "line": 32,
+            "line": 33,
             "itemtype": "property",
             "name": "type",
             "type": "String",
@@ -10795,50 +11811,7 @@
         },
         {
             "file": "src/games/states/StateEvent.js",
-            "line": 41,
-            "description": "The name of the event for when the state starts transitioning in",
-            "itemtype": "event",
-            "name": "onTransitionStateIn",
-            "class": "springroll.StateEvent",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/StateEvent.js",
-            "line": 48,
-            "description": "The name of the event for when the state finishes transition in",
-            "itemtype": "event",
-            "name": "onTransitionStateInDone",
-            "type": "String",
-            "class": "springroll.StateEvent",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/StateEvent.js",
-            "line": 55,
-            "description": "The name of the event for when the state starts transitioning out",
-            "itemtype": "event",
-            "name": "onTransitionStateOut",
-            "type": "String",
-            "class": "springroll.StateEvent",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/StateEvent.js",
-            "line": 62,
-            "description": "The name of the event for when the state is done transitioning out",
-            "itemtype": "event",
-            "name": "onTransitionStateOutDone",
-            "type": "String",
-            "class": "springroll.StateEvent",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/StateEvent.js",
-            "line": 69,
+            "line": 42,
             "description": "When the state besome visible",
             "itemtype": "event",
             "name": "onVisible",
@@ -10849,7 +11822,7 @@
         },
         {
             "file": "src/games/states/StateEvent.js",
-            "line": 76,
+            "line": 49,
             "description": "When the state becomes hidden",
             "itemtype": "event",
             "name": "onHidden",
@@ -10860,7 +11833,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 30,
+            "line": 33,
             "description": "The display that holds the states this StateManager is managing.",
             "itemtype": "property",
             "name": "_display",
@@ -10873,7 +11846,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 38,
+            "line": 41,
             "description": "The click to play in between transitioning states",
             "itemtype": "property",
             "name": "_transition",
@@ -10886,7 +11859,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 46,
+            "line": 49,
             "description": "The sounds for the transition",
             "itemtype": "property",
             "name": "_transitionSounds",
@@ -10899,7 +11872,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 54,
+            "line": 57,
             "description": "The collection of states map",
             "itemtype": "property",
             "name": "_states",
@@ -10912,7 +11885,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 62,
+            "line": 65,
             "description": "The currently selected state",
             "itemtype": "property",
             "name": "_state",
@@ -10925,7 +11898,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 70,
+            "line": 73,
             "description": "The currently selected state id",
             "itemtype": "property",
             "name": "_stateID",
@@ -10938,7 +11911,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 78,
+            "line": 81,
             "description": "The old state",
             "itemtype": "property",
             "name": "_oldState",
@@ -10951,11 +11924,11 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 86,
+            "line": 89,
             "description": "If the manager is loading a state",
             "itemtype": "property",
             "name": "name description",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -10964,11 +11937,11 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 94,
+            "line": 97,
             "description": "If the state or manager is current transitioning",
             "itemtype": "property",
             "name": "_isTransitioning",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -10977,11 +11950,11 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 102,
+            "line": 105,
             "description": "If the current object is destroyed",
             "itemtype": "property",
             "name": "_destroyed",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -10990,7 +11963,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 110,
+            "line": 113,
             "description": "If we're transitioning the state, the queue the id of the next one",
             "itemtype": "property",
             "name": "_queueStateId",
@@ -11003,8 +11976,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 132,
-            "description": "The name of the Animator label and event for transitioning state in",
+            "line": 138,
+            "description": "The name of the Animator label and event for transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionIn",
             "class": "springroll.StateManager",
@@ -11013,8 +11986,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 139,
-            "description": "The name of the event for done with transitioning state in",
+            "line": 145,
+            "description": "The name of the event for completing transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionInDone",
             "class": "springroll.StateManager",
@@ -11023,8 +11996,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 146,
-            "description": "The name of the Animator label and event for transitioning state out",
+            "line": 152,
+            "description": "The name of the Animator label and event for transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOut",
             "class": "springroll.StateManager",
@@ -11033,8 +12006,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 153,
-            "description": "The name of the event for done with transitioning state out",
+            "line": 159,
+            "description": "The name of the event for completing transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOutDone",
             "class": "springroll.StateManager",
@@ -11043,8 +12016,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 160,
-            "description": "The name of the event for done with initializing",
+            "line": 166,
+            "description": "The name of the event for initialization complete - the first state is then being entered.",
             "itemtype": "event",
             "name": "onInitDone",
             "class": "springroll.StateManager",
@@ -11053,8 +12026,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 167,
-            "description": "Event when the state transitions the first time",
+            "line": 173,
+            "description": "Event when the state begins loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingStart",
             "class": "springroll.StateManager",
@@ -11063,8 +12036,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 174,
-            "description": "Event when the state transitions the first time",
+            "line": 180,
+            "description": "Event when the state finishes loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingDone",
             "class": "springroll.StateManager",
@@ -11073,7 +12046,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 181,
+            "line": 187,
             "description": "Register a state with the state manager, done initially",
             "itemtype": "method",
             "name": "addState",
@@ -11095,7 +12068,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 205,
+            "line": 211,
             "description": "Dynamically change the transition",
             "itemtype": "method",
             "name": "changeTransition",
@@ -11112,21 +12085,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 216,
-            "description": "Get the currently selected state",
-            "itemtype": "method",
-            "name": "getState",
-            "return": {
-                "description": "The id of the current state",
-                "type": "String"
-            },
-            "class": "springroll.StateManager",
-            "module": "Game",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/games/states/StateManager.js",
-            "line": 227,
+            "line": 222,
             "description": "Get the current selected state (state object)",
             "itemtype": "method",
             "name": "getCurrentState",
@@ -11140,7 +12099,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 238,
+            "line": 233,
             "description": "Access a certain state by the ID",
             "itemtype": "method",
             "name": "getStateById",
@@ -11161,13 +12120,13 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 251,
+            "line": 246,
             "description": "If the StateManager is busy because it is currently loading or transitioning.",
             "itemtype": "method",
             "name": "isBusy",
             "return": {
                 "description": "If StateManager is busy",
-                "type": "Bool"
+                "type": "Boolean"
             },
             "class": "springroll.StateManager",
             "module": "Game",
@@ -11175,7 +12134,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 262,
+            "line": 257,
             "description": "If the state needs to do some asyncronous tasks,\nThe state can tell the manager to stop the animation",
             "itemtype": "method",
             "name": "loadingStart",
@@ -11185,7 +12144,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 277,
+            "line": 272,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -11195,7 +12154,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 290,
+            "line": 285,
             "description": "Show, enable the blocker clip to disable mouse clicks",
             "itemtype": "method",
             "name": "showBlocker",
@@ -11205,7 +12164,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 300,
+            "line": 295,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -11215,7 +12174,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 310,
+            "line": 305,
             "description": "This transitions out of the current state and\nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -11225,8 +12184,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 322,
-            "description": "Get or change the current state",
+            "line": 317,
+            "description": "Get or change the current state, using the state id.",
             "itemtype": "property",
             "name": "state",
             "type": "String",
@@ -11236,7 +12195,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 337,
+            "line": 332,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
@@ -11253,8 +12212,20 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 430,
-            "description": "When the state has completed it's loading sequence\nthis should be treated as an asyncronous process",
+            "line": 391,
+            "description": "When the transition out of a state has finished playing during a state change.",
+            "itemtype": "method",
+            "name": "_onTransitionOut",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.StateManager",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/states/StateManager.js",
+            "line": 421,
+            "description": "When the state has completed its loading sequence.\nThis should be treated as an asynchronous process.",
             "itemtype": "method",
             "name": "_onStateLoaded",
             "access": "private",
@@ -11265,7 +12236,19 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 474,
+            "line": 441,
+            "description": "When the transition into a state has finished playing during a state change.",
+            "itemtype": "method",
+            "name": "_onTransitionIn",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.StateManager",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/states/StateManager.js",
+            "line": 459,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -11280,7 +12263,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 496,
+            "line": 481,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -11292,8 +12275,8 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 520,
-            "description": "Displays the transition out animation, without changing states.",
+            "line": 506,
+            "description": "Displays the transition out animation, without changing states. Upon completion, the\ntransition looping animation automatically starts playing.",
             "itemtype": "method",
             "name": "showTransitionOut",
             "params": [
@@ -11309,7 +12292,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 540,
+            "line": 527,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -11326,7 +12309,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 552,
+            "line": 546,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -11350,7 +12333,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 578,
+            "line": 571,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -11360,7 +12343,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 604,
+            "line": 597,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -11370,7 +12353,7 @@
         },
         {
             "file": "src/games/states/StateManager.js",
-            "line": 630,
+            "line": 623,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -12940,9 +13923,11 @@
                     "type": "String|Array"
                 },
                 {
-                    "name": "[separator=\"",
-                    "description": "\"] The separation between each line.",
-                    "type": "String"
+                    "name": "separator",
+                    "description": "The separation between each line.",
+                    "type": "String",
+                    "optional": true,
+                    "optdefault": "\" \""
                 }
             ],
             "return": {
@@ -13285,7 +14270,7 @@
         {
             "file": "src/media/Sound.js",
             "line": 94,
-            "description": "Initializes the Sound singleton. If using createjs.FlashPlugin, you will be responsible for\nsetting createjs.FlashPlugin.BASE_PATH.",
+            "description": "Initializes the Sound singleton. If using createjs.FlashAudioPlugin, you will be responsible for\nsetting createjs.FlashAudioPlugin.BASE_PATH.",
             "itemtype": "method",
             "name": "init",
             "static": 1,
@@ -13300,18 +14285,18 @@
                             "description": "The SoundJS\n                                       plugins to pass to createjs.Sound.registerPlugins().",
                             "type": "Array",
                             "optional": true,
-                            "optdefault": "createjs.WebAudioPlugin,createjs.FlashPlugin"
+                            "optdefault": "createjs.WebAudioPlugin,createjs.FlashAudioPlugin"
                         },
                         {
                             "name": "types",
                             "description": "The order in which file types are preferred,\n                                             where \"ogg\" becomes a \".ogg\" extension on all\n                                             sound file urls.",
                             "type": "Array",
                             "optional": true,
-                            "optdefault": "['ogg','mp3'"
+                            "optdefault": "['ogg','mp3']"
                         },
                         {
                             "name": "swfPath",
-                            "description": "The required path to the\n                                                 createjs.FlashPlugin SWF",
+                            "description": "The required path to the\n                                                 createjs.FlashAudioPlugin SWF",
                             "type": "String",
                             "optional": true,
                             "optdefault": "'assets/swfs/'"
@@ -13335,7 +14320,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 200,
+            "line": 199,
             "description": "Statisfies the iOS event needed to initialize the audio",
             "access": "private",
             "tagname": "",
@@ -13347,7 +14332,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 211,
+            "line": 210,
             "description": "When the initialization as completed",
             "itemtype": "method",
             "name": "",
@@ -13371,7 +14356,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 255,
+            "line": 254,
             "description": "The singleton instance of Sound.",
             "itemtype": "property",
             "name": "instance",
@@ -13385,7 +14370,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 266,
+            "line": 265,
             "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
             "name": "loadConfig",
@@ -13472,7 +14457,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 345,
+            "line": 344,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -13495,7 +14480,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 357,
+            "line": 356,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -13518,7 +14503,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 369,
+            "line": 368,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -13541,7 +14526,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 381,
+            "line": 380,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -13564,7 +14549,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 394,
+            "line": 393,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -13587,7 +14572,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 408,
+            "line": 407,
             "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
             "itemtype": "method",
             "name": "getDuration",
@@ -13610,7 +14595,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 437,
+            "line": 436,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -13649,7 +14634,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 480,
+            "line": 479,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -13688,7 +14673,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 529,
+            "line": 528,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -13707,7 +14692,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 584,
+            "line": 583,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -13791,7 +14776,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 733,
+            "line": 732,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -13819,7 +14804,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 759,
+            "line": 758,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -13838,7 +14823,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 812,
+            "line": 811,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -13857,7 +14842,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 834,
+            "line": 833,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -13876,7 +14861,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 860,
+            "line": 859,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -13895,7 +14880,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 876,
+            "line": 875,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -13914,7 +14899,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 892,
+            "line": 891,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -13933,7 +14918,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 916,
+            "line": 915,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -13943,7 +14928,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 928,
+            "line": 927,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -13962,7 +14947,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 947,
+            "line": 946,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -13981,7 +14966,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 968,
+            "line": 967,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -13993,7 +14978,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 980,
+            "line": 979,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -14005,7 +14990,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 992,
+            "line": 991,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -14029,7 +15014,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1024,
+            "line": 1023,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -14040,7 +15025,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1035,
+            "line": 1034,
             "description": "Set the mute status of all sounds",
             "itemtype": "method",
             "name": "setMuteAll",
@@ -14059,7 +15044,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1050,
+            "line": 1049,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -14083,7 +15068,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1081,
+            "line": 1080,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -14107,7 +15092,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1108,
+            "line": 1107,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -14131,7 +15116,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1162,
+            "line": 1161,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -14155,7 +15140,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1188,
+            "line": 1187,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -14188,7 +15173,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1204,
+            "line": 1203,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -14207,7 +15192,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1228,
+            "line": 1227,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -14226,7 +15211,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1249,
+            "line": 1248,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -15972,11 +16957,6 @@
                 },
                 {
                     "name": "adapter",
-                    "description": "The current display adapter for creating Polygon, Point,\n                         Rectangle, Ellipse, Circle",
-                    "type": "Display"
-                },
-                {
-                    "name": "adapter",
                     "description": "The adapter for the display being positioned in. If\n                                  omitted, uses the Application's default display.",
                     "type": "DisplayAdapter",
                     "optional": true
@@ -16744,7 +17724,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 19,
+            "line": 20,
             "description": "If we have a console",
             "access": "private",
             "tagname": "",
@@ -16756,7 +17736,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 70,
+            "line": 71,
             "description": "The levels of logging",
             "itemtype": "property",
             "name": "Levels",
@@ -16767,7 +17747,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 77,
+            "line": 78,
             "description": "The most basic general log level",
             "itemtype": "property",
             "name": "Levels.GENERAL",
@@ -16778,7 +17758,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 84,
+            "line": 85,
             "description": "The debug log level, more priority than GENERAL",
             "itemtype": "property",
             "name": "Levels.DEBUG",
@@ -16789,7 +17769,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 91,
+            "line": 92,
             "description": "The info log level, more priority than DEBUG",
             "itemtype": "property",
             "name": "Levels.DEBUG",
@@ -16800,7 +17780,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 98,
+            "line": 99,
             "description": "The warn log level, more priority than WARN",
             "itemtype": "property",
             "name": "Levels.WARN",
@@ -16811,7 +17791,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 105,
+            "line": 106,
             "description": "The error log level, the most priority log level",
             "itemtype": "property",
             "name": "Levels.ERROR",
@@ -16822,7 +17802,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 113,
+            "line": 114,
             "description": "The minimum log level to show, by default it's set to\nshow all levels of logging.",
             "access": "public",
             "tagname": "",
@@ -16835,7 +17815,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 122,
+            "line": 123,
             "description": "Boolean to turn on or off the debugging",
             "access": "public",
             "tagname": "",
@@ -16848,7 +17828,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 130,
+            "line": 131,
             "description": "The jQuery element to output debug messages to",
             "access": "public",
             "tagname": "",
@@ -16861,7 +17841,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 139,
+            "line": 140,
             "description": "Browser port for the websocket browsers tend to block ports",
             "static": 1,
             "access": "private",
@@ -16869,13 +17849,13 @@
             "itemtype": "property",
             "name": "NET_PORT",
             "type": "Int",
-            "default": "1025",
+            "default": "1026",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 148,
+            "line": 149,
             "description": "If the WebSocket is connected",
             "static": 1,
             "access": "private",
@@ -16889,7 +17869,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 157,
+            "line": 158,
             "description": "The socket connection",
             "static": 1,
             "access": "private",
@@ -16902,7 +17882,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 165,
+            "line": 166,
             "description": "The current message object being sent to the `WebSocket`",
             "static": 1,
             "access": "private",
@@ -16915,7 +17895,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 173,
+            "line": 174,
             "description": "The `WebSocket` message queue",
             "static": 1,
             "access": "private",
@@ -16928,7 +17908,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 181,
+            "line": 182,
             "description": "Connect to the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16951,7 +17931,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 212,
+            "line": 213,
             "description": "Disconnect from the `WebSocket`",
             "access": "public",
             "tagname": "",
@@ -16963,7 +17943,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 227,
+            "line": 228,
             "description": "Callback when the `WebSocket` is connected",
             "access": "private",
             "tagname": "",
@@ -16975,7 +17955,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 255,
+            "line": 256,
             "description": "Global window error handler, used for remote connections.",
             "static": 1,
             "access": "private",
@@ -17014,7 +17994,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 285,
+            "line": 286,
             "description": "Callback for when the websocket is closed",
             "access": "private",
             "tagname": "",
@@ -17026,7 +18006,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 304,
+            "line": 305,
             "description": "Sent to the output",
             "access": "private",
             "tagname": "",
@@ -17050,7 +18030,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 320,
+            "line": 321,
             "description": "Send a remote log message using the socket connection",
             "access": "public",
             "tagname": "",
@@ -17061,7 +18041,7 @@
                 {
                     "name": "message",
                     "description": "The message to send",
-                    "type": "String"
+                    "type": "Array"
                 },
                 {
                     "name": "level",
@@ -17080,7 +18060,25 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 350,
+            "line": 380,
+            "description": "Strip out known circular references",
+            "itemtype": "method",
+            "name": "removeCircular",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to remove references from",
+                    "type": "Object"
+                }
+            ],
+            "class": "Debug",
+            "module": "Core"
+        },
+        {
+            "file": "src/utils/Debug.js",
+            "line": 447,
             "description": "Log something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17103,7 +18101,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 377,
+            "line": 474,
             "description": "Debug something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17126,7 +18124,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 415,
+            "line": 512,
             "description": "Info something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17149,7 +18147,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 442,
+            "line": 539,
             "description": "Warn something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17172,7 +18170,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 469,
+            "line": 566,
             "description": "Error something in the console or remote",
             "static": 1,
             "access": "public",
@@ -17191,7 +18189,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 495,
+            "line": 592,
             "description": "Assert that something is true",
             "static": 1,
             "access": "public",
@@ -17219,7 +18217,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 518,
+            "line": 615,
             "description": "Method to describe an object in the console",
             "static": 1,
             "itemtype": "method",
@@ -17242,7 +18240,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 538,
+            "line": 635,
             "description": "Method to clear the console",
             "static": 1,
             "access": "public",
@@ -17258,7 +18256,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 559,
+            "line": 656,
             "description": "Generate a stack track in the output",
             "static": 1,
             "access": "public",
@@ -17281,7 +18279,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 579,
+            "line": 676,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling `Debug.groupEnd()` appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -17304,7 +18302,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 598,
+            "line": 695,
             "description": "Creates a new logging group that is initially collapsed instead of open,\nas with `Debug.group()`.",
             "static": 1,
             "access": "public",
@@ -17327,7 +18325,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 616,
+            "line": 713,
             "description": "Starts a new logging group with an optional title. All console output that\noccurs after calling this method and calling console.groupEnd() appears in\nthe same visual group.",
             "static": 1,
             "access": "public",
@@ -17343,7 +18341,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 634,
+            "line": 731,
             "description": "List of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
             "access": "private",
             "tagname": "",
@@ -17359,7 +18357,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 647,
+            "line": 744,
             "description": "Output a general log colored as navy",
             "itemtype": "method",
             "name": "navy",
@@ -17380,7 +18378,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 656,
+            "line": 753,
             "description": "Output a general log colored as blue",
             "itemtype": "method",
             "name": "blue",
@@ -17401,7 +18399,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 665,
+            "line": 762,
             "description": "Output a general log colored as aqua",
             "itemtype": "method",
             "name": "aqua",
@@ -17422,7 +18420,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 674,
+            "line": 771,
             "description": "Output a general log colored as teal",
             "itemtype": "method",
             "name": "teal",
@@ -17443,7 +18441,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 683,
+            "line": 780,
             "description": "Output a general log colored as olive",
             "itemtype": "method",
             "name": "olive",
@@ -17463,7 +18461,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 691,
+            "line": 788,
             "description": "Output a general log colored as green",
             "itemtype": "method",
             "name": "green",
@@ -17484,7 +18482,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 700,
+            "line": 797,
             "description": "Output a general log colored as lime",
             "itemtype": "method",
             "name": "lime",
@@ -17505,7 +18503,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 709,
+            "line": 806,
             "description": "Output a general log colored as yellow",
             "itemtype": "method",
             "name": "yellow",
@@ -17526,7 +18524,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 718,
+            "line": 815,
             "description": "Output a general log colored as orange",
             "itemtype": "method",
             "name": "orange",
@@ -17547,7 +18545,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 727,
+            "line": 824,
             "description": "Output a general log colored as red",
             "itemtype": "method",
             "name": "red",
@@ -17568,7 +18566,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 736,
+            "line": 833,
             "description": "Output a general log colored as pink",
             "itemtype": "method",
             "name": "pink",
@@ -17589,7 +18587,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 745,
+            "line": 842,
             "description": "Output a general log colored as purple",
             "itemtype": "method",
             "name": "purple",
@@ -17610,7 +18608,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 754,
+            "line": 851,
             "description": "Output a general log colored as maroon",
             "itemtype": "method",
             "name": "maroon",
@@ -17631,7 +18629,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 763,
+            "line": 860,
             "description": "Output a general log colored as silver",
             "itemtype": "method",
             "name": "silver",
@@ -17652,7 +18650,7 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 772,
+            "line": 869,
             "description": "Output a general log colored as gray",
             "itemtype": "method",
             "name": "gray",
@@ -17673,14 +18671,14 @@
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 782,
+            "line": 879,
             "description": "Loop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
             "class": "Debug",
             "module": "Core"
         },
         {
             "file": "src/utils/Debug.js",
-            "line": 792,
+            "line": 889,
             "description": "Due to the way closures and variables work, _colorClosure returns\nthe color logging function needed for the color that you pass it.",
             "itemtype": "method",
             "name": "_colorClosure",
@@ -17850,7 +18848,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 18,
+            "line": 16,
             "description": "The name of the value, for reflection or logging purposes.",
             "itemtype": "property",
             "name": "name",
@@ -17861,7 +18859,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 23,
+            "line": 21,
             "description": "The integer value of this enum entry.",
             "itemtype": "property",
             "name": "_value",
@@ -17874,7 +18872,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 29,
+            "line": 27,
             "description": "A string for toString() to return, instead of the name.",
             "itemtype": "property",
             "name": "_toString",
@@ -17887,7 +18885,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 37,
+            "line": 35,
             "description": "The integer value of this enum entry.",
             "itemtype": "property",
             "name": "asInt",
@@ -17898,7 +18896,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 86,
+            "line": 82,
             "description": "A potentially sparse array of each enum value, stored by integer values.",
             "itemtype": "property",
             "name": "_byValue",
@@ -17911,7 +18909,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 148,
+            "line": 152,
             "description": "Gets an enum value by integer value. If you have multiple enum values with the same integer\nvalue, this will always retrieve the first enum value.",
             "itemtype": "method",
             "name": "valueFromInt",
@@ -19014,7 +20012,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 539,
+            "line": 544,
             "description": "Override this to do post constructor initialization",
             "itemtype": "method",
             "name": "init",
@@ -19026,7 +20024,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 546,
+            "line": 551,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "_onHidden",
@@ -19038,7 +20036,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 556,
+            "line": 561,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "_onVisible",
@@ -19050,7 +20048,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 566,
+            "line": 571,
             "description": "If the Application should automatically pause when the window loses focus.",
             "itemtype": "property",
             "name": "autoPause",
@@ -19061,7 +20059,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 581,
+            "line": 586,
             "description": "Enables at the application level which enables\nand disables all the displays.",
             "itemtype": "property",
             "name": "enabled",
@@ -19073,7 +20071,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 601,
+            "line": 606,
             "description": "Pause updates at the application level",
             "itemtype": "property",
             "name": "paused",
@@ -19084,7 +20082,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 643,
+            "line": 648,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -19108,7 +20106,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 660,
+            "line": 665,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -19118,7 +20116,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 694,
+            "line": 699,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -19149,7 +20147,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 726,
+            "line": 731,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -19181,7 +20179,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 771,
+            "line": 776,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -19202,7 +20200,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 782,
+            "line": 787,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -19226,7 +20224,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 804,
+            "line": 809,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -19243,7 +20241,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 819,
+            "line": 824,
             "description": "Property for getting/setting the target fps (when not using RAF)",
             "access": "public",
             "tagname": "",
@@ -19256,7 +20254,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 837,
+            "line": 842,
             "description": "Getter and setting for using Request Animation Frame",
             "access": "public",
             "tagname": "",
@@ -19269,7 +20267,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 853,
+            "line": 858,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -19281,7 +20279,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 900,
+            "line": 905,
             "description": "Destroys the application, global libraries registered via Application.registerDestroy() and\nall active displays",
             "itemtype": "method",
             "name": "destroy",
@@ -19317,15 +20315,15 @@
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:123"
+            "line": " src/displays/pixi/PixiDisplay.js:137"
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:136"
+            "line": " src/displays/pixi/PixiDisplay.js:150"
         },
         {
             "message": "unknown tag: internal",
-            "line": " src/displays/pixi/PixiDisplay.js:152"
+            "line": " src/displays/pixi/PixiDisplay.js:166"
         },
         {
             "message": "unknown tag: internal",
@@ -19338,82 +20336,6 @@
         {
             "message": "unknown tag: internal",
             "line": " src/displays/AbstractDisplay.js:170"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:181"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:205"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:216"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:227"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:238"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:251"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:262"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:277"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:290"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:300"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:310"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:337"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:430"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:474"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:496"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:520"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:540"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:552"
-        },
-        {
-            "message": "replacing incorrect tag: function with method",
-            "line": " src/games/states/StateManager.js:630"
         },
         {
             "message": "unknown tag: proprty",
@@ -19653,11 +20575,11 @@
         },
         {
             "message": "Missing item type\nList of hex colors to create Debug shortcuts for.\nEach key will become a function Debug[key]() that outputs\nthe message in the specified color to the console if\nthe browsers allows colored logging.\nColor Palette pulled from \"Better CSS Defaults\"\n(https://github.com/mrmrs/colors)",
-            "line": " src/utils/Debug.js:634"
+            "line": " src/utils/Debug.js:731"
         },
         {
             "message": "Missing item type\nLoop through each item in the _palette object and create\na static function in Debug via the key (the color name) that\noutputs a message to the console in key's value (a hex color).",
-            "line": " src/utils/Debug.js:782"
+            "line": " src/utils/Debug.js:879"
         }
     ]
 }

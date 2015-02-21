@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
 	<title>SpringRoll v0.0.7 API Documentation : src/games/states/BaseState.js</title>  
 </head>
@@ -15,9 +15,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            
                 <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll">SpringRoll</a></h1>
-            
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Documentation for: 0.0.7</em>
@@ -28,670 +26,512 @@
         <div class="yui3-u-1-4">
             <div id="docs-sidebar" class="sidebar apidocs">
                 <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-		<ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-			<li><a href="#api-modules">Modules</a></li>
-        </ul>
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Array.html">Array</a></li>
-            
-                <li><a href="../classes/Debug.html">Debug</a></li>
-            
-                <li><a href="../classes/extend.html">extend</a></li>
-            
-                <li><a href="../classes/include.html">include</a></li>
-            
-                <li><a href="../classes/Math.html">Math</a></li>
-            
-                <li><a href="../classes/namespace.html">namespace</a></li>
-            
-                <li><a href="../classes/Object.html">Object</a></li>
-            
-                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
-            
-                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
-            
-                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
-            
-                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
-            
-                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
-            
-                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
-            
-                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
-            
-                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
-            
-                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
-            
-                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
-            
-                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
-            
-                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
-            
-                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
-            
-                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
-            
-                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
-            
-                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
-            
-                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
-            
-                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
-            
-                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
-            
-                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
-            
-                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
-            
-                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
-            
-                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
-            
-                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
-            
-                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
-            
-                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
-            
-                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
-            
-                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
-            
-                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
-            
-                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
-            
-                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
-            
-                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
-            
-                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
-            
-                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
-            
-                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
-            
-                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
-            
-                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
-            
-                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
-            
-                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
-            
-                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
-            
-                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
-            
-                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
-            
-                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
-            
-                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
-            
-                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
-            
-                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
-            
-                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
-            
-                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
-            
-                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
-            
-                <li><a href="../classes/String.html">String</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/Captions.html">Captions</a></li>
-            
-                <li><a href="../modules/Core.html">Core</a></li>
-            
-                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
-            
-                <li><a href="../modules/Game.html">Game</a></li>
-            
-                <li><a href="../modules/Interface.html">Interface</a></li>
-            
-                <li><a href="../modules/Native Display.html">Native Display</a></li>
-            
-                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
-            
-                <li><a href="../modules/Sound.html">Sound</a></li>
-            
-                <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
-            
-                <li><a href="../modules/Worker.html">Worker</a></li>
-            
-            </ul>
-        </div>
-    </div>
-</div>
-
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                		<ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                			<li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Array.html">Array</a></li>
+                                <li><a href="../classes/Debug.html">Debug</a></li>
+                                <li><a href="../classes/extend.html">extend</a></li>
+                                <li><a href="../classes/include.html">include</a></li>
+                                <li><a href="../classes/Math.html">Math</a></li>
+                                <li><a href="../classes/namespace.html">namespace</a></li>
+                                <li><a href="../classes/Object.html">Object</a></li>
+                                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+                                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+                                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+                                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+                                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+                                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+                                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+                                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.createjs.BitmapMovieClip.html">springroll.createjs.BitmapMovieClip</a></li>
+                                <li><a href="../classes/springroll.createjs.BitmapUtils.html">springroll.createjs.BitmapUtils</a></li>
+                                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+                                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+                                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+                                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+                                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+                                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+                                <li><a href="../classes/springroll.createjs.Texture.html">springroll.createjs.Texture</a></li>
+                                <li><a href="../classes/springroll.createjs.TextureAtlas.html">springroll.createjs.TextureAtlas</a></li>
+                                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+                                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+                                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+                                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+                                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+                                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+                                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+                                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+                                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+                                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+                                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+                                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+                                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+                                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+                                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+                                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+                                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+                                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+                                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+                                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+                                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+                                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+                                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+                                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
+                                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+                                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+                                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+                                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+                                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+                                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+                                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+                                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+                                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+                                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+                                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+                                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+                                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+                                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+                                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+                                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+                                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+                                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+                                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+                                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+                                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+                                <li><a href="../classes/String.html">String</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Captions.html">Captions</a></li>
+                                <li><a href="../modules/Core.html">Core</a></li>
+                                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+                                <li><a href="../modules/Game.html">Game</a></li>
+                                <li><a href="../modules/Interface.html">Interface</a></li>
+                                <li><a href="../modules/Native Display.html">Native Display</a></li>
+                                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+                                <li><a href="../modules/Sound.html">Sound</a></li>
+                                <li><a href="../modules/Tasks.html">Tasks</a></li>
+                                <li><a href="../modules/Translate.html">Translate</a></li>
+                                <li><a href="../modules/Worker.html">Worker</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="yui3-u-3-4">
             <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-            <div class="apidocs">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>            <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/games/states/BaseState.js      
-</script>
-<h1 class="file-heading">File:BaseState.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
-*  @module Game
-*  @namespace springroll
-*/
-(function(){
-	
-	// Imports
-	var StateManager;
-	
-	/**
-	*  Defines the base functionality for a state used by the state manager
-	*
-	*  @class BaseState
-	*  @constructor
-	*  @param {createjs.MovieClip|PIXI.DisplayObjectContainer} panel The panel to associate with this panel
-	*  @param {string|function} [nextState=null] The next state alias
-	*  @param {string|function} [prevState=null] The previous state alias
-	*/
-	var BaseState = function(panel, nextState, prevState)
-	{
-		if(!StateManager)
-		{
-			StateManager = include(&#x27;springroll.StateManager&#x27;);
-		}
-
-		/** 
-		* The id reference
-		* 
-		* @property {String} stateID
-		*/
-		this.stateId = null;
-		
-		/**
-		* A reference to the state manager
-		* 
-		* @property {StateManager} manager
-		*/
-		this.manager = null;
-		
-		/** 
-		* Save the panel
-		* 
-		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
-		*/
-		this.panel = panel;
-		
-		/**
-		* Check to see if we&#x27;ve been destroyed 
-		* 
-		* @property {bool} _destroyed
-		* @private
-		*/
-		this._destroyed = false;
-		
-		/**
-		* If the manager considers this the active panel
-		* 
-		* @property {bool} _active
-		* @private
-		*/
-		this._active = false;
-		
-		/**
-		* If we are pre-loading the state
-		* 
-		* @property {bool} _isLoading
-		* @private
-		*/
-		this._isLoading = false;
-		
-		/**
-		* If we canceled entering the state
-		* 
-		* @property {bool} _canceled
-		* @private
-		*/
-		this._canceled = false;
-		
-		/**
-		* When we&#x27;re finishing loading
-		* 
-		* @property {function} _onEnterProceed
-		* @private
-		*/
-		this._onEnterProceed = null;
-		
-		/** If we start doing a load in enter, assign the onEnterComplete here
-		* 
-		* @property {function} _onLoadingComplete
-		* @private
-		*/
-		this._onLoadingComplete = null;
-		
-		/** If the state is enabled that means it click ready
-		* 
-		* @property {bool} _enabled
-		* @private
-		*/
-		this._enabled = false;
-
-		/**
-		* If we are currently transitioning
-		* 
-		* @property {bool} isTransitioning
-		* @private
-		*/
-		this._isTransitioning = false;
-
-		/**
-		*  Either the alias of the next state or a function
-		*  to call when going to the next state.
-		*
-		*  @property {string|function} nextState
-		*  @protected
-		*/
-		this.nextState = nextState || null;
-		
-		/**
-		*  Either the alias of the previous state or a function
-		*  to call when going to the previous state.
-		*
-		*  @property {string|function} prevState
-		*  @protected
-		*/
-		this.prevState = prevState || null;
-
-		// Hide the panel by default
-		this.panel.visible = false;
-	};
-	
-	var p = BaseState.prototype;
-	
-	/**
-	*  Status of whether the panel load was canceled
-	*  
-	*  @method  getCanceled
-	*  @return {bool} If the load was canceled
-	*/
-	p.getCanceled = function()
-	{
-		return this._canceled;
-	};
-	
-	/**
-	*   This is called by the State Manager to exit the state 
-	*   
-	*   @method _internalExit
-	*   @private
-	*/
-	p._internalExit = function()
-	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this.panel.visible = false;
-		this._active = false;
-		this.exit();
-	};
-	
-	/**
-	*  When the state is exited
-	*  
-	*  @method exit
-	*/
-	p.exit = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*   
-	*   @method _internalExitStart
-	*   @private
-	*/
-	p._internalExitStart = function()
-	{
-		this.exitStart();
-	};
-	
-	/**
-	*   When the state has requested to be exit, pre-transition
-	*   @method exitStart
-	*/
-	p.exitStart = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*   
-	*   @method _internalEnter
-	*   @param {functon} proceed The function to call after enter has been called
-	*   @private
-	*/
-	p._internalEnter = function(proceed)
-	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this._active = true;
-		this._canceled = false;
-		
-		this._onEnterProceed = proceed;
-		
-		this.enter();
-		
-		if (this._onEnterProceed)
-		{
-			this._onEnterProceed();
-			this._onEnterProceed = null;
-		}
-	};
-	
-	/**
-	*   Internal function to start the preloading
-	*   
-	*   @method loadingStart
-	*/
-	p.loadingStart = function()
-	{
-		if (this._isLoading)
-		{
-			Debug.warn(&quot;loadingStart() was called while we&#x27;re already loading&quot;);
-			return;
-		}
-		
-		this._isLoading = true;
-		this.manager.loadingStart();
-		
-		// Starting a load is optional and 
-		// need to be called from the enter function
-		// We&#x27;ll override the existing behavior
-		// of internalEnter, by passing
-		// the complete function to onLoadingComplete
-		this._onLoadingComplete = this._onEnterProceed;
-		this._onEnterProceed = null;
-	};
-	
-	/**
-	*   Internal function to finish the preloading
-	*   
-	*   @method loadingDone
-	*/
-	p.loadingDone = function()
-	{
-		if (!this._isLoading)
-		{
-			Debug.warn(&quot;loadingDone() was called without a load started, call loadingStart() first&quot;);
-			return;
-		}
-		
-		this._isLoading = false;
-		this.manager.loadingDone();
-		
-		if (this._onLoadingComplete)
-		{
-			this._onLoadingComplete();
-			this._onLoadingComplete = null;
-		}
-	};
-	
-	/**
-	*   Cancel the loading of this state
-	*   
-	*   @method _internalCancel
-	*   @private
-	*/
-	p._internalCancel = function()
-	{
-		this._active = false;
-		this._canceled = true;
-		this._isLoading = false;
-		
-		this._internalExit();
-		this.cancel();
-	};
-	
-	/**
-	*   Cancel the load, implementation-specific
-	*   this is where any async actions are removed
-	*   
-	*   @method cancel
-	*/
-	p.cancel = function(){};
-	
-	/**
-	*   When the state is entered
-	*   
-	*   @method enter
-	*/
-	p.enter = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*   
-	*   @method _internalEnterDone
-	*   @private
-	*/
-	p._internalEnterDone = function()
-	{
-		if (this._canceled) return;
-		
-		this.setEnabled(true);
-		this.enterDone();
-	};
-	
-	/**
-	*   When the state is visually entered fully
-	*   that is, after the transition is done
-	*   
-	*   @method enterDone
-	*/
-	p.enterDone = function(){};
-	
-	/**
-	*   Get if this is the active state
-	*   
-	*   @method getActive
-	*   @deprecated Use the BaseState.active property getter instead
-	*   @return {bool} If this is the active state
-	*/
-	p.getActive = function()
-	{
-		return this._active;
-	};
-
-	/**
-	*   Get if this is the active state
-	*   
-	*   @property {boolean} active
-	*   @readOnly
-	*/
-	Object.defineProperty(p, &#x27;active&#x27;, {
-		get: function()
-		{
-			return this._active;
-		}
-	});
-	
-	/**
-	*   Transition the panel in
-	*   
-	*   @method transitionIn
-	*   @param {function} callback
-	*/
-	p.transitionIn = function(callback)
-	{
-		this._isTransitioning = true;
-		
-		var s = this;
-		
-		this.manager._display.animator.play(
-			this.panel, 
-			StateManager.TRANSITION_IN,
-			function()
-			{
-				s._isTransitioning = false;
-				callback();
-			}
-		);
-	};
-	
-	/**
-	*   Transition the panel out
-	*   
-	*   @method transitionOut
-	*   @param {function} callback
-	*/
-	p.transitionOut = function(callback)
-	{
-		this._enabled = false;
-		this._isTransitioning = true;
-		
-		var s = this;
-		
-		this.manager._display.animator.play(
-			this.panel, 
-			StateManager.TRANSITION_OUT,
-			function()
-			{
-				s._isTransitioning = false;
-				callback();
-			}
-		);
-	};
-	
-	/**
-	*   Get if this State has been destroyed
-	*   
-	*   @method  getDestroyed
-	*   @return {bool} If this has been destroyed
-	*/
-	p.getDestroyed = function()
-	{
-		return this._destroyed;
-	};
-	
-	/**
-	*   Enable this panel, true is only non-loading and non-transitioning state
-	*   
-	*   @method setEnabled
-	*   @param {bool} enabled The enabled state
-	*/
-	p.setEnabled = function(enabled)
-	{
-		this._enabled = enabled;
-	};
-	
-	/**
-	*   Get the enabled status
-	*   
-	*   @method getEnabled
-	*   @return {bool} If this state is enabled
-	*/
-	p.getEnabled = function()
-	{
-		return this._enabled;
-	};
-	
-	/**
-	*   Don&#x27;t use the state object after this
-	*   
-	*   @method destroy
-	*/
-	p.destroy = function()
-	{
-		this.panel = null;
-		this.manager = null;
-		this._destroyed = true;
-		this._onEnterProceed = null;
-		this._onLoadingComplete = null;
-	};
-	
-	// Add to the name space
-	namespace(&#x27;springroll&#x27;).BaseState = BaseState;
-	
-}());
-    </pre>
-</div>
-
+                        	var name = src/games/states/BaseState.js      
+                        </script>
+                        <h1 class="file-heading">File:BaseState.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        /**
+                        *  @module Game
+                        *  @namespace springroll
+                        */
+                        (function(){
+                        	
+                        	// Imports
+                        	var StateManager;
+                        	
+                        	/**
+                        	*  Defines the base functionality for a state used by the state manager
+                        	*
+                        	*  @class BaseState
+                        	*  @constructor
+                        	*  @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
+                        	*                                                                this state.
+                        	*  @param {String|Function} [nextState=null] The next state alias
+                        	*  @param {String|Function} [prevState=null] The previous state alias
+                        	*/
+                        	var BaseState = function(panel, nextState, prevState)
+                        	{
+                        		if(!StateManager)
+                        		{
+                        			StateManager = include(&#x27;springroll.StateManager&#x27;);
+                        		}
+                        
+                        		/**
+                        		* The id reference
+                        		*
+                        		* @property {String} stateID
+                        		*/
+                        		this.stateId = null;
+                        		
+                        		/**
+                        		* A reference to the state manager
+                        		*
+                        		* @property {StateManager} manager
+                        		*/
+                        		this.manager = null;
+                        		
+                        		/**
+                        		* The panel for the state.
+                        		*
+                        		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
+                        		*/
+                        		this.panel = panel;
+                        		
+                        		/**
+                        		* If the state has been destroyed.
+                        		*
+                        		* @property {Boolean} _destroyed
+                        		* @private
+                        		*/
+                        		this._destroyed = false;
+                        		
+                        		/**
+                        		* If the manager considers this the active panel
+                        		*
+                        		* @property {Boolean} _active
+                        		* @private
+                        		*/
+                        		this._active = false;
+                        		
+                        		/**
+                        		* If we are pre-loading the state
+                        		*
+                        		* @property {Boolean} _isLoading
+                        		* @private
+                        		*/
+                        		this._isLoading = false;
+                        		
+                        		/**
+                        		* If we canceled entering the state
+                        		*
+                        		* @property {Boolean} _canceled
+                        		* @private
+                        		*/
+                        		this._canceled = false;
+                        		
+                        		/**
+                        		* When we&#x27;re finishing loading
+                        		*
+                        		* @property {Function} _onEnterProceed
+                        		* @private
+                        		*/
+                        		this._onEnterProceed = null;
+                        		
+                        		/**
+                        		* If we start doing a load in enter, assign the onEnterComplete here
+                        		*
+                        		* @property {Function} _onLoadingComplete
+                        		* @private
+                        		*/
+                        		this._onLoadingComplete = null;
+                        		
+                        		/**
+                        		* If the state is enabled, meaning that it is click ready
+                        		*
+                        		* @property {Boolean} _enabled
+                        		* @private
+                        		*/
+                        		this._enabled = false;
+                        
+                        		/**
+                        		*  Either the alias of the next state or a function
+                        		*  to call when going to the next state.
+                        		*
+                        		*  @property {String|Function} nextState
+                        		*  @protected
+                        		*/
+                        		this.nextState = nextState || null;
+                        		
+                        		/**
+                        		*  Either the alias of the previous state or a function
+                        		*  to call when going to the previous state.
+                        		*
+                        		*  @property {String|Function} prevState
+                        		*  @protected
+                        		*/
+                        		this.prevState = prevState || null;
+                        
+                        		// Hide the panel by default
+                        		this.panel.visible = false;
+                        	};
+                        	
+                        	var p = BaseState.prototype;
+                        	
+                        	/**
+                        	*  Status of whether the panel load was canceled
+                        	*
+                        	*  @property {Boolean} canceled
+                        	*  @readOnly
+                        	*/
+                        	Object.defineProperty(p, &#x27;canceled&#x27;, {
+                        		get: function() { return this._canceled; }
+                        	});
+                        	
+                        	/**
+                        	*   This is called by the State Manager to exit the state
+                        	*
+                        	*   @method _internalExit
+                        	*   @private
+                        	*/
+                        	p._internalExit = function()
+                        	{
+                        		if (this._isTransitioning)
+                        		{
+                        			this._isTransitioning = false;
+                        			
+                        			this.manager._display.animator.stop(this.panel);
+                        		}
+                        		this._enabled = false;
+                        		this.panel.visible = false;
+                        		this._active = false;
+                        		this.exit();
+                        	};
+                        	
+                        	/**
+                        	*  When the state is exited. Override this to provide state cleanup.
+                        	*
+                        	*  @method exit
+                        	*/
+                        	p.exit = function(){};
+                        	
+                        	/**
+                        	*   Exit the state start, called by the State Manager
+                        	*
+                        	*   @method _internalExitStart
+                        	*   @private
+                        	*/
+                        	p._internalExitStart = function()
+                        	{
+                        		this.exitStart();
+                        	};
+                        	
+                        	/**
+                        	*   When the state has requested to be exit, pre-transition. Override this to ensure
+                        	*   that animation/audio is stopped when leaving the state.
+                        	*
+                        	*   @method exitStart
+                        	*/
+                        	p.exitStart = function(){};
+                        	
+                        	/**
+                        	*   Exit the state start, called by the State Manager
+                        	*
+                        	*   @method _internalEnter
+                        	*   @param {Function} proceed The function to call after enter has been called
+                        	*   @private
+                        	*/
+                        	p._internalEnter = function(proceed)
+                        	{
+                        		if (this._isTransitioning)
+                        		{
+                        			this._isTransitioning = false;
+                        			
+                        			this.manager._display.animator.stop(this.panel);
+                        		}
+                        		this._enabled = false;
+                        		this._active = true;
+                        		this._canceled = false;
+                        		
+                        		this._onEnterProceed = proceed;
+                        		
+                        		this.enter();
+                        		
+                        		if (this._onEnterProceed)
+                        		{
+                        			this._onEnterProceed();
+                        			this._onEnterProceed = null;
+                        		}
+                        	};
+                        	
+                        	/**
+                        	*   Internal function to start the preloading
+                        	*
+                        	*   @method loadingStart
+                        	*/
+                        	p.loadingStart = function()
+                        	{
+                        		if (this._isLoading)
+                        		{
+                        			Debug.warn(&quot;loadingStart() was called while we&#x27;re already loading&quot;);
+                        			return;
+                        		}
+                        		
+                        		this._isLoading = true;
+                        		this.manager.loadingStart();
+                        		
+                        		// Starting a load is optional and
+                        		// need to be called from the enter function
+                        		// We&#x27;ll override the existing behavior
+                        		// of internalEnter, by passing
+                        		// the complete function to onLoadingComplete
+                        		this._onLoadingComplete = this._onEnterProceed;
+                        		this._onEnterProceed = null;
+                        	};
+                        	
+                        	/**
+                        	*   Internal function to finish the preloading
+                        	*
+                        	*   @method loadingDone
+                        	*/
+                        	p.loadingDone = function()
+                        	{
+                        		if (!this._isLoading)
+                        		{
+                        			Debug.warn(&quot;loadingDone() was called without a load started, call loadingStart() first&quot;);
+                        			return;
+                        		}
+                        		
+                        		this._isLoading = false;
+                        		this.manager.loadingDone();
+                        		
+                        		if (this._onLoadingComplete)
+                        		{
+                        			this._onLoadingComplete();
+                        			this._onLoadingComplete = null;
+                        		}
+                        	};
+                        	
+                        	/**
+                        	*   Cancel the loading of this state
+                        	*
+                        	*   @method _internalCancel
+                        	*   @private
+                        	*/
+                        	p._internalCancel = function()
+                        	{
+                        		this._active = false;
+                        		this._canceled = true;
+                        		this._isLoading = false;
+                        		
+                        		this._internalExit();
+                        		this.cancel();
+                        	};
+                        	
+                        	/**
+                        	*   Cancel the load, implementation-specific.
+                        	*   This is where any async actions should be removed.
+                        	*
+                        	*   @method cancel
+                        	*/
+                        	p.cancel = function(){};
+                        	
+                        	/**
+                        	*   When the state is entered. Override this to start loading assets - call loadingStart()
+                        	*   to tell the StateManager that that is going on.
+                        	*
+                        	*   @method enter
+                        	*/
+                        	p.enter = function(){};
+                        	
+                        	/**
+                        	*   Exit the state start, called by the State Manager
+                        	*
+                        	*   @method _internalEnterDone
+                        	*   @private
+                        	*/
+                        	p._internalEnterDone = function()
+                        	{
+                        		if (this._canceled) return;
+                        		
+                        		this.enabled = true;
+                        		this.enterDone();
+                        	};
+                        	
+                        	/**
+                        	*   When the state is visually entered fully - after the transition is done.
+                        	*   Override this to begin your state&#x27;s activities.
+                        	*
+                        	*   @method enterDone
+                        	*/
+                        	p.enterDone = function(){};
+                        
+                        	/**
+                        	*   Get if this is the active state
+                        	*
+                        	*   @property {Boolean} active
+                        	*   @readOnly
+                        	*/
+                        	Object.defineProperty(p, &#x27;active&#x27;, {
+                        		get: function() { return this._active; }
+                        	});
+                        	
+                        	/**
+                        	* If the state is enabled, meaning that it is click ready
+                        	*
+                        	* @property {Boolean} enabled
+                        	*/
+                        	Object.defineProperty(p, &#x27;enabled&#x27;, {
+                        		get: function() { return this._enabled; },
+                        		set: function(value)
+                        		{
+                        			this._enabled = value;
+                        		}
+                        	});
+                        	
+                        	/**
+                        	* If the state has been destroyed.
+                        	*
+                        	* @property {Boolean} destroyed
+                        	* @readOnly
+                        	*/
+                        	Object.defineProperty(p, &#x27;destroyed&#x27;, {
+                        		get: function() { return this._destroyed; }
+                        	});
+                        	
+                        	/**
+                        	*   Don&#x27;t use the state object after this
+                        	*
+                        	*   @method destroy
+                        	*/
+                        	p.destroy = function()
+                        	{
+                        		this.panel = null;
+                        		this.manager = null;
+                        		this._destroyed = true;
+                        		this._onEnterProceed = null;
+                        		this._onLoadingComplete = null;
+                        	};
+                        	
+                        	// Add to the name space
+                        	namespace(&#x27;springroll&#x27;).BaseState = BaseState;
+                        	
+                        }());
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
     <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
     <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
 	<title>SpringRoll v0.0.7 API Documentation : src/displays/pixi/Animator.js</title>  
 </head>
@@ -15,9 +15,7 @@
 <div id="doc">
     <div id="hd" class="yui3-g header">
         <div class="yui3-u-3-4">
-            
                 <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll">SpringRoll</a></h1>
-            
         </div>
         <div class="yui3-u-1-4 version">
             <em>API Documentation for: 0.0.7</em>
@@ -28,1054 +26,971 @@
         <div class="yui3-u-1-4">
             <div id="docs-sidebar" class="sidebar apidocs">
                 <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-		<ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-			<li><a href="#api-modules">Modules</a></li>
-        </ul>
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Array.html">Array</a></li>
-            
-                <li><a href="../classes/Debug.html">Debug</a></li>
-            
-                <li><a href="../classes/extend.html">extend</a></li>
-            
-                <li><a href="../classes/include.html">include</a></li>
-            
-                <li><a href="../classes/Math.html">Math</a></li>
-            
-                <li><a href="../classes/namespace.html">namespace</a></li>
-            
-                <li><a href="../classes/Object.html">Object</a></li>
-            
-                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
-            
-                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
-            
-                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
-            
-                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
-            
-                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
-            
-                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
-            
-                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
-            
-                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
-            
-                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
-            
-                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
-            
-                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
-            
-                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
-            
-                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
-            
-                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
-            
-                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
-            
-                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
-            
-                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
-            
-                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
-            
-                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
-            
-                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
-            
-                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
-            
-                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
-            
-                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
-            
-                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
-            
-                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
-            
-                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
-            
-                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
-            
-                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
-            
-                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
-            
-                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
-            
-                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
-            
-                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
-            
-                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
-            
-                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
-            
-                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
-            
-                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
-            
-                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
-            
-                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
-            
-                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
-            
-                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
-            
-                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
-            
-                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
-            
-                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
-            
-                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
-            
-                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
-            
-                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
-            
-                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
-            
-                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
-            
-                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
-            
-                <li><a href="../classes/String.html">String</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/Captions.html">Captions</a></li>
-            
-                <li><a href="../modules/Core.html">Core</a></li>
-            
-                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
-            
-                <li><a href="../modules/Game.html">Game</a></li>
-            
-                <li><a href="../modules/Interface.html">Interface</a></li>
-            
-                <li><a href="../modules/Native Display.html">Native Display</a></li>
-            
-                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
-            
-                <li><a href="../modules/Sound.html">Sound</a></li>
-            
-                <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
-            
-                <li><a href="../modules/Worker.html">Worker</a></li>
-            
-            </ul>
-        </div>
-    </div>
-</div>
-
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                		<ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                			<li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/Array.html">Array</a></li>
+                                <li><a href="../classes/Debug.html">Debug</a></li>
+                                <li><a href="../classes/extend.html">extend</a></li>
+                                <li><a href="../classes/include.html">include</a></li>
+                                <li><a href="../classes/Math.html">Math</a></li>
+                                <li><a href="../classes/namespace.html">namespace</a></li>
+                                <li><a href="../classes/Object.html">Object</a></li>
+                                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+                                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+                                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+                                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+                                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+                                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+                                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
+                                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.createjs.BitmapMovieClip.html">springroll.createjs.BitmapMovieClip</a></li>
+                                <li><a href="../classes/springroll.createjs.BitmapUtils.html">springroll.createjs.BitmapUtils</a></li>
+                                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
+                                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
+                                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
+                                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
+                                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
+                                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
+                                <li><a href="../classes/springroll.createjs.Texture.html">springroll.createjs.Texture</a></li>
+                                <li><a href="../classes/springroll.createjs.TextureAtlas.html">springroll.createjs.TextureAtlas</a></li>
+                                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+                                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+                                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+                                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+                                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
+                                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+                                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+                                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+                                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+                                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+                                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+                                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+                                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+                                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+                                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+                                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+                                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+                                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+                                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+                                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+                                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+                                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+                                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+                                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
+                                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+                                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+                                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+                                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+                                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+                                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+                                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+                                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+                                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+                                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+                                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+                                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
+                                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+                                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+                                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+                                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+                                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+                                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+                                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+                                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+                                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
+                                <li><a href="../classes/String.html">String</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Captions.html">Captions</a></li>
+                                <li><a href="../modules/Core.html">Core</a></li>
+                                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
+                                <li><a href="../modules/Game.html">Game</a></li>
+                                <li><a href="../modules/Interface.html">Interface</a></li>
+                                <li><a href="../modules/Native Display.html">Native Display</a></li>
+                                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+                                <li><a href="../modules/Sound.html">Sound</a></li>
+                                <li><a href="../modules/Tasks.html">Tasks</a></li>
+                                <li><a href="../modules/Translate.html">Translate</a></li>
+                                <li><a href="../modules/Worker.html">Worker</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="yui3-u-3-4">
             <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
-
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-            <div class="apidocs">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>            <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
                         <script>
-	var name = src/displays/pixi/Animator.js      
-</script>
-<h1 class="file-heading">File:Animator.js</h1>
-
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
-*  @module PIXI Display
-*  @namespace springroll.pixi
-*/
-(function(undefined) {
-	
-	var Spine = include(&#x27;PIXI.Spine&#x27;),
-		Texture = include(&#x27;PIXI.Texture&#x27;),
-		AnimatorTimeline = include(&#x27;springroll.pixi.AnimatorTimeline&#x27;),
-		ConcurrentSpineAnimData = include(&#x27;springroll.pixi.ConcurrentSpineAnimData&#x27;),
-		Application = include(&#x27;springroll.Application&#x27;),
-		MovieClip = include(&#x27;PIXI.MovieClip&#x27;),
-		Sound;
-
-	/**
-	*  Animator for interacting with Spine animations
-	*  @class Animator
-	*  @static
-	*/
-	var Animator = {};
-	
-	/**
-	* The collection of AnimatorTimelines that are playing
-	* @property {Array} _timelines
-	* @private
-	*/
-	var _timelines = null,
-	
-	/**
-	* The number of animations
-	* @property {int} _numAnims
-	* @private
-	* @static
-	*/
-	_numAnims = 0,
-	
-	/**
-	 * Stored collection of AnimatorTimelines. This is internal to Animator and can&#x27;t be accessed externally.
-	 * @property {Array} _animPool
-	 * @private
-	 * @static
-	 */
-	_animPool = null;
-	
-	/**
-	*  The global captions object to use with animator
-	*  @property {springroll.Captions} captions
-	*  @public
-	*/
-	Animator.captions = null;
-
-	/**
-	 * Initializes the singleton instance of Animator.
-	 * @method init
-	 * @static
-	 */
-	Animator.init = function()
-	{
-		_animPool = [];
-		_timelines = [];
-
-		Sound = include(&#x27;springroll.Sound&#x27;, false);
-	};
-	
-	/**
-	* Play a specified animation
-	*
-	* @method play
-	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
-	*                                         object type.
-	* @param {String|Array} animData One of or an array of the following
-	*   * objects in the format:
-	*
-	*       {
-	*           anim:&lt;string|array of strings|array of ConcurrentSpineAnimData|array of Textures&gt;,
-	*           start:0,
-	*           speed:1,
-	*           loop:false,
-	*           audio:{alias:&quot;MyAlias&quot;, start:300}
-	*       }
-	*
-	*       * anim is the data about the animation to play. See below for more info
-	*       * start is milliseconds into the animation to start (0 if omitted). A value of -1
-	*           starts from a random time in the animation.
-	*       * speed is a multiplier for the animation speed (1 if omitted).
-	*       * loop is if the animation should loop (false if omitted).
-	*       * audio is audio to sync the animation to using springroll.Sound. audio can be a String
-	*           if you want the audio to start 0 milliseconds into the animation.
-	*   * strings - A single animation to play on a Spine skeleton.
-	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
-	*   * arrays of ConcurrentSpineAnimData - An array of animations to play at the same time on a
-	*       Spine skeleton.
-	*   * arrays of Textures - An array of textures to play on a MovieClip.
-	*   * numbers - milliseconds to wait.
-	*   * functions - called upon reaching, followed immediately by the next item.
-	* @param {Function} [onComplete] The function to call once the animation has finished.
-	* @param {Function} [onCancelled] A callback function for when an animation is stopped with
-	*                                 Animator.stop() or to play another animation.
-	* @return {springroll.pixi.AnimatorTimeline} The timeline object
-	*/
-	Animator.play = function(clip, animData, onComplete, onCancelled)
-	{
-		var audio, options;
-
-		if (onComplete &amp;&amp; typeof onComplete != &quot;function&quot;)
-		{
-			options = onComplete;
-			onComplete = options.onComplete;
-			onCancelled = options.onCancelled;
-		}
-		else if(onCancelled === true)
-			onCancelled = onComplete;
-		
-		//ensure that we can play the clip
-		if (!Animator.canAnimate(clip))
-		{
-			if (onComplete) onComplete();
-			return;
-		}
-		
-		Animator.stop(clip);
-		//deprecation fallback
-		if(options)
-			audio = options.audio || options.soundData || null;
-		
-		if(typeof animData == &quot;string&quot;)
-		{
-			animData = [{anim: animData, audio: audio}];
-		}
-		else if(Array.isArray(animData))
-		{
-			var firstItem = animData[0];
-			if(firstItem instanceof Texture)
-			{
-				animData = [{anim: animData, audio: audio}];
-			}
-			else if(typeof firstItem == &quot;string&quot;)
-			{
-				animData = [{anim: animData, audio: audio}];
-			}
-			else if(firstItem instanceof ConcurrentSpineAnimData)
-			{
-				animData = [{anim: animData, audio: audio}];
-			}
-		}
-		else
-			animData = [animData];
-		
-		var t = Animator._makeTimeline(clip, animData, onComplete, onCancelled);
-		
-		if(t.eventList.length &lt; 1)
-		{
-			_repool(t);
-			if (onComplete)
-				onComplete();
-			return null;
-		}
-		//update the art to the proper bit of the animation
-		t._nextItem();
-		updateClip(t, t._time_sec, 0);
-		
-		_timelines.push(t);
-		if (++_numAnims == 1)
-			Application.instance.on(&quot;update&quot;, _update);
-		return t;
-	};
-	
-	/**
-	*   Creates the AnimatorTimeline for a given animation
-	*
-	*   @method _makeTimeline
-	*   @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
-	*   @param {Array} animData List of animation events.
-	*   @param {Function} callback The function to callback when we&#x27;re done
-	*   @param {Function} cancelledCallback The function to callback when cancelled
-	*   @return {springroll.pixi.AnimatorTimeline} The Timeline object
-	*   @private
-	*   @static
-	*/
-	Animator._makeTimeline = function(clip, animData, callback, cancelledCallback)
-	{
-		var t = _animPool.length ?
-			_animPool.pop().init(clip, callback, cancelledCallback) :
-			new AnimatorTimeline(clip, callback, cancelledCallback);
-		
-		var i, length, j, jLength, anim, audio;
-		for(i = 0; i &lt; animData.length; ++i)
-		{
-			var data = animData[i];
-			if(typeof data == &quot;number&quot;)
-			{
-				t.eventList.push(data * 0.001);
-				continue;
-			}
-			if(typeof data == &quot;function&quot;)
-			{
-				t.eventList.push(data);
-				continue;
-			}
-			anim = data.anim;
-			audio = data.audio;
-			if (t.isSpine)
-			{
-				//allow the animations to be a string, or an array of strings
-				if (typeof anim == &quot;string&quot;)
-				{
-					if (checkSpineForAnimation(clip, anim))
-					{
-						t.eventList.push(data);
-					}
-				}
-				//Array - either animations in order or animations at the same time
-				else
-				{
-					//array of Strings, play animations by name in order
-					if (typeof anim[0] == &quot;string&quot;)
-					{
-						for(j = anim.length; j &gt;= 0; --j)
-						{
-							if(!checkSpineForAnimation(clip, anim[j]))
-							{
-								anim.splice(j, 1);
-							}
-						}
-						if(anim.length)
-							t.eventList.push(data);
-					}
-					//array of objects - play different animations at the same time
-					else
-					{
-						for(j = anim.length; j &gt;= 0; --j)
-						{
-							if(!checkSpineForAnimation(clip, anim[j].anim))
-							{
-								anim.splice(j, 1);
-							}
-						}
-						if(anim.length)
-							t.eventList.push(data);
-					}
-				}
-			}
-			//standard PIXI.MovieClip
-			else if(anim[0] instanceof Texture)
-			{
-				t.eventList.push(data);
-			}
-			//bad data, nothing we can animate with
-			else
-			{
-				continue;
-			}
-			//only do sound if the Sound library is in use
-			if (audio &amp;&amp; Sound)
-			{
-				var alias, start;
-				if (typeof audio == &quot;string&quot;)
-				{
-					start = 0;
-					alias = audio;
-				}
-				else
-				{
-					start = audio.start &gt; 0 ? audio.start * 0.001 : 0;//seconds
-					alias = audio.alias;
-				}
-				if(Sound.instance.exists(alias))
-				{
-					Sound.instance.preloadSound(alias);
-					data.alias = alias;
-					data.audioStart = start;
-				
-					data.useCaptions = Animator.captions &amp;&amp; Animator.captions.hasCaption(alias);
-				}
-			}
-		}
-		
-		return t;
-	};
-	
-	/**
-	*   Determines if a given instance can be animated by Animator.
-	*   @method canAnimate
-	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
-	*   @return {Boolean} If the instance can be animated or not.
-	*   @static
-	*/
-	Animator.canAnimate = function(instance)
-	{
-		if(!instance)
-			return false;
-		//check for instance of Spine, MovieClip
-		if(instance instanceof Spine || instance instanceof MovieClip)
-			return true;
-		//check for textures &amp;&amp; _elapsedTime properties, that MovieClip has
-		if(instance.hasOwnProperty(&quot;textures&quot;) &amp;&amp; instance.hasOwnProperty(&quot;_elapsedTime&quot;))
-			return true;
-		return false;
-	};
-
-	/**
-	*   Determines if a given instance can be animated by Animator.
-	*   @method _canAnimate
-	*   @deprecated Use the public method Animator.canAnimate
-	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
-	*   @return {Boolean} If the instance can be animated or not.
-	*   @private
-	*   @static
-	*/
-	Animator._canAnimate = Animator.canAnimate;
-	
-	/**
-	*   Get duration of animation (or sequence of animations) in seconds
-	*
-	*   @method getDuration
-	*   @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
-	*   @param {String|Array} animData The animation data or array, in the format that play() uses.
-	*   @public
-	*   @static
-	*	@return {Number} Duration of animation event in milliseconds
-	*/
-	Animator.getDuration = function(clip, animData)
-	{
-		//calculated in seconds
-		var duration = 0;
-		
-		//ensure one format
-		if(typeof animData == &quot;string&quot;)
-		{
-			animData = [{anim: animData}];
-		}
-		else if(Array.isArray(animData))
-		{
-			var firstItem = animData[0];
-			if(firstItem instanceof Texture)
-			{
-				animData = [{anim: animData}];
-			}
-			else if(typeof firstItem == &quot;string&quot;)
-			{
-				animData = [{anim: animData}];
-			}
-			else if(firstItem instanceof ConcurrentSpineAnimData)
-			{
-				animData = [{anim: animData}];
-			}
-		}
-		else
-			animData = [animData];
-		
-		for(var i = 0; i &lt; animData.length; ++i)
-		{
-			var listItem = animData[i];
-			switch(typeof listItem)
-			{
-				case &quot;object&quot;:
-					var anim = listItem.anim;
-					if(typeof anim == &quot;string&quot;)
-					{
-						//single spine anim
-						duration += clip.stateData.skeletonData.findAnimation(anim).duration;
-					}
-					else //if(Array.isArray(anim))
-					{
-						//MovieClip
-						if(anim[0] instanceof Texture)
-						{
-							duration += anim.length / clip.fps;
-						}
-						//concurrent spine anims
-						else if(anim[0] instanceof ConcurrentSpineAnimData)
-						{
-							this.spineStates = new Array(anim.length);
-							this.spineSpeeds = new Array(anim.length);
-							var maxDuration = 0, maxLoopDuration = 0, tempDuration;
-							skeletonData = clip.stateData.skeletonData;
-							for(i = 0; i &lt; anim.length; ++i)
-							{
-								var animLoop = anim[i].loop;
-								tempDuration = skeletonData.findAnimation(anim[i].anim).duration;
-								if(animLoop)
-								{
-									if(duration &gt; maxLoopDuration)
-										maxLoopDuration = tempDuration;
-								}
-								else
-								{
-									if(duration &gt; maxDuration)
-										maxDuration = tempDuration;
-								}
-							}
-							//set the duration to be the longest of the non looping animations
-							//or the longest loop if they all loop
-							if(maxDuration)
-								duration += maxDuration;
-							else
-								duration += maxLoopDuration;
-						}
-						//list of sequential spine anims
-						else
-						{
-							skeletonData = clip.stateData.skeletonData;
-							for(i = 0; i &lt; anim.length; ++i)
-							{
-								duration += skeletonData.findAnimation(anim[i]).duration;
-							}
-						}
-					}
-					break;
-				case &quot;number&quot;:
-					duration += listItem * 0.001;
-					break;
-			}
-		}
-		
-		return duration * 1000;//convert into milliseconds
-	};
-
-	/**
-	 * Checks to see if a Spine animation includes a given animation alias
-	 *
-	 * @method instanceHasAnimation
-	 * @param {PIXI.Spine} instance The animation to search. This has to be a Spine animation.
-	 * @param {String} anim The animation alias to search for
-	 * @returns {Boolean} Returns true if the animation is found
-	 */
-	Animator.instanceHasAnimation = function(instance, anim)
-	{
-		if (instance instanceof Spine)
-			return checkSpineForAnimation(instance, anim);
-		return false;
-	};
-	
-	/**
-	 * Checks to see if a Spine animation includes a given animation alias
-	 *
-	 * @method checkSpineForAnimation
-	 * @param {PIXI.Spine} clip The spine to search
-	 * @param {String} anim The animation alias to search for
-	 * @returns {Boolean} Returns true if the animation is found
-	 */
-	var checkSpineForAnimation = function(clip, anim)
-	{
-		return clip.stateData.skeletonData.findAnimation(anim) !== null;
-	};
-	
-	/**
-	 * Stop a clip
-	 *
-	 * @method stop
-	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to stop
-	 */
-	Animator.stop = function(clip, doCallback)
-	{
-		for(var i = 0; i &lt; _numAnims; ++i)
-		{
-			if (_timelines[i].clip === clip)
-			{
-				var t = _timelines[i];
-				_timelines.splice(i, 1);
-				if (--_numAnims === 0)
-					Application.instance.off(&quot;update&quot;, _update);
-				if (t.cancelledCallback)
-					t.cancelledCallback();
-				if (t.soundInst)
-					t.soundInst.stop();
-				_repool(t);
-				break;
-			}
-		}
-	};
-	
-	/**
-	 * Stops all current animations
-	 * 
-	 * @method stop
-	 * @static
-	 * @param {boolean} [doCancelled=true] We if should do the cancelled callback, if available.
-	 */
-	Animator.stopAll = function(doCancelled)
-	{
-		doCancelled = doCancelled !== undefined ? true : !!doCancelled;
-
-		for(var i = 0; i &lt; _numAnims; ++i)
-		{
-				var t = _timelines[i];
-				if (doCancelled &amp;&amp; t.cancelledCallback)
-					t.cancelledCallback();
-				if (t.soundInst)
-					t.soundInst.stop();
-				_repool(t);
-				break;
-		}
-		Application.instance.off(&quot;update&quot;, _update);
-		_timelines.length = _numAnims = 0;
-	};
-	
-	/**
-	 * Put an AnimatorTimeline back into the general pool after it&#x27;s done playing
-	 * or has been manually stopped.
-	 *
-	 * @method _repool
-	 * @param {springroll.pixi.AnimatorTimeline} timeline
-	 * @private
-	 */
-	var _repool = function(timeline)
-	{
-		timeline.clip = null;
-		timeline.callback = null;
-		timeline.cancelledCallback = null;
-		timeline.isLooping = false;
-		timeline.spineStates = null;
-		timeline.speed = null;
-		timeline.soundInst = null;
-		_animPool.push(timeline);
-	};
-	
-	/**
-	 * Update each frame
-	 *
-	 * @method _update
-	 * @param {int} elapsed The time since the last frame
-	 * @private
-	 */
-	var _update = function(elapsed)
-	{
-		//TODO: finish updating to cleaner method - see Trello and AnimatorTimeline.
-		var delta = elapsed * 0.001;//ms -&gt; sec
-		
-		for(var i = _numAnims - 1; i &gt;= 0; --i)
-		{
-			var t = _timelines[i];
-			if (t.paused) continue;
-			var prevTime = t._time_sec;
-			//we&#x27;ll use this to figure out if the timeline is on the next item
-			//to avoid code repetition
-			var onNext = false, extraTime = 0;
-			
-			//if the timeline is on an active animation
-			if(t.isAnim)
-			{
-				//update time to audio
-				if (t.soundInst)
-				{
-					if (t.soundInst.isValid)
-					{
-						//convert sound position ms -&gt; sec
-						var audioPos = t.soundInst.position * 0.001;
-						if (audioPos &lt; 0)
-							audioPos = 0;
-						t._time_sec = t.soundStart + audioPos;
-						if (t.useCaptions)
-						{
-							Animator.captions.seek(t.soundInst.position);
-						}
-						//if the sound goes beyond the animation, then stop the animation
-						//audio animations shouldn&#x27;t loop, because doing that properly is difficult
-						//letting the audio continue should be okay though
-						if (t._time_sec &gt;= t.duration)
-						{
-							updateClip(t, t.duration, prevTime);
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-					else//if sound is no longer valid, stop animation immediately
-					{
-						t._nextItem();
-						if(t.complete)
-						{
-							_onMovieClipDone(t);
-							continue;
-						}
-						else
-						{
-							onNext = true;
-						}
-					}
-				}
-				//update time normally
-				else
-				{
-					t._time_sec += delta * t.speed;
-					//see if we should start playing audio
-					if (t.playSound &amp;&amp; t._time_sec &gt;= t.soundStart)
-					{
-						t._time_sec = t.soundStart;
-						t.playSound = false;
-						t.soundInst = Sound.instance.play(
-							t.soundAlias,
-							onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-							onSoundStarted.bind(this, t, t.listIndex)
-						);
-						if (t.useCaptions)
-						{
-							Animator.captions.play(t.soundAlias);
-						}
-					}
-				}
-				//update the clip
-				var c = t.clip;
-				if (t.isSpine)
-				{
-					if (t.spineStates)
-					{
-						var complete = updateClip(t, t._time_sec, prevTime);
-						if (complete)
-						{
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-						else if(t._time_sec &gt; t.duration)
-							t._time_sec -= t.duration;
-					}
-					else
-					{
-						updateClip(t, t._time_sec, prevTime);
-						if (t._time_sec &gt;= t.duration)
-						{
-							extraTime = t._time_sec - t.duration;
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-				}
-				else//standard PIXI.MovieClip
-				{
-					if (t._time_sec &gt;= t.duration)
-					{
-						if (t.isLooping &amp;&amp; t.listIndex == t.eventList.length - 1)
-						{
-							t._time_sec -= t.duration;
-							//call the on complete function each time
-							if (t.onComplete)
-								t.onComplete();
-						}
-						else
-						{
-							extraTime = t._time_sec - t.duration;
-							c.gotoAndStop(c.textures.length - 1);
-							t._nextItem();
-							if(t.complete)
-							{
-								_onMovieClipDone(t);
-								continue;
-							}
-							else
-							{
-								onNext = true;
-							}
-						}
-					}
-					else
-					{
-						c._elapsedTime = t._time_sec;
-					}
-				}
-			}
-			//a timed pause
-			else
-			{
-				t._time_sec += delta * t.speed;
-				if (t._time_sec &gt;= t.duration)
-				{
-					extraTime = t._time_sec - t.duration;
-					t._nextItem();
-					if(t.complete)
-					{
-						_onMovieClipDone(t);
-						continue;
-					}
-					else
-					{
-						onNext = true;
-					}
-				}
-			}
-			if(onNext)
-			{
-				prevTime = 0;
-				t._time_sec += extraTime;
-				if(t.playSound &amp;&amp; t._time_sec &gt;= t.soundStart)
-				{
-					t._time_sec = t.soundStart;
-					t.playSound = false;
-					t.soundInst = Sound.instance.play(
-						t.soundAlias,
-						onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
-						onSoundStarted.bind(this, t, t.listIndex)
-					);
-					if (t.useCaptions)
-					{
-						Animator.captions.play(t.soundAlias);
-					}
-				}
-				//update after the change to the new step
-				if(t.isAnim)
-					updateClip(t, t._time_sec, prevTime);
-			}
-		}
-		if (_numAnims === 0)
-			Application.instance.off(&quot;update&quot;, _update);
-	};
-	
-	var updateClip = function(t, time, prevTime)
-	{
-		var complete = false;
-		var c = t.clip;
-		if (t.isSpine)
-		{
-			if (t.spineStates)
-			{
-				for(var j = 0, len = t.spineStates.length; j &lt; len; ++j)
-				{
-					var s = t.spineStates[j];
-					s.update((time - prevTime) * t.spineSpeeds[j]);
-					s.apply(c.skeleton);
-					if (!s.currentLoop &amp;&amp; s.isComplete())
-						complete = true;
-				}
-			}
-			else
-			{
-				c.updateAnim(time - prevTime);
-			}
-		}
-		else
-		{
-			c._elapsedTime = time;
-		}
-		return complete;
-	};
-	
-	var onSoundStarted = function(timeline, playIndex)
-	{
-		if(timeline.listIndex != playIndex) return;
-		
-		//convert sound length to seconds
-		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
-	};
-	
-	var onSoundDone = function(timeline, playIndex, soundAlias)
-	{
-		if (Animator.captions &amp;&amp; Animator.captions.currentAlias == soundAlias)
-			Animator.captions.stop();
-		
-		if(timeline.listIndex != playIndex) return;
-		
-		if (timeline.soundEnd &gt; 0 &amp;&amp; timeline._time_sec &lt; timeline.soundEnd)
-			timeline._time_sec = timeline.soundEnd;
-		timeline.soundInst = null;
-	};
-	
-	/**
-	 * Called when a movie clip is done playing, calls the AnimatorTimeline&#x27;s
-	 * callback if it has one
-	 *
-	 * @method _onMovieClipDone
-	 * @param {pixi.AnimatorTimeline} timeline
-	 * @private
-	 */
-	var _onMovieClipDone = function(timeline)
-	{
-		var i = _timelines.indexOf(timeline);
-		if(i &gt;= 0)
-		{
-			if (timeline.useCaptions)
-				Animator.captions.stop();
-			timeline.clip.onComplete = null;
-			_timelines.splice(i, 1);
-			if (--_numAnims === 0)
-				Application.instance.off(&quot;update&quot;, _update);
-			if (timeline.callback)
-				timeline.callback();
-			_repool(timeline);
-		}
-	};
-	
-	/**
-	 * Destroy this
-	 *
-	 * @method destroy
-	 */
-	Animator.destroy = function()
-	{
-		Animator.stopAll(false);
-		Animator.captions = null;
-		_animPool = null;
-		_timelines = null;
-		Application.instance.off(&quot;update&quot;, _update);
-	};
-
-	//set up the global initialization and destroy
-	Application.registerInit(Animator.init);
-	Application.registerDestroy(Animator.destroy);
-	
-	namespace(&#x27;springroll&#x27;).Animator = Animator;
-	namespace(&#x27;springroll.pixi&#x27;).Animator = Animator;
-}());
-    </pre>
-</div>
-
+                        	var name = src/displays/pixi/Animator.js      
+                        </script>
+                        <h1 class="file-heading">File:Animator.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        /**
+                        *  @module PIXI Display
+                        *  @namespace springroll.pixi
+                        */
+                        (function(undefined) {
+                        	
+                        	var Spine = include(&#x27;PIXI.Spine&#x27;),
+                        		Texture = include(&#x27;PIXI.Texture&#x27;),
+                        		AnimatorTimeline = include(&#x27;springroll.pixi.AnimatorTimeline&#x27;),
+                        		ConcurrentSpineAnimData = include(&#x27;springroll.pixi.ConcurrentSpineAnimData&#x27;),
+                        		Application = include(&#x27;springroll.Application&#x27;),
+                        		MovieClip = include(&#x27;PIXI.MovieClip&#x27;),
+                        		Sound;
+                        
+                        	/**
+                        	*  Animator for interacting with Spine animations
+                        	*  @class Animator
+                        	*  @static
+                        	*/
+                        	var Animator = {};
+                        	
+                        	/**
+                        	* The collection of AnimatorTimelines that are playing
+                        	* @property {Array} _timelines
+                        	* @private
+                        	*/
+                        	var _timelines = null,
+                        	
+                        	/**
+                        	* The number of animations
+                        	* @property {int} _numAnims
+                        	* @private
+                        	* @static
+                        	*/
+                        	_numAnims = 0,
+                        	
+                        	/**
+                        	 * Stored collection of AnimatorTimelines. This is internal to Animator and can&#x27;t be accessed externally.
+                        	 * @property {Array} _animPool
+                        	 * @private
+                        	 * @static
+                        	 */
+                        	_animPool = null;
+                        	
+                        	/**
+                        	*  The global captions object to use with animator
+                        	*  @property {springroll.Captions} captions
+                        	*  @public
+                        	*/
+                        	Animator.captions = null;
+                        
+                        	/**
+                        	 * Initializes the singleton instance of Animator.
+                        	 * @method init
+                        	 * @static
+                        	 */
+                        	Animator.init = function()
+                        	{
+                        		_animPool = [];
+                        		_timelines = [];
+                        
+                        		Sound = include(&#x27;springroll.Sound&#x27;, false);
+                        	};
+                        	
+                        	/**
+                        	* Play a specified animation
+                        	*
+                        	* @method play
+                        	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
+                        	*                                         object type.
+                        	* @param {String|Array} animData One of or an array of the following
+                        	*   * objects in the format:
+                        	*
+                        	*       {
+                        	*           anim:&lt;string|array of strings|array of ConcurrentSpineAnimData|array of Textures&gt;,
+                        	*           start:0,
+                        	*           speed:1,
+                        	*           loop:false,
+                        	*           audio:{alias:&quot;MyAlias&quot;, start:300}
+                        	*       }
+                        	*
+                        	*       * anim is the data about the animation to play. See below for more info
+                        	*       * start is milliseconds into the animation to start (0 if omitted). A value of -1
+                        	*           starts from a random time in the animation.
+                        	*       * speed is a multiplier for the animation speed (1 if omitted).
+                        	*       * loop is if the animation should loop (false if omitted).
+                        	*       * audio is audio to sync the animation to using springroll.Sound. audio can be a String
+                        	*           if you want the audio to start 0 milliseconds into the animation.
+                        	*   * strings - A single animation to play on a Spine skeleton.
+                        	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
+                        	*   * arrays of ConcurrentSpineAnimData - An array of animations to play at the same time on a
+                        	*       Spine skeleton.
+                        	*   * arrays of Textures - An array of textures to play on a MovieClip.
+                        	*   * numbers - milliseconds to wait.
+                        	*   * functions - called upon reaching, followed immediately by the next item.
+                        	* @param {Function} [onComplete] The function to call once the animation has finished.
+                        	* @param {Function} [onCancelled] A callback function for when an animation is stopped with
+                        	*                                 Animator.stop() or to play another animation.
+                        	* @return {springroll.pixi.AnimatorTimeline} The timeline object
+                        	*/
+                        	Animator.play = function(clip, animData, onComplete, onCancelled)
+                        	{
+                        		var audio, options;
+                        
+                        		if (onComplete &amp;&amp; typeof onComplete != &quot;function&quot;)
+                        		{
+                        			options = onComplete;
+                        			onComplete = options.onComplete;
+                        			onCancelled = options.onCancelled;
+                        		}
+                        		else if(onCancelled === true)
+                        			onCancelled = onComplete;
+                        		
+                        		//ensure that we can play the clip
+                        		if (!Animator.canAnimate(clip))
+                        		{
+                        			if (onComplete) onComplete();
+                        			return;
+                        		}
+                        		
+                        		Animator.stop(clip);
+                        		//deprecation fallback
+                        		if(options)
+                        			audio = options.audio || options.soundData || null;
+                        		
+                        		if(typeof animData == &quot;string&quot;)
+                        		{
+                        			animData = [{anim: animData, audio: audio}];
+                        		}
+                        		else if(Array.isArray(animData))
+                        		{
+                        			var firstItem = animData[0];
+                        			if(firstItem instanceof Texture)
+                        			{
+                        				animData = [{anim: animData, audio: audio}];
+                        			}
+                        			else if(typeof firstItem == &quot;string&quot;)
+                        			{
+                        				animData = [{anim: animData, audio: audio}];
+                        			}
+                        			else if(firstItem instanceof ConcurrentSpineAnimData)
+                        			{
+                        				animData = [{anim: animData, audio: audio}];
+                        			}
+                        		}
+                        		else
+                        			animData = [animData];
+                        		
+                        		var t = Animator._makeTimeline(clip, animData, onComplete, onCancelled);
+                        		
+                        		if(t.eventList.length &lt; 1)
+                        		{
+                        			_repool(t);
+                        			if (onComplete)
+                        				onComplete();
+                        			return null;
+                        		}
+                        		//update the art to the proper bit of the animation
+                        		t._nextItem();
+                        		updateClip(t, t._time_sec, 0);
+                        		
+                        		_timelines.push(t);
+                        		if (++_numAnims == 1)
+                        			Application.instance.on(&quot;update&quot;, _update);
+                        		return t;
+                        	};
+                        	
+                        	/**
+                        	*   Creates the AnimatorTimeline for a given animation
+                        	*
+                        	*   @method _makeTimeline
+                        	*   @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
+                        	*   @param {Array} animData List of animation events.
+                        	*   @param {Function} callback The function to callback when we&#x27;re done
+                        	*   @param {Function} cancelledCallback The function to callback when cancelled
+                        	*   @return {springroll.pixi.AnimatorTimeline} The Timeline object
+                        	*   @private
+                        	*   @static
+                        	*/
+                        	Animator._makeTimeline = function(clip, animData, callback, cancelledCallback)
+                        	{
+                        		var t = _animPool.length ?
+                        			_animPool.pop().init(clip, callback, cancelledCallback) :
+                        			new AnimatorTimeline(clip, callback, cancelledCallback);
+                        		
+                        		var i, length, j, jLength, anim, audio;
+                        		for(i = 0; i &lt; animData.length; ++i)
+                        		{
+                        			var data = animData[i];
+                        			if(typeof data == &quot;number&quot;)
+                        			{
+                        				t.eventList.push(data * 0.001);
+                        				continue;
+                        			}
+                        			if(typeof data == &quot;function&quot;)
+                        			{
+                        				t.eventList.push(data);
+                        				continue;
+                        			}
+                        			anim = data.anim;
+                        			audio = data.audio;
+                        			if (t.isSpine)
+                        			{
+                        				//allow the animations to be a string, or an array of strings
+                        				if (typeof anim == &quot;string&quot;)
+                        				{
+                        					if (checkSpineForAnimation(clip, anim))
+                        					{
+                        						t.eventList.push(data);
+                        					}
+                        				}
+                        				//Array - either animations in order or animations at the same time
+                        				else
+                        				{
+                        					//array of Strings, play animations by name in order
+                        					if (typeof anim[0] == &quot;string&quot;)
+                        					{
+                        						for(j = anim.length; j &gt;= 0; --j)
+                        						{
+                        							if(!checkSpineForAnimation(clip, anim[j]))
+                        							{
+                        								anim.splice(j, 1);
+                        							}
+                        						}
+                        						if(anim.length)
+                        							t.eventList.push(data);
+                        					}
+                        					//array of objects - play different animations at the same time
+                        					else
+                        					{
+                        						for(j = anim.length; j &gt;= 0; --j)
+                        						{
+                        							if(!checkSpineForAnimation(clip, anim[j].anim))
+                        							{
+                        								anim.splice(j, 1);
+                        							}
+                        						}
+                        						if(anim.length)
+                        							t.eventList.push(data);
+                        					}
+                        				}
+                        			}
+                        			//standard PIXI.MovieClip
+                        			else if(anim[0] instanceof Texture)
+                        			{
+                        				t.eventList.push(data);
+                        			}
+                        			//bad data, nothing we can animate with
+                        			else
+                        			{
+                        				continue;
+                        			}
+                        			//only do sound if the Sound library is in use
+                        			if (audio &amp;&amp; Sound)
+                        			{
+                        				var alias, start;
+                        				if (typeof audio == &quot;string&quot;)
+                        				{
+                        					start = 0;
+                        					alias = audio;
+                        				}
+                        				else
+                        				{
+                        					start = audio.start &gt; 0 ? audio.start * 0.001 : 0;//seconds
+                        					alias = audio.alias;
+                        				}
+                        				if(Sound.instance.exists(alias))
+                        				{
+                        					Sound.instance.preloadSound(alias);
+                        					data.alias = alias;
+                        					data.audioStart = start;
+                        				
+                        					data.useCaptions = Animator.captions &amp;&amp; Animator.captions.hasCaption(alias);
+                        				}
+                        			}
+                        		}
+                        		
+                        		return t;
+                        	};
+                        	
+                        	/**
+                        	*   Determines if a given instance can be animated by Animator.
+                        	*   @method canAnimate
+                        	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
+                        	*   @return {Boolean} If the instance can be animated or not.
+                        	*   @static
+                        	*/
+                        	Animator.canAnimate = function(instance)
+                        	{
+                        		if(!instance)
+                        			return false;
+                        		//check for instance of Spine, MovieClip
+                        		if(instance instanceof Spine || instance instanceof MovieClip)
+                        			return true;
+                        		//check for textures &amp;&amp; _elapsedTime properties, that MovieClip has
+                        		if(instance.hasOwnProperty(&quot;textures&quot;) &amp;&amp; instance.hasOwnProperty(&quot;_elapsedTime&quot;))
+                        			return true;
+                        		return false;
+                        	};
+                        
+                        	/**
+                        	*   Determines if a given instance can be animated by Animator.
+                        	*   @method _canAnimate
+                        	*   @deprecated Use the public method Animator.canAnimate
+                        	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
+                        	*   @return {Boolean} If the instance can be animated or not.
+                        	*   @private
+                        	*   @static
+                        	*/
+                        	Animator._canAnimate = Animator.canAnimate;
+                        	
+                        	/**
+                        	*   Get duration of animation (or sequence of animations) in seconds
+                        	*
+                        	*   @method getDuration
+                        	*   @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
+                        	*   @param {String|Array} animData The animation data or array, in the format that play() uses.
+                        	*   @public
+                        	*   @static
+                        	*	@return {Number} Duration of animation event in milliseconds
+                        	*/
+                        	Animator.getDuration = function(clip, animData)
+                        	{
+                        		//calculated in seconds
+                        		var duration = 0;
+                        		
+                        		//ensure one format
+                        		if(typeof animData == &quot;string&quot;)
+                        		{
+                        			animData = [{anim: animData}];
+                        		}
+                        		else if(Array.isArray(animData))
+                        		{
+                        			var firstItem = animData[0];
+                        			if(firstItem instanceof Texture)
+                        			{
+                        				animData = [{anim: animData}];
+                        			}
+                        			else if(typeof firstItem == &quot;string&quot;)
+                        			{
+                        				animData = [{anim: animData}];
+                        			}
+                        			else if(firstItem instanceof ConcurrentSpineAnimData)
+                        			{
+                        				animData = [{anim: animData}];
+                        			}
+                        		}
+                        		else
+                        			animData = [animData];
+                        		
+                        		for(var i = 0; i &lt; animData.length; ++i)
+                        		{
+                        			var listItem = animData[i];
+                        			switch(typeof listItem)
+                        			{
+                        				case &quot;object&quot;:
+                        					var anim = listItem.anim;
+                        					if(typeof anim == &quot;string&quot;)
+                        					{
+                        						//single spine anim
+                        						duration += clip.stateData.skeletonData.findAnimation(anim).duration;
+                        					}
+                        					else //if(Array.isArray(anim))
+                        					{
+                        						//MovieClip
+                        						if(anim[0] instanceof Texture)
+                        						{
+                        							duration += anim.length / clip.fps;
+                        						}
+                        						//concurrent spine anims
+                        						else if(anim[0] instanceof ConcurrentSpineAnimData)
+                        						{
+                        							this.spineStates = new Array(anim.length);
+                        							this.spineSpeeds = new Array(anim.length);
+                        							var maxDuration = 0, maxLoopDuration = 0, tempDuration;
+                        							skeletonData = clip.stateData.skeletonData;
+                        							for(i = 0; i &lt; anim.length; ++i)
+                        							{
+                        								var animLoop = anim[i].loop;
+                        								tempDuration = skeletonData.findAnimation(anim[i].anim).duration;
+                        								if(animLoop)
+                        								{
+                        									if(duration &gt; maxLoopDuration)
+                        										maxLoopDuration = tempDuration;
+                        								}
+                        								else
+                        								{
+                        									if(duration &gt; maxDuration)
+                        										maxDuration = tempDuration;
+                        								}
+                        							}
+                        							//set the duration to be the longest of the non looping animations
+                        							//or the longest loop if they all loop
+                        							if(maxDuration)
+                        								duration += maxDuration;
+                        							else
+                        								duration += maxLoopDuration;
+                        						}
+                        						//list of sequential spine anims
+                        						else
+                        						{
+                        							skeletonData = clip.stateData.skeletonData;
+                        							for(i = 0; i &lt; anim.length; ++i)
+                        							{
+                        								duration += skeletonData.findAnimation(anim[i]).duration;
+                        							}
+                        						}
+                        					}
+                        					break;
+                        				case &quot;number&quot;:
+                        					duration += listItem * 0.001;
+                        					break;
+                        			}
+                        		}
+                        		
+                        		return duration * 1000;//convert into milliseconds
+                        	};
+                        
+                        	/**
+                        	 * Checks to see if a Spine animation includes a given animation alias
+                        	 *
+                        	 * @method instanceHasAnimation
+                        	 * @param {PIXI.Spine} instance The animation to search. This has to be a Spine animation.
+                        	 * @param {String} anim The animation alias to search for
+                        	 * @returns {Boolean} Returns true if the animation is found
+                        	 */
+                        	Animator.instanceHasAnimation = function(instance, anim)
+                        	{
+                        		if (instance instanceof Spine)
+                        			return checkSpineForAnimation(instance, anim);
+                        		return false;
+                        	};
+                        	
+                        	/**
+                        	 * Checks to see if a Spine animation includes a given animation alias
+                        	 *
+                        	 * @method checkSpineForAnimation
+                        	 * @param {PIXI.Spine} clip The spine to search
+                        	 * @param {String} anim The animation alias to search for
+                        	 * @returns {Boolean} Returns true if the animation is found
+                        	 */
+                        	var checkSpineForAnimation = function(clip, anim)
+                        	{
+                        		return clip.stateData.skeletonData.findAnimation(anim) !== null;
+                        	};
+                        	
+                        	/**
+                        	 * Stop a clip
+                        	 *
+                        	 * @method stop
+                        	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to stop
+                        	 */
+                        	Animator.stop = function(clip, doCallback)
+                        	{
+                        		for(var i = 0; i &lt; _numAnims; ++i)
+                        		{
+                        			if (_timelines[i].clip === clip)
+                        			{
+                        				var t = _timelines[i];
+                        				_timelines.splice(i, 1);
+                        				if (--_numAnims === 0)
+                        					Application.instance.off(&quot;update&quot;, _update);
+                        				if (t.cancelledCallback)
+                        					t.cancelledCallback();
+                        				if (t.soundInst)
+                        					t.soundInst.stop();
+                        				_repool(t);
+                        				break;
+                        			}
+                        		}
+                        	};
+                        	
+                        	/**
+                        	 * Stops all current animations
+                        	 * 
+                        	 * @method stop
+                        	 * @static
+                        	 * @param {boolean} [doCancelled=true] We if should do the cancelled callback, if available.
+                        	 */
+                        	Animator.stopAll = function(doCancelled)
+                        	{
+                        		doCancelled = doCancelled !== undefined ? true : !!doCancelled;
+                        
+                        		for(var i = 0; i &lt; _numAnims; ++i)
+                        		{
+                        				var t = _timelines[i];
+                        				if (doCancelled &amp;&amp; t.cancelledCallback)
+                        					t.cancelledCallback();
+                        				if (t.soundInst)
+                        					t.soundInst.stop();
+                        				_repool(t);
+                        				break;
+                        		}
+                        		Application.instance.off(&quot;update&quot;, _update);
+                        		_timelines.length = _numAnims = 0;
+                        	};
+                        	
+                        	/**
+                        	 * Put an AnimatorTimeline back into the general pool after it&#x27;s done playing
+                        	 * or has been manually stopped.
+                        	 *
+                        	 * @method _repool
+                        	 * @param {springroll.pixi.AnimatorTimeline} timeline
+                        	 * @private
+                        	 */
+                        	var _repool = function(timeline)
+                        	{
+                        		timeline.clip = null;
+                        		timeline.callback = null;
+                        		timeline.cancelledCallback = null;
+                        		timeline.isLooping = false;
+                        		timeline.spineStates = null;
+                        		timeline.speed = null;
+                        		timeline.soundInst = null;
+                        		_animPool.push(timeline);
+                        	};
+                        	
+                        	/**
+                        	 * Update each frame
+                        	 *
+                        	 * @method _update
+                        	 * @param {int} elapsed The time since the last frame
+                        	 * @private
+                        	 */
+                        	var _update = function(elapsed)
+                        	{
+                        		//TODO: finish updating to cleaner method - see Trello and AnimatorTimeline.
+                        		var delta = elapsed * 0.001;//ms -&gt; sec
+                        		
+                        		for(var i = _numAnims - 1; i &gt;= 0; --i)
+                        		{
+                        			var t = _timelines[i];
+                        			if (t.paused) continue;
+                        			var prevTime = t._time_sec;
+                        			//we&#x27;ll use this to figure out if the timeline is on the next item
+                        			//to avoid code repetition
+                        			var onNext = false, extraTime = 0;
+                        			
+                        			//if the timeline is on an active animation
+                        			if(t.isAnim)
+                        			{
+                        				//update time to audio
+                        				if (t.soundInst)
+                        				{
+                        					if (t.soundInst.isValid)
+                        					{
+                        						//convert sound position ms -&gt; sec
+                        						var audioPos = t.soundInst.position * 0.001;
+                        						if (audioPos &lt; 0)
+                        							audioPos = 0;
+                        						t._time_sec = t.soundStart + audioPos;
+                        						if (t.useCaptions)
+                        						{
+                        							Animator.captions.seek(t.soundInst.position);
+                        						}
+                        						//if the sound goes beyond the animation, then stop the animation
+                        						//audio animations shouldn&#x27;t loop, because doing that properly is difficult
+                        						//letting the audio continue should be okay though
+                        						if (t._time_sec &gt;= t.duration)
+                        						{
+                        							updateClip(t, t.duration, prevTime);
+                        							extraTime = t._time_sec - t.duration;
+                        							t._nextItem();
+                        							if(t.complete)
+                        							{
+                        								_onMovieClipDone(t);
+                        								continue;
+                        							}
+                        							else
+                        							{
+                        								onNext = true;
+                        							}
+                        						}
+                        					}
+                        					else//if sound is no longer valid, stop animation immediately
+                        					{
+                        						t._nextItem();
+                        						if(t.complete)
+                        						{
+                        							_onMovieClipDone(t);
+                        							continue;
+                        						}
+                        						else
+                        						{
+                        							onNext = true;
+                        						}
+                        					}
+                        				}
+                        				//update time normally
+                        				else
+                        				{
+                        					t._time_sec += delta * t.speed;
+                        					//see if we should start playing audio
+                        					if (t.playSound &amp;&amp; t._time_sec &gt;= t.soundStart)
+                        					{
+                        						t._time_sec = t.soundStart;
+                        						t.playSound = false;
+                        						t.soundInst = Sound.instance.play(
+                        							t.soundAlias,
+                        							onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
+                        							onSoundStarted.bind(this, t, t.listIndex)
+                        						);
+                        						if (t.useCaptions)
+                        						{
+                        							Animator.captions.play(t.soundAlias);
+                        						}
+                        					}
+                        				}
+                        				//update the clip
+                        				var c = t.clip;
+                        				if (t.isSpine)
+                        				{
+                        					if (t.spineStates)
+                        					{
+                        						var complete = updateClip(t, t._time_sec, prevTime);
+                        						if (complete)
+                        						{
+                        							extraTime = t._time_sec - t.duration;
+                        							t._nextItem();
+                        							if(t.complete)
+                        							{
+                        								_onMovieClipDone(t);
+                        								continue;
+                        							}
+                        							else
+                        							{
+                        								onNext = true;
+                        							}
+                        						}
+                        						else if(t._time_sec &gt; t.duration)
+                        							t._time_sec -= t.duration;
+                        					}
+                        					else
+                        					{
+                        						updateClip(t, t._time_sec, prevTime);
+                        						if (t._time_sec &gt;= t.duration)
+                        						{
+                        							extraTime = t._time_sec - t.duration;
+                        							t._nextItem();
+                        							if(t.complete)
+                        							{
+                        								_onMovieClipDone(t);
+                        								continue;
+                        							}
+                        							else
+                        							{
+                        								onNext = true;
+                        							}
+                        						}
+                        					}
+                        				}
+                        				else//standard PIXI.MovieClip
+                        				{
+                        					if (t._time_sec &gt;= t.duration)
+                        					{
+                        						if (t.isLooping &amp;&amp; t.listIndex == t.eventList.length - 1)
+                        						{
+                        							t._time_sec -= t.duration;
+                        							//call the on complete function each time
+                        							if (t.onComplete)
+                        								t.onComplete();
+                        						}
+                        						else
+                        						{
+                        							extraTime = t._time_sec - t.duration;
+                        							c.gotoAndStop(c.textures.length - 1);
+                        							t._nextItem();
+                        							if(t.complete)
+                        							{
+                        								_onMovieClipDone(t);
+                        								continue;
+                        							}
+                        							else
+                        							{
+                        								onNext = true;
+                        							}
+                        						}
+                        					}
+                        					else
+                        					{
+                        						c._elapsedTime = t._time_sec;
+                        					}
+                        				}
+                        			}
+                        			//a timed pause
+                        			else
+                        			{
+                        				t._time_sec += delta * t.speed;
+                        				if (t._time_sec &gt;= t.duration)
+                        				{
+                        					extraTime = t._time_sec - t.duration;
+                        					t._nextItem();
+                        					if(t.complete)
+                        					{
+                        						_onMovieClipDone(t);
+                        						continue;
+                        					}
+                        					else
+                        					{
+                        						onNext = true;
+                        					}
+                        				}
+                        			}
+                        			if(onNext)
+                        			{
+                        				prevTime = 0;
+                        				t._time_sec += extraTime;
+                        				if(t.playSound &amp;&amp; t._time_sec &gt;= t.soundStart)
+                        				{
+                        					t._time_sec = t.soundStart;
+                        					t.playSound = false;
+                        					t.soundInst = Sound.instance.play(
+                        						t.soundAlias,
+                        						onSoundDone.bind(this, t, t.listIndex, t.soundAlias),
+                        						onSoundStarted.bind(this, t, t.listIndex)
+                        					);
+                        					if (t.useCaptions)
+                        					{
+                        						Animator.captions.play(t.soundAlias);
+                        					}
+                        				}
+                        				//update after the change to the new step
+                        				if(t.isAnim)
+                        					updateClip(t, t._time_sec, prevTime);
+                        			}
+                        		}
+                        		if (_numAnims === 0)
+                        			Application.instance.off(&quot;update&quot;, _update);
+                        	};
+                        	
+                        	var updateClip = function(t, time, prevTime)
+                        	{
+                        		var complete = false;
+                        		var c = t.clip;
+                        		if (t.isSpine)
+                        		{
+                        			if (t.spineStates)
+                        			{
+                        				for(var j = 0, len = t.spineStates.length; j &lt; len; ++j)
+                        				{
+                        					var s = t.spineStates[j];
+                        					s.update((time - prevTime) * t.spineSpeeds[j]);
+                        					s.apply(c.skeleton);
+                        					if (!s.currentLoop &amp;&amp; s.isComplete())
+                        						complete = true;
+                        				}
+                        			}
+                        			else
+                        			{
+                        				c.updateAnim(time - prevTime);
+                        			}
+                        		}
+                        		else
+                        		{
+                        			c._elapsedTime = time;
+                        		}
+                        		return complete;
+                        	};
+                        	
+                        	var onSoundStarted = function(timeline, playIndex)
+                        	{
+                        		if(timeline.listIndex != playIndex) return;
+                        		
+                        		//convert sound length to seconds
+                        		timeline.soundEnd = timeline.soundStart + timeline.soundInst.length * 0.001;
+                        	};
+                        	
+                        	var onSoundDone = function(timeline, playIndex, soundAlias)
+                        	{
+                        		if (Animator.captions &amp;&amp; Animator.captions.currentAlias == soundAlias)
+                        			Animator.captions.stop();
+                        		
+                        		if(timeline.listIndex != playIndex) return;
+                        		
+                        		if (timeline.soundEnd &gt; 0 &amp;&amp; timeline._time_sec &lt; timeline.soundEnd)
+                        			timeline._time_sec = timeline.soundEnd;
+                        		timeline.soundInst = null;
+                        	};
+                        	
+                        	/**
+                        	 * Called when a movie clip is done playing, calls the AnimatorTimeline&#x27;s
+                        	 * callback if it has one
+                        	 *
+                        	 * @method _onMovieClipDone
+                        	 * @param {pixi.AnimatorTimeline} timeline
+                        	 * @private
+                        	 */
+                        	var _onMovieClipDone = function(timeline)
+                        	{
+                        		var i = _timelines.indexOf(timeline);
+                        		if(i &gt;= 0)
+                        		{
+                        			if (timeline.useCaptions)
+                        				Animator.captions.stop();
+                        			timeline.clip.onComplete = null;
+                        			_timelines.splice(i, 1);
+                        			if (--_numAnims === 0)
+                        				Application.instance.off(&quot;update&quot;, _update);
+                        			if (timeline.callback)
+                        				timeline.callback();
+                        			_repool(timeline);
+                        		}
+                        	};
+                        	
+                        	/**
+                        	 * Destroy this
+                        	 *
+                        	 * @method destroy
+                        	 */
+                        	Animator.destroy = function()
+                        	{
+                        		Animator.stopAll(false);
+                        		Animator.captions = null;
+                        		_animPool = null;
+                        		_timelines = null;
+                        		Application.instance.off(&quot;update&quot;, _update);
+                        	};
+                        
+                        	//set up the global initialization and destroy
+                        	Application.registerInit(Animator.init);
+                        	Application.registerDestroy(Animator.destroy);
+                        	
+                        	namespace(&#x27;springroll&#x27;).Animator = Animator;
+                        	namespace(&#x27;springroll.pixi&#x27;).Animator = Animator;
+                        }());
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>
