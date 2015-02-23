@@ -537,20 +537,6 @@
 		var timeline = _timelinesMap[instance.id];
 		if (!timeline)
 		{
-			if (DEBUG)
-			{
-				var readableInstance = instance.id ||
-					instance.name ||
-					instance.key ||
-					instance.label ||
-					instance;
-				Debug.groupCollapsed("Animator.stop could not find " +
-					"a valid timeline matching the instance id: " + readableInstance);
-				Debug.red('_timelinesMap:', _timelinesMap);
-				Debug.red('instance:', instance);
-				Debug.trace("Animator.play");
-				Debug.groupEnd();
-			}
 			return;
 		}
 		if (removeCallbacks)
