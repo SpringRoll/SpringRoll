@@ -1165,9 +1165,11 @@
                     "optdefault": "4"
                 },
                 {
-                    "name": "[data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t]",
-                    "description": ",\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
-                    "type": "Number"
+                    "name": "data.scale",
+                    "description": "The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "1"
                 }
             ]
         },
@@ -1212,6 +1214,13 @@
                             "description": "The image to use for all of the button states.",
                             "type": "Image|HTMLCanvasElement",
                             "optional": true
+                        },
+                        {
+                            "name": "priority",
+                            "description": "The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "null"
                         },
                         {
                             "name": "up",
@@ -1365,11 +1374,6 @@
                             "optdefault": "null"
                         }
                     ]
-                },
-                {
-                    "name": "[imageSettings.priority=null] The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"]",
-                    "description": ".",
-                    "type": "Array"
                 },
                 {
                     "name": "label",
@@ -2018,6 +2022,13 @@
                     "type": "Object",
                     "props": [
                         {
+                            "name": "priority",
+                            "description": "The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"].",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "null"
+                        },
+                        {
                             "name": "up",
                             "description": "The texture for the up state of the button. This can be either the texture itself,\n       or an object with 'tex' and 'label' properties.",
                             "type": "Object|PIXI.Texture",
@@ -2141,11 +2152,6 @@
                             "optdefault": "1"
                         }
                     ]
-                },
-                {
-                    "name": "[imageSettings.priority=null] The state priority order. If omitted, defaults to [\"disabled\", \"down\", \"over\", \"up\"].\n       Previous versions of Button used a hard coded order: [\"highlighted\", \"disabled\", \"down\", \"over\", \"selected\", \"up\"]",
-                    "description": ".",
-                    "type": "Array"
                 },
                 {
                     "name": "label",
@@ -4303,7 +4309,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 563,
+            "line": 549,
             "description": "Stop all current Animator animations.\nThis is good for cleaning up all animation, as it doesn't do a callback on any of them.",
             "itemtype": "method",
             "name": "stopAll",
@@ -4329,7 +4335,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 596,
+            "line": 582,
             "description": "Remove a timeline from the stack",
             "itemtype": "method",
             "name": "_remove",
@@ -4354,7 +4360,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 660,
+            "line": 646,
             "description": "Pause all tweens which have been excuted by Animator.play()",
             "itemtype": "method",
             "name": "pause",
@@ -4365,7 +4371,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 681,
+            "line": 667,
             "description": "Resumes all tweens executed by the Animator.play()",
             "itemtype": "method",
             "name": "resume",
@@ -4376,7 +4382,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 703,
+            "line": 689,
             "description": "Pauses or unpauses all timelines that are children of the specified DisplayObjectContainer.",
             "itemtype": "method",
             "name": "pauseInGroup",
@@ -4399,7 +4405,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 724,
+            "line": 710,
             "description": "Get the timeline object for an instance",
             "itemtype": "method",
             "name": "getTimeline",
@@ -4421,7 +4427,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 743,
+            "line": 729,
             "description": "Whether the Animator class is currently paused.",
             "itemtype": "method",
             "name": "getPaused",
@@ -4435,7 +4441,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 754,
+            "line": 740,
             "description": "Start the updating",
             "itemtype": "method",
             "name": "_startUpdate",
@@ -4448,7 +4454,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 767,
+            "line": 753,
             "description": "Stop the updating",
             "itemtype": "method",
             "name": "_stopUpdate",
@@ -4461,7 +4467,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 780,
+            "line": 766,
             "description": "The update every frame",
             "itemtype": "method",
             "name": "",
@@ -4481,7 +4487,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 934,
+            "line": 920,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -4500,7 +4506,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 948,
+            "line": 934,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -4519,7 +4525,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 966,
+            "line": 952,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -4536,7 +4542,7 @@
         },
         {
             "file": "src/displays/createjs/Animator.js",
-            "line": 980,
+            "line": 966,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -5266,13 +5272,15 @@
                                     "optdefault": "4"
                                 }
                             ]
+                        },
+                        {
+                            "name": "scale",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "1"
                         }
                     ]
-                },
-                {
-                    "name": "[data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t]",
-                    "description": ",\n\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
-                    "type": "Number"
                 }
             ],
             "class": "springroll.createjs.BitmapMovieClip",
@@ -13923,11 +13931,9 @@
                     "type": "String|Array"
                 },
                 {
-                    "name": "separator",
-                    "description": "The separation between each line.",
-                    "type": "String",
-                    "optional": true,
-                    "optdefault": "\" \""
+                    "name": "[separator=\"",
+                    "description": "\"] The separation between each line.",
+                    "type": "String"
                 }
             ],
             "return": {
@@ -14292,7 +14298,7 @@
                             "description": "The order in which file types are preferred,\n                                             where \"ogg\" becomes a \".ogg\" extension on all\n                                             sound file urls.",
                             "type": "Array",
                             "optional": true,
-                            "optdefault": "['ogg','mp3']"
+                            "optdefault": "['ogg','mp3'"
                         },
                         {
                             "name": "swfPath",
