@@ -1170,7 +1170,7 @@
                         },
                         {
                             "name": "scale",
-                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally\n myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is\n optional, and defaults to 4.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
@@ -4855,7 +4855,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 78,
+            "line": 79,
             "description": "Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.",
             "itemtype": "property",
             "name": "loop",
@@ -4867,7 +4867,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 86,
+            "line": 87,
             "description": "The current frame of the movieclip.",
             "itemtype": "property",
             "name": "currentFrame",
@@ -4880,7 +4880,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 95,
+            "line": 96,
             "description": "If true, the BitmapMovieClip's position will not advance when ticked.",
             "itemtype": "property",
             "name": "paused",
@@ -4892,8 +4892,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 103,
-            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.\n\nFor example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the BitmapMovieClip will\nadvance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will\nvary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\" property) being\npassed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
+            "line": 104,
+            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for\nthe BitmapMovieClip will cause it to advance based on elapsed time between ticks as\nappropriate to maintain the target framerate.\n\nFor example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated\nat 40fps, then the BitmapMovieClip will advance roughly one frame every 4 ticks. This will\nnot be exact, because the time between each tick will vary slightly between frames.\n\nThis feature is dependent on the tick event object (or an object with an appropriate \"delta\"\nproperty) being passed into {{#crossLink \"Stage/update\"}}{{/crossLink}}.",
             "itemtype": "property",
             "name": "framerate",
             "type": "{Number}",
@@ -4904,8 +4904,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 133,
-            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "line": 134,
+            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in\nseconds.",
             "itemtype": "property",
             "name": "elapsedTime",
             "type": "Number",
@@ -4918,7 +4918,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 149,
+            "line": 151,
             "description": "(Read-Only) The total number of frames in the timeline",
             "itemtype": "property",
             "name": "totalFrames",
@@ -4931,7 +4931,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 162,
+            "line": 164,
             "description": "(Read-Only) The Texture of the current frame",
             "itemtype": "property",
             "name": "currentTexture",
@@ -4943,8 +4943,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 176,
-            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip\nwill cause it to advance based on elapsed time between ticks as appropriate to maintain the target\nframerate.",
+            "line": 178,
+            "description": "By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for\nthe BitmapMovieClip will cause it to advance based on elapsed time between ticks as\nappropriate to maintain the target framerate.",
             "itemtype": "property",
             "name": "_framerate",
             "type": "{Number}",
@@ -4957,8 +4957,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 188,
-            "description": "When the BitmapMovieClip is framerate independent, this is the total time in seconds for the animation.",
+            "line": 190,
+            "description": "When the BitmapMovieClip is framerate independent, this is the total time in seconds for the\nanimation.",
             "itemtype": "property",
             "name": "_duration",
             "type": "Number",
@@ -4971,8 +4971,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 197,
-            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.",
+            "line": 201,
+            "description": "When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in\nseconds.",
             "itemtype": "property",
             "name": "_t",
             "type": "Number",
@@ -4985,7 +4985,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 206,
+            "line": 211,
             "itemtype": "property",
             "name": "_prevPosition",
             "type": "Number",
@@ -4998,7 +4998,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 214,
+            "line": 219,
             "description": "The Bitmap used to render the current frame of the animation.",
             "itemtype": "property",
             "name": "_bitmap",
@@ -5011,7 +5011,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 222,
+            "line": 227,
             "description": "An array of frame labels.",
             "itemtype": "property",
             "name": "_labels",
@@ -5024,7 +5024,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 230,
+            "line": 235,
             "description": "An array of textures.",
             "itemtype": "property",
             "name": "_frames",
@@ -5037,7 +5037,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 238,
+            "line": 243,
             "description": "The current texture.",
             "itemtype": "property",
             "name": "_currentTexture",
@@ -5050,7 +5050,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 246,
+            "line": 251,
             "description": "The origin point of the BitmapMovieClip.",
             "itemtype": "property",
             "name": "_origin",
@@ -5063,7 +5063,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 254,
+            "line": 259,
             "description": "A scale to apply to the images in the BitmapMovieClip\nto restore normal size (if spritesheet was exported at a smaller or larger size).",
             "itemtype": "property",
             "name": "_scale",
@@ -5076,8 +5076,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 265,
-            "description": "Returns true or false indicating whether the display object would be visible if drawn to a canvas.\nThis does not account for whether it would be visible within the boundaries of the stage.\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
+            "line": 270,
+            "description": "Returns true or false indicating whether the display object would be visible if drawn to a\ncanvas. This does not account for whether it would be visible within the boundaries of the\nstage.\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
             "itemtype": "method",
             "name": "isVisible",
             "return": {
@@ -5090,8 +5090,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 277,
-            "description": "Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.\nReturns true if the draw was handled (useful for overriding functionality).\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
+            "line": 283,
+            "description": "Draws the display object into the specified context ignoring its visible, alpha, shadow, and\ntransform.\nReturns true if the draw was handled (useful for overriding functionality).\nNOTE: This method is mainly for internal use, though it may be useful for advanced uses.",
             "itemtype": "method",
             "name": "draw",
             "params": [
@@ -5102,7 +5102,7 @@
                 },
                 {
                     "name": "ignoreCache",
-                    "description": "Indicates whether the draw operation should ignore any current cache.\nFor example, used for drawing the cache (to prevent it from simply drawing an existing cache back\ninto itself).",
+                    "description": "Indicates whether the draw operation should ignore any current\n                             cache. For example, used for drawing the cache (to prevent it\n                             from simply drawing an existing cache back into itself).",
                     "type": "Boolean"
                 }
             ],
@@ -5112,7 +5112,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 295,
+            "line": 302,
             "description": "Sets paused to false.",
             "itemtype": "method",
             "name": "play",
@@ -5122,7 +5122,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 303,
+            "line": 310,
             "description": "Sets paused to true.",
             "itemtype": "method",
             "name": "stop",
@@ -5132,7 +5132,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 311,
+            "line": 318,
             "description": "Advances this movie clip to the specified position or label and sets paused to false.",
             "itemtype": "method",
             "name": "gotoAndPlay",
@@ -5149,7 +5149,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 321,
+            "line": 328,
             "description": "Advances this movie clip to the specified position or label and sets paused to true.",
             "itemtype": "method",
             "name": "gotoAndStop",
@@ -5166,7 +5166,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 331,
+            "line": 338,
             "description": "Advances the playhead. This occurs automatically each tick by default.",
             "params": [
                 {
@@ -5184,12 +5184,12 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 356,
-            "description": "Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS: Timeline.getLabels();",
+            "line": 363,
+            "description": "Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS:\nTimeline.getLabels();",
             "itemtype": "method",
             "name": "getLabels",
             "return": {
-                "description": "A sorted array of objects with label and position (aka frame) properties.",
+                "description": "A sorted array of objects with label and position (aka frame)\n                        properties.",
                 "type": "Array[Object]"
             },
             "class": "springroll.createjs.BitmapMovieClip",
@@ -5198,8 +5198,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 365,
-            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "line": 374,
+            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS:\nTimeline.getCurrentLabel() for more information.",
             "itemtype": "method",
             "name": "getCurrentLabel",
             "return": {
@@ -5212,8 +5212,8 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 384,
-            "description": "Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()\nfor more information.",
+            "line": 393,
+            "description": "Initializes or re-initializes the BitmapMovieClip.",
             "itemtype": "method",
             "name": "init",
             "params": [
@@ -5229,13 +5229,13 @@
                     "props": [
                         {
                             "name": "fps",
-                            "description": "Framerate to play the movieclip at. Omitting this will use the current framerate.",
+                            "description": "Framerate to play the movieclip at. Omitting this will use the\n                        current framerate.",
                             "type": "Int",
                             "optional": true
                         },
                         {
                             "name": "labels",
-                            "description": "A dictionary of the labels in the movieclip to assist in playing animations.",
+                            "description": "A dictionary of the labels in the movieclip to assist in\n                              playing animations.",
                             "type": "Object",
                             "optional": true
                         },
@@ -5254,7 +5254,7 @@
                             "props": [
                                 {
                                     "name": "name",
-                                    "description": "The name to use for the frame sequence. This should include a \"#\" to be replaced with the image number.",
+                                    "description": "The name to use for the frame sequence. This should\n                                   include a \"#\" to be replaced with the image number.",
                                     "type": "String",
                                     "optional": true
                                 },
@@ -5272,7 +5272,7 @@
                                 },
                                 {
                                     "name": "digits",
-                                    "description": "The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.",
+                                    "description": "The maximum number of digits in the names of the frames,\n                                    e.g. myAnim0001 has 4 digits.",
                                     "type": "Int",
                                     "optional": true,
                                     "optdefault": "4"
@@ -5281,7 +5281,7 @@
                         },
                         {
                             "name": "scale",
-                            "description": "The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally\n myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frame. 'digits' is\n optional, and defaults to 4.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
@@ -5295,7 +5295,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 465,
+            "line": 480,
             "description": "Copies the labels, textures, origin, and framerate from another BitmapMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
             "itemtype": "method",
             "name": "copyFrom",
@@ -5312,7 +5312,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 482,
+            "line": 497,
             "description": "Destroys the BitmapMovieClip, removing all children and nulling all reference variables.",
             "itemtype": "method",
             "name": "destroy",
@@ -5322,7 +5322,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 497,
+            "line": 512,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -5340,7 +5340,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 508,
+            "line": 523,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -5358,7 +5358,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 538,
+            "line": 553,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -5369,7 +5369,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 558,
+            "line": 573,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
