@@ -272,28 +272,7 @@
 	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
 	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
 	*
-	*  @class BitmapMovieClip
-	*  @extends createjs.Container
-	*  @constructor
-	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
-	*  @param {Object} [data] Initialization data
-	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
-	*                          current framerate.
-	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
-	*                                playing animations.
-	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should
-	*                                     include a &quot;#&quot; to be replaced with the image number.
-	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
-	*                                      e.g. myAnim0001 has 4 digits.
-	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
-	*                                 means the art was increased in size to 140% before exporting
-	*                                 and should be scaled back down before drawing to the screen.
-	*
-	*  Format for data:
+	*  Format for BitmapMovieClip data:
 	*
 	*	{
 	*		fps:30,
@@ -315,9 +294,30 @@
 	*		scale:1
 	*	}
 	*
-	* The object describes a 30 fps animation that is 20 frames long, and was originally
-	* myAnim0001.png-&gt;myAnim0020.png, with frame labels on the first and 16th frames. &#x27;digits&#x27; is
-	* optional, and defaults to 4.
+	*  The example object describes a 30 fps animation that is 20 frames long, and was originally
+	*  myAnim0001.png-&gt;myAnim0020.png, with frame labels on the first and 16th frames. &#x27;digits&#x27; is
+	*  optional, and defaults to 4.
+	*
+	*  @class BitmapMovieClip
+	*  @extends createjs.Container
+	*  @constructor
+	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
+	*  @param {Object} [data] Initialization data
+	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	*                          current framerate.
+	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	*                                playing animations.
+	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	*                                     include a &quot;#&quot; to be replaced with the image number.
+	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
+	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
+	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	*                                      e.g. myAnim0001 has 4 digits.
+	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	*                                 means the art was increased in size to 140% before exporting
+	*                                 and should be scaled back down before drawing to the screen.
 	*/
 	var BitmapMovieClip = function(atlas, data)
 	{
@@ -668,32 +668,6 @@
 	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
 	 *                                 means the art was increased in size to 140% before exporting
 	 *                                 and should be scaled back down before drawing to the screen.
-	 *
-	 *  Format for data:
-	 *
-	 *	{
-	 *		fps:30,
-	 *		labels:
-	 *		{
-	 *			animStart:0,
-	 *			animStart_loop:15
-	 *		},
-	 *		origin:{ x: 20, y:30 },
-	 *		frames:
-	 *		[
-	 *			{
-	 *				name:&quot;myAnim#&quot;,
-	 *				min:1,
-	 *				max:20,
-	 *				digits:4
-	 *			}
-	 *		],
-	 *		scale: 1
-	 *	}
-	 *
-	 * The object describes a 30 fps animation that is 20 frames long, and was originally
-	 * myAnim0001.png-&gt;myAnim0020.png, with frame labels on the first and 16th frame. &#x27;digits&#x27; is
-	 * optional, and defaults to 4.
 	 **/
 	p.init = function(atlas, data)
 	{

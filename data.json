@@ -1100,7 +1100,7 @@
             "namespace": "springroll.createjs",
             "file": "src/displays/createjs/BitmapMovieClip.js",
             "line": 11,
-            "description": "A class similar to createjs.MovieClip, but made to play animations from a\nspringroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal\nsized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,\nsprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.",
+            "description": "A class similar to createjs.MovieClip, but made to play animations from a\nspringroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal\nsized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,\nsprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.\n\nFormat for BitmapMovieClip data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\nThe example object describes a 30 fps animation that is 20 frames long, and was originally\nmyAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is\noptional, and defaults to 4.",
             "extends": "createjs.Container",
             "is_constructor": 1,
             "params": [
@@ -1170,7 +1170,7 @@
                         },
                         {
                             "name": "scale",
-                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally\n myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is\n optional, and defaults to 4.",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
@@ -5281,7 +5281,7 @@
                         },
                         {
                             "name": "scale",
-                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale: 1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally\n myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frame. 'digits' is\n optional, and defaults to 4.",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4\n                               means the art was increased in size to 140% before exporting\n                               and should be scaled back down before drawing to the screen.",
                             "type": "Number",
                             "optional": true,
                             "optdefault": "1"
@@ -5295,7 +5295,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 480,
+            "line": 454,
             "description": "Copies the labels, textures, origin, and framerate from another BitmapMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
             "itemtype": "method",
             "name": "copyFrom",
@@ -5312,7 +5312,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 497,
+            "line": 471,
             "description": "Destroys the BitmapMovieClip, removing all children and nulling all reference variables.",
             "itemtype": "method",
             "name": "destroy",
@@ -5322,7 +5322,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 512,
+            "line": 486,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -5340,7 +5340,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 523,
+            "line": 497,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -5358,7 +5358,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 553,
+            "line": 527,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -5369,7 +5369,7 @@
         },
         {
             "file": "src/displays/createjs/BitmapMovieClip.js",
-            "line": 573,
+            "line": 547,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
