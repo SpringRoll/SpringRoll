@@ -277,10 +277,10 @@
 
 
 <div class="box intro">
-    <p>A class similar to createjs.MovieClip, but made to play animations from a createjs.TextureAtlas.
-The CreateJS Sprite class requires a spritesheet with equal sized and spaced frames. By using createjs.TextureAtlas,
-you can use a much smaller spritesheet, sprites on screen with fewer extra transparent pixels, and use the same
-API as MovieClip.</p>
+    <p>A class similar to createjs.MovieClip, but made to play animations from a
+springroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal
+sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
+sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.</p>
 
 </div>
 
@@ -397,7 +397,8 @@ API as MovieClip.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>Framerate to play the movieclip at. Omitting this will use the current framerate.</p>
+                                    <p>Framerate to play the movieclip at. Omitting this will use the
+                        current framerate.</p>
 
                                 </div>
 
@@ -412,7 +413,8 @@ API as MovieClip.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>A dictionary of the labels in the movieclip to assist in playing animations.</p>
+                                    <p>A dictionary of the labels in the movieclip to assist in
+                              playing animations.</p>
 
                                 </div>
 
@@ -457,7 +459,8 @@ API as MovieClip.</p>
                                             
 
                                             <div class="param-description">
-                                                The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+                                                The name to use for the frame sequence. This should
+                                   include a "#" to be replaced with the image number.
                                             </div>
                                         </li>
                                         
@@ -493,7 +496,8 @@ API as MovieClip.</p>
                                             
 
                                             <div class="param-description">
-                                                The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
+                                                The maximum number of digits in the names of the frames,
+                                    e.g. myAnim0001 has 4 digits.
                                             </div>
                                         </li>
                                         
@@ -509,28 +513,29 @@ API as MovieClip.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
-        in size to 140% before exporting and should be scaled back down before drawing to the screen.</p>
-<p>Format for data:
+                                    <p>The scale at which the art was exported, e.g. a scale of 1.4
+                               means the art was increased in size to 140% before exporting
+                               and should be scaled back down before drawing to the screen.</p>
+<p>Format for data:</p>
+<pre><code>{
+    fps:30,
+    labels:
     {
-        fps:30,
-        labels:
+        animStart:0,
+        animStart_loop:15
+    },
+    origin:{ x: 20, y:30 },
+    frames:
+    [
         {
-            animStart:0,
-            animStart_loop:15
-        },
-        origin:{ x: 20, y:30 },
-        frames:
-        [
-            {
-                name:"myAnim#",
-                min:1,
-                max:20,
-                digits:4
-            }
-        ],
-        scale:1
-    }</p>
+            name:"myAnim#",
+            min:1,
+            max:20,
+            digits:4
+        }
+    ],
+    scale:1
+}</code></pre>
 <p> The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png-&gt;myAnim0020.png,
  with frame labels on the first and 16th frame. &#39;digits&#39; is optional, and defaults to 4.</p>
 
@@ -878,7 +883,7 @@ API as MovieClip.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l502"><code>_goto:502</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l508"><code>_goto:508</code></a>
         
         </p>
 
@@ -958,7 +963,7 @@ API as MovieClip.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l552"><code>_reset:552</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l558"><code>_reset:558</code></a>
         
         </p>
 
@@ -1024,7 +1029,7 @@ API as MovieClip.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l491"><code>_tick:491</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l497"><code>_tick:497</code></a>
         
         </p>
 
@@ -1105,7 +1110,7 @@ function.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l532"><code>_updateTimeline:532</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l538"><code>_updateTimeline:538</code></a>
         
         </p>
 
@@ -1169,7 +1174,7 @@ function.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l325"><code>advance:325</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l331"><code>advance:331</code></a>
         
         </p>
 
@@ -1260,7 +1265,7 @@ function.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l459"><code>copyFrom:459</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l465"><code>copyFrom:465</code></a>
         
         </p>
 
@@ -1340,7 +1345,7 @@ The labels and textures are copied by reference, instead of a deep copy.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l476"><code>destroy:476</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l482"><code>destroy:482</code></a>
         
         </p>
 
@@ -1411,7 +1416,7 @@ The labels and textures are copied by reference, instead of a deep copy.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l271"><code>draw:271</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l277"><code>draw:277</code></a>
         
         </p>
 
@@ -1514,7 +1519,7 @@ into itself).</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l359"><code>getCurrentLabel:359</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l365"><code>getCurrentLabel:365</code></a>
         
         </p>
 
@@ -1588,7 +1593,7 @@ for more information.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l350"><code>getLabels:350</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l356"><code>getLabels:356</code></a>
         
         </p>
 
@@ -1667,7 +1672,7 @@ for more information.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l305"><code>gotoAndPlay:305</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l311"><code>gotoAndPlay:311</code></a>
         
         </p>
 
@@ -1756,7 +1761,7 @@ for more information.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l315"><code>gotoAndStop:315</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l321"><code>gotoAndStop:321</code></a>
         
         </p>
 
@@ -1851,7 +1856,7 @@ for more information.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l378"><code>init:378</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l384"><code>init:384</code></a>
         
         </p>
 
@@ -2105,7 +2110,7 @@ for more information.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l259"><code>isVisible:259</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l265"><code>isVisible:265</code></a>
         
         </p>
 
@@ -2176,7 +2181,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l289"><code>play:289</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l295"><code>play:295</code></a>
         
         </p>
 
@@ -2231,7 +2236,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l297"><code>stop:297</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l303"><code>stop:303</code></a>
         
         </p>
 
@@ -2287,7 +2292,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l208"><code>_bitmap:208</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l214"><code>_bitmap:214</code></a>
         
         </p>
 
@@ -2334,7 +2339,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l232"><code>_currentTexture:232</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l238"><code>_currentTexture:238</code></a>
         
         </p>
 
@@ -2381,7 +2386,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l182"><code>_duration:182</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l188"><code>_duration:188</code></a>
         
         </p>
 
@@ -2430,7 +2435,7 @@ NOTE: This method is mainly for internal use, though it may be useful for advanc
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l170"><code>_framerate:170</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l176"><code>_framerate:176</code></a>
         
         </p>
 
@@ -2481,7 +2486,7 @@ framerate.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l224"><code>_frames:224</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l230"><code>_frames:230</code></a>
         
         </p>
 
@@ -2528,7 +2533,7 @@ framerate.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l216"><code>_labels:216</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l222"><code>_labels:222</code></a>
         
         </p>
 
@@ -2575,7 +2580,7 @@ framerate.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l240"><code>_origin:240</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l246"><code>_origin:246</code></a>
         
         </p>
 
@@ -2622,7 +2627,7 @@ framerate.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l200"><code>_prevPosition:200</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l206"><code>_prevPosition:206</code></a>
         
         </p>
 
@@ -2670,7 +2675,7 @@ framerate.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l248"><code>_scale:248</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l254"><code>_scale:254</code></a>
         
         </p>
 
@@ -2718,7 +2723,7 @@ to restore normal size (if spritesheet was exported at a smaller or larger size)
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l191"><code>_t:191</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l197"><code>_t:197</code></a>
         
         </p>
 
@@ -2765,7 +2770,7 @@ to restore normal size (if spritesheet was exported at a smaller or larger size)
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l80"><code>currentFrame:80</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l86"><code>currentFrame:86</code></a>
         
         </p>
 
@@ -2812,7 +2817,7 @@ to restore normal size (if spritesheet was exported at a smaller or larger size)
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l156"><code>currentTexture:156</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l162"><code>currentTexture:162</code></a>
         
         </p>
 
@@ -2859,7 +2864,7 @@ to restore normal size (if spritesheet was exported at a smaller or larger size)
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l127"><code>elapsedTime:127</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l133"><code>elapsedTime:133</code></a>
         
         </p>
 
@@ -2906,7 +2911,7 @@ to restore normal size (if spritesheet was exported at a smaller or larger size)
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l97"><code>framerate:97</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l103"><code>framerate:103</code></a>
         
         </p>
 
@@ -2960,7 +2965,7 @@ passed into Stage/update.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l72"><code>loop:72</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l78"><code>loop:78</code></a>
         
         </p>
 
@@ -3007,7 +3012,7 @@ passed into Stage/update.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l89"><code>paused:89</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l95"><code>paused:95</code></a>
         
         </p>
 
@@ -3054,7 +3059,7 @@ passed into Stage/update.</p>
             
         
         
-        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l143"><code>totalFrames:143</code></a>
+        <a href="../files/src_displays_createjs_BitmapMovieClip.js.html#l149"><code>totalFrames:149</code></a>
         
         </p>
 
