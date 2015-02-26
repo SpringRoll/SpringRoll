@@ -296,67 +296,13 @@ API as MovieClip.</p>
             
                 <li class="arg">
                     
-                        <code>atlas=null</code>
+                        <code class="optional">[atlas]</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>data=null</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.fps]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.labels]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.origin={x:0,y:0}]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.frames]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.frames.name]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.frames.min]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.frames.max]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.frames.digits=4]</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code class="optional">[data.scale=1]</code>
+                        <code class="optional">[data]</code>
                     
                 </li>
             
@@ -411,8 +357,9 @@ API as MovieClip.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">atlas=null</code>
+                        <code class="param-name optional">[atlas]</code>
                         <span class="type">TextureAtlas</span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
@@ -427,8 +374,9 @@ API as MovieClip.</p>
             
                 <li class="param">
                     
-                        <code class="param-name">data=null</code>
+                        <code class="param-name optional">[data]</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
                     
 
                     
@@ -439,155 +387,129 @@ API as MovieClip.</p>
                     </div>
 
                     
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.fps]</code>
-                        <span class="type">Int</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
+                        <ul class="params-list">
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[fps]</code>
+                                    <span class="type">Int</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    
+                                <div class="param-description">
+                                    <p>Framerate to play the movieclip at. Omitting this will use the current framerate.</p>
 
-                    <div class="param-description">
-                        <p>Framerate to play the movieclip at. Omitting this will use the current framerate.</p>
+                                </div>
 
-                    </div>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[labels]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.labels]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
+                                <div class="param-description">
+                                    <p>A dictionary of the labels in the movieclip to assist in playing animations.</p>
 
-                    
+                                </div>
 
-                    <div class="param-description">
-                        <p>A dictionary of the labels in the movieclip to assist in playing animations.</p>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[origin={x:0,y:0}]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    </div>
+                                <div class="param-description">
+                                    <p>The origin of the movieclip.</p>
 
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.origin={x:0,y:0}]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
+                                </div>
 
-                    
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[frames]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    <div class="param-description">
-                        <p>The origin of the movieclip.</p>
+                                <div class="param-description">
+                                    <p>An array of frame sequences to pull from the texture atlas.</p>
 
-                    </div>
+                                </div>
 
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.frames]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
+                                
+                                    <ul class="params-list">
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[name]</code>
+                                                <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                    
+                                            <div class="param-description">
+                                                The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[min]</code>
+                                                <span class="type">Int</span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                    <div class="param-description">
-                        <p>An array of frame sequences to pull from the texture atlas.</p>
+                                            <div class="param-description">
+                                                The first frame number in the frame sequence.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[max]</code>
+                                                <span class="type">Int</span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                    </div>
+                                            <div class="param-description">
+                                                The last frame number in the frame sequence.
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="param">
+                                            
+                                                <code class="param-name optional">[digits=4]</code>
+                                                <span class="type">Int</span>
+                                                <span class="flag optional" title="This parameter is optional.">optional</span>
+                                            
 
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.frames.name]</code>
-                        <span class="type"><a href="../classes/String.html" class="crosslink">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
+                                            <div class="param-description">
+                                                The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
+                                            </div>
+                                        </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[scale=1]</code>
+                                    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
 
-                    
-
-                    <div class="param-description">
-                        <p>The name to use for the frame sequence. This should include a "#" to be replaced with the image number.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.frames.min]</code>
-                        <span class="type">Int</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The first frame number in the frame sequence.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.frames.max]</code>
-                        <span class="type">Int</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The last frame number in the frame sequence.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.frames.digits=4]</code>
-                        <span class="type">Int</span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name optional">[data.scale=1]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
+                                <div class="param-description">
+                                    <p>The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
         in size to 140% before exporting and should be scaled back down before drawing to the screen.</p>
 <p>Format for data:
     {
@@ -612,8 +534,12 @@ API as MovieClip.</p>
 <p> The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png-&gt;myAnim0020.png,
  with frame labels on the first and 16th frame. &#39;digits&#39; is optional, and defaults to 4.</p>
 
-                    </div>
+                                </div>
 
+                                
+                            </li>
+                            
+                        </ul>
                     
                 </li>
             

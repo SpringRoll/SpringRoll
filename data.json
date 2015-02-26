@@ -1105,71 +1105,77 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "atlas=null",
+                    "name": "atlas",
                     "description": "The texture atlas to pull frames from.",
-                    "type": "TextureAtlas"
+                    "type": "TextureAtlas",
+                    "optional": true
                 },
                 {
-                    "name": "data=null",
+                    "name": "data",
                     "description": "Initialization data",
-                    "type": "Object"
-                },
-                {
-                    "name": "data.fps",
-                    "description": "Framerate to play the movieclip at. Omitting this will use the current framerate.",
-                    "type": "Int",
-                    "optional": true
-                },
-                {
-                    "name": "data.labels",
-                    "description": "A dictionary of the labels in the movieclip to assist in playing animations.",
-                    "type": "Object",
-                    "optional": true
-                },
-                {
-                    "name": "data.origin",
-                    "description": "The origin of the movieclip.",
                     "type": "Object",
                     "optional": true,
-                    "optdefault": "{x:0,y:0}"
-                },
-                {
-                    "name": "data.frames",
-                    "description": "An array of frame sequences to pull from the texture atlas.",
-                    "type": "Array",
-                    "optional": true
-                },
-                {
-                    "name": "data.frames.name",
-                    "description": "The name to use for the frame sequence. This should include a \"#\" to be replaced with the image number.",
-                    "type": "String",
-                    "optional": true
-                },
-                {
-                    "name": "data.frames.min",
-                    "description": "The first frame number in the frame sequence.",
-                    "type": "Int",
-                    "optional": true
-                },
-                {
-                    "name": "data.frames.max",
-                    "description": "The last frame number in the frame sequence.",
-                    "type": "Int",
-                    "optional": true
-                },
-                {
-                    "name": "data.frames.digits",
-                    "description": "The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.",
-                    "type": "Int",
-                    "optional": true,
-                    "optdefault": "4"
-                },
-                {
-                    "name": "data.scale",
-                    "description": "The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
-                    "type": "Number",
-                    "optional": true,
-                    "optdefault": "1"
+                    "props": [
+                        {
+                            "name": "fps",
+                            "description": "Framerate to play the movieclip at. Omitting this will use the current framerate.",
+                            "type": "Int",
+                            "optional": true
+                        },
+                        {
+                            "name": "labels",
+                            "description": "A dictionary of the labels in the movieclip to assist in playing animations.",
+                            "type": "Object",
+                            "optional": true
+                        },
+                        {
+                            "name": "origin",
+                            "description": "The origin of the movieclip.",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "{x:0,y:0}"
+                        },
+                        {
+                            "name": "frames",
+                            "description": "An array of frame sequences to pull from the texture atlas.",
+                            "type": "Array",
+                            "optional": true,
+                            "props": [
+                                {
+                                    "name": "name",
+                                    "description": "The name to use for the frame sequence. This should include a \"#\" to be replaced with the image number.",
+                                    "type": "String",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "min",
+                                    "description": "The first frame number in the frame sequence.",
+                                    "type": "Int",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "max",
+                                    "description": "The last frame number in the frame sequence.",
+                                    "type": "Int",
+                                    "optional": true
+                                },
+                                {
+                                    "name": "digits",
+                                    "description": "The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.",
+                                    "type": "Int",
+                                    "optional": true,
+                                    "optdefault": "4"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "scale",
+                            "description": "The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased\n        in size to 140% before exporting and should be scaled back down before drawing to the screen.\n\nFormat for data:\n\t{\n\t\tfps:30,\n\t\tlabels:\n\t\t{\n\t\t\tanimStart:0,\n\t\t\tanimStart_loop:15\n\t\t},\n\t\torigin:{ x: 20, y:30 },\n\t\tframes:\n\t\t[\n\t\t\t{\n\t\t\t\tname:\"myAnim#\",\n\t\t\t\tmin:1,\n\t\t\t\tmax:20,\n\t\t\t\tdigits:4\n\t\t\t}\n\t\t],\n\t\tscale:1\n\t}\n\n The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,\n with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.",
+                            "type": "Number",
+                            "optional": true,
+                            "optdefault": "1"
+                        }
+                    ]
                 }
             ]
         },
