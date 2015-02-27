@@ -4539,28 +4539,13 @@
 	var Container = include("createjs.Container");
 
 	/**
-	*  A class similar to createjs.MovieClip, but made to play animations from a createjs.TextureAtlas.
-	*  The CreateJS Sprite class requires a spritesheet with equal sized and spaced frames. By using createjs.TextureAtlas,
-	*  you can use a much smaller spritesheet, sprites on screen with fewer extra transparent pixels, and use the same
-	*  API as MovieClip.
+	*  A class similar to createjs.MovieClip, but made to play animations from a
+	*  springroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal
+	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
+	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
 	*
-	*  @class BitmapMovieClip
-	*  @extends createjs.Container
-	*  @constructor
-	*  @param {TextureAtlas} atlas=null The texture atlas to pull frames from.
-	*  @param {Object} data=null Initialization data
-	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
-	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
-	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
-	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
-	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
-	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
-	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
-	*          in size to 140% before exporting and should be scaled back down before drawing to the screen.
+	*  Format for BitmapMovieClip data:
 	*
-	*  Format for data:
 	*	{
 	*		fps:30,
 	*		labels:
@@ -4581,8 +4566,30 @@
 	*		scale:1
 	*	}
 	*
-	* The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,
-	* with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.
+	*  The example object describes a 30 fps animation that is 20 frames long, and was originally
+	*  myAnim0001.png->myAnim0020.png, with frame labels on the first and 16th frames. 'digits' is
+	*  optional, and defaults to 4.
+	*
+	*  @class BitmapMovieClip
+	*  @extends createjs.Container
+	*  @constructor
+	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
+	*  @param {Object} [data] Initialization data
+	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	*                          current framerate.
+	*  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	*                                playing animations.
+	*  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
+	*  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
+	*  @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	*                                     include a "#" to be replaced with the image number.
+	*  @param {int} [data.frames.min] The first frame number in the frame sequence.
+	*  @param {int} [data.frames.max] The last frame number in the frame sequence.
+	*  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	*                                      e.g. myAnim0001 has 4 digits.
+	*  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	*                                 means the art was increased in size to 140% before exporting
+	*                                 and should be scaled back down before drawing to the screen.
 	*/
 	var BitmapMovieClip = function(atlas, data)
 	{
@@ -4625,16 +4632,16 @@
 	p.paused = false;
 
 	/**
-	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip
-	 * will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
-	 * framerate.
+	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
+	 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
+	 * appropriate to maintain the target framerate.
 	 *
-	 * For example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated at 40fps, then the BitmapMovieClip will
-	 * advance roughly one frame every 4 ticks. This will not be exact, because the time between each tick will
-	 * vary slightly between frames.
+	 * For example, if a BitmapMovieClip with a framerate of 10 is placed on a Stage being updated
+	 * at 40fps, then the BitmapMovieClip will advance roughly one frame every 4 ticks. This will
+	 * not be exact, because the time between each tick will vary slightly between frames.
 	 *
-	 * This feature is dependent on the tick event object (or an object with an appropriate "delta" property) being
-	 * passed into {{#crossLink "Stage/update"}}{{/crossLink}}.
+	 * This feature is dependent on the tick event object (or an object with an appropriate "delta"
+	 * property) being passed into {{#crossLink "Stage/update"}}{{/crossLink}}.
 	 * @property framerate
 	 * @type {Number}
 	 * @default 0
@@ -4655,7 +4662,8 @@
 	});
 
 	/**
-	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
+	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
+	 * seconds.
 	 * @property elapsedTime
 	 * @type Number
 	 * @default 0
@@ -4698,9 +4706,9 @@
 	//==== Private properties =====
 
 	/**
-	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for the BitmapMovieClip
-	 * will cause it to advance based on elapsed time between ticks as appropriate to maintain the target
-	 * framerate.
+	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
+	 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
+	 * appropriate to maintain the target framerate.
 	 *
 	 * @property _framerate
 	 * @type {Number}
@@ -4710,7 +4718,9 @@
 	p._framerate = 0;
 
 	/**
-	 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the animation.
+	 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the
+	 * animation.
+	 *
 	 * @property _duration
 	 * @type Number
 	 * @default 0
@@ -4719,7 +4729,8 @@
 	p._duration = 0;
 
 	/**
-	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in seconds.
+	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
+	 * seconds.
 	 * @property _t
 	 * @type Number
 	 * @default 0
@@ -4787,8 +4798,9 @@
 	//==== Public Methods =====
 
 	/**
-	 * Returns true or false indicating whether the display object would be visible if drawn to a canvas.
-	 * This does not account for whether it would be visible within the boundaries of the stage.
+	 * Returns true or false indicating whether the display object would be visible if drawn to a
+	 * canvas. This does not account for whether it would be visible within the boundaries of the
+	 * stage.
 	 * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	 * @method isVisible
 	 * @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
@@ -4799,14 +4811,15 @@
 	};
 
 	/**
-	 * Draws the display object into the specified context ignoring its visible, alpha, shadow, and transform.
+	 * Draws the display object into the specified context ignoring its visible, alpha, shadow, and
+	 * transform.
 	 * Returns true if the draw was handled (useful for overriding functionality).
 	 * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	 * @method draw
 	 * @param {CanvasRenderingContext2D} ctx The canvas 2D context object to draw into.
-	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current cache.
-	 * For example, used for drawing the cache (to prevent it from simply drawing an existing cache back
-	 * into itself).
+	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current
+	 *                              cache. For example, used for drawing the cache (to prevent it
+	 *                              from simply drawing an existing cache back into itself).
 	 **/
 	p.draw = function(ctx, ignoreCache) {
 		// draw to cache first:
@@ -4878,17 +4891,19 @@
 	};
 	
 	/**
-	 * Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS: Timeline.getLabels();
+	 * Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS:
+	 * Timeline.getLabels();
 	 * @method getLabels
-	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame) properties.
+	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
+	 *                         properties.
 	 **/
 	p.getLabels = function() {
 		return this._labels;
 	};
 	
 	/**
-	 * Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
-	 * for more information.
+	 * Returns the name of the label on or immediately before the current frame. See TweenJS:
+	 * Timeline.getCurrentLabel() for more information.
 	 * @method getCurrentLabel
 	 * @return {String} The name of the current label or null if there is no label.
 	 **/
@@ -4906,45 +4921,25 @@
 	};
 
 	/**
-	 *  Returns the name of the label on or immediately before the current frame. See TweenJS: Timeline.getCurrentLabel()
-	 *  for more information.
+	 *  Initializes or re-initializes the BitmapMovieClip.
 	 *  @method init
 	 *  @param {TextureAtlas} atlas The texture atlas to pull frames from.
 	 *  @param {Object} data Initialization data
-	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the current framerate.
-	 *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in playing animations.
+	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
+	 *                          current framerate.
+	 *  @param {Object} [data.labels] A dictionary of the labels in the movieclip to assist in
+	 *                                playing animations.
 	 *  @param {Object} [data.origin={x:0,y:0}] The origin of the movieclip.
 	 *  @param {Array} [data.frames] An array of frame sequences to pull from the texture atlas.
-	 *  @param {String} [data.frames.name] The name to use for the frame sequence. This should include a "#" to be replaced with the image number.
+	 *  @param {String} [data.frames.name] The name to use for the frame sequence. This should
+	 *                                     include a "#" to be replaced with the image number.
 	 *  @param {int} [data.frames.min] The first frame number in the frame sequence.
 	 *  @param {int} [data.frames.max] The last frame number in the frame sequence.
-	 *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames, e.g. myAnim0001 has 4 digits.
-	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4 means the art was increased
-	 *          in size to 140% before exporting and should be scaled back down before drawing to the screen.
-	 *
-	 *  Format for data:
-	 *	{
-	 *		fps:30,
-	 *		labels:
-	 *		{
-	 *			animStart:0,
-	 *			animStart_loop:15
-	 *		},
-	 *		origin:{ x: 20, y:30 },
-	 *		frames:
-	 *		[
-	 *			{
-	 *				name:"myAnim#",
-	 *				min:1,
-	 *				max:20,
-	 *				digits:4
-	 *			}
-	 *		],
-	 *  	scale: 1
-	 *	}
-	 *
-	 * The object describes a 30 fps animation that is 20 frames long, and was originally myAnim0001.png->myAnim0020.png,
-	 * with frame labels on the first and 16th frame. 'digits' is optional, and defaults to 4.
+	 *  @param {int} [data.frames.digits=4] The maximum number of digits in the names of the frames,
+	 *                                      e.g. myAnim0001 has 4 digits.
+	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
+	 *                                 means the art was increased in size to 140% before exporting
+	 *                                 and should be scaled back down before drawing to the screen.
 	 **/
 	p.init = function(atlas, data)
 	{

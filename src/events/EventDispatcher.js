@@ -271,6 +271,7 @@
 		object.on = p.on;
 		object.off = p.off;
 		object.has = p.has;
+		object.once = p.once;
 		if(callConstructor)
 			EventDispatcher.call(object);
 	};
