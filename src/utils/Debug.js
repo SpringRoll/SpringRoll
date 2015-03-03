@@ -50,13 +50,14 @@
 		{
 			// Reference to the bind method
 			var bind = Function.prototype.bind;
-
+			
 			// Bind all these methods in order to use apply
 			// this is ONLY needed for IE9
 			var methods = [
 				'log',
 				'debug',
 				'warn',
+				'info',
 				'error',
 				'assert',
 				'dir',
@@ -139,7 +140,7 @@
 	Debug.enabled = true;
 
 	/**
-	 * The jQuery element to output debug messages to
+	 * The DOM element to output debug messages to
 	 *
 	 * @public
 	 * @static
@@ -148,7 +149,7 @@
 	Debug.output = null;
 
 	/**
-	 * Browser port for the websocket browsers tend to block ports
+	 * Browser port for the websocket - browsers tend to block lower ports
 	 * @static
 	 * @private
 	 * @property {int} NET_PORT
@@ -188,6 +189,62 @@
 	 * @property {Array} _socketQueue
 	 */
 	var _socketQueue = null;
+	
+	
+	/*
+	 * Prevents uglify from mangling function names attached to it so we can strip
+	 * out of a stack trace for logging purpose.
+	 */
+	var manglePeventer = {};
+	
+	/**
+	 * Methods names to use to strip out lines from stack traces
+	 * in remote logging.
+	 * @static
+	 * @private
+	 * @property {Array} methodsToStrip
+	 */
+	var methodsToStrip = [
+		//general logging
+		'log',
+		'debug',
+		'warn',
+		'info',
+		'error',
+		'assert',
+		'dir',
+		'trace',
+		'group',
+		'groupCollapsed',
+		'groupEnd',
+		//remote logging
+		'_remoteLog',
+		'globalErrorHandler',
+		//our color functions
+		'navy',
+		'blue',
+		'aqua',
+		'teal',
+		'olive',
+		'green',
+		'lime',
+		'yellow',
+		'orange',
+		'red',
+		'pink',
+		'purple',
+		'maroon',
+		'silver',
+		'gray'
+	];
+	
+	/**
+	 * Regular expression to get the line number and column from a stack trace line.
+	 * @static
+	 * @private
+	 * @property {RegEx} lineLocationFinder
+	 */
+	var lineLocationFinder = /(:\d+)+/;
 
 	/**
 	 * Connect to the `WebSocket`
@@ -244,7 +301,7 @@
 	var onConnect = function()
 	{
 		//set up a function to handle all messages
-		window.onerror = globalErrorHandler;
+		window.onerror = manglePeventer.globalErrorHandler;
 
 		//create and send a new session message
 		_socketMessage = {
@@ -274,22 +331,10 @@
 	 * @param {int} column The column within the line
 	 * @param {Error} error The error itself
 	 */
-	var globalErrorHandler = function(message, file, line, column, error)
+	manglePeventer.globalErrorHandler = function(message, file, line, column, error)
 	{
-		var logMessage = 'Error: ' + message + ' in ' + file + ' at line ' + line;
-		
-		if (column !== undefined)
-		{
-			logMessage += ':' + column;
-		}
-
-		if (error)
-		{
-			logMessage += "\n" + error.stack;
-		}
-
-		Debug._remoteLog(logMessage, Levels.ERROR);
-
+		Debug._remoteLog(message, Levels.ERROR, error ? error.stack : null);
+		//let the error do the normal behavior
 		return false;
 	};
 
@@ -327,7 +372,7 @@
 			Debug.output.innerHTML += '<div class="' + level + '">' + args + '</div>';
 		}
 	};
-
+	
 	/**
 	 * Send a remote log message using the socket connection
 	 * @private
@@ -335,24 +380,27 @@
 	 * @method _remoteLog
 	 * @param {Array} message The message to send
 	 * @param {level} [level=0] The log level to send
+	 * @param {String} [stack] A stack to use for the message. A stack will be created if stack
+	 *                         is omitted.
 	 * @return {Debug} The instance of debug for chaining
 	 */
-	Debug._remoteLog = function(message, level)
+	Debug._remoteLog = function(message, level, stack)
 	{
 		level = level || Levels.GENERAL;
 		if(!Array.isArray(message))
 			message = [message];
 		message = slice.call(message);
-
+		
+		var i, length;
 		// Go through each argument and replace any circular
 		// references with simplified objects
-		for (var i = 0; i < message.length; i++)
+		for (i = 0, length = message.length; i < length; i++)
 		{
 			if (typeof message[i] == "object")
 			{
 				try
 				{
-					message[i] = removeCircular(message[i], 2);
+					message[i] = removeCircular(message[i], 3);
 				}
 				catch(e)
 				{
@@ -360,6 +408,97 @@
 				}
 				/*console.log(message[i]);*/
 			}
+		}
+		
+		//figure out the stack
+		if(!stack)
+			stack = new Error().stack;
+		//split stack lines
+		stack = stack ? stack.split("\n") : [];
+		//go through lines, figuring out what to strip out
+		//and standardizing the format for the rest
+		var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
+			lastToStrip = -1,
+			shouldStrip = true;
+		for(i = 0, length = stack.length; i < length; ++i)
+		{
+			var line = stack[i].trim();
+			//FF has an empty string at the end
+			if(!line)
+			{
+				if(i == length - 1)
+				{
+					stack.pop();
+					break;
+				}
+				else
+					continue;
+			}
+			//strip out any actual errors in the stack trace, since that is the message
+			//also the 'error' line from our new Error().
+			if(line == "Error" || line.indexOf("Error:") > -1)
+			{
+				lastToStrip = i;
+				continue;
+			}
+			// FF/Safari style:
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
+			if(line.indexOf("@") > -1)
+			{
+				splitIndex = line.indexOf("@");
+				functionSection = line.substring(0, splitIndex);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if(functionSection.indexOf(".") != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+				else
+					functionName = functionSection;
+				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column
+				file = line.substring(splitIndex + 1);
+			}
+			// Chrome/IE/Opera style:
+			//https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
+			else
+			{
+				splitIndex = line.indexOf("(");
+				//skip the "at " at the beginning of the line and the space at the end
+				functionSection = line.substring(3, splitIndex - 1);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if(functionSection.indexOf(".") != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+				else
+					functionName = functionSection;
+				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column, dropping the trailing ')'
+				file = line.substring(splitIndex + 1, line.length - 2);
+			}
+			//find the line number/column in the combined file string
+			lineSearch = lineLocationFinder.exec(file);
+			//split the file and line number/column from each other
+			file = file.substring(0, lineSearch.index);
+			lineLocation = lineSearch[0].substring(1);
+			//If we got here, we got out of the Debug functions and should stop trying to
+			//strip stuff out, in case someone else's functions are named the same
+			shouldStrip = false;
+			stack[i] = {
+				"function":functionSection || "<anonymous>",
+				file:file,
+				lineLocation:lineLocation
+			};
+		}
+		if(lastToStrip >= 0)
+		{
+			stack = stack.slice(lastToStrip + 1);
 		}
 
 		// If we are still in the process of connecting, queue up the log
@@ -388,7 +527,15 @@
 		}
 		return Debug;
 	};
-
+	
+	/**
+	 * An array for preventing circular references
+	 * @static
+	 * @private
+	 * @property {Array} circularArray
+	 */
+	var circularArray = [];
+	
 	/**
 	 * Strip out known circular references
 	 * @method removeCircular
@@ -398,17 +545,22 @@
 	var removeCircular = function(obj, maxDepth, depth)
 	{
 		if (Array.isArray(obj)) return obj;
-
+		
 		depth = depth || 0;
+		if(depth === 0)
+			circularArray.length = 0;
+		
+		circularArray.push(obj);
 
 		var result = {};
 		for (var key in obj)
 		{
+			var value = obj[key];
 			// avoid doing properties that are known to be DOM objects,
 			// because those have circular references
-			if (obj[key] instanceof Window ||
-				obj[key] instanceof Document ||
-				obj[key] instanceof HTMLElement ||
+			if (value instanceof Window ||
+				value instanceof Document ||
+				value instanceof HTMLElement ||
 				key == "document" ||
 				key == "window" ||
 				key == "ownerDocument" ||
@@ -423,26 +575,26 @@
 				key == "fromElement" ||
 				key == "toElement")
 			{
-				if(obj[key] instanceof HTMLElement)
+				if(value instanceof HTMLElement)
 				{
-					var element = obj[key], value;
-					value = "<" + element.tagName;
-					if(element.id)
-						value += " id='" + element.id + "'";
-					if(element.className)
-						value += " class='" + element.className + "'";
-					result[key] = value + " />";
+					var elementString;
+					elementString = "<" + value.tagName;
+					if(value.id)
+						elementString += " id='" + value.id + "'";
+					if(value.className)
+						elementString += " class='" + value.className + "'";
+					result[key] = elementString + " />";
 				}
 				continue;
 			}
 
-			switch(typeof obj[key])
+			switch(typeof value)
 			{
 				case "object":
 				{
-					result[key] = depth > maxDepth ?
-						String(obj[key]) :
-						removeCircular(obj[key], maxDepth, depth + 1);
+					result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
+						String(value) :
+						removeCircular(value, maxDepth, depth + 1);
 					break;
 				}
 				case "function":
@@ -455,12 +607,12 @@
 				case "boolean":
 				case "bool":
 				{
-					result[key] = obj[key];
+					result[key] = value;
 					break;
 				}
 				default:
 				{
-					result[key] = obj[key];
+					result[key] = value;
 					break;
 				}
 			}
@@ -668,7 +820,11 @@
 	{
 		if(Debug.enabled)
 		{
-			if (_hasConsole)
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if (_hasConsole)
 			{
 				if(arguments.length === 1)
 					console.dir(params);
@@ -690,6 +846,11 @@
 	{
 		if (Debug.enabled)
 		{
+			if (_useSocket)
+			{
+				Debug._remoteLog("", "clear");
+			}
+			
 			if(_hasConsole)
 				console.clear();
 
@@ -711,12 +872,19 @@
 	 */
 	Debug.trace = function(params)
 	{
-		if (_hasConsole && Debug.enabled)
+		if (Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.trace(params);
-			else
-				console.trace.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.trace(params);
+				else
+					console.trace.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -733,9 +901,14 @@
 	 */
 	Debug.group = function(params)
 	{
-		if (_hasConsole && Debug.enabled && console.group)
+		if (Debug.enabled)
 		{
-			console.group.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "group");
+			}
+			else if(_hasConsole && console.group)
+				console.group.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -751,9 +924,14 @@
 	 */
 	Debug.groupCollapsed = function(params)
 	{
-		if (_hasConsole && Debug.enabled && console.groupCollapsed)
+		if (Debug.enabled)
 		{
-			console.groupCollapsed.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "groupCollapsed");
+			}
+			else if(_hasConsole && console.groupCollapsed)
+				console.groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -769,9 +947,14 @@
 	 */
 	Debug.groupEnd = function()
 	{
-		if (_hasConsole && Debug.enabled && console.groupEnd)
+		if (Debug.enabled)
 		{
-			console.groupEnd();
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "groupEnd");
+			}
+			else if(_hasConsole && console.groupEnd)
+				console.groupEnd();
 		}
 		return Debug;
 	};

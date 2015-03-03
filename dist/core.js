@@ -466,9 +466,19 @@
 	 * If we have a console
 	 *
 	 * @private
-	 * @property {bool} _hasConsole
+	 * @property {Boolean} _hasConsole
 	 */
 	var _hasConsole = (window.console !== undefined);
+	
+	/**
+	 * If the console supports coloring
+	 *
+	 * @private
+	 * @property {Boolean} _consoleSupportsColors
+	 */
+	//document.documentMode is an IE only property specifying what version of IE the document is
+	//being displayed for
+	var _consoleSupportsColors = document.documentMode === undefined;
 
 	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
@@ -485,13 +495,14 @@
 		{
 			// Reference to the bind method
 			var bind = Function.prototype.bind;
-
+			
 			// Bind all these methods in order to use apply
 			// this is ONLY needed for IE9
 			var methods = [
 				'log',
 				'debug',
 				'warn',
+				'info',
 				'error',
 				'assert',
 				'dir',
@@ -569,12 +580,12 @@
 	 * Boolean to turn on or off the debugging
 	 * @public
 	 * @static
-	 * @property {bool} enabled
+	 * @property {Boolean} enabled
 	 */
 	Debug.enabled = true;
 
 	/**
-	 * The jQuery element to output debug messages to
+	 * The DOM element to output debug messages to
 	 *
 	 * @public
 	 * @static
@@ -583,7 +594,7 @@
 	Debug.output = null;
 
 	/**
-	 * Browser port for the websocket browsers tend to block ports
+	 * Browser port for the websocket - browsers tend to block lower ports
 	 * @static
 	 * @private
 	 * @property {int} NET_PORT
@@ -596,7 +607,7 @@
 	 * @static
 	 * @private
 	 * @default false
-	 * @property {bool} _useSocket
+	 * @property {Boolean} _useSocket
 	 */
 	var _useSocket = false;
 
@@ -612,7 +623,7 @@
 	 * The current message object being sent to the `WebSocket`
 	 * @static
 	 * @private
-	 * @property {object} _socketMessage
+	 * @property {Object} _socketMessage
 	 */
 	var _socketMessage = null;
 
@@ -623,14 +634,70 @@
 	 * @property {Array} _socketQueue
 	 */
 	var _socketQueue = null;
+	
+	
+	/*
+	 * Prevents uglify from mangling function names attached to it so we can strip
+	 * out of a stack trace for logging purpose.
+	 */
+	var manglePeventer = {};
+	
+	/**
+	 * Methods names to use to strip out lines from stack traces
+	 * in remote logging.
+	 * @static
+	 * @private
+	 * @property {Array} methodsToStrip
+	 */
+	var methodsToStrip = [
+		//general logging
+		'log',
+		'debug',
+		'warn',
+		'info',
+		'error',
+		'assert',
+		'dir',
+		'trace',
+		'group',
+		'groupCollapsed',
+		'groupEnd',
+		//remote logging
+		'_remoteLog',
+		'globalErrorHandler',
+		//our color functions
+		'navy',
+		'blue',
+		'aqua',
+		'teal',
+		'olive',
+		'green',
+		'lime',
+		'yellow',
+		'orange',
+		'red',
+		'pink',
+		'purple',
+		'maroon',
+		'silver',
+		'gray'
+	];
+	
+	/**
+	 * Regular expression to get the line number and column from a stack trace line.
+	 * @static
+	 * @private
+	 * @property {RegEx} lineLocationFinder
+	 */
+	var lineLocationFinder = /(:\d+)+/;
 
 	/**
 	 * Connect to the `WebSocket`
 	 * @public
 	 * @static
 	 * @method connect
-	 * @param {string} host The remote address to connect to, IP address or host name
-	 * @return {boolean} If a connection was attempted
+	 * @param {String} host The remote address to connect to, IP address or host name
+	 * @return {Boolean} If a connection was attempted
 	 */
 	Debug.connect = function(host)
 	{
@@ -679,7 +746,7 @@
 	var onConnect = function()
 	{
 		//set up a function to handle all messages
-		window.onerror = globalErrorHandler;
+		window.onerror = manglePeventer.globalErrorHandler;
 
 		//create and send a new session message
 		_socketMessage = {
@@ -709,22 +776,10 @@
 	 * @param {int} column The column within the line
 	 * @param {Error} error The error itself
 	 */
-	var globalErrorHandler = function(message, file, line, column, error)
+	manglePeventer.globalErrorHandler = function(message, file, line, column, error)
 	{
-		var logMessage = 'Error: ' + message + ' in ' + file + ' at line ' + line;
-		
-		if (column !== undefined)
-		{
-			logMessage += ':' + column;
-		}
-
-		if (error)
-		{
-			logMessage += "\n" + error.stack;
-		}
-
-		Debug.remoteLog(logMessage, Levels.ERROR);
-
+		Debug._remoteLog(message, Levels.ERROR, error ? error.stack : null);
+		//let the error do the normal behavior
 		return false;
 	};
 
@@ -752,8 +807,8 @@
 	 * @private
 	 * @static
 	 * @method domOutput
-	 * @param {string} level The log level
-	 * @param {string} args Additional arguments
+	 * @param {String} level The log level
+	 * @param {String} args Additional arguments
 	 */
 	var domOutput = function(level, args)
 	{
@@ -762,37 +817,133 @@
 			Debug.output.innerHTML += '<div class="' + level + '">' + args + '</div>';
 		}
 	};
-
+	
 	/**
 	 * Send a remote log message using the socket connection
-	 * @public
+	 * @private
 	 * @static
-	 * @method remoteLog
-	 * @param {array} message The message to send
+	 * @method _remoteLog
+	 * @param {Array} message The message to send
 	 * @param {level} [level=0] The log level to send
+	 * @param {String} [stack] A stack to use for the message. A stack will be created if stack
+	 *                         is omitted.
 	 * @return {Debug} The instance of debug for chaining
 	 */
-	Debug.remoteLog = function(message, level)
+	Debug._remoteLog = function(message, level, stack)
 	{
 		level = level || Levels.GENERAL;
+		if(!Array.isArray(message))
+			message = [message];
 		message = slice.call(message);
-
+		
+		var i, length;
 		// Go through each argument and replace any circular
 		// references with simplified objects
-		for (var i = 0; i < message.length; i++)
+		for (i = 0, length = message.length; i < length; i++)
 		{
 			if (typeof message[i] == "object")
 			{
-				try 
+				try
 				{
-					message[i] = removeCircular(message[i], 2);
+					message[i] = removeCircular(message[i], 3);
 				}
 				catch(e)
 				{
 					message[i] = String(message[i]);
 				}
-				console.log(message[i]);
+				/*console.log(message[i]);*/
 			}
+		}
+		
+		//figure out the stack
+		if(!stack)
+			stack = new Error().stack;
+		//split stack lines
+		stack = stack ? stack.split("\n") : [];
+		//go through lines, figuring out what to strip out
+		//and standardizing the format for the rest
+		var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
+			lastToStrip = -1,
+			shouldStrip = true;
+		for(i = 0, length = stack.length; i < length; ++i)
+		{
+			var line = stack[i].trim();
+			//FF has an empty string at the end
+			if(!line)
+			{
+				if(i == length - 1)
+				{
+					stack.pop();
+					break;
+				}
+				else
+					continue;
+			}
+			//strip out any actual errors in the stack trace, since that is the message
+			//also the 'error' line from our new Error().
+			if(line == "Error" || line.indexOf("Error:") > -1)
+			{
+				lastToStrip = i;
+				continue;
+			}
+			// FF/Safari style:
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
+			if(line.indexOf("@") > -1)
+			{
+				splitIndex = line.indexOf("@");
+				functionSection = line.substring(0, splitIndex);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if(functionSection.indexOf(".") != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+				else
+					functionName = functionSection;
+				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column
+				file = line.substring(splitIndex + 1);
+			}
+			// Chrome/IE/Opera style:
+			//https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
+			else
+			{
+				splitIndex = line.indexOf("(");
+				//skip the "at " at the beginning of the line and the space at the end
+				functionSection = line.substring(3, splitIndex - 1);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if(functionSection.indexOf(".") != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
+				else
+					functionName = functionSection;
+				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column, dropping the trailing ')'
+				file = line.substring(splitIndex + 1, line.length - 2);
+			}
+			//find the line number/column in the combined file string
+			lineSearch = lineLocationFinder.exec(file);
+			//split the file and line number/column from each other
+			file = file.substring(0, lineSearch.index);
+			lineLocation = lineSearch[0].substring(1);
+			//If we got here, we got out of the Debug functions and should stop trying to
+			//strip stuff out, in case someone else's functions are named the same
+			shouldStrip = false;
+			stack[i] = {
+				"function":functionSection || "<anonymous>",
+				file:file,
+				lineLocation:lineLocation
+			};
+		}
+		if(lastToStrip >= 0)
+		{
+			stack = stack.slice(lastToStrip + 1);
 		}
 
 		// If we are still in the process of connecting, queue up the log
@@ -808,7 +959,7 @@
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
 			var send;
-			try 
+			try
 			{
 				send = JSON.stringify(_socketMessage);
 			}
@@ -821,49 +972,74 @@
 		}
 		return Debug;
 	};
-
+	
+	/**
+	 * An array for preventing circular references
+	 * @static
+	 * @private
+	 * @property {Array} circularArray
+	 */
+	var circularArray = [];
+	
 	/**
 	 * Strip out known circular references
 	 * @method removeCircular
 	 * @private
-	 * @param {object} obj The object to remove references from
+	 * @param {Object} obj The object to remove references from
 	 */
 	var removeCircular = function(obj, maxDepth, depth)
 	{
 		if (Array.isArray(obj)) return obj;
-
+		
 		depth = depth || 0;
+		if(depth === 0)
+			circularArray.length = 0;
+		
+		circularArray.push(obj);
 
 		var result = {};
 		for (var key in obj)
 		{
-			// avoid doing properties that are known to be DOM objects, 
+			var value = obj[key];
+			// avoid doing properties that are known to be DOM objects,
 			// because those have circular references
-			if (obj[key] instanceof Window ||
-				obj[key] instanceof Document ||
-				obj[key] instanceof HTMLElement ||
-				key == "document" || 
-				key == "window" || 
-				key == "ownerDocument" || 
+			if (value instanceof Window ||
+				value instanceof Document ||
+				value instanceof HTMLElement ||
+				key == "document" ||
+				key == "window" ||
+				key == "ownerDocument" ||
 				key == "view" ||
-				key == "target" || 
-				key == "currentTarget" || 
-				key == "originalTarget" || 
-				key == "explicitOriginalTarget" || 
+				key == "target" ||
+				key == "currentTarget" ||
+				key == "originalTarget" ||
+				key == "explicitOriginalTarget" ||
 				key == "rangeParent" ||
-				key == "srcElement" || 
-				key == "relatedTarget" || 
-				key == "fromElement" || 
+				key == "srcElement" ||
+				key == "relatedTarget" ||
+				key == "fromElement" ||
 				key == "toElement")
-					continue;
+			{
+				if(value instanceof HTMLElement)
+				{
+					var elementString;
+					elementString = "<" + value.tagName;
+					if(value.id)
+						elementString += " id='" + value.id + "'";
+					if(value.className)
+						elementString += " class='" + value.className + "'";
+					result[key] = elementString + " />";
+				}
+				continue;
+			}
 
-			switch(typeof obj[key])
+			switch(typeof value)
 			{
 				case "object":
 				{
-					result[key] = depth > maxDepth ? 
-						String(obj[key]) : 
-						removeCircular(obj[key], maxDepth, depth + 1);
+					result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
+						String(value) :
+						removeCircular(value, maxDepth, depth + 1);
 					break;
 				}
 				case "function":
@@ -876,14 +1052,14 @@
 				case "boolean":
 				case "bool":
 				{
-					result[key] = obj[key];
+					result[key] = value;
 					break;
 				}
-				default: 
+				default:
 				{
-					result[key] = obj[key];
+					result[key] = value;
 					break;
-				}	
+				}
 			}
 		}
 		return result;
@@ -903,14 +1079,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments);
+			Debug._remoteLog(arguments);
 		}
-		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
+		else if (Debug.minLogLevel == Levels.GENERAL)
 		{
-			if(arguments.length === 1)
-				console.log(params);
-			else
-				console.log.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.log(params);
+				else
+					console.log.apply(console, arguments);
+			}
 			domOutput('general', params);
 		}
 		return Debug;
@@ -930,24 +1109,27 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels[trueKEY]);
+			Debug._remoteLog(arguments, Levels[trueKEY]);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt)
 		{
 			// debug() is officially deprecated
-			if (console.debug)
+			if(_hasConsole)
 			{
-				if(arguments.length === 1)
-					console.debug(params);
+				if (console.debug)
+				{
+					if(arguments.length === 1)
+						console.debug(params);
+					else
+						console.debug.apply(console, arguments);
+				}
 				else
-					console.debug.apply(console, arguments);
-			}
-			else
-			{
-				if(arguments.length === 1)
-					console.log(params);
-				else
-					console.log.apply(console, arguments);
+				{
+					if(arguments.length === 1)
+						console.log(params);
+					else
+						console.log.apply(console, arguments);
+				}
 			}
 			domOutput('debug', params);
 		}
@@ -968,14 +1150,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.INFO);
+			Debug._remoteLog(arguments, Levels.INFO);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt)
 		{
-			if(arguments.length === 1)
-				console.info(params);
-			else
-				console.info.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.info(params);
+				else
+					console.info.apply(console, arguments);
+			}
 			domOutput('info', params);
 		}
 		return Debug;
@@ -995,14 +1180,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.WARN);
+			Debug._remoteLog(arguments, Levels.WARN);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt)
 		{
-			if(arguments.length === 1)
-				console.warn(params);
-			else
-				console.warn.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.warn(params);
+				else
+					console.warn.apply(console, arguments);
+			}
 			domOutput('warn', params);
 		}
 		return Debug;
@@ -1021,14 +1209,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.ERROR);
+			Debug._remoteLog(arguments, Levels.ERROR);
 		}
-		else if (_hasConsole)
+		else
 		{
-			if(arguments.length === 1)
-				console.error(params);
-			else
-				console.error.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.error(params);
+				else
+					console.error.apply(console, arguments);
+			}
 			domOutput('error', params);
 		}
 		return Debug;
@@ -1039,20 +1230,25 @@
 	 * @static
 	 * @public
 	 * @method assert
-	 * @param {bool} truth As statement that is assumed true
+	 * @param {Boolean} truth As statement that is assumed true
 	 * @param {*} params The message to error if the assert is false
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.assert = function(truth, params)
 	{
-		if (_hasConsole && Debug.enabled && console.assert)
+		if (Debug.enabled)
 		{
-			console.assert(truth, params);
-
 			if (!truth)
 			{
 				domOutput('error', params);
+				if (_useSocket)
+				{
+					Debug._remoteLog(params, Levels.ERROR);
+				}
 			}
+			
+			if(_hasConsole && console.assert)
+				console.assert(truth, params);
 		}
 		return Debug;
 	};
@@ -1062,17 +1258,24 @@
 	 * @static
 	 * @method dir
 	 * @public
-	 * @param {object} params The object to describe in the console
+	 * @param {Object} params The object to describe in the console
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.dir = function(params)
 	{
-		if (_hasConsole && Debug.enabled)
+		if(Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.dir(params);
-			else
-				console.dir.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if (_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.dir(params);
+				else
+					console.dir.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -1086,9 +1289,15 @@
 	 */
 	Debug.clear = function()
 	{
-		if (_hasConsole && Debug.enabled)
+		if (Debug.enabled)
 		{
-			console.clear();
+			if (_useSocket)
+			{
+				Debug._remoteLog("", "clear");
+			}
+			
+			if(_hasConsole)
+				console.clear();
 
 			if (Debug.output)
 			{
@@ -1108,12 +1317,19 @@
 	 */
 	Debug.trace = function(params)
 	{
-		if (_hasConsole && Debug.enabled)
+		if (Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.trace(params);
-			else
-				console.trace.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.trace(params);
+				else
+					console.trace.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -1130,9 +1346,14 @@
 	 */
 	Debug.group = function(params)
 	{
-		if (_hasConsole && Debug.enabled && console.group)
+		if (Debug.enabled)
 		{
-			console.group.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "group");
+			}
+			else if(_hasConsole && console.group)
+				console.group.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -1148,9 +1369,14 @@
 	 */
 	Debug.groupCollapsed = function(params)
 	{
-		if (_hasConsole && Debug.enabled && console.groupCollapsed)
+		if (Debug.enabled)
 		{
-			console.groupCollapsed.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "groupCollapsed");
+			}
+			else if(_hasConsole && console.groupCollapsed)
+				console.groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -1166,9 +1392,14 @@
 	 */
 	Debug.groupEnd = function()
 	{
-		if (_hasConsole && Debug.enabled && console.groupEnd)
+		if (Debug.enabled)
 		{
-			console.groupEnd();
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, "groupEnd");
+			}
+			else if(_hasConsole && console.groupEnd)
+				console.groupEnd();
 		}
 		return Debug;
 	};
@@ -1328,7 +1559,10 @@
 	 */
 	for (var key in _palette)
 	{
-		Debug[key] = _colorClosure(_palette[key]);
+		if(_consoleSupportsColors)
+			Debug[key] = _colorClosure(_palette[key]);
+		else
+			Debug[key] = Debug.log;
 	}
 
 	/**
@@ -1342,17 +1576,28 @@
 	 */
 	function _colorClosure(hex)
 	{
+		var colorString = 'color:' + hex;
 		return function(message)
 		{
 			if(arguments.length > 1)
 			{
 				var params = slice.call(arguments);
-				var first = '%c' + params[0];
-				params[0] = 'color:' + hex;
-				params.unshift(first);
+				if(typeof params[0] == "object")
+				{
+					params.unshift(colorString);
+					params.unshift('%c%o');
+				}
+				else
+				{
+					var first = '%c' + params[0];
+					params[0] = colorString;
+					params.unshift(first);
+				}
 				return Debug.log.apply(Debug, params);
 			}
-			return Debug.log('%c' + message, 'color:' + hex);
+			if(typeof arguments[0] == "object")
+				return Debug.log('%c%o', colorString, message);
+			return Debug.log('%c' + message, colorString);
 		};
 	}
 
