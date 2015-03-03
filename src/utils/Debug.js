@@ -21,9 +21,19 @@
 	 * If we have a console
 	 *
 	 * @private
-	 * @property {bool} _hasConsole
+	 * @property {Boolean} _hasConsole
 	 */
 	var _hasConsole = (window.console !== undefined);
+	
+	/**
+	 * If the console supports coloring
+	 *
+	 * @private
+	 * @property {Boolean} _consoleSupportsColors
+	 */
+	//document.documentMode is an IE only property specifying what version of IE the document is
+	//being displayed for
+	var _consoleSupportsColors = document.documentMode === undefined;
 
 	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
@@ -124,7 +134,7 @@
 	 * Boolean to turn on or off the debugging
 	 * @public
 	 * @static
-	 * @property {bool} enabled
+	 * @property {Boolean} enabled
 	 */
 	Debug.enabled = true;
 
@@ -151,7 +161,7 @@
 	 * @static
 	 * @private
 	 * @default false
-	 * @property {bool} _useSocket
+	 * @property {Boolean} _useSocket
 	 */
 	var _useSocket = false;
 
@@ -184,8 +194,8 @@
 	 * @public
 	 * @static
 	 * @method connect
-	 * @param {string} host The remote address to connect to, IP address or host name
-	 * @return {boolean} If a connection was attempted
+	 * @param {String} host The remote address to connect to, IP address or host name
+	 * @return {Boolean} If a connection was attempted
 	 */
 	Debug.connect = function(host)
 	{
@@ -278,7 +288,7 @@
 			logMessage += "\n" + error.stack;
 		}
 
-		Debug.remoteLog(logMessage, Levels.ERROR);
+		Debug._remoteLog(logMessage, Levels.ERROR);
 
 		return false;
 	};
@@ -307,8 +317,8 @@
 	 * @private
 	 * @static
 	 * @method domOutput
-	 * @param {string} level The log level
-	 * @param {string} args Additional arguments
+	 * @param {String} level The log level
+	 * @param {String} args Additional arguments
 	 */
 	var domOutput = function(level, args)
 	{
@@ -320,14 +330,14 @@
 
 	/**
 	 * Send a remote log message using the socket connection
-	 * @public
+	 * @private
 	 * @static
-	 * @method remoteLog
-	 * @param {array} message The message to send
+	 * @method _remoteLog
+	 * @param {Array} message The message to send
 	 * @param {level} [level=0] The log level to send
 	 * @return {Debug} The instance of debug for chaining
 	 */
-	Debug.remoteLog = function(message, level)
+	Debug._remoteLog = function(message, level)
 	{
 		level = level || Levels.GENERAL;
 		message = slice.call(message);
@@ -338,7 +348,7 @@
 		{
 			if (typeof message[i] == "object")
 			{
-				try 
+				try
 				{
 					message[i] = removeCircular(message[i], 2);
 				}
@@ -346,7 +356,7 @@
 				{
 					message[i] = String(message[i]);
 				}
-				console.log(message[i]);
+				/*console.log(message[i]);*/
 			}
 		}
 
@@ -363,7 +373,7 @@
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
 			var send;
-			try 
+			try
 			{
 				send = JSON.stringify(_socketMessage);
 			}
@@ -392,32 +402,44 @@
 		var result = {};
 		for (var key in obj)
 		{
-			// avoid doing properties that are known to be DOM objects, 
+			// avoid doing properties that are known to be DOM objects,
 			// because those have circular references
 			if (obj[key] instanceof Window ||
 				obj[key] instanceof Document ||
 				obj[key] instanceof HTMLElement ||
-				key == "document" || 
-				key == "window" || 
-				key == "ownerDocument" || 
+				key == "document" ||
+				key == "window" ||
+				key == "ownerDocument" ||
 				key == "view" ||
-				key == "target" || 
-				key == "currentTarget" || 
-				key == "originalTarget" || 
-				key == "explicitOriginalTarget" || 
+				key == "target" ||
+				key == "currentTarget" ||
+				key == "originalTarget" ||
+				key == "explicitOriginalTarget" ||
 				key == "rangeParent" ||
-				key == "srcElement" || 
-				key == "relatedTarget" || 
-				key == "fromElement" || 
+				key == "srcElement" ||
+				key == "relatedTarget" ||
+				key == "fromElement" ||
 				key == "toElement")
-					continue;
+			{
+				if(obj[key] instanceof HTMLElement)
+				{
+					var element = obj[key], value;
+					value = "<" + element.tagName;
+					if(element.id)
+						value += " id='" + element.id + "'";
+					if(element.className)
+						value += " class='" + element.className + "'";
+					result[key] = value + " />";
+				}
+				continue;
+			}
 
 			switch(typeof obj[key])
 			{
 				case "object":
 				{
-					result[key] = depth > maxDepth ? 
-						String(obj[key]) : 
+					result[key] = depth > maxDepth ?
+						String(obj[key]) :
 						removeCircular(obj[key], maxDepth, depth + 1);
 					break;
 				}
@@ -434,11 +456,11 @@
 					result[key] = obj[key];
 					break;
 				}
-				default: 
+				default:
 				{
 					result[key] = obj[key];
 					break;
-				}	
+				}
 			}
 		}
 		return result;
@@ -458,7 +480,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments);
+			Debug._remoteLog(arguments);
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
 		{
@@ -485,7 +507,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels[DEBUGKEY]);
+			Debug._remoteLog(arguments, Levels[DEBUGKEY]);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels[DEBUGKEY].asInt && _hasConsole)
 		{
@@ -523,7 +545,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.INFO);
+			Debug._remoteLog(arguments, Levels.INFO);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
 		{
@@ -550,7 +572,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.WARN);
+			Debug._remoteLog(arguments, Levels.WARN);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
 		{
@@ -576,7 +598,7 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.ERROR);
+			Debug._remoteLog(arguments, Levels.ERROR);
 		}
 		else if (_hasConsole)
 		{
@@ -594,7 +616,7 @@
 	 * @static
 	 * @public
 	 * @method assert
-	 * @param {bool} truth As statement that is assumed true
+	 * @param {Boolean} truth As statement that is assumed true
 	 * @param {*} params The message to error if the assert is false
 	 * @return {Debug} The instance of debug for chaining
 	 */
@@ -883,7 +905,10 @@
 	 */
 	for (var key in _palette)
 	{
-		Debug[key] = _colorClosure(_palette[key]);
+		if(_consoleSupportsColors)
+			Debug[key] = _colorClosure(_palette[key]);
+		else
+			Debug[key] = Debug.log;
 	}
 
 	/**
@@ -897,17 +922,28 @@
 	 */
 	function _colorClosure(hex)
 	{
+		var colorString = 'color:' + hex;
 		return function(message)
 		{
 			if(arguments.length > 1)
 			{
 				var params = slice.call(arguments);
-				var first = '%c' + params[0];
-				params[0] = 'color:' + hex;
-				params.unshift(first);
+				if(typeof params[0] == "object")
+				{
+					params.unshift(colorString);
+					params.unshift('%c%o');
+				}
+				else
+				{
+					var first = '%c' + params[0];
+					params[0] = colorString;
+					params.unshift(first);
+				}
 				return Debug.log.apply(Debug, params);
 			}
-			return Debug.log('%c' + message, 'color:' + hex);
+			if(typeof arguments[0] == "object")
+				return Debug.log('%c%o', colorString, message);
+			return Debug.log('%c' + message, colorString);
 		};
 	}
 
