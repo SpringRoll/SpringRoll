@@ -177,7 +177,7 @@
 	 * The current message object being sent to the `WebSocket`
 	 * @static
 	 * @private
-	 * @property {object} _socketMessage
+	 * @property {Object} _socketMessage
 	 */
 	var _socketMessage = null;
 
@@ -340,6 +340,8 @@
 	Debug._remoteLog = function(message, level)
 	{
 		level = level || Levels.GENERAL;
+		if(!Array.isArray(message))
+			message = [message];
 		message = slice.call(message);
 
 		// Go through each argument and replace any circular
@@ -391,7 +393,7 @@
 	 * Strip out known circular references
 	 * @method removeCircular
 	 * @private
-	 * @param {object} obj The object to remove references from
+	 * @param {Object} obj The object to remove references from
 	 */
 	var removeCircular = function(obj, maxDepth, depth)
 	{
@@ -482,12 +484,15 @@
 		{
 			Debug._remoteLog(arguments);
 		}
-		else if (Debug.minLogLevel == Levels.GENERAL && _hasConsole)
+		else if (Debug.minLogLevel == Levels.GENERAL)
 		{
-			if(arguments.length === 1)
-				console.log(params);
-			else
-				console.log.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.log(params);
+				else
+					console.log.apply(console, arguments);
+			}
 			domOutput('general', params);
 		}
 		return Debug;
@@ -509,22 +514,25 @@
 		{
 			Debug._remoteLog(arguments, Levels[DEBUGKEY]);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels[DEBUGKEY].asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels[DEBUGKEY].asInt)
 		{
 			// debug() is officially deprecated
-			if (console.debug)
+			if(_hasConsole)
 			{
-				if(arguments.length === 1)
-					console.debug(params);
+				if (console.debug)
+				{
+					if(arguments.length === 1)
+						console.debug(params);
+					else
+						console.debug.apply(console, arguments);
+				}
 				else
-					console.debug.apply(console, arguments);
-			}
-			else
-			{
-				if(arguments.length === 1)
-					console.log(params);
-				else
-					console.log.apply(console, arguments);
+				{
+					if(arguments.length === 1)
+						console.log(params);
+					else
+						console.log.apply(console, arguments);
+				}
 			}
 			domOutput('debug', params);
 		}
@@ -547,12 +555,15 @@
 		{
 			Debug._remoteLog(arguments, Levels.INFO);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt)
 		{
-			if(arguments.length === 1)
-				console.info(params);
-			else
-				console.info.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.info(params);
+				else
+					console.info.apply(console, arguments);
+			}
 			domOutput('info', params);
 		}
 		return Debug;
@@ -574,12 +585,15 @@
 		{
 			Debug._remoteLog(arguments, Levels.WARN);
 		}
-		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt && _hasConsole)
+		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt)
 		{
-			if(arguments.length === 1)
-				console.warn(params);
-			else
-				console.warn.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.warn(params);
+				else
+					console.warn.apply(console, arguments);
+			}
 			domOutput('warn', params);
 		}
 		return Debug;
@@ -600,12 +614,15 @@
 		{
 			Debug._remoteLog(arguments, Levels.ERROR);
 		}
-		else if (_hasConsole)
+		else
 		{
-			if(arguments.length === 1)
-				console.error(params);
-			else
-				console.error.apply(console, arguments);
+			if(_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.error(params);
+				else
+					console.error.apply(console, arguments);
+			}
 			domOutput('error', params);
 		}
 		return Debug;
@@ -622,14 +639,19 @@
 	 */
 	Debug.assert = function(truth, params)
 	{
-		if (_hasConsole && Debug.enabled && console.assert)
+		if (Debug.enabled)
 		{
-			console.assert(truth, params);
-
 			if (!truth)
 			{
 				domOutput('error', params);
+				if (_useSocket)
+				{
+					Debug._remoteLog(params, Levels.ERROR);
+				}
 			}
+			
+			if(_hasConsole && console.assert)
+				console.assert(truth, params);
 		}
 		return Debug;
 	};
@@ -639,17 +661,20 @@
 	 * @static
 	 * @method dir
 	 * @public
-	 * @param {object} params The object to describe in the console
+	 * @param {Object} params The object to describe in the console
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.dir = function(params)
 	{
-		if (_hasConsole && Debug.enabled)
+		if(Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.dir(params);
-			else
-				console.dir.apply(console, arguments);
+			if (_hasConsole)
+			{
+				if(arguments.length === 1)
+					console.dir(params);
+				else
+					console.dir.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -663,9 +688,10 @@
 	 */
 	Debug.clear = function()
 	{
-		if (_hasConsole && Debug.enabled)
+		if (Debug.enabled)
 		{
-			console.clear();
+			if(_hasConsole)
+				console.clear();
 
 			if (Debug.output)
 			{
