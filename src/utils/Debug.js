@@ -306,7 +306,9 @@
 		//create and send a new session message
 		_socketMessage = {
 			level: 'session',
-			message: ''
+			message: '',
+			stack: null,
+			time: 0
 		};
 		_socket.send(JSON.stringify(_socketMessage));
 
@@ -506,13 +508,17 @@
 		{
 			_socketQueue.push({
 				message: message,
-				level: level.name
+				level: level.name,
+				stack: stack,
+				time: Date.now()
 			});
 		}
 		else // send the log immediately
 		{
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
+			_socketMessage.stack = stack;
+			_socketMessage.time = Date.now();
 			var send;
 			try
 			{
