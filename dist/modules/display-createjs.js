@@ -1053,6 +1053,7 @@
 	// Imports
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
+		Debug = include('springroll.Debug', false),
 		Sound;
 
 	/**
@@ -1239,7 +1240,7 @@
 			return timeline;
 		}
 
-		if (true)
+		if (true && Debug)
 		{
 			var label = eventList[0].anim ||
 				eventList[0].audio ||
@@ -1282,7 +1283,7 @@
 		var timeline = new AnimatorTimeline();
 		if (!Animator.canAnimate(instance)) //not a movieclip
 		{
-			if (true)
+			if (true && Debug)
 			{
 				Debug.warn("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
 			}
@@ -2026,12 +2027,14 @@
 
 }());
 /**
-*  @module CreateJS Display
-*  @namespace springroll.createjs
-*/
-(function(undefined){
+ *  @module CreateJS Display
+ *  @namespace springroll.createjs
+ */
+(function(undefined)
+{
 
-	var Rectangle = include('createjs.Rectangle'),
+	var Debug = include('springroll.Debug', false),
+		Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
 		ColorFilter = include('createjs.ColorFilter'),
@@ -2327,8 +2330,11 @@
 			//ensure that our required states exist
 			if (!_stateData.up)
 			{
-				Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
-				Debug.error(imageSettings);
+				if (true && Debug)
+				{
+					Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+					Debug.error(imageSettings);
+				}
 			}
 			if (!_stateData.over)
 			{
@@ -2400,7 +2406,7 @@
 	{
 		if (!obj || "object" != typeof obj) return null;
 		var copy = obj.constructor();
-		if(!copy)
+		if (!copy)
 			copy = {};
 		for (var attr in obj)
 		{
@@ -2714,7 +2720,7 @@
 		}
 		if (highlightSettings)
 		{
-			Debug.log(highlightSettings.rgba);
+			if (true && Debug) Debug.log(highlightSettings.rgba);
 			width += highlightSettings.size * 2;
 			height += buttonHeight + highlightSettings.size * 2;
 			if (highlightSettings.rgba)
@@ -2845,7 +2851,6 @@
 	namespace('springroll').Button = Button;
 	namespace('springroll.createjs').Button = Button;
 }());
-
 /**
 *  @module CreateJS Display
 *  @namespace springroll.createjs
@@ -3674,7 +3679,8 @@
 */
 (function(){
 
-	var Container = include('createjs.Container'),
+	var Debug = include('springroll.Debug', false),
+		Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
 		LoadTask,
@@ -3954,7 +3960,7 @@
 		}
 		else
 		{
-			Debug.error("Cutscene really needs some audio to play");
+			if (true && Debug) Debug.error("Cutscene really needs some audio to play");
 			return;
 		}
 		if(this._audioAliases.length)

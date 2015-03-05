@@ -65,7 +65,6 @@ test('Application', function(assert){
 test('Loader', function(assert){
 
 	//expect(9);
-
 	var Application = springroll.Application,
 		Loader = springroll.Loader;
 
@@ -75,7 +74,6 @@ test('Loader', function(assert){
 		cacheBust: true,
 		basePath: basePath
 	});
-
 	var loader = Loader.instance;
 	var url = "test.jpg";
 	var cbUrl = loader.cacheManager.prepare(url);

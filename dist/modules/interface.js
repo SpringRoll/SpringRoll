@@ -552,7 +552,8 @@
 	var UIElementSettings = include('springroll.UIElementSettings'),
 		UIElement = include('springroll.UIElement'),
 		Positioner = include('springroll.Positioner'),
-		Application = include('springroll.Application');
+		Application = include('springroll.Application'),
+		Debug = include('springroll.Debug', false);
 
 	/**
 	*  The UI scale is responsible for scaling UI components to help easy the burden of different
@@ -596,7 +597,7 @@
 
 		if (!designedSize || !designedSize.width || !designedSize.height)
 		{
-			if (true)
+			if (true && Debug)
 			{
 				Debug.error(designedSize);
 				throw "Designed size parameter must be a plain object with 'width' & 'height' properties";
@@ -809,7 +810,7 @@
 
 			if (typeof settings !== "object")
 			{
-				if (true)
+				if (true && Debug)
 				{
 					Debug.error(settings);
 				}
@@ -818,7 +819,7 @@
 
 			if (!this._parent[name])
 			{
-				if (true)
+				if (true && Debug)
 				{
 					Debug.info("UIScaler: could not find object '" +  name + "'");
 				}

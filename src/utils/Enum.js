@@ -3,6 +3,7 @@
  * @namespace springroll
  */
 (function() {
+	var Debug = include('springroll.Debug', false);
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -104,7 +105,7 @@
 			if (typeof args[i] == "string") {
 				name = args[i];
 				if (this[name]) {
-					Debug.error("Error creating enum value " + name + ": " + value +
+					if (DEBUG && Debug) Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}
@@ -126,7 +127,7 @@
 				name = args[i].name;
 				value = args[i].value || counter;
 				if (this[name]) {
-					Debug.error("Error creating enum value " + name + ": " + value +
+					if (DEBUG && Debug) Debug.error("Error creating enum value " + name + ": " + value +
 						" - an enum value already exists with that name.");
 					continue;
 				}

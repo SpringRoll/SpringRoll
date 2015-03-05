@@ -1641,7 +1641,8 @@
 (function(undefined) {
 	
 	// Import classes
-	var DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
+	var Debug = include('springroll.Debug', false),
+		DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
 		BitmapText = include('PIXI.BitmapText'),
@@ -1944,8 +1945,11 @@
 		//ensure that our required states exist
 		if (!_stateData.up)
 		{
-			Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
-			Debug.error(imageSettings);
+			if (true && Debug)
+			{
+				Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+				Debug.error(imageSettings);
+			}
 		}
 		if (!_stateData.over)
 			_stateData.over = _stateData.up;
@@ -3014,7 +3018,8 @@
 */
 (function() {
 	
-	var BitmapText = include('PIXI.BitmapText'),
+	var Debug = include('springroll.Debug', false),
+		BitmapText = include('PIXI.BitmapText'),
 		Texture = include('PIXI.Texture'),
 		Loader = include('springroll.Loader'),
 		AssetLoader = include('PIXI.AssetLoader'),
@@ -3324,7 +3329,7 @@
 			//add to a list of tasks or a running TaskManager
 			if(!PixiTask)
 			{
-				Debug.error("AssetManager.load() can't find springroll.PixiTask!");
+				if (true && Debug) Debug.error("AssetManager.load() can't find springroll.PixiTask!");
 				return;
 			}
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
@@ -3332,7 +3337,7 @@
 				asset = assets[assetOrAssets[i]];
 				if(!asset)
 				{
-					if(true)
+					if(true && Debug)
 						Debug.warn("Asset not found: " + assetOrAssets[i]);
 					continue;
 				}
@@ -3398,7 +3403,8 @@
 					taskList.addTask(task);
 				else
 				{
-					Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
+					if (true && Debug)
+						Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
 				}
 			}
 			else if(callback)
@@ -3415,7 +3421,7 @@
 				asset = assets[assetOrAssets[i]];
 				if(!asset)
 				{
-					if(true)
+					if(true && Debug)
 						Debug.warn("Asset not found: " + assetOrAssets[i]);
 					continue;
 				}

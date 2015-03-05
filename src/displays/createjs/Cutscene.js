@@ -4,7 +4,8 @@
 */
 (function(){
 
-	var Container = include('createjs.Container'),
+	var Debug = include('springroll.Debug', false),
+		Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
 		LoadTask,
@@ -284,7 +285,7 @@
 		}
 		else
 		{
-			Debug.error("Cutscene really needs some audio to play");
+			if (DEBUG && Debug) Debug.error("Cutscene really needs some audio to play");
 			return;
 		}
 		if(this._audioAliases.length)

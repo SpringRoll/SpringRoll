@@ -8,6 +8,7 @@
 	// Imports
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
+		Debug = include('springroll.Debug', false),
 		Sound;
 
 	/**
@@ -194,7 +195,7 @@
 			return timeline;
 		}
 
-		if (DEBUG)
+		if (DEBUG && Debug)
 		{
 			var label = eventList[0].anim ||
 				eventList[0].audio ||
@@ -237,7 +238,7 @@
 		var timeline = new AnimatorTimeline();
 		if (!Animator.canAnimate(instance)) //not a movieclip
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.warn("Attempting to use Animator to play something that is not movieclip compatible: " + instance);
 			}

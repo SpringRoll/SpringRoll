@@ -10,7 +10,8 @@
 		Application,
 		Sound,
 		LoadQueue,
-		LoaderResult;
+		LoaderResult,
+		Debug;
 
 	/**
 	*  The Loader is the singleton loader for loading all assets
@@ -29,6 +30,7 @@
 			LoaderResult = include('springroll.LoaderResult');
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
+			Debug = include('springroll.Debug', false);
 		}
 
 		/**
@@ -257,7 +259,7 @@
 		if(!_instance)
 			return;
 		
-		Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
+		if (DEBUG && Debug) Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
 		
 		var loader = loaders[qi.url];
 		loader.removeAllEventListeners();
@@ -308,7 +310,7 @@
 		if(!_instance)
 			return;
 
-		if(DEBUG)
+		if(DEBUG && Debug)
 		{
 			Debug.log("File loaded successfully from " + qi.url);
 		}
@@ -335,7 +337,7 @@
 		
 		var qi = queue.shift();
 		
-		if(DEBUG)
+		if(DEBUG && Debug)
 		{
 			Debug.log("Attempting to load file '" + qi.url + "'");
 		}

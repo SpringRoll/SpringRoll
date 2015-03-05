@@ -5,7 +5,8 @@
 (function(undefined){
 
 	//Library depencencies
-	var Application = include('springroll.Application'),
+	var Debug = include('springroll.Debug', false),
+		Application = include('springroll.Application'),
 		StateManager = include('springroll.StateManager'),
 		VOPlayer,
 		Captions,
@@ -449,7 +450,7 @@
 	*/
 	p.setCaptionsDictionary = function(captionData)
 	{
-		if (DEBUG)
+		if (DEBUG && Debug)
 		{
 			Debug.warn("Game.setCaptionsDictionary is deprecated, use Game.addCaptions instead");
 		}

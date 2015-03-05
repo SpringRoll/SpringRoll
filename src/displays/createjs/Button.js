@@ -1,10 +1,12 @@
 /**
-*  @module CreateJS Display
-*  @namespace springroll.createjs
-*/
-(function(undefined){
+ *  @module CreateJS Display
+ *  @namespace springroll.createjs
+ */
+(function(undefined)
+{
 
-	var Rectangle = include('createjs.Rectangle'),
+	var Debug = include('springroll.Debug', false),
+		Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
 		ColorFilter = include('createjs.ColorFilter'),
@@ -300,8 +302,11 @@
 			//ensure that our required states exist
 			if (!_stateData.up)
 			{
-				Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
-				Debug.error(imageSettings);
+				if (DEBUG && Debug)
+				{
+					Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+					Debug.error(imageSettings);
+				}
 			}
 			if (!_stateData.over)
 			{
@@ -373,7 +378,7 @@
 	{
 		if (!obj || "object" != typeof obj) return null;
 		var copy = obj.constructor();
-		if(!copy)
+		if (!copy)
 			copy = {};
 		for (var attr in obj)
 		{
@@ -687,7 +692,7 @@
 		}
 		if (highlightSettings)
 		{
-			Debug.log(highlightSettings.rgba);
+			if (DEBUG && Debug) Debug.log(highlightSettings.rgba);
 			width += highlightSettings.size * 2;
 			height += buttonHeight + highlightSettings.size * 2;
 			if (highlightSettings.rgba)

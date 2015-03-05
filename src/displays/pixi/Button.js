@@ -5,7 +5,8 @@
 (function(undefined) {
 	
 	// Import classes
-	var DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
+	var Debug = include('springroll.Debug', false),
+		DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
 		BitmapText = include('PIXI.BitmapText'),
@@ -308,8 +309,11 @@
 		//ensure that our required states exist
 		if (!_stateData.up)
 		{
-			Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
-			Debug.error(imageSettings);
+			if (DEBUG && Debug)
+			{
+				Debug.error("Button lacks an up state! This is a serious problem! Input data follows:");
+				Debug.error(imageSettings);
+			}
 		}
 		if (!_stateData.over)
 			_stateData.over = _stateData.up;

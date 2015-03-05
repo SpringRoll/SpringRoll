@@ -6,7 +6,8 @@
 (function(){
 	
 	// Imports
-	var StateManager;
+	var Debug = include('springroll.Debug', false),
+		StateManager;
 	
 	/**
 	*  Defines the base functionality for a state used by the state manager
@@ -221,7 +222,7 @@
 	{
 		if (this._isLoading)
 		{
-			Debug.warn("loadingStart() was called while we're already loading");
+			if (true && Debug) Debug.warn("loadingStart() was called while we're already loading");
 			return;
 		}
 		
@@ -246,7 +247,7 @@
 	{
 		if (!this._isLoading)
 		{
-			Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
+			if (true && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
 			return;
 		}
 		
@@ -431,7 +432,8 @@
 (function(undefined){
 	
 	// Imports
-	var EventDispatcher = include('springroll.EventDispatcher'),
+	var Debug = include('springroll.Debug', false),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		BaseState = include('springroll.BaseState'),
 		StateEvent = include('springroll.StateEvent');
 	
@@ -619,7 +621,7 @@
 	*/
 	p.addState = function(id, state)
 	{
-		if (true)
+		if (true && Debug)
 		{
 			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
 		}
@@ -665,7 +667,7 @@
 	*/
 	p.getStateById = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
+		if (true && Debug) Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
 		return this._states[id];
 	};
 	
@@ -736,7 +738,7 @@
 	*/
 	p.refresh = function()
 	{
-		Debug.assert(!!this._state, "No current state to refresh!");
+		if (true && Debug) Debug.assert(!!this._state, "No current state to refresh!");
 		this.setState(this._stateId);
 	};
 	
@@ -763,7 +765,7 @@
 	*/
 	p.setState = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
+		if (true && Debug) Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
 		
 		// If we try to transition while the transition or state
 		// is transition, then we queue the state and proceed
@@ -1004,7 +1006,7 @@
 
 		if (!this._state.nextState)
 		{
-			if (true)
+			if (true && Debug)
 			{
 				Debug.info("'nextState' is undefined in current state, ignoring");
 			}
@@ -1030,7 +1032,7 @@
 
 		if (!this._state.prevState)
 		{
-			if (true)
+			if (true && Debug)
 			{
 				Debug.info("'prevState' is undefined in current state, ignoring");
 			}
@@ -1088,7 +1090,8 @@
 (function(undefined){
 
 	//Library depencencies
-	var Application = include('springroll.Application'),
+	var Debug = include('springroll.Debug', false),
+		Application = include('springroll.Application'),
 		StateManager = include('springroll.StateManager'),
 		VOPlayer,
 		Captions,
@@ -1532,7 +1535,7 @@
 	*/
 	p.setCaptionsDictionary = function(captionData)
 	{
-		if (true)
+		if (true && Debug)
 		{
 			Debug.warn("Game.setCaptionsDictionary is deprecated, use Game.addCaptions instead");
 		}

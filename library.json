@@ -28,11 +28,13 @@
 		"src/utils/Array.js",
 		"src/utils/Math.js"
 	],
-	"modules": {
+	"modules":
+	{
 		"worker": [
 			"src/polyfills/Worker.js"
 		],
-		"displaynative": {
+		"displaynative":
+		{
 			"output": "display-native",
 			"main": [
 				"src/displays/native/geom/*.js",
@@ -40,7 +42,8 @@
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"displaycreatejs": {
+		"displaycreatejs":
+		{
 			"output": "display-createjs",
 			"main": [
 				"src/displays/createjs/Point.js",
@@ -59,7 +62,8 @@
 				"src/displays/createjs/BitmapMovieClip.js"
 			]
 		},
-		"displaypixi": {
+		"displaypixi":
+		{
 			"output": "display-pixi",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
@@ -107,16 +111,9 @@
 		"translate": [
 			"src/utils/Language.js"
 		],
-		"debug": {
-			"output": "debug",
-			"main": [
-				"src/utils/Debug.js"
-			],
-			"mainDebug": [
-				"src/utils/Debug.js",
-				"src/utils/DebugOptions.js"
-			]
-
-		}
+		"debug": [
+			"src/utils/Debug.js",
+			"src/utils/DebugOptions.js"
+		]
 	}
 }

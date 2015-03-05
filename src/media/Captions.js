@@ -5,7 +5,8 @@
 (function(undefined){
 
 	// Import class
-	var Application = include('springroll.Application');
+	var Application = include('springroll.Application'),
+		Debug = include('springroll.Debug', false);
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -243,7 +244,7 @@
 			lines = dict[alias].lines;
 			if(!lines)
 			{
-				Debug.log("alias '" + alias + "' has no lines!");
+				if (DEBUG && Debug) Debug.log("alias '" + alias + "' has no lines!");
 				continue;
 			}
 			len = lines.length;

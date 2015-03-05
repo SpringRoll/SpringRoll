@@ -5,7 +5,8 @@
 (function(){
 	
 	// Imports
-	var StateManager;
+	var Debug = include('springroll.Debug', false),
+		StateManager;
 	
 	/**
 	*  Defines the base functionality for a state used by the state manager
@@ -220,7 +221,7 @@
 	{
 		if (this._isLoading)
 		{
-			Debug.warn("loadingStart() was called while we're already loading");
+			if (DEBUG && Debug) Debug.warn("loadingStart() was called while we're already loading");
 			return;
 		}
 		
@@ -245,7 +246,7 @@
 	{
 		if (!this._isLoading)
 		{
-			Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
+			if (DEBUG && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
 			return;
 		}
 		

@@ -5,6 +5,7 @@
 (function(){
 
 	var Application = include('springroll.Application'),
+		Debug = include('springroll.Debug', false),
 		Loader,
 		LoadTask,
 		TaskManager,
@@ -169,7 +170,7 @@
 		}
 		else if (SoundJS.activePlugin)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.log("SoundJS Plugin " + SoundJS.activePlugin + " was not ready, waiting until it is");
 			}
@@ -188,7 +189,7 @@
 		}
 		else
 		{
-			Debug.error("Unable to initialize SoundJS with a plugin!");
+			if (DEBUG && Debug) Debug.error("Unable to initialize SoundJS with a plugin!");
 			this.soundEnabled = false;
 			if (options.ready)
 				options.ready();
@@ -296,7 +297,7 @@
 	{
 		if (!config)
 		{
-			Debug.warn("Warning - springroll.Sound was told to load a null config");
+			if (DEBUG && Debug) Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
 		var list = config.soundManifest;
@@ -633,7 +634,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("springroll.Sound: alias '" + alias + "' not found!");
+			if (DEBUG && Debug) Debug.error("springroll.Sound: alias '" + alias + "' not found!");
 
 			if (completeCallback)
 				completeCallback();
@@ -1039,7 +1040,7 @@
 	*/
 	p.setMuteAll = function(muted)
 	{
-		if (DEBUG)
+		if (DEBUG && Debug)
 		{
 			Debug.warn("Sound's setMuteAll() is deprecated, use Sound's muteAll property.");
 		}
@@ -1089,7 +1090,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("Sound does not exist: " + alias + " - can't preload!");
+			if (DEBUG && Debug) Debug.error("Sound does not exist: " + alias + " - can't preload!");
 			return;
 		}
 		if (sound.loadState != LoadStates.unloaded) return;
@@ -1141,7 +1142,7 @@
 			}
 			else
 			{
-				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+				if (DEBUG && Debug) Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
 		if (tasks.length > 0)

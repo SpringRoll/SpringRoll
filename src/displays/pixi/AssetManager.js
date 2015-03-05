@@ -4,7 +4,8 @@
 */
 (function() {
 	
-	var BitmapText = include('PIXI.BitmapText'),
+	var Debug = include('springroll.Debug', false),
+		BitmapText = include('PIXI.BitmapText'),
 		Texture = include('PIXI.Texture'),
 		Loader = include('springroll.Loader'),
 		AssetLoader = include('PIXI.AssetLoader'),
@@ -314,7 +315,7 @@
 			//add to a list of tasks or a running TaskManager
 			if(!PixiTask)
 			{
-				Debug.error("AssetManager.load() can't find springroll.PixiTask!");
+				if (DEBUG && Debug) Debug.error("AssetManager.load() can't find springroll.PixiTask!");
 				return;
 			}
 			for(i = 0, length = assetOrAssets.length; i < length; ++i)
@@ -322,7 +323,7 @@
 				asset = assets[assetOrAssets[i]];
 				if(!asset)
 				{
-					if(DEBUG)
+					if(DEBUG && Debug)
 						Debug.warn("Asset not found: " + assetOrAssets[i]);
 					continue;
 				}
@@ -388,7 +389,8 @@
 					taskList.addTask(task);
 				else
 				{
-					Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
+					if (DEBUG && Debug)
+						Debug.error("AssetManager.load() was provided with a taskList that is neither an array or a springroll.TaskManager");
 				}
 			}
 			else if(callback)
@@ -405,7 +407,7 @@
 				asset = assets[assetOrAssets[i]];
 				if(!asset)
 				{
-					if(DEBUG)
+					if(DEBUG && Debug)
 						Debug.warn("Asset not found: " + assetOrAssets[i]);
 					continue;
 				}

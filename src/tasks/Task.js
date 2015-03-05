@@ -3,7 +3,7 @@
 *  @namespace springroll
 */
 (function(){
-	
+	var Debug = include('springroll.Debug', false);
 	/**
 	*  A task is used by the Task Manager to do an 
 	*  asyncronous task (like loading or playback)
@@ -63,7 +63,7 @@
 	*/
 	p.start = function()
 	{
-		Debug.assert(false, "Base implementation of Task cannot be called");
+		if (DEBUG && Debug) Debug.assert(false, "Base implementation of Task cannot be called");
 	};
 	
 	/**

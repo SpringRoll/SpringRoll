@@ -5,7 +5,8 @@
 (function(undefined){
 	
 	// Imports
-	var EventDispatcher = include('springroll.EventDispatcher'),
+	var Debug = include('springroll.Debug', false),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		BaseState = include('springroll.BaseState'),
 		StateEvent = include('springroll.StateEvent');
 	
@@ -193,7 +194,7 @@
 	*/
 	p.addState = function(id, state)
 	{
-		if (DEBUG)
+		if (DEBUG && Debug)
 		{
 			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
 		}
@@ -239,7 +240,7 @@
 	*/
 	p.getStateById = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
+		if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
 		return this._states[id];
 	};
 	
@@ -310,7 +311,7 @@
 	*/
 	p.refresh = function()
 	{
-		Debug.assert(!!this._state, "No current state to refresh!");
+		if (DEBUG && Debug) Debug.assert(!!this._state, "No current state to refresh!");
 		this.setState(this._stateId);
 	};
 	
@@ -337,7 +338,7 @@
 	*/
 	p.setState = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
+		if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
 		
 		// If we try to transition while the transition or state
 		// is transition, then we queue the state and proceed
@@ -578,7 +579,7 @@
 
 		if (!this._state.nextState)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.info("'nextState' is undefined in current state, ignoring");
 			}
@@ -604,7 +605,7 @@
 
 		if (!this._state.prevState)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.info("'prevState' is undefined in current state, ignoring");
 			}
