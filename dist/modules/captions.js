@@ -7,7 +7,7 @@
 
 	// Import class
 	var Application = include('springroll.Application'),
-		Debug = include('springroll.Debug', false);
+		Debug;
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -39,6 +39,7 @@
 	*/
 	var Captions = function(captionDictionary, field, selfUpdate)
 	{
+		Debug = include('springroll.Debug', false);
 		// Add to the instances
 		_instances.push(this);
 

@@ -1053,7 +1053,7 @@
 	// Imports
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
-		Debug = include('springroll.Debug', false),
+		Debug,
 		Sound;
 
 	/**
@@ -1129,6 +1129,7 @@
 		_paused = false;
 
 		Sound = include('springroll.Sound', false);
+		Debug = include('springroll.Debug', false);
 	};
 
 	/**
@@ -2033,7 +2034,7 @@
 (function(undefined)
 {
 
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
@@ -2111,6 +2112,7 @@
 	 */
 	var Button = function(imageSettings, label, enabled)
 	{
+		Debug = include('springroll.Debug', false);
 		if (!imageSettings && true)
 		{
 			throw "springroll.createjs.Button requires an image as the first parameter";
@@ -3679,7 +3681,7 @@
 */
 (function(){
 
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
@@ -3712,6 +3714,7 @@
 	{
 		if(!Application)
 		{
+			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
 			LoadTask = include('springroll.LoadTask');
 			TaskManager = include('springroll.TaskManager');

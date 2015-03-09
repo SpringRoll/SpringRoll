@@ -7,7 +7,7 @@
 	// Imports
 	var TaskEvent,
 		EventDispatcher = include('springroll.EventDispatcher'),
-		Debug = include('springroll.Debug', false);
+		Debug;
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -22,6 +22,7 @@
 		if(!TaskEvent)
 		{
 			TaskEvent = include('springroll.TaskEvent');
+			Debug = include('springroll.Debug', false);
 		}
 
 		EventDispatcher.call(this);

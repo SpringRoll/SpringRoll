@@ -5,7 +5,7 @@
 (function(undefined) {
 	
 	// Import classes
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
@@ -63,6 +63,7 @@
 	*/
 	var Button = function(imageSettings, label, enabled)
 	{
+		Debug = include('springroll.Debug', false);
 		if (!imageSettings && DEBUG)
 		{
 			throw "springroll.pixi.Button requires image as first parameter";

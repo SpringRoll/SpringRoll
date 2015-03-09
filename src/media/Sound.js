@@ -5,7 +5,7 @@
 (function(){
 
 	var Application = include('springroll.Application'),
-		Debug = include('springroll.Debug', false),
+		Debug,
 		Loader,
 		LoadTask,
 		TaskManager,
@@ -28,6 +28,7 @@
 		// Import classes
 		if (!Loader)
 		{
+			Debug = include('springroll.Debug', false);
 			Loader = include('springroll.Loader');
 			LoadTask = include('springroll.LoadTask', false);
 			TaskManager = include('springroll.TaskManager', false);

@@ -8,7 +8,7 @@
 	// Imports
 	var Application = include('springroll.Application'),
 		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
-		Debug = include('springroll.Debug', false),
+		Debug,
 		Sound;
 
 	/**
@@ -84,6 +84,7 @@
 		_paused = false;
 
 		Sound = include('springroll.Sound', false);
+		Debug = include('springroll.Debug', false);
 	};
 
 	/**

@@ -4,7 +4,7 @@
 */
 (function() {
 	
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		BitmapText = include('PIXI.BitmapText'),
 		Texture = include('PIXI.Texture'),
 		Loader = include('springroll.Loader'),
@@ -175,6 +175,7 @@
 	*/
 	AssetManager.init = function(config, width, height)
 	{
+		Debug = include('springroll.Debug', false);
 		PixiTask = include("springroll.PixiTask", false);
 		TaskManager = include("springroll.TaskManager", false);
 		ListTask = include("springroll.ListTask", false);

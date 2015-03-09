@@ -1641,7 +1641,7 @@
 (function(undefined) {
 	
 	// Import classes
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),
 		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
@@ -1699,6 +1699,7 @@
 	*/
 	var Button = function(imageSettings, label, enabled)
 	{
+		Debug = include('springroll.Debug', false);
 		if (!imageSettings && true)
 		{
 			throw "springroll.pixi.Button requires image as first parameter";
@@ -3018,7 +3019,7 @@
 */
 (function() {
 	
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		BitmapText = include('PIXI.BitmapText'),
 		Texture = include('PIXI.Texture'),
 		Loader = include('springroll.Loader'),
@@ -3189,6 +3190,7 @@
 	*/
 	AssetManager.init = function(config, width, height)
 	{
+		Debug = include('springroll.Debug', false);
 		PixiTask = include("springroll.PixiTask", false);
 		TaskManager = include("springroll.TaskManager", false);
 		ListTask = include("springroll.ListTask", false);

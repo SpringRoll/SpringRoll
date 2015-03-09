@@ -6,7 +6,7 @@
 (function(){
 	
 	// Imports
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		StateManager;
 	
 	/**
@@ -21,6 +21,7 @@
 	*/
 	var BaseState = function(panel, nextState, prevState)
 	{
+		Debug = include('springroll.Debug', false);
 		if(!StateManager)
 		{
 			StateManager = include('springroll.StateManager');
@@ -1090,7 +1091,7 @@
 (function(undefined){
 
 	//Library depencencies
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		Application = include('springroll.Application'),
 		StateManager = include('springroll.StateManager'),
 		VOPlayer,
@@ -1179,6 +1180,7 @@
 	*/
 	var Game = function(options)
 	{
+		Debug = include('springroll.Debug', false);
 		Sound = include('springroll.Sound');
 		VOPlayer = include('springroll.VOPlayer');
 

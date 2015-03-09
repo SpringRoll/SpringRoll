@@ -5,7 +5,7 @@
 (function(){
 	
 	// Imports
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		StateManager;
 	
 	/**
@@ -20,6 +20,7 @@
 	*/
 	var BaseState = function(panel, nextState, prevState)
 	{
+		Debug = include('springroll.Debug', false);
 		if(!StateManager)
 		{
 			StateManager = include('springroll.StateManager');

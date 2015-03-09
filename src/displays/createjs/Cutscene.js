@@ -4,7 +4,7 @@
 */
 (function(){
 
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
@@ -37,6 +37,7 @@
 	{
 		if(!Application)
 		{
+			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
 			LoadTask = include('springroll.LoadTask');
 			TaskManager = include('springroll.TaskManager');

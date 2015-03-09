@@ -66,7 +66,6 @@
 *  @namespace springroll
 */
 (function(){
-	var Debug = include('springroll.Debug', false);
 	/**
 	*  A task is used by the Task Manager to do an 
 	*  asyncronous task (like loading or playback)
@@ -126,7 +125,7 @@
 	*/
 	p.start = function()
 	{
-		if (true && Debug) Debug.assert(false, "Base implementation of Task cannot be called");
+		if (true && springroll.Debug) springroll.Debug.assert(false, "Base implementation of Task cannot be called");
 	};
 	
 	/**
@@ -405,7 +404,7 @@
 	// Imports
 	var TaskEvent,
 		EventDispatcher = include('springroll.EventDispatcher'),
-		Debug = include('springroll.Debug', false);
+		Debug;
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -420,6 +419,7 @@
 		if(!TaskEvent)
 		{
 			TaskEvent = include('springroll.TaskEvent');
+			Debug = include('springroll.Debug', false);
 		}
 
 		EventDispatcher.call(this);

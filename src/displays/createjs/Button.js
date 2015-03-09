@@ -5,7 +5,7 @@
 (function(undefined)
 {
 
-	var Debug = include('springroll.Debug', false),
+	var Debug,
 		Rectangle = include('createjs.Rectangle'),
 		Container = include('createjs.Container'),
 		ColorMatrix = include('createjs.ColorMatrix'),
@@ -83,6 +83,7 @@
 	 */
 	var Button = function(imageSettings, label, enabled)
 	{
+		Debug = include('springroll.Debug', false);
 		if (!imageSettings && DEBUG)
 		{
 			throw "springroll.createjs.Button requires an image as the first parameter";
