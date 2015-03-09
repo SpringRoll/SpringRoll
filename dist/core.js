@@ -2167,25 +2167,29 @@
 	*                                                            fit.
 	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original
 	*                                                aspect ratio
-	*  @param {Number} [options.maxAspectRatio] If doing uniform resizing, optional parameter to add
-	*                                           a maximum aspect ratio. This allows for "title-safe"
-	*                                           responsiveness. Must be greater than the original
-	*                                           aspect ratio of the canvas.
-	*  @param {Number} [options.minAspectRatio] If doing uniform resizing, optional parameter to add
-	*                                           a minimum aspect ratio. This allows for "title-safe"
-	*                                           responsiveness. Must be less than the original
-	*                                           aspect ratio of the canvas.
+	*  @param {Number} [options.maxHeight] If doing uniform resizing, optional parameter to add
+	*                                      a maximum height relative to the original width. This
+	*                                      allows for "title-safe" responsiveness. Must be greater
+	*                                      than the original height of the canvas.
+	*  @param {Number} [options.maxWidth] If doing uniform resizing, optional parameter to add
+	*                                     a maximum width relative to the original height. This
+	*                                     allows for "title-safe" responsiveness. Must be greater
+	*                                     than the original width of the canvas.
 	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as
 	*                                                         options
-	*  @param {Boolean} [options.debug=false] Enable the Debug class
+	*  @param {Boolean} [options.debug=false] Enable the Debug class. After initialization, this
+	*                                         is a pass-through to Debug.enabled.
 	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from
-	*                                       0 (general) to 4 (error). the `Debug` class must be used
-	*                                       for this feature.
+	*                                       0 (general) to 4 (error). The `Debug` class must be used
+	*                                       for this feature. After initialization, this is a
+	*                                       pass-through to Debug.minLogLevel.
 	*  @param {String} [options.debugRemote] The host computer for remote debugging, the debug
 	*                                        module must be included to use this feature. Can be an
-	*                                        IP address or host name.
+	*                                        IP address or host name. After initialization, setting
+	*                                        this will still connect or disconect Debug for remote
+	*                                        debugging. This is a write-only property.
 	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
-	*                                               the Tween itself
+	*                                               the Tween itself.
 	*  @param {Boolean} [options.autoPause=true] The application pauses automatically when
 	*                                            the window loses focus.
 	*  @param {String} [options.canvasId] The default display DOM ID name
@@ -2358,13 +2362,34 @@
 	*  @default null
 	*/
 	_resizeElement = null,
-
+	
 	/**
-	*  The aspect ratio of the primary display, as width / height.
-	*  @property {Number} _aspectRatio
+	*  The maximum width of the primary display, compared to the original height.
+	*  @property {Number} _maxWidth
 	*  @private
 	*/
-	_aspectRatio = 0,
+	_maxWidth = 0,
+	
+	/**
+	*  The maximum height of the primary display, compared to the original width.
+	*  @property {Number} _maxHeight
+	*  @private
+	*/
+	_maxHeight = 0,
+	
+	/**
+	*  The original width of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalWidth
+	*  @private
+	*/
+	_originalWidth = 0,
+	
+	/**
+	*  The original height of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalHeight
+	*  @private
+	*/
+	_originalHeight = 0,
 
 	/**
 	*  A PageVisibility object to automatically pause Application when the page is hidden.
@@ -2411,7 +2436,7 @@
 	*  @property {Object} _resizeHelper
 	*  @private
 	*/
-	_resizeHelper = { width: 0, height: 0},
+	_resizeHelper = {width: 0, height: 0},
 
 	/**
 	*  Fired when initialization of the application is done
@@ -2511,11 +2536,12 @@
 	*/
 	p._internalInit = function()
 	{
+		var options = this.options;
 		//grab the query string parameters if we should be doing so
-		var query = !!this.options.parseQueryString ? parseQueryStringParams() : {};
+		var query = !!options.parseQueryString ? parseQueryStringParams() : {};
 
 		// Assemble all of the options, the last takes precedence
-		this.options = Object.merge({}, _defaultOptions, this.options, query);
+		options = this.options = Object.merge({}, _defaultOptions, options, query);
 
 		// Call any global libraries to initialize
 		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
@@ -2523,9 +2549,9 @@
 			Application._globalInit[i]();
 		}
 
-		_useRAF = this.options.raf;
-		this.fps = this.options.fps;
-		var framerate = this.options.framerate;
+		_useRAF = options.raf;
+		this.fps = options.fps;
+		var framerate = options.framerate;
 		if(framerate)
 		{
 			if(typeof framerate == "string")
@@ -2533,7 +2559,7 @@
 			else
 				_framerate = framerate;
 		}
-		var resizeElement = this.options.resizeElement;
+		var resizeElement = options.resizeElement;
 		if(resizeElement)
 		{
 			if(typeof resizeElement == "string")
@@ -2545,26 +2571,26 @@
 		}
 
 		// Turn on debugging
-		if (this.options.debug !== undefined)
-			Debug.enabled = this.options.debug === true || this.options.debug === "true";
+		if (options.debug !== undefined)
+			Debug.enabled = options.debug === true || options.debug === "true";
 
-		if (this.options.minLogLevel !== undefined)
+		if (options.minLogLevel !== undefined)
 		{
-			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(this.options.minLogLevel, 10));
+			Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(options.minLogLevel, 10));
 			if(!Debug.minLogLevel)
 				Debug.minLogLevel = Debug.Levels.GENERAL;
 		}
 
 		//if we were supplied with an IP address, connect to it with the Debug class for logging
-		if(typeof this.options.debugRemote == "string")
-			Debug.connect(this.options.debugRemote);
+		if(typeof options.debugRemote == "string")
+			Debug.connect(options.debugRemote);
 
 		// If tween and/or ticker are included
 		var Tween = include('createjs.Tween', false),
 			Ticker = include('createjs.Ticker', false);
 
 		// Add an option to have the application control the Tween tick
-		if (Tween && this.options.updateTween)
+		if (Tween && options.updateTween)
 		{
 			if (Ticker)
 			{
@@ -2575,11 +2601,74 @@
 
 		//set up the page visibility listener
 		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
-		this.autoPause = this.options.autoPause;
-
-		if(this.options.canvasId && this.options.display)
-			this.addDisplay(this.options.canvasId, this.options.display,
-							this.options.displayOptions);
+		this.autoPause = options.autoPause;
+		
+		//set up setters/getters in options for certain properties
+		if(options.maxWidth)
+			_maxWidth = options.maxWidth;
+		Object.defineProperty(options, "maxWidth", {
+			get: function() { return _maxWidth; },
+			set: function(value) { _maxWidth = value; }
+		});
+		if(options.maxHeight)
+			_maxHeight = options.maxHeight;
+		Object.defineProperty(options, "maxHeight", {
+			get: function() { return _maxHeight; },
+			set: function(value) { _maxHeight = value; }
+		});
+		Object.defineProperty(options, "debug", {
+			get: function() { return Debug ? Debug.enabled : false; },
+			set: function(value) { if(Debug) Debug.enabled = value; }
+		});
+		Object.defineProperty(options, "debugRemote", {
+			set: function(value)
+			{
+				if(Debug)
+				{
+					Debug.disconnect();
+					if(value)
+						Debug.connect(value);
+				}
+			}
+		});
+		Object.defineProperty(options, "debug", {
+			get: function() { return Debug ? Debug.minLogLevel.asInt : 0; },
+			set: function(value)
+			{
+				if(Debug)
+				{
+					Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(value, 10));
+					if(!Debug.minLogLevel)
+						Debug.minLogLevel = Debug.Levels.GENERAL;
+				}
+			}
+		});
+		var _this = this;
+		Object.defineProperty(options, "updateTween", {
+			get: function()
+			{
+				return Tween ? _this.has('update', Tween.tick) : false;
+			},
+			set: function(value)
+			{
+				if(Tween)
+				{
+					if (Ticker)
+					{
+						Ticker.setPaused(!!value);
+					}
+					if(value)
+						_this.on('update', Tween.tick);
+					else
+						_this.off('update', Tween.tick);
+				}
+			}
+		});
+		
+		//add the initial display if specified
+		if(options.canvasId && options.display)
+			this.addDisplay(options.canvasId, options.display,
+							options.displayOptions);
 
 
 		// Bind the do init
@@ -2587,12 +2676,12 @@
 
 		// Check to see if we should load a versions file
 		// The versions file keeps track of file versions to avoid cache issues
-		if (this.options.versionsFile !== undefined)
+		if (options.versionsFile !== undefined)
 		{
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
 			Loader.instance.cacheManager.addVersionsFile(
-				this.options.versionsFile,
+				options.versionsFile,
 				this._doInit
 			);
 		}
@@ -2834,10 +2923,10 @@
 	*/
 	p.calculateDisplaySize = function(size)
 	{
-		if (!_aspectRatio || !this.options.uniformResize) return;
+		if (!_originalHeight || !this.options.uniformResize) return;
 
-		var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio,
-			minAspectRatio = this.options.minAspectRatio || _aspectRatio,
+		var maxAspectRatio = _maxWidth / _originalHeight,
+			minAspectRatio = _originalWidth / _maxHeight,
 			currentAspect = size.width / size.height;
 
 		if (currentAspect < minAspectRatio)
@@ -2877,20 +2966,12 @@
 		if (!this.display)
 		{
 			this.display = display;
-			_aspectRatio = display.width / display.height;
-			var maxAspectRatio = this.options.maxAspectRatio || _aspectRatio;
-
-			if (maxAspectRatio < _aspectRatio)
-			{
-				if (true)
-				{
-					throw "Invalid 'maxAspectRatio': Must be greater than the original aspect ratio of the display";
-				}
-				else
-				{
-					throw "Invalid 'maxAspectRatio'";
-				}
-			}
+			_originalWidth = display.width;
+			_originalHeight = display.height;
+			if(!_maxWidth)
+				_maxWidth = _originalWidth;
+			if(!_maxHeight)
+				_maxHeight = _originalHeight;
 		}
 		// Inherit the enabled state from the application
 		display.enabled = _enabled;

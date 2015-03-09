@@ -74,15 +74,13 @@
 		var options = Application.instance.options;
 		if (designedSize.maxWidth)
 		{
-			// Calculate the max aspect ratio based on the maxWidth and override
-			// the application default option
-			options.maxAspectRatio = designedSize.maxWidth / designedSize.height;
+			// Set the max width so that Application can limit the aspect ratio properly
+			options.maxWidth = designedSize.maxWidth;
 		}
 		if(designedSize.maxHeight)
 		{
-			// Calculate the minimum aspect ratio based on the maxHeight and override
-			// the application default option
-			options.minAspectRatio = designedSize.width / designedSize.maxHeight;
+			// Set the max height so that Application can limit the aspect ratio properly
+			options.maxHeight = designedSize.maxHeight;
 		}
 
 		/**
