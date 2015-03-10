@@ -232,6 +232,14 @@
 		 * @private
 		 */
 		_msPerFrame = 0,
+
+		/**
+		*  Dom element (or the window) to attach resize listeners and read the size from
+		*  @property {DOMElement|Window|null} _resizeElement
+		*  @private
+		*  @default null
+		*/
+		_resizeElement = null,
 	
 		/**
 		*  The maximum width of the primary display, compared to the original height.
@@ -1028,9 +1036,9 @@
 		_pageVisibility = null;
 
 		_instance =
-			_tickCallback =
-			_framerate =
-			_resizeElement = null;
+		_tickCallback =
+		_framerate =
+		_resizeElement = null;
 
 		if (DEBUG && Debug) Debug.disconnect();
 
