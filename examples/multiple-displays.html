@@ -21,7 +21,7 @@
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		
 		<!-- Library and modules -->
-		<script src="../dist/core.js"></script>	
+		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/display-pixi.js"></script>
 		<script src="../dist/modules/display-createjs.js"></script>
 
@@ -79,12 +79,12 @@ p.init = function()
 {
 	Debug.log("DrawingApp is ready to use.");
 
-	this.addDisplay("pixiStage", springroll.PixiDisplay, 
+	this.addDisplay("pixiStage", springroll.PixiDisplay,
 		{
 			clearView: true,
 			transparent: true
 		});
-	var cjsDisplay = this.addDisplay("createjsStage", springroll.CreateJSDisplay, 
+	var cjsDisplay = this.addDisplay("createjsStage", springroll.CreateJSDisplay,
 		{
 			clearView: true
 		});
@@ -95,8 +95,8 @@ p.init = function()
 	createjsStage = this.getDisplay("createjsStage").stage;
 	
 	//fromImage automatically loads stuff it it wasn't preloaded
-	texture = new Texture.fromImage("assets/images/springroll.png");
-	sprite = new Sprite(texture);		
+	texture = new Texture.fromImage("assets/images/cloudkid.png");
+	sprite = new Sprite(texture);
 			
 	sprite.position.x = 0;
 	sprite.position.y = 100;
@@ -115,12 +115,12 @@ p.init = function()
 	this._assetLoader.load();
 
 	Loader.instance.load(
-		'assets/images/button.png', 
+		'assets/images/button.png',
 		this._onCJSButtonLoaded.bind(this)
 	);
 	
 	//for pixi we are using one global graphics object
-	currentPixiShape = new PIXI.Graphics();		
+	currentPixiShape = new PIXI.Graphics();
 	pixiStage.addChild(currentPixiShape);
 
 	//start the createjs line
@@ -136,7 +136,7 @@ p.init = function()
 };
 
 /**
-*   When the button sprite sheet has finished loading 
+*   When the button sprite sheet has finished loading
 */
 p._onCompletedLoad = function()
 {
@@ -147,7 +147,7 @@ p._onCompletedLoad = function()
 			over : Texture.fromFrame("button_over.png"),
 			down : Texture.fromFrame("button_down.png"),
 			disabled : Texture.fromFrame("button_disabled.png")
-		}, 
+		},
 		// The text field
 		{
 			text : 'Clear',
@@ -171,7 +171,7 @@ p._onCompletedLoad = function()
 			over : Texture.fromFrame("button_over.png"),
 			down : Texture.fromFrame("button_down.png"),
 			disabled : Texture.fromFrame("button_disabled.png")
-		}, 
+		},
 		// The text field
 		{
 			text : 'CreateJS',
@@ -190,10 +190,10 @@ p._onCompletedLoad = function()
 };
 
 /**
-*  Callback for the button  
+*  Callback for the button
 */
 p._onCJSButtonLoaded = function(result)
-{		
+{
 	createjsClearButton = new springroll.createjs.Button(result.content, {
 		text: "Clear",
 		font: "20px Arial",
@@ -204,7 +204,7 @@ p._onCJSButtonLoaded = function(result)
 	createjsClearButton.y = this.display.height - createjsClearButton.height - 5;
 	
 	createjsClearButton.addEventListener(
-		springroll.createjs.Button.BUTTON_PRESS, 
+		springroll.createjs.Button.BUTTON_PRESS,
 		this._clear.bind(this)
 	);
 	
@@ -220,7 +220,7 @@ p._onCJSButtonLoaded = function(result)
 	createjsSwapButton.y = this.display.height - createjsSwapButton.height - 5;
 	
 	createjsSwapButton.addEventListener(
-		springroll.createjs.Button.BUTTON_PRESS, 
+		springroll.createjs.Button.BUTTON_PRESS,
 		this.swapDisplay.bind(this)
 	);
 	
@@ -228,7 +228,7 @@ p._onCJSButtonLoaded = function(result)
 };
 
 /**
-*  Clear the stage  
+*  Clear the stage
 */
 p._clear = function()
 {
@@ -245,7 +245,7 @@ p._clear = function()
 
 p.swapDisplay = function()
 {
-	var pixiDisplay = this.getDisplay("pixiStage"), 
+	var pixiDisplay = this.getDisplay("pixiStage"),
 		cjsDisplay = this.getDisplay("createjsStage");
 
 	if(pixiDisplay.visible)
