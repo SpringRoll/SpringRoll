@@ -1149,7 +1149,7 @@
 	* @extends springroll.PropertyDispatcher
 	* @constructor {Object} [overrides] The supplied options
 	*/
-	var AppOptions = function(app, options)
+	var ApplicationOptions = function(app, options)
 	{
 		PropertyDispatcher.call(this);
 
@@ -1255,7 +1255,7 @@
 	};
 
 	// Extend the base class
-	var p = extend(AppOptions, PropertyDispatcher);
+	var p = extend(ApplicationOptions, PropertyDispatcher);
 
 	/**
 	 * Get the query string as an object
@@ -1315,60 +1315,72 @@
 		/**
 		 * Use Request Animation Frame API 
 		 * @property {Boolean} raf
+		 * @default true
 		 */
 		raf: true,
 
 		/**
-		 * The target frame rate
+		 * The framerate to use for rendering the stage
 		 * @property {int} fps
+		 * @default 60
 		 */
 		fps: 60,
 
 		/**
-		 * Resize the canvas to an element
+		 * The element to resize the canvas to fit
 		 * @property {DOMElement|String} resizeElement
 		 */
 		resizeElement: null,
 
 		/**
-		 * If the canvas should resize proportionally
+		 * Whether to resize the displays to the original aspect ratio
 		 * @property {Boolean} uniformResize
+		 * @default true
 		 */
 		uniformResize: true,
 
 		/**
-		 * Use the query string parameters for options overides
+		 * Use the query string parameters for options overrides
 		 * @property {Boolean} useQueryString
+		 * @default false
 		 */
 		useQueryString: false,
 
 		/**
-		 * If Debug should be turned on
+		 * Enable the Debug class. After initialization, this
+		 * is a pass-through to Debug.enabled.
 		 * @property {Boolean} debug
+		 * @default false
 		 */
 		debug: false,
 
 		/**
 		 * Minimum log level from 0 to 4
 		 * @property {int} minLogLevel
+		 * @default 0
 		 */
 		minLogLevel: 0,
 
 		/**
-		 * Debug remote connect
+		 * The host computer for remote debugging, the debug
+		 * module must be included to use this feature. Can be an
+		 * IP address or host name. After initialization, setting
+		 * this will still connect or disconect Debug for remote
+		 * debugging. This is a write-only property.
 		 * @property {String} debugRemote
 		 */
 		debugRemote: null,
 
 		/**
-		 * The canvas DOM element ID
+		 * The default display DOM ID name
 		 * @property {String} canvasId
 		 */
 		canvasId: null,
 
 		/**
-		 * Which display to use, the class, not instance
-		 * @property {springroll.AbstractDisplay} display
+		 * The name of the class to automatically instantiate as the
+		 * display (e.g. `springroll.PixiDisplay`)
+		 * @property {Function} display
 		 */
 		display: null,
 
@@ -1379,44 +1391,61 @@
 		displayOptions: null,
 
 		/**
-		 * Update the Tween using internal app tick
+		 * If using TweenJS, the Application will update the Tween itself.
 		 * @property {Boolean} updateTween
+		 * @default false
 		 */
 		updateTween: false,
 
 		/**
-		 * Auto pause the application
+		 * The application pauses automatically when the window loses focus.
 		 * @property {Boolean} autoPause
+		 * @default true
 		 */
 		autoPause: true, 
 
 		/**
-		 * The version number to attend to all file requests
+		 * The current version number for your application. This
+		 * number will automatically be appended to all file
+		 * requests. For instance, if the version is "0.0.1" all
+		 * file requests will be appended with "?v=0.0.1"
 		 * @property {String} version
 		 */
 		version: null,
 
 		/**
-		 * The version manifest file path
+		 * Path to a text file which contains explicit version
+		 * numbers for each asset. This is useful for controlling
+		 * the live browser cache. For instance, this text file
+		 * would have an asset on each line followed by a number:
+		 * `assets/config/config.json 2` would load
+		 * `assets/config/config.json?v=2`
 		 * @property {String} versionsFile
 		 */
 		versionsFile: null,
 
 		/**
-		 * If all file requests should be cache busted
+		 * Override the end-user browser cache by adding
+		 * "?v=" to the end of each file path requested. Use
+		 * for developmently, debugging only!
 		 * @property {Boolean} cacheBust
+		 * @default false
 		 */
 		cacheBust: false,
 
 		/**
-		 * Path to append to all file requests
+		 * The optional file path to prefix to any relative file
+		 * requests this is a great way to load all load requests
+		 * with a CDN path.
 		 * @property {String} basePath
 		 */
 		basePath: null,
 
 		/**
-		 * PIXI cross origin requests
+		 * Used by `springroll.PixiTask`, default behavior
+		 * is to load assets from the same domain.
 		 * @property {Boolean} crossOrigin
+		 * @default false
 		 */
 		crossOrigin: false,
 
@@ -1424,11 +1453,29 @@
 		 * Framereate container
 		 * @property {String|DOMElement} framerate
 		 */
-		framerate: null
+		framerate: null,
+
+		/**
+		 * If doing uniform resizing, optional parameter to add
+		 * a maximum height relative to the original width. This
+		 * allows for "title-safe" responsiveness. Must be greater
+		 * than the original height of the canvas.
+		 * @property {int} maxHeight
+		 */
+		maxHeight: 0,
+
+		/**
+		 * If doing uniform resizing, optional parameter to add
+		 * a maximum width relative to the original height. This
+		 * allows for "title-safe" responsiveness. Must be greater
+		 * than the original width of the canvas.
+		 * @property {int} maxWidth
+		 */
+		maxWidth: 0
 	};
 
 	// Assign to namespace
-	namespace('springroll').AppOptions = AppOptions;
+	namespace('springroll').ApplicationOptions = ApplicationOptions;
 
 }());
 /**
@@ -1444,7 +1491,7 @@
 		TimeUtils,
 		PageVisibility,
 		EventDispatcher = include('springroll.EventDispatcher'),
-		AppOptions = include('springroll.AppOptions');
+		ApplicationOptions = include('springroll.ApplicationOptions');
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -1455,60 +1502,9 @@
 	*  @class Application
 	*  @extend EventDispatcher
 	*  @constructor
-	*  @param {Object} [options] The options for creating the application
-	*  @param {int} [options.fps=60] The framerate to use for rendering the stage
-	*  @param {Boolean} [options.raf=true] Use request animation frame
-	*  @param {String|int} [options.version] The current version number for your application. This
-	*                                        number will automatically be appended to all file
-	*                                        requests. For instance, if the version is "0.0.1" all
-	*                                        file requests will be appended with "?v=0.0.1"
-	*  @param {String} [options.versionsFile] Path to a text file which contains explicit version
-	*                                         numbers for each asset. This is useful for controlling
-	*                                         the live browser cache. For instance, this text file
-	*                                         would have an asset on each line followed by a number:
-	*                                         `assets/config/config.json 2` would load
-	*                                         `assets/config/config.json?v=2`
-	*  @param {Boolean} [options.cacheBust=false] Override the end-user browser cache by adding
-	*                                             "?v=" to the end of each file path requested. Use
-	*                                             for developmently, debugging only!
-	*  @param {String} [options.basePath] The optional file path to prefix to any relative file
-	*                                     requests this is a great way to load all load requests
-	*                                     with a CDN path.
-	*  @param {String|DOMElement|Window} [options.resizeElement] The element to resize the canvas to
-	*                                                            fit.
-	*  @param {Boolean} [options.uniformResize=true] Whether to resize the displays to the original
-	*                                                aspect ratio
-	*  @param {Number} [options.maxHeight] If doing uniform resizing, optional parameter to add
-	*                                      a maximum height relative to the original width. This
-	*                                      allows for "title-safe" responsiveness. Must be greater
-	*                                      than the original height of the canvas.
-	*  @param {Number} [options.maxWidth] If doing uniform resizing, optional parameter to add
-	*                                     a maximum width relative to the original height. This
-	*                                     allows for "title-safe" responsiveness. Must be greater
-	*                                     than the original width of the canvas.
-	*  @param {Boolean} [options.queryStringParameters=false] Parse the query string paramenters as
-	*                                                         options
-	*  @param {Boolean} [options.debug=false] Enable the Debug class. After initialization, this
-	*                                         is a pass-through to Debug.enabled.
-	*  @param {int} [options.minLogLevel=0] The minimum log level to show debug messages for from
-	*                                       0 (general) to 4 (error). The `Debug` class must be used
-	*                                       for this feature. After initialization, this is a
-	*                                       pass-through to Debug.minLogLevel.
-	*  @param {String} [options.debugRemote] The host computer for remote debugging, the debug
-	*                                        module must be included to use this feature. Can be an
-	*                                        IP address or host name. After initialization, setting
-	*                                        this will still connect or disconect Debug for remote
-	*                                        debugging. This is a write-only property.
-	*  @param {Boolean} [options.updateTween=false] If using TweenJS, the Application will update
-	*                                               the Tween itself.
-	*  @param {Boolean} [options.autoPause=true] The application pauses automatically when
-	*                                            the window loses focus.
-	*  @param {String} [options.canvasId] The default display DOM ID name
-	*  @param {Function} [options.display] The name of the class to automatically instantiate as the
-	*                                      display (e.g. `springroll.PixiDisplay`)
-	*  @param {Object} [options.displayOptions] Display-specific options
-	*  @param {Boolean} [options.crossOrigin=false] Used by `springroll.PixiTask`, default behavior
-	*                                               is to load assets from the same domain.
+	*  @param {Object} [options] The options for creating the application, 
+	* 		see `springroll.ApplicationOptions` for the specific options
+	*		that can be overridden and set. 
 	*/
 	var Application = function(options)
 	{
@@ -1531,10 +1527,10 @@
 		/**
 		 *  Initialization options/query string parameters, these properties are read-only
 		 *  Application properties like raf, fps, don't have any affect on the options object.
-		 *  @property {springroll.AppOptions} options
+		 *  @property {springroll.ApplicationOptions} options
 		 *  @readOnly
 		 */
-		this.options = new AppOptions(this, options);
+		this.options = new ApplicationOptions(this, options);
 
 		/**
 		 *  Primary renderer for the application, for simply accessing

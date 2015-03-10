@@ -16,7 +16,7 @@
 		"src/events/PropertyDispatcher.js",
 		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
-		"src/AppOptions.js",
+		"src/ApplicationOptions.js",
 		"src/Application.js",
 		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
