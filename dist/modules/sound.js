@@ -1635,7 +1635,7 @@
 		// Import classes
 		if (!Application)
 		{
-			Captions = include('springroll.Captions');
+			Captions = include('springroll.Captions', false);
 			Application = include('springroll.Application');
 		}
 
