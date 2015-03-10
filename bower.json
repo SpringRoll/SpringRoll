@@ -3,14 +3,14 @@
 	"version": "0.0.7",
 	"main": "dist/core.min.js",
 	"dependencies": {
-		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git#~0.6.0"
+		"preloadjs": "https://github.com/SpringRoll/PreloadJS.git#~0.6.1"
 	},
 	"devDependencies": {
 		"jquery": " ~1",
-		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#~1.6.3",
-		"easeljs": "https://github.com/SpringRoll/EaselJS.git#~0.8.0",
+		"pixi.js": "https://github.com/SpringRoll/pixi.js.git#~2.1.8",
+		"easeljs": "https://github.com/SpringRoll/EaselJS.git#~0.8.3",
 		"tweenjs": "https://github.com/SpringRoll/TweenJS.git#~0.6.0",
-		"soundjs": "https://github.com/SpringRoll/SoundJS.git#~0.6.0",
+		"soundjs": "https://github.com/SpringRoll/SoundJS.git#~0.6.1",
 		"qunit": "*",
 		"google-code-prettify": "*",
 		"bind-polyfill": "*"
