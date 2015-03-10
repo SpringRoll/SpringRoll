@@ -10,7 +10,8 @@
 		Loader,
 		TimeUtils,
 		PageVisibility,
-		EventDispatcher = include('springroll.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher'),
+		AppOptions = include('springroll.AppOptions');
 
 	/**
 	*  Creates a new application, for example (HappyCamel extends Application)
@@ -97,11 +98,10 @@
 		/**
 		 *  Initialization options/query string parameters, these properties are read-only
 		 *  Application properties like raf, fps, don't have any affect on the options object.
-		 *  @property {Object} options
+		 *  @property {springroll.AppOptions} options
 		 *  @readOnly
 		 */
-		this.options = options ||
-		{};
+		this.options = new AppOptions(this, options);
 
 		/**
 		 *  Primary renderer for the application, for simply accessing
@@ -291,30 +291,6 @@
 		_displays = null,
 
 		/**
-		 *  Default initialization options.
-		 *  @property {dictionary} _defaultOptions
-		 *  @private
-		 */
-		_defaultOptions = {
-			//application properties
-			raf: true,
-			fps: 60,
-			resizeElement: null,
-			uniformResize: true,
-			queryStringParameters: false,
-			debug: false,
-			minLogLevel: 0,
-			ip: null,
-			//default display properties
-			canvasId: null,
-			display: null,
-			displayOptions: null,
-
-			updateTween: false,
-			autoPause: true
-		},
-
-		/**
 		 *  A helper object to avoid object creation each resize event.
 		 *  @property {Object} _resizeHelper
 		 *  @private
@@ -425,11 +401,6 @@
 	p._internalInit = function()
 	{
 		var options = this.options;
-		//grab the query string parameters if we should be doing so
-		var query = !!options.parseQueryString ? parseQueryStringParams() : {};
-
-		// Assemble all of the options, the last takes precedence
-		options = this.options = Object.merge({}, _defaultOptions, options, query);
 
 		// Call any global libraries to initialize
 		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
@@ -438,137 +409,77 @@
 		}
 
 		_useRAF = options.raf;
-		this.fps = options.fps;
-		var framerate = options.framerate;
-		if(framerate)
+		options.on('raf', function(value)
 		{
-			if (typeof framerate == "string")
-				_framerate = document.getElementById(framerate);
-			else
-				_framerate = framerate;
+			_useRAF = value;
+		});
+
+		options.on('fps', function(value)
+		{
+			if (typeof value != "number") return;
+			_fps = value;
+			_msPerFrame = (1000 / _fps) | 0;
+		})
+		.respond('fps', function()
+		{
+			return _fps;
+		}); 
+
+		if (options.framerate)
+		{
+			_framerate = options.framerate;
 		}
 
-		var resizeElement = options.resizeElement;
-		if (resizeElement)
+		if (options.resizeElement)
 		{
-			if (typeof resizeElement == "string")
-				_resizeElement = document.getElementById(resizeElement);
-			else
-				_resizeElement = resizeElement;
+			_resizeElement = options.resizeElement;
 			this.triggerResize = this.triggerResize.bind(this);
 			window.addEventListener("resize", this.triggerResize);
 		}
 
-		// Turn on debugging
-		if (DEBUG && Debug)
-		{
-
-			if (options.debug !== undefined)
-				Debug.enabled = options.debug === true || options.debug === "true";
-
-			if (options.minLogLevel !== undefined)
-			{
-				Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(options.minLogLevel, 10));
-				if(!Debug.minLogLevel)
-					Debug.minLogLevel = Debug.Levels.GENERAL;
-			}
-
-			//if we were supplied with an IP address, connect to it with the Debug class for logging
-			if(typeof options.debugRemote == "string")
-				Debug.connect(options.debugRemote);
-		}
-
-		// If tween and/or ticker are included
-		var Tween = include('createjs.Tween', false),
-			Ticker = include('createjs.Ticker', false);
-
-		// Add an option to have the application control the Tween tick
-		if (Tween && options.updateTween)
-		{
-			if (Ticker)
-			{
-				Ticker.setPaused(true);
-			}
-			this.on('update', Tween.tick);
-		}
-
 		//set up the page visibility listener
-		_pageVisibility = new PageVisibility(this._onVisible.bind(this), this._onHidden.bind(this));
-		this.autoPause = options.autoPause;
+		_pageVisibility = new PageVisibility(
+			this._onVisible.bind(this), 
+			this._onHidden.bind(this)
+		);
+		options.on('autoPause', function(value)
+		{
+			_pageVisibility.enabled = value;
+		});
+		options.respond('autoPause', function()
+		{
+			return _pageVisibility.enabled;
+		});
 		
 		//set up setters/getters in options for certain properties
-		if(options.maxWidth)
-			_maxWidth = options.maxWidth;
-		Object.defineProperty(options, "maxWidth", {
-			get: function() { return _maxWidth; },
-			set: function(value) { _maxWidth = value; }
+		_maxHeight = options.maxWidth;
+		options.on('maxWidth', function(value)
+		{
+			_maxWidth = value;
 		});
-		if(options.maxHeight)
-			_maxHeight = options.maxHeight;
-		Object.defineProperty(options, "maxHeight", {
-			get: function() { return _maxHeight; },
-			set: function(value) { _maxHeight = value; }
-		});
-		Object.defineProperty(options, "debug", {
-			get: function() { return Debug ? Debug.enabled : false; },
-			set: function(value) { if(Debug) Debug.enabled = value; }
-		});
-		Object.defineProperty(options, "debugRemote", {
-			set: function(value)
-			{
-				if(Debug)
-				{
-					Debug.disconnect();
-					if(value)
-						Debug.connect(value);
-				}
-			}
-		});
-		Object.defineProperty(options, "debug", {
-			get: function() { return Debug ? Debug.minLogLevel.asInt : 0; },
-			set: function(value)
-			{
-				if(Debug)
-				{
-					Debug.minLogLevel = Debug.Levels.valueFromInt(parseInt(value, 10));
-					if(!Debug.minLogLevel)
-						Debug.minLogLevel = Debug.Levels.GENERAL;
-				}
-			}
-		});
-		var _this = this;
-		Object.defineProperty(options, "updateTween", {
-			get: function()
-			{
-				return Tween ? _this.has('update', Tween.tick) : false;
-			},
-			set: function(value)
-			{
-				if(Tween)
-				{
-					if (Ticker)
-					{
-						Ticker.setPaused(!!value);
-					}
-					if(value)
-						_this.on('update', Tween.tick);
-					else
-						_this.off('update', Tween.tick);
-				}
-			}
+
+		_maxHeight = options.maxHeight;
+		options.on('maxHeight', function(value)
+		{
+			_maxHeight = value;
 		});
 		
 		//add the initial display if specified
-		if(options.canvasId && options.display)
-			this.addDisplay(options.canvasId, options.display,
-							options.displayOptions);
+		if (options.canvasId && options.display)
+		{
+			this.addDisplay(
+				options.canvasId, 
+				options.display,
+				options.displayOptions
+			);
+		}
 
 		// Bind the do init
 		this._doInit = this._doInit.bind(this);
 
 		// Check to see if we should load a versions file
 		// The versions file keeps track of file versions to avoid cache issues
-		if (options.versionsFile !== undefined)
+		if (options.versionsFile)
 		{
 			// Try to load the default versions file
 			// callback should be made with a scope in mind
@@ -611,42 +522,6 @@
 	};
 
 	/**
-	 *  Define all of the query string parameters
-	 *  @private
-	 *  @method parseQueryStringParams
-	 *  @return {object} The object reference to update
-	 */
-	var parseQueryStringParams = function()
-	{
-		var output = {};
-		var href = window.location.search;
-		if (!href) //empty string is false
-		{
-			return output;
-		}
-		var vars = href.substr(href.indexOf("?") + 1);
-		var pound = vars.indexOf('#');
-		vars = pound < 0 ? vars : vars.substring(0, pound);
-		var splitFlashVars = vars.split("&");
-		var myVar;
-		for (var i = 0, len = splitFlashVars.length; i < len; i++)
-		{
-			myVar = splitFlashVars[i].split("=");
-			var value = myVar[1];
-			if (value === "true" || value === undefined)
-				value = true;
-			else if (value === "false")
-				value = false;
-			if (DEBUG && Debug)
-			{
-				Debug.log(myVar[0] + " -> " + value);
-			}
-			output[myVar[0]] = value;
-		}
-		return output;
-	};
-
-	/**
 	 *  Override this to do post constructor initialization
 	 *  @method init
 	 *  @protected
@@ -672,22 +547,6 @@
 	{
 		this.paused = false;
 	};
-
-	/**
-	 *  If the Application should automatically pause when the window loses focus.
-	 *  @property {Boolean} autoPause
-	 */
-	Object.defineProperty(p, "autoPause",
-	{
-		get: function()
-		{
-			return _pageVisibility.enabled;
-		},
-		set: function(value)
-		{
-			_pageVisibility.enabled = value;
-		}
-	});
 
 	/**
 	 *  Enables at the application level which enables
@@ -931,30 +790,11 @@
 	{
 		get: function()
 		{
-			return _fps;
+			return options.fps;
 		},
 		set: function(value)
 		{
-			if (typeof value != "number") return;
-			_fps = value;
-			_msPerFrame = (1000 / _fps) | 0;
-		}
-	});
-
-	/**
-	 *  Getter and setting for using Request Animation Frame
-	 *  @public
-	 *  @property {Boolean} raf
-	 */
-	Object.defineProperty(p, "raf",
-	{
-		get: function()
-		{
-			return _useRAF;
-		},
-		set: function(value)
-		{
-			_useRAF = !!value;
+			options.fps = fps;
 		}
 	});
 
@@ -1039,6 +879,9 @@
 		_tickCallback =
 		_framerate =
 		_resizeElement = null;
+
+		this.options.destroy();
+		this.options = null;
 
 		if (DEBUG && Debug) Debug.disconnect();
 
