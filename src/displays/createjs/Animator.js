@@ -253,8 +253,6 @@
 		{
 			fps = Application.instance.options.fps;
 			if (!fps)
-				fps = Application.instance.fps;
-			if (!fps)
 				fps = 15;
 			instance.framerate = fps;
 		}
@@ -509,8 +507,6 @@
 				if (!instance.framerate)
 				{
 					var fps = Application.instance.options.fps;
-					if (!fps)
-						fps = Application.instance.fps;
 					if (!fps)
 						fps = 15;
 					instance.framerate = fps;

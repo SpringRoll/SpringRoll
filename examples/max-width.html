@@ -3,7 +3,7 @@
 	<head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Max Aspect Ratio Example</title>
+        <title>Max Width Example</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="assets/css/main.css">
@@ -21,6 +21,7 @@
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/display-createjs.js"></script>
 
     </head>
@@ -45,7 +46,7 @@ var Application = include('springroll.Application'),
 // Create the new application
 var app = new Application({
 	
-	// The maximum aspect ratio, 16/9 = 1.777
+	// The maximum width of the game
 	maxWidth : 1000, 
 	
 	// Resize to this element id

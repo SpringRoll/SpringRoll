@@ -17,11 +17,12 @@
         <!-- External dependencies -->
 		<script src="../components/jquery/dist/jquery.min.js"></script>
 		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
-		<script src="../components/pixi.js/bin/pixi.js"></script>
+		<script src="../components/pixi.js/bin/pixi.dev.js"></script>
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/display-pixi.js"></script>
 		<script src="../dist/modules/display-createjs.js"></script>
 
@@ -43,7 +44,8 @@ var Texture = include('PIXI.Texture'),
 	Sprite = include('PIXI.Sprite'),
 	Point = include('PIXI.Point'),
 	Loader = include('springroll.Loader'),
-	Application = include('springroll.Application');
+	Application = include('springroll.Application'),
+	Debug = include('springroll.Debug');
 
 var DrawingApp = function(options)
 {

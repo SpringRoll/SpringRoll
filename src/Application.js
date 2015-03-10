@@ -168,14 +168,6 @@
 		_useRAF = false,
 
 		/**
-		 *  The current internal frames per second
-		 *  @property {Number} _fps
-		 *  @private
-		 *  @default 0
-		 */
-		_fps = 0,
-
-		/**
 		 * The number of milliseconds per frame
 		 * @property {int} _msPerFrame
 		 * @private
@@ -366,12 +358,7 @@
 		options.on('fps', function(value)
 		{
 			if (typeof value != "number") return;
-			_fps = value;
-			_msPerFrame = (1000 / _fps) | 0;
-		})
-		.respond('fps', function()
-		{
-			return _fps;
+			_msPerFrame = (1000 / value) | 0;
 		}); 
 
 		if (options.framerate)
@@ -401,7 +388,7 @@
 		});
 		
 		//set up setters/getters in options for certain properties
-		_maxHeight = options.maxWidth;
+		_maxWidth = options.maxWidth;
 		options.on('maxWidth', function(value)
 		{
 			_maxWidth = value;
@@ -729,23 +716,6 @@
 			delete _displays[id];
 		}
 	};
-
-	/**
-	 *  Property for getting/setting the target fps (when not using RAF)
-	 *  @public
-	 *  @property {Number} fps
-	 */
-	Object.defineProperty(p, "fps",
-	{
-		get: function()
-		{
-			return options.fps;
-		},
-		set: function(value)
-		{
-			options.fps = fps;
-		}
-	});
 
 	/**
 	 *  _tick would be bound in _tickCallback
