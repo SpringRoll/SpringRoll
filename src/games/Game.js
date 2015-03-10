@@ -152,7 +152,19 @@
 		this.manager = null;
 
 		/**
-		*  If the current brower is mobile
+		*  If the current brower is iOS
+		*  @property {Boolean} isIOS
+		*/
+		this.isIOS = navigator.userAgent.search(/iPhone|iPad|iPod/) > -1;
+		
+		/**
+		*  If the current brower is Android
+		*  @property {Boolean} isAndroid
+		*/
+		this.isAndroid = navigator.userAgent.search(/Android/) > -1;
+
+		/**
+		*  If the current brower has touch input available
 		*  @property {Boolean} isMobile
 		*/
 		if (DEBUG && this.options.forceMobile)
@@ -161,18 +173,10 @@
 		}
 		else
 		{
-			// Auto detect the mobile browser
-			// normally we'd use touch but the pointer events
-			// in Internet Explorer mess that up, so we're
-			// looking for specific browser.
-			var agent = navigator.userAgent;
-
-			/**
-			*  If the current brower is iOS
-			*  @property {Boolean} isIOS
-			*/
-			this.isIOS = agent.search(/iPhone|iPad|iPod/) > -1;
-			this.isMobile = this.isIOS || agent.search(/Android|Blackberry/) > -1;
+			//Detect availability of touch events
+			this.isMobile = !!(('ontouchstart' in window) ||// iOS & Android
+			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
+			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 		}
 
 		// Callback right before init is called, we'll
