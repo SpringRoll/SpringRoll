@@ -103,7 +103,7 @@
 				if (immediateDestroy) manager.destroy();
 
 				// Callback
-				if (callback !== null) callback();
+				if (callback) callback();
 			}
 		);
 
