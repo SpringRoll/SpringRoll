@@ -294,8 +294,11 @@
 	*                                            versions: "center" = "center-center",
 	*                                            "top" = "top-center", "bottom" = "bottom-center",
 	*                                            "left" = "center-left", "right" = "center-right".
-	*  @param {Boolean} [settings.titleSafe=false] If the item needs to be in the title safe area
-	*                                              (default is false)
+	*  @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
+	*                                                     area. Acceptable values are false,
+	*                                                     "horizontal", "vertical", "all", and true.
+	*                                                     The default is false, and true is the same
+	*                                                     as "all".
 	*  @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
 	*                                          size as the stage)
 	*  @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
@@ -362,7 +365,7 @@
 
 		element.vertAlign = align[0];
 		element.horiAlign = align[1];
-		element.titleSafe = !!settings.titleSafe;
+		element.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
 		element.maxScale = settings.maxScale || NaN;
 		element.minScale = settings.minScale || NaN;
 		element.centeredHorizontally = !!settings.centeredHorizontally;

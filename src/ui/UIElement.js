@@ -168,8 +168,9 @@
 		var overallScale = currentRatio >= defaultRatio ?
 						displayHeight / _designedScreen.height :
 						displayWidth / _designedScreen.width;
-		var scaleToHeight = currentRatio >= defaultRatio;
-		var letterBoxWidth = 0, letterBoxHeight = 0;
+		var scaleToHeight = currentRatio >= defaultRatio,
+			letterBoxWidth = 0,
+			letterBoxHeight = 0;
 		if(scaleToHeight)
 			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
 		else
@@ -191,11 +192,14 @@
 		// vertical margin
 		m = this.origMarginVert * overallScale;
 		
+		//determine if vertical alignment should be title safe
+		var titleSafe = _settings.titleSafe === true || _settings.titleSafe === "vertical";
+		
 		switch(_settings.vertAlign)
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
 				}
@@ -212,7 +216,7 @@
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					y = displayHeight - letterBoxHeight - m -
 							origBounds.bottom * origScaleY * itemScale;
@@ -231,11 +235,14 @@
 		// horizontal margin
 		m = this.origMarginHori * overallScale;
 		
+		//determine if horizontal alignment should be title safe
+		titleSafe = _settings.titleSafe === true || _settings.titleSafe === "horizontal";
+		
 		switch(_settings.horiAlign)
 		{
 			case UIScaler.ALIGN_LEFT:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
 				}
@@ -259,7 +266,7 @@
 			}
 			case UIScaler.ALIGN_RIGHT:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					x = displayWidth - letterBoxWidth - m -
 							origBounds.right * origScaleX * itemScale;
