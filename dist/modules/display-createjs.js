@@ -623,10 +623,32 @@
 	*/
 	DisplayAdapter.getBitmapSize = function(bitmap)
 	{
-		return {
-			h: bitmap.image.height,
-			w: bitmap.image.width
-		};
+		var rtn = {w:0, h:0};
+		if(bitmap.nominalBounds)
+		{
+			//start by using nominal bounds, if it was exported from Flash, since it
+			//should be fast and pretty accurate
+			rtn.w = bitmap.nominalBounds.width;
+			rtn.h = bitmap.nominalBounds.height;
+		}
+		else if(bitmap.width !== undefined && bitmap.height !== undefined)
+		{
+			//next check for a width and height that someone might have set up,
+			//like our Button class has.
+			rtn.w = bitmap.width / bitmap.scaleX;
+			rtn.h = bitmap.height / bitmap.scaleY;
+		}
+		else if(bitmap.sourceRect)
+		{
+			rtn.w = bitmap.sourceRect.width;
+			rtn.h = bitmap.sourceRect.height;
+		}
+		else if(bitmap.image)
+		{
+			rtn.w = bitmap.image.width;
+			rtn.h = bitmap.image.height;
+		}
+		return rtn;
 	};
 
 	/**
@@ -743,7 +765,9 @@
 				this.stage.enableMouseOver(false);
 				this.stage.enableDOMEvents(false);
 				Touch.disable(this.stage);
-				this.canvas.style.cursor = "";//reset the cursor
+				//reset the cursor if it isn't disabled
+				if(this.canvas.style.cursor != "none")
+					this.canvas.style.cursor = "";
 			}
 		}
 	});

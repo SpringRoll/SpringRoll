@@ -169,8 +169,9 @@
 		var overallScale = currentRatio >= defaultRatio ?
 						displayHeight / _designedScreen.height :
 						displayWidth / _designedScreen.width;
-		var scaleToHeight = currentRatio >= defaultRatio;
-		var letterBoxWidth = 0, letterBoxHeight = 0;
+		var scaleToHeight = currentRatio >= defaultRatio,
+			letterBoxWidth = 0,
+			letterBoxHeight = 0;
 		if(scaleToHeight)
 			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
 		else
@@ -192,11 +193,14 @@
 		// vertical margin
 		m = this.origMarginVert * overallScale;
 		
+		//determine if vertical alignment should be title safe
+		var titleSafe = _settings.titleSafe === true || _settings.titleSafe === "vertical";
+		
 		switch(_settings.vertAlign)
 		{
 			case UIScaler.ALIGN_TOP:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
 				}
@@ -213,7 +217,7 @@
 			}
 			case UIScaler.ALIGN_BOTTOM:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					y = displayHeight - letterBoxHeight - m -
 							origBounds.bottom * origScaleY * itemScale;
@@ -232,11 +236,14 @@
 		// horizontal margin
 		m = this.origMarginHori * overallScale;
 		
+		//determine if horizontal alignment should be title safe
+		titleSafe = _settings.titleSafe === true || _settings.titleSafe === "horizontal";
+		
 		switch(_settings.horiAlign)
 		{
 			case UIScaler.ALIGN_LEFT:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
 				}
@@ -260,7 +267,7 @@
 			}
 			case UIScaler.ALIGN_RIGHT:
 			{
-				if(_settings.titleSafe)
+				if(titleSafe)
 				{
 					x = displayWidth - letterBoxWidth - m -
 							origBounds.right * origScaleX * itemScale;
@@ -307,34 +314,36 @@
 	*/
 	var UIElementSettings = function()
 	{
-		/** 
+		/**
 		*  What vertical screen location the item should be aligned to: "top", "center", "bottom"
 		*  @property {String} vertAlign
 		*/
 		this.vertAlign = null;
 
-		/** 
+		/**
 		*  What horizontal screen location the item should be aligned to: "left", "center", "right"
 		*  @property {String} horiAlign
 		*/
 		this.horiAlign = null;
 
-		/** 
-		*  If this element should be aligned to the title safe area, not the actual screen 
-		*  @property {Boolean} titleSafe
+		/**
+		*  If this element should be aligned to the title safe area, not the actual screen.
+		*  Values of "horizontal" and "vertical" make the title safe calculations take place only
+		*  for one direction.
+		*  @property {Boolean|String} titleSafe
 		*  @default false
 		*/
 		this.titleSafe = false;
 
-		/** 
-		*  Maximum scale allowed in physical size 
+		/**
+		*  Maximum scale allowed in physical size
 		*  @property {Number} maxScale
 		*  @default 1
 		*/
 		this.maxScale = 1;
 
-		/** 
-		*  Minimum scale allowed in physical size 
+		/**
+		*  Minimum scale allowed in physical size
 		*  @property {Number} minScale
 		*  @default 1
 		*/
@@ -346,7 +355,7 @@
 		*  @default false
 		*/
 		this.centeredHorizontally = false;
-	};	
+	};
 	
 	// Assign to name space
 	namespace('springroll').UIElementSettings = UIElementSettings;
@@ -840,8 +849,11 @@
 	*                                            versions: "center" = "center-center",
 	*                                            "top" = "top-center", "bottom" = "bottom-center",
 	*                                            "left" = "center-left", "right" = "center-right".
-	*  @param {Boolean} [settings.titleSafe=false] If the item needs to be in the title safe area
-	*                                              (default is false)
+	*  @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
+	*                                                     area. Acceptable values are false,
+	*                                                     "horizontal", "vertical", "all", and true.
+	*                                                     The default is false, and true is the same
+	*                                                     as "all".
 	*  @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
 	*                                          size as the stage)
 	*  @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
@@ -908,7 +920,7 @@
 
 		element.vertAlign = align[0];
 		element.horiAlign = align[1];
-		element.titleSafe = !!settings.titleSafe;
+		element.titleSafe = settings.titleSafe == "all" ? true : settings.titleSafe;
 		element.maxScale = settings.maxScale || NaN;
 		element.minScale = settings.minScale || NaN;
 		element.centeredHorizontally = !!settings.centeredHorizontally;
