@@ -765,7 +765,9 @@
 				this.stage.enableMouseOver(false);
 				this.stage.enableDOMEvents(false);
 				Touch.disable(this.stage);
-				this.canvas.style.cursor = "";//reset the cursor
+				//reset the cursor if it isn't disabled
+				if(this.canvas.style.cursor != "none")
+					this.canvas.style.cursor = "";
 			}
 		}
 	});
