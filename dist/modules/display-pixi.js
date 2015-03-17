@@ -2331,7 +2331,7 @@
 	{
 		this.obj = obj;
 		this.mouseDownObjPos = {x:0, y:0};
-		this.dragOffset = new createjs.Point();
+		this.dragOffset = new PIXI.Point();
 		this.mouseDownStagePos = {x:0, y:0};
 	};
 	
@@ -2608,6 +2608,8 @@
 		}
 		else
 		{
+			mouseDownStagePos.x = interactionData.global.x;
+			mouseDownStagePos.y = interactionData.global.y;
 			//if it is a touch event, force it to be the held drag type
 			if(!this.allowStickyClick || interactionData.originalEvent.type == "touchstart")
 			{
@@ -2619,8 +2621,6 @@
 			//held drag or a sticky click drag
 			else
 			{
-				mouseDownStagePos.x = interactionData.global.x;
-				mouseDownStagePos.y = interactionData.global.y;
 				obj.mousemove = this._triggerHeldDrag;
 				this._theStage.interactionManager.stageUp = this._triggerStickyClick;
 			}
@@ -2685,6 +2685,7 @@
 	{
 		var im = this._theStage.interactionManager;
 		im.stageUp = this._stopDrag;
+		im.stageMove = this._updateObjPosition;
 		
 		var draggedObj;
 		if(this._multitouch)
