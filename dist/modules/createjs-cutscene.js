@@ -1,3 +1,4 @@
+/*! SpringRoll 0.0.7 */
 /**
  * @module CreateJS Cutscene
  * @namespace springroll.createjs
@@ -287,7 +288,7 @@
 		}
 		else
 		{
-			if (DEBUG && Debug) Debug.error("Cutscene really needs some audio to play");
+			if (true && Debug) Debug.error("Cutscene really needs some audio to play");
 			return;
 		}
 		if(this._audioAliases.length)

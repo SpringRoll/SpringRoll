@@ -35,44 +35,80 @@
 		"worker": [
 			"src/polyfills/Worker.js"
 		],
-		"displaynative":
+		"nativedisplay":
 		{
-			"output": "display-native",
+			"output": "native-display",
 			"main": [
 				"src/displays/native/geom/*.js",
 				"src/displays/native/DisplayAdapter.js",
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"displaycreatejs":
+		"createjsdisplay":
 		{
-			"output": "display-createjs",
+			"output": "createjs-display",
 			"main": [
-				"src/displays/createjs/Point.js",
-				"src/displays/createjs/MovieClipUtils.js",
-				"src/displays/createjs/BitmapUtils.js",
+				"src/displays/createjs/mixins/*.js",
 				"src/displays/createjs/DisplayAdapter.js",
-				"src/displays/createjs/CreateJSDisplay.js",
+				"src/displays/createjs/CreateJSDisplay.js"
+			]
+		},
+		"createjsanimation":
+		{
+			"output": "createjs-animation",
+			"main": [
 				"src/displays/createjs/AnimatorTimeline.js",
 				"src/displays/createjs/Animator.js",
-				"src/displays/createjs/Button.js",
-				"src/displays/createjs/SoundButton.js",
-				"src/displays/createjs/DragData.js",
-				"src/displays/createjs/DragManager.js",
-				"src/displays/createjs/Cutscene.js",
 				"src/displays/createjs/TextureAtlas.js",
 				"src/displays/createjs/BitmapMovieClip.js"
 			]
 		},
-		"displaypixi":
+		"createjsinterface":
 		{
-			"output": "display-pixi",
+			"output": "createjs-interface",
+			"main": [
+				"src/displays/createjs/Button.js",
+				"src/displays/createjs/SoundButton.js",
+				"src/displays/createjs/DragData.js",
+				"src/displays/createjs/DragManager.js"
+			]
+		},
+		"createjsutils":
+		{
+			"output": "createjs-utils",
+			"main": [
+				"src/displays/createjs/MovieClipUtils.js",
+				"src/displays/createjs/BitmapUtils.js"
+			]
+		},
+		"createjscutscene":
+		{
+			"output": "createjs-cutscene",
+			"main": [
+				"src/displays/createjs/Cutscene.js"
+			]
+		},
+		"pixidisplay":
+		{
+			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
-				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/PixiDisplay.js"
+			]
+		},
+		"pixianimation":
+		{
+			"output": "pixi-animation",
+			"main": [
 				"src/displays/pixi/ConcurrentSpineAnimData.js",
 				"src/displays/pixi/AnimatorTimeline.js",
-				"src/displays/pixi/Animator.js",
+				"src/displays/pixi/Animator.js"
+			]
+		},
+		"pixiinterface":
+		{
+			"output": "pixi-interface",
+			"main": [
 				"src/displays/pixi/Button.js",
 				"src/displays/pixi/DragData.js",
 				"src/displays/pixi/DragManager.js",

@@ -1,7 +1,7 @@
 /**
-*  @module CreateJS Display
-*  @namespace springroll.createjs
-*/
+ * @module CreateJS Display
+ * @namespace springroll.createjs
+ */
 (function(undefined){
 
 	// Import createjs classes
@@ -59,7 +59,7 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 
-		this.animator = include('springroll.createjs.Animator');
+		this.animator = include('springroll.createjs.Animator', false);
 		this.adapter = include('springroll.createjs.DisplayAdapter');
 	};
 

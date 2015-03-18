@@ -1,6 +1,7 @@
 /**
- *  @module CreateJS Display
- *  @namespace springroll.createjs
+ * @module CreateJS Interface
+ * @namespace springroll.createjs
+ * @requires CreateJS Display
  */
 (function()
 {

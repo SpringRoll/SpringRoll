@@ -1,6 +1,7 @@
 /**
-*  @module CreateJS Display
-*/
+ * @module CreateJS Display
+ * @namespace createjs
+ */
 (function(undefined) {
 
 	"use strict";
@@ -8,7 +9,7 @@
 	/**
 	*  Added methods to createjs.Point.
 	*
-	*  @class Array
+	*  @class Point
 	*/
 	
 	var p = include("createjs.Point").prototype;
