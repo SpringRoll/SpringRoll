@@ -21,7 +21,7 @@
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
-		<script src="../dist/modules/createjs-display.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
 
     </head>
     <body>
@@ -37,7 +37,7 @@
 <script>
 
 var Application = include('springroll.Application'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Shape = include('createjs.Shape'),
 	Tween = include('createjs.Tween');
 
@@ -46,7 +46,7 @@ var app = new Application({
 	framerate: "framerate", // optional framerate display
 	updateTween: true, // IMPORTANT! for Application to own TweenJS updates
 	canvasId: "stage",
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true // clear the stage on render
 	}

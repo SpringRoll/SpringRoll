@@ -1,8 +1,8 @@
-/*! SpringRoll 0.0.7 */
+/*! SpringRoll 0.2.0 */
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(){
 
@@ -256,20 +256,19 @@
 	
 	// Assign to the name space
 	namespace('springroll').AnimatorTimeline = AnimatorTimeline;
-	namespace('springroll.createjs').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll.easeljs').AnimatorTimeline = AnimatorTimeline;
 	
 }());
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(undefined)
 {
-
 	// Imports
 	var Application = include('springroll.Application'),
-		AnimatorTimeline = include('springroll.createjs.AnimatorTimeline'),
+		AnimatorTimeline = include('springroll.easeljs.AnimatorTimeline'),
 		Debug,
 		Sound;
 
@@ -398,7 +397,7 @@
 	 *                                           stopped with Animator.stop() or to play another
 	 *                                           animation. A value of 'true' uses onComplete for
 	 *                                           onCancelled.
-	 *   @return {springroll.createjs.AnimatorTimeline} The Timeline object that represents this play() call.
+	 *   @return {springroll.easeljs.AnimatorTimeline} The Timeline object that represents this play() call.
 	 *   @static
 	 */
 	Animator.play = function(instance, eventList, onComplete, onCancelled)
@@ -492,7 +491,7 @@
 	 *   @param {Array} eventList List of animation events
 	 *   @param {Function} onComplete The function to callback when we're done
 	 *   @param {Function} onCancelled The function to callback when cancelled
-	 *   @return {springroll.createjs.AnimatorTimeline} The Timeline object
+	 *   @return {springroll.easeljs.AnimatorTimeline} The Timeline object
 	 *   @private
 	 *   @static
 	 */
@@ -843,7 +842,7 @@
 	 *   Remove a timeline from the stack
 	 *
 	 *   @method _remove
-	 *   @param {springroll.createjs.AnimatorTimeline} timeline
+	 *   @param {springroll.easeljs.AnimatorTimeline} timeline
 	 *   @param {Boolean} doCancelled If we do the on complete callback
 	 *   @private
 	 *   @static
@@ -972,7 +971,7 @@
 	 *
 	 *   @method getTimeline
 	 *   @param {createjs.MovieClip} instance MovieClip
-	 *   @return {springroll.createjs.AnimatorTimeline} The timeline
+	 *   @return {springroll.easeljs.AnimatorTimeline} The timeline
 	 *   @static
 	 */
 	Animator.getTimeline = function(instance)
@@ -1181,7 +1180,7 @@
 	 *  The sound has been started
 	 *  @method onSoundStarted
 	 *  @private
-	 *  @param {springroll.createjs.AnimatorTimeline} timeline
+	 *  @param {springroll.easeljs.AnimatorTimeline} timeline
 	 */
 	var onSoundStarted = function(timeline, playIndex)
 	{
@@ -1195,7 +1194,7 @@
 	 *  The sound is done
 	 *  @method onSoundDone
 	 *  @private
-	 *  @param {springroll.createjs.AnimatorTimeline} timeline
+	 *  @param {springroll.easeljs.AnimatorTimeline} timeline
 	 */
 	var onSoundDone = function(timeline, playIndex, soundAlias)
 	{
@@ -1232,18 +1231,18 @@
 	 */
 	Animator.toString = function()
 	{
-		return "[springroll.createjs.Animator]";
+		return "[springroll.easeljs.Animator]";
 	};
 
 	// Assign to the global namespace
 	namespace('springroll').Animator = Animator;
-	namespace('springroll.createjs').Animator = Animator;
+	namespace('springroll.easeljs').Animator = Animator;
 
 }());
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(undefined) {
 
@@ -1395,7 +1394,7 @@
 	};
 
 	namespace("createjs").TextureAtlas = TextureAtlas;
-	namespace("springroll.createjs").TextureAtlas = TextureAtlas;
+	namespace("springroll.easeljs").TextureAtlas = TextureAtlas;
 
 	/**
 	*  A Texture - a specific portion of an image that can then be drawn by a Bitmap.
@@ -1438,9 +1437,9 @@
 	};
 }());
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(undefined) {
 
@@ -1450,7 +1449,7 @@
 
 	/**
 	*  A class similar to createjs.MovieClip, but made to play animations from a
-	*  springroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal
+	*  springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
 	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
 	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
 	*
@@ -1995,5 +1994,5 @@
 	};
 
 	namespace("createjs").BitmapMovieClip = BitmapMovieClip;
-	namespace("springroll.createjs").BitmapMovieClip = BitmapMovieClip;
+	namespace("springroll.easeljs").BitmapMovieClip = BitmapMovieClip;
 }());

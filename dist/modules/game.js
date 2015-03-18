@@ -1,4 +1,4 @@
-/*! SpringRoll 0.0.7 */
+/*! SpringRoll 0.2.0 */
 /**
 *  @module Game
 *  @namespace springroll
@@ -452,7 +452,7 @@
 	*                                   transition in, loop and out sounds. Example:
 	*                                   {in:{alias:"myAlias", start:0.2}}.
 	*                                   These objects are in the format for Animator from
-	*                                   CreateJSDisplay or PixiDisplay, so they can be just the
+	*                                   EaselJSDisplay or PixiDisplay, so they can be just the
 	*                                   sound alias instead of an object.
 	*/
 	var StateManager = function(display, transition, transitionSounds)
@@ -1358,7 +1358,7 @@
 			}
 		}
 
-		//if the transition is a CreateJS movieclip, start it out
+		//if the transition is a EaselJS movieclip, start it out
 		//at the end of the transition out animation. If it has a
 		//'transitionLoop' animation, that will be played as soon as a state is set
 		if (this.transition.gotoAndStop)

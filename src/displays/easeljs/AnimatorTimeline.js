@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(){
 
@@ -255,6 +255,6 @@
 	
 	// Assign to the name space
 	namespace('springroll').AnimatorTimeline = AnimatorTimeline;
-	namespace('springroll.createjs').AnimatorTimeline = AnimatorTimeline;
+	namespace('springroll.easeljs').AnimatorTimeline = AnimatorTimeline;
 	
 }());

@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(undefined) {
 
@@ -11,7 +11,7 @@
 
 	/**
 	*  A class similar to createjs.MovieClip, but made to play animations from a
-	*  springroll.createjs.TextureAtlas. The CreateJS Sprite class requires a spritesheet with equal
+	*  springroll.easeljs.TextureAtlas. The EaselJS Sprite class requires a spritesheet with equal
 	*  sized and spaced frames. By using TextureAtlas, you can use a much smaller spritesheet,
 	*  sprites on screen with fewer extra transparent pixels, and use the same API as MovieClip.
 	*
@@ -556,5 +556,5 @@
 	};
 
 	namespace("createjs").BitmapMovieClip = BitmapMovieClip;
-	namespace("springroll.createjs").BitmapMovieClip = BitmapMovieClip;
+	namespace("springroll.easeljs").BitmapMovieClip = BitmapMovieClip;
 }());

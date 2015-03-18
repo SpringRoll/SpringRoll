@@ -16,7 +16,7 @@
 	/**
 	*  A Multipurpose button class. It is designed to have one image, and an optional text label.
 	*  The button can be a normal button or a selectable button.
-	*  The button functions similarly with both CreateJS and PIXI, but slightly differently in
+	*  The button functions similarly with both EaselJS and PIXI, but slightly differently in
 	*  initialization and callbacks.
 	*  Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
 	*  

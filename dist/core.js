@@ -1,4 +1,4 @@
-/*! SpringRoll 0.0.7 */
+/*! SpringRoll 0.2.0 */
 /**
 *  @module Core
 */
@@ -537,7 +537,7 @@
 (function(undefined){
 
 	/**
-	*  The EventDispatcher mirrors the functionality of AS3 and CreateJS's EventDispatcher,
+	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
 	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
 	*
 	*  @class EventDispatcher

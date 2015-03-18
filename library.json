@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.0.7",
+	"version": "0.2.0",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -30,13 +30,11 @@
 		"src/utils/Array.js",
 		"src/utils/Math.js"
 	],
-	"modules":
-	{
+	"modules": {
 		"worker": [
 			"src/polyfills/Worker.js"
 		],
-		"nativedisplay":
-		{
+		"nativedisplay": {
 			"output": "native-display",
 			"main": [
 				"src/displays/native/geom/*.js",
@@ -44,60 +42,14 @@
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"createjsdisplay":
-		{
-			"output": "createjs-display",
-			"main": [
-				"src/displays/createjs/mixins/*.js",
-				"src/displays/createjs/DisplayAdapter.js",
-				"src/displays/createjs/CreateJSDisplay.js"
-			]
-		},
-		"createjsanimation":
-		{
-			"output": "createjs-animation",
-			"main": [
-				"src/displays/createjs/AnimatorTimeline.js",
-				"src/displays/createjs/Animator.js",
-				"src/displays/createjs/TextureAtlas.js",
-				"src/displays/createjs/BitmapMovieClip.js"
-			]
-		},
-		"createjsinterface":
-		{
-			"output": "createjs-interface",
-			"main": [
-				"src/displays/createjs/Button.js",
-				"src/displays/createjs/SoundButton.js",
-				"src/displays/createjs/DragData.js",
-				"src/displays/createjs/DragManager.js"
-			]
-		},
-		"createjsutils":
-		{
-			"output": "createjs-utils",
-			"main": [
-				"src/displays/createjs/MovieClipUtils.js",
-				"src/displays/createjs/BitmapUtils.js"
-			]
-		},
-		"createjscutscene":
-		{
-			"output": "createjs-cutscene",
-			"main": [
-				"src/displays/createjs/Cutscene.js"
-			]
-		},
-		"pixidisplay":
-		{
+		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js"
 			]
 		},
-		"pixianimation":
-		{
+		"pixianimation": {
 			"output": "pixi-animation",
 			"main": [
 				"src/displays/pixi/ConcurrentSpineAnimData.js",
@@ -105,14 +57,52 @@
 				"src/displays/pixi/Animator.js"
 			]
 		},
-		"pixiinterface":
-		{
+		"pixiinterface": {
 			"output": "pixi-interface",
 			"main": [
 				"src/displays/pixi/Button.js",
 				"src/displays/pixi/DragData.js",
 				"src/displays/pixi/DragManager.js",
 				"src/displays/pixi/AssetManager.js"
+			]
+		},
+		"easeljsdisplay": {
+			"output": "easeljs-display",
+			"main": [
+				"src/displays/easeljs/mixins/*.js",
+				"src/displays/easeljs/DisplayAdapter.js",
+				"src/displays/easeljs/CreateJSDisplay.js"
+			]
+		},
+		"easeljsanimation": {
+			"output": "easeljs-animation",
+			"main": [
+				"src/displays/easeljs/AnimatorTimeline.js",
+				"src/displays/easeljs/Animator.js",
+				"src/displays/easeljs/TextureAtlas.js",
+				"src/displays/easeljs/BitmapMovieClip.js"
+			]
+		},
+		"easeljsinterface": {
+			"output": "easeljs-interface",
+			"main": [
+				"src/displays/easeljs/Button.js",
+				"src/displays/easeljs/SoundButton.js",
+				"src/displays/easeljs/DragData.js",
+				"src/displays/easeljs/DragManager.js"
+			]
+		},
+		"easeljsutils": {
+			"output": "easeljs-utils",
+			"main": [
+				"src/displays/easeljs/MovieClipUtils.js",
+				"src/displays/easeljs/BitmapUtils.js"
+			]
+		},
+		"easeljscutscene": {
+			"output": "easeljs-cutscene",
+			"main": [
+				"src/displays/easeljs/Cutscene.js"
 			]
 		},
 		"game": [

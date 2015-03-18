@@ -1,20 +1,20 @@
 /**
- * @module CreateJS Interface
- * @namespace springroll.createjs
- * @requires  CreateJS Display
+ * @module EaselJS Interface
+ * @namespace springroll.easeljs
+ * @requires  EaselJS Display
  */
 (function(){
 
-	var Button = include('springroll.createjs.Button'),
+	var Button = include('springroll.easeljs.Button'),
 		Sound;
 
 	/**
 	 *  A button with audio events for click and over mouse events
 	 *  @class SoundButton
-	 *  @extends springroll.createjs.Button
+	 *  @extends springroll.easeljs.Button
 	 *  @constructor
-	 *  @param {DOMElement|object} imageSettings The loaded image element, see springroll.createjs.Button constructor
-	 *  @param {Object} [label=null] See springroll.createjs.Button constructor
+	 *  @param {DOMElement|object} imageSettings The loaded image element, see springroll.easeljs.Button constructor
+	 *  @param {Object} [label=null] See springroll.easeljs.Button constructor
 	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
 	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
 	 *  @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
@@ -114,6 +114,6 @@
 
 	// Assign to namespace
 	namespace('springroll').SoundButton = SoundButton;
-	namespace('springroll.createjs').SoundButton = SoundButton;
+	namespace('springroll.easeljs').SoundButton = SoundButton;
 
 }());

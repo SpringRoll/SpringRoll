@@ -23,8 +23,8 @@
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/interface.js"></script>
-		<script src="../dist/modules/createjs-display.js"></script>
-		<script src="../dist/modules/createjs-interface.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 
     </head>
     <body class="fullscreen">
@@ -44,17 +44,17 @@
 var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
 	UIScaler = include('springroll.UIScaler'),
-	Button = include('springroll.createjs.Button'),
+	Button = include('springroll.easeljs.Button'),
 	LoadTask = include('springroll.LoadTask'),
 	TaskManager = include('springroll.TaskManager'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay');
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 // Create the new application
 var app = new Application({
 	resizeElement : "stageContainer",
 	framerate: "framerate",
 	canvasId: "stage",
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true // clear the stage on render
 	}

@@ -23,8 +23,8 @@
 		
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
-		<script src="../dist/modules/createjs-display.js"></script>
-		<script src="../dist/modules/createjs-interface.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 
@@ -42,8 +42,8 @@
 <script>
 
 var Application = include('springroll.Application'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay'),
-	Button = include('springroll.createjs.Button'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	Button = include('springroll.easeljs.Button'),
 	Loader = include('springroll.Loader'),
 	Shape = include('createjs.Shape'),
 	Tween = include('createjs.Tween'),
@@ -53,7 +53,7 @@ var Application = include('springroll.Application'),
 var app = new Application({
 	framerate: "framerate",
 	canvasId: "stage",
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
 	}

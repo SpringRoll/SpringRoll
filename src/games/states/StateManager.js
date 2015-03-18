@@ -24,7 +24,7 @@
 	*                                   transition in, loop and out sounds. Example:
 	*                                   {in:{alias:"myAlias", start:0.2}}.
 	*                                   These objects are in the format for Animator from
-	*                                   CreateJSDisplay or PixiDisplay, so they can be just the
+	*                                   EaselJSDisplay or PixiDisplay, so they can be just the
 	*                                   sound alias instead of an object.
 	*/
 	var StateManager = function(display, transition, transitionSounds)

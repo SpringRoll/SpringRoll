@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Animation
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function(undefined) {
 
@@ -153,7 +153,7 @@
 	};
 
 	namespace("createjs").TextureAtlas = TextureAtlas;
-	namespace("springroll.createjs").TextureAtlas = TextureAtlas;
+	namespace("springroll.easeljs").TextureAtlas = TextureAtlas;
 
 	/**
 	*  A Texture - a specific portion of an image that can then be drawn by a Bitmap.

@@ -272,7 +272,7 @@
 			}
 		}
 
-		//if the transition is a CreateJS movieclip, start it out
+		//if the transition is a EaselJS movieclip, start it out
 		//at the end of the transition out animation. If it has a
 		//'transitionLoop' animation, that will be played as soon as a state is set
 		if (this.transition.gotoAndStop)

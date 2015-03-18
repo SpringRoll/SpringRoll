@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Cutscene
- * @namespace springroll.createjs
- * @requires CreateJS Display, CreateJS Utilities
+ * @module EaselJS Cutscene
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display, EaselJS Utilities
  */
 (function(){
 
@@ -21,7 +21,7 @@
 	*  @class Cutscene
 	*  @constructor
 	*  @param {Object} options The runtime specific setup data for the cutscene.
-	*  @param {String|Display} options.display The display or display id of the CreateJSDisplay
+	*  @param {String|Display} options.display The display or display id of the EaselJSDisplay
 	*                                          to draw on.
 	*  @param {String} options.configUrl The url of the json config file describing the cutscene.
 	*                                    See the example project.
@@ -44,7 +44,7 @@
 			TaskManager = include('springroll.TaskManager');
 			Sound = include('springroll.Sound');
 			ListTask = include('springroll.ListTask');
-			BitmapUtils = include('springroll.createjs.BitmapUtils');
+			BitmapUtils = include('springroll.easeljs.BitmapUtils');
 		}
 
 		Container.call(this);
@@ -662,5 +662,5 @@
 	};
 
 	namespace("springroll").Cutscene = Cutscene;
-	namespace("springroll.createjs").Cutscene = Cutscene;
+	namespace("springroll.easeljs").Cutscene = Cutscene;
 }());

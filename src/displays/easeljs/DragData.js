@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Interface
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Interface
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function() {
 	
@@ -15,5 +15,5 @@
 	
 	/** Assign to the global namespace */
 	namespace('springroll').DragData = DragData;
-	namespace('springroll.createjs').DragData = DragData;
+	namespace('springroll.easeljs').DragData = DragData;
 }());

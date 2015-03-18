@@ -309,7 +309,7 @@
 		{
 			field.innerHTML = text;
 		}
-		// The CreateJS style text setting
+		// The EaselJS style text setting
 		else if (field.text !== undefined)
 		{
 			field.text = text;

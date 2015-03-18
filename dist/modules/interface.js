@@ -1,4 +1,4 @@
-/*! SpringRoll 0.0.7 */
+/*! SpringRoll 0.2.0 */
 /**
 *  @module Interface
 *  @namespace springroll

@@ -1,5 +1,5 @@
 /**
- * @module CreateJS Display
+ * @module EaselJS Display
  * @namespace createjs
  */
 (function(undefined) {

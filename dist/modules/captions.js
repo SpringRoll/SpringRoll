@@ -1,4 +1,4 @@
-/*! SpringRoll 0.0.7 */
+/*! SpringRoll 0.2.0 */
 /**
 *  @module Captions
 *  @namespace springroll
@@ -310,7 +310,7 @@
 		{
 			field.innerHTML = text;
 		}
-		// The CreateJS style text setting
+		// The EaselJS style text setting
 		else if (field.text !== undefined)
 		{
 			field.text = text;

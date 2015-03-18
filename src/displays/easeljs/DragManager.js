@@ -1,13 +1,13 @@
 /**
- * @module CreateJS Interface
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Interface
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function()
 {
 
 	var Tween,
-		DragData = include("springroll.createjs.DragData");
+		DragData = include("springroll.easeljs.DragData");
 
 	/**
 	 *  Drag manager is responsible for handling the dragging of stage elements.
@@ -683,5 +683,5 @@
 
 	/** Assign to the global namespace */
 	namespace('springroll').DragManager = DragManager;
-	namespace('springroll.createjs').DragManager = DragManager;
+	namespace('springroll.easeljs').DragManager = DragManager;
 }());

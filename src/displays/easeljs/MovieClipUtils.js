@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Utilities
- * @namespace springroll.createjs
- * @requires CreateJS Display
+ * @module EaselJS Utilities
+ * @namespace springroll.easeljs
+ * @requires EaselJS Display
  */
 (function()
 {
@@ -39,6 +39,6 @@
 
 	//assign to namespace
 	namespace('springroll').MovieClipUtils = MovieClipUtils;
-	namespace('springroll.createjs').MovieClipUtils = MovieClipUtils;
+	namespace('springroll.easeljs').MovieClipUtils = MovieClipUtils;
 
 }());

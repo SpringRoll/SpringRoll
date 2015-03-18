@@ -1,6 +1,6 @@
 /**
- * @module CreateJS Display
- * @namespace springroll.createjs
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
  */
 (function(undefined){
 
@@ -10,19 +10,19 @@
 		Touch;
 
 	/**
-	*   CreateJSDisplay is a display plugin for the springroll Framework
+	*   EaselJSDisplay is a display plugin for the springroll Framework
 	*	that uses the EaselJS library for rendering.
 	*
-	*   @class CreateJSDisplay
+	*   @class EaselJSDisplay
 	*   @extends springroll.AbstractDisplay
 	*	@constructor
 	*	@param {String} id The id of the canvas element on the page to draw to.
-	*	@param {Object} options The setup data for the CreateJS stage.
+	*	@param {Object} options The setup data for the EaselJS stage.
 	*	@param {String} [options.stageType="stage"] If the stage should be a normal stage or a SpriteStage (use "spriteStage").
 	*	@param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
 	*	@param {int} [options.mouseOverRate=30] How many times per second to check for mouseovers. To disable them, use 0 or -1.
 	*/
-	var CreateJSDisplay = function(id, options)
+	var EaselJSDisplay = function(id, options)
 	{
 		if (!Stage)
 		{
@@ -59,16 +59,16 @@
 		}
 		this.stage.autoClear = !!options.clearView;
 
-		this.animator = include('springroll.createjs.Animator', false);
-		this.adapter = include('springroll.createjs.DisplayAdapter');
+		this.animator = include('springroll.easeljs.Animator', false);
+		this.adapter = include('springroll.easeljs.DisplayAdapter');
 	};
 
 	var s = AbstractDisplay.prototype;
-	var p = extend(CreateJSDisplay, AbstractDisplay);
+	var p = extend(EaselJSDisplay, AbstractDisplay);
 	
 	/**
 	 * An internal helper to avoid creating an object each render
-	 * while telling CreateJS the amount of time elapsed.
+	 * while telling EaselJS the amount of time elapsed.
 	 * @property DELTA_HELPER
 	 * @static
 	 * @private
@@ -136,7 +136,7 @@
 	};
 
 	// Assign to the global namespace
-	namespace('springroll').CreateJSDisplay = CreateJSDisplay;
-	namespace('springroll.createjs').CreateJSDisplay = CreateJSDisplay;
+	namespace('springroll').EaselJSDisplay = EaselJSDisplay;
+	namespace('springroll.easeljs').EaselJSDisplay = EaselJSDisplay;
 
 }());

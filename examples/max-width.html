@@ -22,7 +22,7 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/createjs-display.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
 
     </head>
     <body class="fullscreen">
@@ -41,7 +41,7 @@
 
 var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay');
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 // Create the new application
 var app = new Application({
@@ -54,7 +54,7 @@ var app = new Application({
 
 	framerate: "framerate",
 	canvasId: "stage",
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true // clear the stage on render
 	}
