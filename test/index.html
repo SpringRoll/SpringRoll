@@ -20,6 +20,7 @@
 	<script src="../components/soundjs/lib/flashplugin.min.js"></script>
 	<script src="../components/pixi.js/bin/pixi.dev.js"></script>
 	<script src="../components/jquery/dist/jquery.js"></script>
+	<script src="../components/bellhop/dist/bellhop.js"></script>
 
 	<script src="../dist/core.js"></script>
 	<script src="../dist/modules/debug.js"></script>
@@ -39,14 +40,31 @@
 	<script src="../dist/modules/tasks.js"></script>
 	<script src="../dist/modules/translate.js"></script>
 	<script src="../dist/modules/worker.js"></script>
+	<script src="../dist/modules/tracker-game.js"></script>
+	<script src="../dist/modules/progress-tracker.js"></script>
+	<script src="../dist/modules/easeljs-tracker-game.js"></script>
+	<script src="../dist/modules/container.js"></script>
+	<script src="../dist/modules/hinting.js"></script>
 
 	<script>
+
+	var Application = include('springroll.Application');
+	var TrackerGame = include('springroll.TrackerGame');
+
 	test('Include All Modules', function(assert){
 		expect(1);
-		var Application = springroll.Application;
 		var app = new Application();
 		assert.ok(!!Application.instance, "Created a blank application");
 		app.destroy();
+	});
+
+	test('Create a TrackerGame', function(assert){
+		expect(1);
+		var game = new TrackerGame({
+			name: "TestGame"
+		});
+		assert.ok(!!game, "Created an empty game");
+		game.destroy();
 	});
 	</script>
 </body>
