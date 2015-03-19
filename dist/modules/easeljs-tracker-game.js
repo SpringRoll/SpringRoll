@@ -110,8 +110,10 @@
 	 */
 	SpriteUtils.addSpritesRequest = function(spritesRequest, panel, tasks, path)
 	{
-		var isSmallScreen = window.IS_SMALL_SCREEN ||
-			panel.game.display.width <= 350;
+		// DEPRECATED the use of the global window var IS_SMALL_SCREEN
+		// var isSmallScreen = window.IS_SMALL_SCREEN ||
+			// panel.game.display.width <= 350;
+		var isSmallScreen = panel.game.display.width <= 350;
 
 		path = path || 'assets/sprites/';
 		var label, req, dir;

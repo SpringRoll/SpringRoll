@@ -8,7 +8,7 @@
 	var Spine = include('PIXI.Spine'),
 		AnimationState = include('PIXI.spine.AnimationState'),
 		Texture = include('PIXI.Texture'),
-		ConcurrentSpineAnimData = include('springroll.pixi.ConcurrentSpineAnimData');
+		ParallelSpineData = include('springroll.pixi.ParallelSpineData');
 	
 	/**
 	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
@@ -238,7 +238,7 @@
 						clip.gotoAndPlay(0);
 					}
 					//concurrent spine anims
-					else if(anim[0] instanceof ConcurrentSpineAnimData)
+					else if(anim[0] instanceof ParallelSpineData)
 					{
 						this.spineStates = new Array(anim.length);
 						this.spineSpeeds = new Array(anim.length);
