@@ -1,6 +1,7 @@
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 (function() {
 	/**
 	*  Add methods to Array

@@ -1,5 +1,6 @@
 /**
  * @module Core
+ * @namespace window
  */
 (function(Math)
 {

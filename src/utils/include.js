@@ -1,6 +1,7 @@
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Used to include required classes by name
 *  @class include

@@ -1,5 +1,6 @@
 /**
  * @module Debug
+ * @namespace springroll
  */
 (function()
 {
