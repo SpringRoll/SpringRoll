@@ -3997,18 +3997,7 @@
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-
-	/**
-	 * Return a random int between minimum and maximum values.
-	 * If a single value is supplied, it will return a number between 0 and the supplied value.
-	 * @method getRandomInt
-	 * @static
-	 * @deprecated
-	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
-	 * @param {int} max Highest number.
-	 * @return {int} The random value
-	 */
-	Math.randomInt = Math.getRandomInt = function(min, max)
+	Math.randomInt = function(min, max)
 	{
 		if (max === undefined)
 		{

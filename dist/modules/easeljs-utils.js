@@ -7,50 +7,6 @@
 (function()
 {
 	/**
-	 * Utility methods for dealing with createjs movieclips
-	 * @class MovieClipUtils
-	 */
-	var MovieClipUtils = {};
-
-	/**
-	 * Combines gotoAndStop and cache in createjs to cache right away
-	 * @method gotoAndCache
-	 * @static
-	 * @param {createjs.MovieClip} movieClip The movieclip
-	 * @param {String|int} [frame=0] The 0-index frame number or frame label
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
-	 */
-	MovieClipUtils.gotoAndCache = function(movieClip, frame, buffer)
-	{
-		frame = (frame === undefined) ? 0 : frame;
-		buffer = (buffer === undefined) ? 15 : buffer;
-		if (movieClip.timeline)
-		{
-			movieClip.gotoAndStop(frame);
-		}
-		var bounds = movieClip.nominalBounds;
-		movieClip.cache(
-			bounds.x - buffer,
-			bounds.y - buffer,
-			bounds.width + (buffer * 2),
-			bounds.height + (buffer * 2),
-			1
-		);
-	};
-
-	//assign to namespace
-	namespace('springroll').MovieClipUtils = MovieClipUtils;
-	namespace('springroll.easeljs').MovieClipUtils = MovieClipUtils;
-
-}());
-/**
- * @module EaselJS Utilities
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
- */
-(function()
-{
-	/**
 	*  Designed to provide utility related to Bitmaps.
 	*  @class BitmapUtils
 	*/
@@ -379,11 +335,11 @@
 
 	/**
 	 *  @param container {createjs.Container|*} Container, clip, etc. to add objects to once found
-	 *  @param lib {createjs.Lib} Lib that contians the assets
-	 *  @param label {String} Label for assets without number suffix
-	 *  @param start {Int} Initial number of asset sequence
-	 *  @param count {int} How many counts from starting int
-	 *  @param visible {Boolean} Initial visiblity of added asset
+	 *  @param {createjs.Lib} lib Lib that contians the assets
+	 *  @param {String} label Label for assets without number suffix
+	 *  @param {Int} start Initial number of asset sequence
+	 *  @param {int} count How many counts from starting int
+	 *  @param {Boolean} visible Initial visiblity of added asset
 	 */
 	AssetUtils.getAssetSequence = function(container, lib, label, start, count, visible)
 	{
@@ -395,7 +351,6 @@
 			mc.id = i;
 			arr.push(mc);
 		}
-
 		return arr;
 	};
 
