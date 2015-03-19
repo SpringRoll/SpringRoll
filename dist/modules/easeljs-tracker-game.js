@@ -8,7 +8,7 @@
 {
 	var Debug = include('springroll.Debug', false),
 		Animator = include('springroll.Animator'),
-		BitmapMovieClip = include('createjs.BitmapMovieClip'),
+		BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
 		DwellTimer = include('springroll.easeljs.DwellTimer', false),
 		ListTask = include('springroll.ListTask'),
 		SoundButton = include('springroll.SoundButton'),
@@ -40,9 +40,9 @@
 	{
 		options = options || {};
 
-		if (!images[key])
+		if (true && Debug && !images[key])
 		{
-			if (true && Debug) Debug.error('key '+key+' cannot be found in loaded images');
+			Debug.error('key '+key+' cannot be found in loaded images');
 		}
 		var soundButton = new SoundButton(
 			images[key],
@@ -121,7 +121,8 @@
 		{
 			label = req = null;
 			req = spritesRequest[i];
-			if (panel.game.isMobile && req.mobile === false)
+			
+			if (panel.game.hasTouch && req.mobile === false)
 			{
 				continue;
 			}
@@ -156,48 +157,19 @@
 			path = "assets/sprites/";
 		}
 		return [
-		{
-			'id': 'animData',
-			'src': path + label + '.json'
-		},
-		{
-			'id': 'atlasData',
-			'src': path + label + 'Sprite.json'
-		},
-		{
-			'id': 'atlasImage',
-			'src': path + label + 'Sprite.png'
-		}];
-	};
-
-	/**
-	 *  Get an array with all the animations that can be called
-	 *  within a sprite
-	 *  @method extractLabels
-	 *  @static
-	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
-	 *  @return {Array} The labels in the sprite
-	 */
-	SpriteUtils.extractLabels = function(sprite)
-	{
-		var arrLabels = sprite._labels,
-			arrReturn = [],
-			label = null;
-		for (var i = arrLabels.length - 1; i >= 0; i--)
-		{
-			//Exclude animation-end tags
-			label = arrLabels[i].label;
-			if (label.indexOf('_loop') === -1 &&
-				label.indexOf('_stop') === -1)
 			{
-				arrReturn.push(label);
+				'id': 'animData',
+				'src': path + label + '.json'
+			},
+			{
+				'id': 'atlasData',
+				'src': path + label + 'Sprite.json'
+			},
+			{
+				'id': 'atlasImage',
+				'src': path + label + 'Sprite.png'
 			}
-		}
-		if (arrReturn.length === 0)
-		{
-			if (true && Debug) Debug.error("Problem finding labels in " + sprite);
-		}
-		return arrReturn;
+		];
 	};
 
 	/**
@@ -296,50 +268,9 @@
 		container.addChild(clone);
 	};
 
-	/**
-	 *  Calculate frame counts for each animation in a Sprite.
-	 *  Relies on standard '_stop' or '_loop' ending
-	 *  conventions to determine lengths. Those without
-	 *  the default ending will default to a length of 0.
-	 *  @method calculateAnimationLengths
-	 *  @static
-	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
-	 *  @return {int} The number of frame counts
-	 */
-	SpriteUtils.calculateAnimationLengths = function(sprite)
-	{
-		var positions = {},
-			arrLabels = sprite._labels,
-			labelObj = null,
-			frameCounts = {},
-			label = null;
-		for (var i = arrLabels.length - 1; i >= 0; i--)
-		{
-			labelObj = arrLabels[i];
-			label = labelObj.label;
-
-			positions[label] = labelObj.position;
-			if (label.indexOf('_stop') == -1 &&
-				label.indexOf('_loop') == -1)
-			{
-				frameCounts[label] = 1;
-			}
-		}
-
-		var start = null;
-		for (var k in frameCounts)
-		{
-			start = positions[k];
-			frameCounts[k] =
-				positions[k + '_stop'] - start ||
-				positions[k + '_loop'] - start ||
-				0;
-		}
-		return frameCounts;
-	};
-
 	//Assign to namespace
 	namespace('springroll.easeljs').SpriteUtils = SpriteUtils;
+	
 }());
 
 /**

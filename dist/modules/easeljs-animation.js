@@ -1503,42 +1503,147 @@
 	var BitmapMovieClip = function(atlas, data)
 	{
 		Container.call(this);
-		this.mouseChildren = false;//mouse events should reference this, not the child bitmap
+
+		//==== Public properties =====
+		
+		/**
+		 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
+		 * @property loop
+		 * @type Boolean
+		 * @default true
+		 */
+		this.loop = true;
+
+		/**
+		 * The current frame of the movieclip.
+		 * @property currentFrame
+		 * @type Number
+		 * @default 0
+		 * @readonly
+		 */
+		this.currentFrame = 0;
+
+		/**
+		 * If true, the BitmapMovieClip's position will not advance when ticked.
+		 * @property paused
+		 * @type Boolean
+		 * @default false
+		 */
+		this.paused = false;
+
+		//==== Private properties =====
+
+		/**
+		 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
+		 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
+		 * appropriate to maintain the target framerate.
+		 *
+		 * @property _framerate
+		 * @type {Number}
+		 * @default 0
+		 * @private
+		 **/
+		this._framerate = 0;
+
+		/**
+		 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the
+		 * animation.
+		 *
+		 * @property _duration
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._duration = 0;
+
+		/**
+		 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
+		 * seconds.
+		 * @property _t
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._t = 0;
+
+		/**
+		 * @property _prevPosition
+		 * @type Number
+		 * @default 0
+		 * @private
+		 */
+		this._prevPosition = 0;
+
+		/**
+		 * The Bitmap used to render the current frame of the animation.
+		 * @property _bitmap
+		 * @type createjs.Bitmap
+		 * @private
+		 */
+		this._bitmap = 0;
+
+		/**
+		 * An array of frame labels.
+		 * @property _labels
+		 * @type Array
+		 * @private
+		 */
+		this._labels = 0;
+
+		/**
+		 * An array of event labels.
+		 * @property _events
+		 * @type Array
+		 * @private
+		 */
+		this._events = 0;
+
+		/**
+		 * An array of textures.
+		 * @property _frames
+		 * @type Array
+		 * @private
+		 */
+		this._frames = null;
+
+		/**
+		 * The current texture.
+		 * @property _currentTexture
+		 * @type createjs.TextureAtlas.Texture
+		 * @private
+		 */
+		this._currentTexture = null;
+
+		/**
+		 * The origin point of the BitmapMovieClip.
+		 * @property _origin
+		 * @type createjs.Point
+		 * @private
+		 */
+		this._origin = null;
+
+		/**
+		 * A scale to apply to the images in the BitmapMovieClip
+		 * to restore normal size (if spritesheet was exported at a smaller or larger size).
+		 * @property _scale
+		 * @type Number
+		 * @private
+		 */
+		this._scale = 1;
+
+		// mouse events should reference this, not the child bitmap
+		this.mouseChildren = false;
 		this._bitmap = new createjs.Bitmap();
 		this.addChild(this._bitmap);
-		if(atlas && data)
+		
+		if (atlas && data)
+		{
 			this.init(atlas, data);
+		}	
 	};
 
 	var p = extend(BitmapMovieClip, Container);
 	var s = Container.prototype;
-
-	//==== Public properties =====
-
-	/**
-	 * Indicates whether this BitmapMovieClip should loop when it reaches the end of its timeline.
-	 * @property loop
-	 * @type Boolean
-	 * @default true
-	 */
-	p.loop = true;
-
-	/**
-	 * The current frame of the movieclip.
-	 * @property currentFrame
-	 * @type Number
-	 * @default 0
-	 * @readonly
-	 */
-	p.currentFrame = 0;
-
-	/**
-	 * If true, the BitmapMovieClip's position will not advance when ticked.
-	 * @property paused
-	 * @type Boolean
-	 * @default false
-	 */
-	p.paused = false;
 
 	/**
 	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
@@ -1555,11 +1660,14 @@
 	 * @type {Number}
 	 * @default 0
 	 **/
-	Object.defineProperty(p, 'framerate', {
-		get: function() {
+	Object.defineProperty(p, 'framerate', 
+	{
+		get: function()
+		{
 			return this._framerate;
 		},
-		set: function(value) {
+		set: function(value)
+		{
 			if(value > 0)
 			{
 				this._framerate = value;
@@ -1578,11 +1686,14 @@
 	 * @default 0
 	 * @public
 	 */
-	Object.defineProperty(p, 'elapsedTime', {
-		get: function() {
+	Object.defineProperty(p, 'elapsedTime', 
+	{
+		get: function() 
+		{
 			return this._t;
 		},
-		set: function(value) {
+		set: function(value) 
+		{
 			this._t = value;
 		}
 	});
@@ -1594,8 +1705,10 @@
 	 * @default 0
 	 * @readOnly
 	 */
-	Object.defineProperty(p, 'totalFrames', {
-		get: function() {
+	Object.defineProperty(p, 'totalFrames', 
+	{
+		get: function()
+		{
 			return this._frames.length;
 		}
 	});
@@ -1606,103 +1719,13 @@
 	 * @type createjs.TextureAtlas.Texture
 	 * @readOnly
 	 */
-	Object.defineProperty(p, 'currentTexture', {
-		get: function() {
+	Object.defineProperty(p, 'currentTexture', 
+	{
+		get: function()
+		{
 			return this._currentTexture;
 		}
 	});
-
-	//==== Private properties =====
-
-	/**
-	 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
-	 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
-	 * appropriate to maintain the target framerate.
-	 *
-	 * @property _framerate
-	 * @type {Number}
-	 * @default 0
-	 * @private
-	 **/
-	p._framerate = 0;
-
-	/**
-	 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the
-	 * animation.
-	 *
-	 * @property _duration
-	 * @type Number
-	 * @default 0
-	 * @private
-	 */
-	p._duration = 0;
-
-	/**
-	 * When the BitmapMovieClip is framerate independent, this is the time elapsed from frame 0 in
-	 * seconds.
-	 * @property _t
-	 * @type Number
-	 * @default 0
-	 * @private
-	 */
-	p._t = 0;
-
-	/**
-	 * @property _prevPosition
-	 * @type Number
-	 * @default 0
-	 * @private
-	 */
-	p._prevPosition = 0;
-
-	/**
-	 * The Bitmap used to render the current frame of the animation.
-	 * @property _bitmap
-	 * @type createjs.Bitmap
-	 * @private
-	 */
-	p._bitmap = 0;
-
-	/**
-	 * An array of frame labels.
-	 * @property _labels
-	 * @type Array
-	 * @private
-	 */
-	p._labels = 0;
-
-	/**
-	 * An array of textures.
-	 * @property _frames
-	 * @type Array
-	 * @private
-	 */
-	p._frames = null;
-
-	/**
-	 * The current texture.
-	 * @property _currentTexture
-	 * @type createjs.TextureAtlas.Texture
-	 * @private
-	 */
-	p._currentTexture = null;
-
-	/**
-	 * The origin point of the BitmapMovieClip.
-	 * @property _origin
-	 * @type createjs.Point
-	 * @private
-	 */
-	p._origin = null;
-
-	/**
-	 * A scale to apply to the images in the BitmapMovieClip
-	 * to restore normal size (if spritesheet was exported at a smaller or larger size).
-	 * @property _scale
-	 * @type Number
-	 * @private
-	 */
-	p._scale = 1;
 
 	//==== Public Methods =====
 
@@ -1714,7 +1737,8 @@
 	 * @method isVisible
 	 * @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
 	 **/
-	p.isVisible = function() {
+	p.isVisible = function()
+	{
 		// children are placed in draw, so we can't determine if we have content.
 		return !!(this.visible && this.alpha > 0 && this.scaleX !== 0 && this.scaleY !== 0);
 	};
@@ -1730,7 +1754,8 @@
 	 *                              cache. For example, used for drawing the cache (to prevent it
 	 *                              from simply drawing an existing cache back into itself).
 	 **/
-	p.draw = function(ctx, ignoreCache) {
+	p.draw = function(ctx, ignoreCache)
+	{
 		// draw to cache first:
 		if (this.DisplayObject_draw(ctx, ignoreCache)) { return true; }
 		this._updateTimeline();
@@ -1742,7 +1767,8 @@
 	 * Sets paused to false.
 	 * @method play
 	 **/
-	p.play = function() {
+	p.play = function()
+	{
 		this.paused = false;
 	};
 	
@@ -1750,7 +1776,8 @@
 	 * Sets paused to true.
 	 * @method stop
 	 **/
-	p.stop = function() {
+	p.stop = function()
+	{
 		this.paused = true;
 	};
 	
@@ -1759,7 +1786,8 @@
 	 * @method gotoAndPlay
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
 	 **/
-	p.gotoAndPlay = function(positionOrLabel) {
+	p.gotoAndPlay = function(positionOrLabel)
+	{
 		this.paused = false;
 		this._goto(positionOrLabel);
 	};
@@ -1769,7 +1797,8 @@
 	 * @method gotoAndStop
 	 * @param {String|Number} positionOrLabel The animation or frame name to go to.
 	 **/
-	p.gotoAndStop = function(positionOrLabel) {
+	p.gotoAndStop = function(positionOrLabel)
+	{
 		this.paused = true;
 		this._goto(positionOrLabel);
 	};
@@ -1780,7 +1809,8 @@
 	 *                        advanced but the timeline is still updated.
 	 * @method advance
 	*/
-	p.advance = function(time) {
+	p.advance = function(time)
+	{
 		if(!this.paused)
 		{
 			if(this._framerate > 0)
@@ -1805,9 +1835,21 @@
 	 * @method getLabels
 	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
 	 *                         properties.
-	 **/
-	p.getLabels = function() {
+	 */
+	p.getLabels = function()
+	{
 		return this._labels;
+	};
+
+	/**
+	 * Returns a sorted list of the labels which can be played with Animator.
+	 * @method getEvents
+	 * @return {Array} A sorted array of objects with label, length and position (aka frame)
+	 *     properties.
+	 */
+	p.getEvents = function()
+	{
+		return this._events;
 	};
 	
 	/**
@@ -1816,7 +1858,8 @@
 	 * @method getCurrentLabel
 	 * @return {String} The name of the current label or null if there is no label.
 	 **/
-	p.getCurrentLabel = function() {
+	p.getCurrentLabel = function()
+	{
 		var labels = this._labels;
 		var current = null;
 		for(var i = 0, len = labels.length; i < len; ++i)
@@ -1854,21 +1897,60 @@
 	{
 		//collect the frame labels
 		var labels = this._labels = [];
-		if(data.labels)
+		var events = this._events = [];
+		
+		if (data.labels)
 		{
+			var positions = {}, position;
+
 			for(var name in data.labels)
 			{
-				labels.push({label:name, position: data.labels[name]});
+				var label = {
+					label: name, 
+					position: data.labels[name],
+					length: 1
+				};
+
+				positions[name] = label.position;
+
+				// Exclude animation-end tags
+				if (!/_(loop|stop)$/.test(name))
+				{
+					events.push(label);
+				}
+				labels.push(label);
+			}
+			// Calculate the lengths for all the event labels
+			var start = null;
+			for (var j = 0; j < events.length; j++)
+			{
+				var event = events[j];
+				start = event.position;
+				event.length = 
+					positions[name + '_stop'] - start ||
+					positions[name + '_loop'] - start ||
+					0;
 			}
 			labels.sort(labelSorter);
+			events.sort(labelSorter);
 		}
+
 		//collect the frames
 		this._frames = [];
+
 		for(var i = 0; i < data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
-			atlas.getFrames(frameSet.name, frameSet.min, frameSet.max, frameSet.digits, this._frames);
+
+			atlas.getFrames(
+				frameSet.name, 
+				frameSet.min, 
+				frameSet.max, 
+				frameSet.digits, 
+				this._frames
+			);
 		}
+
 		//set up the framerate
 		if(data.fps)
 			this.framerate = data.fps;
@@ -1928,7 +2010,8 @@
 	 * function.
 	 * @protected
 	 **/
-	p._tick = function(props) {
+	p._tick = function(props)
+	{
 		this.advance(props&&props.delta);
 		s._tick.call(this, props);
 	};
@@ -1938,7 +2021,8 @@
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
 	 * @protected
 	 **/
-	p._goto = function(positionOrLabel) {
+	p._goto = function(positionOrLabel)
+	{
 		var pos = null;
 		if(typeof positionOrLabel == "string")
 		{
@@ -1954,7 +2038,7 @@
 		}
 		else
 			pos = positionOrLabel;
-		if (pos === null) { return; }
+		if (pos === null) return;
 		this._prevPosition = pos;
 		if(this._framerate > 0)
 			this._t = pos / this._framerate;
@@ -1967,7 +2051,8 @@
 	 * @method _updateTimeline
 	 * @protected
 	 **/
-	p._updateTimeline = function() {
+	p._updateTimeline = function()
+	{
 		if(this._prevPosition < 0)
 			this._prevPosition = 0;
 		else if(this._prevPosition >= this._frames.length)
@@ -1987,7 +2072,8 @@
 	 * @method _reset
 	 * @private
 	 **/
-	p._reset = function() {
+	p._reset = function()
+	{
 		this._prevPosition = 0;
 		this._t = 0;
 		this.currentFrame = 0;

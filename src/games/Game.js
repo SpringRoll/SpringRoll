@@ -46,7 +46,7 @@
 	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
 	*                                        (unminifed library version only)
 	*  @param {String} [options.name=''] The name of the game
-	*  @param {Boolean} [options.forceMobile=false] Manually override the check for isMobile
+	*  @param {Boolean} [options.forceTouch=false] Manually override the check for hasTouch
 	*                                               (unminifed library version only)
 	*  @param {Boolean} [options.updateTween=true] Have the application take care of the Tween
 	*                                              updates
@@ -168,18 +168,18 @@
 
 		/**
 		*  If the current brower has touch input available
-		*  @property {Boolean} isMobile
+		*  @property {Boolean} hasTouch
 		*/
 		if (DEBUG && this.options.forceMobile)
 		{
-			this.isMobile = true;
+			this.hasTouch = true;
 		}
 		else
 		{
 			//Detect availability of touch events
-			this.isMobile = !!(('ontouchstart' in window) ||// iOS & Android
-			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
-			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
+			this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
+				(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
+				(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 		}
 
 		// Callback right before init is called, we'll

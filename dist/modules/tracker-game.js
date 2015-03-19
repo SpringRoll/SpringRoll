@@ -917,13 +917,13 @@
 				}
 			}.bind(this);
 
-			if (springroll.DebugOptions) springroll.DebugOptions.boolean('forceMobile', 'Force isMobile to true');
+			if (springroll.DebugOptions) springroll.DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
 		}
 
 		this.filters = new StringFilters();
 		this.filters.add(
 			'%INTERACTION%',
-			this.isMobile ? '_touch' : '_mouse');
+			this.hasTouch ? '_touch' : '_mouse');
 
 		//Add listener
 		this.once('soundReady', onSoundReady.bind(this));
