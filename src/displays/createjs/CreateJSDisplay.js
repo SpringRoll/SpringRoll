@@ -41,6 +41,13 @@
 		*  @default 30
 		*/
 		this.mouseOverRate = options.mouseOverRate || 30;
+		
+		/**
+		*  If the display should keep mouse move events running when the display is disabled.
+		*  @property {Boolean} keepMouseover
+		*  @public
+		*/
+		this.keepMouseover = options.keepMouseover || false;
 
 		if (options.stageType == "spriteStage")
 		{
@@ -94,8 +101,15 @@
 			}
 			else
 			{
-				this.stage.enableMouseOver(false);
-				this.stage.enableDOMEvents(false);
+				if(this.keepMouseover)
+				{
+					this.stage.enableDOMEvents("keepMove");
+				}
+				else
+				{
+					this.stage.enableMouseOver(false);
+					this.stage.enableDOMEvents(false);
+				}
 				Touch.disable(this.stage);
 				//reset the cursor if it isn't disabled
 				if(this.canvas.style.cursor != "none")
