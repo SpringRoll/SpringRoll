@@ -1,5 +1,5 @@
 /**
- * @module Tracker Game
+ * @module Tracking Game
  * @namespace springroll
  * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */
@@ -11,11 +11,11 @@
 	/**
 	 *  This class contains a bunch of media playing class
 	 *  to provide convenience around using the Progress Tracker
-	 *  @class TrackerGameMedia
+	 *  @class TrackingGameMedia
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game Instance of the current game
+	 *  @param {springroll.TrackingGame} game Instance of the current game
 	 */
-	var TrackerGameMedia = function(game)
+	var TrackingGameMedia = function(game)
 	{
 		/**
 		 * @param {springroll.StringFilters} filters
@@ -26,7 +26,7 @@
 		 */
 		this.tracker = game.tracker;
 		/**
-		 * @param {springroll.TrackerGameMedia} player
+		 * @param {springroll.TrackingGameMedia} player
 		 */
 		this.player = game.player;
 		/**
@@ -36,7 +36,7 @@
 	};
 
 	//Reference to the prototype
-	var p = TrackerGameMedia.prototype;
+	var p = TrackingGameMedia.prototype;
 
 	/**
 	 *  Plays animation or list of animations using springroll.Animator,
@@ -587,5 +587,5 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').TrackerGameMedia = TrackerGameMedia;
+	namespace('springroll').TrackingGameMedia = TrackingGameMedia;
 }());

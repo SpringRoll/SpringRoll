@@ -1,7 +1,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -15,7 +15,7 @@
 	 *  @class AnimatorHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint complete
 	 *  @param {createjs.MovieClip|*} instance The media instance to play
 	 *  @param {String|object|Array} events The event or events to play

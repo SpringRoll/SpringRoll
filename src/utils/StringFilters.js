@@ -1,5 +1,5 @@
 /**
- * @module Tracker Game
+ * @module Tracking Game
  * @namespace springroll
  * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */

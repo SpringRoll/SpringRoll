@@ -1,7 +1,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -15,13 +15,13 @@
 	 *  Design to handle the setting and playing of hints
 	 *  @class HintPlayer
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game Reference to the current game
+	 *  @param {springroll.TrackingGame} game Reference to the current game
 	 */
 	var HintPlayer = function(game)
 	{
 		/**
 		 *  Reference to the current game
-		 *  @property {springroll.TrackerGame} _game
+		 *  @property {springroll.TrackingGame} _game
 		 *  @private
 		 */
 		this._game = game;

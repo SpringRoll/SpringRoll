@@ -2,7 +2,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -10,7 +10,7 @@
 	 *  Abstract base class for hints used by HintPlayer
 	 *  @class AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint complete
 	 */
 	var AbstractHint = function(game, done)
@@ -64,7 +64,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -77,7 +77,7 @@
 	 *  @class VOHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint complete
 	 *  @param {String|Array} idOrList
 	 *  @param {Function} onComplete
@@ -130,7 +130,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -144,7 +144,7 @@
 	 *  @class AnimatorHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint complete
 	 *  @param {createjs.MovieClip|*} instance The media instance to play
 	 *  @param {String|object|Array} events The event or events to play
@@ -202,7 +202,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -214,7 +214,7 @@
 	 *  @class FunctionHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint done
 	 *  @param {function} onStart Function to call
 	 */
@@ -255,7 +255,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -276,7 +276,7 @@
 	 *  @class GroupHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game The instance of the game
+	 *  @param {springroll.TrackingGame} game The instance of the game
 	 *  @param {Function} done called on hint done
 	 */
 	var GroupHint = function(game, done)
@@ -446,7 +446,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracker Game
+ * @requires Core, Game, Sound, Tracking Game
  */
 (function()
 {
@@ -460,13 +460,13 @@
 	 *  Design to handle the setting and playing of hints
 	 *  @class HintPlayer
 	 *  @constructor
-	 *  @param {springroll.TrackerGame} game Reference to the current game
+	 *  @param {springroll.TrackingGame} game Reference to the current game
 	 */
 	var HintPlayer = function(game)
 	{
 		/**
 		 *  Reference to the current game
-		 *  @property {springroll.TrackerGame} _game
+		 *  @property {springroll.TrackingGame} _game
 		 *  @private
 		 */
 		this._game = game;

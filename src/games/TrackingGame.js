@@ -1,5 +1,5 @@
 /**
- * @module Tracker Game
+ * @module Tracking Game
  * @namespace springroll
  * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */
@@ -15,7 +15,7 @@
 		TaskManager = include('springroll.TaskManager'),
 		LoadTask = include('springroll.LoadTask'),
 		UIScaler = include('springroll.UIScaler'),
-		TrackerGameMedia = include('springroll.TrackerGameMedia'),
+		TrackingGameMedia = include('springroll.TrackingGameMedia'),
 		StringFilters = include('springroll.StringFilters'),
 		PageVisibility = include('springroll.PageVisibility'),
 		ProgressTracker,
@@ -23,7 +23,7 @@
 
 	/**
 	 * The base game class
-	 * @class TrackerGame
+	 * @class TrackingGame
 	 * @extends springroll.Game
 	 * @constructor
 	 * @param {object} [options]
@@ -48,7 +48,7 @@
 	 * @param {object} [options.playOptions]
 	 *	The optional single-play mode gameplay options
 	 */
-	var TrackerGame = function(options)
+	var TrackingGame = function(options)
 	{
 		HintPlayer = include('springroll.HintPlayer', false);
 		ProgressTracker = include('springroll.ProgressTracker', false);
@@ -95,11 +95,11 @@
 		{
 			if (DEBUG)
 			{
-				throw "TrackerGame name is undefined, please add a Application option of 'name'";
+				throw "TrackingGame name is undefined, please add a Application option of 'name'";
 			}
 			else
 			{
-				throw "TrackerGame name is undefined";
+				throw "TrackingGame name is undefined";
 			}
 		}
 
@@ -237,7 +237,7 @@
 
 	//Reference to the prototype
 	var s = Game.prototype;
-	var p = extend(TrackerGame, Game);
+	var p = extend(TrackingGame, Game);
 
 	/**
 	 * The game has finished loading
@@ -407,7 +407,7 @@
 			window.onbeforeunload = onWindowClose.bind(this);
 		}
 
-		this.media = new TrackerGameMedia(this);
+		this.media = new TrackingGameMedia(this);
 
 		this.trigger(CONFIG_LOADED, config, manager);
 	};
@@ -600,9 +600,9 @@
 	};
 
 	/**
-	 * Pass-through method, see TrackerGameMedia.playMovie for more information
+	 * Pass-through method, see TrackingGameMedia.playMovie for more information
 	 * @method playMovie
-	 * @deprecated Use TrackerGame.media.playMovie instead
+	 * @deprecated Use TrackingGame.media.playMovie instead
 	 */
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
@@ -610,9 +610,9 @@
 	};
 
 	/**
-	 * Pass-through method, see TrackerGameMedia.playInstruction for more information
+	 * Pass-through method, see TrackingGameMedia.playInstruction for more information
 	 * @method playInstruction
-	 * @deprecated Use TrackerGame.media.playInstruction instead
+	 * @deprecated Use TrackingGame.media.playInstruction instead
 	 */
 	p.playInstruction = function(instance, events, onComplete, onCancel)
 	{
@@ -620,9 +620,9 @@
 	};
 
 	/**
-	 * Pass-through method, see TrackerGameMedia.playIncorrectFeedback for more information
+	 * Pass-through method, see TrackingGameMedia.playIncorrectFeedback for more information
 	 * @method playIncorrectFeedback
-	 * @deprecated Use TrackerGame.media.playIncorrectFeedback instead
+	 * @deprecated Use TrackingGame.media.playIncorrectFeedback instead
 	 */
 	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
@@ -630,9 +630,9 @@
 	};
 
 	/**
-	 * Pass-through method, see TrackerGameMedia.playCorrectFeedback for more information
+	 * Pass-through method, see TrackingGameMedia.playCorrectFeedback for more information
 	 * @method playCorrectFeedback
-	 * @deprecated Use TrackerGame.media.playCorrectFeedback instead
+	 * @deprecated Use TrackingGame.media.playCorrectFeedback instead
 	 */
 	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
@@ -734,5 +734,5 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').TrackerGame = TrackerGame;
+	namespace('springroll').TrackingGame = TrackingGame;
 }());

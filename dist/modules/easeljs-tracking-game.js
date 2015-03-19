@@ -1,8 +1,8 @@
 /*! SpringRoll 0.2.0 */
 /**
- * @module EaselJS Tracker Game
+ * @module EaselJS Tracking Game
  * @namespace springroll.easeljs
- * @requires Core, Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Tracking Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function()
 {
@@ -274,9 +274,9 @@
 }());
 
 /**
- * @module EaselJS Tracker Game
+ * @module EaselJS Tracking Game
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracking Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function()
 {
@@ -358,9 +358,9 @@
 	namespace('springroll.createjs').BasePanel = BasePanel;
 }());
 /**
- * @module EaselJS Tracker Game
+ * @module EaselJS Tracking Game
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracking Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function(undefined)
 {
@@ -648,14 +648,14 @@
 	namespace('springroll.createjs').ManifestState = BaseState;
 }());
 /**
- * @module EaselJS Tracker Game
+ * @module EaselJS Tracking Game
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracking Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function(undefined)
 {
 	//Import classes
-	var BaseTrackerGame = include('springroll.TrackerGame'),
+	var BaseTrackingGame = include('springroll.TrackingGame'),
 		EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay'),
 		Animator,
 		Text,
@@ -664,8 +664,8 @@
 
 	/**
 	 *  A createjs-based Game to load manifests
-	 *  @class TrackerGame
-	 *  @extends springroll.TrackerGame
+	 *  @class TrackingGame
+	 *  @extends springroll.TrackingGame
 	 *  @constructor
 	 *  @param {object} [options] The Application options
 	 *  @param {string} [options.manifestsPath='assets/config/manifests.json']
@@ -680,14 +680,14 @@
 	 *  @param {boolean} [options.displayOptions.clearView=true] If the stage view
 	 *      should be cleared everytime in CreateJS stage. 
 	 */
-	var TrackerGame = function(options)
+	var TrackingGame = function(options)
 	{
 		Text = include('createjs.Text');
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
 		Animator = include('springroll.easeljs.Animator');
 
-		BaseTrackerGame.call(this, Object.merge({
+		BaseTrackingGame.call(this, Object.merge({
 			manifestsPath: "assets/config/manifests.json",
 			display: EaselJSDisplay,
 			displayOptions:	{
@@ -729,8 +729,8 @@
 	};
 
 	//Extend base game class
-	var s = BaseTrackerGame.prototype;
-	var p = extend(TrackerGame, BaseTrackerGame);
+	var s = BaseTrackingGame.prototype;
+	var p = extend(TrackingGame, BaseTrackingGame);
 
 	/**
 	 *  Event when the manifest is finished loading
@@ -889,6 +889,6 @@
 	});
 
 	//Assign to namespace
-	namespace('springroll.easeljs').TrackerGame = TrackerGame;
+	namespace('springroll.easeljs').TrackingGame = TrackingGame;
 
 }());

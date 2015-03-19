@@ -159,13 +159,13 @@
 				"src/tracker/ProgressTracker.less"
 			]
 		},
-		"easeljstrackergame": {
-			"output": "easeljs-tracker-game",
+		"easeljstrackinggame": {
+			"output": "easeljs-tracking-game",
 			"main": [
 				"src/games/easeljs/utils/*.js",
 				"src/games/easeljs/BasePanel.js",
 				"src/games/easeljs/BaseState.js",
-				"src/games/easeljs/TrackerGame.js"
+				"src/games/easeljs/TrackingGame.js"
 			]
 		},
 		"hinting": {
@@ -186,13 +186,13 @@
 				"src/container/GameContainer.js"
 			]
 		},
-		"trackergame": {
-			"output": "tracker-game",
+		"trackinggame": {
+			"output": "tracking-game",
 			"main": [
 				"src/utils/StringFilters.js",
-				"src/games/TrackerGameMedia.js",
-				"src/games/TrackerGame.js",
-				"src/games/TrackerGame.less"
+				"src/games/TrackingGameMedia.js",
+				"src/games/TrackingGame.js",
+				"src/games/TrackingGame.less"
 			]
 		}
 	}

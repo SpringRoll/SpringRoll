@@ -39,16 +39,16 @@
 	<script src="../dist/modules/tasks.js"></script>
 	<script src="../dist/modules/translate.js"></script>
 	<script src="../dist/modules/worker.js"></script>
-	<script src="../dist/modules/tracker-game.js"></script>
+	<script src="../dist/modules/tracking-game.js"></script>
 	<script src="../dist/modules/progress-tracker.js"></script>
-	<script src="../dist/modules/easeljs-tracker-game.js"></script>
+	<script src="../dist/modules/easeljs-tracking-game.js"></script>
 	<script src="../dist/modules/container.js"></script>
 	<script src="../dist/modules/hinting.js"></script>
 
 	<script>
 
 	var Application = include('springroll.Application');
-	var TrackerGame = include('springroll.TrackerGame');
+	var TrackingGame = include('springroll.TrackingGame');
 
 	test('Include All Modules', function(assert){
 		expect(1);
@@ -57,9 +57,9 @@
 		app.destroy();
 	});
 
-	test('Create a TrackerGame', function(assert){
+	test('Create a TrackingGame', function(assert){
 		expect(1);
-		var game = new TrackerGame({
+		var game = new TrackingGame({
 			name: "TestGame"
 		});
 		assert.ok(!!game, "Created an empty game");
