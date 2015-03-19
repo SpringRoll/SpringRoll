@@ -1,10 +1,10 @@
 /**
-*  @module PIXI Interface
-*  @namespace springroll.pixi
-*  @requires  PIXI Display
-*/
-(function(undefined) {
-	
+ * @module PIXI Interface
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function(undefined)
+{
 	// Import classes
 	var Debug,
 		DisplayObjectContainer = include('PIXI.DisplayObjectContainer'),

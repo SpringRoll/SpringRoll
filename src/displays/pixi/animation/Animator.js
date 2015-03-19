@@ -1,14 +1,14 @@
 /**
-*  @module PIXI Animation
-*  @namespace springroll.pixi
-*  @requires  PIXI Display
-*/
-(function(undefined) {
-	
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function(undefined)
+{
 	var Spine = include('PIXI.Spine'),
 		Texture = include('PIXI.Texture'),
 		AnimatorTimeline = include('springroll.pixi.AnimatorTimeline'),
-		ConcurrentSpineAnimData = include('springroll.pixi.ConcurrentSpineAnimData'),
+		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
 		Application = include('springroll.Application'),
 		MovieClip = include('PIXI.MovieClip'),
 		Sound;
@@ -73,7 +73,7 @@
 	*   * objects in the format:
 	*
 	*       {
-	*           anim:<string|array of strings|array of ConcurrentSpineAnimData|array of Textures>,
+	*           anim:<string|array of strings|array of ParallelSpineData|array of Textures>,
 	*           start:0,
 	*           speed:1,
 	*           loop:false,
@@ -89,7 +89,7 @@
 	*           if you want the audio to start 0 milliseconds into the animation.
 	*   * strings - A single animation to play on a Spine skeleton.
 	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
-	*   * arrays of ConcurrentSpineAnimData - An array of animations to play at the same time on a
+	*   * arrays of ParallelSpineData - An array of animations to play at the same time on a
 	*       Spine skeleton.
 	*   * arrays of Textures - An array of textures to play on a MovieClip.
 	*   * numbers - milliseconds to wait.
@@ -139,7 +139,7 @@
 			{
 				animData = [{anim: animData, audio: audio}];
 			}
-			else if(firstItem instanceof ConcurrentSpineAnimData)
+			else if(firstItem instanceof ParallelSpineData)
 			{
 				animData = [{anim: animData, audio: audio}];
 			}
@@ -341,7 +341,7 @@
 			{
 				animData = [{anim: animData}];
 			}
-			else if(firstItem instanceof ConcurrentSpineAnimData)
+			else if(firstItem instanceof ParallelSpineData)
 			{
 				animData = [{anim: animData}];
 			}
@@ -369,7 +369,7 @@
 							duration += anim.length / clip.fps;
 						}
 						//concurrent spine anims
-						else if(anim[0] instanceof ConcurrentSpineAnimData)
+						else if(anim[0] instanceof ParallelSpineData)
 						{
 							this.spineStates = new Array(anim.length);
 							this.spineSpeeds = new Array(anim.length);

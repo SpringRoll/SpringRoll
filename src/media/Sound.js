@@ -1,9 +1,10 @@
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Application = include('springroll.Application'),
 		Debug,
 		Loader,

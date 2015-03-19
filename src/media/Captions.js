@@ -1,7 +1,8 @@
 /**
-*  @module Captions
-*  @namespace springroll
-*/
+ * @module Captions
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	// Import class

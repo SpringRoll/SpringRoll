@@ -1,7 +1,8 @@
 /*! SpringRoll 0.2.0 */
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -52,8 +53,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -232,8 +234,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -465,8 +468,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -526,8 +530,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -582,8 +587,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -768,8 +774,9 @@
 }());
 
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function($, undefined)
 {
@@ -985,8 +992,11 @@
 				{
 					this._showError(e.message, e.api);
 				}
-				Debug.error(error.toString());
-				Debug.error(error.stack);
+				if (Debug)
+				{
+					Debug.error(error.toString());
+					Debug.error(error.stack);
+				}
 			}
 			if (ProgressTracker.throwErrors)
 			{
@@ -1700,8 +1710,9 @@
 
 }(window.jQuery));
 /**
- *  @module Progress Tracker
- *  @namespace springroll.easeljs
+ * @module Progress Tracker
+ * @namespace springroll.easeljs
+ * @requires Core
  */
 (function(undefined)
 {

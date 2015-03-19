@@ -1,10 +1,11 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  Task events are used by the task manager to communicate
 	*  when tasks change
@@ -62,10 +63,12 @@
 
 }());
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  A task is used by the Task Manager to do an 
 	*  asyncronous task (like loading or playback)
@@ -169,11 +172,12 @@
 	
 }());
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var Task = include('springroll.Task');
 	
@@ -264,9 +268,10 @@
 	
 }());
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 	
 	// Imports
@@ -396,11 +401,12 @@
 	
 }());
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var TaskEvent,
 		EventDispatcher = include('springroll.EventDispatcher'),
@@ -731,11 +737,12 @@
 }());
 
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var Task = include('springroll.Task'),
 		LoadTask = include('springroll.LoadTask'),
@@ -912,11 +919,12 @@
 	
 }());
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Loader,
 		Application,
 		AssetLoader,

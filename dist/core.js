@@ -1,7 +1,8 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Static class for namespacing objects and adding
 *  classes to it.
@@ -46,8 +47,9 @@
 
 
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Used to include required classes by name
 *  @class include
@@ -107,8 +109,9 @@
 	
 }(window));
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Use to do class inheritence
 *  @class extend
@@ -145,8 +148,9 @@
 
 }(window));
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 (function(Object, undefined){
 
 	/**
@@ -273,7 +277,8 @@
  * @module Core
  * @namespace springroll
  */
-(function() {
+(function()
+{
 	var Debug = include('springroll.Debug', false);
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
@@ -445,9 +450,9 @@
 	namespace('springroll').Enum = Enum;
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(window){
 		
 	// Include the window.performance object
@@ -490,8 +495,8 @@
 	namespace('springroll').TimeUtils = TimeUtils;
 	
 }(window));
-(function(){
-
+(function()
+{
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 	// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
 	// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
@@ -514,7 +519,8 @@
 		{
 			var currTime = TimeUtils.now();//use the now function from down below
 			var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-			var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+			var id = window.setTimeout(function()
+{ callback(currTime + timeToCall); }, timeToCall);
 			lastTime = currTime + timeToCall;
 			return id;
 		};
@@ -992,9 +998,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(global, doc, undefined){
 		
 	/**
@@ -2801,8 +2807,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	/**
 	*  Represents a single item in the loader queue 
 	*
@@ -2939,8 +2945,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	// Classes to import
 	var LoaderQueueItem,
 		CacheManager,
@@ -3421,8 +3427,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	/**
 	*  The return result of the Loader load
 	*  @class LoaderResult
@@ -3488,10 +3494,11 @@
 	
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
-(function() {
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
 	
 	/**
 	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
@@ -3690,9 +3697,9 @@
 }());
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined) {
 
 	var Application = include('springroll.Application');
@@ -3858,9 +3865,11 @@
 	namespace('springroll').DelayedCall = DelayedCall;
 }());
 /**
-*  @module Core
-*/
-(function() {
+ * @module Core
+ * @namespace window
+ */
+(function()
+{
 	/**
 	*  Add methods to String
 	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
@@ -3900,9 +3909,11 @@
 }());
 
 /**
-*  @module Core
-*/
-(function() {
+ * @module Core
+ * @namespace window
+ */
+(function()
+{
 	/**
 	*  Add methods to Array
 	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
@@ -3968,6 +3979,7 @@
 
 /**
  * @module Core
+ * @namespace window
  */
 (function(Math)
 {

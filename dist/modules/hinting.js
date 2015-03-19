@@ -1,8 +1,8 @@
 /*! SpringRoll 0.2.0 */
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {
@@ -62,9 +62,9 @@
 }());
 
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {
@@ -128,9 +128,9 @@
 }());
 
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {
@@ -200,9 +200,9 @@
 }());
 
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {
@@ -253,9 +253,9 @@
 }());
 
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {
@@ -444,9 +444,9 @@
 }());
 
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {

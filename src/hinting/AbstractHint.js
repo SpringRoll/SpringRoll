@@ -1,7 +1,7 @@
 /**
- *  @module Hinting
- *  @namespace springroll
- *  @requires Game, Tracker Game
+ * @module Hinting
+ * @namespace springroll
+ * @requires Core, Game, Sound, Tracker Game
  */
 (function()
 {

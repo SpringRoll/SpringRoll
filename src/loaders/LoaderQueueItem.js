@@ -2,8 +2,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	/**
 	*  Represents a single item in the loader queue 
 	*

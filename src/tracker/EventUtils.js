@@ -1,6 +1,7 @@
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {

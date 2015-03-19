@@ -1,9 +1,10 @@
 /**
-*  @module Game
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var Debug,
 		StateManager;

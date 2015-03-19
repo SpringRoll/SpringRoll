@@ -2,8 +2,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	// Classes to import
 	var LoaderQueueItem,
 		CacheManager,

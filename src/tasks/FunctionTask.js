@@ -1,9 +1,10 @@
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var Task = include('springroll.Task');
 	

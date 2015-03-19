@@ -1,20 +1,21 @@
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function()
 {
 	var Debug = include('springroll.Debug', false),
 		Animator = include('springroll.Animator'),
 		BitmapMovieClip = include('createjs.BitmapMovieClip'),
-		DwellTimer = include('springroll.easeljs.DwellTimer'),
+		DwellTimer = include('springroll.easeljs.DwellTimer', false),
 		ListTask = include('springroll.ListTask'),
 		SoundButton = include('springroll.SoundButton'),
 		TextureAtlas = include('createjs.TextureAtlas');
 
 	/**
-	 *  CreateJS-based sprite utilities
+	 *  EaselJS-based sprite utilities for creating and managing sprites,
+	 *  and sprite loading.
 	 *  @class SpriteUtils
 	 *  @static
 	 */
@@ -24,13 +25,15 @@
 	 *  Create a SoundButton. Must be bound to a springroll.BasePanel
 	 *	in order to default to the config.sprites position.
 	 * 		i.e. createSoundButon.call(<panel>, arg1...)
+	 * 	@method  createSoundButton
+	 *  @static
 	 *  @param {String} [key|Object=String]
 	 *		The id for the loaded bitmap in images
 	 *		e.g. 'SkipButton' > images.SkipButton
 	 *  @param {Object} [options=Object]
 	 *  	Pass through any options for SoundButton if
 	 * 		they are not to be the defaults
-	 *  @return {springroll.SoundButton} button
+	 *  @return {springroll.SoundButton} The new Sound button
 	 */
 	SpriteUtils.createSoundButton = function(key, options)
 	{
@@ -69,7 +72,7 @@
 
 		//Dwell timer requires a "name" variable
 		soundButton.name = key;
-		DwellTimer.create(soundButton);
+		if (DwellTimer) DwellTimer.create(soundButton);
 
 		return soundButton;
 	};
@@ -77,10 +80,11 @@
 	/**
 	 *  Clone a sprite. Creates a shallow copy of loaded element
 	 *  @method clone
-	 *  @param {createjs.BitmapMovieClip} sprite
-	 *  @param {int} x
-	 *  @param {int} y
-	 *  @param return {createjs.BitmapMovieClip}
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
+	 *  @param {Number} [x=0] The initial x position
+	 *  @param {Number} [y=0] The initial y position
+	 *  @return {springroll.easeljs.BitmapMovieClip}
 	 */
 	SpriteUtils.clone = function(sprite, x, y)
 	{
@@ -94,6 +98,8 @@
 
 	/**
 	 *  Add task for all sprites in the spritesRequest object
+	 *  @method addSpritesRequest
+	 *  @static
 	 *  @param {object} spritesRequest Config data for the sprites
 	 *								   needed in this state
 	 *  @param {springroll.BasePanel} panel The panel for this state
@@ -103,8 +109,10 @@
 	 */
 	SpriteUtils.addSpritesRequest = function(spritesRequest, panel, tasks, path)
 	{
-		var isSmallScreen = window.IS_SMALL_SCREEN ||
-			panel.game.display.width <= 350;
+		// DEPRECATED the use of the global window var IS_SMALL_SCREEN
+		// var isSmallScreen = window.IS_SMALL_SCREEN ||
+			// panel.game.display.width <= 350;
+		var isSmallScreen = panel.game.display.width <= 350;
 
 		path = path || 'assets/sprites/';
 		var label, req, dir;
@@ -135,8 +143,10 @@
 	 *  and an optional path
 	 *
 	 *  @method generateManifest
+	 *  @static
 	 *  @param {string} label
-	 * 	@parma {string} [path='assets/sprites/']
+	 * 	@param {string} [path='assets/sprites/']
+	 * 	@return {Array} The manifest to be loaded
 	 */
 	SpriteUtils.generateManifest = function(label, path)
 	{
@@ -163,7 +173,9 @@
 	 *  Get an array with all the animations that can be called
 	 *  within a sprite
 	 *  @method extractLabels
-	 *  @param {BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
+	 *  @return {Array} The labels in the sprite
 	 */
 	SpriteUtils.extractLabels = function(sprite)
 	{
@@ -190,8 +202,10 @@
 	/**
 	 *  Clone and setup the sprites for all the characters/opponents.
 	 *  @method cloneSpritePerLabel
-	 *  @param {BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
 	 *  @param {createjs.Container} container
+	 *  @return {object} A map of clones by label
 	 */
 	SpriteUtils.cloneSpritePerLabel = function(sprite, container)
 	{
@@ -214,6 +228,7 @@
 	 *  Adds a sprite to the sprites container object
 	 *  with a key determined by the task's id
 	 *  @method onSpriteLoaded
+	 *  @static
 	 *  @param {object} results The object containing the LoadResult objects
 	 *  @param {springroll.Task} task The task manager original task
 	 */
@@ -258,9 +273,10 @@
 	 *  Add the clone to specified container, and initiailize its
 	 *  Animation to a default label, or stop at first frame
 	 *  @method addCloneTo
-	 *  @param clone
-	 *  @param container
-	 *  @param hasDefaultAnim
+	 *  @static
+	 *  @param {createjs.MovieClip} clone
+	 *  @param {createjs.Container} container
+	 *  @param {Boolean} [hasDefaultAnim=false]
 	 */
 	SpriteUtils.addCloneTo = function(clone, container, hasDefaultAnim)
 	{
@@ -285,7 +301,9 @@
 	 *  conventions to determine lengths. Those without
 	 *  the default ending will default to a length of 0.
 	 *  @method calculateAnimationLengths
-	 *  @param {springroll.BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
+	 *  @return {int} The number of frame counts
 	 */
 	SpriteUtils.calculateAnimationLengths = function(sprite)
 	{

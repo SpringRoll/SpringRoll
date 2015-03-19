@@ -2,8 +2,8 @@
 *  @module Core
 *  @namespace springroll
 */
-(function(){
-	
+(function()
+{
 	/**
 	*  The return result of the Loader load
 	*  @class LoaderResult

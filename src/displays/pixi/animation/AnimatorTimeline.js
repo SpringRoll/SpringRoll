@@ -1,10 +1,10 @@
 /**
-*  @module PIXI Animation
-*  @namespace springroll.pixi
-*  @requires  PIXI Display
-*/
-(function(){
-	
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
 	var Spine = include('PIXI.Spine'),
 		AnimationState = include('PIXI.spine.AnimationState'),
 		Texture = include('PIXI.Texture'),

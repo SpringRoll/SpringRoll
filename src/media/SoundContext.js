@@ -1,9 +1,10 @@
 /**
-*  @modules Sound
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  A private class that represents a sound context.
 	*  @class SoundContext

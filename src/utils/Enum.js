@@ -2,7 +2,8 @@
  * @module Core
  * @namespace springroll
  */
-(function() {
+(function()
+{
 	var Debug = include('springroll.Debug', false);
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.

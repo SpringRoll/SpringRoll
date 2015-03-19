@@ -2,10 +2,10 @@
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
- * @requires EaselJS Display, EaselJS Utilities
+ * @requires Core, EaselJS Display, EaselJS Utilities
  */
-(function(){
-
+(function()
+{
 	var Debug,
 		Container = include('createjs.Container'),
 		BitmapUtils,

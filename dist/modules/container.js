@@ -2,6 +2,7 @@
 /**
  * @module Container
  * @namespace springroll
+ * @requires  Core
  */
 (function(undefined)
 {
@@ -90,6 +91,7 @@
 /**
  * @module Container
  * @namespace springroll
+ * @requires  Core
  */
 (function(document, undefined)
 {

@@ -1,6 +1,7 @@
 /**
  * @module EaselJS Display
  * @namespace springroll.easeljs
+ * @requires Core
  */
 (function(undefined){
 

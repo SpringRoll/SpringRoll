@@ -1,10 +1,11 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module PIXI Display
-*  @namespace springroll.pixi
-*/
-(function(undefined){
-	
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
+(function(undefined)
+{
 	/**
 	*  Provide a normalized way to get size, position, scale values
 	*  as well as provide reference for different geometry classes.
@@ -252,9 +253,10 @@
 
 }());
 /**
-*  @module PIXI Display
-*  @namespace springroll.pixi
-*/
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay'),

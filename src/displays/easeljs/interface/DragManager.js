@@ -1,11 +1,10 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
 (function()
 {
-
 	var Tween,
 		DragData = include("springroll.easeljs.DragData");
 

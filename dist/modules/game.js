@@ -1,10 +1,11 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module Game
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var Debug,
 		StateManager;
@@ -368,9 +369,10 @@
 	
 }());
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 	
 	/**
@@ -427,9 +429,10 @@
 	
 }());
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 	
 	// Imports
@@ -439,22 +442,22 @@
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
-	*  The State Manager used for managing the different states of a game or site
-	*
-	*  @class StateManager
-	*  @extends springroll.EventDispatcher
-	*  @constructor
-	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is
-	*                                              displayed.
-	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
-	*                                                    transitions.
-	*  @param {Object} transitionSounds Data object with aliases and start times (seconds) for
-	*                                   transition in, loop and out sounds. Example:
-	*                                   {in:{alias:"myAlias", start:0.2}}.
-	*                                   These objects are in the format for Animator from
-	*                                   EaselJSDisplay or PixiDisplay, so they can be just the
-	*                                   sound alias instead of an object.
-	*/
+	 *  The State Manager used for managing the different states of a game or site 
+	 *
+	 * @class StateManager
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
+	 *                                             displayed.
+	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	 *                                                   transitions.
+	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	 *                                  transition in, loop and out sounds. Example:
+	 *                                  {in:{alias:"myAlias", start:0.2}}.
+	 *                                  These objects are in the format for Animator from
+	 *                                  EaselJSDisplay or PixiDisplay, so they can be just the
+	 *                                  sound alias instead of an object.
+	 */
 	var StateManager = function(display, transition, transitionSounds)
 	{
 		EventDispatcher.call(this);
@@ -1085,9 +1088,10 @@
 	namespace('springroll').StateManager = StateManager;
 })();
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	//Library depencencies

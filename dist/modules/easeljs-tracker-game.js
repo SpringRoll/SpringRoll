@@ -1,328 +1,22 @@
 /*! SpringRoll 0.2.0 */
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
- */
-(function(undefined)
-{
-	var Animator = include('springroll.Animator'),
-		DwellTimer = include('springroll.easeljs.DwellTimer', false);
-
-	/**
-	 *  CreateJS-based asset utilities
-	 *  @class AssetUtils
-	 *  @static
-	 */
-	var AssetUtils = {};
-
-	/**
-	 *  Rip the asset from the library display container and add it
-	 *  to the stage, also will try to stop the clip if it can.
-	 *  @method add
-	 *  @static
-	 *  @param {createjs.Container} target The target display object
-	 *  @param {createjs.Container} source The source to get assets from
-	 *  @param {string} property The property name of the asset
-	 *  @param {boolean} [visible] The set the initial visibility state of the object
-	 *  @return {createjs.DisplayObject} Return the display object
-	 */
-	AssetUtils.add = function(target, source, property, visible)
-	{
-		var asset = source[property];
-		if (!asset)
-		{
-			if (true && Debug)
-			{
-				Debug.error("property " + property + " not found in source");
-			}
-			return;
-		}
-		//If it's a movieclip stop it
-		if (asset.gotoAndStop)
-		{
-			asset.gotoAndStop(0);
-		}
-		//Set the initial visible state
-		if (visible !== undefined)
-		{
-			asset.visible = !!visible;
-		}
-
-		//Add the child
-		target.addChild(asset);
-
-		return asset;
-	};
-
-	/**
-	 *  Removes a collection of objects from the stage and destroys them if we cant.
-	 *  @example AssetUtils.remove(this, this.skipButton, this.character);
-	 *  @method remove
-	 *  @static
-	 *  @param {createjs.Container} target The target display object to remove assets from
-	 *  @param {array|*} assets Assets to clean can either be arguments or array
-	 */
-	AssetUtils.remove = function(target, assets)
-	{
-		//Start after the target
-		var arg, i, j, len = arguments.length;
-		for (i = 1; i < len; i++)
-		{
-			arg = arguments[i];
-			if (!arg) continue;
-
-			//test the current argument to see if itself is
-			//an array, if it is, run .remove() recursively
-			if (Array.isArray(arg) && arg.length > 0)
-			{
-				for (j = arg.length - 1; j >= 0; --j)
-				{
-					if (arg[j])
-					{
-						AssetUtils.remove(target, arg[j]);
-					}
-				}
-				continue;
-			}
-			
-			if(DwellTimer)
-				DwellTimer.destroy(arg);
-
-			Animator.stop(arg, true);
-
-			if (arg.stop)
-			{
-				arg.stop();
-			}
-
-			if (arg.destroy)
-			{
-				arg.destroy();
-			}
-
-			if (arg.removeAllChildren)
-			{
-				arg.removeAllChildren(true);
-			}
-
-			if (target.contains(arg))
-			{
-				target.removeChild(arg);
-			}
-		}
-	};
-
-	/**
-	 *  Add an asset or array of assets as children to container
-	 *  @param {Array|createjs.DisplayObject} assets Asset or Array of assets
-	 *  @param {createjs.DisplayObject} container Display object to add children to
-	 */
-	AssetUtils.addAssetsToContainer = function(assets, container)
-	{
-		if (!assets)
-			return;
-
-		if (!assets.length)
-		{
-			container.addChild(assets);
-		}
-		else
-		{
-			for (var i = assets.length; i >= 0; i--)
-			{
-				if (assets[i])
-				{
-					container.addChild(assets[i]);
-				}
-			}
-		}
-	};
-
-	/**
-	 *  @param container {createjs.Container|*} Container, clip, etc. to add objects to once found
-	 *  @param lib {createjs.Lib} Lib that contians the assets
-	 *  @param label {String} Label for assets without number suffix
-	 *  @param start {Int} Initial number of asset sequence
-	 *  @param count {int} How many counts from starting int
-	 *  @param visible {Boolean} Initial visiblity of added asset
-	 */
-	AssetUtils.getAssetSequence = function(container, lib, label, start, count, visible)
-	{
-		var arr = [];
-		arr.push(null); //1-base array
-		for (var i = start, mc = null; i <= count; i++)
-		{
-			mc = AssetUtils.add(container, lib, label + i, visible);
-			mc.id = i;
-			arr.push(mc);
-		}
-
-		return arr;
-	};
-
-	//Assign to namespace
-	namespace('springroll.easeljs').AssetUtils = AssetUtils;
-}());
-
-/**
- * @module CreateJS Tracker Game
- * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
- */
-(function()
-{
-	var App = include('springroll.Application');
-
-	/**
-	 * Create an update listener that checks plays the animation
-	 * in reverse. Requires the animation to have the same labeling
-	 * system as the springroll.Animator system.
-	 * 	i.e. each animation must have a corresponding ending frame
-	 * 	marked with	a '_stop' and '_loop' suffixes,
-	 *	for instance: "walk" requires "walk_loop"
-	 * @class ReversePlayback
-	 * @static
-	 * @param {createjs.MovieClip} clip
-	 *	The MovieClip containing the timeline and animation
-	 */
-	var ReversePlayback = function(clip)
-	{
-		this.clip = clip;
-		this.frameRate = 24;
-
-		this.frameDictionary = _buildDictionary(clip);
-		this.update = this.update.bind(this);
-	};
-
-	var p = ReversePlayback.prototype;
-
-	/**
-	 * @param {createjs.MovieClip} clip
-	 */
-	p.clip = null;
-
-	/**
-	 * @param {int} frameRate
-	 */
-	p.frameRate = null;
-
-	/**
-	 * @param {object} frameDictionary
-	 */
-	p.frameDictionary = null;
-
-	/**
-	 * Build a dictionary of all animations start and end
-	 * frame positions'
-	 * @param {MovieClip} clip
-	 */
-	var _buildDictionary = function(clip)
-	{
-		var str, i, label, dict = {};
-		for (i = clip._labels.length - 1; i >= 0; i--)
-		{
-			label = clip._labels[i];
-			str = label.label;
-			if (str.indexOf('_stop') > -1 || str.indexOf('_loop') > -1)
-			{
-				continue;
-			}
-
-			if (!dict[str])
-			{
-				dict[str] = {
-					first: label.position,
-					last: null
-				};
-			}
-		}
-
-		var stop, loop;
-		for (i = clip._labels.length - 1; i >= 0; i--)
-		{
-			label = clip._labels[i];
-			str = label.label;
-			stop = str.indexOf('_stop');
-			loop = str.indexOf('_loop');
-			if (loop > -1)
-			{
-				dict[str.substring(0, loop)].last = label.position;
-			}
-		}
-		return dict;
-	};
-
-	/**
-	 * Play the specificied animation
-	 * @param {string} label
-	 */
-	p.play = function(label)
-	{
-		var frame = this.frameDictionary[label];
-		this.startFrame = frame.last;
-		this.endFrame = frame.first;
-		this.framePassed = this.frameRate;
-		this.clip.gotoAndStop(this.endFrame);
-		App.instance.on('update', this.update);
-	};
-
-	/**
-	 * Go to the previous frame of the animation
-	 */
-	p.goToPreviousFrame = function()
-	{
-		var prevFrame = this.clip.currentFrame - 1;
-		if (prevFrame < this.endFrame)
-		{
-			//loop back to last-frame
-			prevFrame = this.startFrame;
-		}
-		this.clip.gotoAndStop(prevFrame);
-	};
-
-	/**
-	 * Update the animation when framerate matches animation's framerate
-	 * @param {number} elapsed Time in milleseconds since last frame update
-	 */
-	p.update = function(elapsed)
-	{
-		this.framePassed -= elapsed;
-		if (this.framePassed <= 0)
-		{
-			this.framePassed = this.frameRate;
-			this.goToPreviousFrame();
-		}
-	};
-
-	/**
-	 * End the frame update loop
-	 */
-	p.stop = function()
-	{
-		App.instance.off('update', this.update);
-	};
-
-	//Assign to namespace
-	namespace('pbskids.createjs').ReversePlayback = ReversePlayback;
-}());
-/**
- * @module CreateJS Tracker Game
- * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function()
 {
 	var Debug = include('springroll.Debug', false),
 		Animator = include('springroll.Animator'),
 		BitmapMovieClip = include('createjs.BitmapMovieClip'),
-		DwellTimer = include('springroll.easeljs.DwellTimer'),
+		DwellTimer = include('springroll.easeljs.DwellTimer', false),
 		ListTask = include('springroll.ListTask'),
 		SoundButton = include('springroll.SoundButton'),
 		TextureAtlas = include('createjs.TextureAtlas');
 
 	/**
-	 *  CreateJS-based sprite utilities
+	 *  EaselJS-based sprite utilities for creating and managing sprites,
+	 *  and sprite loading.
 	 *  @class SpriteUtils
 	 *  @static
 	 */
@@ -332,13 +26,15 @@
 	 *  Create a SoundButton. Must be bound to a springroll.BasePanel
 	 *	in order to default to the config.sprites position.
 	 * 		i.e. createSoundButon.call(<panel>, arg1...)
+	 * 	@method  createSoundButton
+	 *  @static
 	 *  @param {String} [key|Object=String]
 	 *		The id for the loaded bitmap in images
 	 *		e.g. 'SkipButton' > images.SkipButton
 	 *  @param {Object} [options=Object]
 	 *  	Pass through any options for SoundButton if
 	 * 		they are not to be the defaults
-	 *  @return {springroll.SoundButton} button
+	 *  @return {springroll.SoundButton} The new Sound button
 	 */
 	SpriteUtils.createSoundButton = function(key, options)
 	{
@@ -377,7 +73,7 @@
 
 		//Dwell timer requires a "name" variable
 		soundButton.name = key;
-		DwellTimer.create(soundButton);
+		if (DwellTimer) DwellTimer.create(soundButton);
 
 		return soundButton;
 	};
@@ -385,10 +81,11 @@
 	/**
 	 *  Clone a sprite. Creates a shallow copy of loaded element
 	 *  @method clone
-	 *  @param {createjs.BitmapMovieClip} sprite
-	 *  @param {int} x
-	 *  @param {int} y
-	 *  @param return {createjs.BitmapMovieClip}
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
+	 *  @param {Number} [x=0] The initial x position
+	 *  @param {Number} [y=0] The initial y position
+	 *  @return {springroll.easeljs.BitmapMovieClip}
 	 */
 	SpriteUtils.clone = function(sprite, x, y)
 	{
@@ -402,6 +99,8 @@
 
 	/**
 	 *  Add task for all sprites in the spritesRequest object
+	 *  @method addSpritesRequest
+	 *  @static
 	 *  @param {object} spritesRequest Config data for the sprites
 	 *								   needed in this state
 	 *  @param {springroll.BasePanel} panel The panel for this state
@@ -443,8 +142,10 @@
 	 *  and an optional path
 	 *
 	 *  @method generateManifest
+	 *  @static
 	 *  @param {string} label
-	 * 	@parma {string} [path='assets/sprites/']
+	 * 	@param {string} [path='assets/sprites/']
+	 * 	@return {Array} The manifest to be loaded
 	 */
 	SpriteUtils.generateManifest = function(label, path)
 	{
@@ -471,7 +172,9 @@
 	 *  Get an array with all the animations that can be called
 	 *  within a sprite
 	 *  @method extractLabels
-	 *  @param {BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
+	 *  @return {Array} The labels in the sprite
 	 */
 	SpriteUtils.extractLabels = function(sprite)
 	{
@@ -498,8 +201,10 @@
 	/**
 	 *  Clone and setup the sprites for all the characters/opponents.
 	 *  @method cloneSpritePerLabel
-	 *  @param {BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
 	 *  @param {createjs.Container} container
+	 *  @return {object} A map of clones by label
 	 */
 	SpriteUtils.cloneSpritePerLabel = function(sprite, container)
 	{
@@ -522,6 +227,7 @@
 	 *  Adds a sprite to the sprites container object
 	 *  with a key determined by the task's id
 	 *  @method onSpriteLoaded
+	 *  @static
 	 *  @param {object} results The object containing the LoadResult objects
 	 *  @param {springroll.Task} task The task manager original task
 	 */
@@ -566,9 +272,10 @@
 	 *  Add the clone to specified container, and initiailize its
 	 *  Animation to a default label, or stop at first frame
 	 *  @method addCloneTo
-	 *  @param clone
-	 *  @param container
-	 *  @param hasDefaultAnim
+	 *  @static
+	 *  @param {createjs.MovieClip} clone
+	 *  @param {createjs.Container} container
+	 *  @param {Boolean} [hasDefaultAnim=false]
 	 */
 	SpriteUtils.addCloneTo = function(clone, container, hasDefaultAnim)
 	{
@@ -593,7 +300,9 @@
 	 *  conventions to determine lengths. Those without
 	 *  the default ending will default to a length of 0.
 	 *  @method calculateAnimationLengths
-	 *  @param {springroll.BitmapMovieClip} sprite
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite
+	 *  @return {int} The number of frame counts
 	 */
 	SpriteUtils.calculateAnimationLengths = function(sprite)
 	{
@@ -632,9 +341,9 @@
 }());
 
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function()
 {
@@ -716,9 +425,9 @@
 	namespace('springroll.createjs').BasePanel = BasePanel;
 }());
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function(undefined)
 {
@@ -1006,9 +715,9 @@
 	namespace('springroll.createjs').ManifestState = BaseState;
 }());
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function(undefined)
 {

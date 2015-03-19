@@ -1,7 +1,8 @@
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 	
 	// Imports

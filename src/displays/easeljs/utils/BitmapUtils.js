@@ -1,12 +1,10 @@
 /**
  * @module EaselJS Utilities
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
-(function() {
-
-	"use strict";
-
+(function()
+{
 	/**
 	*  Designed to provide utility related to Bitmaps.
 	*  @class BitmapUtils

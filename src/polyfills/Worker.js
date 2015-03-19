@@ -2,8 +2,8 @@
 *  @module Worker
 *  @namespace springroll
 */
-(function(){
-		
+(function()
+{	
 	// Combine prefixed URL for createObjectURL from blobs.
 	window.URL = window.URL || window.webkitURL;
 

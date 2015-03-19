@@ -61,7 +61,6 @@ $.getJSON('data/spec.json', function(spec){
 			assert.strictEqual(e.property, "media_type", "Parameter name from error");
 		}
 	});
-
 	// Test the handling of complex arguments
 	test('Complex Argument Types', function(assert){
 		expect(4);

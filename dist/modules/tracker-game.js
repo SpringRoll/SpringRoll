@@ -2,7 +2,7 @@
 /**
  * @module Tracker Game
  * @namespace springroll
- * @requires Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */
 (function()
 {
@@ -104,7 +104,7 @@
 /**
  * @module Tracker Game
  * @namespace springroll
- * @requires Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */
 (function()
 {
@@ -695,7 +695,7 @@
 /**
  * @module Tracker Game
  * @namespace springroll
- * @requires Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
  */
 (function()
 {

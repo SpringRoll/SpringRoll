@@ -1,6 +1,7 @@
 /**
- *  @module Progress Tracker
- *  @namespace springroll
+ * @module Progress Tracker
+ * @namespace springroll
+ * @requires Core
  */
 (function($, undefined)
 {
@@ -216,8 +217,11 @@
 				{
 					this._showError(e.message, e.api);
 				}
-				Debug.error(error.toString());
-				Debug.error(error.stack);
+				if (Debug)
+				{
+					Debug.error(error.toString());
+					Debug.error(error.stack);
+				}
 			}
 			if (ProgressTracker.throwErrors)
 			{

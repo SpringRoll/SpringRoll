@@ -1,7 +1,7 @@
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Tracker Game
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, Game, Interface, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
  */
 (function(undefined)
 {

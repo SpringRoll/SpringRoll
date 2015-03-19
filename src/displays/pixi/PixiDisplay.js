@@ -1,7 +1,8 @@
 /**
-*  @module PIXI Display
-*  @namespace springroll.pixi
-*/
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay'),

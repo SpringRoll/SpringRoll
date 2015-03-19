@@ -2,7 +2,7 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
 (function(undefined)
 {
@@ -829,10 +829,10 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires  EaselJS Display
+ * @requires  Core, EaselJS Display
  */
-(function(){
-
+(function()
+{
 	var Button = include('springroll.easeljs.Button'),
 		Sound;
 
@@ -948,10 +948,10 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
-(function() {
-	
+(function()
+{
 	var DragData = function(obj)
 	{
 		this.obj = obj;
@@ -967,11 +967,10 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
 (function()
 {
-
 	var Tween,
 		DragData = include("springroll.easeljs.DragData");
 

@@ -1,8 +1,10 @@
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  A task is used by the Task Manager to do an 
 	*  asyncronous task (like loading or playback)

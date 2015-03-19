@@ -1,9 +1,10 @@
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  Task events are used by the task manager to communicate
 	*  when tasks change

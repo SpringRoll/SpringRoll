@@ -1,9 +1,10 @@
 /**
-*  @module PIXI Interface
-*  @namespace springroll.pixi
-*  @requires  PIXI Display
-*/
-(function() {
+ * @module PIXI Interface
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
 	
 	var Application,
 		Tween,

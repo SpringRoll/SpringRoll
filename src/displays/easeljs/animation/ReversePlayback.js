@@ -1,11 +1,11 @@
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Animation
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, EaselJS Display
  */
 (function()
 {
-	var App = include('springroll.Application');
+	var Application = include('springroll.Application');
 
 	/**
 	 * Create an update listener that checks plays the animation
@@ -21,36 +21,38 @@
 	 */
 	var ReversePlayback = function(clip)
 	{
+		/**
+		 * The animation clip to play
+		 * @property {createjs.MovieClip} clip
+		 */
 		this.clip = clip;
+
+		/**
+		 * The framerate which to playback the clip
+		 * @property {int} frameRate
+		 */
 		this.frameRate = 24;
 
-		this.frameDictionary = _buildDictionary(clip);
+		/**
+		 * The list of frame events
+		 * @property {object} frameDictionary
+		 */
+		this.frameDictionary = buildDictionary(clip);
+
+		// Update binding
 		this.update = this.update.bind(this);
 	};
 
+	// Reference to prototype
 	var p = ReversePlayback.prototype;
-
-	/**
-	 * @param {createjs.MovieClip} clip
-	 */
-	p.clip = null;
-
-	/**
-	 * @param {int} frameRate
-	 */
-	p.frameRate = null;
-
-	/**
-	 * @param {object} frameDictionary
-	 */
-	p.frameDictionary = null;
 
 	/**
 	 * Build a dictionary of all animations start and end
 	 * frame positions'
-	 * @param {MovieClip} clip
+	 * @method _buildDictionary
+	 * @private
 	 */
-	var _buildDictionary = function(clip)
+	var buildDictionary = function(clip)
 	{
 		var str, i, label, dict = {};
 		for (i = clip._labels.length - 1; i >= 0; i--)
@@ -88,20 +90,24 @@
 
 	/**
 	 * Play the specificied animation
+	 * @method  play
 	 * @param {string} label
 	 */
 	p.play = function(label)
 	{
+		this.stop();
+		
 		var frame = this.frameDictionary[label];
 		this.startFrame = frame.last;
 		this.endFrame = frame.first;
 		this.framePassed = this.frameRate;
 		this.clip.gotoAndStop(this.endFrame);
-		App.instance.on('update', this.update);
+		Application.instance.on('update', this.update);
 	};
 
 	/**
 	 * Go to the previous frame of the animation
+	 * @method  goToPreviousFrame
 	 */
 	p.goToPreviousFrame = function()
 	{
@@ -116,6 +122,7 @@
 
 	/**
 	 * Update the animation when framerate matches animation's framerate
+	 * @method  update
 	 * @param {number} elapsed Time in milleseconds since last frame update
 	 */
 	p.update = function(elapsed)
@@ -130,10 +137,11 @@
 
 	/**
 	 * End the frame update loop
+	 * @method stop
 	 */
 	p.stop = function()
 	{
-		App.instance.off('update', this.update);
+		Application.instance.off('update', this.update);
 	};
 
 	//Assign to namespace

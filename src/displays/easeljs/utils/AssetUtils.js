@@ -1,15 +1,17 @@
 /**
- * @module CreateJS Tracker Game
+ * @module EaselJS Utilities
  * @namespace springroll.easeljs
- * @requires Game, Tracker Game, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, EaselJS Display
  */
 (function(undefined)
 {
-	var Animator = include('springroll.Animator'),
+	// Optional libraries
+	var Animator = include('springroll.easeljs.Animator', false),
+		Debug = include('springroll.Debug', false),
 		DwellTimer = include('springroll.easeljs.DwellTimer', false);
 
 	/**
-	 *  CreateJS-based asset utilities
+	 *  EaselJS-based asset utilities for managing library (FLA-exported) assets.
 	 *  @class AssetUtils
 	 *  @static
 	 */
@@ -85,10 +87,11 @@
 				continue;
 			}
 			
-			if(DwellTimer)
+			if (DwellTimer)
 				DwellTimer.destroy(arg);
 
-			Animator.stop(arg, true);
+			if (Animator)
+				Animator.stop(arg, true);
 
 			if (arg.stop)
 			{

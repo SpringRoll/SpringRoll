@@ -1,8 +1,9 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module Translate
-*  @namespace springroll
-*/
+ * @module Translate
+ * @namespace springroll
+ * @requires Core
+ */
 (function(window, undefined){
 	
 	var Loader = include('springroll.Loader'),

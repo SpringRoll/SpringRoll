@@ -1,6 +1,7 @@
 /**
- *  @module Progress Tracker
- *  @namespace springroll.easeljs
+ * @module Progress Tracker
+ * @namespace springroll.easeljs
+ * @requires Core
  */
 (function(undefined)
 {

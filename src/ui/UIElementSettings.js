@@ -1,9 +1,10 @@
 /**
-*  @module Interface
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  The UI Item Settings which is the positioning settings used to adjust each element,
 	*  this is an internal class that you would not need to interact with.

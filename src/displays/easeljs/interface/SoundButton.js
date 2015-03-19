@@ -1,10 +1,10 @@
 /**
  * @module EaselJS Interface
  * @namespace springroll.easeljs
- * @requires  EaselJS Display
+ * @requires  Core, EaselJS Display
  */
-(function(){
-
+(function()
+{
 	var Button = include('springroll.easeljs.Button'),
 		Sound;
 

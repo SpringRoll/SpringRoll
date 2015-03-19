@@ -1,7 +1,8 @@
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	//Library depencencies

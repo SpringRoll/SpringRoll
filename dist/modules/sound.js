@@ -1,10 +1,11 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @modules Sound
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	/**
 	*  A private class that represents a sound context.
 	*  @class SoundContext
@@ -47,18 +48,19 @@
 	
 }());
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Sound;
 
 	/**
-	*  A playing instance of a sound (or promise to play as soon as it loads). These can only
-	*  be created through springroll.Sound.instance.play().
-	*  @class SoundInstance
-	*/
+	 * A playing instance of a sound (or promise to play as soon as it loads). These can only
+	 * be created through springroll.Sound.instance.play().
+	 * @class SoundInstance
+	 */
 	var SoundInstance = function()
 	{
 		if(!Sound)
@@ -259,27 +261,28 @@
 
 }());
 /**
-*  @modules Sound
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Task = include('springroll.Task', false);
 
 	// Task is optional if we're using the task module
 	if (!Task) return;
 
 	/**
-	*  A task for loading a list of sounds. These can only
-	*  be created through Sound.instance.createPreloadTask().
-	*  This class is not created if the Task library is not loaded before the Sound library.
-	*  @class SoundListTask
-	*  @extends {springroll.Task}
-	*  @constructor
-	*  @param {String} id The unique id of this task
-	*  @param {Array} list The collection of sounds
-	*  @param {Function} callback Completed callback function
-	*/
+	 * A task for loading a list of sounds. These can only
+	 * be created through Sound.instance.createPreloadTask().
+	 * This class is not created if the Task library is not loaded before the Sound library.
+	 * @class SoundListTask
+	 * @extends {springroll.Task}
+	 * @constructor
+	 * @param {String} id The unique id of this task
+	 * @param {Array} list The collection of sounds
+	 * @param {Function} callback Completed callback function
+	 */
 	var SoundListTask = function(id, list, callback)
 	{
 		Task.call(this, id, callback);
@@ -322,11 +325,12 @@
 	
 }());
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Application = include('springroll.Application'),
 		Debug,
 		Loader,
@@ -1612,11 +1616,12 @@
 }());
 
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function() {
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Class Imports, we'll actually include them in the constructor
 	// in case these classes were included after in the load-order
 	var Sound = include('springroll.Sound'),
@@ -1624,14 +1629,14 @@
 		Application;
 
 	/**
-	*	A class for managing audio by only playing one at a time, playing a list, and even
-	*	managing captions (Captions library) at the same time.
-	*
-	*	@class VOPlayer
-	*	@constructor
-	*	@param {Captions} [captions=null] If a Captions object should be created for use
-	*			or the captions object to use
-	*/
+	 * A class for managing audio by only playing one at a time, playing a list, and even
+	 * managing captions (Captions library) at the same time.
+	 *
+	 * @class VOPlayer
+	 * @constructor
+	 * @param {Captions} [captions=null] If a Captions object should be created for use
+	 *			or the captions object to use
+	 */
 	var VOPlayer = function(captions)
 	{
 		// Import classes

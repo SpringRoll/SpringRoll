@@ -1,7 +1,7 @@
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
- * @requires EaselJS Display
+ * @requires Core, EaselJS Display
  */
 (function(undefined) {
 

@@ -1,10 +1,11 @@
 /*! SpringRoll 0.2.0 */
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
     /**
      * The Circle object can be used to specify a hit area for displayobjects
      *
@@ -82,11 +83,12 @@
 
 }());
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
     /**
      * The Ellipse object can be used to specify a hit area for displayobjects
      *
@@ -178,11 +180,12 @@
 
 }());
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
 	/**
 	 * The Point object represents a location in a two-dimensional coordinate system, where x represents the horizontal axis and y represents the vertical axis.
 	 *
@@ -351,11 +354,12 @@
 
 }());
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
     /**
      * @class Polygon
      * @constructor
@@ -446,11 +450,12 @@
 }());
 
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
 	/**
 	 * the Rectangle object is an area defined by its position, as indicated by its top-left corner point (x, y) and by its width and its height.
 	 *
@@ -545,9 +550,10 @@
 
 }());
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
 (function(undefined){
 	
 	/**
@@ -756,9 +762,10 @@
 
 }());
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay');
