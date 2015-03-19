@@ -143,11 +143,11 @@
 
 	/**
 	 *  @param container {createjs.Container|*} Container, clip, etc. to add objects to once found
-	 *  @param lib {createjs.Lib} Lib that contians the assets
-	 *  @param label {String} Label for assets without number suffix
-	 *  @param start {Int} Initial number of asset sequence
-	 *  @param count {int} How many counts from starting int
-	 *  @param visible {Boolean} Initial visiblity of added asset
+	 *  @param {createjs.Lib} lib Lib that contians the assets
+	 *  @param {String} label Label for assets without number suffix
+	 *  @param {Int} start Initial number of asset sequence
+	 *  @param {int} count How many counts from starting int
+	 *  @param {Boolean} visible Initial visiblity of added asset
 	 */
 	AssetUtils.getAssetSequence = function(container, lib, label, start, count, visible)
 	{
@@ -159,7 +159,6 @@
 			mc.id = i;
 			arr.push(mc);
 		}
-
 		return arr;
 	};
 

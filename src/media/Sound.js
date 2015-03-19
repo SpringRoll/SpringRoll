@@ -1035,21 +1035,6 @@
 	});
 
 	/**
-	*  Set the mute status of all sounds
-	*  @method setMuteAll
-	*  @deprecated Use the muteAll setter instead
-	*  @param {Boolean} muted If all sounds should be muted
-	*/
-	p.setMuteAll = function(muted)
-	{
-		if (DEBUG && Debug)
-		{
-			Debug.warn("Sound's setMuteAll() is deprecated, use Sound's muteAll property.");
-		}
-		this.muteAll = muted;
-	};
-
-	/**
 	*	Sets volume of a context. Individual sound volumes are multiplied by this value.
 	*	@method setContextVolume
 	*	@public

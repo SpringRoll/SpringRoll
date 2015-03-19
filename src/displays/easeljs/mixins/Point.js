@@ -3,13 +3,11 @@
  * @namespace createjs
  * @requires Core
  */
-(function(undefined) {
-
-	"use strict";
-	
+(function(undefined)
+{
 	/**
-	*  Added methods to createjs.Point.
-	*
+	*  Mixins for the CreateJS Point class, which include methods
+	*  for calculating the dot product, length, distance, normalize, etc.
 	*  @class Point
 	*/
 	

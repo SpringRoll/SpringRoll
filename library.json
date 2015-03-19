@@ -96,7 +96,6 @@
 		"easeljsutils": {
 			"output": "easeljs-utils",
 			"main": [
-				"src/displays/easeljs/utils/MovieClipUtils.js",
 				"src/displays/easeljs/utils/BitmapUtils.js",
 				"src/displays/easeljs/utils/AssetUtils.js"
 			]

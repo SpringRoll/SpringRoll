@@ -600,46 +600,6 @@
 	};
 
 	/**
-	 * Pass-through method, see TrackingGameMedia.playMovie for more information
-	 * @method playMovie
-	 * @deprecated Use TrackingGame.media.playMovie instead
-	 */
-	p.playMovie = function(instance, events, onComplete, onCancel)
-	{
-		return this.media.playMovie(instance, events, onComplete, onCancel);
-	};
-
-	/**
-	 * Pass-through method, see TrackingGameMedia.playInstruction for more information
-	 * @method playInstruction
-	 * @deprecated Use TrackingGame.media.playInstruction instead
-	 */
-	p.playInstruction = function(instance, events, onComplete, onCancel)
-	{
-		return this.media.playInstruction(instance, events, onComplete, onCancel);
-	};
-
-	/**
-	 * Pass-through method, see TrackingGameMedia.playIncorrectFeedback for more information
-	 * @method playIncorrectFeedback
-	 * @deprecated Use TrackingGame.media.playIncorrectFeedback instead
-	 */
-	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
-	{
-		return this.media.playIncorrectFeedback(instance, events, onComplete, onCancel);
-	};
-
-	/**
-	 * Pass-through method, see TrackingGameMedia.playCorrectFeedback for more information
-	 * @method playCorrectFeedback
-	 * @deprecated Use TrackingGame.media.playCorrectFeedback instead
-	 */
-	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
-	{
-		return this.media.playCorrectFeedback(instance, events, onComplete, onCancel);
-	};
-
-	/**
 	 * Manually close the game, this can happen when playing through once
 	 * @method endGame
 	 * @param {string} [exitType='game_completed'] The type of exit

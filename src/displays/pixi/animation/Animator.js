@@ -298,17 +298,6 @@
 			return true;
 		return false;
 	};
-
-	/**
-	*   Determines if a given instance can be animated by Animator.
-	*   @method _canAnimate
-	*   @deprecated Use the public method Animator.canAnimate
-	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
-	*   @return {Boolean} If the instance can be animated or not.
-	*   @private
-	*   @static
-	*/
-	Animator._canAnimate = Animator.canAnimate;
 	
 	/**
 	*   Get duration of animation (or sequence of animations) in seconds

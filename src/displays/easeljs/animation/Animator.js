@@ -397,25 +397,6 @@
 	};
 
 	/**
-	 *   Determines if a given instance can be animated by Animator, to allow things that aren't
-	 *	MovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property
-	 *	with a unique value for each createjs.DisplayObject. If a custom object is made that does
-	 *	not inherit from DisplayObject, it needs to not have an id that is identical to anything
-	 *	from EaselJS.
-	 *
-	 *   @method _canAnimate
-	 *   @deprecated Use the public method Animator.canAnimate
-	 *   @param {createjs.DisplayObject} instance The object to check for animation properties.
-	 *   @return {Boolean} If the instance can be animated or not.
-	 *   @private
-	 *   @static
-	 */
-	Animator._canAnimate = function(instance)
-	{
-		return Animator.canAnimate(instance);
-	};
-
-	/**
 	 *   Checks if animation exists
 	 *
 	 *   @method instanceHasAnimation
