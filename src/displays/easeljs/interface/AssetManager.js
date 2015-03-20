@@ -1,0 +1,386 @@
+(function()
+{
+	var BitmapUtils = include('springroll.createjs.BitmapUtils'),
+		TextureAtlas = include('springroll.createjs.TextureAtlas'),
+		Loader = include('springroll.Loader'),
+		Application = include('springroll.Application'),
+		TaskManager = include("springroll.TaskManager"),
+		ListTask = include("springroll.ListTask");
+	
+	var AssetManager = {};
+	
+	/**
+	*  Array of asset ids that have been loaded by AssetManager.
+	*  @property {Array} loadedAssets
+	*  @private
+	*  @static
+	*/
+	var loadedAssets = null;
+	
+	/**
+	*  Dictionary of object definitions in the 'lib' dictionary. Each key is the name of a
+	*  definition, with the value being the id of the asset that loaded it.
+	*  @property {Object} loadedLibAssets
+	*  @private
+	*  @static
+	*/
+	var loadedLibAssets = null;
+	
+	/**
+	*  Dictionary of TextureAtlas objects, stored by asset id.
+	*  @property {Object} textureAtlases
+	*  @private
+	*  @static
+	*/
+	var textureAtlases = null;
+	
+	/**
+	*  Dictionary of BitmapMovieClip configuration objects, stored by asset id.
+	*  @property {Object} BMCConfigs
+	*  @private
+	*  @static
+	*/
+	var BMCConfigs = null;
+	
+	/**
+	 * Intializes AssetManager.
+	 * @method init
+	 * @static
+	 */
+	AssetManager.init = function()
+	{
+		loadedAssets = [];
+		loadedLibAssets = {};
+		textureAtlases = {};
+		BMCConfigs = {};
+	};
+	
+	/**
+	*  Loads all files need to make a BitmapMovieClip, given that the files are in the same
+	*  location with a specific naming convention:
+	*
+	*  BitmapMovieClip config file: <assetId>.json <br />
+	*  BitmapMovieClip textureAtlas json: <assetId>Sprite.json <br />
+	*  BitmapMovieClip textureAtlas image: <assetId>Sprite.png
+	*
+	*  @method loadBitmapMovieClip
+	*  @static
+	*  @param {String} label The asset id for the BitmapMovieClip
+	*  @param {String} [path='assets/sprites/'] The path for all 3 required files.
+	*  @param {Function} [callback] A callback for when the BitmapMovieClip assets have finished
+	*                               loading.
+	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
+	*                                        loading. If omitted, loads immediately with an internal
+	*                                        TaskManager.
+	*/
+	AssetManager.loadBitmapMovieClip = function(label, path, callback, taskList)
+	{
+		if (path === undefined || path === null)
+		{
+			path = "assets/sprites/";
+		}
+		var manifest = [
+			{
+				"id": "bmcConfig_" + label,
+				"src": path + label + ".json"
+			},
+			{
+				"id": "atlasData_" + label,
+				"src": path + label + "Sprite.json"
+			},
+			{
+				"id": "atlasImage_" + label,
+				"src": path + label + "Sprite.png"
+			}
+		];
+		AssetManager.load(manifest, callback, taskList);
+	};
+	
+	/**
+	*  Unload an asset or list of assets.
+	*  @method extractAssetName
+	*  @static
+	*  @private
+	*  @param {String} assetId The asset id from the manifest, which might include an identifier
+	*                          marking it as belonging to a spritesheet.
+	*  @return {String} The proper asset id
+	*/
+	function extractAssetName(assetId)
+	{
+		if(assetId.indexOf("atlasData_") === 0)
+			return assetId.substr(10);
+		else if(assetId.indexOf("atlasImage_") === 0)
+			return assetId.substr(11);
+		if(assetId.indexOf("spriteData_") === 0)
+			return assetId.substr(11);
+		else if(assetId.indexOf("spriteImage_") === 0)
+			return assetId.substr(12);
+		else if(assetId.indexOf("bmcConfig_") === 0)
+			return assetId.substr(10);
+		return assetId;
+	}
+	
+	/**
+	*  Loads a list of assets. All javascript files will be parsed so that they can be loaded later.
+	*  Additionally, AssetManager will handle spritesheets automatically. A pair of assets in the
+	*  manifest with ids of "atlasData_ASSETID" and "atlasImage_ASSETID", where "ASSETID" is your
+	*  desired asset id, will create a TextureAtlas instance, accessible via
+	*  AssetManager.getAtlas("ASSETID"). A pair of assets in the manifest with ids of
+	*  "spriteData_ASSETID" and "spriteImage_ASSETID" will be run through
+	*  BitmapUtils.loadSpriteSheet() so that the individual sprites can be accessed via the global
+	*  libs dictionary.
+	*  @method load
+	*  @static
+	*  @param {Array} manifest The collection of asset ids or single asset id
+	*  @param {Function} callback A function to call when load is complete
+	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
+	*                                        loading. If omitted, loads immediately with an internal
+	*                                        TaskManager.
+	*/
+	AssetManager.load = function(manifest, callback, taskList)
+	{
+		if(!loadedAssets)
+		{
+			Debug.error("Attempting to load assets via AssetManager without calling AssetManager.init()");
+			return;
+		}
+		var checkedManifest = [];
+		for(var i = 0; i < manifest.length; ++i)
+		{
+			if(loadedAssets.indexOf(extractAssetName(manifest[i].id)) == -1)
+				checkedManifest.push(manifest[i]);
+		}
+		if(checkedManifest.length)
+		{
+			var task = new ListTask("assets", manifest, onLoaded.bind(AssetManager, callback));
+			if(taskList)
+			{
+				if(Array.isArray(taskList))
+					taskList.push(task);
+				else if(taskList instanceof TaskManager)
+					taskList.addTask(task);
+			}
+			else
+				TaskManager.process([task]);
+		}
+		else if(callback)
+			setTimeout(callback, 0);
+	};
+	
+	var onLoaded = function(callback, results)
+	{
+		var atlasImage = {},
+			atlasData = {},
+			spriteImage = {},
+			spriteData = {},
+			id;
+		
+		for(id in results)
+		{
+			var result = results[id];
+			var content = result.content;
+			//grab any spritesheet images or JSON and keep that separate
+			if(id.indexOf("atlasData_") === 0)
+			{
+				id = extractAssetName(id);
+				atlasData[id] = content;
+			}
+			else if(id.indexOf("atlasImage_") === 0)
+			{
+				id = extractAssetName(id);
+				atlasImage[id] = content;
+			}
+			else if(id.indexOf("spriteData_") === 0)
+			{
+				id = extractAssetName(id);
+				spriteData[id] = content;
+			}
+			else if(id.indexOf("spriteImage_") === 0)
+			{
+				id = extractAssetName(id);
+				spriteImage[id] = content;
+			}
+			else if(id.indexOf("bmcConfig_") === 0)
+			{
+				id = extractAssetName(id);
+				BMCConfigs[id] = content;
+			}
+			//parse javascript files to find out what they are adding to the global
+			//libs dictionary
+			else if(result.url.indexOf(".js") != -1)
+			{
+				//get javascript text
+				var text = content.text;
+				if(!text) continue;
+				//split into the initialization functions, that take 'lib' as a parameter
+				var textArray = text.split(/\(function\s*\(/);
+				//go through each initialization function
+				for(var i = 0; i < textArray.length; ++i)
+				{
+					text = textArray[i];
+					if(!text) continue;
+					//determine what the 'lib' parameter has been minified into
+					var libName = text.substring(0, text.indexOf(","));
+					if(!libName) continue;
+					//get all the things that are 'lib.X = <stuff>'
+					var varFinder = new RegExp("\\(" + libName + ".(\\w+)\\s*=", "g");
+					var foundName = varFinder.exec(text);
+					while(foundName)
+					{
+						//keep track of the asset id responsible
+						loadedLibAssets[foundName[1]] = id;
+						foundName = varFinder.exec(text);
+					}
+				}
+			}
+			else
+			{
+				//store images normally
+				images[id] = content;
+			}
+			if(loadedAssets.indexOf(id) == -1)
+				loadedAssets.push(id);
+		}
+		//go through the TextureAtlases we should create
+		for(id in atlasData)
+		{
+			if(atlasImage[id])
+			{
+				textureAtlases[id] = new TextureAtlas(atlasImage[id], atlasData[id]);
+			}
+		}
+		//go through the spritesheets we need to use BitmapUtils.loadSpriteSheet() on
+		for(id in spriteData)
+		{
+			if(spriteImage[id])
+			{
+				var frames = spriteData[id].frames;
+				BitmapUtils.loadSpriteSheet(frames, spriteImage[id]);
+				//keep track of the things that it loaded so we can remove them properly
+				for(var frame in frames)
+				{
+					loadedLibAssets[frame] = id;
+				}
+			}
+		}
+		//perform the callback
+		if(callback)
+			callback();
+	};
+	
+	/**
+	*  Returns a TextureAtlas that was loaded by the specified asset id.
+	*  @method getAtlas
+	*  @static
+	*  @param {String} asset The id of the TextureAtlas to get.
+	*  @return {TextureAtlas} The TextureAtlas that was loaded under the specified asset id.
+	*/
+	AssetManager.getAtlas = function(asset)
+	{
+		return textureAtlases[asset];
+	};
+	
+	/**
+	*  Returns a configuration object for a BitmapMovieClip.
+	*  @method getBitmapMovieClipConfig
+	*  @static
+	*  @param {String} asset The id of the config object to get.
+	*  @return {TextureAtlas} The TextureAtlas that was loaded under the specified asset id.
+	*/
+	AssetManager.getBitmapMovieClipConfig = function(asset)
+	{
+		return BMCConfigs[asset];
+	};
+	
+	/**
+	*  Unload an asset or list of assets.
+	*  @method unload
+	*  @static
+	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id. As an
+	*                                      array, it can be a manifest with {id:"", src:""} objects.
+	*/
+	AssetManager.unload = function(assetOrAssets)
+	{
+		var assets = [], i, length, asset;
+		//figure out the exact list of things we need to unload
+		if(Array.isArray(assetOrAssets))
+		{
+			for(i = 0, length = assetOrAssets.length; i < length; ++i)
+			{
+				if(typeof assetOrAssets[i] == "string")
+					assets.push(extractAssetName(assetOrAssets[i]));
+				else
+					assets.push(extractAssetName(assetOrAssets[i].id));
+			}
+		}
+		else
+			assets.push(extractAssetName(assetOrAssets));
+		
+		//unload each asset
+		for(i = 0, length = assets.length; i < length; ++i)
+		{
+			asset = assets[i];
+			//destroy it if it is a texture atlas
+			if(textureAtlases[asset])
+			{
+				textureAtlases[asset].destroy();
+				delete textureAtlases[asset];
+			}
+			//remove any BitmapMovieClip configuration data
+			if(BMCConfigs[asset])
+				delete BMCConfigs[asset];
+			//if it is a regular image, unload it
+			if(images[asset])
+			{
+				images[asset].src = "";
+				delete images[asset];
+			}
+			
+			var index = loadedAssets.indexOf(asset);
+			if(index > 0)
+				loadedAssets.splice(index, 1);
+		}
+		//go through everything we've put in the 'lib' dictionary, and unload it
+		//if it belongs to something in the list of assets to unload
+		for(asset in loadedLibAssets)
+		{
+			if(assets.indexOf(loadedLibAssets[asset]) > -1)
+			{
+				delete lib[asset];
+				delete loadedLibAssets[asset];
+			}
+		}
+	};
+	
+	/**
+	*  Unloads all assets loaded by AssetManager.
+	*  @method unloadAll
+	*  @static
+	*/
+	AssetManager.unloadAll = function()
+	{
+		var i, length;
+		for(i = 0, length = loadedAssets.length; i < length; ++i)
+		{
+			if(images[asset])
+			{
+				images[asset].src = "";
+				delete images[asset];
+			}
+		}
+		for(i in loadedLibAssets)
+		{
+			delete lib[i];
+		}
+		loadedLibAssets = {};
+		for(i in textureAtlases)
+		{
+			textureAtlases[i].destroy();
+			delete textureAtlases[i];
+		}
+		loadedAssets.length = 0;
+	};
+	
+	//Assign to namespace
+	namespace("springroll.easeljs").AssetManager = AssetManager;
+}());
