@@ -96,8 +96,7 @@
 		"easeljsutils": {
 			"output": "easeljs-utils",
 			"main": [
-				"src/displays/easeljs/utils/BitmapUtils.js",
-				"src/displays/easeljs/utils/AssetUtils.js"
+				"src/displays/easeljs/utils/BitmapUtils.js"
 			]
 		},
 		"easeljscutscene": {
@@ -161,7 +160,6 @@
 		"easeljstrackinggame": {
 			"output": "easeljs-tracking-game",
 			"main": [
-				"src/games/easeljs/utils/*.js",
 				"src/games/easeljs/BasePanel.js",
 				"src/games/easeljs/BaseState.js",
 				"src/games/easeljs/TrackingGame.js"

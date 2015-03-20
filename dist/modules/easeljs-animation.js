@@ -1523,7 +1523,7 @@
 		 * @type {Number}
 		 * @default 0
 		 * @private
-		 **/
+		 */
 		this._framerate = 0;
 
 		/**
@@ -1640,7 +1640,7 @@
 	 * @property framerate
 	 * @type {Number}
 	 * @default 0
-	 **/
+	 */
 	Object.defineProperty(p, 'framerate', 
 	{
 		get: function()
@@ -1717,7 +1717,7 @@
 	 * NOTE: This method is mainly for internal use, though it may be useful for advanced uses.
 	 * @method isVisible
 	 * @return {Boolean} Boolean indicating whether the display object would be visible if drawn to a canvas
-	 **/
+	 */
 	p.isVisible = function()
 	{
 		// children are placed in draw, so we can't determine if we have content.
@@ -1734,7 +1734,7 @@
 	 * @param {Boolean} ignoreCache Indicates whether the draw operation should ignore any current
 	 *                              cache. For example, used for drawing the cache (to prevent it
 	 *                              from simply drawing an existing cache back into itself).
-	 **/
+	 */
 	p.draw = function(ctx, ignoreCache)
 	{
 		// draw to cache first:
@@ -1747,7 +1747,7 @@
 	/**
 	 * Sets paused to false.
 	 * @method play
-	 **/
+	 */
 	p.play = function()
 	{
 		this.paused = false;
@@ -1756,7 +1756,7 @@
 	/**
 	 * Sets paused to true.
 	 * @method stop
-	 **/
+	 */
 	p.stop = function()
 	{
 		this.paused = true;
@@ -1766,7 +1766,7 @@
 	 * Advances this movie clip to the specified position or label and sets paused to false.
 	 * @method gotoAndPlay
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
-	 **/
+	 */
 	p.gotoAndPlay = function(positionOrLabel)
 	{
 		this.paused = false;
@@ -1777,11 +1777,19 @@
 	 * Advances this movie clip to the specified position or label and sets paused to true.
 	 * @method gotoAndStop
 	 * @param {String|Number} positionOrLabel The animation or frame name to go to.
-	 **/
+	 */
 	p.gotoAndStop = function(positionOrLabel)
 	{
 		this.paused = true;
 		this._goto(positionOrLabel);
+	};
+
+	/**
+	 * To provide feature parity with the createjs.MovieClip mixin
+	 * @method gotoAndCache
+	 */
+	p.gotoAndCache = function(args)
+	{
 	};
 
 	/**
@@ -1838,7 +1846,7 @@
 	 * Timeline.getCurrentLabel() for more information.
 	 * @method getCurrentLabel
 	 * @return {String} The name of the current label or null if there is no label.
-	 **/
+	 */
 	p.getCurrentLabel = function()
 	{
 		var labels = this._labels;
@@ -1873,7 +1881,7 @@
 	 *  @param {Number} [data.scale=1] The scale at which the art was exported, e.g. a scale of 1.4
 	 *                                 means the art was increased in size to 140% before exporting
 	 *                                 and should be scaled back down before drawing to the screen.
-	 **/
+	 */
 	p.init = function(atlas, data)
 	{
 		//collect the frame labels
@@ -1971,6 +1979,24 @@
 	};
 
 	/**
+	 *  Clone a sprite. Creates a shallow copy of loaded element
+	 *  @method clone
+	 *  @static
+	 *  @param {springroll.easeljs.BitmapMovieClip} sprite The sprite to clone
+	 *  @param {Number} [x=0] The initial x position
+	 *  @param {Number} [y=0] The initial y position
+	 *  @return {springroll.easeljs.BitmapMovieClip}
+	 */
+	BitmapMovieClip.clone = function(sprite, x, y)
+	{
+		var clone = new BitmapMovieClip();
+		clone.copyFrom(sprite);
+		clone.x = x || sprite.x;
+		clone.y = y || sprite.y;
+		return clone;
+	};
+
+	/**
 	*	Destroys the BitmapMovieClip, removing all children and nulling all reference variables.
 	*	@method destroy
 	*/
@@ -1990,7 +2016,7 @@
 	 * @param {Object} props Properties to copy to the DisplayObject {{#crossLink "DisplayObject/tick"}}{{/crossLink}} event object.
 	 * function.
 	 * @protected
-	 **/
+	 */
 	p._tick = function(props)
 	{
 		this.advance(props&&props.delta);
@@ -2001,7 +2027,7 @@
 	 * @method _goto
 	 * @param {String|Number} positionOrLabel The animation name or frame number to go to.
 	 * @protected
-	 **/
+	 */
 	p._goto = function(positionOrLabel)
 	{
 		var pos = null;
@@ -2031,7 +2057,7 @@
 	/**
 	 * @method _updateTimeline
 	 * @protected
-	 **/
+	 */
 	p._updateTimeline = function()
 	{
 		if(this._prevPosition < 0)
@@ -2052,7 +2078,7 @@
 	/**
 	 * @method _reset
 	 * @private
-	 **/
+	 */
 	p._reset = function()
 	{
 		this._prevPosition = 0;

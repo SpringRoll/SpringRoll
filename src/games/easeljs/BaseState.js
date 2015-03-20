@@ -183,9 +183,13 @@
 				);
 			}
 		}
-		else
+		else if (DEBUG && Debug) 
 		{
-			if (DEBUG && Debug) Debug.warn("%cThe scaling config for state %c" + this.stateId + " %cis missing!", 'color:orange', 'color:blue', 'color:orange');
+			Debug.warn("%cThe scaling config for state %c" + this.stateId + " %cis missing!", 
+				'color:orange', 
+				'color:blue', 
+				'color:orange'
+			);
 		}
 
 		//Background is optional, so we'll check

@@ -7,7 +7,8 @@
 {
 	//Import classes
 	var Container = include('createjs.Container'),
-		AssetUtils,
+		DwellTimer,
+		Animator,
 		Application;
 
 	/**
@@ -21,7 +22,8 @@
 		if (!Application)
 		{
 			Application = include('springroll.Application');
-			AssetUtils = include('springroll.easeljs.AssetUtils');
+			DwellTimer = include('springroll.easeljs.DwellTimer', false);
+			Animator = include('springroll.Animator', false);
 		}
 
 		Container.call(this);
@@ -58,12 +60,60 @@
 	};
 
 	/**
-	 *  Should be called whenever a state exits this panel, Implementation-specific
-	 *  @method setup
+	 *  Should be called whenever a state exits this panel, the default
+	 *  behavior is to remove all children of the panel. It will stop
+	 *  any movieclip, destroy any objects, remove DwellTimers, etc.
+	 *  @method teardown
 	 */
 	p.teardown = function()
 	{
-		//Implementation specific
+		var children = this.children.slice();
+		this.cleanupChildren.apply(this, children);
+	};
+
+	/**
+	 *  Removes a collection of objects from the stage and destroys them if we cant.
+	 *  @example this.removeChildren(this.skipButton, this.character);
+	 *  @method cleanupChildren
+	 *  @param {array|*} children Assets to clean can either be individual children or collections of children
+	 */
+	p.cleanupChildren = function(children)
+	{
+		var child, i, j, len = arguments.length;
+
+		for (i = 0; i < len; i++)
+		{
+			child = arguments[i];
+
+			// Check for null/undefined arguments
+			if (!child) continue;
+
+			// test the current argument to see if itself is
+			// an array, if it is, run .cleanupChildren() recursively
+			if (Array.isArray(child) && child.length > 0)
+			{
+				this.cleanupChildren.apply(this, child);
+				continue;
+			}
+			
+			// If there's a dwell timer remove it
+			if (DwellTimer) DwellTimer.destroy(child);
+
+			// If there's an animation playing stop it
+			if (Animator) Animator.stop(child, true);
+
+			// Stop movie clips
+			if (child.stop) child.stop();
+
+			// Destroy anything with a destroy method
+			if (child.destroy) child.destroy();
+
+			// Recurisvely remove all children
+			if (child.removeAllChildren) child.removeAllChildren(true);
+
+			// Remove from this container
+			if (this.contains(child)) this.removeChild(child);
+		}
 	};
 
 	/**

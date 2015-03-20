@@ -5,11 +5,18 @@
  */
 (function(undefined)
 {
+	// Try to include MovieClip, movieclip with CreateJS is 
+	// an optional library from easeljs. We should try to 
+	// include it and silently fail if we don't have it
+	var MovieClip = include('createjs.MovieClip', false);
+
+	if (!MovieClip) return;
+
 	/**
 	 * Mixins for the CreateJS MovieClip class
 	 * @class MovieClip
 	 */
-	var p = include("createjs.MovieClip").prototype;
+	var p = MovieClip.prototype;
 
 	/**
 	 * Combines gotoAndStop and cache in createjs to cache right away
