@@ -1650,15 +1650,26 @@
 	namespace('springroll').DragManager = DragManager;
 	namespace('springroll.easeljs').DragManager = DragManager;
 }());
-(function()
+/**
+ * @module EaselJS Interface
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display
+ */
+ (function()
 {
-	var BitmapUtils = include('springroll.createjs.BitmapUtils'),
-		TextureAtlas = include('springroll.createjs.TextureAtlas'),
-		Loader = include('springroll.Loader'),
-		Application = include('springroll.Application'),
-		TaskManager = include("springroll.TaskManager"),
-		ListTask = include("springroll.ListTask");
+	var BitmapUtils,
+		TextureAtlas,
+		Loader,
+		Debug,
+		Application,
+		TaskManager,
+		ListTask;
 	
+	/**
+	 * Class for managing the loading and unloading of assets.
+	 * @class AssetManager
+	 * @static
+	 */
 	var AssetManager = {};
 	
 	/**
@@ -1701,6 +1712,17 @@
 	 */
 	AssetManager.init = function()
 	{
+		if (!Application)
+		{
+			BitmapUtils = include('springroll.easeljs.BitmapUtils');
+			TextureAtlas = include('springroll.easeljs.TextureAtlas');
+			Loader = include('springroll.Loader');
+			Debug = include('springroll.Debug', false);
+			Application = include('springroll.Application');
+			TaskManager = include("springroll.TaskManager");
+			ListTask = include("springroll.ListTask");
+		}
+
 		loadedAssets = [];
 		loadedLibAssets = {};
 		textureAtlases = {};
@@ -1793,7 +1815,8 @@
 	{
 		if(!loadedAssets)
 		{
-			Debug.error("Attempting to load assets via AssetManager without calling AssetManager.init()");
+			if (Debug && true)
+				Debug.error("Attempting to load assets via AssetManager without calling AssetManager.init()");
 			return;
 		}
 		var checkedManifest = [];
