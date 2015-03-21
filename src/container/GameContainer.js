@@ -361,7 +361,11 @@
 	 */
 	var onContainerFocus = function(e)
 	{
-		this._containerBlurred = false;
+		//Set both container and game to blurred, 
+		//because some blur events are only happening on the container.
+		//If container is blurred because game area was just focused,
+		//the game's focus event will override the blur imminently.
+		this._containerBlurred = this._gameBlurred = true;
 		manageFocus.call(this);
 	};
 
@@ -383,11 +387,7 @@
 	 */
 	var manageFocus = function()
 	{
-		// A manual pause cannot be overriden by focus events.
-		// User must click the resume button.
-		if (this._isManualPause === true) return;
-
-		if(this._pauseTimer)//we only need one delayed call, at the end of any sequence of rapidly-fired blur/focus events
+		if (this._pauseTimer)//we only need one delayed call, at the end of any sequence of rapidly-fired blur/focus events
 			clearTimeout(this._pauseTimer);
 
 		//Delay setting of 'paused' in case we get another focus event soon.
@@ -395,9 +395,14 @@
 		//causing rapid toggling of the pause state and related issues, 
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
-			function(){
-				this.paused = this._containerBlurred && this._gameBlurred;
+			function()
+			{
 				this._pauseTimer = null;
+				// A manual pause cannot be overriden by focus events.
+				// User must click the resume button.
+				if (this._isManualPause === true) return;
+
+				this.paused = this._containerBlurred && this._gameBlurred;
 			}.bind(this), 
 			100
 		);
