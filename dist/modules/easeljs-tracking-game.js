@@ -131,7 +131,7 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll.createjs').BasePanel = BasePanel;
+	namespace('springroll.easeljs').BasePanel = BasePanel;
 }());
 /**
  * @module EaselJS Tracking Game
@@ -422,10 +422,10 @@
 	};
 
 	// Assign to the namespace
-	namespace('springroll.createjs').BaseState = BaseState;
+	namespace('springroll.easeljs').BaseState = BaseState;
 
 	// Deprecated old namespace
-	namespace('springroll.createjs').ManifestState = BaseState;
+	namespace('springroll.easeljs').ManifestState = BaseState;
 }());
 /**
  * @module EaselJS Tracking Game

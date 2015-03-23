@@ -264,7 +264,7 @@
 	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
 	 *                                        If set to 'true' (Boolean), will use same callback as 'onComplete'
 	 *                                        If omited, no callback will be fired on interruption.
-	 *  @return {springroll.createjs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
 	 */
 	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
@@ -335,7 +335,7 @@
 	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
 	 *                                        If set to 'true' (Boolean), will use same callback as 'onComplete'.
 	 *                                        If omited, no callback will be fired on interruption.
-	 *  @return {springroll.createjs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
 	 */
 	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
 	{

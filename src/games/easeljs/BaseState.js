@@ -287,8 +287,8 @@
 	};
 
 	// Assign to the namespace
-	namespace('springroll.createjs').BaseState = BaseState;
+	namespace('springroll.easeljs').BaseState = BaseState;
 
 	// Deprecated old namespace
-	namespace('springroll.createjs').ManifestState = BaseState;
+	namespace('springroll.easeljs').ManifestState = BaseState;
 }());

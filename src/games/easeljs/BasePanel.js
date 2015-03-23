@@ -130,5 +130,5 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll.createjs').BasePanel = BasePanel;
+	namespace('springroll.easeljs').BasePanel = BasePanel;
 }());
