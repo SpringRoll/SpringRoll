@@ -145,5 +145,5 @@
 	};
 
 	//Assign to namespace
-	namespace('pbskids.createjs').ReversePlayback = ReversePlayback;
+	namespace('springroll.easeljs').ReversePlayback = ReversePlayback;
 }());

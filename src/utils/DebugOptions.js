@@ -84,7 +84,7 @@
 	 * @param {string} label The label for the options
 	 * @param {string} desc Description of values the option can accept
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.int = function(label, desc)
 	{
@@ -97,7 +97,7 @@
 	 * @param {string} label The label for the options
 	 * @param {string} desc Description of values the option can accept
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.boolean = function(label, desc)
 	{
@@ -110,7 +110,7 @@
 	 * @param {string} label The label for the options
 	 * @param {string} desc Description of values the option can accept
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.string = function(label, desc)
 	{
@@ -123,7 +123,7 @@
 	 * @param {string} label The label for the options
 	 * @param {string} desc Description of values the option can accept
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.number = function(label, desc)
 	{
@@ -137,7 +137,7 @@
 	 * @param {string} type The type of value the option accepts
 	 * @param {string} [desc] Description of values the option can accept
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.add = function(label, type, desc)
 	{
@@ -221,7 +221,7 @@
 	 * Forget all the options that have been remembered
 	 * @method reset
 	 * @static
-	 * @return {pbskids.DebugOptions} instance of this DebugOptions for chaining
+	 * @return {springroll.DebugOptions} instance of this DebugOptions for chaining
 	 */
 	DebugOptions.reset = function()
 	{
