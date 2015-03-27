@@ -31,7 +31,7 @@
 		/**
 		* An array of animations and pauses.
 		*
-		* @property {Array} event
+		* @property {Array} eventList
 		*/
 		this.eventList = null;
 		
