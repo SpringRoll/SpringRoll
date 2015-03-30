@@ -1302,7 +1302,7 @@
 	{
 		window.onbeforeunload = null; //prevent calling this function twice
 
-		this.tracker.endGame(exitType || 'game_completed');
+		if (this.tracker) this.tracker.endGame(exitType || 'game_completed');
 		this.destroy();
 	};
 
