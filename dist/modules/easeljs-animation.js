@@ -32,7 +32,7 @@
 		/**
 		* An array of animations and pauses.
 		*
-		* @property {Array} event
+		* @property {Array} eventList
 		*/
 		this.eventList = null;
 		
@@ -587,6 +587,7 @@
 			if (first >= 0 && last > 0)
 			{
 				animData = {
+					name: anim,
 					first: first,
 					last: last,
 					loop: loop,

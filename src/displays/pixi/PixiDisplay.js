@@ -42,6 +42,13 @@
 		AbstractDisplay.call(this, id, options);
 
 		options = options || {};
+		
+		/**
+		*  If the display should keep mouse move events running when the display is disabled.
+		*  @property {Boolean} keepMouseover
+		*  @public
+		*/
+		this.keepMouseover = options.keepMouseover || false;
 
 		/**
 		*  The rendering library's stage element, the root display object
@@ -130,7 +137,10 @@
 			else
 			{
 				//remove event listeners
-				interactionManager.removeInteractionEvents();
+				if(this.keepMouseover)
+					interactionManager.removeInteractionEvents();
+				else
+					interactionManager.removeEvents();
 			}
 		}
 	});
