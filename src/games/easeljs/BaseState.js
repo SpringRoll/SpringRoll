@@ -182,24 +182,41 @@
 					false
 				);
 			}
+			//Background is optional, so we'll check
+			//before adding to the scaler
+			var background = this.panel.background;
+			if (background && background.image)
+			{
+				this.scaler.addBackground(background);
+			}
 		}
-		else if (DEBUG && Debug) 
+		//if there is no scaling config for the state, then scale the entire panel
+		else
 		{
-			Debug.warn("%cThe scaling config for state %c" + this.stateId + " %cis missing!", 
-				'color:orange', 
-				'color:blue', 
-				'color:orange'
-			);
+			if (!this.scaler || this.resizeOnReload)
+			{
+				//reset the panel scale & position, to ensure that the panel is scaled properly
+				//upon state re-entry
+				this.panel.x = this.panel.y = 0;
+				this.panel.scaleX = this.panel.scaleY = 1;
+				//create a small config just for the panel
+				scalingConfig =
+				{
+					panel:
+					{
+						align: "top-left",
+						titleSafe: true
+					}
+				};
+				this.scaler = new UIScaler(
+					this,
+					this.config.designedSettings,
+					scalingConfig,
+					false
+				);
+			}
 		}
-
-		//Background is optional, so we'll check
-		//before adding to the scaler
-		var background = this.panel.background;
-		if (background && background.image)
-		{
-			this.scaler.addBackground(background);
-		}
-
+		
 		//Activate the scaler
 		this.scaler.enabled = true;
 
