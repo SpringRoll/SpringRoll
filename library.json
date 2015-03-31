@@ -31,9 +31,6 @@
 		"src/utils/Math.js"
 	],
 	"modules": {
-		"worker": [
-			"src/polyfills/Worker.js"
-		],
 		"nativedisplay": {
 			"output": "native-display",
 			"main": [
