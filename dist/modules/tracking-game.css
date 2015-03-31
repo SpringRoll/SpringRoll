@@ -39,6 +39,7 @@ body {
 *  For debugging performance issues
 */
 #framerate {
+  pointer-events: none;
   position: absolute;
   color: #fff;
   font-size: 12px;
