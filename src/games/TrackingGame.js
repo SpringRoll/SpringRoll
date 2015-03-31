@@ -404,7 +404,7 @@
 				config.specDictionary || null
 			);
 			this.tracker.on('track', this.progressEvent.bind(this));
-			window.onbeforeunload = onWindowClose.bind(this);
+			window.onunload = window.onbeforeunload = onWindowClose.bind(this);
 		}
 
 		this.media = new TrackingGameMedia(this);
@@ -606,7 +606,7 @@
 	 */
 	p.endGame = function(exitType)
 	{
-		window.onbeforeunload = null; //prevent calling this function twice
+		window.onunload = window.onbeforeunload = null; //prevent calling this function twice
 
 		if (this.tracker) this.tracker.endGame(exitType || 'game_completed');
 		this.destroy();
