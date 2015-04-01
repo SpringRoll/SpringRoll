@@ -40,7 +40,7 @@
 	p.play = function()
 	{
 		this._game.hint.enabled = false;
-		this._game.playInstruction(
+		this._game.media.playInstruction(
 			this.idOrList,
 			this._onPlayComplete.bind(this, this.onComplete, false),
 			this._onPlayComplete.bind(this, this.onCancel, true)
