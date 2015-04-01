@@ -5,7 +5,8 @@
 (function(undefined){
 
 	// Classes to import
-	var Application,
+	var Debug,
+		Application,
 		Loader;
 
 	/**
@@ -22,6 +23,7 @@
 		{
 			Application = include('springroll.Application');
 			Loader = include('springroll.Loader');
+			Debug = include('springroll.Debug', false);
 		}
 
 		this._applySpecificVersion = this._applySpecificVersion.bind(this);
@@ -50,7 +52,7 @@
 		var cb = Application.instance.options.cacheBust;
 		this.cacheBust = (cb === "true" || cb === true);
 
-		if(DEBUG)
+		if(DEBUG && Debug)
 		{
 			if (this.cacheBust) Debug.log("CacheBust all files is on.");
 		}
@@ -120,7 +122,7 @@
 	*/
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
-		Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
+		if (DEBUG && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
 
 		var loader = Loader.instance;
 

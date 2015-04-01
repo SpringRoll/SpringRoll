@@ -1,6 +1,7 @@
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Static class for namespacing objects and adding
 *  classes to it.

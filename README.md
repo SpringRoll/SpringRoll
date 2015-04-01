@@ -1,6 +1,6 @@
 #SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll)
 
-A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [CreateJS](http://createjs.com) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
+A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [EaselJS](http://www.createjs.com/EaselJS) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
 * Adding Sound (WebAudio)
 * Hardware Rendered Games (via WebGL)
@@ -67,7 +67,7 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 			// Create the application
 			var app = new springroll.Application({
 				canvasId : "stage",
-				display : springroll.CreateJSDisplay
+				display : springroll.EaselJSDisplay
 			});
 
 			// Listen for when the application
@@ -87,7 +87,7 @@ Modules are components which contain common code classes, documentation and/or r
 
 * **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
 * **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)**
-* **CreateJS Display Module**
+* **EaselJS Display Module**
 * **Native Display Module**
 * **PIXI Display Module**
 * **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)**
@@ -98,7 +98,7 @@ Modules are components which contain common code classes, documentation and/or r
 
 ##Displays
 
-The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [CreateJS](http://createjs.com/) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
+The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
 ##Documentation
 

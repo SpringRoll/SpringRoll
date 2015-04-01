@@ -17,13 +17,16 @@
         <!-- External dependencies -->
 		<script src="../components/jquery/dist/jquery.min.js"></script>
 		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
-		<script src="../components/pixi.js/bin/pixi.js"></script>
+		<script src="../components/pixi.js/bin/pixi.dev.js"></script>
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
-		<script src="../dist/modules/display-pixi.js"></script>
-		<script src="../dist/modules/display-createjs.js"></script>
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/pixi-display.js"></script>
+		<script src="../dist/modules/pixi-interface.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 
     </head>
     <body>
@@ -35,7 +38,7 @@
 			</nav>
 			<div id="framerate">FPS: 00.000</div>
 			<canvas id="pixiStage" width="800" height="500"></canvas>
-			<canvas id="createjsStage" width="800" height="500"></canvas>
+			<canvas id="easelStage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
 // Import library dependencies
@@ -43,7 +46,10 @@ var Texture = include('PIXI.Texture'),
 	Sprite = include('PIXI.Sprite'),
 	Point = include('PIXI.Point'),
 	Loader = include('springroll.Loader'),
-	Application = include('springroll.Application');
+	Application = include('springroll.Application'),
+	Debug = include('springroll.Debug'),
+	EButton = include('springroll.easeljs.Button'),
+	PButton = include('springroll.pixi.Button');
 
 var DrawingApp = function(options)
 {
@@ -51,7 +57,7 @@ var DrawingApp = function(options)
 };
 
 var pixiStage;
-var createjsStage;
+var easelStage;
 var sprite;
 var texture;
 
@@ -84,7 +90,7 @@ p.init = function()
 			clearView: true,
 			transparent: true
 		});
-	var cjsDisplay = this.addDisplay("createjsStage", springroll.CreateJSDisplay,
+	var cjsDisplay = this.addDisplay("easelStage", springroll.EaselJSDisplay,
 		{
 			clearView: true
 		});
@@ -92,12 +98,12 @@ p.init = function()
 	cjsDisplay.enabled = false;
 	
 	pixiStage = this.getDisplay("pixiStage").stage;
-	createjsStage = this.getDisplay("createjsStage").stage;
+	easelStage = this.getDisplay("easelStage").stage;
 	
 	//fromImage automatically loads stuff it it wasn't preloaded
 	texture = new Texture.fromImage("assets/images/cloudkid.png");
-	sprite = new Sprite(texture);
-			
+	sprite = new Sprite(texture);		
+
 	sprite.position.x = 0;
 	sprite.position.y = 100;
 	
@@ -106,8 +112,8 @@ p.init = function()
 	pixiStage.mouseup = onMouseUp;
 	pixiStage.mousedown = onPixiMouseDown;
 
-	createjsStage.addEventListener('stagemouseup', onMouseUp);
-	createjsStage.addEventListener('stagemousedown', onCJSMouseDown);
+	easelStage.addEventListener('stagemouseup', onMouseUp);
+	easelStage.addEventListener('stagemousedown', onCJSMouseDown);
 	
 	// Load the sprite info for the buttons
 	this._assetLoader = new PIXI.AssetLoader(['assets/images/button.json']);
@@ -125,9 +131,9 @@ p.init = function()
 
 	//start the createjs line
 	var g = new createjs.Graphics();
-	g.setStrokeStyle(3, 'round', 'round').beginStroke("#999");
+	g.setStrokeStyle(1, 'round', 'round').beginStroke("#999");
 	var s = new createjs.Shape(g);
-	createjsStage.addChild(s);
+	easelStage.addChild(s);
 	currentCJSShape = s;
 	
 	this._clear();
@@ -140,7 +146,7 @@ p.init = function()
 */
 p._onCompletedLoad = function()
 {
-	pixiClearButton = new springroll.pixi.Button(
+	pixiClearButton = new PButton(
 		// the button states, from the button data loaded
 		{
 			up : Texture.fromFrame("button_up.png"),
@@ -164,7 +170,7 @@ p._onCompletedLoad = function()
 	
 	pixiStage.addChild(pixiClearButton);
 
-	pixiSwapButton = new springroll.pixi.Button(
+	pixiSwapButton = new PButton(
 		// the button states, from the button data loaded
 		{
 			up : Texture.fromFrame("button_up.png"),
@@ -194,7 +200,7 @@ p._onCompletedLoad = function()
 */
 p._onCJSButtonLoaded = function(result)
 {
-	createjsClearButton = new springroll.createjs.Button(result.content, {
+	createjsClearButton = new EButton(result.content, {
 		text: "Clear",
 		font: "20px Arial",
 		color: "#ffffff"
@@ -204,13 +210,13 @@ p._onCJSButtonLoaded = function(result)
 	createjsClearButton.y = this.display.height - createjsClearButton.height - 5;
 	
 	createjsClearButton.addEventListener(
-		springroll.createjs.Button.BUTTON_PRESS,
+		EButton.BUTTON_PRESS,
 		this._clear.bind(this)
 	);
 	
-	createjsStage.addChild(createjsClearButton);
+	easelStage.addChild(createjsClearButton);
 
-	createjsSwapButton = new springroll.createjs.Button(result.content, {
+	createjsSwapButton = new EButton(result.content, {
 		text: "Pixi",
 		font: "20px Arial",
 		color: "#ffffff"
@@ -220,11 +226,11 @@ p._onCJSButtonLoaded = function(result)
 	createjsSwapButton.y = this.display.height - createjsSwapButton.height - 5;
 	
 	createjsSwapButton.addEventListener(
-		springroll.createjs.Button.BUTTON_PRESS,
+		EButton.BUTTON_PRESS,
 		this.swapDisplay.bind(this)
 	);
 	
-	createjsStage.addChild(createjsSwapButton);
+	easelStage.addChild(createjsSwapButton);
 };
 
 /**
@@ -234,19 +240,19 @@ p._clear = function()
 {
 	//wipe the pixi graphic
 	currentPixiShape.clear();
-	currentPixiShape.lineStyle(3,0xCCCCCC,1);
+	currentPixiShape.lineStyle(1,0xCCCCCC,1);
 
 	//wipe the createjs stage
 	currentCJSShape.graphics.clear();
-	currentCJSShape.graphics.setStrokeStyle(3, 'round', 'round').beginStroke("#999");
-	createjsStage.addChild(createjsClearButton);
-	createjsStage.addChild(createjsSwapButton);
+	currentCJSShape.graphics.setStrokeStyle(1, 'round', 'round').beginStroke("#999");
+	easelStage.addChild(createjsClearButton);
+	easelStage.addChild(createjsSwapButton);
 };
 
 p.swapDisplay = function()
 {
 	var pixiDisplay = this.getDisplay("pixiStage"),
-		cjsDisplay = this.getDisplay("createjsStage");
+		cjsDisplay = this.getDisplay("easelStage");
 
 	if(pixiDisplay.visible)
 	{
@@ -286,7 +292,7 @@ p.update = function(elapsed)
 		if(this.getDisplay("pixiStage").visible)
 			mPos = pixiStage.getMousePosition();
 		else
-			mPos = new Point(createjsStage.mouseX, createjsStage.mouseY);
+			mPos = new Point(easelStage.mouseX, easelStage.mouseY);
 		//update the points
 		var pt = new Point(mPos.x, mPos.y);
 		var midPoint = new  Point(oldX + pt.x>>1, oldY+pt.y>>1);
@@ -344,11 +350,11 @@ p.destroy = function()
 	sprite = null;
 	texture = null;
 
-	if (createjsStage)
+	if (easelStage)
 	{
-		createjsStage.removeEventListener('stagemouseup', onMouseUp);
-		createjsStage.removeEventListener('stagemousedown', onCJSMouseDown);
-		createjsStage = null;
+		easelStage.removeEventListener('stagemouseup', onMouseUp);
+		easelStage.removeEventListener('stagemousedown', onCJSMouseDown);
+		easelStage = null;
 	}
 
 	springroll.Application.prototype.destroy.call(this);

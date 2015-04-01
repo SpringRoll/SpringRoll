@@ -1,9 +1,10 @@
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
     /**
      * @class Polygon
      * @constructor

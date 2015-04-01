@@ -1,7 +1,8 @@
 /**
-*  @module PIXI Display
-*  @namespace springroll.pixi
-*/
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay'),
@@ -108,7 +109,7 @@
 		this.isWebGL = this.renderer instanceof WebGLRenderer;
 		
 		// Set the animator and display adapter classes
-		this.animator = include('springroll.pixi.Animator');
+		this.animator = include('springroll.pixi.Animator', false);
 		this.adapter = include('springroll.pixi.DisplayAdapter');
 	};
 

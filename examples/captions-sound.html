@@ -16,7 +16,7 @@
 
 		<!-- External dependencies -->
 		<script src="../components/soundjs/lib/soundjs.min.js"></script>
-		<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+		<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
 		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
 		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
@@ -26,7 +26,8 @@
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/captions.js"></script>
 		<script src="../dist/modules/sound.js"></script>
-		<script src="../dist/modules/display-createjs.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 
 	</head>
 	<body>
@@ -44,8 +45,8 @@
 // Import classes
 var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
-	Button = include('springroll.createjs.Button'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay'),
+	Button = include('springroll.easeljs.Button'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	VOPlayer = include('springroll.VOPlayer'),
 	Sound = include('springroll.Sound'),
 	Captions = include('springroll.Captions');
@@ -56,7 +57,7 @@ var app = new Application({
 	canvasId: "stage",
 	debug: true,
 	debugRemote: 'localhost',
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
 	}

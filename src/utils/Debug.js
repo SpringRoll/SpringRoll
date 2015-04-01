@@ -1,7 +1,8 @@
 /**
- * @module Core
+ * @module Debug
+ * @namespace springroll
  */
-(function(window, undefined)
+(function()
 {
 	// Import classes
 	var Enum = include('springroll.Enum'),
@@ -24,7 +25,7 @@
 	 * @property {Boolean} _hasConsole
 	 */
 	var _hasConsole = (window.console !== undefined);
-	
+
 	/**
 	 * If the console supports coloring
 	 *
@@ -38,7 +39,7 @@
 	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
 	var DEBUGKEY = 'DE' + 'BUG';
-	
+
 	if (_hasConsole)
 	{
 		try
@@ -46,11 +47,11 @@
 			// detect IE9's issue with apply on console functions
 			console.assert.apply(console, [true, "IE9 test"]);
 		}
-		catch(error)
+		catch (error)
 		{
 			// Reference to the bind method
 			var bind = Function.prototype.bind;
-			
+
 			// Bind all these methods in order to use apply
 			// this is ONLY needed for IE9
 			var methods = [
@@ -189,14 +190,14 @@
 	 * @property {Array} _socketQueue
 	 */
 	var _socketQueue = null;
-	
-	
+
+
 	/*
 	 * Prevents uglify from mangling function names attached to it so we can strip
 	 * out of a stack trace for logging purpose.
 	 */
 	var manglePeventer = {};
-	
+
 	/**
 	 * Methods names to use to strip out lines from stack traces
 	 * in remote logging.
@@ -237,7 +238,7 @@
 		'silver',
 		'gray'
 	];
-	
+
 	/**
 	 * Regular expression to get the line number and column from a stack trace line.
 	 * @static
@@ -270,7 +271,7 @@
 			_socketQueue = [];
 			_useSocket = true;
 		}
-		catch(error)
+		catch (error)
 		{
 			return false;
 		}
@@ -374,7 +375,7 @@
 			Debug.output.innerHTML += '<div class="' + level + '">' + args + '</div>';
 		}
 	};
-	
+
 	/**
 	 * Send a remote log message using the socket connection
 	 * @private
@@ -389,10 +390,10 @@
 	Debug._remoteLog = function(message, level, stack)
 	{
 		level = level || Levels.GENERAL;
-		if(!Array.isArray(message))
+		if (!Array.isArray(message))
 			message = [message];
 		message = slice.call(message);
-		
+
 		var i, length;
 		// Go through each argument and replace any circular
 		// references with simplified objects
@@ -404,16 +405,16 @@
 				{
 					message[i] = removeCircular(message[i], 3);
 				}
-				catch(e)
+				catch (e)
 				{
 					message[i] = String(message[i]);
 				}
 				/*console.log(message[i]);*/
 			}
 		}
-		
+
 		//figure out the stack
-		if(!stack)
+		if (!stack)
 			stack = new Error().stack;
 		//split stack lines
 		stack = stack ? stack.split("\n") : [];
@@ -422,13 +423,13 @@
 		var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
 			lastToStrip = -1,
 			shouldStrip = true;
-		for(i = 0, length = stack.length; i < length; ++i)
+		for (i = 0, length = stack.length; i < length; ++i)
 		{
 			var line = stack[i].trim();
 			//FF has an empty string at the end
-			if(!line)
+			if (!line)
 			{
-				if(i == length - 1)
+				if (i == length - 1)
 				{
 					stack.pop();
 					break;
@@ -438,24 +439,24 @@
 			}
 			//strip out any actual errors in the stack trace, since that is the message
 			//also the 'error' line from our new Error().
-			if(line == "Error" || line.indexOf("Error:") > -1)
+			if (line == "Error" || line.indexOf("Error:") > -1)
 			{
 				lastToStrip = i;
 				continue;
 			}
 			// FF/Safari style:
 			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
-			if(line.indexOf("@") > -1)
+			if (line.indexOf("@") > -1)
 			{
 				splitIndex = line.indexOf("@");
 				functionSection = line.substring(0, splitIndex);
 				//if we should strip this line out of the stack, we should stop parsing the stack
 				//early
-				if(functionSection.indexOf(".") != -1)
+				if (functionSection.indexOf(".") != -1)
 					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
 				else
 					functionName = functionSection;
-				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				if (shouldStrip && methodsToStrip.indexOf(functionName) != -1)
 				{
 					lastToStrip = i;
 					continue;
@@ -472,11 +473,11 @@
 				functionSection = line.substring(3, splitIndex - 1);
 				//if we should strip this line out of the stack, we should stop parsing the stack
 				//early
-				if(functionSection.indexOf(".") != -1)
+				if (functionSection.indexOf(".") != -1)
 					functionName = functionSection.substring(functionSection.lastIndexOf(".") + 1);
 				else
 					functionName = functionSection;
-				if(shouldStrip && methodsToStrip.indexOf(functionName) != -1)
+				if (shouldStrip && methodsToStrip.indexOf(functionName) != -1)
 				{
 					lastToStrip = i;
 					continue;
@@ -493,12 +494,12 @@
 			//strip stuff out, in case someone else's functions are named the same
 			shouldStrip = false;
 			stack[i] = {
-				"function":functionSection || "<anonymous>",
-				file:file,
-				lineLocation:lineLocation
+				"function": functionSection || "<anonymous>",
+				file: file,
+				lineLocation: lineLocation
 			};
 		}
-		if(lastToStrip >= 0)
+		if (lastToStrip >= 0)
 		{
 			stack = stack.slice(lastToStrip + 1);
 		}
@@ -506,7 +507,8 @@
 		// If we are still in the process of connecting, queue up the log
 		if (_socketQueue)
 		{
-			_socketQueue.push({
+			_socketQueue.push(
+			{
 				message: message,
 				level: level.name,
 				stack: stack,
@@ -524,7 +526,7 @@
 			{
 				send = JSON.stringify(_socketMessage);
 			}
-			catch(e)
+			catch (e)
 			{
 				_socketMessage.message = ["[circular object]"];
 				send = JSON.stringify(_socketMessage);
@@ -533,7 +535,7 @@
 		}
 		return Debug;
 	};
-	
+
 	/**
 	 * An array for preventing circular references
 	 * @static
@@ -541,7 +543,7 @@
 	 * @property {Array} circularArray
 	 */
 	var circularArray = [];
-	
+
 	/**
 	 * Strip out known circular references
 	 * @method removeCircular
@@ -551,11 +553,11 @@
 	var removeCircular = function(obj, maxDepth, depth)
 	{
 		if (Array.isArray(obj)) return obj;
-		
+
 		depth = depth || 0;
-		if(depth === 0)
+		if (depth === 0)
 			circularArray.length = 0;
-		
+
 		circularArray.push(obj);
 
 		var result = {};
@@ -581,46 +583,46 @@
 				key == "fromElement" ||
 				key == "toElement")
 			{
-				if(value instanceof HTMLElement)
+				if (value instanceof HTMLElement)
 				{
 					var elementString;
 					elementString = "<" + value.tagName;
-					if(value.id)
+					if (value.id)
 						elementString += " id='" + value.id + "'";
-					if(value.className)
+					if (value.className)
 						elementString += " class='" + value.className + "'";
 					result[key] = elementString + " />";
 				}
 				continue;
 			}
 
-			switch(typeof value)
+			switch (typeof value)
 			{
 				case "object":
-				{
-					result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
-						String(value) :
-						removeCircular(value, maxDepth, depth + 1);
-					break;
-				}
+					{
+						result[key] = (depth > maxDepth || circularArray.indexOf(value) > -1) ?
+							String(value) :
+							removeCircular(value, maxDepth, depth + 1);
+						break;
+					}
 				case "function":
-				{
-					result[key] = "[function]";
-					break;
-				}
+					{
+						result[key] = "[function]";
+						break;
+					}
 				case "string":
 				case "number":
 				case "boolean":
 				case "bool":
-				{
-					result[key] = value;
-					break;
-				}
+					{
+						result[key] = value;
+						break;
+					}
 				default:
-				{
-					result[key] = value;
-					break;
-				}
+					{
+						result[key] = value;
+						break;
+					}
 			}
 		}
 		return result;
@@ -644,9 +646,9 @@
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL)
 		{
-			if(_hasConsole)
+			if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.log(params);
 				else
 					console.log.apply(console, arguments);
@@ -675,18 +677,18 @@
 		else if (Debug.minLogLevel.asInt <= Levels[DEBUGKEY].asInt)
 		{
 			// debug() is officially deprecated
-			if(_hasConsole)
+			if (_hasConsole)
 			{
 				if (console.debug)
 				{
-					if(arguments.length === 1)
+					if (arguments.length === 1)
 						console.debug(params);
 					else
 						console.debug.apply(console, arguments);
 				}
 				else
 				{
-					if(arguments.length === 1)
+					if (arguments.length === 1)
 						console.log(params);
 					else
 						console.log.apply(console, arguments);
@@ -715,9 +717,9 @@
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt)
 		{
-			if(_hasConsole)
+			if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.info(params);
 				else
 					console.info.apply(console, arguments);
@@ -745,9 +747,9 @@
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt)
 		{
-			if(_hasConsole)
+			if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.warn(params);
 				else
 					console.warn.apply(console, arguments);
@@ -774,9 +776,9 @@
 		}
 		else
 		{
-			if(_hasConsole)
+			if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.error(params);
 				else
 					console.error.apply(console, arguments);
@@ -807,8 +809,8 @@
 					Debug._remoteLog(params, Levels.ERROR);
 				}
 			}
-			
-			if(_hasConsole && console.assert)
+
+			if (_hasConsole && console.assert)
 				console.assert(truth, params);
 		}
 		return Debug;
@@ -824,7 +826,7 @@
 	 */
 	Debug.dir = function(params)
 	{
-		if(Debug.enabled)
+		if (Debug.enabled)
 		{
 			if (_useSocket)
 			{
@@ -832,7 +834,7 @@
 			}
 			else if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.dir(params);
 				else
 					console.dir.apply(console, arguments);
@@ -856,8 +858,8 @@
 			{
 				Debug._remoteLog("", "clear");
 			}
-			
-			if(_hasConsole)
+
+			if (_hasConsole)
 				console.clear();
 
 			if (Debug.output)
@@ -884,9 +886,9 @@
 			{
 				Debug._remoteLog(arguments, Levels.GENERAL);
 			}
-			else if(_hasConsole)
+			else if (_hasConsole)
 			{
-				if(arguments.length === 1)
+				if (arguments.length === 1)
 					console.trace(params);
 				else
 					console.trace.apply(console, arguments);
@@ -913,7 +915,7 @@
 			{
 				Debug._remoteLog(arguments, "group");
 			}
-			else if(_hasConsole && console.group)
+			else if (_hasConsole && console.group)
 				console.group.apply(console, arguments);
 		}
 		return Debug;
@@ -936,7 +938,7 @@
 			{
 				Debug._remoteLog(arguments, "groupCollapsed");
 			}
-			else if(_hasConsole && console.groupCollapsed)
+			else if (_hasConsole && console.groupCollapsed)
 				console.groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
@@ -959,7 +961,7 @@
 			{
 				Debug._remoteLog(arguments, "groupEnd");
 			}
-			else if(_hasConsole && console.groupEnd)
+			else if (_hasConsole && console.groupEnd)
 				console.groupEnd();
 		}
 		return Debug;
@@ -1120,7 +1122,7 @@
 	 */
 	for (var key in _palette)
 	{
-		if(_consoleSupportsColors)
+		if (_consoleSupportsColors)
 			Debug[key] = _colorClosure(_palette[key]);
 		else
 			Debug[key] = Debug.log;
@@ -1136,34 +1138,32 @@
 	 * @return {Function}
 	 */
 	function _colorClosure(hex)
-	{
-		var colorString = 'color:' + hex;
-		return function(message)
 		{
-			if(arguments.length > 1)
+			var colorString = 'color:' + hex;
+			return function(message)
 			{
-				var params = slice.call(arguments);
-				if(typeof params[0] == "object")
+				if (arguments.length > 1)
 				{
-					params.unshift(colorString);
-					params.unshift('%c%o');
+					var params = slice.call(arguments);
+					if (typeof params[0] == "object")
+					{
+						params.unshift(colorString);
+						params.unshift('%c%o');
+					}
+					else
+					{
+						var first = '%c' + params[0];
+						params[0] = colorString;
+						params.unshift(first);
+					}
+					return Debug.log.apply(Debug, params);
 				}
-				else
-				{
-					var first = '%c' + params[0];
-					params[0] = colorString;
-					params.unshift(first);
-				}
-				return Debug.log.apply(Debug, params);
-			}
-			if(typeof arguments[0] == "object")
-				return Debug.log('%c%o', colorString, message);
-			return Debug.log('%c' + message, colorString);
-		};
-	}
+				if (typeof arguments[0] == "object")
+					return Debug.log('%c%o', colorString, message);
+				return Debug.log('%c' + message, colorString);
+			};
+		}
+		//Assign to namespace
+	namespace('springroll').Debug = Debug;
 
-	// Make the debug class globally accessible.
-	// If the console doesn't exist, use the dummy to prevent errors.
-	window.Debug = Debug;
-
-}(window));
+}());

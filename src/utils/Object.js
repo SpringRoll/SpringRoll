@@ -1,6 +1,7 @@
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 (function(Object, undefined){
 
 	/**

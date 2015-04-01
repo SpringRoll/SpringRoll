@@ -1,9 +1,10 @@
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
 	/**
 	 * the Rectangle object is an area defined by its position, as indicated by its top-left corner point (x, y) and by its width and its height.
 	 *

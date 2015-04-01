@@ -1,11 +1,13 @@
 /**
-*  @module Captions
-*  @namespace springroll
-*/
+ * @module Captions
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	// Import class
-	var Application = include('springroll.Application');
+	var Application = include('springroll.Application'),
+		Debug;
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
@@ -37,6 +39,7 @@
 	*/
 	var Captions = function(captionDictionary, field, selfUpdate)
 	{
+		Debug = include('springroll.Debug', false);
 		// Add to the instances
 		_instances.push(this);
 
@@ -243,7 +246,7 @@
 			lines = dict[alias].lines;
 			if(!lines)
 			{
-				Debug.log("alias '" + alias + "' has no lines!");
+				if (DEBUG && Debug) Debug.log("alias '" + alias + "' has no lines!");
 				continue;
 			}
 			len = lines.length;
@@ -307,7 +310,7 @@
 		{
 			field.innerHTML = text;
 		}
-		// The CreateJS style text setting
+		// The EaselJS style text setting
 		else if (field.text !== undefined)
 		{
 			field.text = text;

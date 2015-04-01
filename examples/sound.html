@@ -16,14 +16,15 @@
 
         <!-- External dependencies -->
 		<script src="../components/soundjs/lib/soundjs.min.js"></script>
-		<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+		<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
 		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
 		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
-		<script src="../dist/modules/display-createjs.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 
@@ -41,8 +42,8 @@
 <script>
 
 var Application = include('springroll.Application'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay'),
-	Button = include('springroll.createjs.Button'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	Button = include('springroll.easeljs.Button'),
 	Loader = include('springroll.Loader'),
 	Shape = include('createjs.Shape'),
 	Tween = include('createjs.Tween'),
@@ -52,7 +53,7 @@ var Application = include('springroll.Application'),
 var app = new Application({
 	framerate: "framerate",
 	canvasId: "stage",
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
 	}

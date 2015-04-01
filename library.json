@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -10,12 +10,13 @@
 		"src/utils/extend.js",
 		"src/utils/Object.js",
 		"src/utils/Enum.js",
-		"src/utils/Debug.js",
 		"src/utils/TimeUtils.js",
 		"src/polyfills/requestAnimationFrame.js",
 		"src/events/EventDispatcher.js",
+		"src/events/PropertyDispatcher.js",
 		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
+		"src/ApplicationOptions.js",
 		"src/Application.js",
 		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
@@ -30,48 +31,76 @@
 		"src/utils/Math.js"
 	],
 	"modules": {
-		"worker": [
-			"src/polyfills/Worker.js"
-		],
-		"displaynative": {
-			"output": "display-native",
+		"nativedisplay": {
+			"output": "native-display",
 			"main": [
 				"src/displays/native/geom/*.js",
 				"src/displays/native/DisplayAdapter.js",
 				"src/displays/native/NativeDisplay.js"
 			]
 		},
-		"displaycreatejs": {
-			"output": "display-createjs",
-			"main": [
-				"src/displays/createjs/Point.js",
-				"src/displays/createjs/MovieClipUtils.js",
-				"src/displays/createjs/BitmapUtils.js",
-				"src/displays/createjs/DisplayAdapter.js",
-				"src/displays/createjs/CreateJSDisplay.js",
-				"src/displays/createjs/AnimatorTimeline.js",
-				"src/displays/createjs/Animator.js",
-				"src/displays/createjs/Button.js",
-				"src/displays/createjs/SoundButton.js",
-				"src/displays/createjs/DragData.js",
-				"src/displays/createjs/DragManager.js",
-				"src/displays/createjs/Cutscene.js",
-				"src/displays/createjs/TextureAtlas.js",
-				"src/displays/createjs/BitmapMovieClip.js"
-			]
-		},
-		"displaypixi": {
-			"output": "display-pixi",
+		"pixidisplay": {
+			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
-				"src/displays/pixi/PixiDisplay.js",
-				"src/displays/pixi/ConcurrentSpineAnimData.js",
-				"src/displays/pixi/AnimatorTimeline.js",
-				"src/displays/pixi/Animator.js",
-				"src/displays/pixi/Button.js",
-				"src/displays/pixi/DragData.js",
-				"src/displays/pixi/DragManager.js",
-				"src/displays/pixi/AssetManager.js"
+				"src/displays/pixi/PixiDisplay.js"
+			]
+		},
+		"pixianimation": {
+			"output": "pixi-animation",
+			"main": [
+				"src/displays/pixi/animation/ParallelSpineData.js",
+				"src/displays/pixi/animation/AnimatorTimeline.js",
+				"src/displays/pixi/animation/Animator.js"
+			]
+		},
+		"pixiinterface": {
+			"output": "pixi-interface",
+			"main": [
+				"src/displays/pixi/interface/Button.js",
+				"src/displays/pixi/interface/DragData.js",
+				"src/displays/pixi/interface/DragManager.js",
+				"src/displays/pixi/interface/AssetManager.js"
+			]
+		},
+		"easeljsdisplay": {
+			"output": "easeljs-display",
+			"main": [
+				"src/displays/easeljs/mixins/*.js",
+				"src/displays/easeljs/DisplayAdapter.js",
+				"src/displays/easeljs/EaselJSDisplay.js"
+			]
+		},
+		"easeljsanimation": {
+			"output": "easeljs-animation",
+			"main": [
+				"src/displays/easeljs/animation/AnimatorTimeline.js",
+				"src/displays/easeljs/animation/Animator.js",
+				"src/displays/easeljs/animation/TextureAtlas.js",
+				"src/displays/easeljs/animation/BitmapMovieClip.js",
+				"src/displays/easeljs/animation/ReversePlayback.js"
+			]
+		},
+		"easeljsinterface": {
+			"output": "easeljs-interface",
+			"main": [
+				"src/displays/easeljs/interface/Button.js",
+				"src/displays/easeljs/interface/SoundButton.js",
+				"src/displays/easeljs/interface/DragData.js",
+				"src/displays/easeljs/interface/DragManager.js",
+				"src/displays/easeljs/interface/AssetManager.js"
+			]
+		},
+		"easeljsutils": {
+			"output": "easeljs-utils",
+			"main": [
+				"src/displays/easeljs/utils/BitmapUtils.js"
+			]
+		},
+		"easeljscutscene": {
+			"output": "easeljs-cutscene",
+			"main": [
+				"src/displays/easeljs/cutscene/Cutscene.js"
 			]
 		},
 		"game": [
@@ -107,6 +136,59 @@
 		],
 		"translate": [
 			"src/utils/Language.js"
-		]
+		],
+		"debug": [
+			"src/utils/Debug.js",
+			"src/utils/DebugOptions.js"
+		],
+		"progresstracker": {
+			"output": "progress-tracker",
+			"main": [
+				"src/tracker/ProgressTrackerError.js",
+				"src/tracker/EventCatalog.js",
+				"src/tracker/EventSignature.js",
+				"src/tracker/EventError.js",
+				"src/tracker/ValidationError.js",
+				"src/tracker/EventUtils.js",
+				"src/tracker/ProgressTracker.js",
+				"src/tracker/easeljs/DwellTimer.js",
+				"src/tracker/ProgressTracker.less"
+			]
+		},
+		"easeljstrackinggame": {
+			"output": "easeljs-tracking-game",
+			"main": [
+				"src/games/easeljs/BasePanel.js",
+				"src/games/easeljs/BaseState.js",
+				"src/games/easeljs/TrackingGame.js"
+			]
+		},
+		"hinting": {
+			"output": "hinting",
+			"main": [
+				"src/hinting/AbstractHint.js",
+				"src/hinting/VOHint.js",
+				"src/hinting/AnimatorHint.js",
+				"src/hinting/FunctionHint.js",
+				"src/hinting/GroupHint.js",
+				"src/hinting/HintPlayer.js"
+			]
+		},
+		"container": {
+			"output": "container",
+			"main": [
+				"src/container/Features.js",
+				"src/container/GameContainer.js"
+			]
+		},
+		"trackinggame": {
+			"output": "tracking-game",
+			"main": [
+				"src/utils/StringFilters.js",
+				"src/games/TrackingGameMedia.js",
+				"src/games/TrackingGame.js",
+				"src/games/TrackingGame.less"
+			]
+		}
 	}
 }

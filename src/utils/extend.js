@@ -1,6 +1,7 @@
 /**
-*  @module Core
-*/
+ * @module Core
+ * @namespace window
+ */
 /**
 *  Use to do class inheritence
 *  @class extend

@@ -21,7 +21,8 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/captions.js"></script>
-		<script src="../dist/modules/display-createjs.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
 
 	</head>
 	<body>
@@ -39,8 +40,8 @@
 // Import classes
 var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
-	Button = include('springroll.createjs.Button'),
-	CreateJSDisplay = include('springroll.CreateJSDisplay'),
+	Button = include('springroll.easeljs.Button'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Captions = include('springroll.Captions');
 
 // Create the new application
@@ -49,7 +50,7 @@ var app = new Application({
 	canvasId: "stage",
 	debug: true,
 	debugRemote: 'localhost',
-	display: CreateJSDisplay,
+	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
 	}

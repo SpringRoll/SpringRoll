@@ -1,8 +1,10 @@
 /**
-*  @module Interface
-*  @namespace springroll
-*/
-(function() {
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 
 	// Class imports
 	var UIScaler;

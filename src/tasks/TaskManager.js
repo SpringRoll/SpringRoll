@@ -1,12 +1,14 @@
 /**
-*  @module Tasks
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Tasks
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
 	var TaskEvent,
-		EventDispatcher = include('springroll.EventDispatcher');
+		EventDispatcher = include('springroll.EventDispatcher'),
+		Debug;
 
 	/**
 	*  The task manager is responsible for doing a series
@@ -21,6 +23,7 @@
 		if(!TaskEvent)
 		{
 			TaskEvent = include('springroll.TaskEvent');
+			Debug = include('springroll.Debug', false);
 		}
 
 		EventDispatcher.call(this);
@@ -215,7 +218,7 @@
 	{
 		if (this._isDestroyed) return;
 
-		Debug.assert(!!this.tasks, "startNext(): There are no task for this Task Manager");
+		if (DEBUG && Debug) Debug.assert(!!this.tasks, "startNext(): There are no task for this Task Manager");
 
 		var task;
 		while (this.tasks.length > 0 && !(task = this.tasks.shift()))
@@ -295,7 +298,7 @@
 	*/
 	p.startAll = function()
 	{
-		Debug.assert(!!this.tasks, "startAll(): There are no task for this Task Manager");
+		if (DEBUG && Debug) Debug.assert(!!this.tasks, "startAll(): There are no task for this Task Manager");
 
 		var ret = [];
 

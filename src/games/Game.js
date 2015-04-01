@@ -1,11 +1,13 @@
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	//Library depencencies
-	var Application = include('springroll.Application'),
+	var Debug,
+		Application = include('springroll.Application'),
 		StateManager = include('springroll.StateManager'),
 		VOPlayer,
 		Captions,
@@ -44,7 +46,7 @@
 	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
 	*                                        (unminifed library version only)
 	*  @param {String} [options.name=''] The name of the game
-	*  @param {Boolean} [options.forceMobile=false] Manually override the check for isMobile
+	*  @param {Boolean} [options.forceTouch=false] Manually override the check for hasTouch
 	*                                               (unminifed library version only)
 	*  @param {Boolean} [options.updateTween=true] Have the application take care of the Tween
 	*                                              updates
@@ -93,6 +95,7 @@
 	*/
 	var Game = function(options)
 	{
+		Debug = include('springroll.Debug', false);
 		Sound = include('springroll.Sound');
 		VOPlayer = include('springroll.VOPlayer');
 
@@ -165,18 +168,18 @@
 
 		/**
 		*  If the current brower has touch input available
-		*  @property {Boolean} isMobile
+		*  @property {Boolean} hasTouch
 		*/
 		if (DEBUG && this.options.forceMobile)
 		{
-			this.isMobile = true;
+			this.hasTouch = true;
 		}
 		else
 		{
 			//Detect availability of touch events
-			this.isMobile = !!(('ontouchstart' in window) ||// iOS & Android
-			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
-			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
+			this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
+				(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
+				(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 		}
 
 		// Callback right before init is called, we'll
@@ -270,7 +273,7 @@
 			}
 		}
 
-		//if the transition is a CreateJS movieclip, start it out
+		//if the transition is a EaselJS movieclip, start it out
 		//at the end of the transition out animation. If it has a
 		//'transitionLoop' animation, that will be played as soon as a state is set
 		if (this.transition.gotoAndStop)
@@ -442,22 +445,6 @@
 			// Update the player captions
 			this.captions.setDictionary(captionData);
 		}
-	};
-
-	/**
-	*  Sets the dicitonary for the captions used by player. If a Captions object
-	*  did not exist previously, then it creates one, and sets it up on all Animators.
-	*  @method setCaptionsDictionary
-	*  @deprecated Use Game.addCaptions
-	*  @param {Object} captionData The captions data to give to the Captions object
-	*/
-	p.setCaptionsDictionary = function(captionData)
-	{
-		if (DEBUG)
-		{
-			Debug.warn("Game.setCaptionsDictionary is deprecated, use Game.addCaptions instead");
-		}
-		this.addCaptions(captionData);
 	};
 
 	/**

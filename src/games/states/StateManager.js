@@ -1,31 +1,33 @@
 /**
-*  @module Game
-*  @namespace springroll
-*/
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 	
 	// Imports
-	var EventDispatcher = include('springroll.EventDispatcher'),
+	var Debug = include('springroll.Debug', false),
+		EventDispatcher = include('springroll.EventDispatcher'),
 		BaseState = include('springroll.BaseState'),
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
-	*  The State Manager used for managing the different states of a game or site
-	*
-	*  @class StateManager
-	*  @extends springroll.EventDispatcher
-	*  @constructor
-	*  @param {springroll.AbstractDisplay} display The display on which the transition animation is
-	*                                              displayed.
-	*  @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
-	*                                                    transitions.
-	*  @param {Object} transitionSounds Data object with aliases and start times (seconds) for
-	*                                   transition in, loop and out sounds. Example:
-	*                                   {in:{alias:"myAlias", start:0.2}}.
-	*                                   These objects are in the format for Animator from
-	*                                   CreateJSDisplay or PixiDisplay, so they can be just the
-	*                                   sound alias instead of an object.
-	*/
+	 *  The State Manager used for managing the different states of a game or site 
+	 *
+	 * @class StateManager
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
+	 *                                             displayed.
+	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	 *                                                   transitions.
+	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	 *                                  transition in, loop and out sounds. Example:
+	 *                                  {in:{alias:"myAlias", start:0.2}}.
+	 *                                  These objects are in the format for Animator from
+	 *                                  EaselJSDisplay or PixiDisplay, so they can be just the
+	 *                                  sound alias instead of an object.
+	 */
 	var StateManager = function(display, transition, transitionSounds)
 	{
 		EventDispatcher.call(this);
@@ -193,7 +195,7 @@
 	*/
 	p.addState = function(id, state)
 	{
-		if (DEBUG)
+		if (DEBUG && Debug)
 		{
 			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
 		}
@@ -239,7 +241,7 @@
 	*/
 	p.getStateById = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
+		if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
 		return this._states[id];
 	};
 	
@@ -310,7 +312,7 @@
 	*/
 	p.refresh = function()
 	{
-		Debug.assert(!!this._state, "No current state to refresh!");
+		if (DEBUG && Debug) Debug.assert(!!this._state, "No current state to refresh!");
 		this.setState(this._stateId);
 	};
 	
@@ -337,7 +339,7 @@
 	*/
 	p.setState = function(id)
 	{
-		Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
+		if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
 		
 		// If we try to transition while the transition or state
 		// is transition, then we queue the state and proceed
@@ -578,7 +580,7 @@
 
 		if (!this._state.nextState)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.info("'nextState' is undefined in current state, ignoring");
 			}
@@ -604,7 +606,7 @@
 
 		if (!this._state.prevState)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.info("'prevState' is undefined in current state, ignoring");
 			}

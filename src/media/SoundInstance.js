@@ -1,16 +1,17 @@
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Sound;
 
 	/**
-	*  A playing instance of a sound (or promise to play as soon as it loads). These can only
-	*  be created through springroll.Sound.instance.play().
-	*  @class SoundInstance
-	*/
+	 * A playing instance of a sound (or promise to play as soon as it loads). These can only
+	 * be created through springroll.Sound.instance.play().
+	 * @class SoundInstance
+	 */
 	var SoundInstance = function()
 	{
 		if(!Sound)

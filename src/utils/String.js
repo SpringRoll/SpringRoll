@@ -1,7 +1,9 @@
 /**
-*  @module Core
-*/
-(function() {
+ * @module Core
+ * @namespace window
+ */
+(function()
+{
 	/**
 	*  Add methods to String
 	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty

@@ -1,25 +1,26 @@
 /**
-*  @modules Sound
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Task = include('springroll.Task', false);
 
 	// Task is optional if we're using the task module
 	if (!Task) return;
 
 	/**
-	*  A task for loading a list of sounds. These can only
-	*  be created through Sound.instance.createPreloadTask().
-	*  This class is not created if the Task library is not loaded before the Sound library.
-	*  @class SoundListTask
-	*  @extends {springroll.Task}
-	*  @constructor
-	*  @param {String} id The unique id of this task
-	*  @param {Array} list The collection of sounds
-	*  @param {Function} callback Completed callback function
-	*/
+	 * A task for loading a list of sounds. These can only
+	 * be created through Sound.instance.createPreloadTask().
+	 * This class is not created if the Task library is not loaded before the Sound library.
+	 * @class SoundListTask
+	 * @extends {springroll.Task}
+	 * @constructor
+	 * @param {String} id The unique id of this task
+	 * @param {Array} list The collection of sounds
+	 * @param {Function} callback Completed callback function
+	 */
 	var SoundListTask = function(id, list, callback)
 	{
 		Task.call(this, id, callback);

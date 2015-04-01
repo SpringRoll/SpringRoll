@@ -1,11 +1,13 @@
 /**
-*  @module Game
-*  @namespace springroll
-*/
-(function(){
-	
+ * @module Game
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	// Imports
-	var StateManager;
+	var Debug,
+		StateManager;
 	
 	/**
 	*  Defines the base functionality for a state used by the state manager
@@ -19,6 +21,7 @@
 	*/
 	var BaseState = function(panel, nextState, prevState)
 	{
+		Debug = include('springroll.Debug', false);
 		if(!StateManager)
 		{
 			StateManager = include('springroll.StateManager');
@@ -220,7 +223,7 @@
 	{
 		if (this._isLoading)
 		{
-			Debug.warn("loadingStart() was called while we're already loading");
+			if (DEBUG && Debug) Debug.warn("loadingStart() was called while we're already loading");
 			return;
 		}
 		
@@ -245,7 +248,7 @@
 	{
 		if (!this._isLoading)
 		{
-			Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
+			if (DEBUG && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
 			return;
 		}
 		

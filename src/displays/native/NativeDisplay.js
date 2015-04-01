@@ -1,7 +1,8 @@
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay');

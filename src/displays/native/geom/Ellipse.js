@@ -1,9 +1,10 @@
 /**
-*  @module Native Display
-*  @namespace springroll.native
-*/
-(function(){
-
+ * @module Native Display
+ * @namespace springroll.native
+ * @requires Core
+ */
+(function()
+{
     /**
      * The Ellipse object can be used to specify a hit area for displayobjects
      *

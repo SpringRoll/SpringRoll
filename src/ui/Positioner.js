@@ -1,7 +1,8 @@
 /**
-*  @module Interface
-*  @namespace springroll
-*/
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
 (function(undefined){
 
 	/**

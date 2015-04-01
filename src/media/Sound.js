@@ -1,10 +1,12 @@
 /**
-*  @module Sound
-*  @namespace springroll
-*/
-(function(){
-
+ * @module Sound
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
 	var Application = include('springroll.Application'),
+		Debug,
 		Loader,
 		LoadTask,
 		TaskManager,
@@ -27,6 +29,7 @@
 		// Import classes
 		if (!Loader)
 		{
+			Debug = include('springroll.Debug', false);
 			Loader = include('springroll.Loader');
 			LoadTask = include('springroll.LoadTask', false);
 			TaskManager = include('springroll.TaskManager', false);
@@ -169,7 +172,7 @@
 		}
 		else if (SoundJS.activePlugin)
 		{
-			if (DEBUG)
+			if (DEBUG && Debug)
 			{
 				Debug.log("SoundJS Plugin " + SoundJS.activePlugin + " was not ready, waiting until it is");
 			}
@@ -188,7 +191,7 @@
 		}
 		else
 		{
-			Debug.error("Unable to initialize SoundJS with a plugin!");
+			if (DEBUG && Debug) Debug.error("Unable to initialize SoundJS with a plugin!");
 			this.soundEnabled = false;
 			if (options.ready)
 				options.ready();
@@ -296,7 +299,7 @@
 	{
 		if (!config)
 		{
-			Debug.warn("Warning - springroll.Sound was told to load a null config");
+			if (DEBUG && Debug) Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
 		var list = config.soundManifest;
@@ -633,7 +636,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("springroll.Sound: alias '" + alias + "' not found!");
+			if (DEBUG && Debug) Debug.error("springroll.Sound: alias '" + alias + "' not found!");
 
 			if (completeCallback)
 				completeCallback();
@@ -1032,21 +1035,6 @@
 	});
 
 	/**
-	*  Set the mute status of all sounds
-	*  @method setMuteAll
-	*  @deprecated Use the muteAll setter instead
-	*  @param {Boolean} muted If all sounds should be muted
-	*/
-	p.setMuteAll = function(muted)
-	{
-		if (DEBUG)
-		{
-			Debug.warn("Sound's setMuteAll() is deprecated, use Sound's muteAll property.");
-		}
-		this.muteAll = muted;
-	};
-
-	/**
 	*	Sets volume of a context. Individual sound volumes are multiplied by this value.
 	*	@method setContextVolume
 	*	@public
@@ -1089,7 +1077,7 @@
 		var sound = this._sounds[alias];
 		if (!sound)
 		{
-			Debug.error("Sound does not exist: " + alias + " - can't preload!");
+			if (DEBUG && Debug) Debug.error("Sound does not exist: " + alias + " - can't preload!");
 			return;
 		}
 		if (sound.loadState != LoadStates.unloaded) return;
@@ -1141,7 +1129,7 @@
 			}
 			else
 			{
-				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
+				if (DEBUG && Debug) Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
 		if (tasks.length > 0)

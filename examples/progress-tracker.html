@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Progress Tracker Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+        <!-- External dependencies -->
+        <script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>	
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-interface.js"></script>
+
+		<!-- Optional external depdencencies -->
+		<!-- jQuery is used by the ProgressTracker debugging tray -->
+		<script src="../components/jquery/dist/jquery.min.js"></script>
+
+		<!-- Library and modules -->
+		<link rel="stylesheet" href="../dist/modules/progress-tracker.css"></script>
+
+		<!-- The CSS is needed for the ProgressTracker tray -->
+		<script src="../dist/modules/progress-tracker.js"></script>
+
+    </head>
+    <body>
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<div id="framerate">FPS: 00.000</div>
+			<canvas id="stage" width="800" height="500"></canvas>
+			<pre id="codeDisplay"></pre>
+<script>
+
+// Import classes
+var Application = include('springroll.Application'),
+	Button = include('springroll.easeljs.Button'),
+	Debug = include('springroll.Debug'),
+	Loader = include('springroll.Loader'),
+	ProgressTracker = include('springroll.ProgressTracker'),
+	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
+
+// Create the new application
+var app = new Application({
+	framerate: "framerate", // optional
+	canvasId: "stage",
+	debug: true,
+	display: EaselJSDisplay,
+	displayOptions: {
+		clearView: true
+	}
+});
+
+// The global progress tracker object
+var tracker;
+
+// The button states image
+var buttonImage;
+
+// Wait until the app is ready
+app.on('init', function(){
+
+	Loader.instance.load('../test/data/spec.json', function(result){
+
+		// Create the progress tracker
+		tracker = new ProgressTracker(
+			app, // reference to the app
+			result.content, // the event spec
+			true, // show the tray
+			{ // additional api definitions
+				"4444" : "doSomethingSpecific"
+			}
+		);
+
+		tracker.on('track', function(data){
+			Debug.log(data);
+		});
+	});
+
+	// Lets setup the interface for playing the captions
+	// but we need a button image to create buttons
+	Loader.instance.load('assets/images/button.png', function(result){
+
+		buttonImage = result.content;
+
+		addButton("startGame", 0, 0, function(){
+			tracker.startGame();
+		});
+
+		addButton("startRound", 1, 0, function(){
+			tracker.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
+		});
+
+		addButton("startRound", 1, 0, function(){
+			tracker.startTimer('round');
+			tracker.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
+		});
+
+		addButton("endRound", 1, 1, function(){
+			tracker.requires("startRound");
+			tracker.endRound(
+				1, 
+				tracker.stopTimer('round'), 
+				{size:1, type:"tub", animal:"pig"}, 
+				1, 
+				0
+			);
+		});
+
+		addButton("startInstruction", 2, 0, function(){
+			tracker.startInstruction("audio", 1000, "Audio caption or text", "SomeAudio");
+		});
+
+		addButton("endInstruction", 2, 1, function(){
+			tracker.endInstruction();
+		});
+
+		addButton("startIncorrect", 2, 2, function(){
+			tracker.startIncorrectFeedback("audio", 1000, "Audio caption or text", "SomeAudio");
+		});
+
+		addButton("endIncorrect", 2, 3, function(){
+			tracker.endIncorrectFeedback();
+		});
+
+		addButton("startCorrect", 2, 4, function(){
+			tracker.startCorrectFeedback("audio", 1000, "Audio caption or text", "SomeAudio");
+		});
+
+		addButton("endCorrect", 2, 5, function(){
+			tracker.endCorrectFeedback();
+		});
+
+		addButton("endGame", 4, 0, function(){
+			tracker.endGame();
+		});
+	});
+});
+
+// Generic method for adding a button to the stage
+// add a label and some positioning information
+var addButton = function(label, row, col, handler)
+{
+	// Create a play button
+	var button = new Button(buttonImage, {
+		text: label,
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+	button.x = row * 140;
+	button.y = col * 60;
+
+	// Handle the press
+	if (handler)
+	{
+		button.on('buttonPress', handler);
+	}
+
+	app.display.stage.addChild(button);
+	return button;
+};
+
+</script>
+		</div>
+    </body>
+</html>

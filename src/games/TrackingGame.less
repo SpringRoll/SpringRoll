@@ -1,0 +1,188 @@
+/** 
+ *  Here's the assumed markup structure for this CSS
+ *  this allows for Progress Tracker support
+ *  and for the dynamic captions display.
+ *
+	<body>
+		<div id="frame">
+			<div id="content">
+				<div id="container">
+					<div id="captions"></div>
+					<canvas id="stage"></canvas>
+				</div>
+			</div>
+		</div>
+	</body>
+ */
+
+// Make a dom element not selectable by
+// the mouse drag
+.deselect(){
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor:default;
+}
+
+body {
+	padding:0;
+	margin:0;
+	position: absolute;
+	background-color:transparent;
+	width:100%;
+	height:100%;
+}
+
+/**
+ * The framing to support Progress Tracker
+ */
+#frame {
+	position:absolute;
+	left:0;
+	right:0;
+	height:100%;
+	.pt-tray-show & {
+		right:600px;
+	}
+}
+
+/**
+*  For debugging performance issues
+*/
+#framerate {
+	pointer-events: none;
+	position: absolute;
+	color:#fff;
+	font-size:12px;
+	padding:5px;
+	background:rgba(0, 0, 0, 0.4);
+	z-index: 2;
+	font-family:"Lucida Console",Monaco,monospace;
+	.deselect();
+}
+
+/**
+*  We'll vertically center the content
+*  the JavaScript will resize the canvas
+*  content to the Window size
+*/
+#content {
+	position: absolute;
+	display:block;
+	top:50%;
+	left:50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	canvas {
+		display:block;
+		background:#000;
+	}
+}
+
+// The transparency amount for semi-trasparent text
+@transparency: 0.5;
+
+/**
+*  The captions styles, this work with the container
+*  to allow for the managed display settings of
+*  the output captions
+*/
+#captions {
+	// Position information
+	position:absolute;
+	z-index: 1;
+	width:100%;
+	text-align:center;
+	line-height:2;
+	pointer-events:none;
+	.deselect();
+
+	// Default display settings
+	background:rgba(0,0,0,@transparency);
+	color:#fff;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:1.2em;
+	top:0;
+	bottom:auto;
+
+	// Font sizes
+	&.size-xs { font-size: 0.8em }
+	&.size-sm { font-size: 1em }
+	&.size-md { font-size: 1.2em }
+	&.size-lg { font-size: 1.4em }
+	&.size-xl { font-size: 1.8em }
+
+	// Positions
+	&.align-top { top: 0; bottom:auto }
+	&.align-bottom { bottom: 0; top:auto }
+
+	// Background colors
+	&.bg-none { background:transparent }
+	&.bg-black { background:#000 }
+	&.bg-black-semi{ background:rgba(0,0,0,@transparency) }
+	&.bg-white { background:#fff }
+	&.bg-white-semi{ background:rgba(255,255,255,@transparency) }
+	&.bg-red { background:#f00 }
+	&.bg-red-semi{ background:rgba(255,0,0,@transparency) }
+	&.bg-yellow { background:#ff0 }
+	&.bg-yellow-semi{ background:rgba(255,255,0,@transparency) }
+	&.bg-pink { background:#f0f }
+	&.bg-pink-semi{ background:rgba(255,0,255,@transparency) }
+	&.bg-blue { background:#0ff }
+	&.bg-blue-semi{ background:rgba(0,255,255,@transparency) }
+
+	// Text colors
+	&.color-black { color:#000 }
+	&.color-black-semi{ color:rgba(0,0,0,@transparency) }
+	&.color-white { color:#fff }
+	&.color-white-semi{ color:rgba(255,255,255,@transparency) }
+	&.color-red { color:#f00 }
+	&.color-red-semi{ color:rgba(255,0,0,@transparency) }
+	&.color-yellow { color:#ff0 }
+	&.color-yellow-semi{ color:rgba(255,255,0,@transparency) }
+	&.color-pink { color:#f0f }
+	&.color-pink-semi{ color:rgba(255,0,255,@transparency) }
+	&.color-blue { color:#0ff }
+	&.color-blue-semi{ color:rgba(0,255,255,@transparency) }
+
+	// Edge
+	&.edge-raise {
+		text-shadow: -1px -1px 0 rgba(255,255,255,0.3), 
+			1px 1px 0 rgba(0,0,0,0.8);
+	}
+	&.edge-depress {
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.8),
+			-1px -1px 0 rgba(255,255,255,0.3);
+	}
+	&.edge-uniform {
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.8), 
+			-1px -1px 0 rgba(0,0,0,0.8), 
+			-1px 1px 0 rgba(0,0,0,0.8),
+			1px -1px 0 rgba(0,0,0,0.8);
+	}
+	&.edge-drop {
+		text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+	}
+	&.edge-none { text-shadow:none }
+
+	// Font families
+	&.font-georgia { font-family: Georgia, serif }
+	&.font-palatino { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif }
+	&.font-times { font-family: "Times New Roman", Times, serif }
+	&.font-arial { font-family: Arial, Helvetica, sans-serif }
+	&.font-arial-black { font-family: "Arial Black", Gadget, sans-serif }
+	&.font-comic-sans { font-family: "Comic Sans MS", cursive, sans-serif }
+	&.font-impact { font-family: Impact, Charcoal, sans-serif }
+	&.font-lucida { font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif }
+	&.font-tahoma { font-family: Tahoma, Geneva, sans-serif }
+	&.font-trebuchet { font-family: "Trebuchet MS", Helvetica, sans-serif }
+	&.font-verdana { font-family: Verdana, Geneva, sans-serif }
+	&.font-courier { font-family: "Courier New", Courier, monospace }
+	&.font-console { font-family: "Lucida Console", Monaco, monospace } 
+}
