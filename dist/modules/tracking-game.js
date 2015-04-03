@@ -757,7 +757,7 @@
 			captionsPath: 'assets/config/captions.json',
 			configPath: 'assets/config/config.json',
 			debug: true,
-			parseQueryString: true,
+			useQueryString: true,
 			cacheBust: true,
 			canvasId: "stage",
 			resizeElement: "frame",
