@@ -462,7 +462,7 @@
 	
 	/**
 	 * Stops all current animations
-	 * 
+	 *
 	 * @method stop
 	 * @static
 	 * @param {boolean} [doCancelled=true] We if should do the cancelled callback, if available.
@@ -626,6 +626,12 @@
 						if (t._time_sec >= t.duration)
 						{
 							extraTime = t._time_sec - t.duration;
+							if(t.isLooping)
+							{
+								t._time_sec = extraTime;
+								continue;
+							}
+							
 							t._nextItem();
 							if(t.complete)
 							{
