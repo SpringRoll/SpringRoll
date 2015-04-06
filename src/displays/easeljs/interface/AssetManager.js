@@ -129,6 +129,11 @@
 	*/
 	function extractAssetName(assetId)
 	{
+		if(assetId.indexOf("colorSplit-alpha_") === 0)
+			assetId = assetId.substr(17);
+		else if(assetId.indexOf("colorSplit-color_") === 0)
+			assetId = assetId.substr(17);
+		
 		if(assetId.indexOf("atlasData_") === 0)
 			return assetId.substr(10);
 		else if(assetId.indexOf("atlasImage_") === 0)
@@ -170,8 +175,19 @@
 		var checkedManifest = [];
 		for(var i = 0; i < manifest.length; ++i)
 		{
-			if(loadedAssets.indexOf(extractAssetName(manifest[i].id)) == -1)
-				checkedManifest.push(manifest[i]);
+			var manifestData = manifest[i];
+			var id = manifestData.id;
+			if(loadedAssets.indexOf(extractAssetName(id)) == -1)
+			{
+				//if the asset is marked for alpha/color splitting, then we need to add
+				//a marker to the ID so that we can still have the same 'id' but have different
+				//entries in the results dictionary.
+				if(manifestData.alpha === true && id.indexOf("colorSplit-alpha_") < 0)
+					manifestData.id = "colorSplit-alpha_" + id;
+				else if(manifestData.color === true && id.indexOf("colorSplit-color_") < 0)
+						manifestData.id = "colorSplit-color_" + id;
+				checkedManifest.push(manifestData);
+			}
 		}
 		if(checkedManifest.length)
 		{
@@ -299,6 +315,7 @@
 			}
 			else
 			{
+				id = extractAssetName(id);
 				//store images normally, after checking for a alpha/color merge
 				if(manifestData)
 				{
