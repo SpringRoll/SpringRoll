@@ -2,10 +2,3 @@ docs
 components
 node_modules
 .grunt
-dist/modules/pixi-interface.js
-
-dist/modules/worker.min.js
-
-dist/modules/worker.js
-
-dist/modules/translate.min.js
