@@ -9,22 +9,22 @@
 	*  @class LoaderResult
 	*  @constructor
 	*  @param {*} content The dynamic content loaded
-	*  @param {string} url The url that was loaded
+	*  @param {String} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	*/
-	var LoaderResult = function(content, url, loader)
+	var LoaderResult = function(content, url, loader, manifestData)
 	{
 		/**
 		*  The contents of the load
 		*  @public
-		*  @property {*} content 
+		*  @property {*} content
 		*/
 		this.content = content;
 
 		/**
 		*  The url of the load
 		*  @public
-		*  @property {string} url
+		*  @property {String} url
 		*/
 		this.url = url;
 
@@ -34,6 +34,13 @@
 		*  @property {createjs.LoaderQueue} loader
 		*/
 		this.loader = loader;
+		
+		/**
+		*  The full manifest data for the load item.
+		*  @public
+		*  @property {String} manifestData
+		*/
+		this.manifestData = manifestData;
 	};
 	
 	/** Reference to the prototype */
@@ -43,7 +50,7 @@
 	* A to string method
 	* @public
 	* @method toString
-	* @return {string} A string rep of the object
+	* @return {String} A string rep of the object
 	*/
 	p.toString = function()
 	{
@@ -60,6 +67,7 @@
 		this.callback = null;
 		this.url = null;
 		this.content = null;
+		this.manifestData = null;
 	};
 	
 	// Assign to the name space

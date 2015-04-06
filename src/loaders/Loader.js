@@ -321,7 +321,7 @@
 		
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
-		this._loadDone(qi, this._getResult(ev.result, qi.url, loader));
+		this._loadDone(qi, this._getResult(ev.result, qi.url, loader, qi.data));
 	};
 	
 	/**
@@ -455,7 +455,7 @@
 		loaderPool.push(loader);
 	};
 	
-	p._getResult = function(result, url, loader)
+	p._getResult = function(result, url, loader, manifestData)
 	{
 		var rtn;
 		if(resultPool.length)
@@ -464,9 +464,10 @@
 			rtn.content = result;
 			rtn.url = url;
 			rtn.loader = loader;
+			rtn.manifestData = manifestData;
 		}
 		else
-			rtn = new LoaderResult(result, url, loader);
+			rtn = new LoaderResult(result, url, loader, manifestData);
 		return rtn;
 	};
 	
