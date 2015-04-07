@@ -643,7 +643,7 @@
 
 		if (_useSocket)
 		{
-			Debug._remoteLog(arguments);
+			Debug._remoteLog(Array.prototype.slice.call(arguments));
 		}
 		else if (Debug.minLogLevel == Levels.GENERAL)
 		{
@@ -673,7 +673,7 @@
 
 		if (_useSocket)
 		{
-			Debug._remoteLog(arguments, Levels[trueKEY]);
+			Debug._remoteLog(Array.prototype.slice.call(arguments), Levels[trueKEY]);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels[trueKEY].asInt)
 		{
@@ -714,7 +714,7 @@
 
 		if (_useSocket)
 		{
-			Debug._remoteLog(arguments, Levels.INFO);
+			Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.INFO);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.INFO.asInt)
 		{
@@ -744,7 +744,7 @@
 
 		if (_useSocket)
 		{
-			Debug._remoteLog(arguments, Levels.WARN);
+			Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.WARN);
 		}
 		else if (Debug.minLogLevel.asInt <= Levels.WARN.asInt)
 		{
@@ -773,7 +773,7 @@
 
 		if (_useSocket)
 		{
-			Debug._remoteLog(arguments, Levels.ERROR);
+			Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.ERROR);
 		}
 		else
 		{
@@ -831,7 +831,7 @@
 		{
 			if (_useSocket)
 			{
-				Debug._remoteLog(arguments, Levels.GENERAL);
+				Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.GENERAL);
 			}
 			else if (_hasConsole)
 			{
@@ -885,7 +885,7 @@
 		{
 			if (_useSocket)
 			{
-				Debug._remoteLog(arguments, Levels.GENERAL);
+				Debug._remoteLog(Array.prototype.slice.call(arguments), Levels.GENERAL);
 			}
 			else if (_hasConsole)
 			{
@@ -914,7 +914,7 @@
 		{
 			if (_useSocket)
 			{
-				Debug._remoteLog(arguments, "group");
+				Debug._remoteLog(Array.prototype.slice.call(arguments), "group");
 			}
 			else if (_hasConsole && console.group)
 				console.group.apply(console, arguments);
@@ -937,7 +937,7 @@
 		{
 			if (_useSocket)
 			{
-				Debug._remoteLog(arguments, "groupCollapsed");
+				Debug._remoteLog(Array.prototype.slice.call(arguments), "groupCollapsed");
 			}
 			else if (_hasConsole && console.groupCollapsed)
 				console.groupCollapsed.apply(console, arguments);
@@ -960,7 +960,7 @@
 		{
 			if (_useSocket)
 			{
-				Debug._remoteLog(arguments, "groupEnd");
+				Debug._remoteLog(Array.prototype.slice.call(arguments), "groupEnd");
 			}
 			else if (_hasConsole && console.groupEnd)
 				console.groupEnd();
