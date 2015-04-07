@@ -1156,10 +1156,10 @@
 */
 (function(undefined)
 {
-	var Debug = include('Debug', false),
-		Tween = include('createjs.Tween', false),
+	var Tween = include('createjs.Tween', false),
 		Ticker = include('createjs.Ticker', false),
-		PropertyDispatcher = include('springroll.PropertyDispatcher');
+		PropertyDispatcher = include('springroll.PropertyDispatcher'),
+		Debug;
 
 	/**
 	* Manage the Application options
@@ -1169,6 +1169,9 @@
 	*/
 	var ApplicationOptions = function(app, options)
 	{
+		if(Debug === undefined)
+			Debug = include('Debug', false);
+		
 		PropertyDispatcher.call(this);
 
 		options = options || {};
@@ -1209,7 +1212,7 @@
 		{
 			this.respond('debug', function()
 			{
-				return Debug ? Debug.enabled : false; 
+				return Debug ? Debug.enabled : false;
 			});
 
 			this.on('debug', function(value)
@@ -1267,7 +1270,7 @@
 				if (value)
 				{
 					app.on('update', Tween.tick);
-				}					
+				}
 			}
 		});
 	};
@@ -1331,7 +1334,7 @@
 	var defaultOptions = {
 
 		/**
-		 * Use Request Animation Frame API 
+		 * Use Request Animation Frame API
 		 * @property {Boolean} raf
 		 * @default true
 		 */
@@ -1420,7 +1423,7 @@
 		 * @property {Boolean} autoPause
 		 * @default true
 		 */
-		autoPause: true, 
+		autoPause: true,
 
 		/**
 		 * The current version number for your application. This
