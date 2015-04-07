@@ -1224,7 +1224,7 @@
 				if (Debug) Debug.enabled = value;
 			});
 
-			this.respond('debugRemote', function(value)
+			this.on('debugRemote', function(value)
 			{
 				if (Debug)
 				{
@@ -1277,6 +1277,13 @@
 				}
 			}
 		});
+		
+		//trigger all of the initial values, because otherwise they don't take effect.
+		var _properties = this._properties;
+		for(var id in _properties)
+		{
+			this.trigger(id, _properties[id]);
+		}
 	};
 
 	// Extend the base class
