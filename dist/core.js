@@ -279,7 +279,7 @@
  */
 (function()
 {
-	var Debug = include('springroll.Debug', false);
+	var Debug;
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -290,6 +290,10 @@
 	 * @param {String} toString A string for toString() to return, instead of the name.
 	 */
 	var EnumValue = function(name, value, toString) {
+		
+		if(Debug === undefined)
+			Debug = include('springroll.Debug', false);
+		
 		/**
 		 * The name of the value, for reflection or logging purposes.
 		 * @property {String} name
@@ -1170,7 +1174,7 @@
 	var ApplicationOptions = function(app, options)
 	{
 		if(Debug === undefined)
-			Debug = include('Debug', false);
+			Debug = include('springroll.Debug', false);
 		
 		PropertyDispatcher.call(this);
 

@@ -18,7 +18,7 @@
 	var ApplicationOptions = function(app, options)
 	{
 		if(Debug === undefined)
-			Debug = include('Debug', false);
+			Debug = include('springroll.Debug', false);
 		
 		PropertyDispatcher.call(this);
 
