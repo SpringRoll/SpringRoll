@@ -126,7 +126,7 @@
 		var _properties = this._properties;
 		for(var id in _properties)
 		{
-			this.trigger(id, _properties[id]);
+			this.trigger(id, _properties[id].value);
 		}
 	};
 
