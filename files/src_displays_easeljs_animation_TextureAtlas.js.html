@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>SpringRoll v0.2.0 API Documentation : src/displays/easeljs/animation/TextureAtlas.js</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.2.0'>
+  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.2.0'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.2.0'>
+</head>
+
+<body>
+  <header>
+    <div class='container'>
+      <div class='version pull-right'>
+        <em>API Documentation for: 0.2.0</em>
+      </div>
+      <div class='logo'>
+
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.2.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+      </div>
+<div class='scope-toggles pull-right'>
+  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div>    </div>
+  </header>
+  <div class='container'>
+    <div class='row'>
+      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TrackingGame.html'>springroll.easeljs.TrackingGame</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Game.html'>springroll.Game</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GameContainer.html'>springroll.GameContainer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintPlayer.html'>springroll.HintPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Language.html'>springroll.Language</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ProgressTracker.html'>springroll.ProgressTracker</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ProgressTrackerError.html'>springroll.ProgressTrackerError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TrackingGame.html'>springroll.TrackingGame</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TrackingGameMedia.html'>springroll.TrackingGameMedia</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Interface.html'>EaselJS Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Tracking Game.html'>EaselJS Tracking Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Game.html'>Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hinting.html'>Hinting</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Interface.html'>Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Interface.html'>PIXI Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Progress Tracker.html'>Progress Tracker</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tasks.html'>Tasks</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tracking Game.html'>Tracking Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Translate.html'>Translate</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav>      </nav>
+      <div class='col-sm-8 col-md-9'>
+        <div id='docs-main' class='apidocs'>
+<script>
+  var name = {
+  	{
+  		name
+  	}
+  }
+</script>
+<h1 class="file-heading">File:TextureAtlas.js</h1>
+
+<div class="file">
+  <pre class="code prettyprint linenums">/**
+ * @module EaselJS Animation
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display
+ */
+(function(undefined) {
+
+	&quot;use strict&quot;;
+
+	/**
+	*  Handles a spritesheet. File extensions and folder paths are dropped from frame names upon loading.
+	*  @class TextureAtlas
+	*  @constructor
+	*  @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from.
+	*       This can also be an array of images, if the TextureAtlas should be built from several spritesheets.
+	*  @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas.
+	*       This is expected to fit the JSON Hash format as exported from TexturePacker.
+	*       This can also be an array of data objects, if the TextureAtlas should be built from several spritesheets.
+	*/
+	var TextureAtlas = function(image, spritesheetData)
+	{
+		/**
+		*  The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
+		*  @property {Array} _image
+		*  @private
+		*/
+		if(Array.isArray(image))
+		{
+			this._images = image;
+		}
+		else
+		{
+			this._images = [image];
+			spritesheetData = [spritesheetData];
+		}
+
+		/**
+		*  The dictionary of Textures that this atlas consists of.
+		*  @property {Object} frames
+		*/
+		this.frames = {};
+
+		for(var i = 0; i &lt; this._images.length; ++i)
+		{
+			image = this._images[i];
+
+			var dataFrames = spritesheetData[i].frames;
+			for(var name in dataFrames)
+			{
+				var data = dataFrames[name];
+				var index = name.lastIndexOf(&quot;.&quot;);
+				if(index &gt; 0)
+					name = name.substring(0, index);//strip off any &quot;.png&quot; or &quot;.jpg&quot; at the end
+				index = name.lastIndexOf(&quot;/&quot;);
+				if(index &lt; 0)
+					name = name.substring(index + 1);//strip off any folder structure included in the name
+				this.frames[name] = new Texture(image, data);
+			}
+		}
+	};
+	
+	// Extend Object
+	var p = TextureAtlas.prototype = {};
+
+	/**
+	*  Gets a frame by name.
+	*  @method getFrame
+	*  @param {String} name The frame name to get.
+	*  @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn&#x27;t exist.
+	*/
+	p.getFrame = function(name)
+	{
+		return this.frames[name] || null;
+	};
+
+	/**
+	*  Get an array of Textures that match a specific name. If a frame in a sequence is not in the atlas,
+	*  the previous frame in the sequence is used in place of it.
+	*  @method getFrames
+	*  @param {String} name The base name of all frames to look for, like &quot;anim_#&quot; to search for an animation exported
+	*         as anim_0001.png (the &quot;.png&quot; is dropped when the TextureAtlas is loaded).
+	*  @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences generally start at 1.
+	*  @param {int} numberMax The number to go until while looking for frames.
+	*         If your animation runs from frame 0001 to frame 0014, numberMax would be 14.
+	*  @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as anim_0001.png
+	*  @param {Array} [outArray] If already using an array, this can fill it instead of creating a new one.
+	*  @return {Array} The collection of createjs.TextureAtlas.Textures.
+	*/
+	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
+	{
+		if(maxDigits === undefined)
+			maxDigits = 4;
+		if(maxDigits &lt; 0)
+			maxDigits = 0;
+		if(!outArray)
+			outArray = [];
+		//set up strings to add the correct number of zeros ahead of time to avoid creating even more strings.
+		var zeros = [];//preceding zeroes array
+		var compares = [];//powers of 10 array for determining how many preceding zeroes to use
+		var i, c;
+		for(i = 1; i &lt; maxDigits; ++i)
+		{
+			var s = &quot;&quot;;
+			c = 1;
+			for(var j = 0; j &lt; i; ++j)
+			{
+				s += &quot;0&quot;;
+				c *= 10;
+			}
+			zeros.unshift(s);
+			compares.push(c);
+		}
+		var compareLength = compares.length;//the length of the compar
+
+		var prevTex;//the previous Texture, so we can place the same object in multiple times to control animation rate
+		var len;
+		for(i = numberMin, len = numberMax; i &lt;= len; ++i)
+		{
+			var num = null;
+			//calculate the number of preceding zeroes needed, then create the full number string.
+			for(c = 0; c &lt; compareLength; ++c)
+			{
+				if(i &lt; compares[c])
+				{
+					num = zeros[c] + i;
+					break;
+				}
+			}
+			if(!num)
+				num = i.toString();
+			
+			//If the texture doesn&#x27;t exist, use the previous texture - this should allow us to use fewer textures
+			//that are in fact the same, if those textures were removed before making the spritesheet
+			var texName = name.replace(&quot;#&quot;, num);
+			var tex = this.frames[texName];
+			if(tex)
+				prevTex = tex;
+			if(prevTex)
+				outArray.push(prevTex);
+		}
+
+		return outArray;
+	};
+
+	/**
+	*  Destroys the TextureAtlas by nulling the image and frame dictionary references.
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this.image = null;
+		this.frames = null;
+	};
+
+	namespace(&quot;createjs&quot;).TextureAtlas = TextureAtlas;
+	namespace(&quot;springroll.easeljs&quot;).TextureAtlas = TextureAtlas;
+
+	/**
+	*  A Texture - a specific portion of an image that can then be drawn by a Bitmap.
+	*  This class is hidden within TextureAtlas, and can&#x27;t be manually created.
+	*  @class Texture
+	*/
+	var Texture = function(image, data)
+	{
+		/**
+		*  The image element that this texture references.
+		*  @property {Image|HTMLCanvasElement} image
+		*/
+		this.image = image;
+		var f = data.frame;
+		/**
+		*  The frame rectangle within the image.
+		*  @property {createjs.Rectangle} frame
+		*/
+		this.frame = new createjs.Rectangle(f.x, f.y, f.w, f.h);
+		/**
+		*  If this texture has been trimmed.
+		*  @property {Boolean} trimmed
+		*/
+		this.trimmed = data.trimmed;
+		/**
+		*  The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
+		*  @property {createjs.Point} offset
+		*/
+		this.offset = new createjs.Point(data.spriteSourceSize.x, data.spriteSourceSize.y);
+		/**
+		*  The width of the untrimmed texture.
+		*  @property {Number} width
+		*/
+		this.width = data.sourceSize.w;
+		/**
+		*  The height of the untrimmed texture.
+		*  @property {Number} height
+		*/
+		this.height = data.sourceSize.h;
+	};
+}());</pre>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+  <script src='../assets/js/libraries.js?v=0.2.0'></script>
+  <script src='../assets/js/main.js?v=0.2.0'></script>
+</body>
+</html>

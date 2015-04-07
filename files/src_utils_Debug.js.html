@@ -1,265 +1,455 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
+
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
-    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
-    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
-    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
-    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
-    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
-	<title>SpringRoll v0.0.7 API Documentation : src/utils/Debug.js</title>  
+  <title>SpringRoll v0.2.0 API Documentation : src/utils/Debug.js</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.2.0'>
+  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.2.0'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.2.0'>
 </head>
-<body class="yui3-skin-sam">
 
-<div id="doc">
-    <div id="hd" class="yui3-g header">
-        <div class="yui3-u-3-4">
-            
-                <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll">SpringRoll</a></h1>
-            
-        </div>
-        <div class="yui3-u-1-4 version">
-            <em>API Documentation for: 0.0.7</em>
-        </div>
-    </div>
-    <div id="bd" class="yui3-g">
+<body>
+  <header>
+    <div class='container'>
+      <div class='version pull-right'>
+        <em>API Documentation for: 0.2.0</em>
+      </div>
+      <div class='logo'>
 
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-    <h2 class="off-left">APIs</h2>
-    <div id="api-tabview" class="tabview">
-        <div id="api-tabview-filter">
-            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-        </div>
-		<ul class="tabs">
-            <li><a href="#api-classes">Classes</a></li>
-			<li><a href="#api-modules">Modules</a></li>
-        </ul>
-        <div id="api-tabview-panel">
-            <ul id="api-classes" class="apis classes">
-            
-                <li><a href="../classes/Array.html">Array</a></li>
-            
-                <li><a href="../classes/Debug.html">Debug</a></li>
-            
-                <li><a href="../classes/extend.html">extend</a></li>
-            
-                <li><a href="../classes/include.html">include</a></li>
-            
-                <li><a href="../classes/Math.html">Math</a></li>
-            
-                <li><a href="../classes/namespace.html">namespace</a></li>
-            
-                <li><a href="../classes/Object.html">Object</a></li>
-            
-                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
-            
-                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
-            
-                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
-            
-                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
-            
-                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
-            
-                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Animator.html">springroll.createjs.Animator</a></li>
-            
-                <li><a href="../classes/springroll.createjs.AnimatorTimeline.html">springroll.createjs.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.createjs.BitmapMovieClip.html">springroll.createjs.BitmapMovieClip</a></li>
-            
-                <li><a href="../classes/springroll.createjs.BitmapUtils.html">springroll.createjs.BitmapUtils</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Button.html">springroll.createjs.Button</a></li>
-            
-                <li><a href="../classes/springroll.createjs.CreateJSDisplay.html">springroll.createjs.CreateJSDisplay</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Cutscene.html">springroll.createjs.Cutscene</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DisplayAdapter.html">springroll.createjs.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.createjs.DragManager.html">springroll.createjs.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.createjs.MovieClipUtils.html">springroll.createjs.MovieClipUtils</a></li>
-            
-                <li><a href="../classes/springroll.createjs.SoundButton.html">springroll.createjs.SoundButton</a></li>
-            
-                <li><a href="../classes/springroll.createjs.Texture.html">springroll.createjs.Texture</a></li>
-            
-                <li><a href="../classes/springroll.createjs.TextureAtlas.html">springroll.createjs.TextureAtlas</a></li>
-            
-                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
-            
-                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
-            
-                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
-            
-                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
-            
-                <li><a href="../classes/springroll.FallbackWorker.html">springroll.FallbackWorker</a></li>
-            
-                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
-            
-                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
-            
-                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
-            
-                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
-            
-                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
-            
-                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
-            
-                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
-            
-                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
-            
-                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
-            
-                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
-            
-                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
-            
-                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
-            
-                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
-            
-                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
-            
-                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
-            
-                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
-            
-                <li><a href="../classes/springroll.pixi.ConcurrentSpineAnimData.html">springroll.pixi.ConcurrentSpineAnimData</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
-            
-                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
-            
-                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
-            
-                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
-            
-                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
-            
-                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
-            
-                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
-            
-                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
-            
-                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
-            
-                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
-            
-                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
-            
-                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
-            
-                <li><a href="../classes/springroll.SubWorker.html">springroll.SubWorker</a></li>
-            
-                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
-            
-                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
-            
-                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
-            
-                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
-            
-                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
-            
-                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
-            
-                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
-            
-                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
-            
-                <li><a href="../classes/springroll.Worker.html">springroll.Worker</a></li>
-            
-                <li><a href="../classes/String.html">String</a></li>
-            
-            </ul>
-
-            <ul id="api-modules" class="apis modules">
-            
-                <li><a href="../modules/Captions.html">Captions</a></li>
-            
-                <li><a href="../modules/Core.html">Core</a></li>
-            
-                <li><a href="../modules/CreateJS Display.html">CreateJS Display</a></li>
-            
-                <li><a href="../modules/Game.html">Game</a></li>
-            
-                <li><a href="../modules/Interface.html">Interface</a></li>
-            
-                <li><a href="../modules/Native Display.html">Native Display</a></li>
-            
-                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
-            
-                <li><a href="../modules/Sound.html">Sound</a></li>
-            
-                <li><a href="../modules/Tasks.html">Tasks</a></li>
-            
-                <li><a href="../modules/Translate.html">Translate</a></li>
-            
-                <li><a href="../modules/Worker.html">Worker</a></li>
-            
-            </ul>
-        </div>
-    </div>
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.2.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+      </div>
+<div class='scope-toggles pull-right'>
+  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div>    </div>
+  </header>
+  <div class='container'>
+    <div class='row'>
+      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
 </div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
 
-            </div>
-        </div>
-        <div class="yui3-u-3-4">
-            <div id="api-options">
-        Show:
-        <label for="api-show-inherited">
-            <input type="checkbox" id="api-show-inherited" checked>
-            Inherited
-        </label>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TrackingGame.html'>springroll.easeljs.TrackingGame</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Game.html'>springroll.Game</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GameContainer.html'>springroll.GameContainer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintPlayer.html'>springroll.HintPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Language.html'>springroll.Language</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ProgressTracker.html'>springroll.ProgressTracker</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ProgressTrackerError.html'>springroll.ProgressTrackerError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TrackingGame.html'>springroll.TrackingGame</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TrackingGameMedia.html'>springroll.TrackingGameMedia</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
 
-        <label for="api-show-protected">
-            <input type="checkbox" id="api-show-protected">
-            Protected
-        </label>
-
-        <label for="api-show-private">
-            <input type="checkbox" id="api-show-private">
-            Private
-        </label>
-        <label for="api-show-deprecated">
-            <input type="checkbox" id="api-show-deprecated">
-            Deprecated
-        </label>
-
-    </div>
-            <div class="apidocs">
-                <div id="docs-main">
-                    <div class="content">
-                        <script>
-	var name = src/utils/Debug.js      
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Interface.html'>EaselJS Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Tracking Game.html'>EaselJS Tracking Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Game.html'>Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hinting.html'>Hinting</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Interface.html'>Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Interface.html'>PIXI Interface</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Progress Tracker.html'>Progress Tracker</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tasks.html'>Tasks</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tracking Game.html'>Tracking Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Translate.html'>Translate</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav>      </nav>
+      <div class='col-sm-8 col-md-9'>
+        <div id='docs-main' class='apidocs'>
+<script>
+  var name = {
+  	{
+  		name
+  	}
+  }
 </script>
 <h1 class="file-heading">File:Debug.js</h1>
 
 <div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * @module Core
+  <pre class="code prettyprint linenums">/**
+ * @module Debug
+ * @namespace springroll
  */
-(function(window, undefined)
+(function()
 {
 	// Import classes
 	var Enum = include(&#x27;springroll.Enum&#x27;),
@@ -279,14 +469,24 @@
 	 * If we have a console
 	 *
 	 * @private
-	 * @property {bool} _hasConsole
+	 * @property {Boolean} _hasConsole
 	 */
 	var _hasConsole = (window.console !== undefined);
+
+	/**
+	 * If the console supports coloring
+	 *
+	 * @private
+	 * @property {Boolean} _consoleSupportsColors
+	 */
+	//document.documentMode is an IE only property specifying what version of IE the document is
+	//being displayed for
+	var _consoleSupportsColors = document.documentMode === undefined;
 
 	// Because of the compile constants, we need to
 	// cut this word into pieces and do a dynamic access
 	var DEBUGKEY = &#x27;DE&#x27; + &#x27;BUG&#x27;;
-	
+
 	if (_hasConsole)
 	{
 		try
@@ -294,7 +494,7 @@
 			// detect IE9&#x27;s issue with apply on console functions
 			console.assert.apply(console, [true, &quot;IE9 test&quot;]);
 		}
-		catch(error)
+		catch (error)
 		{
 			// Reference to the bind method
 			var bind = Function.prototype.bind;
@@ -305,6 +505,7 @@
 				&#x27;log&#x27;,
 				&#x27;debug&#x27;,
 				&#x27;warn&#x27;,
+				&#x27;info&#x27;,
 				&#x27;error&#x27;,
 				&#x27;assert&#x27;,
 				&#x27;dir&#x27;,
@@ -382,12 +583,12 @@
 	 * Boolean to turn on or off the debugging
 	 * @public
 	 * @static
-	 * @property {bool} enabled
+	 * @property {Boolean} enabled
 	 */
 	Debug.enabled = true;
 
 	/**
-	 * The jQuery element to output debug messages to
+	 * The DOM element to output debug messages to
 	 *
 	 * @public
 	 * @static
@@ -396,7 +597,7 @@
 	Debug.output = null;
 
 	/**
-	 * Browser port for the websocket browsers tend to block ports
+	 * Browser port for the websocket - browsers tend to block lower ports
 	 * @static
 	 * @private
 	 * @property {int} NET_PORT
@@ -409,7 +610,7 @@
 	 * @static
 	 * @private
 	 * @default false
-	 * @property {bool} _useSocket
+	 * @property {Boolean} _useSocket
 	 */
 	var _useSocket = false;
 
@@ -425,7 +626,7 @@
 	 * The current message object being sent to the &#x60;WebSocket&#x60;
 	 * @static
 	 * @private
-	 * @property {object} _socketMessage
+	 * @property {Object} _socketMessage
 	 */
 	var _socketMessage = null;
 
@@ -437,13 +638,69 @@
 	 */
 	var _socketQueue = null;
 
+
+	/*
+	 * Prevents uglify from mangling function names attached to it so we can strip
+	 * out of a stack trace for logging purpose.
+	 */
+	var manglePeventer = {};
+
+	/**
+	 * Methods names to use to strip out lines from stack traces
+	 * in remote logging.
+	 * @static
+	 * @private
+	 * @property {Array} methodsToStrip
+	 */
+	var methodsToStrip = [
+		//general logging
+		&#x27;log&#x27;,
+		&#x27;debug&#x27;,
+		&#x27;warn&#x27;,
+		&#x27;info&#x27;,
+		&#x27;error&#x27;,
+		&#x27;assert&#x27;,
+		&#x27;dir&#x27;,
+		&#x27;trace&#x27;,
+		&#x27;group&#x27;,
+		&#x27;groupCollapsed&#x27;,
+		&#x27;groupEnd&#x27;,
+		//remote logging
+		&#x27;_remoteLog&#x27;,
+		&#x27;globalErrorHandler&#x27;,
+		//our color functions
+		&#x27;navy&#x27;,
+		&#x27;blue&#x27;,
+		&#x27;aqua&#x27;,
+		&#x27;teal&#x27;,
+		&#x27;olive&#x27;,
+		&#x27;green&#x27;,
+		&#x27;lime&#x27;,
+		&#x27;yellow&#x27;,
+		&#x27;orange&#x27;,
+		&#x27;red&#x27;,
+		&#x27;pink&#x27;,
+		&#x27;purple&#x27;,
+		&#x27;maroon&#x27;,
+		&#x27;silver&#x27;,
+		&#x27;gray&#x27;
+	];
+
+	/**
+	 * Regular expression to get the line number and column from a stack trace line.
+	 * @static
+	 * @private
+	 * @property {RegEx} lineLocationFinder
+	 */
+	var lineLocationFinder = /(:\d+)+/;
+
 	/**
 	 * Connect to the &#x60;WebSocket&#x60;
 	 * @public
 	 * @static
 	 * @method connect
-	 * @param {string} host The remote address to connect to, IP address or host name
-	 * @return {boolean} If a connection was attempted
+	 * @param {String} host The remote address to connect to, IP address or host name
+	 * @return {Boolean} If a connection was attempted
 	 */
 	Debug.connect = function(host)
 	{
@@ -461,7 +718,7 @@
 			_socketQueue = [];
 			_useSocket = true;
 		}
-		catch(error)
+		catch (error)
 		{
 			return false;
 		}
@@ -492,12 +749,14 @@
 	var onConnect = function()
 	{
 		//set up a function to handle all messages
-		window.onerror = globalErrorHandler;
+		window.onerror = manglePeventer.globalErrorHandler;
 
 		//create and send a new session message
 		_socketMessage = {
 			level: &#x27;session&#x27;,
-			message: &#x27;&#x27;
+			message: &#x27;&#x27;,
+			stack: null,
+			time: 0
 		};
 		_socket.send(JSON.stringify(_socketMessage));
 
@@ -522,22 +781,10 @@
 	 * @param {int} column The column within the line
 	 * @param {Error} error The error itself
 	 */
-	var globalErrorHandler = function(message, file, line, column, error)
+	manglePeventer.globalErrorHandler = function(message, file, line, column, error)
 	{
-		var logMessage = &#x27;Error: &#x27; + message + &#x27; in &#x27; + file + &#x27; at line &#x27; + line;
-		
-		if (column !== undefined)
-		{
-			logMessage += &#x27;:&#x27; + column;
-		}
-
-		if (error)
-		{
-			logMessage += &quot;\n&quot; + error.stack;
-		}
-
-		Debug.remoteLog(logMessage, Levels.ERROR);
-
+		Debug._remoteLog(message, Levels.ERROR, error ? error.stack : null);
+		//let the error do the normal behavior
 		return false;
 	};
 
@@ -565,8 +812,8 @@
 	 * @private
 	 * @static
 	 * @method domOutput
-	 * @param {string} level The log level
-	 * @param {string} args Additional arguments
+	 * @param {String} level The log level
+	 * @param {String} args Additional arguments
 	 */
 	var domOutput = function(level, args)
 	{
@@ -578,54 +825,155 @@
 
 	/**
 	 * Send a remote log message using the socket connection
-	 * @public
+	 * @private
 	 * @static
-	 * @method remoteLog
-	 * @param {array} message The message to send
+	 * @method _remoteLog
+	 * @param {Array} message The message to send
 	 * @param {level} [level=0] The log level to send
+	 * @param {String} [stack] A stack to use for the message. A stack will be created if stack
+	 *                         is omitted.
 	 * @return {Debug} The instance of debug for chaining
 	 */
-	Debug.remoteLog = function(message, level)
+	Debug._remoteLog = function(message, level, stack)
 	{
 		level = level || Levels.GENERAL;
+		if (!Array.isArray(message))
+			message = [message];
 		message = slice.call(message);
 
+		var i, length;
 		// Go through each argument and replace any circular
 		// references with simplified objects
-		for (var i = 0; i &lt; message.length; i++)
+		for (i = 0, length = message.length; i &lt; length; i++)
 		{
 			if (typeof message[i] == &quot;object&quot;)
 			{
-				try 
+				try
 				{
-					message[i] = removeCircular(message[i], 2);
+					message[i] = removeCircular(message[i], 3);
 				}
-				catch(e)
+				catch (e)
 				{
 					message[i] = String(message[i]);
 				}
-				console.log(message[i]);
+				/*console.log(message[i]);*/
 			}
+		}
+
+		//figure out the stack
+		if (!stack)
+			stack = new Error().stack;
+		//split stack lines
+		stack = stack ? stack.split(&quot;\n&quot;) : [];
+		//go through lines, figuring out what to strip out
+		//and standardizing the format for the rest
+		var splitIndex, functionSection, file, lineLocation, functionName, lineSearch,
+			lastToStrip = -1,
+			shouldStrip = true;
+		for (i = 0, length = stack.length; i &lt; length; ++i)
+		{
+			var line = stack[i].trim();
+			//FF has an empty string at the end
+			if (!line)
+			{
+				if (i == length - 1)
+				{
+					stack.pop();
+					break;
+				}
+				else
+					continue;
+			}
+			//strip out any actual errors in the stack trace, since that is the message
+			//also the &#x27;error&#x27; line from our new Error().
+			if (line == &quot;Error&quot; || line.indexOf(&quot;Error:&quot;) &gt; -1)
+			{
+				lastToStrip = i;
+				continue;
+			}
+			// FF/Safari style:
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/Stack
+			if (line.indexOf(&quot;@&quot;) &gt; -1)
+			{
+				splitIndex = line.indexOf(&quot;@&quot;);
+				functionSection = line.substring(0, splitIndex);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if (functionSection.indexOf(&quot;.&quot;) != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(&quot;.&quot;) + 1);
+				else
+					functionName = functionSection;
+				if (shouldStrip &amp;&amp; methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column
+				file = line.substring(splitIndex + 1);
+			}
+			// Chrome/IE/Opera style:
+			//https://msdn.microsoft.com/en-us/library/windows/apps/hh699850.aspx
+			else
+			{
+				splitIndex = line.indexOf(&quot;(&quot;);
+				//skip the &quot;at &quot; at the beginning of the line and the space at the end
+				functionSection = line.substring(3, splitIndex - 1);
+				//if we should strip this line out of the stack, we should stop parsing the stack
+				//early
+				if (functionSection.indexOf(&quot;.&quot;) != -1)
+					functionName = functionSection.substring(functionSection.lastIndexOf(&quot;.&quot;) + 1);
+				else
+					functionName = functionSection;
+				if (shouldStrip &amp;&amp; methodsToStrip.indexOf(functionName) != -1)
+				{
+					lastToStrip = i;
+					continue;
+				}
+				//get the file and line number/column, dropping the trailing &#x27;)&#x27;
+				file = line.substring(splitIndex + 1, line.length - 2);
+			}
+			//find the line number/column in the combined file string
+			lineSearch = lineLocationFinder.exec(file);
+			//split the file and line number/column from each other
+			file = file.substring(0, lineSearch.index);
+			lineLocation = lineSearch[0].substring(1);
+			//If we got here, we got out of the Debug functions and should stop trying to
+			//strip stuff out, in case someone else&#x27;s functions are named the same
+			shouldStrip = false;
+			stack[i] = {
+				&quot;function&quot;: functionSection || &quot;&lt;anonymous&gt;&quot;,
+				file: file,
+				lineLocation: lineLocation
+			};
+		}
+		if (lastToStrip &gt;= 0)
+		{
+			stack = stack.slice(lastToStrip + 1);
 		}
 
 		// If we are still in the process of connecting, queue up the log
 		if (_socketQueue)
 		{
-			_socketQueue.push({
+			_socketQueue.push(
+			{
 				message: message,
-				level: level.name
+				level: level.name,
+				stack: stack,
+				time: Date.now()
 			});
 		}
 		else // send the log immediately
 		{
 			_socketMessage.level = level.name;
 			_socketMessage.message = message;
+			_socketMessage.stack = stack;
+			_socketMessage.time = Date.now();
 			var send;
-			try 
+			try
 			{
 				send = JSON.stringify(_socketMessage);
 			}
-			catch(e)
+			catch (e)
 			{
 				_socketMessage.message = [&quot;[circular object]&quot;];
 				send = JSON.stringify(_socketMessage);
@@ -636,67 +984,92 @@
 	};
 
 	/**
+	 * An array for preventing circular references
+	 * @static
+	 * @private
+	 * @property {Array} circularArray
+	 */
+	var circularArray = [];
+
+	/**
 	 * Strip out known circular references
 	 * @method removeCircular
 	 * @private
-	 * @param {object} obj The object to remove references from
+	 * @param {Object} obj The object to remove references from
 	 */
 	var removeCircular = function(obj, maxDepth, depth)
 	{
 		if (Array.isArray(obj)) return obj;
 
 		depth = depth || 0;
+		if (depth === 0)
+			circularArray.length = 0;
+
+		circularArray.push(obj);
 
 		var result = {};
 		for (var key in obj)
 		{
-			// avoid doing properties that are known to be DOM objects, 
+			var value = obj[key];
+			// avoid doing properties that are known to be DOM objects,
 			// because those have circular references
-			if (obj[key] instanceof Window ||
-				obj[key] instanceof Document ||
-				obj[key] instanceof HTMLElement ||
-				key == &quot;document&quot; || 
-				key == &quot;window&quot; || 
-				key == &quot;ownerDocument&quot; || 
+			if (value instanceof Window ||
+				value instanceof Document ||
+				value instanceof HTMLElement ||
+				key == &quot;document&quot; ||
+				key == &quot;window&quot; ||
+				key == &quot;ownerDocument&quot; ||
 				key == &quot;view&quot; ||
-				key == &quot;target&quot; || 
-				key == &quot;currentTarget&quot; || 
-				key == &quot;originalTarget&quot; || 
-				key == &quot;explicitOriginalTarget&quot; || 
+				key == &quot;target&quot; ||
+				key == &quot;currentTarget&quot; ||
+				key == &quot;originalTarget&quot; ||
+				key == &quot;explicitOriginalTarget&quot; ||
 				key == &quot;rangeParent&quot; ||
-				key == &quot;srcElement&quot; || 
-				key == &quot;relatedTarget&quot; || 
-				key == &quot;fromElement&quot; || 
+				key == &quot;srcElement&quot; ||
+				key == &quot;relatedTarget&quot; ||
+				key == &quot;fromElement&quot; ||
 				key == &quot;toElement&quot;)
-					continue;
+			{
+				if (value instanceof HTMLElement)
+				{
+					var elementString;
+					elementString = &quot;&lt;&quot; + value.tagName;
+					if (value.id)
+						elementString += &quot; id=&#x27;&quot; + value.id + &quot;&#x27;&quot;;
+					if (value.className)
+						elementString += &quot; class=&#x27;&quot; + value.className + &quot;&#x27;&quot;;
+					result[key] = elementString + &quot; /&gt;&quot;;
+				}
+				continue;
+			}
 
-			switch(typeof obj[key])
+			switch (typeof value)
 			{
 				case &quot;object&quot;:
-				{
-					result[key] = depth &gt; maxDepth ? 
-						String(obj[key]) : 
-						removeCircular(obj[key], maxDepth, depth + 1);
-					break;
-				}
+					{
+						result[key] = (depth &gt; maxDepth || circularArray.indexOf(value) &gt; -1) ?
+							String(value) :
+							removeCircular(value, maxDepth, depth + 1);
+						break;
+					}
 				case &quot;function&quot;:
-				{
-					result[key] = &quot;[function]&quot;;
-					break;
-				}
+					{
+						result[key] = &quot;[function]&quot;;
+						break;
+					}
 				case &quot;string&quot;:
 				case &quot;number&quot;:
 				case &quot;boolean&quot;:
 				case &quot;bool&quot;:
-				{
-					result[key] = obj[key];
-					break;
-				}
-				default: 
-				{
-					result[key] = obj[key];
-					break;
-				}	
+					{
+						result[key] = value;
+						break;
+					}
+				default:
+					{
+						result[key] = value;
+						break;
+					}
 			}
 		}
 		return result;
@@ -716,14 +1089,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments);
+			Debug._remoteLog(arguments);
 		}
-		else if (Debug.minLogLevel == Levels.GENERAL &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel == Levels.GENERAL)
 		{
-			if(arguments.length === 1)
-				console.log(params);
-			else
-				console.log.apply(console, arguments);
+			if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.log(params);
+				else
+					console.log.apply(console, arguments);
+			}
 			domOutput(&#x27;general&#x27;, params);
 		}
 		return Debug;
@@ -743,24 +1119,27 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels[DEBUGKEY]);
+			Debug._remoteLog(arguments, Levels[DEBUGKEY]);
 		}
-		else if (Debug.minLogLevel.asInt &lt;= Levels[DEBUGKEY].asInt &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels[DEBUGKEY].asInt)
 		{
 			// debug() is officially deprecated
-			if (console.debug)
+			if (_hasConsole)
 			{
-				if(arguments.length === 1)
-					console.debug(params);
+				if (console.debug)
+				{
+					if (arguments.length === 1)
+						console.debug(params);
+					else
+						console.debug.apply(console, arguments);
+				}
 				else
-					console.debug.apply(console, arguments);
-			}
-			else
-			{
-				if(arguments.length === 1)
-					console.log(params);
-				else
-					console.log.apply(console, arguments);
+				{
+					if (arguments.length === 1)
+						console.log(params);
+					else
+						console.log.apply(console, arguments);
+				}
 			}
 			domOutput(&#x27;debug&#x27;, params);
 		}
@@ -781,14 +1160,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.INFO);
+			Debug._remoteLog(arguments, Levels.INFO);
 		}
-		else if (Debug.minLogLevel.asInt &lt;= Levels.INFO.asInt &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels.INFO.asInt)
 		{
-			if(arguments.length === 1)
-				console.info(params);
-			else
-				console.info.apply(console, arguments);
+			if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.info(params);
+				else
+					console.info.apply(console, arguments);
+			}
 			domOutput(&#x27;info&#x27;, params);
 		}
 		return Debug;
@@ -808,14 +1190,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.WARN);
+			Debug._remoteLog(arguments, Levels.WARN);
 		}
-		else if (Debug.minLogLevel.asInt &lt;= Levels.WARN.asInt &amp;&amp; _hasConsole)
+		else if (Debug.minLogLevel.asInt &lt;= Levels.WARN.asInt)
 		{
-			if(arguments.length === 1)
-				console.warn(params);
-			else
-				console.warn.apply(console, arguments);
+			if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.warn(params);
+				else
+					console.warn.apply(console, arguments);
+			}
 			domOutput(&#x27;warn&#x27;, params);
 		}
 		return Debug;
@@ -834,14 +1219,17 @@
 
 		if (_useSocket)
 		{
-			Debug.remoteLog(arguments, Levels.ERROR);
+			Debug._remoteLog(arguments, Levels.ERROR);
 		}
-		else if (_hasConsole)
+		else
 		{
-			if(arguments.length === 1)
-				console.error(params);
-			else
-				console.error.apply(console, arguments);
+			if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.error(params);
+				else
+					console.error.apply(console, arguments);
+			}
 			domOutput(&#x27;error&#x27;, params);
 		}
 		return Debug;
@@ -852,20 +1240,25 @@
 	 * @static
 	 * @public
 	 * @method assert
-	 * @param {bool} truth As statement that is assumed true
+	 * @param {Boolean} truth As statement that is assumed true
 	 * @param {*} params The message to error if the assert is false
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.assert = function(truth, params)
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.assert)
+		if (Debug.enabled)
 		{
-			console.assert(truth, params);
-
 			if (!truth)
 			{
 				domOutput(&#x27;error&#x27;, params);
+				if (_useSocket)
+				{
+					Debug._remoteLog(params, Levels.ERROR);
+				}
 			}
+
+			if (_hasConsole &amp;&amp; console.assert)
+				console.assert(truth, params);
 		}
 		return Debug;
 	};
@@ -875,17 +1268,24 @@
 	 * @static
 	 * @method dir
 	 * @public
-	 * @param {object} params The object to describe in the console
+	 * @param {Object} params The object to describe in the console
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug.dir = function(params)
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled)
+		if (Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.dir(params);
-			else
-				console.dir.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.dir(params);
+				else
+					console.dir.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -899,9 +1299,15 @@
 	 */
 	Debug.clear = function()
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled)
+		if (Debug.enabled)
 		{
-			console.clear();
+			if (_useSocket)
+			{
+				Debug._remoteLog(&quot;&quot;, &quot;clear&quot;);
+			}
+
+			if (_hasConsole)
+				console.clear();
 
 			if (Debug.output)
 			{
@@ -921,12 +1327,19 @@
 	 */
 	Debug.trace = function(params)
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled)
+		if (Debug.enabled)
 		{
-			if(arguments.length === 1)
-				console.trace(params);
-			else
-				console.trace.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, Levels.GENERAL);
+			}
+			else if (_hasConsole)
+			{
+				if (arguments.length === 1)
+					console.trace(params);
+				else
+					console.trace.apply(console, arguments);
+			}
 		}
 		return Debug;
 	};
@@ -943,9 +1356,14 @@
 	 */
 	Debug.group = function(params)
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.group)
+		if (Debug.enabled)
 		{
-			console.group.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, &quot;group&quot;);
+			}
+			else if (_hasConsole &amp;&amp; console.group)
+				console.group.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -961,9 +1379,14 @@
 	 */
 	Debug.groupCollapsed = function(params)
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.groupCollapsed)
+		if (Debug.enabled)
 		{
-			console.groupCollapsed.apply(console, arguments);
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, &quot;groupCollapsed&quot;);
+			}
+			else if (_hasConsole &amp;&amp; console.groupCollapsed)
+				console.groupCollapsed.apply(console, arguments);
 		}
 		return Debug;
 	};
@@ -979,9 +1402,14 @@
 	 */
 	Debug.groupEnd = function()
 	{
-		if (_hasConsole &amp;&amp; Debug.enabled &amp;&amp; console.groupEnd)
+		if (Debug.enabled)
 		{
-			console.groupEnd();
+			if (_useSocket)
+			{
+				Debug._remoteLog(arguments, &quot;groupEnd&quot;);
+			}
+			else if (_hasConsole &amp;&amp; console.groupEnd)
+				console.groupEnd();
 		}
 		return Debug;
 	};
@@ -1141,7 +1569,10 @@
 	 */
 	for (var key in _palette)
 	{
-		Debug[key] = _colorClosure(_palette[key]);
+		if (_consoleSupportsColors)
+			Debug[key] = _colorClosure(_palette[key]);
+		else
+			Debug[key] = Debug.log;
 	}
 
 	/**
@@ -1154,42 +1585,40 @@
 	 * @return {Function}
 	 */
 	function _colorClosure(hex)
-	{
-		return function(message)
 		{
-			if(arguments.length &gt; 1)
+			var colorString = &#x27;color:&#x27; + hex;
+			return function(message)
 			{
-				var params = slice.call(arguments);
-				var first = &#x27;%c&#x27; + params[0];
-				params[0] = &#x27;color:&#x27; + hex;
-				params.unshift(first);
-				return Debug.log.apply(Debug, params);
-			}
-			return Debug.log(&#x27;%c&#x27; + message, &#x27;color:&#x27; + hex);
-		};
-	}
+				if (arguments.length &gt; 1)
+				{
+					var params = slice.call(arguments);
+					if (typeof params[0] == &quot;object&quot;)
+					{
+						params.unshift(colorString);
+						params.unshift(&#x27;%c%o&#x27;);
+					}
+					else
+					{
+						var first = &#x27;%c&#x27; + params[0];
+						params[0] = colorString;
+						params.unshift(first);
+					}
+					return Debug.log.apply(Debug, params);
+				}
+				if (typeof arguments[0] == &quot;object&quot;)
+					return Debug.log(&#x27;%c%o&#x27;, colorString, message);
+				return Debug.log(&#x27;%c&#x27; + message, colorString);
+			};
+		}
+		//Assign to namespace
+	namespace(&#x27;springroll&#x27;).Debug = Debug;
 
-	// Make the debug class globally accessible.
-	// If the console doesn&#x27;t exist, use the dummy to prevent errors.
-	window.Debug = Debug;
-
-}(window));
-    </pre>
-</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+}());</pre>
+</div>        </div>
+      </div>
     </div>
-</div>
-<script src="../assets/vendor/prettify/prettify-min.js"></script>
-<script>prettyPrint();</script>
-<script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>
+  </div>
+  <script src='../assets/js/libraries.js?v=0.2.0'></script>
+  <script src='../assets/js/main.js?v=0.2.0'></script>
 </body>
 </html>
