@@ -1,9 +1,9 @@
 <script src='dist/core.js'></script>
 <script>
-var e = new springroll.Enum("hello", "heythere", "whatsup");
-console.log(e);
-console.log(e.length);
-console.log(e.first);
-console.log(e.next(e.whatsup));
-
+  var e = new springroll.Enum({
+    name: "One",
+    value: 2
+}, "Two", "Three");
+  console.log(e);
+  console.log(e.next(e.Three));
 </script>
