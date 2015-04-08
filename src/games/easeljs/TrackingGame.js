@@ -65,7 +65,7 @@
 		if (this.options.manifestsPath !== null)
 		{
 			addTasks = addTasks.bind(this);
-			this.on('loading', addTasks);
+			this.on('configLoaded', addTasks);
 		}
 
 		//Add a captions text field after the states are ready
@@ -95,11 +95,11 @@
 	 *  @private
 	 *  @param {array} tasks The collection of preload tasks
 	 */
-	var addTasks = function(tasks)
+	var addTasks = function(config, taskManager)
 	{
-		this.off('loading', addTasks);
+		this.off('configLoaded', addTasks);
 
-		tasks.push(new LoadTask(
+		taskManager.addTask(new LoadTask(
 			"manifests",
 			this.options.manifestsPath,
 			onManifestsLoaded.bind(this)));
