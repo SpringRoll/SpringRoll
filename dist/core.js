@@ -350,11 +350,12 @@
 	*
 	* @class Enum
 	* @constructor
-	* @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
-	*                                        array or a list of parameters. Each string will be
-	*                                        the previous value plus one, while objects with
-	*                                        'name' and 'value' properties will have the specified
-	*                                        numeric value.
+	* @param {Array|String|Object} arguments 
+	*  The list of enumeration values. You can pass either an
+	*  array or a list of parameters. Each string will be
+	*  the previous value plus one, while objects with
+	*  'name' and 'value' properties will have the specified
+	*  numeric value.
 	*/
 	var Enum = function() {
 		var args = Array.isArray(arguments[0]) ?
@@ -374,17 +375,17 @@
 		});
 
 		/**
-		 *  The values that this Enum was initialized with. We save this so
-		 *  that we can potentially pass this via Bellhop and re-initialize.
-		 *  @public
-		 *  @property {Array} rawEnumValues
+		 * The values that this Enum was initialized with. We save this so
+		 * that we can potentially pass this via Bellhop and re-initialize.
+		 * @public
+		 * @property {Array} rawEnumValues
 		 */
 		Object.defineProperty(this, 'rawEnumValues', {
 			enumerable: false,
 			writable: false,
 			value: args
 		});
-
+		
 		var counter = 0;
 		var len = args.length;
 		var item;
@@ -440,6 +441,49 @@
 			}
 			counter++;
 		}
+				
+		/**
+		 * The count of values the enum was initialized with.
+		 * @public
+		 * @property {int} length
+		 */
+		Object.defineProperty(this, 'length',
+		{
+			enumerable: false,
+			writable: false,
+			value: counter
+		});
+		
+		/**
+		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'next',
+		{
+			enumerable: false,
+			writable: false,
+			value: function(input) // {EnumValue} input
+			{
+				var nextInt = input.asInt + 1;
+				if (nextInt >= counter) {
+					return this.first;
+					}
+				return this.valueFromInt(nextInt);
+			}
+		});
+
+		/**
+		 * Retrieves the first EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'first',
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(0)
+		});
 	};
 
 	/**

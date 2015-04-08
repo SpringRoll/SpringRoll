@@ -174,10 +174,40 @@
 		 */
 		Object.defineProperty(this, 'length',
 		{
-			get: function()
+			enumerable: false,
+			writable: false,
+			value: counter
+		});
+		
+		/**
+		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'next',
+		{
+			enumerable: false,
+			writable: false,
+			value: function(input) // {EnumValue} input
 			{
-				return counter;
+				var nextInt = input.asInt + 1;
+				if (nextInt >= counter) {
+					return this.first;
+					}
+				return this.valueFromInt(nextInt);
 			}
+		});
+
+		/**
+		 * Retrieves the first EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'first',
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(0)
 		});
 	};
 
