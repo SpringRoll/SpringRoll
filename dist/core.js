@@ -489,6 +489,18 @@
 			writable: false,
 			value: this.valueFromInt(args[0].value || 0)
 		});
+
+		/**
+		 * Retrieves the last EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'last',
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(counter-1)
+		});
 	};
 
 	/**

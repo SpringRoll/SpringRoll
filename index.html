@@ -2,8 +2,13 @@
 <script>
   var e = new springroll.Enum({
     name: "One",
-    value: 2
-}, "Two", "Three");
+    value: 10
+  }, "Two", "Three");
   console.log(e);
-  console.log(e.next(e.Three));
+  console.log(e.next(e.last));
+  console.log(e.next(e.first));
+  console.log(e.first == e.One);
+  console.log(e.next(e.Two));
+  console.log(e.Two == e.last);
+  console.log(e.Three == e.last);
 </script>
