@@ -5,8 +5,8 @@
  */
 (function(undefined)
 {
-	var State = include('springroll.BaseState'),
-		Debug = include('springroll.Debug', false),
+	var State,
+		Debug,
 		Application,
 		ListTask,
 		BasePanel,
@@ -32,6 +32,8 @@
 			ListTask = include('springroll.ListTask');
 			TaskManager = include('springroll.TaskManager');
 			UIScaler = include('springroll.UIScaler');
+			State = include('springroll.BaseState');
+			Debug = include('springroll.Debug', false);
 		}
 
 		if (!(panel instanceof BasePanel))
