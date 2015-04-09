@@ -140,8 +140,8 @@
  */
 (function(undefined)
 {
-	var State = include('springroll.BaseState'),
-		Debug = include('springroll.Debug', false),
+	var State,
+		Debug,
 		Application,
 		ListTask,
 		BasePanel,
@@ -167,6 +167,8 @@
 			ListTask = include('springroll.ListTask');
 			TaskManager = include('springroll.TaskManager');
 			UIScaler = include('springroll.UIScaler');
+			State = include('springroll.BaseState');
+			Debug = include('springroll.Debug', false);
 		}
 
 		if (!(panel instanceof BasePanel))
@@ -226,6 +228,13 @@
 		 *  @protected
 		 */
 		this.resizeOnReload = true;
+		
+		/**
+		 *  If a manifest specific to this state should be automatically loaded by default.
+		 *  @property {boolean} useDefaultManifest
+		 *  @protected
+		 */
+		this.useDefaultManifest = true;
 	};
 
 	//Reference to the parent prototype
@@ -250,7 +259,7 @@
 		var tasks = [];
 
 		//Preload the manifest files
-		if (this.manifest.length)
+		if (this.useDefaultManifest && this.manifest && this.manifest.length)
 		{
 			tasks.push(new ListTask('manifests', this.manifest, onManifestLoaded));
 		}
