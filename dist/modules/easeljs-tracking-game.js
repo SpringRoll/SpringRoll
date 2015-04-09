@@ -140,7 +140,7 @@
  */
 (function(undefined)
 {
-	var State,
+	var State = include('springroll.BaseState'),
 		Debug,
 		Application,
 		ListTask,
@@ -167,7 +167,6 @@
 			ListTask = include('springroll.ListTask');
 			TaskManager = include('springroll.TaskManager');
 			UIScaler = include('springroll.UIScaler');
-			State = include('springroll.BaseState');
 			Debug = include('springroll.Debug', false);
 		}
 
