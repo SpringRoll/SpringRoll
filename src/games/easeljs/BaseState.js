@@ -44,7 +44,7 @@
 
 		/**
 		 *  Reference to the main game
-		 *  @property {_namespace_.State} game
+		 *  @property {Application} game
 		 *  @protected
 		 */
 		this.game = Application.instance;
@@ -58,21 +58,21 @@
 
 		/**
 		 *  Reference to the main config object
-		 *  @property {object} config
+		 *  @property {Object} config
 		 *  @protected
 		 */
 		this.config = this.game.config;
 
 		/**
 		 *  The assets to load each time
-		 *  @property {object} manifset
+		 *  @property {Object} manifest
 		 *  @protected
 		 */
 		this.manifest = null;
 
 		/**
 		 *  If the assets have finished loading
-		 *  @property {boolean} assetsLoaded
+		 *  @property {Boolean} assetsLoaded
 		 *  @protected
 		 */
 		this.assetsLoaded = false;
@@ -95,10 +95,18 @@
 		
 		/**
 		 *  If a manifest specific to this state should be automatically loaded by default.
-		 *  @property {boolean} useDefaultManifest
+		 *  @property {Boolean} useDefaultManifest
 		 *  @protected
 		 */
 		this.useDefaultManifest = true;
+		
+		/**
+		 *  The number of frames to delay the transition in after loading, to allow the framerate
+		 *  to stablize after heavy art instantiation.
+		 *  @property {int} delayLoadFrames
+		 *  @protected
+		 */
+		this.delayLoadFrames = 0;
 	};
 
 	//Reference to the parent prototype
@@ -229,7 +237,24 @@
 		this.scaler.enabled = true;
 
 		this.onAssetsLoaded();
-		this.loadingDone();
+		
+		if(this.delayLoadFrames > 0)
+		{
+			var countdown = this.delayLoadFrames,
+				game = this.game,
+				callback = this.loadingDone.bind(this);
+			var timerFunction = function()
+			{
+				if(--countdown <= 0)
+				{
+					game.off("update", timerFunction);
+					callback();
+				}
+			};
+			game.on("update", timerFunction);
+		}
+		else
+			this.loadingDone();
 	};
 
 	/**
