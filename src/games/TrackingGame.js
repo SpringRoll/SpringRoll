@@ -26,9 +26,9 @@
 	 * @class TrackingGame
 	 * @extends springroll.Game
 	 * @constructor
-	 * @param {object} [options]
+	 * @param {Object} [options]
 	 *	See SpringRoll's Game class options for the full list
-	 * @param {string} [options.configPath='assets/config/config.json']
+	 * @param {String} [options.configPath='assets/config/config.json']
 	 *	The path to the default config to load
 	 * @param {String} [options.captionsPath='assets/config/captions.json']
 	 *	The path to the captions dictionary. If this is set to null
@@ -45,7 +45,7 @@
 	 *	right before the main canvas element (options.canvasId).
 	 * @param {Boolean} [options.singlePlay=false]
 	 *	If the game should be played in single-play mode
-	 * @param {object} [options.playOptions]
+	 * @param {Object} [options.playOptions]
 	 *	The optional single-play mode gameplay options
 	 */
 	var TrackingGame = function(options)
@@ -56,7 +56,7 @@
 		options = options ||
 		{};
 
-		// The base options, these are overrideable by the 
+		// The base options, these are overrideable by the
 		// options above, but these are some better defaults
 		var baseOptions = {
 			captions: "captions",
@@ -124,13 +124,13 @@
 
 		/**
 		 * The game configuration loaded from and external JSON file
-		 * @property {object} config
+		 * @property {Object} config
 		 */
 		this.config = null;
 
 		/**
 		 * For media conveninece methods
-		 * @property {springroll.TrackerMedia} media
+		 * @property {springroll.TrackingGameMedia} media
 		 */
 		this.media = null;
 
@@ -188,7 +188,7 @@
 
 			//handle detecting and sending blur/focus events
 			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, 'gameFocus', true), 
+				messenger.send.bind(messenger, 'gameFocus', true),
 				messenger.send.bind(messenger, 'gameFocus', false)
 			);
 		}
@@ -249,7 +249,7 @@
 	 * The config has finished loading, in case you want to
 	 * add additional tasks to the manager after this.
 	 * @event configLoaded
-	 * @param {object} config The JSON object for config
+	 * @param {Object} config The JSON object for config
 	 * @param {TaskManager} manager The task manager
 	 */
 	var CONFIG_LOADED = 'configLoaded';
@@ -257,7 +257,7 @@
 	/**
 	 * The game has started loading
 	 * @event loading
-	 * @param {array} tasks The list of tasks to preload
+	 * @param {Array} tasks The list of tasks to preload
 	 */
 	var LOADING = 'loading';
 
@@ -523,7 +523,7 @@
 	 * Handler when the context is muted
 	 * @method onContextMuted
 	 * @private
-	 * @param {string} context The name of the sound context
+	 * @param {String} context The name of the sound context
 	 * @param {Event} e The bellhop event
 	 */
 	var onContextMuted = function(context, e)
@@ -534,7 +534,7 @@
 	/**
 	 * Send a progress tracker event
 	 * @method progressEvent
-	 * @param {object} eventData The data associated with an event
+	 * @param {Object} eventData The data associated with an event
 	 */
 	p.progressEvent = function(eventData)
 	{
@@ -602,7 +602,7 @@
 	/**
 	 * Manually close the game, this can happen when playing through once
 	 * @method endGame
-	 * @param {string} [exitType='game_completed'] The type of exit
+	 * @param {String} [exitType='game_completed'] The type of exit
 	 */
 	p.endGame = function(exitType)
 	{
