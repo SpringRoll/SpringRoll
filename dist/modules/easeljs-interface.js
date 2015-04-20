@@ -1973,7 +1973,7 @@
 				{
 					if(manifestData.alpha === true)
 					{
-						if(images[id] && images.color)
+						if(images[id] && images[id].color)
 						{
 							images[id] = mergeAlpha(images[id].color, content);
 						}
@@ -1982,7 +1982,7 @@
 					}
 					else if(manifestData.color === true)
 					{
-						if(images[id] && images.alpha)
+						if(images[id] && images[id].alpha)
 							images[id] = mergeAlpha(content, images[id].alpha);
 						else
 							images[id] = {color: content};

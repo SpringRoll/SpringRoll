@@ -751,7 +751,7 @@
 	
 	/**
 	*   A task that performs a list of tasks
-	*   
+	*
 	*   @class ListTask
 	*   @extends Task
 	*   @constructor
@@ -765,7 +765,7 @@
 
 		/**
 		* The internal task manager
-		* 
+		*
 		* @property {TaskManager} _manager
 		* @private
 		*/
@@ -773,7 +773,7 @@
 		
 		/**
 		* The load results dictionary
-		* 
+		*
 		* @property {Dictionary} _results
 		* @private
 		*/
@@ -797,19 +797,19 @@
 			else if (list[i].id && list[i].src)
 			{
 				tasks.push(new LoadTask(
-					list[i].id, 
-					list[i].src, 
-					list[i].callback, 
+					list[i].id,
+					list[i].src,
+					list[i].callback,
 					list[i].updateCallback,
 					list[i].priority,
-					list[i].data
+					list[i].data || list[i]
 				));
 			}
 		}
 
 		/**
 		* The list of other tasks, as an array
-		* 
+		*
 		* @property {Array} list
 		*/
 		this.list = tasks;
@@ -831,11 +831,11 @@
 		this._results = {};
 		this._manager = new TaskManager(this.list.slice());
 		this._manager.on(
-			TaskEvent.TASK_DONE, 
+			TaskEvent.TASK_DONE,
 			this._onTaskDone.bind(this)
 		);
 		this._manager.on(
-			TaskManager.ALL_TASKS_DONE, 
+			TaskManager.ALL_TASKS_DONE,
 			this._onAllTasksComplete.bind(this, callback)
 		);
 		this._manager.startAll();
@@ -856,7 +856,7 @@
 	
 	/**
 	*   Callback for when the whole list is done
-	*   
+	*
 	*   @function _onAllTasksComplete
 	*   @param {function} callback Callback passed to start()
 	*   @private
@@ -868,7 +868,7 @@
 	};
 	
 	/**
-	*  Cancel the TaskManager used for the list of tasks. As the individual tasks are not 
+	*  Cancel the TaskManager used for the list of tasks. As the individual tasks are not
 	*  kept track of, this always returns true.
 	*  @function cancel
 	*  @return Returns true.
@@ -891,7 +891,7 @@
 	
 	/**
 	*  Don't use after this
-	*  
+	*
 	*  @function destroy
 	*/
 	p.destroy = function()
