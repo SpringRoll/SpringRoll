@@ -8,6 +8,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.AbstractHint",
         "springroll.AnimatorHint",
         "springroll.Application",
+        "springroll.ApplicationOptions",
         "springroll.BaseState",
         "springroll.CacheManager",
         "springroll.Captions",

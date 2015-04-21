@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : springroll.StateManager</title>
+  <title>SpringRoll v0.2.0 API Documentation : springroll.ApplicationOptions</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -439,47 +439,34 @@
       <div class='col-sm-8 col-md-9'>
         <div id='docs-main' class='apidocs'>
 
-<h1>springroll.StateManager Class</h1>
+<h1>springroll.ApplicationOptions Class</h1>
 <div class='box meta'>
 
     <div class='extends'>
       Extends
-      <a href="../classes/springroll.EventDispatcher.html" class="crosslink">springroll.EventDispatcher</a>
+      <a href="../classes/springroll.PropertyDispatcher.html" class="crosslink">springroll.PropertyDispatcher</a>
     </div>
 
     <div class='foundat'>
-      Defined in: <a href='../files/src_games_states_StateManager.js.html#l14'><code>springroll.StateManager:14</code></a>
+      Defined in: <a href='../files/src_ApplicationOptions.js.html#l12'><code>springroll.ApplicationOptions:12</code></a>
     </div>
 
       Module:
-      <a href="../modules/Game.html">Game</a>
+      <a href="../modules/Core.html">Core</a>
 
 </div>
 
 
 <div class='box intro'>
-  <p>The State Manager used for managing the different states of a game or site</p>
+  <p>Manage the Application options</p>
 
 </div>
 
   <div class='constructor'>
-    <h2>Constructor</h2> <div id='method_springroll.StateManager' class='method item'>
-  <h3 class='name'><code>springroll.StateManager</code></h3>
+    <h2>Constructor</h2> <div id='method_springroll.ApplicationOptions' class='method item'>
+  <h3 class='name'><code>springroll.ApplicationOptions</code></h3>
 
-    <div class='args'>
-      <span class='paren'>(</span>
-      <ul class='args-list inline commas'>
-          <li class='arg'>
-              <code>display</code>
-          </li>
-          <li class='arg'>
-              <code>transition</code>
-          </li>
-          <li class='arg'>
-              <code>transitionSounds</code>
-          </li>
-    </ul><span class='paren'>)</span>
-    </div>
+    <span class='paren'>()</span>
 
 
   <div class='flags'>
@@ -493,7 +480,7 @@
   <div class='meta'>
         <p>
             Defined in
-      <a href='../files/src_games_states_StateManager.js.html#l14'><code>springroll.StateManager:14</code></a>
+      <a href='../files/src_ApplicationOptions.js.html#l12'><code>springroll.ApplicationOptions:12</code></a>
     </p>
 
 
@@ -504,52 +491,6 @@
     
   </div>
 
-    <div class='params'>
-      <h4>Parameters:</h4>
-
-      <ul class='params-list'>
-          <li class='param'>
-              <code class='param-name'>display</code>
-              <span class='type'><a href="../classes/springroll.AbstractDisplay.html" class="crosslink">springroll.AbstractDisplay</a></span>
-
-
-            <div class='param-description'>
-              <p>The display on which the transition animation is
-                                           displayed.</p>
-
-            </div>
-
-          </li>
-          <li class='param'>
-              <code class='param-name'>transition</code>
-              <span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
-
-
-            <div class='param-description'>
-              <p>The transition MovieClip to play between
-                                                 transitions.</p>
-
-            </div>
-
-          </li>
-          <li class='param'>
-              <code class='param-name'>transitionSounds</code>
-              <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-            <div class='param-description'>
-              <p>Data object with aliases and start times (seconds) for
-                                transition in, loop and out sounds. Example:
-                                {in:{alias:"myAlias", start:0.2}}.
-                                These objects are in the format for Animator from
-                                EaselJSDisplay or PixiDisplay, so they can be just the
-                                sound alias instead of an object.</p>
-
-            </div>
-
-          </li>
-      </ul>
-    </div>
 
 
 </div>
@@ -567,9 +508,6 @@
       <li id='tab-properties' class='docs-toggle'>
         <a data-toggle='tab' href='#docs-properties'>Properties</a>
       </li>
-      <li id='tab-events' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-events'>Events</a>
-      </li>
   </ul>
 
   <div class='tab-content'>
@@ -579,72 +517,20 @@
           <h3>Methods</h3>
 
           <ul class='list-group row methods extends'>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__loopTransition'>_loopTransition</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__onStateLoaded'>_onStateLoaded</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__onTransitionIn'>_onTransitionIn</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__onTransitionOut'>_onTransitionOut</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__processQueue'>_processQueue</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__transitioning'>_transitioning</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_addState'>addState</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_changeTransition'>changeTransition</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_addProp'>addProp</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited inherited'>
                 <a href='#method_destroy'>destroy</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_getCurrentState'>getCurrentState</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_getStateById'>getStateById</a>
+              <li class='col-xs-6 col-md-4 index-item method private inherited'>
+                <a href='#method_get'>get</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method inherited'>
                 <a href='#method_has'>has</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_hideBlocker'>hideBlocker</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_isBusy'>isBusy</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_loadingDone'>loadingDone</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_loadingStart'>loadingStart</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_next'>next</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method inherited'>
@@ -659,28 +545,16 @@
                 <a href='#method_once'>once</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_previous'>previous</a>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_readOnly'>readOnly</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_refresh'>refresh</a>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_respond'>respond</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_setState'>setState</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_showBlocker'>showBlocker</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_showTransitionIn'>showTransitionIn</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_showTransitionOut'>showTransitionOut</a>
+              <li class='col-xs-6 col-md-4 index-item method private inherited'>
+                <a href='#method_set'>set</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method inherited'>
@@ -698,241 +572,142 @@
           <h3>Properties</h3>
 
           <ul class='list-group row properties extends'>
-              <li class='col-xs-6 col-md-4 index-item property private inherited'>
+              <li class='col-xs-6 col-md-4 index-item property protected inherited'>
                 <a href='#property__destroyed'>_destroyed</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__display'>_display</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__isTransitioning'>_isTransitioning</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private inherited'>
                 <a href='#property__listeners'>_listeners</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__oldState'>_oldState</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__queueStateId'>_queueStateId</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__state'>_state</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__stateID'>_stateID</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__states'>_states</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__transition'>_transition</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__transitionSounds'>_transitionSounds</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property_name description'>name description</a>
+              <li class='col-xs-6 col-md-4 index-item property private inherited'>
+                <a href='#property__properties'>_properties</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_state'>state</a>
+                <a href='#property_autoPause'>autoPause</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_basePath'>basePath</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_cacheBust'>cacheBust</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_canvasId'>canvasId</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_crossOrigin'>crossOrigin</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_debug'>debug</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_debugRemote'>debugRemote</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property_defaultOptions'>defaultOptions</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_display'>display</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_displayOptions'>displayOptions</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_fps'>fps</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_framerate'>framerate</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property_getQueryString'>getQueryString</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_maxHeight'>maxHeight</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_maxWidth'>maxWidth</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_minLogLevel'>minLogLevel</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_raf'>raf</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_resizeElement'>resizeElement</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_uniformResize'>uniformResize</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_updateTween'>updateTween</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_useQueryString'>useQueryString</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_version'>version</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_versionsFile'>versionsFile</a>
 
               </li>
           </ul>
         </div>
 
 
-        <div class='index-section tab-pane events'>
-
-          <ul class='list-group row events extends'>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onInitDone'>onInitDone</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onLoadingDone'>onLoadingDone</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onLoadingStart'>onLoadingStart</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onTransitionIn'>onTransitionIn</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onTransitionInDone'>onTransitionInDone</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onTransitionOut'>onTransitionOut</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_onTransitionOutDone'>onTransitionOutDone</a>
-
-              </li>
-          </ul>
-        </div>
     </div>
 
       <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-          <div id='method__loopTransition' class='method item private'>
-            <h3 class='name'><code>_loopTransition</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l483'><code>_loopTransition:483</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Plays the animation "transitionLoop" on the transition. Also serves as the animation callback.
-          Manually looping the animation allows the animation to be synced to the audio while looping.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__onStateLoaded' class='method item private'>
-            <h3 class='name'><code>_onStateLoaded</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l423'><code>_onStateLoaded:423</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the state has completed its loading sequence.
-          This should be treated as an asynchronous process.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__onTransitionIn' class='method item private'>
-            <h3 class='name'><code>_onTransitionIn</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l443'><code>_onTransitionIn:443</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the transition into a state has finished playing during a state change.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__onTransitionOut' class='method item private'>
-            <h3 class='name'><code>_onTransitionOut</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l393'><code>_onTransitionOut:393</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the transition out of a state has finished playing during a state change.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__processQueue' class='method item private'>
-            <h3 class='name'><code>_processQueue</code></h3>
-          
-              <span class='paren'>()</span>
+          <div id='method_addProp' class='method item inherited'>
+            <h3 class='name'><code>addProp</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>prop</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[initValue]</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[readOnly=false]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
           
               <span class='returns-inline'>
-                      <span class='type'></span>
+                      <span class='type'>PropertyDispatcher</span>
               </span>
           
             <div class='flags'>
           
-                <span class='flag private'>private</span>
           
           
           
@@ -940,9 +715,9 @@
             </div> 
             
             <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l461'><code>_processQueue:461</code></a>
+                  <p>Inherited from
+                    <a href='../classes/springroll.PropertyDispatcher.html#method_addProp'>springroll.PropertyDispatcher</a>:
+                <a href='../files/src_events_PropertyDispatcher.js.html#l69'><code>addProp:69</code></a>
               </p>
           
           
@@ -950,215 +725,63 @@
             </div>
           
             <div class='description'>
-              <p>Process the state queue</p>
+              <p>Add a new property to allow deteching</p>
           
             </div>
           
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>prop</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The property name</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[initValue]</code>
+                        <span class='type'>Mixed</span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The default value</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[readOnly=false]</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>If the property is readonly</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
           
               <div class='returns'>
                 <h4>Returns:</h4>
           
                 <div class='returns-description'>
-                    <p>If there is a queue to process</p>
+                      <span class='type'>PropertyDispatcher</span>:
+                    <p>The instance for chaining</p>
           
                 </div>
               </div>
           
-          </div>          <div id='method__transitioning' class='method item private'>
-            <h3 class='name'><code>_transitioning</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>The</code>
-                    </li>
-                    <li class='arg'>
-                        <code>The</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l548'><code>_transitioning:548</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Generalized function for transitioning with the manager</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>The</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>animator event to play</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>The</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>callback function after transition is done</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_addState' class='method item'>
-            <h3 class='name'><code>addState</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>id</code>
-                    </li>
-                    <li class='arg'>
-                        <code>state</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l189'><code>addState:189</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Register a state with the state manager, done initially</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>id</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The string alias for a state</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>state</code>
-                        <span class='type'>BaseState</span>
-          
-          
-                      <div class='param-description'>
-                        <p>State object reference</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_changeTransition' class='method item'>
-            <h3 class='name'><code>changeTransition</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>Clip</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l213'><code>changeTransition:213</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Dynamically change the transition</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>Clip</code>
-                        <span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
-          
-          
-                      <div class='param-description'>
-                        <p>to swap for transition</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_destroy' class='method item'>
+          </div>          <div id='method_destroy' class='method item inherited'>
             <h3 class='name'><code>destroy</code></h3>
           
               <span class='paren'>()</span>
@@ -1178,7 +801,7 @@
                           springroll.EventDispatcher
                       </a>
                     but overwritten in
-                <a href='../files/src_games_states_StateManager.js.html#l625'><code>destroy:625</code></a>
+                <a href='../files/src_events_PropertyDispatcher.js.html#l158'><code>destroy:158</code></a>
               </p>
           
           
@@ -1186,73 +809,31 @@
             </div>
           
             <div class='description'>
-              <p>Remove the state manager</p>
+              <p>Clean-up all references, don&#39;t use after this</p>
           
             </div>
           
           
           
-          </div>          <div id='method_getCurrentState' class='method item'>
-            <h3 class='name'><code>getCurrentState</code></h3>
-          
-              <span class='paren'>()</span>
-          
-              <span class='returns-inline'>
-                      <span class='type'>BaseState</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l224'><code>getCurrentState:224</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Get the current selected state (state object)</p>
-          
-            </div>
-          
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>BaseState</span>:
-                    <p>The Base State object</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_getStateById' class='method item'>
-            <h3 class='name'><code>getStateById</code></h3>
+          </div>          <div id='method_get' class='method item private inherited'>
+            <h3 class='name'><code>get</code></h3>
           
               <div class='args'>
                 <span class='paren'>(</span>
                 <ul class='args-list inline commas'>
                     <li class='arg'>
-                        <code>id</code>
+                        <code>prop</code>
                     </li>
               </ul><span class='paren'>)</span>
               </div>
           
               <span class='returns-inline'>
-                      <span class='type'>BaseState</span>
+                      <span class='type'>Mixed</span>
               </span>
           
             <div class='flags'>
           
+                <span class='flag private'>private</span>
           
           
           
@@ -1260,9 +841,9 @@
             </div> 
             
             <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l235'><code>getStateById:235</code></a>
+                  <p>Inherited from
+                    <a href='../classes/springroll.PropertyDispatcher.html#method_get'>springroll.PropertyDispatcher</a>:
+                <a href='../files/src_events_PropertyDispatcher.js.html#l50'><code>get:50</code></a>
               </p>
           
           
@@ -1270,7 +851,7 @@
             </div>
           
             <div class='description'>
-              <p>Access a certain state by the ID</p>
+              <p>Generic setter for an option</p>
           
             </div>
           
@@ -1279,12 +860,12 @@
           
                 <ul class='params-list'>
                     <li class='param'>
-                        <code class='param-name'>id</code>
+                        <code class='param-name'>prop</code>
                         <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
           
           
                       <div class='param-description'>
-                        <p>State alias</p>
+                        <p>The option name</p>
           
                       </div>
           
@@ -1296,8 +877,8 @@
                 <h4>Returns:</h4>
           
                 <div class='returns-description'>
-                      <span class='type'>BaseState</span>:
-                    <p>The base State object</p>
+                      <span class='type'>Mixed</span>:
+                    <p>The value of the option</p>
           
                 </div>
               </div>
@@ -1383,175 +964,6 @@
           
                 </div>
               </div>
-          
-          </div>          <div id='method_hideBlocker' class='method item'>
-            <h3 class='name'><code>hideBlocker</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l297'><code>hideBlocker:297</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Re-enable interaction with the stage</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_isBusy' class='method item'>
-            <h3 class='name'><code>isBusy</code></h3>
-          
-              <span class='paren'>()</span>
-          
-              <span class='returns-inline'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l248'><code>isBusy:248</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>If the StateManager is busy because it is currently loading or transitioning.</p>
-          
-            </div>
-          
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    <p>If StateManager is busy</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_loadingDone' class='method item'>
-            <h3 class='name'><code>loadingDone</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l274'><code>loadingDone:274</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>If the state has finished it&#39;s asyncronous task loading
-          Lets enter the state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_loadingStart' class='method item'>
-            <h3 class='name'><code>loadingStart</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l259'><code>loadingStart:259</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>If the state needs to do some asyncronous tasks,
-          The state can tell the manager to stop the animation</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_next' class='method item'>
-            <h3 class='name'><code>next</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l573'><code>next:573</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Goto the next state</p>
-          
-            </div>
-          
-          
           
           </div>          <div id='method_off' class='method item inherited'>
             <h3 class='name'><code>off</code></h3>
@@ -1828,81 +1240,21 @@
                 </div>
               </div>
           
-          </div>          <div id='method_previous' class='method item'>
-            <h3 class='name'><code>previous</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l599'><code>previous:599</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Goto the previous state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_refresh' class='method item'>
-            <h3 class='name'><code>refresh</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l307'><code>refresh:307</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>This transitions out of the current state and
-          enters it again. Can be useful for clearing a state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_setState' class='method item'>
-            <h3 class='name'><code>setState</code></h3>
+          </div>          <div id='method_readOnly' class='method item inherited'>
+            <h3 class='name'><code>readOnly</code></h3>
           
               <div class='args'>
                 <span class='paren'>(</span>
                 <ul class='args-list inline commas'>
                     <li class='arg'>
-                        <code>id</code>
+                        <code>prop</code>
                     </li>
               </ul><span class='paren'>)</span>
               </div>
           
+              <span class='returns-inline'>
+                      <span class='type'>PropertyDispatcher</span>
+              </span>
           
             <div class='flags'>
           
@@ -1913,9 +1265,9 @@
             </div> 
             
             <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l334'><code>setState:334</code></a>
+                  <p>Inherited from
+                    <a href='../classes/springroll.PropertyDispatcher.html#method_readOnly'>springroll.PropertyDispatcher</a>:
+                <a href='../files/src_events_PropertyDispatcher.js.html#l101'><code>readOnly:101</code></a>
               </p>
           
           
@@ -1923,7 +1275,7 @@
             </div>
           
             <div class='description'>
-              <p>Set the current State</p>
+              <p>Turn on read-only for properties</p>
           
             </div>
           
@@ -1932,12 +1284,94 @@
           
                 <ul class='params-list'>
                     <li class='param'>
-                        <code class='param-name'>id</code>
+                        <code class='param-name'>prop</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+                        <span class='flag multiple' title='This argument may occur one or more times.'>multiple</span>
+          
+                      <div class='param-description'>
+                        <p>The property or properties to make readonly</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>PropertyDispatcher</span>:
+                    <p>The instance for chaining</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_respond' class='method item inherited'>
+            <h3 class='name'><code>respond</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>name</code>
+                    </li>
+                    <li class='arg'>
+                        <code>responder</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>PropertyDispatcher</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.PropertyDispatcher.html#method_respond'>springroll.PropertyDispatcher</a>:
+                <a href='../files/src_events_PropertyDispatcher.js.html#l122'><code>respond:122</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Whenever a property is get a responder is called</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>name</code>
                         <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
           
           
                       <div class='param-description'>
-                        <p>The state id</p>
+                        <p>The property name</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>responder</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>Function to call when getting property</p>
           
                       </div>
           
@@ -1945,46 +1379,27 @@
                 </ul>
               </div>
           
+              <div class='returns'>
+                <h4>Returns:</h4>
           
-          </div>          <div id='method_showBlocker' class='method item'>
-            <h3 class='name'><code>showBlocker</code></h3>
+                <div class='returns-description'>
+                      <span class='type'>PropertyDispatcher</span>:
+                    <p>The instance for chaining</p>
           
-              <span class='paren'>()</span>
+                </div>
+              </div>
           
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l287'><code>showBlocker:287</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Show, enable the blocker clip to disable mouse clicks</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_showTransitionIn' class='method item'>
-            <h3 class='name'><code>showTransitionIn</code></h3>
+          </div>          <div id='method_set' class='method item private inherited'>
+            <h3 class='name'><code>set</code></h3>
           
               <div class='args'>
                 <span class='paren'>(</span>
                 <ul class='args-list inline commas'>
                     <li class='arg'>
-                        <code>callback</code>
+                        <code>prop</code>
+                    </li>
+                    <li class='arg'>
+                        <code>value</code>
                     </li>
               </ul><span class='paren'>)</span>
               </div>
@@ -1992,6 +1407,7 @@
           
             <div class='flags'>
           
+                <span class='flag private'>private</span>
           
           
           
@@ -1999,9 +1415,9 @@
             </div> 
             
             <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l529'><code>showTransitionIn:529</code></a>
+                  <p>Inherited from
+                    <a href='../classes/springroll.PropertyDispatcher.html#method_set'>springroll.PropertyDispatcher</a>:
+                <a href='../files/src_events_PropertyDispatcher.js.html#l32'><code>set:32</code></a>
               </p>
           
           
@@ -2009,7 +1425,7 @@
             </div>
           
             <div class='description'>
-              <p>Displays the transition in animation, without changing states.</p>
+              <p>Generic setter for an option</p>
           
             </div>
           
@@ -2018,68 +1434,23 @@
           
                 <ul class='params-list'>
                     <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <code class='param-name'>prop</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
           
           
                       <div class='param-description'>
-                        <p>The function to call when the animation is complete.</p>
+                        <p>The property name</p>
           
                       </div>
           
                     </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_showTransitionOut' class='method item'>
-            <h3 class='name'><code>showTransitionOut</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_games_states_StateManager.js.html#l508'><code>showTransitionOut:508</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Displays the transition out animation, without changing states. Upon completion, the
-          transition looping animation automatically starts playing.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
                     <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <code class='param-name'>value</code>
+                        <span class='type'>Mixed</span>
           
           
                       <div class='param-description'>
-                        <p>The function to call when the animation is complete.</p>
+                        <p>The value to set</p>
           
                       </div>
           
@@ -2228,79 +1599,26 @@
 
       <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-          <div id="property__destroyed" class="property item private">
+          <div id="property__destroyed" class="property item protected inherited">
             <h3 class="name"><code>_destroyed</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
           
           
-              <span class="flag private">private</span>
+              <span class="flag protected">protected</span>
           
           
           
             <div class="meta">
-                <p>Inherited from
-                  <a href="../classes/springroll.EventDispatcher.html#property__destroyed">
-                          springroll.EventDispatcher
-                      </a>
-                    but overwritten in
-                <a href="../files/src_games_states_StateManager.js.html#l107"><code>_destroyed:107</code></a>
+                  <p>Inherited from
+                    <a href="../classes/springroll.EventDispatcher.html#property__destroyed">springroll.EventDispatcher</a>:
+                <a href="../files/src_events_EventDispatcher.js.html#l23"><code>_destroyed:23</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>If the current object is destroyed</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__display" class="property item private">
-            <h3 class="name"><code>_display</code></h3>
-            <span class="type"><a href="../classes/springroll.AbstractDisplay.html" class="crosslink">springroll.AbstractDisplay</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l35"><code>_display:35</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The display that holds the states this StateManager is managing.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__isTransitioning" class="property item private">
-            <h3 class="name"><code>_isTransitioning</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l99"><code>_isTransitioning:99</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If the state or manager is current transitioning</p>
+              <p>If the dispatcher is destroyed</p>
           
             </div>
           
@@ -2331,108 +1649,8 @@
           
           
           
-          </div>          <div id="property__oldState" class="property item private">
-            <h3 class="name"><code>_oldState</code></h3>
-            <span class="type">BaseState</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l83"><code>_oldState:83</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The old state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__queueStateId" class="property item private">
-            <h3 class="name"><code>_queueStateId</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l115"><code>_queueStateId:115</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If we&#39;re transitioning the state, the queue the id of the next one</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__state" class="property item private">
-            <h3 class="name"><code>_state</code></h3>
-            <span class="type">BaseState</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l67"><code>_state:67</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The currently selected state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__stateID" class="property item private">
-            <h3 class="name"><code>_stateID</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l75"><code>_stateID:75</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The currently selected state id</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__states" class="property item private">
-            <h3 class="name"><code>_states</code></h3>
+          </div>          <div id="property__properties" class="property item private inherited">
+            <h3 class="name"><code>_properties</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
           
           
@@ -2441,98 +1659,48 @@
           
           
             <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l59"><code>_states:59</code></a>
+                  <p>Inherited from
+                    <a href="../classes/springroll.PropertyDispatcher.html#property__properties">springroll.PropertyDispatcher</a>:
+                <a href="../files/src_events_PropertyDispatcher.js.html#l20"><code>_properties:20</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>The collection of states map</p>
+              <p>The map of property values to store</p>
           
             </div>
           
           
           
-          </div>          <div id="property__transition" class="property item private">
-            <h3 class="name"><code>_transition</code></h3>
-            <span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l43"><code>_transition:43</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The click to play in between transitioning states</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__transitionSounds" class="property item private">
-            <h3 class="name"><code>_transitionSounds</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l51"><code>_transitionSounds:51</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The sounds for the transition</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_name description" class="property item private">
-            <h3 class="name"><code>name description</code></h3>
+          </div>          <div id="property_autoPause" class="property item">
+            <h3 class="name"><code>autoPause</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
           
           
-              <span class="flag private">private</span>
           
           
           
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l91"><code>name description:91</code></a>
+                <a href="../files/src_ApplicationOptions.js.html#l276"><code>autoPause:276</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>If the manager is loading a state</p>
+              <p>The application pauses automatically when the window loses focus.</p>
           
             </div>
           
+              <p><strong>Default:</strong> true</p>
           
           
-          </div>          <div id="property_state" class="property item">
-            <h3 class="name"><code>state</code></h3>
+          </div>          <div id="property_basePath" class="property item">
+            <h3 class="name"><code>basePath</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
           
           
@@ -2542,14 +1710,554 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l319"><code>state:319</code></a>
+                <a href="../files/src_ApplicationOptions.js.html#l312"><code>basePath:312</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>Get or change the current state, using the state id.</p>
+              <p>The optional file path to prefix to any relative file
+          requests this is a great way to load all load requests
+          with a CDN path.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_cacheBust" class="property item">
+            <h3 class="name"><code>cacheBust</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l303"><code>cacheBust:303</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Override the end-user browser cache by adding
+          "?v=" to the end of each file path requested. Use
+          for developmently, debugging only!</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_canvasId" class="property item">
+            <h3 class="name"><code>canvasId</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l250"><code>canvasId:250</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The default display DOM ID name</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_crossOrigin" class="property item">
+            <h3 class="name"><code>crossOrigin</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l320"><code>crossOrigin:320</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Used by <code>springroll.PixiTask</code>, default behavior
+          is to load assets from the same domain.</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_debug" class="property item">
+            <h3 class="name"><code>debug</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l225"><code>debug:225</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Enable the Debug class. After initialization, this
+          is a pass-through to Debug.enabled.</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_debugRemote" class="property item">
+            <h3 class="name"><code>debugRemote</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l240"><code>debugRemote:240</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The host computer for remote debugging, the debug
+          module must be included to use this feature. Can be an
+          IP address or host name. After initialization, setting
+          this will still connect or disconect Debug for remote
+          debugging. This is a write-only property.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_defaultOptions" class="property item private">
+            <h3 class="name"><code>defaultOptions</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l184"><code>defaultOptions:184</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The default Application options</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_display" class="property item">
+            <h3 class="name"><code>display</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l256"><code>display:256</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The name of the class to automatically instantiate as the
+          display (e.g. <code>springroll.PixiDisplay</code>)</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_displayOptions" class="property item">
+            <h3 class="name"><code>displayOptions</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l263"><code>displayOptions:263</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Display specific setup options</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_fps" class="property item">
+            <h3 class="name"><code>fps</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l198"><code>fps:198</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The framerate to use for rendering the stage</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 60</p>
+          
+          
+          </div>          <div id="property_framerate" class="property item">
+            <h3 class="name"><code>framerate</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l328"><code>framerate:328</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Framereate container</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_getQueryString" class="property item private">
+            <h3 class="name"><code>getQueryString</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l136"><code>getQueryString:136</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Get the query string as an object</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_maxHeight" class="property item">
+            <h3 class="name"><code>maxHeight</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l334"><code>maxHeight:334</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If doing uniform resizing, optional parameter to add
+          a maximum height relative to the original width. This
+          allows for "title-safe" responsiveness. Must be greater
+          than the original height of the canvas.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_maxWidth" class="property item">
+            <h3 class="name"><code>maxWidth</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l343"><code>maxWidth:343</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If doing uniform resizing, optional parameter to add
+          a maximum width relative to the original height. This
+          allows for "title-safe" responsiveness. Must be greater
+          than the original width of the canvas.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_minLogLevel" class="property item">
+            <h3 class="name"><code>minLogLevel</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l233"><code>minLogLevel:233</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Minimum log level from 0 to 4</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_raf" class="property item">
+            <h3 class="name"><code>raf</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l191"><code>raf:191</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Use Request Animation Frame API</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> true</p>
+          
+          
+          </div>          <div id="property_resizeElement" class="property item">
+            <h3 class="name"><code>resizeElement</code></h3>
+            <span class="type">DOMElement | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l205"><code>resizeElement:205</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The element to resize the canvas to fit</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_uniformResize" class="property item">
+            <h3 class="name"><code>uniformResize</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l211"><code>uniformResize:211</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Whether to resize the displays to the original aspect ratio</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> true</p>
+          
+          
+          </div>          <div id="property_updateTween" class="property item">
+            <h3 class="name"><code>updateTween</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l269"><code>updateTween:269</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If using TweenJS, the Application will update the Tween itself.</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_useQueryString" class="property item">
+            <h3 class="name"><code>useQueryString</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l218"><code>useQueryString:218</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Use the query string parameters for options overrides</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_version" class="property item">
+            <h3 class="name"><code>version</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l283"><code>version:283</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The current version number for your application. This
+          number will automatically be appended to all file
+          requests. For instance, if the version is "0.0.1" all
+          file requests will be appended with "?v=0.0.1"</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_versionsFile" class="property item">
+            <h3 class="name"><code>versionsFile</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ApplicationOptions.js.html#l292"><code>versionsFile:292</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Path to a text file which contains explicit version
+          numbers for each asset. This is useful for controlling
+          the live browser cache. For instance, this text file
+          would have an asset on each line followed by a number:
+          <code>assets/config/config.json 2</code> would load
+          <code>assets/config/config.json?v=2</code></p>
           
             </div>
           
@@ -2558,177 +2266,6 @@
           </div>      </div>
 
 
-      <div role='tabpanel' id='docs-events' class='tab-pane'>
-
-          <div id="event_onInitDone" class="events item">
-            <h3 class="name"><code>onInitDone</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l168"><code>onInitDone:168</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the event for initialization complete - the first state is then being entered.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onLoadingDone" class="events item">
-            <h3 class="name"><code>onLoadingDone</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l182"><code>onLoadingDone:182</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Event when the state finishes loading assets when it is entered.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onLoadingStart" class="events item">
-            <h3 class="name"><code>onLoadingStart</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l175"><code>onLoadingStart:175</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Event when the state begins loading assets when it is entered.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onTransitionIn" class="events item">
-            <h3 class="name"><code>onTransitionIn</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l140"><code>onTransitionIn:140</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the Animator label and event for transitioning into a state.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onTransitionInDone" class="events item">
-            <h3 class="name"><code>onTransitionInDone</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l147"><code>onTransitionInDone:147</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the event for completing transitioning into a state.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onTransitionOut" class="events item">
-            <h3 class="name"><code>onTransitionOut</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l154"><code>onTransitionOut:154</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the Animator label and event for transitioning out of a state.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_onTransitionOutDone" class="events item">
-            <h3 class="name"><code>onTransitionOutDone</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_games_states_StateManager.js.html#l161"><code>onTransitionOutDone:161</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the event for completing transitioning out of a state.</p>
-          
-            </div>
-          
-          
-          
-          </div>      </div>
   </div>
 </div>        </div>
       </div>

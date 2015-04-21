@@ -1140,7 +1140,9 @@
         "src/Application.js": {
             "name": "src/Application.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "springroll.Application": 1
+            },
             "fors": {},
             "namespaces": {
                 "springroll": 1
@@ -1150,7 +1152,7 @@
             "name": "src/ApplicationOptions.js",
             "modules": {},
             "classes": {
-                "springroll.Application": 1
+                "springroll.ApplicationOptions": 1
             },
             "fors": {},
             "namespaces": {
@@ -1202,7 +1204,8 @@
                 "window.extend": 1,
                 "window.include": 1,
                 "window.namespace": 1,
-                "springroll.Application": 1
+                "springroll.Application": 1,
+                "springroll.ApplicationOptions": 1
             },
             "fors": {},
             "namespaces": {
@@ -5103,6 +5106,30 @@
         "springroll.Application": {
             "name": "springroll.Application",
             "shortname": "Application",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "springroll",
+            "file": "src/Application.js",
+            "line": 16,
+            "description": "Creates a new application, for example (HappyCamel extends Application)\nmanages displays, update loop controlling, handles resizing\n\n\tvar app = new Application({fps:60, resizeElement:window});",
+            "extends": "EventDispatcher",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "options",
+                    "description": "The options for creating the application, \n \t\tsee `springroll.ApplicationOptions` for the specific options\n\t\tthat can be overridden and set.",
+                    "type": "Object",
+                    "optional": true
+                }
+            ]
+        },
+        "springroll.ApplicationOptions": {
+            "name": "springroll.ApplicationOptions",
+            "shortname": "ApplicationOptions",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -26804,7 +26831,7 @@
             "type": "Object",
             "access": "private",
             "tagname": "",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26821,7 +26848,7 @@
                     "type": "Property"
                 }
             ],
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26834,7 +26861,7 @@
             "type": "Object",
             "access": "private",
             "tagname": "",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26846,7 +26873,7 @@
             "name": "raf",
             "type": "Boolean",
             "default": "true",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26858,7 +26885,7 @@
             "name": "fps",
             "type": "Int",
             "default": "60",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26869,7 +26896,7 @@
             "itemtype": "property",
             "name": "resizeElement",
             "type": "DOMElement|String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26881,7 +26908,7 @@
             "name": "uniformResize",
             "type": "Boolean",
             "default": "true",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26893,7 +26920,7 @@
             "name": "useQueryString",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26905,7 +26932,7 @@
             "name": "debug",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26917,7 +26944,7 @@
             "name": "minLogLevel",
             "type": "Int",
             "default": "0",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26928,7 +26955,7 @@
             "itemtype": "property",
             "name": "debugRemote",
             "type": "String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26939,7 +26966,7 @@
             "itemtype": "property",
             "name": "canvasId",
             "type": "String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26950,7 +26977,7 @@
             "itemtype": "property",
             "name": "display",
             "type": "Function",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26961,7 +26988,7 @@
             "itemtype": "property",
             "name": "displayOptions",
             "type": "Object",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26973,7 +27000,7 @@
             "name": "updateTween",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26985,7 +27012,7 @@
             "name": "autoPause",
             "type": "Boolean",
             "default": "true",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -26996,7 +27023,7 @@
             "itemtype": "property",
             "name": "version",
             "type": "String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27007,7 +27034,7 @@
             "itemtype": "property",
             "name": "versionsFile",
             "type": "String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27019,7 +27046,7 @@
             "name": "cacheBust",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27030,7 +27057,7 @@
             "itemtype": "property",
             "name": "basePath",
             "type": "String",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27042,7 +27069,7 @@
             "name": "crossOrigin",
             "type": "Boolean",
             "default": "false",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27053,7 +27080,7 @@
             "itemtype": "property",
             "name": "framerate",
             "type": "String|DOMElement",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27064,7 +27091,7 @@
             "itemtype": "property",
             "name": "maxHeight",
             "type": "Int",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27075,7 +27102,7 @@
             "itemtype": "property",
             "name": "maxWidth",
             "type": "Int",
-            "class": "springroll.Application",
+            "class": "springroll.ApplicationOptions",
             "module": "Core",
             "namespace": "springroll"
         }

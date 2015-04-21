@@ -79,6 +79,9 @@
           <a href='../classes/springroll.Application.html'>springroll.Application</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
@@ -441,11 +444,11 @@
 
     <div class='extends'>
       Extends
-      <a href="../classes/springroll.PropertyDispatcher.html" class="crosslink">springroll.PropertyDispatcher</a>
+      EventDispatcher
     </div>
 
     <div class='foundat'>
-      Defined in: <a href='../files/src_ApplicationOptions.js.html#l12'><code>springroll.Application:12</code></a>
+      Defined in: <a href='../files/src_Application.js.html#l16'><code>springroll.Application:16</code></a>
     </div>
 
       Module:
@@ -455,15 +458,24 @@
 
 
 <div class='box intro'>
-  <p>Manage the Application options</p>
-
+  <p>Creates a new application, for example (HappyCamel extends Application)
+manages displays, update loop controlling, handles resizing</p>
+<pre class="code prettyprint"><code>var app = new Application({fps:60, resizeElement:window});
+</code></pre>
 </div>
 
   <div class='constructor'>
     <h2>Constructor</h2> <div id='method_springroll.Application' class='method item'>
   <h3 class='name'><code>springroll.Application</code></h3>
 
-    <span class='paren'>()</span>
+    <div class='args'>
+      <span class='paren'>(</span>
+      <ul class='args-list inline commas'>
+          <li class='arg'>
+              <code class='optional'>[options]</code>
+          </li>
+    </ul><span class='paren'>)</span>
+    </div>
 
 
   <div class='flags'>
@@ -477,7 +489,7 @@
   <div class='meta'>
         <p>
             Defined in
-      <a href='../files/src_ApplicationOptions.js.html#l12'><code>springroll.Application:12</code></a>
+      <a href='../files/src_Application.js.html#l16'><code>springroll.Application:16</code></a>
     </p>
 
 
@@ -488,6 +500,26 @@
     
   </div>
 
+    <div class='params'>
+      <h4>Parameters:</h4>
+
+      <ul class='params-list'>
+          <li class='param'>
+              <code class='param-name optional'>[options]</code>
+              <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+              <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+            <div class='param-description'>
+              <p>The options for creating the application, 
+         see <code>springroll.ApplicationOptions</code> for the specific options
+        that can be overridden and set.</p>
+
+            </div>
+
+          </li>
+      </ul>
+    </div>
 
 
 </div>
@@ -541,20 +573,12 @@
                 <a href='#method_addDisplay'>addDisplay</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_addProp'>addProp</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method protected'>
                 <a href='#method_calculateDisplaySize'>calculateDisplaySize</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
+              <li class='col-xs-6 col-md-4 index-item method'>
                 <a href='#method_destroy'>destroy</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private inherited'>
-                <a href='#method_get'>get</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method'>
@@ -565,28 +589,8 @@
                 <a href='#method_getDisplays'>getDisplays</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_has'>has</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method protected'>
                 <a href='#method_init'>init</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_off'>off</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_on'>on</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_once'>once</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_readOnly'>readOnly</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method public'>
@@ -603,28 +607,12 @@
                 <a href='#method_removeDisplay'>removeDisplay</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_respond'>respond</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private inherited'>
-                <a href='#method_set'>set</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method private'>
                 <a href='#method_setTargetedTimeout'>setTargetedTimeout</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method inherited'>
-                <a href='#method_trigger'>trigger</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method'>
                 <a href='#method_triggerResize'>triggerResize</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private inherited'>
-                <a href='#method_type'>type</a>
 
               </li>
           </ul>
@@ -636,10 +624,6 @@
           <ul class='list-group row properties extends'>
               <li class='col-xs-6 col-md-4 index-item property private'>
                 <a href='#property__aspectRatio'>_aspectRatio</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property protected inherited'>
-                <a href='#property__destroyed'>_destroyed</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
@@ -676,10 +660,6 @@
                 <a href='#property__lastFrameTime'>_lastFrameTime</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item property private inherited'>
-                <a href='#property__listeners'>_listeners</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
                 <a href='#property__maxHeight'>_maxHeight</a>
 
@@ -708,10 +688,6 @@
                 <a href='#property__paused'>_paused</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item property private inherited'>
-                <a href='#property__properties'>_properties</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item property protected'>
                 <a href='#property__readyToInit'>_readyToInit</a>
 
@@ -736,64 +712,12 @@
                 <a href='#property__useRAF'>_useRAF</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_autoPause'>autoPause</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_basePath'>basePath</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_cacheBust'>cacheBust</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_canvasId'>canvasId</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_crossOrigin'>crossOrigin</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_debug'>debug</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_debugRemote'>debugRemote</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property_defaultOptions'>defaultOptions</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item property public'>
                 <a href='#property_display'>display</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_display'>display</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_displayOptions'>displayOptions</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
                 <a href='#property_enabled'>enabled</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_fps'>fps</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_framerate'>framerate</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property_getQueryString'>getQueryString</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property public'>
@@ -802,51 +726,11 @@
                   <span class='flag static'>static</span>
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_maxHeight'>maxHeight</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_maxWidth'>maxWidth</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_minLogLevel'>minLogLevel</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
                 <a href='#property_options'>options</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
                 <a href='#property_paused'>paused</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_raf'>raf</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_resizeElement'>resizeElement</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_uniformResize'>uniformResize</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_updateTween'>updateTween</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_useQueryString'>useQueryString</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_version'>version</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_versionsFile'>versionsFile</a>
 
               </li>
           </ul>
@@ -1153,103 +1037,6 @@
                 </div>
               </div>
           
-          </div>          <div id='method_addProp' class='method item inherited'>
-            <h3 class='name'><code>addProp</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>prop</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[initValue]</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[readOnly=false]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>PropertyDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.PropertyDispatcher.html#method_addProp'>springroll.PropertyDispatcher</a>:
-                <a href='../files/src_events_PropertyDispatcher.js.html#l69'><code>addProp:69</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Add a new property to allow deteching</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>prop</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The property name</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[initValue]</code>
-                        <span class='type'>Mixed</span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The default value</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[readOnly=false]</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>If the property is readonly</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>PropertyDispatcher</span>:
-                    <p>The instance for chaining</p>
-          
-                </div>
-              </div>
-          
           </div>          <div id='method_calculateDisplaySize' class='method item protected'>
             <h3 class='name'><code>calculateDisplaySize</code></h3>
           
@@ -1347,11 +1134,8 @@
             </div> 
             
             <div class='meta'>
-                <p>Inherited from
-                  <a href='../classes/springroll.EventDispatcher.html#method_destroy'>
-                          springroll.EventDispatcher
-                      </a>
-                    but overwritten in
+                  <p>
+                      Defined in
                 <a href='../files/src_Application.js.html#l767'><code>destroy:767</code></a>
               </p>
           
@@ -1366,74 +1150,6 @@
             </div>
           
           
-          
-          </div>          <div id='method_get' class='method item private inherited'>
-            <h3 class='name'><code>get</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>prop</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>Mixed</span>
-              </span>
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.PropertyDispatcher.html#method_get'>springroll.PropertyDispatcher</a>:
-                <a href='../files/src_events_PropertyDispatcher.js.html#l50'><code>get:50</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Generic setter for an option</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>prop</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The option name</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>Mixed</span>:
-                    <p>The value of the option</p>
-          
-                </div>
-              </div>
           
           </div>          <div id='method_getDisplay' class='method item'>
             <h3 class='name'><code>getDisplay</code></h3>
@@ -1572,88 +1288,6 @@
                 </div>
               </div>
           
-          </div>          <div id='method_has' class='method item inherited'>
-            <h3 class='name'><code>has</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>name</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[callback]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_has'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l209'><code>has:209</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Checks if the EventDispatcher has a specific listener or any listener for a given event.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>name</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The name of the single event type to check for</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[callback]</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The listener function to check for. If omitted, checks for any listener.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    <p>If the EventDispatcher has the specified listener.</p>
-          
-                </div>
-              </div>
-          
           </div>          <div id='method_init' class='method item protected'>
             <h3 class='name'><code>init</code></h3>
           
@@ -1685,349 +1319,6 @@
             </div>
           
           
-          
-          </div>          <div id='method_off' class='method item inherited'>
-            <h3 class='name'><code>off</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>name</code>
-                    </li>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>EventDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_off'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l152'><code>off:152</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Remove the event listener</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>name</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String*</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The type of event string separated by spaces, if no name is specifed remove all listeners.</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The listener function or collection of callback functions</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>EventDispatcher</span>:
-                    <p>Return this EventDispatcher for chaining calls.</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_on' class='method item inherited'>
-            <h3 class='name'><code>on</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>name</code>
-                    </li>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[priority=0]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>EventDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_on'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l84'><code>on:84</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Add an event listener. The parameters for the listener functions depend on the event.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>name</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The type of event (can be multiple events separated by spaces),
-                  or a map of events to handlers</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The callback function when event is fired or an array of callbacks.</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[priority=0]</code>
-                        <span class='type'>Int</span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The priority of the event listener. Higher numbers are handled first.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>EventDispatcher</span>:
-                    <p>Return this EventDispatcher for chaining calls.</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_once' class='method item inherited'>
-            <h3 class='name'><code>once</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>name</code>
-                    </li>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[priority=0]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>EventDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_once'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l69'><code>once:69</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Add an event listener but only handle it one time.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>name</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The type of event (can be multiple events separated by spaces),
-                  or a map of events to handlers</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The callback function when event is fired or an array of callbacks.</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[priority=0]</code>
-                        <span class='type'>Int</span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The priority of the event listener. Higher numbers are handled first.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>EventDispatcher</span>:
-                    <p>Return this EventDispatcher for chaining calls.</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_readOnly' class='method item inherited'>
-            <h3 class='name'><code>readOnly</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>prop</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>PropertyDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.PropertyDispatcher.html#method_readOnly'>springroll.PropertyDispatcher</a>:
-                <a href='../files/src_events_PropertyDispatcher.js.html#l101'><code>readOnly:101</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Turn on read-only for properties</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>prop</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-                        <span class='flag multiple' title='This argument may occur one or more times.'>multiple</span>
-          
-                      <div class='param-description'>
-                        <p>The property or properties to make readonly</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>PropertyDispatcher</span>:
-                    <p>The instance for chaining</p>
-          
-                </div>
-              </div>
           
           </div>          <div id='method_registerDestroy' class='method item public'>
             <h3 class='name'><code>registerDestroy</code></h3>
@@ -2198,157 +1489,6 @@
               </div>
           
           
-          </div>          <div id='method_respond' class='method item inherited'>
-            <h3 class='name'><code>respond</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>name</code>
-                    </li>
-                    <li class='arg'>
-                        <code>responder</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>PropertyDispatcher</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.PropertyDispatcher.html#method_respond'>springroll.PropertyDispatcher</a>:
-                <a href='../files/src_events_PropertyDispatcher.js.html#l122'><code>respond:122</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Whenever a property is get a responder is called</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>name</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The property name</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>responder</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>Function to call when getting property</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>PropertyDispatcher</span>:
-                    <p>The instance for chaining</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_set' class='method item private inherited'>
-            <h3 class='name'><code>set</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>prop</code>
-                    </li>
-                    <li class='arg'>
-                        <code>value</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.PropertyDispatcher.html#method_set'>springroll.PropertyDispatcher</a>:
-                <a href='../files/src_events_PropertyDispatcher.js.html#l32'><code>set:32</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Generic setter for an option</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>prop</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The property name</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>value</code>
-                        <span class='type'>Mixed</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The value to set</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
           </div>          <div id='method_setTargetedTimeout' class='method item private'>
             <h3 class='name'><code>setTargetedTimeout</code></h3>
           
@@ -2420,75 +1560,6 @@
               </div>
           
           
-          </div>          <div id='method_trigger' class='method item inherited'>
-            <h3 class='name'><code>trigger</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>type</code>
-                    </li>
-                    <li class='arg'>
-                        <code>arguments</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_trigger'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l34'><code>trigger:34</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Dispatch an event</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>type</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The type of event to trigger</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>arguments</code>
-                        <span class='type'></span>
-          
-          
-                      <div class='param-description'>
-                        <p>Additional parameters for the listener functions.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
           </div>          <div id='method_triggerResize' class='method item'>
             <h3 class='name'><code>triggerResize</code></h3>
           
@@ -2520,73 +1591,6 @@
           
           
           
-          </div>          <div id='method_type' class='method item private inherited'>
-            <h3 class='name'><code>type</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>value</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-              </span>
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>Inherited from
-                    <a href='../classes/springroll.EventDispatcher.html#method_type'>springroll.EventDispatcher</a>:
-                <a href='../files/src_events_EventDispatcher.js.html#l238'><code>type:238</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Return type of the value.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>value</code>
-                        <span class='type'></span>
-          
-          
-                      <div class='param-description'>
-                        
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-                    <p>The type</p>
-          
-                </div>
-              </div>
-          
           </div>      </div>
 
       <div role='tabpanel' id='docs-properties' class='tab-pane'>
@@ -2611,31 +1615,6 @@
           
             <div class="description">
               <p>The aspect ratio of the primary display, as width / height.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__destroyed" class="property item protected inherited">
-            <h3 class="name"><code>_destroyed</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-              <span class="flag protected">protected</span>
-          
-          
-          
-            <div class="meta">
-                  <p>Inherited from
-                    <a href="../classes/springroll.EventDispatcher.html#property__destroyed">springroll.EventDispatcher</a>:
-                <a href="../files/src_events_EventDispatcher.js.html#l23"><code>_destroyed:23</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If the dispatcher is destroyed</p>
           
             </div>
           
@@ -2847,31 +1826,6 @@
           
           
           
-          </div>          <div id="property__listeners" class="property item private inherited">
-            <h3 class="name"><code>_listeners</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>Inherited from
-                    <a href="../classes/springroll.EventDispatcher.html#property__listeners">springroll.EventDispatcher</a>:
-                <a href="../files/src_events_EventDispatcher.js.html#l16"><code>_listeners:16</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The collection of listeners</p>
-          
-            </div>
-          
-          
-          
           </div>          <div id="property__maxHeight" class="property item private">
             <h3 class="name"><code>_maxHeight</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
@@ -3047,31 +2001,6 @@
           
           
           
-          </div>          <div id="property__properties" class="property item private inherited">
-            <h3 class="name"><code>_properties</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>Inherited from
-                    <a href="../classes/springroll.PropertyDispatcher.html#property__properties">springroll.PropertyDispatcher</a>:
-                <a href="../files/src_events_PropertyDispatcher.js.html#l20"><code>_properties:20</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The map of property values to store</p>
-          
-            </div>
-          
-          
-          
           </div>          <div id="property__readyToInit" class="property item protected">
             <h3 class="name"><code>_readyToInit</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -3225,213 +2154,6 @@
               <p><strong>Default:</strong> false</p>
           
           
-          </div>          <div id="property_autoPause" class="property item">
-            <h3 class="name"><code>autoPause</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l276"><code>autoPause:276</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The application pauses automatically when the window loses focus.</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> true</p>
-          
-          
-          </div>          <div id="property_basePath" class="property item">
-            <h3 class="name"><code>basePath</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l312"><code>basePath:312</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The optional file path to prefix to any relative file
-          requests this is a great way to load all load requests
-          with a CDN path.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_cacheBust" class="property item">
-            <h3 class="name"><code>cacheBust</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l303"><code>cacheBust:303</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Override the end-user browser cache by adding
-          "?v=" to the end of each file path requested. Use
-          for developmently, debugging only!</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_canvasId" class="property item">
-            <h3 class="name"><code>canvasId</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l250"><code>canvasId:250</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The default display DOM ID name</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_crossOrigin" class="property item">
-            <h3 class="name"><code>crossOrigin</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l320"><code>crossOrigin:320</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Used by <code>springroll.PixiTask</code>, default behavior
-          is to load assets from the same domain.</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_debug" class="property item">
-            <h3 class="name"><code>debug</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l225"><code>debug:225</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Enable the Debug class. After initialization, this
-          is a pass-through to Debug.enabled.</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_debugRemote" class="property item">
-            <h3 class="name"><code>debugRemote</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l240"><code>debugRemote:240</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The host computer for remote debugging, the debug
-          module must be included to use this feature. Can be an
-          IP address or host name. After initialization, setting
-          this will still connect or disconect Debug for remote
-          debugging. This is a write-only property.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_defaultOptions" class="property item private">
-            <h3 class="name"><code>defaultOptions</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l184"><code>defaultOptions:184</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The default Application options</p>
-          
-            </div>
-          
-          
-          
           </div>          <div id="property_display" class="property item public">
             <h3 class="name"><code>display</code></h3>
             <span class="type">Display</span>
@@ -3454,55 +2176,6 @@
               <p>Primary renderer for the application, for simply accessing
           Application.instance.display.stage;
           The first display added becomes the primary display automatically.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_display" class="property item">
-            <h3 class="name"><code>display</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l256"><code>display:256</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the class to automatically instantiate as the
-          display (e.g. <code>springroll.PixiDisplay</code>)</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_displayOptions" class="property item">
-            <h3 class="name"><code>displayOptions</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l263"><code>displayOptions:263</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Display specific setup options</p>
           
             </div>
           
@@ -3534,80 +2207,6 @@
               <p><strong>Default:</strong> true</p>
           
           
-          </div>          <div id="property_fps" class="property item">
-            <h3 class="name"><code>fps</code></h3>
-            <span class="type">Int</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l198"><code>fps:198</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The framerate to use for rendering the stage</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> 60</p>
-          
-          
-          </div>          <div id="property_framerate" class="property item">
-            <h3 class="name"><code>framerate</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | DOMElement</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l328"><code>framerate:328</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Framereate container</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_getQueryString" class="property item private">
-            <h3 class="name"><code>getQueryString</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l136"><code>getQueryString:136</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Get the query string as an object</p>
-          
-            </div>
-          
-          
-          
           </div>          <div id="property_instance" class="property item public">
             <h3 class="name"><code>instance</code></h3>
             <span class="type">Application</span>
@@ -3634,88 +2233,9 @@
           
           
           
-          </div>          <div id="property_maxHeight" class="property item">
-            <h3 class="name"><code>maxHeight</code></h3>
-            <span class="type">Int</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l334"><code>maxHeight:334</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If doing uniform resizing, optional parameter to add
-          a maximum height relative to the original width. This
-          allows for "title-safe" responsiveness. Must be greater
-          than the original height of the canvas.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_maxWidth" class="property item">
-            <h3 class="name"><code>maxWidth</code></h3>
-            <span class="type">Int</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l343"><code>maxWidth:343</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If doing uniform resizing, optional parameter to add
-          a maximum width relative to the original height. This
-          allows for "title-safe" responsiveness. Must be greater
-          than the original width of the canvas.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_minLogLevel" class="property item">
-            <h3 class="name"><code>minLogLevel</code></h3>
-            <span class="type">Int</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l233"><code>minLogLevel:233</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Minimum log level from 0 to 4</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> 0</p>
-          
-          
           </div>          <div id="property_options" class="property item">
             <h3 class="name"><code>options</code></h3>
-            <span class="type">springroll.ApplicationOptions</span>
+            <span class="type"><a href="../classes/springroll.ApplicationOptions.html" class="crosslink">springroll.ApplicationOptions</a></span>
           
           
           
@@ -3757,186 +2277,6 @@
           
             <div class="description">
               <p>Pause updates at the application level</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_raf" class="property item">
-            <h3 class="name"><code>raf</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l191"><code>raf:191</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Use Request Animation Frame API</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> true</p>
-          
-          
-          </div>          <div id="property_resizeElement" class="property item">
-            <h3 class="name"><code>resizeElement</code></h3>
-            <span class="type">DOMElement | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l205"><code>resizeElement:205</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The element to resize the canvas to fit</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_uniformResize" class="property item">
-            <h3 class="name"><code>uniformResize</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l211"><code>uniformResize:211</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Whether to resize the displays to the original aspect ratio</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> true</p>
-          
-          
-          </div>          <div id="property_updateTween" class="property item">
-            <h3 class="name"><code>updateTween</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l269"><code>updateTween:269</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If using TweenJS, the Application will update the Tween itself.</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_useQueryString" class="property item">
-            <h3 class="name"><code>useQueryString</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l218"><code>useQueryString:218</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Use the query string parameters for options overrides</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_version" class="property item">
-            <h3 class="name"><code>version</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l283"><code>version:283</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The current version number for your application. This
-          number will automatically be appended to all file
-          requests. For instance, if the version is "0.0.1" all
-          file requests will be appended with "?v=0.0.1"</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_versionsFile" class="property item">
-            <h3 class="name"><code>versionsFile</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_ApplicationOptions.js.html#l292"><code>versionsFile:292</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Path to a text file which contains explicit version
-          numbers for each asset. This is useful for controlling
-          the live browser cache. For instance, this text file
-          would have an asset on each line followed by a number:
-          <code>assets/config/config.json 2</code> would load
-          <code>assets/config/config.json?v=2</code></p>
           
             </div>
           
