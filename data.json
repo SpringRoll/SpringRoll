@@ -4904,13 +4904,13 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/utils/Enum.js",
-            "line": 51,
+            "line": 59,
             "description": "An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,\nreferenced as a property with the same name as the EnumValue. Examples:\n\n\t\tvar myEnum = new springroll.Enum(\n\t\t\t\"valueOf0\",\n\t\t\t\"valueOf1\",\n\t\t\t\"valueOf2\");\n\t\tvar myOtherEnum = new springroll.Enum(\n\t\t\t{name: \"one\", value:\"1\", toString:\"I am the One!\"},\n\t\t\t\"two\",\n\t\t\t{name:\"screwSequentialNumbers\", value:42});\n\t\t\t\n\t\tmyEnum.valueOf0 != 0;//enum values are not integers\n\t\tmyEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums\n\t\tmyEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers\n\t\tmyOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values\n\t\tconsole.log(myOtherEnum.one.toString());//outputs \"I am the One!\"\n\n\t\tfor (var i in myEnum) console.log(i); //outputs \"valueOf0\",\"valueOf1\",\"valueOf2\"",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "arguments",
-                    "description": "The list of enumeration values. You can pass either an\n                                       array or a list of parameters. Each string will be\n                                       the previous value plus one, while objects with\n                                       'name' and 'value' properties will have the specified\n                                       numeric value.",
+                    "description": "\n The list of enumeration values. You can pass either an\n array or a list of parameters. Each string will be\n the previous value plus one, while objects with\n 'name' and 'value' properties will have the specified\n numeric value.",
                     "type": "Array|String|Object"
                 }
             ]
@@ -8132,10 +8132,10 @@
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
             "line": 157,
-            "description": "The sound instance of the playing audio that the animation should be synced to.",
+            "description": "The queue of sound instances of playing audio that the animation should be synced to.\nOnly the most recent active one will be synced to.",
             "itemtype": "property",
-            "name": "_currentAudioInstance",
-            "type": "springroll.SoundInstance",
+            "name": "_activeSyncAudio",
+            "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "springroll.easeljs.Cutscene",
@@ -8144,7 +8144,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 164,
+            "line": 165,
             "description": "The time in seconds into the animation that the current synced audio started.",
             "itemtype": "property",
             "name": "_soundStartTime",
@@ -8157,7 +8157,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 171,
+            "line": 172,
             "description": "Array of active SoundInstances that are not the currently synced one.",
             "itemtype": "property",
             "name": "_activeAudio",
@@ -8170,7 +8170,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 178,
+            "line": 179,
             "description": "If the animation has finished playing.",
             "itemtype": "property",
             "name": "_animFinished",
@@ -8183,7 +8183,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 185,
+            "line": 186,
             "description": "If the audio has finished playing.",
             "itemtype": "property",
             "name": "_audioFinished",
@@ -8196,7 +8196,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 192,
+            "line": 193,
             "description": "The Captions object to use to manage captions.",
             "itemtype": "property",
             "name": "_captionsObj",
@@ -8209,7 +8209,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 202,
+            "line": 203,
             "description": "The function to call when loading is complete.",
             "itemtype": "property",
             "name": "_loadCallback",
@@ -8222,7 +8222,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 209,
+            "line": 210,
             "description": "The function to call when playback is complete.",
             "itemtype": "property",
             "name": "_endCallback",
@@ -8235,7 +8235,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 225,
+            "line": 226,
             "description": "Called from the constructor to complete setup and start loading.",
             "itemtype": "method",
             "name": "setup",
@@ -8247,7 +8247,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 244,
+            "line": 245,
             "description": "Callback for when the config file is loaded.",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -8266,7 +8266,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 305,
+            "line": 306,
             "description": "Callback for when the audio has been preloaded.",
             "itemtype": "method",
             "name": "onAudioLoaded",
@@ -8278,7 +8278,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 315,
+            "line": 316,
             "description": "Callback for when all art assets have been loaded.",
             "itemtype": "method",
             "name": "onArtLoaded",
@@ -8297,7 +8297,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 370,
+            "line": 371,
             "description": "Callback for when all loading is complete.",
             "itemtype": "method",
             "name": "onLoadComplete",
@@ -8316,7 +8316,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 410,
+            "line": 411,
             "description": "Listener for when the Application is resized.",
             "itemtype": "method",
             "name": "resize",
@@ -8340,7 +8340,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 442,
+            "line": 443,
             "description": "Starts playing the cutscene.",
             "itemtype": "method",
             "name": "start",
@@ -8359,7 +8359,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 493,
+            "line": 494,
             "description": "Callback for when the audio has finished playing.",
             "itemtype": "method",
             "name": "_audioCallback",
@@ -8371,7 +8371,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 520,
+            "line": 538,
             "description": "Listener for frame updates.",
             "itemtype": "method",
             "name": "update",
@@ -8390,7 +8390,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 612,
+            "line": 630,
             "description": "Stops playback of the cutscene.",
             "itemtype": "method",
             "name": "stop",
@@ -8411,7 +8411,7 @@
         },
         {
             "file": "src/displays/easeljs/cutscene/Cutscene.js",
-            "line": 635,
+            "line": 654,
             "description": "Destroys the cutscene.",
             "itemtype": "method",
             "name": "destroy",
@@ -14384,11 +14384,11 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 44,
+            "line": 45,
             "description": "Reference to the main game",
             "itemtype": "property",
             "name": "game",
-            "type": "_namespace_.State",
+            "type": "Application",
             "access": "protected",
             "tagname": "",
             "class": "springroll.easeljs.BaseState",
@@ -14397,7 +14397,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 51,
+            "line": 52,
             "description": "The instance of the VOPlayer",
             "itemtype": "property",
             "name": "player",
@@ -14410,7 +14410,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 58,
+            "line": 59,
             "description": "Reference to the main config object",
             "itemtype": "property",
             "name": "config",
@@ -14423,10 +14423,10 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 65,
+            "line": 66,
             "description": "The assets to load each time",
             "itemtype": "property",
-            "name": "manifset",
+            "name": "manifest",
             "type": "Object",
             "access": "protected",
             "tagname": "",
@@ -14436,7 +14436,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 72,
+            "line": 73,
             "description": "If the assets have finished loading",
             "itemtype": "property",
             "name": "assetsLoaded",
@@ -14449,7 +14449,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 79,
+            "line": 80,
             "description": "The UI Scaler object",
             "itemtype": "property",
             "name": "scaler",
@@ -14460,7 +14460,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 85,
+            "line": 86,
             "description": "Should we attempt to run resize every time this state is entered\nSetting this to false in your subclass before onLoaded is called\nstops assets already on stage from re-scaling",
             "itemtype": "property",
             "name": "",
@@ -14474,7 +14474,33 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 102,
+            "line": 96,
+            "description": "If a manifest specific to this state should be automatically loaded by default.",
+            "itemtype": "property",
+            "name": "useDefaultManifest",
+            "type": "Boolean",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS Tracking Game",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/games/easeljs/BaseState.js",
+            "line": 103,
+            "description": "The number of frames to delay the transition in after loading, to allow the framerate\nto stablize after heavy art instantiation.",
+            "itemtype": "property",
+            "name": "delayLoadFrames",
+            "type": "Int",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS Tracking Game",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/games/easeljs/BaseState.js",
+            "line": 118,
             "description": "Enter the state, when the panel is fully hidden\nby the transition",
             "itemtype": "method",
             "name": "enter",
@@ -14484,7 +14510,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 137,
+            "line": 153,
             "description": "Implementation specific for override. When you need to add additional preload\ntasks to your state, override this function.",
             "itemtype": "method",
             "name": "addTasks",
@@ -14503,7 +14529,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 149,
+            "line": 165,
             "description": "Implementation specific for override. When all the assets have been loaded\ncan possible add options for loading assets.\nfrom the TaskManager.",
             "itemtype": "method",
             "name": "onAssetsLoaded",
@@ -14515,7 +14541,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 161,
+            "line": 177,
             "description": "The internal call for on assets loaded",
             "itemtype": "method",
             "name": "onLoaded",
@@ -14527,7 +14553,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 227,
+            "line": 260,
             "description": "Handler for manifest load task",
             "itemtype": "method",
             "name": "onManifestLoaded",
@@ -14556,7 +14582,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 247,
+            "line": 280,
             "description": "When we exit the state",
             "itemtype": "method",
             "name": "exit",
@@ -14566,7 +14592,7 @@
         },
         {
             "file": "src/games/easeljs/BaseState.js",
-            "line": 285,
+            "line": 318,
             "description": "Don't use after calling this",
             "itemtype": "method",
             "name": "destroy",
@@ -16051,7 +16077,7 @@
             "description": "For media conveninece methods",
             "itemtype": "property",
             "name": "media",
-            "type": "springroll.TrackerMedia",
+            "type": "springroll.TrackingGameMedia",
             "class": "springroll.TrackingGame",
             "module": "Tracking Game",
             "namespace": "springroll"
@@ -16618,9 +16644,9 @@
         {
             "file": "src/games/TrackingGameMedia.js",
             "line": 144,
-            "description": "Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback ProgressTracker events\n\nExample Animator usage:\ngame.playInstruction(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playInstruction(\"soundAlias\", doneFunction, interruptedFunction);",
+            "description": "Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback ProgressTracker events\n\nExample Animator usage:\ngame.playIncorrectFeedback(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playIncorrectFeedback(\"soundAlias\", doneFunction, interruptedFunction);",
             "itemtype": "method",
-            "name": "playInstruction",
+            "name": "playIncorrectFeedback",
             "params": [
                 {
                     "name": "instance",
@@ -16657,9 +16683,9 @@
         {
             "file": "src/games/TrackingGameMedia.js",
             "line": 215,
-            "description": "Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback ProgressTracker events\n\nExample Animator usage:\ngame.playInstruction(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playInstruction(\"soundAlias\", doneFunction, interruptedFunction);",
+            "description": "Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback ProgressTracker events\n\nExample Animator usage:\ngame.playCorrectFeedback(someMovieClip, {\"anim\":\"frameLabel\", \"audio\":\"soundAlias\"}, doneFunction, interruptedFunction);\n\nExample VOPlayer usage:\ngame.playCorrectFeedback(\"soundAlias\", doneFunction, interruptedFunction);",
             "itemtype": "method",
-            "name": "playInstruction",
+            "name": "playCorrectFeedback",
             "params": [
                 {
                     "name": "instance",
@@ -16784,7 +16810,7 @@
                 {
                     "name": "alias",
                     "description": "The alias to convert",
-                    "type": "Array|string"
+                    "type": "Array|String"
                 }
             ],
             "return": {
@@ -20338,7 +20364,7 @@
             "description": "If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.",
             "itemtype": "property",
             "name": "trackSound",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "class": "springroll.VOPlayer",
@@ -20455,7 +20481,7 @@
             "description": "If VOPlayer is currently playing (audio or silence).",
             "itemtype": "property",
             "name": "playing",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "readonly": "",
@@ -20466,10 +20492,10 @@
         {
             "file": "src/media/VOPlayer.js",
             "line": 130,
-            "description": "If VOPlayer is currently playing (audio or silence).",
+            "description": "The Captions instance to use for updating captions with VO.",
             "itemtype": "property",
-            "name": "playing",
-            "type": "Bool",
+            "name": "captions",
+            "type": "Captions",
             "access": "public",
             "tagname": "",
             "readonly": "",
@@ -20797,7 +20823,7 @@
         {
             "file": "src/tasks/ListTask.js",
             "line": 132,
-            "description": "Cancel the TaskManager used for the list of tasks. As the individual tasks are not \nkept track of, this always returns true.",
+            "description": "Cancel the TaskManager used for the list of tasks. As the individual tasks are not\nkept track of, this always returns true.",
             "itemtype": "method",
             "name": "cancel",
             "return": {
@@ -25255,7 +25281,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 18,
+            "line": 23,
             "description": "The name of the value, for reflection or logging purposes.",
             "itemtype": "property",
             "name": "name",
@@ -25266,7 +25292,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 23,
+            "line": 28,
             "description": "The integer value of this enum entry.",
             "itemtype": "property",
             "name": "_value",
@@ -25279,7 +25305,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 29,
+            "line": 34,
             "description": "A string for toString() to return, instead of the name.",
             "itemtype": "property",
             "name": "_toString",
@@ -25292,7 +25318,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 37,
+            "line": 42,
             "description": "The integer value of this enum entry.",
             "itemtype": "property",
             "name": "asInt",
@@ -25303,7 +25329,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 84,
+            "line": 95,
             "description": "A potentially sparse array of each enum value, stored by integer values.",
             "itemtype": "property",
             "name": "_byValue",
@@ -25316,7 +25342,7 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 97,
+            "line": 107,
             "description": "The values that this Enum was initialized with. We save this so\nthat we can potentially pass this via Bellhop and re-initialize.",
             "access": "public",
             "tagname": "",
@@ -25329,7 +25355,65 @@
         },
         {
             "file": "src/utils/Enum.js",
-            "line": 166,
+            "line": 173,
+            "description": "The count of values the enum was initialized with.",
+            "access": "public",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "length",
+            "type": "Int",
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 185,
+            "description": "Retrieves the next EnumValue in the Enum (loops to first value at end).",
+            "itemtype": "method",
+            "name": "input",
+            "type": "EnumValue",
+            "return": {
+                "description": "",
+                "type": "EnumValue"
+            },
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 206,
+            "description": "Retrieves the first EnumValue in the Enum",
+            "itemtype": "method",
+            "name": "input",
+            "type": "EnumValue",
+            "return": {
+                "description": "",
+                "type": "EnumValue"
+            },
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 218,
+            "description": "Retrieves the last EnumValue in the Enum",
+            "itemtype": "method",
+            "name": "input",
+            "type": "EnumValue",
+            "return": {
+                "description": "",
+                "type": "EnumValue"
+            },
+            "class": "springroll.Enum",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/Enum.js",
+            "line": 231,
             "description": "Gets an enum value by integer value. If you have multiple enum values with the same integer\nvalue, this will always retrieve the first enum value.",
             "itemtype": "method",
             "name": "valueFromInt",
@@ -26727,7 +26811,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 126,
+            "line": 136,
             "description": "Get the query string as an object",
             "itemtype": "property",
             "name": "getQueryString",
@@ -26740,7 +26824,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 161,
+            "line": 171,
             "description": "Convert a string into a DOM Element",
             "access": "private",
             "tagname": "parseDOMElement",
@@ -26757,7 +26841,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 174,
+            "line": 184,
             "description": "The default Application options",
             "itemtype": "property",
             "name": "defaultOptions",
@@ -26770,7 +26854,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 181,
+            "line": 191,
             "description": "Use Request Animation Frame API",
             "itemtype": "property",
             "name": "raf",
@@ -26782,7 +26866,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 188,
+            "line": 198,
             "description": "The framerate to use for rendering the stage",
             "itemtype": "property",
             "name": "fps",
@@ -26794,7 +26878,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 195,
+            "line": 205,
             "description": "The element to resize the canvas to fit",
             "itemtype": "property",
             "name": "resizeElement",
@@ -26805,7 +26889,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 201,
+            "line": 211,
             "description": "Whether to resize the displays to the original aspect ratio",
             "itemtype": "property",
             "name": "uniformResize",
@@ -26817,7 +26901,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 208,
+            "line": 218,
             "description": "Use the query string parameters for options overrides",
             "itemtype": "property",
             "name": "useQueryString",
@@ -26829,7 +26913,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 215,
+            "line": 225,
             "description": "Enable the Debug class. After initialization, this\nis a pass-through to Debug.enabled.",
             "itemtype": "property",
             "name": "debug",
@@ -26841,7 +26925,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 223,
+            "line": 233,
             "description": "Minimum log level from 0 to 4",
             "itemtype": "property",
             "name": "minLogLevel",
@@ -26853,7 +26937,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 230,
+            "line": 240,
             "description": "The host computer for remote debugging, the debug\nmodule must be included to use this feature. Can be an\nIP address or host name. After initialization, setting\nthis will still connect or disconect Debug for remote\ndebugging. This is a write-only property.",
             "itemtype": "property",
             "name": "debugRemote",
@@ -26864,7 +26948,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 240,
+            "line": 250,
             "description": "The default display DOM ID name",
             "itemtype": "property",
             "name": "canvasId",
@@ -26875,7 +26959,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 246,
+            "line": 256,
             "description": "The name of the class to automatically instantiate as the\ndisplay (e.g. `springroll.PixiDisplay`)",
             "itemtype": "property",
             "name": "display",
@@ -26886,7 +26970,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 253,
+            "line": 263,
             "description": "Display specific setup options",
             "itemtype": "property",
             "name": "displayOptions",
@@ -26897,7 +26981,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 259,
+            "line": 269,
             "description": "If using TweenJS, the Application will update the Tween itself.",
             "itemtype": "property",
             "name": "updateTween",
@@ -26909,7 +26993,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 266,
+            "line": 276,
             "description": "The application pauses automatically when the window loses focus.",
             "itemtype": "property",
             "name": "autoPause",
@@ -26921,7 +27005,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 273,
+            "line": 283,
             "description": "The current version number for your application. This\nnumber will automatically be appended to all file\nrequests. For instance, if the version is \"0.0.1\" all\nfile requests will be appended with \"?v=0.0.1\"",
             "itemtype": "property",
             "name": "version",
@@ -26932,7 +27016,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 282,
+            "line": 292,
             "description": "Path to a text file which contains explicit version\nnumbers for each asset. This is useful for controlling\nthe live browser cache. For instance, this text file\nwould have an asset on each line followed by a number:\n`assets/config/config.json 2` would load\n`assets/config/config.json?v=2`",
             "itemtype": "property",
             "name": "versionsFile",
@@ -26943,7 +27027,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 293,
+            "line": 303,
             "description": "Override the end-user browser cache by adding\n\"?v=\" to the end of each file path requested. Use\nfor developmently, debugging only!",
             "itemtype": "property",
             "name": "cacheBust",
@@ -26955,7 +27039,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 302,
+            "line": 312,
             "description": "The optional file path to prefix to any relative file\nrequests this is a great way to load all load requests\nwith a CDN path.",
             "itemtype": "property",
             "name": "basePath",
@@ -26966,7 +27050,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 310,
+            "line": 320,
             "description": "Used by `springroll.PixiTask`, default behavior\nis to load assets from the same domain.",
             "itemtype": "property",
             "name": "crossOrigin",
@@ -26978,7 +27062,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 318,
+            "line": 328,
             "description": "Framereate container",
             "itemtype": "property",
             "name": "framerate",
@@ -26989,7 +27073,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 324,
+            "line": 334,
             "description": "If doing uniform resizing, optional parameter to add\na maximum height relative to the original width. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original height of the canvas.",
             "itemtype": "property",
             "name": "maxHeight",
@@ -27000,7 +27084,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 333,
+            "line": 343,
             "description": "If doing uniform resizing, optional parameter to add\na maximum width relative to the original height. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original width of the canvas.",
             "itemtype": "property",
             "name": "maxWidth",
@@ -27353,7 +27437,7 @@
         },
         {
             "message": "Missing item type\nConvert a string into a DOM Element",
-            "line": " src/ApplicationOptions.js:161"
+            "line": " src/ApplicationOptions.js:171"
         }
     ]
 }

@@ -1,1153 +1,918 @@
 <!DOCTYPE html>
-<html lang='en'>
-
+<html lang="en">
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src/games/TrackingGame.js</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.2.0'>
-  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.2.0'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.2.0'>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.8.0/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.ico">
+    <link href='//fonts.googleapis.com/css?family=Titillium+Web:300' rel='stylesheet' type='text/css'>
+    <script src="https://yui-s.yahooapis.com/3.10.1/build/yui/yui-min.js"></script>
+	<title>SpringRoll v0.2.0 API Documentation : src/games/TrackingGame.js</title>  
 </head>
-
-<body>
-  <header>
-    <div class='container'>
-      <div class='version pull-right'>
-        <em>API Documentation for: 0.2.0</em>
-      </div>
-      <div class='logo'>
-
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.2.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-      </div>
-<div class='scope-toggles pull-right'>
-  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div>    </div>
-  </header>
-  <div class='container'>
-    <div class='row'>
-      <nav id='sidebar' class='col-sm-4 col-md-3'>
-<h2>APIs</h2>
-<div class='input-group'>
-  <div class='input-group-addon'>
-    <span class='glyphicon glyphicon-search'></span>
-  </div>
-  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
-</div>
-<nav class='navbar navbar-default'>
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
-      Classes
-      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
-      <span class='expanded glyphicon glyphicon-chevron-down'></span>
-    </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
-      Modules
-      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
-      <span class='expanded glyphicon glyphicon-chevron-down'></span>
-    </button>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class='collapse' id='classes-collapse'>
-    <ul class='nav navbar-nav'>
-        <li class=''>
-          <a href='../classes/createjs.Container.html'>createjs.Container</a>
-        </li>
-        <li class=''>
-          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
-        </li>
-        <li class=''>
-          <a href='../classes/createjs.Point.html'>createjs.Point</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Application.html'>springroll.Application</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.easeljs.TrackingGame.html'>springroll.easeljs.TrackingGame</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Features.html'>springroll.Features</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Game.html'>springroll.Game</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.GameContainer.html'>springroll.GameContainer</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.HintPlayer.html'>springroll.HintPlayer</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Language.html'>springroll.Language</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.ProgressTracker.html'>springroll.ProgressTracker</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.ProgressTrackerError.html'>springroll.ProgressTrackerError</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.Task.html'>springroll.Task</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.TrackingGame.html'>springroll.TrackingGame</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.TrackingGameMedia.html'>springroll.TrackingGameMedia</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.Array.html'>window.Array</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.extend.html'>window.extend</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.include.html'>window.include</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.Math.html'>window.Math</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.namespace.html'>window.namespace</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.Object.html'>window.Object</a>
-        </li>
-        <li class=''>
-          <a href='../classes/window.String.html'>window.String</a>
-        </li>
-    </ul>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class='collapse' id='modules-collapse'>
-    <ul class='nav navbar-nav'>
-        <li class=''>
-          <a href='../modules/Captions.html'>Captions</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Container.html'>Container</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Core.html'>Core</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Debug.html'>Debug</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Interface.html'>EaselJS Interface</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Tracking Game.html'>EaselJS Tracking Game</a>
-        </li>
-        <li class=''>
-          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Game.html'>Game</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Hinting.html'>Hinting</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Interface.html'>Interface</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Native Display.html'>Native Display</a>
-        </li>
-        <li class=''>
-          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
-        </li>
-        <li class=''>
-          <a href='../modules/PIXI Display.html'>PIXI Display</a>
-        </li>
-        <li class=''>
-          <a href='../modules/PIXI Interface.html'>PIXI Interface</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Progress Tracker.html'>Progress Tracker</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Sound.html'>Sound</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Tasks.html'>Tasks</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Tracking Game.html'>Tracking Game</a>
-        </li>
-        <li class=''>
-          <a href='../modules/Translate.html'>Translate</a>
-        </li>
-    </ul>
-  </div>
-  <!-- /.container-fluid -->
-</nav>      </nav>
-      <div class='col-sm-8 col-md-9'>
-        <div id='docs-main' class='apidocs'>
-<script>
-  var name = {
-  	{
-  		name
-  	}
-  }
-</script>
-<h1 class="file-heading">File:TrackingGame.js</h1>
-
-<div class="file">
-  <pre class="code prettyprint linenums">/**
- * @module Tracking Game
- * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
- */
-(function()
-{
-	//Include game
-	var Game = include(&#x27;springroll.Game&#x27;),
-		Debug = include(&#x27;springroll.Debug&#x27;, false),
-		Captions = include(&#x27;springroll.Captions&#x27;),
-		Application = include(&#x27;springroll.Application&#x27;),
-		Sound = include(&#x27;springroll.Sound&#x27;),
-		Bellhop = include(&#x27;Bellhop&#x27;),
-		TaskManager = include(&#x27;springroll.TaskManager&#x27;),
-		LoadTask = include(&#x27;springroll.LoadTask&#x27;),
-		UIScaler = include(&#x27;springroll.UIScaler&#x27;),
-		TrackingGameMedia = include(&#x27;springroll.TrackingGameMedia&#x27;),
-		StringFilters = include(&#x27;springroll.StringFilters&#x27;),
-		PageVisibility = include(&#x27;springroll.PageVisibility&#x27;),
-		ProgressTracker,
-		HintPlayer;
-
-	/**
-	 * The base game class
-	 * @class TrackingGame
-	 * @extends springroll.Game
-	 * @constructor
-	 * @param {object} [options]
-	 *	See SpringRoll&#x27;s Game class options for the full list
-	 * @param {string} [options.configPath=&#x27;assets/config/config.json&#x27;]
-	 *	The path to the default config to load
-	 * @param {String} [options.captionsPath=&#x27;assets/config/captions.json&#x27;]
-	 *	The path to the captions dictionary. If this is set to null
-	 *	captions will not be created or used by the VO player.
-	 * @param {String} [options.captions=&#x27;captions&#x27;]
-	 *	The id of the captions output DOM Element
-	 * @param {String} [options.canvasId=&#x27;stage&#x27;]
-	 *	The ID fo the DOM element to use as the main display
-	 * @param {String} [options.resizeElement=&#x27;frame&#x27;]
-	 *	The element to resize the display to
-	 * @param {String} [options.framerate=&#x27;framerate&#x27;]
-	 *	The DOM element id for the ouput framerate, the framerate
-	 *	element is created dynamically in dev mode and is added
-	 *	right before the main canvas element (options.canvasId).
-	 * @param {Boolean} [options.singlePlay=false]
-	 *	If the game should be played in single-play mode
-	 * @param {object} [options.playOptions]
-	 *	The optional single-play mode gameplay options
-	 */
-	var TrackingGame = function(options)
-	{
-		HintPlayer = include(&#x27;springroll.HintPlayer&#x27;, false);
-		ProgressTracker = include(&#x27;springroll.ProgressTracker&#x27;, false);
-
-		options = options ||
-		{};
-
-		// The base options, these are overrideable by the 
-		// options above, but these are some better defaults
-		var baseOptions = {
-			captions: &quot;captions&quot;,
-			captionsPath: &#x27;assets/config/captions.json&#x27;,
-			configPath: &#x27;assets/config/config.json&#x27;,
-			debug: DEBUG,
-			useQueryString: DEBUG,
-			cacheBust: DEBUG,
-			canvasId: &quot;stage&quot;,
-			resizeElement: &quot;frame&quot;,
-			singlePlay: false,
-			playOptions: null
-		};
-
-		// Add the framerate object before the main display
-		// in the markup
-		if (DEBUG)
-		{
-			baseOptions.framerate = &quot;framerate&quot;;
-			var canvasId = options.canvasId || baseOptions.canvasId;
-			var stage = document.getElementById(canvasId);
-			if (stage)
-			{
-				var framerate = document.createElement(&quot;div&quot;);
-				framerate.id = &quot;framerate&quot;;
-				framerate.innerHTML = &quot;FPS: 00.000&quot;;
-				stage.parentNode.insertBefore(framerate, stage);
-			}
-		}
-
-		// Create the game with options
-		Game.call(this, Object.merge(baseOptions, options));
-
-		// Make sure we have a game name
-		if (!this.name)
-		{
-			if (DEBUG)
-			{
-				throw &quot;TrackingGame name is undefined, please add a Application option of &#x27;name&#x27;&quot;;
-			}
-			else
-			{
-				throw &quot;TrackingGame name is undefined&quot;;
-			}
-		}
-
-		/**
-		 * The progress tracker instance
-		 * @property {springroll.ProgressTracker} tracker
-		 */
-		this.tracker = null;
-
-		/**
-		 * The StringFilters instance
-		 * @property {springroll.StringFilters} filters
-		 */
-		this.filters = null;
-
-		/**
-		 * The main UIScaler for any display object references
-		 * in the main game.
-		 * @property {springroll.UIScaler} scaler
-		 */
-		this.scaler = null;
-
-		/**
-		 * The game configuration loaded from and external JSON file
-		 * @property {object} config
-		 */
-		this.config = null;
-
-		/**
-		 * For media conveninece methods
-		 * @property {springroll.TrackerMedia} media
-		 */
-		this.media = null;
-
-		/**
-		 * The default play-mode for the game is continuous, if the game is
-		 * running as part of a sequence is it considered in &quot;single play&quot; mode
-		 * and the game will therefore close itself.
-		 * @property {Boolean} singlePlay
-		 * @readOnly
-		 * @default false
-		 */
-		this.singlePlay = !!this.options.singlePlay;
-
-		/**
-		 * The optional play options to use if the game is played in &quot;single play&quot;
-		 * mode. These options are passed from the game container to specify
-		 * options that are used for this single play session. For instance,
-		 * if you want the single play to focus on a certain level or curriculum
-		 * such as &#x60;{ &quot;shape&quot;: &quot;square&quot; }&#x60;
-		 * @property {Object} playOptions
-		 * @readOnly
-		 */
-		this.playOptions = this.options.playOptions ||
-		{};
-
-		/**
-		 * Send a message to let the site know that this has
-		 * been loaded, if the site is there
-		 * @property {Bellhop} messenger
-		 */
-		this.messenger = new Bellhop();
-		this.messenger.connect();
-
-		// Merge the container options with the current
-		// game options
-		if (this.messenger.supported)
-		{
-			var messenger = this.messenger;
-			//Setup the messenger listeners for site soundMute and captionsMute events
-			messenger.on(
-			{
-				soundMuted: onSoundMuted,
-				captionsMuted: onCaptionsMuted,
-				musicMuted: onContextMuted.bind(this, &#x27;music&#x27;),
-				voMuted: onContextMuted.bind(this, &#x27;vo&#x27;),
-				sfxMuted: onContextMuted.bind(this, &#x27;sfx&#x27;),
-				captionsStyles: onCaptionsStyles.bind(this),
-				pause: onPause.bind(this),
-				singlePlay: onSinglePlay.bind(this),
-				close: onClose.bind(this)
-			});
-
-			// Turn off the page hide and show auto pausing the App
-			this.autoPause = false;
-
-			//handle detecting and sending blur/focus events
-			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, &#x27;gameFocus&#x27;, true), 
-				messenger.send.bind(messenger, &#x27;gameFocus&#x27;, false)
-			);
-		}
-
-		/**
-		 * The hint player API
-		 * @property {springroll.HintPlayer} hint
-		 */
-		this.hint = HintPlayer ? new HintPlayer(this) : null;
-
-		if (DEBUG)
-		{
-			/**
-			 * Debug key strokes
-			 * → = trigger a skip to the next state for testing
-			 * ← = trigger a skip to the previous state for testing
-			 * TODO: add &#x27;h&#x27; to test hinting
-			 */
-			window.onkeyup = function(e)
-			{
-				var key = e.keyCode ? e.keyCode : e.which;
-				switch (key)
-				{
-					case 39: //right arrow
-						if (Debug) Debug.info(&quot;Going to next state via keyboard&quot;);
-						this.manager.next();
-						break;
-					case 37: //left arrow
-						if (Debug) Debug.info(&quot;Going to previous state via keyboard&quot;);
-						this.manager.previous();
-						break;
-				}
-			}.bind(this);
-
-			if (springroll.DebugOptions) springroll.DebugOptions.boolean(&#x27;forceTouch&#x27;, &#x27;Force hasTouch to true&#x27;);
-		}
-
-		this.filters = new StringFilters();
-		this.filters.add(
-			&#x27;%INTERACTION%&#x27;,
-			this.hasTouch ? &#x27;_touch&#x27; : &#x27;_mouse&#x27;);
-
-		//Add listener
-		this.once(&#x27;soundReady&#x27;, onSoundReady.bind(this));
-	};
-
-	//Reference to the prototype
-	var s = Game.prototype;
-	var p = extend(TrackingGame, Game);
-
-	/**
-	 * The game has finished loading
-	 * @event loaded
-	 */
-	var LOADED = &#x27;loaded&#x27;;
-
-	/**
-	 * The config has finished loading, in case you want to
-	 * add additional tasks to the manager after this.
-	 * @event configLoaded
-	 * @param {object} config The JSON object for config
-	 * @param {TaskManager} manager The task manager
-	 */
-	var CONFIG_LOADED = &#x27;configLoaded&#x27;;
-
-	/**
-	 * The game has started loading
-	 * @event loading
-	 * @param {array} tasks The list of tasks to preload
-	 */
-	var LOADING = &#x27;loading&#x27;;
-
-	/**
-	 * When the game is initialized
-	 * @method onSoundReady
-	 * @private
-	 */
-	var onSoundReady = function()
-	{
-		//Turn off the init until we&#x27;re done preloading
-		this._readyToInit = false;
-
-		var tasks = [
-			new LoadTask(
-				&#x27;config&#x27;,
-				this.options.configPath,
-				onConfigLoaded.bind(this)
-			)
-		];
-
-		//Load the captions if it&#x27;s set
-		if (this.options.captionsPath)
-		{
-			tasks.push(
-				new LoadTask(
-					&#x27;captions&#x27;,
-					this.options.captionsPath,
-					onCaptionsLoaded.bind(this)
-				)
-			);
-		}
-
-		//Allow extending game to add additional tasks
-		this.trigger(LOADING, tasks);
-		TaskManager.process(tasks, onTasksComplete.bind(this));
-	};
-
-	/**
-	 * When the container pauses the game
-	 * @method onPause
-	 * @private
-	 * @param {event} e The Bellhop event
-	 */
-	var onPause = function(e)
-	{
-		this.paused = !!e.data;
-		this.enabled = !this.paused;
-	};
-
-	/**
-	 * Handler when a game enters single play mode
-	 * @method onSinglePlay
-	 * @private
-	 * @param {event} e The Bellhop event
-	 */
-	var onSinglePlay = function(e)
-	{
-		Object.merge(this.playOptions, e.data ||
-		{});
-		this.singlePlay = true;
-	};
-
-	/**
-	 * When a game is in singlePlay mode it will end.
-	 * It&#x27;s unnecessary to check &#x60;if (this.singlePlay)&#x60; just
-	 * call the method and it will end the game if it can.
-	 * @method singlePlayEnd
-	 */
-	p.singlePlayEnd = function()
-	{
-		if (this.singlePlay)
-		{
-			this.endGame();
-		}
-	};
-
-	/**
-	 * Browser requests leaving the page
-	 * @method onWindowClose
-	 * @private
-	 */
-	var onWindowClose = function()
-	{
-		this.endGame(&#x27;left_site&#x27;);
-		return undefined;
-	};
-
-	/**
-	 * Game container requests closing the game
-	 * @method onClose
-	 * @private
-	 */
-	var onClose = function()
-	{
-		this.endGame(&#x27;closed_container&#x27;);
-	};
-
-	/**
-	 * Callback when the captions are loaded
-	 * @method onConfigLoaded
-	 * @private
-	 * @param {springroll.LoaderResult} result The Loader result from the load task
-	 */
-	var onCaptionsLoaded = function(result)
-	{
-		this.addCaptions(result.content);
-	};
-
-	/**
-	 * Callback when the config is loaded
-	 * @method onConfigLoaded
-	 * @private
-	 * @param {springroll.LoaderResult} result The Loader result from the load task
-	 */
-	var onConfigLoaded = function(result, task, manager)
-	{
-		var config = this.config = result.content;
-
-		//initialize Sound and load up global sound config
-		var sounds = config.sounds;
-		if (sounds)
-		{
-			if (sounds.vo)
-			{
-				this.addSounds(sounds.vo);
-			}
-			if (sounds.sfx)
-			{
-				this.addSounds(sounds.sfx);
-			}
-			if (sounds.music)
-			{
-				this.addSounds(sounds.music);
-			}
-		}
-
-		if (ProgressTracker &amp;&amp; config.spec)
-		{
-			this.tracker = new ProgressTracker(
-				this,
-				config.spec,
-				DEBUG,
-				config.specDictionary || null
-			);
-			this.tracker.on(&#x27;track&#x27;, this.progressEvent.bind(this));
-			window.onunload = window.onbeforeunload = onWindowClose.bind(this);
-		}
-
-		this.media = new TrackingGameMedia(this);
-
-		this.trigger(CONFIG_LOADED, config, manager);
-	};
-
-	/**
-	 * Callback when tasks are completed
-	 * @method onTasksComplete
-	 * @private
-	 */
-	var onTasksComplete = function()
-	{
-		//Intialize the state manager
-		this.initStates();
-
-		var config = this.config;
-		var designed = config.designedSettings;
-
-		if (!designed)
-		{
-			if (DEBUG)
-			{
-				throw &quot;The config requires &#x27;designedSettings&#x27; object which contains keys &#x27;width&#x27; and &#x27;height&#x27;&quot;;
-			}
-			else
-			{
-				throw &quot;&#x27;designedSettings&#x27; required in config&quot;;
-			}
-		}
-
-		if (!config.scaling)
-		{
-			if (DEBUG)
-			{
-				throw &quot;The config requires &#x27;scaling&#x27; object which contains all the state scaling items&quot;;
-			}
-			else
-			{
-				throw &quot;&#x27;scaling&#x27; required in config&quot;;
-			}
-		}
-
-		//Create the calling from the configuration
-		//This will only scale items on the root of the stage
-		this.scaler = new UIScaler(
-			this,
-			designed,
-			config.scaling,
-			true,
-			this.display
-		);
-
-		this.messenger.send(&#x27;loadDone&#x27;);
-
-		if (this.tracker)
-		{
-			this.tracker.startGame();
-		}
-
-		//Ready to initialize
-		this._readyToInit = true;
-		this.trigger(LOADED);
-		this._doInit();
-	};
-
-	/**
-	 * The captions style is being set
-	 * @method onCaptionsStyles
-	 * @private
-	 * @param {Event} e The bellhop event
-	 */
-	var onCaptionsStyles = function(e)
-	{
-		var styles = e.data;
-		var captions = this.captions ||
-		{};
-		var textField = captions.textField || null;
-
-		// Make sure we have a text field and a DOM object
-		if (textField &amp;&amp; textField.nodeName)
-		{
-			textField.className = &quot;size-&quot; + styles.size + &quot; &quot; +
-				&quot;bg-&quot; + styles.background + &quot; &quot; +
-				&quot;color-&quot; + styles.color + &quot; &quot; +
-				&quot;edge-&quot; + styles.edge + &quot; &quot; +
-				&quot;font-&quot; + styles.font + &quot; &quot; +
-				&quot;align-&quot; + styles.align;
-		}
-	};
-
-	/**
-	 * Handler when the sound is muted
-	 * @method onSoundMuted
-	 * @private
-	 * @param {Event} e The bellhop event
-	 */
-	var onSoundMuted = function(e)
-	{
-		Sound.instance.muteAll = !!e.data;
-	};
-
-	/**
-	 * Handler when the captions are muted
-	 * @method onCaptionsMuted
-	 * @private
-	 * @param {Event} e The bellhop event
-	 */
-	var onCaptionsMuted = function(e)
-	{
-		Captions.muteAll = !!e.data;
-	};
-
-	/**
-	 * Handler when the context is muted
-	 * @method onContextMuted
-	 * @private
-	 * @param {string} context The name of the sound context
-	 * @param {Event} e The bellhop event
-	 */
-	var onContextMuted = function(context, e)
-	{
-		Sound.instance.setContextMute(context, !!e.data);
-	};
-
-	/**
-	 * Send a progress tracker event
-	 * @method progressEvent
-	 * @param {object} eventData The data associated with an event
-	 */
-	p.progressEvent = function(eventData)
-	{
-		this.messenger.send(&#x27;progressEvent&#x27;, eventData);
-	};
-
-	/**
-	 * Track a Google Analytics event
-	 * @method trackEvent
-	 * @param {String} action The action label
-	 * @param {String} [label] The optional label for the event
-	 * @param {Number} [value] The optional value for the event
-	 */
-	p.trackEvent = function(action, label, value)
-	{
-		this.messenger.send(&#x27;trackEvent&#x27;,
-		{
-			category: this.name,
-			action: action,
-			label: label,
-			value: value
-		});
-	};
-
-	/**
-	 * For the tracker, we want to send consistent data when sending
-	 * Position. This helper method will generate that data.
-	 * In the future, we may return an object with known properties,
-	 * but for now we are returning an object of {x:int, y:int,
-	 * stage_width:int, stage_height:int} in unscaled numbers.
-	 *
-	 * @method normalizePosition
-	 * @param {Number|createjs.Point} x The x position, or a point to use.
-	 * @param {Number|createjs.DisplayObject} y The y position, or a
-	 *	display object in which the position&#x27;s coordinate space is in.
-	 * @param {createjs.DisplayObject} [coordSpace] The coordinate space
-	 *	the position is in, so it can be converted to global space.
-	 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
-	 */
-	p.normalizePosition = function(x, y, coordSpace)
-	{
-		if (x instanceof createjs.Point)
-		{
-			coordSpace = y;
-			y = x.y;
-			x = x.x;
-		}
-		//TODO: Support Pixi with this as well
-		if (coordSpace &amp;&amp; coordSpace.localToGlobal)
-		{
-			var globalPoint = coordSpace.localToGlobal(x, y);
-			x = globalPoint.x;
-			y = globalPoint.y;
-		}
-
-		var display = this.display;
-		return {
-			x: x | 0,
-			y: y | 0,
-			stage_width: display.width,
-			stage_height: display.height
-		};
-	};
-
-	/**
-	 * Manually close the game, this can happen when playing through once
-	 * @method endGame
-	 * @param {string} [exitType=&#x27;game_completed&#x27;] The type of exit
-	 */
-	p.endGame = function(exitType)
-	{
-		window.onunload = window.onbeforeunload = null; //prevent calling this function twice
-
-		if (this.tracker) this.tracker.endGame(exitType || &#x27;game_completed&#x27;);
-		this.destroy();
-	};
-
-	/**
-	 * Destroy the game, don&#x27;t use after this
-	 * @method destroy
-	 */
-	p.destroy = function()
-	{
-		if (this.hint)
-		{
-			this.hint.destroy();
-			this.hint = null;
-		}
-
-		if (this.scaler)
-		{
-			this.scaler.destroy();
-			this.scaler = null;
-		}
-
-		if (this.media)
-		{
-			this.media.destroy();
-			this.media = null;
-		}
-
-		if(this._pageVisibility)
-		{
-			this._pageVisibility.destroy();
-			this._pageVisibility = null;
-		}
-
-		this.config = null;
-
-		if (DEBUG)
-		{
-			// Remove the framerate container
-			var framerate = document.getElementById(this.options.framerate);
-			if (framerate &amp;&amp; framerate.parentNode)
-			{
-				framerate.parentNode.removeChild(framerate);
-			}
-		}
-
-		// Remove the captions
-		var captions = document.getElementById(this.options.captions);
-		if (captions &amp;&amp; captions.parentNode)
-		{
-			captions.parentNode.removeChild(captions);
-		}
-
-		try
-		{
-			// Super destroy
-			s.destroy.call(this);
-		}
-		catch (e)
-		{
-			if (Debug)
-			{
-				Debug.error(e.message);
-				Debug.error(e.stack);
-			}
-			else
-			{
-				console.log(e.message, e.stack);
-			}
-		}
-
-		// Destroy tracker after destroying the rest of the application
-		// so that dwell timers can be removed
-		if (this.tracker)
-		{
-			this.tracker.destroy();
-			this.tracker = null;
-		}
-
-		// Send the end game event to the container
-		this.messenger.send(&#x27;endGame&#x27;);
-		this.messenger.destroy();
-		this.messenger = null;
-	};
-
-	//Assign to namespace
-	namespace(&#x27;springroll&#x27;).TrackingGame = TrackingGame;
-}());</pre>
-</div>        </div>
-      </div>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+                <h1><a href="https://github.com/SpringRoll/SpringRoll"><img src="../assets/css/logo.png" title="SpringRoll">SpringRoll</a></h1>
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Documentation for: 0.2.0</em>
+        </div>
     </div>
-  </div>
-  <script src='../assets/js/libraries.js?v=0.2.0'></script>
-  <script src='../assets/js/main.js?v=0.2.0'></script>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+                    <h2 class="off-left">APIs</h2>
+                    <div id="api-tabview" class="tabview">
+                        <div id="api-tabview-filter">
+                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+                        </div>
+                		<ul class="tabs">
+                            <li><a href="#api-classes">Classes</a></li>
+                			<li><a href="#api-modules">Modules</a></li>
+                        </ul>
+                        <div id="api-tabview-panel">
+                            <ul id="api-classes" class="apis classes">
+                                <li><a href="../classes/createjs.Container.html">createjs.Container</a></li>
+                                <li><a href="../classes/createjs.MovieClip.html">createjs.MovieClip</a></li>
+                                <li><a href="../classes/createjs.Point.html">createjs.Point</a></li>
+                                <li><a href="../classes/springroll.AbstractDisplay.html">springroll.AbstractDisplay</a></li>
+                                <li><a href="../classes/springroll.AbstractHint.html">springroll.AbstractHint</a></li>
+                                <li><a href="../classes/springroll.AnimatorHint.html">springroll.AnimatorHint</a></li>
+                                <li><a href="../classes/springroll.Application.html">springroll.Application</a></li>
+                                <li><a href="../classes/springroll.BaseState.html">springroll.BaseState</a></li>
+                                <li><a href="../classes/springroll.CacheManager.html">springroll.CacheManager</a></li>
+                                <li><a href="../classes/springroll.Captions.html">springroll.Captions</a></li>
+                                <li><a href="../classes/springroll.CombinedCallback.html">springroll.CombinedCallback</a></li>
+                                <li><a href="../classes/springroll.Debug.html">springroll.Debug</a></li>
+                                <li><a href="../classes/springroll.DebugOptions.html">springroll.DebugOptions</a></li>
+                                <li><a href="../classes/springroll.DelayedCall.html">springroll.DelayedCall</a></li>
+                                <li><a href="../classes/springroll.easeljs.Animator.html">springroll.easeljs.Animator</a></li>
+                                <li><a href="../classes/springroll.easeljs.AnimatorTimeline.html">springroll.easeljs.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.easeljs.AssetManager.html">springroll.easeljs.AssetManager</a></li>
+                                <li><a href="../classes/springroll.easeljs.BasePanel.html">springroll.easeljs.BasePanel</a></li>
+                                <li><a href="../classes/springroll.easeljs.BaseState.html">springroll.easeljs.BaseState</a></li>
+                                <li><a href="../classes/springroll.easeljs.BitmapMovieClip.html">springroll.easeljs.BitmapMovieClip</a></li>
+                                <li><a href="../classes/springroll.easeljs.BitmapUtils.html">springroll.easeljs.BitmapUtils</a></li>
+                                <li><a href="../classes/springroll.easeljs.Button.html">springroll.easeljs.Button</a></li>
+                                <li><a href="../classes/springroll.easeljs.Cutscene.html">springroll.easeljs.Cutscene</a></li>
+                                <li><a href="../classes/springroll.easeljs.DisplayAdapter.html">springroll.easeljs.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.easeljs.DragManager.html">springroll.easeljs.DragManager</a></li>
+                                <li><a href="../classes/springroll.easeljs.DwellTimer.html">springroll.easeljs.DwellTimer</a></li>
+                                <li><a href="../classes/springroll.easeljs.EaselJSDisplay.html">springroll.easeljs.EaselJSDisplay</a></li>
+                                <li><a href="../classes/springroll.easeljs.ReversePlayback.html">springroll.easeljs.ReversePlayback</a></li>
+                                <li><a href="../classes/springroll.easeljs.SoundButton.html">springroll.easeljs.SoundButton</a></li>
+                                <li><a href="../classes/springroll.easeljs.Texture.html">springroll.easeljs.Texture</a></li>
+                                <li><a href="../classes/springroll.easeljs.TextureAtlas.html">springroll.easeljs.TextureAtlas</a></li>
+                                <li><a href="../classes/springroll.easeljs.TrackingGame.html">springroll.easeljs.TrackingGame</a></li>
+                                <li><a href="../classes/springroll.Enum.html">springroll.Enum</a></li>
+                                <li><a href="../classes/springroll.EnumValue.html">springroll.EnumValue</a></li>
+                                <li><a href="../classes/springroll.EventCatalog.html">springroll.EventCatalog</a></li>
+                                <li><a href="../classes/springroll.EventDispatcher.html">springroll.EventDispatcher</a></li>
+                                <li><a href="../classes/springroll.EventError.html">springroll.EventError</a></li>
+                                <li><a href="../classes/springroll.EventSignature.html">springroll.EventSignature</a></li>
+                                <li><a href="../classes/springroll.EventUtils.html">springroll.EventUtils</a></li>
+                                <li><a href="../classes/springroll.Features.html">springroll.Features</a></li>
+                                <li><a href="../classes/springroll.FunctionHint.html">springroll.FunctionHint</a></li>
+                                <li><a href="../classes/springroll.FunctionTask.html">springroll.FunctionTask</a></li>
+                                <li><a href="../classes/springroll.Game.html">springroll.Game</a></li>
+                                <li><a href="../classes/springroll.GameContainer.html">springroll.GameContainer</a></li>
+                                <li><a href="../classes/springroll.GroupHint.html">springroll.GroupHint</a></li>
+                                <li><a href="../classes/springroll.HintPlayer.html">springroll.HintPlayer</a></li>
+                                <li><a href="../classes/springroll.Language.html">springroll.Language</a></li>
+                                <li><a href="../classes/springroll.ListTask.html">springroll.ListTask</a></li>
+                                <li><a href="../classes/springroll.Loader.html">springroll.Loader</a></li>
+                                <li><a href="../classes/springroll.LoaderQueueItem.html">springroll.LoaderQueueItem</a></li>
+                                <li><a href="../classes/springroll.LoaderResult.html">springroll.LoaderResult</a></li>
+                                <li><a href="../classes/springroll.LoadTask.html">springroll.LoadTask</a></li>
+                                <li><a href="../classes/springroll.native.Circle.html">springroll.native.Circle</a></li>
+                                <li><a href="../classes/springroll.native.DisplayAdapter.html">springroll.native.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.native.Ellipse.html">springroll.native.Ellipse</a></li>
+                                <li><a href="../classes/springroll.native.NativeDisplay.html">springroll.native.NativeDisplay</a></li>
+                                <li><a href="../classes/springroll.native.Point.html">springroll.native.Point</a></li>
+                                <li><a href="../classes/springroll.native.Polygon.html">springroll.native.Polygon</a></li>
+                                <li><a href="../classes/springroll.native.Rectangle.html">springroll.native.Rectangle</a></li>
+                                <li><a href="../classes/springroll.PageVisibility.html">springroll.PageVisibility</a></li>
+                                <li><a href="../classes/springroll.pixi.Animator.html">springroll.pixi.Animator</a></li>
+                                <li><a href="../classes/springroll.pixi.AnimatorTimeline.html">springroll.pixi.AnimatorTimeline</a></li>
+                                <li><a href="../classes/springroll.pixi.AssetManager.html">springroll.pixi.AssetManager</a></li>
+                                <li><a href="../classes/springroll.pixi.Button.html">springroll.pixi.Button</a></li>
+                                <li><a href="../classes/springroll.pixi.DisplayAdapter.html">springroll.pixi.DisplayAdapter</a></li>
+                                <li><a href="../classes/springroll.pixi.DragManager.html">springroll.pixi.DragManager</a></li>
+                                <li><a href="../classes/springroll.pixi.ParallelSpineData.html">springroll.pixi.ParallelSpineData</a></li>
+                                <li><a href="../classes/springroll.pixi.PixiDisplay.html">springroll.pixi.PixiDisplay</a></li>
+                                <li><a href="../classes/springroll.PixiTask.html">springroll.PixiTask</a></li>
+                                <li><a href="../classes/springroll.Positioner.html">springroll.Positioner</a></li>
+                                <li><a href="../classes/springroll.ProgressTracker.html">springroll.ProgressTracker</a></li>
+                                <li><a href="../classes/springroll.ProgressTrackerError.html">springroll.ProgressTrackerError</a></li>
+                                <li><a href="../classes/springroll.PropertyDispatcher.html">springroll.PropertyDispatcher</a></li>
+                                <li><a href="../classes/springroll.SavedData.html">springroll.SavedData</a></li>
+                                <li><a href="../classes/springroll.Sound.html">springroll.Sound</a></li>
+                                <li><a href="../classes/springroll.SoundContext.html">springroll.SoundContext</a></li>
+                                <li><a href="../classes/springroll.SoundInstance.html">springroll.SoundInstance</a></li>
+                                <li><a href="../classes/springroll.SoundListTask.html">springroll.SoundListTask</a></li>
+                                <li><a href="../classes/springroll.StateEvent.html">springroll.StateEvent</a></li>
+                                <li><a href="../classes/springroll.StateManager.html">springroll.StateManager</a></li>
+                                <li><a href="../classes/springroll.StringFilters.html">springroll.StringFilters</a></li>
+                                <li><a href="../classes/springroll.Task.html">springroll.Task</a></li>
+                                <li><a href="../classes/springroll.TaskEvent.html">springroll.TaskEvent</a></li>
+                                <li><a href="../classes/springroll.TaskManager.html">springroll.TaskManager</a></li>
+                                <li><a href="../classes/springroll.TimeUtils.html">springroll.TimeUtils</a></li>
+                                <li><a href="../classes/springroll.TrackingGame.html">springroll.TrackingGame</a></li>
+                                <li><a href="../classes/springroll.TrackingGameMedia.html">springroll.TrackingGameMedia</a></li>
+                                <li><a href="../classes/springroll.UIElement.html">springroll.UIElement</a></li>
+                                <li><a href="../classes/springroll.UIElementSettings.html">springroll.UIElementSettings</a></li>
+                                <li><a href="../classes/springroll.UIScaler.html">springroll.UIScaler</a></li>
+                                <li><a href="../classes/springroll.ValidationError.html">springroll.ValidationError</a></li>
+                                <li><a href="../classes/springroll.VOHint.html">springroll.VOHint</a></li>
+                                <li><a href="../classes/springroll.VOPlayer.html">springroll.VOPlayer</a></li>
+                                <li><a href="../classes/window.Array.html">window.Array</a></li>
+                                <li><a href="../classes/window.extend.html">window.extend</a></li>
+                                <li><a href="../classes/window.include.html">window.include</a></li>
+                                <li><a href="../classes/window.Math.html">window.Math</a></li>
+                                <li><a href="../classes/window.namespace.html">window.namespace</a></li>
+                                <li><a href="../classes/window.Object.html">window.Object</a></li>
+                                <li><a href="../classes/window.String.html">window.String</a></li>
+                            </ul>
+                
+                            <ul id="api-modules" class="apis modules">
+                                <li><a href="../modules/Captions.html">Captions</a></li>
+                                <li><a href="../modules/Container.html">Container</a></li>
+                                <li><a href="../modules/Core.html">Core</a></li>
+                                <li><a href="../modules/Debug.html">Debug</a></li>
+                                <li><a href="../modules/EaselJS Animation.html">EaselJS Animation</a></li>
+                                <li><a href="../modules/EaselJS Cutscene.html">EaselJS Cutscene</a></li>
+                                <li><a href="../modules/EaselJS Display.html">EaselJS Display</a></li>
+                                <li><a href="../modules/EaselJS Interface.html">EaselJS Interface</a></li>
+                                <li><a href="../modules/EaselJS Tracking Game.html">EaselJS Tracking Game</a></li>
+                                <li><a href="../modules/EaselJS Utilities.html">EaselJS Utilities</a></li>
+                                <li><a href="../modules/Game.html">Game</a></li>
+                                <li><a href="../modules/Hinting.html">Hinting</a></li>
+                                <li><a href="../modules/Interface.html">Interface</a></li>
+                                <li><a href="../modules/Native Display.html">Native Display</a></li>
+                                <li><a href="../modules/PIXI Animation.html">PIXI Animation</a></li>
+                                <li><a href="../modules/PIXI Display.html">PIXI Display</a></li>
+                                <li><a href="../modules/PIXI Interface.html">PIXI Interface</a></li>
+                                <li><a href="../modules/Progress Tracker.html">Progress Tracker</a></li>
+                                <li><a href="../modules/Sound.html">Sound</a></li>
+                                <li><a href="../modules/Tasks.html">Tasks</a></li>
+                                <li><a href="../modules/Tracking Game.html">Tracking Game</a></li>
+                                <li><a href="../modules/Translate.html">Translate</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <script>
+                        	var name = src/games/TrackingGame.js      
+                        </script>
+                        <h1 class="file-heading">File:TrackingGame.js</h1>
+                        
+                        <div class="file">
+                            <pre class="code prettyprint linenums">
+                        /**
+                         * @module Tracking Game
+                         * @namespace springroll
+                         * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+                         */
+                        (function()
+                        {
+                        	//Include game
+                        	var Game = include(&#x27;springroll.Game&#x27;),
+                        		Debug = include(&#x27;springroll.Debug&#x27;, false),
+                        		Captions = include(&#x27;springroll.Captions&#x27;),
+                        		Application = include(&#x27;springroll.Application&#x27;),
+                        		Sound = include(&#x27;springroll.Sound&#x27;),
+                        		Bellhop = include(&#x27;Bellhop&#x27;),
+                        		TaskManager = include(&#x27;springroll.TaskManager&#x27;),
+                        		LoadTask = include(&#x27;springroll.LoadTask&#x27;),
+                        		UIScaler = include(&#x27;springroll.UIScaler&#x27;),
+                        		TrackingGameMedia = include(&#x27;springroll.TrackingGameMedia&#x27;),
+                        		StringFilters = include(&#x27;springroll.StringFilters&#x27;),
+                        		PageVisibility = include(&#x27;springroll.PageVisibility&#x27;),
+                        		ProgressTracker,
+                        		HintPlayer;
+                        
+                        	/**
+                        	 * The base game class
+                        	 * @class TrackingGame
+                        	 * @extends springroll.Game
+                        	 * @constructor
+                        	 * @param {Object} [options]
+                        	 *	See SpringRoll&#x27;s Game class options for the full list
+                        	 * @param {String} [options.configPath=&#x27;assets/config/config.json&#x27;]
+                        	 *	The path to the default config to load
+                        	 * @param {String} [options.captionsPath=&#x27;assets/config/captions.json&#x27;]
+                        	 *	The path to the captions dictionary. If this is set to null
+                        	 *	captions will not be created or used by the VO player.
+                        	 * @param {String} [options.captions=&#x27;captions&#x27;]
+                        	 *	The id of the captions output DOM Element
+                        	 * @param {String} [options.canvasId=&#x27;stage&#x27;]
+                        	 *	The ID fo the DOM element to use as the main display
+                        	 * @param {String} [options.resizeElement=&#x27;frame&#x27;]
+                        	 *	The element to resize the display to
+                        	 * @param {String} [options.framerate=&#x27;framerate&#x27;]
+                        	 *	The DOM element id for the ouput framerate, the framerate
+                        	 *	element is created dynamically in dev mode and is added
+                        	 *	right before the main canvas element (options.canvasId).
+                        	 * @param {Boolean} [options.singlePlay=false]
+                        	 *	If the game should be played in single-play mode
+                        	 * @param {Object} [options.playOptions]
+                        	 *	The optional single-play mode gameplay options
+                        	 */
+                        	var TrackingGame = function(options)
+                        	{
+                        		HintPlayer = include(&#x27;springroll.HintPlayer&#x27;, false);
+                        		ProgressTracker = include(&#x27;springroll.ProgressTracker&#x27;, false);
+                        
+                        		options = options ||
+                        		{};
+                        
+                        		// The base options, these are overrideable by the
+                        		// options above, but these are some better defaults
+                        		var baseOptions = {
+                        			captions: &quot;captions&quot;,
+                        			captionsPath: &#x27;assets/config/captions.json&#x27;,
+                        			configPath: &#x27;assets/config/config.json&#x27;,
+                        			debug: DEBUG,
+                        			useQueryString: DEBUG,
+                        			cacheBust: DEBUG,
+                        			canvasId: &quot;stage&quot;,
+                        			resizeElement: &quot;frame&quot;,
+                        			singlePlay: false,
+                        			playOptions: null
+                        		};
+                        
+                        		// Add the framerate object before the main display
+                        		// in the markup
+                        		if (DEBUG)
+                        		{
+                        			baseOptions.framerate = &quot;framerate&quot;;
+                        			var canvasId = options.canvasId || baseOptions.canvasId;
+                        			var stage = document.getElementById(canvasId);
+                        			if (stage)
+                        			{
+                        				var framerate = document.createElement(&quot;div&quot;);
+                        				framerate.id = &quot;framerate&quot;;
+                        				framerate.innerHTML = &quot;FPS: 00.000&quot;;
+                        				stage.parentNode.insertBefore(framerate, stage);
+                        			}
+                        		}
+                        
+                        		// Create the game with options
+                        		Game.call(this, Object.merge(baseOptions, options));
+                        
+                        		// Make sure we have a game name
+                        		if (!this.name)
+                        		{
+                        			if (DEBUG)
+                        			{
+                        				throw &quot;TrackingGame name is undefined, please add a Application option of &#x27;name&#x27;&quot;;
+                        			}
+                        			else
+                        			{
+                        				throw &quot;TrackingGame name is undefined&quot;;
+                        			}
+                        		}
+                        
+                        		/**
+                        		 * The progress tracker instance
+                        		 * @property {springroll.ProgressTracker} tracker
+                        		 */
+                        		this.tracker = null;
+                        
+                        		/**
+                        		 * The StringFilters instance
+                        		 * @property {springroll.StringFilters} filters
+                        		 */
+                        		this.filters = null;
+                        
+                        		/**
+                        		 * The main UIScaler for any display object references
+                        		 * in the main game.
+                        		 * @property {springroll.UIScaler} scaler
+                        		 */
+                        		this.scaler = null;
+                        
+                        		/**
+                        		 * The game configuration loaded from and external JSON file
+                        		 * @property {Object} config
+                        		 */
+                        		this.config = null;
+                        
+                        		/**
+                        		 * For media conveninece methods
+                        		 * @property {springroll.TrackingGameMedia} media
+                        		 */
+                        		this.media = null;
+                        
+                        		/**
+                        		 * The default play-mode for the game is continuous, if the game is
+                        		 * running as part of a sequence is it considered in &quot;single play&quot; mode
+                        		 * and the game will therefore close itself.
+                        		 * @property {Boolean} singlePlay
+                        		 * @readOnly
+                        		 * @default false
+                        		 */
+                        		this.singlePlay = !!this.options.singlePlay;
+                        
+                        		/**
+                        		 * The optional play options to use if the game is played in &quot;single play&quot;
+                        		 * mode. These options are passed from the game container to specify
+                        		 * options that are used for this single play session. For instance,
+                        		 * if you want the single play to focus on a certain level or curriculum
+                        		 * such as &#x60;{ &quot;shape&quot;: &quot;square&quot; }&#x60;
+                        		 * @property {Object} playOptions
+                        		 * @readOnly
+                        		 */
+                        		this.playOptions = this.options.playOptions ||
+                        		{};
+                        
+                        		/**
+                        		 * Send a message to let the site know that this has
+                        		 * been loaded, if the site is there
+                        		 * @property {Bellhop} messenger
+                        		 */
+                        		this.messenger = new Bellhop();
+                        		this.messenger.connect();
+                        
+                        		// Merge the container options with the current
+                        		// game options
+                        		if (this.messenger.supported)
+                        		{
+                        			var messenger = this.messenger;
+                        			//Setup the messenger listeners for site soundMute and captionsMute events
+                        			messenger.on(
+                        			{
+                        				soundMuted: onSoundMuted,
+                        				captionsMuted: onCaptionsMuted,
+                        				musicMuted: onContextMuted.bind(this, &#x27;music&#x27;),
+                        				voMuted: onContextMuted.bind(this, &#x27;vo&#x27;),
+                        				sfxMuted: onContextMuted.bind(this, &#x27;sfx&#x27;),
+                        				captionsStyles: onCaptionsStyles.bind(this),
+                        				pause: onPause.bind(this),
+                        				singlePlay: onSinglePlay.bind(this),
+                        				close: onClose.bind(this)
+                        			});
+                        
+                        			// Turn off the page hide and show auto pausing the App
+                        			this.autoPause = false;
+                        
+                        			//handle detecting and sending blur/focus events
+                        			this._pageVisibility = new PageVisibility(
+                        				messenger.send.bind(messenger, &#x27;gameFocus&#x27;, true),
+                        				messenger.send.bind(messenger, &#x27;gameFocus&#x27;, false)
+                        			);
+                        		}
+                        
+                        		/**
+                        		 * The hint player API
+                        		 * @property {springroll.HintPlayer} hint
+                        		 */
+                        		this.hint = HintPlayer ? new HintPlayer(this) : null;
+                        
+                        		if (DEBUG)
+                        		{
+                        			/**
+                        			 * Debug key strokes
+                        			 * → = trigger a skip to the next state for testing
+                        			 * ← = trigger a skip to the previous state for testing
+                        			 * TODO: add &#x27;h&#x27; to test hinting
+                        			 */
+                        			window.onkeyup = function(e)
+                        			{
+                        				var key = e.keyCode ? e.keyCode : e.which;
+                        				switch (key)
+                        				{
+                        					case 39: //right arrow
+                        						if (Debug) Debug.info(&quot;Going to next state via keyboard&quot;);
+                        						this.manager.next();
+                        						break;
+                        					case 37: //left arrow
+                        						if (Debug) Debug.info(&quot;Going to previous state via keyboard&quot;);
+                        						this.manager.previous();
+                        						break;
+                        				}
+                        			}.bind(this);
+                        
+                        			if (springroll.DebugOptions) springroll.DebugOptions.boolean(&#x27;forceTouch&#x27;, &#x27;Force hasTouch to true&#x27;);
+                        		}
+                        
+                        		this.filters = new StringFilters();
+                        		this.filters.add(
+                        			&#x27;%INTERACTION%&#x27;,
+                        			this.hasTouch ? &#x27;_touch&#x27; : &#x27;_mouse&#x27;);
+                        
+                        		//Add listener
+                        		this.once(&#x27;soundReady&#x27;, onSoundReady.bind(this));
+                        	};
+                        
+                        	//Reference to the prototype
+                        	var s = Game.prototype;
+                        	var p = extend(TrackingGame, Game);
+                        
+                        	/**
+                        	 * The game has finished loading
+                        	 * @event loaded
+                        	 */
+                        	var LOADED = &#x27;loaded&#x27;;
+                        
+                        	/**
+                        	 * The config has finished loading, in case you want to
+                        	 * add additional tasks to the manager after this.
+                        	 * @event configLoaded
+                        	 * @param {Object} config The JSON object for config
+                        	 * @param {TaskManager} manager The task manager
+                        	 */
+                        	var CONFIG_LOADED = &#x27;configLoaded&#x27;;
+                        
+                        	/**
+                        	 * The game has started loading
+                        	 * @event loading
+                        	 * @param {Array} tasks The list of tasks to preload
+                        	 */
+                        	var LOADING = &#x27;loading&#x27;;
+                        
+                        	/**
+                        	 * When the game is initialized
+                        	 * @method onSoundReady
+                        	 * @private
+                        	 */
+                        	var onSoundReady = function()
+                        	{
+                        		//Turn off the init until we&#x27;re done preloading
+                        		this._readyToInit = false;
+                        
+                        		var tasks = [
+                        			new LoadTask(
+                        				&#x27;config&#x27;,
+                        				this.options.configPath,
+                        				onConfigLoaded.bind(this)
+                        			)
+                        		];
+                        
+                        		//Load the captions if it&#x27;s set
+                        		if (this.options.captionsPath)
+                        		{
+                        			tasks.push(
+                        				new LoadTask(
+                        					&#x27;captions&#x27;,
+                        					this.options.captionsPath,
+                        					onCaptionsLoaded.bind(this)
+                        				)
+                        			);
+                        		}
+                        
+                        		//Allow extending game to add additional tasks
+                        		this.trigger(LOADING, tasks);
+                        		TaskManager.process(tasks, onTasksComplete.bind(this));
+                        	};
+                        
+                        	/**
+                        	 * When the container pauses the game
+                        	 * @method onPause
+                        	 * @private
+                        	 * @param {event} e The Bellhop event
+                        	 */
+                        	var onPause = function(e)
+                        	{
+                        		this.paused = !!e.data;
+                        		this.enabled = !this.paused;
+                        	};
+                        
+                        	/**
+                        	 * Handler when a game enters single play mode
+                        	 * @method onSinglePlay
+                        	 * @private
+                        	 * @param {event} e The Bellhop event
+                        	 */
+                        	var onSinglePlay = function(e)
+                        	{
+                        		Object.merge(this.playOptions, e.data ||
+                        		{});
+                        		this.singlePlay = true;
+                        	};
+                        
+                        	/**
+                        	 * When a game is in singlePlay mode it will end.
+                        	 * It&#x27;s unnecessary to check &#x60;if (this.singlePlay)&#x60; just
+                        	 * call the method and it will end the game if it can.
+                        	 * @method singlePlayEnd
+                        	 */
+                        	p.singlePlayEnd = function()
+                        	{
+                        		if (this.singlePlay)
+                        		{
+                        			this.endGame();
+                        		}
+                        	};
+                        
+                        	/**
+                        	 * Browser requests leaving the page
+                        	 * @method onWindowClose
+                        	 * @private
+                        	 */
+                        	var onWindowClose = function()
+                        	{
+                        		this.endGame(&#x27;left_site&#x27;);
+                        		return undefined;
+                        	};
+                        
+                        	/**
+                        	 * Game container requests closing the game
+                        	 * @method onClose
+                        	 * @private
+                        	 */
+                        	var onClose = function()
+                        	{
+                        		this.endGame(&#x27;closed_container&#x27;);
+                        	};
+                        
+                        	/**
+                        	 * Callback when the captions are loaded
+                        	 * @method onConfigLoaded
+                        	 * @private
+                        	 * @param {springroll.LoaderResult} result The Loader result from the load task
+                        	 */
+                        	var onCaptionsLoaded = function(result)
+                        	{
+                        		this.addCaptions(result.content);
+                        	};
+                        
+                        	/**
+                        	 * Callback when the config is loaded
+                        	 * @method onConfigLoaded
+                        	 * @private
+                        	 * @param {springroll.LoaderResult} result The Loader result from the load task
+                        	 */
+                        	var onConfigLoaded = function(result, task, manager)
+                        	{
+                        		var config = this.config = result.content;
+                        
+                        		//initialize Sound and load up global sound config
+                        		var sounds = config.sounds;
+                        		if (sounds)
+                        		{
+                        			if (sounds.vo)
+                        			{
+                        				this.addSounds(sounds.vo);
+                        			}
+                        			if (sounds.sfx)
+                        			{
+                        				this.addSounds(sounds.sfx);
+                        			}
+                        			if (sounds.music)
+                        			{
+                        				this.addSounds(sounds.music);
+                        			}
+                        		}
+                        
+                        		if (ProgressTracker &amp;&amp; config.spec)
+                        		{
+                        			this.tracker = new ProgressTracker(
+                        				this,
+                        				config.spec,
+                        				DEBUG,
+                        				config.specDictionary || null
+                        			);
+                        			this.tracker.on(&#x27;track&#x27;, this.progressEvent.bind(this));
+                        			window.onunload = window.onbeforeunload = onWindowClose.bind(this);
+                        		}
+                        
+                        		this.media = new TrackingGameMedia(this);
+                        
+                        		this.trigger(CONFIG_LOADED, config, manager);
+                        	};
+                        
+                        	/**
+                        	 * Callback when tasks are completed
+                        	 * @method onTasksComplete
+                        	 * @private
+                        	 */
+                        	var onTasksComplete = function()
+                        	{
+                        		//Intialize the state manager
+                        		this.initStates();
+                        
+                        		var config = this.config;
+                        		var designed = config.designedSettings;
+                        
+                        		if (!designed)
+                        		{
+                        			if (DEBUG)
+                        			{
+                        				throw &quot;The config requires &#x27;designedSettings&#x27; object which contains keys &#x27;width&#x27; and &#x27;height&#x27;&quot;;
+                        			}
+                        			else
+                        			{
+                        				throw &quot;&#x27;designedSettings&#x27; required in config&quot;;
+                        			}
+                        		}
+                        
+                        		if (!config.scaling)
+                        		{
+                        			if (DEBUG)
+                        			{
+                        				throw &quot;The config requires &#x27;scaling&#x27; object which contains all the state scaling items&quot;;
+                        			}
+                        			else
+                        			{
+                        				throw &quot;&#x27;scaling&#x27; required in config&quot;;
+                        			}
+                        		}
+                        
+                        		//Create the calling from the configuration
+                        		//This will only scale items on the root of the stage
+                        		this.scaler = new UIScaler(
+                        			this,
+                        			designed,
+                        			config.scaling,
+                        			true,
+                        			this.display
+                        		);
+                        
+                        		this.messenger.send(&#x27;loadDone&#x27;);
+                        
+                        		if (this.tracker)
+                        		{
+                        			this.tracker.startGame();
+                        		}
+                        
+                        		//Ready to initialize
+                        		this._readyToInit = true;
+                        		this.trigger(LOADED);
+                        		this._doInit();
+                        	};
+                        
+                        	/**
+                        	 * The captions style is being set
+                        	 * @method onCaptionsStyles
+                        	 * @private
+                        	 * @param {Event} e The bellhop event
+                        	 */
+                        	var onCaptionsStyles = function(e)
+                        	{
+                        		var styles = e.data;
+                        		var captions = this.captions ||
+                        		{};
+                        		var textField = captions.textField || null;
+                        
+                        		// Make sure we have a text field and a DOM object
+                        		if (textField &amp;&amp; textField.nodeName)
+                        		{
+                        			textField.className = &quot;size-&quot; + styles.size + &quot; &quot; +
+                        				&quot;bg-&quot; + styles.background + &quot; &quot; +
+                        				&quot;color-&quot; + styles.color + &quot; &quot; +
+                        				&quot;edge-&quot; + styles.edge + &quot; &quot; +
+                        				&quot;font-&quot; + styles.font + &quot; &quot; +
+                        				&quot;align-&quot; + styles.align;
+                        		}
+                        	};
+                        
+                        	/**
+                        	 * Handler when the sound is muted
+                        	 * @method onSoundMuted
+                        	 * @private
+                        	 * @param {Event} e The bellhop event
+                        	 */
+                        	var onSoundMuted = function(e)
+                        	{
+                        		Sound.instance.muteAll = !!e.data;
+                        	};
+                        
+                        	/**
+                        	 * Handler when the captions are muted
+                        	 * @method onCaptionsMuted
+                        	 * @private
+                        	 * @param {Event} e The bellhop event
+                        	 */
+                        	var onCaptionsMuted = function(e)
+                        	{
+                        		Captions.muteAll = !!e.data;
+                        	};
+                        
+                        	/**
+                        	 * Handler when the context is muted
+                        	 * @method onContextMuted
+                        	 * @private
+                        	 * @param {String} context The name of the sound context
+                        	 * @param {Event} e The bellhop event
+                        	 */
+                        	var onContextMuted = function(context, e)
+                        	{
+                        		Sound.instance.setContextMute(context, !!e.data);
+                        	};
+                        
+                        	/**
+                        	 * Send a progress tracker event
+                        	 * @method progressEvent
+                        	 * @param {Object} eventData The data associated with an event
+                        	 */
+                        	p.progressEvent = function(eventData)
+                        	{
+                        		this.messenger.send(&#x27;progressEvent&#x27;, eventData);
+                        	};
+                        
+                        	/**
+                        	 * Track a Google Analytics event
+                        	 * @method trackEvent
+                        	 * @param {String} action The action label
+                        	 * @param {String} [label] The optional label for the event
+                        	 * @param {Number} [value] The optional value for the event
+                        	 */
+                        	p.trackEvent = function(action, label, value)
+                        	{
+                        		this.messenger.send(&#x27;trackEvent&#x27;,
+                        		{
+                        			category: this.name,
+                        			action: action,
+                        			label: label,
+                        			value: value
+                        		});
+                        	};
+                        
+                        	/**
+                        	 * For the tracker, we want to send consistent data when sending
+                        	 * Position. This helper method will generate that data.
+                        	 * In the future, we may return an object with known properties,
+                        	 * but for now we are returning an object of {x:int, y:int,
+                        	 * stage_width:int, stage_height:int} in unscaled numbers.
+                        	 *
+                        	 * @method normalizePosition
+                        	 * @param {Number|createjs.Point} x The x position, or a point to use.
+                        	 * @param {Number|createjs.DisplayObject} y The y position, or a
+                        	 *	display object in which the position&#x27;s coordinate space is in.
+                        	 * @param {createjs.DisplayObject} [coordSpace] The coordinate space
+                        	 *	the position is in, so it can be converted to global space.
+                        	 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
+                        	 */
+                        	p.normalizePosition = function(x, y, coordSpace)
+                        	{
+                        		if (x instanceof createjs.Point)
+                        		{
+                        			coordSpace = y;
+                        			y = x.y;
+                        			x = x.x;
+                        		}
+                        		//TODO: Support Pixi with this as well
+                        		if (coordSpace &amp;&amp; coordSpace.localToGlobal)
+                        		{
+                        			var globalPoint = coordSpace.localToGlobal(x, y);
+                        			x = globalPoint.x;
+                        			y = globalPoint.y;
+                        		}
+                        
+                        		var display = this.display;
+                        		return {
+                        			x: x | 0,
+                        			y: y | 0,
+                        			stage_width: display.width,
+                        			stage_height: display.height
+                        		};
+                        	};
+                        
+                        	/**
+                        	 * Manually close the game, this can happen when playing through once
+                        	 * @method endGame
+                        	 * @param {String} [exitType=&#x27;game_completed&#x27;] The type of exit
+                        	 */
+                        	p.endGame = function(exitType)
+                        	{
+                        		window.onunload = window.onbeforeunload = null; //prevent calling this function twice
+                        
+                        		if (this.tracker) this.tracker.endGame(exitType || &#x27;game_completed&#x27;);
+                        		this.destroy();
+                        	};
+                        
+                        	/**
+                        	 * Destroy the game, don&#x27;t use after this
+                        	 * @method destroy
+                        	 */
+                        	p.destroy = function()
+                        	{
+                        		if (this.hint)
+                        		{
+                        			this.hint.destroy();
+                        			this.hint = null;
+                        		}
+                        
+                        		if (this.scaler)
+                        		{
+                        			this.scaler.destroy();
+                        			this.scaler = null;
+                        		}
+                        
+                        		if (this.media)
+                        		{
+                        			this.media.destroy();
+                        			this.media = null;
+                        		}
+                        
+                        		if(this._pageVisibility)
+                        		{
+                        			this._pageVisibility.destroy();
+                        			this._pageVisibility = null;
+                        		}
+                        
+                        		this.config = null;
+                        
+                        		if (DEBUG)
+                        		{
+                        			// Remove the framerate container
+                        			var framerate = document.getElementById(this.options.framerate);
+                        			if (framerate &amp;&amp; framerate.parentNode)
+                        			{
+                        				framerate.parentNode.removeChild(framerate);
+                        			}
+                        		}
+                        
+                        		// Remove the captions
+                        		var captions = document.getElementById(this.options.captions);
+                        		if (captions &amp;&amp; captions.parentNode)
+                        		{
+                        			captions.parentNode.removeChild(captions);
+                        		}
+                        
+                        		try
+                        		{
+                        			// Super destroy
+                        			s.destroy.call(this);
+                        		}
+                        		catch (e)
+                        		{
+                        			if (Debug)
+                        			{
+                        				Debug.error(e.message);
+                        				Debug.error(e.stack);
+                        			}
+                        			else
+                        			{
+                        				console.log(e.message, e.stack);
+                        			}
+                        		}
+                        
+                        		// Destroy tracker after destroying the rest of the application
+                        		// so that dwell timers can be removed
+                        		if (this.tracker)
+                        		{
+                        			this.tracker.destroy();
+                        			this.tracker = null;
+                        		}
+                        
+                        		// Send the end game event to the container
+                        		this.messenger.send(&#x27;endGame&#x27;);
+                        		this.messenger.destroy();
+                        		this.messenger = null;
+                        	};
+                        
+                        	//Assign to namespace
+                        	namespace(&#x27;springroll&#x27;).TrackingGame = TrackingGame;
+                        }());
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
 </body>
 </html>
