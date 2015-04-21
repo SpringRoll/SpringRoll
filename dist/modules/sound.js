@@ -1636,13 +1636,7 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-
-		/**
-		*	The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions
-		*	dictionary config file and a reference to a text field.
-		*	@property {Captions} captions
-		*	@public
-		*/
+		
 		this.captions = captions || null;
 
 		/**
@@ -1730,10 +1724,11 @@
 	});
 
 	/**
-	*	The Captions instance to use for updating captions with VO.
+	*	The springroll.Captions object used for captions. The developer is responsible for
+	*	initializing this with a captions
+	*	dictionary config file and a reference to a text field.
 	*	@property {Captions} captions
 	*	@public
-	*	@readOnly
 	*/
 	Object.defineProperty(p, "captions",
 	{
