@@ -1229,7 +1229,7 @@
 
 	/**
 	* Manage the Application options
-	* @class Application
+	* @class ApplicationOptions
 	* @extends springroll.PropertyDispatcher
 	* @constructor {Object} [overrides] The supplied options
 	*/
