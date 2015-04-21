@@ -1654,7 +1654,7 @@
 
 		/**
 		*	If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.
-		*	@property {bool} trackSound
+		*	@property {Boolean} trackSound
 		*	@public
 		*/
 		this.trackSound = false;
@@ -1689,14 +1689,14 @@
 
 		/**
 		*	The callback for when the list is finished.
-		*	@property {function} _callback
+		*	@property {Function} _callback
 		*	@private
 		*/
 		this._callback = null;
 
 		/**
 		*	The callback for when the list is interrupted for any reason.
-		*	@property {function} _cancelledCallback
+		*	@property {Function} _cancelledCallback
 		*	@private
 		*/
 		this._cancelledCallback = null;
@@ -1720,7 +1720,7 @@
 
 	/**
 	*	If VOPlayer is currently playing (audio or silence).
-	*	@property {bool} playing
+	*	@property {Boolean} playing
 	*	@public
 	*	@readOnly
 	*/
@@ -1730,8 +1730,8 @@
 	});
 
 	/**
-	*	If VOPlayer is currently playing (audio or silence).
-	*	@property {bool} playing
+	*	The Captions instance to use for updating captions with VO.
+	*	@property {Captions} captions
 	*	@public
 	*	@readOnly
 	*/
@@ -1787,8 +1787,8 @@
 	*	@method play
 	*	@public
 	*	@param {String|Array} idOrList The alias of the audio file to play or the array of items to play/call in order.
-	*	@param {function} [callback] The function to call when playback is complete.
-	*	@param {function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
+	*	@param {Function} [callback] The function to call when playback is complete.
+	*	@param {Function} [cancelledCallback] The function to call when playback is interrupted with a stop() or play() call.
 	*/
 	p.play = function(idOrList, callback, cancelledCallback)
 	{
