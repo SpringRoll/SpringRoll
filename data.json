@@ -20334,20 +20334,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 38,
-            "description": "The springroll.Captions object used for captions. The developer is responsible for initializing this with a captions\ndictionary config file and a reference to a text field.",
-            "itemtype": "property",
-            "name": "captions",
-            "type": "Captions",
-            "access": "public",
-            "tagname": "",
-            "class": "springroll.VOPlayer",
-            "module": "Sound",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/media/VOPlayer.js",
-            "line": 46,
+            "line": 40,
             "description": "An Array used when play() is called to avoid creating lots of Array objects.",
             "itemtype": "property",
             "name": "_listHelper",
@@ -20360,7 +20347,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 53,
+            "line": 47,
             "description": "If the VOPlayer should keep a list of all audio it plays for unloading later. Default is false.",
             "itemtype": "property",
             "name": "trackSound",
@@ -20373,7 +20360,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 60,
+            "line": 54,
             "description": "The current list of audio/silence times/functions. Generally you will not need to modify this.",
             "itemtype": "property",
             "name": "soundList",
@@ -20386,7 +20373,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 67,
+            "line": 61,
             "description": "The current position in soundList.",
             "itemtype": "property",
             "name": "_listCounter",
@@ -20399,7 +20386,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 74,
+            "line": 68,
             "description": "The current audio alias being played.",
             "itemtype": "property",
             "name": "_currentSound",
@@ -20412,7 +20399,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 81,
+            "line": 75,
             "description": "The current audio instance being played.",
             "itemtype": "property",
             "name": "_soundInstance",
@@ -20425,7 +20412,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 88,
+            "line": 82,
             "description": "The callback for when the list is finished.",
             "itemtype": "property",
             "name": "_callback",
@@ -20438,7 +20425,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 95,
+            "line": 89,
             "description": "The callback for when the list is interrupted for any reason.",
             "itemtype": "property",
             "name": "_cancelledCallback",
@@ -20451,7 +20438,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 102,
+            "line": 96,
             "description": "A list of audio file played by this, so that they can be unloaded later.",
             "itemtype": "property",
             "name": "_playedSound",
@@ -20464,7 +20451,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 109,
+            "line": 103,
             "description": "A timer for silence entries in the list, in milliseconds.",
             "itemtype": "property",
             "name": "_timer",
@@ -20477,7 +20464,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 119,
+            "line": 113,
             "description": "If VOPlayer is currently playing (audio or silence).",
             "itemtype": "property",
             "name": "playing",
@@ -20491,21 +20478,20 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 130,
-            "description": "The Captions instance to use for updating captions with VO.",
+            "line": 124,
+            "description": "The springroll.Captions object used for captions. The developer is responsible for\ninitializing this with a captions\ndictionary config file and a reference to a text field.",
             "itemtype": "property",
             "name": "captions",
             "type": "Captions",
             "access": "public",
             "tagname": "",
-            "readonly": "",
             "class": "springroll.VOPlayer",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 152,
+            "line": 147,
             "description": "Calculates the amount of time elapsed in the current playlist of audio/silence.",
             "itemtype": "method",
             "name": "getElapsed",
@@ -20519,7 +20505,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 181,
+            "line": 176,
             "description": "Plays a single audio alias, interrupting any current playback.\nAlternatively, plays a list of audio files, timers, and/or functions.\nAudio in the list will be preloaded to minimize pauses for loading.",
             "itemtype": "method",
             "name": "play",
@@ -20550,7 +20536,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 208,
+            "line": 203,
             "description": "Callback for when audio/timer is finished to advance to the next item in the list.",
             "itemtype": "method",
             "name": "_onSoundFinished",
@@ -20562,7 +20548,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 264,
+            "line": 259,
             "description": "The update callback used for silence timers.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateSilence",
@@ -20581,7 +20567,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 281,
+            "line": 276,
             "description": "The update callback used for updating captions without active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_updateSoloCaption",
@@ -20600,7 +20586,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 299,
+            "line": 294,
             "description": "The update callback used for updating captions with active audio.\nThis method is bound to the VOPlayer instance.",
             "itemtype": "method",
             "name": "_syncCaptionToSound",
@@ -20619,7 +20605,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 313,
+            "line": 308,
             "description": "Plays the current audio item and begins preloading the next item.",
             "itemtype": "method",
             "name": "_playSound",
@@ -20631,7 +20617,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 365,
+            "line": 360,
             "description": "Stops playback of any audio/timer.",
             "itemtype": "method",
             "name": "stop",
@@ -20643,7 +20629,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 394,
+            "line": 389,
             "description": "Unloads all audio this VOPlayer has played. If trackSound is false, this won't do anything.",
             "itemtype": "method",
             "name": "unloadSound",
@@ -20655,7 +20641,7 @@
         },
         {
             "file": "src/media/VOPlayer.js",
-            "line": 405,
+            "line": 400,
             "description": "Cleans up this VOPlayer.",
             "itemtype": "method",
             "name": "destroy",
