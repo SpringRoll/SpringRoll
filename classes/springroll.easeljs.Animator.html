@@ -1621,13 +1621,13 @@ base animation functionality, using frame labels of MovieClips</p>
                         <p>One of or an array of the following</p>
           <ul>
           <li><p>objects in the format:</p>
-          <p>  {</p>
-          <pre><code>  anim:"myAnim",
-            start:0,
-            speed:1,
-            audio:{alias:"MyAlias", start:300}
-          </code></pre><p>  }</p>
-          <ul>
+          <pre><code>  {
+                anim:"myAnim",
+                start:0,
+                speed:1,
+                audio:{alias:"MyAlias", start:300}
+            }
+          </code></pre><ul>
           <li>anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".</li>
           <li>start is milliseconds into the animation to start (0 if omitted). A value of -1
             starts from a random time in the animation.</li>
