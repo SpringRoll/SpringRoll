@@ -115,12 +115,12 @@
 	 *   @param {String|Object|Array} eventList One of or an array of the following
 	 *   * objects in the format:
 	 *
-	 *       {
-	 *           anim:"myAnim",
-	 *           start:0,
-	 *           speed:1,
-	 *           audio:{alias:"MyAlias", start:300}
-	 *       }
+	 *           {
+	 *               anim:"myAnim",
+	 *               start:0,
+	 *               speed:1,
+	 *               audio:{alias:"MyAlias", start:300}
+	 *           }
 	 *
 	 *       * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
 	 *       * start is milliseconds into the animation to start (0 if omitted). A value of -1
