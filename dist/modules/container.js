@@ -451,11 +451,7 @@
 	 */
 	var onContainerFocus = function(e)
 	{
-		//Set both container and game to blurred, 
-		//because some blur events are only happening on the container.
-		//If container is blurred because game area was just focused,
-		//the game's focus event will override the blur imminently.
-		this._containerBlurred = this._gameBlurred = true;
+		this._containerBlurred = false;
 		manageFocus.call(this);
 	};
 
@@ -466,7 +462,11 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		this._containerBlurred = true;
+		//Set both container and game to blurred, 
+		//because some blur events are only happening on the container.
+		//If container is blurred because game area was just focused,
+		//the game's focus event will override the blur imminently.
+		this._containerBlurred = this._gameBlurred = true;
 		manageFocus.call(this);
 	};
 
