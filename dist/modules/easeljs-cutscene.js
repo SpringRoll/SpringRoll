@@ -214,6 +214,20 @@
 		*	@private
 		*/
 		this._endCallback = null;
+		
+		/**
+		*	Names of library (window.lib) items to delete when the cutscene is destroyed.
+		*	@property {Array} _libItemsToUnload
+		*	@private
+		*/
+		this._libItemsToUnload = [];
+		
+		/**
+		*	Names of image (window.images) entries to unload when the cutscene is destroyed.
+		*	@property {Array} _imagesToUnload
+		*	@private
+		*/
+		this._imagesToUnload = [];
 
 		//bind some callbacks
 		this.update = this.update.bind(this);
@@ -341,6 +355,31 @@
 			else if(id == "clip")//look for the javascript animation file
 			{
 				//the javascript file
+				
+				//get javascript text
+				var text = result.text;
+				if(!text) continue;
+				//split into the initialization functions, that take 'lib' as a parameter
+				var textArray = text.split(/\(function\s*\(/);
+				//go through each initialization function
+				for(var i = 0; i < textArray.length; ++i)
+				{
+					text = textArray[i];
+					if(!text) continue;
+					//determine what the 'lib' parameter has been minified into
+					var libName = text.substring(0, text.indexOf(","));
+					if(!libName) continue;
+					//get all the things that are 'lib.X = <stuff>'
+					var varFinder = new RegExp("\\(" + libName + ".(\\w+)\\s*=", "g");
+					var foundName = varFinder.exec(text);
+					while(foundName)
+					{
+						//keep track of all library items in the js file
+						this._libItemsToUnload.push(foundName[1]);
+						foundName = varFinder.exec(text);
+					}
+				}
+				
 				//if bitmaps need scaling, then do black magic to the object prototypes so the
 				//scaling is built in
 				if(this.imageScale != 1)
@@ -355,6 +394,7 @@
 			else//anything left must be individual images that we were expecting
 			{
 				images[id] = result;
+				this._imagesToUnload.push(id);
 			}
 		}
 		for (id in atlasData)//if we loaded any spritesheets, load them up
@@ -365,6 +405,7 @@
 					atlasData[id].frames,
 					atlasImages[id],
 					this.imageScale);
+				this._imagesToUnload.push(atlasImages[id]);
 			}
 		}
 	};
@@ -661,21 +702,36 @@
 	{
 		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		Sound.instance.unload(this._audioAliases);//unload audio
-		this.config = null;
+		//unload audio
+		Sound.instance.unload(this._audioAliases);
+		//unload library stuff
+		var i;
+		for(i = this._libItemsToUnload.length - 1; i >= 0; --i)
+		{
+			delete lib[this._libItemsToUnload[i]];
+		}
+		for(i = this._imagesToUnload.length - 1; i >= 0; --i)
+		{
+			var img = this._imagesToUnload[i];
+			if(typeof img == "string")
+			{
+				images[img].src = "";
+				delete images[img];
+			}
+			else
+			{
+				img.src = "";
+			}
+		}
+		this._libItemsToUnload = this._imagesToUnload = this.config = null;
 		if(this._taskMan)
 		{
 			this._taskMan.off();
 			this._taskMan.destroy();
 			this._taskMan = null;
 		}
-		this._activeSyncAudio = null;
-		this._activeAudio = null;
-		this._audioAliases = this._audio = null;
-		this._loadCallback = null;
-		this._endCallback = null;
-		this._clip = null;
-		this._captionsObj = null;
+		this._activeSyncAudio = this._activeAudio = this._audioAliases = this._audio = null;
+		this._loadCallback = this._endCallback = this._clip = this._captionsObj = null;
 		if(this.parent)
 			this.parent.removeChild(this);
 		this.display = null;
