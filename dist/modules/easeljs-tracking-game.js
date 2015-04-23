@@ -672,8 +672,23 @@
 
 		var stage = ev.target;
 		var target = stage._getObjectsUnderPoint(ev.stageX, ev.stageY, null, true);
+
+		var foundListener = false;
 		
-		if (!target)//no interactive objects found
+		if(target)
+		{
+			while (target && target != stage)
+			{
+				if (target.hasEventListener("mousedown") || target.hasEventListener("click"))
+				{
+					foundListener = true;
+					break;
+				}
+				target = target.parent;
+			}
+		}
+
+		if (!foundListener)//no interactive objects found
 		{
 			//duplicate the array of optional offClick parameters
 			var arr = this.offClickParams.slice(0);

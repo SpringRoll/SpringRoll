@@ -23,8 +23,6 @@
 	{
 		Sound = include('springroll.Sound');
 
-		Button.call(this, imageSettings, label, enabled);
-
 		/**
 		 *  The audio alias to use for click events
 		 *  @property {String} clickAlias
@@ -46,6 +44,9 @@
 
 		this._onRollover = this._onRollover.bind(this);
 		this._onButtonPress = this._onButtonPress.bind(this);
+
+		Button.call(this, imageSettings, label, enabled);
+
 	};
 
 	// Reference to the super prototype
@@ -100,18 +101,16 @@
 		get: function(){ return !this._stateFlags.disabled; },
 		set: function(value)
 		{
-			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
+			this.removeEventListener('rollover', this._onRollover);
+			this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 			// add listeners
 			if(value)
 			{
 				this.addEventListener('rollover', this._onRollover);
 				this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
 			}
-			else
-			{
-				this.removeEventListener('rollover', this._onRollover);
-				this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
-			}
+
+			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 		}
 	});
 
