@@ -87,14 +87,28 @@ Modules are components which contain common code classes, documentation and/or r
 
 * **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
 * **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)**
-* **EaselJS Display Module**
-* **Native Display Module**
-* **PIXI Display Module**
+* **[Debug Module](https://github.com/SpringRoll/SpringRoll/wiki/Debug-Module)**
+* EaselJS
+	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)**
+	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)**
+	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)**
+	* **[EaselJS Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Interface-Module)**
+	* **[EaselJS Tracking Game Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Tracking-Game-Module)**
+	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)**
+* **[Game Module](https://github.com/SpringRoll/SpringRoll/wiki/Game-Module)**
+* **[Hinting Module](https://github.com/SpringRoll/SpringRoll/wiki/Hinting-Module)**
 * **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)**
+* **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)**
+* Pixi.js
+	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)**
+	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)**
+	* **[Pixi.js Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Interface-Module)**
+* **[Progress Tracker Module](https://github.com/SpringRoll/SpringRoll/wiki/Progress-Tracker-Module)**
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
-* **Tasks Module**
+* **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)**
+* **[Tracking Game Container](https://github.com/SpringRoll/SpringRoll/wiki/Tracking-Game-Container)**
+* **[Tracking Game Module](https://github.com/SpringRoll/SpringRoll/wiki/Tracking-Game-Module)**
 * **[Translate Module](https://github.com/SpringRoll/SpringRoll/wiki/Translate-Module)**
-* **Worker Module**
 
 ##Displays
 
