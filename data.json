@@ -8544,7 +8544,7 @@
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
             "line": 80,
-            "description": "Loads all files need to make a BitmapMovieClip, given that the files are in the same\nlocation with a specific naming convention:\n\nBitmapMovieClip config file: <assetId>.json <br />\nBitmapMovieClip textureAtlas json: <assetId>Sprite.json <br />\nBitmapMovieClip textureAtlas image: <assetId>Sprite.png",
+            "description": "Loads all files need to make a BitmapMovieClip, given that the files are in the same\nlocation with a specific naming convention:\n\nBitmapMovieClip config file: &lt;assetId&gt;.json <br />\nBitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />\nBitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png",
             "itemtype": "method",
             "name": "loadBitmapMovieClip",
             "static": 1,
