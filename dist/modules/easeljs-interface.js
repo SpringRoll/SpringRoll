@@ -1748,9 +1748,9 @@
 	*  Loads all files need to make a BitmapMovieClip, given that the files are in the same
 	*  location with a specific naming convention:
 	*
-	*  BitmapMovieClip config file: <assetId>.json <br />
-	*  BitmapMovieClip textureAtlas json: <assetId>Sprite.json <br />
-	*  BitmapMovieClip textureAtlas image: <assetId>Sprite.png
+	*  BitmapMovieClip config file: &lt;assetId&gt;.json <br />
+	*  BitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />
+	*  BitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png
 	*
 	*  @method loadBitmapMovieClip
 	*  @static
@@ -1815,18 +1815,61 @@
 	}
 
 	/**
-	*  Loads a list of assets. All javascript files will be parsed so that they can be loaded later.
-	*  Additionally, AssetManager will handle spritesheets automatically. A pair of assets in the
-	*  manifest with ids of "atlasData_ASSETID" and "atlasImage_ASSETID", where "ASSETID" is your
-	*  desired asset id, will create a TextureAtlas instance, accessible via
-	*  AssetManager.getAtlas("ASSETID"). A pair of assets in the manifest with ids of
-	*  "spriteData_ASSETID" and "spriteImage_ASSETID" will be run through
-	*  BitmapUtils.loadSpriteSheet() so that the individual sprites can be accessed via the global
-	*  libs dictionary.
+	*  Loads a list of assets. All javascript files will be parsed so that they can be unloaded
+	*  later. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks
+	*  for special manifest items that would otherwise be invalid to handle spritesheets or images
+	*  that have been split into alpha and color images.
+	*  A manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via
+	*  AssetManager.getAtlas("myAssetId"):
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "atlasImage":"path/asset.png"
+	*      }
+	*
+	*  A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
+	*  so that the individual sprites can be accessed via the global 'lib' dictionary:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "atlasImage":"path/asset.png",
+	*          "splitForEaselJS":true
+	*      }
+	*
+	*  A manifest item for a single image that has been split into color and alpha images that
+	*  should be recombined upon loading:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "color":"path/asset-color.jpg",
+	*          "alpha":"path/asset-alpha.png"
+	*      }
+	*
+	*  A manifest item for a TextureAtlas or spritesheet that has been split into color and
+	*  alpha images:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "color":"path/asset-color.jpg",
+	*          "alpha":"path/asset-alpha.png"
+	*      }
+	*
+	*  A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
+	*  retrieved via AssetManager.getBitmapMovieClipConfig("myAssetId"):
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "src":"path/asset.json",
+	*          "bmcConfig":true
+	*      }
+	*
 	*  @method load
 	*  @static
-	*  @param {Array} manifest The collection of asset ids or single asset id
-	*  @param {Function} callback A function to call when load is complete
+	*  @param {Array} manifest The collection of asset manifests
+	*  @param {Function} [callback] A function to call when load is complete
 	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
 	*                                        loading. If omitted, loads immediately with an internal
 	*                                        TaskManager.
