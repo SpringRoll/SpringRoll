@@ -560,7 +560,7 @@
 			}
 			else
 			{
-				data = this._activeSyncAudio[0]._audioData;
+				var data = this._activeSyncAudio[0]._audioData;
 				this._soundStartTime = data.start;
 				if(this._captionsObj)
 				{
