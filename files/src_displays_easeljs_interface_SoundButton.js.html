@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src/displays/easeljs/interface/SoundButton.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src\displays\easeljs\interface\SoundButton.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:SoundButton.js</h1>
+<h1 class="file-heading">File:src\displays\easeljs\interface\SoundButton.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -473,8 +473,6 @@
 	{
 		Sound = include(&#x27;springroll.Sound&#x27;);
 
-		Button.call(this, imageSettings, label, enabled);
-
 		/**
 		 *  The audio alias to use for click events
 		 *  @property {String} clickAlias
@@ -497,9 +495,8 @@
 		this._onRollover = this._onRollover.bind(this);
 		this._onButtonPress = this._onButtonPress.bind(this);
 
-		// add listeners
-		this.addEventListener(&#x27;rollover&#x27;, this._onRollover);
-		this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+		Button.call(this, imageSettings, label, enabled);
+
 	};
 
 	// Reference to the super prototype
@@ -547,6 +544,23 @@
 		set: function(enabled)
 		{
 			this._audioEnabled = enabled;
+		}
+	});
+
+	Object.defineProperty(p, &quot;enabled&quot;, {
+		get: function(){ return !this._stateFlags.disabled; },
+		set: function(value)
+		{
+			this.removeEventListener(&#x27;rollover&#x27;, this._onRollover);
+			this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+			// add listeners
+			if(value)
+			{
+				this.addEventListener(&#x27;rollover&#x27;, this._onRollover);
+				this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+			}
+
+			Object.getOwnPropertyDescriptor(s, &#x27;enabled&#x27;).set.call(this, value);
 		}
 	});
 

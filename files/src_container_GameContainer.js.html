@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src/container/GameContainer.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src\container\GameContainer.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:GameContainer.js</h1>
+<h1 class="file-heading">File:src\container\GameContainer.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -811,11 +811,7 @@
 	 */
 	var onContainerFocus = function(e)
 	{
-		//Set both container and game to blurred, 
-		//because some blur events are only happening on the container.
-		//If container is blurred because game area was just focused,
-		//the game&#x27;s focus event will override the blur imminently.
-		this._containerBlurred = this._gameBlurred = true;
+		this._containerBlurred = false;
 		manageFocus.call(this);
 	};
 
@@ -826,7 +822,11 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		this._containerBlurred = true;
+		//Set both container and game to blurred, 
+		//because some blur events are only happening on the container.
+		//If container is blurred because game area was just focused,
+		//the game&#x27;s focus event will override the blur imminently.
+		this._containerBlurred = this._gameBlurred = true;
 		manageFocus.call(this);
 	};
 

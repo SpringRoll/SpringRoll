@@ -658,7 +658,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l413'><code>getAtlas:413</code></a>
+                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l512'><code>getAtlas:512</code></a>
               </p>
           
           
@@ -726,7 +726,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l425'><code>getBitmapMovieClipConfig:425</code></a>
+                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l524'><code>getBitmapMovieClipConfig:524</code></a>
               </p>
           
           
@@ -808,7 +808,7 @@
                         <code>manifest</code>
                     </li>
                     <li class='arg'>
-                        <code>callback</code>
+                        <code class='optional'>[callback]</code>
                     </li>
                     <li class='arg'>
                         <code class='optional'>[taskList]</code>
@@ -837,15 +837,48 @@
             </div>
           
             <div class='description'>
-              <p>Loads a list of assets. All javascript files will be parsed so that they can be loaded later.
-          Additionally, AssetManager will handle spritesheets automatically. A pair of assets in the
-          manifest with ids of "atlasData_ASSETID" and "atlasImage_ASSETID", where "ASSETID" is your
-          desired asset id, will create a TextureAtlas instance, accessible via
-          AssetManager.getAtlas("ASSETID"). A pair of assets in the manifest with ids of
-          "spriteData_ASSETID" and "spriteImage_ASSETID" will be run through
-          BitmapUtils.loadSpriteSheet() so that the individual sprites can be accessed via the global
-          libs dictionary.</p>
-          
+              <p>Loads a list of assets. All javascript files will be parsed so that they can be unloaded
+          later. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks
+          for special manifest items that would otherwise be invalid to handle spritesheets or images
+          that have been split into alpha and color images.
+          A manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via
+          AssetManager.getAtlas("myAssetId"):</p>
+          <pre class="code prettyprint"><code>{
+              "id":"myAssetId",
+              "atlasData":"path/asset.json",
+              "atlasImage":"path/asset.png"
+          }
+          </code></pre><p>A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
+          so that the individual sprites can be accessed via the global &#39;lib&#39; dictionary:</p>
+          <pre class="code prettyprint"><code>{
+              "id":"myAssetId",
+              "atlasData":"path/asset.json",
+              "atlasImage":"path/asset.png",
+              "splitForEaselJS":true
+          }
+          </code></pre><p>A manifest item for a single image that has been split into color and alpha images that
+          should be recombined upon loading:</p>
+          <pre class="code prettyprint"><code>{
+              "id":"myAssetId",
+              "color":"path/asset-color.jpg",
+              "alpha":"path/asset-alpha.png"
+          }
+          </code></pre><p>A manifest item for a TextureAtlas or spritesheet that has been split into color and
+          alpha images:</p>
+          <pre class="code prettyprint"><code>{
+              "id":"myAssetId",
+              "atlasData":"path/asset.json",
+              "color":"path/asset-color.jpg",
+              "alpha":"path/asset-alpha.png"
+          }
+          </code></pre><p>A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
+          retrieved via AssetManager.getBitmapMovieClipConfig("myAssetId"):</p>
+          <pre class="code prettyprint"><code>{
+              "id":"myAssetId",
+              "src":"path/asset.json",
+              "bmcConfig":true
+          }
+          </code></pre>
             </div>
           
               <div class='params'>
@@ -858,14 +891,15 @@
           
           
                       <div class='param-description'>
-                        <p>The collection of asset ids or single asset id</p>
+                        <p>The collection of asset manifests</p>
           
                       </div>
           
                     </li>
                     <li class='param'>
-                        <code class='param-name'>callback</code>
+                        <code class='param-name optional'>[callback]</code>
                         <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
           
           
                       <div class='param-description'>
@@ -1035,7 +1069,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l382'><code>mergeAlpha:382</code></a>
+                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l481'><code>mergeAlpha:481</code></a>
               </p>
           
           
@@ -1130,7 +1164,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l437'><code>unload:437</code></a>
+                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l536'><code>unload:536</code></a>
               </p>
           
           
@@ -1180,7 +1214,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l497'><code>unloadAll:497</code></a>
+                <a href='../files/src_displays_easeljs_interface_AssetManager.js.html#l596'><code>unloadAll:596</code></a>
               </p>
           
           
