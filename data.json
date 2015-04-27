@@ -8634,7 +8634,7 @@
         },
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
-            "line": 481,
+            "line": 499,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -8669,7 +8669,7 @@
         },
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
-            "line": 512,
+            "line": 530,
             "description": "Returns a TextureAtlas that was loaded by the specified asset id.",
             "itemtype": "method",
             "name": "getAtlas",
@@ -8691,7 +8691,7 @@
         },
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
-            "line": 524,
+            "line": 542,
             "description": "Returns a configuration object for a BitmapMovieClip.",
             "itemtype": "method",
             "name": "getBitmapMovieClipConfig",
@@ -8713,7 +8713,7 @@
         },
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
-            "line": 536,
+            "line": 554,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -8731,7 +8731,7 @@
         },
         {
             "file": "src\\displays\\easeljs\\interface\\AssetManager.js",
-            "line": 596,
+            "line": 614,
             "description": "Unloads all assets loaded by AssetManager.",
             "itemtype": "method",
             "name": "unloadAll",

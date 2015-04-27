@@ -718,23 +718,41 @@
 						color: true
 					});
 				}
+				//look for JSON marked as BitmapMovieClip configs
+				else if(manifestData.bmcConfig === true)
+				{
+					checkedManifest.push({
+						id: &quot;bmcConfig_&quot; + id,
+						src: manifestData.src
+					});
+				}
 				//add the manifest as normal, as we have checked it for any
 				//changes needed
 				else
 				{
-					//do the original, less easy to use behavior of the
-					//developer making separate manifest items
-					if(manifestData.alpha === true &amp;&amp;
-						id.indexOf(&quot;colorSplit-alpha_&quot;) &lt; 0)
+					//do the (deprecated) less easy to use behavior of the
+					//developer making separate manifest items for alpha/color
+					if(manifestData.alpha === true)
 					{
-						manifestData.id = &quot;colorSplit-alpha_&quot; + id;
+						checkedManifest.push({
+							id: &quot;colorSplit-alpha_&quot; + id,
+							src: manifestData.src,
+							alpha: true
+						});
 					}
-					else if(manifestData.color === true &amp;&amp;
-						id.indexOf(&quot;colorSplit-color_&quot;) &lt; 0)
+					else if(manifestData.color === true)
 					{
-						manifestData.id = &quot;colorSplit-color_&quot; + id;
+						checkedManifest.push({
+							id: &quot;colorSplit-color_&quot; + id,
+							src: manifestData.src,
+							color: true
+						});
 					}
-					checkedManifest.push(manifestData);
+					//add manifest as normal, as it is a standard manifest item
+					else
+					{
+						checkedManifest.push(manifestData);
+					}
 				}
 			}
 		}
