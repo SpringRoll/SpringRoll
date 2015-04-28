@@ -1,9 +1,9 @@
 /**
- * @module EaselJS Interface
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
- */
- (function()
+* @module EaselJS Interface
+* @namespace springroll.easeljs
+* @requires Core, EaselJS Display
+*/
+(function()
 {
 	var BitmapUtils,
 		TextureAtlas,
@@ -129,6 +129,11 @@
 	*/
 	function extractAssetName(assetId)
 	{
+		if(assetId.indexOf("colorSplit-alpha_") === 0)
+			assetId = assetId.substr(17);
+		else if(assetId.indexOf("colorSplit-color_") === 0)
+			assetId = assetId.substr(17);
+		
 		if(assetId.indexOf("atlasData_") === 0)
 			return assetId.substr(10);
 		else if(assetId.indexOf("atlasImage_") === 0)
@@ -170,8 +175,19 @@
 		var checkedManifest = [];
 		for(var i = 0; i < manifest.length; ++i)
 		{
-			if(loadedAssets.indexOf(extractAssetName(manifest[i].id)) == -1)
-				checkedManifest.push(manifest[i]);
+			var manifestData = manifest[i];
+			var id = manifestData.id;
+			if(loadedAssets.indexOf(extractAssetName(id)) == -1)
+			{
+				//if the asset is marked for alpha/color splitting, then we need to add
+				//a marker to the ID so that we can still have the same 'id' but have different
+				//entries in the results dictionary.
+				if(manifestData.alpha === true && id.indexOf("colorSplit-alpha_") < 0)
+					manifestData.id = "colorSplit-alpha_" + id;
+				else if(manifestData.color === true && id.indexOf("colorSplit-color_") < 0)
+						manifestData.id = "colorSplit-color_" + id;
+				checkedManifest.push(manifestData);
+			}
 		}
 		if(checkedManifest.length)
 		{
@@ -201,7 +217,8 @@
 		for(id in results)
 		{
 			var result = results[id];
-			var content = result.content;
+			var content = result.content,
+				manifestData = result.manifestData;
 			//grab any spritesheet images or JSON and keep that separate
 			if(id.indexOf("atlasData_") === 0)
 			{
@@ -211,7 +228,27 @@
 			else if(id.indexOf("atlasImage_") === 0)
 			{
 				id = extractAssetName(id);
-				atlasImage[id] = content;
+				if(manifestData)
+				{
+					if(manifestData.alpha === true)
+					{
+						if(atlasImage[id])
+							atlasImage[id].alpha = content;
+						else
+							atlasImage[id] = {alpha: content};
+					}
+					else if(manifestData.color === true)
+					{
+						if(atlasImage[id])
+							atlasImage[id].color = content;
+						else
+							atlasImage[id] = {color: content};
+					}
+					else
+						atlasImage[id] = content;
+				}
+				else
+					atlasImage[id] = content;
 			}
 			else if(id.indexOf("spriteData_") === 0)
 			{
@@ -221,7 +258,27 @@
 			else if(id.indexOf("spriteImage_") === 0)
 			{
 				id = extractAssetName(id);
-				spriteImage[id] = content;
+				if(manifestData)
+				{
+					if(manifestData.alpha === true)
+					{
+						if(spriteImage[id])
+							spriteImage[id].alpha = content;
+						else
+							spriteImage[id] = {alpha: content};
+					}
+					else if(manifestData.color === true)
+					{
+						if(spriteImage[id])
+							spriteImage[id].color = content;
+						else
+							spriteImage[id] = {color: content};
+					}
+					else
+						spriteImage[id] = content;
+				}
+				else
+					spriteImage[id] = content;
 			}
 			else if(id.indexOf("bmcConfig_") === 0)
 			{
@@ -258,8 +315,31 @@
 			}
 			else
 			{
-				//store images normally
-				images[id] = content;
+				id = extractAssetName(id);
+				//store images normally, after checking for a alpha/color merge
+				if(manifestData)
+				{
+					if(manifestData.alpha === true)
+					{
+						if(images[id] && images.color)
+						{
+							images[id] = mergeAlpha(images[id].color, content);
+						}
+						else
+							images[id] = {alpha: content};
+					}
+					else if(manifestData.color === true)
+					{
+						if(images[id] && images.alpha)
+							images[id] = mergeAlpha(content, images[id].alpha);
+						else
+							images[id] = {color: content};
+					}
+					else
+						images[id] = content;
+				}
+				else
+					images[id] = content;
 			}
 			if(loadedAssets.indexOf(id) == -1)
 				loadedAssets.push(id);
@@ -269,6 +349,10 @@
 		{
 			if(atlasImage[id])
 			{
+				//if the image needs to be merged from color and alpha data, take care of that
+				if(atlasImage[id].alpha && atlasImage[id].color)
+					atlasImage[id] = mergeAlpha(atlasImage[id].color, atlasImage[id].alpha);
+				//create the TextureAtlas
 				textureAtlases[id] = new TextureAtlas(atlasImage[id], atlasData[id]);
 			}
 		}
@@ -277,7 +361,11 @@
 		{
 			if(spriteImage[id])
 			{
+				//if the image needs to be merged from color and alpha data, take care of that
+				if(spriteImage[id].alpha && spriteImage[id].color)
+					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
 				var frames = spriteData[id].frames;
+				//diseminate the spritesheet into individual 'Bitmap'
 				BitmapUtils.loadSpriteSheet(frames, spriteImage[id]);
 				//keep track of the things that it loaded so we can remove them properly
 				for(var frame in frames)
@@ -289,6 +377,37 @@
 		//perform the callback
 		if(callback)
 			callback();
+	};
+	
+	/**
+	* Pulled from EaselJS's SpriteSheetUtils.
+	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	* combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	* containing alpha data. With certain types of images (those with detail that lend itself to
+	* JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	* This method is very fast (generally on the order of 1-2 ms to run).
+	* @method mergeAlpha
+	* @static
+	* @private
+	* @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	* @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	* @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	*                          canvas will be created.
+	* @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	*                  Texture.
+	*/
+	var mergeAlpha = function(rgbImage, alphaImage, canvas) {
+		if (!canvas)
+			canvas = document.createElement("canvas");
+		canvas.width = Math.max(alphaImage.width, rgbImage.width);
+		canvas.height = Math.max(alphaImage.height, rgbImage.height);
+		var ctx = canvas.getContext("2d");
+		ctx.save();
+		ctx.drawImage(rgbImage,0,0);
+		ctx.globalCompositeOperation = "destination-in";
+		ctx.drawImage(alphaImage,0,0);
+		ctx.restore();
+		return canvas;
 	};
 	
 	/**

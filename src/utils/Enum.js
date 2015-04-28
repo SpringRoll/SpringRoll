@@ -94,6 +94,18 @@
 			value: []
 		});
 
+		/**
+		 *  The values that this Enum was initialized with. We save this so
+		 *  that we can potentially pass this via Bellhop and re-initialize.
+		 *  @public
+		 *  @property {Array} rawEnumValues
+		 */
+		Object.defineProperty(this, 'rawEnumValues', {
+			enumerable: false,
+			writable: false,
+			value: args
+		});
+
 		var counter = 0;
 		var len = args.length;
 		var item;

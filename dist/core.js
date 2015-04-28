@@ -369,6 +369,18 @@
 			value: []
 		});
 
+		/**
+		 *  The values that this Enum was initialized with. We save this so
+		 *  that we can potentially pass this via Bellhop and re-initialize.
+		 *  @public
+		 *  @property {Array} rawEnumValues
+		 */
+		Object.defineProperty(this, 'rawEnumValues', {
+			enumerable: false,
+			writable: false,
+			value: args
+		});
+
 		var counter = 0;
 		var len = args.length;
 		var item;
@@ -3264,7 +3276,7 @@
 		
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
-		this._loadDone(qi, this._getResult(ev.result, qi.url, loader));
+		this._loadDone(qi, this._getResult(ev.result, qi.url, loader, qi.data));
 	};
 	
 	/**
@@ -3398,7 +3410,7 @@
 		loaderPool.push(loader);
 	};
 	
-	p._getResult = function(result, url, loader)
+	p._getResult = function(result, url, loader, manifestData)
 	{
 		var rtn;
 		if(resultPool.length)
@@ -3407,9 +3419,10 @@
 			rtn.content = result;
 			rtn.url = url;
 			rtn.loader = loader;
+			rtn.manifestData = manifestData;
 		}
 		else
-			rtn = new LoaderResult(result, url, loader);
+			rtn = new LoaderResult(result, url, loader, manifestData);
 		return rtn;
 	};
 	
@@ -3434,22 +3447,22 @@
 	*  @class LoaderResult
 	*  @constructor
 	*  @param {*} content The dynamic content loaded
-	*  @param {string} url The url that was loaded
+	*  @param {String} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	*/
-	var LoaderResult = function(content, url, loader)
+	var LoaderResult = function(content, url, loader, manifestData)
 	{
 		/**
 		*  The contents of the load
 		*  @public
-		*  @property {*} content 
+		*  @property {*} content
 		*/
 		this.content = content;
 
 		/**
 		*  The url of the load
 		*  @public
-		*  @property {string} url
+		*  @property {String} url
 		*/
 		this.url = url;
 
@@ -3459,6 +3472,13 @@
 		*  @property {createjs.LoaderQueue} loader
 		*/
 		this.loader = loader;
+		
+		/**
+		*  The full manifest data for the load item.
+		*  @public
+		*  @property {String} manifestData
+		*/
+		this.manifestData = manifestData;
 	};
 	
 	/** Reference to the prototype */
@@ -3468,7 +3488,7 @@
 	* A to string method
 	* @public
 	* @method toString
-	* @return {string} A string rep of the object
+	* @return {String} A string rep of the object
 	*/
 	p.toString = function()
 	{
@@ -3485,6 +3505,7 @@
 		this.callback = null;
 		this.url = null;
 		this.content = null;
+		this.manifestData = null;
 	};
 	
 	// Assign to the name space

@@ -276,13 +276,20 @@
 					{
 						var state = clip.state;
 						skeletonData = clip.stateData.skeletonData;
-						state.setAnimationByName(anim[0], false);
 						this.duration = skeletonData.findAnimation(anim[0]).duration;
-						for(i = 1; i < anim.length; ++i)
+						if(anim.length == 1)
 						{
-							state.addAnimationByName(anim[i],
-								this.isLooping && i == anim.length - 1);
-							this.duration += skeletonData.findAnimation(anim[i]).duration;
+							state.setAnimationByName(anim[0], this.isLooping);
+						}
+						else
+						{
+							state.setAnimationByName(anim[0], false);
+							for(i = 1; i < anim.length; ++i)
+							{
+								state.addAnimationByName(anim[i],
+									this.isLooping && i == anim.length - 1);
+								this.duration += skeletonData.findAnimation(anim[i]).duration;
+							}
 						}
 					}
 				}
