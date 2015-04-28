@@ -167,6 +167,12 @@
 		*  @property {Image|HTMLCanvasElement} image
 		*/
 		this.image = image;
+		/**
+		*  If this texture has been rotated (90 degrees clockwise).
+		*  @property {Boolean} rotated
+		*/
+		this.rotated = data.rotated;
+		
 		var f = data.frame;
 		/**
 		*  The frame rectangle within the image.

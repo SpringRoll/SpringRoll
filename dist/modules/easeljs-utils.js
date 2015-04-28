@@ -53,6 +53,11 @@
 				child.sourceRect = this._frameRect;
 				var s = this._scale;
 				child.setTransform(this._frameOffsetX * s, this._frameOffsetY * s, s, s);
+				if(this._rotated)
+				{
+					child.rotation = -90;
+					child.regX = child.sourceRect.width * s;
+				}
 			};
 			/* jshint ignore:end */
 			var p = newBitmap.prototype = new createjs.Container();
@@ -73,6 +78,8 @@
 			}
 			else
 				p._frameOffsetX = p._frameOffsetY = 0;
+			if(frame.rotated)
+				p._rotated = true;
 			if(bitmap && bitmap.prototype.nominalBounds)
 			{
 				//keep the nominal bounds from the original bitmap, if it existed
@@ -110,6 +117,11 @@
 		output.addChild(bitmap);
 		bitmap.sourceRect = texture.frame;
 		bitmap.setTransform(texture.offset.x * scale, texture.offset.y * scale, scale, scale);
+		if(texture.rotated)
+		{
+			bitmap.rotation = -90;
+			bitmap.regX = bitmap.sourceRect.width * scale;
+		}
 		//set up a nominal bounds to be kind
 		output.nominalBounds = new createjs.Rectangle(0, 0,
 												texture.width * scale,
