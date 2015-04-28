@@ -6,7 +6,7 @@
 (function(undefined)
 {
 	//Import classes
-	var BaseTrackingGame = include('springroll.TrackingGame'),
+	var BaseLearningGame = include('springroll.LearningGame'),
 		EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay'),
 		Animator,
 		Text,
@@ -15,8 +15,8 @@
 
 	/**
 	 *  A createjs-based Game to load manifests
-	 *  @class TrackingGame
-	 *  @extends springroll.TrackingGame
+	 *  @class LearningGame
+	 *  @extends springroll.LearningGame
 	 *  @constructor
 	 *  @param {object} [options] The Application options
 	 *  @param {string} [options.manifestsPath='assets/config/manifests.json']
@@ -31,14 +31,14 @@
 	 *  @param {boolean} [options.displayOptions.clearView=true] If the stage view
 	 *      should be cleared everytime in CreateJS stage. 
 	 */
-	var TrackingGame = function(options)
+	var LearningGame = function(options)
 	{
 		Text = include('createjs.Text');
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
 		Animator = include('springroll.easeljs.Animator');
 
-		BaseTrackingGame.call(this, Object.merge({
+		BaseLearningGame.call(this, Object.merge({
 			manifestsPath: "assets/config/manifests.json",
 			display: EaselJSDisplay,
 			displayOptions:	{
@@ -80,8 +80,8 @@
 	};
 
 	//Extend base game class
-	var s = BaseTrackingGame.prototype;
-	var p = extend(TrackingGame, BaseTrackingGame);
+	var s = BaseLearningGame.prototype;
+	var p = extend(LearningGame, BaseLearningGame);
 
 	/**
 	 *  Event when the manifest is finished loading
@@ -188,8 +188,8 @@
 	 */
 	var onStageMouseDown = function(ev)
 	{
-		//sanity checking to make sure tracker exists
-		if (!this.tracker) return;
+		//sanity checking to make sure learning exists
+		if (!this.learning) return;
 
 		var stage = ev.target;
 		var target = stage._getObjectsUnderPoint(ev.stageX, ev.stageY, null, true);
@@ -204,7 +204,7 @@
 			arr.unshift(this.normalizePosition(ev.stageX, ev.stageY));
 
 			//send the entire array of parameters
-			this.tracker.offClick.apply(this, arr);
+			this.learning.offClick.apply(this, arr);
 		}
 	};
 
@@ -240,6 +240,6 @@
 	});
 
 	//Assign to namespace
-	namespace('springroll.easeljs').TrackingGame = TrackingGame;
+	namespace('springroll.easeljs').LearningGame = LearningGame;
 
 }());

@@ -1,11 +1,11 @@
 /**
- * @module Progress Tracker
+ * @module Learning Dispatcher
  * @namespace springroll
  * @requires Core
  */
 (function()
 {
-	var ProgressTrackerError = include('springroll.ProgressTrackerError');
+	var LearningDispatcherError = include('springroll.LearningDispatcherError');
 
 	/**
 	 *  A map of all the event codes to the API method names
@@ -106,7 +106,7 @@
 			}
 			else
 			{
-				throw new ProgressTrackerError("Cannot override the existing event code " + eventCode);
+				throw new LearningDispatcherError("Cannot override the existing event code " + eventCode);
 			}
 		}
 	};

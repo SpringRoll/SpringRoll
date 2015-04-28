@@ -1,16 +1,16 @@
 // Import classes
-var ProgressTracker = include('springroll.ProgressTracker'),
+var LearningDispatcher = include('springroll.LearningDispatcher'),
 	Application = include('springroll.Application'),
-	ProgressTrackerError = include('springroll.ProgressTrackerError'),
-	ValidationError = include('springroll.ProgressTrackerError');
+	LearningDispatcherError = include('springroll.LearningDispatcherError'),
+	ValidationError = include('springroll.LearningDispatcherError');
 
 $.getJSON('data/spec.json', function(spec){
 
 	// Throw errors, it will make it easier to validate
-	ProgressTracker.throwErrors = true;
+	LearningDispatcher.throwErrors = true;
 
-	// Our base tracker object
-	var tracker;
+	// Our base learning object
+	var learning;
 	var app = new Application();
 
 	// Validate the loaded API
@@ -23,27 +23,27 @@ $.getJSON('data/spec.json', function(spec){
 		assert.strictEqual(typeof spec.events, "object", "Game API spec has events collection");
 	}); 
 
-	// Create the progress tracker
-	test('Created Progress Tracker', function(assert){
+	// Create the progress learning
+	test('Created Learning Dispatcher', function(assert){
 		expect(1);
-		tracker = new ProgressTracker(app, spec);
-		tracker.showTray = true;
-		assert.ok(!!tracker, "Created an empty tracker");
+		learning = new LearningDispatcher(app, spec);
+		learning.showTray = true;
+		assert.ok(!!learning, "Created an empty learning");
 	});
 
 	// Handle a properly triggered track event
 	test('Trigger Track Event', function(assert){
 		expect(4);
 		stop();
-		tracker.on('track', function(data){
+		learning.on('learningEvent', function(data){
 			start();
 			assert.strictEqual(data.event_data.version, 4, "Version sent through startGame");
 			assert.strictEqual(data.event_data.event_code, 2000, "Event code validation");
 			assert.strictEqual(data.game_id, spec.gameId, "Game id validation");
 			assert.strictEqual(data.event_id, spec.events["2000"].id, "Event id validation");
-			tracker.off('track');
+			learning.off('learningEvent');
 		});
-		tracker.startGame();
+		learning.startGame();
 	});
 
 	// Handle validation error
@@ -51,7 +51,7 @@ $.getJSON('data/spec.json', function(spec){
 		expect(4);
 		try 
 		{
-			tracker.startInstruction(1, 1000, "description", "id");
+			learning.startInstruction(1, 1000, "description", "id");
 		}
 		catch(e)
 		{
@@ -73,16 +73,16 @@ $.getJSON('data/spec.json', function(spec){
 		var animals = ["Pig", "Hog", "Cow"];
 
 		stop();
-		tracker.on('track', function(data){
+		learning.on('learningEvent', function(data){
 			start();
 			assert.deepEqual(data.event_data.options, options, "Passing array argument");
 			assert.deepEqual(data.event_data.round_target, target, "Passing object argument");
-			tracker.off('track');
+			learning.off('learningEvent');
 
 			try 
 			{
 				target.size = "fail";
-				tracker.startRound(1, target, options, animals, 1);	
+				learning.startRound(1, target, options, animals, 1);	
 			}
 			catch (e)
 			{
@@ -90,22 +90,22 @@ $.getJSON('data/spec.json', function(spec){
 				assert.strictEqual(e.property, "round_target.size", "Nested targeting");
 			}
 		});
-		tracker.startRound(1, target, options, animals, 1);
+		learning.startRound(1, target, options, animals, 1);
 	});
 
 	test("Convenience Timers", function(assert){
 		expect(3);
-		tracker.startTimer('example');
+		learning.startTimer('example');
 		stop();
 		setTimeout(function(){
 			start();
-			var poll = tracker.pollTimer('example');
-			var total = tracker.stopTimer('example');
+			var poll = learning.pollTimer('example');
+			var total = learning.stopTimer('example');
 			assert.ok(total > 0, "Timer is available");
 			assert.strictEqual(poll, total, "Got timer same as poll")
 			try
 			{
-				tracker.stopTimer('example');
+				learning.stopTimer('example');
 			}
 			catch(e)
 			{
@@ -118,18 +118,18 @@ $.getJSON('data/spec.json', function(spec){
 
 		expect(2);
 
-		tracker.startInstruction("Pick the correct button", "PickButton", "audio", 1000);
-		tracker.endInstruction();
+		learning.startInstruction("Pick the correct button", "PickButton", "audio", 1000);
+		learning.endInstruction();
 
-		tracker.startIncorrectFeedback("Sorry, that's wrong", "SorryWrong", "audio", 1000);
-		tracker.endIncorrectFeedback();
+		learning.startIncorrectFeedback("Sorry, that's wrong", "SorryWrong", "audio", 1000);
+		learning.endIncorrectFeedback();
 
-		tracker.startCorrectFeedback("You were correct", "Correct", "audio", 1000);
-		tracker.endCorrectFeedback();
+		learning.startCorrectFeedback("You were correct", "Correct", "audio", 1000);
+		learning.endCorrectFeedback();
 
 		try 
 		{
-			tracker.endCorrectFeedback();
+			learning.endCorrectFeedback();
 		}
 		catch (e)
 		{
@@ -140,11 +140,11 @@ $.getJSON('data/spec.json', function(spec){
 
 	test("Convenience Movie Methods", function(assert){
 
-		tracker.startMovie("Intro", 2000, "Introduction to the game, cinematic");
-		tracker.skipMovie();
+		learning.startMovie("Intro", 2000, "Introduction to the game, cinematic");
+		learning.skipMovie();
 		try 
 		{
-			tracker.stopMovie();
+			learning.stopMovie();
 		}
 		catch (e)
 		{
@@ -158,27 +158,27 @@ $.getJSON('data/spec.json', function(spec){
 		expect(2);
 		try
 		{
-			tracker.startMovie(1, 2, 3, 4, 5);
+			learning.startMovie(1, 2, 3, 4, 5);
 		}
 		catch (e)
 		{
-			assert.ok(e instanceof ProgressTrackerError, "More arguments");
+			assert.ok(e instanceof LearningDispatcherError, "More arguments");
 		}
 		try
 		{
-			tracker.startMovie(1);
+			learning.startMovie(1);
 		}
 		catch (e)
 		{
-			assert.ok(e instanceof ProgressTrackerError, "Less arguments");
+			assert.ok(e instanceof LearningDispatcherError, "Less arguments");
 		}
 	});
 
-	// Clean up the tracker
-	test('Cleanup Progress Tracker', function(assert){
+	// Clean up the learning
+	test('Cleanup Learning Dispatcher', function(assert){
 		expect(1);
-		tracker.destroy();
-		tracker = null;
-		assert.ok(true, "ProgressTracker destroyed");
+		learning.destroy();
+		learning = null;
+		assert.ok(true, "LearningDispatcher destroyed");
 	});
 });

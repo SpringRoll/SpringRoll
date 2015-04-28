@@ -1,5 +1,5 @@
 /**
- * @module Progress Tracker
+ * @module Learning Dispatcher
  * @namespace springroll.easeljs
  * @requires Core
  */
@@ -8,13 +8,13 @@
 	var Application = include('springroll.Application');
 
 	/**
-	 *  Fires DwellTime ProgressTracker events for clickable objects
+	 *  Fires DwellTime LearningDispatcher events for clickable objects
 	 *  @class DwellTimer
 	 *  @constructor
 	 *  @param {createjs.DisplayObject} target  Object for which to add dwellTime events
-	 *  @param {springroll.ProgressTracker} [tracker] Progress Tracker instance to use
+	 *  @param {springroll.LearningDispatcher} [learning] Learning Dispatcher instance to use
 	 */
-	var DwellTimer = function(target, tracker)
+	var DwellTimer = function(target, learning)
 	{
 		/**
 		 *  Interactable DisplayObject
@@ -34,10 +34,10 @@
 		this.timer = target.id + "_dwell";
 
 		/**
-		 *  Reference to Tracker
-		 *  @property {springroll.ProgressTracker}
+		 *  Reference to Learning Dispatcher
+		 *  @property {springroll.LearningDispatcher} learning
 		 */
-		this.tracker = tracker || Application.instance.tracker;
+		this.learning = learning || Application.instance.learning;
 
 		target.__dwellTimer = this;
 
@@ -72,9 +72,9 @@
 		{
 			return;
 		}
-		if (this.tracker)
+		if (this.learning)
 		{
-			this.tracker.startTimer(this.timer);
+			this.learning.startTimer(this.timer);
 		}
 		target.addEventListener("mousedown", this.mouseOut);
 		target.addEventListener("mouseout", this.mouseOut);
@@ -90,12 +90,12 @@
 		target.removeEventListener("mousedown", this.mouseOut);
 		target.removeEventListener("mouseout", this.mouseOut);
 		var dwellTime;
-		if (this.tracker)
+		if (this.learning)
 		{
-			dwellTime = this.tracker.stopTimer(this.timer);
+			dwellTime = this.learning.stopTimer(this.timer);
 			if (dwellTime >= MIN_TIME)
 			{
-				this.tracker.dwellTime(dwellTime, target.name);
+				this.learning.dwellTime(dwellTime, target.name);
 			}
 		}
 	};
@@ -111,10 +111,10 @@
 		target.removeEventListener("mousedown", this.mouseOut);
 		target.removeEventListener("mouseout", this.mouseOut);
 
-		if (this.tracker)
+		if (this.learning)
 		{
-			this.tracker.removeTimer(this.timer);
-			this.tracker = null;
+			this.learning.removeTimer(this.timer);
+			this.learning = null;
 		}
 
 		this.target = this.timer = null;

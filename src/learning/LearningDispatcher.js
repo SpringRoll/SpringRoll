@@ -1,5 +1,5 @@
 /**
- * @module Progress Tracker
+ * @module Learning Dispatcher
  * @namespace springroll
  * @requires Core
  */
@@ -13,13 +13,13 @@
 		EventError = include('springroll.EventError'),
 		EventSignature = include('springroll.EventSignature'),
 		EventUtils = include('springroll.EventUtils'),
-		ProgressTrackerError = include('springroll.ProgressTrackerError'),
+		LearningDispatcherError = include('springroll.LearningDispatcherError'),
 		SavedData = include('springroll.SavedData'),
 		ValidationError = include('springroll.ValidationError');
 
 	/**
 	 *  The base game class
-	 *  @class ProgressTracker
+	 *  @class LearningDispatcher
 	 *  @extends springroll.EventDispatcher
 	 *  @constructor
 	 *  @param {springroll.Application} app The application reference
@@ -31,7 +31,7 @@
 	 *  @param {object} [eventDictionary=null] The collection of game-specific APIs, this is a map
 	 *         of the eventCode to the name of the API method
 	 */
-	var ProgressTracker = function(app, spec, showTray, eventDictionary)
+	var LearningDispatcher = function(app, spec, showTray, eventDictionary)
 	{
 		EventDispatcher.call(this);
 
@@ -67,7 +67,7 @@
 			 *  @private
 			 */
 			this._tray = $('<div class="pt-tray">' +
-				'<h2>Progress Tracker API  <span class="pt-version"></span></h2>' +
+				'<h2>Learning Dispatcher API  <span class="pt-version"></span></h2>' +
 				'</div>');
 
 			/**
@@ -160,26 +160,26 @@
 	};
 
 	/**
-	 *  If the progress tracker should throw errors
+	 *  If the Learning Dispatcher should throw errors
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
-	ProgressTracker.throwErrors = false;
+	LearningDispatcher.throwErrors = false;
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(ProgressTracker, EventDispatcher);
+	var p = extend(LearningDispatcher, EventDispatcher);
 
 	/**
 	 *  An event is tracked
-	 *  @event track
+	 *  @event learningEvent
 	 *  @param {object} data The event data
 	 *  @param {string} data.game_id The unique game id
 	 *  @param {string} data.event_id The unique event id
 	 *  @param {object} data.event_data The data attached to event
 	 *  @param {int} data.event_data.event_code The code of the event
 	 */
-	var TRACK = 'track';
+	var EVENT = 'learningEvent';
 
 	/**
 	 *  An api method was called, this happens before any validation
@@ -201,7 +201,7 @@
 		{
 			if (typeof error === "string")
 			{
-				error = new ProgressTrackerError(error);
+				error = new LearningDispatcherError(error);
 			}
 			throw error;
 		}
@@ -223,7 +223,7 @@
 					Debug.error(error.stack);
 				}
 			}
-			if (ProgressTracker.throwErrors)
+			if (LearningDispatcher.throwErrors)
 			{
 				throw e;
 			}
@@ -835,7 +835,7 @@
 
 		//Dispatch the tracking event here
 		this.trigger(
-			TRACK,
+			EVENT,
 			{
 				game_id: this._spec.gameId,
 				event_id: eventData.id,
@@ -887,7 +887,7 @@
 	{
 		if (this._history.indexOf(api) === -1)
 		{
-			this._handleError("ProgressTracker API '" + api + "' needs to be called first");
+			this._handleError("LearningDispatcher API '" + api + "' needs to be called first");
 			return false;
 		}
 		return true;
@@ -931,6 +931,6 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').ProgressTracker = ProgressTracker;
+	namespace('springroll').LearningDispatcher = LearningDispatcher;
 
 }(window.jQuery));

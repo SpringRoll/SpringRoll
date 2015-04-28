@@ -74,6 +74,44 @@
 		return 'webkitAudioContext' in window || 'AudioContext' in window;
 	}();
 
+	/**
+	 * If the browser has Web Sockets API
+	 * @property {boolean} websockets
+	 */
+	Features.websockets = function()
+	{
+		return 'WebSocket' in window || 'MozWebSocket' in window;
+	}();
+
+	/**
+	 * If the browser has Geolocation API
+	 * @property {boolean} geolocation
+	 */
+	Features.geolocation = function()
+	{
+		return 'geolocation' in navigator;
+	}();
+
+	/**
+	 * If the browser has Web Workers API
+	 * @property {boolean} webworkers
+	 */
+	Features.webworkers = function()
+	{
+		return !!window.Worker;
+	}();
+
+	/**
+	 * If the browser has touch
+	 * @property {boolean} touch
+	 */
+	Features.touch = function()
+	{
+		return !!(('ontouchstart' in window) ||// iOS & Android
+			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
+			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
+	}();
+
 	if (DEBUG && Debug)
 	{
 		Debug.info("Browser Feature Detection" +
@@ -86,4 +124,5 @@
 
 	//Leak Features namespace
 	namespace('springroll').Features = Features;
+
 })();

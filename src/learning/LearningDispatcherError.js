@@ -1,19 +1,19 @@
 /**
- * @module Progress Tracker
+ * @module Learning Dispatcher
  * @namespace springroll
  * @requires Core
  */
 (function()
 {
 	/**
-	 *  General errors when using the Progress Tracker
-	 *  @class ProgressTrackerError
+	 *  General errors when using the Learning Dispatcher
+	 *  @class LearningDispatcherError
 	 *  @extends Error
 	 *  @constructor
 	 *  @param {string} message The error message
 	 *  @param {int} eventCode The number of the event
 	 */
-	var ProgressTrackerError = function(message)
+	var LearningDispatcherError = function(message)
 	{
 		var e = Error.call(this, message);
 
@@ -31,10 +31,10 @@
 	};
 
 	//Extend the Error class
-	var p = extend(ProgressTrackerError, Error);
+	var p = extend(LearningDispatcherError, Error);
 
 	//Assign the constructor
-	p.constructor = ProgressTrackerError;
+	p.constructor = LearningDispatcherError;
 
 	/**
 	 *  To string override
@@ -47,6 +47,6 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').ProgressTrackerError = ProgressTrackerError;
+	namespace('springroll').LearningDispatcherError = LearningDispatcherError;
 
 }());

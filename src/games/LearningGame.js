@@ -1,7 +1,7 @@
 /**
- * @module Tracking Game
+ * @method Learning Game
  * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
  */
 (function()
 {
@@ -15,46 +15,36 @@
 		TaskManager = include('springroll.TaskManager'),
 		LoadTask = include('springroll.LoadTask'),
 		UIScaler = include('springroll.UIScaler'),
-		TrackingGameMedia = include('springroll.TrackingGameMedia'),
+		LearningGameMedia = include('springroll.LearningGameMedia'),
 		StringFilters = include('springroll.StringFilters'),
 		PageVisibility = include('springroll.PageVisibility'),
-		ProgressTracker,
+		LearningDispatcher,
 		HintPlayer;
 
 	/**
 	 * The base game class
-	 * @class TrackingGame
+	 * @class LearningGame
 	 * @extends springroll.Game
 	 * @constructor
-	 * @param {object} [options]
-	 *	See SpringRoll's Game class options for the full list
-	 * @param {string} [options.configPath='assets/config/config.json']
-	 *	The path to the default config to load
-	 * @param {String} [options.captionsPath='assets/config/captions.json']
-	 *	The path to the captions dictionary. If this is set to null
-	 *	captions will not be created or used by the VO player.
-	 * @param {String} [options.captions='captions']
-	 *	The id of the captions output DOM Element
-	 * @param {String} [options.canvasId='stage']
-	 *	The ID fo the DOM element to use as the main display
-	 * @param {String} [options.resizeElement='frame']
-	 *	The element to resize the display to
-	 * @param {String} [options.framerate='framerate']
-	 *	The DOM element id for the ouput framerate, the framerate
-	 *	element is created dynamically in dev mode and is added
-	 *	right before the main canvas element (options.canvasId).
-	 * @param {Boolean} [options.singlePlay=false]
-	 *	If the game should be played in single-play mode
-	 * @param {object} [options.playOptions]
-	 *	The optional single-play mode gameplay options
+	 * @param {object} [options] See SpringRoll's Game class options for the full list
+	 * @param {string} [options.configPath='assets/config/config.json'] The path to the default config to load
+	 * @param {String} [options.captionsPath='assets/config/captions.json'] The path to the captions dictionary. If this is set to null
+	 *     captions will not be created or used by the VO player.
+	 * @param {String} [options.captions='captions'] The id of the captions output DOM Element
+	 * @param {String} [options.canvasId='stage'] The ID fo the DOM element to use as the main display
+	 * @param {String} [options.resizeElement='frame'] The element to resize the display to
+	 * @param {String} [options.framerate='framerate'] The DOM element id for the ouput framerate, the framerate
+	 *     element is created dynamically in dev mode and is added
+	 *     right before the main canvas element (options.canvasId).
+	 * @param {Boolean} [options.singlePlay=false] If the game should be played in single-play mode
+	 * @param {object} [options.playOptions] The optional single-play mode gameplay options
 	 */
-	var TrackingGame = function(options)
+	var LearningGame = function(options)
 	{
 		HintPlayer = include('springroll.HintPlayer', false);
-		ProgressTracker = include('springroll.ProgressTracker', false);
+		LearningDispatcher = include('springroll.LearningDispatcher', false);
 
-		options = options ||
-		{};
+		options = options || {};
 
 		// The base options, these are overrideable by the 
 		// options above, but these are some better defaults
@@ -95,19 +85,19 @@
 		{
 			if (DEBUG)
 			{
-				throw "TrackingGame name is undefined, please add a Application option of 'name'";
+				throw "LearningGame name is undefined, please add a Application option of 'name'";
 			}
 			else
 			{
-				throw "TrackingGame name is undefined";
+				throw "LearningGame name is undefined";
 			}
 		}
 
 		/**
-		 * The progress tracker instance
-		 * @property {springroll.ProgressTracker} tracker
+		 * The Learning Dispatcher instance
+		 * @property {springroll.LearningDispatcher} learning
 		 */
-		this.tracker = null;
+		this.learning = null;
 
 		/**
 		 * The StringFilters instance
@@ -130,7 +120,7 @@
 
 		/**
 		 * For media conveninece methods
-		 * @property {springroll.TrackerMedia} media
+		 * @property {springroll.LearningGameMedia} media
 		 */
 		this.media = null;
 
@@ -237,7 +227,7 @@
 
 	//Reference to the prototype
 	var s = Game.prototype;
-	var p = extend(TrackingGame, Game);
+	var p = extend(LearningGame, Game);
 
 	/**
 	 * The game has finished loading
@@ -395,19 +385,19 @@
 			}
 		}
 
-		if (ProgressTracker && config.spec)
+		if (LearningDispatcher && config.spec)
 		{
-			this.tracker = new ProgressTracker(
+			this.learning = new LearningDispatcher(
 				this,
 				config.spec,
 				DEBUG,
 				config.specDictionary || null
 			);
-			this.tracker.on('track', this.progressEvent.bind(this));
+			this.learning.on('learningEvent', this.learningEvent.bind(this));
 			window.onunload = window.onbeforeunload = onWindowClose.bind(this);
 		}
 
-		this.media = new TrackingGameMedia(this);
+		this.media = new LearningGameMedia(this);
 
 		this.trigger(CONFIG_LOADED, config, manager);
 	};
@@ -461,9 +451,9 @@
 
 		this.messenger.send('loadDone');
 
-		if (this.tracker)
+		if (this.learning)
 		{
-			this.tracker.startGame();
+			this.learning.startGame();
 		}
 
 		//Ready to initialize
@@ -532,25 +522,25 @@
 	};
 
 	/**
-	 * Send a progress tracker event
-	 * @method progressEvent
+	 * Send a Learning Dispatcher event
+	 * @method learningEvent
 	 * @param {object} eventData The data associated with an event
 	 */
-	p.progressEvent = function(eventData)
+	p.learningEvent = function(eventData)
 	{
-		this.messenger.send('progressEvent', eventData);
+		this.messenger.send('learningEvent', eventData);
 	};
 
 	/**
 	 * Track a Google Analytics event
-	 * @method trackEvent
+	 * @method analyticEvent
 	 * @param {String} action The action label
 	 * @param {String} [label] The optional label for the event
 	 * @param {Number} [value] The optional value for the event
 	 */
-	p.trackEvent = function(action, label, value)
+	p.analyticEvent = function(action, label, value)
 	{
-		this.messenger.send('trackEvent',
+		this.messenger.send('analyticEvent',
 		{
 			category: this.name,
 			action: action,
@@ -560,7 +550,7 @@
 	};
 
 	/**
-	 * For the tracker, we want to send consistent data when sending
+	 * For the learning, we want to send consistent data when sending
 	 * Position. This helper method will generate that data.
 	 * In the future, we may return an object with known properties,
 	 * but for now we are returning an object of {x:int, y:int,
@@ -608,7 +598,7 @@
 	{
 		window.onunload = window.onbeforeunload = null; //prevent calling this function twice
 
-		if (this.tracker) this.tracker.endGame(exitType || 'game_completed');
+		if (this.learning) this.learning.endGame(exitType || 'game_completed');
 		this.destroy();
 	};
 
@@ -679,12 +669,12 @@
 			}
 		}
 
-		// Destroy tracker after destroying the rest of the application
+		// Destroy learning after destroying the rest of the application
 		// so that dwell timers can be removed
-		if (this.tracker)
+		if (this.learning)
 		{
-			this.tracker.destroy();
-			this.tracker = null;
+			this.learning.destroy();
+			this.learning = null;
 		}
 
 		// Send the end game event to the container
@@ -694,5 +684,5 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').TrackingGame = TrackingGame;
+	namespace('springroll').LearningGame = LearningGame;
 }());

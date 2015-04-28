@@ -1,7 +1,7 @@
 /**
- * @module Tracking Game
+ * @module learning Game
  * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
  */
 (function()
 {
@@ -10,25 +10,28 @@
 
 	/**
 	 *  This class contains a bunch of media playing class
-	 *  to provide convenience around using the Progress Tracker
-	 *  @class TrackingGameMedia
+	 *  to provide convenience around using the Learning Dispatcher
+	 *  @class LearningGameMedia
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game Instance of the current game
+	 *  @param {springroll.LearningGame} game Instance of the current game
 	 */
-	var TrackingGameMedia = function(game)
+	var LearningGameMedia = function(game)
 	{
 		/**
 		 * @param {springroll.StringFilters} filters
 		 */
 		this.filters = game.filters;
+		
 		/**
-		 * @param {springroll.ProgressTracker} tracker
+		 * @param {springroll.LearningDispatcher} learning
 		 */
-		this.tracker = game.tracker;
+		this.learning = game.learning;
+
 		/**
-		 * @param {springroll.TrackingGameMedia} player
+		 * @param {springroll.LearningGameMedia} player
 		 */
 		this.player = game.player;
+
 		/**
 		 * @param {createjs.Display} display
 		 */
@@ -36,11 +39,11 @@
 	};
 
 	//Reference to the prototype
-	var p = TrackingGameMedia.prototype;
+	var p = LearningGameMedia.prototype;
 
 	/**
 	 *  Plays animation or list of animations using springroll.Animator,
-	 *  firing startMovie and endMovie or skipMovie ProgressTracker events.
+	 *  firing startMovie and endMovie or skipMovie LearningDispatcher events.
 	 *  @method playMovie
 	 *  @param {MovieClip} instance The MovieClip to animate.
 	 *  @param {String|Array|Object} events Event or list of events to animate. See
@@ -53,16 +56,16 @@
 	 */
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
-		if (!this.tracker)
+		if (!this.learning)
 		{
 			if (DEBUG && Debug)
 			{
-				Debug.warn("ProgressTracker is not available and will not track Movie events");
+				Debug.warn("LearningDispatcher is not available and will not trigger Movie events");
 			}
 			return this.display.animator.play(instance, events, options);
 		}
 
-		return this.trackMoviePlay(
+		return this.triggerMoviePlay(
 			instance,
 			events,
 			onComplete,
@@ -72,7 +75,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction ProgressTracker events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction LearningDispatcher events
 	 *
 	 *  Example Animator usage:
 	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -95,20 +98,20 @@
 	 */
 	p.playInstruction = function(instance, events, onComplete, onCancel)
 	{
-		var tracker = this.tracker;
+		var learning = this.learning;
 		var animator = this.display.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track Instruction events");
+					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
-			return this.trackMoviePlay(
+			return this.triggerMoviePlay(
 				instance,
 				events,
 				onComplete,
@@ -122,19 +125,19 @@
 			onComplete = events;
 			events = instance;
 
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track Instruction events");
+					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
 			}
-			this.trackVOPlay(
+			this.triggerVOPlay(
 				events,
-				tracker.startInstruction,
-				tracker.endInstruction,
+				learning.startInstruction,
+				learning.endInstruction,
 				onComplete,
 				onCancel
 			);
@@ -142,7 +145,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback ProgressTracker events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
 	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -165,21 +168,21 @@
 	 */
 	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
-		var tracker = this.tracker;
+		var learning = this.learning;
 		var animator = this.display.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track IncorrectFeedback events");
+					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
 
-			return this.trackMoviePlay(
+			return this.triggerMoviePlay(
 				instance,
 				events,
 				onComplete,
@@ -193,19 +196,19 @@
 			onComplete = events;
 			events = instance;
 
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track IncorrectFeedback events");
+					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
 			}
-			this.trackVOPlay(
+			this.triggerVOPlay(
 				events,
-				tracker.startIncorrectFeedback,
-				tracker.endIncorrectFeedback,
+				learning.startIncorrectFeedback,
+				learning.endIncorrectFeedback,
 				onComplete,
 				onCancel
 			);
@@ -213,7 +216,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback ProgressTracker events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
 	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -236,21 +239,21 @@
 	 */
 	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
-		var tracker = this.tracker,
+		var learning = this.learning,
 			animator = this.display.animator;
 
 		if (animator.canAnimate(instance)) //use Animator
 		{
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track CorrectFeedback events");
+					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
 
-			return this.trackMoviePlay(
+			return this.triggerMoviePlay(
 				instance,
 				events,
 				onComplete,
@@ -264,19 +267,19 @@
 			onComplete = events;
 			events = instance;
 
-			if (!tracker)
+			if (!learning)
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("ProgressTracker is not available and will not track CorrectFeedback events");
+					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
 			}
-			this.trackVOPlay(
+			this.triggerVOPlay(
 				events,
-				tracker.startCorrectFeedback,
-				tracker.endCorrectFeedback,
+				learning.startCorrectFeedback,
+				learning.endCorrectFeedback,
 				onComplete,
 				onCancel
 			);
@@ -285,24 +288,24 @@
 
 	/**
 	 *  Generalized method for playing either feedback or instructions
-	 *  @method trackVOPlay
+	 *  @method triggerVOPlay
 	 *  @protected
 	 *  @param {String|Array} alias    Alias or Array of aliases for VO lines to play
-	 *  @param {Function} trackingStart The tracking to call while starting
-	 *  @param {Function} trackingEnd The tracking call to call after finishing/canceling VO
+	 *  @param {Function} learningStart The learning to call while starting
+	 *  @param {Function} learningEnd The learning call to call after finishing/canceling VO
 	 *  @param {Function} [onComplete]    VO Ended callback
 	 *  @param {Function} [onCancel] VO Cancelled (interrupted) callback
 	 */
-	p.trackVOPlay = function(alias, trackingStart, trackingEnd, onComplete, onCancel)
+	p.triggerVOPlay = function(alias, learningStart, learningEnd, onComplete, onCancel)
 	{
 		var animator = this.display.animator;
 
 		//stop any previously playing stuff
 		this.player.stop();
 
-		if (this._trackerAnimatorInstance)
+		if (this._learningAnimatorInstance)
 		{
-			animator.stop(this._trackerAnimatorInstance);
+			animator.stop(this._learningAnimatorInstance);
 		}
 
 		var captions = this.player.captions;
@@ -310,7 +313,7 @@
 		//Callback function for ending or canceling the VO
 		var callback = function(finish)
 		{
-			trackingEnd.call(this.tracker);
+			learningEnd.call(this.learning);
 			if (finish) finish();
 		};
 
@@ -324,9 +327,9 @@
 			callback.bind(this, onCancel)
 		);
 
-		//Track the start event
-		trackingStart.call(
-			this.tracker,
+		//Trigger the start event
+		learningStart.call(
+			this.learning,
 			captions.getFullCaption(alias),
 			aliasToString(alias),
 			"audio",
@@ -335,30 +338,30 @@
 	};
 
 	/**
-	 *  Handles tracking events for tracked Animator calls.
-	 *  @method trackMoviePlay
+	 *  Handles learning events for triggered Animator calls.
+	 *  @method triggerMoviePlay
 	 *  @protected
 	 *  @param {MovieClip} instance The MovieClip to animate.
 	 *  @param {String|Array} events Event or list of events to animate. See
 	 *                              springroll.Animator.play() docs for details.
 	 *  @param {Object} options Additional options. See springroll.Animator.play() docs
 	 *                          for details.
-	 *  @param {String} trackerEvent ProgressTracker VO/animation event type
+	 *  @param {String} learningEvent LearningDispatcher VO/animation event type
 	 *                               ("movie", "instruction", "incorrect", or "correct").
 	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
 	 */
-	p.trackMoviePlay = function(instance, events, onComplete, onCancel, trackerEvent)
+	p.triggerMoviePlay = function(instance, events, onComplete, onCancel, learningEvent)
 	{
-		//Localized instance of tracker
-		var tracker = this.tracker;
+		//Localized instance of learning
+		var learning = this.learning;
 		var animator = this.display.animator;
 
 		//stop any previously playing stuff
 		this.player.stop();
 
-		if (this._trackerAnimatorInstance)
+		if (this._learningAnimatorInstance)
 		{
-			animator.stop(this._trackerAnimatorInstance);
+			animator.stop(this._learningAnimatorInstance);
 		}
 
 		if (!Array.isArray(events))
@@ -371,7 +374,7 @@
 		var alias = ""; //Event "id"
 
 		var captions = this.player.captions;
-		var eventInfo, anim, audio, trackingEnd, trackingCancel;
+		var eventInfo, anim, audio, learningEnd, learningCancel;
 
 		//Current loop iteration Caption and ID/alias
 		var thisCaption, thisID;
@@ -462,42 +465,42 @@
 		
 		duration = duration | 0; //make it an int
 
-		switch (trackerEvent)
+		switch (learningEvent)
 		{
 			case "instruction":
 				{
-					tracker.startInstruction(fullCaption, alias, "animation", duration);
-					trackingEnd = tracker.endInstruction.bind(tracker);
+					learning.startInstruction(fullCaption, alias, "animation", duration);
+					learningEnd = learning.endInstruction.bind(learning);
 					break;
 				}
 			case "correct":
 				{
-					tracker.startCorrectFeedback(fullCaption, alias, "animation", duration);
-					trackingEnd = tracker.endCorrectFeedback.bind(tracker);
+					learning.startCorrectFeedback(fullCaption, alias, "animation", duration);
+					learningEnd = learning.endCorrectFeedback.bind(learning);
 					break;
 				}
 			case "incorrect":
 				{
-					tracker.startIncorrectFeedback(fullCaption, alias, "animation", duration);
-					trackingEnd = tracker.endIncorrectFeedback.bind(tracker);
+					learning.startIncorrectFeedback(fullCaption, alias, "animation", duration);
+					learningEnd = learning.endIncorrectFeedback.bind(learning);
 					break;
 				}
 			case "movie":
 				{
-					tracker.startMovie(alias, duration, fullCaption);
-					trackingEnd = tracker.endMovie.bind(tracker);
-					trackingCancel = tracker.skipMovie.bind(tracker);
+					learning.startMovie(alias, duration, fullCaption);
+					learningEnd = learning.endMovie.bind(learning);
+					learningCancel = learning.skipMovie.bind(learning);
 					break;
 				}
 		}
 
-		var callback = function(trackerCall, otherCall)
+		var callback = function(learningCall, otherCall)
 		{
-			this._trackerAnimatorInstance = null;
+			this._learningAnimatorInstance = null;
 
-			if (trackerCall) //tracker end event
+			if (learningCall) //learning end event
 			{
-				trackerCall();
+				learningCall();
 			}
 
 			if (otherCall) //original callback
@@ -507,14 +510,14 @@
 		};
 
 		//Setup callbacks
-		var onCompleteCallback = callback.bind(this, trackingEnd, onComplete);
+		var onCompleteCallback = callback.bind(this, learningEnd, onComplete);
 		var onCancelCallback = callback.bind(
 			this,
-			trackingCancel ? trackingCancel : trackingEnd,
+			learningCancel ? learningCancel : learningEnd,
 			onCancel === true ? onComplete : onCancel
 		);
 
-		this._trackerAnimatorInstance = instance;
+		this._learningAnimatorInstance = instance;
 		return animator.play(instance, events, onCompleteCallback, onCancelCallback);
 	};
 
@@ -556,9 +559,9 @@
 	 */
 	p.stop = function()
 	{
-		if (this._trackerAnimatorInstance)
+		if (this._learningAnimatorInstance)
 		{
-			this.display.animator.stop(this._trackerAnimatorInstance);
+			this.display.animator.stop(this._learningAnimatorInstance);
 		}
 		else
 		{
@@ -573,7 +576,7 @@
 	 */
 	p.isPlaying = function()
 	{
-		return this.player.playing || !!this._trackerAnimatorInstance;
+		return this.player.playing || !!this._learningAnimatorInstance;
 	};
 
 	/**
@@ -582,10 +585,10 @@
 	 */
 	p.destroy = function()
 	{
-		this.tracker = null;
+		this.learning = null;
 		this.player = null;
 	};
 
 	//Assign to namespace
-	namespace('springroll').TrackingGameMedia = TrackingGameMedia;
+	namespace('springroll').LearningGameMedia = LearningGameMedia;
 }());

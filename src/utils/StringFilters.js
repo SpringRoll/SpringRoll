@@ -1,7 +1,7 @@
 /**
- * @module Tracking Game
+ * @method Learning Game
  * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core, Game, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
  */
 (function()
 {

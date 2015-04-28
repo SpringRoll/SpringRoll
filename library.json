@@ -141,26 +141,26 @@
 			"src/utils/Debug.js",
 			"src/utils/DebugOptions.js"
 		],
-		"progresstracker": {
-			"output": "progress-tracker",
+		"learningdispatcher": {
+			"output": "learning-dispatcher",
 			"main": [
-				"src/tracker/ProgressTrackerError.js",
-				"src/tracker/EventCatalog.js",
-				"src/tracker/EventSignature.js",
-				"src/tracker/EventError.js",
-				"src/tracker/ValidationError.js",
-				"src/tracker/EventUtils.js",
-				"src/tracker/ProgressTracker.js",
-				"src/tracker/easeljs/DwellTimer.js",
-				"src/tracker/ProgressTracker.less"
+				"src/learning/LearningDispatcherError.js",
+				"src/learning/EventCatalog.js",
+				"src/learning/EventSignature.js",
+				"src/learning/EventError.js",
+				"src/learning/ValidationError.js",
+				"src/learning/EventUtils.js",
+				"src/learning/LearningDispatcher.js",
+				"src/learning/easeljs/DwellTimer.js",
+				"src/learning/LearningDispatcher.less"
 			]
 		},
-		"easeljstrackinggame": {
-			"output": "easeljs-tracking-game",
+		"easeljslearninggame": {
+			"output": "easeljs-learning-game",
 			"main": [
 				"src/games/easeljs/BasePanel.js",
 				"src/games/easeljs/BaseState.js",
-				"src/games/easeljs/TrackingGame.js"
+				"src/games/easeljs/LearningGame.js"
 			]
 		},
 		"hinting": {
@@ -178,16 +178,18 @@
 			"output": "container",
 			"main": [
 				"src/container/Features.js",
-				"src/container/GameContainer.js"
+				"src/container/Capabilities.js",
+				"src/container/GameContainer.js",
+				"src/container/LearningGameContainer.js"
 			]
 		},
-		"trackinggame": {
-			"output": "tracking-game",
+		"learninggame": {
+			"output": "learning-game",
 			"main": [
 				"src/utils/StringFilters.js",
-				"src/games/TrackingGameMedia.js",
-				"src/games/TrackingGame.js",
-				"src/games/TrackingGame.less"
+				"src/games/LearningGameMedia.js",
+				"src/games/LearningGame.js",
+				"src/games/LearningGame.less"
 			]
 		}
 	}

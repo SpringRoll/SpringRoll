@@ -1,5 +1,5 @@
 /**
- * @module Progress Tracker
+ * @module Learning Dispatcher
  * @namespace springroll
  * @requires Core
  */
@@ -8,7 +8,7 @@
 	var EventError = include('springroll.EventError');
 
 	/**
-	 *  Error when validating value by Progress Tracker
+	 *  Error when validating value by Learning Dispatcher
 	 *  @class ValidationError
 	 *  @extends springroll.EventError
 	 *  @constructor
