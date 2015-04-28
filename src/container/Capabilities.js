@@ -104,4 +104,4 @@
 	};
 
 	namespace('springroll').Capabilities = Capabilities;
-});
+}());
