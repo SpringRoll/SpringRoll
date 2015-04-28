@@ -47,7 +47,7 @@
 	<script>
 
 	var Application = include('springroll.Application');
-	var TrackingGame = include('springroll.TrackingGame');
+	var LearningGame = include('springroll.LearningGame');
 
 	test('Include All Modules', function(assert){
 		expect(1);
@@ -56,9 +56,9 @@
 		app.destroy();
 	});
 
-	test('Create a TrackingGame', function(assert){
+	test('Create a LearningGame', function(assert){
 		expect(1);
-		var game = new TrackingGame({
+		var game = new LearningGame({
 			name: "TestGame"
 		});
 		assert.ok(!!game, "Created an empty game");
