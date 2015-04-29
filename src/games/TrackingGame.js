@@ -153,8 +153,7 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = this.options.playOptions ||
-		{};
+		this.playOptions = this.options.playOptions || {};
 
 		/**
 		 * Send a message to let the site know that this has
@@ -179,6 +178,7 @@
 				sfxMuted: onContextMuted.bind(this, 'sfx'),
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
+				playOptions: onPlayOptions.bind(this),
 				singlePlay: onSinglePlay.bind(this),
 				close: onClose.bind(this)
 			});
@@ -310,14 +310,23 @@
 
 	/**
 	 * Handler when a game enters single play mode
+	 * @method onPlayOptions
+	 * @private
+	 * @param {event} e The Bellhop event
+	 */
+	var onPlayOptions = function(e)
+	{
+		Object.merge(this.playOptions, e.data || {});
+	};
+
+	/**
+	 * Handler when a game enters single play mode
 	 * @method onSinglePlay
 	 * @private
 	 * @param {event} e The Bellhop event
 	 */
 	var onSinglePlay = function(e)
 	{
-		Object.merge(this.playOptions, e.data ||
-		{});
 		this.singlePlay = true;
 	};
 

@@ -75,6 +75,132 @@
 		return 'webkitAudioContext' in window || 'AudioContext' in window;
 	}();
 
+	/**
+	 * If the browser has Web Sockets API
+	 * @property {boolean} websockets
+	 */
+	Features.websockets = function()
+	{
+		return 'WebSocket' in window || 'MozWebSocket' in window;
+	}();
+
+	/**
+	 * If the browser has Geolocation API
+	 * @property {boolean} geolocation
+	 */
+	Features.geolocation = function()
+	{
+		return 'geolocation' in navigator;
+	}();
+
+	/**
+	 * If the browser has Web Workers API
+	 * @property {boolean} webworkers
+	 */
+	Features.webworkers = function()
+	{
+		return !!window.Worker;
+	}();
+
+	/**
+	 * If the browser has touch
+	 * @property {boolean} touch
+	 */
+	Features.touch = function()
+	{
+		return !!(('ontouchstart' in window) ||// iOS & Android
+			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
+			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
+	}();
+
+	/**
+	 * See if the current bowser has the correct features
+	 * @method test
+	 * @static
+	 * @param {object} capabilities The capabilities
+	 * @param {object} capabilities.features The features
+	 * @param {object} capabilities.features.webgl WebGL required
+	 * @param {object} capabilities.features.geolocation Geolocation required
+	 * @param {object} capabilities.features.webworkers Web Workers API required
+	 * @param {object} capabilities.features.webaudio WebAudio API required
+	 * @param {object} capabilities.features.websockets WebSockets required
+	 * @param {object} capabilities.sizes The sizes
+	 * @param {Boolean} capabilities.sizes.xsmall Screens < 480
+	 * @param {Boolean} capabilities.sizes.small Screens < 768
+	 * @param {Boolean} capabilities.sizes.medium Screens < 992
+	 * @param {Boolean} capabilities.sizes.large Screens < 1200
+	 * @param {Boolean} capabilities.sizes.xlarge Screens >= 1200
+	 * @param {object} capabilities.ui The ui
+	 * @param {Boolean} capabilities.ui.touch Touch capable
+	 * @param {Boolean} capabilities.ui.mouse Mouse capable
+	 * @return {String|null} The error, or else returns null
+	 */
+	Features.test = function(capabilities)
+	{
+		var features = capabilities.features;
+		var ui = capabilities.ui;
+		var sizes = capabilities.sizes;		
+		
+		for(var name in features)
+		{
+			if (Features[name] !== undefined)
+			{
+				// Failed built-in feature check
+				if (features[name] && !Features[name])
+				{
+					return "Browser does not support " + name;
+				}
+				else
+				{
+					if (true && Debug) 
+						Debug.log("Browser has "+ name);
+				}
+			}
+			else
+			{
+				if (true && Debug) 
+					Debug.warn("The feature " + name + " is not supported");
+			}
+		}
+		
+		// Failed negative touch requirement
+		if (!ui.touch && Features.touch)
+		{
+			return "Game does not support touch input";
+		}
+
+		// Failed mouse requirement
+		if (!ui.mouse && !Features.touch)
+		{
+			return "Game does not support mouse input";
+		}
+
+		// Check the sizes
+		var size = Math.max(window.screen.width, window.screen.height);
+
+		if (!sizes.xsmall && size < 480)
+		{
+			return "Game doesn't support extra small screens";
+		}
+		if (!sizes.small && size < 768)
+		{
+			return "Game doesn't support small screens";
+		}
+		if (!sizes.medium && size < 992)
+		{
+			return "Game doesn't support medium screens";
+		}
+		if (!sizes.large && size < 1200)
+		{
+			return "Game doesn't support large screens";
+		}
+		if (!sizes.xlarge && size >= 1200)
+		{
+			return "Game doesn't support extra large screens";
+		}
+		return null;
+	};
+
 	if (true && Debug)
 	{
 		Debug.info("Browser Feature Detection" +
@@ -87,6 +213,7 @@
 
 	//Leak Features namespace
 	namespace('springroll').Features = Features;
+
 })();
 /**
  * @module Container
@@ -197,6 +324,12 @@
 		this.messenger = null;
 
 		/**
+		*  The current release data
+		*  @property {Object} release
+		*/
+		this.release = null;
+
+		/**
 		 * Check to see if a game is loaded
 		 * @property {Boolean} loaded
 		 * @readOnly
@@ -301,6 +434,16 @@
 	 * @event unsupported
 	 */
 
+	 /**
+	 * Fired when the API cannot be called
+	 * @event remoteFailed
+	 */
+
+	 /**
+	 * There was a problem with the API call
+	 * @event remoteError
+	 */
+
 	/**
 	 * Event when the game gives the load done signal
 	 * @event opened
@@ -338,22 +481,28 @@
 	 */
 
 	/**
-	 *  Open a game or path
-	 *  @method open
-	 *  @param {string} path The full path to the game to load
-	 *  @param {Boolean} [singlePlay=false] If the game should be played in single play mode
-	 *  @param {object} [playOptions=null] The specific game options for single play mode
+	 * Open a game or path
+	 * @method _internalOpen
+	 * @private
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, singlePlay, playOptions)
+	p._internalOpen = function(path, options)
 	{
+		options = $.extend({
+			singlePlay: false,
+			playOptions: null
+		}, options);
+
 		this.reset();
 
 		// Dispatch event for unsupported browsers
 		// and then bail, don't continue with loading the game
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
-			this.trigger('unsupported');
-			return;
+			return this.trigger('unsupported');
 		}
 
 		this.loading = true;
@@ -373,7 +522,6 @@
 			gameFocus: onGameFocus.bind(this)
 		});
 
-
 		//Open the game in the iframe
 		this.main
 			.addClass('loading')
@@ -381,13 +529,93 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		// Play in single play mode
 		if (singlePlay)
 		{
-			this.messenger.send('singlePlay', playOptions);
+			this.messenger.send('singlePlay', singlePlay);
+		}
+
+		if (playOptions)
+		{
+			this.messenger.send('playOptions', playOptions);
 		}
 
 		this.trigger('open');
+	};
+
+	/**
+	 * Open a game or path
+	 * @method open
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 */
+	p.open = function(path, options, playOptions)
+	{
+		options = options || {};
+
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions
+			};
+		}
+		this._internalOpen(path, options);
+	};
+
+	/**
+	 * Open game based on an API Call to SpringRoll Connect
+	 * @method openRemote
+	 * @param {string} api The path to API call, this can be a full URL
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
+	 */
+	p.openRemote = function(api, options, playOptions)
+	{
+		options = options || {};
+
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions,
+				query: ''
+			};
+		}
+
+		this.release = null;
+
+		$.getJSON(api, function(result)
+		{
+			if (!result.success)
+			{
+				return this.trigger('remoteError', result.error);
+			}
+			var release = result.data;
+
+			var err = Features.test(release.capabilities);
+
+			if (err)
+			{
+				return this.trigger('unsupported');
+			}
+
+			this.release = release;
+
+			// Open the game
+			this._internalOpen(release.url + options.query, options);
+		}
+		.bind(this))
+		.fail(function()
+		{
+		    return this.trigger('remoteFailed');
+		}
+		.bind(this));
 	};
 
 	/**

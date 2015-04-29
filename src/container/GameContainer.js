@@ -107,6 +107,12 @@
 		this.messenger = null;
 
 		/**
+		*  The current release data
+		*  @property {Object} release
+		*/
+		this.release = null;
+
+		/**
 		 * Check to see if a game is loaded
 		 * @property {Boolean} loaded
 		 * @readOnly
@@ -211,6 +217,16 @@
 	 * @event unsupported
 	 */
 
+	 /**
+	 * Fired when the API cannot be called
+	 * @event remoteFailed
+	 */
+
+	 /**
+	 * There was a problem with the API call
+	 * @event remoteError
+	 */
+
 	/**
 	 * Event when the game gives the load done signal
 	 * @event opened
@@ -248,22 +264,28 @@
 	 */
 
 	/**
-	 *  Open a game or path
-	 *  @method open
-	 *  @param {string} path The full path to the game to load
-	 *  @param {Boolean} [singlePlay=false] If the game should be played in single play mode
-	 *  @param {object} [playOptions=null] The specific game options for single play mode
+	 * Open a game or path
+	 * @method _internalOpen
+	 * @private
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, singlePlay, playOptions)
+	p._internalOpen = function(path, options)
 	{
+		options = $.extend({
+			singlePlay: false,
+			playOptions: null
+		}, options);
+
 		this.reset();
 
 		// Dispatch event for unsupported browsers
 		// and then bail, don't continue with loading the game
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
-			this.trigger('unsupported');
-			return;
+			return this.trigger('unsupported');
 		}
 
 		this.loading = true;
@@ -283,7 +305,6 @@
 			gameFocus: onGameFocus.bind(this)
 		});
 
-
 		//Open the game in the iframe
 		this.main
 			.addClass('loading')
@@ -291,13 +312,93 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		// Play in single play mode
 		if (singlePlay)
 		{
-			this.messenger.send('singlePlay', playOptions);
+			this.messenger.send('singlePlay', singlePlay);
+		}
+
+		if (playOptions)
+		{
+			this.messenger.send('playOptions', playOptions);
 		}
 
 		this.trigger('open');
+	};
+
+	/**
+	 * Open a game or path
+	 * @method open
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 */
+	p.open = function(path, options, playOptions)
+	{
+		options = options || {};
+
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions
+			};
+		}
+		this._internalOpen(path, options);
+	};
+
+	/**
+	 * Open game based on an API Call to SpringRoll Connect
+	 * @method openRemote
+	 * @param {string} api The path to API call, this can be a full URL
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
+	 */
+	p.openRemote = function(api, options, playOptions)
+	{
+		options = options || {};
+
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions,
+				query: ''
+			};
+		}
+
+		this.release = null;
+
+		$.getJSON(api, function(result)
+		{
+			if (!result.success)
+			{
+				return this.trigger('remoteError', result.error);
+			}
+			var release = result.data;
+
+			var err = Features.test(release.capabilities);
+
+			if (err)
+			{
+				return this.trigger('unsupported');
+			}
+
+			this.release = release;
+
+			// Open the game
+			this._internalOpen(release.url + options.query, options);
+		}
+		.bind(this))
+		.fail(function()
+		{
+		    return this.trigger('remoteFailed');
+		}
+		.bind(this));
 	};
 
 	/**
