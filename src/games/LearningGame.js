@@ -170,6 +170,7 @@
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
 				singlePlay: onSinglePlay.bind(this),
+				playOptions: onPlayOptions.bind(this),
 				close: onClose.bind(this)
 			});
 
@@ -302,13 +303,21 @@
 	 * Handler when a game enters single play mode
 	 * @method onSinglePlay
 	 * @private
+	 */
+	var onSinglePlay = function()
+	{
+		this.singlePlay = true;
+	};
+
+	/**
+	 * Handler for setting play options from the container
+	 * @method onPlayOptions
+	 * @private
 	 * @param {event} e The Bellhop event
 	 */
-	var onSinglePlay = function(e)
+	var onPlayOptions = function(e)
 	{
-		Object.merge(this.playOptions, e.data ||
-		{});
-		this.singlePlay = true;
+		Object.merge(this.playOptions, e.data || {});
 	};
 
 	/**

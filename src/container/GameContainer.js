@@ -10,7 +10,6 @@
 		EventDispatcher = include('springroll.EventDispatcher'),
 		PageVisibility = include('springroll.PageVisibility'),
 		Features = include('springroll.Features'),
-		Capabilities = include('springroll.Capabilities'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
 
@@ -216,6 +215,16 @@
 	 * @event unsupported
 	 */
 
+	 /**
+	 * Fired when the API cannot be called
+	 * @event remoteFailed
+	 */
+
+	 /**
+	 * There was a problem with the API call
+	 * @event remoteError
+	 */
+
 	/**
 	 * Event when the game gives the load done signal
 	 * @event opened
@@ -241,18 +250,24 @@
 	 * @method _internalOpen
 	 * @private
 	 * @param {string} path The full path to the game to load
-	 * @param {function} [onReady] Callback when opening
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p._internalOpen = function(path, onReady)
+	p._internalOpen = function(path, options)
 	{
+		options = $.extend({
+			singlePlay: false,
+			playOptions: null
+		}, options);
+
 		this.reset();
 
 		// Dispatch event for unsupported browsers
 		// and then bail, don't continue with loading the game
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
-			this.trigger('unsupported');
-			return;
+			return this.trigger('unsupported');
 		}
 
 		this.loading = true;
@@ -264,7 +279,10 @@
 		//Handle bellhop events coming from the game
 		this.messenger.on(
 		{
+			trackEvent: onTrackEvent.bind(this),
+			progressEvent: onProgressEvent.bind(this),
 			loadDone: onLoadDone.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
 			endGame: onEndGame.bind(this),
 			gameFocus: onGameFocus.bind(this)
 		});
@@ -276,49 +294,47 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		if (onReady) onReady.call(this);
+		if (options.singlePlay)
+		{
+			this.messenger.send('singlePlay');
+		}
+
+		if (options.playOptions)
+		{
+			this.messenger.send('playOptions', options.playOptions);
+		}
 
 		this.trigger('open');
 	};
 
 	/**
-	 *  Open a game or path
-	 *  @method open
-	 *  @param {string} path The full path to the game to load
+	 * Open a game or path
+	 * @method open
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path)
+	p.open = function(path, options)
 	{
-		this._internalOpen(path);
-	};
-
-	/**
-	 *  Open a game or path
-	 *  @method openSinglePlay
-	 *  @param {string} path The full path to the game to load
-	 *  @param {object} [options] The optional single play options
-	 */
-	p.openSinglePlay = function(path, options)
-	{
-		this._internalOpen(path, function()
-		{
-			this.messenger.send('singlePlay', options);
-		});		
+		this._internalOpen(path, options);
 	};
 
 	/**
 	 * Open game based on an API Call to SpringRoll Connect
 	 * @method openRemote
 	 * @param {string} api The path to API call, this can be a full URL
-	 * @param {Object} [options] The additional options
-	 * @param {boolean} [options.debug=false] Run the debug version
-	 * @param {String} [options.queryString=""] Query string parameters
-	 * @param {Function} [onReady] When the game is opening
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
 	 */
-	p.openRemote = function(api, options, onReady)
+	p.openRemote = function(api, options)
 	{
 		options = $.extend({
-			debug: false,
-			queryString: ''
+			query: '',
+			playOptions: null,
+			singlePlay: false
 		}, options);
 
 		this.release = null;
@@ -327,31 +343,28 @@
 		{
 			if (!result.success)
 			{
-				return alert(result.error);
+				return this.trigger('remoteError', result.error);
 			}
 			var release = result.data;
 
-			if (DEBUG)
-			{
-				console.log(release);
-			}
+			var err = Features.test(release.capabilities);
 
-			var err = Capabilities.test(release.capabilities);
 			if (err)
 			{
-				return alert(err);
+				return this.trigger('unsupported');
 			}
 
 			this.release = release;
 
 			// Open the game
-			this._internalOpen(release.url + options.queryString, onReady);
+			this._internalOpen(release.url + options.query, options);
 		}
 		.bind(this))
 		.fail(function()
 		{
-		    alert("Unable to load API " + api);
-		});
+		    return this.trigger('remoteFailed');
+		}
+		.bind(this));
 	};
 
 	/**

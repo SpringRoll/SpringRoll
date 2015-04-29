@@ -75,6 +75,132 @@
 		return 'webkitAudioContext' in window || 'AudioContext' in window;
 	}();
 
+	/**
+	 * If the browser has Web Sockets API
+	 * @property {boolean} websockets
+	 */
+	Features.websockets = function()
+	{
+		return 'WebSocket' in window || 'MozWebSocket' in window;
+	}();
+
+	/**
+	 * If the browser has Geolocation API
+	 * @property {boolean} geolocation
+	 */
+	Features.geolocation = function()
+	{
+		return 'geolocation' in navigator;
+	}();
+
+	/**
+	 * If the browser has Web Workers API
+	 * @property {boolean} webworkers
+	 */
+	Features.webworkers = function()
+	{
+		return !!window.Worker;
+	}();
+
+	/**
+	 * If the browser has touch
+	 * @property {boolean} touch
+	 */
+	Features.touch = function()
+	{
+		return !!(('ontouchstart' in window) ||// iOS & Android
+			(navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || // IE10
+			(navigator.pointerEnabled && navigator.maxTouchPoints > 0)); // IE11+
+	}();
+
+	/**
+	 * See if the current bowser has the correct features
+	 * @method test
+	 * @static
+	 * @param {object} capabilities The capabilities
+	 * @param {object} capabilities.features The features
+	 * @param {object} capabilities.features.webgl WebGL required
+	 * @param {object} capabilities.features.geolocation Geolocation required
+	 * @param {object} capabilities.features.webworkers Web Workers API required
+	 * @param {object} capabilities.features.webaudio WebAudio API required
+	 * @param {object} capabilities.features.websockets WebSockets required
+	 * @param {object} capabilities.sizes The sizes
+	 * @param {Boolean} capabilities.sizes.xsmall Screens < 480
+	 * @param {Boolean} capabilities.sizes.small Screens < 768
+	 * @param {Boolean} capabilities.sizes.medium Screens < 992
+	 * @param {Boolean} capabilities.sizes.large Screens < 1200
+	 * @param {Boolean} capabilities.sizes.xlarge Screens >= 1200
+	 * @param {object} capabilities.ui The ui
+	 * @param {Boolean} capabilities.ui.touch Touch capable
+	 * @param {Boolean} capabilities.ui.mouse Mouse capable
+	 * @return {String|null} The error, or else returns null
+	 */
+	Features.test = function(capabilities)
+	{
+		var features = capabilities.features;
+		var ui = capabilities.ui;
+		var sizes = capabilities.sizes;		
+		
+		for(var name in features)
+		{
+			if (Features[name] !== undefined)
+			{
+				// Failed built-in feature check
+				if (features[name] && !Features[name])
+				{
+					return "Browser does not support " + name;
+				}
+				else
+				{
+					if (true && Debug) 
+						Debug.log("Browser has "+ name);
+				}
+			}
+			else
+			{
+				if (true && Debug) 
+					Debug.warn("The feature " + name + " is not supported");
+			}
+		}
+		
+		// Failed negative touch requirement
+		if (!ui.touch && Features.touch)
+		{
+			return "Game does not support touch input";
+		}
+
+		// Failed mouse requirement
+		if (!ui.mouse && !Features.touch)
+		{
+			return "Game does not support mouse input";
+		}
+
+		// Check the sizes
+		var size = Math.max(window.screen.width, window.screen.height);
+
+		if (!sizes.xsmall && size < 480)
+		{
+			return "Game doesn't support extra small screens";
+		}
+		if (!sizes.small && size < 768)
+		{
+			return "Game doesn't support small screens";
+		}
+		if (!sizes.medium && size < 992)
+		{
+			return "Game doesn't support medium screens";
+		}
+		if (!sizes.large && size < 1200)
+		{
+			return "Game doesn't support large screens";
+		}
+		if (!sizes.xlarge && size >= 1200)
+		{
+			return "Game doesn't support extra large screens";
+		}
+		return null;
+	};
+
 	if (true && Debug)
 	{
 		Debug.info("Browser Feature Detection" +
@@ -87,6 +213,7 @@
 
 	//Leak Features namespace
 	namespace('springroll').Features = Features;
+
 })();
 /**
  * @module Container
@@ -98,6 +225,7 @@
 	//Import classes
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
+		PageVisibility = include('springroll.PageVisibility'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
@@ -197,6 +325,12 @@
 		this.messenger = null;
 
 		/**
+		*  The current release data
+		*  @property {Object} release
+		*/
+		this.release = null;
+
+		/**
 		 * Check to see if a game is loaded
 		 * @property {Boolean} loaded
 		 * @readOnly
@@ -267,7 +401,10 @@
 			this.soundMuted = false;
 		}
 		
-		this._pageVisibility = new springroll.PageVisibility(onContainerFocus.bind(this), onContainerBlur.bind(this));
+		this._pageVisibility = new PageVisibility(
+			onContainerFocus.bind(this), 
+			onContainerBlur.bind(this)
+		);
 	};
 
 	//Reference to the prototype
@@ -278,12 +415,6 @@
 	 * Fired when the pause state is toggled
 	 * @event pause
 	 * @param {boolean} paused If the application is now paused
-	 */
-
-	/**
-	 * Fired when the enabled status of the help button changes
-	 * @event helpEnabled
-	 * @param {boolean} enabled If the help button is enabled
 	 */
 
 	/**
@@ -299,6 +430,16 @@
 	/**
 	 * Fired when the application is unsupported
 	 * @event unsupported
+	 */
+
+	 /**
+	 * Fired when the API cannot be called
+	 * @event remoteFailed
+	 */
+
+	 /**
+	 * There was a problem with the API call
+	 * @event remoteError
 	 */
 
 	/**
@@ -322,38 +463,28 @@
 	 */
 
 	/**
-	 * Event when dispatching a progress tracker event
-	 * @event progressEvent
-	 * @param {object} data The event data
+	 * Open a game or path
+	 * @method _internalOpen
+	 * @private
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-
-	/**
-	 * Event when dispatching a Google Analytics event
-	 * @event trackEvent
-	 * @param {object} data The event data
-	 * @param {string} data.category The event category
-	 * @param {string} data.action The event action
-	 * @param {string} [data.label] The optional label
-	 * @param {number} [data.value] The optional value
-	 */
-
-	/**
-	 *  Open a game or path
-	 *  @method open
-	 *  @param {string} path The full path to the game to load
-	 *  @param {Boolean} [singlePlay=false] If the game should be played in single play mode
-	 *  @param {object} [playOptions=null] The specific game options for single play mode
-	 */
-	p.open = function(path, singlePlay, playOptions)
+	p._internalOpen = function(path, options)
 	{
+		options = $.extend({
+			singlePlay: false,
+			playOptions: null
+		}, options);
+
 		this.reset();
 
 		// Dispatch event for unsupported browsers
 		// and then bail, don't continue with loading the game
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
-			this.trigger('unsupported');
-			return;
+			return this.trigger('unsupported');
 		}
 
 		this.loading = true;
@@ -373,7 +504,6 @@
 			gameFocus: onGameFocus.bind(this)
 		});
 
-
 		//Open the game in the iframe
 		this.main
 			.addClass('loading')
@@ -381,13 +511,77 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		// Play in single play mode
-		if (singlePlay)
+		if (options.singlePlay)
 		{
-			this.messenger.send('singlePlay', playOptions);
+			this.messenger.send('singlePlay');
+		}
+
+		if (options.playOptions)
+		{
+			this.messenger.send('playOptions', options.playOptions);
 		}
 
 		this.trigger('open');
+	};
+
+	/**
+	 * Open a game or path
+	 * @method open
+	 * @param {string} path The full path to the game to load
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 */
+	p.open = function(path, options)
+	{
+		this._internalOpen(path, options);
+	};
+
+	/**
+	 * Open game based on an API Call to SpringRoll Connect
+	 * @method openRemote
+	 * @param {string} api The path to API call, this can be a full URL
+	 * @param {Object} [options] The open options
+	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
+	 * @param {Object} [options.playOptions=null] The optional play options
+	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
+	 */
+	p.openRemote = function(api, options)
+	{
+		options = $.extend({
+			query: '',
+			playOptions: null,
+			singlePlay: false
+		}, options);
+
+		this.release = null;
+
+		$.getJSON(api, function(result)
+		{
+			if (!result.success)
+			{
+				return this.trigger('remoteError', result.error);
+			}
+			var release = result.data;
+
+			var err = Features.test(release.capabilities);
+
+			if (err)
+			{
+				return this.trigger('unsupported');
+			}
+
+			this.release = release;
+
+			// Open the game
+			this._internalOpen(release.url + options.query, options);
+		}
+		.bind(this))
+		.fail(function()
+		{
+		    return this.trigger('remoteFailed');
+		}
+		.bind(this));
 	};
 
 	/**
@@ -421,16 +615,6 @@
 
 		// Reset the paused state
 		this.paused = this._paused;
-	};
-
-	/**
-	 * Reset the mutes for audio and captions
-	 * @method onHelpEnabled
-	 * @private
-	 */
-	var onHelpEnabled = function(event)
-	{
-		this.helpEnabled = !!event.data;
 	};
 
 	/**
@@ -512,69 +696,6 @@
 	};
 
 	/**
-	 * Track an event for Google Analtyics
-	 * @method onTrackEvent
-	 * @private
-	 * @param {event} event Bellhop trackEvent
-	 */
-	var onTrackEvent = function(event)
-	{
-		var data = event.data;
-
-		// PBS Specifc implementation of Google Analytics
-		var GoogleAnalytics = include("GA_obj", false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics.trackEvent(
-				data.category,
-				data.action,
-				data.label,
-				data.value
-			);
-		}
-
-		// Generic implementation of Google Analytics
-		GoogleAnalytics = include('ga', false);
-		if (GoogleAnalytics)
-		{
-			GoogleAnalytics('send',
-			{
-				'hitType': 'event',
-				'eventCategory': data.category,
-				'eventAction': data.action,
-				'eventLabel': data.label,
-				'eventValue': data.value
-			});
-		}
-
-		this.trigger('trackEvent', event.data);
-	};
-
-	/**
-	 * Track an event for springroll ProgressTracker
-	 * @method onProgressEvent
-	 * @param {event} event The bellhop progressEvent
-	 * @private
-	 */
-	var onProgressEvent = function(event)
-	{
-		this.trigger('progressEvent', event.data);
-	};
-
-	/**
-	 * Handler when the play hint button is clicked
-	 * @method onPlayHelp
-	 * @private
-	 */
-	var onPlayHelp = function()
-	{
-		if (!this.paused && !this.helpButton.hasClass('disabled'))
-		{
-			this.messenger.send('playHelp');
-		}
-	};
-
-	/**
 	 * Handler when the captions mute button is clicked
 	 * @method onCaptionsToggle
 	 * @private
@@ -604,18 +725,6 @@
 			// Set the pause button state
 			this.pauseButton.removeClass('unpaused paused')
 				.addClass(paused ? 'paused' : 'unpaused');
-
-			// Disable the help button when paused if it's active
-			if (paused && !this.helpButton.hasClass('disabled'))
-			{
-				this.helpButton.data('paused', true);
-				this.helpEnabled = false;
-			}
-			else if (this.helpButton.data('paused'))
-			{
-				this.helpButton.removeData('paused');
-				this.helpEnabled = true;
-			}
 		},
 		get: function()
 		{
@@ -960,35 +1069,12 @@
 	});
 
 	/**
-	 * Set the captions are muted
-	 * @property {Boolean} helpEnabled
-	 */
-	Object.defineProperty(p, 'helpEnabled',
-	{
-		set: function(enabled)
-		{
-			this._helpEnabled = enabled;
-			this.helpButton.removeClass('disabled enabled')
-				.addClass(enabled ? 'enabled' : 'disabled');
-
-			this.trigger('helpEnabled', enabled);
-		},
-		get: function()
-		{
-			return this._helpEnabled;
-		}
-	});
-
-	/**
 	 * Reset all the buttons back to their original setting
 	 * and clear the iframe.
 	 * @method reset
 	 */
 	p.reset = function()
 	{
-		//Disable the hint button
-		this.helpEnabled = false;
-
 		disableButton(this.soundButton);
 		disableButton(this.captionsButton);
 		disableButton(this.musicButton);
@@ -1070,4 +1156,231 @@
 	};
 
 	namespace('springroll').GameContainer = GameContainer;
+}(document));
+/**
+ * @module Container
+ * @namespace springroll
+ * @requires  Core
+ */
+(function(document, undefined)
+{
+	//Import classes
+	var SavedData = include('springroll.SavedData'),
+		GameContainer = include('springroll.GameContainer'),
+		$ = include('jQuery');
+
+	/**
+	 * The game container
+	 * @class LearningGameContainer
+	 * @extends springroll.GameContainer
+	 * @constructor
+	 * @param {string} iframeSelector jQuery selector for game iframe container
+	 * @param {object} [options] Optional parameters, see springroll.GameContainer for full list
+	 * @param {string} [options.helpButton] jQuery selector for help button
+	 */
+	var LearningGameContainer = function(iframeSelector, options)
+	{
+		GameContainer.call(this, iframeSelector, options);
+
+		/**
+		 * Reference to the help button
+		 * @property {jquery} helpButton
+		 */
+		this.helpButton = $(options.helpButton)
+			.click(onPlayHelp.bind(this));
+
+		// Add more events when game is being opened
+		this.on('open', onOpen.bind(this));
+	};
+
+	//Reference to the prototype
+	var s = GameContainer.prototype;
+	var p = extend(LearningGameContainer, GameContainer);
+
+	/**
+	 * Fired when the enabled status of the help button changes
+	 * @event helpEnabled
+	 * @param {boolean} enabled If the help button is enabled
+	 */
+
+	/**
+	 * Event when dispatching a Learning Dispatcher event
+	 * @event learningEvent
+	 * @param {object} data The event data
+	 */
+
+	/**
+	 * Event when dispatching a Google Analytics event
+	 * @event analyticEvent
+	 * @param {object} data The event data
+	 * @param {string} data.category The event category
+	 * @param {string} data.action The event action
+	 * @param {string} [data.label] The optional label
+	 * @param {number} [data.value] The optional value
+	 */
+
+	/**
+	 *  Open a game or path
+	 *  @method onOpen
+	 *  @private
+	 */
+	var onOpen = function()
+	{
+		this.messenger.on(
+		{
+			analyticEvent: onAnalyticEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this)
+		});
+	};
+
+	/**
+	 * Reset the mutes for audio and captions
+	 * @method onHelpEnabled
+	 * @private
+	 */
+	var onHelpEnabled = function(event)
+	{
+		this.helpEnabled = !!event.data;
+	};
+
+	/**
+	 * Track an event for Google Analtyics
+	 * @method onAnalyticEvent
+	 * @private
+	 * @param {event} event Bellhop analyticEvent
+	 */
+	var onAnalyticEvent = function(event)
+	{
+		var data = event.data;
+
+		// PBS Specifc implementation of Google Analytics
+		var GoogleAnalytics = include("GA_obj", false);
+		if (GoogleAnalytics)
+		{
+			GoogleAnalytics.analyticEvent(
+				data.category,
+				data.action,
+				data.label,
+				data.value
+			);
+		}
+
+		// Generic implementation of Google Analytics
+		GoogleAnalytics = include('ga', false);
+		if (GoogleAnalytics)
+		{
+			GoogleAnalytics('send',
+			{
+				'hitType': 'event',
+				'eventCategory': data.category,
+				'eventAction': data.action,
+				'eventLabel': data.label,
+				'eventValue': data.value
+			});
+		}
+
+		this.trigger('analyticEvent', event.data);
+	};
+
+	/**
+	 * Track an event for springroll LearningDispatcher
+	 * @method onLearningEvent
+	 * @param {event} event The bellhop learningEvent
+	 * @private
+	 */
+	var onLearningEvent = function(event)
+	{
+		this.trigger('learningEvent', event.data);
+	};
+
+	/**
+	 * Handler when the play hint button is clicked
+	 * @method onPlayHelp
+	 * @private
+	 */
+	var onPlayHelp = function()
+	{
+		if (!this.paused && !this.helpButton.hasClass('disabled'))
+		{
+			this.messenger.send('playHelp');
+		}
+	};
+
+	/**
+	 * If the current game is paused
+	 * @property {Boolean} paused
+	 * @default false
+	 */
+	Object.defineProperty(p, 'paused',
+	{
+		set: function(paused)
+		{
+			Object.getOwnPropertyDescriptor(s, 'paused').set.call(this, paused);
+
+			// Disable the help button when paused if it's active
+			if (paused && !this.helpButton.hasClass('disabled'))
+			{
+				this.helpButton.data('paused', true);
+				this.helpEnabled = false;
+			}
+			else if (this.helpButton.data('paused'))
+			{
+				this.helpButton.removeData('paused');
+				this.helpEnabled = true;
+			}
+		},
+		get: function()
+		{
+			return this._paused;
+		}
+	});
+
+	/**
+	 * Set the captions are muted
+	 * @property {Boolean} helpEnabled
+	 */
+	Object.defineProperty(p, 'helpEnabled',
+	{
+		set: function(enabled)
+		{
+			this._helpEnabled = enabled;
+			this.helpButton.removeClass('disabled enabled')
+				.addClass(enabled ? 'enabled' : 'disabled');
+
+			this.trigger('helpEnabled', enabled);
+		},
+		get: function()
+		{
+			return this._helpEnabled;
+		}
+	});
+
+	/**
+	 * Reset all the buttons back to their original setting
+	 * and clear the iframe.
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		s.reset.call(this);
+
+		// Disable the hint button
+		this.helpEnabled = false;
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.helpButton = null;
+
+		s.destroy.call(this);
+	};
+
+	// Assign to namespace
+	namespace('springroll').LearningGameContainer = LearningGameContainer;
+
 }(document));

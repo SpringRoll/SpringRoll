@@ -178,7 +178,6 @@
 			"output": "container",
 			"main": [
 				"src/container/Features.js",
-				"src/container/Capabilities.js",
 				"src/container/GameContainer.js",
 				"src/container/LearningGameContainer.js"
 			]
