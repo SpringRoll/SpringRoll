@@ -529,14 +529,14 @@
 			.prop('width', window.innerWidth)
 			.prop('height', window.innerHeight);
 
-		if (singlePlay)
+		if (options.singlePlay)
 		{
-			this.messenger.send('singlePlay', singlePlay);
+			this.messenger.send('singlePlay');
 		}
 
-		if (playOptions)
+		if (options.playOptions)
 		{
-			this.messenger.send('playOptions', playOptions);
+			this.messenger.send('playOptions', options.playOptions);
 		}
 
 		this.trigger('open');
@@ -576,17 +576,20 @@
 	 */
 	p.openRemote = function(api, options, playOptions)
 	{
-		options = options || {};
-
 		// This should be deprecated, support for old function signature
 		if (typeof options === "boolean")
 		{
 			options = {
 				singlePlay: singlePlay,
-				playOptions: playOptions,
-				query: ''
+				playOptions: playOptions
 			};
 		}
+
+		options = $.extend({
+			query: '',
+			playOptions: null,
+			singlePlay: false
+		}, options);
 
 		this.release = null;
 
