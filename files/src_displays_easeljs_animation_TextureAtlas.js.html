@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src\displays\easeljs\animation\TextureAtlas.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src/displays/easeljs/animation/TextureAtlas.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:src\displays\easeljs\animation\TextureAtlas.js</h1>
+<h1 class="file-heading">File:TextureAtlas.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -617,6 +617,12 @@
 		*  @property {Image|HTMLCanvasElement} image
 		*/
 		this.image = image;
+		/**
+		*  If this texture has been rotated (90 degrees clockwise).
+		*  @property {Boolean} rotated
+		*/
+		this.rotated = data.rotated;
+		
 		var f = data.frame;
 		/**
 		*  The frame rectangle within the image.

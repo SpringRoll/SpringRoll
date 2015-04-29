@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src\displays\easeljs\animation\BitmapMovieClip.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src/displays/easeljs/animation/BitmapMovieClip.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:src\displays\easeljs\animation\BitmapMovieClip.js</h1>
+<h1 class="file-heading">File:BitmapMovieClip.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -651,7 +651,7 @@
 		if (atlas &amp;&amp; data)
 		{
 			this.init(atlas, data);
-		}	
+		}
 	};
 
 	var p = extend(BitmapMovieClip, Container);
@@ -672,7 +672,7 @@
 	 * @type {Number}
 	 * @default 0
 	 */
-	Object.defineProperty(p, &#x27;framerate&#x27;, 
+	Object.defineProperty(p, &#x27;framerate&#x27;,
 	{
 		get: function()
 		{
@@ -698,13 +698,13 @@
 	 * @default 0
 	 * @public
 	 */
-	Object.defineProperty(p, &#x27;elapsedTime&#x27;, 
+	Object.defineProperty(p, &#x27;elapsedTime&#x27;,
 	{
-		get: function() 
+		get: function()
 		{
 			return this._t;
 		},
-		set: function(value) 
+		set: function(value)
 		{
 			this._t = value;
 		}
@@ -717,7 +717,7 @@
 	 * @default 0
 	 * @readOnly
 	 */
-	Object.defineProperty(p, &#x27;totalFrames&#x27;, 
+	Object.defineProperty(p, &#x27;totalFrames&#x27;,
 	{
 		get: function()
 		{
@@ -731,7 +731,7 @@
 	 * @type createjs.TextureAtlas.Texture
 	 * @readOnly
 	 */
-	Object.defineProperty(p, &#x27;currentTexture&#x27;, 
+	Object.defineProperty(p, &#x27;currentTexture&#x27;,
 	{
 		get: function()
 		{
@@ -926,7 +926,7 @@
 			for(var name in data.labels)
 			{
 				var label = {
-					label: name, 
+					label: name,
 					position: data.labels[name],
 					length: 1
 				};
@@ -946,7 +946,7 @@
 			{
 				var event = events[j];
 				start = event.position;
-				event.length = 
+				event.length =
 					positions[name + &#x27;_stop&#x27;] - start ||
 					positions[name + &#x27;_loop&#x27;] - start ||
 					0;
@@ -963,10 +963,10 @@
 			var frameSet = data.frames[i];
 
 			atlas.getFrames(
-				frameSet.name, 
-				frameSet.min, 
-				frameSet.max, 
-				frameSet.digits, 
+				frameSet.name,
+				frameSet.min,
+				frameSet.max,
+				frameSet.digits,
 				this._frames
 			);
 		}
@@ -1098,11 +1098,21 @@
 		this.currentFrame = this._prevPosition;
 		if(this._currentTexture != this._frames[this.currentFrame])
 		{
-			var tex = this._currentTexture = this._frames[this.currentFrame];
-			this._bitmap.image = tex.image;
-			this._bitmap.sourceRect = tex.frame;
-			this._bitmap.x = -this._origin.x + tex.offset.x * this._bitmap.scaleX;
-			this._bitmap.y = -this._origin.y + tex.offset.y * this._bitmap.scaleY;
+			var tex = this._currentTexture = this._frames[this.currentFrame],
+				_bitmap = this._bitmap;
+			_bitmap.image = tex.image;
+			_bitmap.sourceRect = tex.frame;
+			_bitmap.x = -this._origin.x + tex.offset.x * _bitmap.scaleX;
+			_bitmap.y = -this._origin.y + tex.offset.y * _bitmap.scaleY;
+			if(tex.rotated)
+			{
+				_bitmap.rotation = -90;
+				_bitmap.regX = _bitmap.sourceRect.width * _bitmap.scaleX;
+			}
+			else
+			{
+				_bitmap.rotation = _bitmap.regX = 0;
+			}
 		}
 	};
 	

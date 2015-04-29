@@ -465,6 +465,9 @@
     <li id='tab-index' class='docs-toggle'>
       <a data-toggle='tab' href='#docs-index'>Index</a>
     </li>
+      <li id='tab-methods' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-methods'>Methods</a>
+      </li>
       <li id='tab-properties' class='docs-toggle'>
         <a data-toggle='tab' href='#docs-properties'>Properties</a>
       </li>
@@ -473,6 +476,17 @@
   <div class='tab-content'>
 
     <div role='tabpanel' id='docs-index' class='tab-pane'>
+        <div class='index-section tab-pane methods'>
+          <h3>Methods</h3>
+
+          <ul class='list-group row methods'>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_test'>test</a>
+
+                  <span class='flag static'>static</span>
+              </li>
+          </ul>
+        </div>
 
         <div class='index-section tab-pane properties'>
           <h3>Properties</h3>
@@ -487,11 +501,27 @@
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_geolocation'>geolocation</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_touch'>touch</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
                 <a href='#property_webaudio'>webaudio</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
                 <a href='#property_webgl'>webgl</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_websockets'>websockets</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_webworkers'>webworkers</a>
 
               </li>
           </ul>
@@ -500,6 +530,211 @@
 
     </div>
 
+      <div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+          <div id='method_test' class='method item'>
+            <h3 class='name'><code>test</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>capabilities</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | Null</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+                <span class='flag static'>static</span>
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_container_Features.js.html#l115'><code>test:115</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>See if the current bowser has the correct features</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>capabilities</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The capabilities</p>
+          
+                      </div>
+          
+                        <ul class='params-list'>
+                            <li class='param'>
+                                <code class='param-name'>features</code>
+                                <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                              <div class='param-description'>
+                                <p>The features</p>
+          
+                              </div>
+          
+                                <ul class='params-list'>
+                                    <li class='param'>
+                                        <code class='param-name'>webgl</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                                      <div class='param-description'>
+                                        WebGL required
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>geolocation</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                                      <div class='param-description'>
+                                        Geolocation required
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>webworkers</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                                      <div class='param-description'>
+                                        Web Workers API required
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>webaudio</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                                      <div class='param-description'>
+                                        WebAudio API required
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>websockets</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                                      <div class='param-description'>
+                                        WebSockets required
+                                      </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='param'>
+                                <code class='param-name'>sizes</code>
+                                <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                              <div class='param-description'>
+                                <p>The sizes</p>
+          
+                              </div>
+          
+                                <ul class='params-list'>
+                                    <li class='param'>
+                                        <code class='param-name'>xsmall</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Screens < 480
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>small</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Screens < 768
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>medium</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Screens < 992
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>large</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Screens < 1200
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>xlarge</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Screens >= 1200
+                                      </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class='param'>
+                                <code class='param-name'>ui</code>
+                                <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                              <div class='param-description'>
+                                <p>The ui</p>
+          
+                              </div>
+          
+                                <ul class='params-list'>
+                                    <li class='param'>
+                                        <code class='param-name'>touch</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Touch capable
+                                      </div>
+                                    </li>
+                                    <li class='param'>
+                                        <code class='param-name'>mouse</code>
+                                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+                                      <div class='param-description'>
+                                        Mouse capable
+                                      </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | Null</span>:
+                    <p>The error, or else returns null</p>
+          
+                </div>
+              </div>
+          
+          </div>      </div>
 
       <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
@@ -551,6 +786,54 @@
           
           
           
+          </div>          <div id="property_geolocation" class="property item">
+            <h3 class="name"><code>geolocation</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_container_Features.js.html#l86"><code>geolocation:86</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the browser has Geolocation API</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_touch" class="property item">
+            <h3 class="name"><code>touch</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_container_Features.js.html#l104"><code>touch:104</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the browser has touch</p>
+          
+            </div>
+          
+          
+          
           </div>          <div id="property_webaudio" class="property item">
             <h3 class="name"><code>webaudio</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -594,6 +877,54 @@
           
             <div class="description">
               <p>If the browser has WebGL support</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_websockets" class="property item">
+            <h3 class="name"><code>websockets</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_container_Features.js.html#l77"><code>websockets:77</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the browser has Web Sockets API</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_webworkers" class="property item">
+            <h3 class="name"><code>webworkers</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_container_Features.js.html#l95"><code>webworkers:95</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the browser has Web Workers API</p>
           
             </div>
           

@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src\container\Features.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src/container/Features.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:src\container\Features.js</h1>
+<h1 class="file-heading">File:Features.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -524,6 +524,132 @@
 		return &#x27;webkitAudioContext&#x27; in window || &#x27;AudioContext&#x27; in window;
 	}();
 
+	/**
+	 * If the browser has Web Sockets API
+	 * @property {boolean} websockets
+	 */
+	Features.websockets = function()
+	{
+		return &#x27;WebSocket&#x27; in window || &#x27;MozWebSocket&#x27; in window;
+	}();
+
+	/**
+	 * If the browser has Geolocation API
+	 * @property {boolean} geolocation
+	 */
+	Features.geolocation = function()
+	{
+		return &#x27;geolocation&#x27; in navigator;
+	}();
+
+	/**
+	 * If the browser has Web Workers API
+	 * @property {boolean} webworkers
+	 */
+	Features.webworkers = function()
+	{
+		return !!window.Worker;
+	}();
+
+	/**
+	 * If the browser has touch
+	 * @property {boolean} touch
+	 */
+	Features.touch = function()
+	{
+		return !!((&#x27;ontouchstart&#x27; in window) ||// iOS &amp; Android
+			(navigator.msPointerEnabled &amp;&amp; navigator.msMaxTouchPoints &gt; 0) || // IE10
+			(navigator.pointerEnabled &amp;&amp; navigator.maxTouchPoints &gt; 0)); // IE11+
+	}();
+
+	/**
+	 * See if the current bowser has the correct features
+	 * @method test
+	 * @static
+	 * @param {object} capabilities The capabilities
+	 * @param {object} capabilities.features The features
+	 * @param {object} capabilities.features.webgl WebGL required
+	 * @param {object} capabilities.features.geolocation Geolocation required
+	 * @param {object} capabilities.features.webworkers Web Workers API required
+	 * @param {object} capabilities.features.webaudio WebAudio API required
+	 * @param {object} capabilities.features.websockets WebSockets required
+	 * @param {object} capabilities.sizes The sizes
+	 * @param {Boolean} capabilities.sizes.xsmall Screens &lt; 480
+	 * @param {Boolean} capabilities.sizes.small Screens &lt; 768
+	 * @param {Boolean} capabilities.sizes.medium Screens &lt; 992
+	 * @param {Boolean} capabilities.sizes.large Screens &lt; 1200
+	 * @param {Boolean} capabilities.sizes.xlarge Screens &gt;= 1200
+	 * @param {object} capabilities.ui The ui
+	 * @param {Boolean} capabilities.ui.touch Touch capable
+	 * @param {Boolean} capabilities.ui.mouse Mouse capable
+	 * @return {String|null} The error, or else returns null
+	 */
+	Features.test = function(capabilities)
+	{
+		var features = capabilities.features;
+		var ui = capabilities.ui;
+		var sizes = capabilities.sizes;		
+		
+		for(var name in features)
+		{
+			if (Features[name] !== undefined)
+			{
+				// Failed built-in feature check
+				if (features[name] &amp;&amp; !Features[name])
+				{
+					return &quot;Browser does not support &quot; + name;
+				}
+				else
+				{
+					if (DEBUG &amp;&amp; Debug) 
+						Debug.log(&quot;Browser has &quot;+ name);
+				}
+			}
+			else
+			{
+				if (DEBUG &amp;&amp; Debug) 
+					Debug.warn(&quot;The feature &quot; + name + &quot; is not supported&quot;);
+			}
+		}
+		
+		// Failed negative touch requirement
+		if (!ui.touch &amp;&amp; Features.touch)
+		{
+			return &quot;Game does not support touch input&quot;;
+		}
+
+		// Failed mouse requirement
+		if (!ui.mouse &amp;&amp; !Features.touch)
+		{
+			return &quot;Game does not support mouse input&quot;;
+		}
+
+		// Check the sizes
+		var size = Math.max(window.screen.width, window.screen.height);
+
+		if (!sizes.xsmall &amp;&amp; size &lt; 480)
+		{
+			return &quot;Game doesn&#x27;t support extra small screens&quot;;
+		}
+		if (!sizes.small &amp;&amp; size &lt; 768)
+		{
+			return &quot;Game doesn&#x27;t support small screens&quot;;
+		}
+		if (!sizes.medium &amp;&amp; size &lt; 992)
+		{
+			return &quot;Game doesn&#x27;t support medium screens&quot;;
+		}
+		if (!sizes.large &amp;&amp; size &lt; 1200)
+		{
+			return &quot;Game doesn&#x27;t support large screens&quot;;
+		}
+		if (!sizes.xlarge &amp;&amp; size &gt;= 1200)
+		{
+			return &quot;Game doesn&#x27;t support extra large screens&quot;;
+		}
+		return null;
+	};
+
 	if (DEBUG &amp;&amp; Debug)
 	{
 		Debug.info(&quot;Browser Feature Detection&quot; +
@@ -536,6 +662,7 @@
 
 	//Leak Features namespace
 	namespace(&#x27;springroll&#x27;).Features = Features;
+
 })();</pre>
 </div>        </div>
       </div>

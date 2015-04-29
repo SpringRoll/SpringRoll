@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.2.0 API Documentation : src\games\TrackingGame.js</title>
+  <title>SpringRoll v0.2.0 API Documentation : src/games/TrackingGame.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -445,7 +445,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:src\games\TrackingGame.js</h1>
+<h1 class="file-heading">File:TrackingGame.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -603,8 +603,7 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = this.options.playOptions ||
-		{};
+		this.playOptions = this.options.playOptions || {};
 
 		/**
 		 * Send a message to let the site know that this has
@@ -629,6 +628,7 @@
 				sfxMuted: onContextMuted.bind(this, &#x27;sfx&#x27;),
 				captionsStyles: onCaptionsStyles.bind(this),
 				pause: onPause.bind(this),
+				playOptions: onPlayOptions.bind(this),
 				singlePlay: onSinglePlay.bind(this),
 				close: onClose.bind(this)
 			});
@@ -760,14 +760,23 @@
 
 	/**
 	 * Handler when a game enters single play mode
+	 * @method onPlayOptions
+	 * @private
+	 * @param {event} e The Bellhop event
+	 */
+	var onPlayOptions = function(e)
+	{
+		Object.merge(this.playOptions, e.data || {});
+	};
+
+	/**
+	 * Handler when a game enters single play mode
 	 * @method onSinglePlay
 	 * @private
 	 * @param {event} e The Bellhop event
 	 */
 	var onSinglePlay = function(e)
 	{
-		Object.merge(this.playOptions, e.data ||
-		{});
 		this.singlePlay = true;
 	};
 
