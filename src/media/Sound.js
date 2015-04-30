@@ -667,6 +667,7 @@
 				if (channel.handleExtraData)
 					channel.handleExtraData(sound.data);
 				inst.curVol = volume;
+				inst._pan = pan;
 				sound.playing.push(inst);
 				inst._endCallback = completeCallback;
 				inst.updateVolume();
@@ -685,6 +686,7 @@
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
+			inst._pan = pan;
 			sound.waitingToPlay.push(inst);
 			inst._endCallback = completeCallback;
 			inst._startFunc = startCallback;
@@ -695,10 +697,9 @@
 				arr[1] = delay;
 				arr[2] = offset;
 				arr[3] = loop;
-				arr[4] = pan;
 			}
 			else
-				inst._startParams = [interrupt, delay, offset, loop, pan];
+				inst._startParams = [interrupt, delay, offset, loop];
 			Loader.instance.load(
 				sound.src, //url to load
 				this._playAfterLoad,//complete callback
@@ -714,6 +715,7 @@
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
+			inst._pan = pan;
 			sound.waitingToPlay.push(inst);
 			inst._endCallback = completeCallback;
 			inst._startFunc = startCallback;
@@ -724,10 +726,9 @@
 				arr[1] = delay;
 				arr[2] = offset;
 				arr[3] = loop;
-				arr[4] = pan;
 			}
 			else
-				inst._startParams = [interrupt, delay, offset, loop, pan];
+				inst._startParams = [interrupt, delay, offset, loop];
 			return inst;
 		}
 	};
@@ -762,7 +763,7 @@
 	*	Plays a sound after it finishes loading.
 	*	@method _playAfterload
 	*	@private
-	*	@param {String} alias The sound to play.
+	*	@param {String} result The sound to play as an alias or load manifest.
 	*/
 	p._playAfterLoad = function(result)
 	{
@@ -776,14 +777,19 @@
 		//Go through the list of sound instances that are waiting to start and start them
 		var waiting = sound.waitingToPlay;
 
-		var inst, startParams, volume, channel;
+		var inst, startParams, volume, channel, pan;
 		for (var i = 0, len = waiting.length; i < len; ++i)
 		{
 			inst = waiting[i];
 			startParams = inst._startParams;
 			volume = inst.curVol;
+			pan = inst._pan;
+			//startParams[0] is interrupt;
+			//startParams[1] is delay;
+			//startParams[2] is offset;
+			//startParams[3] is loop;
 			channel = SoundJS.play(alias, startParams[0], startParams[1], startParams[2],
-									startParams[3], volume, startParams[4]);
+									startParams[3], volume, pan);
 
 			if (!channel || channel.playState == SoundJS.PLAY_FAILED)
 			{

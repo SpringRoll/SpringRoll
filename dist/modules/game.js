@@ -1218,6 +1218,13 @@
 		*  @private
 		*/
 		this._music = null;
+		
+		/**
+		*  The current music SoundInstance playing
+		*  @property {SoundInstance} _musicInstance
+		*  @private
+		*/
+		this._musicInstance = null;
 
 		/**
 		*  The global player for playing voice over
@@ -1433,7 +1440,7 @@
 	};
 
 	/**
-	*  Set the current music alias to play
+	*  Get or set the current music alias to play
 	*  @property {String} music
 	*  @default null
 	*/
@@ -1450,12 +1457,13 @@
 			if (this._music)
 			{
 				sound.fadeOut(this._music);
+				this._musicInstance = null;
 			}
 			this._music = value;
 
 			if (this._music)
 			{
-				sound.play(
+				this._musicInstance = sound.play(
 					this._music,
 					{
 						start: sound.fadeIn.bind(sound, this._music),
@@ -1467,6 +1475,18 @@
 		get: function()
 		{
 			return this._music;
+		}
+	});
+	
+	/**
+	*  The SoundInstance for the current music, for adjusting volume.
+	*  @property {SoundInstance} musicInstance
+	*/
+	Object.defineProperty(p, "musicInstance",
+	{
+		get: function()
+		{
+			return this._musicInstance;
 		}
 	});
 
