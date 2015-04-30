@@ -16043,6 +16043,19 @@
         {
             "file": "src/games/Game.js",
             "line": 133,
+            "description": "The current music SoundInstance playing",
+            "itemtype": "property",
+            "name": "_musicInstance",
+            "type": "SoundInstance",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Game",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/Game.js",
+            "line": 140,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -16053,7 +16066,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 139,
+            "line": 146,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -16064,7 +16077,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 145,
+            "line": 152,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -16075,7 +16088,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 151,
+            "line": 158,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -16086,7 +16099,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 157,
+            "line": 164,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -16097,7 +16110,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 163,
+            "line": 170,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
@@ -16108,7 +16121,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 169,
+            "line": 176,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
@@ -16119,7 +16132,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 194,
+            "line": 201,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
@@ -16129,7 +16142,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 200,
+            "line": 207,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
             "itemtype": "event",
             "name": "initStates",
@@ -16139,7 +16152,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 207,
+            "line": 214,
             "description": "The states are setup, this is the event to listen to\nwhen the game ready to use.",
             "itemtype": "event",
             "name": "statesReady",
@@ -16149,7 +16162,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 214,
+            "line": 221,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "addStates",
@@ -16159,7 +16172,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 220,
+            "line": 227,
             "description": "Override the do init method",
             "itemtype": "method",
             "name": "onBeforeInit",
@@ -16171,7 +16184,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 237,
+            "line": 244,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -16183,7 +16196,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 254,
+            "line": 261,
             "description": "Manual initialization of the states",
             "itemtype": "method",
             "name": "initStates",
@@ -16195,7 +16208,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 306,
+            "line": 313,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
@@ -16217,7 +16230,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 333,
+            "line": 340,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
@@ -16234,8 +16247,8 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 346,
-            "description": "Set the current music alias to play",
+            "line": 353,
+            "description": "Get or set the current music alias to play",
             "itemtype": "property",
             "name": "music",
             "type": "String",
@@ -16246,7 +16259,18 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 384,
+            "line": 392,
+            "description": "The SoundInstance for the current music, for adjusting volume.",
+            "itemtype": "property",
+            "name": "musicInstance",
+            "type": "SoundInstance",
+            "class": "springroll.Game",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/Game.js",
+            "line": 404,
             "description": "Convenience method to loads a Sound config object.",
             "itemtype": "method",
             "name": "addSounds",
@@ -16328,7 +16352,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 416,
+            "line": 436,
             "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
             "itemtype": "method",
             "name": "addCaptions",
@@ -16345,7 +16369,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 450,
+            "line": 470,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -16355,7 +16379,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 475,
+            "line": 495,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -19922,7 +19946,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 735,
+            "line": 736,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -19950,7 +19974,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 761,
+            "line": 762,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -19958,8 +19982,8 @@
             "tagname": "",
             "params": [
                 {
-                    "name": "alias",
-                    "description": "The sound to play.",
+                    "name": "result",
+                    "description": "The sound to play as an alias or load manifest.",
                     "type": "String"
                 }
             ],
@@ -19969,7 +19993,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 814,
+            "line": 820,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -19988,7 +20012,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 836,
+            "line": 842,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -20007,7 +20031,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 862,
+            "line": 868,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -20026,7 +20050,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 878,
+            "line": 884,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -20045,7 +20069,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 894,
+            "line": 900,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -20064,7 +20088,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 918,
+            "line": 924,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -20074,7 +20098,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 930,
+            "line": 936,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -20093,7 +20117,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 949,
+            "line": 955,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -20112,7 +20136,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 970,
+            "line": 976,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -20124,7 +20148,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 982,
+            "line": 988,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -20136,7 +20160,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 994,
+            "line": 1000,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -20160,7 +20184,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1026,
+            "line": 1032,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -20171,7 +20195,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1037,
+            "line": 1043,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -20195,7 +20219,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1068,
+            "line": 1074,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -20219,7 +20243,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1095,
+            "line": 1101,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -20243,7 +20267,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1149,
+            "line": 1155,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -20267,7 +20291,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1175,
+            "line": 1181,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -20300,7 +20324,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1191,
+            "line": 1197,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -20319,7 +20343,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1215,
+            "line": 1221,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -20338,7 +20362,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1236,
+            "line": 1242,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -20442,7 +20466,7 @@
         {
             "file": "src/media/SoundInstance.js",
             "line": 43,
-            "description": "User's callback function for when the sound starts. This is only used if the sound wasn't loaded before play() was called.",
+            "description": "User's callback function for when the sound starts. This is only used if the sound\nwasn't loaded before play() was called.",
             "itemtype": "property",
             "name": "_startFunc",
             "type": "Function",
@@ -20454,8 +20478,8 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 50,
-            "description": "An array of relevant parameters passed to play(). This is only used if the sound wasn't loaded before play() was called.",
+            "line": 51,
+            "description": "An array of relevant parameters passed to play(). This is only used if the sound\nwasn't loaded before play() was called.",
             "itemtype": "property",
             "name": "_startParams",
             "type": "Array",
@@ -20467,7 +20491,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 57,
+            "line": 59,
             "description": "The alias for the sound that this instance was created from.",
             "itemtype": "property",
             "name": "alias",
@@ -20481,7 +20505,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 65,
+            "line": 67,
             "description": "The current time in milliseconds for the fade that this sound instance is performing.",
             "itemtype": "property",
             "name": "_fTime",
@@ -20494,7 +20518,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 72,
+            "line": 74,
             "description": "The duration in milliseconds for the fade that this sound instance is performing.",
             "itemtype": "property",
             "name": "_fDur",
@@ -20507,7 +20531,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 79,
+            "line": 81,
             "description": "The starting volume for the fade that this sound instance is performing.",
             "itemtype": "property",
             "name": "_fEnd",
@@ -20520,7 +20544,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 86,
+            "line": 88,
             "description": "The ending volume for the fade that this sound instance is performing.",
             "itemtype": "property",
             "name": "_fEnd",
@@ -20533,20 +20557,35 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 93,
+            "line": 95,
             "description": "The current sound volume (0 to 1). This is multiplied by the sound context's volume.\nSetting this won't take effect until updateVolume() is called.",
             "itemtype": "property",
             "name": "curVol",
             "type": "Number",
-            "access": "public",
+            "access": "protected",
             "tagname": "",
+            "readonly": "",
             "class": "springroll.SoundInstance",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 101,
+            "line": 104,
+            "description": "The sound pan value, from -1 (left) to 1 (right).",
+            "itemtype": "property",
+            "name": "_pan",
+            "type": "Number",
+            "access": "private",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.SoundInstance",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/SoundInstance.js",
+            "line": 112,
             "description": "The length of the sound in milliseconds. This is 0 if it hasn't finished loading.",
             "itemtype": "property",
             "name": "length",
@@ -20559,25 +20598,11 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 108,
-            "description": "If the sound is currently paused. Setting this has no effect - use pause() and unpause().",
+            "line": 119,
+            "description": "If the sound is currently paused. Setting this has no effect - use pause()\nand unpause().",
             "itemtype": "property",
             "name": "paused",
-            "type": "Bool",
-            "access": "public",
-            "tagname": "",
-            "readonly": "",
-            "class": "springroll.SoundInstance",
-            "module": "Sound",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/media/SoundInstance.js",
-            "line": 116,
-            "description": "An active SoundInstance should always be valid. This is primarily for compatability with springroll.Audio.",
-            "itemtype": "property",
-            "name": "isValid",
-            "type": "Bool",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
             "readonly": "",
@@ -20588,19 +20613,34 @@
         {
             "file": "src/media/SoundInstance.js",
             "line": 128,
-            "description": "The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.",
+            "description": "An active SoundInstance should always be valid, but if you keep a reference after a\nsound stops it will no longer be valid (until the SoundInstance is reused for a\nnew sound).",
             "itemtype": "property",
-            "name": "position",
-            "type": "Number",
+            "name": "isValid",
+            "type": "Boolean",
             "access": "public",
             "tagname": "",
+            "readonly": "",
             "class": "springroll.SoundInstance",
             "module": "Sound",
             "namespace": "springroll"
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 138,
+            "line": 142,
+            "description": "The position of the sound playhead in milliseconds, or 0 if it hasn't started playing yet.",
+            "itemtype": "property",
+            "name": "position",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.SoundInstance",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/SoundInstance.js",
+            "line": 153,
             "description": "Stops this SoundInstance.",
             "itemtype": "method",
             "name": "stop",
@@ -20612,16 +20652,16 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 161,
+            "line": 176,
             "description": "Updates the volume of this SoundInstance.",
             "itemtype": "method",
             "name": "updateVolume",
-            "access": "public",
+            "access": "protected",
             "tagname": "",
             "params": [
                 {
                     "name": "contextVol",
-                    "description": "The volume of the sound context that the sound belongs to. If omitted, the volume is automatically collected.",
+                    "description": "The volume of the sound context that the sound belongs to. If\n                           omitted, the volume is automatically collected.",
                     "type": "Number"
                 }
             ],
@@ -20631,7 +20671,33 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 185,
+            "line": 201,
+            "description": "The current sound volume (0 to 1). This is multiplied by the sound context's volume to\nget the actual sound volume.",
+            "itemtype": "property",
+            "name": "volume",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.SoundInstance",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/SoundInstance.js",
+            "line": 216,
+            "description": "The sound pan value, from -1 (left) to 1 (right).",
+            "itemtype": "property",
+            "name": "pan",
+            "type": "Number",
+            "access": "public",
+            "tagname": "",
+            "class": "springroll.SoundInstance",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/SoundInstance.js",
+            "line": 231,
             "description": "Pauses this SoundInstance.",
             "itemtype": "method",
             "name": "pause",
@@ -20643,7 +20709,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 198,
+            "line": 244,
             "description": "Unpauses this SoundInstance.",
             "itemtype": "method",
             "name": "unpause",

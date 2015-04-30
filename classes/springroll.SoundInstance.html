@@ -493,7 +493,7 @@ be created through springroll.Sound.instance.play().</p>
                 <a href='#method_unpause'>unpause</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method public'>
+              <li class='col-xs-6 col-md-4 index-item method protected'>
                 <a href='#method_updateVolume'>updateVolume</a>
 
               </li>
@@ -533,6 +533,10 @@ be created through springroll.Sound.instance.play().</p>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__pan'>_pan</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
                 <a href='#property__startFunc'>_startFunc</a>
 
               </li>
@@ -544,7 +548,7 @@ be created through springroll.Sound.instance.play().</p>
                 <a href='#property_alias'>alias</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item property public'>
+              <li class='col-xs-6 col-md-4 index-item property protected'>
                 <a href='#property_curVol'>curVol</a>
 
               </li>
@@ -557,11 +561,19 @@ be created through springroll.Sound.instance.play().</p>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property public'>
+                <a href='#property_pan'>pan</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property public'>
                 <a href='#property_paused'>paused</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property public'>
                 <a href='#property_position'>position</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property public'>
+                <a href='#property_volume'>volume</a>
 
               </li>
           </ul>
@@ -590,7 +602,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_SoundInstance.js.html#l185'><code>pause:185</code></a>
+                <a href='../files/src_media_SoundInstance.js.html#l231'><code>pause:231</code></a>
               </p>
           
           
@@ -622,7 +634,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_SoundInstance.js.html#l138'><code>stop:138</code></a>
+                <a href='../files/src_media_SoundInstance.js.html#l153'><code>stop:153</code></a>
               </p>
           
           
@@ -654,7 +666,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_SoundInstance.js.html#l198'><code>unpause:198</code></a>
+                <a href='../files/src_media_SoundInstance.js.html#l244'><code>unpause:244</code></a>
               </p>
           
           
@@ -668,7 +680,7 @@ be created through springroll.Sound.instance.play().</p>
           
           
           
-          </div>          <div id='method_updateVolume' class='method item public'>
+          </div>          <div id='method_updateVolume' class='method item protected'>
             <h3 class='name'><code>updateVolume</code></h3>
           
               <div class='args'>
@@ -683,7 +695,7 @@ be created through springroll.Sound.instance.play().</p>
           
             <div class='flags'>
           
-                <span class='flag public'>public</span>
+                <span class='flag protected'>protected</span>
           
           
           
@@ -693,7 +705,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_SoundInstance.js.html#l161'><code>updateVolume:161</code></a>
+                <a href='../files/src_media_SoundInstance.js.html#l176'><code>updateVolume:176</code></a>
               </p>
           
           
@@ -715,7 +727,8 @@ be created through springroll.Sound.instance.play().</p>
           
           
                       <div class='param-description'>
-                        <p>The volume of the sound context that the sound belongs to. If omitted, the volume is automatically collected.</p>
+                        <p>The volume of the sound context that the sound belongs to. If
+                                     omitted, the volume is automatically collected.</p>
           
                       </div>
           
@@ -815,7 +828,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l72"><code>_fDur:72</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l74"><code>_fDur:74</code></a>
               </p>
           
           
@@ -840,14 +853,14 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l86"><code>_fEnd:86</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l81"><code>_fEnd:81</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>The ending volume for the fade that this sound instance is performing.</p>
+              <p>The starting volume for the fade that this sound instance is performing.</p>
           
             </div>
           
@@ -865,14 +878,14 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l79"><code>_fEnd:79</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l88"><code>_fEnd:88</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>The starting volume for the fade that this sound instance is performing.</p>
+              <p>The ending volume for the fade that this sound instance is performing.</p>
           
             </div>
           
@@ -890,7 +903,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l65"><code>_fTime:65</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l67"><code>_fTime:67</code></a>
               </p>
           
           
@@ -898,6 +911,31 @@ be created through springroll.Sound.instance.play().</p>
           
             <div class="description">
               <p>The current time in milliseconds for the fade that this sound instance is performing.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__pan" class="property item private">
+            <h3 class="name"><code>_pan</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_media_SoundInstance.js.html#l104"><code>_pan:104</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The sound pan value, from -1 (left) to 1 (right).</p>
           
             </div>
           
@@ -922,7 +960,8 @@ be created through springroll.Sound.instance.play().</p>
             </div>
           
             <div class="description">
-              <p>User&#39;s callback function for when the sound starts. This is only used if the sound wasn&#39;t loaded before play() was called.</p>
+              <p>User&#39;s callback function for when the sound starts. This is only used if the sound
+          wasn&#39;t loaded before play() was called.</p>
           
             </div>
           
@@ -940,14 +979,15 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l50"><code>_startParams:50</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l51"><code>_startParams:51</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>An array of relevant parameters passed to play(). This is only used if the sound wasn&#39;t loaded before play() was called.</p>
+              <p>An array of relevant parameters passed to play(). This is only used if the sound
+          wasn&#39;t loaded before play() was called.</p>
           
             </div>
           
@@ -965,7 +1005,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l57"><code>alias:57</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l59"><code>alias:59</code></a>
               </p>
           
           
@@ -978,19 +1018,19 @@ be created through springroll.Sound.instance.play().</p>
           
           
           
-          </div>          <div id="property_curVol" class="property item public">
+          </div>          <div id="property_curVol" class="property item protected">
             <h3 class="name"><code>curVol</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
           
           
-              <span class="flag public">public</span>
+              <span class="flag protected">protected</span>
           
           
           
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l93"><code>curVol:93</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l95"><code>curVol:95</code></a>
               </p>
           
           
@@ -1006,7 +1046,7 @@ be created through springroll.Sound.instance.play().</p>
           
           </div>          <div id="property_isValid" class="property item public">
             <h3 class="name"><code>isValid</code></h3>
-            <span class="type">Bool</span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
           
           
               <span class="flag public">public</span>
@@ -1016,14 +1056,16 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l116"><code>isValid:116</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l128"><code>isValid:128</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>An active SoundInstance should always be valid. This is primarily for compatability with springroll.Audio.</p>
+              <p>An active SoundInstance should always be valid, but if you keep a reference after a
+          sound stops it will no longer be valid (until the SoundInstance is reused for a
+          new sound).</p>
           
             </div>
           
@@ -1041,7 +1083,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l101"><code>length:101</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l112"><code>length:112</code></a>
               </p>
           
           
@@ -1054,9 +1096,9 @@ be created through springroll.Sound.instance.play().</p>
           
           
           
-          </div>          <div id="property_paused" class="property item public">
-            <h3 class="name"><code>paused</code></h3>
-            <span class="type">Bool</span>
+          </div>          <div id="property_pan" class="property item public">
+            <h3 class="name"><code>pan</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
           
           
               <span class="flag public">public</span>
@@ -1066,14 +1108,40 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l108"><code>paused:108</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l216"><code>pan:216</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>If the sound is currently paused. Setting this has no effect - use pause() and unpause().</p>
+              <p>The sound pan value, from -1 (left) to 1 (right).</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_paused" class="property item public">
+            <h3 class="name"><code>paused</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+              <span class="flag public">public</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_media_SoundInstance.js.html#l119"><code>paused:119</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the sound is currently paused. Setting this has no effect - use pause()
+          and unpause().</p>
           
             </div>
           
@@ -1091,7 +1159,7 @@ be created through springroll.Sound.instance.play().</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_media_SoundInstance.js.html#l128"><code>position:128</code></a>
+                <a href="../files/src_media_SoundInstance.js.html#l142"><code>position:142</code></a>
               </p>
           
           
@@ -1099,6 +1167,32 @@ be created through springroll.Sound.instance.play().</p>
           
             <div class="description">
               <p>The position of the sound playhead in milliseconds, or 0 if it hasn&#39;t started playing yet.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_volume" class="property item public">
+            <h3 class="name"><code>volume</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+              <span class="flag public">public</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_media_SoundInstance.js.html#l201"><code>volume:201</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The current sound volume (0 to 1). This is multiplied by the sound context&#39;s volume to
+          get the actual sound volume.</p>
           
             </div>
           
