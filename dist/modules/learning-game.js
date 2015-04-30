@@ -1,4 +1,4 @@
-/*! SpringRoll 0.2.0 */
+/*! SpringRoll 0.3.0 */
 /**
  * @method Learning Game
  * @namespace springroll
