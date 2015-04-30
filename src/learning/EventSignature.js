@@ -86,14 +86,14 @@
 		 */
 		p.docs = function()
 		{
-			var html = '<div class="pt-row collapsed" id="pt-api-' + this.api + '">' +
-				'<div class="pt-api">' + this.api +
-				'<span class="pt-event-code">' + this.eventCode + '</span>' +
-				'<span class="pt-toggle"></span></div>';
+			var html = '<div class="learning-row collapsed" id="learning-api-' + this.api + '">' +
+				'<div class="learning-api">' + this.api +
+				'<span class="learning-event-code">' + this.eventCode + '</span>' +
+				'<span class="learning-toggle"></span></div>';
 
 			if (this.info)
 			{
-				html += '<div class="pt-api-info">' + this.info + '</div>';
+				html += '<div class="learning-api-info">' + this.info + '</div>';
 			}
 			html += this._argsDocs(this.args, EventCatalog.globals);
 			html += '</div>';
@@ -115,7 +115,7 @@
 
 			if (args && args.length)
 			{
-				html += '<ul class="pt-api-args">';
+				html += '<ul class="learning-api-args">';
 				for (var i = 0, arg, type, len = args.length; i < len; i++)
 				{
 					arg = args[i];
@@ -127,23 +127,23 @@
 						continue;
 					}
 
-					html += '<li class="pt-arg arg-' + argName + '">';
-					html += '<span class="pt-arg-name">' + argName + '</span>';
+					html += '<li class="learning-arg arg-' + argName + '">';
+					html += '<span class="learning-arg-name">' + argName + '</span>';
 
 					var argType = arg.type;
 					type = Array.isArray(argType) ?
 						JSON.stringify(argType) :
 						argType;
 
-					html += '<span class="pt-arg-type">' + type + '</span>';
+					html += '<span class="learning-arg-type">' + type + '</span>';
 
 					if (arg.optional)
 					{
-						html += '<span class="pt-arg-optional">(optional)</span>';
+						html += '<span class="learning-arg-optional">(optional)</span>';
 					}
 					if (arg.info)
 					{
-						html += '<span class="pt-arg-info">' + arg.info + '</span>';
+						html += '<span class="learning-arg-info">' + arg.info + '</span>';
 					}
 
 					//Recursive arguments for objects which contain

@@ -30,14 +30,14 @@
 @trayMobile: 600px;
 @handleWidth: 20px;
 
-body.pt-tray-show {
+body.learning-tray-show {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	right: @trayMobile;
 
 }
-.pt-handle {
+.learning-handle {
 	width: @handleWidth;
 	height: 100%;
 	position: fixed;
@@ -63,7 +63,7 @@ body.pt-tray-show {
 	&:hover {
 		.gradient(#99CEFF, #72B6F0);
 	}
-	.pt-tray-hide & {
+	.learning-tray-hide & {
 		.transform(translate(0, -50%));
 		&:before {
 			content: "\25C0";
@@ -71,7 +71,7 @@ body.pt-tray-show {
 	}
 
 }
-.pt-tray {
+.learning-tray {
 	background: #fff;
 	position: fixed;
 	font-family: 'Helvetica', sans-serif;
@@ -91,10 +91,10 @@ body.pt-tray-show {
 	color: #333;
 	.box-shadow(0px 10px 15px -2px rgba(0,0,0,0.35));
 	z-index: 1000;
-	.pt-tray-hide & {
+	.learning-tray-hide & {
 		.transform(translateX(@trayMobile));
 		overflow-y: hidden;
-		.pt-row,
+		.learning-row,
 		h2 {
 			display: none;
 		}
@@ -104,7 +104,7 @@ body.pt-tray-show {
 		font-size: 200%;
 		margin: 0 0 0.5em;
 	}
-	.pt-version {
+	.learning-version {
 		color: #999;
 		font-weight: 400;
 		float: right;
@@ -121,32 +121,32 @@ body.pt-tray-show {
 		}
 
 	}
-	.collapsed .pt-api-alert,
-	.collapsed .pt-api-info,
-	.collapsed .pt-api-args {
+	.collapsed .learning-api-alert,
+	.collapsed .learning-api-info,
+	.collapsed .learning-api-args {
 		display: none;
 	}
-	.success .pt-event-code {
+	.success .learning-event-code {
 		border-color: #2a7728;
 		background: #6ed86b;
 	}
-	.error .pt-event-code {
+	.error .learning-event-code {
 		background: rgb(255, 86, 86);
 		border-color: #ae1d1d;
 	}
-	.pt-toggle {
+	.learning-toggle {
 		color: #999;
 		float: right;
 		font-weight: normal;
 	}
-	.pt-toggle:before {
+	.learning-toggle:before {
 		content: "-";
 	}
-	.collapsed .pt-toggle:before {
+	.collapsed .learning-toggle:before {
 		content: "+";
 
 	}
-	.pt-event-code {
+	.learning-event-code {
 		font-weight: 400;
 		font-size: 14px;
 		color: #fff;
@@ -162,7 +162,7 @@ body.pt-tray-show {
 		border: 2px solid #999;
 		.box-shadow(inset 0px 0px 0px 1px rgba(255,255,255,0.6));
 	}
-	.pt-api {
+	.learning-api {
 		font-weight: bold;
 		padding: 8px 8px 0;
 		font-size: 140%;
@@ -175,7 +175,7 @@ body.pt-tray-show {
 		-moz-user-select: none;
 		user-select: none;
 	}
-	.collapsed .pt-api {
+	.collapsed .learning-api {
 		color: #000;
 		background: #eee;
 		border-top-color: #fff;
@@ -185,7 +185,7 @@ body.pt-tray-show {
 			background: #f5f5f5;
 		}
 	}
-	.pt-api-alert {
+	.learning-api-alert {
 		color: #a94442;
 		background-color: #f2dede;
 		border: 1px solid #ebccd1;
@@ -198,41 +198,41 @@ body.pt-tray-show {
 			margin-right: 0.5em;
 		}
 	}
-	.pt-api-info {
+	.learning-api-info {
 		color: #999;
 		margin: 10px;
 	}
-	.pt-api-args {
+	.learning-api-args {
 		margin: 0;
 		padding: 0 0 0 30px;
 		list-style: none;
 		ul {
 			border-left: 4px solid #ccc;
 		}
-		.pt-arg-name {
+		.learning-arg-name {
 			font-weight: bold;
 			font-size: 110%;
 		}
-		.pt-arg-type {
+		.learning-arg-type {
 			color: #09c;
 			font-size: 100%;
 		}
-		.pt-arg-optional {
+		.learning-arg-optional {
 			color: #999;
 			margin-left: 0.5em;
 		}
-		.pt-arg-type:before {
+		.learning-arg-type:before {
 			content: " : ";
 		}
-		.pt-arg-info {
+		.learning-arg-info {
 			color: #999;
 			display: block;
 			font-size: 90%;
 			margin: 5px 0 10px;
 		}
 		.error {
-			.pt-arg-name,
-			.pt-arg-type {
+			.learning-arg-name,
+			.learning-arg-type {
 				color: #db3838;
 			}
 			ul {

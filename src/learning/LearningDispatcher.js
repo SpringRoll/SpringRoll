@@ -66,8 +66,8 @@
 			 *  @property {Element} _tray
 			 *  @private
 			 */
-			this._tray = $('<div class="pt-tray">' +
-				'<h2>Learning Dispatcher API  <span class="pt-version"></span></h2>' +
+			this._tray = $('<div class="learning-tray">' +
+				'<h2>Learning Dispatcher API  <span class="learning-version"></span></h2>' +
 				'</div>');
 
 			/**
@@ -75,14 +75,14 @@
 			 *  @property {Element} _handle
 			 *  @private
 			 */
-			this._handle = $('<button class="pt-handle"></button>');
+			this._handle = $('<button class="learning-handle"></button>');
 
 			// Match the last position of the PT tray.
-			// ie Start with the tray open ('pt-tray-show') when reloading 
+			// ie Start with the tray open ('learning-tray-show') when reloading 
 			// or returning to the game.
-			var defaultTrayPosition = SavedData.read('pt-tray-show') ?
-				'pt-tray-show' :
-				'pt-tray-hide';
+			var defaultTrayPosition = SavedData.read('learning-tray-show') ?
+				'learning-tray-show' :
+				'learning-tray-hide';
 			
 			/**
 			 *  The body dom element, development build only!
@@ -290,8 +290,8 @@
 				//Populate the tray with some information
 				if (DEBUG)
 				{
-					$(".pt-version").text(spec.version);
-					$(".pt-api").click(this._toggleRowCollapse.bind(this));
+					$(".learning-version").text(spec.version);
+					$(".learning-api").click(this._toggleRowCollapse.bind(this));
 				}
 			}
 		}
@@ -316,12 +316,12 @@
 		 */
 		p.toggleDocs = function()
 		{
-			var show = !this._body.hasClass('pt-tray-show');
-			this._body.removeClass('pt-tray-show pt-tray-hide')
-				.addClass(show ? 'pt-tray-show' : 'pt-tray-hide');
+			var show = !this._body.hasClass('learning-tray-show');
+			this._body.removeClass('learning-tray-show learning-tray-hide')
+				.addClass(show ? 'learning-tray-show' : 'learning-tray-hide');
 
 			//remember the position of the tray for this session
-			SavedData.write('pt-tray-show', show);
+			SavedData.write('learning-tray-show', show);
 
 			this._app.triggerResize();
 		};
@@ -821,7 +821,7 @@
 
 		if (DEBUG)
 		{
-			$("#pt-api-" + api).addClass('success');
+			$("#learning-api-" + api).addClass('success');
 		}
 
 		//Key track of the tracking history
@@ -856,11 +856,11 @@
 		 */
 		p._showError = function(message, api, property)
 		{
-			var container = $("#pt-api-" + api)
+			var container = $("#learning-api-" + api)
 				.addClass('error')
 				.removeClass('collapsed');
 
-			message = '<span class="pt-api-alert">' + message + '</span>';
+			message = '<span class="learning-api-alert">' + message + '</span>';
 
 			// Add the erroring to the property specifically
 			if (property)
@@ -872,7 +872,7 @@
 			// Add the error message to the container
 			else
 			{
-				container.find('.pt-api').after(message);
+				container.find('.learning-api').after(message);
 			}	
 		};
 	}
@@ -914,6 +914,7 @@
 
 		if (DEBUG)
 		{
+			this._body.removeClass('learning-tray-show learning-tray-hide');
 			this._handle.remove();
 			this._tray.remove();
 			this._handle = null;
