@@ -465,10 +465,9 @@
 		if (!inst || !inst._channel) return;
 		inst._fTime = 0;
 		inst._fDur = duration > 0 ? duration : 500;
+		inst._fEnd = targetVol || inst.curVol;
 		var v = startVol > 0 ? startVol : 0;
-		inst._channel.setVolume(v);
-		inst.curVol = inst._fStart = v;
-		inst._fEnd = targetVol || sound.volume;
+		inst.volume = inst._fStart = v;
 		if (this._fades.indexOf(inst) == -1)
 		{
 			this._fades.push(inst);
@@ -511,12 +510,11 @@
 		inst._fDur = duration > 0 ? duration : 500;
 		if (startVol > 0)
 		{
-			inst._channel.setVolume(startVol);
+			inst.volume = startVol;
 			inst._fStart = startVol;
 		}
 		else
-			inst._fStart = inst._channel.getVolume();
-		inst.curVol = inst._fStart;
+			inst._fStart = inst.volume;
 		inst._fEnd = targetVol || 0;
 		if (this._fades.indexOf(inst) == -1)
 		{
@@ -763,7 +761,7 @@
 	*	Plays a sound after it finishes loading.
 	*	@method _playAfterload
 	*	@private
-	*	@param {String} result The sound to play as an alias or load manifest.
+	*	@param {String|Object} result The sound to play as an alias or load manifest.
 	*/
 	p._playAfterLoad = function(result)
 	{
