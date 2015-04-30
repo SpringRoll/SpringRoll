@@ -6,27 +6,33 @@
  */
 (function()
 {
+	var Bitmap = include('createjs.Bitmap'),
+		Container = include('createjs.Container'),
+		Rectangle = include('createjs.Rectangle');
+	
 	/**
-	*  Designed to provide utility related to Bitmaps.
-	*  @class BitmapUtils
+	* Designed to provide utility related to Bitmaps.
+	* @class BitmapUtils
 	*/
 	var BitmapUtils = {};
 
 	/**
-	*	Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	*	that pulls the image from a spritesheet. This function should be
-	*	called after you have loaded up javascript assets exported from Flash,
-	*	but before you have instantiated those assets.
+	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	* that pulls the image from a spritesheet. This function should be
+	* called after you have loaded up javascript assets exported from Flash,
+	* but before you have instantiated those assets.
 	*
-	*	@method loadSpriteSheet
-	*	@static
-	*	@param {Object} frameDict A dictionary of frame information, with frame, trimmed,
-	*		and spriteSourceSize properties (like the JSON hash output from TexturePacker).
-	*	@param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of the frames.
-	*	@param {Number} [scale=1] The scale to apply to all sprites from the spritesheet.
-	*		For example, a half sized spritesheet should have a scale of 2.
+	* @method loadSpriteSheet
+	* @static
+	* @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
+	*                                 expected to fit the JSON Hash format as exported from
+	*                                 TexturePacker.
+	* @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
+	*                                                   the frames.
+	* @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
+	*                           a half sized spritesheet should have a scale of 2.
 	*/
-	BitmapUtils.loadSpriteSheet = function(frameDict, spritesheetImage, scale)
+	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
 	{
 		if(scale > 0)
 		{
@@ -36,7 +42,12 @@
 		{
 			scale = 1;//scale should default to 1
 		}
-
+		
+		var frameDict = spritesheetData.frames || spritesheetData;
+		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
+		//swap them ourselves
+		var swapFrameSize = spritesheetData.meta &&
+				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
 		for(var key in frameDict)
 		{
 			var frame = frameDict[key];
@@ -47,8 +58,8 @@
 			/* jshint ignore:start */
 			var newBitmap = lib[key] = function()
 			{
-				createjs.Container.call(this);
-				var child = new createjs.Bitmap(this._image);
+				Container.call(this);
+				var child = new Bitmap(this._image);
 				this.addChild(child);
 				child.sourceRect = this._frameRect;
 				var s = this._scale;
@@ -60,15 +71,18 @@
 				}
 			};
 			/* jshint ignore:end */
-			var p = newBitmap.prototype = new createjs.Container();
+			var p = newBitmap.prototype = new Container();
 			p._image = spritesheetImage;//give it a reference to the spritesheet
 			p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
+			var rotated = frame.rotated;
+			if(rotated)
+				p._rotated = true;
 			var frameRect = frame.frame;
 			//save the source rectangle of the sprite
-			p._frameRect = new createjs.Rectangle(frameRect.x,
-												frameRect.y,
-												frameRect.w,
-												frameRect.h);
+			p._frameRect = new Rectangle(frameRect.x,
+										frameRect.y,
+										(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
+										(rotated && swapFrameSize) ? frameRect.w : frameRect.h);
 			//if the sprite is trimmed, then save the amount that was trimmed
 			//off the left and top sides
 			if(frame.trimmed)
@@ -78,8 +92,6 @@
 			}
 			else
 				p._frameOffsetX = p._frameOffsetY = 0;
-			if(frame.rotated)
-				p._rotated = true;
 			if(bitmap && bitmap.prototype.nominalBounds)
 			{
 				//keep the nominal bounds from the original bitmap, if it existed
@@ -87,9 +99,9 @@
 			}
 			else
 			{
-				p.nominalBounds = new createjs.Rectangle(0, 0,
-														frame.sourceSize.w * scale,
-														frame.sourceSize.h * scale);
+				p.nominalBounds = new Rectangle(0, 0,
+												frame.sourceSize.w * scale,
+												frame.sourceSize.h * scale);
 			}
 		}
 	};
@@ -112,8 +124,8 @@
 		{
 			scale = 1;//scale should default to 1
 		}
-		var output = new createjs.Container();
-		var bitmap = new createjs.Bitmap(texture.image);
+		var output = new Container();
+		var bitmap = new Bitmap(texture.image);
 		output.addChild(bitmap);
 		bitmap.sourceRect = texture.frame;
 		bitmap.setTransform(texture.offset.x * scale, texture.offset.y * scale, scale, scale);
@@ -123,22 +135,20 @@
 			bitmap.regX = bitmap.sourceRect.width * scale;
 		}
 		//set up a nominal bounds to be kind
-		output.nominalBounds = new createjs.Rectangle(0, 0,
-												texture.width * scale,
-												texture.height * scale);
+		output.nominalBounds = new Rectangle(0, 0, texture.width * scale, texture.height * scale);
 		return output;
 	};
 
 	/**
-	*	Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	*	that uses a scaled bitmap, so you can load up smaller bitmaps behind
-	*	the scenes that are scaled back up to normal size, or high res bitmaps
-	*	that are scaled down.
+	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	* that uses a scaled bitmap, so you can load up smaller bitmaps behind
+	* the scenes that are scaled back up to normal size, or high res bitmaps
+	* that are scaled down.
 	*
-	*	@method replaceWithScaledBitmap
-	*	@static
-	*	@param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
-	*	@param {Number} [scale=1] The scale to apply to the image(s).
+	* @method replaceWithScaledBitmap
+	* @static
+	* @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
+	* @param {Number} [scale=1] The scale to apply to the image(s).
 	*/
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
 	{
@@ -162,13 +172,13 @@
 				/* jshint ignore:start */
 				newBitmap = lib[key] = function()
 				{
-					createjs.Container.call(this);
+					Container.call(this);
 					var child = new this._oldBM();
 					this.addChild(child);
 					child.setTransform(0, 0, this._scale, this._scale);
 				};
 				/* jshint ignore:end */
-				p = newBitmap.prototype = new createjs.Container();
+				p = newBitmap.prototype = new Container();
 				p._oldBM = bitmap;//give it a reference to the Bitmap
 				p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
 				p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds
@@ -184,13 +194,13 @@
 					/* jshint ignore:start */
 					newBitmap = lib[key] = function()
 					{
-						createjs.Container.call(this);
+						Container.call(this);
 						var child = new this._oldBM();
 						this.addChild(child);
 						child.setTransform(0, 0, this._scale, this._scale);
 					};
 					/* jshint ignore:end */
-					p = newBitmap.prototype = new createjs.Container();
+					p = newBitmap.prototype = new Container();
 					p._oldBM = bitmap;//give it a reference to the Bitmap
 					p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
 					p.nominalBounds = bitmap.prototype.nominalBounds;//keep the nominal bounds

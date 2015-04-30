@@ -2150,7 +2150,7 @@
 					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
 				var frames = spriteData[id].frames;
 				//diseminate the spritesheet into individual 'Bitmap'
-				BitmapUtils.loadSpriteSheet(frames, spriteImage[id]);
+				BitmapUtils.loadSpriteSheet(spriteData[id], spriteImage[id]);
 				//keep track of the things that it loaded so we can remove them properly
 				for(var frame in frames)
 				{

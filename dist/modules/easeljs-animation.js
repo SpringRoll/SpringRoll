@@ -1231,21 +1231,26 @@
 	"use strict";
 
 	/**
-	*  Handles a spritesheet. File extensions and folder paths are dropped from frame names upon loading.
-	*  @class TextureAtlas
-	*  @constructor
-	*  @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from.
-	*       This can also be an array of images, if the TextureAtlas should be built from several spritesheets.
-	*  @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas.
-	*       This is expected to fit the JSON Hash format as exported from TexturePacker.
-	*       This can also be an array of data objects, if the TextureAtlas should be built from several spritesheets.
+	* Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
+	* loading.
+	*
+	* @class TextureAtlas
+	* @constructor
+	* @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from. This can
+	*                                              also be an array of images, if the TextureAtlas
+	*                                              should be built from several spritesheets.
+	* @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas. This
+	*                                       is expected to fit the JSON Hash format as exported from
+	*                                       TexturePacker. This can also be an array of data
+	*                                       objects, if the TextureAtlas should be built from
+	*                                       several spritesheets.
 	*/
 	var TextureAtlas = function(image, spritesheetData)
 	{
 		/**
-		*  The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
-		*  @property {Array} _image
-		*  @private
+		* The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
+		* @property {Array} _image
+		* @private
 		*/
 		if(Array.isArray(image))
 		{
@@ -1258,10 +1263,15 @@
 		}
 
 		/**
-		*  The dictionary of Textures that this atlas consists of.
-		*  @property {Object} frames
+		* The dictionary of Textures that this atlas consists of.
+		* @property {Object} frames
 		*/
 		this.frames = {};
+		
+		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
+		//swap them ourselves
+		var swapFrameSize = spritesheetData.meta &&
+				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
 
 		for(var i = 0; i < this._images.length; ++i)
 		{
@@ -1277,7 +1287,7 @@
 				index = name.lastIndexOf("/");
 				if(index < 0)
 					name = name.substring(index + 1);//strip off any folder structure included in the name
-				this.frames[name] = new Texture(image, data);
+				this.frames[name] = new Texture(image, data, swapFrameSize);
 			}
 		}
 	};
@@ -1286,10 +1296,10 @@
 	var p = TextureAtlas.prototype = {};
 
 	/**
-	*  Gets a frame by name.
-	*  @method getFrame
-	*  @param {String} name The frame name to get.
-	*  @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
+	* Gets a frame by name.
+	* @method getFrame
+	* @param {String} name The frame name to get.
+	* @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
 	*/
 	p.getFrame = function(name)
 	{
@@ -1297,17 +1307,21 @@
 	};
 
 	/**
-	*  Get an array of Textures that match a specific name. If a frame in a sequence is not in the atlas,
-	*  the previous frame in the sequence is used in place of it.
-	*  @method getFrames
-	*  @param {String} name The base name of all frames to look for, like "anim_#" to search for an animation exported
-	*         as anim_0001.png (the ".png" is dropped when the TextureAtlas is loaded).
-	*  @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences generally start at 1.
-	*  @param {int} numberMax The number to go until while looking for frames.
-	*         If your animation runs from frame 0001 to frame 0014, numberMax would be 14.
-	*  @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as anim_0001.png
-	*  @param {Array} [outArray] If already using an array, this can fill it instead of creating a new one.
-	*  @return {Array} The collection of createjs.TextureAtlas.Textures.
+	* Get an array of Textures that match a specific name. If a frame in a sequence is not in the
+	* atlas, the previous frame in the sequence is used in place of it.
+	* @method getFrames
+	* @param {String} name The base name of all frames to look for, like "anim_#" to search for an
+	*                      animation exported as anim_0001.png (the ".png" is dropped when the
+	*                      TextureAtlas is loaded).
+	* @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences
+	*                        generally start at 1.
+	* @param {int} numberMax The number to go until while looking for frames. If your animation runs
+	*                        from frame 0001 to frame 0014, numberMax would be 14.
+	* @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
+	*                            anim_0001.png
+	* @param {Array} [outArray] If already using an array, this can fill it instead of creating a
+	*                           new one.
+	* @return {Array} The collection of createjs.TextureAtlas.Textures.
 	*/
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
@@ -1366,8 +1380,8 @@
 	};
 
 	/**
-	*  Destroys the TextureAtlas by nulling the image and frame dictionary references.
-	*  @method destroy
+	* Destroys the TextureAtlas by nulling the image and frame dictionary references.
+	* @method destroy
 	*/
 	p.destroy = function()
 	{
@@ -1379,47 +1393,49 @@
 	namespace("springroll.easeljs").TextureAtlas = TextureAtlas;
 
 	/**
-	*  A Texture - a specific portion of an image that can then be drawn by a Bitmap.
-	*  This class is hidden within TextureAtlas, and can't be manually created.
-	*  @class Texture
+	* A Texture - a specific portion of an image that can then be drawn by a Bitmap.
+	* This class is hidden within TextureAtlas, and can't be manually created.
+	* @class Texture
 	*/
-	var Texture = function(image, data)
+	var Texture = function(image, data, swapRotatedSize)
 	{
 		/**
-		*  The image element that this texture references.
-		*  @property {Image|HTMLCanvasElement} image
+		* The image element that this texture references.
+		* @property {Image|HTMLCanvasElement} image
 		*/
 		this.image = image;
 		/**
-		*  If this texture has been rotated (90 degrees clockwise).
-		*  @property {Boolean} rotated
+		* If this texture has been rotated (90 degrees clockwise).
+		* @property {Boolean} rotated
 		*/
 		this.rotated = data.rotated;
 		
 		var f = data.frame;
 		/**
-		*  The frame rectangle within the image.
-		*  @property {createjs.Rectangle} frame
+		* The frame rectangle within the image.
+		* @property {createjs.Rectangle} frame
 		*/
-		this.frame = new createjs.Rectangle(f.x, f.y, f.w, f.h);
+		this.frame = new createjs.Rectangle(f.x, f.y,
+			(data.rotated && swapRotatedSize) ? f.h : f.w,
+			(data.rotated && swapRotatedSize) ? f.w : f.h);
 		/**
-		*  If this texture has been trimmed.
-		*  @property {Boolean} trimmed
+		* If this texture has been trimmed.
+		* @property {Boolean} trimmed
 		*/
 		this.trimmed = data.trimmed;
 		/**
-		*  The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
-		*  @property {createjs.Point} offset
+		* The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
+		* @property {createjs.Point} offset
 		*/
 		this.offset = new createjs.Point(data.spriteSourceSize.x, data.spriteSourceSize.y);
 		/**
-		*  The width of the untrimmed texture.
-		*  @property {Number} width
+		* The width of the untrimmed texture.
+		* @property {Number} width
 		*/
 		this.width = data.sourceSize.w;
 		/**
-		*  The height of the untrimmed texture.
-		*  @property {Number} height
+		* The height of the untrimmed texture.
+		* @property {Number} height
 		*/
 		this.height = data.sourceSize.h;
 	};

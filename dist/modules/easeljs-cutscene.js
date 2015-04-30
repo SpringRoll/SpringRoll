@@ -402,7 +402,7 @@
 			if(atlasData[id] && atlasImages[id])
 			{
 				BitmapUtils.loadSpriteSheet(
-					atlasData[id].frames,
+					atlasData[id],
 					atlasImages[id],
 					this.imageScale);
 				this._imagesToUnload.push(atlasImages[id]);
