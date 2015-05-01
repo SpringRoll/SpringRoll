@@ -49,6 +49,18 @@
 		//swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
 				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
+		
+		/**
+		* The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
+		* otherwise
+		* @property {Number} scale
+		*/
+		if(spritesheetData.meta && parseFloat(spritesheetData.meta.scale))
+		{
+			this.scale = parseFloat(spritesheetData.meta.scale);
+		}
+		else
+			this.scale = 1;
 
 		for(var i = 0; i < this._images.length; ++i)
 		{

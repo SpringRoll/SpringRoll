@@ -37,6 +37,11 @@
 		{
 			// Do nothing
 		}
+		//look for scale in spritesheet data
+		else if(spritesheetData.meta && parseFloat(spritesheetData.meta.scale))
+		{
+			scale = parseFloat(spritesheetData.meta.scale);
+		}
 		else
 		{
 			scale = 1;//scale should default to 1
