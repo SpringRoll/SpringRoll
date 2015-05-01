@@ -1898,7 +1898,7 @@
 						src: manifestData.atlasData
 					});
 					//look for color/alpha split spritesheets
-					if(checkedManifest.alpha)
+					if(manifestData.alpha)
 					{
 						checkedManifest.push({
 							id: "colorSplit-alpha_" + (manifestData.splitForEaselJS ? "spriteImage_" : "atlasImage_") + id,
