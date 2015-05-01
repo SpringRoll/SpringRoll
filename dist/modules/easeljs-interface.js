@@ -2009,7 +2009,7 @@
 				id = extractAssetName(id);
 				atlasData[id] = content;
 			}
-			else if(id.indexOf("atlasImage_") === 0)
+			else if(id.indexOf("atlasImage_") > -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
@@ -2039,7 +2039,7 @@
 				id = extractAssetName(id);
 				spriteData[id] = content;
 			}
-			else if(id.indexOf("spriteImage_") === 0)
+			else if(id.indexOf("spriteImage_") > -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
