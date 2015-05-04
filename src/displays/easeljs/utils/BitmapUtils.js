@@ -71,7 +71,8 @@
 				if(this._rotated)
 				{
 					child.rotation = -90;
-					child.regX = child.sourceRect.width * s;
+					//scale should not be included with regX
+					child.regX = child.sourceRect.width;
 				}
 			};
 			/* jshint ignore:end */
@@ -136,7 +137,7 @@
 		if(texture.rotated)
 		{
 			bitmap.rotation = -90;
-			bitmap.regX = bitmap.sourceRect.width * scale;
+			bitmap.regX = bitmap.sourceRect.width;
 		}
 		//set up a nominal bounds to be kind
 		output.nominalBounds = new Rectangle(0, 0, texture.width * scale, texture.height * scale);
