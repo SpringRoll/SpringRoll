@@ -23,14 +23,14 @@
 		<script src="../dist/modules/easeljs-interface.js"></script>
 
 		<!-- Optional external depdencencies -->
-		<!-- jQuery is used by the ProgressTracker debugging tray -->
+		<!-- jQuery is used by the LearningDispatcher debugging tray -->
 		<script src="../components/jquery/dist/jquery.min.js"></script>
 
 		<!-- Library and modules -->
-		<link rel="stylesheet" href="../dist/modules/progress-tracker.css"></script>
+		<link rel="stylesheet" href="../dist/modules/learning-dispatcher.css"></script>
 
-		<!-- The CSS is needed for the ProgressTracker tray -->
-		<script src="../dist/modules/progress-tracker.js"></script>
+		<!-- The CSS is needed for the LearningDispatcher tray -->
+		<script src="../dist/modules/learning-dispatcher.js"></script>
 
     </head>
     <body>
@@ -50,7 +50,7 @@ var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	Debug = include('springroll.Debug'),
 	Loader = include('springroll.Loader'),
-	ProgressTracker = include('springroll.ProgressTracker'),
+	LearningDispatcher = include('springroll.LearningDispatcher'),
 	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
 
 // Create the new application
@@ -64,7 +64,7 @@ var app = new Application({
 	}
 });
 
-// The global progress tracker object
+// The global learning dispatcher object
 var tracker;
 
 // The button states image
@@ -75,8 +75,8 @@ app.on('init', function(){
 
 	Loader.instance.load('../test/data/spec.json', function(result){
 
-		// Create the progress tracker
-		tracker = new ProgressTracker(
+		// Create the learning dispatcher
+		tracker = new LearningDispatcher(
 			app, // reference to the app
 			result.content, // the event spec
 			true, // show the tray
