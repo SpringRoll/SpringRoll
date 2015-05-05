@@ -1297,6 +1297,7 @@
 	*  Before creating the statemanager, a transition
 	*  should probably be added at this callback
 	*  @event initStates
+	*  @deprecated
 	*/
 	var INIT_STATES = 'initStates';
 
@@ -1304,12 +1305,14 @@
 	*  The states are setup, this is the event to listen to
 	*  when the game ready to use.
 	*  @event statesReady
+	*  @deprecated
 	*/
 	var STATES_READY = 'statesReady';
 
 	/**
 	*  Initialize the states event, this is where state could be added
 	*  @event addStates
+	*  @deprecated
 	*/
 	var ADD_STATES = 'addStates';
 
@@ -1351,8 +1354,10 @@
 	*  Manual initialization of the states
 	*  @method initStates
 	*  @protected
+	*  @param {Object} states The collection of states where the key is the state alias
+	*  @param {Function} callback A callback to perform when state initialization is complete.
 	*/
-	p.initStates = function()
+	p.initStates = function(states, callback)
 	{
 		this.trigger(INIT_STATES);
 
@@ -1378,30 +1383,49 @@
 		}
 
 		// Create the state manager
-		this.manager = new StateManager(
+		var manager = this.manager = new StateManager(
 			this.display,
 			this.transition,
 			this.options.transitionSounds
 		);
+		
+		var stage = this.display.stage;
+		
+		//create states
+		if(states)
+		{
+			for(var alias in states)
+			{
+				// Add to the manager
+				manager.addState(alias, states[alias]);
+
+				// Add the state display object to the main display
+				stage.addChild(states[alias].panel);
+			}
+		}
 
 		// states should be added on this event!
 		this.trigger(ADD_STATES);
 
 		// Add the transition on top of everything else
-		this.display.stage.addChild(this.transition);
+		stage.addChild(this.transition);
 
 		// Goto the first state
 		if (this.options.state)
 		{
-			this.manager.setState(this.options.state);
+			manager.setState(this.options.state);
 		}
 
 		this.trigger(STATES_READY);
+		
+		if(callback && typeof callback == "function")
+			callback();
 	};
 
 	/**
 	*  Add a single state
 	*  @method addState
+	*  @deprecated
 	*  @param {String} alias The shortcut alias for the state
 	*  @param {BaseState} state The state manager state to add
 	*/
@@ -1429,6 +1453,7 @@
 	/**
 	*  Add a bunch of states at once by a dictionary of aliases to states
 	*  @method addStates
+	*  @deprecated
 	*  @param {Object} states The collection of states where the key is the state alias
 	*/
 	p.addStates = function(states)
