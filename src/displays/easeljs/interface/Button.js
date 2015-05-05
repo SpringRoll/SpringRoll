@@ -492,7 +492,8 @@
 			}
 
 			this._updateState();
-		}
+		},
+		configurable:true
 	});
 
 	/**

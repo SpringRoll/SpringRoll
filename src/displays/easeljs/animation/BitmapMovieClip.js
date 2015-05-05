@@ -201,7 +201,7 @@
 		if (atlas && data)
 		{
 			this.init(atlas, data);
-		}	
+		}
 	};
 
 	var p = extend(BitmapMovieClip, Container);
@@ -222,7 +222,7 @@
 	 * @type {Number}
 	 * @default 0
 	 */
-	Object.defineProperty(p, 'framerate', 
+	Object.defineProperty(p, 'framerate',
 	{
 		get: function()
 		{
@@ -248,13 +248,13 @@
 	 * @default 0
 	 * @public
 	 */
-	Object.defineProperty(p, 'elapsedTime', 
+	Object.defineProperty(p, 'elapsedTime',
 	{
-		get: function() 
+		get: function()
 		{
 			return this._t;
 		},
-		set: function(value) 
+		set: function(value)
 		{
 			this._t = value;
 		}
@@ -267,7 +267,7 @@
 	 * @default 0
 	 * @readOnly
 	 */
-	Object.defineProperty(p, 'totalFrames', 
+	Object.defineProperty(p, 'totalFrames',
 	{
 		get: function()
 		{
@@ -281,7 +281,7 @@
 	 * @type createjs.TextureAtlas.Texture
 	 * @readOnly
 	 */
-	Object.defineProperty(p, 'currentTexture', 
+	Object.defineProperty(p, 'currentTexture',
 	{
 		get: function()
 		{
@@ -476,7 +476,7 @@
 			for(var name in data.labels)
 			{
 				var label = {
-					label: name, 
+					label: name,
 					position: data.labels[name],
 					length: 1
 				};
@@ -496,7 +496,7 @@
 			{
 				var event = events[j];
 				start = event.position;
-				event.length = 
+				event.length =
 					positions[name + '_stop'] - start ||
 					positions[name + '_loop'] - start ||
 					0;
@@ -513,10 +513,10 @@
 			var frameSet = data.frames[i];
 
 			atlas.getFrames(
-				frameSet.name, 
-				frameSet.min, 
-				frameSet.max, 
-				frameSet.digits, 
+				frameSet.name,
+				frameSet.min,
+				frameSet.max,
+				frameSet.digits,
 				this._frames
 			);
 		}
@@ -648,11 +648,21 @@
 		this.currentFrame = this._prevPosition;
 		if(this._currentTexture != this._frames[this.currentFrame])
 		{
-			var tex = this._currentTexture = this._frames[this.currentFrame];
-			this._bitmap.image = tex.image;
-			this._bitmap.sourceRect = tex.frame;
-			this._bitmap.x = -this._origin.x + tex.offset.x * this._bitmap.scaleX;
-			this._bitmap.y = -this._origin.y + tex.offset.y * this._bitmap.scaleY;
+			var tex = this._currentTexture = this._frames[this.currentFrame],
+				_bitmap = this._bitmap;
+			_bitmap.image = tex.image;
+			_bitmap.sourceRect = tex.frame;
+			_bitmap.x = -this._origin.x + tex.offset.x * _bitmap.scaleX;
+			_bitmap.y = -this._origin.y + tex.offset.y * _bitmap.scaleY;
+			if(tex.rotated)
+			{
+				_bitmap.rotation = -90;
+				_bitmap.regX = _bitmap.sourceRect.width * _bitmap.scaleX;
+			}
+			else
+			{
+				_bitmap.rotation = _bitmap.regX = 0;
+			}
 		}
 	};
 	

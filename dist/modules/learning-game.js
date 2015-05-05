@@ -251,12 +251,12 @@
 	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
-	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 *  game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
 	 *  Example VOPlayer usage:
-	 *  game.playInstruction("soundAlias", doneFunction, interruptedFunction);
+	 *  game.playIncorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playInstruction
+	 *  @method playIncorrectFeedback
 	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
 	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
 	 *  @param {String|Array|Object} events   If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
@@ -322,12 +322,12 @@
 	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
-	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 *  game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
 	 *  Example VOPlayer usage:
-	 *  game.playInstruction("soundAlias", doneFunction, interruptedFunction);
+	 *  game.playCorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playInstruction
+	 *  @method playCorrectFeedback
 	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
 	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
 	 *  @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
@@ -518,7 +518,7 @@
 					{
 						//we passed an object
 						eventInfo.anim = anim = this.filters.filter(eventInfo.anim);
-						
+
 						if (eventInfo.audio)
 						{
 							if (typeof eventInfo.audio == 'object')
@@ -565,7 +565,7 @@
 				fullCaption += thisCaption;
 			}
 		}
-		
+
 		duration = duration | 0; //make it an int
 
 		switch (learningEvent)
@@ -629,8 +629,8 @@
 	 *  Get an alias or group of aliases as a string
 	 *  @method aliasToString
 	 *  @private
-	 *  @param {array|string} alias The alias to convert
-	 *  @return {string} The alias as string
+	 *  @param {Array|String} alias The alias to convert
+	 *  @return {String} The alias as string
 	 */
 	var aliasToString = function(alias)
 	{
@@ -743,7 +743,7 @@
 
 		options = options || {};
 
-		// The base options, these are overrideable by the 
+		// The base options, these are overrideable by the
 		// options above, but these are some better defaults
 		var baseOptions = {
 			captions: "captions",
@@ -811,7 +811,7 @@
 
 		/**
 		 * The game configuration loaded from and external JSON file
-		 * @property {object} config
+		 * @property {Object} config
 		 */
 		this.config = null;
 
@@ -840,8 +840,7 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = this.options.playOptions ||
-		{};
+		this.playOptions = this.options.playOptions || {};
 
 		/**
 		 * Send a message to let the site know that this has
@@ -876,7 +875,7 @@
 
 			//handle detecting and sending blur/focus events
 			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, 'gameFocus', true), 
+				messenger.send.bind(messenger, 'gameFocus', true),
 				messenger.send.bind(messenger, 'gameFocus', false)
 			);
 		}
@@ -937,7 +936,7 @@
 	 * The config has finished loading, in case you want to
 	 * add additional tasks to the manager after this.
 	 * @event configLoaded
-	 * @param {object} config The JSON object for config
+	 * @param {Object} config The JSON object for config
 	 * @param {TaskManager} manager The task manager
 	 */
 	var CONFIG_LOADED = 'configLoaded';
@@ -945,7 +944,7 @@
 	/**
 	 * The game has started loading
 	 * @event loading
-	 * @param {array} tasks The list of tasks to preload
+	 * @param {Array} tasks The list of tasks to preload
 	 */
 	var LOADING = 'loading';
 
@@ -998,16 +997,6 @@
 
 	/**
 	 * Handler when a game enters single play mode
-	 * @method onSinglePlay
-	 * @private
-	 */
-	var onSinglePlay = function()
-	{
-		this.singlePlay = true;
-	};
-
-	/**
-	 * Handler for setting play options from the container
 	 * @method onPlayOptions
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -1015,6 +1004,16 @@
 	var onPlayOptions = function(e)
 	{
 		Object.merge(this.playOptions, e.data || {});
+	};
+
+	/**
+	 * Handler when a game enters single play mode
+	 * @method onSinglePlay
+	 * @private
+	 */
+	var onSinglePlay = function()
+	{
+		this.singlePlay = true;
 	};
 
 	/**
@@ -1219,7 +1218,7 @@
 	 * Handler when the context is muted
 	 * @method onContextMuted
 	 * @private
-	 * @param {string} context The name of the sound context
+	 * @param {String} context The name of the sound context
 	 * @param {Event} e The bellhop event
 	 */
 	var onContextMuted = function(context, e)
@@ -1298,7 +1297,7 @@
 	/**
 	 * Manually close the game, this can happen when playing through once
 	 * @method endGame
-	 * @param {string} [exitType='game_completed'] The type of exit
+	 * @param {String} [exitType='game_completed'] The type of exit
 	 */
 	p.endGame = function(exitType)
 	{

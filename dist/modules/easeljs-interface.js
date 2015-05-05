@@ -493,7 +493,8 @@
 			}
 
 			this._updateState();
-		}
+		},
+		configurable:true
 	});
 
 	/**
@@ -851,8 +852,6 @@
 	{
 		Sound = include('springroll.Sound');
 
-		Button.call(this, imageSettings, label, enabled);
-
 		/**
 		 *  The audio alias to use for click events
 		 *  @property {String} clickAlias
@@ -875,9 +874,8 @@
 		this._onRollover = this._onRollover.bind(this);
 		this._onButtonPress = this._onButtonPress.bind(this);
 
-		// add listeners
-		this.addEventListener('rollover', this._onRollover);
-		this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+		Button.call(this, imageSettings, label, enabled);
+
 	};
 
 	// Reference to the super prototype
@@ -925,6 +923,23 @@
 		set: function(enabled)
 		{
 			this._audioEnabled = enabled;
+		}
+	});
+
+	Object.defineProperty(p, "enabled", {
+		get: function(){ return !this._stateFlags.disabled; },
+		set: function(value)
+		{
+			this.removeEventListener('rollover', this._onRollover);
+			this.removeEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+			// add listeners
+			if(value)
+			{
+				this.addEventListener('rollover', this._onRollover);
+				this.addEventListener(Button.BUTTON_PRESS, this._onButtonPress);
+			}
+
+			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 		}
 	});
 
@@ -1664,14 +1679,14 @@
 		Application,
 		TaskManager,
 		ListTask;
-	
+
 	/**
 	 * Class for managing the loading and unloading of assets.
 	 * @class AssetManager
 	 * @static
 	 */
 	var AssetManager = {};
-	
+
 	/**
 	*  Array of asset ids that have been loaded by AssetManager.
 	*  @property {Array} loadedAssets
@@ -1679,7 +1694,7 @@
 	*  @static
 	*/
 	var loadedAssets = null;
-	
+
 	/**
 	*  Dictionary of object definitions in the 'lib' dictionary. Each key is the name of a
 	*  definition, with the value being the id of the asset that loaded it.
@@ -1688,7 +1703,7 @@
 	*  @static
 	*/
 	var loadedLibAssets = null;
-	
+
 	/**
 	*  Dictionary of TextureAtlas objects, stored by asset id.
 	*  @property {Object} textureAtlases
@@ -1696,7 +1711,7 @@
 	*  @static
 	*/
 	var textureAtlases = null;
-	
+
 	/**
 	*  Dictionary of BitmapMovieClip configuration objects, stored by asset id.
 	*  @property {Object} BMCConfigs
@@ -1704,7 +1719,7 @@
 	*  @static
 	*/
 	var BMCConfigs = null;
-	
+
 	/**
 	 * Intializes AssetManager.
 	 * @method init
@@ -1728,14 +1743,14 @@
 		textureAtlases = {};
 		BMCConfigs = {};
 	};
-	
+
 	/**
 	*  Loads all files need to make a BitmapMovieClip, given that the files are in the same
 	*  location with a specific naming convention:
 	*
-	*  BitmapMovieClip config file: <assetId>.json <br />
-	*  BitmapMovieClip textureAtlas json: <assetId>Sprite.json <br />
-	*  BitmapMovieClip textureAtlas image: <assetId>Sprite.png
+	*  BitmapMovieClip config file: &lt;assetId&gt;.json <br />
+	*  BitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />
+	*  BitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png
 	*
 	*  @method loadBitmapMovieClip
 	*  @static
@@ -1769,7 +1784,7 @@
 		];
 		AssetManager.load(manifest, callback, taskList);
 	};
-	
+
 	/**
 	*  Unload an asset or list of assets.
 	*  @method extractAssetName
@@ -1785,7 +1800,7 @@
 			assetId = assetId.substr(17);
 		else if(assetId.indexOf("colorSplit-color_") === 0)
 			assetId = assetId.substr(17);
-		
+
 		if(assetId.indexOf("atlasData_") === 0)
 			return assetId.substr(10);
 		else if(assetId.indexOf("atlasImage_") === 0)
@@ -1798,20 +1813,63 @@
 			return assetId.substr(10);
 		return assetId;
 	}
-	
+
 	/**
-	*  Loads a list of assets. All javascript files will be parsed so that they can be loaded later.
-	*  Additionally, AssetManager will handle spritesheets automatically. A pair of assets in the
-	*  manifest with ids of "atlasData_ASSETID" and "atlasImage_ASSETID", where "ASSETID" is your
-	*  desired asset id, will create a TextureAtlas instance, accessible via
-	*  AssetManager.getAtlas("ASSETID"). A pair of assets in the manifest with ids of
-	*  "spriteData_ASSETID" and "spriteImage_ASSETID" will be run through
-	*  BitmapUtils.loadSpriteSheet() so that the individual sprites can be accessed via the global
-	*  libs dictionary.
+	*  Loads a list of assets. All javascript files will be parsed so that they can be unloaded
+	*  later. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks
+	*  for special manifest items that would otherwise be invalid to handle spritesheets or images
+	*  that have been split into alpha and color images.
+	*  A manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via
+	*  AssetManager.getAtlas("myAssetId"):
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "atlasImage":"path/asset.png"
+	*      }
+	*
+	*  A manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()
+	*  so that the individual sprites can be accessed via the global 'lib' dictionary:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "atlasImage":"path/asset.png",
+	*          "splitForEaselJS":true
+	*      }
+	*
+	*  A manifest item for a single image that has been split into color and alpha images that
+	*  should be recombined upon loading:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "color":"path/asset-color.jpg",
+	*          "alpha":"path/asset-alpha.png"
+	*      }
+	*
+	*  A manifest item for a TextureAtlas or spritesheet that has been split into color and
+	*  alpha images:
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "atlasData":"path/asset.json",
+	*          "color":"path/asset-color.jpg",
+	*          "alpha":"path/asset-alpha.png"
+	*      }
+	*
+	*  A manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be
+	*  retrieved via AssetManager.getBitmapMovieClipConfig("myAssetId"):
+	*
+	*      {
+	*          "id":"myAssetId",
+	*          "src":"path/asset.json",
+	*          "bmcConfig":true
+	*      }
+	*
 	*  @method load
 	*  @static
-	*  @param {Array} manifest The collection of asset ids or single asset id
-	*  @param {Function} callback A function to call when load is complete
+	*  @param {Array} manifest The collection of asset manifests
+	*  @param {Function} [callback] A function to call when load is complete
 	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
 	*                                        loading. If omitted, loads immediately with an internal
 	*                                        TaskManager.
@@ -1831,19 +1889,93 @@
 			var id = manifestData.id;
 			if(loadedAssets.indexOf(extractAssetName(id)) == -1)
 			{
-				//if the asset is marked for alpha/color splitting, then we need to add
-				//a marker to the ID so that we can still have the same 'id' but have different
-				//entries in the results dictionary.
-				if(manifestData.alpha === true && id.indexOf("colorSplit-alpha_") < 0)
-					manifestData.id = "colorSplit-alpha_" + id;
-				else if(manifestData.color === true && id.indexOf("colorSplit-color_") < 0)
-						manifestData.id = "colorSplit-color_" + id;
-				checkedManifest.push(manifestData);
+				//look for expected manifest shorthands for atlases
+				if(manifestData.atlasData)
+				{
+					//add several items instead of just the one
+					checkedManifest.push({
+						id: (manifestData.splitForEaselJS ? "spriteData_" : "atlasData_") + id,
+						src: manifestData.atlasData
+					});
+					//look for color/alpha split spritesheets
+					if(manifestData.alpha)
+					{
+						checkedManifest.push({
+							id: "colorSplit-alpha_" + (manifestData.splitForEaselJS ? "spriteImage_" : "atlasImage_") + id,
+							src: manifestData.alpha,
+							alpha: true
+						});
+						checkedManifest.push({
+							id: "colorSplit-color_" + (manifestData.splitForEaselJS ? "spriteImage_" : "atlasImage_") + id,
+							src: manifestData.color,
+							color: true
+						});
+					}
+					//otherwise, use the expectd atlasImage url
+					else
+					{
+						checkedManifest.push({
+							id: (manifestData.splitForEaselJS ? "spriteImage_" : "atlasImage_") + id,
+							src: manifestData.atlasImage
+						});
+					}
+				}
+				//look for individual iamges with color/alpha split shorthands
+				else if(typeof manifestData.color == "string" &&
+					typeof manifestData.alpha == "string")
+				{
+					checkedManifest.push({
+						id: "colorSplit-alpha_" + id,
+						src: manifestData.alpha,
+						alpha: true
+					});
+					checkedManifest.push({
+						id: "colorSplit-color_" + id,
+						src: manifestData.color,
+						color: true
+					});
+				}
+				//look for JSON marked as BitmapMovieClip configs
+				else if(manifestData.bmcConfig === true)
+				{
+					checkedManifest.push({
+						id: "bmcConfig_" + id,
+						src: manifestData.src
+					});
+				}
+				//add the manifest as normal, as we have checked it for any
+				//changes needed
+				else
+				{
+					//do the (deprecated) less easy to use behavior of the
+					//developer making separate manifest items for alpha/color
+					if(manifestData.alpha === true)
+					{
+						checkedManifest.push({
+							id: "colorSplit-alpha_" + id,
+							src: manifestData.src,
+							alpha: true
+						});
+					}
+					else if(manifestData.color === true)
+					{
+						checkedManifest.push({
+							id: "colorSplit-color_" + id,
+							src: manifestData.src,
+							color: true
+						});
+					}
+					//add manifest as normal, as it is a standard manifest item
+					else
+					{
+						checkedManifest.push(manifestData);
+					}
+				}
 			}
 		}
 		if(checkedManifest.length)
 		{
-			var task = new ListTask("assets", manifest, onLoaded.bind(AssetManager, callback));
+			var task = new ListTask("assets", checkedManifest, onLoaded.bind(AssetManager, callback));
 			if(taskList)
 			{
 				if(Array.isArray(taskList))
@@ -1857,7 +1989,7 @@
 		else if(callback)
 			setTimeout(callback, 0);
 	};
-	
+
 	var onLoaded = function(callback, results)
 	{
 		var atlasImage = {},
@@ -1865,7 +1997,7 @@
 			spriteImage = {},
 			spriteData = {},
 			id;
-		
+
 		for(id in results)
 		{
 			var result = results[id];
@@ -1877,7 +2009,7 @@
 				id = extractAssetName(id);
 				atlasData[id] = content;
 			}
-			else if(id.indexOf("atlasImage_") === 0)
+			else if(id.indexOf("atlasImage_") > -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
@@ -1907,7 +2039,7 @@
 				id = extractAssetName(id);
 				spriteData[id] = content;
 			}
-			else if(id.indexOf("spriteImage_") === 0)
+			else if(id.indexOf("spriteImage_") > -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
@@ -1973,7 +2105,7 @@
 				{
 					if(manifestData.alpha === true)
 					{
-						if(images[id] && images.color)
+						if(images[id] && images[id].color)
 						{
 							images[id] = mergeAlpha(images[id].color, content);
 						}
@@ -1982,7 +2114,7 @@
 					}
 					else if(manifestData.color === true)
 					{
-						if(images[id] && images.alpha)
+						if(images[id] && images[id].alpha)
 							images[id] = mergeAlpha(content, images[id].alpha);
 						else
 							images[id] = {color: content};
@@ -2018,7 +2150,7 @@
 					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
 				var frames = spriteData[id].frames;
 				//diseminate the spritesheet into individual 'Bitmap'
-				BitmapUtils.loadSpriteSheet(frames, spriteImage[id]);
+				BitmapUtils.loadSpriteSheet(spriteData[id], spriteImage[id]);
 				//keep track of the things that it loaded so we can remove them properly
 				for(var frame in frames)
 				{
@@ -2030,7 +2162,7 @@
 		if(callback)
 			callback();
 	};
-	
+
 	/**
 	* Pulled from EaselJS's SpriteSheetUtils.
 	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
@@ -2061,7 +2193,7 @@
 		ctx.restore();
 		return canvas;
 	};
-	
+
 	/**
 	*  Returns a TextureAtlas that was loaded by the specified asset id.
 	*  @method getAtlas
@@ -2073,7 +2205,7 @@
 	{
 		return textureAtlases[asset];
 	};
-	
+
 	/**
 	*  Returns a configuration object for a BitmapMovieClip.
 	*  @method getBitmapMovieClipConfig
@@ -2085,7 +2217,7 @@
 	{
 		return BMCConfigs[asset];
 	};
-	
+
 	/**
 	*  Unload an asset or list of assets.
 	*  @method unload
@@ -2109,7 +2241,7 @@
 		}
 		else
 			assets.push(extractAssetName(assetOrAssets));
-		
+
 		//unload each asset
 		for(i = 0, length = assets.length; i < length; ++i)
 		{
@@ -2129,7 +2261,7 @@
 				images[asset].src = "";
 				delete images[asset];
 			}
-			
+
 			var index = loadedAssets.indexOf(asset);
 			if(index > 0)
 				loadedAssets.splice(index, 1);
@@ -2145,7 +2277,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	*  Unloads all assets loaded by AssetManager.
 	*  @method unloadAll
@@ -2174,7 +2306,7 @@
 		}
 		loadedAssets.length = 0;
 	};
-	
+
 	//Assign to namespace
 	namespace("springroll.easeljs").AssetManager = AssetManager;
 }());

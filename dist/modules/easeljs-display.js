@@ -474,8 +474,8 @@
 		{
 			//next check for a width and height that someone might have set up,
 			//like our Button class has.
-			rtn.w = bitmap.width / bitmap.scaleX;
-			rtn.h = bitmap.height / bitmap.scaleY;
+			rtn.w = bitmap.width;
+			rtn.h = bitmap.height;
 		}
 		else if(bitmap.sourceRect)
 		{

@@ -4,19 +4,22 @@
 */
 (function(undefined)
 {
-	var Debug = include('Debug', false),
-		Tween = include('createjs.Tween', false),
+	var Tween = include('createjs.Tween', false),
 		Ticker = include('createjs.Ticker', false),
-		PropertyDispatcher = include('springroll.PropertyDispatcher');
+		PropertyDispatcher = include('springroll.PropertyDispatcher'),
+		Debug;
 
 	/**
 	* Manage the Application options
-	* @class Application
+	* @class ApplicationOptions
 	* @extends springroll.PropertyDispatcher
 	* @constructor {Object} [overrides] The supplied options
 	*/
 	var ApplicationOptions = function(app, options)
 	{
+		if(Debug === undefined)
+			Debug = include('springroll.Debug', false);
+		
 		PropertyDispatcher.call(this);
 
 		options = options || {};
@@ -57,7 +60,7 @@
 		{
 			this.respond('debug', function()
 			{
-				return Debug ? Debug.enabled : false; 
+				return Debug ? Debug.enabled : false;
 			});
 
 			this.on('debug', function(value)
@@ -65,7 +68,7 @@
 				if (Debug) Debug.enabled = value;
 			});
 
-			this.respond('debugRemote', function(value)
+			this.on('debugRemote', function(value)
 			{
 				if (Debug)
 				{
@@ -115,9 +118,16 @@
 				if (value)
 				{
 					app.on('update', Tween.tick);
-				}					
+				}
 			}
 		});
+		
+		//trigger all of the initial values, because otherwise they don't take effect.
+		var _properties = this._properties;
+		for(var id in _properties)
+		{
+			this.trigger(id, _properties[id].value);
+		}
 	};
 
 	// Extend the base class
@@ -179,7 +189,7 @@
 	var defaultOptions = {
 
 		/**
-		 * Use Request Animation Frame API 
+		 * Use Request Animation Frame API
 		 * @property {Boolean} raf
 		 * @default true
 		 */
@@ -268,7 +278,7 @@
 		 * @property {Boolean} autoPause
 		 * @default true
 		 */
-		autoPause: true, 
+		autoPause: true,
 
 		/**
 		 * The current version number for your application. This

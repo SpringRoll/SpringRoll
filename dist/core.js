@@ -279,7 +279,7 @@
  */
 (function()
 {
-	var Debug = include('springroll.Debug', false);
+	var Debug;
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -289,7 +289,12 @@
 	 * @param {int} value The integer value of the enum.
 	 * @param {String} toString A string for toString() to return, instead of the name.
 	 */
-	var EnumValue = function(name, value, toString) {
+	var EnumValue = function(name, value, toString)
+	{
+
+		if (Debug === undefined)
+			Debug = include('springroll.Debug', false);
+
 		/**
 		 * The name of the value, for reflection or logging purposes.
 		 * @property {String} name
@@ -313,13 +318,16 @@
 	 * The integer value of this enum entry.
 	 * @property {int} asInt
 	 */
-	Object.defineProperty(EnumValue.prototype, "asInt", {
-		get: function() {
+	Object.defineProperty(EnumValue.prototype, "asInt",
+	{
+		get: function()
+		{
 			return this._value;
 		}
 	});
 
-	EnumValue.prototype.toString = function() {
+	EnumValue.prototype.toString = function()
+	{
 		return this._toString;
 	};
 
@@ -346,96 +354,153 @@
 	*
 	* @class Enum
 	* @constructor
-	* @param {Array|String|Object} arguments The list of enumeration values. You can pass either an
-	*                                        array or a list of parameters. Each string will be
-	*                                        the previous value plus one, while objects with
-	*                                        'name' and 'value' properties will have the specified
-	*                                        numeric value.
+	* @param {Array|String|Object} arguments 
+	*  The list of enumeration values. You can pass either an
+	*  array or a list of parameters. Each string will be
+	*  the previous value plus one, while objects with
+	*  'name' and 'value' properties will have the specified
+	*  numeric value.
 	*/
-	var Enum = function() {
+	var Enum = function()
+	{
 		var args = Array.isArray(arguments[0]) ?
 			arguments[0] :
 			Array.prototype.slice.call(arguments);
+
 		/**
 		 * A potentially sparse array of each enum value, stored by integer values.
 		 * @property {Array} _byValue
 		 * @private
 		 */
-		// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
-		// to make it not enumerable set the enumerable property to false
-		Object.defineProperty(this, '_byValue', {
+		Object.defineProperty(this, '_byValue',
+		{
 			enumerable: false,
 			writable: false,
 			value: []
 		});
 
 		/**
-		 *  The values that this Enum was initialized with. We save this so
-		 *  that we can potentially pass this via Bellhop and re-initialize.
-		 *  @public
-		 *  @property {Array} rawEnumValues
+		 * The values that this Enum was initialized with. We save this so
+		 * that we can potentially pass this via Bellhop and re-initialize.
+		 * @public
+		 * @property {Array} rawEnumValues
 		 */
-		Object.defineProperty(this, 'rawEnumValues', {
+		Object.defineProperty(this, 'rawEnumValues',
+		{
 			enumerable: false,
 			writable: false,
 			value: args
 		});
 
 		var counter = 0;
-		var len = args.length;
 		var item;
-		var i;
 		var value;
 		var name;
 
-		//create each value
-		for (i = 0; i < len; ++i) {
-			if (typeof args[i] == "string") {
+		// Create an EnumValue for each argument provided
+		for (var i = 0, len = args.length; i < len; ++i)
+		{
+			if (typeof args[i] == "string")
+			{
 				name = args[i];
-				if (this[name]) {
-					if (true && Debug) Debug.error("Error creating enum value " + name + ": " + value +
-						" - an enum value already exists with that name.");
-					continue;
-				}
-				item = new EnumValue(name, counter, name);
-				this[item.name] = item;
-				if (this._byValue[counter]) {
-					if (Array.isArray(this._byValue[counter])) {
-						this._byValue[counter].push(item);
-					}
-					else {
-						this._byValue[counter] = [this._byValue[counter], item];
-					}
-				}
-				else {
-					this._byValue[counter] = item;
-				}
 			}
-			else {
+			else
+			{
 				name = args[i].name;
 				value = args[i].value || counter;
-				if (this[name]) {
-					if (true && Debug) Debug.error("Error creating enum value " + name + ": " + value +
-						" - an enum value already exists with that name.");
-					continue;
-				}
-				item = new EnumValue(name, value, args[i].toString || name);
-				this[item.name] = item;
-				if (this._byValue[value]) {
-					if (Array.isArray(this._byValue[value])) {
-						this._byValue[value].push(item);
-					}
-					else {
-						this._byValue[value] = [this._byValue[value], item];
-					}
-				}
-				else {
-					this._byValue[value] = item;
-				}
 				counter = value;
+			}
+
+			// if name already exists in Enum 
+			if (this[name])
+			{
+				if (true && Debug)
+				{
+					Debug.error("Error creating enum value " + name + ": " + value +
+						" - an enum value already exists with that name.");
+				}
+				continue;
+			}
+
+			item = (typeof args[i] == "string") ?
+				new EnumValue(name, counter, name) :
+				new EnumValue(name, value, args[i].toString || name);
+
+			this[item.name] = item;
+			if (this._byValue[counter])
+			{
+				if (Array.isArray(this._byValue[counter]))
+				{
+					this._byValue[counter].push(item);
+				}
+				else
+				{
+					this._byValue[counter] = [this._byValue[counter], item];
+				}
+			}
+			else
+			{
+				this._byValue[counter] = item;
 			}
 			counter++;
 		}
+
+		/**
+		 * The count of values the enum was initialized with.
+		 * @public
+		 * @property {int} length
+		 */
+		Object.defineProperty(this, 'length',
+		{
+			enumerable: false,
+			writable: false,
+			value: args.length
+		});
+
+		/**
+		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'next',
+		{
+			enumerable: false,
+			writable: false,
+			// {EnumValue} input
+			value: function(input)
+			{
+				var nextInt = input.asInt + 1;
+				if (nextInt >= counter)
+				{
+					return this.first;
+				}
+				return this.valueFromInt(nextInt);
+			}
+		});
+
+		/**
+		 * Retrieves the first EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'first',
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(args[0].value || 0)
+		});
+
+		/**
+		 * Retrieves the last EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, 'last',
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(counter-1)
+		});
 	};
 
 	/**
@@ -445,14 +510,15 @@
 	 * @param {int} input The integer value to get an enum value for.
 	 * @return {EnumValue} The EnumValue that represents the input integer.
 	 */
-	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
-	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(Enum.prototype, 'valueFromInt', {
+	Object.defineProperty(Enum.prototype, 'valueFromInt',
+	{
 		enumerable: false,
 		writable: false,
-		value: function(input) {
+		value: function(input)
+		{
 			var rtn = this._byValue[input];
-			if (rtn) {
+			if (rtn)
+			{
 				return Array.isArray(rtn) ? rtn[0] : rtn;
 			}
 			return null;
@@ -1156,19 +1222,22 @@
 */
 (function(undefined)
 {
-	var Debug = include('Debug', false),
-		Tween = include('createjs.Tween', false),
+	var Tween = include('createjs.Tween', false),
 		Ticker = include('createjs.Ticker', false),
-		PropertyDispatcher = include('springroll.PropertyDispatcher');
+		PropertyDispatcher = include('springroll.PropertyDispatcher'),
+		Debug;
 
 	/**
 	* Manage the Application options
-	* @class Application
+	* @class ApplicationOptions
 	* @extends springroll.PropertyDispatcher
 	* @constructor {Object} [overrides] The supplied options
 	*/
 	var ApplicationOptions = function(app, options)
 	{
+		if(Debug === undefined)
+			Debug = include('springroll.Debug', false);
+		
 		PropertyDispatcher.call(this);
 
 		options = options || {};
@@ -1209,7 +1278,7 @@
 		{
 			this.respond('debug', function()
 			{
-				return Debug ? Debug.enabled : false; 
+				return Debug ? Debug.enabled : false;
 			});
 
 			this.on('debug', function(value)
@@ -1217,7 +1286,7 @@
 				if (Debug) Debug.enabled = value;
 			});
 
-			this.respond('debugRemote', function(value)
+			this.on('debugRemote', function(value)
 			{
 				if (Debug)
 				{
@@ -1267,9 +1336,16 @@
 				if (value)
 				{
 					app.on('update', Tween.tick);
-				}					
+				}
 			}
 		});
+		
+		//trigger all of the initial values, because otherwise they don't take effect.
+		var _properties = this._properties;
+		for(var id in _properties)
+		{
+			this.trigger(id, _properties[id].value);
+		}
 	};
 
 	// Extend the base class
@@ -1331,7 +1407,7 @@
 	var defaultOptions = {
 
 		/**
-		 * Use Request Animation Frame API 
+		 * Use Request Animation Frame API
 		 * @property {Boolean} raf
 		 * @default true
 		 */
@@ -1420,7 +1496,7 @@
 		 * @property {Boolean} autoPause
 		 * @default true
 		 */
-		autoPause: true, 
+		autoPause: true,
 
 		/**
 		 * The current version number for your application. This

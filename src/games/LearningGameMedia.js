@@ -148,12 +148,12 @@
 	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
-	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 *  game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
 	 *  Example VOPlayer usage:
-	 *  game.playInstruction("soundAlias", doneFunction, interruptedFunction);
+	 *  game.playIncorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playInstruction
+	 *  @method playIncorrectFeedback
 	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
 	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
 	 *  @param {String|Array|Object} events   If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
@@ -219,12 +219,12 @@
 	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback LearningDispatcher events
 	 *
 	 *  Example Animator usage:
-	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 *  game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
 	 *  Example VOPlayer usage:
-	 *  game.playInstruction("soundAlias", doneFunction, interruptedFunction);
+	 *  game.playCorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playInstruction
+	 *  @method playCorrectFeedback
 	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
 	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
 	 *  @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
@@ -415,7 +415,7 @@
 					{
 						//we passed an object
 						eventInfo.anim = anim = this.filters.filter(eventInfo.anim);
-						
+
 						if (eventInfo.audio)
 						{
 							if (typeof eventInfo.audio == 'object')
@@ -462,7 +462,7 @@
 				fullCaption += thisCaption;
 			}
 		}
-		
+
 		duration = duration | 0; //make it an int
 
 		switch (learningEvent)
@@ -526,8 +526,8 @@
 	 *  Get an alias or group of aliases as a string
 	 *  @method aliasToString
 	 *  @private
-	 *  @param {array|string} alias The alias to convert
-	 *  @return {string} The alias as string
+	 *  @param {Array|String} alias The alias to convert
+	 *  @return {String} The alias as string
 	 */
 	var aliasToString = function(alias)
 	{

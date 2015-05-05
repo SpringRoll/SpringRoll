@@ -65,7 +65,7 @@
 		if (this.options.manifestsPath !== null)
 		{
 			addTasks = addTasks.bind(this);
-			this.on('loading', addTasks);
+			this.on('configLoaded', addTasks);
 		}
 
 		//Add a captions text field after the states are ready
@@ -95,11 +95,11 @@
 	 *  @private
 	 *  @param {array} tasks The collection of preload tasks
 	 */
-	var addTasks = function(tasks)
+	var addTasks = function(config, taskManager)
 	{
-		this.off('loading', addTasks);
+		this.off('configLoaded', addTasks);
 
-		tasks.push(new LoadTask(
+		taskManager.addTask(new LoadTask(
 			"manifests",
 			this.options.manifestsPath,
 			onManifestsLoaded.bind(this)));
@@ -193,8 +193,23 @@
 
 		var stage = ev.target;
 		var target = stage._getObjectsUnderPoint(ev.stageX, ev.stageY, null, true);
+
+		var foundListener = false;
 		
-		if (!target)//no interactive objects found
+		if(target)
+		{
+			while (target && target != stage)
+			{
+				if (target.hasEventListener("mousedown") || target.hasEventListener("click"))
+				{
+					foundListener = true;
+					break;
+				}
+				target = target.parent;
+			}
+		}
+
+		if (!foundListener)//no interactive objects found
 		{
 			//duplicate the array of optional offClick parameters
 			var arr = this.offClickParams.slice(0);

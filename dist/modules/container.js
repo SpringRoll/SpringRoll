@@ -532,8 +532,18 @@
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 */
-	p.open = function(path, options)
+	p.open = function(path, options, playOptions)
 	{
+		options = options || {};
+
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions
+			};
+		}
 		this._internalOpen(path, options);
 	};
 
@@ -546,8 +556,16 @@
 	 * @param {Object} [options.playOptions=null] The optional play options
 	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
 	 */
-	p.openRemote = function(api, options)
+	p.openRemote = function(api, options, playOptions)
 	{
+		// This should be deprecated, support for old function signature
+		if (typeof options === "boolean")
+		{
+			options = {
+				singlePlay: singlePlay,
+				playOptions: playOptions
+			};
+		}
 		options = $.extend({
 			query: '',
 			playOptions: null,
@@ -635,11 +653,7 @@
 	 */
 	var onContainerFocus = function(e)
 	{
-		//Set both container and game to blurred, 
-		//because some blur events are only happening on the container.
-		//If container is blurred because game area was just focused,
-		//the game's focus event will override the blur imminently.
-		this._containerBlurred = this._gameBlurred = true;
+		this._containerBlurred = false;
 		manageFocus.call(this);
 	};
 
@@ -650,7 +664,11 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		this._containerBlurred = true;
+		//Set both container and game to blurred, 
+		//because some blur events are only happening on the container.
+		//If container is blurred because game area was just focused,
+		//the game's focus event will override the blur imminently.
+		this._containerBlurred = this._gameBlurred = true;
 		manageFocus.call(this);
 	};
 

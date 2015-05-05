@@ -117,14 +117,14 @@
 		*	@private
 		*/
 		this._elapsedTime = 0;
-		
+
 		/**
 		*	All audio aliases used by this Cutscene, for preloading and later unloading.
 		*	@property {Array} _audioAliases
 		*	@private
 		*/
 		this._audioAliases = null;
-		
+
 		/**
 		*	Time sorted list of audio that needs to be played, as well as information on if they
 		*	should be synced or not.
@@ -132,14 +132,14 @@
 		*	@private
 		*/
 		this._audio = null;
-		
+
 		/**
 		*	Index of the sound that is next up in _audio.
 		*	@property {int} _audioIndex
 		*	@private
 		*/
 		this._audioIndex = 0;
-		
+
 		/**
 		*	Time sorted list of audio that needs to be played, as well as information on if they
 		*	should be synced or not.
@@ -156,19 +156,20 @@
 		this._clip = null;
 
 		/**
-		*	The sound instance of the playing audio that the animation should be synced to.
-		*	@property {springroll.SoundInstance} _currentAudioInstance
+		*	The queue of sound instances of playing audio that the animation should be synced to.
+		*	Only the most recent active one will be synced to.
+		*	@property {Array} _activeSyncAudio
 		*	@private
 		*/
-		this._currentAudioInstance = null;
-		
+		this._activeSyncAudio = [];
+
 		/**
 		*	The time in seconds into the animation that the current synced audio started.
 		*	@property {Number} _soundStartTime
 		*	@private
 		*/
 		this._soundStartTime = -1;
-		
+
 		/**
 		*	Array of active SoundInstances that are not the currently synced one.
 		*	@property {Array} _activeAudio
@@ -213,6 +214,20 @@
 		*	@private
 		*/
 		this._endCallback = null;
+		
+		/**
+		*	Names of library (window.lib) items to delete when the cutscene is destroyed.
+		*	@property {Array} _libItemsToUnload
+		*	@private
+		*/
+		this._libItemsToUnload = [];
+		
+		/**
+		*	Names of image (window.images) entries to unload when the cutscene is destroyed.
+		*	@property {Array} _imagesToUnload
+		*	@private
+		*/
+		this._imagesToUnload = [];
 
 		//bind some callbacks
 		this.update = this.update.bind(this);
@@ -297,7 +312,7 @@
 				this._audioAliases, this.onAudioLoaded));
 		}
 	};
-	
+
 	function audioSorter(a, b)
 	{
 		return a.start - b.start;
@@ -340,6 +355,31 @@
 			else if(id == "clip")//look for the javascript animation file
 			{
 				//the javascript file
+				
+				//get javascript text
+				var text = result.text;
+				if(!text) continue;
+				//split into the initialization functions, that take 'lib' as a parameter
+				var textArray = text.split(/\(function\s*\(/);
+				//go through each initialization function
+				for(var i = 0; i < textArray.length; ++i)
+				{
+					text = textArray[i];
+					if(!text) continue;
+					//determine what the 'lib' parameter has been minified into
+					var libName = text.substring(0, text.indexOf(","));
+					if(!libName) continue;
+					//get all the things that are 'lib.X = <stuff>'
+					var varFinder = new RegExp("\\(" + libName + ".(\\w+)\\s*=", "g");
+					var foundName = varFinder.exec(text);
+					while(foundName)
+					{
+						//keep track of all library items in the js file
+						this._libItemsToUnload.push(foundName[1]);
+						foundName = varFinder.exec(text);
+					}
+				}
+				
 				//if bitmaps need scaling, then do black magic to the object prototypes so the
 				//scaling is built in
 				if(this.imageScale != 1)
@@ -354,6 +394,7 @@
 			else//anything left must be individual images that we were expecting
 			{
 				images[id] = result;
+				this._imagesToUnload.push(id);
 			}
 		}
 		for (id in atlasData)//if we loaded any spritesheets, load them up
@@ -361,9 +402,10 @@
 			if(atlasData[id] && atlasImages[id])
 			{
 				BitmapUtils.loadSpriteSheet(
-					atlasData[id].frames,
+					atlasData[id],
 					atlasImages[id],
 					this.imageScale);
+				this._imagesToUnload.push(atlasImages[id]);
 			}
 		}
 	};
@@ -418,12 +460,12 @@
 	p.resize = function(width, height)
 	{
 		if(!this._clip) return;
-		
+
 		var settings = this.config.settings;
 		var designedRatio = settings.designedWidth / settings.designedHeight,
 			currentRatio = width / height,
 			scale;
-		
+
 		if(designedRatio > currentRatio)
 		{
 			//current ratio is narrower than the designed ratio, scale to width
@@ -462,12 +504,12 @@
 				var instanceRef = {};
 				if(data.sync)
 				{
-					if(this._currentAudioInstance)
-						this._activeAudio.push(this._currentAudioInstance);
-					this._currentAudioInstance = Sound.instance.play(
+					var audio = Sound.instance.play(
 						alias,
 						this._audioCallback.bind(this, instanceRef));
-					instanceRef.instance = this._currentAudioInstance;
+					this._activeSyncAudio.unshift(audio);
+					instanceRef.instance = audio;
+					audio._audioData = data;
 					this._soundStartTime = data.start;
 					if(this._captionsObj)
 					{
@@ -487,7 +529,7 @@
 			else
 				break;
 		}
-		
+
 		Application.instance.on("update", this.update);
 	};
 
@@ -498,21 +540,38 @@
 	*/
 	p._audioCallback = function(instanceRef)
 	{
-		if(instanceRef.instance == this._currentAudioInstance)
+		var index = this._activeSyncAudio.indexOf(instanceRef.instance);
+		if(index != -1)
 		{
-			this._audioFinished = true;
-			this._currentAudioInstance = null;
-			this._soundStartTime = -1;
-			if(this._captionsObj)
-				this._captionsObj.stop();
-			if(this._animFinished)
+			if(index === 0)
+				this._activeSyncAudio.shift();
+			else
+				this._activeSyncAudio.splice(index, 1);
+
+			if(this._activeSyncAudio.length < 1)
 			{
-				this.stop(true);
+				this._audioFinished = true;
+				this._soundStartTime = -1;
+				if(this._captionsObj)
+					this._captionsObj.stop();
+				if(this._animFinished)
+				{
+					this.stop(true);
+				}
+			}
+			else
+			{
+				var data = this._activeSyncAudio[0]._audioData;
+				this._soundStartTime = data.start;
+				if(this._captionsObj)
+				{
+					this._captionsObj.play(data.alias);
+				}
 			}
 		}
 		else
 		{
-			var index = this._activeAudio.indexOf(instanceRef.instance);
+			index = this._activeAudio.indexOf(instanceRef.instance);
 			if(index != -1)
 				this._activeAudio.splice(index, 1);
 		}
@@ -527,11 +586,11 @@
 	p.update = function(elapsed)
 	{
 		if(this._animFinished) return;
-		
+
 		//update the elapsed time first, in case it starts audio
-		if(!this._currentAudioInstance)
+		if(!this._activeSyncAudio.length)
 			this._elapsedTime += elapsed * 0.001;
-		
+
 		for(var i = this._audioIndex; i < this._audio.length; ++i)
 		{
 			var data = this._audio[i];
@@ -542,12 +601,12 @@
 				if(data.sync)
 				{
 					this._audioFinished = false;
-					if(this._currentAudioInstance)
-						this._activeAudio.push(this._currentAudioInstance);
-					this._currentAudioInstance = Sound.instance.play(
+					var audio = Sound.instance.play(
 						alias,
 						this._audioCallback.bind(this, instanceRef));
-					instanceRef.instance = this._currentAudioInstance;
+					this._activeSyncAudio.unshift(audio);
+					instanceRef.instance = audio;
+					audio._audioData = data;
 					this._soundStartTime = data.start;
 					if(this._captionsObj)
 					{
@@ -571,9 +630,9 @@
 				break;
 		}
 
-		if(this._currentAudioInstance)
+		if(this._activeSyncAudio.length)
 		{
-			var pos = this._currentAudioInstance.position * 0.001;
+			var pos = this._activeSyncAudio[0].position * 0.001;
 			//sometimes (at least with the flash plugin), the first check of the
 			//position would be very incorrect
 			if(this._elapsedTime === 0 && pos > elapsed * 2)
@@ -589,7 +648,7 @@
 
 		if(this._captionsObj && this._soundStartTime >= 0)
 		{
-			this._captionsObj.seek(this._currentAudioInstance.position);
+			this._captionsObj.seek(this._activeSyncAudio[0].position);
 		}
 		if(!this._animFinished)
 		{
@@ -619,9 +678,10 @@
 	p.stop = function(doCallback)
 	{
 		Application.instance.off("update", this.update);
-		if(this._currentAudioInstance)
-			this._currentAudioInstance.stop();
-		for(var i = 0; i < this._activeAudio.length; ++i)
+		var i;
+		for(i = 0; i < this._activeSyncAudio.length; ++i)
+			this._activeSyncAudio[i].stop();
+		for(i = 0; i < this._activeAudio.length; ++i)
 			this._activeAudio[i].stop();
 		if(this._captionsObj)
 			this._captionsObj.stop();
@@ -642,21 +702,36 @@
 	{
 		Application.instance.off("resize", this.resize);
 		this.removeAllChildren(true);
-		Sound.instance.unload(this._audioAliases);//unload audio
-		this.config = null;
+		//unload audio
+		Sound.instance.unload(this._audioAliases);
+		//unload library stuff
+		var i;
+		for(i = this._libItemsToUnload.length - 1; i >= 0; --i)
+		{
+			delete lib[this._libItemsToUnload[i]];
+		}
+		for(i = this._imagesToUnload.length - 1; i >= 0; --i)
+		{
+			var img = this._imagesToUnload[i];
+			if(typeof img == "string")
+			{
+				images[img].src = "";
+				delete images[img];
+			}
+			else
+			{
+				img.src = "";
+			}
+		}
+		this._libItemsToUnload = this._imagesToUnload = this.config = null;
 		if(this._taskMan)
 		{
 			this._taskMan.off();
 			this._taskMan.destroy();
 			this._taskMan = null;
 		}
-		this._currentAudioInstance = null;
-		this._activeAudio = null;
-		this._audioAliases = this._audio = null;
-		this._loadCallback = null;
-		this._endCallback = null;
-		this._clip = null;
-		this._captionsObj = null;
+		this._activeSyncAudio = this._activeAudio = this._audioAliases = this._audio = null;
+		this._loadCallback = this._endCallback = this._clip = this._captionsObj = null;
 		if(this.parent)
 			this.parent.removeChild(this);
 		this.display = null;

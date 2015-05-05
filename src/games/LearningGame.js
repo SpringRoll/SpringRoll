@@ -46,7 +46,7 @@
 
 		options = options || {};
 
-		// The base options, these are overrideable by the 
+		// The base options, these are overrideable by the
 		// options above, but these are some better defaults
 		var baseOptions = {
 			captions: "captions",
@@ -114,7 +114,7 @@
 
 		/**
 		 * The game configuration loaded from and external JSON file
-		 * @property {object} config
+		 * @property {Object} config
 		 */
 		this.config = null;
 
@@ -143,8 +143,7 @@
 		 * @property {Object} playOptions
 		 * @readOnly
 		 */
-		this.playOptions = this.options.playOptions ||
-		{};
+		this.playOptions = this.options.playOptions || {};
 
 		/**
 		 * Send a message to let the site know that this has
@@ -179,7 +178,7 @@
 
 			//handle detecting and sending blur/focus events
 			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, 'gameFocus', true), 
+				messenger.send.bind(messenger, 'gameFocus', true),
 				messenger.send.bind(messenger, 'gameFocus', false)
 			);
 		}
@@ -240,7 +239,7 @@
 	 * The config has finished loading, in case you want to
 	 * add additional tasks to the manager after this.
 	 * @event configLoaded
-	 * @param {object} config The JSON object for config
+	 * @param {Object} config The JSON object for config
 	 * @param {TaskManager} manager The task manager
 	 */
 	var CONFIG_LOADED = 'configLoaded';
@@ -248,7 +247,7 @@
 	/**
 	 * The game has started loading
 	 * @event loading
-	 * @param {array} tasks The list of tasks to preload
+	 * @param {Array} tasks The list of tasks to preload
 	 */
 	var LOADING = 'loading';
 
@@ -301,16 +300,6 @@
 
 	/**
 	 * Handler when a game enters single play mode
-	 * @method onSinglePlay
-	 * @private
-	 */
-	var onSinglePlay = function()
-	{
-		this.singlePlay = true;
-	};
-
-	/**
-	 * Handler for setting play options from the container
 	 * @method onPlayOptions
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -318,6 +307,16 @@
 	var onPlayOptions = function(e)
 	{
 		Object.merge(this.playOptions, e.data || {});
+	};
+
+	/**
+	 * Handler when a game enters single play mode
+	 * @method onSinglePlay
+	 * @private
+	 */
+	var onSinglePlay = function()
+	{
+		this.singlePlay = true;
 	};
 
 	/**
@@ -522,7 +521,7 @@
 	 * Handler when the context is muted
 	 * @method onContextMuted
 	 * @private
-	 * @param {string} context The name of the sound context
+	 * @param {String} context The name of the sound context
 	 * @param {Event} e The bellhop event
 	 */
 	var onContextMuted = function(context, e)
@@ -601,7 +600,7 @@
 	/**
 	 * Manually close the game, this can happen when playing through once
 	 * @method endGame
-	 * @param {string} [exitType='game_completed'] The type of exit
+	 * @param {String} [exitType='game_completed'] The type of exit
 	 */
 	p.endGame = function(exitType)
 	{
