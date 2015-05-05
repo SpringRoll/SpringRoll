@@ -138,6 +138,13 @@
 		this._musicInstance = null;
 
 		/**
+		*  The collection of states
+		*  @property {Object} _states
+		*  @private
+		*/
+		this._states = null;
+
+		/**
 		*  The global player for playing voice over
 		*  @property {springroll.VOPlayer} player
 		*/
@@ -208,7 +215,7 @@
 	*  Before creating the statemanager, a transition
 	*  should probably be added at this callback
 	*  @event initStates
-	*  @deprecated
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*/
 	var INIT_STATES = 'initStates';
 
@@ -216,14 +223,14 @@
 	*  The states are setup, this is the event to listen to
 	*  when the game ready to use.
 	*  @event statesReady
-	*  @deprecated
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*/
 	var STATES_READY = 'statesReady';
 
 	/**
 	*  Initialize the states event, this is where state could be added
 	*  @event addStates
-	*  @deprecated
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*/
 	var ADD_STATES = 'addStates';
 
@@ -265,78 +272,22 @@
 	*  Manual initialization of the states
 	*  @method initStates
 	*  @protected
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*  @param {Object} states The collection of states where the key is the state alias
-	*  @param {Function} callback A callback to perform when state initialization is complete.
 	*/
-	p.initStates = function(states, callback)
+	p.initStates = function(states)
 	{
 		this.trigger(INIT_STATES);
 
-		// Goto the transition state
-		if (!this.transition)
-		{
-			if (DEBUG)
-			{
-				throw "StateManager requires a 'transition' property to be set or through constructor options";
-			}
-			else
-			{
-				throw "No options.transition";
-			}
-		}
-
-		//if the transition is a EaselJS movieclip, start it out
-		//at the end of the transition out animation. If it has a
-		//'transitionLoop' animation, that will be played as soon as a state is set
-		if (this.transition.gotoAndStop)
-		{
-			this.transition.gotoAndStop("onTransitionOut_stop");
-		}
-
-		// Create the state manager
-		var manager = this.manager = new StateManager(
-			this.display,
-			this.transition,
-			this.options.transitionSounds
-		);
-		
-		var stage = this.display.stage;
-		
-		//create states
-		if(states)
-		{
-			for(var alias in states)
-			{
-				// Add to the manager
-				manager.addState(alias, states[alias]);
-
-				// Add the state display object to the main display
-				stage.addChild(states[alias].panel);
-			}
-		}
-
-		// states should be added on this event!
-		this.trigger(ADD_STATES);
-
-		// Add the transition on top of everything else
-		stage.addChild(this.transition);
-
-		// Goto the first state
-		if (this.options.state)
-		{
-			manager.setState(this.options.state);
-		}
+		this.states = states || null;
 
 		this.trigger(STATES_READY);
-		
-		if(callback && typeof callback == "function")
-			callback();
 	};
 
 	/**
 	*  Add a single state
 	*  @method addState
-	*  @deprecated
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*  @param {String} alias The shortcut alias for the state
 	*  @param {BaseState} state The state manager state to add
 	*/
@@ -364,7 +315,7 @@
 	/**
 	*  Add a bunch of states at once by a dictionary of aliases to states
 	*  @method addStates
-	*  @deprecated
+	*  @deprecated Will be removed in 0.3.0, use the Game.states setter instead
 	*  @param {Object} states The collection of states where the key is the state alias
 	*/
 	p.addStates = function(states)
@@ -374,6 +325,91 @@
 			this.addState(alias, states[alias]);
 		}
 	};
+
+	/**
+	*  The collection of states where the key is the state alias and value is the state display object
+	*  @property {Object} states
+	*  @default null
+	*/
+	Object.defineProperty(p, "states",
+	{
+		set: function(states)
+		{
+			if (this.manager)
+			{
+				if (DEBUG)
+				{
+					throw "StateManager has already been initialized, cannot set states multiple times";
+				}
+				else
+				{
+					throw "Game.states already set";
+				}
+			}
+
+			// Goto the transition state
+			if (!this.transition)
+			{
+				if (DEBUG)
+				{
+					throw "StateManager requires a 'transition' property to be set or through constructor options";
+				}
+				else
+				{
+					throw "No options.transition";
+				}
+			}
+
+			//if the transition is a EaselJS movieclip, start it out
+			//at the end of the transition out animation. If it has a
+			//'transitionLoop' animation, that will be played as soon as a state is set
+			if (this.transition.gotoAndStop)
+			{
+				this.transition.gotoAndStop("onTransitionOut_stop");
+			}
+
+			// Create the state manager
+			var manager = this.manager = new StateManager(
+				this.display,
+				this.transition,
+				this.options.transitionSounds
+			);
+			
+			var stage = this.display.stage;
+			
+			if (states)
+			{
+				//create states
+				for (var alias in states)
+				{
+					// Add to the manager
+					manager.addState(alias, states[alias]);
+
+					// Add the state display object to the main display
+					stage.addChild(states[alias].panel);
+				}
+			}
+
+			this._states = states;
+
+			// states should be added on this event!
+			// @deprecate this!
+			this.trigger(ADD_STATES);
+
+			// Add the transition on top of everything else
+			stage.addChild(this.transition);
+
+			// Goto the first state
+			if (this.options.state)
+			{
+				manager.setState(this.options.state);
+			}
+		},
+		get: function()
+		{
+			return this._states;
+		}
+	});
 
 	/**
 	*  Get or set the current music alias to play
