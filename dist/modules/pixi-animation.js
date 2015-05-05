@@ -1019,7 +1019,11 @@
 							}
 						}
 						else if(t._time_sec > t.duration)
-							t._time_sec -= t.duration;
+						{
+							extraTime = t._time_sec - t.duration;
+							t._nextItem();
+							onNext = true;
+						}
 					}
 					else
 					{
@@ -1027,11 +1031,6 @@
 						if (t._time_sec >= t.duration)
 						{
 							extraTime = t._time_sec - t.duration;
-							if(t.isLooping)
-							{
-								t._time_sec = extraTime;
-								continue;
-							}
 							
 							t._nextItem();
 							if(t.complete)
@@ -1052,10 +1051,12 @@
 					{
 						if (t.isLooping && t.listIndex == t.eventList.length - 1)
 						{
-							t._time_sec -= t.duration;
+							extraTime = t._time_sec - t.duration;
+							t._nextItem();//reset any audio and such
 							//call the on complete function each time
 							if (t.onComplete)
 								t.onComplete();
+							onNext = true;
 						}
 						else
 						{

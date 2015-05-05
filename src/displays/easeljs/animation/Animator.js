@@ -824,7 +824,9 @@
 				{
 					if (t.isLooping)
 					{
-						t._time_sec -= t.duration;
+						extraTime = t._time_sec - t.duration;
+						t._nextItem();
+						onNext = true;
 						//call the on complete function each time
 						if (t.onComplete)
 							t.onComplete();
@@ -846,7 +848,7 @@
 						}
 					}
 				}
-				if (t.playSound && t._time_sec >= t.soundStart)
+				if (!onNext && t.playSound && t._time_sec >= t.soundStart)
 				{
 					t._time_sec = t.soundStart;
 					t.playSound = false;
