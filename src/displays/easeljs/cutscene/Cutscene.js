@@ -359,7 +359,7 @@
 				var text = result.text;
 				if(!text) continue;
 				//split into the initialization functions, that take 'lib' as a parameter
-				var textArray = text.split(/\(function\s*\(/);
+				var textArray = text.split(/[\(!]function\s*\(/);
 				//go through each initialization function
 				for(var i = 0; i < textArray.length; ++i)
 				{
