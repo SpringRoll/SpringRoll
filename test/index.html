@@ -17,7 +17,7 @@
 	<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 	<script src="../components/easeljs/lib/movieclip.combined.js"></script>
 	<script src="../components/soundjs/lib/soundjs.min.js"></script>
-	<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+	<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
 	<script src="../components/pixi.js/bin/pixi.dev.js"></script>
 	<script src="../components/jquery/dist/jquery.js"></script>
 	<script src="../components/bellhop/dist/bellhop.js"></script>
@@ -44,26 +44,6 @@
 	<script src="../dist/modules/container.js"></script>
 	<script src="../dist/modules/hinting.js"></script>
 
-	<script>
-
-	var Application = include('springroll.Application');
-	var LearningGame = include('springroll.LearningGame');
-
-	test('Include All Modules', function(assert){
-		expect(1);
-		var app = new Application();
-		assert.ok(!!Application.instance, "Created a blank application");
-		app.destroy();
-	});
-
-	test('Create a LearningGame', function(assert){
-		expect(1);
-		var game = new LearningGame({
-			name: "TestGame"
-		});
-		assert.ok(!!game, "Created an empty game");
-		game.destroy();
-	});
-	</script>
+	<script src="index.js"></script>
 </body>
 </html>

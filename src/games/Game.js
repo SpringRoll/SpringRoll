@@ -38,13 +38,6 @@
 	*                                                                        object
 	*  @param {DOMElement|String|createjs.Text|PIXI.Text|PIXI.BitmapText} [options.captions] The
 	*                          captions text field object to use for the VOPlayer captions object.
-	*  @param {String} [options.swfPath='assets/swfs/'] The relative location to the FlashPlugin
-	*                                                   swf for SoundJS
-	*  @param {Array} [options.audioTypes=['ogg','mp3'] The order in which file types are
-	*                                                   preferred, where "ogg" becomes a ".ogg"
-	*                                                   extension on all sound file urls.
-	*  @param {Boolean} [options.mute=false] Set the initial mute state of the all the audio
-	*                                        (unminifed library version only)
 	*  @param {String} [options.name=''] The name of the game
 	*  @param {Boolean} [options.forceTouch=false] Manually override the check for hasTouch
 	*                                               (unminifed library version only)
@@ -101,12 +94,8 @@
 
 		// Set the default options
 		Application.call(this, Object.merge({
-			swfPath : 'assets/swfs/',
-			audioTypes : ["ogg", "mp3"],
-			mute : false,
 			captions : null,
 			updateTween : true,
-			name : '',
 			forceMobile : false,
 			state : null,
 			transition : null,
@@ -117,38 +106,11 @@
 		}, options));
 
 		/**
-		*  The name of the game, useful for debugging purposes
-		*  @property {String} name
-		*  @default ""
-		*/
-		this.name = this.options.name;
-
-		/**
-		*  The current music alias playing
-		*  @property {String} _music
-		*  @private
-		*/
-		this._music = null;
-		
-		/**
-		*  The current music SoundInstance playing
-		*  @property {SoundInstance} _musicInstance
-		*  @private
-		*/
-		this._musicInstance = null;
-
-		/**
 		*  The collection of states
 		*  @property {Object} _states
 		*  @private
 		*/
 		this._states = null;
-
-		/**
-		*  The global player for playing voice over
-		*  @property {springroll.VOPlayer} player
-		*/
-		this.player = new VOPlayer();
 
 		/**
 		*  The global captions object
@@ -195,10 +157,6 @@
 				(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
 				(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 		}
-
-		// Callback right before init is called, we'll
-		// override the init and load the sound first
-		this.once('beforeInit', onBeforeInit.bind(this));
 	};
 
 	// Extend application
@@ -206,47 +164,6 @@
 	var p = extend(Game, Application);
 
 	/**
-	*  The sound is ready to use
-	*  @event soundReady
-	*/
-	var SOUND_READY = 'soundReady';
-
-	/**
-	*  Override the do init method
-	*  @method onBeforeInit
-	*  @protected
-	*/
-	var onBeforeInit = function()
-	{
-		this._readyToInit = false;
-
-		// Initialize the sound
-		Sound.init({
-			swfPath : this.options.swfPath,
-			ready : onSoundReady.bind(this),
-			types : this.options.audioTypes
-		});
-	};
-
-	/**
-	*  Callback when the sound has been initialized
-	*  @method onSoundReady
-	*  @private
-	*/
-	var onSoundReady = function()
-	{
-		if (DEBUG)
-		{
-			// For testing, mute the game if requested
-			Sound.instance.muteAll = !!this.options.mute;
-		}
-		this._readyToInit = true;
-		this.trigger(SOUND_READY);
-		this._doInit();
-	};
-
-	/**
-
 	*  The collection of states where the key is the state alias and value is the state display object
 	*  @property {Object} states
 	*  @default null
@@ -325,89 +242,6 @@
 	});
 
 	/**
-	*  Get or set the current music alias to play
-	*  @property {String} music
-	*  @default null
-	*/
-	Object.defineProperty(p, "music",
-	{
-		set: function(value)
-		{
-			if (value == this._music)
-			{
-				return;
-			}
-			var sound = Sound.instance;
-
-			if (this._music)
-			{
-				sound.fadeOut(this._music);
-				this._musicInstance = null;
-			}
-			this._music = value;
-
-			if (this._music)
-			{
-				this._musicInstance = sound.play(
-					this._music,
-					{
-						start: sound.fadeIn.bind(sound, this._music),
-						loop: -1
-					}
-				);
-			}
-		},
-		get: function()
-		{
-			return this._music;
-		}
-	});
-	
-	/**
-	*  The SoundInstance for the current music, for adjusting volume.
-	*  @property {SoundInstance} musicInstance
-	*/
-	Object.defineProperty(p, "musicInstance",
-	{
-		get: function()
-		{
-			return this._musicInstance;
-		}
-	});
-
-	/**
-	*  Convenience method to loads a Sound config object.
-	*  @method addSounds
-	*  @public
-	*  @param {Object} config The config to load.
-	*  @param {String} [config.context] The optional sound context to load sounds into unless
-	*                                   otherwise specified by the individual sound. Sounds do not
-	*                                   require a context.
-	*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
-	*                                      settings.
-	*  @param {Object|String} config.soundManifest.* An entry in the array. If this is a
-	*                                                string, then it is the same as
-	*                                                {'id':'<yourString>'}.
-	*  @param {String} config.soundManifest.*.id The id to reference the sound by.
-	*  @param {String} [config.soundManifest.*.src] The src path to the file, without an
-	*                                               extension. If omitted, defaults to id.
-	*  @param {Number} [config.soundManifest.*.volume=1] The default volume for the sound,
-	*                                                    from 0 to 1.
-	*  @param {Boolean} [config.soundManifest.*.loop=false] If the sound should loop by
-	*                                                       default whenever the loop
-	*                                                       parameter in play() is not
-	*                                                       specified.
-	*  @param {String} [config.soundManifest.*.context] A context name to override
-	*                                                   config.context with.
-	*  @return {Sound} The sound object for chaining
-	*/
-	p.addSounds = function(config)
-	{
-		return Sound.instance.loadConfig(config);
-	};
-
-	/**
 	*  Sets the dicitonary for the captions used by player. If a Captions object
 	*  did not exist previously, then it creates one, and sets it up on all Animators.
 	*  @method addCaptions
@@ -452,11 +286,6 @@
 			this.manager.destroy();
 			this.manager = null;
 		}
-		if (this.player)
-		{
-			this.player.destroy();
-			this.player = null;
-		}
 		if (this.transition)
 		{
 			this.display.adapter.removeChildren(this.transition);
@@ -464,16 +293,6 @@
 		}
 		this.captions = null;
 		s.destroy.call(this);
-	};
-
-	/**
-	*  The toString debugging method
-	*  @method toString
-	*  @return {String} The reprsentation of this class
-	*/
-	p.toString = function()
-	{
-		return "[Game name='" + this.name + "'']";
 	};
 
 	// Assign to the namespace

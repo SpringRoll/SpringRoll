@@ -49,13 +49,8 @@
 		*/
 		this._globalVersion = null;
 
-		var cb = Application.instance.options.cacheBust;
-		this.cacheBust = (cb === "true" || cb === true);
-
-		if(DEBUG && Debug)
-		{
-			if (this.cacheBust) Debug.log("CacheBust all files is on.");
-		}
+		// Initial set
+		this.cacheBust = false;
 	};
 
 	/* Easy access to the prototype */
@@ -75,7 +70,7 @@
 		},
 		set: function(value)
 		{
-			if(value)
+			if (value)
 			{
 				this._globalVersion = "cb=" + Date.now();
 				this.unregisterURLFilter(this._applySpecificVersion);

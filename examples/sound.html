@@ -97,30 +97,18 @@ app.on('init', function(){
 		// Save the bitmap image to use late
 		image = result.content,
 			
-		// Initialize the Sound system
-		Sound.init({
-			// The path to the Flash SWF fallback
-			swfPath : 'assets/swfs/',
-			ready : onSoundReady
-		});
+		// Load up the configuration for the sound effects
+		app.addSounds(config.sfx).addSounds(config.music);
+
+		var centerX = (app.display.width - image.width) / 2;
+
+		// Add the buttons
+		addButton("FoodChute", centerX, 60, onPlayEffect);
+		addButton("TipEarned", centerX, 120, onPlayEffect);
+		addButton("TrashChute", centerX, 180, onPlayEffect);
+		addButton("TitleMusic", centerX, 300, onPlayMusic);
 	});					
 });
-
-// Callback when the sound is ready to be used
-function onSoundReady()
-{
-	// Load up the configuration for the sound effects
-	Sound.instance.loadConfig(config.sfx)
-		.loadConfig(config.music);
-
-	var centerX = (app.display.width - image.width) / 2;
-
-	// Add the buttons
-	addButton("FoodChute", centerX, 60, onPlayEffect);
-	addButton("TipEarned", centerX, 120, onPlayEffect);
-	addButton("TrashChute", centerX, 180, onPlayEffect);
-	addButton("TitleMusic", centerX, 300, onPlayMusic);
-}
 
 // Add a new button to the stage
 function addButton(text, x, y, callback)

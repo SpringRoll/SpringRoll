@@ -39,6 +39,10 @@
 	var set = function(name, value)
 	{
 		var prop = this._properties[name];
+		if (prop.readOnly)
+		{
+			throw "Property '" + name + "' is read-only";
+		}
 		var oldValue = prop.value;
 		prop.value = value;
 		if (oldValue != value)
@@ -63,25 +67,27 @@
 			prop.value = value;
 			return value;
 		}
-		return prop.value || null;
+		return prop.value;
 	};
 
 	/**
 	 * Add a new property to allow deteching
-	 * @method addProp
+	 * @method add
 	 * @param {string} prop The property name
-	 * @param {mixed} [initValue] The default value
+	 * @param {mixed} [value=null] The default value
 	 * @param {Boolean} [readOnly=false] If the property is readonly
 	 * @return {PropertyDispatcher} The instance for chaining
 	 */
-	p.addProp = function(name, initValue, readOnly)
+	p.add = function(name, value, readOnly)
 	{
-		if (this._properties[name] !== undefined)
+		var props = this._properties;
+		var prop = props[name];
+
+		if (prop !== undefined)
 		{
-			if (RELEASE)
-				throw "Property " + name + " already exists";
-			else
-				throw "Property " + name + " already exists and cannot be added multiple times";
+			prop.setValue(value);
+			prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
+			return this;
 		}
 		
 		if (this.hasOwnProperty(name))
@@ -89,7 +95,7 @@
 			throw "Object already has property " + name;
 		}
 
-		this._properties[name] = new Property(name, initValue, readOnly);
+		props[name] = new Property(name, value, readOnly);
 
 		Object.defineProperty(this, name, {
 			get: get.bind(this, name),
@@ -134,7 +140,7 @@
 			if (RELEASE)
 				throw "Property " + name + " does not exist";
 			else
-				throw "Property " + name + " does not exist, you must addProp() first before adding responder";
+				throw "Property " + name + " does not exist, you must add(name, value) first before adding responder";
 		}
 		prop.responder = responder;
 
@@ -150,9 +156,19 @@
 	var Property = function(name, value, readOnly)
 	{
 		this.name = name;
-		this.value = value === undefined ? null : value;
-		this.readOnly = readOnly === undefined ? false : !!readOnly;
+		this.setValue(value);
+		this.setReadOnly(readOnly);
 		this.responder = null;
+	};
+
+	Property.prototype.setValue = function(value)
+	{
+		this.value = value === undefined ? null : value;
+	};
+
+	Property.prototype.setReadOnly = function(readOnly)
+	{
+		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	/**

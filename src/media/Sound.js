@@ -237,17 +237,6 @@
 			}
 		}
 
-		this.pauseAll = this.pauseAll.bind(this);
-		this.unpauseAll = this.unpauseAll.bind(this);
-		this.destroy = this.destroy.bind(this);
-
-		// Add listeners to pause and resume the sounds
-		Application.instance.on({
-			paused : this.pauseAll,
-			resumed : this.unpauseAll,
-			destroy : this.destroy
-		});
-
 		if (callback)
 		{
 			callback();
@@ -1258,12 +1247,6 @@
 			{
 				swf.parentNode.removeChild(swf);
 			}
-		}
-		if (Application.instance)
-		{
-			Application.instance.off('paused', this.pauseAll);
-			Application.instance.off('resumed', this.unpauseAll);
-			Application.instance.off('destroy', this.destroy);
 		}
 
 		_instance = null;

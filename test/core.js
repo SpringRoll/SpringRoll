@@ -78,7 +78,7 @@ test('Loader', function(assert){
 	var url = "test.jpg";
 	var cbUrl = loader.cacheManager.prepare(url);
 	var basePathUrl = loader.cacheManager.prepare(url, true);
-
+	
 	assert.ok(/^test\.jpg\?cb\=[0-9]+$/.test(cbUrl), "Cache Busting works");
 	assert.equal(basePathUrl.indexOf(basePath + url), 0, "Found base path");
 

@@ -151,6 +151,121 @@
  * @module Core
  * @namespace window
  */
+(function()
+{
+	/**
+	*  Simplified fork of async (https://github.com/caolan/async) which only contains waterfall.
+	*  @class async
+	*/
+	var async = {};
+
+	/**
+	 * Process the next task
+	 * @method  setImmediate
+	 * @param  {function}   fn    The next process function to call
+	 */
+	async.setImmediate = function (fn)
+	{
+		setTimeout(fn, 0);
+	};
+
+	/**
+	 * Async waterfall
+	 * @method  waterfall
+	 * @param  {array}   tasks    Collection of functions
+	 * @param  {Function} callback The callback when all functions are called
+	 */
+	async.waterfall = function (tasks, callback)
+	{
+		callback = callback || function () {};
+
+		if (!_isArray(tasks))
+		{
+			var err = new Error('First argument to waterfall must be an array of functions');
+			return callback(err);
+		}
+
+		if (!tasks.length)
+		{
+			return callback();
+		}
+
+		var wrapIterator = function(iterator)
+		{
+			return function(err)
+			{
+				if (err)
+				{
+					callback.apply(null, arguments);
+					callback = function () {};
+				}
+				else 
+				{
+					var args = Array.prototype.slice.call(arguments, 1);
+					var next = iterator.next();
+					
+					if (next)
+					{
+						args.push(wrapIterator(next));
+					}
+					else 
+					{
+						args.push(callback);
+					}
+					async.setImmediate(function()
+					{
+						iterator.apply(null, args);
+					});
+				}
+			};
+		};
+		wrapIterator(async.iterator(tasks))();
+	};
+
+	/**
+	 * Async waterfall
+	 * @method  iterator
+	 * @private
+	 * @param  {array}   tasks    Collection of functions
+	 */
+	async.iterator = function(tasks)
+	{
+        var makeCallback = function(index)
+        {
+            var fn = function()
+            {
+                if (tasks.length)
+                {
+                    tasks[index].apply(null, arguments);
+                }
+                return fn.next();
+            };
+            fn.next = function()
+            {
+                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
+            };
+            return fn;
+        };
+        return makeCallback(0);
+    };
+
+	//// cross-browser compatiblity functions ////
+
+	var _toString = Object.prototype.toString;
+
+	var _isArray = Array.isArray || function(obj)
+	{
+		return _toString.call(obj) === '[object Array]';
+	};
+
+	// Assign to namespace
+	namespace('springroll').async = async;
+
+}());
+/**
+ * @module Core
+ * @namespace window
+ */
 (function(Object, undefined){
 
 	/**
@@ -648,6 +763,18 @@
 	p = EventDispatcher.prototype;
 
 	/**
+	 * If the dispatcher is destroyed
+	 * @property {Boolean} destroyed
+	 */
+	Object.defineProperty(p, 'destroyed',
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
+	});
+
+	/**
 	*  Dispatch an event
 	*  @method trigger
 	*  @param {String} type The type of event to trigger
@@ -938,6 +1065,10 @@
 	var set = function(name, value)
 	{
 		var prop = this._properties[name];
+		if (prop.readOnly)
+		{
+			throw "Property '" + name + "' is read-only";
+		}
 		var oldValue = prop.value;
 		prop.value = value;
 		if (oldValue != value)
@@ -962,25 +1093,27 @@
 			prop.value = value;
 			return value;
 		}
-		return prop.value || null;
+		return prop.value;
 	};
 
 	/**
 	 * Add a new property to allow deteching
-	 * @method addProp
+	 * @method add
 	 * @param {string} prop The property name
-	 * @param {mixed} [initValue] The default value
+	 * @param {mixed} [value=null] The default value
 	 * @param {Boolean} [readOnly=false] If the property is readonly
 	 * @return {PropertyDispatcher} The instance for chaining
 	 */
-	p.addProp = function(name, initValue, readOnly)
+	p.add = function(name, value, readOnly)
 	{
-		if (this._properties[name] !== undefined)
+		var props = this._properties;
+		var prop = props[name];
+
+		if (prop !== undefined)
 		{
-			if (false)
-				throw "Property " + name + " already exists";
-			else
-				throw "Property " + name + " already exists and cannot be added multiple times";
+			prop.setValue(value);
+			prop.setReadOnly(readOnly === undefined ? prop.readOnly : readOnly);
+			return this;
 		}
 		
 		if (this.hasOwnProperty(name))
@@ -988,7 +1121,7 @@
 			throw "Object already has property " + name;
 		}
 
-		this._properties[name] = new Property(name, initValue, readOnly);
+		props[name] = new Property(name, value, readOnly);
 
 		Object.defineProperty(this, name, {
 			get: get.bind(this, name),
@@ -1033,7 +1166,7 @@
 			if (false)
 				throw "Property " + name + " does not exist";
 			else
-				throw "Property " + name + " does not exist, you must addProp() first before adding responder";
+				throw "Property " + name + " does not exist, you must add(name, value) first before adding responder";
 		}
 		prop.responder = responder;
 
@@ -1049,9 +1182,19 @@
 	var Property = function(name, value, readOnly)
 	{
 		this.name = name;
-		this.value = value === undefined ? null : value;
-		this.readOnly = readOnly === undefined ? false : !!readOnly;
+		this.setValue(value);
+		this.setReadOnly(readOnly);
 		this.responder = null;
+	};
+
+	Property.prototype.setValue = function(value)
+	{
+		this.value = value === undefined ? null : value;
+	};
+
+	Property.prototype.setReadOnly = function(readOnly)
+	{
+		this.readOnly = readOnly === undefined ? false : !!readOnly;
 	};
 
 	/**
@@ -1076,147 +1219,6 @@
 
 }());
 /**
- * @module Core
- * @namespace springroll
- */
-(function(global, doc, undefined){
-		
-	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
-	*  or "unpaused" events on the application instead of using one of these yourself.
-	*
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {Function} onFocus Callback when the page becomes visible
-	*  @param {Function} onBlur Callback when the page loses visibility
-	*/
-	var PageVisibility = function(onFocus, onBlur)
-	{
-		/**
-		* Callback when the page becomes visible
-		* @property {Function} _onFocus
-		* @private
-		*/
-		this._onFocus = onFocus;
-		
-		/**
-		* Callback when the page loses visibility
-		* @property {Function} _onBlur
-		* @private
-		*/
-		this._onBlur = onBlur;
-		
-		/**
-		* If this object is enabled.
-		* @property {Function} _enabled
-		* @private
-		*/
-		this._enabled = false;
-
-		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
-		
-		/**
-		* The visibility toggle listener function
-		* @property {Function} _onToggle
-		* @private
-		*/
-		this._onToggle = function()
-		{
-			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
-				this._onBlur();
-			else
-				this._onFocus();
-		}.bind(this);
-		
-		this.enabled = true;
-	},
-	
-	// Reference to the prototype
-	p = PageVisibility.prototype,
-	
-	/**
-	* The name of the visibility change event for the browser
-	*
-	* @property {String} _visibilityChange
-	* @private
-	*/
-	_visibilityChange = null;
-	
-	// Select the visiblity change event name
-	if (doc.hidden !== undefined)
-	{
-		_visibilityChange = "visibilitychange";
-	}
-	else if (doc.mozHidden !== undefined)
-	{
-		_visibilityChange = "mozvisibilitychange";
-	}
-	else if (doc.msHidden !== undefined)
-	{
-		_visibilityChange = "msvisibilitychange";
-	}
-	else if (doc.webkitHidden !== undefined)
-	{
-		_visibilityChange = "webkitvisibilitychange";
-	}
-	
-	/**
-	* If this object is enabled.
-	* @property {Function} enabled
-	* @private
-	*/
-	Object.defineProperty(p, "enabled", {
-		get: function() { return this._enabled; },
-		set: function(value)
-		{
-			value = !!value;
-			if(this._enabled == value) return;
-			this._enabled = value;
-			
-			global.removeEventListener("pagehide", this._onBlur);
-			global.removeEventListener("pageshow", this._onFocus);
-			global.removeEventListener("blur", this._onBlur);
-			global.removeEventListener("focus", this._onFocus);
-			global.removeEventListener("visibilitychange", this._onToggle);
-			doc.removeEventListener(_visibilityChange, this._onToggle, false);
-			
-			if(value)
-			{
-				// Listen to visibility change
-				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
-				doc.addEventListener(_visibilityChange, this._onToggle, false);
-				// Listen for page events (when clicking the home button on iOS)
-				global.addEventListener("pagehide", this._onBlur);
-				global.addEventListener("pageshow", this._onFocus);
-				global.addEventListener("blur", this._onBlur);
-				global.addEventListener("focus", this._onFocus);
-				global.addEventListener("visibilitychange", this._onToggle, false);
-			}
-		}
-	});
-	
-	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
-	p.destroy = function()
-	{
-		// If this browser doesn't support visibility
-		if (!_visibilityChange || !this._onToggle) return;
-		
-		this.enabled = false;
-		this._onToggle = null;
-		this._onFocus = null;
-		this._onBlur = null;
-	};
-	
-	// Assign to the global space
-	namespace('springroll').PageVisibility = PageVisibility;
-	
-}(window, document));
-/**
 *  @module Core
 *  @namespace springroll
 */
@@ -1240,7 +1242,32 @@
 		
 		PropertyDispatcher.call(this);
 
-		options = options || {};
+		/**
+		 * The user input options
+		 * @property {Object} _options
+		 * @private
+		 */
+		this._options = options || {};
+
+		/**
+		 * Reference to the application
+		 * @property {springroll.Application} _app
+		 * @private
+		 */
+		this._app = app;
+	};
+
+	// Extend the base class
+	var p = extend(ApplicationOptions, PropertyDispatcher);
+
+	/**
+	 * Initialize the values in the options
+	 * @method init
+	 */
+	p.init = function()
+	{
+		var options = this._options;
+		var app = this._app;
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -1253,71 +1280,24 @@
 		// this is so we can dispatch events when the property changes
 		for(var name in options)
 		{
-			this.addProp(name, options[name]);
+			this.add(name, options[name]);
 		}
 
 		// Cannot change these properties after setup
 		this.readOnly(
 			'framerate',
+			'name',
 			'resizeElement',
-			'cacheBust',
 			'useQueryString',
 			'canvasId',
 			'display',
 			'displayOptions',
-			'versionsFile',
 			'uniformResize'
 		);
 
 		// Convert these to DOM elements
 		parseDOMElement(this._properties.resizeElement);
 		parseDOMElement(this._properties.framerate);
-
-		// Options only for debug mode
-		if (true && Debug)
-		{
-			this.respond('debug', function()
-			{
-				return Debug ? Debug.enabled : false;
-			});
-
-			this.on('debug', function(value)
-			{
-				if (Debug) Debug.enabled = value;
-			});
-
-			this.on('debugRemote', function(value)
-			{
-				if (Debug)
-				{
-					Debug.disconnect();
-					if (value)
-					{
-						Debug.connect(value);
-					}
-				}
-			});
-
-			this.respond('minLogLevel', function()
-			{
-				return Debug ? Debug.minLogLevel.asInt : 0;
-			});
-			
-			this.on('minLogLevel', function(value)
-			{
-				if (Debug)
-				{
-					Debug.minLogLevel = Debug.Levels.valueFromInt(
-						parseInt(value, 10)
-					);
-
-					if (!Debug.minLogLevel)
-					{
-						Debug.minLogLevel = Debug.Levels.GENERAL;
-					}
-				}
-			});
-		}
 
 		this.respond('updateTween', function()
 		{
@@ -1347,9 +1327,6 @@
 			this.trigger(id, _properties[id].value);
 		}
 	};
-
-	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
 
 	/**
 	 * Get the query string as an object
@@ -1441,31 +1418,6 @@
 		useQueryString: false,
 
 		/**
-		 * Enable the Debug class. After initialization, this
-		 * is a pass-through to Debug.enabled.
-		 * @property {Boolean} debug
-		 * @default false
-		 */
-		debug: false,
-
-		/**
-		 * Minimum log level from 0 to 4
-		 * @property {int} minLogLevel
-		 * @default 0
-		 */
-		minLogLevel: 0,
-
-		/**
-		 * The host computer for remote debugging, the debug
-		 * module must be included to use this feature. Can be an
-		 * IP address or host name. After initialization, setting
-		 * this will still connect or disconect Debug for remote
-		 * debugging. This is a write-only property.
-		 * @property {String} debugRemote
-		 */
-		debugRemote: null,
-
-		/**
 		 * The default display DOM ID name
 		 * @property {String} canvasId
 		 */
@@ -1490,50 +1442,6 @@
 		 * @default false
 		 */
 		updateTween: false,
-
-		/**
-		 * The application pauses automatically when the window loses focus.
-		 * @property {Boolean} autoPause
-		 * @default true
-		 */
-		autoPause: true,
-
-		/**
-		 * The current version number for your application. This
-		 * number will automatically be appended to all file
-		 * requests. For instance, if the version is "0.0.1" all
-		 * file requests will be appended with "?v=0.0.1"
-		 * @property {String} version
-		 */
-		version: null,
-
-		/**
-		 * Path to a text file which contains explicit version
-		 * numbers for each asset. This is useful for controlling
-		 * the live browser cache. For instance, this text file
-		 * would have an asset on each line followed by a number:
-		 * `assets/config/config.json 2` would load
-		 * `assets/config/config.json?v=2`
-		 * @property {String} versionsFile
-		 */
-		versionsFile: null,
-
-		/**
-		 * Override the end-user browser cache by adding
-		 * "?v=" to the end of each file path requested. Use
-		 * for developmently, debugging only!
-		 * @property {Boolean} cacheBust
-		 * @default false
-		 */
-		cacheBust: false,
-
-		/**
-		 * The optional file path to prefix to any relative file
-		 * requests this is a great way to load all load requests
-		 * with a CDN path.
-		 * @property {String} basePath
-		 */
-		basePath: null,
 
 		/**
 		 * Used by `springroll.PixiTask`, default behavior
@@ -1565,7 +1473,14 @@
 		 * than the original width of the canvas.
 		 * @property {int} maxWidth
 		 */
-		maxWidth: 0
+		maxWidth: 0,
+
+		/**
+		 * The name of the application
+		 * @property {String} name
+		 * @default ''
+		 */
+		name: ''
 	};
 
 	// Assign to namespace
@@ -1578,12 +1493,9 @@
  */
 (function(undefined)
 {
-
 	// classes to import
-	var Debug,
-		Loader,
-		TimeUtils,
-		PageVisibility,
+	var TimeUtils = include('springroll.TimeUtils'),
+		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
@@ -1609,14 +1521,6 @@
 		_instance = this;
 
 		EventDispatcher.call(this);
-
-		if (!Loader)
-		{
-			Debug = include('springroll.Debug', false);
-			Loader = include('springroll.Loader');
-			TimeUtils = include('springroll.TimeUtils');
-			PageVisibility = include('springroll.PageVisibility');
-		}
 
 		/**
 		 *  Initialization options/query string parameters, these properties are read-only
@@ -1646,11 +1550,28 @@
 		_displays = {};
 		_tickCallback = this._tick.bind(this);
 
+		// Call any global libraries to initialize
+		Application._plugins.forEach(function(plugin)
+		{
+			plugin.init.call(_instance);
+		});
+
+		// Options are initialized after plugins
+		// so plugins can define their own options
+		this.options.init();
+
+		/**
+		*  The name of the game, useful for debugging purposes
+		*  @property {String} name
+		*  @default ""
+		*/
+		this.name = this.options.name;
+
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
 		//call init after handling loading up a versions file or any other needed asynchronous
 		//stuff?
-		this._internalInit();
+		setTimeout(this._preInit.bind(this), 0);
 	};
 
 	// Reference to the prototype
@@ -1659,8 +1580,7 @@
 
 	/**
 	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
+	 *  these are registered by external modules.
 	 *  @property {Array} _plugins
 	 *  @private
 	 *  @static
@@ -1782,13 +1702,6 @@
 		_aspectRatio = 0,
 
 		/**
-		 *  A PageVisibility object to automatically pause Application when the page is hidden.
-		 *  @property {PageVisibility} _pageVisibility
-		 *  @private
-		 */
-		_pageVisibility = null,
-
-		/**
 		 *  Rendering plugins, in a dictionary by canvas id
 		 *  @property {dictionary} _displays
 		 *  @private
@@ -1875,19 +1788,14 @@
 
 	/**
 	 *  The internal initialization
-	 *  @method _internalInit
+	 *  @method _preInit
 	 *  @private
 	 */
-	p._internalInit = function()
+	p._preInit = function()
 	{
-		var options = this.options;
+		if (this.destroyed) return;
 
-		// Call any global libraries to initialize
-		Application._plugins.forEach(function(plugin)
-		{
-			plugin.app = _instance;
-			plugin.init();
-		});
+		var options = this.options;
 
 		_useRAF = options.raf;
 		options.on('raf', function(value)
@@ -1912,20 +1820,6 @@
 			this.triggerResize = this.triggerResize.bind(this);
 			window.addEventListener("resize", this.triggerResize);
 		}
-
-		//set up the page visibility listener
-		_pageVisibility = new PageVisibility(
-			this._onVisible.bind(this), 
-			this._onHidden.bind(this)
-		);
-		options.on('autoPause', function(value)
-		{
-			_pageVisibility.enabled = value;
-		});
-		options.respond('autoPause', function()
-		{
-			return _pageVisibility.enabled;
-		});
 		
 		//set up setters/getters in options for certain properties
 		_maxWidth = options.maxWidth;
@@ -1950,26 +1844,17 @@
 			);
 		}
 
-		// Bind the do init
-		this._doInit = this._doInit.bind(this);
+		var tasks = [];
 
-		// Check to see if we should load a versions file
-		// The versions file keeps track of file versions to avoid cache issues
-		if (options.versionsFile)
+		// Add the plugin ready functions to the list
+		// of async tasks to start-up
+		Application._plugins.forEach(function(plugin)
 		{
-			// Try to load the default versions file
-			// callback should be made with a scope in mind
-			Loader.instance.cacheManager.addVersionsFile(
-				options.versionsFile,
-				this._doInit
-			);
-		}
-		else
-		{
-			// Wait until the next execution sequence
-			// so that init can be added after construction
-			setTimeout(this._doInit, 0);
-		}
+			tasks.push(plugin.ready.bind(_instance));
+		});
+
+		// Run the asyncronous tasks
+		async.waterfall(tasks, this._doInit.bind(this));
 	};
 
 	/**
@@ -1977,8 +1862,13 @@
 	 *  @method _doInit
 	 *  @protected
 	 */
-	p._doInit = function()
+	p._doInit = function(err)
 	{
+		if (this.destroyed) return;
+
+		// Error with the async startup
+		if (err) throw err;
+
 		this.trigger(BEFORE_INIT);
 
 		// If a sub-class will manually try to init later on
@@ -2003,26 +1893,6 @@
 	 *  @protected
 	 */
 	p.init = null;
-
-	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method _onHidden
-	 *  @private
-	 */
-	p._onHidden = function()
-	{
-		this.paused = true;
-	};
-
-	/**
-	 *  Private listener for when the page is shown.
-	 *  @method _onVisible
-	 *  @private
-	 */
-	p._onVisible = function()
-	{
-		this.paused = false;
-	};
 
 	/**
 	 *  Enables at the application level which enables
@@ -2187,11 +2057,7 @@
 	{
 		if (_displays[id])
 		{
-			if (true && Debug)
-			{
-				Debug.error("A display already exists with the id of " + id);
-			}
-			return;
+			throw "Display exists with id '" + id + "'";
 		}
 		var display = _displays[id] = new displayConstructor(id, options);
 		if (!this.display)
@@ -2322,16 +2188,13 @@
 
 		Application._plugins.forEach(function(plugin)
 		{
-			plugin.destroy();
+			plugin.destroy.call(_instance);
 		});
 
 		if (_resizeElement)
 		{
 			window.removeEventListener("resize", this.triggerResize);
 		}
-
-		_pageVisibility.destroy();
-		_pageVisibility = null;
 
 		_instance =
 		_tickCallback =
@@ -2341,9 +2204,17 @@
 		this.options.destroy();
 		this.options = null;
 
-		if (true && Debug) Debug.disconnect();
-
 		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {String} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return "[Application name='" + this.name + "']";
 	};
 
 	// Add to the name space
@@ -2365,17 +2236,19 @@
 	var ApplicationPlugin = function()
 	{
 		/**
-		 * Reference to the application
-		 * @property {springroll.Application} app
+		 * The priority of the plugin. Higher numbers handled first. This should be set
+		 * in the constructor of the extending ApplicationPlugin.
+		 * @property {int} priority
 		 */
-		this.app = null;
+		this.priority = 0;
 	};
 
 	// reference to prototype
 	var p = ApplicationPlugin.prototype;
 
 	/**
-	 * When the application is being initialized
+	 * When the application is being initialized. This function is bound to the application.
+	 * @method ready 
 	 * @method init
 	 */
 	p.init = function()
@@ -2384,7 +2257,18 @@
 	};
 
 	/**
-	 * When the application is being destroyed
+	 * The function to call right before the app is initailized. This function is bound to the application.
+	 * @method ready 
+	 * @param {function} done The done function, takes one argument for an error.
+	 */
+	p.ready = function(done)
+	{
+		done.call(this);
+	};
+
+	/**
+	 * When the application is being destroyed. This function is bound to the application.
+	 * @method ready 
 	 * @method destroy
 	 */
 	p.destroy = function()
@@ -2401,10 +2285,254 @@
 	{
 		var plugin = new func();
 		Application._plugins.push(plugin);
+
+		// Sort the plugins
+		Application._plugins.sort(prioritySort);
 	};
+
+	/**
+	 * Comparator function for sorting the plugins by priority
+	 * @method prioritySort
+	 * @private
+	 * @param {springroll.ApplicationPlugin} a First plugin
+	 * @param {springroll.ApplicationPlugin} b Second plugin
+	 */
+	function prioritySort(a, b)
+	{
+		return b.priority - a.priority;
+	}
 
 	// Assign to namespace
 	namespace('springroll').ApplicationPlugin = ApplicationPlugin;
+
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(global, doc, undefined){
+		
+	/**
+	*  Handle the page visiblity change, if supported. Application uses one of these to
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
+	*  or "unpaused" events on the application instead of using one of these yourself.
+	*
+	*  @class PageVisibility
+	*  @constructor
+	*  @param {Function} onFocus Callback when the page becomes visible
+	*  @param {Function} onBlur Callback when the page loses visibility
+	*/
+	var PageVisibility = function(onFocus, onBlur)
+	{
+		/**
+		* Callback when the page becomes visible
+		* @property {Function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {Function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* If this object is enabled.
+		* @property {Function} _enabled
+		* @private
+		*/
+		this._enabled = false;
+
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		/**
+		* The visibility toggle listener function
+		* @property {Function} _onToggle
+		* @private
+		*/
+		this._onToggle = function()
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				this._onBlur();
+			else
+				this._onFocus();
+		}.bind(this);
+		
+		this.enabled = true;
+	},
+	
+	// Reference to the prototype
+	p = PageVisibility.prototype,
+	
+	/**
+	* The name of the visibility change event for the browser
+	*
+	* @property {String} _visibilityChange
+	* @private
+	*/
+	_visibilityChange = null;
+	
+	// Select the visiblity change event name
+	if (doc.hidden !== undefined)
+	{
+		_visibilityChange = "visibilitychange";
+	}
+	else if (doc.mozHidden !== undefined)
+	{
+		_visibilityChange = "mozvisibilitychange";
+	}
+	else if (doc.msHidden !== undefined)
+	{
+		_visibilityChange = "msvisibilitychange";
+	}
+	else if (doc.webkitHidden !== undefined)
+	{
+		_visibilityChange = "webkitvisibilitychange";
+	}
+	
+	/**
+	* If this object is enabled.
+	* @property {Function} enabled
+	* @private
+	*/
+	Object.defineProperty(p, "enabled", {
+		get: function() { return this._enabled; },
+		set: function(value)
+		{
+			value = !!value;
+			if(this._enabled == value) return;
+			this._enabled = value;
+			
+			global.removeEventListener("pagehide", this._onBlur);
+			global.removeEventListener("pageshow", this._onFocus);
+			global.removeEventListener("blur", this._onBlur);
+			global.removeEventListener("focus", this._onFocus);
+			global.removeEventListener("visibilitychange", this._onToggle);
+			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			
+			if(value)
+			{
+				// Listen to visibility change
+				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
+				doc.addEventListener(_visibilityChange, this._onToggle, false);
+				// Listen for page events (when clicking the home button on iOS)
+				global.addEventListener("pagehide", this._onBlur);
+				global.addEventListener("pageshow", this._onFocus);
+				global.addEventListener("blur", this._onBlur);
+				global.addEventListener("focus", this._onFocus);
+				global.addEventListener("visibilitychange", this._onToggle, false);
+			}
+		}
+	});
+	
+	/**
+	*  Disable the detection
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		// If this browser doesn't support visibility
+		if (!_visibilityChange || !this._onToggle) return;
+		
+		this.enabled = false;
+		this._onToggle = null;
+		this._onFocus = null;
+		this._onBlur = null;
+	};
+	
+	// Assign to the global space
+	namespace('springroll').PageVisibility = PageVisibility;
+	
+}(window, document));
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var PageVisibility = include('springroll.PageVisibility');
+
+	/**
+	 * Create an app plugin for Page Visibility listener, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class PageVisibilityPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var PageVisibilityPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
+
+	// Reference to the prototype
+	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.init = function()
+	{
+		/**
+		 * Handles the page visiblity changes automatically
+		 * to pause and unpause the application
+		 * @property {springroll.PageVisibility} _visibility
+		 * @private
+		 */
+		var visibility = this._visibility = new PageVisibility(
+			onVisible.bind(this),
+			onHidden.bind(this)
+		);
+
+		/**
+		 * The application pauses automatically when the window loses focus.
+		 * @property {Boolean} options.autoPause
+		 * @default true
+		 */
+		this.options.add('autoPause', true)
+			.on('autoPause', function(value)
+			{
+				visibility.enabled = value;
+			})
+			.respond('autoPause', function()
+			{
+				return visibility.enabled;
+			});
+	};
+
+	/**
+	 *  Private listener for when the page is hidden.
+	 *  @method onHidden
+	 *  @private
+	 */
+	var onHidden = function()
+	{
+		this.paused = true;
+	};
+
+	/**
+	 *  Private listener for when the page is shown.
+	 *  @method onVisible
+	 *  @private
+	 */
+	var onVisible = function()
+	{
+		this.paused = false;
+	};
+
+	// Destroy the animator
+	p.destroy = function()
+	{
+		if (this._visibility)
+		{
+			this._visibility.destroy();
+			this._visibility = null;
+		}
+	};
+
+	// register plugin
+	ApplicationPlugin.register(PageVisibilityPlugin);
 
 }());
 /**
@@ -2652,13 +2780,8 @@
 		*/
 		this._globalVersion = null;
 
-		var cb = Application.instance.options.cacheBust;
-		this.cacheBust = (cb === "true" || cb === true);
-
-		if(true && Debug)
-		{
-			if (this.cacheBust) Debug.log("CacheBust all files is on.");
-		}
+		// Initial set
+		this.cacheBust = false;
 	};
 
 	/* Easy access to the prototype */
@@ -2678,7 +2801,7 @@
 		},
 		set: function(value)
 		{
-			if(value)
+			if (value)
 			{
 				this._globalVersion = "cb=" + Date.now();
 				this.unregisterURLFilter(this._applySpecificVersion);
@@ -3538,17 +3661,88 @@
 	var Loader = include('springroll.Loader');
 
 	/**
-	 * Create an app plugin for Loader
+	 * Create an app plugin for Loader, all properties and methods documented
+	 * in this class are mixed-in to the main Application
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function(){};
+	var LoaderPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+
+		// Higher priority for loader
+		this.priority = 10;
+	};
 
 	// Reference to the prototype
 	var p = extend(LoaderPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = Loader.init;
+	p.init = function()
+	{
+		Loader.init();
+		var loader = Loader.instance;
+
+		/**
+		 * Override the end-user browser cache by adding
+		 * "?v=" to the end of each file path requested. Use
+		 * for developmently, debugging only!
+		 * @property {Boolean} options.cacheBust
+		 * @default false
+		 */
+		this.options.add('cacheBust', false)
+		.respond('cacheBust', function()
+		{
+			return loader.cacheManager.cacheBust;
+		})
+		.on('cacheBust', function(value)
+		{
+			loader.cacheManager.cacheBust = (value == "true" || !!value);
+		});
+
+		/**
+		 * The optional file path to prefix to any relative file
+		 * requests this is a great way to load all load requests
+		 * with a CDN path.
+		 * @property {String} options.basePath
+		 */
+		this.options.add('basePath', null);
+
+		/**
+		 * The current version number for your application. This
+		 * number will automatically be appended to all file
+		 * requests. For instance, if the version is "0.0.1" all
+		 * file requests will be appended with "?v=0.0.1"
+		 * @property {String} options.version
+		 */
+		this.options.add('version', null, true);
+
+		/**
+		 * Path to a text file which contains explicit version
+		 * numbers for each asset. This is useful for controlling
+		 * the live browser cache. For instance, this text file
+		 * would have an asset on each line followed by a number:
+		 * `assets/config/config.json 2` would load
+		 * `assets/config/config.json?v=2`
+		 * @property {String} options.versionsFile
+		 */
+		this.options.add('versionsFile', null, true);
+	};
+
+	// Preload task
+	p.ready = function(done)
+	{
+		var versionsFile = this.options.versionsFile;
+		if (versionsFile)
+		{
+			// Try to load the default versions file
+			Loader.instance.cacheManager.addVersionsFile(versionsFile, done);
+		}
+		else
+		{
+			done();
+		}
+	};
 
 	// Destroy the animator
 	p.destroy = function()

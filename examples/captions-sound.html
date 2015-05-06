@@ -47,7 +47,6 @@ var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
 	Button = include('springroll.easeljs.Button'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
-	VOPlayer = include('springroll.VOPlayer'),
 	Sound = include('springroll.Sound'),
 	Captions = include('springroll.Captions');
 
@@ -125,42 +124,34 @@ var voPlayer;
 // Wait until the app is ready
 app.on('init', function(){
 
+	voPlayer = this.player;
+
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
 	Loader.instance.load('assets/images/button.png', function(result){
 
 		buttonImage = result.content;
 
-		// Initialize the Sound system
-		Sound.init({
-			// The path to the Flash SWF fallback
-			swfPath : 'assets/swfs/',
-			ready : onSoundReady
+		// Add the config
+		app.addSounds(soundConfig)
+
+		// Create a new VO player
+		voPlayer.captions = captions;
+
+		// Add the buttons and handle the clicks
+		addButton('Volume', 200, 100, onPlayButton);
+		addButton('GoodJob', 340, 100, onPlayButton);
+
+		addButton('Both', 480, 100, function(){
+			voPlayer.play(['GoodJob', 'Volume']);
+		});
+
+		addButton('Stop', 340, 200, function(){
+			voPlayer.stop();
 		});
 	});
 });
 
-// Handle when the sound library is ready
-var onSoundReady = function()
-{
-	// Add the config
-	Sound.instance.loadConfig(soundConfig)
-
-	// Create a new VO player
-	voPlayer = new VOPlayer(captions);
-
-	// Add the buttons and handle the clicks
-	addButton('Volume', 200, 100, onPlayButton);
-	addButton('GoodJob', 340, 100, onPlayButton);
-
-	addButton('Both', 480, 100, function(){
-		voPlayer.play(['GoodJob', 'Volume']);
-	});
-
-	addButton('Stop', 340, 200, function(){
-		voPlayer.stop();
-	});
-};
 
 // Generic method for adding a button to the stage
 // add a label and some positioning information

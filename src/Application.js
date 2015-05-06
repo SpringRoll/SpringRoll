@@ -4,12 +4,9 @@
  */
 (function(undefined)
 {
-
 	// classes to import
-	var Debug,
-		Loader,
-		TimeUtils,
-		PageVisibility,
+	var TimeUtils = include('springroll.TimeUtils'),
+		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
@@ -35,14 +32,6 @@
 		_instance = this;
 
 		EventDispatcher.call(this);
-
-		if (!Loader)
-		{
-			Debug = include('springroll.Debug', false);
-			Loader = include('springroll.Loader');
-			TimeUtils = include('springroll.TimeUtils');
-			PageVisibility = include('springroll.PageVisibility');
-		}
 
 		/**
 		 *  Initialization options/query string parameters, these properties are read-only
@@ -72,11 +61,28 @@
 		_displays = {};
 		_tickCallback = this._tick.bind(this);
 
+		// Call any global libraries to initialize
+		Application._plugins.forEach(function(plugin)
+		{
+			plugin.init.call(_instance);
+		});
+
+		// Options are initialized after plugins
+		// so plugins can define their own options
+		this.options.init();
+
+		/**
+		*  The name of the game, useful for debugging purposes
+		*  @property {String} name
+		*  @default ""
+		*/
+		this.name = this.options.name;
+
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
 		//call init after handling loading up a versions file or any other needed asynchronous
 		//stuff?
-		this._internalInit();
+		setTimeout(this._preInit.bind(this), 0);
 	};
 
 	// Reference to the prototype
@@ -85,8 +91,7 @@
 
 	/**
 	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
+	 *  these are registered by external modules.
 	 *  @property {Array} _plugins
 	 *  @private
 	 *  @static
@@ -208,13 +213,6 @@
 		_aspectRatio = 0,
 
 		/**
-		 *  A PageVisibility object to automatically pause Application when the page is hidden.
-		 *  @property {PageVisibility} _pageVisibility
-		 *  @private
-		 */
-		_pageVisibility = null,
-
-		/**
 		 *  Rendering plugins, in a dictionary by canvas id
 		 *  @property {dictionary} _displays
 		 *  @private
@@ -301,19 +299,14 @@
 
 	/**
 	 *  The internal initialization
-	 *  @method _internalInit
+	 *  @method _preInit
 	 *  @private
 	 */
-	p._internalInit = function()
+	p._preInit = function()
 	{
-		var options = this.options;
+		if (this.destroyed) return;
 
-		// Call any global libraries to initialize
-		Application._plugins.forEach(function(plugin)
-		{
-			plugin.app = _instance;
-			plugin.init();
-		});
+		var options = this.options;
 
 		_useRAF = options.raf;
 		options.on('raf', function(value)
@@ -338,20 +331,6 @@
 			this.triggerResize = this.triggerResize.bind(this);
 			window.addEventListener("resize", this.triggerResize);
 		}
-
-		//set up the page visibility listener
-		_pageVisibility = new PageVisibility(
-			this._onVisible.bind(this), 
-			this._onHidden.bind(this)
-		);
-		options.on('autoPause', function(value)
-		{
-			_pageVisibility.enabled = value;
-		});
-		options.respond('autoPause', function()
-		{
-			return _pageVisibility.enabled;
-		});
 		
 		//set up setters/getters in options for certain properties
 		_maxWidth = options.maxWidth;
@@ -376,26 +355,17 @@
 			);
 		}
 
-		// Bind the do init
-		this._doInit = this._doInit.bind(this);
+		var tasks = [];
 
-		// Check to see if we should load a versions file
-		// The versions file keeps track of file versions to avoid cache issues
-		if (options.versionsFile)
+		// Add the plugin ready functions to the list
+		// of async tasks to start-up
+		Application._plugins.forEach(function(plugin)
 		{
-			// Try to load the default versions file
-			// callback should be made with a scope in mind
-			Loader.instance.cacheManager.addVersionsFile(
-				options.versionsFile,
-				this._doInit
-			);
-		}
-		else
-		{
-			// Wait until the next execution sequence
-			// so that init can be added after construction
-			setTimeout(this._doInit, 0);
-		}
+			tasks.push(plugin.ready.bind(_instance));
+		});
+
+		// Run the asyncronous tasks
+		async.waterfall(tasks, this._doInit.bind(this));
 	};
 
 	/**
@@ -403,8 +373,13 @@
 	 *  @method _doInit
 	 *  @protected
 	 */
-	p._doInit = function()
+	p._doInit = function(err)
 	{
+		if (this.destroyed) return;
+
+		// Error with the async startup
+		if (err) throw err;
+
 		this.trigger(BEFORE_INIT);
 
 		// If a sub-class will manually try to init later on
@@ -429,26 +404,6 @@
 	 *  @protected
 	 */
 	p.init = null;
-
-	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method _onHidden
-	 *  @private
-	 */
-	p._onHidden = function()
-	{
-		this.paused = true;
-	};
-
-	/**
-	 *  Private listener for when the page is shown.
-	 *  @method _onVisible
-	 *  @private
-	 */
-	p._onVisible = function()
-	{
-		this.paused = false;
-	};
 
 	/**
 	 *  Enables at the application level which enables
@@ -613,11 +568,7 @@
 	{
 		if (_displays[id])
 		{
-			if (DEBUG && Debug)
-			{
-				Debug.error("A display already exists with the id of " + id);
-			}
-			return;
+			throw "Display exists with id '" + id + "'";
 		}
 		var display = _displays[id] = new displayConstructor(id, options);
 		if (!this.display)
@@ -748,16 +699,13 @@
 
 		Application._plugins.forEach(function(plugin)
 		{
-			plugin.destroy();
+			plugin.destroy.call(_instance);
 		});
 
 		if (_resizeElement)
 		{
 			window.removeEventListener("resize", this.triggerResize);
 		}
-
-		_pageVisibility.destroy();
-		_pageVisibility = null;
 
 		_instance =
 		_tickCallback =
@@ -767,9 +715,17 @@
 		this.options.destroy();
 		this.options = null;
 
-		if (DEBUG && Debug) Debug.disconnect();
-
 		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {String} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return "[Application name='" + this.name + "']";
 	};
 
 	// Add to the name space

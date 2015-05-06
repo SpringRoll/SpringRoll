@@ -1229,20 +1229,30 @@
 	var Animator = include('springroll.pixi.Animator');
 
 	/**
-	 * Create an app plugin for Animator
+	 * Create an app plugin for Animator, all properties and methods documented
+	 * in this class are mixed-in to the main Application
 	 * @class AnimatorPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var AnimatorPlugin = function(){};
+	var AnimatorPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
 
 	// Reference to the prototype
 	var p = extend(AnimatorPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = Animator.init;
+	p.init = function()
+	{
+		Animator.init();
+	};
 
 	// Destroy the animator
-	p.destroy = Animator.destroy;
+	p.destroy = function()
+	{
+		Animator.destroy();
+	};
 
 	// register plugin
 	ApplicationPlugin.register(AnimatorPlugin);

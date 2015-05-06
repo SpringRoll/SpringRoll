@@ -8,17 +8,19 @@
 		"src/utils/namespace.js",
 		"src/utils/include.js",
 		"src/utils/extend.js",
+		"src/utils/async.js",
 		"src/utils/Object.js",
 		"src/utils/Enum.js",
 		"src/utils/TimeUtils.js",
 		"src/polyfills/requestAnimationFrame.js",
 		"src/events/EventDispatcher.js",
 		"src/events/PropertyDispatcher.js",
-		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
 		"src/ApplicationOptions.js",
 		"src/Application.js",
 		"src/ApplicationPlugin.js",
+		"src/utils/PageVisibility.js",
+		"src/utils/PageVisibilityPlugin.js",
 		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
@@ -127,7 +129,8 @@
 			"src/media/SoundInstance.js",
 			"src/media/SoundListTask.js",
 			"src/media/Sound.js",
-			"src/media/VOPlayer.js"
+			"src/media/VOPlayer.js",
+			"src/media/SoundPlugin.js"
 		],
 		"interface": [
 			"src/ui/UIElement.js",
@@ -142,8 +145,9 @@
 			"src/utils/Language.js"
 		],
 		"debug": [
-			"src/utils/Debug.js",
-			"src/utils/DebugOptions.js"
+			"src/debug/Debug.js",
+			"src/debug/DebugOptions.js",
+			"src/debug/DebugPlugin.js"
 		],
 		"learningdispatcher": {
 			"output": "learning-dispatcher",
