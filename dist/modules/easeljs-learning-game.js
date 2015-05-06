@@ -544,7 +544,7 @@
 		if (this.options.manifestsPath !== null)
 		{
 			addTasks = addTasks.bind(this);
-			this.on('configLoaded', addTasks);
+			this.once('configLoaded', addTasks);
 		}
 
 		//Add a captions text field after the states are ready
@@ -576,8 +576,6 @@
 	 */
 	var addTasks = function(config, taskManager)
 	{
-		this.off('configLoaded', addTasks);
-
 		taskManager.addTask(new LoadTask(
 			"manifests",
 			this.options.manifestsPath,
@@ -637,7 +635,7 @@
 	{
 		if (!(state instanceof BaseState))
 		{
-			throw "springroll.easeljs.Game requires states to extend springroll.easeljs.BaseState";
+			throw "springroll.easeljs.TrackingGame requires states to extend springroll.easeljs.BaseState";
 		}
 
 		s.addState.call(this, alias, state);

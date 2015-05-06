@@ -1661,21 +1661,11 @@
 	 *  The collection of function references to call when initializing the application
 	 *  these are registered by external libraries that need to setup, destroyed
 	 *  for instance Loader
-	 *  @property {Array} _globalInit
+	 *  @property {Array} _plugins
 	 *  @private
 	 *  @static
 	 */
-	Application._globalInit = [];
-
-	/**
-	 *  The collection of function references to call when destroying the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
-	 *  @property {Array} _globalDestroy
-	 *  @private
-	 *  @static
-	 */
-	Application._globalDestroy = [];
+	Application._plugins = [];
 
 	/**
 	 *  The frame rate object
@@ -1869,31 +1859,6 @@
 		DESTROY = 'destroy';
 
 	/**
-	 *  Libraries would register global initialization functions when they are created, e.g.
-	 *  Application.registerInit(Loader.init);
-	 *  @method registerInit
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
-	 */
-	Application.registerInit = function(func)
-	{
-		Application._globalInit.push(func);
-	};
-	/**
-	 *  Libraries would register global destroy functions when they are created or initialized, e.g.
-	 *  Application.registerInit(Loader.instance.destroy.bind(Loader.instance));
-	 *  @method registerDestroy
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
-	 */
-	Application.registerDestroy = function(func)
-	{
-		Application._globalDestroy.push(func);
-	};
-
-	/**
 	 *  Get the singleton instance of the application
 	 *  @property {Application} instance
 	 *  @static
@@ -1918,10 +1883,11 @@
 		var options = this.options;
 
 		// Call any global libraries to initialize
-		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
+		Application._plugins.forEach(function(plugin)
 		{
-			Application._globalInit[i]();
-		}
+			plugin.app = _instance;
+			plugin.init();
+		});
 
 		_useRAF = options.raf;
 		options.on('raf', function(value)
@@ -2339,8 +2305,7 @@
 	};
 
 	/**
-	 * Destroys the application, global libraries registered via Application.registerDestroy() and
-	 * all active displays
+	 * Destroys the application and all active displays and plugins
 	 * @method destroy
 	 */
 	p.destroy = function()
@@ -2355,10 +2320,10 @@
 		}
 		_displays = null;
 
-		for (var i = 0, len = Application._globalDestroy.length; i < len; ++i)
+		Application._plugins.forEach(function(plugin)
 		{
-			Application._globalDestroy[i]();
-		}
+			plugin.destroy();
+		});
 
 		if (_resizeElement)
 		{
@@ -2383,6 +2348,63 @@
 
 	// Add to the name space
 	namespace('springroll').Application = Application;
+
+}());
+/**
+ *  @module Core
+ *  @namespace springroll
+ */
+(function()
+{
+	var Application = include('springroll.Application');
+
+	/**
+	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
+	* @class ApplicationPlugin
+	*/
+	var ApplicationPlugin = function()
+	{
+		/**
+		 * Reference to the application
+		 * @property {springroll.Application} app
+		 */
+		this.app = null;
+	};
+
+	// reference to prototype
+	var p = ApplicationPlugin.prototype;
+
+	/**
+	 * When the application is being initialized
+	 * @method init
+	 */
+	p.init = function()
+	{
+		// implementation specific
+	};
+
+	/**
+	 * When the application is being destroyed
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		// implementation specific
+	};
+
+	/**
+	 * Register the plugin with the Application
+	 * @method register
+	 * @static
+	 */
+	ApplicationPlugin.register = function(func)
+	{
+		var plugin = new func();
+		Application._plugins.push(plugin);
+	};
+
+	// Assign to namespace
+	namespace('springroll').ApplicationPlugin = ApplicationPlugin;
 
 }());
 /**
@@ -3163,16 +3185,9 @@
 		{
 			_instance = new Loader();
 			_instance._initialize();
-			//register the destroy function
-			Application.registerDestroy(
-				_instance.destroy.bind(_instance)
-			);
 		}
 		return _instance;
 	};
-
-	//register the global init function
-	springroll.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
@@ -3511,6 +3526,39 @@
 	// MediaLoader name is deprecated
 	namespace('springroll').MediaLoader = Loader;
 	namespace('springroll').Loader = Loader;
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var Loader = include('springroll.Loader');
+
+	/**
+	 * Create an app plugin for Loader
+	 * @class LoaderPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var LoaderPlugin = function(){};
+
+	// Reference to the prototype
+	var p = extend(LoaderPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.init = Loader.init;
+
+	// Destroy the animator
+	p.destroy = function()
+	{
+		Loader.instance.destroy();
+	};
+
+	// register plugin
+	ApplicationPlugin.register(LoaderPlugin);
+
 }());
 /**
 *  @module Core

@@ -132,16 +132,9 @@
 		{
 			_instance = new Loader();
 			_instance._initialize();
-			//register the destroy function
-			Application.registerDestroy(
-				_instance.destroy.bind(_instance)
-			);
 		}
 		return _instance;
 	};
-
-	//register the global init function
-	springroll.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance

@@ -1335,6 +1335,7 @@
 	};
 
 	/**
+
 	*  The collection of states where the key is the state alias and value is the state display object
 	*  @property {Object} states
 	*  @default null

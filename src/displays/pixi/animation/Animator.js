@@ -812,10 +812,6 @@
 		_timelines = null;
 		Application.instance.off("update", _update);
 	};
-
-	//set up the global initialization and destroy
-	Application.registerInit(Animator.init);
-	Application.registerDestroy(Animator.destroy);
 	
 	namespace('springroll').Animator = Animator;
 	namespace('springroll.pixi').Animator = Animator;

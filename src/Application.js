@@ -87,21 +87,11 @@
 	 *  The collection of function references to call when initializing the application
 	 *  these are registered by external libraries that need to setup, destroyed
 	 *  for instance Loader
-	 *  @property {Array} _globalInit
+	 *  @property {Array} _plugins
 	 *  @private
 	 *  @static
 	 */
-	Application._globalInit = [];
-
-	/**
-	 *  The collection of function references to call when destroying the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
-	 *  @property {Array} _globalDestroy
-	 *  @private
-	 *  @static
-	 */
-	Application._globalDestroy = [];
+	Application._plugins = [];
 
 	/**
 	 *  The frame rate object
@@ -295,31 +285,6 @@
 		DESTROY = 'destroy';
 
 	/**
-	 *  Libraries would register global initialization functions when they are created, e.g.
-	 *  Application.registerInit(Loader.init);
-	 *  @method registerInit
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
-	 */
-	Application.registerInit = function(func)
-	{
-		Application._globalInit.push(func);
-	};
-	/**
-	 *  Libraries would register global destroy functions when they are created or initialized, e.g.
-	 *  Application.registerInit(Loader.instance.destroy.bind(Loader.instance));
-	 *  @method registerDestroy
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
-	 */
-	Application.registerDestroy = function(func)
-	{
-		Application._globalDestroy.push(func);
-	};
-
-	/**
 	 *  Get the singleton instance of the application
 	 *  @property {Application} instance
 	 *  @static
@@ -344,10 +309,11 @@
 		var options = this.options;
 
 		// Call any global libraries to initialize
-		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
+		Application._plugins.forEach(function(plugin)
 		{
-			Application._globalInit[i]();
-		}
+			plugin.app = _instance;
+			plugin.init();
+		});
 
 		_useRAF = options.raf;
 		options.on('raf', function(value)
@@ -765,8 +731,7 @@
 	};
 
 	/**
-	 * Destroys the application, global libraries registered via Application.registerDestroy() and
-	 * all active displays
+	 * Destroys the application and all active displays and plugins
 	 * @method destroy
 	 */
 	p.destroy = function()
@@ -781,10 +746,10 @@
 		}
 		_displays = null;
 
-		for (var i = 0, len = Application._globalDestroy.length; i < len; ++i)
+		Application._plugins.forEach(function(plugin)
 		{
-			Application._globalDestroy[i]();
-		}
+			plugin.destroy();
+		});
 
 		if (_resizeElement)
 		{

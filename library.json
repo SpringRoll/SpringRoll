@@ -18,10 +18,12 @@
 		"src/utils/TimeUtils.js",
 		"src/ApplicationOptions.js",
 		"src/Application.js",
+		"src/ApplicationPlugin.js",
 		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
 		"src/loaders/Loader.js",
+		"src/loaders/LoaderPlugin.js",
 		"src/loaders/LoaderResult.js",
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
@@ -51,7 +53,8 @@
 			"main": [
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
-				"src/displays/pixi/animation/Animator.js"
+				"src/displays/pixi/animation/Animator.js",
+				"src/displays/pixi/animation/AnimatorPlugin.js"
 			]
 		},
 		"pixiinterface": {
@@ -76,6 +79,7 @@
 			"main": [
 				"src/displays/easeljs/animation/AnimatorTimeline.js",
 				"src/displays/easeljs/animation/Animator.js",
+				"src/displays/easeljs/animation/AnimatorPlugin.js",
 				"src/displays/easeljs/animation/TextureAtlas.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
 				"src/displays/easeljs/animation/ReversePlayback.js"

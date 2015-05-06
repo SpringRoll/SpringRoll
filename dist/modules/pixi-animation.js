@@ -229,17 +229,33 @@
 	 */
 	p._nextItem = function()
 	{
-		//reset variables
-		this.soundEnd = this.soundStart = 0;
-		this.isAnim = this.playSound = this.useCaptions = false;
-		this.soundInst = this.soundAlias = null;
-		this.spineStates = this.spineSpeeds = null;
-		this.isLooping = false;
-		//see if the animation list is complete
-		if(++this.listIndex >= this.eventList.length)
+		var repeat = false;
+		//if on a looping animation, set up the animation to be replayed
+		// - this will only happen on looping animations with audio
+		if(this.isLooping)
 		{
-			this.complete = true;
-			return;
+			//if sound is playing, we need to stop it immediately
+			//otherwise it can interfere with replaying the audio
+			if(this.soundInst)
+				this.soundInst.stop();
+			//say that we are repeating, so that we start at the beginning of the loop
+			//in case it started part way in
+			repeat = true;
+		}
+		else
+		{
+			//reset variables
+			this.soundEnd = this.soundStart = 0;
+			this.isAnim = this.playSound = this.useCaptions = false;
+			this.soundInst = this.soundAlias = null;
+			this.spineStates = this.spineSpeeds = null;
+			this.isLooping = false;
+			//see if the animation list is complete
+			if(++this.listIndex >= this.eventList.length)
+			{
+				this.complete = true;
+				return;
+			}
 		}
 		var i, skeletonData;
 		//take action based on the type of item in the list
@@ -324,7 +340,10 @@
 					}
 				}
 				var startTime = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
-				this._time_sec = startTime < 0 ? Math.random() * this.duration : startTime;
+				if(repeat)
+					this._time_sec = 0;
+				else
+					this._time_sec = startTime < 0 ? Math.random() * this.duration : startTime;
 				//audio
 				if(listItem.alias)
 				{
@@ -1000,7 +1019,11 @@
 							}
 						}
 						else if(t._time_sec > t.duration)
-							t._time_sec -= t.duration;
+						{
+							extraTime = t._time_sec - t.duration;
+							t._nextItem();
+							onNext = true;
+						}
 					}
 					else
 					{
@@ -1008,11 +1031,6 @@
 						if (t._time_sec >= t.duration)
 						{
 							extraTime = t._time_sec - t.duration;
-							if(t.isLooping)
-							{
-								t._time_sec = extraTime;
-								continue;
-							}
 							
 							t._nextItem();
 							if(t.complete)
@@ -1033,10 +1051,12 @@
 					{
 						if (t.isLooping && t.listIndex == t.eventList.length - 1)
 						{
-							t._time_sec -= t.duration;
+							extraTime = t._time_sec - t.duration;
+							t._nextItem();//reset any audio and such
 							//call the on complete function each time
 							if (t.onComplete)
 								t.onComplete();
+							onNext = true;
 						}
 						else
 						{
@@ -1193,11 +1213,38 @@
 		_timelines = null;
 		Application.instance.off("update", _update);
 	};
-
-	//set up the global initialization and destroy
-	Application.registerInit(Animator.init);
-	Application.registerDestroy(Animator.destroy);
 	
 	namespace('springroll').Animator = Animator;
 	namespace('springroll.pixi').Animator = Animator;
+}());
+/**
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var Animator = include('springroll.pixi.Animator');
+
+	/**
+	 * Create an app plugin for Animator
+	 * @class AnimatorPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var AnimatorPlugin = function(){};
+
+	// Reference to the prototype
+	var p = extend(AnimatorPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.init = Animator.init;
+
+	// Destroy the animator
+	p.destroy = Animator.destroy;
+
+	// register plugin
+	ApplicationPlugin.register(AnimatorPlugin);
+
 }());
