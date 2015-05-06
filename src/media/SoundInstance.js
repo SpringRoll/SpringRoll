@@ -20,8 +20,8 @@
 		}
 
 		/**
-		* SoundJS SoundInstanceance, essentially a sound channel.
-		* @property {createjs.SoundInstanceance} _channel
+		* SoundJS SoundInstance, essentially a sound channel.
+		* @property {createjs.SoundInstance} _channel
 		* @private
 		*/
 		this._channel = null;
@@ -161,6 +161,9 @@
 		if (s)
 		{
 			var sound = s._sounds[this.alias];
+			//in case this SoundInstance is not valid any more for some reason
+			if(!sound) return;
+			
 			var index = sound.playing.indexOf(this);
 			if(index > -1)
 				sound.playing.splice(index, 1);
