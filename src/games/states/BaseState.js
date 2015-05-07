@@ -30,7 +30,7 @@
 		/**
 		* The id reference
 		*
-		* @property {String} stateID
+		* @property {String} stateId
 		*/
 		this.stateId = null;
 		
