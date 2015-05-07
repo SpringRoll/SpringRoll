@@ -657,7 +657,7 @@
 			if(tex.rotated)
 			{
 				_bitmap.rotation = -90;
-				_bitmap.regX = _bitmap.sourceRect.width * _bitmap.scaleX;
+				_bitmap.regX = _bitmap.sourceRect.width;
 			}
 			else
 			{
