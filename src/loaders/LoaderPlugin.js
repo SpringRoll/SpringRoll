@@ -39,9 +39,9 @@
 		 * "?v=" to the end of each file path requested. Use
 		 * for developmently, debugging only!
 		 * @property {Boolean} options.cacheBust
-		 * @default false
+		 * @default DEBUG
 		 */
-		this.options.add('cacheBust', false)
+		this.options.add('cacheBust', DEBUG)
 		.respond('cacheBust', function()
 		{
 			return loader.cacheManager.cacheBust;
@@ -98,11 +98,8 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		if (this.loader)
-		{
-			this.loader.destroy();
-			this.loader = null;
-		}
+		this.loader.destroy();
+		this.loader = null;
 	};
 
 	// register plugin

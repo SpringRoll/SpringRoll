@@ -156,6 +156,21 @@
 	};
 
 	/**
+	 * Override a default value
+	 * @private override
+	 * @param {String} name The property name to fetch
+	 * @param {*} value The value
+	 */
+	p.override = function(name, value)
+	{
+		if (defaultOptions[name] === undefined)
+		{
+			throw "ApplicationOptions doesn't have default name '" + name + "'";
+		}
+		defaultOptions[name] = value;
+	};
+
+	/**
 	 * The default Application options
 	 * @property {Object} defaultOptions
 	 * @private
@@ -194,7 +209,7 @@
 		 * @property {Boolean} useQueryString
 		 * @default false
 		 */
-		useQueryString: false,
+		useQueryString: DEBUG,
 
 		/**
 		 * The default display DOM ID name

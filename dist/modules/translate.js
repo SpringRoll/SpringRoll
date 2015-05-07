@@ -34,19 +34,14 @@
 		_instance = this;
 		
 		EventDispatcher.call(this);
-		
-		if   (!config.languages || !config.default)
-		{
-			throw "Language requires a language dictionary and a default language!";
-		}
-		
+
 		/**
 		*  The value to replace with the current language in URLS.
 		*  @property {String} _replace
 		*  @private
 		*  @default "%LANG%"
 		*/
-		this._replace = config.replace || "%LANG%";
+		this._replace = "%LANG%";
 		
 		/**
 		*  The current language.
@@ -60,14 +55,14 @@
 		*  @property {String} _default
 		*  @private
 		*/
-		this._default = config.default;
+		this._default = null;
 		
 		/**
 		*  Available languages.
 		*  @property {Array} languages
 		*  @public
 		*/
-		this.languages = config.languages;
+		this.languages = null;
 		
 		/**
 		*  A dictionary of translated strings, set with setStringTable().
@@ -75,13 +70,6 @@
 		*  @private
 		*/
 		this._stringTable = null;
-		
-		//set the initial language
-		this.setLanguage(this.getPreferredLanguages());
-		
-		//connect to the CacheManager
-		this.modifyUrl = this.modifyUrl.bind(this);
-		Loader.instance.cacheManager.registerURLFilter(this.modifyUrl);
 	};
 	
 	// Reference to the prototype
@@ -94,6 +82,37 @@
 	*  @param {String} language The newly chosen language.
 	*/
 	var CHANGED = 'changed';
+
+	/**
+	 * Configure 
+	 * @method setConfig
+	 * @param {Object} config The language settings to be used.
+	 * @param {String} config.default The default language name to use if asked for one that is
+	 *                                not present.
+	 * @param {Array} config.languages An array of all supported languages, with entries being
+	 *                                 locale ids (dialects allowed). Locale ids should be lower
+	 *                                 case.
+	 * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
+	 *                                            language.
+	 */
+	p.setConfig = function(config)
+	{
+		if (!config.languages || !config.default)
+		{
+			throw "Language requires a language dictionary and a default language!";
+		}
+		
+		this._replace = config.replace || this._replace;
+		this._default = config.default;
+		this.languages = config.languages;
+		
+		//set the initial language
+		this.setLanguage(this.getPreferredLanguages());
+		
+		//connect to the CacheManager
+		this.modifyUrl = this.modifyUrl.bind(this);
+		Loader.instance.cacheManager.registerURLFilter(this.modifyUrl);
+	};
 	
 	/**
 	*  Get the singleton instance of the Language object.
@@ -102,8 +121,10 @@
 	*  @public
 	*/
 	var _instance = null;
-	Object.defineProperty(Language, "instance", {
-		get: function() {
+	Object.defineProperty(Language, "instance",
+	{
+		get: function()
+		{
 			return _instance;
 		}
 	});
@@ -114,8 +135,10 @@
 	*  @readOnly
 	*  @public
 	*/
-	Object.defineProperty(p, "current", {
-		get: function() {
+	Object.defineProperty(p, "current",
+	{
+		get: function()
+		{
 			return this._current;
 		}
 	});
@@ -244,14 +267,63 @@
 	*/
 	p.destroy = function()
 	{
-		s.destroy.call(this);
-		if(Loader.instance)
+		if (Loader.instance)
+		{
 			Loader.instance.cacheManager.unregisterURLFilter(this.modifyUrl);
+		}
 		this.modifyUrl = this.languages = null;
 		_instance = null;
+
+		s.destroy.call(this);
 	};
 	
 	// Assign to namespace
 	namespace('springroll').Language = Language;
 
 })(window);
+/**
+ * @module Translate
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Language = include('springroll.Language');
+
+	/**
+	 * Create an app plugin for Language, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class LanguagePlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var LanguagePlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
+
+	// Reference to the prototype
+	var p = extend(LanguagePlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.init = function()
+	{
+		/**
+		 * The StringFilters instance
+		 * @property {springroll.Language} language
+		 */
+		this.language = new Language();
+	};
+
+	// Destroy the animator
+	p.destroy = function()
+	{
+		this.language.destroy();
+		this.language = null;
+	};
+
+	// register plugin
+	ApplicationPlugin.register(LanguagePlugin);
+
+}());

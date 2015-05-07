@@ -45,11 +45,13 @@ var Application = include('springroll.Application'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Button = include('springroll.easeljs.Button'),
 	Shape = include('createjs.Shape'),
+	LoadTask = include('springroll.LoadTask'),
 	Tween = include('createjs.Tween');
 
 // Create the new application
 var app = new Application({
 	canvasId: "stage",
+	configPath: "assets/config/config-sounds.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
@@ -59,52 +61,32 @@ var app = new Application({
 // The button image
 var image = null;
 
-// The configuration used by the Sound class
-// sounds are loaded into a "context", that is a group of 
-// sounds that are similar, this provides the ability
-// to mute or pause a particular context by name, handy
-// if you want to provide the ability to turn of music
-// or turn off all sound effects. This would be easy
-// to externalized as a JSON file.
-var config = {
-	sfx : {
-		"context":"sfx",
-		"path":"assets/sound/sfx/",
-		"soundManifest": [
-			"FoodChute",
-			"TipEarned",
-			"TrashChute"
-		]
-	},
-	music : {
-		"context":"music",
-		"path":"assets/sound/music/",
-		"soundManifest": [
-			"TitleMusic"
-		]
-	}
-};
+app.on('loading', function(tasks)
+{
+	tasks.push(new LoadTask(
+		'button', 
+		'assets/images/button.png', 
+		function(result)
+		{
+			// Save the bitmap image to use late
+			image = result.content
+		}
+	));
+});
 
 // Wait until the app is ready
 app.on('init', function(){
 
-	// Add buttons to the stage
-	app.loader.load('assets/images/button.png', function(result) {
-		
-		// Save the bitmap image to use late
-		image = result.content,
-			
-		// Load up the configuration for the sound effects
-		app.addSounds(config.sfx).addSounds(config.music);
+	// Load up the configuration for the sound effects
+	//this.addSounds(config.sfx).addSounds(config.music);
 
-		var centerX = (app.display.width - image.width) / 2;
+	var centerX = (this.display.width - image.width) / 2;
 
-		// Add the buttons
-		addButton("FoodChute", centerX, 60, onPlayEffect);
-		addButton("TipEarned", centerX, 120, onPlayEffect);
-		addButton("TrashChute", centerX, 180, onPlayEffect);
-		addButton("TitleMusic", centerX, 300, onPlayMusic);
-	});					
+	// Add the buttons
+	addButton("FoodChute", centerX, 60, onPlayEffect);
+	addButton("TipEarned", centerX, 120, onPlayEffect);
+	addButton("TrashChute", centerX, 180, onPlayEffect);
+	addButton("TitleMusic", centerX, 300, onPlayMusic);					
 });
 
 // Add a new button to the stage

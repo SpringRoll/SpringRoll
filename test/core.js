@@ -47,26 +47,24 @@ test('Application', function(assert){
 
 	expect(5);
 
-	var Application = springroll.Application,
-		Loader = springroll.Loader;
+	var Application = springroll.Application;
 
 	// New Application
 	var app = new Application();
 	assert.strictEqual(app, Application.instance, "Application's singleton works");
-	assert.ok(Loader.instance, "Loader was created");
+	assert.ok(app.loader, "Loader was created");
 
 	// Tests cleanup
 	app.destroy();
-	assert.ok(app._destroyed, '_destroyed worked');
+	assert.ok(app.destroyed, 'Destroyed worked');
 	assert.ok(!Application.instance, 'Singleton was destroyed');
-	assert.ok(!Loader.instance, "Loader was destroyed");
+	assert.ok(!app.loader, "Loader was destroyed");
 });
 
 test('Loader', function(assert){
 
 	//expect(9);
-	var Application = springroll.Application,
-		Loader = springroll.Loader;
+	var Application = springroll.Application;
 
 	// New Application
 	var basePath = "http://example.com/";
@@ -74,7 +72,7 @@ test('Loader', function(assert){
 		cacheBust: true,
 		basePath: basePath
 	});
-	var loader = Loader.instance;
+	var loader = app.loader;
 	var url = "test.jpg";
 	var cbUrl = loader.cacheManager.prepare(url);
 	var basePathUrl = loader.cacheManager.prepare(url, true);

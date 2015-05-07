@@ -75,11 +75,8 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		if (this._visibility)
-		{
-			this._visibility.destroy();
-			this._visibility = null;
-		}
+		this._visibility.destroy();
+		this._visibility = null;
 	};
 
 	// register plugin

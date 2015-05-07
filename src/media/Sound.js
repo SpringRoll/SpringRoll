@@ -113,28 +113,23 @@
 	Sound.init = function(options, readyCallback)
 	{
 		var appOptions = Application.instance.options;
+
 		// First argument is function
 		if (typeof options == 'function')
 		{
 			options = { ready: options };
 		}
 
-		var _defaultOptions = {
-			plugins : appOptions.forceFlashAudio ?
-						[FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+		var defaultOptions = {
+			plugins : appOptions.forceFlashAudio ? 
+				[FlashAudioPlugin]: 
+				[WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
 		};
 
-		options = options || {};
-
-		//set up default options
-		for (var key in _defaultOptions)
-		{
-			if (!options.hasOwnProperty(key))
-				options[key] = _defaultOptions[key];
-		}
+		options = Object.merge({}, defaultOptions, options);
 
 		// Check if the ready callback is the second argument
 		// this is deprecated

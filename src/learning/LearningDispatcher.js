@@ -23,15 +23,9 @@
 	 *  @extends springroll.EventDispatcher
 	 *  @constructor
 	 *  @param {springroll.Application} app The application reference
-	 *  @param {object} [spec] The event specification
-	 *  @param {string} spec.gameId The GUID for the game
-	 *  @param {int} spec.version  The API version for the game
-	 *  @param {array} spec.events  The collection of valid API events
 	 *  @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
-	 *  @param {object} [eventDictionary=null] The collection of game-specific APIs, this is a map
-	 *         of the eventCode to the name of the API method
 	 */
-	var LearningDispatcher = function(app, spec, showTray, eventDictionary)
+	var LearningDispatcher = function(app, showTray)
 	{
 		EventDispatcher.call(this);
 
@@ -40,18 +34,6 @@
 		 *  @property {springroll.EventCatalog} catalog
 		 */
 		this.catalog = new EventCatalog();
-
-		if (eventDictionary)
-		{
-			try
-			{
-				this.catalog.add(eventDictionary);
-			}
-			catch (e)
-			{
-				this._handleError(e);
-			}
-		}
 
 		if (DEBUG)
 		{
@@ -105,7 +87,7 @@
 		this._timers = {};
 
 		//Add the spec, can be added later
-		this.spec = spec || null;
+		this.spec = null;
 
 		/**
 		 *  The reference to the application
@@ -231,6 +213,27 @@
 	};
 
 	/**
+	 *  The map of API event name overrides
+	 *  @method addMap
+	 *  @param {object} eventDictionary The collection of game-specific APIs, this is a map
+	 *         of the eventCode to the name of the API method
+	 */
+	p.addMap = function(eventDictionary)
+	{
+		if (eventDictionary)
+		{
+			try
+			{
+				this.catalog.add(eventDictionary);
+			}
+			catch (e)
+			{
+				this._handleError(e);
+			}
+		}
+	};
+
+	/**
 	 *  The tracking specification
 	 *  @property {object} spec
 	 *  @property {string} spec.gameId
@@ -239,6 +242,10 @@
 	 */
 	Object.defineProperty(p, "spec",
 	{
+		get: function()
+		{
+			return this._spec;
+		},
 		set: function(spec)
 		{
 			this._spec = spec;

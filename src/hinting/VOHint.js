@@ -1,7 +1,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracking Game
+ * @requires Core, Game, Sound, Learning
  */
 (function()
 {

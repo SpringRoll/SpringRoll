@@ -1376,6 +1376,21 @@
 	};
 
 	/**
+	 * Override a default value
+	 * @private override
+	 * @param {String} name The property name to fetch
+	 * @param {*} value The value
+	 */
+	p.override = function(name, value)
+	{
+		if (defaultOptions[name] === undefined)
+		{
+			throw "ApplicationOptions doesn't have default name '" + name + "'";
+		}
+		defaultOptions[name] = value;
+	};
+
+	/**
 	 * The default Application options
 	 * @property {Object} defaultOptions
 	 * @private
@@ -1414,7 +1429,7 @@
 		 * @property {Boolean} useQueryString
 		 * @default false
 		 */
-		useQueryString: false,
+		useQueryString: true,
 
 		/**
 		 * The default display DOM ID name
@@ -2143,7 +2158,10 @@
 		}
 		_displays = null;
 
-		Application._plugins.forEach(function(plugin)
+		// Destroy in the reverse priority order
+		var plugins = Application._plugins.slice().reverse();
+
+		plugins.forEach(function(plugin)
 		{
 			plugin.destroy.call(_instance);
 		});
@@ -2158,6 +2176,7 @@
 		// _framerate =
 		_resizeElement = null;
 
+		this.display = null;
 		this.options.destroy();
 		this.options = null;
 
@@ -2481,11 +2500,8 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		if (this._visibility)
-		{
-			this._visibility.destroy();
-			this._visibility = null;
-		}
+		this._visibility.destroy();
+		this._visibility = null;
 	};
 
 	// register plugin
@@ -3648,9 +3664,9 @@
 		 * "?v=" to the end of each file path requested. Use
 		 * for developmently, debugging only!
 		 * @property {Boolean} options.cacheBust
-		 * @default false
+		 * @default true
 		 */
-		this.options.add('cacheBust', false)
+		this.options.add('cacheBust', true)
 		.respond('cacheBust', function()
 		{
 			return loader.cacheManager.cacheBust;
@@ -3707,11 +3723,8 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		if (this.loader)
-		{
-			this.loader.destroy();
-			this.loader = null;
-		}
+		this.loader.destroy();
+		this.loader = null;
 	};
 
 	// register plugin
@@ -4211,6 +4224,155 @@
 	});
 }());
 
+/**
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
+	/**
+	 * Class for filtering strings
+	 * @constructor
+	 * @class StringFilters
+	 */
+	var StringFilters = function()
+	{
+		/**
+		 * Dictionary of filters
+		 * @property {Array} _filters
+		 * @private
+		 */
+		this._filters = [];
+	};
+
+	// Reference to prototype
+	var p = StringFilters.prototype;
+
+	/**
+	 * Register a filter
+	 * @method add
+	 * @param {String|RegExp} replace The string or regex to replace
+	 * @param {String} replacement String to repalce with
+	 * @static
+	 */
+	p.add = function(replace, replacement)
+	{
+		if (!replace || (typeof replace != 'string' && replace instanceof RegExp === false))
+		{
+			if (true)
+				throw 'replace value must be a valid String or RegExp';
+			else
+				throw 'invalide replace value';
+		}
+		if (typeof replacement != 'string')
+		{
+			if (true)
+				throw 'replacement value must be astring';
+			else
+				throw 'invalid replacement value';
+		}
+		
+		if (this._filters)
+		{
+			for (var i = this._filters.length - 1; i >= 0; i--)
+			{
+				if (replace.toString() == this._filters[i].replace.toString())
+				{
+					if (true)
+						throw "Filter " + replace +
+						" already exists in this._filters array.";
+					else
+						throw "Filter already exists.";
+				}
+			}
+			this._filters.push(
+			{
+				replace: replace,
+				replacement: replacement
+			});
+		}
+	};
+
+	/**
+	 * Test a string against all registered filters
+	 * @method filter
+	 * @param {String} str The string to check
+	 * @static
+	 */
+	p.filter = function(str)
+	{
+		if (!this._filters)
+		{
+			return str;
+		}
+		for (var i = this._filters.length - 1; i >= 0; i--)
+		{
+			var replace = this._filters[i].replace;
+			var replacement = this._filters[i].replacement;
+			str = str.replace(replace, replacement);
+		}
+		return str;
+	};
+
+	/**
+	 * @method destroy
+	 * @static
+	 */
+	p.destroy = function()
+	{
+		this._filters = null;
+	};
+
+	//Assign to namespace
+	namespace('springroll').StringFilters = StringFilters;
+}());
+/**
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		StringFilters = include('springroll.StringFilters');
+
+	/**
+	 * Create an app plugin for String Filters, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class StringFiltersPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var StringFiltersPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
+
+	// Reference to the prototype
+	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.init = function()
+	{
+		/**
+		 * The StringFilters instance
+		 * @property {springroll.StringFilters} filters
+		 */
+		this.filters = new StringFilters();
+	};
+
+	// Destroy the animator
+	p.destroy = function()
+	{
+		this.filters.destroy();
+		this.filters = null;
+	};
+
+	// register plugin
+	ApplicationPlugin.register(StringFiltersPlugin);
+
+}());
 /**
  * @module Core
  * @namespace window

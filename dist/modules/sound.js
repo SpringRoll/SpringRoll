@@ -485,28 +485,23 @@
 	Sound.init = function(options, readyCallback)
 	{
 		var appOptions = Application.instance.options;
+
 		// First argument is function
 		if (typeof options == 'function')
 		{
 			options = { ready: options };
 		}
 
-		var _defaultOptions = {
-			plugins : appOptions.forceFlashAudio ?
-						[FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+		var defaultOptions = {
+			plugins : appOptions.forceFlashAudio ? 
+				[FlashAudioPlugin]: 
+				[WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
 		};
 
-		options = options || {};
-
-		//set up default options
-		for (var key in _defaultOptions)
-		{
-			if (!options.hasOwnProperty(key))
-				options[key] = _defaultOptions[key];
-		}
+		options = Object.merge({}, defaultOptions, options);
 
 		// Check if the ready callback is the second argument
 		// this is deprecated
@@ -2080,7 +2075,7 @@
 		ApplicationPlugin.call(this);
 
 		// Higher priority for the sound
-		this.priority = 5;
+		this.priority = 9;
 	};
 
 	// Reference to the prototype
@@ -2096,6 +2091,14 @@
 		 * @readOnly
 		 */
 		this.options.add('swfPath', 'assets/swfs/', true);
+
+		/**
+		 * For the Sound class to use the Flash plugin shim
+		 * @property {Boolean} options.forceFlashAudio
+		 * @default false 
+		 * @readOnly
+		 */
+		this.options.add('forceFlashAudio', false, true);
 		
 		/**
 		 * The order in which file types are
@@ -2228,6 +2231,28 @@
 			this.sound.loadConfig(config);
 			return this;
 		};
+
+		// Add the listener for the config loader to autoload the sounds
+		this.once('configLoaded', function(config)
+		{
+			//initialize Sound and load up global sound config
+			var sounds = config.sounds;
+			if (sounds)
+			{
+				if (sounds.vo)
+				{
+					this.addSounds(sounds.vo);
+				}
+				if (sounds.sfx)
+				{
+					this.addSounds(sounds.sfx);
+				}
+				if (sounds.music)
+				{
+					this.addSounds(sounds.music);
+				}
+			}
+		});
 	};
 
 	/**
@@ -2275,11 +2300,9 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		if (this.player)
-		{
-			this.player.destroy();
-			this.player = null;
-		}
+		this.player.destroy();
+		this.player = null;
+		
 		if (this.sound)
 		{
 			this.sound.destroy();

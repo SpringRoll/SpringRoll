@@ -577,25 +577,12 @@
 	*  @class UIScaler
 	*  @constructor
 	*  @param {DisplayObject} parent The UI display container
-	*  @param {Object} designedSize The designed settings of the interface {width:800, height:600}
-	*  @param {int} designedSize.width The designed width of the interface
-	*  @param {int} designedSize.height The designed height of the interface
-	*  @param {int} [designedSize.maxWidth=designedSize.width] The designed maximum width of the
-	*                                                          interface.
-	*  @param {int} [designedSize.maxHeight=designedSize.height] The designed maximum height of the
-	*                                                            interface.
-	*  @param {Object} [items=null] The items object where the keys are the name of the property on
-	*                               the parent and the value
-	*                               is an object with keys of "titleSafe", "minScale", "maxScale",
-	*                               "centerHorizontally", "align"
-	*  @param {boolean} [enabled=true] If the UIScaler should be enabled by default
-	*  @param {Display} [display=Application.instance.display] The display which to use for the
-	*                                                          scaler
 	*  @return {UIScaler} The scaler object that can be reused
 	*/
-	var UIScaler = function(parent, designedSize, items, enabled, display)
+	var UIScaler = function(parent)
 	{
 		Debug = include('springroll.Debug', false);
+		
 		/**
 		*  The UI display object to update
 		*  @property {DisplayObject} _parent
@@ -610,38 +597,12 @@
 		*/
 		this._items = [];
 
-		if (!designedSize || !designedSize.width || !designedSize.height)
-		{
-			if (true && Debug)
-			{
-				Debug.error(designedSize);
-				throw "Designed size parameter must be a plain object with 'width' & 'height' properties";
-			}
-			else
-			{
-				throw "Invalid design settings";
-			}
-		}
-
 		/**
 		*  The screen settings object, contains information about designed size
-		*  @property {object} _designedSize
+		*  @property {object} _size
 		*  @private
 		*/
-		this._designedSize = designedSize;
-		
-		// Allow for responsive designs if they're a max width
-		var options = Application.instance.options;
-		if (designedSize.maxWidth)
-		{
-			// Set the max width so that Application can limit the aspect ratio properly
-			options.maxWidth = designedSize.maxWidth;
-		}
-		if(designedSize.maxHeight)
-		{
-			// Set the max height so that Application can limit the aspect ratio properly
-			options.maxHeight = designedSize.maxHeight;
-		}
+		this._size = null;
 
 		/**
 		*  The current overall scale of the game
@@ -656,7 +617,7 @@
 		*  @property {Object} _adapter
 		*  @private
 		*/
-		this._adapter = UIScaler._getAdapter(display);
+		this._adapter = null;
 
 		/**
 		*  The collection of bitmaps to full screen scale
@@ -670,15 +631,13 @@
 		*   @property {boolean} _enabled
 		*   @private
 		*/
+		this._enabled = false;
+	
+		// Set the designed size
+		this.size = null;
 
-		// Add a collection of items to the UIScaler
-		if (items)
-		{
-			this.addItems(items);
-		}
-
+		// Setup the resize bind
 		this._resize = this._resize.bind(this);
-		this.enabled = enabled !== undefined ? !!enabled : true;
 	};
 
 	// Reference to the prototype
@@ -763,14 +722,103 @@
 	};
 
 	/**
+	 * Set the display
+	 * @property {springroll.AbstractDisplay} display
+	 */
+	Object.defineProperty(p, 'display',
+	{
+		set: function(display)
+		{
+			this._adapter = UIScaler._getAdapter(display);
+		}
+	});
+
+	/**
+	 * The design sized of the application
+	 * @property {Object} size 
+	 * @default null
+	 */
+	/**
+	 * The designed width of the application
+	 * @property {Number} size.width
+	 */
+	/**
+	 * The designed width of the application
+	 * @property {Number} size.height
+	 */
+	/**
+	 * The designed max width of the application
+	 * @property {Number} size.maxWidth
+	 * @default  size.width
+	 */
+	/**
+	 * The designed maxHeight of the application
+	 * @property {Number} size.maxHeight
+	 * @default  size.height
+	 */
+	Object.defineProperty(p, 'size', 
+	{
+		set: function(size)
+		{
+			this._size = size;
+
+			if (!size) return;
+
+			if (!size.width || !size.height)
+			{
+				if (true && Debug)
+				{
+					Debug.error(size);
+					throw "Designed size parameter must be a plain object with 'width' & 'height' properties";
+				}
+				else
+				{
+					throw "Invalid design settings";
+				}
+			}
+
+			// Allow for responsive designs if they're a max width
+			var options = Application.instance.options;
+			if (size.maxWidth)
+			{
+				// Set the max width so that Application can limit the aspect ratio properly
+				options.maxWidth = size.maxWidth;
+			}
+			if (size.maxHeight)
+			{
+				// Set the max height so that Application can limit the aspect ratio properly
+				options.maxHeight = size.maxHeight;
+			}
+		},
+		get: function()
+		{
+			return this._size;
+		}
+	});
+
+	/**
 	*  Get the current scale of the screen relative to the designed screen size
 	*  @property {Number} scale
 	*  @readOnly
 	*/
-	Object.defineProperty(p, 'scale', {
+	Object.defineProperty(p, 'scale',
+	{
 		get: function()
 		{
 			return this._scale;
+		}
+	});
+
+	/**
+	* The total number of items
+	* @property {Number} numItems
+	* @readOnly
+	*/
+	Object.defineProperty(p, 'numItems',
+	{
+		get: function()
+		{
+			return this._items.length;
 		}
 	});
 
@@ -930,7 +978,7 @@
 		element.minScale = settings.minScale || NaN;
 		element.centeredHorizontally = !!settings.centeredHorizontally;
 
-		this._items.push(new UIElement(item, element, this._designedSize, this._adapter));
+		this._items.push(new UIElement(item, element, this._size, this._adapter));
 
 		return this;
 	};
@@ -981,12 +1029,12 @@
 	*/
 	p._resize = function(w, h)
 	{
-		var _designedSize = this._designedSize;
-		var defaultRatio = _designedSize.width / _designedSize.height,
+		var _size = this._size;
+		var defaultRatio = _size.width / _size.height,
 			currentRatio = w / h;
 		this._scale = currentRatio > defaultRatio ?
-						h / _designedSize.height :
-						w / _designedSize.width;
+						h / _size.height :
+						w / _size.width;
 		var scaleToHeight = currentRatio >= defaultRatio;
 		
 		var _items = this._items;
@@ -1005,7 +1053,7 @@
 
 		if (len > 0)
 		{
-			var expectedBGWidth = _designedSize.maxWidth || _designedSize.width;
+			var expectedBGWidth = _size.maxWidth || _size.width;
 			var bitmap, size, scale, positionHelper = {x: 0, y:0}, bgScale, activeBGSize;
 			for (i = 0; i < len; i++)
 			{
@@ -1015,7 +1063,7 @@
 				//a double resolution image would have a bgScale of 2
 				bgScale = size.w / expectedBGWidth;
 				//determine the size of the active dimension, width or height
-				activeBGSize = bgScale * (scaleToHeight ? _designedSize.height : _designedSize.width);
+				activeBGSize = bgScale * (scaleToHeight ? _size.height : _size.width);
 				//determine scale the bg should be used at to fill the display properly
 				scale = (scaleToHeight ? h : w) / activeBGSize;
 
@@ -1052,7 +1100,7 @@
 		this._backgrounds = null;
 		this._adapter = null;
 		this._parent = null;
-		this._designedSize = null;
+		this._size = null;
 		this._items = null;
 	};
 
@@ -1069,7 +1117,90 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		UIScaler = include('springroll.UIScaler');
+
+	/**
+	 * Create an app plugin for touch detecting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class UIScalerPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var UIScalerPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
+
+	// Reference to the prototype
+	var p = extend(UIScalerPlugin, ApplicationPlugin);
+
+	// Init the scaler
+	p.init = function()
+	{
+		/**
+		 * The main UIScaler for any display object references
+		 * in the main game.
+		 * @property {springroll.UIScaler} scaler
+		 */
+		this.scaler = new UIScaler(this);
+
+		// Add the display
+		this.once('init', function(done)
+		{
+			// Check for the config then auto enable the scaler
+			if (this.config)
+			{
+				var Debug = include('springroll.Debug', false);
+
+				var config = this.config;
+				var scalerSize = config.scalerSize;
+
+				if (!scalerSize)
+				{
+					Debug.warn("The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
+					return;
+				}
+
+				if (!config.scaler)
+				{
+					Debug.warn("The config requires 'scaler' object which contains all the state scaling items.");
+					return;
+				}
+				this.scaler.size = scalerSize;
+				this.scaler.addItems(config.scaler);
+				this.scaler.enabled = !!this.scaler.numItems;
+			}
+		}, -1); // lower init priority to happen after the art has been created
+	};
+
+	// display is ready here
+	p.ready = function(done)
+	{
+		this.scaler.display = this.display;
+		done();
+	};
+
+	// clean up
+	p.destroy = function()
+	{
+		this.scaler.destroy();
+		this.scaler = null;
+	};
+
+	// register plugin
+	ApplicationPlugin.register(UIScalerPlugin);
+
+}());
+/**
+ * @module Interface
+ * @namespace springroll
+ * @requires Core
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		DebugOptions = include('springroll.DebugOptions', false);
 
 	/**
 	 * Create an app plugin for touch detecting, all properties and methods documented
@@ -1104,17 +1235,9 @@
 		*  If the current brower has touch input available
 		*  @property {Boolean} hasTouch
 		*/
-		if (true && this.options.forceTouch)
-		{
-			this.hasTouch = true;
-		}
-		else
-		{
-			//Detect availability of touch events
-			this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
-				(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
-				(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
-		}
+		this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
+			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
+			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 
 		if (true)
 		{
@@ -1127,8 +1250,27 @@
 			.on('forceTouch', function(value)
 			{
 				this.hasTouch = value === "true" || !!value;
-			});
+			}
+			.bind(this));
+			
+			if (DebugOptions)
+			{
+				DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
+			}
 		}
+	};
+
+	// add common filteres interaction
+	p.ready = function(done)
+	{
+		if (true)
+		{
+			this.hasTouch = !!this.options.forceTouch;
+		}
+
+		// Add the interaction filters, must have interface module MobilePlugin
+		this.filters.add('%INTERACTION%', !!this.hasTouch ? '_touch' : '_mouse');
+		done();
 	};
 
 	// register plugin

@@ -6,7 +6,8 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		DebugOptions = include('springroll.DebugOptions', false);
 
 	/**
 	 * Create an app plugin for touch detecting, all properties and methods documented
@@ -41,17 +42,9 @@
 		*  If the current brower has touch input available
 		*  @property {Boolean} hasTouch
 		*/
-		if (DEBUG && this.options.forceTouch)
-		{
-			this.hasTouch = true;
-		}
-		else
-		{
-			//Detect availability of touch events
-			this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
-				(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
-				(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
-		}
+		this.hasTouch = !!(('ontouchstart' in window) ||// iOS & Android
+			(window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || // IE10
+			(window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0)); // IE11+
 
 		if (DEBUG)
 		{
@@ -64,8 +57,27 @@
 			.on('forceTouch', function(value)
 			{
 				this.hasTouch = value === "true" || !!value;
-			});
+			}
+			.bind(this));
+			
+			if (DebugOptions)
+			{
+				DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
+			}
 		}
+	};
+
+	// add common filteres interaction
+	p.ready = function(done)
+	{
+		if (DEBUG)
+		{
+			this.hasTouch = !!this.options.forceTouch;
+		}
+
+		// Add the interaction filters, must have interface module MobilePlugin
+		this.filters.add('%INTERACTION%', !!this.hasTouch ? '_touch' : '_mouse');
+		done();
 	};
 
 	// register plugin

@@ -43,7 +43,6 @@ var Application = include('springroll.Application'),
 
 // Create the new application
 var app = new Application({
-	updateTween: true, // IMPORTANT! for Application to own TweenJS updates
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	displayOptions: {
@@ -60,7 +59,7 @@ app.on('init', function(){
 		.drawCircle(-100, 500 / 2, 100);
 
 	// Add it to the EaselJS stage
-	app.display.stage.addChild(shape);
+	this.display.stage.addChild(shape);
 
 	// Tween the shape
 	Tween.get(shape, {loop: true}).to({x: 1000}, 3000);

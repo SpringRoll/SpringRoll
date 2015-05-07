@@ -1116,6 +1116,18 @@
 	p.init = function()
 	{
 		/**
+		 * States should be added on this callback
+		 * @event addStates
+		 */
+		
+		/**
+		 * Fired when an event has been added
+		 * @event stateAdded
+		 * @param {String} alias The state alias
+		 * @param {springroll.BaseState} state The State object
+		 */
+		
+		/**
 		*  The collection of states
 		*  @property {Object} _states
 		*  @private
@@ -1138,8 +1150,9 @@
 		 * The initial state to go to when everything is finished
 		 * @property {Boolean} options.state
 		 * @default null
+		 * @readOnly
 		 */
-		this.options.add('state');
+		this.options.add('state', null, true);
 
 		/**
 		 * The animation to use for the StateManager
@@ -1150,22 +1163,25 @@
 		/**
 		 * The transition sounds to use for the state transition
 		 * @property {Object} options.transitionSounds The transition sound data
+		 * @readOnly
 		 */
 		/**
 		 * The transition in sound alias or sound object
 		 * @property {Object} options.transitionSounds.in The transition sound data
 		 * @default "TransitionIn"
+		 * @readOnly
 		 */
 		 /**
 		 * The transition out sound alias or sound object
 		 * @property {Object} options.transitionSounds.out The transition sound data
 		 * @default "TransitionOut"
+		 * @readOnly
 		 */
 		this.options.add('transitionSounds',
 		{
 			'in' : 'TransitionIn',
 			'out' : 'TransitionOut'
-		});
+		}, true);
 
 		/**
 		*  The collection of states where the key is the state alias and value is the state display object
@@ -1229,6 +1245,8 @@
 
 					// Add the state display object to the main display
 					stage.addChild(states[alias].panel);
+
+					this.trigger('stateAdded', alias, states[alias]);
 				}
 
 				this._states = states;
@@ -1248,40 +1266,54 @@
 			}
 		});
 
-		/**
-		 * Debug key strokes
-		 * → = trigger a skip to the next state for testing
-		 * ← = trigger a skip to the previous state for testing
-		 */
-		window.onkeyup = function(e)
+		// When the preload tasks are finished
+		this.on('loaded', function()
 		{
-			if (!this.manager) return;
+			// Listen to this event to add the states
+			this.trigger('addStates');
+		});
 
-			var key = e.keyCode ? e.keyCode : e.which;
-			switch (key)
+		if (true)
+		{
+			/**
+			 * Debug key strokes
+			 * → = trigger a skip to the next state for testing
+			 * ← = trigger a skip to the previous state for testing
+			 */
+			window.onkeyup = function(e)
 			{
-				//right arrow
-				case 39: 
+				if (!this.manager) return;
+
+				var key = e.keyCode ? e.keyCode : e.which;
+				switch (key)
 				{
-					if (Debug) Debug.info("Going to next state via keyboard");
-					this.manager.next();
-					break;
-				}
-				//left arrow
-				case 37: 
-				{
-					if (Debug) Debug.info("Going to previous state via keyboard");
-					this.manager.previous();
-					break;
+					//right arrow
+					case 39: 
+					{
+						if (Debug) Debug.info("Going to next state via keyboard");
+						this.manager.next();
+						break;
+					}
+					//left arrow
+					case 37: 
+					{
+						if (Debug) Debug.info("Going to previous state via keyboard");
+						this.manager.previous();
+						break;
+					}
 				}
 			}
+			.bind(this);
 		}
-		.bind(this);
 	};
 
 	// Destroy the animator
 	p.destroy = function()
 	{
+		if (true)
+		{
+			window.onkeyup = null;
+		}
 		if (this.manager)
 		{
 			this.manager.destroy();

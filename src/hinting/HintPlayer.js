@@ -1,12 +1,13 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Tracking Game
+ * @requires Core, Game, Sound, Learning
  */
 (function()
 {
 	//Include classes
-	var AnimatorHint = include('springroll.AnimatorHint'),
+	var EventDispatcher = include('springroll.EventDispatcher'),
+		AnimatorHint = include('springroll.AnimatorHint'),
 		FunctionHint = include('springroll.FunctionHint'),
 		VOHint = include('springroll.VOHint'),
 		GroupHint = include('springroll.GroupHint');
@@ -15,16 +16,18 @@
 	 *  Design to handle the setting and playing of hints
 	 *  @class HintPlayer
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game Reference to the current game
+	 *  @param {springroll.Application} game Reference to the current game
 	 */
 	var HintPlayer = function(game)
 	{
+		EventDispatcher.call(this);
+
 		/**
 		 *  Reference to the current game
-		 *  @property {springroll.TrackingGame} _game
+		 *  @property {springroll.Application} _app
 		 *  @private
 		 */
-		this._game = game;
+		this._app = game;
 
 		/**
 		 *  The currently selected hint
@@ -59,9 +62,6 @@
 		this._done = this._done.bind(this);
 		this.play = this.play.bind(this);
 
-		//Listen for manual help clicks
-		this._game.messenger.on('playHelp', this.play);
-
 		/**
 		 * Contains previously set hints to be cleaned up after the new hint plays,
 		 * to prevent erasing callbacks too soon.
@@ -71,7 +71,8 @@
 	};
 
 	//Reference to the prototype
-	var p = HintPlayer.prototype;
+	var s = EventDispatcher.prototype;
+	var p = extend(HintPlayer, EventDispatcher);
 
 	/**
 	 *  Add a VO hint to the player.
@@ -85,7 +86,7 @@
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
 		return this.set(new VOHint(
-			this._game,
+			this._app,
 			this._done,
 			idOrList,
 			onComplete,
@@ -106,7 +107,7 @@
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
 		return this.set(new AnimatorHint(
-			this._game,
+			this._app,
 			this._done,
 			instance,
 			events,
@@ -125,7 +126,7 @@
 	 */
 	p.func = function(onStart)
 	{
-		return this.set(new FunctionHint(this._game, this._done, onStart));
+		return this.set(new FunctionHint(this._app, this._done, onStart));
 	};
 
 	/**
@@ -136,7 +137,7 @@
 	 */
 	p.group = function()
 	{
-		return this.set(new GroupHint(this._game, this._done));
+		return this.set(new GroupHint(this._app, this._done));
 	};
 
 	/**
@@ -196,7 +197,7 @@
 	p.startTimer = function(duration)
 	{
 		this._timer = this._duration = duration || this.timerDuration;
-		this._game.off('update', this._update).on('update', this._update);
+		this._app.off('update', this._update).on('update', this._update);
 		return this;
 	};
 
@@ -214,7 +215,7 @@
 	 */
 	p.stopTimer = p.removeTimer = function()
 	{
-		this._game.off('update', this._update);
+		this._app.off('update', this._update);
 		this._timer = this._duration = 0;
 		return this;
 	};
@@ -226,7 +227,7 @@
 	 */
 	p.resetTimer = function()
 	{
-		this._game.off('update', this._update).on('update', this._update);
+		this._app.off('update', this._update).on('update', this._update);
 		this._timer = this._duration;
 		return this;
 	};
@@ -239,7 +240,7 @@
 	{
 		set: function(enabled)
 		{
-			this._game.messenger.send('helpEnabled', enabled);
+			this.trigger('enabled', enabled);
 		}
 	});
 
@@ -251,7 +252,7 @@
 	 */
 	p._update = function(elapsed)
 	{
-		if (this._game.media.isPlaying())
+		if (this._app.media.isPlaying())
 			return;
 
 		if (this._timer > 0)
@@ -260,7 +261,7 @@
 
 			if (this._timer <= 0)
 			{
-				this._game.off('update', this._update);
+				this._app.off('update', this._update);
 				this.play();
 			}
 		}
@@ -308,11 +309,8 @@
 	{
 		this.clear();
 		this._clearOldHints();
-
-		//Remove playhelp listener
-		this._game.messenger.off('playHelp');
-
-		this._game = null;
+		this._app = null;
+		s.destroy.call(this);
 	};
 
 	//Assign to namespace

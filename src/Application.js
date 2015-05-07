@@ -661,7 +661,10 @@
 		}
 		_displays = null;
 
-		Application._plugins.forEach(function(plugin)
+		// Destroy in the reverse priority order
+		var plugins = Application._plugins.slice().reverse();
+
+		plugins.forEach(function(plugin)
 		{
 			plugin.destroy.call(_instance);
 		});
@@ -676,6 +679,7 @@
 		// _framerate =
 		_resizeElement = null;
 
+		this.display = null;
 		this.options.destroy();
 		this.options = null;
 

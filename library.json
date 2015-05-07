@@ -5,6 +5,7 @@
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
 	"main": [
+		"src/Application.less",
 		"src/utils/namespace.js",
 		"src/utils/include.js",
 		"src/utils/extend.js",
@@ -31,10 +32,15 @@
 		"src/data/SavedData.js",
 		"src/utils/DelayedCall.js",
 		"src/utils/String.js",
+		"src/utils/StringFilters.js",
+		"src/utils/StringFiltersPlugin.js",
 		"src/utils/Array.js",
 		"src/utils/Math.js"
 	],
 	"modules": {
+		"analytics": [
+			"src/events/AnalyticsPlugin.js"
+		],
 		"nativedisplay": {
 			"output": "native-display",
 			"main": [
@@ -109,6 +115,21 @@
 				"src/displays/easeljs/cutscene/Cutscene.js"
 			]
 		},
+		"easeljslearning": {
+			"output": "easeljs-learning",
+			"main": [
+				"src/displays/easeljs/learning/DwellTimer.js",
+				"src/displays/easeljs/learning/OffClickPlugin.js"
+			]
+		},
+		"easeljsgame": {
+			"output": "easeljs-game",
+			"main": [
+				"src/displays/easeljs/game/BasePanel.js",
+				"src/displays/easeljs/game/BaseState.js",
+				"src/displays/easeljs/game/ManifestsPlugin.js"
+			]
+		},
 		"states": [
 			"src/states/BaseState.js",
 			"src/states/StateEvent.js",
@@ -122,7 +143,8 @@
 			"src/tasks/LoadTask.js",
 			"src/tasks/TaskManager.js",
 			"src/tasks/ListTask.js",
-			"src/tasks/PixiTask.js"
+			"src/tasks/PixiTask.js",
+			"src/tasks/ConfigPlugin.js"
 		],
 		"sound": [
 			"src/media/SoundContext.js",
@@ -137,22 +159,26 @@
 			"src/ui/UIElementSettings.js",
 			"src/ui/Positioner.js",
 			"src/ui/UIScaler.js",
+			"src/ui/UIScalerPlugin.js",
 			"src/ui/TouchPlugin.js"
 		],
 		"captions": [
+			"src/media/Captions.less",
 			"src/media/Captions.js",
 			"src/media/CaptionsPlugin.js"
 		],
 		"translate": [
-			"src/utils/Language.js"
+			"src/utils/Language.js",
+			"src/utils/LanguagePlugin.js"
 		],
 		"debug": [
+			"src/debug/Debug.less",
 			"src/debug/Debug.js",
 			"src/debug/DebugOptions.js",
 			"src/debug/DebugPlugin.js"
 		],
-		"learningdispatcher": {
-			"output": "learning-dispatcher",
+		"learning": {
+			"output": "learning",
 			"main": [
 				"src/learning/LearningDispatcherError.js",
 				"src/learning/EventCatalog.js",
@@ -161,16 +187,10 @@
 				"src/learning/ValidationError.js",
 				"src/learning/EventUtils.js",
 				"src/learning/LearningDispatcher.js",
-				"src/learning/easeljs/DwellTimer.js",
-				"src/learning/LearningDispatcher.less"
-			]
-		},
-		"easeljslearninggame": {
-			"output": "easeljs-learning-game",
-			"main": [
-				"src/games/easeljs/BasePanel.js",
-				"src/games/easeljs/BaseState.js",
-				"src/games/easeljs/LearningGame.js"
+				
+				"src/learning/LearningDispatcher.less",
+				"src/learning/LearningMedia.js",
+				"src/learning/LearningPlugin.js"
 			]
 		},
 		"hinting": {
@@ -181,7 +201,14 @@
 				"src/hinting/AnimatorHint.js",
 				"src/hinting/FunctionHint.js",
 				"src/hinting/GroupHint.js",
-				"src/hinting/HintPlayer.js"
+				"src/hinting/HintPlayer.js",
+				"src/hinting/HintingPlugin.js"
+			]
+		},
+		"containergame": {
+			"output": "container-game",
+			"main": [
+				"src/container/ContainerGamePlugin.js"
 			]
 		},
 		"container": {
@@ -190,15 +217,6 @@
 				"src/container/Features.js",
 				"src/container/GameContainer.js",
 				"src/container/LearningGameContainer.js"
-			]
-		},
-		"learninggame": {
-			"output": "learning-game",
-			"main": [
-				"src/utils/StringFilters.js",
-				"src/games/LearningGameMedia.js",
-				"src/games/LearningGame.js",
-				"src/games/LearningGame.less"
 			]
 		}
 	}
