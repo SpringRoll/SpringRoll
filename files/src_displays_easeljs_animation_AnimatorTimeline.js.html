@@ -626,17 +626,34 @@
 	 */
 	p._nextItem = function()
 	{
-		//reset variables
-		this.soundEnd = this.soundStart = 0;
-		this.isLooping = this.playSound = this.useCaptions = false;
-		this.soundInst = this.soundAlias = null;
-		this.startTime = this.length = 0;
-		this.firstFrame = this.lastFrame = -1;
-		//see if the animation list is complete
-		if(++this.listIndex &gt;= this.eventList.length)
+		var repeat = false;
+		//if on a looping animation, set up the animation to be replayed
+		// - this will only happen on looping animations with audio
+		if(this.isLooping)
 		{
-			this.complete = true;
-			return;
+			//if sound is playing, we need to stop it immediately
+			//otherwise it can interfere with replaying the audio
+			if(this.soundInst)
+				this.soundInst.stop();
+			//say that we are repeating, so that we start at the beginning of the loop
+			//in case it started part way in
+			repeat = true;
+		}
+		else
+		{
+			//reset variables
+			this.soundEnd = this.soundStart = 0;
+			this.isLooping = this.playSound = this.useCaptions = false;
+			this.soundInst = this.soundAlias = null;
+			this.startTime = this.length = 0;
+			this.firstFrame = this.lastFrame = -1;
+			
+			//see if the animation list is complete
+			if(++this.listIndex &gt;= this.eventList.length)
+			{
+				this.complete = true;
+				return;
+			}
 		}
 		//take action based on the type of item in the list
 		var listItem = this.eventList[this.listIndex];
@@ -652,7 +669,10 @@
 				this.speed = listItem.speed;
 				this.isLooping = listItem.loop;
 				var animStart = listItem.animStart;
-				this._time_sec = animStart &lt; 0 ? Math.random() * this.duration : animStart;
+				if(repeat)
+					this._time_sec = 0;
+				else
+					this._time_sec = animStart &lt; 0 ? Math.random() * this.duration : animStart;
 				if(listItem.alias)
 				{
 					this.soundAlias = listItem.alias;

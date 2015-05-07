@@ -1233,7 +1233,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 158,
+            "line": 184,
             "requires": [
                 "Core",
                 "EaselJS Display"
@@ -1313,7 +1313,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 8,
+            "line": 12,
             "requires": [
                 "Core",
                 "EaselJS Display"
@@ -1893,17 +1893,17 @@
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
             "line": 10,
-            "description": "Handles a spritesheet. File extensions and folder paths are dropped from frame names upon loading.",
+            "description": "Handles a spritesheet. File extensions and folder paths are dropped from frame names upon\nloading.",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "image",
-                    "description": "The image that all textures pull from.\n     This can also be an array of images, if the TextureAtlas should be built from several spritesheets.",
+                    "description": "The image that all textures pull from. This can\n                                             also be an array of images, if the TextureAtlas\n                                             should be built from several spritesheets.",
                     "type": "Image|HTMLCanvasElement|Array"
                 },
                 {
                     "name": "spritesheetData",
-                    "description": "The JSON object describing the frames in the atlas.\n     This is expected to fit the JSON Hash format as exported from TexturePacker.\n     This can also be an array of data objects, if the TextureAtlas should be built from several spritesheets.",
+                    "description": "The JSON object describing the frames in the atlas. This\n                                      is expected to fit the JSON Hash format as exported from\n                                      TexturePacker. This can also be an array of data\n                                      objects, if the TextureAtlas should be built from\n                                      several spritesheets.",
                     "type": "Object|Array"
                 }
             ]
@@ -1919,7 +1919,7 @@
             "module": "EaselJS Animation",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 158,
+            "line": 184,
             "description": "A Texture - a specific portion of an image that can then be drawn by a Bitmap.\nThis class is hidden within TextureAtlas, and can't be manually created."
         },
         "springroll.easeljs.Cutscene": {
@@ -2395,7 +2395,7 @@
             "module": "EaselJS Utilities",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 8,
+            "line": 12,
             "description": "Designed to provide utility related to Bitmaps."
         },
         "springroll.easeljs.DisplayAdapter": {
@@ -6673,12 +6673,12 @@
             "params": [
                 {
                     "name": "instance",
-                    "description": "The MovieClip or display object with the same API\n                                         to animate.",
+                    "description": "The MovieClip or display object with the same API\n                                        to animate.",
                     "type": "createjs.DisplayObject"
                 },
                 {
                     "name": "eventList",
-                    "description": "One of or an array of the following\n* objects in the format:\n\n        {\n            anim:\"myAnim\",\n            start:0,\n            speed:1,\n            audio:{alias:\"MyAlias\", start:300}\n        }\n\n    * anim is the frame label of the animation to play, e.g. \"onClose\" to \"onClose_stop\".\n    * start is milliseconds into the animation to start (0 if omitted). A value of -1\n        starts from a random time in the animation.\n    * speed is a multiplier for the animation speed (1 if omitted).\n    * audio is audio to sync the animation to using springroll.Sound. audio can be a String\n        if you want the audio to start 0 milliseconds into the animation.\n* strings - frame labels, e.g. \"onClose\" to \"onClose_stop\".\n* numbers - milliseconds to wait.\n* functions - called upon reaching, followed immediately by the next item.",
+                    "description": "One of or an array of the following\n* objects in the format:\n\n       {\n           anim:\"myAnim\",\n           start:0,\n           speed:1,\n           audio:{alias:\"MyAlias\", start:300}\n       }\n\n   * anim is the frame label of the animation to play, e.g. \"onClose\" to \"onClose_stop\".\n   * start is milliseconds into the animation to start (0 if omitted). A value of -1\n       starts from a random time in the animation.\n   * speed is a multiplier for the animation speed (1 if omitted).\n   * audio is audio to sync the animation to using springroll.Sound. audio can be a String\n       if you want the audio to start 0 milliseconds into the animation.\n* strings - frame labels, e.g. \"onClose\" to \"onClose_stop\".\n* numbers - milliseconds to wait.\n* functions - called upon reaching, followed immediately by the next item.",
                     "type": "String|Object|Array"
                 },
                 {
@@ -6745,7 +6745,7 @@
         {
             "file": "src/displays/easeljs/animation/Animator.js",
             "line": 370,
-            "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\n\tMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\n\twith a unique value for each createjs.DisplayObject. If a custom object is made that does\n\tnot inherit from DisplayObject, it needs to not have an id that is identical to anything\n\tfrom EaselJS.",
+            "description": "Determines if a given instance can be animated by Animator, to allow things that aren't\nMovieClips from EaselJS to be animated if they share the same API. Note - 'id' is a property\nwith a unique value for each createjs.DisplayObject. If a custom object is made that does\nnot inherit from DisplayObject, it needs to not have an id that is identical to anything\nfrom EaselJS.",
             "itemtype": "method",
             "name": "canAnimate",
             "params": [
@@ -6856,7 +6856,7 @@
             "params": [
                 {
                     "name": "container",
-                    "description": "Specify a container to stop timelines\n       contained within. This only checks one layer deep.",
+                    "description": "Specify a container to stop timelines\n                                        contained within. This only checks one layer deep.",
                     "type": "createjs.Container",
                     "optional": true
                 },
@@ -7027,7 +7027,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 900,
+            "line": 902,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -7046,7 +7046,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 914,
+            "line": 916,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -7065,7 +7065,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 932,
+            "line": 934,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -7082,7 +7082,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 946,
+            "line": 948,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -7363,7 +7363,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/AnimatorTimeline.js",
-            "line": 225,
+            "line": 245,
             "description": "The position of the current animation, or the current pause timer, in milliseconds.",
             "itemtype": "property",
             "name": "time",
@@ -7376,7 +7376,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/AnimatorTimeline.js",
-            "line": 235,
+            "line": 255,
             "description": "Sets and gets the animation's paused status.",
             "itemtype": "property",
             "name": "paused",
@@ -8086,7 +8086,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 22,
+            "line": 27,
             "description": "The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.",
             "itemtype": "property",
             "name": "_image",
@@ -8099,7 +8099,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 37,
+            "line": 42,
             "description": "The dictionary of Textures that this atlas consists of.",
             "itemtype": "property",
             "name": "frames",
@@ -8110,7 +8110,18 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 65,
+            "line": 53,
+            "description": "The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,\notherwise",
+            "itemtype": "property",
+            "name": "scale",
+            "type": "Number",
+            "class": "springroll.easeljs.TextureAtlas",
+            "module": "EaselJS Animation",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/animation/TextureAtlas.js",
+            "line": 87,
             "description": "Gets a frame by name.",
             "itemtype": "method",
             "name": "getFrame",
@@ -8131,36 +8142,36 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 76,
-            "description": "Get an array of Textures that match a specific name. If a frame in a sequence is not in the atlas,\nthe previous frame in the sequence is used in place of it.",
+            "line": 98,
+            "description": "Get an array of Textures that match a specific name. If a frame in a sequence is not in the\natlas, the previous frame in the sequence is used in place of it.",
             "itemtype": "method",
             "name": "getFrames",
             "params": [
                 {
                     "name": "name",
-                    "description": "The base name of all frames to look for, like \"anim_#\" to search for an animation exported\n       as anim_0001.png (the \".png\" is dropped when the TextureAtlas is loaded).",
+                    "description": "The base name of all frames to look for, like \"anim_#\" to search for an\n                     animation exported as anim_0001.png (the \".png\" is dropped when the\n                     TextureAtlas is loaded).",
                     "type": "String"
                 },
                 {
                     "name": "numberMin",
-                    "description": "The number to start on while looking for frames. Flash PNG sequences generally start at 1.",
+                    "description": "The number to start on while looking for frames. Flash PNG sequences\n                       generally start at 1.",
                     "type": "Int"
                 },
                 {
                     "name": "numberMax",
-                    "description": "The number to go until while looking for frames.\n       If your animation runs from frame 0001 to frame 0014, numberMax would be 14.",
+                    "description": "The number to go until while looking for frames. If your animation runs\n                       from frame 0001 to frame 0014, numberMax would be 14.",
                     "type": "Int"
                 },
                 {
                     "name": "maxDigits",
-                    "description": "Maximum number of digits, like 4 for an animation exported as anim_0001.png",
+                    "description": "Maximum number of digits, like 4 for an animation exported as\n                           anim_0001.png",
                     "type": "Int",
                     "optional": true,
                     "optdefault": "4"
                 },
                 {
                     "name": "outArray",
-                    "description": "If already using an array, this can fill it instead of creating a new one.",
+                    "description": "If already using an array, this can fill it instead of creating a\n                          new one.",
                     "type": "Array",
                     "optional": true
                 }
@@ -8175,7 +8186,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 145,
+            "line": 171,
             "description": "Destroys the TextureAtlas by nulling the image and frame dictionary references.",
             "itemtype": "method",
             "name": "destroy",
@@ -8185,7 +8196,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 165,
+            "line": 191,
             "description": "The image element that this texture references.",
             "itemtype": "property",
             "name": "image",
@@ -8196,7 +8207,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 170,
+            "line": 196,
             "description": "If this texture has been rotated (90 degrees clockwise).",
             "itemtype": "property",
             "name": "rotated",
@@ -8207,7 +8218,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 177,
+            "line": 203,
             "description": "The frame rectangle within the image.",
             "itemtype": "property",
             "name": "frame",
@@ -8218,7 +8229,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 182,
+            "line": 210,
             "description": "If this texture has been trimmed.",
             "itemtype": "property",
             "name": "trimmed",
@@ -8229,7 +8240,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 187,
+            "line": 215,
             "description": "The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.",
             "itemtype": "property",
             "name": "offset",
@@ -8240,7 +8251,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 192,
+            "line": 220,
             "description": "The width of the untrimmed texture.",
             "itemtype": "property",
             "name": "width",
@@ -8251,7 +8262,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/TextureAtlas.js",
-            "line": 197,
+            "line": 225,
             "description": "The height of the untrimmed texture.",
             "itemtype": "property",
             "name": "height",
@@ -10281,25 +10292,25 @@
         },
         {
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 14,
+            "line": 18,
             "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat pulls the image from a spritesheet. This function should be\ncalled after you have loaded up javascript assets exported from Flash,\nbut before you have instantiated those assets.",
             "itemtype": "method",
             "name": "loadSpriteSheet",
             "static": 1,
             "params": [
                 {
-                    "name": "frameDict",
-                    "description": "A dictionary of frame information, with frame, trimmed,\n\tand spriteSourceSize properties (like the JSON hash output from TexturePacker).",
+                    "name": "spritesheetData",
+                    "description": "The JSON object describing the frames in the atlas. This is\n                                expected to fit the JSON Hash format as exported from\n                                TexturePacker.",
                     "type": "Object"
                 },
                 {
                     "name": "spritesheetImage",
-                    "description": "The spritesheet image that contains all of the frames.",
+                    "description": "The spritesheet image that contains all of\n                                                  the frames.",
                     "type": "Image|HTMLCanvasElement"
                 },
                 {
                     "name": "scale",
-                    "description": "The scale to apply to all sprites from the spritesheet.\n\tFor example, a half sized spritesheet should have a scale of 2.",
+                    "description": "The scale to apply to all sprites from the spritesheet. For example,\n                          a half sized spritesheet should have a scale of 2.",
                     "type": "Number",
                     "optional": true,
                     "optdefault": "1"
@@ -10311,7 +10322,7 @@
         },
         {
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 96,
+            "line": 114,
             "description": "Creates a faux Bitmap from a TextureAtlas entry.",
             "itemtype": "method",
             "name": "bitmapFromTexture",
@@ -10334,7 +10345,7 @@
         },
         {
             "file": "src/displays/easeljs/utils/BitmapUtils.js",
-            "line": 131,
+            "line": 147,
             "description": "Replaces Bitmaps in the global lib dictionary with a faux Bitmap\nthat uses a scaled bitmap, so you can load up smaller bitmaps behind\nthe scenes that are scaled back up to normal size, or high res bitmaps\nthat are scaled down.",
             "itemtype": "method",
             "name": "replaceWithScaledBitmap",
@@ -12008,7 +12019,7 @@
         },
         {
             "file": "src/displays/pixi/animation/Animator.js",
-            "line": 776,
+            "line": 777,
             "description": "Called when a movie clip is done playing, calls the AnimatorTimeline's\ncallback if it has one",
             "itemtype": "method",
             "name": "_onMovieClipDone",
@@ -12027,7 +12038,7 @@
         },
         {
             "file": "src/displays/pixi/animation/Animator.js",
-            "line": 801,
+            "line": 802,
             "description": "Destroy this",
             "itemtype": "method",
             "name": "destroy",
@@ -12342,7 +12353,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AnimatorTimeline.js",
-            "line": 318,
+            "line": 337,
             "description": "The position of the current animation, or the current pause timer, in milliseconds.",
             "itemtype": "property",
             "name": "time",
@@ -12355,7 +12366,7 @@
         },
         {
             "file": "src/displays/pixi/animation/AnimatorTimeline.js",
-            "line": 328,
+            "line": 347,
             "description": "Sets and gets the animation's paused status.",
             "itemtype": "property",
             "name": "paused",
@@ -14995,7 +15006,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 108,
+            "line": 106,
             "description": "Add the text field to the top of the display list",
             "itemtype": "method",
             "name": "fixDisplayList",
@@ -15007,7 +15018,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 127,
+            "line": 125,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -15026,7 +15037,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 149,
+            "line": 147,
             "description": "Extend the addState method to at a manifest array to each state\nthis will combine manifests from the external file as well any\nmanifests that are loaded in the default config.json \"manifest\" object.",
             "itemtype": "method",
             "name": "addState",
@@ -15048,7 +15059,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 183,
+            "line": 181,
             "description": "Fires OffClick event if click on unhandled object",
             "itemtype": "method",
             "name": "onStageMouseDown",
@@ -15067,7 +15078,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 226,
+            "line": 224,
             "description": "Destroy this game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -15077,7 +15088,7 @@
         },
         {
             "file": "src/games/easeljs/TrackingGame.js",
-            "line": 244,
+            "line": 242,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -15092,7 +15103,7 @@
             "line": 30,
             "description": "The id reference",
             "itemtype": "property",
-            "name": "stateID",
+            "name": "stateId",
             "type": "String",
             "class": "springroll.BaseState",
             "module": "Game",
@@ -16056,6 +16067,19 @@
         {
             "file": "src/games/Game.js",
             "line": 140,
+            "description": "The collection of states",
+            "itemtype": "property",
+            "name": "_states",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.Game",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/Game.js",
+            "line": 147,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "player",
@@ -16066,7 +16090,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 146,
+            "line": 153,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -16077,7 +16101,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 152,
+            "line": 159,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -16088,7 +16112,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 158,
+            "line": 165,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -16099,7 +16123,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 164,
+            "line": 171,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -16110,7 +16134,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 170,
+            "line": 177,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
@@ -16121,7 +16145,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 176,
+            "line": 183,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
@@ -16132,7 +16156,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 201,
+            "line": 208,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
@@ -16142,37 +16166,43 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 207,
+            "line": 214,
             "description": "Before creating the statemanager, a transition\nshould probably be added at this callback",
             "itemtype": "event",
             "name": "initStates",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
             "class": "springroll.Game",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/Game.js",
-            "line": 214,
+            "line": 222,
             "description": "The states are setup, this is the event to listen to\nwhen the game ready to use.",
             "itemtype": "event",
             "name": "statesReady",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
             "class": "springroll.Game",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/Game.js",
-            "line": 221,
+            "line": 230,
             "description": "Initialize the states event, this is where state could be added",
             "itemtype": "event",
             "name": "addStates",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
             "class": "springroll.Game",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/Game.js",
-            "line": 227,
+            "line": 237,
             "description": "Override the do init method",
             "itemtype": "method",
             "name": "onBeforeInit",
@@ -16184,7 +16214,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 244,
+            "line": 254,
             "description": "Callback when the sound has been initialized",
             "itemtype": "method",
             "name": "onSoundReady",
@@ -16196,22 +16226,33 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 261,
+            "line": 271,
             "description": "Manual initialization of the states",
             "itemtype": "method",
             "name": "initStates",
             "access": "protected",
             "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
+            "params": [
+                {
+                    "name": "states",
+                    "description": "The collection of states where the key is the state alias",
+                    "type": "Object"
+                }
+            ],
             "class": "springroll.Game",
             "module": "Game",
             "namespace": "springroll"
         },
         {
             "file": "src/games/Game.js",
-            "line": 313,
+            "line": 287,
             "description": "Add a single state",
             "itemtype": "method",
             "name": "addState",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
             "params": [
                 {
                     "name": "alias",
@@ -16230,10 +16271,12 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 340,
+            "line": 315,
             "description": "Add a bunch of states at once by a dictionary of aliases to states",
             "itemtype": "method",
             "name": "addStates",
+            "deprecated": true,
+            "deprecationMessage": "Will be removed in 0.3.0, use the Game.states setter instead",
             "params": [
                 {
                     "name": "states",
@@ -16247,7 +16290,19 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 353,
+            "line": 329,
+            "description": "The collection of states where the key is the state alias and value is the state display object",
+            "itemtype": "property",
+            "name": "states",
+            "type": "Object",
+            "default": "null",
+            "class": "springroll.Game",
+            "module": "Game",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/games/Game.js",
+            "line": 414,
             "description": "Get or set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -16259,7 +16314,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 392,
+            "line": 453,
             "description": "The SoundInstance for the current music, for adjusting volume.",
             "itemtype": "property",
             "name": "musicInstance",
@@ -16270,7 +16325,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 404,
+            "line": 465,
             "description": "Convenience method to loads a Sound config object.",
             "itemtype": "method",
             "name": "addSounds",
@@ -16352,7 +16407,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 436,
+            "line": 497,
             "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
             "itemtype": "method",
             "name": "addCaptions",
@@ -16369,7 +16424,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 470,
+            "line": 531,
             "description": "Destroy the game, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -16379,7 +16434,7 @@
         },
         {
             "file": "src/games/Game.js",
-            "line": 495,
+            "line": 556,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -19804,7 +19859,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 482,
+            "line": 481,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -19843,7 +19898,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 531,
+            "line": 529,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -19862,7 +19917,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 586,
+            "line": 584,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -19946,7 +20001,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 736,
+            "line": 734,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -19974,7 +20029,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 762,
+            "line": 760,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -19984,7 +20039,7 @@
                 {
                     "name": "result",
                     "description": "The sound to play as an alias or load manifest.",
-                    "type": "String"
+                    "type": "String|Object"
                 }
             ],
             "class": "springroll.Sound",
@@ -19993,7 +20048,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 820,
+            "line": 818,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -20012,7 +20067,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 842,
+            "line": 840,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -20031,7 +20086,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 868,
+            "line": 866,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -20050,7 +20105,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 884,
+            "line": 882,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -20069,7 +20124,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 900,
+            "line": 898,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -20088,7 +20143,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 924,
+            "line": 922,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -20098,7 +20153,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 936,
+            "line": 934,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -20117,7 +20172,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 955,
+            "line": 953,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -20136,7 +20191,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 976,
+            "line": 974,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -20148,7 +20203,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 988,
+            "line": 986,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -20160,7 +20215,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1000,
+            "line": 998,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -20184,7 +20239,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1032,
+            "line": 1030,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -20195,7 +20250,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1043,
+            "line": 1041,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -20219,7 +20274,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1074,
+            "line": 1072,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -20243,7 +20298,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1101,
+            "line": 1099,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -20267,7 +20322,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1155,
+            "line": 1153,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -20291,7 +20346,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1181,
+            "line": 1179,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -20324,7 +20379,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1197,
+            "line": 1195,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -20343,7 +20398,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1221,
+            "line": 1219,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -20362,7 +20417,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1242,
+            "line": 1240,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -20427,10 +20482,10 @@
         {
             "file": "src/media/SoundInstance.js",
             "line": 22,
-            "description": "SoundJS SoundInstanceance, essentially a sound channel.",
+            "description": "SoundJS SoundInstance, essentially a sound channel.",
             "itemtype": "property",
             "name": "_channel",
-            "type": "createjs.SoundInstanceance",
+            "type": "createjs.SoundInstance",
             "access": "private",
             "tagname": "",
             "class": "springroll.SoundInstance",
@@ -20652,7 +20707,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 176,
+            "line": 179,
             "description": "Updates the volume of this SoundInstance.",
             "itemtype": "method",
             "name": "updateVolume",
@@ -20671,7 +20726,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 201,
+            "line": 204,
             "description": "The current sound volume (0 to 1). This is multiplied by the sound context's volume to\nget the actual sound volume.",
             "itemtype": "property",
             "name": "volume",
@@ -20684,7 +20739,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 216,
+            "line": 219,
             "description": "The sound pan value, from -1 (left) to 1 (right).",
             "itemtype": "property",
             "name": "pan",
@@ -20697,7 +20752,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 231,
+            "line": 234,
             "description": "Pauses this SoundInstance.",
             "itemtype": "method",
             "name": "pause",
@@ -20709,7 +20764,7 @@
         },
         {
             "file": "src/media/SoundInstance.js",
-            "line": 244,
+            "line": 247,
             "description": "Unpauses this SoundInstance.",
             "itemtype": "method",
             "name": "unpause",

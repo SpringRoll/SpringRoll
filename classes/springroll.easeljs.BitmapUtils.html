@@ -444,7 +444,7 @@
 
 
     <div class='foundat'>
-      Defined in: <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l8'><code>springroll.easeljs.BitmapUtils:8</code></a>
+      Defined in: <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l12'><code>springroll.easeljs.BitmapUtils:12</code></a>
     </div>
 
       Module:
@@ -529,7 +529,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l96'><code>bitmapFromTexture:96</code></a>
+                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l114'><code>bitmapFromTexture:114</code></a>
               </p>
           
           
@@ -579,7 +579,7 @@
                 <span class='paren'>(</span>
                 <ul class='args-list inline commas'>
                     <li class='arg'>
-                        <code>frameDict</code>
+                        <code>spritesheetData</code>
                     </li>
                     <li class='arg'>
                         <code>spritesheetImage</code>
@@ -603,7 +603,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l14'><code>loadSpriteSheet:14</code></a>
+                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l18'><code>loadSpriteSheet:18</code></a>
               </p>
           
           
@@ -623,13 +623,14 @@
           
                 <ul class='params-list'>
                     <li class='param'>
-                        <code class='param-name'>frameDict</code>
+                        <code class='param-name'>spritesheetData</code>
                         <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
           
           
                       <div class='param-description'>
-                        <p>A dictionary of frame information, with frame, trimmed,
-              and spriteSourceSize properties (like the JSON hash output from TexturePacker).</p>
+                        <p>The JSON object describing the frames in the atlas. This is
+                                          expected to fit the JSON Hash format as exported from
+                                          TexturePacker.</p>
           
                       </div>
           
@@ -640,7 +641,8 @@
           
           
                       <div class='param-description'>
-                        <p>The spritesheet image that contains all of the frames.</p>
+                        <p>The spritesheet image that contains all of
+                                                            the frames.</p>
           
                       </div>
           
@@ -652,8 +654,8 @@
           
           
                       <div class='param-description'>
-                        <p>The scale to apply to all sprites from the spritesheet.
-              For example, a half sized spritesheet should have a scale of 2.</p>
+                        <p>The scale to apply to all sprites from the spritesheet. For example,
+                                    a half sized spritesheet should have a scale of 2.</p>
           
                       </div>
           
@@ -690,7 +692,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l131'><code>replaceWithScaledBitmap:131</code></a>
+                <a href='../files/src_displays_easeljs_utils_BitmapUtils.js.html#l147'><code>replaceWithScaledBitmap:147</code></a>
               </p>
           
           

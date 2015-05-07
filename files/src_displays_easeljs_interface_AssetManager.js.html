@@ -681,7 +681,7 @@
 						src: manifestData.atlasData
 					});
 					//look for color/alpha split spritesheets
-					if(checkedManifest.alpha)
+					if(manifestData.alpha)
 					{
 						checkedManifest.push({
 							id: &quot;colorSplit-alpha_&quot; + (manifestData.splitForEaselJS ? &quot;spriteImage_&quot; : &quot;atlasImage_&quot;) + id,
@@ -792,7 +792,7 @@
 				id = extractAssetName(id);
 				atlasData[id] = content;
 			}
-			else if(id.indexOf(&quot;atlasImage_&quot;) === 0)
+			else if(id.indexOf(&quot;atlasImage_&quot;) &gt; -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
@@ -822,7 +822,7 @@
 				id = extractAssetName(id);
 				spriteData[id] = content;
 			}
-			else if(id.indexOf(&quot;spriteImage_&quot;) === 0)
+			else if(id.indexOf(&quot;spriteImage_&quot;) &gt; -1)
 			{
 				id = extractAssetName(id);
 				if(manifestData)
@@ -860,7 +860,7 @@
 				var text = content.text;
 				if(!text) continue;
 				//split into the initialization functions, that take &#x27;lib&#x27; as a parameter
-				var textArray = text.split(/\(function\s*\(/);
+				var textArray = text.split(/[\(!]function\s*\(/);
 				//go through each initialization function
 				for(var i = 0; i &lt; textArray.length; ++i)
 				{
@@ -933,7 +933,7 @@
 					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
 				var frames = spriteData[id].frames;
 				//diseminate the spritesheet into individual &#x27;Bitmap&#x27;
-				BitmapUtils.loadSpriteSheet(frames, spriteImage[id]);
+				BitmapUtils.loadSpriteSheet(spriteData[id], spriteImage[id]);
 				//keep track of the things that it loaded so we can remove them properly
 				for(var frame in frames)
 				{
