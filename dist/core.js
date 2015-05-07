@@ -1285,7 +1285,6 @@
 
 		// Cannot change these properties after setup
 		this.readOnly(
-			'framerate',
 			'name',
 			'resizeElement',
 			'useQueryString',
@@ -1296,8 +1295,7 @@
 		);
 
 		// Convert these to DOM elements
-		parseDOMElement(this._properties.resizeElement);
-		parseDOMElement(this._properties.framerate);
+		this.asDOMElement('resizeElement');
 
 		this.respond('updateTween', function()
 		{
@@ -1365,12 +1363,13 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private parseDOMElement
-	 * @param {Property} prop The value to convert
+	 * @private asDOMElement
+	 * @param {String} name The property name to fetch
 	 */
-	var parseDOMElement = function(prop)
+	p.asDOMElement = function(name)
 	{
-		if (prop.value && typeof prop.value == "string")
+		var prop = this._properties[name];
+		if (prop && prop.value && typeof prop.value === "string")
 		{
 			prop.value = document.getElementById(prop.value);
 		}
@@ -1439,9 +1438,9 @@
 		/**
 		 * If using TweenJS, the Application will update the Tween itself.
 		 * @property {Boolean} updateTween
-		 * @default false
+		 * @default true
 		 */
-		updateTween: false,
+		updateTween: true,
 
 		/**
 		 * Used by `springroll.PixiTask`, default behavior
@@ -1450,12 +1449,6 @@
 		 * @default false
 		 */
 		crossOrigin: false,
-
-		/**
-		 * Framereate container
-		 * @property {String|DOMElement} framerate
-		 */
-		framerate: null,
 
 		/**
 		 * If doing uniform resizing, optional parameter to add
@@ -1587,33 +1580,13 @@
 	 */
 	Application._plugins = [];
 
-	/**
-	 *  The frame rate object
-	 *  @private
-	 *  @property {DOMObject} _framerate
-	 */
-	var _framerate = null,
-
+	var 
 		/**
 		 *  The number of ms since the last frame update
 		 *  @private
 		 *  @property {int} _lastFrameTime
 		 */
 		_lastFrameTime = 0,
-
-		/**
-		 *  The last time since the last fps update
-		 *  @private
-		 *  @property {int} _lastFPSUpdateTime
-		 */
-		_lastFPSUpdateTime = 0,
-
-		/**
-		 *  The number of frames since the last fps update
-		 *  @private
-		 *  @property {int} _frameCount
-		 */
-		_frameCount = 0,
 
 		/**
 		 *	The bound callback for listening to tick events
@@ -1809,10 +1782,10 @@
 			_msPerFrame = (1000 / value) | 0;
 		}); 
 
-		if (options.framerate)
-		{
-			_framerate = options.framerate;
-		}
+		// if (options.framerate)
+		// {
+		// 	_framerate = options.framerate;
+		// }
 
 		if (options.resizeElement)
 		{
@@ -1953,8 +1926,6 @@
 						requestAnimFrame(_tickCallback) :
 						setTargetedTimeout(_tickCallback);
 				}
-				_frameCount = 0;
-				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
 	});
@@ -2137,30 +2108,16 @@
 		}
 
 		var now = TimeUtils.now();
-		var dTime = now - _lastFrameTime;
-
-		// Only update the framerate every second
-		if (_framerate)
-		{
-			_frameCount++;
-			var elapsed = now - _lastFPSUpdateTime;
-			if (elapsed >= 1000)
-			{
-				var framerateValue = 1000 / elapsed * _frameCount;
-				_framerate.innerHTML = "FPS: " + (Math.round(framerateValue * 1000) / 1000);
-				_lastFPSUpdateTime = now;
-				_frameCount = 0;
-			}
-		}
+		var elapsed = now - _lastFrameTime;
 		_lastFrameTime = now;
 
 		//trigger the update event
-		this.trigger(UPDATE, dTime);
+		this.trigger(UPDATE, elapsed);
 
 		//then update all displays
 		for (var key in _displays)
 		{
-			_displays[key].render(dTime);
+			_displays[key].render(elapsed);
 		}
 
 		//request the next tick
@@ -2198,7 +2155,7 @@
 
 		_instance =
 		_tickCallback =
-		_framerate =
+		// _framerate =
 		_resizeElement = null;
 
 		this.options.destroy();
@@ -2263,7 +2220,7 @@
 	 */
 	p.ready = function(done)
 	{
-		done.call(this);
+		done();
 	};
 
 	/**
@@ -3680,8 +3637,11 @@
 	// Init the animator
 	p.init = function()
 	{
-		Loader.init();
-		var loader = Loader.instance;
+		/**
+		 * Reference to the loader singleton
+		 * @property {springroll.Loader} loader
+		 */
+		var loader = this.loader = Loader.init();
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -3747,7 +3707,11 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		Loader.instance.destroy();
+		if (this.loader)
+		{
+			this.loader.destroy();
+			this.loader = null;
+		}
 	};
 
 	// register plugin

@@ -98,33 +98,13 @@
 	 */
 	Application._plugins = [];
 
-	/**
-	 *  The frame rate object
-	 *  @private
-	 *  @property {DOMObject} _framerate
-	 */
-	var _framerate = null,
-
+	var 
 		/**
 		 *  The number of ms since the last frame update
 		 *  @private
 		 *  @property {int} _lastFrameTime
 		 */
 		_lastFrameTime = 0,
-
-		/**
-		 *  The last time since the last fps update
-		 *  @private
-		 *  @property {int} _lastFPSUpdateTime
-		 */
-		_lastFPSUpdateTime = 0,
-
-		/**
-		 *  The number of frames since the last fps update
-		 *  @private
-		 *  @property {int} _frameCount
-		 */
-		_frameCount = 0,
 
 		/**
 		 *	The bound callback for listening to tick events
@@ -320,10 +300,10 @@
 			_msPerFrame = (1000 / value) | 0;
 		}); 
 
-		if (options.framerate)
-		{
-			_framerate = options.framerate;
-		}
+		// if (options.framerate)
+		// {
+		// 	_framerate = options.framerate;
+		// }
 
 		if (options.resizeElement)
 		{
@@ -464,8 +444,6 @@
 						requestAnimFrame(_tickCallback) :
 						setTargetedTimeout(_tickCallback);
 				}
-				_frameCount = 0;
-				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
 	});
@@ -648,30 +626,16 @@
 		}
 
 		var now = TimeUtils.now();
-		var dTime = now - _lastFrameTime;
-
-		// Only update the framerate every second
-		if (_framerate)
-		{
-			_frameCount++;
-			var elapsed = now - _lastFPSUpdateTime;
-			if (elapsed >= 1000)
-			{
-				var framerateValue = 1000 / elapsed * _frameCount;
-				_framerate.innerHTML = "FPS: " + (Math.round(framerateValue * 1000) / 1000);
-				_lastFPSUpdateTime = now;
-				_frameCount = 0;
-			}
-		}
+		var elapsed = now - _lastFrameTime;
 		_lastFrameTime = now;
 
 		//trigger the update event
-		this.trigger(UPDATE, dTime);
+		this.trigger(UPDATE, elapsed);
 
 		//then update all displays
 		for (var key in _displays)
 		{
-			_displays[key].render(dTime);
+			_displays[key].render(elapsed);
 		}
 
 		//request the next tick
@@ -709,7 +673,7 @@
 
 		_instance =
 		_tickCallback =
-		_framerate =
+		// _framerate =
 		_resizeElement = null;
 
 		this.options.destroy();

@@ -109,11 +109,11 @@
 				"src/displays/easeljs/cutscene/Cutscene.js"
 			]
 		},
-		"game": [
-			"src/games/states/BaseState.js",
-			"src/games/states/StateEvent.js",
-			"src/games/states/StateManager.js",
-			"src/games/Game.js"
+		"states": [
+			"src/states/BaseState.js",
+			"src/states/StateEvent.js",
+			"src/states/StateManager.js",
+			"src/states/StatesPlugin.js"
 		],
 		"tasks": [
 			"src/tasks/TaskEvent.js",
@@ -136,10 +136,12 @@
 			"src/ui/UIElement.js",
 			"src/ui/UIElementSettings.js",
 			"src/ui/Positioner.js",
-			"src/ui/UIScaler.js"
+			"src/ui/UIScaler.js",
+			"src/ui/TouchPlugin.js"
 		],
 		"captions": [
-			"src/media/Captions.js"
+			"src/media/Captions.js",
+			"src/media/CaptionsPlugin.js"
 		],
 		"translate": [
 			"src/utils/Language.js"

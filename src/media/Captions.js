@@ -32,9 +32,9 @@
 	* @constructor
 	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
 	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] A text field
-	*                                               to use as the output for this captions object,
-	*                                               if a string type is supplied, captions will use
-	*                                               the DOMElement by id.
+	*        to use as the output for this captions object,
+	*        if a string type is supplied, captions will use
+	*        the DOMElement by id.
 	* @param {Boolean} [selfUpdate=true] If the captions should update itself
 	*/
 	var Captions = function(captionDictionary, field, selfUpdate)

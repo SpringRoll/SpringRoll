@@ -45,7 +45,6 @@
 var Texture = include('PIXI.Texture'),
 	Sprite = include('PIXI.Sprite'),
 	Point = include('PIXI.Point'),
-	Loader = include('springroll.Loader'),
 	Application = include('springroll.Application'),
 	Debug = include('springroll.Debug'),
 	EButton = include('springroll.easeljs.Button'),
@@ -79,7 +78,7 @@ var pixiSwapButton;
 var createjsSwapButton;
 
 // Extend the createjs container
-var p = DrawingApp.prototype = Object.create(Application.prototype);
+var p = extend(DrawingApp, Application);
 
 p.init = function()
 {
@@ -120,7 +119,7 @@ p.init = function()
 	this._assetLoader.onComplete = this._onCompletedLoad.bind(this);
 	this._assetLoader.load();
 
-	Loader.instance.load(
+	this.loader.load(
 		'assets/images/button.png',
 		this._onCJSButtonLoaded.bind(this)
 	);

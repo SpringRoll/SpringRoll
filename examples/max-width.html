@@ -40,7 +40,6 @@
 <script>
 
 var Application = include('springroll.Application'),
-	Loader = include('springroll.Loader'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 // Create the new application
@@ -66,7 +65,7 @@ app.on('init', function(){
 	// Load the background image which can accomodate the max aspect ratio
 	// in this example: 1000 (w) x 500 (h) = 2.0 aspect ratio
 	// title-safe: 800 (w) x 500 (h) = 1.6 aspect ratio
-	Loader.instance.load('assets/images/background.jpg', function(result){
+	app.loader.load('assets/images/background.jpg', function(result){
 
 		// Add the background to the stage
 		var background = new createjs.Bitmap(result.content);

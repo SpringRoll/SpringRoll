@@ -40,7 +40,7 @@
 	 */
 	p.ready = function(done)
 	{
-		done.call(this);
+		done();
 	};
 
 	/**

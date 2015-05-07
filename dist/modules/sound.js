@@ -1651,11 +1651,8 @@
 	 * managing captions (Captions library) at the same time.
 	 *
 	 * @class VOPlayer
-	 * @constructor
-	 * @param {Captions} [captions=null] If a Captions object should be created for use
-	 *			or the captions object to use
 	 */
-	var VOPlayer = function(captions)
+	var VOPlayer = function()
 	{
 		// Import classes
 		if (!Application)
@@ -1669,8 +1666,6 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-		
-		this.captions = captions || null;
 
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.
@@ -1741,6 +1736,13 @@
 		*	@private
 		*/
 		this._timer = 0;
+
+		/**
+		*	The captions object
+		*	@property {springroll.Captions} _captions
+		*	@private
+		*/
+		this._captions = null;
 	};
 
 	var p = VOPlayer.prototype = {};
@@ -2047,12 +2049,7 @@
 		this._callback = null;
 		this._cancelledCallback = null;
 		this._playedSound = null;
-
-		if (this._captions)
-		{
-			this._captions.destroy();
-			this._captions = null;
-		}
+		this._captions = null;
 	};
 
 	namespace('springroll').VOPlayer = VOPlayer;
@@ -2081,6 +2078,9 @@
 	var SoundPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+
+		// Higher priority for the sound
+		this.priority = 5;
 	};
 
 	// Reference to the prototype
@@ -2093,6 +2093,7 @@
 		 * The relative location to the FlashPlugin swf for SoundJS
 		 * @property {String} options.swfPath
 		 * @default 'assets/swfs/' 
+		 * @readOnly
 		 */
 		this.options.add('swfPath', 'assets/swfs/', true);
 		
@@ -2102,6 +2103,7 @@
 		 * extension on all sound file urls.
 		 * @property {Array} options.audioTypes
 		 * @default ['ogg','mp3'] 
+		 * @readOnly
 		 */
 		this.options.add('audioTypes', ["ogg", "mp3"], true);
 
@@ -2112,6 +2114,7 @@
 			 * (unminifed library version only)
 			 * @property {Boolean} options.mute
 			 * @default false
+			 * @readOnly
 			 */
 			this.options.add('mute', false, true);
 		}
@@ -2137,6 +2140,12 @@
 		this.player = new VOPlayer();
 
 		/**
+		*  The global player for all audio, also accessible through singleton
+		*  @property {springroll.Sound} sound
+		*/
+		this.sound = null;
+
+		/**
 		*  Get or set the current music alias to play
 		*  @property {String} music
 		*  @default null
@@ -2149,7 +2158,7 @@
 				{
 					return;
 				}
-				var sound = Sound.instance;
+				var sound = this.sound;
 
 				if (this._music)
 				{
@@ -2216,7 +2225,7 @@
 		*/
 		this.addSounds = function(config)
 		{
-			Sound.instance.loadConfig(config);
+			this.sound.loadConfig(config);
 			return this;
 		};
 	};
@@ -2236,21 +2245,23 @@
 			ready : function()
 			{
 				if (this.destroyed) return;
-				
+
+				var sound = this.sound = Sound.instance;
+
 				if (true)
 				{
 					// For testing, mute the game if requested
-					Sound.instance.muteAll = !!this.options.mute;
+					sound.muteAll = !!this.options.mute;
 				}
 				// Add listeners to pause and resume the sounds
 				this.on({
 					paused : function()
 					{
-						Sound.instance.pauseAll();
+						sound.pauseAll();
 					},
 					resumed : function()
 					{
-						Sound.instance.unpauseAll();
+						sound.unpauseAll();
 					}
 				});
 
@@ -2269,9 +2280,10 @@
 			this.player.destroy();
 			this.player = null;
 		}
-		if (Sound.instance)
+		if (this.sound)
 		{
-			Sound.instance.destroy();
+			this.sound.destroy();
+			this.sound = null;
 		}
 	};
 

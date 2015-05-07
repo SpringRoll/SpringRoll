@@ -6,11 +6,10 @@
 (function()
 {
 	//Include game
-	var Game = include('springroll.Game'),
-		Debug = include('springroll.Debug', false),
+	var Debug = include('springroll.Debug', false),
+		DebugOptions = include('springroll.DebugOptions', false),
 		Captions = include('springroll.Captions'),
 		Application = include('springroll.Application'),
-		Sound = include('springroll.Sound'),
 		Bellhop = include('Bellhop'),
 		TaskManager = include('springroll.TaskManager'),
 		LoadTask = include('springroll.LoadTask'),
@@ -28,13 +27,9 @@
 	 * @constructor
 	 * @param {object} [options] See SpringRoll's Game class options for the full list
 	 * @param {string} [options.configPath='assets/config/config.json'] The path to the default config to load
-	 * @param {String} [options.captionsPath='assets/config/captions.json'] The path to the captions dictionary. If this is set to null
-	 *     captions will not be created or used by the VO player.
 	 * @param {String} [options.captions='captions'] The id of the captions output DOM Element
 	 * @param {String} [options.canvasId='stage'] The ID fo the DOM element to use as the main display
 	 * @param {String} [options.resizeElement='frame'] The element to resize the display to
-	 * @param {String} [options.framerate='framerate'] The DOM element id for the ouput framerate, the framerate
-	 *     element is created dynamically in dev mode and is added
 	 *     right before the main canvas element (options.canvasId).
 	 * @param {Boolean} [options.singlePlay=false] If the game should be played in single-play mode
 	 * @param {object} [options.playOptions] The optional single-play mode gameplay options
@@ -44,13 +39,8 @@
 		HintPlayer = include('springroll.HintPlayer', false);
 		LearningDispatcher = include('springroll.LearningDispatcher', false);
 
-		options = options || {};
-
-		// The base options, these are overrideable by the
-		// options above, but these are some better defaults
-		var baseOptions = {
-			captions: "captions",
-			captionsPath: 'assets/config/captions.json',
+		// Create the game with options
+		Application.call(this, Object.merge({
 			configPath: 'assets/config/config.json',
 			debug: DEBUG,
 			useQueryString: DEBUG,
@@ -59,26 +49,7 @@
 			resizeElement: "frame",
 			singlePlay: false,
 			playOptions: null
-		};
-
-		// Add the framerate object before the main display
-		// in the markup
-		if (DEBUG)
-		{
-			baseOptions.framerate = "framerate";
-			var canvasId = options.canvasId || baseOptions.canvasId;
-			var stage = document.getElementById(canvasId);
-			if (stage)
-			{
-				var framerate = document.createElement("div");
-				framerate.id = "framerate";
-				framerate.innerHTML = "FPS: 00.000";
-				stage.parentNode.insertBefore(framerate, stage);
-			}
-		}
-
-		// Create the game with options
-		Game.call(this, Object.merge(baseOptions, options));
+		}, options));
 
 		// Make sure we have a game name
 		if (!this.name)
@@ -161,8 +132,8 @@
 			//Setup the messenger listeners for site soundMute and captionsMute events
 			messenger.on(
 			{
-				soundMuted: onSoundMuted,
-				captionsMuted: onCaptionsMuted,
+				soundMuted: onSoundMuted.bind(this),
+				captionsMuted: onCaptionsMuted.bind(this),
 				musicMuted: onContextMuted.bind(this, 'music'),
 				voMuted: onContextMuted.bind(this, 'vo'),
 				sfxMuted: onContextMuted.bind(this, 'sfx'),
@@ -189,31 +160,9 @@
 		 */
 		this.hint = HintPlayer ? new HintPlayer(this) : null;
 
-		if (DEBUG)
+		if (DEBUG && DebugOptions)
 		{
-			/**
-			 * Debug key strokes
-			 * → = trigger a skip to the next state for testing
-			 * ← = trigger a skip to the previous state for testing
-			 * TODO: add 'h' to test hinting
-			 */
-			window.onkeyup = function(e)
-			{
-				var key = e.keyCode ? e.keyCode : e.which;
-				switch (key)
-				{
-					case 39: //right arrow
-						if (Debug) Debug.info("Going to next state via keyboard");
-						this.manager.next();
-						break;
-					case 37: //left arrow
-						if (Debug) Debug.info("Going to previous state via keyboard");
-						this.manager.previous();
-						break;
-				}
-			}.bind(this);
-
-			if (springroll.DebugOptions) springroll.DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
+			DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
 		}
 
 		this.filters = new StringFilters();
@@ -222,18 +171,17 @@
 			this.hasTouch ? '_touch' : '_mouse');
 
 		//Add listener
-		this.once('soundReady', onSoundReady.bind(this));
+		this.once('beforeInit', onBeforeInit.bind(this));
 	};
 
 	//Reference to the prototype
-	var s = Game.prototype;
-	var p = extend(LearningGame, Game);
+	var s = Application.prototype;
+	var p = extend(LearningGame, Application);
 
 	/**
 	 * The game has finished loading
 	 * @event loaded
 	 */
-	var LOADED = 'loaded';
 
 	/**
 	 * The config has finished loading, in case you want to
@@ -242,21 +190,24 @@
 	 * @param {Object} config The JSON object for config
 	 * @param {TaskManager} manager The task manager
 	 */
-	var CONFIG_LOADED = 'configLoaded';
 
 	/**
 	 * The game has started loading
 	 * @event loading
 	 * @param {Array} tasks The list of tasks to preload
 	 */
-	var LOADING = 'loading';
+
+	/**
+	 * Initialize the state manager
+	 * @event addStates
+	 */
 
 	/**
 	 * When the game is initialized
-	 * @method onSoundReady
+	 * @method onBeforeInit
 	 * @private
 	 */
-	var onSoundReady = function()
+	var onBeforeInit = function()
 	{
 		//Turn off the init until we're done preloading
 		this._readyToInit = false;
@@ -269,20 +220,8 @@
 			)
 		];
 
-		//Load the captions if it's set
-		if (this.options.captionsPath)
-		{
-			tasks.push(
-				new LoadTask(
-					'captions',
-					this.options.captionsPath,
-					onCaptionsLoaded.bind(this)
-				)
-			);
-		}
-
 		//Allow extending game to add additional tasks
-		this.trigger(LOADING, tasks);
+		this.trigger('loading', tasks);
 		TaskManager.process(tasks, onTasksComplete.bind(this));
 	};
 
@@ -355,17 +294,6 @@
 	};
 
 	/**
-	 * Callback when the captions are loaded
-	 * @method onConfigLoaded
-	 * @private
-	 * @param {springroll.LoaderResult} result The Loader result from the load task
-	 */
-	var onCaptionsLoaded = function(result)
-	{
-		this.addCaptions(result.content);
-	};
-
-	/**
 	 * Callback when the config is loaded
 	 * @method onConfigLoaded
 	 * @private
@@ -407,7 +335,7 @@
 
 		this.media = new LearningGameMedia(this);
 
-		this.trigger(CONFIG_LOADED, config, manager);
+		this.trigger('configLoaded', config, manager);
 	};
 
 	/**
@@ -417,8 +345,8 @@
 	 */
 	var onTasksComplete = function()
 	{
-		//Intialize the state manager
-		this.initStates();
+		// Listen to this event to add the states
+		this.trigger('addStates');
 
 		var config = this.config;
 		var designed = config.designedSettings;
@@ -466,7 +394,7 @@
 
 		//Ready to initialize
 		this._readyToInit = true;
-		this.trigger(LOADED);
+		this.trigger('loaded');
 		this._doInit();
 	};
 
@@ -479,8 +407,7 @@
 	var onCaptionsStyles = function(e)
 	{
 		var styles = e.data;
-		var captions = this.captions ||
-		{};
+		var captions = this.captions || {};
 		var textField = captions.textField || null;
 
 		// Make sure we have a text field and a DOM object
@@ -503,7 +430,7 @@
 	 */
 	var onSoundMuted = function(e)
 	{
-		Sound.instance.muteAll = !!e.data;
+		this.sound.muteAll = !!e.data;
 	};
 
 	/**
@@ -514,7 +441,7 @@
 	 */
 	var onCaptionsMuted = function(e)
 	{
-		Captions.muteAll = !!e.data;
+		this.captions.muteAll = !!e.data;
 	};
 
 	/**
@@ -526,7 +453,7 @@
 	 */
 	var onContextMuted = function(context, e)
 	{
-		Sound.instance.setContextMute(context, !!e.data);
+		this.sound.setContextMute(context, !!e.data);
 	};
 
 	/**
@@ -641,23 +568,6 @@
 		}
 
 		this.config = null;
-
-		if (DEBUG)
-		{
-			// Remove the framerate container
-			var framerate = document.getElementById(this.options.framerate);
-			if (framerate && framerate.parentNode)
-			{
-				framerate.parentNode.removeChild(framerate);
-			}
-		}
-
-		// Remove the captions
-		var captions = document.getElementById(this.options.captions);
-		if (captions && captions.parentNode)
-		{
-			captions.parentNode.removeChild(captions);
-		}
 
 		try
 		{

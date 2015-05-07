@@ -65,7 +65,6 @@
 
 		// Cannot change these properties after setup
 		this.readOnly(
-			'framerate',
 			'name',
 			'resizeElement',
 			'useQueryString',
@@ -76,8 +75,7 @@
 		);
 
 		// Convert these to DOM elements
-		parseDOMElement(this._properties.resizeElement);
-		parseDOMElement(this._properties.framerate);
+		this.asDOMElement('resizeElement');
 
 		this.respond('updateTween', function()
 		{
@@ -145,12 +143,13 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private parseDOMElement
-	 * @param {Property} prop The value to convert
+	 * @private asDOMElement
+	 * @param {String} name The property name to fetch
 	 */
-	var parseDOMElement = function(prop)
+	p.asDOMElement = function(name)
 	{
-		if (prop.value && typeof prop.value == "string")
+		var prop = this._properties[name];
+		if (prop && prop.value && typeof prop.value === "string")
 		{
 			prop.value = document.getElementById(prop.value);
 		}
@@ -219,9 +218,9 @@
 		/**
 		 * If using TweenJS, the Application will update the Tween itself.
 		 * @property {Boolean} updateTween
-		 * @default false
+		 * @default true
 		 */
-		updateTween: false,
+		updateTween: true,
 
 		/**
 		 * Used by `springroll.PixiTask`, default behavior
@@ -230,12 +229,6 @@
 		 * @default false
 		 */
 		crossOrigin: false,
-
-		/**
-		 * Framereate container
-		 * @property {String|DOMElement} framerate
-		 */
-		framerate: null,
 
 		/**
 		 * If doing uniform resizing, optional parameter to add

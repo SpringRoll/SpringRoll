@@ -40,7 +40,6 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
@@ -49,13 +48,11 @@
 var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	Debug = include('springroll.Debug'),
-	Loader = include('springroll.Loader'),
 	LearningDispatcher = include('springroll.LearningDispatcher'),
 	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
 
 // Create the new application
 var app = new Application({
-	framerate: "framerate", // optional
 	canvasId: "stage",
 	debug: true,
 	display: EaselJSDisplay,
@@ -73,7 +70,7 @@ var buttonImage;
 // Wait until the app is ready
 app.on('init', function(){
 
-	Loader.instance.load('../test/data/spec.json', function(result){
+	app.loader.load('../test/data/spec.json', function(result){
 
 		// Create the learning dispatcher
 		tracker = new LearningDispatcher(
@@ -92,7 +89,7 @@ app.on('init', function(){
 
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
-	Loader.instance.load('assets/images/button.png', function(result){
+	app.loader.load('assets/images/button.png', function(result){
 
 		buttonImage = result.content;
 

@@ -28,8 +28,11 @@
 	// Init the animator
 	p.init = function()
 	{
-		Loader.init();
-		var loader = Loader.instance;
+		/**
+		 * Reference to the loader singleton
+		 * @property {springroll.Loader} loader
+		 */
+		var loader = this.loader = Loader.init();
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -95,7 +98,11 @@
 	// Destroy the animator
 	p.destroy = function()
 	{
-		Loader.instance.destroy();
+		if (this.loader)
+		{
+			this.loader.destroy();
+			this.loader = null;
+		}
 	};
 
 	// register plugin
