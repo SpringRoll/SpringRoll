@@ -1144,6 +1144,20 @@
 			if (onNext)
 			{
 				t._time_sec += extraTime;
+				while(t._time_sec >= t.duration)
+				{
+					extraTime = t._time_sec - t.duration;
+					t._nextItem();
+					if (t.complete)
+					{
+						if (t.firstFrame >= 0)
+							instance.gotoAndStop(t.lastFrame);
+						_removedTimelines.push(t);
+						continue;
+					}
+					t._time_sec += extraTime;
+				}
+				
 				if (t.firstFrame >= 0)
 					instance.gotoAndPlay(t.firstFrame);
 				if (t.playSound && t._time_sec >= t.soundStart)
@@ -1904,7 +1918,8 @@
 					this._t += time * 0.001;//milliseconds -> seconds
 				if(this._t > this._duration)
 					this._t = this.loop ? this._t - this._duration : this._duration;
-				this._prevPosition = Math.floor(this._t * this._framerate);
+				//add a tiny amount to stop floating point errors in their tracks
+				this._prevPosition = Math.floor(this._t * this._framerate * 0.0000001);
 				if(this._prevPosition >= this._frames.length)
 					this._prevPosition = this._frames.length - 1;
 			}

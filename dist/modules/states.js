@@ -8,7 +8,8 @@
 {
 	// Imports
 	var Debug,
-		StateManager;
+		StateManager,
+		DelayedCall;
 	
 	/**
 	*  Defines the base functionality for a state used by the state manager
@@ -22,10 +23,11 @@
 	*/
 	var BaseState = function(panel, nextState, prevState)
 	{
-		Debug = include('springroll.Debug', false);
 		if(!StateManager)
 		{
 			StateManager = include('springroll.StateManager');
+			DelayedCall = include('springroll.DelayedCall');
+			Debug = include('springroll.Debug', false);
 		}
 
 		/**
@@ -244,12 +246,20 @@
 	*   Internal function to finish the preloading
 	*
 	*   @method loadingDone
+	*   @param {int} [delay=0] Frames to delay the load completion to allow the framerate to
+	*                          stabilize.
 	*/
-	p.loadingDone = function()
+	p.loadingDone = function(delay)
 	{
 		if (!this._isLoading)
 		{
 			if (true && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
+			return;
+		}
+		
+		if(delay && typeof delay == "number")
+		{
+			new DelayedCall(this.loadingDone.bind(this), delay, false, true, true);
 			return;
 		}
 		
@@ -442,7 +452,7 @@
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
-	 *  The State Manager used for managing the different states of a game or site 
+	 *  The State Manager used for managing the different states of a game or site
 	 *
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
@@ -919,20 +929,14 @@
 	*/
 	p._loopTransition = function()
 	{
-		var audio,
-			animator = this._display.animator;
+		var audio;
 
 		if (this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
 		}
-
-		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
-		{
-			animator.play(this._transition,
-							{anim:"transitionLoop", audio:audio},
-							this._loopTransition);
-		}
+		
+		this._display.animator.play(this._transition, {anim:"transitionLoop", audio:audio});
 	};
 	
 	/**

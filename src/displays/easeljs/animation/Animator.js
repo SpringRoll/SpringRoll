@@ -863,6 +863,20 @@
 			if (onNext)
 			{
 				t._time_sec += extraTime;
+				while(t._time_sec >= t.duration)
+				{
+					extraTime = t._time_sec - t.duration;
+					t._nextItem();
+					if (t.complete)
+					{
+						if (t.firstFrame >= 0)
+							instance.gotoAndStop(t.lastFrame);
+						_removedTimelines.push(t);
+						continue;
+					}
+					t._time_sec += extraTime;
+				}
+				
 				if (t.firstFrame >= 0)
 					instance.gotoAndPlay(t.firstFrame);
 				if (t.playSound && t._time_sec >= t.soundStart)

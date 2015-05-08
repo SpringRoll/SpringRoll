@@ -702,6 +702,22 @@
 			{
 				prevTime = 0;
 				t._time_sec += extraTime;
+				while(t._time_sec >= t.duration)
+				{
+					extraTime = t._time_sec - t.duration;
+					t._nextItem();
+					if (t.complete)
+					{
+						if(t.clip.gotoAndStop)
+							t.clip.gotoAndStop(t.clip.textures.length - 1);
+						else
+							updateClip(t, t._time_sec, prevTime);
+						_onMovieClipDone(t);
+						continue;
+					}
+					t._time_sec += extraTime;
+				}
+				
 				if(t.playSound && t._time_sec >= t.soundStart)
 				{
 					t._time_sec = t.soundStart;
