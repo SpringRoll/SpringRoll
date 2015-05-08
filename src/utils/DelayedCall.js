@@ -7,17 +7,21 @@
 	var Application = include('springroll.Application');
 
 	/**
-	*  A class for delaying a call through the Application, instead of relying on setInterval() or setTimeout().
-	* 
+	*  A class for delaying a call through the Application, instead of relying on setInterval() or
+	*  setTimeout().
+	*
 	*  @class DelayedCall
 	*  @constructor
 	*  @param {function} callback The function to call when the delay has completed.
-	*  @param {int} delay The time to delay the call, in milliseconds.
-	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when completed.
+	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
+	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when
+	*                                  completed.
 	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
+	*                                     milliseconds for the delay.
 	*/
-	var DelayedCall = function(callback, delay, repeat, autoDestroy)
-	{		
+	var DelayedCall = function(callback, delay, repeat, autoDestroy, useFrames)
+	{
 		/**
 		*  The function to call when the delay is completed.
 		*  @private
@@ -54,6 +58,14 @@
 		*  @default true
 		*/
 		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+		
+		/**
+		*  If the DelayedCall should use frames instead of milliseconds for the delay.
+		*  @private
+		*  @property {Boolean} _useFrames
+		*  @default false
+		*/
+		this._useFrames = !!useFrames;
 
 		/**
 		*  If the DelayedCall is currently paused (not stopped).
@@ -85,7 +97,7 @@
 			return;
 		}
 
-		this._timer -= elapsed;
+		this._timer -= this._useFrames ? 1 : elapsed;
 		if(this._timer <= 0)
 		{
 			this._callback();
