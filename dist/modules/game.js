@@ -442,7 +442,7 @@
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
-	 *  The State Manager used for managing the different states of a game or site 
+	 *  The State Manager used for managing the different states of a game or site
 	 *
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
@@ -919,20 +919,14 @@
 	*/
 	p._loopTransition = function()
 	{
-		var audio,
-			animator = this._display.animator;
+		var audio;
 
 		if (this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
 		}
-
-		if (animator.instanceHasAnimation(this._transition, "transitionLoop"))
-		{
-			animator.play(this._transition,
-							{anim:"transitionLoop", audio:audio},
-							this._loopTransition);
-		}
+		
+		this._display.animator.play(this._transition, {anim:"transitionLoop", audio:audio});
 	};
 	
 	/**
