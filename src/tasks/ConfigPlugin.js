@@ -47,7 +47,7 @@
 	 */
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The path to the config file to load
@@ -64,7 +64,7 @@
 	};
 
 	// async
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		var tasks = [];
 
@@ -111,7 +111,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.config = null;
 	};

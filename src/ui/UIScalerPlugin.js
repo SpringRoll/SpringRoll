@@ -24,53 +24,67 @@
 	var p = extend(UIScalerPlugin, ApplicationPlugin);
 
 	// Init the scaler
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The main UIScaler for any display object references
 		 * in the main game.
 		 * @property {springroll.UIScaler} scaler
 		 */
-		this.scaler = new UIScaler(this);
+		this.scaler = new UIScaler();
 
 		// Add the display
-		this.once('init', function(done)
+		this.once('afterInit', function()
 		{
 			// Check for the config then auto enable the scaler
-			if (this.config)
+			if (!this.config)
 			{
-				var Debug = include('springroll.Debug', false);
-
-				var config = this.config;
-				var scalerSize = config.scalerSize;
-
-				if (!scalerSize)
-				{
-					Debug.warn("The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
-					return;
-				}
-
-				if (!config.scaler)
-				{
-					Debug.warn("The config requires 'scaler' object which contains all the state scaling items.");
-					return;
-				}
-				this.scaler.size = scalerSize;
-				this.scaler.addItems(config.scaler);
-				this.scaler.enabled = !!this.scaler.numItems;
+				throw "UIScaler requires config";
 			}
-		}, -1); // lower init priority to happen after the art has been created
+			
+			var Debug = include('springroll.Debug', false);
+			var config = this.config;
+			var scalerSize = config.scalerSize;
+
+			if (!scalerSize)
+			{
+				if (DEBUG)
+				{
+					throw "The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
+				}
+				else
+				{
+					throw "No 'scalerSize' config";
+				}
+			}
+
+			if (!config.scaler)
+			{
+				if (DEBUG)
+				{
+					throw "The config requires 'scaler' object which contains all the state scaling items.";
+				}
+				else
+				{
+					throw "No 'scaler' config";
+				}
+			}
+			
+			this.scaler.size = scalerSize;
+			this.scaler.addItems(this, config.scaler);
+			this.scaler.enabled = true;
+		});
 	};
 
-	// display is ready here
-	p.ready = function(done)
+	// Setup the display
+	p.preload = function(done)
 	{
 		this.scaler.display = this.display;
 		done();
 	};
 
 	// clean up
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.scaler.destroy();
 		this.scaler = null;

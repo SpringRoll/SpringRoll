@@ -26,7 +26,7 @@
 	var p = extend(LoaderPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
@@ -81,7 +81,7 @@
 	};
 
 	// Preload task
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
@@ -96,7 +96,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.loader.destroy();
 		this.loader = null;

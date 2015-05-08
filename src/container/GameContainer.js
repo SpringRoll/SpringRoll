@@ -31,8 +31,7 @@
 	{
 		EventDispatcher.call(this);
 
-		options = options ||
-		{};
+		options = options || {};
 
 		/**
 		 * The name of this class
@@ -135,8 +134,7 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) ||
-			{}
+			SavedData.read(CAPTIONS_STYLES) || {}
 		);
 
 		/**
@@ -244,6 +242,40 @@
 	 * Event when a game start loading
 	 * @event open
 	 */
+	
+	/**
+	 * Fired when the enabled status of the help button changes
+	 * @event helpEnabled
+	 * @param {boolean} enabled If the help button is enabled
+	 */
+	
+	/**
+	 * The features supported by the game
+	 * @event features
+	 * @param {Boolean} data.vo If VO vo context is supported
+	 * @param {Boolean} data.music If music context is supported
+	 * @param {Boolean} data.sound If Sound is supported
+	 * @param {Boolean} data.sfx If SFX context is supported
+	 * @param {Boolean} data.learning If learning dispatcher is supported
+	 * @param {Boolean} data.captions If captions is supported
+	 * @param {Boolean} data.hinting If hinting is supported
+	 */
+
+	/**
+	 * Event when dispatching a Learning Dispatcher event
+	 * @event learningEvent
+	 * @param {object} data The event data
+	 */
+
+	/**
+	 * Event when dispatching a Google Analytics event
+	 * @event analyticEvent
+	 * @param {object} data The event data
+	 * @param {string} data.category The event category
+	 * @param {string} data.action The event action
+	 * @param {string} [data.label] The optional label
+	 * @param {number} [data.value] The optional value
+	 */
 
 	/**
 	 * Open a game or path
@@ -282,9 +314,12 @@
 			trackEvent: onTrackEvent.bind(this),
 			progressEvent: onProgressEvent.bind(this),
 			loadDone: onLoadDone.bind(this),
-			helpEnabled: onHelpEnabled.bind(this),
 			endGame: onEndGame.bind(this),
-			gameFocus: onGameFocus.bind(this)
+			gameFocus: onGameFocus.bind(this),
+			analyticEvent: onAnalyticEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
+			features: onFeatures.bind(this)
 		});
 
 		//Open the game in the iframe
@@ -484,6 +519,104 @@
 	};
 
 	/**
+	 * Track an event for springroll LearningDispatcher
+	 * @method onLearningEvent
+	 * @param {event} event The bellhop learningEvent
+	 * @private
+	 */
+	var onLearningEvent = function(event)
+	{
+		this.trigger('learningEvent', event.data);
+	};
+
+	/**
+	 * Handle the game features
+	 * @method onFeatures
+	 * @param {event} event The bellhop features
+	 * @private
+	 */
+	var onFeatures = function(event)
+	{
+		var features = event.data;
+
+		this.voButton.hide();
+		this.musicButton.hide();
+		this.soundButton.hide();
+		this.captionsButton.hide();
+		this.helpButton.hide();
+
+		if (features.vo) this.voButton.show();
+		if (features.music) this.musicButton.show();
+		if (features.sound) this.soundButton.show();
+		if (features.captions) this.captionsButton.show();
+		if (features.helpButton) this.helpButton.show();
+
+		this.trigger('features', features);
+	};
+
+	/**
+	 * Reset the mutes for audio and captions
+	 * @method onHelpEnabled
+	 * @private
+	 */
+	var onHelpEnabled = function(event)
+	{
+		this.helpEnabled = !!event.data;
+	};
+
+	/**
+	 * Track an event for Google Analtyics
+	 * @method onAnalyticEvent
+	 * @private
+	 * @param {event} event Bellhop analyticEvent
+	 */
+	var onAnalyticEvent = function(event)
+	{
+		var data = event.data;
+
+		// PBS Specifc implementation of Google Analytics
+		var GoogleAnalytics = include("GA_obj", false);
+		if (GoogleAnalytics)
+		{
+			GoogleAnalytics.analyticEvent(
+				data.category,
+				data.action,
+				data.label,
+				data.value
+			);
+		}
+
+		// Generic implementation of Google Analytics
+		GoogleAnalytics = include('ga', false);
+		if (GoogleAnalytics)
+		{
+			GoogleAnalytics('send',
+			{
+				'hitType': 'event',
+				'eventCategory': data.category,
+				'eventAction': data.action,
+				'eventLabel': data.label,
+				'eventValue': data.value
+			});
+		}
+
+		this.trigger('analyticEvent', event.data);
+	};
+
+	/**
+	 * Handler when the play hint button is clicked
+	 * @method onPlayHelp
+	 * @private
+	 */
+	var onPlayHelp = function()
+	{
+		if (!this.paused && !this.helpButton.hasClass('disabled'))
+		{
+			this.messenger.send('playHelp');
+		}
+	};
+
+	/**
 	 * The game ended and destroyed itself
 	 * @method onEndGame
 	 * @private
@@ -526,10 +659,42 @@
 			// Set the pause button state
 			this.pauseButton.removeClass('unpaused paused')
 				.addClass(paused ? 'paused' : 'unpaused');
+
+			// Disable the help button when paused if it's active
+			if (paused && !this.helpButton.hasClass('disabled'))
+			{
+				this.helpButton.data('paused', true);
+				this.helpEnabled = false;
+			}
+			else if (this.helpButton.data('paused'))
+			{
+				this.helpButton.removeData('paused');
+				this.helpEnabled = true;
+			}
 		},
 		get: function()
 		{
 			return this._paused;
+		}
+	});
+
+	/**
+	 * Set the captions are muted
+	 * @property {Boolean} helpEnabled
+	 */
+	Object.defineProperty(p, 'helpEnabled',
+	{
+		set: function(enabled)
+		{
+			this._helpEnabled = enabled;
+			this.helpButton.removeClass('disabled enabled')
+				.addClass(enabled ? 'enabled' : 'disabled');
+
+			this.trigger('helpEnabled', enabled);
+		},
+		get: function()
+		{
+			return this._helpEnabled;
 		}
 	});
 
@@ -876,6 +1041,9 @@
 	 */
 	p.reset = function()
 	{
+		// Disable the hint button
+		this.helpEnabled = false;
+
 		disableButton(this.soundButton);
 		disableButton(this.captionsButton);
 		disableButton(this.musicButton);
@@ -934,6 +1102,7 @@
 		this.main = null;
 		this.dom = null;
 
+		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
 		this.captionsButton = null;

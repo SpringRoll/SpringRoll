@@ -1,9 +1,7 @@
 /*! SpringRoll 0.3.0 */
-body.learning-tray-show {
-  position: absolute;
-  height: 100%;
-  left: 0;
-  right: 600px;
+body.learning-tray-show #frame,
+body.learning-tray-show .frame {
+  right: 600px !important;
 }
 .learning-handle {
   width: 20px;

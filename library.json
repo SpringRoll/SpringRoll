@@ -187,7 +187,6 @@
 				"src/learning/ValidationError.js",
 				"src/learning/EventUtils.js",
 				"src/learning/LearningDispatcher.js",
-				
 				"src/learning/LearningDispatcher.less",
 				"src/learning/LearningMedia.js",
 				"src/learning/LearningPlugin.js"
@@ -208,15 +207,14 @@
 		"containergame": {
 			"output": "container-game",
 			"main": [
-				"src/container/ContainerGamePlugin.js"
+				"src/container/GameContainerPlugin.js"
 			]
 		},
 		"container": {
 			"output": "container",
 			"main": [
 				"src/container/Features.js",
-				"src/container/GameContainer.js",
-				"src/container/LearningGameContainer.js"
+				"src/container/GameContainer.js"
 			]
 		}
 	}

@@ -23,7 +23,7 @@
 	var p = extend(DebugPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * Enable the Debug class. After initialization, this
@@ -88,7 +88,7 @@
 		});
 	};
 
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		this.options.asDOMElement('framerate');
 		var framerate = this.options.framerate;
@@ -153,7 +153,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		if (DEBUG)
 		{

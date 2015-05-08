@@ -24,7 +24,7 @@
 	var p = extend(StringFiltersPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -34,7 +34,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.filters.destroy();
 		this.filters = null;

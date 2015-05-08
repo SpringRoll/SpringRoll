@@ -19,19 +19,28 @@
 	*
 	*  @class UIScaler
 	*  @constructor
-	*  @param {DisplayObject} parent The UI display container
-	*  @return {UIScaler} The scaler object that can be reused
+	*  @param {Object} [options] The options
+	*  @param {Object} [options.size] The dimensions of the Scaler
+	*  @param {Number} [options.size.width] The designed width
+	*  @param {Number} [options.size.height] The designed height
+	*  @param {Number} [options.size.maxwidth=size.width] The designed max width
+	*  @param {Number} [options.size.maxheight=size.height] The designed max height
+	*  @param {Object} [options.items] The items to load
+	*  @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if adding items
+	*  @param {Object} [options.display] The current display
+	*  @param {Boolean} [options.enabled=false] If the scaler is enabled
 	*/
-	var UIScaler = function(parent)
+	var UIScaler = function(options)
 	{
 		Debug = include('springroll.Debug', false);
-		
-		/**
-		*  The UI display object to update
-		*  @property {DisplayObject} _parent
-		*  @private
-		*/
-		this._parent = parent;
+
+		options = Object.merge({
+			enabled: false,
+			size: null,
+			items: null,
+			display: null,
+			container: null
+		}, options);
 
 		/**
 		*  The configuration for each items
@@ -74,13 +83,28 @@
 		*   @property {boolean} _enabled
 		*   @private
 		*/
-		this._enabled = false;
+		this._enabled = options.enabled;
 	
 		// Set the designed size
-		this.size = null;
+		this.size = options.size;
+
+		// Set the display so we can get an adapter
+		this.display = options.display;
+
+		if (options.items)
+		{
+			if (!options.container)
+			{
+				throw "UIScaler requires container to add items";
+			}
+			this.addItems(options.container, options.items);
+		}
 
 		// Setup the resize bind
 		this._resize = this._resize.bind(this);
+
+		// Set the enabled status
+		this.enabled = this._enabled;
 	};
 
 	// Reference to the prototype
@@ -148,6 +172,8 @@
 		{
 			display = Application.instance.display;
 		}
+
+		if (!display) return null;
 
 		// Check for a displayadpater, doesn't work with generic display
 		if (!display.adapter)
@@ -293,15 +319,33 @@
 	});
 
 	/**
+	 * Remove all UIElement where the item display is a the container or it contains items
+	 * @method removeItems
+	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container 
+	 */
+	p.removeItems = function(container)
+	{
+		var adapter = this._adapter;
+		this._items.forEach(function(item, i, items)
+		{
+			if (adapter.contains(container, item.display))
+			{
+				items.splice(i, 1);
+			}
+		});
+	};
+
+	/**
 	*  Register a dictionary of items to the UIScaler to control.
 	*  @method addItems
+	*  @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the items live
 	*  @param {object} items The items object where the keys are the name of the property on the
 	*                        parent and the value is an object with keys of "titleSafe", "minScale",
 	*                        "maxScale", "centerHorizontally", "align", see UIScaler.addItem for a
 	*                        description of the different keys.
-	*  @return {UIScaler} The instance of this UIScaler for chaining
+	*  @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	*/
-	p.addItems = function(items)
+	p.addItems = function(container, items)
 	{
 		// Temp variables
 		var settings, name;
@@ -321,7 +365,7 @@
 				throw "Scaler settings must be a plain object " + settings;
 			}
 
-			if (!this._parent[name])
+			if (!container[name])
 			{
 				if (DEBUG && Debug)
 				{
@@ -329,8 +373,9 @@
 				}
 				continue;
 			}
-			this.addItem(this._parent[name], settings);
+			this.addItem(container[name], settings);
 		}
+		Application.instance.triggerResize();
 		return this;
 	};
 
@@ -371,7 +416,7 @@
 	*                                           or an array of points.
 	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
 	*                                          "rect", "ellipse", "circle", etc
-	*  @return {UIScaler} The instance of this UIScaler for chaining
+	*  @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	*/
 	p.addItem = function(item, settings)
 	{
@@ -432,7 +477,7 @@
 	*   the left and right.
 	*   @method addBackground
 	*   @param {Bitmap} The bitmap to scale or collection of bitmaps
-	*   @return {UIScaler} The UIScaler for chaining
+	*   @return {springroll.UIScaler} The UIScaler for chaining
 	*/
 	p.addBackground = function(bitmap)
 	{
@@ -447,8 +492,8 @@
 	/**
 	*   Remove background
 	*   @method removeBackground
-	*   @param {Bitmap} The bitmap or bitmaps to remove
-	*   @return {UIScaler} The UIScaler for chaining
+	*   @param {Bitmap} bitmap The bitmap added
+	*   @return {springroll.UIScaler} The UIScaler for chaining
 	*/
 	p.removeBackground = function(bitmap)
 	{
@@ -542,7 +587,6 @@
 
 		this._backgrounds = null;
 		this._adapter = null;
-		this._parent = null;
 		this._size = null;
 		this._items = null;
 	};

@@ -1243,13 +1243,14 @@
 	var p = extend(AnimatorPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		Animator.init();
+		Animator.captions = this.captions || null;
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		Animator.destroy();
 	};

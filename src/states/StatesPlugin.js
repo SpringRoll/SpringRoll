@@ -24,7 +24,7 @@
 	var p = extend(StatesPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * States should be added on this callback
@@ -177,13 +177,6 @@
 			}
 		});
 
-		// When the preload tasks are finished
-		this.on('loaded', function()
-		{
-			// Listen to this event to add the states
-			this.trigger('addStates');
-		});
-
 		if (DEBUG)
 		{
 			/**
@@ -219,7 +212,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		if (DEBUG)
 		{

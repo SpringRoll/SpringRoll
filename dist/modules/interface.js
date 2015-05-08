@@ -149,6 +149,19 @@
 			return "[UIElement (vertAlign='"+this._settings.vertAlign+"', horiAlign='"+this._settings.horiAlign+"')]";
 		};
 	}
+
+	/**
+	 * Get the current display item
+	 * @property {PIXI.DisplayObject|createjs.DisplayObject} display
+	 * @readOnly
+	 */
+	Object.defineProperty(p, 'display',
+	{
+		get: function()
+		{
+			return this._item;
+		}
+	});
 	
 	
 	/**
@@ -576,19 +589,28 @@
 	*
 	*  @class UIScaler
 	*  @constructor
-	*  @param {DisplayObject} parent The UI display container
-	*  @return {UIScaler} The scaler object that can be reused
+	*  @param {Object} [options] The options
+	*  @param {Object} [options.size] The dimensions of the Scaler
+	*  @param {Number} [options.size.width] The designed width
+	*  @param {Number} [options.size.height] The designed height
+	*  @param {Number} [options.size.maxwidth=size.width] The designed max width
+	*  @param {Number} [options.size.maxheight=size.height] The designed max height
+	*  @param {Object} [options.items] The items to load
+	*  @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if adding items
+	*  @param {Object} [options.display] The current display
+	*  @param {Boolean} [options.enabled=false] If the scaler is enabled
 	*/
-	var UIScaler = function(parent)
+	var UIScaler = function(options)
 	{
 		Debug = include('springroll.Debug', false);
-		
-		/**
-		*  The UI display object to update
-		*  @property {DisplayObject} _parent
-		*  @private
-		*/
-		this._parent = parent;
+
+		options = Object.merge({
+			enabled: false,
+			size: null,
+			items: null,
+			display: null,
+			container: null
+		}, options);
 
 		/**
 		*  The configuration for each items
@@ -631,13 +653,28 @@
 		*   @property {boolean} _enabled
 		*   @private
 		*/
-		this._enabled = false;
+		this._enabled = options.enabled;
 	
 		// Set the designed size
-		this.size = null;
+		this.size = options.size;
+
+		// Set the display so we can get an adapter
+		this.display = options.display;
+
+		if (options.items)
+		{
+			if (!options.container)
+			{
+				throw "UIScaler requires container to add items";
+			}
+			this.addItems(options.container, options.items);
+		}
 
 		// Setup the resize bind
 		this._resize = this._resize.bind(this);
+
+		// Set the enabled status
+		this.enabled = this._enabled;
 	};
 
 	// Reference to the prototype
@@ -705,6 +742,8 @@
 		{
 			display = Application.instance.display;
 		}
+
+		if (!display) return null;
 
 		// Check for a displayadpater, doesn't work with generic display
 		if (!display.adapter)
@@ -850,15 +889,33 @@
 	});
 
 	/**
+	 * Remove all UIElement where the item display is a the container or it contains items
+	 * @method removeItems
+	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container 
+	 */
+	p.removeItems = function(container)
+	{
+		var adapter = this._adapter;
+		this._items.forEach(function(item, i, items)
+		{
+			if (adapter.contains(container, item.display))
+			{
+				items.splice(i, 1);
+			}
+		});
+	};
+
+	/**
 	*  Register a dictionary of items to the UIScaler to control.
 	*  @method addItems
+	*  @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the items live
 	*  @param {object} items The items object where the keys are the name of the property on the
 	*                        parent and the value is an object with keys of "titleSafe", "minScale",
 	*                        "maxScale", "centerHorizontally", "align", see UIScaler.addItem for a
 	*                        description of the different keys.
-	*  @return {UIScaler} The instance of this UIScaler for chaining
+	*  @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	*/
-	p.addItems = function(items)
+	p.addItems = function(container, items)
 	{
 		// Temp variables
 		var settings, name;
@@ -878,7 +935,7 @@
 				throw "Scaler settings must be a plain object " + settings;
 			}
 
-			if (!this._parent[name])
+			if (!container[name])
 			{
 				if (true && Debug)
 				{
@@ -886,8 +943,9 @@
 				}
 				continue;
 			}
-			this.addItem(this._parent[name], settings);
+			this.addItem(container[name], settings);
 		}
+		Application.instance.triggerResize();
 		return this;
 	};
 
@@ -928,7 +986,7 @@
 	*                                           or an array of points.
 	*  @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
 	*                                          "rect", "ellipse", "circle", etc
-	*  @return {UIScaler} The instance of this UIScaler for chaining
+	*  @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	*/
 	p.addItem = function(item, settings)
 	{
@@ -989,7 +1047,7 @@
 	*   the left and right.
 	*   @method addBackground
 	*   @param {Bitmap} The bitmap to scale or collection of bitmaps
-	*   @return {UIScaler} The UIScaler for chaining
+	*   @return {springroll.UIScaler} The UIScaler for chaining
 	*/
 	p.addBackground = function(bitmap)
 	{
@@ -1004,8 +1062,8 @@
 	/**
 	*   Remove background
 	*   @method removeBackground
-	*   @param {Bitmap} The bitmap or bitmaps to remove
-	*   @return {UIScaler} The UIScaler for chaining
+	*   @param {Bitmap} bitmap The bitmap added
+	*   @return {springroll.UIScaler} The UIScaler for chaining
 	*/
 	p.removeBackground = function(bitmap)
 	{
@@ -1099,7 +1157,6 @@
 
 		this._backgrounds = null;
 		this._adapter = null;
-		this._parent = null;
 		this._size = null;
 		this._items = null;
 	};
@@ -1135,53 +1192,67 @@
 	var p = extend(UIScalerPlugin, ApplicationPlugin);
 
 	// Init the scaler
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The main UIScaler for any display object references
 		 * in the main game.
 		 * @property {springroll.UIScaler} scaler
 		 */
-		this.scaler = new UIScaler(this);
+		this.scaler = new UIScaler();
 
 		// Add the display
-		this.once('init', function(done)
+		this.once('afterInit', function()
 		{
 			// Check for the config then auto enable the scaler
-			if (this.config)
+			if (!this.config)
 			{
-				var Debug = include('springroll.Debug', false);
-
-				var config = this.config;
-				var scalerSize = config.scalerSize;
-
-				if (!scalerSize)
-				{
-					Debug.warn("The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
-					return;
-				}
-
-				if (!config.scaler)
-				{
-					Debug.warn("The config requires 'scaler' object which contains all the state scaling items.");
-					return;
-				}
-				this.scaler.size = scalerSize;
-				this.scaler.addItems(config.scaler);
-				this.scaler.enabled = !!this.scaler.numItems;
+				throw "UIScaler requires config";
 			}
-		}, -1); // lower init priority to happen after the art has been created
+			
+			var Debug = include('springroll.Debug', false);
+			var config = this.config;
+			var scalerSize = config.scalerSize;
+
+			if (!scalerSize)
+			{
+				if (true)
+				{
+					throw "The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
+				}
+				else
+				{
+					throw "No 'scalerSize' config";
+				}
+			}
+
+			if (!config.scaler)
+			{
+				if (true)
+				{
+					throw "The config requires 'scaler' object which contains all the state scaling items.";
+				}
+				else
+				{
+					throw "No 'scaler' config";
+				}
+			}
+			
+			this.scaler.size = scalerSize;
+			this.scaler.addItems(this, config.scaler);
+			this.scaler.enabled = true;
+		});
 	};
 
-	// display is ready here
-	p.ready = function(done)
+	// Setup the display
+	p.preload = function(done)
 	{
 		this.scaler.display = this.display;
 		done();
 	};
 
 	// clean up
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.scaler.destroy();
 		this.scaler = null;
@@ -1199,8 +1270,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		DebugOptions = include('springroll.DebugOptions', false);
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * Create an app plugin for touch detecting, all properties and methods documented
@@ -1217,7 +1287,7 @@
 	var p = extend(TouchPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		*  If the current brower is iOS
@@ -1253,6 +1323,7 @@
 			}
 			.bind(this));
 			
+			var DebugOptions = include('springroll.DebugOptions', false);
 			if (DebugOptions)
 			{
 				DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
@@ -1261,7 +1332,7 @@
 	};
 
 	// add common filteres interaction
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		if (true)
 		{

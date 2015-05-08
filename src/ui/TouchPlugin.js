@@ -6,8 +6,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		DebugOptions = include('springroll.DebugOptions', false);
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * Create an app plugin for touch detecting, all properties and methods documented
@@ -24,7 +23,7 @@
 	var p = extend(TouchPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		*  If the current brower is iOS
@@ -60,6 +59,7 @@
 			}
 			.bind(this));
 			
+			var DebugOptions = include('springroll.DebugOptions', false);
 			if (DebugOptions)
 			{
 				DebugOptions.boolean('forceTouch', 'Force hasTouch to true');
@@ -68,7 +68,7 @@
 	};
 
 	// add common filteres interaction
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		if (DEBUG)
 		{

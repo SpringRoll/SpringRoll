@@ -69,8 +69,8 @@
 		}
 
 		/**
-		* SoundJS SoundInstanceance, essentially a sound channel.
-		* @property {createjs.SoundInstanceance} _channel
+		* SoundJS SoundInstance, essentially a sound channel.
+		* @property {createjs.SoundInstance} _channel
 		* @private
 		*/
 		this._channel = null;
@@ -210,6 +210,9 @@
 		if (s)
 		{
 			var sound = s._sounds[this.alias];
+			//in case this SoundInstance is not valid any more for some reason
+			if(!sound) return;
+			
 			var index = sound.playing.indexOf(this);
 			if(index > -1)
 				sound.playing.splice(index, 1);
@@ -710,6 +713,18 @@
 	p.exists = function(alias)
 	{
 		return !!this._sounds[alias];
+	};
+
+	/**
+	*	If a context exists
+	*	@method contextExists
+	*	@public
+	*	@param {String} context The name of context to look for.
+	*	@return {Boolean} true if the context exists, false otherwise.
+	*/
+	p.contextExists = function(context)
+	{
+		return !!this._contexts[context];
 	};
 
 	/**
@@ -2082,7 +2097,7 @@
 	var p = extend(SoundPlugin, ApplicationPlugin);
 
 	// Initialize
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
@@ -2262,7 +2277,7 @@
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -2298,7 +2313,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.player.destroy();
 		this.player = null;

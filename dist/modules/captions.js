@@ -12,11 +12,10 @@
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
-	* created from a dictionary of captions and can be played by alias. Captions
-	* is a singleton class.
+	* created from a dictionary of captions and can be played by alias. 
 	*
 	* @example
-		var captionsDictionary = {
+		var captionsData = {
 			"Alias1": [
 				{"start":0, "end":2000, "content":"Ohh that looks awesome!"}
 			],
@@ -26,21 +25,21 @@
 		};
 
 		// initialize the captions
-		var captions = new springroll.Captions(captionsDictionary);
+		var captions = new springroll.Captions();
+		captions.data = captionsData;
+		captions.textField = document.getElementById("captions");
 		captions.play("Alias1");
 	*
 	* @class Captions
 	* @constructor
-	* @param {Dictionary} [captionDictionary=null] The dictionary of captions
-	* @param {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement|String} [field=null] A text field
-	*        to use as the output for this captions object,
-	*        if a string type is supplied, captions will use
-	*        the DOMElement by id.
-	* @param {Boolean} [selfUpdate=true] If the captions should update itself
+	* @param {Object} [data=null] The captions dictionary
+	* @param {String|DOMElement} [textField=null] The output text field
+	* @param {Boolean} [selfUpdate=true] If the captions playback should update itself
 	*/
-	var Captions = function(captionDictionary, field, selfUpdate)
+	var Captions = function(data, textField, selfUpdate)
 	{
 		Debug = include('springroll.Debug', false);
+
 		// Add to the instances
 		_instances.push(this);
 
@@ -48,9 +47,9 @@
 		* An object used as a dictionary with keys that should be the same as sound aliases
 		*
 		* @private
-		* @property {Dictionary} _captionDict
+		* @property {Object} _data
 		*/
-		this._captionDict = null;
+		this._data = null;
 
 		/**
 		* A reference to the Text object that Captions should be controlling.
@@ -59,7 +58,7 @@
 		* @private
 		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
 		*/
-		this._textField = (typeof field === "string" ? document.getElementById(field) : (field || null));
+		this._textField = null;
 
 		/**
 		* The function to call when playback is complete.
@@ -129,12 +128,9 @@
 		* If this instance has been destroyed already.
 		*
 		* @private
-		* @property {Boolean} _isDestroyed
+		* @property {Boolean} _destroyed
 		*/
-		this._isDestroyed = false;
-
-		// Bind the update function
-		this.update = this.update.bind(this);
+		this._destroyed = false;
 
 		/**
 		*  If the captions object should do its own update.
@@ -142,10 +138,15 @@
 		*  @private
 		*  @default true
 		*/
-		this.selfUpdate = this._selfUpdate = (selfUpdate === undefined ? true : selfUpdate);
+		this._selfUpdate = true;
 
-		// Set the captions dictionary
-		this.setDictionary(captionDictionary || null);
+		// Bind the update function
+		this.update = this.update.bind(this);
+
+		// Set with preset
+		this.data = data || null;
+		this.textField = textField || null;
+		this.selfUpdate = selfUpdate === undefined ? true : !!selfUpdate;
 	};
 
 	/**
@@ -221,66 +222,71 @@
 
 	/**
 	* Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
-	*
-	* @public
-	* @method setDictionary
-	* @param {Dictionary} dict The dictionary object to use for captions.
+	* @property {Object} data 
 	*/
-	p.setDictionary = function(dict)
+	Object.defineProperty(p, 'data',
 	{
-		this._captionDict = dict;
-
-		if(!dict) return;
-
-		var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
-		//Loop through each line and make sure the times are formatted correctly
-
-		var lines, i, l, len;
-		for (var alias in dict)
+		set: function(dict)
 		{
-			//account for a compressed format that is just an array of lines
-			//and convert it to an object with a lines property.
-			if(Array.isArray(dict[alias]))
+			this._data = dict;
+
+			if (!dict) return;
+
+			var timeFormat = /[0-9]+\:[0-9]{2}\:[0-9]{2}\.[0-9]{3}/;
+			//Loop through each line and make sure the times are formatted correctly
+
+			var lines, i, l, len;
+			for (var alias in dict)
 			{
-				dict[alias] = {lines:dict[alias]};
-			}
-			lines = dict[alias].lines;
-			if(!lines)
-			{
-				if (true && Debug) Debug.log("alias '" + alias + "' has no lines!");
-				continue;
-			}
-			len = lines.length;
-			for (i = 0; i < len; ++i)
-			{
-				l = lines[i];
-				if(typeof l.start == "string")
+				//account for a compressed format that is just an array of lines
+				//and convert it to an object with a lines property.
+				if(Array.isArray(dict[alias]))
 				{
-					if(timeFormat.test(l.start))
-						l.start = _timeCodeToMilliseconds(l.start);
-					else
-						l.start = parseInt(l.start, 10);
+					dict[alias] = {lines:dict[alias]};
 				}
-				if(typeof l.end == "string")
+				lines = dict[alias].lines;
+				if(!lines)
 				{
-					if(timeFormat.test(l.end))
-						l.end = _timeCodeToMilliseconds(l.end);
-					else
-						l.end = parseInt(l.end, 10);
+					if (true && Debug) Debug.log("alias '" + alias + "' has no lines!");
+					continue;
+				}
+				len = lines.length;
+				for (i = 0; i < len; ++i)
+				{
+					l = lines[i];
+					if(typeof l.start == "string")
+					{
+						if(timeFormat.test(l.start))
+							l.start = _timeCodeToMilliseconds(l.start);
+						else
+							l.start = parseInt(l.start, 10);
+					}
+					if(typeof l.end == "string")
+					{
+						if(timeFormat.test(l.end))
+							l.end = _timeCodeToMilliseconds(l.end);
+						else
+							l.end = parseInt(l.end, 10);
+					}
 				}
 			}
+		},
+		get: function()
+		{
+			return this._data;
 		}
-	};
+	});
 
 	/**
 	*  The text field that the captions uses to update.
-	*  @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+	*  @property {String|createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
 	*/
-	Object.defineProperty(p, 'textField', {
+	Object.defineProperty(p, 'textField',
+	{
 		set: function(field)
 		{
 			setText(this._textField, '');
-			this._textField = field || null;
+			this._textField = (typeof field === "string" ? document.getElementById(field) : (field || null));
 		},
 		get : function()
 		{
@@ -333,7 +339,7 @@
 	 */
 	p.hasCaption = function(alias)
 	{
-		return this._captionDict ? !!this._captionDict[alias] : false;
+		return this._data ? !!this._data[alias] : false;
 	};
 
 	/**
@@ -349,7 +355,7 @@
 	 */
 	p.getFullCaption = function(alias, separator)
 	{
-		if (!this._captionDict) return;
+		if (!this._data) return;
 
 		separator = separator || " ";
 
@@ -378,10 +384,10 @@
 		else
 		{
 			//return name if no caption so as not to break lists of mixed SFX and VO
-			if(!this._captionDict[alias])
+			if(!this._data[alias])
 				return alias;
 
-			var lines = this._captionDict[alias].lines;
+			var lines = this._data[alias].lines;
 			for (i = 0; i < lines.length; i++)
 			{
 				content = lines[i].content;
@@ -408,7 +414,7 @@
 	*/
 	p._load = function(data)
 	{
-		if (this._isDestroyed) return;
+		if (this._destroyed) return;
 
 		// Set the current playhead time
 		this._reset();
@@ -485,7 +491,8 @@
 	*  @property {int} currentDuration
 	*  @readOnly
 	*/
-	Object.defineProperty(p, 'currentDuration', {
+	Object.defineProperty(p, 'currentDuration',
+	{
 		get: function()
 		{
 			return this._currentDuration;
@@ -497,7 +504,8 @@
 	*  @property {String} currentAlias
 	*  @readOnly
 	*/
-	Object.defineProperty(p, 'currentAlias', {
+	Object.defineProperty(p, 'currentAlias',
+	{
 		get: function()
 		{
 			return this._currentAlias;
@@ -518,7 +526,7 @@
 		this._completeCallback = callback;
 		this._playing = true;
 		this._currentAlias = alias;
-		this._load(this._captionDict[alias]);
+		this._load(this._data[alias]);
 		this._currentDuration = this._getTotalDuration();
 
 		this.seek(0);
@@ -602,7 +610,7 @@
 	*/
 	p._updatePercent = function(progress)
 	{
-		if (this._isDestroyed) return;
+		if (this._destroyed) return;
 		this._currentTime = progress * this._currentDuration;
 		this._calcUpdate();
 	};
@@ -617,7 +625,7 @@
 	*/
 	p.update = function(elapsed)
 	{
-		if (this._isDestroyed || !this._playing) return;
+		if (this._destroyed || !this._playing) return;
 		this._currentTime += elapsed;
 		this._calcUpdate();
 	};
@@ -700,9 +708,9 @@
 		}
 		else
 		{
-			if(!this._captionDict[alias])
+			if(!this._data[alias])
 				return length;
-			var lines = this._captionDict[alias].lines;
+			var lines = this._data[alias].lines;
 			length += lines[lines.length - 1].end;
 		}
 
@@ -716,7 +724,7 @@
 	*/
 	p.destroy = function()
 	{
-		if (this._isDestroyed) return;
+		if (this._destroyed) return;
 
 		var i = _instances.indexOf(this);
 		if (i > -1)
@@ -724,9 +732,9 @@
 			_instances.splice(i, 1);
 		}
 
-		this._isDestroyed = true;
+		this._destroyed = true;
 
-		this._captionDict = null;
+		this._data = null;
 		this._lines = null;
 	};
 
@@ -756,13 +764,14 @@
 	var CaptionsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+		this.priority = 2;
 	};
 
 	// Reference to the prototype
 	var p = extend(CaptionsPlugin, ApplicationPlugin);
 
 	// Initialize
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The captions text field object to use for the 
@@ -785,53 +794,33 @@
 		*  The global captions object
 		*  @property {springroll.Captions} captions
 		*/
-		this.captions = null;
+		this.captions = new Captions();
 
 		/**
 		*  Sets the dicitonary for the captions used by player. If a Captions object
 		*  did not exist previously, then it creates one, and sets it up on all Animators.
 		*  @method addCaptions
-		*  @param {Object} captionData The captions data to give to the Captions object
+		*  @param {Object} data The captions data to give to the Captions object
 		*/
-		this.addCaptions = function(captionData)
+		this.addCaptions = function(data)
 		{
-			if (!this.captions)
-			{
-				// Create the new captions
-				var captions = new Captions(captionData, this.options.captions);
-				
-				if (this.player)
-				{
-					this.player.captions = captions;
-				}
-				else if (true && Debug)
-				{
-					Debug.warn("The VOPlayer is not setup, cannot add captions to it.");
-				}
-				this.captions = captions;
-				
-				// Give the display to the animators
-				this.getDisplays(function(display)
-				{
-					// ensure that displays without 
-					// Animators don't break anything
-					if(display.animator)
-					{
-						display.animator.captions = captions;
-					}
-				});
-			}
-			else
-			{
-				// Update the player captions
-				this.captions.setDictionary(captionData);
-			}
+			// Update the player captions
+			this.captions.data = data;
 		};
 	};
 
 	// Preload the captions
-	p.ready = function(done)
+	p.preload = function(done)
 	{
+		// Give the player a reference
+		if (this.player)
+		{
+			this.player.captions = this.captions;
+		}
+
+		// Setup the text field
+		this.captions.textField = this.options.captions;
+
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
@@ -849,7 +838,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		if (this.captions)
 		{

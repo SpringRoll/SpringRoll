@@ -10,8 +10,7 @@
 		Application,
 		ListTask,
 		BasePanel,
-		TaskManager,
-		UIScaler;
+		TaskManager;
 
 	/**
 	 *  Abstract game state class to do some preloading of assets
@@ -31,7 +30,6 @@
 			BasePanel = include('springroll.easeljs.BasePanel');
 			ListTask = include('springroll.ListTask');
 			TaskManager = include('springroll.TaskManager');
-			UIScaler = include('springroll.UIScaler');
 			Debug = include('springroll.Debug', false);
 		}
 
@@ -64,6 +62,13 @@
 		this.config = this.game.config;
 
 		/**
+		 *  Reference to the scaler object
+		 *  @property {springroll.UIScaler} scaler
+		 *  @protected
+		 */
+		this.scaler = this.game.scaler;
+
+		/**
 		 *  The assets to load each time
 		 *  @property {Object} manifest
 		 *  @protected
@@ -76,12 +81,6 @@
 		 *  @protected
 		 */
 		this.assetsLoaded = false;
-
-		/**
-		 *  The UI Scaler object
-		 *  @property {springroll.UIScaler} scaler
-		 */
-		this.scaler = null;
 
 		/**
 		 *  Should we attempt to run resize every time this state is entered
@@ -185,64 +184,52 @@
 
 		this.panel.setup();
 
-		var scalingConfig = this.config.scaling[this.stateId];
+		if (this.scaler)
+		{
+			var items = this.config.scaler[this.stateId];
 
-		if (scalingConfig !== undefined)
-		{
-			if (!this.scaler || this.resizeOnReload)
+			if (items !== undefined)
 			{
-				this.scaler = new UIScaler(
-					this.panel,
-					this.config.designedSettings,
-					scalingConfig,
-					false
-				);
-			}
-			//Background is optional, so we'll check
-			//before adding to the scaler
-			var background = this.panel.background;
-			if (background && background.image)
-			{
-				this.scaler.addBackground(background);
-			}
-		}
-		//if there is no scaling config for the state, then scale the entire panel
-		else
-		{
-			if (!this.scaler || this.resizeOnReload)
-			{
-				//reset the panel scale & position, to ensure that the panel is scaled properly
-				//upon state re-entry
-				this.panel.x = this.panel.y = 0;
-				this.panel.scaleX = this.panel.scaleY = 1;
-				//create a small config just for the panel
-				scalingConfig =
+				if (this.resizeOnReload)
 				{
-					panel:
-					{
+					this.scaler.addItems(this.panel, items);
+				}
+				// Background is optional, so we'll check
+				// before adding to the scaler
+				var background = this.panel.background;
+				if (background && background.image)
+				{
+					this.scaler.addBackground(background);
+				}
+			}
+			// if there is no scaling config for the state, 
+			// then scale the entire panel
+			else
+			{
+				if (this.resizeOnReload)
+				{
+					// reset the panel scale & position, to ensure 
+					// that the panel is scaled properly
+					// upon state re-entry
+					this.panel.x = this.panel.y = 0;
+					this.panel.scaleX = this.panel.scaleY = 1;
+
+					this.scaler.addItem(this.panel, {
 						align: "top-left",
 						titleSafe: true
-					}
-				};
-				this.scaler = new UIScaler(
-					this,
-					this.config.designedSettings,
-					scalingConfig,
-					false
-				);
+					});
+				}
 			}
 		}
-		
-		//Activate the scaler
-		this.scaler.enabled = true;
 
 		this.onAssetsLoaded();
 		
-		if(this.delayLoadFrames > 0)
+		if (this.delayLoadFrames > 0)
 		{
 			var countdown = this.delayLoadFrames,
 				game = this.game,
 				callback = this.loadingDone.bind(this);
+
 			var timerFunction = function()
 			{
 				if(--countdown <= 0)
@@ -254,7 +241,9 @@
 			game.on("update", timerFunction);
 		}
 		else
+		{
 			this.loadingDone();
+		}
 	};
 
 	/**
@@ -285,19 +274,13 @@
 	{
 		if (!this.assetsLoaded) return;
 
-		this.panel.teardown();
-
 		if (this.scaler)
 		{
-			this.scaler.enabled = false;
 			this.scaler.removeBackground(this.panel.background);
-
-			if (this.resizeOnReload)
-			{
-				this.scaler.destroy();
-				this.scaler = null;
-			}
+			this.scaler.removeItems(this.panel);
 		}
+
+		this.panel.teardown();
 
 		//Clean any assets loaded by the manifest
 		if (this.manifest)
@@ -325,13 +308,9 @@
 		this.game = null;
 		this.config = null;
 		this.player = null;
-		this.panel.destroy();
+		this.scaler = null;
 
-		if (this.scaler)
-		{
-			this.scaler.destroy();
-			this.scaler = null;
-		}
+		this.panel.destroy();
 
 		s.destroy.apply(this);
 	};

@@ -30,7 +30,7 @@
 	var p = extend(ManifestsPlugin, ApplicationPlugin);
 
 	// Initialize the plugin
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 *  Event when the manifest is finished loading
@@ -141,11 +141,7 @@
 		this.trigger('manifestLoaded', manager);
 	};
 
-	/**
-	 *  Destroy this game, don't use after this
-	 *  @method destroy
-	 */
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this._manifests = null;
 	};

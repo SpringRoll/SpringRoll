@@ -341,6 +341,18 @@
 	};
 
 	/**
+	*	If a context exists
+	*	@method contextExists
+	*	@public
+	*	@param {String} context The name of context to look for.
+	*	@return {Boolean} true if the context exists, false otherwise.
+	*/
+	p.contextExists = function(context)
+	{
+		return !!this._contexts[context];
+	};
+
+	/**
 	*	If a sound is unloaded.
 	*	@method isUnloaded
 	*	@public

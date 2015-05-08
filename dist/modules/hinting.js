@@ -787,7 +787,7 @@
 	var p = extend(HintingPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The hint player API
@@ -797,7 +797,7 @@
 	};
 
 	// Check for dependencies
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		if (!this.messenger) throw "Hinting requires ContainerPlugin";
 		if (!this.media) throw "Hinting requires LearningMedia";
@@ -816,7 +816,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.messenger.off('playHelp');
 		this.hint.off('enabled');

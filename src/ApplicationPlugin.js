@@ -25,30 +25,25 @@
 
 	/**
 	 * When the application is being initialized. This function is bound to the application.
-	 * @method ready 
-	 * @method init
+	 * @method setup
 	 */
-	p.init = function()
+	p.setup = function()
 	{
 		// implementation specific
 	};
 
 	/**
 	 * The function to call right before the app is initailized. This function is bound to the application.
-	 * @method ready 
+	 * @method preload 
 	 * @param {function} done The done function, takes one argument for an error.
 	 */
-	p.ready = function(done)
-	{
-		done();
-	};
+	p.preload = null;
 
 	/**
 	 * When the application is being destroyed. This function is bound to the application.
-	 * @method ready 
-	 * @method destroy
+	 * @method teardown
 	 */
-	p.destroy = function()
+	p.teardown = function()
 	{
 		// implementation specific
 	};

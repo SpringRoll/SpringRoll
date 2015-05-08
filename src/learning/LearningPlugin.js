@@ -27,7 +27,7 @@
 	var p = extend(LearningPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{		
 		/**
 		 *  An learning event is dispatched
@@ -122,14 +122,14 @@
 	};
 
 	// Setup the game media
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		this.media.init(this);
 		done();
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.media.destroy();
 		this.media = null;

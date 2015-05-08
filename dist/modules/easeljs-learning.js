@@ -174,7 +174,7 @@
 	var p = extend(OffClickPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 *  Some games need to send additional parameters to the tracker's
@@ -185,7 +185,7 @@
 	};
 
 	// Check for dependencies
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		//Provide convenience handling of stage off click progress events
 		onStageMouseDown = onStageMouseDown.bind(this);
@@ -237,7 +237,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		//Remove stage listener
 		if (this.display && this.display.stage)

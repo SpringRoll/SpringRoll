@@ -23,7 +23,7 @@
 	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -73,7 +73,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this._visibility.destroy();
 		this._visibility = null;

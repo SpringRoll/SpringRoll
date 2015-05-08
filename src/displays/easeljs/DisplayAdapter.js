@@ -294,6 +294,17 @@
 		container.removeAllChildren();
 	};
 
+	/**
+	 * If a container contains a child
+	 * @param  {createjs.Container} container The container
+	 * @param  {createjs.DisplayObject} child  The object to test
+	 * @return {Boolean} If the child contained within the container
+	 */
+	DisplayAdapter.contains = function(container, child)
+	{
+		return container.contains(child);
+	};
+
 	// Assign to namespace
 	namespace('springroll.easeljs').DisplayAdapter = DisplayAdapter;
 

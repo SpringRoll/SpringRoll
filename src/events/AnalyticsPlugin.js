@@ -23,7 +23,7 @@
 	var p = extend(AnalyticsPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * Track a Google Analytics event
@@ -45,7 +45,7 @@
 	};
 
 	// Check for application name
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		if (!this.name)
 		{

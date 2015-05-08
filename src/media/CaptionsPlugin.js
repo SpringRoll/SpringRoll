@@ -19,13 +19,14 @@
 	var CaptionsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+		this.priority = 2;
 	};
 
 	// Reference to the prototype
 	var p = extend(CaptionsPlugin, ApplicationPlugin);
 
 	// Initialize
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The captions text field object to use for the 
@@ -48,53 +49,33 @@
 		*  The global captions object
 		*  @property {springroll.Captions} captions
 		*/
-		this.captions = null;
+		this.captions = new Captions();
 
 		/**
 		*  Sets the dicitonary for the captions used by player. If a Captions object
 		*  did not exist previously, then it creates one, and sets it up on all Animators.
 		*  @method addCaptions
-		*  @param {Object} captionData The captions data to give to the Captions object
+		*  @param {Object} data The captions data to give to the Captions object
 		*/
-		this.addCaptions = function(captionData)
+		this.addCaptions = function(data)
 		{
-			if (!this.captions)
-			{
-				// Create the new captions
-				var captions = new Captions(captionData, this.options.captions);
-				
-				if (this.player)
-				{
-					this.player.captions = captions;
-				}
-				else if (DEBUG && Debug)
-				{
-					Debug.warn("The VOPlayer is not setup, cannot add captions to it.");
-				}
-				this.captions = captions;
-				
-				// Give the display to the animators
-				this.getDisplays(function(display)
-				{
-					// ensure that displays without 
-					// Animators don't break anything
-					if(display.animator)
-					{
-						display.animator.captions = captions;
-					}
-				});
-			}
-			else
-			{
-				// Update the player captions
-				this.captions.setDictionary(captionData);
-			}
+			// Update the player captions
+			this.captions.data = data;
 		};
 	};
 
 	// Preload the captions
-	p.ready = function(done)
+	p.preload = function(done)
 	{
+		// Give the player a reference
+		if (this.player)
+		{
+			this.player.captions = this.captions;
+		}
+
+		// Setup the text field
+		this.captions.textField = this.options.captions;
+
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
@@ -112,7 +93,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		if (this.captions)
 		{

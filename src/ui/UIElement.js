@@ -148,6 +148,19 @@
 			return "[UIElement (vertAlign='"+this._settings.vertAlign+"', horiAlign='"+this._settings.horiAlign+"')]";
 		};
 	}
+
+	/**
+	 * Get the current display item
+	 * @property {PIXI.DisplayObject|createjs.DisplayObject} display
+	 * @readOnly
+	 */
+	Object.defineProperty(p, 'display',
+	{
+		get: function()
+		{
+			return this._item;
+		}
+	});
 	
 	
 	/**

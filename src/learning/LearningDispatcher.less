@@ -31,10 +31,9 @@
 @handleWidth: 20px;
 
 body.learning-tray-show {
-	position: absolute;
-	height: 100%;
-	left: 0;
-	right: @trayMobile;
+	#frame, .frame {
+		right: @trayMobile !important;
+	}
 }
 
 .learning-handle {

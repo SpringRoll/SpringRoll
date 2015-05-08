@@ -28,7 +28,7 @@
 	var p = extend(SoundPlugin, ApplicationPlugin);
 
 	// Initialize
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
@@ -208,7 +208,7 @@
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -244,7 +244,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		this.player.destroy();
 		this.player = null;

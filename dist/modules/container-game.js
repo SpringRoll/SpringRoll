@@ -13,10 +13,10 @@
 	/**
 	 * Create an app plugin for working with the Game Container, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class ContainerGamePlugin
+	 * @class GameContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var ContainerGamePlugin = function()
+	var GameContainerPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 
@@ -24,10 +24,10 @@
 	};
 
 	// Reference to the prototype
-	var p = extend(ContainerGamePlugin, ApplicationPlugin);
+	var p = extend(GameContainerPlugin, ApplicationPlugin);
 
 	// Init the animator
-	p.init = function()
+	p.setup = function()
 	{
 		/**
 		 * The default play-mode for the game is continuous, if the game is
@@ -136,7 +136,7 @@
 	};
 
 	// Setup the messanger handlers
-	p.ready = function(done)
+	p.preload = function(done)
 	{
 		// Add the options to properties
 		this.singlePlay = !!this.options.singlePlay;
@@ -159,6 +159,19 @@
 				singlePlay: onSinglePlay.bind(this),
 				playOptions: onPlayOptions.bind(this),
 				close: onClose.bind(this)
+			});
+
+			var hasSound = !!this.sound;
+
+			// Add the features that are enabled
+			this.messenger.send('features', {
+				learning: !!this.learning,
+				sound: hasSound,
+				hinting: !!this.hint,
+				music: hasSound && this.sound.contextExists('music'),
+				vo: hasSound && this.sound.contextExists('vo'),
+				sfx: hasSound && this.sound.contextExists('sfx'),
+				captions: !!this.captions
 			});
 
 			// Turn off the page hide and show auto pausing the App
@@ -276,7 +289,7 @@
 	};
 
 	// Destroy the animator
-	p.destroy = function()
+	p.teardown = function()
 	{
 		if (this._pageVisibility)
 		{
@@ -291,6 +304,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(ContainerGamePlugin);
+	ApplicationPlugin.register(GameContainerPlugin);
 
 }());
