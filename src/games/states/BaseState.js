@@ -248,7 +248,7 @@
 	*   @param {int} [delay=0] Frames to delay the load completion to allow the framerate to
 	*                          stabilize.
 	*/
-	p.loadingDone = function()
+	p.loadingDone = function(delay)
 	{
 		if (!this._isLoading)
 		{
