@@ -930,13 +930,20 @@
 	p._loopTransition = function()
 	{
 		var audio;
-
 		if (this._transitionSounds)
 		{
 			audio = this._transitionSounds.loop;
 		}
-		
-		this._display.animator.play(this._transition, {anim:"transitionLoop", audio:audio});
+		var animator = this._display.animator;
+		if (animator.instanceHasAnimation('transitionLoop'))
+		{
+			animator.play(
+				this._transition, {
+					anim:'transitionLoop',
+					audio:audio
+				}
+			);
+		}
 	};
 	
 	/**
