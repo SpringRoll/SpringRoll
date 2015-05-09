@@ -486,6 +486,7 @@
 			throw "Background alread added to UIScaler";
 		}
 		this._backgrounds.push(bitmap);
+		Application.instance.triggerResize();
 		return this;
 	};
 

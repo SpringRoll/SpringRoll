@@ -116,7 +116,7 @@
 			if (framerateTimer >= 1000)
 			{
 				var fps = 1000 / framerateTimer * frameCount;
-				framerate.innerHTML = "FPS: " + formatFps(fps, 3);
+				framerate.innerHTML = "FPS: " + fps.toFixed(3);
 				framerateTimer = 0;
 				frameCount = 0;
 			}
@@ -126,30 +126,6 @@
 			frameCount = framerateTimer = 0;
 		});
 		done();
-	};
-
-	/**
-	 * Format the FPS display
-	 * @method formatFps
-	 * @private
-	 */
-	var formatFps = function(num, places)
-	{
-		var size = Math.pow(10, places);
-		var value = String(Math.round(num * size) / size);
-		var parts = value.split(".");
-		if (parts.length == 1)
-		{
-			parts[1] = ".000";
-		}
-		else
-		{
-			while(parts[1].length < places)
-			{
-				parts[1] += "0";
-			}
-		}
-		return parts.join('.');		
 	};
 
 	// Destroy the animator

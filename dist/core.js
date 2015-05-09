@@ -1963,9 +1963,11 @@
 
 		this.calculateDisplaySize(_resizeHelper);
 
-		//round down, as canvases require integer sizes
-		_resizeHelper.width |= 0;
-		_resizeHelper.height |= 0;
+		// round up, as canvases require integer sizes
+		// and canvas should be slightly larger to avoid
+		// a hairline around outside of the canvas
+		_resizeHelper.width = Math.ceil(_resizeHelper.width);
+		_resizeHelper.height = Math.ceil(_resizeHelper.height);
 
 		//resize the displays
 		var key;
