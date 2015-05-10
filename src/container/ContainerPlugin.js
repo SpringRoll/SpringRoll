@@ -1,5 +1,5 @@
 /**
-*  @module Core
+*  @module Container Client
 *  @namespace springroll
 */
 (function(undefined)
