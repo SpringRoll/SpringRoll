@@ -1,5 +1,5 @@
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
