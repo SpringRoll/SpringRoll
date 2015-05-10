@@ -74,14 +74,13 @@
 	
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = Language.prototype = Object.create(s);
+	var p = extend(Language, EventDispatcher);
 	
 	/**
 	*  Fired when the chosen language has changed.
 	*  @event changed
 	*  @param {String} language The newly chosen language.
 	*/
-	var CHANGED = 'changed';
 
 	/**
 	 * Configure 
@@ -206,7 +205,7 @@
 		if(chosen != this._current)
 		{
 			this._current = chosen;
-			this.trigger(CHANGED, chosen);
+			this.trigger('changed', chosen);
 		}
 	};
 	
