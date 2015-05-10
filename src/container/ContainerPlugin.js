@@ -121,6 +121,24 @@
 			this.destroy();
 		};
 
+		/**
+		 * Track a Google Analytics event
+		 * @method analyticEvent
+		 * @param {String} action The action label
+		 * @param {String} [label] The optional label for the event
+		 * @param {Number} [value] The optional value for the event
+		 */
+		this.analyticEvent = function(action, label, value)
+		{
+			this.trigger('analyticEvent',
+			{
+				category: this.name,
+				action: action,
+				label: label,
+				value: value
+			});
+		};
+
 		// Listen when the browser closes or redirects
 		window.onunload = window.onbeforeunload = onWindowUnload.bind(this);
 	};
@@ -134,9 +152,21 @@
 		return undefined;
 	};
 
-	// Setup the messanger handlers
+	// Check for application name
 	p.preload = function(done)
 	{
+		if (!this.name)
+		{
+			if (DEBUG)
+			{
+				throw "Application name is empty, please add a Application option of 'name'";
+			}
+			else
+			{
+				throw "Application name is empty";
+			}
+		}
+		
 		// Add the options to properties
 		this.singlePlay = !!this.options.singlePlay;
 		this.playOptions = this.options.playOptions || {};

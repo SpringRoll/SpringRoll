@@ -38,9 +38,6 @@
 		"src/utils/Math.js"
 	],
 	"modules": {
-		"analytics": [
-			"src/events/AnalyticsPlugin.js"
-		],
 		"nativedisplay": {
 			"output": "native-display",
 			"main": [
