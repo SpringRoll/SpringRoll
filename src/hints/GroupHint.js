@@ -1,7 +1,7 @@
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -13,7 +13,7 @@
 
 	/**
 	 *  Class to create tiered hinting or randomized hinting.
-	 *     this.game.hinting.group()
+	 *     this.game.hints.group()
 	 *     	.vo('Something', onCompleted)
 	 *     	.vo('Another', onComplete)
 	 *     	.addTier()

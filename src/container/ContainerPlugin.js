@@ -166,7 +166,7 @@
 			this.messenger.send('features', {
 				learning: !!this.learning,
 				sound: hasSound,
-				hinting: !!this.hinting,
+				hints: !!this.hints,
 				music: hasSound && this.sound.contextExists('music'),
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),

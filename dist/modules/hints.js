@@ -1,8 +1,8 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -62,9 +62,9 @@
 }());
 
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -102,7 +102,7 @@
 	 */
 	p.play = function()
 	{
-		this._game.hinting.enabled = false;
+		this._game.hints.enabled = false;
 		this._game.media.playInstruction(
 			this.idOrList,
 			this._onPlayComplete.bind(this, this.onComplete, false),
@@ -128,9 +128,9 @@
 }());
 
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -172,7 +172,7 @@
 	 */
 	p.play = function()
 	{
-		this._game.hinting.enabled = false;
+		this._game.hints.enabled = false;
 		this._game.media.playInstruction(
 			this.instance,
 			this.events,
@@ -200,9 +200,9 @@
 }());
 
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -234,7 +234,7 @@
 	 */
 	p.play = function()
 	{
-		this._game.hinting.enabled = false;
+		this._game.hints.enabled = false;
 		this.onStart();
 	};
 
@@ -253,9 +253,9 @@
 }());
 
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -267,7 +267,7 @@
 
 	/**
 	 *  Class to create tiered hinting or randomized hinting.
-	 *     this.game.hinting.group()
+	 *     this.game.hints.group()
 	 *     	.vo('Something', onCompleted)
 	 *     	.vo('Another', onComplete)
 	 *     	.addTier()
@@ -444,9 +444,9 @@
 }());
 
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -459,11 +459,11 @@
 
 	/**
 	 *  Design to handle the setting and playing of hints
-	 *  @class HintPlayer
+	 *  @class HintsPlayer
 	 *  @constructor
 	 *  @param {springroll.Application} game Reference to the current game
 	 */
-	var HintPlayer = function(game)
+	var HintsPlayer = function(game)
 	{
 		EventDispatcher.call(this);
 
@@ -517,7 +517,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(HintPlayer, EventDispatcher);
+	var p = extend(HintsPlayer, EventDispatcher);
 
 	/**
 	 *  Add a VO hint to the player.
@@ -576,7 +576,7 @@
 
 	/**
 	 *  Create the new group hint for randomizing hints or for tiered hinting.
-	 *  You can save this group hint for later and assign using HintPlayer.set()
+	 *  You can save this group hint for later and assign using HintsPlayer.set()
 	 *  @method group
 	 *  @return {springroll.GroupHint} The new group hint
 	 */
@@ -602,7 +602,7 @@
 
 	/**
 	 *  Removes the current hint
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.clear = function()
 	{
@@ -618,7 +618,7 @@
 	/**
 	 *  Manually play the current hint
 	 *  @method play
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.play = function()
 	{
@@ -637,7 +637,7 @@
 	 *  Start a timer
 	 *  @method startTimer
 	 *  @param {int} [duration=12000] The number of milliseconds before playing hint
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.startTimer = function(duration)
 	{
@@ -649,14 +649,14 @@
 	/**
 	 *  Stop the timer and remove update listener
 	 *  @method stopTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 
 	/**
 	 *  Stop the timer and remove update listener.
 	 *  Alias for stopTimer
 	 *  @method removeTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.stopTimer = p.removeTimer = function()
 	{
@@ -668,7 +668,7 @@
 	/**
 	 *  Reset the timer to start over
 	 *  @method resetTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.resetTimer = function()
 	{
@@ -759,41 +759,41 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').HintPlayer = HintPlayer;
+	namespace('springroll').HintsPlayer = HintsPlayer;
 }());
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var HintPlayer = include('springroll.HintPlayer');
+	var HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
 	 * Create an app plugin for Hinting, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class HintingPlugin
+	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var HintingPlugin = function()
+	var HintsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	// Reference to the prototype
-	var p = extend(HintingPlugin, ApplicationPlugin);
+	var p = extend(HintsPlugin, ApplicationPlugin);
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
 		 * The hint player API
-		 * @property {springroll.HintPlayer} hinting
+		 * @property {springroll.HintsPlayer} hints
 		 */
-		this.hinting = new HintPlayer(this);
+		this.hints = new HintsPlayer(this);
 	};
 
 	// Check for dependencies
@@ -803,10 +803,10 @@
 		if (!this.media) throw "Hinting requires LearningMedia";
 
 		// Listen for manual help clicks
-		this.messenger.on('playHelp', this.hinting.play);
+		this.messenger.on('playHelp', this.hints.play);
 
 		// Listen whtn the hint changes
-		this.hinting.on('enabled', function(enabled)
+		this.hints.on('enabled', function(enabled)
 		{
 			this.messenger.send('helpEnabled', enabled);
 		}
@@ -819,12 +819,12 @@
 	p.teardown = function()
 	{
 		this.messenger.off('playHelp');
-		this.hinting.off('enabled');
-		this.hinting.destroy();
-		this.hinting = null;
+		this.hints.off('enabled');
+		this.hints.destroy();
+		this.hints = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(HintingPlugin);
+	ApplicationPlugin.register(HintsPlugin);
 
 }());

@@ -1,13 +1,13 @@
 // Import classes
-var LearningDispatcher = include('springroll.LearningDispatcher'),
+var Learning = include('springroll.Learning'),
 	Application = include('springroll.Application'),
-	LearningDispatcherError = include('springroll.LearningDispatcherError'),
-	ValidationError = include('springroll.LearningDispatcherError');
+	LearningError = include('springroll.LearningError'),
+	ValidationError = include('springroll.LearningError');
 
 $.getJSON('data/spec.json', function(spec){
 
 	// Throw errors, it will make it easier to validate
-	LearningDispatcher.throwErrors = true;
+	Learning.throwErrors = true;
 
 	// Our base learning object
 	var app = new Application();
@@ -161,7 +161,7 @@ $.getJSON('data/spec.json', function(spec){
 		}
 		catch (e)
 		{
-			assert.ok(e instanceof LearningDispatcherError, "More arguments");
+			assert.ok(e instanceof LearningError, "More arguments");
 		}
 		try
 		{
@@ -169,7 +169,7 @@ $.getJSON('data/spec.json', function(spec){
 		}
 		catch (e)
 		{
-			assert.ok(e instanceof LearningDispatcherError, "Less arguments");
+			assert.ok(e instanceof LearningError, "Less arguments");
 		}
 	});
 
@@ -178,6 +178,6 @@ $.getJSON('data/spec.json', function(spec){
 		expect(1);
 		learning.destroy();
 		learning = null;
-		assert.ok(true, "LearningDispatcher destroyed");
+		assert.ok(true, "Learning destroyed");
 	});
 });

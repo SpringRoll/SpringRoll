@@ -1,5 +1,5 @@
 /**
- * @module Translate
+ * @module Languages
  * @namespace springroll
  * @requires Core
  */
@@ -7,40 +7,40 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Language = include('springroll.Language');
+		Languages = include('springroll.Languages');
 
 	/**
 	 * Create an app plugin for Language, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class LanguagePlugin
+	 * @class LanguagesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LanguagePlugin = function()
+	var LanguagesPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	// Reference to the prototype
-	var p = extend(LanguagePlugin, ApplicationPlugin);
+	var p = extend(LanguagesPlugin, ApplicationPlugin);
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
 		 * The StringFilters instance
-		 * @property {springroll.Language} translating
+		 * @property {springroll.Languages} languages
 		 */
-		this.translating = new Language();
+		this.languages = new Languages();
 	};
 
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.translating.destroy();
-		this.translating = null;
+		this.languages.destroy();
+		this.languages = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LanguagePlugin);
+	ApplicationPlugin.register(LanguagesPlugin);
 
 }());

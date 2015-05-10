@@ -1,6 +1,6 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module Translate
+ * @module Languages
  * @namespace springroll
  * @requires Core
  */
@@ -13,7 +13,7 @@
 	*  Keeps track of the user locale, by auto-detecting the browser language, allowing a user
 	*  selection, and automatically modifying any url that runs through the CacheManager.
 	*
-	*  @class Language
+	*  @class Languages
 	*  @extend EventDispatcher
 	*  @constructor
 	*  @param {Object} config The language settings to be used.
@@ -25,11 +25,11 @@
 	*  @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
 	*                                            language.
 	*/
-	var Language = function(config)
+	var Languages = function(config)
 	{
 		if (_instance)
 		{
-			throw "Only one Language can exist at a time!";
+			throw "Only one Languages can exist at a time!";
 		}
 		_instance = this;
 		
@@ -74,7 +74,7 @@
 	
 	// Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(Language, EventDispatcher);
+	var p = extend(Languages, EventDispatcher);
 	
 	/**
 	*  Fired when the chosen language has changed.
@@ -98,7 +98,7 @@
 	{
 		if (!config.languages || !config.default)
 		{
-			throw "Language requires a language dictionary and a default language!";
+			throw "Languages requires a language dictionary and a default language!";
 		}
 		
 		this._replace = config.replace || this._replace;
@@ -114,13 +114,13 @@
 	};
 	
 	/**
-	*  Get the singleton instance of the Language object.
-	*  @property {Language} instance
+	*  Get the singleton instance of the Languages object.
+	*  @property {springroll.Languages} instance
 	*  @static
 	*  @public
 	*/
 	var _instance = null;
-	Object.defineProperty(Language, "instance",
+	Object.defineProperty(Languages, "instance",
 	{
 		get: function()
 		{
@@ -261,7 +261,7 @@
 	};
 	
 	/**
-	*  Destroys the Language object.
+	*  Destroys the Languages object.
 	*  @method destroy
 	*/
 	p.destroy = function()
@@ -277,11 +277,11 @@
 	};
 	
 	// Assign to namespace
-	namespace('springroll').Language = Language;
+	namespace('springroll').Languages = Languages;
 
 })(window);
 /**
- * @module Translate
+ * @module Languages
  * @namespace springroll
  * @requires Core
  */
@@ -289,40 +289,40 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Language = include('springroll.Language');
+		Languages = include('springroll.Languages');
 
 	/**
 	 * Create an app plugin for Language, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class LanguagePlugin
+	 * @class LanguagesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LanguagePlugin = function()
+	var LanguagesPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	// Reference to the prototype
-	var p = extend(LanguagePlugin, ApplicationPlugin);
+	var p = extend(LanguagesPlugin, ApplicationPlugin);
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
 		 * The StringFilters instance
-		 * @property {springroll.Language} translating
+		 * @property {springroll.Languages} languages
 		 */
-		this.translating = new Language();
+		this.languages = new Languages();
 	};
 
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.translating.destroy();
-		this.translating = null;
+		this.languages.destroy();
+		this.languages = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LanguagePlugin);
+	ApplicationPlugin.register(LanguagesPlugin);
 
 }());

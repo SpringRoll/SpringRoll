@@ -5,7 +5,7 @@
  */
 (function()
 {
-	var LearningDispatcherError = include('springroll.LearningDispatcherError');
+	var LearningError = include('springroll.LearningError');
 
 	/**
 	 *  A map of all the event codes to the API method names
@@ -106,7 +106,7 @@
 			}
 			else
 			{
-				throw new LearningDispatcherError("Cannot override the existing event code " + eventCode);
+				throw new LearningError("Cannot override the existing event code " + eventCode);
 			}
 		}
 	};

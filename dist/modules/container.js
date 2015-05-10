@@ -475,7 +475,7 @@
 	 * @param {Boolean} data.sfx If SFX context is supported
 	 * @param {Boolean} data.learning If learning dispatcher is supported
 	 * @param {Boolean} data.captions If captions is supported
-	 * @param {Boolean} data.hinting If hinting is supported
+	 * @param {Boolean} data.hints If hinting is supported
 	 */
 
 	/**
@@ -736,7 +736,7 @@
 	};
 
 	/**
-	 * Track an event for springroll LearningDispatcher
+	 * Track an event for springroll Learning
 	 * @method onLearningEvent
 	 * @param {event} event The bellhop learningEvent
 	 * @private

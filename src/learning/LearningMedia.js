@@ -23,7 +23,7 @@
 		
 		/**
 		 * Reference to the Learning Dispatcher
-		 * @property {springroll.LearningDispatcher} learning
+		 * @property {springroll.Learning} learning
 		 */
 		this.learning = null;
 
@@ -58,7 +58,7 @@
 
 	/**
 	 *  Plays animation or list of animations using springroll.Animator,
-	 *  firing startMovie and endMovie or skipMovie LearningDispatcher events.
+	 *  firing startMovie and endMovie or skipMovie Learning events.
 	 *  @method playMovie
 	 *  @param {MovieClip} instance The MovieClip to animate.
 	 *  @param {String|Array|Object} events Event or list of events to animate. See
@@ -75,7 +75,7 @@
 		{
 			if (DEBUG && Debug)
 			{
-				Debug.warn("LearningDispatcher is not available and will not trigger Movie events");
+				Debug.warn("Learning is not available and will not trigger Movie events");
 			}
 			return this.display.animator.play(instance, events, options);
 		}
@@ -90,7 +90,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -122,7 +122,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
+					Debug.warn("Learning is not available and will not trigger Instruction events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -144,7 +144,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
+					Debug.warn("Learning is not available and will not trigger Instruction events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -160,7 +160,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -192,7 +192,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger IncorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -215,7 +215,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger IncorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -231,7 +231,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -263,7 +263,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger CorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -286,7 +286,7 @@
 			{
 				if (DEBUG && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger CorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -361,7 +361,7 @@
 	 *                              springroll.Animator.play() docs for details.
 	 *  @param {Object} options Additional options. See springroll.Animator.play() docs
 	 *                          for details.
-	 *  @param {String} learningEvent LearningDispatcher VO/animation event type
+	 *  @param {String} learningEvent Learning VO/animation event type
 	 *                               ("movie", "instruction", "incorrect", or "correct").
 	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
 	 */

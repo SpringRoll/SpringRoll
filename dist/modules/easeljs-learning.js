@@ -9,11 +9,11 @@
 	var Application = include('springroll.Application');
 
 	/**
-	 *  Fires DwellTime LearningDispatcher events for clickable objects
+	 *  Fires DwellTime Learning events for clickable objects
 	 *  @class DwellTimer
 	 *  @constructor
 	 *  @param {createjs.DisplayObject} target  Object for which to add dwellTime events
-	 *  @param {springroll.LearningDispatcher} [learning] Learning Dispatcher instance to use
+	 *  @param {springroll.Learning} [learning] Learning Dispatcher instance to use
 	 */
 	var DwellTimer = function(target, learning)
 	{
@@ -36,7 +36,7 @@
 
 		/**
 		 *  Reference to Learning Dispatcher
-		 *  @property {springroll.LearningDispatcher} learning
+		 *  @property {springroll.Learning} learning
 		 */
 		this.learning = learning || Application.instance.learning;
 

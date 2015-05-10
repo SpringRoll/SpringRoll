@@ -7,13 +7,13 @@
 {
 	/**
 	 *  General errors when using the Learning Dispatcher
-	 *  @class LearningDispatcherError
+	 *  @class LearningError
 	 *  @extends Error
 	 *  @constructor
 	 *  @param {string} message The error message
 	 *  @param {int} eventCode The number of the event
 	 */
-	var LearningDispatcherError = function(message)
+	var LearningError = function(message)
 	{
 		var e = Error.call(this, message);
 
@@ -31,10 +31,10 @@
 	};
 
 	//Extend the Error class
-	var p = extend(LearningDispatcherError, Error);
+	var p = extend(LearningError, Error);
 
 	//Assign the constructor
-	p.constructor = LearningDispatcherError;
+	p.constructor = LearningError;
 
 	/**
 	 *  To string override
@@ -47,6 +47,6 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').LearningDispatcherError = LearningDispatcherError;
+	namespace('springroll').LearningError = LearningError;
 
 }());

@@ -1,7 +1,7 @@
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -14,11 +14,11 @@
 
 	/**
 	 *  Design to handle the setting and playing of hints
-	 *  @class HintPlayer
+	 *  @class HintsPlayer
 	 *  @constructor
 	 *  @param {springroll.Application} game Reference to the current game
 	 */
-	var HintPlayer = function(game)
+	var HintsPlayer = function(game)
 	{
 		EventDispatcher.call(this);
 
@@ -72,7 +72,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(HintPlayer, EventDispatcher);
+	var p = extend(HintsPlayer, EventDispatcher);
 
 	/**
 	 *  Add a VO hint to the player.
@@ -131,7 +131,7 @@
 
 	/**
 	 *  Create the new group hint for randomizing hints or for tiered hinting.
-	 *  You can save this group hint for later and assign using HintPlayer.set()
+	 *  You can save this group hint for later and assign using HintsPlayer.set()
 	 *  @method group
 	 *  @return {springroll.GroupHint} The new group hint
 	 */
@@ -157,7 +157,7 @@
 
 	/**
 	 *  Removes the current hint
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.clear = function()
 	{
@@ -173,7 +173,7 @@
 	/**
 	 *  Manually play the current hint
 	 *  @method play
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.play = function()
 	{
@@ -192,7 +192,7 @@
 	 *  Start a timer
 	 *  @method startTimer
 	 *  @param {int} [duration=12000] The number of milliseconds before playing hint
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.startTimer = function(duration)
 	{
@@ -204,14 +204,14 @@
 	/**
 	 *  Stop the timer and remove update listener
 	 *  @method stopTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 
 	/**
 	 *  Stop the timer and remove update listener.
 	 *  Alias for stopTimer
 	 *  @method removeTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.stopTimer = p.removeTimer = function()
 	{
@@ -223,7 +223,7 @@
 	/**
 	 *  Reset the timer to start over
 	 *  @method resetTimer
-	 *  @return {springroll.HintPlayer} instance of the player for chaining
+	 *  @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.resetTimer = function()
 	{
@@ -314,5 +314,5 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').HintPlayer = HintPlayer;
+	namespace('springroll').HintsPlayer = HintsPlayer;
 }());

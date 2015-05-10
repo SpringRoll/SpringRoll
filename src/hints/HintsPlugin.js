@@ -1,36 +1,36 @@
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var HintPlayer = include('springroll.HintPlayer');
+	var HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
 	 * Create an app plugin for Hinting, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class HintingPlugin
+	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var HintingPlugin = function()
+	var HintsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	// Reference to the prototype
-	var p = extend(HintingPlugin, ApplicationPlugin);
+	var p = extend(HintsPlugin, ApplicationPlugin);
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
 		 * The hint player API
-		 * @property {springroll.HintPlayer} hinting
+		 * @property {springroll.HintsPlayer} hints
 		 */
-		this.hinting = new HintPlayer(this);
+		this.hints = new HintsPlayer(this);
 	};
 
 	// Check for dependencies
@@ -40,10 +40,10 @@
 		if (!this.media) throw "Hinting requires LearningMedia";
 
 		// Listen for manual help clicks
-		this.messenger.on('playHelp', this.hinting.play);
+		this.messenger.on('playHelp', this.hints.play);
 
 		// Listen whtn the hint changes
-		this.hinting.on('enabled', function(enabled)
+		this.hints.on('enabled', function(enabled)
 		{
 			this.messenger.send('helpEnabled', enabled);
 		}
@@ -56,12 +56,12 @@
 	p.teardown = function()
 	{
 		this.messenger.off('playHelp');
-		this.hinting.off('enabled');
-		this.hinting.destroy();
-		this.hinting = null;
+		this.hints.off('enabled');
+		this.hints.destroy();
+		this.hints = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(HintingPlugin);
+	ApplicationPlugin.register(HintsPlugin);
 
 }());

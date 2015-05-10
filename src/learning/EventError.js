@@ -6,19 +6,19 @@
 (function()
 {
 	//Import class
-	var LearningDispatcherError = include('springroll.LearningDispatcherError');
+	var LearningError = include('springroll.LearningError');
 
 	/**
 	 *  General errors when using the Learning Dispatcher
 	 *  @class EventError
-	 *  @extends springroll.LearningDispatcherError
+	 *  @extends springroll.LearningError
 	 *  @constructor
 	 *  @param {string} message The error message
 	 *  @param {int} eventCode The number of the event
 	 */
 	var EventError = function(message, eventCode, api)
 	{
-		LearningDispatcherError.call(this, message);
+		LearningError.call(this, message);
 
 		/**
 		 *  The name of the property erroring on
@@ -40,7 +40,7 @@
 	};
 
 	//Extend the Error class
-	var p = extend(EventError, LearningDispatcherError);
+	var p = extend(EventError, LearningError);
 
 	//Assign the constructor
 	p.constructor = EventError;

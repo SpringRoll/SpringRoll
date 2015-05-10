@@ -1,6 +1,6 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -8,13 +8,13 @@
 {
 	/**
 	 *  General errors when using the Learning Dispatcher
-	 *  @class LearningDispatcherError
+	 *  @class LearningError
 	 *  @extends Error
 	 *  @constructor
 	 *  @param {string} message The error message
 	 *  @param {int} eventCode The number of the event
 	 */
-	var LearningDispatcherError = function(message)
+	var LearningError = function(message)
 	{
 		var e = Error.call(this, message);
 
@@ -32,10 +32,10 @@
 	};
 
 	//Extend the Error class
-	var p = extend(LearningDispatcherError, Error);
+	var p = extend(LearningError, Error);
 
 	//Assign the constructor
-	p.constructor = LearningDispatcherError;
+	p.constructor = LearningError;
 
 	/**
 	 *  To string override
@@ -48,18 +48,18 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').LearningDispatcherError = LearningDispatcherError;
+	namespace('springroll').LearningError = LearningError;
 
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
 (function()
 {
-	var LearningDispatcherError = include('springroll.LearningDispatcherError');
+	var LearningError = include('springroll.LearningError');
 
 	/**
 	 *  A map of all the event codes to the API method names
@@ -160,7 +160,7 @@
 			}
 			else
 			{
-				throw new LearningDispatcherError("Cannot override the existing event code " + eventCode);
+				throw new LearningError("Cannot override the existing event code " + eventCode);
 			}
 		}
 	};
@@ -234,7 +234,7 @@
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -468,26 +468,26 @@
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
 (function()
 {
 	//Import class
-	var LearningDispatcherError = include('springroll.LearningDispatcherError');
+	var LearningError = include('springroll.LearningError');
 
 	/**
 	 *  General errors when using the Learning Dispatcher
 	 *  @class EventError
-	 *  @extends springroll.LearningDispatcherError
+	 *  @extends springroll.LearningError
 	 *  @constructor
 	 *  @param {string} message The error message
 	 *  @param {int} eventCode The number of the event
 	 */
 	var EventError = function(message, eventCode, api)
 	{
-		LearningDispatcherError.call(this, message);
+		LearningError.call(this, message);
 
 		/**
 		 *  The name of the property erroring on
@@ -509,7 +509,7 @@
 	};
 
 	//Extend the Error class
-	var p = extend(EventError, LearningDispatcherError);
+	var p = extend(EventError, LearningError);
 
 	//Assign the constructor
 	p.constructor = EventError;
@@ -530,7 +530,7 @@
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -587,7 +587,7 @@
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -774,7 +774,7 @@
 }());
 
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -788,19 +788,19 @@
 		EventError = include('springroll.EventError'),
 		EventSignature = include('springroll.EventSignature'),
 		EventUtils = include('springroll.EventUtils'),
-		LearningDispatcherError = include('springroll.LearningDispatcherError'),
+		LearningError = include('springroll.LearningError'),
 		SavedData = include('springroll.SavedData'),
 		ValidationError = include('springroll.ValidationError');
 
 	/**
 	 *  The base game class
-	 *  @class LearningDispatcher
+	 *  @class Learning
 	 *  @extends springroll.EventDispatcher
 	 *  @constructor
 	 *  @param {springroll.Application} app The application reference
 	 *  @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
 	 */
-	var LearningDispatcher = function(app, showTray)
+	var Learning = function(app, showTray)
 	{
 		EventDispatcher.call(this);
 
@@ -921,11 +921,11 @@
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
-	LearningDispatcher.throwErrors = false;
+	Learning.throwErrors = false;
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(LearningDispatcher, EventDispatcher);
+	var p = extend(Learning, EventDispatcher);
 
 	/**
 	 *  An event is tracked
@@ -958,7 +958,7 @@
 		{
 			if (typeof error === "string")
 			{
-				error = new LearningDispatcherError(error);
+				error = new LearningError(error);
 			}
 			throw error;
 		}
@@ -980,7 +980,7 @@
 					Debug.error(error.stack);
 				}
 			}
-			if (LearningDispatcher.throwErrors)
+			if (Learning.throwErrors)
 			{
 				throw e;
 			}
@@ -1669,7 +1669,7 @@
 	{
 		if (this._history.indexOf(api) === -1)
 		{
-			this._handleError("LearningDispatcher API '" + api + "' needs to be called first");
+			this._handleError("Learning API '" + api + "' needs to be called first");
 			return false;
 		}
 		return true;
@@ -1714,7 +1714,7 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').LearningDispatcher = LearningDispatcher;
+	namespace('springroll').Learning = Learning;
 
 }(window.jQuery));
 /**
@@ -1742,7 +1742,7 @@
 		
 		/**
 		 * Reference to the Learning Dispatcher
-		 * @property {springroll.LearningDispatcher} learning
+		 * @property {springroll.Learning} learning
 		 */
 		this.learning = null;
 
@@ -1777,7 +1777,7 @@
 
 	/**
 	 *  Plays animation or list of animations using springroll.Animator,
-	 *  firing startMovie and endMovie or skipMovie LearningDispatcher events.
+	 *  firing startMovie and endMovie or skipMovie Learning events.
 	 *  @method playMovie
 	 *  @param {MovieClip} instance The MovieClip to animate.
 	 *  @param {String|Array|Object} events Event or list of events to animate. See
@@ -1794,7 +1794,7 @@
 		{
 			if (true && Debug)
 			{
-				Debug.warn("LearningDispatcher is not available and will not trigger Movie events");
+				Debug.warn("Learning is not available and will not trigger Movie events");
 			}
 			return this.display.animator.play(instance, events, options);
 		}
@@ -1809,7 +1809,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -1841,7 +1841,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
+					Debug.warn("Learning is not available and will not trigger Instruction events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -1863,7 +1863,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger Instruction events");
+					Debug.warn("Learning is not available and will not trigger Instruction events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -1879,7 +1879,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -1911,7 +1911,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger IncorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -1934,7 +1934,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger IncorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger IncorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -1950,7 +1950,7 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback LearningDispatcher events
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events
 	 *
 	 *  Example Animator usage:
 	 *  game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
@@ -1982,7 +1982,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger CorrectFeedback events");
 				}
 				return animator.play(instance, events, onComplete, onCancel);
 			}
@@ -2005,7 +2005,7 @@
 			{
 				if (true && Debug)
 				{
-					Debug.warn("LearningDispatcher is not available and will not trigger CorrectFeedback events");
+					Debug.warn("Learning is not available and will not trigger CorrectFeedback events");
 				}
 				this.player.play(events, onComplete, onCancel);
 				return;
@@ -2080,7 +2080,7 @@
 	 *                              springroll.Animator.play() docs for details.
 	 *  @param {Object} options Additional options. See springroll.Animator.play() docs
 	 *                          for details.
-	 *  @param {String} learningEvent LearningDispatcher VO/animation event type
+	 *  @param {String} learningEvent Learning VO/animation event type
 	 *                               ("movie", "instruction", "incorrect", or "correct").
 	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
 	 */
@@ -2329,7 +2329,7 @@
 	namespace('springroll').LearningMedia = LearningMedia;
 }());
 /**
- * @module Learning Dispatcher
+ * @module Learning
  * @namespace springroll
  * @requires Core
  */
@@ -2337,7 +2337,7 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-	 	LearningDispatcher = include('springroll.LearningDispatcher'),
+	 	Learning = include('springroll.Learning'),
 	 	LearningMedia = include('springroll.LearningMedia');
 
 	/**
@@ -2378,9 +2378,9 @@
 
 		/**
 		 * The Learning Dispatcher instance
-		 * @property {springroll.LearningDispatcher} learning
+		 * @property {springroll.Learning} learning
 		 */
-		this.learning = new LearningDispatcher(this, true);
+		this.learning = new Learning(this, true);
 
 		// Listen for the config setup and add the spec
 		this.once('configLoaded', function(config)

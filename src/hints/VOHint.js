@@ -1,7 +1,7 @@
 /**
- * @module Hinting
+ * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound, Learning, Container Client
  */
 (function()
 {
@@ -39,7 +39,7 @@
 	 */
 	p.play = function()
 	{
-		this._game.hinting.enabled = false;
+		this._game.hints.enabled = false;
 		this._game.media.playInstruction(
 			this.idOrList,
 			this._onPlayComplete.bind(this, this.onComplete, false),

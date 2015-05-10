@@ -13,19 +13,19 @@
 		EventError = include('springroll.EventError'),
 		EventSignature = include('springroll.EventSignature'),
 		EventUtils = include('springroll.EventUtils'),
-		LearningDispatcherError = include('springroll.LearningDispatcherError'),
+		LearningError = include('springroll.LearningError'),
 		SavedData = include('springroll.SavedData'),
 		ValidationError = include('springroll.ValidationError');
 
 	/**
 	 *  The base game class
-	 *  @class LearningDispatcher
+	 *  @class Learning
 	 *  @extends springroll.EventDispatcher
 	 *  @constructor
 	 *  @param {springroll.Application} app The application reference
 	 *  @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
 	 */
-	var LearningDispatcher = function(app, showTray)
+	var Learning = function(app, showTray)
 	{
 		EventDispatcher.call(this);
 
@@ -146,11 +146,11 @@
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
-	LearningDispatcher.throwErrors = false;
+	Learning.throwErrors = false;
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(LearningDispatcher, EventDispatcher);
+	var p = extend(Learning, EventDispatcher);
 
 	/**
 	 *  An event is tracked
@@ -183,7 +183,7 @@
 		{
 			if (typeof error === "string")
 			{
-				error = new LearningDispatcherError(error);
+				error = new LearningError(error);
 			}
 			throw error;
 		}
@@ -205,7 +205,7 @@
 					Debug.error(error.stack);
 				}
 			}
-			if (LearningDispatcher.throwErrors)
+			if (Learning.throwErrors)
 			{
 				throw e;
 			}
@@ -894,7 +894,7 @@
 	{
 		if (this._history.indexOf(api) === -1)
 		{
-			this._handleError("LearningDispatcher API '" + api + "' needs to be called first");
+			this._handleError("Learning API '" + api + "' needs to be called first");
 			return false;
 		}
 		return true;
@@ -939,6 +939,6 @@
 	};
 
 	//Assign to namespace
-	namespace('springroll').LearningDispatcher = LearningDispatcher;
+	namespace('springroll').Learning = Learning;
 
 }(window.jQuery));

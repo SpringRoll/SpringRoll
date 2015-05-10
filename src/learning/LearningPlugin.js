@@ -7,7 +7,7 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-	 	LearningDispatcher = include('springroll.LearningDispatcher'),
+	 	Learning = include('springroll.Learning'),
 	 	LearningMedia = include('springroll.LearningMedia');
 
 	/**
@@ -48,9 +48,9 @@
 
 		/**
 		 * The Learning Dispatcher instance
-		 * @property {springroll.LearningDispatcher} learning
+		 * @property {springroll.Learning} learning
 		 */
-		this.learning = new LearningDispatcher(this, DEBUG);
+		this.learning = new Learning(this, DEBUG);
 
 		// Listen for the config setup and add the spec
 		this.once('configLoaded', function(config)

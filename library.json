@@ -167,9 +167,9 @@
 			"src/media/Captions.js",
 			"src/media/CaptionsPlugin.js"
 		],
-		"translating": [
-			"src/utils/Language.js",
-			"src/utils/LanguagePlugin.js"
+		"languages": [
+			"src/utils/Languages.js",
+			"src/utils/LanguagesPlugin.js"
 		],
 		"debug": [
 			"src/debug/Debug.less",
@@ -177,33 +177,27 @@
 			"src/debug/DebugOptions.js",
 			"src/debug/DebugPlugin.js"
 		],
-		"learning": {
-			"output": "learning",
-			"main": [
-				"src/learning/LearningDispatcherError.js",
-				"src/learning/EventCatalog.js",
-				"src/learning/EventSignature.js",
-				"src/learning/EventError.js",
-				"src/learning/ValidationError.js",
-				"src/learning/EventUtils.js",
-				"src/learning/LearningDispatcher.js",
-				"src/learning/LearningDispatcher.less",
-				"src/learning/LearningMedia.js",
-				"src/learning/LearningPlugin.js"
-			]
-		},
-		"hinting": {
-			"output": "hinting",
-			"main": [
-				"src/hinting/AbstractHint.js",
-				"src/hinting/VOHint.js",
-				"src/hinting/AnimatorHint.js",
-				"src/hinting/FunctionHint.js",
-				"src/hinting/GroupHint.js",
-				"src/hinting/HintPlayer.js",
-				"src/hinting/HintingPlugin.js"
-			]
-		},
+		"learning": [
+			"src/learning/LearningError.js",
+			"src/learning/EventCatalog.js",
+			"src/learning/EventSignature.js",
+			"src/learning/EventError.js",
+			"src/learning/ValidationError.js",
+			"src/learning/EventUtils.js",
+			"src/learning/Learning.js",
+			"src/learning/Learning.less",
+			"src/learning/LearningMedia.js",
+			"src/learning/LearningPlugin.js"
+		],
+		"hints": [
+			"src/hints/AbstractHint.js",
+			"src/hints/VOHint.js",
+			"src/hints/AnimatorHint.js",
+			"src/hints/FunctionHint.js",
+			"src/hints/GroupHint.js",
+			"src/hints/HintsPlayer.js",
+			"src/hints/HintsPlugin.js"
+		],
 		"containerclient": {
 			"output": "container-client",
 			"main": [
