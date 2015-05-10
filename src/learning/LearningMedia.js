@@ -1,7 +1,7 @@
 /**
  * @module learning Game
  * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
+ * @requires Core, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
  */
 (function()
 {

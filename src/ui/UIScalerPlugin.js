@@ -23,20 +23,20 @@
 	// Reference to the prototype
 	var p = extend(UIScalerPlugin, ApplicationPlugin);
 
-	// Init the scaler
+	// Init the scaling
 	p.setup = function()
 	{
 		/**
 		 * The main UIScaler for any display object references
 		 * in the main game.
-		 * @property {springroll.UIScaler} scaler
+		 * @property {springroll.UIScaler} scaling
 		 */
-		this.scaler = new UIScaler();
+		this.scaling = new UIScaler();
 
 		// Add the display
 		this.once('afterInit', function()
 		{
-			// Check for the config then auto enable the scaler
+			// Check for the config then auto enable the scaling
 			if (!this.config)
 			{
 				throw "UIScaler requires config";
@@ -44,50 +44,50 @@
 			
 			var Debug = include('springroll.Debug', false);
 			var config = this.config;
-			var scalerSize = config.scalerSize;
+			var scalingSize = config.scalingSize;
 
-			if (!scalerSize)
+			if (!scalingSize)
 			{
 				if (DEBUG)
 				{
-					throw "The config requires 'scalerSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
+					throw "The config requires 'scalingSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
 				}
 				else
 				{
-					throw "No 'scalerSize' config";
+					throw "No 'scalingSize' config";
 				}
 			}
 
-			if (!config.scaler)
+			if (!config.scaling)
 			{
 				if (DEBUG)
 				{
-					throw "The config requires 'scaler' object which contains all the state scaling items.";
+					throw "The config requires 'scaling' object which contains all the state scaling items.";
 				}
 				else
 				{
-					throw "No 'scaler' config";
+					throw "No 'scaling' config";
 				}
 			}
 			
-			this.scaler.size = scalerSize;
-			this.scaler.addItems(this, config.scaler);
-			this.scaler.enabled = true;
+			this.scaling.size = scalingSize;
+			this.scaling.addItems(this, config.scaling);
+			this.scaling.enabled = true;
 		});
 	};
 
 	// Setup the display
 	p.preload = function(done)
 	{
-		this.scaler.display = this.display;
+		this.scaling.display = this.display;
 		done();
 	};
 
 	// clean up
 	p.teardown = function()
 	{
-		this.scaler.destroy();
-		this.scaler = null;
+		this.scaling.destroy();
+		this.scaling = null;
 	};
 
 	// register plugin

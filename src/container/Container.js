@@ -14,10 +14,10 @@
 		$ = include('jQuery');
 
 	/**
-	 * The game container
-	 * @class GameContainer
+	 * The application container
+	 * @class Container
 	 * @constructor
-	 * @param {string} iframeSelector jQuery selector for game iframe container
+	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
 	 * @param {string} [options.helpButton] jQuery selector for help button
 	 * @param {string} [options.captionsButton] jQuery selector for captions button
@@ -27,7 +27,7 @@
 	 * @param {string} [options.musicButton] jQuery selector for music button
 	 * @param {string} [options.pauseButton] jQuery selector for pause button
 	 */
-	var GameContainer = function(iframeSelector, options)
+	var Container = function(iframeSelector, options)
 	{
 		EventDispatcher.call(this);
 
@@ -37,7 +37,7 @@
 		 * The name of this class
 		 * @property {string} name
 		 */
-		this.name = 'springroll.GameContainer';
+		this.name = 'springroll.Container';
 
 		/**
 		 * The current iframe jquery object
@@ -94,14 +94,14 @@
 			.click(onVOToggle.bind(this));
 
 		/**
-		 * Reference to the pause game button
+		 * Reference to the pause application button
 		 * @property {jquery} pauseButton
 		 */
 		this.pauseButton = $(options.pauseButton)
 			.click(onPauseToggle.bind(this));
 
 		/**
-		 * Communication layer between the container and game
+		 * Communication layer between the container and application
 		 * @property {Bellhop} messenger
 		 */
 		this.messenger = null;
@@ -113,14 +113,14 @@
 		this.release = null;
 
 		/**
-		 * Check to see if a game is loaded
+		 * Check to see if a application is loaded
 		 * @property {Boolean} loaded
 		 * @readOnly
 		 */
 		this.loaded = false;
 
 		/**
-		 * Check to see if a game is loading
+		 * Check to see if a application is loading
 		 * @property {Boolean} loading
 		 * @readOnly
 		 */
@@ -141,17 +141,17 @@
 		 * Whether the Game is currently "blurred" (not focused) - for pausing/unpausing
 		 * @type {Boolean}
 		 */
-		this._gameBlurred = false;
+		this._appBlurred = false;
 
 		/**
-		 * Whether the GameContainer is currently "blurred" (not focused) - for pausing/unpausing
+		 * Whether the Container is currently "blurred" (not focused) - for pausing/unpausing
 		 * @type {Boolean}
 		 */
 		this._containerBlurred = false;
 
 		/**
-		 * Delays pausing of game to mitigate issues with asynchronous communication 
-		 * between Game and GameContainer
+		 * Delays pausing of application to mitigate issues with asynchronous communication 
+		 * between Game and Container
 		 * @type {Timeout}
 		 */
 		this._pauseTimer = null;
@@ -165,7 +165,7 @@
 		this._isManualPause = false;
 
 		/**
-		 * If the current game is paused
+		 * If the current application is paused
 		 * @property {Boolean} _paused
 		 * @private
 		 * @default false
@@ -190,7 +190,7 @@
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(GameContainer, EventDispatcher);
+	var p = extend(Container, EventDispatcher);
 
 	/**
 	 * Fired when the pause state is toggled
@@ -224,22 +224,22 @@
 	 */
 
 	/**
-	 * Event when the game gives the load done signal
+	 * Event when the application gives the load done signal
 	 * @event opened
 	 */
 
 	/**
-	 * Event when a game starts closing
+	 * Event when a application starts closing
 	 * @event close
 	 */
 
 	/**
-	 * Event when a game closes
+	 * Event when a application closes
 	 * @event closed
 	 */
 
 	/**
-	 * Event when a game start loading
+	 * Event when a application start loading
 	 * @event open
 	 */
 	
@@ -250,7 +250,7 @@
 	 */
 	
 	/**
-	 * The features supported by the game
+	 * The features supported by the application
 	 * @event features
 	 * @param {Boolean} data.vo If VO vo context is supported
 	 * @param {Boolean} data.music If music context is supported
@@ -278,10 +278,10 @@
 	 */
 
 	/**
-	 * Open a game or path
+	 * Open a application or path
 	 * @method _internalOpen
 	 * @private
-	 * @param {string} path The full path to the game to load
+	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
@@ -296,7 +296,7 @@
 		this.reset();
 
 		// Dispatch event for unsupported browsers
-		// and then bail, don't continue with loading the game
+		// and then bail, don't continue with loading the application
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
 			return this.trigger('unsupported');
@@ -304,25 +304,25 @@
 
 		this.loading = true;
 
-		//Setup communication layer between site and game
+		//Setup communication layer between site and application
 		this.messenger = new Bellhop();
 		this.messenger.connect(this.dom);
 
-		//Handle bellhop events coming from the game
+		//Handle bellhop events coming from the application
 		this.messenger.on(
 		{
 			trackEvent: onTrackEvent.bind(this),
 			progressEvent: onProgressEvent.bind(this),
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
-			gameFocus: onGameFocus.bind(this),
+			focus: onFocus.bind(this),
 			analyticEvent: onAnalyticEvent.bind(this),
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this)
 		});
 
-		//Open the game in the iframe
+		//Open the application in the iframe
 		this.main
 			.addClass('loading')
 			.prop('src', path)
@@ -343,9 +343,9 @@
 	};
 
 	/**
-	 * Open a game or path
+	 * Open a application or path
 	 * @method open
-	 * @param {string} path The full path to the game to load
+	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
@@ -366,13 +366,13 @@
 	};
 
 	/**
-	 * Open game based on an API Call to SpringRoll Connect
+	 * Open application based on an API Call to SpringRoll Connect
 	 * @method openRemote
 	 * @param {string} api The path to API call, this can be a full URL
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
-	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
+	 * @param {String} [options.query=''] The application query string options (e.g., "?level=1")
 	 */
 	p.openRemote = function(api, options, playOptions)
 	{
@@ -409,7 +409,7 @@
 
 			this.release = release;
 
-			// Open the game
+			// Open the application
 			this._internalOpen(release.url + options.query, options);
 		}
 		.bind(this))
@@ -455,13 +455,13 @@
 
 	/**
 	 * Handle focus events sent from iFrame children
-	 * @method onGameFocus
+	 * @method onFocus
 	 * @private
 	 */
-	var onGameFocus = function(e)
+	var onFocus = function(e)
 	{
-		this._gameBlurred = !e.data;
-		manageFocus.call(this);
+		this._appBlurred = !e.data;
+		this.manageFocus();
 	};
 
 	/**
@@ -472,7 +472,7 @@
 	var onContainerFocus = function(e)
 	{
 		this._containerBlurred = false;
-		manageFocus.call(this);
+		this.manageFocus();
 	};
 
 	/**
@@ -482,26 +482,26 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		//Set both container and game to blurred, 
+		//Set both container and application to blurred, 
 		//because some blur events are only happening on the container.
-		//If container is blurred because game area was just focused,
-		//the game's focus event will override the blur imminently.
-		this._containerBlurred = this._gameBlurred = true;
-		manageFocus.call(this);
+		//If container is blurred because application area was just focused,
+		//the application's focus event will override the blur imminently.
+		this._containerBlurred = this._appBlurred = true;
+		this.manageFocus();
 	};
 
 	/**
 	 * Manage the focus change events sent from window and iFrame
 	 * @method manageFocus
-	 * @private
+	 * @protected
 	 */
-	var manageFocus = function()
+	p.manageFocus = function()
 	{
 		if (this._pauseTimer)//we only need one delayed call, at the end of any sequence of rapidly-fired blur/focus events
 			clearTimeout(this._pauseTimer);
 
 		//Delay setting of 'paused' in case we get another focus event soon.
-		//Game Focus events are sent to the container asynchronously, and this was
+		//Focus events are sent to the container asynchronously, and this was
 		//causing rapid toggling of the pause state and related issues, 
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
@@ -512,7 +512,7 @@
 				// User must click the resume button.
 				if (this._isManualPause === true) return;
 
-				this.paused = this._containerBlurred && this._gameBlurred;
+				this.paused = this._containerBlurred && this._appBlurred;
 			}.bind(this), 
 			100
 		);
@@ -530,7 +530,7 @@
 	};
 
 	/**
-	 * Handle the game features
+	 * Handle the application features
 	 * @method onFeatures
 	 * @param {event} event The bellhop features
 	 * @private
@@ -617,7 +617,7 @@
 	};
 
 	/**
-	 * The game ended and destroyed itself
+	 * The application ended and destroyed itself
 	 * @method onEndGame
 	 * @private
 	 */
@@ -640,7 +640,7 @@
 	};
 
 	/**
-	 * If the current game is paused
+	 * If the current application is paused
 	 * @property {Boolean} paused
 	 * @default false
 	 */
@@ -756,7 +756,7 @@
 	};
 
 	/**
-	 * Toggle the current paused state of the game
+	 * Toggle the current paused state of the application
 	 * @method onPauseToggle
 	 * @private
 	 */
@@ -1063,7 +1063,7 @@
 	};
 
 	/**
-	 * Tell the game to start closing
+	 * Tell the application to start closing
 	 * @method close
 	 */
 	p.close = function()
@@ -1125,5 +1125,5 @@
 		s.destroy.call(this);
 	};
 
-	namespace('springroll').GameContainer = GameContainer;
+	namespace('springroll').Container = Container;
 }(document));

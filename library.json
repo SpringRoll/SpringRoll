@@ -122,12 +122,12 @@
 				"src/displays/easeljs/learning/OffClickPlugin.js"
 			]
 		},
-		"easeljsgame": {
-			"output": "easeljs-game",
+		"easeljsstates": {
+			"output": "easeljs-states",
 			"main": [
-				"src/displays/easeljs/game/BasePanel.js",
-				"src/displays/easeljs/game/BaseState.js",
-				"src/displays/easeljs/game/ManifestsPlugin.js"
+				"src/displays/easeljs/states/BasePanel.js",
+				"src/displays/easeljs/states/BaseState.js",
+				"src/displays/easeljs/states/ManifestsPlugin.js"
 			]
 		},
 		"states": [
@@ -167,7 +167,7 @@
 			"src/media/Captions.js",
 			"src/media/CaptionsPlugin.js"
 		],
-		"translate": [
+		"translating": [
 			"src/utils/Language.js",
 			"src/utils/LanguagePlugin.js"
 		],
@@ -204,17 +204,17 @@
 				"src/hinting/HintingPlugin.js"
 			]
 		},
-		"containergame": {
-			"output": "container-game",
+		"containerclient": {
+			"output": "container-client",
 			"main": [
-				"src/container/GameContainerPlugin.js"
+				"src/container/ContainerPlugin.js"
 			]
 		},
 		"container": {
 			"output": "container",
 			"main": [
 				"src/container/Features.js",
-				"src/container/GameContainer.js"
+				"src/container/Container.js"
 			]
 		}
 	}

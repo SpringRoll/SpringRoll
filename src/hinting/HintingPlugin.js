@@ -1,7 +1,7 @@
 /**
  * @module Hinting
  * @namespace springroll
- * @requires Core, Game, Sound, Learning
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -28,9 +28,9 @@
 	{
 		/**
 		 * The hint player API
-		 * @property {springroll.HintPlayer} hint
+		 * @property {springroll.HintPlayer} hinting
 		 */
-		this.hint = new HintPlayer(this);
+		this.hinting = new HintPlayer(this);
 	};
 
 	// Check for dependencies
@@ -40,10 +40,10 @@
 		if (!this.media) throw "Hinting requires LearningMedia";
 
 		// Listen for manual help clicks
-		this.messenger.on('playHelp', this.hint.play);
+		this.messenger.on('playHelp', this.hinting.play);
 
 		// Listen whtn the hint changes
-		this.hint.on('enabled', function(enabled)
+		this.hinting.on('enabled', function(enabled)
 		{
 			this.messenger.send('helpEnabled', enabled);
 		}
@@ -56,9 +56,9 @@
 	p.teardown = function()
 	{
 		this.messenger.off('playHelp');
-		this.hint.off('enabled');
-		this.hint.destroy();
-		this.hint = null;
+		this.hinting.off('enabled');
+		this.hinting.destroy();
+		this.hinting = null;
 	};
 
 	// register plugin

@@ -28,16 +28,16 @@
 	{
 		/**
 		 * The StringFilters instance
-		 * @property {springroll.Language} language
+		 * @property {springroll.Language} translating
 		 */
-		this.language = new Language();
+		this.translating = new Language();
 	};
 
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.language.destroy();
-		this.language = null;
+		this.translating.destroy();
+		this.translating = null;
 	};
 
 	// register plugin

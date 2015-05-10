@@ -1,4 +1,3 @@
-/*! SpringRoll 0.3.0 */
 /**
 *  @module Core
 *  @namespace springroll
@@ -13,10 +12,10 @@
 	/**
 	 * Create an app plugin for working with the Game Container, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class GameContainerPlugin
+	 * @class ContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var GameContainerPlugin = function()
+	var ContainerPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 
@@ -24,15 +23,15 @@
 	};
 
 	// Reference to the prototype
-	var p = extend(GameContainerPlugin, ApplicationPlugin);
+	var p = extend(ContainerPlugin, ApplicationPlugin);
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
-		 * The default play-mode for the game is continuous, if the game is
+		 * The default play-mode for the application is continuous, if the application is
 		 * running as part of a sequence is it considered in "single play" mode
-		 * and the game will therefore close itself.
+		 * and the application will therefore close itself.
 		 * @property {Boolean} options.singlePlay
 		 * @readOnly
 		 * @default false
@@ -40,8 +39,8 @@
 		this.options.add('singlePlay', false, true);
 
 		/**
-		 * The optional play options to use if the game is played in "single play"
-		 * mode. These options are passed from the game container to specify
+		 * The optional play options to use if the application is played in "single play"
+		 * mode. These options are passed from the application container to specify
 		 * options that are used for this single play session. For instance,
 		 * if you want the single play to focus on a certain level or curriculum
 		 * such as `{ "shape": "square" }`
@@ -77,9 +76,9 @@
 		});
 
 		/**
-		 * The default play-mode for the game is continuous, if the game is
+		 * The default play-mode for the application is continuous, if the application is
 		 * running as part of a sequence is it considered in "single play" mode
-		 * and the game will therefore close itself.
+		 * and the application will therefore close itself.
 		 * @property {Boolean} singlePlay
 		 * @readOnly
 		 * @default false
@@ -87,8 +86,8 @@
 		this.singlePlay = false;
 
 		/**
-		 * The optional play options to use if the game is played in "single play"
-		 * mode. These options are passed from the game container to specify
+		 * The optional play options to use if the application is played in "single play"
+		 * mode. These options are passed from the application container to specify
 		 * options that are used for this single play session. For instance,
 		 * if you want the single play to focus on a certain level or curriculum
 		 * such as `{ "shape": "square" }`
@@ -98,9 +97,9 @@
 		this.playOptions = null;
 
 		/**
-		 * When a game is in singlePlay mode it will end.
+		 * When a application is in singlePlay mode it will end.
 		 * It's unnecessary to check `if (this.singlePlay)` just
-		 * call the method and it will end the game if it can.
+		 * call the method and it will end the application if it can.
 		 * @method singlePlayEnd
 		 */
 		this.singlePlayEnd = function()
@@ -112,7 +111,7 @@
 		};
 
 		/**
-		 * Manually close the game, this can happen when playing through once
+		 * Manually close the application, this can happen when playing through once
 		 * @method endGame
 		 * @param {String} [exitType='game_completed'] The type of exit
 		 */
@@ -143,7 +142,7 @@
 		this.playOptions = this.options.playOptions || {};
 
 		// Merge the container options with the current
-		// game options
+		// application options
 		if (this.messenger.supported)
 		{
 			//Setup the messenger listeners for site soundMute and captionsMute events
@@ -167,7 +166,7 @@
 			this.messenger.send('features', {
 				learning: !!this.learning,
 				sound: hasSound,
-				hinting: !!this.hint,
+				hinting: !!this.hinting,
 				music: hasSound && this.sound.contextExists('music'),
 				vo: hasSound && this.sound.contextExists('vo'),
 				sfx: hasSound && this.sound.contextExists('sfx'),
@@ -180,15 +179,15 @@
 			//handle detecting and sending blur/focus events
 			var messenger = this.messenger;
 			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, 'gameFocus', true),
-				messenger.send.bind(messenger, 'gameFocus', false)
+				messenger.send.bind(messenger, 'focus', true),
+				messenger.send.bind(messenger, 'focus', false)
 			);
 		}
 		done();
 	};
 
 	/**
-	 * When the container pauses the game
+	 * When the container pauses the application
 	 * @method onPause
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -258,7 +257,7 @@
 	};
 
 	/**
-	 * Handler when a game enters single play mode
+	 * Handler when a application enters single play mode
 	 * @method onPlayOptions
 	 * @private
 	 * @param {event} e The Bellhop event
@@ -269,7 +268,7 @@
 	};
 
 	/**
-	 * Handler when a game enters single play mode
+	 * Handler when a application enters single play mode
 	 * @method onSinglePlay
 	 * @private
 	 */
@@ -279,7 +278,7 @@
 	};
 
 	/**
-	 * Game container requests closing the game
+	 * Game container requests closing the application
 	 * @method onClose
 	 * @private
 	 */
@@ -297,13 +296,13 @@
 			this._pageVisibility = null;
 		}
 
-		// Send the end game event to the container
+		// Send the end application event to the container
 		this.messenger.send('endGame');
 		this.messenger.destroy();
 		this.messenger = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(GameContainerPlugin);
+	ApplicationPlugin.register(ContainerPlugin);
 
 }());

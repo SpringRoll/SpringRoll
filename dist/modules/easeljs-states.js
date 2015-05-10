@@ -1,8 +1,8 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module EaselJS Game
+ * @module EaselJS States
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Learning, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, States, Interface, Tasks, Learning, EaselJS Learning, EaselJS Display
  */
 (function()
 {
@@ -134,9 +134,9 @@
 	namespace('springroll.easeljs').BasePanel = BasePanel;
 }());
 /**
- * @module EaselJS Game
+ * @module EaselJS States
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Learning, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, States, Interface, Tasks, Learning, EaselJS Learning, EaselJS Display
  */
 (function(undefined)
 {
@@ -197,11 +197,11 @@
 		this.config = this.game.config;
 
 		/**
-		 *  Reference to the scaler object
-		 *  @property {springroll.UIScaler} scaler
+		 *  Reference to the scaling object
+		 *  @property {springroll.UIScaler} scaling
 		 *  @protected
 		 */
-		this.scaler = this.game.scaler;
+		this.scaling = this.game.scaling;
 
 		/**
 		 *  The assets to load each time
@@ -319,22 +319,22 @@
 
 		this.panel.setup();
 
-		if (this.scaler)
+		if (this.scaling)
 		{
-			var items = this.config.scaler[this.stateId];
+			var items = this.config.scaling[this.stateId];
 
 			if (items !== undefined)
 			{
 				if (this.resizeOnReload)
 				{
-					this.scaler.addItems(this.panel, items);
+					this.scaling.addItems(this.panel, items);
 				}
 				// Background is optional, so we'll check
-				// before adding to the scaler
+				// before adding to the scaling
 				var background = this.panel.background;
 				if (background && background.image)
 				{
-					this.scaler.addBackground(background);
+					this.scaling.addBackground(background);
 				}
 			}
 			// if there is no scaling config for the state, 
@@ -349,7 +349,7 @@
 					this.panel.x = this.panel.y = 0;
 					this.panel.scaleX = this.panel.scaleY = 1;
 
-					this.scaler.addItem(this.panel, {
+					this.scaling.addItem(this.panel, {
 						align: "top-left",
 						titleSafe: true
 					});
@@ -409,10 +409,10 @@
 	{
 		if (!this.assetsLoaded) return;
 
-		if (this.scaler)
+		if (this.scaling)
 		{
-			this.scaler.removeBackground(this.panel.background);
-			this.scaler.removeItems(this.panel);
+			this.scaling.removeBackground(this.panel.background);
+			this.scaling.removeItems(this.panel);
 		}
 
 		this.panel.teardown();
@@ -443,7 +443,7 @@
 		this.game = null;
 		this.config = null;
 		this.player = null;
-		this.scaler = null;
+		this.scaling = null;
 
 		this.panel.destroy();
 
@@ -457,9 +457,9 @@
 	namespace('springroll.easeljs').ManifestState = BaseState;
 }());
 /**
- * @module EaselJS Game
+ * @module EaselJS States
  * @namespace springroll.easeljs
- * @requires Core, Game, Interface, Learning, Sound, Tasks, EaselJS Interface, EaselJS Display, EaselJS Animation
+ * @requires Core, States, Interface, Tasks, Learning, EaselJS Learning, EaselJS Display
  */
 (function(undefined)
 {
