@@ -29,9 +29,9 @@
 
 		/**
 		 * Reference to the VO Player
-		 * @property {springroll.VOPlayer} player
+		 * @property {springroll.VOPlayer} voPlayer
 		 */
-		this.player = null;
+		this.voPlayer = null;
 
 		/**
 		 * Reference to the main display
@@ -46,14 +46,14 @@
 	/**
 	 * Intiailize the media
 	 * @method init
-	 * @param {springroll.Application} game
+	 * @param {springroll.Application} app
 	 */
-	p.init = function(game)
+	p.init = function(app)
 	{
-		this.filters = game.filters;
-		this.learning = game.learning;
-		this.player = game.player;
-		this.display = game.display;
+		this.filters = app.filters;
+		this.learning = app.learning;
+		this.voPlayer = app.voPlayer;
+		this.display = app.display;
 	};
 
 	/**
@@ -146,7 +146,7 @@
 				{
 					Debug.warn("Learning is not available and will not trigger Instruction events");
 				}
-				this.player.play(events, onComplete, onCancel);
+				this.voPlayer.play(events, onComplete, onCancel);
 				return;
 			}
 			this.triggerVOPlay(
@@ -217,7 +217,7 @@
 				{
 					Debug.warn("Learning is not available and will not trigger IncorrectFeedback events");
 				}
-				this.player.play(events, onComplete, onCancel);
+				this.voPlayer.play(events, onComplete, onCancel);
 				return;
 			}
 			this.triggerVOPlay(
@@ -288,7 +288,7 @@
 				{
 					Debug.warn("Learning is not available and will not trigger CorrectFeedback events");
 				}
-				this.player.play(events, onComplete, onCancel);
+				this.voPlayer.play(events, onComplete, onCancel);
 				return;
 			}
 			this.triggerVOPlay(
@@ -316,14 +316,14 @@
 		var animator = this.display.animator;
 
 		//stop any previously playing stuff
-		this.player.stop();
+		this.voPlayer.stop();
 
 		if (this._learningAnimatorInstance)
 		{
 			animator.stop(this._learningAnimatorInstance);
 		}
 
-		var captions = this.player.captions;
+		var captions = this.voPlayer.captions;
 
 		//Callback function for ending or canceling the VO
 		var callback = function(finish)
@@ -336,7 +336,7 @@
 			onCancel = onComplete;
 
 		//Play the audio
-		this.player.play(
+		this.voPlayer.play(
 			alias,
 			callback.bind(this, onComplete),
 			callback.bind(this, onCancel)
@@ -372,7 +372,7 @@
 		var animator = this.display.animator;
 
 		//stop any previously playing stuff
-		this.player.stop();
+		this.voPlayer.stop();
 
 		if (this._learningAnimatorInstance)
 		{
@@ -388,7 +388,7 @@
 		var fullCaption = ""; //Event "description"
 		var alias = ""; //Event "id"
 
-		var captions = this.player.captions;
+		var captions = this.voPlayer.captions;
 		var eventInfo, anim, audio, learningEnd, learningCancel;
 
 		//Current loop iteration Caption and ID/alias
@@ -580,7 +580,7 @@
 		}
 		else
 		{
-			this.player.stop();
+			this.voPlayer.stop();
 		}
 	};
 
@@ -591,7 +591,7 @@
 	 */
 	p.isPlaying = function()
 	{
-		return this.player.playing || !!this._learningAnimatorInstance;
+		return this.voPlayer.playing || !!this._learningAnimatorInstance;
 	};
 
 	/**
@@ -601,7 +601,7 @@
 	p.destroy = function()
 	{
 		this.learning = null;
-		this.player = null;
+		this.voPlayer = null;
 		this.display = null;
 		this.filters = null;
 	};

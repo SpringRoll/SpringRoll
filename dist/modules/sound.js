@@ -2153,9 +2153,9 @@
 
 		/**
 		*  The global player for playing voice over
-		*  @property {springroll.VOPlayer} player
+		*  @property {springroll.VOPlayer} voPlayer
 		*/
-		this.player = new VOPlayer();
+		this.voPlayer = new VOPlayer();
 
 		/**
 		*  The global player for all audio, also accessible through singleton
@@ -2315,8 +2315,8 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.player.destroy();
-		this.player = null;
+		this.voPlayer.destroy();
+		this.voPlayer = null;
 		
 		if (this.sound)
 		{

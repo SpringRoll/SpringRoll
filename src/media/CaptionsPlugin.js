@@ -68,9 +68,9 @@
 	p.preload = function(done)
 	{
 		// Give the player a reference
-		if (this.player)
+		if (this.voPlayer)
 		{
-			this.player.captions = this.captions;
+			this.voPlayer.captions = this.captions;
 		}
 
 		// Setup the text field

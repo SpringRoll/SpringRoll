@@ -184,10 +184,10 @@
 
 		/**
 		 *  The instance of the VOPlayer
-		 *  @property {springroll.VOPlayer} player
+		 *  @property {springroll.VOPlayer} voPlayer
 		 *  @protected
 		 */
-		this.player = this.game.player;
+		this.voPlayer = this.game.voPlayer;
 
 		/**
 		 *  Reference to the main config object
@@ -442,7 +442,7 @@
 		this.manifest = null;
 		this.game = null;
 		this.config = null;
-		this.player = null;
+		this.voPlayer = null;
 		this.scaling = null;
 
 		this.panel.destroy();
