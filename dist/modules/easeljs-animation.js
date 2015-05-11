@@ -1304,19 +1304,14 @@
 		*/
 		this.frames = {};
 		
-		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
-		//swap them ourselves
-		var swapFrameSize = spritesheetData.meta &&
-				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
-		
 		/**
 		* The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
 		* otherwise
 		* @property {Number} scale
 		*/
-		if(spritesheetData.meta && parseFloat(spritesheetData.meta.scale))
+		if(spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
 		{
-			this.scale = parseFloat(spritesheetData.meta.scale);
+			this.scale = parseFloat(spritesheetData[0].meta.scale);
 		}
 		else
 			this.scale = 1;
@@ -1324,6 +1319,11 @@
 		for(var i = 0; i < this._images.length; ++i)
 		{
 			image = this._images[i];
+			
+			//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
+			//swap them ourselves
+			var swapFrameSize = spritesheetData[i].meta &&
+					spritesheetData[i].meta.app == "http://www.codeandweb.com/texturepacker";
 
 			var dataFrames = spritesheetData[i].frames;
 			for(var name in dataFrames)

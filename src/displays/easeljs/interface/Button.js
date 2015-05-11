@@ -39,10 +39,11 @@
 	* @param {Image|HTMLCanvasElement} [imageSettings.image] The image to use for all of the button
 	*                                                        states.
 	* @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to
-	*                                              ["disabled", "down", "over", "up"]. Previous
-	*                                              versions of Button used a hard coded order:
-	*                                              ["highlighted", "disabled", "down", "over",
-	*                                              "selected", "up"].
+	*                                              <code>&#91;"disabled", "down", "over",
+	*                                              "up"&#93;</code>. Previous versions of Button
+	*                                              used a hard coded order:
+	*                                              <code>&#91;"highlighted", "disabled", "down",
+	*                                              "over", "selected", "up"&#93;</code>.
 	* @param {Object} [imageSettings.up] The visual information about the up state.
 	* @param {createjs.Rectangle} [imageSettings.up.src] The sourceRect for the state within the
 	*                                                    image.
@@ -600,7 +601,8 @@
 	*/
 	p._updateState = function()
 	{
-		if (!this.back) return;
+		var back = this.back;
+		if (!back) return;
 		var data;
 		//use the highest priority state
 		for (var i = 0, len = this._statePriority.length; i < len; ++i)
@@ -614,37 +616,49 @@
 		//if no state is active, use the up state
 		if (!data)
 			data = this._stateData.up;
-		this.back.sourceRect = data.src;
-		//position the button back
-		if (data.trim)
+		//set up the source rect for just that button state
+		back.sourceRect = data.src;
+		//if the image was rotated in a TextureAtlas, account for that
+		if(data.rotated)
 		{
-			this.back.x = data.trim.x + this._offset.x;
-			this.back.y = data.trim.y + this._offset.y;
+			back.rotation = -90;
+			back.regX = back.sourceRect.width;
 		}
 		else
 		{
-			this.back.x = this._offset.x;
-			this.back.y = this._offset.y;
+			back.rotation = back.regX = 0;
 		}
+		//position the button back
+		if (data.trim)
+		{
+			back.x = data.trim.x + this._offset.x;
+			back.y = data.trim.y + this._offset.y;
+		}
+		else
+		{
+			back.x = this._offset.x;
+			back.y = this._offset.y;
+		}
+		var label = this.label;
 		//if we have a label, update that too
-		if (this.label)
+		if (label)
 		{
 			data = data.label;
 			//update the text properties
-			this.label.textBaseline = data.textBaseline || "middle"; //Middle is easy to center
-			this.label.stroke = data.stroke;
-			this.label.shadow = data.shadow;
-			this.label.font = data.font;
-			this.label.color = data.color || "#000"; //default for createjs.Text
+			label.textBaseline = data.textBaseline || "middle"; //Middle is easy to center
+			label.stroke = data.stroke;
+			label.shadow = data.shadow;
+			label.font = data.font;
+			label.color = data.color || "#000"; //default for createjs.Text
 			//position the text
 			if (data.x == "center")
-				this.label.x = (this._width - this.label.getMeasuredWidth()) * 0.5 + this._offset.x;
+				label.x = (this._width - label.getMeasuredWidth()) * 0.5 + this._offset.x;
 			else
-				this.label.x = data.x + this._offset.x;
+				label.x = data.x + this._offset.x;
 			if (data.y == "center")
-				this.label.y = this._height * 0.5 + this._offset.y;
+				label.y = this._height * 0.5 + this._offset.y;
 			else
-				this.label.y = data.y + this._offset.y;
+				label.y = data.y + this._offset.y;
 		}
 	};
 
@@ -908,6 +922,43 @@
 				x: -highlightSettings.size,
 				y: -highlightSettings.size
 			};
+		}
+		return output;
+	};
+	
+	/**
+	 * Generates an 'imageSettings' from a TextureAtlas, a base name for all frames, and a list
+	 * of state priorities.
+	 * @method generateSettingsFromAtlas
+	 * @static
+	 * @param {TextureAtlas} atlas The TextureAtlas to pull all frames from.
+	 * @param {String} baseName The base name for all frames in the atlas.
+	 * @param {Array} statePriority The state order, as well as determining frame names in the
+	 *                              atlas. Each state frame name in the atlas should be
+	 *                              <code>baseName + "_" + statePriority[i]</code>.
+	 */
+	Button.generateSettingsFromAtlas = function(atlas, baseName, statePriority)
+	{
+		var output = {priority: statePriority};
+		//start at the end to start at the up state
+		for (var i = statePriority.length - 1; i >= 0; --i)
+		{
+			var frame = atlas.getFrame(baseName + "_" + statePriority[i]);
+			if(!frame)
+			{
+				output[statePriority[i]] = output.up;
+				continue;
+			}
+			if(!output.image)
+				output.image = frame.image;
+			var state = output[statePriority[i]] = {src:frame.frame};
+			if(frame.rotated)
+				state.rotated = true;
+			if(frame.trimmed)
+			{
+				state.trim = new Rectangle(frame.offset.x, frame.offset.y, frame.width,
+					frame.height);
+			}
 		}
 		return output;
 	};
