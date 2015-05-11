@@ -1880,7 +1880,7 @@
 				if(this._t > this._duration)
 					this._t = this.loop ? this._t - this._duration : this._duration;
 				//add a tiny amount to stop floating point errors in their tracks
-				this._prevPosition = Math.floor(this._t * this._framerate * 0.0000001);
+				this._prevPosition = Math.floor(this._t * this._framerate + 0.0000001);
 				if(this._prevPosition >= this._frames.length)
 					this._prevPosition = this._frames.length - 1;
 			}
