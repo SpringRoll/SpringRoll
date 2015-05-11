@@ -1,6 +1,6 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -317,7 +317,7 @@
 
 }());
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -378,7 +378,7 @@
 
 }());
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -569,7 +569,7 @@
 
 }());
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -1168,7 +1168,7 @@
 }());
 
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -1264,7 +1264,7 @@
 
 }());
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */

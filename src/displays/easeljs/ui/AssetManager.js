@@ -1,5 +1,5 @@
 /**
-* @module EaselJS Interface
+* @module EaselJS UI
 * @namespace springroll.easeljs
 * @requires Core, EaselJS Display
 */

@@ -1,5 +1,5 @@
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */

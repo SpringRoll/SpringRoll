@@ -1,7 +1,7 @@
 /**
- * @module EaselJS Interface
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @module PIXI UI
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
  */
 (function()
 {
@@ -9,11 +9,11 @@
 	{
 		this.obj = obj;
 		this.mouseDownObjPos = {x:0, y:0};
-		this.dragOffset = new createjs.Point();
+		this.dragOffset = new PIXI.Point();
 		this.mouseDownStagePos = {x:0, y:0};
 	};
 	
 	/** Assign to the global namespace */
 	namespace('springroll').DragData = DragData;
-	namespace('springroll.easeljs').DragData = DragData;
+	namespace('springroll.pixi').DragData = DragData;
 }());

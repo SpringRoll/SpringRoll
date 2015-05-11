@@ -1,6 +1,6 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module PIXI Interface
+ * @module PIXI UI
  * @namespace springroll.pixi
  * @requires  Core, PIXI Display
  */
@@ -693,7 +693,7 @@
 	namespace('springroll.pixi').Button = Button;
 }());
 /**
- * @module PIXI Interface
+ * @module PIXI UI
  * @namespace springroll.pixi
  * @requires  Core, PIXI Display
  */
@@ -712,7 +712,7 @@
 	namespace('springroll.pixi').DragData = DragData;
 }());
 /**
- * @module PIXI Interface
+ * @module PIXI UI
  * @namespace springroll.pixi
  * @requires  Core, PIXI Display
  */
@@ -1384,7 +1384,7 @@
 	namespace('springroll.pixi').DragManager = DragManager;
 }());
 /**
- * @module PIXI Interface
+ * @module PIXI UI
  * @namespace springroll.pixi
  * @requires  Core, PIXI Display
  */

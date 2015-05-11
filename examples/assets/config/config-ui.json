@@ -1,5 +1,5 @@
 {
-	"scaler": {
+	"scaling": {
 		"playButton" : {
 			"x" : 10,
 			"y" : 10,
@@ -14,7 +14,7 @@
 			"titleSafe": true
 		}
 	},
-	"scalerSize": {
+	"scalingSize": {
 		"width": 800,
 		"height": 500,
 		"maxWidth": 1000

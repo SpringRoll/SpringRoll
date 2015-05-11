@@ -1,6 +1,6 @@
 /*! SpringRoll 0.3.0 */
 /**
- * @module EaselJS Interface
+ * @module EaselJS UI
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
@@ -828,7 +828,7 @@
 	namespace('springroll.easeljs').Button = Button;
 }());
 /**
- * @module EaselJS Interface
+ * @module EaselJS UI
  * @namespace springroll.easeljs
  * @requires  Core, EaselJS Display
  */
@@ -961,7 +961,7 @@
 
 }());
 /**
- * @module EaselJS Interface
+ * @module EaselJS UI
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
@@ -980,7 +980,7 @@
 	namespace('springroll.easeljs').DragData = DragData;
 }());
 /**
- * @module EaselJS Interface
+ * @module EaselJS UI
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
@@ -1666,7 +1666,7 @@
 	namespace('springroll.easeljs').DragManager = DragManager;
 }());
 /**
-* @module EaselJS Interface
+* @module EaselJS UI
 * @namespace springroll.easeljs
 * @requires Core, EaselJS Display
 */

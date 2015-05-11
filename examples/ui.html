@@ -23,9 +23,9 @@
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/tasks.js"></script>
-		<script src="../dist/modules/interface.js"></script>
+		<script src="../dist/modules/ui.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
-		<script src="../dist/modules/easeljs-interface.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
 
     </head>
     <body class="fullscreen">
@@ -54,7 +54,7 @@ var app = new Application({
 	resizeElement : "stageContainer",
 	framerate: "framerate",
 	canvasId: "stage",
-	configPath: "assets/config/config-interface.json",
+	configPath: "assets/config/config-ui.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true // clear the stage on render
@@ -113,8 +113,8 @@ app.on('init', function(){
 	stage.addChild(this.playButton);
 	stage.addChild(this.closeButton);
 
-	// Add the background to the scaler
-	this.scaler.addBackground(background);
+	// Add the background to the scaling
+	this.scaling.addBackground(background);
 
 	// Manually call resize
 	this.triggerResize();

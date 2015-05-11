@@ -4234,7 +4234,7 @@
 }());
 
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
@@ -4337,7 +4337,7 @@
 	namespace('springroll').StringFilters = StringFilters;
 }());
 /**
- * @module Interface
+ * @module UI
  * @namespace springroll
  * @requires Core
  */
