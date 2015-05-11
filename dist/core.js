@@ -1414,8 +1414,9 @@
 		/**
 		 * The element to resize the canvas to fit
 		 * @property {DOMElement|String} resizeElement
+		 * @default 'frame'
 		 */
-		resizeElement: null,
+		resizeElement: 'frame',
 
 		/**
 		 * Whether to resize the displays to the original aspect ratio
