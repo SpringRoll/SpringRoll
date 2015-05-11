@@ -40,9 +40,6 @@
 	{
 		Debug = include('springroll.Debug', false);
 
-		// Add to the instances
-		_instances.push(this);
-
 		/**
 		* An object used as a dictionary with keys that should be the same as sound aliases
 		*
@@ -140,6 +137,14 @@
 		*/
 		this._selfUpdate = true;
 
+		/**
+		*  If the captions are muted
+		*  @property {Boolean} _mute
+		*  @private
+		*  @default false
+		*/
+		this._mute = false;
+
 		// Bind the update function
 		this.update = this.update.bind(this);
 
@@ -159,40 +164,20 @@
 	var p = Captions.prototype;
 
 	/**
-	* If you want to mute the captions, doesn't remove the current caption
-	*
-	* @static
-	* @private
-	* @property {Boolean} _muteAll
-	*/
-	var _muteAll = false;
-
-	/**
-	*  The collection of instances created
-	*  @property {array} _instances
-	*  @private
-	*/
-	var _instances = [];
-
-	/**
 	* Set if all captions are currently muted.
-	*
-	* @property {Boolean} muteAll
-	* @static
+	* @property {Boolean} mute
+	* @default false
 	*/
-	Object.defineProperty(Captions, 'muteAll', {
+	Object.defineProperty(p, 'mute',
+	{
 		get : function()
 		{
-			return _muteAll;
+			return this._mute;
 		},
-		set : function(muteAll)
+		set : function(mute)
 		{
-			_muteAll = muteAll;
-
-			for (var i = 0, len = _instances.length; i < len; i++)
-			{
-				_instances[i]._updateCaptions();
-			}
+			this._mute = mute;
+			this._updateCaptions();
 		}
 	});
 
@@ -676,7 +661,7 @@
 	{
 		setText(
 			this._textField,
-			(this._currentLine == -1 || _muteAll) ? '' : this._lines[this._currentLine].content
+			(this._currentLine == -1 || this._mute) ? '' : this._lines[this._currentLine].content
 		);
 	};
 
@@ -725,12 +710,6 @@
 	p.destroy = function()
 	{
 		if (this._destroyed) return;
-
-		var i = _instances.indexOf(this);
-		if (i > -1)
-		{
-			_instances.splice(i, 1);
-		}
 
 		this._destroyed = true;
 

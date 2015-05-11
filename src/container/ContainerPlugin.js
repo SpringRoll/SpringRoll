@@ -247,7 +247,7 @@
 	 */
 	var onCaptionsMuted = function(e)
 	{
-		this.captions.muteAll = !!e.data;
+		this.captions.mute = !!e.data;
 	};
 
 	/**
