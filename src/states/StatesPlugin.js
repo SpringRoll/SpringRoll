@@ -27,11 +27,6 @@
 	p.setup = function()
 	{
 		/**
-		 * States should be added on this callback
-		 * @event addStates
-		 */
-		
-		/**
 		 * Fired when an event has been added
 		 * @event stateAdded
 		 * @param {String} alias The state alias

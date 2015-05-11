@@ -1210,19 +1210,10 @@
 		 */
 		this.scaling = new UIScaler();
 
-		// Add the display
-		this.once('afterInit', function()
+		// Add the scaling size
+		this.on('configLoaded', function(config)
 		{
-			// Check for the config then auto enable the scaling
-			if (!this.config)
-			{
-				throw "UIScaler requires config";
-			}
-			
-			var Debug = include('springroll.Debug', false);
-			var config = this.config;
 			var scalingSize = config.scalingSize;
-
 			if (!scalingSize)
 			{
 				if (true)
@@ -1234,6 +1225,20 @@
 					throw "No 'scalingSize' config";
 				}
 			}
+			this.scaling.size = scalingSize;
+		});
+
+		// Add the display
+		this.once('afterInit', function()
+		{
+			// Check for the config then auto enable the scaling
+			if (!this.config)
+			{
+				throw "UIScaler requires config";
+			}
+			
+			var Debug = include('springroll.Debug', false);
+			var config = this.config;
 
 			if (!config.scaling)
 			{
@@ -1246,10 +1251,7 @@
 					throw "No 'scaling' config";
 				}
 			}
-			
-			this.scaling.size = scalingSize;
 			this.scaling.addItems(this, config.scaling);
-			this.scaling.enabled = true;
 		});
 	};
 
@@ -1257,6 +1259,7 @@
 	p.preload = function(done)
 	{
 		this.scaling.display = this.display;
+		this.scaling.enabled = true;
 		done();
 	};
 

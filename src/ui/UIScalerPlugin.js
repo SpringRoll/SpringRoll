@@ -33,6 +33,24 @@
 		 */
 		this.scaling = new UIScaler();
 
+		// Add the scaling size
+		this.on('configLoaded', function(config)
+		{
+			var scalingSize = config.scalingSize;
+			if (!scalingSize)
+			{
+				if (true)
+				{
+					throw "The config requires 'scalingSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
+				}
+				else
+				{
+					throw "No 'scalingSize' config";
+				}
+			}
+			this.scaling.size = scalingSize;
+		});
+
 		// Add the display
 		this.once('afterInit', function()
 		{
@@ -44,19 +62,6 @@
 			
 			var Debug = include('springroll.Debug', false);
 			var config = this.config;
-			var scalingSize = config.scalingSize;
-
-			if (!scalingSize)
-			{
-				if (DEBUG)
-				{
-					throw "The config requires 'scalingSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
-				}
-				else
-				{
-					throw "No 'scalingSize' config";
-				}
-			}
 
 			if (!config.scaling)
 			{
@@ -69,10 +74,7 @@
 					throw "No 'scaling' config";
 				}
 			}
-			
-			this.scaling.size = scalingSize;
 			this.scaling.addItems(this, config.scaling);
-			this.scaling.enabled = true;
 		});
 	};
 
@@ -80,6 +82,7 @@
 	p.preload = function(done)
 	{
 		this.scaling.display = this.display;
+		this.scaling.enabled = true;
 		done();
 	};
 
