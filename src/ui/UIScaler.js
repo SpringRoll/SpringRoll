@@ -383,7 +383,7 @@
 	*  Manually add an item
 	*  @method addItem
 	*  @param {object} item The display object item to add
-	*  @param {object} [settings] The collection of settings
+	*  @param {object|String} [settings="center"] The collection of settings or the alignment
 	*  @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
 	*                                            then horizontal alignment ("left", "right" and
 	*                                            "center"). Or you can use the short-handed
@@ -420,6 +420,14 @@
 	*/
 	p.addItem = function(item, settings)
 	{
+		if (!settings)
+		{
+			settings = { align : UIScaler.ALIGN_CENTER };
+		}
+		if (typeof settings === "string")
+		{
+			settings = { align : settings };
+		}
 		var align = settings.align || UIScaler.ALIGN_CENTER;
 
 		// Interpret short handed versions
