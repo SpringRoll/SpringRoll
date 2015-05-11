@@ -528,12 +528,12 @@
 		//Handle bellhop events coming from the application
 		this.messenger.on(
 		{
-			trackEvent: onTrackEvent.bind(this),
-			progressEvent: onProgressEvent.bind(this),
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
 			focus: onFocus.bind(this),
+			trackEvent: onAnalyticEvent.bind(this),
 			analyticEvent: onAnalyticEvent.bind(this),
+			progressEvent: onLearningEvent.bind(this),
 			learningEvent: onLearningEvent.bind(this),
 			helpEnabled: onHelpEnabled.bind(this),
 			features: onFeatures.bind(this)
@@ -795,7 +795,7 @@
 		var GoogleAnalytics = include("GA_obj", false);
 		if (GoogleAnalytics)
 		{
-			GoogleAnalytics.analyticEvent(
+			GoogleAnalytics.trackEvent(
 				data.category,
 				data.action,
 				data.label,
