@@ -1,7 +1,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function(undefined)
 {

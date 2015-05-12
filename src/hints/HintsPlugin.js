@@ -36,8 +36,8 @@
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		if (!this.messenger) throw "Hinting requires ContainerPlugin";
-		if (!this.media) throw "Hinting requires LearningMedia";
+		if (!this.messenger) throw "Hinting requires Container Client module";
+		if (!this.media) throw "Hinting requires Learning module";
 
 		// Listen for manual help clicks
 		this.messenger.on('playHelp', this.hints.play);
