@@ -204,6 +204,10 @@
 		"container": {
 			"output": "container",
 			"main": [
+				"src/utils/Object.js",
+				"src/utils/namespace.js",
+				"src/utils/include.js",
+				"src/utils/extend.js",
 				"src/events/EventDispatcher.js",
 				"src/utils/PageVisibility.js",
 				"src/data/SavedData.js",

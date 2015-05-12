@@ -1,5 +1,279 @@
 /*! SpringRoll 0.3.0 */
 /**
+ * @module Core
+ * @namespace window
+ */
+(function(Object, undefined){
+
+	/**
+	*  Add methods to Object
+	*  @class Object
+	*/
+
+	/**
+	*  Merges two (or more) objects, giving the last one precedence
+	*  @method merge
+	*  @example
+		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+		var obj2 = { id : 'bar', value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
+	*  @static
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
+	*/
+	Object.merge = function(target, source)
+	{
+		if (typeof target !== 'object')
+		{
+			target = {};
+		}
+		
+		for (var property in source)
+		{
+			if (source.hasOwnProperty(property))
+			{
+				var sourceProperty = source[property];
+				
+				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
+				{
+					target[property] = Object.merge(target[property], sourceProperty);
+					continue;
+				}
+				target[property] = sourceProperty;
+			}
+		}
+		
+		for (var i = 2, l = arguments.length; i < l; i++)
+		{
+			Object.merge(target, arguments[i]);
+		}
+		return target;
+	};
+
+	/**
+	*  Check to see if an object is a plain object definition
+	*  @method isPlain
+	*  @static
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
+	*/
+	Object.isPlain = function(obj)
+	{
+		var key;
+
+		// Must be an Object.
+		// Because of IE, we also have to check the presence of the constructor property.
+		// Make sure that DOM nodes and window objects don't pass through, as well
+		if (!obj || typeof obj !== "object" || obj.nodeType || obj === window)
+		{
+			return false;
+		}
+
+		try {
+			// Not own constructor property must be Object
+			if ( obj.constructor &&
+				!hasOwn.call(obj, "constructor") &&
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				return false;
+			}
+		}
+		catch (e)
+		{
+			// IE8,9 Will throw exceptions on certain host objects #9897
+			return false;
+		}
+
+		// Support: IE<9
+		// Handle iteration over inherited properties before own properties.
+		if (support.ownLast)
+		{
+			for (key in obj)
+			{
+				return hasOwn.call(obj, key);
+			}
+		}
+
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own.
+		for (key in obj) {}
+
+		return key === undefined || hasOwn.call(obj, key);
+	};
+	
+	/**
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
+	{
+		Object.defineProperty(Object.prototype, 'clone',
+		{
+			enumerable: false,
+			writable: true,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
+
+}(Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
+*  @static
+*/
+(function(window){
+	
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
+	/**
+	*  Create the namespace and assing to the window
+	*
+	*  @example
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
+	*
+	*  @constructor
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
+	*  @return {object} The namespace object attached to the current window
+	*/
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
+}(window));
+
+
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Used to include required classes by name
+*  @class include
+*  @static
+*/
+(function(window, undefined){
+	
+	// The include function already exists
+	if ("include" in window) return;
+	
+	/**
+	*  Import a class
+	*
+	*  @example
+		var Application = include('springroll.Application');
+	*
+	*  @constructor
+	*  @method include
+	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
+	*  @param {Boolean} [required=true] If the class we're trying to include is required.
+	* 		For classes that aren't found and are required, an error is thrown.
+	*  @return {object|function} The object attached at the given namespace
+	*/
+	var include = function(namespaceString, required)
+	{
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+		
+		required = required !== undefined ? !!required : true;
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			if (!parent[currentPart])
+			{
+				if (!required)
+				{
+					return null;
+				}
+				if (true)
+				{
+					throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
+				}
+				else
+				{
+					throw "Unable to include '" + namespaceString + "'";
+				}
+			}
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.include = include;
+	
+}(window));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Use to do class inheritence
+*  @class extend
+*  @static
+*/
+(function(window){
+	
+	// The extend function already exists
+	if ("extend" in window) return;
+
+	/**
+	*  Extend prototype
+	*
+	*  @example
+		var p = extend(MyClass, ParentClass);
+	*
+	*  @constructor
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
+	*/
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
+		{
+			superClass = window.include(superClass);
+		}
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
+	};
+
+}(window));
+/**
 *  @module Core
 *  @namespace springroll
 */
