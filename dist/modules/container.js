@@ -1,8 +1,596 @@
 /*! SpringRoll 0.3.0 */
 /**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
+	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
+	*
+	*  @class EventDispatcher
+	*  @constructor
+	*/
+	var EventDispatcher = function()
+	{
+		/**
+		* The collection of listeners
+		* @property {Array} _listeners
+		* @private
+		*/
+		this._listeners = [];
+
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
+	},
+
+	// Reference to the prototype
+	p = EventDispatcher.prototype;
+
+	/**
+	 * If the dispatcher is destroyed
+	 * @property {Boolean} destroyed
+	 */
+	Object.defineProperty(p, 'destroyed',
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
+	});
+
+	/**
+	*  Dispatch an event
+	*  @method trigger
+	*  @param {String} type The type of event to trigger
+	*  @param {*} arguments Additional parameters for the listener functions.
+	*/
+	p.trigger = function(type)
+	{
+		if (this._destroyed) return;
+
+		if (this._listeners[type] !== undefined)
+		{
+			// copy the listeners array
+			var listeners = this._listeners[type].slice();
+
+			var args;
+
+			if(arguments.length > 1)
+			{
+				args = Array.prototype.slice.call(arguments, 1);
+			}
+
+			for(var i = listeners.length - 1; i >= 0; --i)
+			{
+				var listener = listeners[i];
+				if (listener._eventDispatcherOnce)
+				{
+					delete listener._eventDispatcherOnce;
+					this.off(type, listener);
+				}
+				listener.apply(this, args);
+			}
+		}
+	};
+
+	/**
+	*  Add an event listener but only handle it one time.
+	*
+	*  @method once
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
+	*          or a map of events to handlers
+	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.once = function(name, callback, priority)
+	{
+		return this.on(name, callback, priority, true);
+	};
+
+	/**
+	*  Add an event listener. The parameters for the listener functions depend on the event.
+	*
+	*  @method on
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
+	*          or a map of events to handlers
+	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.on = function(name, callback, priority, once)
+	{
+		if (this._destroyed) return;
+
+		// Callbacks map
+		if (type(name) === 'object')
+		{
+			for (var key in name)
+			{
+				if (name.hasOwnProperty(key))
+				{
+					this.on(key, name[key], priority, once);
+				}
+			}
+		}
+		// Callback
+		else if (type(callback) === 'function')
+		{
+			var names = name.split(' '), n = null;
+
+			var listener;
+			for (var i = 0, nl = names.length; i < nl; i++)
+			{
+				n = names[i];
+				listener = this._listeners[n];
+				if(!listener)
+					listener = this._listeners[n] = [];
+
+				if (once)
+				{
+					callback._eventDispatcherOnce = true;
+				}
+				callback._priority = parseInt(priority) || 0;
+
+				if (listener.indexOf(callback) === -1)
+				{
+					listener.push(callback);
+					if(listener.length > 1)
+						listener.sort(listenerSorter);
+				}
+			}
+		}
+		// Callbacks array
+		else if (Array.isArray(callback))
+		{
+			for (var f = 0, fl = callback.length; f < fl; f++)
+			{
+				this.on(name, callback[f], priority, once);
+			}
+		}
+		return this;
+	};
+
+	function listenerSorter(a, b)
+	{
+		return a._priority - b._priority;
+	}
+
+	/**
+	*  Remove the event listener
+	*
+	*  @method off
+	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+	*  @param {Function|Array*} callback The listener function or collection of callback functions
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.off = function(name, callback)
+	{
+		if (this._destroyed) return;
+
+		// remove all
+		if (name === undefined)
+		{
+			this._listeners = [];
+		}
+		// remove multiple callbacks
+		else if (Array.isArray(callback))
+		{
+			for (var f = 0, fl = callback.length; f < fl; f++)
+			{
+				this.off(name, callback[f]);
+			}
+		}
+		else
+		{
+			var names = name.split(' '); 
+			var	n = null;
+			var listener; 
+			var	index;
+			for (var i = 0, nl = names.length; i < nl; i++)
+			{
+				n = names[i];
+				listener = this._listeners[n];
+				if(listener)
+				{
+					// remove all listeners for that event
+					if (callback === undefined)
+					{
+						listener.length = 0;
+					}
+					else
+					{
+						//remove single listener
+						index = listener.indexOf(callback);
+						if (index !== -1)
+						{
+							listener.splice(index, 1);
+						}
+					}
+				}
+			}
+		}
+		return this;
+	};
+
+	/**
+	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
+	*
+	*  @method has
+	*  @param {String} name The name of the single event type to check for
+	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+	*  @return {Boolean} If the EventDispatcher has the specified listener.
+	*/
+	p.has = function(name, callback)
+	{
+		if(!name) return false;
+
+		var listeners = this._listeners[name];
+		if(!listeners) return false;
+		if(!callback)
+			return listeners.length > 0;
+		return listeners.indexOf(callback) >= 0;
+	};
+
+	/**
+	*  Destroy and don't use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this._destroyed = true;
+		this._listeners = null;
+	};
+
+	/**
+	*  Return type of the value.
+	*
+	*  @private
+	*  @method type
+	*  @param  {*} value
+	*  @return {String} The type
+	*/
+	function type(value)
+	{
+		if (value === null)
+		{
+			return 'null';
+		}
+		var typeOfValue = typeof value;
+		if (typeOfValue === 'object' || typeOfValue === 'function')
+		{
+			return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
+		}
+		return typeOfValue;
+	}
+
+	/**
+	*  Adds EventDispatcher methods and properties to an object or object prototype.
+	*  @method mixIn
+	*  @param {Object} object The object or prototype
+	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
+	*  @static
+	*  @public
+	*/
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		object.trigger = p.trigger;
+		object.on = p.on;
+		object.off = p.off;
+		object.has = p.has;
+		object.once = p.once;
+		if(callConstructor)
+			EventDispatcher.call(object);
+	};
+
+	// Assign to name space
+	namespace('springroll').EventDispatcher = EventDispatcher;
+
+}());
+
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(global, doc, undefined){
+		
+	/**
+	*  Handle the page visiblity change, if supported. Application uses one of these to
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
+	*  or "unpaused" events on the application instead of using one of these yourself.
+	*
+	*  @class PageVisibility
+	*  @constructor
+	*  @param {Function} onFocus Callback when the page becomes visible
+	*  @param {Function} onBlur Callback when the page loses visibility
+	*/
+	var PageVisibility = function(onFocus, onBlur)
+	{
+		/**
+		* Callback when the page becomes visible
+		* @property {Function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {Function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* If this object is enabled.
+		* @property {Function} _enabled
+		* @private
+		*/
+		this._enabled = false;
+
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		/**
+		* The visibility toggle listener function
+		* @property {Function} _onToggle
+		* @private
+		*/
+		this._onToggle = function()
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				this._onBlur();
+			else
+				this._onFocus();
+		}.bind(this);
+		
+		this.enabled = true;
+	},
+	
+	// Reference to the prototype
+	p = PageVisibility.prototype,
+	
+	/**
+	* The name of the visibility change event for the browser
+	*
+	* @property {String} _visibilityChange
+	* @private
+	*/
+	_visibilityChange = null;
+	
+	// Select the visiblity change event name
+	if (doc.hidden !== undefined)
+	{
+		_visibilityChange = "visibilitychange";
+	}
+	else if (doc.mozHidden !== undefined)
+	{
+		_visibilityChange = "mozvisibilitychange";
+	}
+	else if (doc.msHidden !== undefined)
+	{
+		_visibilityChange = "msvisibilitychange";
+	}
+	else if (doc.webkitHidden !== undefined)
+	{
+		_visibilityChange = "webkitvisibilitychange";
+	}
+	
+	/**
+	* If this object is enabled.
+	* @property {Function} enabled
+	* @private
+	*/
+	Object.defineProperty(p, "enabled", {
+		get: function() { return this._enabled; },
+		set: function(value)
+		{
+			value = !!value;
+			if(this._enabled == value) return;
+			this._enabled = value;
+			
+			global.removeEventListener("pagehide", this._onBlur);
+			global.removeEventListener("pageshow", this._onFocus);
+			global.removeEventListener("blur", this._onBlur);
+			global.removeEventListener("focus", this._onFocus);
+			global.removeEventListener("visibilitychange", this._onToggle);
+			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			
+			if(value)
+			{
+				// Listen to visibility change
+				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
+				doc.addEventListener(_visibilityChange, this._onToggle, false);
+				// Listen for page events (when clicking the home button on iOS)
+				global.addEventListener("pagehide", this._onBlur);
+				global.addEventListener("pageshow", this._onFocus);
+				global.addEventListener("blur", this._onBlur);
+				global.addEventListener("focus", this._onFocus);
+				global.addEventListener("visibilitychange", this._onToggle, false);
+			}
+		}
+	});
+	
+	/**
+	*  Disable the detection
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		// If this browser doesn't support visibility
+		if (!_visibilityChange || !this._onToggle) return;
+		
+		this.enabled = false;
+		this._onToggle = null;
+		this._onFocus = null;
+		this._onBlur = null;
+	};
+	
+	// Assign to the global space
+	namespace('springroll').PageVisibility = PageVisibility;
+	
+}(window, document));
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	*
+	*  @class SavedData
+	*/
+	var SavedData = {},
+
+	/** A constant to determine if we can use localStorage and sessionStorage */
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+
+	/** A constant for cookie fallback for SavedData.clear() */
+	ERASE_COOKIE = -1;
+
+	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
+	if(WEB_STORAGE_SUPPORT)
+	{
+		try
+		{
+			localStorage.setItem("LS_TEST", "test");
+			localStorage.removeItem("LS_TEST");
+		}
+		catch(e)
+		{
+			WEB_STORAGE_SUPPORT = false;
+		}
+	}
+
+	/**
+	*  Remove a saved variable by name.
+	*  @method remove
+	*  @static
+	*  @param {String} name The name of the value to remove
+	*/
+	SavedData.remove = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			localStorage.removeItem(name);
+			sessionStorage.removeItem(name);
+		}
+		else
+			SavedData.write(name,"",ERASE_COOKIE);
+	};
+
+	/**
+	*  Save a variable.
+	*  @method write
+	*  @static
+	*  @param {String} name The name of the value to save
+	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
+	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	*/
+	SavedData.write = function(name, value, tempOnly)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			if(tempOnly)
+				sessionStorage.setItem(name, JSON.stringify(value));
+			else
+				localStorage.setItem(name, JSON.stringify(value));
+		}
+		else
+		{
+			var expires;
+			if (tempOnly)
+			{
+				if(tempOnly !== ERASE_COOKIE)
+					expires = "";//remove when browser is closed
+				else
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+			}
+			else
+				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+
+			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+		}
+	};
+
+	/**
+	*  Read the value of a saved variable
+	*  @method read
+	*  @static
+	*  @param {String} name The name of the variable
+	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	*/
+	SavedData.read = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+			if(value)
+				return JSON.parse(value, SavedData.reviver);
+			else
+				return null;
+		}
+		else
+		{
+			var nameEQ = name + "=",
+				ca = document.cookie.split(';'),
+				i = 0, c, len;
+
+			for(i=0, len=ca.length; i<len;i++)
+			{
+				c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+			}
+			return null;
+		}
+	};
+
+	/**
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (`__classname`).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	SavedData.reviver = function(key, value)
+	{
+		if(value && typeof value.__classname == "string")
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
+	};
+
+	// Assign to the global space
+	namespace('springroll').SavedData = SavedData;
+
+}());
+
+/**
  * @module Container
  * @namespace springroll
- * @requires  Core
  */
 (function(undefined)
 {
@@ -218,7 +806,6 @@
 /**
  * @module Container
  * @namespace springroll
- * @requires  Core
  */
 (function(document, undefined)
 {

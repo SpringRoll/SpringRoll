@@ -204,6 +204,9 @@
 		"container": {
 			"output": "container",
 			"main": [
+				"src/events/EventDispatcher.js",
+				"src/utils/PageVisibility.js",
+				"src/data/SavedData.js",
 				"src/container/Features.js",
 				"src/container/Container.js"
 			]
