@@ -53,27 +53,27 @@
 		/**
 		 * Send a message to let the site know that this has
 		 * been loaded, if the site is there
-		 * @property {Bellhop} messenger
+		 * @property {Bellhop} container
 		 */
-		this.messenger = new Bellhop();
-		this.messenger.connect();
+		this.container = new Bellhop();
+		this.container.connect();
 
 		// Handle the learning event
 		this.on('learningEvent', function(data)
 		{
-			this.messenger.send('learningEvent', data);
+			this.container.send('learningEvent', data);
 		});
 
 		// Handle google analtyics event
 		this.on('analyticEvent', function(data)
 		{
-			this.messenger.send('analyticEvent', data);
+			this.container.send('analyticEvent', data);
 		});
 
 		// When the preloading is done
 		this.once('loaded', function()
 		{
-			this.messenger.send('loadDone');
+			this.container.send('loadDone');
 		});
 
 		/**
@@ -174,10 +174,10 @@
 
 		// Merge the container options with the current
 		// application options
-		if (this.messenger.supported)
+		if (this.container.supported)
 		{
-			//Setup the messenger listeners for site soundMute and captionsMute events
-			this.messenger.on(
+			//Setup the container listeners for site soundMute and captionsMute events
+			this.container.on(
 			{
 				soundMuted: onSoundMuted.bind(this),
 				captionsMuted: onCaptionsMuted.bind(this),
@@ -194,7 +194,7 @@
 			var hasSound = !!this.sound;
 
 			// Add the features that are enabled
-			this.messenger.send('features', {
+			this.container.send('features', {
 				learning: !!this.learning,
 				sound: hasSound,
 				hints: !!this.hints,
@@ -208,10 +208,10 @@
 			this.autoPause = false;
 
 			//handle detecting and sending blur/focus events
-			var messenger = this.messenger;
+			var container = this.container;
 			this._pageVisibility = new PageVisibility(
-				messenger.send.bind(messenger, 'focus', true),
-				messenger.send.bind(messenger, 'focus', false)
+				container.send.bind(container, 'focus', true),
+				container.send.bind(container, 'focus', false)
 			);
 		}
 		done();
@@ -328,9 +328,9 @@
 		}
 
 		// Send the end application event to the container
-		this.messenger.send('endGame');
-		this.messenger.destroy();
-		this.messenger = null;
+		this.container.send('endGame');
+		this.container.destroy();
+		this.container = null;
 	};
 
 	// register plugin

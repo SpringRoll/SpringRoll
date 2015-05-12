@@ -1,7 +1,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {

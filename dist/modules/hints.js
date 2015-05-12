@@ -2,7 +2,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -64,7 +64,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -130,7 +130,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -202,7 +202,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -255,7 +255,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -446,7 +446,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -764,7 +764,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning, Container Client
+ * @requires Core, Sound, Learning
  */
 (function()
 {
@@ -799,26 +799,31 @@
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		if (!this.messenger) throw "Hinting requires ContainerPlugin";
-		if (!this.media) throw "Hinting requires LearningMedia";
+		if (!this.media) throw "Hinting requires Learning module";
 
-		// Listen for manual help clicks
-		this.messenger.on('playHelp', this.hints.play);
-
-		// Listen whtn the hint changes
-		this.hints.on('enabled', function(enabled)
+		// Send messages to the container
+		if (this.container)
 		{
-			this.messenger.send('helpEnabled', enabled);
-		}
-		.bind(this));
+			// Listen for manual help clicks
+			this.container.on('playHelp', this.hints.play);
 
+			// Listen whtn the hint changes
+			this.hints.on('enabled', function(enabled)
+			{
+				this.container.send('helpEnabled', enabled);
+			}
+			.bind(this));
+		}
 		done();
 	};
 
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.messenger.off('playHelp');
+		if (this.container)
+		{
+			this.container.off('playHelp');
+		}
 		this.hints.off('enabled');
 		this.hints.destroy();
 		this.hints = null;

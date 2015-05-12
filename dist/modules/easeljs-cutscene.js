@@ -2,7 +2,7 @@
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, EaselJS Utilities
+ * @requires Core, Tasks, EaselJS Display, EaselJS Utilities
  */
 (function()
 {

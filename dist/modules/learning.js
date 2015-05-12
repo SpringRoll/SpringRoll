@@ -2,7 +2,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -55,7 +55,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -236,7 +236,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -470,7 +470,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -532,7 +532,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -589,7 +589,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -776,7 +776,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function($, undefined)
 {
@@ -1718,9 +1718,9 @@
 
 }(window.jQuery));
 /**
- * @module learning Game
+ * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions, Tasks, Interface, Learning Dispatcher, Hinting
+ * @requires Core, Sound, Captions
  */
 (function()
 {
@@ -2331,7 +2331,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core
+ * @requires Core, Sound, Captions
  */
 (function(undefined)
 {

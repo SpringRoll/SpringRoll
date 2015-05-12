@@ -319,9 +319,9 @@
 
 		/**
 		 * Communication layer between the container and application
-		 * @property {Bellhop} messenger
+		 * @property {Bellhop} client
 		 */
-		this.messenger = null;
+		this.client = null;
 
 		/**
 		*  The current release data
@@ -522,11 +522,11 @@
 		this.loading = true;
 
 		//Setup communication layer between site and application
-		this.messenger = new Bellhop();
-		this.messenger.connect(this.dom);
+		this.client = new Bellhop();
+		this.client.connect(this.dom);
 
 		//Handle bellhop events coming from the application
-		this.messenger.on(
+		this.client.on(
 		{
 			loadDone: onLoadDone.bind(this),
 			endGame: onEndGame.bind(this),
@@ -548,12 +548,12 @@
 
 		if (options.singlePlay)
 		{
-			this.messenger.send('singlePlay');
+			this.client.send('singlePlay');
 		}
 
 		if (options.playOptions)
 		{
-			this.messenger.send('playOptions', options.playOptions);
+			this.client.send('playOptions', options.playOptions);
 		}
 
 		this.trigger('open');
@@ -829,7 +829,7 @@
 	{
 		if (!this.paused && !this.helpButton.hasClass('disabled'))
 		{
-			this.messenger.send('playHelp');
+			this.client.send('playHelp');
 		}
 	};
 
@@ -840,8 +840,8 @@
 	 */
 	var onEndGame = function()
 	{
-		this.messenger.destroy();
-		this.messenger = null;
+		this.client.destroy();
+		this.client = null;
 
 		this.reset();
 	};
@@ -866,9 +866,9 @@
 		set: function(paused)
 		{
 			this._paused = paused;
-			if (this.messenger)
+			if (this.client)
 			{
-				this.messenger.send('pause', paused);
+				this.client.send('pause', paused);
 			}
 			this.trigger(paused ? 'paused' : 'resumed');
 			this.trigger('pause', paused);
@@ -1066,9 +1066,9 @@
 			.addClass(muted ? 'muted' : 'unmuted');
 
 		SavedData.write(prop, muted);
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.send(prop, muted);
+			this.client.send(prop, muted);
 		}
 	};
 
@@ -1132,9 +1132,9 @@
 		}
 
 		SavedData.write(CAPTIONS_STYLES, styles);
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.send(CAPTIONS_STYLES, styles);
+			this.client.send(CAPTIONS_STYLES, styles);
 		}
 	};
 
@@ -1288,7 +1288,7 @@
 		if (this.loading || this.loaded)
 		{
 			this.trigger('close');
-			this.messenger.send('close');
+			this.client.send('close');
 		}
 		else
 		{
@@ -1333,10 +1333,10 @@
 			this._pageVisibility = null;
 		}
 		
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.destroy();
-			this.messenger = null;
+			this.client.destroy();
+			this.client = null;
 		}
 
 		s.destroy.call(this);
