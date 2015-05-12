@@ -36,7 +36,7 @@
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		if (!this.media) throw "Hinting requires Learning module";
+		if (!this.media) throw "Hinting requires Learning Media module";
 
 		// Send messages to the container
 		if (this.container)

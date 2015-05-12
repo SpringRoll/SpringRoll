@@ -183,9 +183,15 @@
 			"src/learning/EventUtils.js",
 			"src/learning/Learning.js",
 			"src/learning/Learning.less",
-			"src/learning/LearningMedia.js",
 			"src/learning/LearningPlugin.js"
 		],
+		"learningmedia": {
+			"output": "learning-media",
+			"main": [
+				"src/learning/LearningMedia.js",
+				"src/learning/LearningMediaPlugin.js"
+			]
+		},
 		"hints": [
 			"src/hints/AbstractHint.js",
 			"src/hints/VOHint.js",
