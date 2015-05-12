@@ -549,7 +549,7 @@
 		if (features.music) this.musicButton.show();
 		if (features.sound) this.soundButton.show();
 		if (features.captions) this.captionsButton.show();
-		if (features.helpButton) this.helpButton.show();
+		if (features.hints) this.helpButton.show();
 
 		this.trigger('features', features);
 	};
