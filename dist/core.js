@@ -1923,7 +1923,7 @@
 			}
 			else
 			{
-				if (_tickId == -1)
+				if (_tickId == -1 && _tickCallback)
 				{
 					_tickId = _useRAF ?
 						requestAnimFrame(_tickCallback) :
@@ -2127,9 +2127,12 @@
 
 		//request the next tick
 		//request the next animation frame
-		_tickId = _useRAF ?
-			requestAnimFrame(_tickCallback) :
-			setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
+		if (_tickCallback)
+		{
+			_tickId = _useRAF ?
+				requestAnimFrame(_tickCallback) :
+				setTargetedTimeout(_tickCallback, TimeUtils.now() - _lastFrameTime);
+		}
 	};
 
 	/**
@@ -2185,6 +2188,7 @@
 	namespace('springroll').Application = Application;
 
 }());
+
 /**
  *  @module Core
  *  @namespace springroll
