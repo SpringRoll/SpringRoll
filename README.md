@@ -86,29 +86,31 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 Modules are components which contain common code classes, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and located in the **dist/modules** folder, except the Core Module.
 
 * **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
+* **[Container](https://github.com/SpringRoll/SpringRoll/wiki/Container)**
+* **[Container Client Module](https://github.com/SpringRoll/SpringRoll/wiki/Container-Client-Module)**
 * **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)**
 * **[Debug Module](https://github.com/SpringRoll/SpringRoll/wiki/Debug-Module)**
 * EaselJS
 	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)**
 	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)**
 	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)**
-	* **[EaselJS Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Interface-Module)**
-	* **[EaselJS Tracking Game Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Tracking-Game-Module)**
+	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)**
+	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)**
+	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)**
 	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)**
-* **[Game Module](https://github.com/SpringRoll/SpringRoll/wiki/Game-Module)**
-* **[Hinting Module](https://github.com/SpringRoll/SpringRoll/wiki/Hinting-Module)**
-* **[Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Interface-Module)**
+* **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)**
+* **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)**
+* **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)**
+* **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)**
+* **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)**
 * **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)**
 * Pixi.js
 	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)**
 	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)**
-	* **[Pixi.js Interface Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Interface-Module)**
-* **[Progress Tracker Module](https://github.com/SpringRoll/SpringRoll/wiki/Progress-Tracker-Module)**
+	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)**
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
+* **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)**
 * **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)**
-* **[Tracking Game Container](https://github.com/SpringRoll/SpringRoll/wiki/Tracking-Game-Container)**
-* **[Tracking Game Module](https://github.com/SpringRoll/SpringRoll/wiki/Tracking-Game-Module)**
-* **[Translate Module](https://github.com/SpringRoll/SpringRoll/wiki/Translate-Module)**
 
 ##Displays
 
