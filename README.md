@@ -99,7 +99,6 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)**
 	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)**
 * **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)**
-* **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)**
 * **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)**
 * **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)**
 * **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)**
@@ -111,6 +110,7 @@ Modules are components which contain common code classes, documentation and/or r
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
 * **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)**
 * **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)**
+* **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)**
 
 ##Displays
 
