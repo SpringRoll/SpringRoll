@@ -1,61 +1,61 @@
 /**
- * @module UI
- * @namespace springroll
- * @requires Core
+ *	@module UI
+ *	@namespace springroll
+ *	@requires Core
  */
 (function()
 {
 	/**
-	*  The UI Item Settings which is the positioning settings used to adjust each element,
-	*  this is an internal class that you would not need to interact with.
-	*  @class UIElementSettings
-	*/
+	 *	The UI Item Settings which is the positioning settings used to adjust each element,
+	 *	this is an internal class that you would not need to interact with.
+	 *	@class UIElementSettings
+	 */
 	var UIElementSettings = function()
 	{
 		/**
-		*  What vertical screen location the item should be aligned to: "top", "center", "bottom"
-		*  @property {String} vertAlign
-		*/
+		 *	What vertical screen location the item should be aligned to: "top", "center", "bottom"
+		 *	@property {String} vertAlign
+		 */
 		this.vertAlign = null;
 
 		/**
-		*  What horizontal screen location the item should be aligned to: "left", "center", "right"
-		*  @property {String} horiAlign
-		*/
+		 *	What horizontal screen location the item should be aligned to: "left", "center", "right"
+		 *	@property {String} horiAlign
+		 */
 		this.horiAlign = null;
 
 		/**
-		*  If this element should be aligned to the title safe area, not the actual screen.
-		*  Values of "horizontal" and "vertical" make the title safe calculations take place only
-		*  for one direction.
-		*  @property {Boolean|String} titleSafe
-		*  @default false
-		*/
+		 *	If this element should be aligned to the title safe area, not the actual screen.
+		 *	Values of "horizontal" and "vertical" make the title safe calculations take place only
+		 *	for one direction.
+		 *	@property {Boolean|String} titleSafe
+		 *	@default false
+		 */
 		this.titleSafe = false;
 
 		/**
-		*  Maximum scale allowed in physical size
-		*  @property {Number} maxScale
-		*  @default 1
-		*/
+		 *	Maximum scale allowed in physical size
+		 *	@property {Number} maxScale
+		 *	@default 1
+		 */
 		this.maxScale = 1;
 
 		/**
-		*  Minimum scale allowed in physical size
-		*  @property {Number} minScale
-		*  @default 1
-		*/
+		 *	Minimum scale allowed in physical size
+		 *	@property {Number} minScale
+		 *	@default 1
+		 */
 		this.minScale = 1;
-		
+
 		/**
-		*  If the UI element is centered horizontally
-		*  @property {Boolean} centeredHorizontally
-		*  @default false
-		*/
+		 *	If the UI element is centered horizontally
+		 *	@property {Boolean} centeredHorizontally
+		 *	@default false
+		 */
 		this.centeredHorizontally = false;
 	};
-	
+
 	// Assign to name space
 	namespace('springroll').UIElementSettings = UIElementSettings;
-
+	
 }());

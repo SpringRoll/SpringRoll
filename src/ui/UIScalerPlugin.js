@@ -1,39 +1,39 @@
 /**
- * @module UI
- * @namespace springroll
- * @requires Core
+ *	@module UI
+ *	@namespace springroll
+ *	@requires Core
  */
 (function()
 {
-	// Include classes
+	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		UIScaler = include('springroll.UIScaler');
 
 	/**
-	 * Create an app plugin for touch detecting, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class UIScalerPlugin
-	 * @extends springroll.ApplicationPlugin
+	 *	Create an app plugin for touch detecting, all properties and methods documented
+	 *	in this class are mixed-in to the main Application
+	 *	@class UIScalerPlugin
+	 *	@extends springroll.ApplicationPlugin
 	 */
 	var UIScalerPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
-	// Reference to the prototype
+	//Reference to the prototype
 	var p = extend(UIScalerPlugin, ApplicationPlugin);
 
-	// Init the scaling
+	//Init the scaling
 	p.setup = function()
 	{
 		/**
-		 * The main UIScaler for any display object references
-		 * in the main game.
-		 * @property {springroll.UIScaler} scaling
+		 *	The main UIScaler for any display object references
+		 *	in the main game.
+		 *	@property {springroll.UIScaler} scaling
 		 */
 		this.scaling = new UIScaler();
 
-		// Add the scaling size
+		//Add the scaling size
 		this.on('configLoaded', function(config)
 		{
 			var scalingSize = config.scalingSize;
@@ -51,15 +51,15 @@
 			this.scaling.size = scalingSize;
 		});
 
-		// Add the display
+		//Add the display
 		this.once('afterInit', function()
 		{
-			// Check for the config then auto enable the scaling
+			//Check for the config then auto enable the scaling
 			if (!this.config)
 			{
 				throw "UIScaler requires config";
 			}
-			
+
 			var Debug = include('springroll.Debug', false);
 			var config = this.config;
 
@@ -78,7 +78,7 @@
 		});
 	};
 
-	// Setup the display
+	//Setup the display
 	p.preload = function(done)
 	{
 		this.scaling.display = this.display;
@@ -86,14 +86,14 @@
 		done();
 	};
 
-	// clean up
+	//Clean up
 	p.teardown = function()
 	{
 		this.scaling.destroy();
 		this.scaling = null;
 	};
 
-	// register plugin
+	//Register plugin
 	ApplicationPlugin.register(UIScalerPlugin);
 
 }());
