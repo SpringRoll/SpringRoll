@@ -1,7 +1,7 @@
 /**
- * @module Tasks
- * @namespace springroll
- * @requires Core
+ *	@module Tasks
+ *	@namespace springroll
+ *	@requires Core
  */
 (function()
 {
@@ -11,10 +11,10 @@
 		LoadTask = include('springroll.LoadTask');
 
 	/**
-	 * Create an app plugin for Hinting, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class ConfigPlugin
-	 * @extends springroll.ApplicationPlugin
+	 *	Create an app plugin for Hinting, all properties and methods documented
+	 *	in this class are mixed-in to the main Application
+	 *	@class ConfigPlugin
+	 *	@extends springroll.ApplicationPlugin
 	 */
 	var ConfigPlugin = function()
 	{
@@ -28,37 +28,37 @@
 	var p = extend(ConfigPlugin, ApplicationPlugin);
 
 	/**
-	 * The game has finished loading
-	 * @event loaded
+	 *	The game has finished loading
+	 *	@event loaded
 	 */
 
 	/**
-	 * The config has finished loading, in case you want to
-	 * add additional tasks to the manager after this.
-	 * @event configLoaded
-	 * @param {Object} config The JSON object for config
-	 * @param {TaskManager} manager The task manager
+	 *	The config has finished loading, in case you want to
+	 *	add additional tasks to the manager after this.
+	 *	@event configLoaded
+	 *	@param {Object} config The JSON object for config
+	 *	@param {TaskManager} manager The task manager
 	 */
 
 	/**
-	 * The game has started loading
-	 * @event loading
-	 * @param {Array} tasks The list of tasks to preload
+	 *	The game has started loading
+	 *	@event loading
+	 *	@param {Array} tasks The list of tasks to preload
 	 */
 
 	// Init the animator
 	p.setup = function()
 	{
 		/**
-		 * The path to the config file to load
-		 * @property {String} options.configPath
-		 * @default 'assets/config/config.json'
+		 *	The path to the config file to load
+		 *	@property {String} options.configPath
+		 *	@default 'assets/config/config.json'
 		 */
 		this.options.add('configPath', 'assets/config/config.json', true);
 
 		/**
-		 * The game configuration loaded from and external JSON file
-		 * @property {Object} config
+		 *	The game configuration loaded from and external JSON file
+		 *	@property {Object} config
 		 */
 		this.config = null;
 	};
@@ -86,10 +86,10 @@
 	};
 
 	/**
-	 * Callback when the config is loaded
-	 * @method onConfigLoaded
-	 * @private
-	 * @param {springroll.LoaderResult} result The Loader result from the load task
+	 *	Callback when the config is loaded
+	 *	@method onConfigLoaded
+	 *	@private
+	 *	@param {springroll.LoaderResult} result The Loader result from the load task
 	 */
 	var onConfigLoaded = function(result, task, manager)
 	{
@@ -98,9 +98,9 @@
 	};
 
 	/**
-	 * Callback when tasks are completed
-	 * @method onTasksComplete
-	 * @private
+	 *	Callback when tasks are completed
+	 *	@method onTasksComplete
+	 *	@private
 	 */
 	var onTasksComplete = function(done)
 	{
