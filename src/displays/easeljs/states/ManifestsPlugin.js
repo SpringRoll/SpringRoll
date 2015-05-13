@@ -1,25 +1,24 @@
 /**
- * @module EaselJS States
- * @namespace springroll.easeljs
- * @requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@module EaselJS States
+ *	@namespace springroll.easeljs
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
  */
 (function(undefined)
 {
-	//Import classes
+	// Import classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		LoadTask,
 		BaseState;
 
 	/**
-	 * A createjs-based Game to load manifests
-	 * @class ManifestsPlugin
-	 * @extends springroll.ApplicationPlugin
-	 * 
-	 * @param {int} [options.fps=30] The framerate to use for the main display
-	 * @param {function} [options.display=springroll.easeljsDisplay] The 
-	 *        display class to use as the default display.
-	 * @param {boolean} [options.displayOptions.clearView=true] If the stage view
-	 *        should be cleared everytime in CreateJS stage. 
+	 *	A createjs-based Game to load manifests
+	 *	@class ManifestsPlugin
+	 *	@extends springroll.ApplicationPlugin
+	 *	@param {int} [options.fps=30] The framerate to use for the main display
+	 *	@param {function} [options.display=springroll.easeljsDisplay] The 
+	 *	display class to use as the default display.
+	 *	@param {boolean} [options.displayOptions.clearView=true] If the stage view
+	 *	should be cleared everytime in CreateJS stage. 
 	 */
 	var ManifestsPlugin = function()
 	{
@@ -33,20 +32,20 @@
 	p.setup = function()
 	{
 		/**
-		 *  Event when the manifest is finished loading
-		 *  @event manifestLoaded
-		 *  @param {springroll.TaskManager} manager The task manager
+		 *	Event when the manifest is finished loading
+		 *	@event manifestLoaded
+		 *	@param {springroll.TaskManager} manager The task manager
 		 */
 
 		/**
-		 * The path to the concatinated FLA exported manifests. It's useful
-		 * to load all the manifests at once. This JSON object contains a
-		 * dictionary of state alias and contains an array of manifest assets
-		 * (e.g. `{"id": "PlayButton", "src": "assets/images/button.png"}`.
-	 	 * Set to null and no manifest will be auto-loaded.
-		 * @property {String} options.manifestsPath
-		 * @readOnly
-		 * @default "assets/config/manifests.json"
+		 *	The path to the concatinated FLA exported manifests. It's useful
+		 *	to load all the manifests at once. This JSON object contains a
+		 *	dictionary of state alias and contains an array of manifest assets
+		 *	(e.g. `{"id": "PlayButton", "src": "assets/images/button.png"}`.
+	 	 *	Set to null and no manifest will be auto-loaded.
+		 *	@property {String} options.manifestsPath
+		 *	@readOnly
+		 *	@default "assets/config/manifests.json"
 		 */
 		this.options.add('manifestsPath', "assets/config/manifests.json", true);
 
@@ -60,16 +59,16 @@
 		BaseState = include('springroll.easeljs.BaseState');
 
 		/**
-		 *  The collection of loading assests by state
-		 *  @property {object} _manifests
-		 *  @private
+		 *	The collection of loading assests by state
+		 *	@property {object} _manifests
+		 *	@private
 		 */
 		this._manifests = {};
 
 		/**
-		 * Read-only getter to return _manifests
-		 * @property {object} manifests
-		 * @readOnly
+		 *	Read-only getter to return _manifests
+		 *	@property {object} manifests
+		 *	@readOnly
 		 */
 		Object.defineProperty(this, "manifests",
 		{
@@ -102,34 +101,34 @@
 
 			var manifest = [];
 
-			//Add any manifests from the config
+			// Add any manifests from the config
 			var configManifests = this.config.manifests;
 			if (configManifests && configManifests[alias])
 			{
 				manifest = configManifests[alias];
 			}
-			//Add any manifest items from the createjs manifest concat
+			// Add any manifest items from the createjs manifest concat
 			if (this._manifests[alias])
 			{
 				manifest = manifest.concat(this._manifests[alias]);
 			}
-			//Set the properties to the state
+			// Set the properties to the state
 			state.manifest = manifest;
 		});
 	};
 
 	/**
-	 *  Callback to when manifests have been loaded
-	 *  @method onManifestsLoaded
-	 *  @private
-	 *  @param {array} tasks The collection of preload tasks
+	 *	Callback to when manifests have been loaded
+	 *	@method onManifestsLoaded
+	 *	@private
+	 *	@param {array} tasks The collection of preload tasks
 	 */
 	var onManifestsLoaded = function(result, task, manager)
 	{
-		var lowerKey,
-			manifest = this._manifests,
-			content = result.content;
-
+		var lowerKey;
+		var	manifest = this._manifests;
+		var	content = result.content;
+		
 		for (var key in content)
 		{
 			lowerKey = key.toString().toLowerCase();
