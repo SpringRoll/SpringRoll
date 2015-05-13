@@ -184,7 +184,10 @@
 			//if sound is playing, we need to stop it immediately
 			//otherwise it can interfere with replaying the audio
 			if(this.soundInst)
+			{
 				this.soundInst.stop();
+				this.soundInst = null;
+			}
 			//say that we are repeating, so that we start at the beginning of the loop
 			//in case it started part way in
 			repeat = true;
