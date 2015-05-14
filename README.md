@@ -122,6 +122,6 @@ The Framework is inherently canvas-rendering agnostic. We support two different 
 
 ##License
 
-Copyright (c) 2014 [CloudKid](http://github.com/cloudkidstudio)
+Copyright (c) 2015 [CloudKid](http://github.com/cloudkidstudio)
 
 Released under the MIT License.
