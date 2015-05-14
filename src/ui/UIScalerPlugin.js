@@ -7,7 +7,8 @@
 {
 	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		UIScaler = include('springroll.UIScaler');
+		UIScaler = include('springroll.UIScaler'),
+		Debug = include('springroll.Debug', false);
 
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
@@ -37,44 +38,27 @@
 		this.on('configLoaded', function(config)
 		{
 			var scalingSize = config.scalingSize;
-			if (!scalingSize)
+			if (scalingSize)
 			{
-				if (true)
-				{
-					throw "The config requires 'scalingSize' object which contains keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.";
-				}
-				else
-				{
-					throw "No 'scalingSize' config";
-				}
+				this.scaling.size = scalingSize;
 			}
-			this.scaling.size = scalingSize;
+			else if (DEBUG && Debug)
+			{
+				Debug.warn("Recommended that config contains 'scalingSize' object with keys 'width' and 'height' an optionally 'maxWidth' and 'maxHeight'.");
+			}
 		});
 
 		//Add the display
 		this.once('afterInit', function()
 		{
-			//Check for the config then auto enable the scaling
-			if (!this.config)
-			{
-				throw "UIScaler requires config";
-			}
-
-			var Debug = include('springroll.Debug', false);
 			var config = this.config;
 
-			if (!config.scaling)
+			if (!config) return;
+
+			if (config.scaling)
 			{
-				if (DEBUG)
-				{
-					throw "The config requires 'scaling' object which contains all the state scaling items.";
-				}
-				else
-				{
-					throw "No 'scaling' config";
-				}
+				this.scaling.addItems(this, config.scaling);
 			}
-			this.scaling.addItems(this, config.scaling);
 		});
 	};
 

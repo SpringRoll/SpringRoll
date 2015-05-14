@@ -2,7 +2,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -55,7 +55,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -236,7 +236,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -470,7 +470,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -532,7 +532,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -589,7 +589,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -776,7 +776,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function($, undefined)
 {
@@ -1720,7 +1720,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function(undefined)
 {
