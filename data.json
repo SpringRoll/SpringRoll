@@ -924,7 +924,7 @@
         "src/states/BaseState.js": {
             "name": "src/states/BaseState.js",
             "modules": {
-                "Game": 1
+                "States": 1
             },
             "classes": {
                 "springroll.BaseState": 1
@@ -1406,7 +1406,6 @@
                 "springroll.LoaderPlugin": 1,
                 "springroll.LoaderQueueItem": 1,
                 "springroll.LoaderResult": 1,
-                "springroll.StatesPlugin": 1,
                 "window.Array": 1,
                 "springroll.CombinedCallback": 1,
                 "springroll.DelayedCall": 1,
@@ -1792,21 +1791,22 @@
                 "Core"
             ]
         },
-        "Game": {
-            "name": "Game",
+        "States": {
+            "name": "States",
             "submodules": {},
             "classes": {
                 "springroll.BaseState": 1,
                 "springroll.StateEvent": 1,
-                "springroll.StateManager": 1
+                "springroll.StateManager": 1,
+                "springroll.StatesPlugin": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/states/StateManager.js",
-            "line": 14,
+            "file": "src/states/StatesPlugin.js",
+            "line": 13,
             "requires": [
                 "Core"
             ]
@@ -4332,7 +4332,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/BaseState.js",
             "line": 13,
@@ -4368,7 +4368,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StateEvent.js",
             "line": 8,
@@ -4400,7 +4400,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StateManager.js",
             "line": 14,
@@ -4433,10 +4433,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StatesPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin for Loader, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -23106,7 +23106,7 @@
             "name": "stateId",
             "type": "String",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23117,7 +23117,7 @@
             "name": "manager",
             "type": "StateManager",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23128,7 +23128,7 @@
             "name": "panel",
             "type": "createjs.Container|PIXI.DisplayObjectContainer",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23141,7 +23141,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23154,7 +23154,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23167,7 +23167,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23180,7 +23180,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23193,7 +23193,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23206,7 +23206,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23219,7 +23219,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23232,7 +23232,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23245,7 +23245,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23257,7 +23257,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23269,7 +23269,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23279,7 +23279,7 @@
             "itemtype": "method",
             "name": "exit",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23291,7 +23291,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23301,7 +23301,7 @@
             "itemtype": "method",
             "name": "exitStart",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23320,7 +23320,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23330,7 +23330,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23349,7 +23349,7 @@
                 }
             ],
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23361,7 +23361,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23371,7 +23371,7 @@
             "itemtype": "method",
             "name": "cancel",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23381,7 +23381,7 @@
             "itemtype": "method",
             "name": "enter",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23393,7 +23393,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23403,7 +23403,7 @@
             "itemtype": "method",
             "name": "enterDone",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23415,7 +23415,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23426,7 +23426,7 @@
             "name": "enabled",
             "type": "Boolean",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23438,7 +23438,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23448,7 +23448,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23459,7 +23459,7 @@
             "name": "currentState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23470,7 +23470,7 @@
             "name": "visibleState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23480,7 +23480,7 @@
             "name": "type",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23491,7 +23491,7 @@
             "name": "onVisible",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23502,7 +23502,7 @@
             "name": "onHidden",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23515,7 +23515,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23528,7 +23528,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23541,7 +23541,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23554,7 +23554,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23567,7 +23567,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23580,7 +23580,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23593,7 +23593,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23606,7 +23606,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23619,7 +23619,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23632,7 +23632,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23645,7 +23645,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23655,7 +23655,7 @@
             "itemtype": "event",
             "name": "onTransitionIn",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23665,7 +23665,7 @@
             "itemtype": "event",
             "name": "onTransitionInDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23675,7 +23675,7 @@
             "itemtype": "event",
             "name": "onTransitionOut",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23685,7 +23685,7 @@
             "itemtype": "event",
             "name": "onTransitionOutDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23695,7 +23695,7 @@
             "itemtype": "event",
             "name": "onInitDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23705,7 +23705,7 @@
             "itemtype": "event",
             "name": "onLoadingStart",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23715,7 +23715,7 @@
             "itemtype": "event",
             "name": "onLoadingDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23737,7 +23737,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23754,7 +23754,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23768,7 +23768,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23789,7 +23789,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23803,7 +23803,7 @@
                 "type": "Boolean"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23813,7 +23813,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23823,7 +23823,7 @@
             "itemtype": "method",
             "name": "loadingDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23833,7 +23833,7 @@
             "itemtype": "method",
             "name": "showBlocker",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23843,7 +23843,7 @@
             "itemtype": "method",
             "name": "hideBlocker",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23853,7 +23853,7 @@
             "itemtype": "method",
             "name": "refresh",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23864,7 +23864,7 @@
             "name": "state",
             "type": "String",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23881,7 +23881,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23893,7 +23893,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23905,7 +23905,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23917,7 +23917,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23932,7 +23932,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23944,7 +23944,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23961,7 +23961,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23978,7 +23978,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24002,7 +24002,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24012,7 +24012,7 @@
             "itemtype": "method",
             "name": "next",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24022,7 +24022,7 @@
             "itemtype": "method",
             "name": "previous",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24032,12 +24032,12 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 29,
+            "line": 30,
             "description": "Fired when an event has been added",
             "itemtype": "event",
             "name": "stateAdded",
@@ -24054,12 +24054,12 @@
                 }
             ],
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 36,
+            "line": 37,
             "description": "The collection of states",
             "itemtype": "property",
             "name": "_states",
@@ -24067,34 +24067,34 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 43,
+            "line": 44,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
             "type": "createjs.MovieClip|PIXI.Spine",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 49,
+            "line": 50,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
             "type": "springroll.StateManager",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 55,
+            "line": 56,
             "description": "The initial state to go to when everything is finished",
             "itemtype": "property",
             "name": "options.state",
@@ -24102,35 +24102,35 @@
             "default": "null",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 63,
+            "line": 64,
             "description": "The animation to use for the StateManager",
             "itemtype": "property",
             "name": "options.transition",
             "type": "createjs.MovieClip|PIXI.Spine",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 69,
+            "line": 70,
             "description": "The transition sounds to use for the state transition",
             "itemtype": "property",
             "name": "options.transitionSounds The transition sound data",
             "type": "Object",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 74,
+            "line": 75,
             "description": "The transition in sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.in The transition sound data",
@@ -24138,12 +24138,12 @@
             "default": "\"TransitionIn\"",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 80,
+            "line": 81,
             "description": "The transition out sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.out The transition sound data",
@@ -24151,27 +24151,27 @@
             "default": "\"TransitionOut\"",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 92,
+            "line": 93,
             "description": "The collection of states where the key is the state alias and value is the state display object",
             "itemtype": "property",
             "name": "states",
             "type": "Object",
             "default": "null",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 177,
+            "line": 178,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -28543,7 +28543,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:177"
+            "line": " src/states/StatesPlugin.js:178"
         },
         {
             "message": "Missing item type",

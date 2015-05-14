@@ -134,7 +134,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "EaselJS States",
         "EaselJS UI",
         "EaselJS Utilities",
-        "Game",
         "Hints",
         "Languages",
         "Learning",
@@ -144,6 +143,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "PIXI Display",
         "PIXI UI",
         "Sound",
+        "States",
         "Tasks",
         "UI"
     ],
@@ -197,10 +197,6 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "EaselJS Utilities"
         },
         {
-            "displayName": "Game",
-            "name": "Game"
-        },
-        {
             "displayName": "Hints",
             "name": "Hints"
         },
@@ -235,6 +231,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Sound",
             "name": "Sound"
+        },
+        {
+            "displayName": "States",
+            "name": "States"
         },
         {
             "displayName": "Tasks",
