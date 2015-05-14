@@ -1,5 +1,5 @@
 /**
- * @module Game
+ * @module States
  * @namespace springroll
  * @requires Core
  */

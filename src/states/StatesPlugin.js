@@ -1,6 +1,7 @@
 /**
-*  @module Core
+*  @module States
 *  @namespace springroll
+*  @requires Core
 */
 (function()
 {
