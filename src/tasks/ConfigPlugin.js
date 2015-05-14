@@ -96,7 +96,7 @@
 		}
 		else
 		{
-			done();
+			onTasksComplete.call(this, done);
 		}
 	};
 
