@@ -1725,9 +1725,7 @@
             "file": "src/learning/ValidationError.js",
             "line": 10,
             "requires": [
-                "Core",
-                "Sound",
-                "Captions"
+                "Core"
             ]
         },
         "Learning Media": {
