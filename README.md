@@ -58,7 +58,7 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 		<script src="dist/core.min.js"></script>
 
 		<!-- Optional modules -->
-		<script src="dist/modules/display-createjs.min.js"></script>
+		<script src="dist/modules/easeljs-display.min.js"></script>
 	</head>
 	<body>
 		<canvas id="stage" width="600" height="400"></canvas>
