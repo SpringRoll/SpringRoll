@@ -32,6 +32,18 @@
 	p = EventDispatcher.prototype;
 
 	/**
+	 * If the dispatcher is destroyed
+	 * @property {Boolean} destroyed
+	 */
+	Object.defineProperty(p, 'destroyed',
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
+	});
+
+	/**
 	*  Dispatch an event
 	*  @method trigger
 	*  @param {String} type The type of event to trigger

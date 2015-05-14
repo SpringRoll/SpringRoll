@@ -21,6 +21,7 @@
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 
     </head>
@@ -31,7 +32,6 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
@@ -43,8 +43,6 @@ var Application = include('springroll.Application'),
 
 // Create the new application
 var app = new Application({
-	framerate: "framerate", // optional framerate display
-	updateTween: true, // IMPORTANT! for Application to own TweenJS updates
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	displayOptions: {
@@ -61,7 +59,7 @@ app.on('init', function(){
 		.drawCircle(-100, 500 / 2, 100);
 
 	// Add it to the EaselJS stage
-	app.display.stage.addChild(shape);
+	this.display.stage.addChild(shape);
 
 	// Tween the shape
 	Tween.get(shape, {loop: true}).to({x: 1000}, 3000);

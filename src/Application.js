@@ -4,12 +4,9 @@
  */
 (function(undefined)
 {
-
 	// classes to import
-	var Debug,
-		Loader,
-		TimeUtils,
-		PageVisibility,
+	var TimeUtils = include('springroll.TimeUtils'),
+		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
@@ -36,14 +33,6 @@
 
 		EventDispatcher.call(this);
 
-		if (!Loader)
-		{
-			Debug = include('springroll.Debug', false);
-			Loader = include('springroll.Loader');
-			TimeUtils = include('springroll.TimeUtils');
-			PageVisibility = include('springroll.PageVisibility');
-		}
-
 		/**
 		 *  Initialization options/query string parameters, these properties are read-only
 		 *  Application properties like raf, fps, don't have any affect on the options object.
@@ -61,22 +50,34 @@
 		 */
 		this.display = null;
 
-		/**
-		 *  If we should wait to init the Application, this is useful is something is inheriting
-		 *  Application but want to do some extra stuff before init is actually called.
-		 *  @property {Boolean} _readyToInit
-		 *  @protected
-		 */
-		this._readyToInit = true;
-
+		// Reset the displays
 		_displays = {};
+
+		// Add the _tick bind
 		_tickCallback = this._tick.bind(this);
+
+		// Call any global libraries to initialize
+		Application._plugins.forEach(function(plugin)
+		{
+			plugin.setup.call(_instance);
+		});
+
+		// Options are initialized after plugins
+		// so plugins can define their own options
+		this.options.init();
+
+		/**
+		*  The name of the game, useful for debugging purposes
+		*  @property {String} name
+		*  @default ""
+		*/
+		this.name = this.options.name;
 
 		//other initialization stuff too
 		//if there are some specific properties on the options, use them to make a display
 		//call init after handling loading up a versions file or any other needed asynchronous
 		//stuff?
-		this._internalInit();
+		setTimeout(this._preInit.bind(this), 0);
 	};
 
 	// Reference to the prototype
@@ -85,239 +86,171 @@
 
 	/**
 	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
-	 *  @property {Array} _globalInit
+	 *  these are registered by external modules.
+	 *  @property {Array} _plugins
 	 *  @private
 	 *  @static
 	 */
-	Application._globalInit = [];
+	Application._plugins = [];
 
 	/**
-	 *  The collection of function references to call when destroying the application
-	 *  these are registered by external libraries that need to setup, destroyed
-	 *  for instance Loader
-	 *  @property {Array} _globalDestroy
+	 *  The number of ms since the last frame update
 	 *  @private
-	 *  @static
+	 *  @property {int} _lastFrameTime
 	 */
-	Application._globalDestroy = [];
+	var _lastFrameTime = 0,
 
 	/**
-	 *  The frame rate object
-	 *  @private
-	 *  @property {DOMObject} _framerate
+	 *	The bound callback for listening to tick events
+	 *	@private
+	 *   @property {Function} _tickCallback
 	 */
-	var _framerate = null,
+	_tickCallback = null,
 
-		/**
-		 *  The number of ms since the last frame update
-		 *  @private
-		 *  @property {int} _lastFrameTime
-		 */
-		_lastFrameTime = 0,
+	/**
+	 *  If the current application is paused
+	 *  @private
+	 *  @property {Boolean} _paused
+	 */
+	_paused = false,
 
-		/**
-		 *  The last time since the last fps update
-		 *  @private
-		 *  @property {int} _lastFPSUpdateTime
-		 */
-		_lastFPSUpdateTime = 0,
+	/**
+	 *  If the current application is enabled
+	 *  @private
+	 *  @property {Boolean} _enabled
+	 */
+	_enabled = true,
 
-		/**
-		 *  The number of frames since the last fps update
-		 *  @private
-		 *  @property {int} _frameCount
-		 */
-		_frameCount = 0,
+	/**
+	 *  The id of the active requestAnimationFrame or setTimeout call.
+	 *  @property {Number} _tickId
+	 *  @private
+	 */
+	_tickId = -1,
 
-		/**
-		 *	The bound callback for listening to tick events
-		 *	@private
-		 *   @property {Function} _tickCallback
-		 */
-		_tickCallback = null,
+	/**
+	 *  If requestionAnimationFrame should be used
+	 *  @private
+	 *  @property {Bool} _useRAF
+	 *  @default false
+	 */
+	_useRAF = false,
 
-		/**
-		 *  If the current application is paused
-		 *  @private
-		 *  @property {Boolean} _paused
-		 */
-		_paused = false,
+	/**
+	 * The number of milliseconds per frame
+	 * @property {int} _msPerFrame
+	 * @private
+	 */
+	_msPerFrame = 0,
 
-		/**
-		 *  If the current application is enabled
-		 *  @private
-		 *  @property {Boolean} _enabled
-		 */
-		_enabled = true,
+	/**
+	*  Dom element (or the window) to attach resize listeners and read the size from
+	*  @property {DOMElement|Window|null} _resizeElement
+	*  @private
+	*  @default null
+	*/
+	_resizeElement = null,
 
-		/**
-		 *  The id of the active requestAnimationFrame or setTimeout call.
-		 *  @property {Number} _tickId
-		 *  @private
-		 */
-		_tickId = -1,
-
-		/**
-		 *  If requestionAnimationFrame should be used
-		 *  @private
-		 *  @property {Bool} _useRAF
-		 *  @default false
-		 */
-		_useRAF = false,
-
-		/**
-		 * The number of milliseconds per frame
-		 * @property {int} _msPerFrame
-		 * @private
-		 */
-		_msPerFrame = 0,
-
-		/**
-		*  Dom element (or the window) to attach resize listeners and read the size from
-		*  @property {DOMElement|Window|null} _resizeElement
-		*  @private
-		*  @default null
-		*/
-		_resizeElement = null,
+	/**
+	*  The maximum width of the primary display, compared to the original height.
+	*  @property {Number} _maxWidth
+	*  @private
+	*/
+	_maxWidth = 0,
 	
-		/**
-		*  The maximum width of the primary display, compared to the original height.
-		*  @property {Number} _maxWidth
-		*  @private
-		*/
-		_maxWidth = 0,
-		
-		/**
-		*  The maximum height of the primary display, compared to the original width.
-		*  @property {Number} _maxHeight
-		*  @private
-		*/
-		_maxHeight = 0,
-		
-		/**
-		*  The original width of the primary display, used to calculate the aspect ratio.
-		*  @property {int} _originalWidth
-		*  @private
-		*/
-		_originalWidth = 0,
-		
-		/**
-		*  The original height of the primary display, used to calculate the aspect ratio.
-		*  @property {int} _originalHeight
-		*  @private
-		*/
-		_originalHeight = 0,
-
-		/**
-		 *  The aspect ratio of the primary display, as width / height.
-		 *  @property {Number} _aspectRatio
-		 *  @private
-		 */
-		_aspectRatio = 0,
-
-		/**
-		 *  A PageVisibility object to automatically pause Application when the page is hidden.
-		 *  @property {PageVisibility} _pageVisibility
-		 *  @private
-		 */
-		_pageVisibility = null,
-
-		/**
-		 *  Rendering plugins, in a dictionary by canvas id
-		 *  @property {dictionary} _displays
-		 *  @private
-		 */
-		_displays = null,
-
-		/**
-		 *  A helper object to avoid object creation each resize event.
-		 *  @property {Object} _resizeHelper
-		 *  @private
-		 */
-		_resizeHelper = {
-			width: 0,
-			height: 0
-		},
-
-		/**
-		 *  Fired when initialization of the application is done
-		 *  @event init
-		 */
-		INIT = 'init',
-
-		/**
-		 *  Event when everything's done but we haven't actually inited
-		 *  @event preInit
-		 *  @protected
-		 */
-		BEFORE_INIT = 'beforeInit',
-
-		/**
-		 *  Fired when an update is called, every frame update
-		 *  @event update
-		 *  @param {int} elasped The number of milliseconds since the last frame update
-		 */
-		UPDATE = 'update',
-
-		/**
-		 *  Fired when a resize is called
-		 *  @event resize
-		 *  @param {int} width The width of the resize element
-		 *  @param {int} height The height of the resize element
-		 */
-		RESIZE = 'resize',
-
-		/**
-		 *  Fired when the pause state is toggled
-		 *  @event pause
-		 *  @param {boolean} paused If the application is now paused
-		 */
-		PAUSE = 'pause',
-
-		/**
-		 *  Fired when the application becomes paused
-		 *  @event paused
-		 */
-		PAUSED = 'paused',
-
-		/**
-		 *  Fired when the application resumes from a paused state
-		 *  @event resumed
-		 */
-		RESUMED = 'resumed',
-
-		/**
-		 *  Fired when the application is destroyed
-		 *  @event destroy
-		 */
-		DESTROY = 'destroy';
+	/**
+	*  The maximum height of the primary display, compared to the original width.
+	*  @property {Number} _maxHeight
+	*  @private
+	*/
+	_maxHeight = 0,
+	
+	/**
+	*  The original width of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalWidth
+	*  @private
+	*/
+	_originalWidth = 0,
+	
+	/**
+	*  The original height of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalHeight
+	*  @private
+	*/
+	_originalHeight = 0,
 
 	/**
-	 *  Libraries would register global initialization functions when they are created, e.g.
-	 *  Application.registerInit(Loader.init);
-	 *  @method registerInit
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
+	 *  The aspect ratio of the primary display, as width / height.
+	 *  @property {Number} _aspectRatio
+	 *  @private
 	 */
-	Application.registerInit = function(func)
-	{
-		Application._globalInit.push(func);
-	};
+	_aspectRatio = 0,
+
 	/**
-	 *  Libraries would register global destroy functions when they are created or initialized, e.g.
-	 *  Application.registerInit(Loader.instance.destroy.bind(Loader.instance));
-	 *  @method registerDestroy
-	 *  @param {Function} func
-	 *  @static
-	 *  @public
+	 *  Rendering plugins, in a dictionary by canvas id
+	 *  @property {dictionary} _displays
+	 *  @private
 	 */
-	Application.registerDestroy = function(func)
-	{
-		Application._globalDestroy.push(func);
+	_displays = null,
+
+	/**
+	 *  A helper object to avoid object creation each resize event.
+	 *  @property {Object} _resizeHelper
+	 *  @private
+	 */
+	_resizeHelper = {
+		width: 0,
+		height: 0
 	};
+
+	/**
+	 *  Fired when initialization of the application is ready
+	 *  @event init
+	 */
+	
+	/**
+	 *  Fired when initialization of the application is done
+	 *  @event afterInit
+	 */
+	
+	/**
+	 *  Fired when before initialization of the application
+	 *  @event beforeInit
+	 */
+	
+	/**
+	 *  Fired when an update is called, every frame update
+	 *  @event update
+	 *  @param {int} elasped The number of milliseconds since the last frame update
+	 */
+
+	/**
+	 *  Fired when a resize is called
+	 *  @event resize
+	 *  @param {int} width The width of the resize element
+	 *  @param {int} height The height of the resize element
+	 */
+
+	/**
+	 *  Fired when the pause state is toggled
+	 *  @event pause
+	 *  @param {boolean} paused If the application is now paused
+	 */
+
+	/**
+	 *  Fired when the application becomes paused
+	 *  @event paused
+	 */
+
+	/**
+	 *  Fired when the application resumes from a paused state
+	 *  @event resumed
+	 */
+
+	/**
+	 *  Fired when the application is destroyed
+	 *  @event destroy
+	 */
 
 	/**
 	 *  Get the singleton instance of the application
@@ -336,18 +269,14 @@
 
 	/**
 	 *  The internal initialization
-	 *  @method _internalInit
+	 *  @method _preInit
 	 *  @private
 	 */
-	p._internalInit = function()
+	p._preInit = function()
 	{
-		var options = this.options;
+		if (this.destroyed) return;
 
-		// Call any global libraries to initialize
-		for (var i = 0, len = Application._globalInit.length; i < len; ++i)
-		{
-			Application._globalInit[i]();
-		}
+		var options = this.options;
 
 		_useRAF = options.raf;
 		options.on('raf', function(value)
@@ -361,31 +290,12 @@
 			_msPerFrame = (1000 / value) | 0;
 		}); 
 
-		if (options.framerate)
-		{
-			_framerate = options.framerate;
-		}
-
 		if (options.resizeElement)
 		{
 			_resizeElement = options.resizeElement;
 			this.triggerResize = this.triggerResize.bind(this);
 			window.addEventListener("resize", this.triggerResize);
 		}
-
-		//set up the page visibility listener
-		_pageVisibility = new PageVisibility(
-			this._onVisible.bind(this), 
-			this._onHidden.bind(this)
-		);
-		options.on('autoPause', function(value)
-		{
-			_pageVisibility.enabled = value;
-		});
-		options.respond('autoPause', function()
-		{
-			return _pageVisibility.enabled;
-		});
 		
 		//set up setters/getters in options for certain properties
 		_maxWidth = options.maxWidth;
@@ -410,26 +320,20 @@
 			);
 		}
 
-		// Bind the do init
-		this._doInit = this._doInit.bind(this);
+		var tasks = [];
 
-		// Check to see if we should load a versions file
-		// The versions file keeps track of file versions to avoid cache issues
-		if (options.versionsFile)
+		// Add the plugin ready functions to the list
+		// of async tasks to start-up
+		Application._plugins.forEach(function(plugin)
 		{
-			// Try to load the default versions file
-			// callback should be made with a scope in mind
-			Loader.instance.cacheManager.addVersionsFile(
-				options.versionsFile,
-				this._doInit
-			);
-		}
-		else
-		{
-			// Wait until the next execution sequence
-			// so that init can be added after construction
-			setTimeout(this._doInit, 0);
-		}
+			if (plugin.preload)
+			{
+				tasks.push(plugin.preload.bind(_instance));
+			}
+		});
+
+		// Run the asyncronous tasks
+		async.waterfall(tasks, this._doInit.bind(this));
 	};
 
 	/**
@@ -437,15 +341,12 @@
 	 *  @method _doInit
 	 *  @protected
 	 */
-	p._doInit = function()
+	p._doInit = function(err)
 	{
-		this.trigger(BEFORE_INIT);
+		if (this.destroyed) return;
 
-		// If a sub-class will manually try to init later on
-		if (!this._readyToInit) return;
-
-		// Call the init function
-		if (this.init) this.init();
+		// Error with the async startup
+		if (err) throw err;
 
 		//do an initial resize to make sure everything is sized properly
 		this.triggerResize();
@@ -453,8 +354,15 @@
 		//start update loop
 		this.paused = false;
 
+		this.trigger('beforeInit');
+	
 		// Dispatch the init event
-		this.trigger(INIT);
+		this.trigger('init');
+
+		// Call the init function
+		if (this.init) this.init();
+
+		this.trigger('afterInit');
 	};
 
 	/**
@@ -463,26 +371,6 @@
 	 *  @protected
 	 */
 	p.init = null;
-
-	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method _onHidden
-	 *  @private
-	 */
-	p._onHidden = function()
-	{
-		this.paused = true;
-	};
-
-	/**
-	 *  Private listener for when the page is shown.
-	 *  @method _onVisible
-	 *  @private
-	 */
-	p._onVisible = function()
-	{
-		this.paused = false;
-	};
 
 	/**
 	 *  Enables at the application level which enables
@@ -519,8 +407,8 @@
 		set: function(value)
 		{
 			_paused = !!value;
-			this.trigger(PAUSE, _paused);
-			this.trigger(_paused ? PAUSED : RESUMED, _paused);
+			this.trigger('pause', _paused);
+			this.trigger(_paused ? 'paused' : 'resumed', _paused);
 
 			if (_paused)
 			{
@@ -543,8 +431,6 @@
 						requestAnimFrame(_tickCallback) :
 						setTargetedTimeout(_tickCallback);
 				}
-				_frameCount = 0;
-				_lastFPSUpdateTime = _lastFrameTime = TimeUtils.now();
 			}
 		}
 	});
@@ -580,9 +466,11 @@
 
 		this.calculateDisplaySize(_resizeHelper);
 
-		//round down, as canvases require integer sizes
-		_resizeHelper.width |= 0;
-		_resizeHelper.height |= 0;
+		// round up, as canvases require integer sizes
+		// and canvas should be slightly larger to avoid
+		// a hairline around outside of the canvas
+		_resizeHelper.width = Math.ceil(_resizeHelper.width);
+		_resizeHelper.height = Math.ceil(_resizeHelper.height);
 
 		//resize the displays
 		var key;
@@ -591,7 +479,7 @@
 			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
 		}
 		//send out the resize event
-		this.trigger(RESIZE, _resizeHelper.width, _resizeHelper.height);
+		this.trigger('resize', _resizeHelper.width, _resizeHelper.height);
 
 		//redraw all displays
 		for (key in _displays)
@@ -647,11 +535,7 @@
 	{
 		if (_displays[id])
 		{
-			if (DEBUG && Debug)
-			{
-				Debug.error("A display already exists with the id of " + id);
-			}
-			return;
+			throw "Display exists with id '" + id + "'";
 		}
 		var display = _displays[id] = new displayConstructor(id, options);
 		if (!this.display)
@@ -731,30 +615,16 @@
 		}
 
 		var now = TimeUtils.now();
-		var dTime = now - _lastFrameTime;
-
-		// Only update the framerate every second
-		if (_framerate)
-		{
-			_frameCount++;
-			var elapsed = now - _lastFPSUpdateTime;
-			if (elapsed >= 1000)
-			{
-				var framerateValue = 1000 / elapsed * _frameCount;
-				_framerate.innerHTML = "FPS: " + (Math.round(framerateValue * 1000) / 1000);
-				_lastFPSUpdateTime = now;
-				_frameCount = 0;
-			}
-		}
+		var elapsed = now - _lastFrameTime;
 		_lastFrameTime = now;
 
 		//trigger the update event
-		this.trigger(UPDATE, dTime);
+		this.trigger('update', elapsed);
 
 		//then update all displays
 		for (var key in _displays)
 		{
-			_displays[key].render(dTime);
+			_displays[key].render(elapsed);
 		}
 
 		//request the next tick
@@ -768,15 +638,13 @@
 	};
 
 	/**
-	 * Destroys the application, global libraries registered via Application.registerDestroy() and
-	 * all active displays
+	 * Destroys the application and all active displays and plugins
 	 * @method destroy
 	 */
 	p.destroy = function()
 	{
-		this._readyToInit = false;
 		this.paused = true;
-		this.trigger(DESTROY);
+		this.trigger('destroy');
 
 		for (var key in _displays)
 		{
@@ -784,30 +652,38 @@
 		}
 		_displays = null;
 
-		for (var i = 0, len = Application._globalDestroy.length; i < len; ++i)
+		// Destroy in the reverse priority order
+		var plugins = Application._plugins.slice().reverse();
+
+		plugins.forEach(function(plugin)
 		{
-			Application._globalDestroy[i]();
-		}
+			plugin.teardown.call(_instance);
+		});
 
 		if (_resizeElement)
 		{
 			window.removeEventListener("resize", this.triggerResize);
 		}
 
-		_pageVisibility.destroy();
-		_pageVisibility = null;
-
 		_instance =
 		_tickCallback =
-		_framerate =
 		_resizeElement = null;
 
+		this.display = null;
 		this.options.destroy();
 		this.options = null;
 
-		if (DEBUG && Debug) Debug.disconnect();
-
 		s.destroy.call(this);
+	};
+
+	/**
+	*  The toString debugging method
+	*  @method toString
+	*  @return {String} The reprsentation of this class
+	*/
+	p.toString = function()
+	{
+		return "[Application name='" + this.name + "']";
 	};
 
 	// Add to the name space

@@ -24,10 +24,11 @@
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/captions.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
-		<script src="../dist/modules/easeljs-interface.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
 
 	</head>
 	<body>
@@ -37,26 +38,19 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<div id="captions"></div>
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
 // Import classes
 var Application = include('springroll.Application'),
-	Loader = include('springroll.Loader'),
 	Button = include('springroll.easeljs.Button'),
-	EaselJSDisplay = include('springroll.EaselJSDisplay'),
-	VOPlayer = include('springroll.VOPlayer'),
-	Sound = include('springroll.Sound'),
-	Captions = include('springroll.Captions');
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 // Create the new application
 var app = new Application({
-	framerate: "framerate",
 	canvasId: "stage",
-	debug: true,
-	debugRemote: 'localhost',
+	captionsPath: "assets/config/captions2.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
@@ -86,108 +80,64 @@ var soundConfig = {
 	]
 };
 
-// The captions dictionary
-// IMPORTANT: the alias of the caption MATCHES the alias
-// of the sound. The VO Player will play these two things at once
-var captionsConfig = {
-	"Volume": [
-		{
-			"content": "Volume is the amount of space something takes up.",
-			"start": 0,
-			"end": 3090
-		},
-		{
-			"content": "Let's look at our diving team.",
-			"start": 3328,
-			"end": 5478
-		}
-	],
-	"GoodJob": [
-		{
-			"content": "Good job, team!",
-			"start": 0,
-			"end": 1750
-		}
-	]
-}
-
-// Create the new captions object and provide
-// a dictionary of caption objects as well
-// as the caption target
-var captions = new Captions(captionsConfig, "captions");
-
-// The image that get's loaded dynamically
-var buttonImage;
-
-// Instance of the VO Player
-var voPlayer;
-
 // Wait until the app is ready
 app.on('init', function(){
 
+	// Add the config
+	app.addSounds(soundConfig);
+
+	// The image that get's loaded dynamically
+	var buttonImage;
+
+	// Reference to the VO Player
+	var voPlayer = app.voPlayer;
+
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
-	Loader.instance.load('assets/images/button.png', function(result){
+	app.loader.load('assets/images/button.png', function(result){
 
 		buttonImage = result.content;
 
-		// Initialize the Sound system
-		Sound.init({
-			// The path to the Flash SWF fallback
-			swfPath : 'assets/swfs/',
-			ready : onSoundReady
+		// Add the buttons and handle the clicks
+		addButton('Volume', 200, 100, onPlayButton);
+		addButton('GoodJob', 340, 100, onPlayButton);
+
+		addButton('Both', 480, 100, function(){
+			voPlayer.play(['GoodJob', 'Volume']);
+		});
+
+		addButton('Stop', 340, 200, function(){
+			voPlayer.stop();
 		});
 	});
+
+	// Generic method for adding a button to the stage
+	// add a label and some positioning information
+	var addButton = function(label, x, y, handler)
+	{
+		// Create a play button
+		var button = new Button(buttonImage, {
+			text: label,
+			font: "16px Arial",
+			color: "#ffffff"
+		});
+		button.x = x;
+		button.y = y;
+
+		// Play the AUDIO
+		button.on('buttonPress', handler);
+
+		app.display.stage.addChild(button);
+		return button;
+	};
+
+	// Handler for the buttons, use the 
+	// label text as the alias to play
+	var onPlayButton = function(e)
+	{
+		voPlayer.play(e.currentTarget.label.text);
+	};
 });
-
-// Handle when the sound library is ready
-var onSoundReady = function()
-{
-	// Add the config
-	Sound.instance.loadConfig(soundConfig)
-
-	// Create a new VO player
-	voPlayer = new VOPlayer(captions);
-
-	// Add the buttons and handle the clicks
-	addButton('Volume', 200, 100, onPlayButton);
-	addButton('GoodJob', 340, 100, onPlayButton);
-
-	addButton('Both', 480, 100, function(){
-		voPlayer.play(['GoodJob', 'Volume']);
-	});
-
-	addButton('Stop', 340, 200, function(){
-		voPlayer.stop();
-	});
-};
-
-// Generic method for adding a button to the stage
-// add a label and some positioning information
-var addButton = function(label, x, y, handler)
-{
-	// Create a play button
-	var button = new Button(buttonImage, {
-		text: label,
-		font: "16px Arial",
-		color: "#ffffff"
-	});
-	button.x = x;
-	button.y = y;
-
-	// Play the AUDIO
-	button.on('buttonPress', handler);
-
-	app.display.stage.addChild(button);
-	return button;
-};
-
-// Handler for the buttons, use the 
-// label text as the alias to play
-var onPlayButton = function(e)
-{
-	voPlayer.play(e.currentTarget.label.text);
-};
 
 </script>
 		</div>

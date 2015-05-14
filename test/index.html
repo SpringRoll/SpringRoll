@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Core Module Tests</title>
+	<title>All Module Tests</title>
 	<link rel="stylesheet" href="../components/qunit/qunit/qunit.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 </head>
@@ -17,53 +17,38 @@
 	<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 	<script src="../components/easeljs/lib/movieclip.combined.js"></script>
 	<script src="../components/soundjs/lib/soundjs.min.js"></script>
-	<script src="../components/soundjs/lib/flashplugin.min.js"></script>
+	<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
 	<script src="../components/pixi.js/bin/pixi.dev.js"></script>
 	<script src="../components/jquery/dist/jquery.js"></script>
 	<script src="../components/bellhop/dist/bellhop.js"></script>
 
 	<script src="../dist/core.js"></script>
 	<script src="../dist/modules/captions.js"></script>
+	<script src="../dist/modules/states.js"></script>
 	<script src="../dist/modules/easeljs-display.js"></script>
 	<script src="../dist/modules/easeljs-animation.js"></script>
-	<script src="../dist/modules/easeljs-interface.js"></script>
+	<script src="../dist/modules/easeljs-ui.js"></script>
 	<script src="../dist/modules/easeljs-cutscene.js"></script>
 	<script src="../dist/modules/easeljs-utils.js"></script>
+	<script src="../dist/modules/easeljs-states.js"></script>
+	<script src="../dist/modules/easeljs-learning.js"></script>
 	<script src="../dist/modules/native-display.js"></script>
 	<script src="../dist/modules/pixi-display.js"></script>
 	<script src="../dist/modules/pixi-animation.js"></script>
-	<script src="../dist/modules/pixi-interface.js"></script>
-	<script src="../dist/modules/game.js"></script>
-	<script src="../dist/modules/interface.js"></script>
+	<script src="../dist/modules/pixi-ui.js"></script>
+	<script src="../dist/modules/ui.js"></script>
 	<script src="../dist/modules/sound.js"></script>
 	<script src="../dist/modules/tasks.js"></script>
-	<script src="../dist/modules/translate.js"></script>
-	<script src="../dist/modules/tracking-game.js"></script>
-	<script src="../dist/modules/progress-tracker.js"></script>
-	<script src="../dist/modules/easeljs-tracking-game.js"></script>
+	<script src="../dist/modules/languages.js"></script>
+	<script src="../dist/modules/learning.js"></script>
+	<script src="../dist/modules/learning-media.js"></script>
 	<script src="../dist/modules/container.js"></script>
-	<script src="../dist/modules/hinting.js"></script>
+	<script src="../dist/modules/container-client.js"></script>
+	<script src="../dist/modules/hints.js"></script>
 
-	<script>
+	<link href="../dist/core.css" rel="stylesheet" />
+	<link href="../dist/modules/learning.css" rel="stylesheet" />
 
-	var Application = include('springroll.Application');
-	var TrackingGame = include('springroll.TrackingGame');
-
-	test('Include All Modules', function(assert){
-		expect(1);
-		var app = new Application();
-		assert.ok(!!Application.instance, "Created a blank application");
-		app.destroy();
-	});
-
-	test('Create a TrackingGame', function(assert){
-		expect(1);
-		var game = new TrackingGame({
-			name: "TestGame"
-		});
-		assert.ok(!!game, "Created an empty game");
-		game.destroy();
-	});
-	</script>
+	<script src="index.js"></script>
 </body>
 </html>

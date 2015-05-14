@@ -1,7 +1,6 @@
 /**
  * @module Container
  * @namespace springroll
- * @requires  Core
  */
 (function(undefined)
 {

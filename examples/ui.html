@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Interface Example</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <!-- Examples dependencies, these are only necessary for examples -->
+        <link rel="stylesheet" href="../components/google-code-prettify/bin/prettify.min.css">
+		<script src="../components/google-code-prettify/bin/prettify.min.js"></script>
+		<script src="../components/google-code-prettify/bin/run_prettify.min.js"></script>
+		<script src="assets/js/examples.js"></script>
+
+        <!-- External dependencies -->
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+
+		<!-- Library and modules -->
+		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/tasks.js"></script>
+		<script src="../dist/modules/ui.js"></script>
+		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
+
+    </head>
+    <body class="fullscreen">
+		<div id="content" class="canvas">
+			<nav>
+				<button id="canvas">Application</button>
+				<button id="code">Code</button>
+				<button id="back">Back</button>
+			</nav>
+			<div id="framerate">FPS: 00.000</div>
+			<div id="stageContainer">
+				<canvas id="stage" width="800" height="500"></canvas>
+			</div>
+			<pre id="codeDisplay"></pre>
+<script>
+
+var Application = include('springroll.Application'),
+	UIScaler = include('springroll.UIScaler'),
+	Button = include('springroll.easeljs.Button'),
+	LoadTask = include('springroll.LoadTask'),
+	TaskManager = include('springroll.TaskManager'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay');
+
+// Create the new application
+var app = new Application({
+	resizeElement : "stageContainer",
+	framerate: "framerate",
+	canvasId: "stage",
+	configPath: "assets/config/config-ui.json",
+	display: EaselJSDisplay,
+	displayOptions: {
+		clearView: true // clear the stage on render
+	}
+});
+
+var images = {};
+
+app.on('loading', function(tasks)
+{
+	// Load the background image
+	tasks.push(new LoadTask(
+		'background', 
+		'assets/images/background.jpg', 
+		onImageLoaded
+	));
+
+	// Load the button image
+	tasks.push(new LoadTask(
+		'button', 
+		'assets/images/button.png', 
+		onImageLoaded
+	));
+});
+
+
+// Callback when an image is loaded
+var onImageLoaded = function(result, task)
+{
+	images[task.id] = result.content;
+};
+
+// Wait until the app is ready
+app.on('init', function(){
+
+	console.log("Main app init");
+	var stage = this.display.stage;
+
+	// Add the background to the stage 
+	var background = new createjs.Bitmap(images.background);
+
+	// Create and add some buttons
+	this.playButton = new Button(images.button, {
+		text: 'Play',
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+
+	this.closeButton = new Button(images.button, {
+		text: 'Close',
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+
+	stage.addChild(background);
+	stage.addChild(this.playButton);
+	stage.addChild(this.closeButton);
+
+	// Add the background to the scaling
+	this.scaling.addBackground(background);
+
+	// Manually call resize
+	this.triggerResize();
+});
+
+</script>
+		</div>
+    </body>
+</html>

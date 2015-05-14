@@ -1,32 +1,39 @@
 {
 	"name": "SpringRoll",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
 	"main": [
+		"src/Application.less",
 		"src/utils/namespace.js",
 		"src/utils/include.js",
 		"src/utils/extend.js",
+		"src/utils/async.js",
 		"src/utils/Object.js",
 		"src/utils/Enum.js",
 		"src/utils/TimeUtils.js",
 		"src/polyfills/requestAnimationFrame.js",
 		"src/events/EventDispatcher.js",
 		"src/events/PropertyDispatcher.js",
-		"src/utils/PageVisibility.js",
 		"src/utils/TimeUtils.js",
 		"src/ApplicationOptions.js",
 		"src/Application.js",
+		"src/ApplicationPlugin.js",
+		"src/utils/PageVisibility.js",
+		"src/utils/PageVisibilityPlugin.js",
 		"src/displays/AbstractDisplay.js",
 		"src/loaders/CacheManager.js",
 		"src/loaders/LoaderQueueItem.js",
 		"src/loaders/Loader.js",
+		"src/loaders/LoaderPlugin.js",
 		"src/loaders/LoaderResult.js",
 		"src/utils/CombinedCallback.js",
 		"src/data/SavedData.js",
 		"src/utils/DelayedCall.js",
 		"src/utils/String.js",
+		"src/utils/StringFilters.js",
+		"src/utils/StringFiltersPlugin.js",
 		"src/utils/Array.js",
 		"src/utils/Math.js"
 	],
@@ -51,16 +58,17 @@
 			"main": [
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
-				"src/displays/pixi/animation/Animator.js"
+				"src/displays/pixi/animation/Animator.js",
+				"src/displays/pixi/animation/AnimatorPlugin.js"
 			]
 		},
-		"pixiinterface": {
-			"output": "pixi-interface",
+		"pixiui": {
+			"output": "pixi-ui",
 			"main": [
-				"src/displays/pixi/interface/Button.js",
-				"src/displays/pixi/interface/DragData.js",
-				"src/displays/pixi/interface/DragManager.js",
-				"src/displays/pixi/interface/AssetManager.js"
+				"src/displays/pixi/ui/Button.js",
+				"src/displays/pixi/ui/DragData.js",
+				"src/displays/pixi/ui/DragManager.js",
+				"src/displays/pixi/ui/AssetManager.js"
 			]
 		},
 		"easeljsdisplay": {
@@ -76,19 +84,20 @@
 			"main": [
 				"src/displays/easeljs/animation/AnimatorTimeline.js",
 				"src/displays/easeljs/animation/Animator.js",
+				"src/displays/easeljs/animation/AnimatorPlugin.js",
 				"src/displays/easeljs/animation/TextureAtlas.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
 				"src/displays/easeljs/animation/ReversePlayback.js"
 			]
 		},
-		"easeljsinterface": {
-			"output": "easeljs-interface",
+		"easeljsui": {
+			"output": "easeljs-ui",
 			"main": [
-				"src/displays/easeljs/interface/Button.js",
-				"src/displays/easeljs/interface/SoundButton.js",
-				"src/displays/easeljs/interface/DragData.js",
-				"src/displays/easeljs/interface/DragManager.js",
-				"src/displays/easeljs/interface/AssetManager.js"
+				"src/displays/easeljs/ui/Button.js",
+				"src/displays/easeljs/ui/SoundButton.js",
+				"src/displays/easeljs/ui/DragData.js",
+				"src/displays/easeljs/ui/DragManager.js",
+				"src/displays/easeljs/ui/AssetManager.js"
 			]
 		},
 		"easeljsutils": {
@@ -103,11 +112,26 @@
 				"src/displays/easeljs/cutscene/Cutscene.js"
 			]
 		},
-		"game": [
-			"src/games/states/BaseState.js",
-			"src/games/states/StateEvent.js",
-			"src/games/states/StateManager.js",
-			"src/games/Game.js"
+		"easeljslearning": {
+			"output": "easeljs-learning",
+			"main": [
+				"src/displays/easeljs/learning/DwellTimer.js",
+				"src/displays/easeljs/learning/OffClickPlugin.js"
+			]
+		},
+		"easeljsstates": {
+			"output": "easeljs-states",
+			"main": [
+				"src/displays/easeljs/states/BasePanel.js",
+				"src/displays/easeljs/states/BaseState.js",
+				"src/displays/easeljs/states/ManifestsPlugin.js"
+			]
+		},
+		"states": [
+			"src/states/BaseState.js",
+			"src/states/StateEvent.js",
+			"src/states/StateManager.js",
+			"src/states/StatesPlugin.js"
 		],
 		"tasks": [
 			"src/tasks/TaskEvent.js",
@@ -116,78 +140,85 @@
 			"src/tasks/LoadTask.js",
 			"src/tasks/TaskManager.js",
 			"src/tasks/ListTask.js",
-			"src/tasks/PixiTask.js"
+			"src/tasks/PixiTask.js",
+			"src/tasks/ConfigPlugin.js"
 		],
 		"sound": [
 			"src/media/SoundContext.js",
 			"src/media/SoundInstance.js",
 			"src/media/SoundListTask.js",
 			"src/media/Sound.js",
-			"src/media/VOPlayer.js"
+			"src/media/VOPlayer.js",
+			"src/media/SoundPlugin.js"
 		],
-		"interface": [
+		"ui": [
 			"src/ui/UIElement.js",
 			"src/ui/UIElementSettings.js",
 			"src/ui/Positioner.js",
-			"src/ui/UIScaler.js"
+			"src/ui/UIScaler.js",
+			"src/ui/UIScalerPlugin.js",
+			"src/ui/TouchPlugin.js"
 		],
 		"captions": [
-			"src/media/Captions.js"
+			"src/media/Captions.less",
+			"src/media/Captions.js",
+			"src/media/CaptionsPlugin.js"
 		],
-		"translate": [
-			"src/utils/Language.js"
+		"languages": [
+			"src/utils/Languages.js",
+			"src/utils/LanguagesPlugin.js"
 		],
 		"debug": [
-			"src/utils/Debug.js",
-			"src/utils/DebugOptions.js"
+			"src/debug/Debug.less",
+			"src/debug/Debug.js",
+			"src/debug/DebugOptions.js",
+			"src/debug/DebugPlugin.js"
 		],
-		"progresstracker": {
-			"output": "progress-tracker",
+		"learning": [
+			"src/learning/LearningError.js",
+			"src/learning/EventCatalog.js",
+			"src/learning/EventSignature.js",
+			"src/learning/EventError.js",
+			"src/learning/ValidationError.js",
+			"src/learning/EventUtils.js",
+			"src/learning/Learning.js",
+			"src/learning/Learning.less",
+			"src/learning/LearningPlugin.js"
+		],
+		"learningmedia": {
+			"output": "learning-media",
 			"main": [
-				"src/tracker/ProgressTrackerError.js",
-				"src/tracker/EventCatalog.js",
-				"src/tracker/EventSignature.js",
-				"src/tracker/EventError.js",
-				"src/tracker/ValidationError.js",
-				"src/tracker/EventUtils.js",
-				"src/tracker/ProgressTracker.js",
-				"src/tracker/easeljs/DwellTimer.js",
-				"src/tracker/ProgressTracker.less"
+				"src/learning/LearningMedia.js",
+				"src/learning/LearningMediaPlugin.js"
 			]
 		},
-		"easeljstrackinggame": {
-			"output": "easeljs-tracking-game",
+		"hints": [
+			"src/hints/AbstractHint.js",
+			"src/hints/VOHint.js",
+			"src/hints/AnimatorHint.js",
+			"src/hints/FunctionHint.js",
+			"src/hints/GroupHint.js",
+			"src/hints/HintsPlayer.js",
+			"src/hints/HintsPlugin.js"
+		],
+		"containerclient": {
+			"output": "container-client",
 			"main": [
-				"src/games/easeljs/BasePanel.js",
-				"src/games/easeljs/BaseState.js",
-				"src/games/easeljs/TrackingGame.js"
-			]
-		},
-		"hinting": {
-			"output": "hinting",
-			"main": [
-				"src/hinting/AbstractHint.js",
-				"src/hinting/VOHint.js",
-				"src/hinting/AnimatorHint.js",
-				"src/hinting/FunctionHint.js",
-				"src/hinting/GroupHint.js",
-				"src/hinting/HintPlayer.js"
+				"src/container/ContainerPlugin.js"
 			]
 		},
 		"container": {
 			"output": "container",
 			"main": [
+				"src/utils/Object.js",
+				"src/utils/namespace.js",
+				"src/utils/include.js",
+				"src/utils/extend.js",
+				"src/events/EventDispatcher.js",
+				"src/utils/PageVisibility.js",
+				"src/data/SavedData.js",
 				"src/container/Features.js",
-				"src/container/GameContainer.js"
-			]
-		},
-		"trackinggame": {
-			"output": "tracking-game",
-			"main": [
-				"src/utils/StringFilters.js",
-				"src/games/TrackingGameMedia.js",
-				"src/games/TrackingGame.js",
-				"src/games/TrackingGame.less"
+				"src/container/Container.js"
 			]
 		}
 	}

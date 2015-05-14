@@ -23,8 +23,9 @@
 		
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
+		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
-		<script src="../dist/modules/easeljs-interface.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
 		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 
@@ -36,7 +37,6 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
@@ -44,15 +44,14 @@
 var Application = include('springroll.Application'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Button = include('springroll.easeljs.Button'),
-	Loader = include('springroll.Loader'),
 	Shape = include('createjs.Shape'),
-	Tween = include('createjs.Tween'),
-	Sound = include('springroll.Sound');
+	LoadTask = include('springroll.LoadTask'),
+	Tween = include('createjs.Tween');
 
 // Create the new application
 var app = new Application({
-	framerate: "framerate",
 	canvasId: "stage",
+	configPath: "assets/config/config-sounds.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
@@ -62,65 +61,33 @@ var app = new Application({
 // The button image
 var image = null;
 
-// The configuration used by the Sound class
-// sounds are loaded into a "context", that is a group of 
-// sounds that are similar, this provides the ability
-// to mute or pause a particular context by name, handy
-// if you want to provide the ability to turn of music
-// or turn off all sound effects. This would be easy
-// to externalized as a JSON file.
-var config = {
-	sfx : {
-		"context":"sfx",
-		"path":"assets/sound/sfx/",
-		"soundManifest": [
-			"FoodChute",
-			"TipEarned",
-			"TrashChute"
-		]
-	},
-	music : {
-		"context":"music",
-		"path":"assets/sound/music/",
-		"soundManifest": [
-			"TitleMusic"
-		]
-	}
-};
+app.on('loading', function(tasks)
+{
+	tasks.push(new LoadTask(
+		'button', 
+		'assets/images/button.png', 
+		function(result)
+		{
+			// Save the bitmap image to use late
+			image = result.content
+		}
+	));
+});
 
 // Wait until the app is ready
 app.on('init', function(){
 
-	// Add buttons to the stage
-	Loader.instance.load('assets/images/button.png', function(result) {
-		
-		// Save the bitmap image to use late
-		image = result.content,
-			
-		// Initialize the Sound system
-		Sound.init({
-			// The path to the Flash SWF fallback
-			swfPath : 'assets/swfs/',
-			ready : onSoundReady
-		});
-	});					
-});
-
-// Callback when the sound is ready to be used
-function onSoundReady()
-{
 	// Load up the configuration for the sound effects
-	Sound.instance.loadConfig(config.sfx)
-		.loadConfig(config.music);
+	//this.addSounds(config.sfx).addSounds(config.music);
 
-	var centerX = (app.display.width - image.width) / 2;
+	var centerX = (this.display.width - image.width) / 2;
 
 	// Add the buttons
 	addButton("FoodChute", centerX, 60, onPlayEffect);
 	addButton("TipEarned", centerX, 120, onPlayEffect);
 	addButton("TrashChute", centerX, 180, onPlayEffect);
-	addButton("TitleMusic", centerX, 300, onPlayMusic);
-}
+	addButton("TitleMusic", centerX, 300, onPlayMusic);					
+});
 
 // Add a new button to the stage
 function addButton(text, x, y, callback)
@@ -141,7 +108,7 @@ function onPlayEffect(e)
 {
 	var alias = e.target.label.text;
 	// Play the sound based on the label
-	Sound.instance.play(alias, {
+	app.sound.play(alias, {
 		start : function(){ console.log("Started '" + alias + "'"); },
 		complete : function(){ console.log("Completed '" + alias + "'"); }
 	});	
@@ -152,8 +119,9 @@ function onPlayMusic(e)
 {
 	// Play the sound based on the label
 	var alias = e.target.label.text;
-	var sound = Sound.instance;
-	sound.isPlaying(alias) ? sound.stop(alias) : sound.play(alias);	
+	app.sound.isPlaying(alias) ?
+		app.sound.stop(alias): 
+		app.sound.play(alias);	
 }
 
 </script>

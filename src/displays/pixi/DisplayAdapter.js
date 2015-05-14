@@ -247,6 +247,22 @@
 		container.removeChildren(true);
 	};
 
+	/**
+	 * If a container contains a child
+	 * @param  {PIXI.DisplayObjectContainer} container The container
+	 * @param  {PIXI.DisplayObject} child  The object to test
+	 * @return {Boolean} If the child contained within the container
+	 */
+	DisplayAdapter.contains = function(container, child)
+	{
+		while (child)
+		{
+            if (child == container) { return true; }
+            child = child.parent;
+        }
+        return false;
+	};
+
 	// Assign to namespace
 	namespace('springroll.pixi').DisplayAdapter = DisplayAdapter;
 

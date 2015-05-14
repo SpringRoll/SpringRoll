@@ -1,0 +1,491 @@
+{
+	"specDictionary": {
+		"4444" : "doSomethingSpecific"
+	},
+	"spec": {
+		"version" : 4,
+		"gameId" : "01e95b42-9850-46dc-9c52-df120d5ac5e9",
+		"events" : {
+			"2000" : {
+				"id" : "07b38eb4-5b39-41a5-a8cb-5f89900ce991",
+				"info" : "The start game event is triggered at the very beginning of the game (after the game finishes loading, don't wait for intro movie to finish). This is used to compute things like time spent in game.",
+				"args" : [
+					{
+						"name" : "version",
+						"type" : "int",
+						"info" : "version identifier for the current build of the game"
+					},
+					{
+						"name" : "game_time",
+						"type" : "int",
+						"info" : "The time since the beginning of the game"
+					},
+					{
+						"name" : "round",
+						"type" : "int",
+						"info" : "The round since the beginning"
+					}
+				]
+			},
+			"2010" : {
+				"id" : "14bd7188-468f-4127-8422-21f824b1e391",
+				"info" : "The exit game event is triggered when the game is quit. This is used to compute things like time spent in game. Depending on platform this may / may not be possible. NOTE: 'quit' also means navigating away from game.",
+				"args" : [
+					{
+						"name" : "session_duration",
+						"type" : "int",
+						"info" : "millisecond count since start of game"
+					}
+				]
+			},
+			"2020" : {
+				"id" : "b5b96362-6cc0-4680-bcdd-ef99a0309839",
+				"info" : "The start round event is triggered at the start of a round. There are multiple rounds per level. This event provides information about the game characteristics of the round (i.e. resources, objectives, setup). It is used in calculating things like time spent in a round (for speed and accuracy), attempts at solving a round, and the number of rounds the player has visited (exposures).",
+				"args" : [
+					{
+						"name" : "starting_round_number",
+						"type" : "int",
+						"info" : "the number of the round that is about to start"
+					},
+					{
+						"name" : "round_target",
+						"type" : "object",
+						"info" : "round information",
+						"args" : [
+							{
+								"name" : "size",
+								"type" : "int",
+								"info" : "size of item needed to pass round with 1 being the smallest size"
+							},
+							{
+								"name" : "type",
+								"type" : ["tub", "water", "soap"],
+								"info" : "type of item being selected e.g. tub, water, soap"
+							},
+							{
+								"name" : "animal",
+								"type" : "string",
+								"info" : "the animal the player is selecting an item for"
+							}
+						]
+					},
+					{
+						"name" : "options",
+						"type" : "array->int",
+						"info" : "list of the sizes of the items from left to right"
+					},
+					{
+						"name" : "animals",
+						"type" : "array->string",
+						"info" : "list of animals from left to right (pig, cow, sheep, etc)"
+					},
+					{
+						"name" : "difficulty_stage",
+						"type" : "int",
+						"info" : "the difficulty stage of the current level"
+					}
+				]
+			},
+			"2030" : {
+				"id" : "3731fba7-9191-452b-8be3-30e5f7fc1886",
+				"info" : "The beat round event is triggered when the player finishes a round. This event is used for calculating time spent in a round (for speed and accuracy), attempts at solving a round, and the number of rounds the player has completed (completion).",
+				"args" : [
+					{
+						"name" : "beat_round_number",
+						"type" : "int",
+						"info" : "the number of the round that has just been completed"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the round in milliseconds. Time between start round and beat round."
+					},
+					{
+						"name" : "round_target",
+						"type" : "object",
+						"info" : "round information",
+						"args" : [
+							{
+								"name" : "size",
+								"type" : "int",
+								"info" : "size of item needed to pass round with 1 being the smallest size"
+							},
+							{
+								"name" : "type",
+								"type" : ["tub", "water", "soap"],
+								"info" : "type of item being selected e.g. tub, water, soap"
+							},
+							{
+								"name" : "animal",
+								"type" : "string",
+								"info" : "the animal the player is selecting an item for"
+							}
+						]
+					},
+					{
+						"name" : "difficulty_stage",
+						"type" : "int",
+						"info" : "the difficulty stage of the current level"
+					},
+					{
+						"name" : "misses",
+						"type" : "int",
+						"info" : "the number of incorrect size objects clicked"
+					}
+				]
+			},
+			"2040" : {
+				"id" : "938e820c-bcac-4b7a-a4c4-a29dca2deb68",
+				"info" : "The start level event is triggered when a new level begins (at the same time as the start round event for the first round in the level). This event is used for calculating time spent in a level (for speed and accuracy), and the number of levels the player has completed (completion).",
+				"args" : [
+					{
+						"name" : "starting_level_number",
+						"type" : "int",
+						"info" : "the number of the level that has just started"
+					},
+					{
+						"name" : "difficulty_stage",
+						"type" : "int",
+						"info" : "the starting level's difficulty stage"
+					}
+				]
+			},
+			"2050" : {
+				"id" : "f936e59b-9c03-4e68-9757-8cdb72853950",
+				"info" : "The advanced level event is triggered when a round has been completed and the player has met the requirements to advance to the next difficulty stage (occurs at the same time as the beat round event for the last round in the previous level). This event is used for calculating time spent in a level (for speed and accuracy), and the number of levels the player has completed (completion).",
+				"args" : [
+					{
+						"name" : "beat_level_number",
+						"type" : "int",
+						"info" : "the number of the level that has just beat"
+					},
+					{
+						"name" : "beat_difficulty_stage",
+						"type" : "int",
+						"info" : "the beat level's difficulty stage"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the level in milliseconds. Time between start level and advance level."
+					},
+					{
+						"name" : "misses",
+						"type" : "int",
+						"info" : "the text or description of the instruction"
+					}
+				]
+			},
+			"2080" : {
+				"id" : "71dcc9c6-1fc9-44cc-b083-dd7b2ce93ff9",
+				"info" : "The movie started event triggers when an intro or outro movie starts to play. It identifies the movie being played. This is used to determine how long players spend watching the movies (more relevant after the first play through when the skip option is available).",
+				"args" : [
+					{
+						"name" : "movie_id",
+						"type" : "string",
+						"info" : "the identifier for the movie that was playing"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the media playback in milliseconds"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					}
+				]
+			},
+			"2081" : {
+				"id" : "94cc6df1-ca79-4279-949b-feadc0f50258",
+				"info" : "The movie skipped event triggers when the player presses the skip button during an intro or outro movie. It identifies the movie being played. This is used to determine how long players spend watching the movies (more relevant after the first play through when the skip option is available).",
+				"args" : [
+					{
+						"name" : "movie_id",
+						"type" : "string",
+						"info" : "the identifier for the movie that was playing"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the media playback in milliseconds"
+					},
+					{
+						"name" : "time_played",
+						"type" : "int",
+						"info" : "the time the media has been playing milliseconds when the button is pressed"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					}
+				]
+			},
+			"2083" : {
+				"id" : "c40b7a8c-b42f-4188-bf41-47e40797ba56",
+				"info" : "The movie ended event triggers when an intro or outro movie ends. It identifies the movie being played. This is used to determine how long players spend watching the movies (more relevant after the first play through when the skip option is available).",
+				"args" : [
+					{
+						"name" : "movie_id",
+						"type" : "string",
+						"info" : "the identifier for the movie that was playing"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the media playback in milliseconds"
+					},
+					{
+						"name" : "time_played",
+						"type" : "int",
+						"info" : "the time the media has been playing milliseconds when the button is pressed"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					}
+				]
+			},
+			"3010" : {
+				"id" : "34111b13-65ec-49cb-8f3e-682d0318a14b",
+				"info" : "The system-initiated instruction event occurs when the game delivers instructions to the player. It contains information that describes the content of the instruction. This event differs from events 3020 and 3021 as it captures instructions that are not given in response to player action. These events are used to determine the effectiveness of the instructions. We can answer questions like, 'did players who received instruction X do better than those who did not?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+						"name" : "total_duration",
+						"type" : "int",
+						"info" : "the estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"3110" : {
+				"id" : "b17aaa59-d82a-4388-9139-6f0006337208",
+				"info" : "The end of system-initiated instruction event occurs when the game finishes delivering instructions to the player. It contains information that describes the content of the instruction including duration. These events are used to determine the effectiveness of the instructions and the amount of time they consume. We can answer questions like, 'how much time elapsed while the game was presenting instruction?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the media playback in milliseconds"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"3020" : {
+				"id" : "a66b3925-a179-44ae-be42-5bbad4ffd96b",
+				"info" : "The system-initiated feedback (Incorrect) event occurs when the game starts delivering feedback to the player in response to an incorrect round attempt (pressing the go button with the incorrect answer). It contains information that describes the content of the instruction. These events are used to determine the effectiveness of the feedback. We can answer questions like, 'did players who received feedback X do better than those who did not?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+						"name" : "total_duration",
+						"type" : "int",
+						"info" : "the estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"3120" : {
+				"id" : "18c9b93d-e32b-44be-ad6f-ce51d3248d1e",
+				"info" : "The end of system-initiated feedback (Incorrect) event occurs when the game finishes delivering feedback to the player in response to an incorrect round attempt (pressing the go button with the incorrect answer). It contains information that describes the content of the instruction. These events are used to determine the effectiveness of the feedback. We can answer questions like, 'how much time elapsed while the game was presenting feedback?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+						"name" : "duration",
+						"type" : "int",
+						"info" : "the duration of the media playback in milliseconds"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"3021" : {
+				"id" : "727252b4-3e98-4157-9635-fbd650fb1fb2",
+				"info" : "The system-initiated feedback (Correct) event occurs when the game starts delivering feedback to the player in response to a correct round attempt (pressing the go button with the correct answer). It contains information that describes the content of the instruction, and will likely occur in conjunction with a beat round event. These events are used to determine the effectiveness of the feedback. We can answer questions like, 'did players who received feedback X do better than those who did not?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+						"name" : "total_duration",
+						"type" : "int",
+						"info" : "the estimated duration of the media playback in milliseconds (if it ran uninterrupted)"
+					},
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"3121" : {
+				"id" : "da5e61e4-f828-4a25-a8d6-637139f6f64d",
+				"info" : "The end of system-initiated feedback (Correct) event occurs when the game finishes delivering feedback to the player in response to a correct round attempt (pressing the go button with the correct answer). It contains information that describes the duration and content of the instruction, and will likely occur in conjunction with a beat round event. These events are used to determine the effectiveness of the feedback. We can answer questions like, 'how much time elapsed while the game was presenting feedback?'",
+				"args" : [
+					{
+						"name" : "media_type",
+						"type" : ["audio", "animation", "other"],
+						"info" : "the type of media that has just played"
+					},
+					{
+	                    "info": "the duration of the media playback in milliseconds",
+	                    "type": "int",
+	                    "name": "duration"
+	                },
+					{
+						"name" : "description",
+						"type" : "string",
+						"info" : "the text or description of the instruction"
+					},
+					{
+						"name" : "identifier",
+						"type" : "string",
+						"info" : "a unique identifier for this piece of instruction"
+					}
+				]
+			},
+			"4020" : {
+				"id" : "ad8011c5-aa26-401c-8195-a2c18b859666",
+				"info" : "This event occurs when the player clicks on an item on the shelf of items. It contains information about the item that was clicked, the correctness of the action, and where the action occurred. This event is used to calculate accuracy and to diagnose player strategies and understanding.",
+				"args" : [
+					{
+						"name" : "size",
+						"type" : "int",
+						"info" : "size of the item clicked with 1 being the smallest size"
+					},
+					{
+						"name" : "item_type",
+						"type" : ["tub", "water", "soap"],
+						"info" : "type of the item clicked e.g. tub, water, soap"
+					},
+					{
+						"name" : "position",
+						"type" : "int",
+						"info" : "the position of the item on the shelf with 1 being the left-most item"
+					},
+					{
+						"name" : "animal",
+						"type" : "string",
+						"info" : "the animal the player is selecting an item for"
+					},
+					{
+						"name" : "correct",
+						"type" : "boolean",
+						"info" : "was this the correct type of size item?"
+					}
+				]
+			},
+			"4070" : {
+				"id" : "7a8b8023-6144-44ac-968c-d39b7ccb6b85",
+				"info" : "This event occurs when the player clicks on something that isn't covered elsewhere. It can be useful in determining if there are attractive distractions (things the player think should do something, but don't) in the game, or diagnosing players who are having mechanical difficulties (near misses).",
+				"args" : [
+					{
+						"name" : "position",
+						"type" : "object",
+						"info" : "position of the click",
+						"args" : [
+							{
+								"name" : "x",
+								"type" : "number",
+								"info" : "X position of the click"
+							},
+							{
+								"name" : "y",
+								"type" : "number",
+								"info" : "Y position of the click"
+							}
+						]
+					}
+				]
+			},
+			"4080" : {
+				"id" : "7c3ff526-59f2-4b30-b273-d860dfda87e0",
+				"info" : "This event occurs when the player hovers the mouse over an interactive object. It contains information about the object under the mouse, and the duration of the hover. This event can be used to diagnose things like planning (are they hovering the mouse over tiles for long periods before they use those tiles), and determine which objects the player thinks are important.",
+				"args" : [
+					{
+						"name" : "dwell_time",
+						"type" : "int",
+						"info" : "how long the mouse cursor dwells over the object when the player dwells for longer than 1sec"
+					},
+					{
+						"name" : "object",
+						"type" : "string",
+						"info" : "the object the mouse was hovering over"
+					}
+				]
+			},
+			"4444" : {
+				"id" : "7c3ff526-59f2-4b30-b273-d860dfda87e0",
+				"info" : "Example of a game-specific event, not stored in the event dictionary",
+				"args" : [
+					{
+						"name" : "dwell_time",
+						"type" : "int",
+						"info" : "how long the mouse cursor dwells over the object when the player dwells for longer than 1sec"
+					}
+				]
+			}
+		}
+	}
+}

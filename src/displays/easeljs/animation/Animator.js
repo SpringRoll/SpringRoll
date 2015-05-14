@@ -103,9 +103,6 @@
 		_timelinesMap = null;
 	};
 
-	Application.registerInit(Animator.init);
-	Application.registerDestroy(Animator.destroy);
-
 	/**
 	 * Play an animation for a frame label event
 	 *

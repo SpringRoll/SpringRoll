@@ -16,11 +16,8 @@
 	 * managing captions (Captions library) at the same time.
 	 *
 	 * @class VOPlayer
-	 * @constructor
-	 * @param {Captions} [captions=null] If a Captions object should be created for use
-	 *			or the captions object to use
 	 */
-	var VOPlayer = function(captions)
+	var VOPlayer = function()
 	{
 		// Import classes
 		if (!Application)
@@ -34,8 +31,6 @@
 		this._updateSilence = this._updateSilence.bind(this);
 		this._updateSoloCaption = this._updateSoloCaption.bind(this);
 		this._syncCaptionToSound = this._syncCaptionToSound.bind(this);
-		
-		this.captions = captions || null;
 
 		/**
 		*	An Array used when play() is called to avoid creating lots of Array objects.
@@ -106,6 +101,13 @@
 		*	@private
 		*/
 		this._timer = 0;
+
+		/**
+		*	The captions object
+		*	@property {springroll.Captions} _captions
+		*	@private
+		*/
+		this._captions = null;
 	};
 
 	var p = VOPlayer.prototype = {};
@@ -412,12 +414,7 @@
 		this._callback = null;
 		this._cancelledCallback = null;
 		this._playedSound = null;
-
-		if (this._captions)
-		{
-			this._captions.destroy();
-			this._captions = null;
-		}
+		this._captions = null;
 	};
 
 	namespace('springroll').VOPlayer = VOPlayer;

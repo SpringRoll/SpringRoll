@@ -19,10 +19,11 @@
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 
 		<!-- Library and modules -->
-		<script src="../dist/core.js"></script>	
+		<script src="../dist/core.js"></script>
+		<script src="../dist/modules/debug.js"></script>	
 		<script src="../dist/modules/captions.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
-		<script src="../dist/modules/easeljs-interface.js"></script>
+		<script src="../dist/modules/easeljs-ui.js"></script>
 
 	</head>
 	<body>
@@ -32,61 +33,43 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<div id="captions"></div>
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
 // Import classes
 var Application = include('springroll.Application'),
-	Loader = include('springroll.Loader'),
 	Button = include('springroll.easeljs.Button'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Captions = include('springroll.Captions');
 
 // Create the new application
 var app = new Application({
-	framerate: "framerate",
 	canvasId: "stage",
-	debug: true,
-	debugRemote: 'localhost',
+	captionsPath: 'assets/config/captions.json',
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
 	}
 });
 
-// Create the new captions object and provide
-// a dictionary of caption objects as well
-// as the caption target
-var captions = new Captions(
-	{
-		"ExampleAlias" : [{
-			"start":0, 
-			"end":2000,
-			"content":"Ohh that looks awesome!"
-		},{
-			"start":2100, 
-			"end":5000,
-			"content":"Want to try something else?"
-		}]
-	}, 
-	"captions" // The ID of the DOM element
-);
-
 // Wait until the app is ready
 app.on('init', function(){
 
+	var width = app.display.width;
+
+	var shape = new createjs.Shape();
+	shape.graphics.beginFill("#933")
+		.drawCircle(200, 150, 20);
+	shape.visible = false;
+
+	this.on('update', function(){
+		shape.visible = app.captions.playing;
+	});
+
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
-	Loader.instance.load('assets/images/button.png', function(result){
-
-		var width = app.display.width;
-
-		var shape = new createjs.Shape();
-		shape.graphics.beginFill("#933")
-			.drawCircle(200, 150, 20);
-		shape.visible = false;
+	this.loader.load('assets/images/button.png', function(result){
 
 		// Create a play button
 		var playButton = new Button(result.content, {
@@ -101,7 +84,7 @@ app.on('init', function(){
 		playButton.on('buttonPress', function(){
 
 			// Play the caption example here!
-			captions.play("ExampleAlias");
+			app.captions.play("ExampleAlias");
 		});
 
 		// Create a stop button
@@ -116,11 +99,7 @@ app.on('init', function(){
 
 		// Handle clicks on the stop button
 		stopButton.on('buttonPress', function(){
-			captions.stop();
-		});
-
-		app.on('update', function(){
-			shape.visible = captions.playing;
+			app.captions.stop();
 		});
 
 		// Add the button to the stage

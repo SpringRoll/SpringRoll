@@ -113,28 +113,23 @@
 	Sound.init = function(options, readyCallback)
 	{
 		var appOptions = Application.instance.options;
+
 		// First argument is function
 		if (typeof options == 'function')
 		{
 			options = { ready: options };
 		}
 
-		var _defaultOptions = {
-			plugins : appOptions.forceFlashAudio ?
-						[FlashAudioPlugin] : [WebAudioPlugin, FlashAudioPlugin],
+		var defaultOptions = {
+			plugins : appOptions.forceFlashAudio ? 
+				[FlashAudioPlugin]: 
+				[WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
 			ready: null
 		};
 
-		options = options || {};
-
-		//set up default options
-		for (var key in _defaultOptions)
-		{
-			if (!options.hasOwnProperty(key))
-				options[key] = _defaultOptions[key];
-		}
+		options = Object.merge({}, defaultOptions, options);
 
 		// Check if the ready callback is the second argument
 		// this is deprecated
@@ -236,17 +231,6 @@
 				}
 			}
 		}
-
-		this.pauseAll = this.pauseAll.bind(this);
-		this.unpauseAll = this.unpauseAll.bind(this);
-		this.destroy = this.destroy.bind(this);
-
-		// Add listeners to pause and resume the sounds
-		Application.instance.on({
-			paused : this.pauseAll,
-			resumed : this.unpauseAll,
-			destroy : this.destroy
-		});
 
 		if (callback)
 		{
@@ -354,6 +338,18 @@
 	p.exists = function(alias)
 	{
 		return !!this._sounds[alias];
+	};
+
+	/**
+	*	If a context exists
+	*	@method contextExists
+	*	@public
+	*	@param {String} context The name of context to look for.
+	*	@return {Boolean} true if the context exists, false otherwise.
+	*/
+	p.contextExists = function(context)
+	{
+		return !!this._contexts[context];
 	};
 
 	/**
@@ -1258,12 +1254,6 @@
 			{
 				swf.parentNode.removeChild(swf);
 			}
-		}
-		if (Application.instance)
-		{
-			Application.instance.off('paused', this.pauseAll);
-			Application.instance.off('resumed', this.unpauseAll);
-			Application.instance.off('destroy', this.destroy);
 		}
 
 		_instance = null;

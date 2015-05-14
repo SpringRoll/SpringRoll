@@ -1,8 +1,870 @@
-/*! SpringRoll 0.2.2 */
+/*! SpringRoll 0.3.0 */
+/**
+ * @module Core
+ * @namespace window
+ */
+(function(Object, undefined){
+
+	/**
+	*  Add methods to Object
+	*  @class Object
+	*/
+
+	/**
+	*  Merges two (or more) objects, giving the last one precedence
+	*  @method merge
+	*  @example
+		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+		var obj2 = { id : 'bar', value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
+	*  @static
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
+	*/
+	Object.merge = function(target, source)
+	{
+		if (typeof target !== 'object')
+		{
+			target = {};
+		}
+		
+		for (var property in source)
+		{
+			if (source.hasOwnProperty(property))
+			{
+				var sourceProperty = source[property];
+				
+				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
+				{
+					target[property] = Object.merge(target[property], sourceProperty);
+					continue;
+				}
+				target[property] = sourceProperty;
+			}
+		}
+		
+		for (var i = 2, l = arguments.length; i < l; i++)
+		{
+			Object.merge(target, arguments[i]);
+		}
+		return target;
+	};
+
+	/**
+	*  Check to see if an object is a plain object definition
+	*  @method isPlain
+	*  @static
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
+	*/
+	Object.isPlain = function(obj)
+	{
+		var key;
+
+		// Must be an Object.
+		// Because of IE, we also have to check the presence of the constructor property.
+		// Make sure that DOM nodes and window objects don't pass through, as well
+		if (!obj || typeof obj !== "object" || obj.nodeType || obj === window)
+		{
+			return false;
+		}
+
+		try {
+			// Not own constructor property must be Object
+			if ( obj.constructor &&
+				!hasOwn.call(obj, "constructor") &&
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				return false;
+			}
+		}
+		catch (e)
+		{
+			// IE8,9 Will throw exceptions on certain host objects #9897
+			return false;
+		}
+
+		// Support: IE<9
+		// Handle iteration over inherited properties before own properties.
+		if (support.ownLast)
+		{
+			for (key in obj)
+			{
+				return hasOwn.call(obj, key);
+			}
+		}
+
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own.
+		for (key in obj) {}
+
+		return key === undefined || hasOwn.call(obj, key);
+	};
+	
+	/**
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
+	{
+		Object.defineProperty(Object.prototype, 'clone',
+		{
+			enumerable: false,
+			writable: true,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
+
+}(Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
+*  @static
+*/
+(function(window){
+	
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
+	/**
+	*  Create the namespace and assing to the window
+	*
+	*  @example
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
+	*
+	*  @constructor
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
+	*  @return {object} The namespace object attached to the current window
+	*/
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
+}(window));
+
+
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Used to include required classes by name
+*  @class include
+*  @static
+*/
+(function(window, undefined){
+	
+	// The include function already exists
+	if ("include" in window) return;
+	
+	/**
+	*  Import a class
+	*
+	*  @example
+		var Application = include('springroll.Application');
+	*
+	*  @constructor
+	*  @method include
+	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
+	*  @param {Boolean} [required=true] If the class we're trying to include is required.
+	* 		For classes that aren't found and are required, an error is thrown.
+	*  @return {object|function} The object attached at the given namespace
+	*/
+	var include = function(namespaceString, required)
+	{
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+		
+		required = required !== undefined ? !!required : true;
+
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			if (!parent[currentPart])
+			{
+				if (!required)
+				{
+					return null;
+				}
+				if (true)
+				{
+					throw "Unable to include '" + namespaceString + "' because the code is not included or the class needs to loaded sooner.";
+				}
+				else
+				{
+					throw "Unable to include '" + namespaceString + "'";
+				}
+			}
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.include = include;
+	
+}(window));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Use to do class inheritence
+*  @class extend
+*  @static
+*/
+(function(window){
+	
+	// The extend function already exists
+	if ("extend" in window) return;
+
+	/**
+	*  Extend prototype
+	*
+	*  @example
+		var p = extend(MyClass, ParentClass);
+	*
+	*  @constructor
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
+	*/
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
+		{
+			superClass = window.include(superClass);
+		}
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
+	};
+
+}(window));
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
+	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
+	*
+	*  @class EventDispatcher
+	*  @constructor
+	*/
+	var EventDispatcher = function()
+	{
+		/**
+		* The collection of listeners
+		* @property {Array} _listeners
+		* @private
+		*/
+		this._listeners = [];
+
+		/**
+		 * If the dispatcher is destroyed
+		 * @property {Boolean} _destroyed
+		 * @protected
+		 */
+		this._destroyed = false;
+	},
+
+	// Reference to the prototype
+	p = EventDispatcher.prototype;
+
+	/**
+	 * If the dispatcher is destroyed
+	 * @property {Boolean} destroyed
+	 */
+	Object.defineProperty(p, 'destroyed',
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
+	});
+
+	/**
+	*  Dispatch an event
+	*  @method trigger
+	*  @param {String} type The type of event to trigger
+	*  @param {*} arguments Additional parameters for the listener functions.
+	*/
+	p.trigger = function(type)
+	{
+		if (this._destroyed) return;
+
+		if (this._listeners[type] !== undefined)
+		{
+			// copy the listeners array
+			var listeners = this._listeners[type].slice();
+
+			var args;
+
+			if(arguments.length > 1)
+			{
+				args = Array.prototype.slice.call(arguments, 1);
+			}
+
+			for(var i = listeners.length - 1; i >= 0; --i)
+			{
+				var listener = listeners[i];
+				if (listener._eventDispatcherOnce)
+				{
+					delete listener._eventDispatcherOnce;
+					this.off(type, listener);
+				}
+				listener.apply(this, args);
+			}
+		}
+	};
+
+	/**
+	*  Add an event listener but only handle it one time.
+	*
+	*  @method once
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
+	*          or a map of events to handlers
+	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.once = function(name, callback, priority)
+	{
+		return this.on(name, callback, priority, true);
+	};
+
+	/**
+	*  Add an event listener. The parameters for the listener functions depend on the event.
+	*
+	*  @method on
+	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
+	*          or a map of events to handlers
+	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.on = function(name, callback, priority, once)
+	{
+		if (this._destroyed) return;
+
+		// Callbacks map
+		if (type(name) === 'object')
+		{
+			for (var key in name)
+			{
+				if (name.hasOwnProperty(key))
+				{
+					this.on(key, name[key], priority, once);
+				}
+			}
+		}
+		// Callback
+		else if (type(callback) === 'function')
+		{
+			var names = name.split(' '), n = null;
+
+			var listener;
+			for (var i = 0, nl = names.length; i < nl; i++)
+			{
+				n = names[i];
+				listener = this._listeners[n];
+				if(!listener)
+					listener = this._listeners[n] = [];
+
+				if (once)
+				{
+					callback._eventDispatcherOnce = true;
+				}
+				callback._priority = parseInt(priority) || 0;
+
+				if (listener.indexOf(callback) === -1)
+				{
+					listener.push(callback);
+					if(listener.length > 1)
+						listener.sort(listenerSorter);
+				}
+			}
+		}
+		// Callbacks array
+		else if (Array.isArray(callback))
+		{
+			for (var f = 0, fl = callback.length; f < fl; f++)
+			{
+				this.on(name, callback[f], priority, once);
+			}
+		}
+		return this;
+	};
+
+	function listenerSorter(a, b)
+	{
+		return a._priority - b._priority;
+	}
+
+	/**
+	*  Remove the event listener
+	*
+	*  @method off
+	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+	*  @param {Function|Array*} callback The listener function or collection of callback functions
+	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	*/
+	p.off = function(name, callback)
+	{
+		if (this._destroyed) return;
+
+		// remove all
+		if (name === undefined)
+		{
+			this._listeners = [];
+		}
+		// remove multiple callbacks
+		else if (Array.isArray(callback))
+		{
+			for (var f = 0, fl = callback.length; f < fl; f++)
+			{
+				this.off(name, callback[f]);
+			}
+		}
+		else
+		{
+			var names = name.split(' '); 
+			var	n = null;
+			var listener; 
+			var	index;
+			for (var i = 0, nl = names.length; i < nl; i++)
+			{
+				n = names[i];
+				listener = this._listeners[n];
+				if(listener)
+				{
+					// remove all listeners for that event
+					if (callback === undefined)
+					{
+						listener.length = 0;
+					}
+					else
+					{
+						//remove single listener
+						index = listener.indexOf(callback);
+						if (index !== -1)
+						{
+							listener.splice(index, 1);
+						}
+					}
+				}
+			}
+		}
+		return this;
+	};
+
+	/**
+	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
+	*
+	*  @method has
+	*  @param {String} name The name of the single event type to check for
+	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+	*  @return {Boolean} If the EventDispatcher has the specified listener.
+	*/
+	p.has = function(name, callback)
+	{
+		if(!name) return false;
+
+		var listeners = this._listeners[name];
+		if(!listeners) return false;
+		if(!callback)
+			return listeners.length > 0;
+		return listeners.indexOf(callback) >= 0;
+	};
+
+	/**
+	*  Destroy and don't use after this
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		this._destroyed = true;
+		this._listeners = null;
+	};
+
+	/**
+	*  Return type of the value.
+	*
+	*  @private
+	*  @method type
+	*  @param  {*} value
+	*  @return {String} The type
+	*/
+	function type(value)
+	{
+		if (value === null)
+		{
+			return 'null';
+		}
+		var typeOfValue = typeof value;
+		if (typeOfValue === 'object' || typeOfValue === 'function')
+		{
+			return Object.prototype.toString.call(value).match(/\s([a-z]+)/i)[1].toLowerCase() || 'object';
+		}
+		return typeOfValue;
+	}
+
+	/**
+	*  Adds EventDispatcher methods and properties to an object or object prototype.
+	*  @method mixIn
+	*  @param {Object} object The object or prototype
+	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
+	*  @static
+	*  @public
+	*/
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		object.trigger = p.trigger;
+		object.on = p.on;
+		object.off = p.off;
+		object.has = p.has;
+		object.once = p.once;
+		if(callConstructor)
+			EventDispatcher.call(object);
+	};
+
+	// Assign to name space
+	namespace('springroll').EventDispatcher = EventDispatcher;
+
+}());
+
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(global, doc, undefined){
+		
+	/**
+	*  Handle the page visiblity change, if supported. Application uses one of these to
+	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
+	*  or "unpaused" events on the application instead of using one of these yourself.
+	*
+	*  @class PageVisibility
+	*  @constructor
+	*  @param {Function} onFocus Callback when the page becomes visible
+	*  @param {Function} onBlur Callback when the page loses visibility
+	*/
+	var PageVisibility = function(onFocus, onBlur)
+	{
+		/**
+		* Callback when the page becomes visible
+		* @property {Function} _onFocus
+		* @private
+		*/
+		this._onFocus = onFocus;
+		
+		/**
+		* Callback when the page loses visibility
+		* @property {Function} _onBlur
+		* @private
+		*/
+		this._onBlur = onBlur;
+		
+		/**
+		* If this object is enabled.
+		* @property {Function} _enabled
+		* @private
+		*/
+		this._enabled = false;
+
+		// If this browser doesn't support visibility
+		if (!_visibilityChange) return;
+		
+		/**
+		* The visibility toggle listener function
+		* @property {Function} _onToggle
+		* @private
+		*/
+		this._onToggle = function()
+		{
+			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
+				this._onBlur();
+			else
+				this._onFocus();
+		}.bind(this);
+		
+		this.enabled = true;
+	},
+	
+	// Reference to the prototype
+	p = PageVisibility.prototype,
+	
+	/**
+	* The name of the visibility change event for the browser
+	*
+	* @property {String} _visibilityChange
+	* @private
+	*/
+	_visibilityChange = null;
+	
+	// Select the visiblity change event name
+	if (doc.hidden !== undefined)
+	{
+		_visibilityChange = "visibilitychange";
+	}
+	else if (doc.mozHidden !== undefined)
+	{
+		_visibilityChange = "mozvisibilitychange";
+	}
+	else if (doc.msHidden !== undefined)
+	{
+		_visibilityChange = "msvisibilitychange";
+	}
+	else if (doc.webkitHidden !== undefined)
+	{
+		_visibilityChange = "webkitvisibilitychange";
+	}
+	
+	/**
+	* If this object is enabled.
+	* @property {Function} enabled
+	* @private
+	*/
+	Object.defineProperty(p, "enabled", {
+		get: function() { return this._enabled; },
+		set: function(value)
+		{
+			value = !!value;
+			if(this._enabled == value) return;
+			this._enabled = value;
+			
+			global.removeEventListener("pagehide", this._onBlur);
+			global.removeEventListener("pageshow", this._onFocus);
+			global.removeEventListener("blur", this._onBlur);
+			global.removeEventListener("focus", this._onFocus);
+			global.removeEventListener("visibilitychange", this._onToggle);
+			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			
+			if(value)
+			{
+				// Listen to visibility change
+				// see https://developer.mozilla.org/en/API/PageVisibility/Page_Visibility_API
+				doc.addEventListener(_visibilityChange, this._onToggle, false);
+				// Listen for page events (when clicking the home button on iOS)
+				global.addEventListener("pagehide", this._onBlur);
+				global.addEventListener("pageshow", this._onFocus);
+				global.addEventListener("blur", this._onBlur);
+				global.addEventListener("focus", this._onFocus);
+				global.addEventListener("visibilitychange", this._onToggle, false);
+			}
+		}
+	});
+	
+	/**
+	*  Disable the detection
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		// If this browser doesn't support visibility
+		if (!_visibilityChange || !this._onToggle) return;
+		
+		this.enabled = false;
+		this._onToggle = null;
+		this._onFocus = null;
+		this._onBlur = null;
+	};
+	
+	// Assign to the global space
+	namespace('springroll').PageVisibility = PageVisibility;
+	
+}(window, document));
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	*
+	*  @class SavedData
+	*/
+	var SavedData = {},
+
+	/** A constant to determine if we can use localStorage and sessionStorage */
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+
+	/** A constant for cookie fallback for SavedData.clear() */
+	ERASE_COOKIE = -1;
+
+	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
+	if(WEB_STORAGE_SUPPORT)
+	{
+		try
+		{
+			localStorage.setItem("LS_TEST", "test");
+			localStorage.removeItem("LS_TEST");
+		}
+		catch(e)
+		{
+			WEB_STORAGE_SUPPORT = false;
+		}
+	}
+
+	/**
+	*  Remove a saved variable by name.
+	*  @method remove
+	*  @static
+	*  @param {String} name The name of the value to remove
+	*/
+	SavedData.remove = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			localStorage.removeItem(name);
+			sessionStorage.removeItem(name);
+		}
+		else
+			SavedData.write(name,"",ERASE_COOKIE);
+	};
+
+	/**
+	*  Save a variable.
+	*  @method write
+	*  @static
+	*  @param {String} name The name of the value to save
+	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
+	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	*/
+	SavedData.write = function(name, value, tempOnly)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			if(tempOnly)
+				sessionStorage.setItem(name, JSON.stringify(value));
+			else
+				localStorage.setItem(name, JSON.stringify(value));
+		}
+		else
+		{
+			var expires;
+			if (tempOnly)
+			{
+				if(tempOnly !== ERASE_COOKIE)
+					expires = "";//remove when browser is closed
+				else
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+			}
+			else
+				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+
+			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+		}
+	};
+
+	/**
+	*  Read the value of a saved variable
+	*  @method read
+	*  @static
+	*  @param {String} name The name of the variable
+	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	*/
+	SavedData.read = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+			if(value)
+				return JSON.parse(value, SavedData.reviver);
+			else
+				return null;
+		}
+		else
+		{
+			var nameEQ = name + "=",
+				ca = document.cookie.split(';'),
+				i = 0, c, len;
+
+			for(i=0, len=ca.length; i<len;i++)
+			{
+				c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+			}
+			return null;
+		}
+	};
+
+	/**
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (`__classname`).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	SavedData.reviver = function(key, value)
+	{
+		if(value && typeof value.__classname == "string")
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
+	};
+
+	// Assign to the global space
+	namespace('springroll').SavedData = SavedData;
+
+}());
+
 /**
  * @module Container
  * @namespace springroll
- * @requires  Core
  */
 (function(undefined)
 {
@@ -218,22 +1080,22 @@
 /**
  * @module Container
  * @namespace springroll
- * @requires  Core
  */
 (function(document, undefined)
 {
 	//Import classes
 	var SavedData = include('springroll.SavedData'),
 		EventDispatcher = include('springroll.EventDispatcher'),
+		PageVisibility = include('springroll.PageVisibility'),
 		Features = include('springroll.Features'),
 		Bellhop = include('Bellhop'),
 		$ = include('jQuery');
 
 	/**
-	 * The game container
-	 * @class GameContainer
+	 * The application container
+	 * @class Container
 	 * @constructor
-	 * @param {string} iframeSelector jQuery selector for game iframe container
+	 * @param {string} iframeSelector jQuery selector for application iframe container
 	 * @param {object} [options] Optional parameteres
 	 * @param {string} [options.helpButton] jQuery selector for help button
 	 * @param {string} [options.captionsButton] jQuery selector for captions button
@@ -243,18 +1105,17 @@
 	 * @param {string} [options.musicButton] jQuery selector for music button
 	 * @param {string} [options.pauseButton] jQuery selector for pause button
 	 */
-	var GameContainer = function(iframeSelector, options)
+	var Container = function(iframeSelector, options)
 	{
 		EventDispatcher.call(this);
 
-		options = options ||
-		{};
+		options = options || {};
 
 		/**
 		 * The name of this class
 		 * @property {string} name
 		 */
-		this.name = 'springroll.GameContainer';
+		this.name = 'springroll.Container';
 
 		/**
 		 * The current iframe jquery object
@@ -311,17 +1172,17 @@
 			.click(onVOToggle.bind(this));
 
 		/**
-		 * Reference to the pause game button
+		 * Reference to the pause application button
 		 * @property {jquery} pauseButton
 		 */
 		this.pauseButton = $(options.pauseButton)
 			.click(onPauseToggle.bind(this));
 
 		/**
-		 * Communication layer between the container and game
-		 * @property {Bellhop} messenger
+		 * Communication layer between the container and application
+		 * @property {Bellhop} client
 		 */
-		this.messenger = null;
+		this.client = null;
 
 		/**
 		*  The current release data
@@ -330,14 +1191,14 @@
 		this.release = null;
 
 		/**
-		 * Check to see if a game is loaded
+		 * Check to see if a application is loaded
 		 * @property {Boolean} loaded
 		 * @readOnly
 		 */
 		this.loaded = false;
 
 		/**
-		 * Check to see if a game is loading
+		 * Check to see if a application is loading
 		 * @property {Boolean} loading
 		 * @readOnly
 		 */
@@ -351,25 +1212,24 @@
 		this._captionsStyles = Object.merge(
 			{},
 			DEFAULT_CAPTIONS_STYLES,
-			SavedData.read(CAPTIONS_STYLES) ||
-			{}
+			SavedData.read(CAPTIONS_STYLES) || {}
 		);
 
 		/**
 		 * Whether the Game is currently "blurred" (not focused) - for pausing/unpausing
 		 * @type {Boolean}
 		 */
-		this._gameBlurred = false;
+		this._appBlurred = false;
 
 		/**
-		 * Whether the GameContainer is currently "blurred" (not focused) - for pausing/unpausing
+		 * Whether the Container is currently "blurred" (not focused) - for pausing/unpausing
 		 * @type {Boolean}
 		 */
 		this._containerBlurred = false;
 
 		/**
-		 * Delays pausing of game to mitigate issues with asynchronous communication 
-		 * between Game and GameContainer
+		 * Delays pausing of application to mitigate issues with asynchronous communication 
+		 * between Game and Container
 		 * @type {Timeout}
 		 */
 		this._pauseTimer = null;
@@ -383,7 +1243,7 @@
 		this._isManualPause = false;
 
 		/**
-		 * If the current game is paused
+		 * If the current application is paused
 		 * @property {Boolean} _paused
 		 * @private
 		 * @default false
@@ -400,23 +1260,20 @@
 			this.soundMuted = false;
 		}
 		
-		this._pageVisibility = new springroll.PageVisibility(onContainerFocus.bind(this), onContainerBlur.bind(this));
+		this._pageVisibility = new PageVisibility(
+			onContainerFocus.bind(this), 
+			onContainerBlur.bind(this)
+		);
 	};
 
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(GameContainer, EventDispatcher);
+	var p = extend(Container, EventDispatcher);
 
 	/**
 	 * Fired when the pause state is toggled
 	 * @event pause
 	 * @param {boolean} paused If the application is now paused
-	 */
-
-	/**
-	 * Fired when the enabled status of the help button changes
-	 * @event helpEnabled
-	 * @param {boolean} enabled If the help button is enabled
 	 */
 
 	/**
@@ -445,34 +1302,52 @@
 	 */
 
 	/**
-	 * Event when the game gives the load done signal
+	 * Event when the application gives the load done signal
 	 * @event opened
 	 */
 
 	/**
-	 * Event when a game starts closing
+	 * Event when a application starts closing
 	 * @event close
 	 */
 
 	/**
-	 * Event when a game closes
+	 * Event when a application closes
 	 * @event closed
 	 */
 
 	/**
-	 * Event when a game start loading
+	 * Event when a application start loading
 	 * @event open
+	 */
+	
+	/**
+	 * Fired when the enabled status of the help button changes
+	 * @event helpEnabled
+	 * @param {boolean} enabled If the help button is enabled
+	 */
+	
+	/**
+	 * The features supported by the application
+	 * @event features
+	 * @param {Boolean} data.vo If VO vo context is supported
+	 * @param {Boolean} data.music If music context is supported
+	 * @param {Boolean} data.sound If Sound is supported
+	 * @param {Boolean} data.sfx If SFX context is supported
+	 * @param {Boolean} data.learning If learning dispatcher is supported
+	 * @param {Boolean} data.captions If captions is supported
+	 * @param {Boolean} data.hints If hinting is supported
 	 */
 
 	/**
-	 * Event when dispatching a progress tracker event
-	 * @event progressEvent
+	 * Event when dispatching a Learning Dispatcher event
+	 * @event learningEvent
 	 * @param {object} data The event data
 	 */
 
 	/**
 	 * Event when dispatching a Google Analytics event
-	 * @event trackEvent
+	 * @event analyticEvent
 	 * @param {object} data The event data
 	 * @param {string} data.category The event category
 	 * @param {string} data.action The event action
@@ -481,10 +1356,10 @@
 	 */
 
 	/**
-	 * Open a game or path
+	 * Open a application or path
 	 * @method _internalOpen
 	 * @private
-	 * @param {string} path The full path to the game to load
+	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
@@ -499,7 +1374,7 @@
 		this.reset();
 
 		// Dispatch event for unsupported browsers
-		// and then bail, don't continue with loading the game
+		// and then bail, don't continue with loading the application
 		if (!Features.canvas || !(Features.webaudio || Features.flash))
 		{
 			return this.trigger('unsupported');
@@ -507,22 +1382,25 @@
 
 		this.loading = true;
 
-		//Setup communication layer between site and game
-		this.messenger = new Bellhop();
-		this.messenger.connect(this.dom);
+		//Setup communication layer between site and application
+		this.client = new Bellhop();
+		this.client.connect(this.dom);
 
-		//Handle bellhop events coming from the game
-		this.messenger.on(
+		//Handle bellhop events coming from the application
+		this.client.on(
 		{
-			trackEvent: onTrackEvent.bind(this),
-			progressEvent: onProgressEvent.bind(this),
 			loadDone: onLoadDone.bind(this),
-			helpEnabled: onHelpEnabled.bind(this),
 			endGame: onEndGame.bind(this),
-			gameFocus: onGameFocus.bind(this)
+			focus: onFocus.bind(this),
+			trackEvent: onAnalyticEvent.bind(this),
+			analyticEvent: onAnalyticEvent.bind(this),
+			progressEvent: onLearningEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
+			features: onFeatures.bind(this)
 		});
 
-		//Open the game in the iframe
+		//Open the application in the iframe
 		this.main
 			.addClass('loading')
 			.prop('src', path)
@@ -531,21 +1409,21 @@
 
 		if (options.singlePlay)
 		{
-			this.messenger.send('singlePlay');
+			this.client.send('singlePlay');
 		}
 
 		if (options.playOptions)
 		{
-			this.messenger.send('playOptions', options.playOptions);
+			this.client.send('playOptions', options.playOptions);
 		}
 
 		this.trigger('open');
 	};
 
 	/**
-	 * Open a game or path
+	 * Open a application or path
 	 * @method open
-	 * @param {string} path The full path to the game to load
+	 * @param {string} path The full path to the application to load
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
@@ -566,13 +1444,13 @@
 	};
 
 	/**
-	 * Open game based on an API Call to SpringRoll Connect
+	 * Open application based on an API Call to SpringRoll Connect
 	 * @method openRemote
 	 * @param {string} api The path to API call, this can be a full URL
 	 * @param {Object} [options] The open options
 	 * @param {Boolean} [options.singlePlay=false] If we should play in single play mode
 	 * @param {Object} [options.playOptions=null] The optional play options
-	 * @param {String} [options.query=''] The game query string options (e.g., "?level=1")
+	 * @param {String} [options.query=''] The application query string options (e.g., "?level=1")
 	 */
 	p.openRemote = function(api, options, playOptions)
 	{
@@ -584,7 +1462,6 @@
 				playOptions: playOptions
 			};
 		}
-
 		options = $.extend({
 			query: '',
 			playOptions: null,
@@ -610,7 +1487,7 @@
 
 			this.release = release;
 
-			// Open the game
+			// Open the application
 			this._internalOpen(release.url + options.query, options);
 		}
 		.bind(this))
@@ -655,24 +1532,14 @@
 	};
 
 	/**
-	 * Reset the mutes for audio and captions
-	 * @method onHelpEnabled
-	 * @private
-	 */
-	var onHelpEnabled = function(event)
-	{
-		this.helpEnabled = !!event.data;
-	};
-
-	/**
 	 * Handle focus events sent from iFrame children
-	 * @method onGameFocus
+	 * @method onFocus
 	 * @private
 	 */
-	var onGameFocus = function(e)
+	var onFocus = function(e)
 	{
-		this._gameBlurred = !e.data;
-		manageFocus.call(this);
+		this._appBlurred = !e.data;
+		this.manageFocus();
 	};
 
 	/**
@@ -683,7 +1550,7 @@
 	var onContainerFocus = function(e)
 	{
 		this._containerBlurred = false;
-		manageFocus.call(this);
+		this.manageFocus();
 	};
 
 	/**
@@ -693,26 +1560,26 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		//Set both container and game to blurred, 
+		//Set both container and application to blurred, 
 		//because some blur events are only happening on the container.
-		//If container is blurred because game area was just focused,
-		//the game's focus event will override the blur imminently.
-		this._containerBlurred = this._gameBlurred = true;
-		manageFocus.call(this);
+		//If container is blurred because application area was just focused,
+		//the application's focus event will override the blur imminently.
+		this._containerBlurred = this._appBlurred = true;
+		this.manageFocus();
 	};
 
 	/**
 	 * Manage the focus change events sent from window and iFrame
 	 * @method manageFocus
-	 * @private
+	 * @protected
 	 */
-	var manageFocus = function()
+	p.manageFocus = function()
 	{
 		if (this._pauseTimer)//we only need one delayed call, at the end of any sequence of rapidly-fired blur/focus events
 			clearTimeout(this._pauseTimer);
 
 		//Delay setting of 'paused' in case we get another focus event soon.
-		//Game Focus events are sent to the container asynchronously, and this was
+		//Focus events are sent to the container asynchronously, and this was
 		//causing rapid toggling of the pause state and related issues, 
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
@@ -723,32 +1590,65 @@
 				// User must click the resume button.
 				if (this._isManualPause === true) return;
 
-				this.paused = this._containerBlurred && this._gameBlurred;
+				this.paused = this._containerBlurred && this._appBlurred;
 			}.bind(this), 
 			100
 		);
 	};
 
 	/**
-	 * The game ended and destroyed itself
-	 * @method onEndGame
+	 * Track an event for springroll Learning
+	 * @method onLearningEvent
+	 * @param {event} event The bellhop learningEvent
 	 * @private
 	 */
-	var onEndGame = function()
+	var onLearningEvent = function(event)
 	{
-		this.messenger.destroy();
-		this.messenger = null;
+		this.trigger('learningEvent', event.data);
+	};
 
-		this.reset();
+	/**
+	 * Handle the application features
+	 * @method onFeatures
+	 * @param {event} event The bellhop features
+	 * @private
+	 */
+	var onFeatures = function(event)
+	{
+		var features = event.data;
+
+		this.voButton.hide();
+		this.musicButton.hide();
+		this.soundButton.hide();
+		this.captionsButton.hide();
+		this.helpButton.hide();
+
+		if (features.vo) this.voButton.show();
+		if (features.music) this.musicButton.show();
+		if (features.sound) this.soundButton.show();
+		if (features.captions) this.captionsButton.show();
+		if (features.hints) this.helpButton.show();
+
+		this.trigger('features', features);
+	};
+
+	/**
+	 * Reset the mutes for audio and captions
+	 * @method onHelpEnabled
+	 * @private
+	 */
+	var onHelpEnabled = function(event)
+	{
+		this.helpEnabled = !!event.data;
 	};
 
 	/**
 	 * Track an event for Google Analtyics
-	 * @method onTrackEvent
+	 * @method onAnalyticEvent
 	 * @private
-	 * @param {event} event Bellhop trackEvent
+	 * @param {event} event Bellhop analyticEvent
 	 */
-	var onTrackEvent = function(event)
+	var onAnalyticEvent = function(event)
 	{
 		var data = event.data;
 
@@ -778,18 +1678,7 @@
 			});
 		}
 
-		this.trigger('trackEvent', event.data);
-	};
-
-	/**
-	 * Track an event for springroll ProgressTracker
-	 * @method onProgressEvent
-	 * @param {event} event The bellhop progressEvent
-	 * @private
-	 */
-	var onProgressEvent = function(event)
-	{
-		this.trigger('progressEvent', event.data);
+		this.trigger('analyticEvent', event.data);
 	};
 
 	/**
@@ -801,8 +1690,21 @@
 	{
 		if (!this.paused && !this.helpButton.hasClass('disabled'))
 		{
-			this.messenger.send('playHelp');
+			this.client.send('playHelp');
 		}
+	};
+
+	/**
+	 * The application ended and destroyed itself
+	 * @method onEndGame
+	 * @private
+	 */
+	var onEndGame = function()
+	{
+		this.client.destroy();
+		this.client = null;
+
+		this.reset();
 	};
 
 	/**
@@ -816,7 +1718,7 @@
 	};
 
 	/**
-	 * If the current game is paused
+	 * If the current application is paused
 	 * @property {Boolean} paused
 	 * @default false
 	 */
@@ -825,9 +1727,9 @@
 		set: function(paused)
 		{
 			this._paused = paused;
-			if (this.messenger)
+			if (this.client)
 			{
-				this.messenger.send('pause', paused);
+				this.client.send('pause', paused);
 			}
 			this.trigger(paused ? 'paused' : 'resumed');
 			this.trigger('pause', paused);
@@ -851,6 +1753,26 @@
 		get: function()
 		{
 			return this._paused;
+		}
+	});
+
+	/**
+	 * Set the captions are muted
+	 * @property {Boolean} helpEnabled
+	 */
+	Object.defineProperty(p, 'helpEnabled',
+	{
+		set: function(enabled)
+		{
+			this._helpEnabled = enabled;
+			this.helpButton.removeClass('disabled enabled')
+				.addClass(enabled ? 'enabled' : 'disabled');
+
+			this.trigger('helpEnabled', enabled);
+		},
+		get: function()
+		{
+			return this._helpEnabled;
 		}
 	});
 
@@ -912,7 +1834,7 @@
 	};
 
 	/**
-	 * Toggle the current paused state of the game
+	 * Toggle the current paused state of the application
 	 * @method onPauseToggle
 	 * @private
 	 */
@@ -1005,9 +1927,9 @@
 			.addClass(muted ? 'muted' : 'unmuted');
 
 		SavedData.write(prop, muted);
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.send(prop, muted);
+			this.client.send(prop, muted);
 		}
 	};
 
@@ -1071,9 +1993,9 @@
 		}
 
 		SavedData.write(CAPTIONS_STYLES, styles);
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.send(CAPTIONS_STYLES, styles);
+			this.client.send(CAPTIONS_STYLES, styles);
 		}
 	};
 
@@ -1191,33 +2113,13 @@
 	});
 
 	/**
-	 * Set the captions are muted
-	 * @property {Boolean} helpEnabled
-	 */
-	Object.defineProperty(p, 'helpEnabled',
-	{
-		set: function(enabled)
-		{
-			this._helpEnabled = enabled;
-			this.helpButton.removeClass('disabled enabled')
-				.addClass(enabled ? 'enabled' : 'disabled');
-
-			this.trigger('helpEnabled', enabled);
-		},
-		get: function()
-		{
-			return this._helpEnabled;
-		}
-	});
-
-	/**
 	 * Reset all the buttons back to their original setting
 	 * and clear the iframe.
 	 * @method reset
 	 */
 	p.reset = function()
 	{
-		//Disable the hint button
+		// Disable the hint button
 		this.helpEnabled = false;
 
 		disableButton(this.soundButton);
@@ -1239,7 +2141,7 @@
 	};
 
 	/**
-	 * Tell the game to start closing
+	 * Tell the application to start closing
 	 * @method close
 	 */
 	p.close = function()
@@ -1247,7 +2149,7 @@
 		if (this.loading || this.loaded)
 		{
 			this.trigger('close');
-			this.messenger.send('close');
+			this.client.send('close');
 		}
 		else
 		{
@@ -1278,6 +2180,7 @@
 		this.main = null;
 		this.dom = null;
 
+		this.helpButton = null;
 		this.soundButton = null;
 		this.pauseButton = null;
 		this.captionsButton = null;
@@ -1291,14 +2194,14 @@
 			this._pageVisibility = null;
 		}
 		
-		if (this.messenger)
+		if (this.client)
 		{
-			this.messenger.destroy();
-			this.messenger = null;
+			this.client.destroy();
+			this.client = null;
 		}
 
 		s.destroy.call(this);
 	};
 
-	namespace('springroll').GameContainer = GameContainer;
+	namespace('springroll').Container = Container;
 }(document));

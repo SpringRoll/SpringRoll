@@ -1,8 +1,8 @@
-/*! SpringRoll 0.2.2 */
+/*! SpringRoll 0.3.0 */
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, EaselJS Utilities
+ * @requires Core, Tasks, EaselJS Display, EaselJS Utilities
  */
 (function()
 {

@@ -35,9 +35,21 @@
 
 		/**
 		*  If we can load
+		*  @property {Boolean} _canLoad 
+		*  @default true
 		*  @private
 		*/
 		this._canLoad = true;
+
+		if (DEBUG)
+		{
+			/**
+			*  If the logging should be verbose (unminified library only)
+			*  @property {Boolean} verbose
+			*  @default  false
+			*/
+			this.verbose = false;
+		}
 		
 		/**
 		*  The maximum number of simulaneous loads
@@ -132,16 +144,9 @@
 		{
 			_instance = new Loader();
 			_instance._initialize();
-			//register the destroy function
-			Application.registerDestroy(
-				_instance.destroy.bind(_instance)
-			);
 		}
 		return _instance;
 	};
-
-	//register the global init function
-	springroll.Application.registerInit(Loader.init);
 		
 	/**
 	*  Static function for getting the singleton instance
@@ -259,7 +264,10 @@
 		if(!_instance)
 			return;
 		
-		if (DEBUG && Debug) Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
+		if (DEBUG && Debug) 
+		{
+			Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
+		}
 		
 		var loader = loaders[qi.url];
 		loader.removeAllEventListeners();
@@ -310,7 +318,7 @@
 		if(!_instance)
 			return;
 
-		if(DEBUG && Debug)
+		if (DEBUG && Debug && this.verbose)
 		{
 			Debug.log("File loaded successfully from " + qi.url);
 		}
@@ -337,7 +345,7 @@
 		
 		var qi = queue.shift();
 		
-		if(DEBUG && Debug)
+		if (DEBUG && Debug && this.verbose)
 		{
 			Debug.log("Attempting to load file '" + qi.url + "'");
 		}

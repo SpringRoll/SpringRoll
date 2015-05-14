@@ -1,4 +1,4 @@
-/*! SpringRoll 0.2.2 */
+/*! SpringRoll 0.3.0 */
 /**
  * @module PIXI Animation
  * @namespace springroll.pixi
@@ -1229,11 +1229,49 @@
 		_timelines = null;
 		Application.instance.off("update", _update);
 	};
-
-	//set up the global initialization and destroy
-	Application.registerInit(Animator.init);
-	Application.registerDestroy(Animator.destroy);
 	
 	namespace('springroll').Animator = Animator;
 	namespace('springroll.pixi').Animator = Animator;
+}());
+/**
+ * @module PIXI Animation
+ * @namespace springroll.pixi
+ * @requires  Core, PIXI Display
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	var Animator = include('springroll.pixi.Animator');
+
+	/**
+	 * Create an app plugin for Animator, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class AnimatorPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var AnimatorPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+	};
+
+	// Reference to the prototype
+	var p = extend(AnimatorPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.setup = function()
+	{
+		Animator.init();
+		Animator.captions = this.captions || null;
+	};
+
+	// Destroy the animator
+	p.teardown = function()
+	{
+		Animator.destroy();
+	};
+
+	// register plugin
+	ApplicationPlugin.register(AnimatorPlugin);
+
 }());

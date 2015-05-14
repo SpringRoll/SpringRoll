@@ -1,7 +1,7 @@
 /**
- * @module Tracking Game
+ * @module UI
  * @namespace springroll
- * @requires Core, Game, Sound, Captions, Tasks, Interface, Progress Tracker, Hinting
+ * @requires Core
  */
 (function()
 {
@@ -10,17 +10,18 @@
 	 * @constructor
 	 * @class StringFilters
 	 */
-	var StringFilters = function() {};
+	var StringFilters = function()
+	{
+		/**
+		 * Dictionary of filters
+		 * @property {Array} _filters
+		 * @private
+		 */
+		this._filters = [];
+	};
 
 	// Reference to prototype
 	var p = StringFilters.prototype;
-
-	/**
-	 * Dictionary of filters
-	 * @property {Array} _filters
-	 * @private
-	 */
-	p._filters = [];
 
 	/**
 	 * Register a filter

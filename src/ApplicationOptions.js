@@ -22,7 +22,32 @@
 		
 		PropertyDispatcher.call(this);
 
-		options = options || {};
+		/**
+		 * The user input options
+		 * @property {Object} _options
+		 * @private
+		 */
+		this._options = options || {};
+
+		/**
+		 * Reference to the application
+		 * @property {springroll.Application} _app
+		 * @private
+		 */
+		this._app = app;
+	};
+
+	// Extend the base class
+	var p = extend(ApplicationOptions, PropertyDispatcher);
+
+	/**
+	 * Initialize the values in the options
+	 * @method init
+	 */
+	p.init = function()
+	{
+		var options = this._options;
+		var app = this._app;
 
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
@@ -35,71 +60,22 @@
 		// this is so we can dispatch events when the property changes
 		for(var name in options)
 		{
-			this.addProp(name, options[name]);
+			this.add(name, options[name]);
 		}
 
 		// Cannot change these properties after setup
 		this.readOnly(
-			'framerate',
+			'name',
 			'resizeElement',
-			'cacheBust',
 			'useQueryString',
 			'canvasId',
 			'display',
 			'displayOptions',
-			'versionsFile',
 			'uniformResize'
 		);
 
 		// Convert these to DOM elements
-		parseDOMElement(this._properties.resizeElement);
-		parseDOMElement(this._properties.framerate);
-
-		// Options only for debug mode
-		if (DEBUG && Debug)
-		{
-			this.respond('debug', function()
-			{
-				return Debug ? Debug.enabled : false;
-			});
-
-			this.on('debug', function(value)
-			{
-				if (Debug) Debug.enabled = value;
-			});
-
-			this.on('debugRemote', function(value)
-			{
-				if (Debug)
-				{
-					Debug.disconnect();
-					if (value)
-					{
-						Debug.connect(value);
-					}
-				}
-			});
-
-			this.respond('minLogLevel', function()
-			{
-				return Debug ? Debug.minLogLevel.asInt : 0;
-			});
-			
-			this.on('minLogLevel', function(value)
-			{
-				if (Debug)
-				{
-					Debug.minLogLevel = Debug.Levels.valueFromInt(
-						parseInt(value, 10)
-					);
-
-					if (!Debug.minLogLevel)
-					{
-						Debug.minLogLevel = Debug.Levels.GENERAL;
-					}
-				}
-			});
-		}
+		this.asDOMElement('resizeElement');
 
 		this.respond('updateTween', function()
 		{
@@ -129,9 +105,6 @@
 			this.trigger(id, _properties[id].value);
 		}
 	};
-
-	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
 
 	/**
 	 * Get the query string as an object
@@ -170,15 +143,31 @@
 
 	/**
 	 * Convert a string into a DOM Element
-	 * @private parseDOMElement
-	 * @param {Property} prop The value to convert
+	 * @private asDOMElement
+	 * @param {String} name The property name to fetch
 	 */
-	var parseDOMElement = function(prop)
+	p.asDOMElement = function(name)
 	{
-		if (prop.value && typeof prop.value == "string")
+		var prop = this._properties[name];
+		if (prop && prop.value && typeof prop.value === "string")
 		{
 			prop.value = document.getElementById(prop.value);
 		}
+	};
+
+	/**
+	 * Override a default value
+	 * @private override
+	 * @param {String} name The property name to fetch
+	 * @param {*} value The value
+	 */
+	p.override = function(name, value)
+	{
+		if (defaultOptions[name] === undefined)
+		{
+			throw "ApplicationOptions doesn't have default name '" + name + "'";
+		}
+		defaultOptions[name] = value;
 	};
 
 	/**
@@ -205,8 +194,9 @@
 		/**
 		 * The element to resize the canvas to fit
 		 * @property {DOMElement|String} resizeElement
+		 * @default 'frame'
 		 */
-		resizeElement: null,
+		resizeElement: 'frame',
 
 		/**
 		 * Whether to resize the displays to the original aspect ratio
@@ -220,32 +210,7 @@
 		 * @property {Boolean} useQueryString
 		 * @default false
 		 */
-		useQueryString: false,
-
-		/**
-		 * Enable the Debug class. After initialization, this
-		 * is a pass-through to Debug.enabled.
-		 * @property {Boolean} debug
-		 * @default false
-		 */
-		debug: false,
-
-		/**
-		 * Minimum log level from 0 to 4
-		 * @property {int} minLogLevel
-		 * @default 0
-		 */
-		minLogLevel: 0,
-
-		/**
-		 * The host computer for remote debugging, the debug
-		 * module must be included to use this feature. Can be an
-		 * IP address or host name. After initialization, setting
-		 * this will still connect or disconect Debug for remote
-		 * debugging. This is a write-only property.
-		 * @property {String} debugRemote
-		 */
-		debugRemote: null,
+		useQueryString: DEBUG,
 
 		/**
 		 * The default display DOM ID name
@@ -269,53 +234,9 @@
 		/**
 		 * If using TweenJS, the Application will update the Tween itself.
 		 * @property {Boolean} updateTween
-		 * @default false
-		 */
-		updateTween: false,
-
-		/**
-		 * The application pauses automatically when the window loses focus.
-		 * @property {Boolean} autoPause
 		 * @default true
 		 */
-		autoPause: true,
-
-		/**
-		 * The current version number for your application. This
-		 * number will automatically be appended to all file
-		 * requests. For instance, if the version is "0.0.1" all
-		 * file requests will be appended with "?v=0.0.1"
-		 * @property {String} version
-		 */
-		version: null,
-
-		/**
-		 * Path to a text file which contains explicit version
-		 * numbers for each asset. This is useful for controlling
-		 * the live browser cache. For instance, this text file
-		 * would have an asset on each line followed by a number:
-		 * `assets/config/config.json 2` would load
-		 * `assets/config/config.json?v=2`
-		 * @property {String} versionsFile
-		 */
-		versionsFile: null,
-
-		/**
-		 * Override the end-user browser cache by adding
-		 * "?v=" to the end of each file path requested. Use
-		 * for developmently, debugging only!
-		 * @property {Boolean} cacheBust
-		 * @default false
-		 */
-		cacheBust: false,
-
-		/**
-		 * The optional file path to prefix to any relative file
-		 * requests this is a great way to load all load requests
-		 * with a CDN path.
-		 * @property {String} basePath
-		 */
-		basePath: null,
+		updateTween: true,
 
 		/**
 		 * Used by `springroll.PixiTask`, default behavior
@@ -324,12 +245,6 @@
 		 * @default false
 		 */
 		crossOrigin: false,
-
-		/**
-		 * Framereate container
-		 * @property {String|DOMElement} framerate
-		 */
-		framerate: null,
 
 		/**
 		 * If doing uniform resizing, optional parameter to add
@@ -347,7 +262,14 @@
 		 * than the original width of the canvas.
 		 * @property {int} maxWidth
 		 */
-		maxWidth: 0
+		maxWidth: 0,
+
+		/**
+		 * The name of the application
+		 * @property {String} name
+		 * @default ''
+		 */
+		name: ''
 	};
 
 	// Assign to namespace
