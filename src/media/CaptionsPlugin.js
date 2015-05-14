@@ -40,10 +40,10 @@
 		/**
 		 * The path to the captions file to preload.
 		 * @property {string} options.captionsPath
-		 * @default 'assets/config/captions.json'
+		 * @default null
 		 * @readOnly
 		 */
-		this.options.add('captionsPath', 'assets/config/captions.json', true);
+		this.options.add('captionsPath', null, true);
 		
 		/**
 		*  The global captions object
@@ -88,6 +88,10 @@
 		}
 		else
 		{
+			if (DEBUG && Debug)
+			{
+				Debug.info("Application option 'captionsPath' is empty, set to automatically load captions JSON");
+			}
 			done();
 		}
 	};

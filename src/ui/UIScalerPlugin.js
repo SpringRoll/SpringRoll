@@ -8,7 +8,7 @@
 	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		UIScaler = include('springroll.UIScaler'),
-		Debug = include('springroll.Debug', false);
+		Debug;
 
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
@@ -27,6 +27,8 @@
 	//Init the scaling
 	p.setup = function()
 	{
+		Debug = include('springroll.Debug', false);
+
 		/**
 		 *	The main UIScaler for any display object references
 		 *	in the main game.

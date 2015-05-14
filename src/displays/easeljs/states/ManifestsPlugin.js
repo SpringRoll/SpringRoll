@@ -7,6 +7,7 @@
 {
 	// Import classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug,
 		LoadTask,
 		BaseState;
 
@@ -45,9 +46,9 @@
 	 	 *	Set to null and no manifest will be auto-loaded.
 		 *	@property {String} options.manifestsPath
 		 *	@readOnly
-		 *	@default "assets/config/manifests.json"
+		 *	@default null
 		 */
-		this.options.add('manifestsPath', "assets/config/manifests.json", true);
+		this.options.add('manifestsPath', null, true);
 
 		// Change the defaults
 		this.options.override('fps', 30);
@@ -55,6 +56,7 @@
 		this.options.override('displayOptions', { clearView: true });
 		this.options.override('canvasId', 'stage');
 
+		Debug = include('springroll.Debug', false);
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
 
@@ -79,15 +81,22 @@
 		});
 
 		// When config loads, load the manifests
-		this.once('configLoaded', function(config, taskManager)
+		this.once('loading', function(tasks)
 		{
-			if (!this.options.manifestsPath) return;
+			var manifestsPath = this.options.manifestsPath;
 
-			taskManager.addTask(new LoadTask(
-				"manifests",
-				this.options.manifestsPath,
-				onManifestsLoaded.bind(this)
-			));
+			if (manifestsPath)
+			{
+				tasks.push(new LoadTask(
+					"manifests",
+					manifestsPath,
+					onManifestsLoaded.bind(this)
+				));
+			}
+			else if (DEBUG && Debug)
+			{
+				Debug.info("Application option 'manifestsPath' is empty, set to automatically load manifests JSON");
+			}
 		});
 
 		// Handle when states are added and add
