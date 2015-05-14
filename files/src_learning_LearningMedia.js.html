@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>SpringRoll v0.3.0 API Documentation : src/learning/LearningMedia.js</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
+</head>
+
+<body>
+  <header>
+    <div class='container'>
+      <div class='version pull-right'>
+        <em>API Documentation for: 0.3.0</em>
+      </div>
+      <div class='logo'>
+
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+      </div>
+<div class='scope-toggles pull-right'>
+  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div>    </div>
+  </header>
+  <div class='container'>
+    <div class='row'>
+      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CaptionsPlugin.html'>springroll.CaptionsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ConfigPlugin.html'>springroll.ConfigPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ContainerPlugin.html'>springroll.ContainerPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugPlugin.html'>springroll.DebugPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorPlugin.html'>springroll.easeljs.AnimatorPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ManifestsPlugin.html'>springroll.easeljs.ManifestsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.OffClickPlugin.html'>springroll.easeljs.OffClickPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintsPlugin.html'>springroll.HintsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LanguagesPlugin.html'>springroll.LanguagesPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningMediaPlugin.html'>springroll.LearningMediaPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningPlugin.html'>springroll.LearningPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderPlugin.html'>springroll.LoaderPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibilityPlugin.html'>springroll.PageVisibilityPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorPlugin.html'>springroll.pixi.AnimatorPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StatesPlugin.html'>springroll.StatesPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFiltersPlugin.html'>springroll.StringFiltersPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.async.html'>window.async</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Game.html'>Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tasks.html'>Tasks</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav>      </nav>
+      <div class='col-sm-8 col-md-9'>
+        <div id='docs-main' class='apidocs'>
+<script>
+  var name = {
+  	{
+  		name
+  	}
+  }
+</script>
+<h1 class="file-heading">File:LearningMedia.js</h1>
+
+<div class="file">
+  <pre class="code prettyprint linenums">/**
+ * @module Learning Media
+ * @namespace springroll
+ * @requires Core, Learning, Sound, Captions
+ */
+(function()
+{
+	var Debug = include(&#x27;springroll.Debug&#x27;, false),
+		StringFilters = include(&#x27;springroll.StringFilters&#x27;);
+
+	/**
+	 *  This class contains a bunch of media playing class
+	 *  to provide convenience around using the Learning Dispatcher
+	 *  @class LearningMedia
+	 */
+	var LearningMedia = function()
+	{
+		/**
+		 * Reference to the StringFilters
+		 * @property {springroll.StringFilters} filters
+		 */
+		this.filters = null;
+		
+		/**
+		 * Reference to the Learning Dispatcher
+		 * @property {springroll.Learning} learning
+		 */
+		this.learning = null;
+
+		/**
+		 * Reference to the VO Player
+		 * @property {springroll.VOPlayer} voPlayer
+		 */
+		this.voPlayer = null;
+
+		/**
+		 * Reference to the main display
+		 * @property {createjs.Display} display
+		 */
+		this.display = null;
+	};
+
+	//Reference to the prototype
+	var p = LearningMedia.prototype;
+
+	/**
+	 * Intiailize the media
+	 * @method init
+	 * @param {springroll.Application} app
+	 */
+	p.init = function(app)
+	{
+		this.filters = app.filters;
+		this.learning = app.learning;
+		this.voPlayer = app.voPlayer;
+		this.display = app.display;
+	};
+
+	/**
+	 *  Plays animation or list of animations using springroll.Animator,
+	 *  firing startMovie and endMovie or skipMovie Learning events.
+	 *  @method playMovie
+	 *  @param {MovieClip} instance The MovieClip to animate.
+	 *  @param {String|Array|Object} events Event or list of events to animate. See
+	 *                                     springroll.Animator.play() docs for details.
+	 *   @param {Function} [onComplete]	VO/Animation Ended callback
+	 *   @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                         If set to &#x27;true&#x27; (Boolean), will use same callback as &#x27;onComplete&#x27;
+	 *                                         If omited, no callback will be fired on interruption.
+	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of the played animation.
+	 */
+	p.playMovie = function(instance, events, onComplete, onCancel)
+	{
+		if (!this.learning.spec)
+		{
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.warn(&quot;Learning is not available and will not trigger Movie events&quot;);
+			}
+			return this.display.animator.play(instance, events, options);
+		}
+
+		return this.triggerMoviePlay(
+			instance,
+			events,
+			onComplete,
+			onCancel,
+			&quot;movie&quot;
+		);
+	};
+
+	/**
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events
+	 *
+	 *  Example Animator usage:
+	 *  game.playInstruction(someMovieClip, {&quot;anim&quot;:&quot;frameLabel&quot;, &quot;audio&quot;:&quot;soundAlias&quot;}, doneFunction, interruptedFunction);
+	 *
+	 *  Example VOPlayer usage:
+	 *  game.playInstruction(&quot;soundAlias&quot;, doneFunction, interruptedFunction);
+	 *
+	 *  @method playInstruction
+	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
+	 *  @param {String|Array|Object} event    If &#x27;instance&#x27; is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                         See VOPlayer.play docs for options.
+	 *                                         If &#x27;instance&#x27; is present, Event or list of events to animate with createjs.Animator.
+	 *                                         See springroll.Animator.play() docs for options
+	 *  @param {Function} [onComplete]	VO/Animation Ended callback
+	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                        If set to &#x27;true&#x27; (Boolean), will use same callback as &#x27;onComplete&#x27;
+	 *                                        If omited, no callback will be fired on interruption.
+	 *    @return {springroll.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 */
+	p.playInstruction = function(instance, events, onComplete, onCancel)
+	{
+		var learning = this.learning;
+		var animator = this.display.animator;
+
+		if (animator.canAnimate(instance)) //use Animator
+		{
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger Instruction events&quot;);
+				}
+				return animator.play(instance, events, onComplete, onCancel);
+			}
+			return this.triggerMoviePlay(
+				instance,
+				events,
+				onComplete,
+				onCancel,
+				&quot;instruction&quot;
+			);
+		}
+		else //use VOPlayer
+		{
+			onCancel = onComplete;
+			onComplete = events;
+			events = instance;
+
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger Instruction events&quot;);
+				}
+				this.voPlayer.play(events, onComplete, onCancel);
+				return;
+			}
+			this.triggerVOPlay(
+				events,
+				learning.startInstruction,
+				learning.endInstruction,
+				onComplete,
+				onCancel
+			);
+		}
+	};
+
+	/**
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events
+	 *
+	 *  Example Animator usage:
+	 *  game.playIncorrectFeedback(someMovieClip, {&quot;anim&quot;:&quot;frameLabel&quot;, &quot;audio&quot;:&quot;soundAlias&quot;}, doneFunction, interruptedFunction);
+	 *
+	 *  Example VOPlayer usage:
+	 *  game.playIncorrectFeedback(&quot;soundAlias&quot;, doneFunction, interruptedFunction);
+	 *
+	 *  @method playIncorrectFeedback
+	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
+	 *  @param {String|Array|Object} events   If &#x27;instance&#x27; is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                         See VOPlayer.play docs for options.
+	 *                                         If &#x27;instance&#x27; is present, Event or list of events to animate with createjs.Animator.
+	 *                                         See springroll.Animator.play() docs for options
+	 *  @param {Function} [onComplete]	VO/Animation Ended callback
+	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                        If set to &#x27;true&#x27; (Boolean), will use same callback as &#x27;onComplete&#x27;
+	 *                                        If omited, no callback will be fired on interruption.
+	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 */
+	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
+	{
+		var learning = this.learning;
+		var animator = this.display.animator;
+
+		if (animator.canAnimate(instance)) //use Animator
+		{
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger IncorrectFeedback events&quot;);
+				}
+				return animator.play(instance, events, onComplete, onCancel);
+			}
+
+			return this.triggerMoviePlay(
+				instance,
+				events,
+				onComplete,
+				onCancel,
+				&quot;incorrect&quot;
+			);
+		}
+		else //use VOPlayer
+		{
+			onCancel = onComplete;
+			onComplete = events;
+			events = instance;
+
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger IncorrectFeedback events&quot;);
+				}
+				this.voPlayer.play(events, onComplete, onCancel);
+				return;
+			}
+			this.triggerVOPlay(
+				events,
+				learning.startIncorrectFeedback,
+				learning.endIncorrectFeedback,
+				onComplete,
+				onCancel
+			);
+		}
+	};
+
+	/**
+	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events
+	 *
+	 *  Example Animator usage:
+	 *  game.playCorrectFeedback(someMovieClip, {&quot;anim&quot;:&quot;frameLabel&quot;, &quot;audio&quot;:&quot;soundAlias&quot;}, doneFunction, interruptedFunction);
+	 *
+	 *  Example VOPlayer usage:
+	 *  game.playCorrectFeedback(&quot;soundAlias&quot;, doneFunction, interruptedFunction);
+	 *
+	 *  @method playCorrectFeedback
+	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
+	 *  @param {String|Array|Object} event    If &#x27;instance&#x27; is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                         See VOPlayer.play docs for options.
+	 *                                         If &#x27;instance&#x27; is present, Event or list of events to animate with createjs.Animator.
+	 *                                         See springroll.Animator.play() docs for options
+	 *  @param {Function} [onComplete]	VO/Animation Ended callback
+	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                        If set to &#x27;true&#x27; (Boolean), will use same callback as &#x27;onComplete&#x27;.
+	 *                                        If omited, no callback will be fired on interruption.
+	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 */
+	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
+	{
+		var learning = this.learning,
+			animator = this.display.animator;
+
+		if (animator.canAnimate(instance)) //use Animator
+		{
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger CorrectFeedback events&quot;);
+				}
+				return animator.play(instance, events, onComplete, onCancel);
+			}
+
+			return this.triggerMoviePlay(
+				instance,
+				events,
+				onComplete,
+				onCancel,
+				&quot;correct&quot;
+			);
+		}
+		else //use VOPlayer
+		{
+			onCancel = onComplete;
+			onComplete = events;
+			events = instance;
+
+			if (!learning.spec)
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.warn(&quot;Learning is not available and will not trigger CorrectFeedback events&quot;);
+				}
+				this.voPlayer.play(events, onComplete, onCancel);
+				return;
+			}
+			this.triggerVOPlay(
+				events,
+				learning.startCorrectFeedback,
+				learning.endCorrectFeedback,
+				onComplete,
+				onCancel
+			);
+		}
+	};
+
+	/**
+	 *  Generalized method for playing either feedback or instructions
+	 *  @method triggerVOPlay
+	 *  @protected
+	 *  @param {String|Array} alias    Alias or Array of aliases for VO lines to play
+	 *  @param {Function} learningStart The learning to call while starting
+	 *  @param {Function} learningEnd The learning call to call after finishing/canceling VO
+	 *  @param {Function} [onComplete]    VO Ended callback
+	 *  @param {Function} [onCancel] VO Cancelled (interrupted) callback
+	 */
+	p.triggerVOPlay = function(alias, learningStart, learningEnd, onComplete, onCancel)
+	{
+		var animator = this.display.animator;
+
+		//stop any previously playing stuff
+		this.voPlayer.stop();
+
+		if (this._learningAnimatorInstance)
+		{
+			animator.stop(this._learningAnimatorInstance);
+		}
+
+		var captions = this.voPlayer.captions;
+
+		//Callback function for ending or canceling the VO
+		var callback = function(finish)
+		{
+			learningEnd.call(this.learning);
+			if (finish) finish();
+		};
+
+		if (onCancel === true)
+			onCancel = onComplete;
+
+		//Play the audio
+		this.voPlayer.play(
+			alias,
+			callback.bind(this, onComplete),
+			callback.bind(this, onCancel)
+		);
+
+		//Trigger the start event
+		learningStart.call(
+			this.learning,
+			captions.getFullCaption(alias),
+			aliasToString(alias),
+			&quot;audio&quot;,
+			captions.getLength(alias)
+		);
+	};
+
+	/**
+	 *  Handles learning events for triggered Animator calls.
+	 *  @method triggerMoviePlay
+	 *  @protected
+	 *  @param {MovieClip} instance The MovieClip to animate.
+	 *  @param {String|Array} events Event or list of events to animate. See
+	 *                              springroll.Animator.play() docs for details.
+	 *  @param {Object} options Additional options. See springroll.Animator.play() docs
+	 *                          for details.
+	 *  @param {String} learningEvent Learning VO/animation event type
+	 *                               (&quot;movie&quot;, &quot;instruction&quot;, &quot;incorrect&quot;, or &quot;correct&quot;).
+	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
+	 */
+	p.triggerMoviePlay = function(instance, events, onComplete, onCancel, learningEvent)
+	{
+		//Localized instance of learning
+		var learning = this.learning;
+		var animator = this.display.animator;
+
+		//stop any previously playing stuff
+		this.voPlayer.stop();
+
+		if (this._learningAnimatorInstance)
+		{
+			animator.stop(this._learningAnimatorInstance);
+		}
+
+		if (!Array.isArray(events))
+		{
+			events = [events];
+		}
+
+		var duration = 0; //Event &quot;duration&quot;
+		var fullCaption = &quot;&quot;; //Event &quot;description&quot;
+		var alias = &quot;&quot;; //Event &quot;id&quot;
+
+		var captions = this.voPlayer.captions;
+		var eventInfo, anim, audio, learningEnd, learningCancel;
+
+		//Current loop iteration Caption and ID/alias
+		var thisCaption, thisID;
+
+		for (var i = 0, len = events.length; i &lt; len; ++i)
+		{
+			eventInfo = events[i];
+			thisID = null;
+			thisCaption = null;
+
+			switch (typeof eventInfo)
+			{
+				case &quot;number&quot;:
+					{
+						duration += eventInfo;
+						break;
+					}
+				case &quot;string&quot;:
+					{
+						eventInfo = this.filters.filter(eventInfo);
+
+						//we passed in a string - the audio alias should be assumed
+						//to be the same as the animation alias
+						duration += animator.getDuration(instance, eventInfo);
+						thisID = eventInfo;
+
+						//if no audio, will return event alias.
+						thisCaption = captions.getFullCaption(eventInfo);
+
+						//convert to Animator friendly format
+						events[i] = {
+							anim: eventInfo,
+							audio: eventInfo
+						};
+						break;
+					}
+				case &quot;object&quot;:
+					{
+						//we passed an object
+						eventInfo.anim = anim = this.filters.filter(eventInfo.anim);
+
+						if (eventInfo.audio)
+						{
+							if (typeof eventInfo.audio == &#x27;object&#x27;)
+							{
+								eventInfo.audio.alias =	audio = this.filters.filter(eventInfo.audio.alias);
+							}
+							else
+							{
+								eventInfo.audio = audio = this.filters.filter(eventInfo.audio);
+							}
+						}
+
+						duration += animator.getDuration(instance, anim);
+
+						//if no audio, use the anim label instead
+						if (!audio)
+						{
+							audio = anim;
+						}
+						else if (typeof audio != &quot;string&quot;)
+						{
+							audio = audio.alias;
+						}
+						thisCaption = captions.getFullCaption(audio);
+						thisID = audio;
+						break;
+					}
+			}
+
+			if (thisID)
+			{
+				if (alias.length &gt; 0)
+				{
+					alias += &quot;,&quot;;
+				}
+				alias += thisID;
+			}
+			if (thisCaption)
+			{
+				if (fullCaption.length &gt; 0)
+				{
+					fullCaption += &quot; &quot;;
+				}
+				fullCaption += thisCaption;
+			}
+		}
+
+		duration = duration | 0; //make it an int
+
+		switch (learningEvent)
+		{
+			case &quot;instruction&quot;:
+				{
+					learning.startInstruction(fullCaption, alias, &quot;animation&quot;, duration);
+					learningEnd = learning.endInstruction.bind(learning);
+					break;
+				}
+			case &quot;correct&quot;:
+				{
+					learning.startCorrectFeedback(fullCaption, alias, &quot;animation&quot;, duration);
+					learningEnd = learning.endCorrectFeedback.bind(learning);
+					break;
+				}
+			case &quot;incorrect&quot;:
+				{
+					learning.startIncorrectFeedback(fullCaption, alias, &quot;animation&quot;, duration);
+					learningEnd = learning.endIncorrectFeedback.bind(learning);
+					break;
+				}
+			case &quot;movie&quot;:
+				{
+					learning.startMovie(alias, duration, fullCaption);
+					learningEnd = learning.endMovie.bind(learning);
+					learningCancel = learning.skipMovie.bind(learning);
+					break;
+				}
+		}
+
+		var callback = function(learningCall, otherCall)
+		{
+			this._learningAnimatorInstance = null;
+
+			if (learningCall) //learning end event
+			{
+				learningCall();
+			}
+
+			if (otherCall) //original callback
+			{
+				otherCall();
+			}
+		};
+
+		//Setup callbacks
+		var onCompleteCallback = callback.bind(this, learningEnd, onComplete);
+		var onCancelCallback = callback.bind(
+			this,
+			learningCancel ? learningCancel : learningEnd,
+			onCancel === true ? onComplete : onCancel
+		);
+
+		this._learningAnimatorInstance = instance;
+		return animator.play(instance, events, onCompleteCallback, onCancelCallback);
+	};
+
+
+	/**
+	 *  Get an alias or group of aliases as a string
+	 *  @method aliasToString
+	 *  @private
+	 *  @param {Array|String} alias The alias to convert
+	 *  @return {String} The alias as string
+	 */
+	var aliasToString = function(alias)
+	{
+		if (Array.isArray(alias))
+		{
+			var output = &quot;&quot;;
+			for (var i = 0, len = alias.length; i &lt; len; ++i)
+			{
+				if (typeof alias[i] == &quot;string&quot;)
+				{
+					if (output.length &gt; 0)
+					{
+						output += &quot;,&quot;;
+					}
+					output += alias[i];
+				}
+			}
+			return output;
+		}
+		else
+		{
+			return String(alias);
+		}
+	};
+
+	/**
+	 * Stops the currently playing animation or VO.
+	 * @method stop
+	 */
+	p.stop = function()
+	{
+		if (this._learningAnimatorInstance)
+		{
+			this.display.animator.stop(this._learningAnimatorInstance);
+		}
+		else
+		{
+			this.voPlayer.stop();
+		}
+	};
+
+	/**
+	 * Whether or not VOPlayer or Animator are currently playing
+	 * @method isPlaying
+	 * @return {Boolean} Whether or not VOPlayer or Animator are currently playing
+	 */
+	p.isPlaying = function()
+	{
+		return this.voPlayer.playing || !!this._learningAnimatorInstance;
+	};
+
+	/**
+	 *  Destroy and don&#x27;t use after this
+	 *  @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.learning = null;
+		this.voPlayer = null;
+		this.display = null;
+		this.filters = null;
+	};
+
+	//Assign to namespace
+	namespace(&#x27;springroll&#x27;).LearningMedia = LearningMedia;
+}());</pre>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+  <script src='../assets/js/libraries.js?v=0.3.0'></script>
+  <script src='../assets/js/main.js?v=0.3.0'></script>
+</body>
+</html>

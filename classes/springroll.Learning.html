@@ -1,0 +1,3677 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>SpringRoll v0.3.0 API Documentation : springroll.Learning</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
+</head>
+
+<body>
+  <header>
+    <div class='container'>
+      <div class='version pull-right'>
+        <em>API Documentation for: 0.3.0</em>
+      </div>
+      <div class='logo'>
+
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+      </div>
+<div class='scope-toggles pull-right'>
+  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div>    </div>
+  </header>
+  <div class='container'>
+    <div class='row'>
+      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<h2>APIs</h2>
+<div class='input-group'>
+  <div class='input-group-addon'>
+    <span class='glyphicon glyphicon-search'></span>
+  </div>
+  <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+</div>
+<nav class='navbar navbar-default'>
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-classes' data-target='#classes-collapse'>
+      Classes
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+      Modules
+      <span class='collapsed glyphicon glyphicon-chevron-up'></span>
+      <span class='expanded glyphicon glyphicon-chevron-down'></span>
+    </button>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='classes-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../classes/createjs.Container.html'>createjs.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.MovieClip.html'>createjs.MovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/createjs.Point.html'>createjs.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractDisplay.html'>springroll.AbstractDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AbstractHint.html'>springroll.AbstractHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.AnimatorHint.html'>springroll.AnimatorHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Application.html'>springroll.Application</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ApplicationOptions.html'>springroll.ApplicationOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Captions.html'>springroll.Captions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CaptionsPlugin.html'>springroll.CaptionsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.CombinedCallback.html'>springroll.CombinedCallback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ConfigPlugin.html'>springroll.ConfigPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Container.html'>springroll.Container</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ContainerPlugin.html'>springroll.ContainerPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Debug.html'>springroll.Debug</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugOptions.html'>springroll.DebugOptions</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DebugPlugin.html'>springroll.DebugPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.DelayedCall.html'>springroll.DelayedCall</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Animator.html'>springroll.easeljs.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorPlugin.html'>springroll.easeljs.AnimatorPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AnimatorTimeline.html'>springroll.easeljs.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.AssetManager.html'>springroll.easeljs.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BasePanel.html'>springroll.easeljs.BasePanel</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BaseState.html'>springroll.easeljs.BaseState</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapMovieClip.html'>springroll.easeljs.BitmapMovieClip</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.BitmapUtils.html'>springroll.easeljs.BitmapUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Button.html'>springroll.easeljs.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Cutscene.html'>springroll.easeljs.Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DisplayAdapter.html'>springroll.easeljs.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DragManager.html'>springroll.easeljs.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.DwellTimer.html'>springroll.easeljs.DwellTimer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.EaselJSDisplay.html'>springroll.easeljs.EaselJSDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ManifestsPlugin.html'>springroll.easeljs.ManifestsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.OffClickPlugin.html'>springroll.easeljs.OffClickPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.ReversePlayback.html'>springroll.easeljs.ReversePlayback</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.SoundButton.html'>springroll.easeljs.SoundButton</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.Texture.html'>springroll.easeljs.Texture</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.easeljs.TextureAtlas.html'>springroll.easeljs.TextureAtlas</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Enum.html'>springroll.Enum</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EnumValue.html'>springroll.EnumValue</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventCatalog.html'>springroll.EventCatalog</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventDispatcher.html'>springroll.EventDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventError.html'>springroll.EventError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventSignature.html'>springroll.EventSignature</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.EventUtils.html'>springroll.EventUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Features.html'>springroll.Features</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionHint.html'>springroll.FunctionHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.FunctionTask.html'>springroll.FunctionTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.GroupHint.html'>springroll.GroupHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintsPlayer.html'>springroll.HintsPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.HintsPlugin.html'>springroll.HintsPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Languages.html'>springroll.Languages</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LanguagesPlugin.html'>springroll.LanguagesPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Learning.html'>springroll.Learning</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningError.html'>springroll.LearningError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningMedia.html'>springroll.LearningMedia</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningMediaPlugin.html'>springroll.LearningMediaPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LearningPlugin.html'>springroll.LearningPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ListTask.html'>springroll.ListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Loader.html'>springroll.Loader</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderPlugin.html'>springroll.LoaderPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderQueueItem.html'>springroll.LoaderQueueItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoaderResult.html'>springroll.LoaderResult</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.LoadTask.html'>springroll.LoadTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Circle.html'>springroll.native.Circle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.DisplayAdapter.html'>springroll.native.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Ellipse.html'>springroll.native.Ellipse</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.NativeDisplay.html'>springroll.native.NativeDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Point.html'>springroll.native.Point</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Polygon.html'>springroll.native.Polygon</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.native.Rectangle.html'>springroll.native.Rectangle</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibility.html'>springroll.PageVisibility</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PageVisibilityPlugin.html'>springroll.PageVisibilityPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Animator.html'>springroll.pixi.Animator</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorPlugin.html'>springroll.pixi.AnimatorPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AnimatorTimeline.html'>springroll.pixi.AnimatorTimeline</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.AssetManager.html'>springroll.pixi.AssetManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.Button.html'>springroll.pixi.Button</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DisplayAdapter.html'>springroll.pixi.DisplayAdapter</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.DragManager.html'>springroll.pixi.DragManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.ParallelSpineData.html'>springroll.pixi.ParallelSpineData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.pixi.PixiDisplay.html'>springroll.pixi.PixiDisplay</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PixiTask.html'>springroll.PixiTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Positioner.html'>springroll.Positioner</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundContext.html'>springroll.SoundContext</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundInstance.html'>springroll.SoundInstance</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundListTask.html'>springroll.SoundListTask</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StateManager.html'>springroll.StateManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StatesPlugin.html'>springroll.StatesPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFilters.html'>springroll.StringFilters</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.StringFiltersPlugin.html'>springroll.StringFiltersPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.Task.html'>springroll.Task</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskEvent.html'>springroll.TaskEvent</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TaskManager.html'>springroll.TaskManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TimeUtils.html'>springroll.TimeUtils</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOHint.html'>springroll.VOHint</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Array.html'>window.Array</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.async.html'>window.async</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.extend.html'>window.extend</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.include.html'>window.include</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Math.html'>window.Math</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.namespace.html'>window.namespace</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.Object.html'>window.Object</a>
+        </li>
+        <li class=''>
+          <a href='../classes/window.String.html'>window.String</a>
+        </li>
+    </ul>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class='collapse' id='modules-collapse'>
+    <ul class='nav navbar-nav'>
+        <li class=''>
+          <a href='../modules/Captions.html'>Captions</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container.html'>Container</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Container Client.html'>Container Client</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Core.html'>Core</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Debug.html'>Debug</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Animation.html'>EaselJS Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Cutscene.html'>EaselJS Cutscene</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Display.html'>EaselJS Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Learning.html'>EaselJS Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS States.html'>EaselJS States</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS UI.html'>EaselJS UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Game.html'>Game</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Hints.html'>Hints</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Languages.html'>Languages</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning.html'>Learning</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Learning Media.html'>Learning Media</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Native Display.html'>Native Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Animation.html'>PIXI Animation</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI Display.html'>PIXI Display</a>
+        </li>
+        <li class=''>
+          <a href='../modules/PIXI UI.html'>PIXI UI</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/Tasks.html'>Tasks</a>
+        </li>
+        <li class=''>
+          <a href='../modules/UI.html'>UI</a>
+        </li>
+    </ul>
+  </div>
+  <!-- /.container-fluid -->
+</nav>      </nav>
+      <div class='col-sm-8 col-md-9'>
+        <div id='docs-main' class='apidocs'>
+
+<h1>springroll.Learning Class</h1>
+<div class='box meta'>
+
+    <div class='extends'>
+      Extends
+      <a href="../classes/springroll.EventDispatcher.html" class="crosslink">springroll.EventDispatcher</a>
+    </div>
+
+    <div class='foundat'>
+      Defined in: <a href='../files/src_learning_Learning.js.html#l20'><code>springroll.Learning:20</code></a>
+    </div>
+
+      Module:
+      <a href="../modules/Learning.html">Learning</a>
+
+</div>
+
+
+<div class='box intro'>
+  <p>The base game class</p>
+
+</div>
+
+  <div class='constructor'>
+    <h2>Constructor</h2> <div id='method_springroll.Learning' class='method item'>
+  <h3 class='name'><code>springroll.Learning</code></h3>
+
+    <div class='args'>
+      <span class='paren'>(</span>
+      <ul class='args-list inline commas'>
+          <li class='arg'>
+              <code>app</code>
+          </li>
+          <li class='arg'>
+              <code class='optional'>[showTray=false]</code>
+          </li>
+    </ul><span class='paren'>)</span>
+    </div>
+
+
+  <div class='flags'>
+
+
+
+
+
+  </div> 
+  
+  <div class='meta'>
+        <p>
+            Defined in
+      <a href='../files/src_learning_Learning.js.html#l20'><code>springroll.Learning:20</code></a>
+    </p>
+
+
+
+  </div>
+
+  <div class='description'>
+    
+  </div>
+
+    <div class='params'>
+      <h4>Parameters:</h4>
+
+      <ul class='params-list'>
+          <li class='param'>
+              <code class='param-name'>app</code>
+              <span class='type'><a href="../classes/springroll.Application.html" class="crosslink">springroll.Application</a></span>
+
+
+            <div class='param-description'>
+              <p>The application reference</p>
+
+            </div>
+
+          </li>
+          <li class='param'>
+              <code class='param-name optional'>[showTray=false]</code>
+              <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+              <span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+            <div class='param-description'>
+              <p>Show the documentation at init or false (dev build only!)</p>
+
+            </div>
+
+          </li>
+      </ul>
+    </div>
+
+
+</div>
+  </div>
+
+<div id='classdocs' class='tabview'>
+    <span id='docs-highlight'></span>
+  <ul class='nav nav-tabs'>
+    <li id='tab-index' class='docs-toggle'>
+      <a data-toggle='tab' href='#docs-index'>Index</a>
+    </li>
+      <li id='tab-methods' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-methods'>Methods</a>
+      </li>
+      <li id='tab-properties' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-properties'>Properties</a>
+      </li>
+      <li id='tab-events' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-events'>Events</a>
+      </li>
+  </ul>
+
+  <div class='tab-content'>
+
+    <div role='tabpanel' id='docs-index' class='tab-pane'>
+        <div class='index-section tab-pane methods'>
+          <h3>Methods</h3>
+
+          <ul class='list-group row methods extends'>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__handleError'>_handleError</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__onCalled'>_onCalled</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__showError'>_showError</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__specTrack'>_specTrack</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__startFeedback'>_startFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__startFeedback'>_startFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__toggleRowCollapse'>_toggleRowCollapse</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method__track'>_track</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_addMap'>addMap</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_destroy'>destroy</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_endCorrectFeedback'>endCorrectFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_endGame'>endGame</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_endIncorrectFeedback'>endIncorrectFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_endInstruction'>endInstruction</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_endMovie'>endMovie</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_gameTime'>gameTime</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_has'>has</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_off'>off</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_on'>on</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_once'>once</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_pollTimer'>pollTimer</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_removeTimer'>removeTimer</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_requires'>requires</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_skipMovie'>skipMovie</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startCorrectFeedback'>startCorrectFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startGame'>startGame</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startIncorrectFeedback'>startIncorrectFeedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startInstruction'>startInstruction</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startMovie'>startMovie</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_startTimer'>startTimer</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_stopTimer'>stopTimer</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_toggleDocs'>toggleDocs</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method inherited'>
+                <a href='#method_trigger'>trigger</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private inherited'>
+                <a href='#method_type'>type</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method_updateTimers'>updateTimers</a>
+
+              </li>
+          </ul>
+        </div>
+
+        <div class='index-section tab-pane properties'>
+          <h3>Properties</h3>
+
+          <ul class='list-group row properties extends'>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__app'>_app</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__body'>_body</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property protected inherited'>
+                <a href='#property__destroyed'>_destroyed</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__feedback'>_feedback</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__handle'>_handle</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__history'>_history</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private inherited'>
+                <a href='#property__listeners'>_listeners</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__movie'>_movie</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__round'>_round</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__round'>_round</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__timers'>_timers</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__tray'>_tray</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_catalog'>catalog</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property inherited'>
+                <a href='#property_destroyed'>destroyed</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_showTray'>showTray</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_spec'>spec</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_throwErrors'>throwErrors</a>
+
+                  <span class='flag static'>static</span>
+              </li>
+          </ul>
+        </div>
+
+
+        <div class='index-section tab-pane events'>
+
+          <ul class='list-group row events extends'>
+              <li class='col-xs-6 col-md-4 index-item event'>
+                <a href='#event_called'>called</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item event'>
+                <a href='#event_learningEvent'>learningEvent</a>
+
+              </li>
+          </ul>
+        </div>
+    </div>
+
+      <div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+          <div id='method__handleError' class='method item private'>
+            <h3 class='name'><code>_handleError</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>error</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>type</span>
+              </span>
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l173'><code>_handleError:173</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Handle errors</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>error</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Error" class="crosslink external" target="_blank">Error</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The error to handle</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>type</span>:
+                    <p>[description]</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method__onCalled' class='method item private'>
+            <h3 class='name'><code>_onCalled</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l709'><code>_onCalled:709</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Handler when an api is called</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The name of the API method called</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__showError' class='method item private'>
+            <h3 class='name'><code>_showError</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>message</code>
+                    </li>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[property]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l856'><code>_showError:856</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Display an error in the tray</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>message</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The message to log</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The name of the api</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[property]</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>Optional property</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__specTrack' class='method item private'>
+            <h3 class='name'><code>_specTrack</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[extraArgs]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l727'><code>_specTrack:727</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Generic method to track an event based on the spec, the arguments
+          mirror the arguments in the event spec.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The name of the api</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[extraArgs]</code>
+                        <span class='type'></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+                        <span class='flag multiple' title='This argument may occur one or more times.'>multiple</span>
+          
+                      <div class='param-description'>
+                        <p>The Additional arguments</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__startFeedback' class='method item private'>
+            <h3 class='name'><code>_startFeedback</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l552'><code>_startFeedback:552</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Basic method for starting a feedback or instruction</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The event method to call</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__startFeedback' class='method item private'>
+            <h3 class='name'><code>_startFeedback</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+                    <li class='arg'>
+                        <code>description</code>
+                    </li>
+                    <li class='arg'>
+                        <code>identifier</code>
+                    </li>
+                    <li class='arg'>
+                        <code>mediaType</code>
+                    </li>
+                    <li class='arg'>
+                        <code>totalDuration</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l524'><code>_startFeedback:524</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Basic method for starting a feedback or instruction</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The event method to call</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>description</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>Description of the instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>identifier</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A unique identifier</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>mediaType</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>Either audio animation or other</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>totalDuration</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The estimated time of instruction in milliseconds</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__toggleRowCollapse' class='method item private'>
+            <h3 class='name'><code>_toggleRowCollapse</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>e</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l309'><code>_toggleRowCollapse:309</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>When clicking on a method name</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>e</code>
+                        <span class='type'>Event</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The click event</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method__track' class='method item private'>
+            <h3 class='name'><code>_track</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[input]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l763'><code>_track:763</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Generic method to track an event based on the spec, the arguments
+          mirror the arguments in the event spec.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The name of the api</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[input]</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The collection of argument values</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_addMap' class='method item'>
+            <h3 class='name'><code>addMap</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>eventDictionary</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l215'><code>addMap:215</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>The map of API event name overrides</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>eventDictionary</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The collection of game-specific APIs, this is a map
+                 of the eventCode to the name of the API method</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_destroy' class='method item'>
+            <h3 class='name'><code>destroy</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                <p>Inherited from
+                  <a href='../classes/springroll.EventDispatcher.html#method_destroy'>
+                          springroll.EventDispatcher
+                      </a>
+                    but overwritten in
+                <a href='../files/src_learning_Learning.js.html#l903'><code>destroy:903</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Don&#39;t use after this</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_endCorrectFeedback' class='method item'>
+            <h3 class='name'><code>endCorrectFeedback</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l637'><code>endCorrectFeedback:637</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>End the correct feedback event</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_endGame' class='method item'>
+            <h3 class='name'><code>endGame</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code class='optional'>[exitType]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l494'><code>endGame:494</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Override for the end game event</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name optional'>[exitType]</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The exit type for certain games</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_endIncorrectFeedback' class='method item'>
+            <h3 class='name'><code>endIncorrectFeedback</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l608'><code>endIncorrectFeedback:608</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>End the incorrect feedback</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_endInstruction' class='method item'>
+            <h3 class='name'><code>endInstruction</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l585'><code>endInstruction:585</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>End the system initiated instruction</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_endMovie' class='method item'>
+            <h3 class='name'><code>endMovie</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l689'><code>endMovie:689</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>The movie ended</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_gameTime' class='method item'>
+            <h3 class='name'><code>gameTime</code></h3>
+          
+              <span class='paren'>()</span>
+          
+              <span class='returns-inline'>
+                      <span class='type'>Int</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l405'><code>gameTime:405</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Get the amount of time since the start of the game</p>
+          
+            </div>
+          
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>Int</span>:
+                    <p>The time since the beginning of the game in milliseconds</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_has' class='method item inherited'>
+            <h3 class='name'><code>has</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>name</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[callback]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_has'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l221'><code>has:221</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Checks if the EventDispatcher has a specific listener or any listener for a given event.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>name</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The name of the single event type to check for</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[callback]</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The listener function to check for. If omitted, checks for any listener.</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    <p>If the EventDispatcher has the specified listener.</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_off' class='method item inherited'>
+            <h3 class='name'><code>off</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>name</code>
+                    </li>
+                    <li class='arg'>
+                        <code>callback</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>EventDispatcher</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_off'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l164'><code>off:164</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Remove the event listener</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>name</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String*</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of event string separated by spaces, if no name is specifed remove all listeners.</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>callback</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The listener function or collection of callback functions</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>EventDispatcher</span>:
+                    <p>Return this EventDispatcher for chaining calls.</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_on' class='method item inherited'>
+            <h3 class='name'><code>on</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>name</code>
+                    </li>
+                    <li class='arg'>
+                        <code>callback</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[priority=0]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>EventDispatcher</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_on'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l96'><code>on:96</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Add an event listener. The parameters for the listener functions depend on the event.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>name</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of event (can be multiple events separated by spaces),
+                  or a map of events to handlers</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>callback</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The callback function when event is fired or an array of callbacks.</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[priority=0]</code>
+                        <span class='type'>Int</span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The priority of the event listener. Higher numbers are handled first.</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>EventDispatcher</span>:
+                    <p>Return this EventDispatcher for chaining calls.</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_once' class='method item inherited'>
+            <h3 class='name'><code>once</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>name</code>
+                    </li>
+                    <li class='arg'>
+                        <code>callback</code>
+                    </li>
+                    <li class='arg'>
+                        <code class='optional'>[priority=0]</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>EventDispatcher</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_once'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l81'><code>once:81</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Add an event listener but only handle it one time.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>name</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of event (can be multiple events separated by spaces),
+                  or a map of events to handlers</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>callback</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array*</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The callback function when event is fired or an array of callbacks.</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name optional'>[priority=0]</code>
+                        <span class='type'>Int</span>
+                        <span class='flag optional' title='This parameter is optional.'>optional</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The priority of the event listener. Higher numbers are handled first.</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>EventDispatcher</span>:
+                    <p>Return this EventDispatcher for chaining calls.</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_pollTimer' class='method item'>
+            <h3 class='name'><code>pollTimer</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>alias</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>Int</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l389'><code>pollTimer:389</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Check the current progress of a timer, this will not destory the timer</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>alias</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The unique alias for this timer</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>Int</span>:
+                    <p>The timer in milliseconds</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_removeTimer' class='method item'>
+            <h3 class='name'><code>removeTimer</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>alias</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l429'><code>removeTimer:429</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>This will clean-up and discard the timer and it can&#39;t be used again.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>alias</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The unique alias for this timer</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_requires' class='method item'>
+            <h3 class='name'><code>requires</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>api</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l887'><code>requires:887</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Require that an api has been called</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>api</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The names of the method or API call</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    <p>If the api was called before</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_skipMovie' class='method item'>
+            <h3 class='name'><code>skipMovie</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l670'><code>skipMovie:670</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>The user decided to skip the movie playback by clicking a skip button</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_startCorrectFeedback' class='method item'>
+            <h3 class='name'><code>startCorrectFeedback</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>description</code>
+                    </li>
+                    <li class='arg'>
+                        <code>identifier</code>
+                    </li>
+                    <li class='arg'>
+                        <code>mediaType</code>
+                    </li>
+                    <li class='arg'>
+                        <code>total_duration</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l618'><code>startCorrectFeedback:618</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Start the correct feedback event</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>description</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The text description of the instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>identifier</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A unique identifier for this peice of instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>mediaType</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of media, audio animation or other</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>total_duration</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The estimated duration of the media in milliseconds</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_startGame' class='method item'>
+            <h3 class='name'><code>startGame</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l456'><code>startGame:456</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Override for start game event</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_startIncorrectFeedback' class='method item'>
+            <h3 class='name'><code>startIncorrectFeedback</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>description</code>
+                    </li>
+                    <li class='arg'>
+                        <code>identifier</code>
+                    </li>
+                    <li class='arg'>
+                        <code>mediaType</code>
+                    </li>
+                    <li class='arg'>
+                        <code>total_duration</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l595'><code>startIncorrectFeedback:595</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Start the incorrect feedback</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>description</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The text description of the instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>identifier</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A unique identifier for this peice of instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>mediaType</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of media, audio animation or other</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>total_duration</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The estimated duration of the media in milliseconds</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_startInstruction' class='method item'>
+            <h3 class='name'><code>startInstruction</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>description</code>
+                    </li>
+                    <li class='arg'>
+                        <code>identifier</code>
+                    </li>
+                    <li class='arg'>
+                        <code>mediaType</code>
+                    </li>
+                    <li class='arg'>
+                        <code>total_duration</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l572'><code>startInstruction:572</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Start the system initiated instruction</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>description</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The text description of the instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>identifier</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A unique identifier for this peice of instruction</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>mediaType</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of media, audio animation or other</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>total_duration</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The estimated duration of the media in milliseconds</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_startMovie' class='method item'>
+            <h3 class='name'><code>startMovie</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>movieId</code>
+                    </li>
+                    <li class='arg'>
+                        <code>duration</code>
+                    </li>
+                    <li class='arg'>
+                        <code>description</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l647'><code>startMovie:647</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>The movie started</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>movieId</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The identifier for the movie that&#39;s playing</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>duration</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The duration of the media playback in milliseconds</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>description</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The text or description of the instruction</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_startTimer' class='method item'>
+            <h3 class='name'><code>startTimer</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>alias</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l371'><code>startTimer:371</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Convenience function for measuring the duration which is common
+          for many events. These timers respect the application being paused
+          and should be use instead of implementing Date.now() or some other
+          Date-based method.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>alias</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A unique alias for this timer</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_stopTimer' class='method item'>
+            <h3 class='name'><code>stopTimer</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>alias</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'>Int</span>
+              </span>
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l415'><code>stopTimer:415</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Stop a timer and get the final duration to send with an event. This
+          will clean-up and discard the timer and it can&#39;t be used again.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>alias</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The unique alias for this timer</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'>Int</span>:
+                    <p>The timer in milliseconds</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_toggleDocs' class='method item'>
+            <h3 class='name'><code>toggleDocs</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l320'><code>toggleDocs:320</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Toogle the display of the documentation</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_trigger' class='method item inherited'>
+            <h3 class='name'><code>trigger</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>type</code>
+                    </li>
+                    <li class='arg'>
+                        <code>arguments</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_trigger'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l46'><code>trigger:46</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Dispatch an event</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>type</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The type of event to trigger</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>arguments</code>
+                        <span class='type'></span>
+          
+          
+                      <div class='param-description'>
+                        <p>Additional parameters for the listener functions.</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_type' class='method item private inherited'>
+            <h3 class='name'><code>type</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>value</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+              <span class='returns-inline'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+              </span>
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>Inherited from
+                    <a href='../classes/springroll.EventDispatcher.html#method_type'>springroll.EventDispatcher</a>:
+                <a href='../files/src_events_EventDispatcher.js.html#l250'><code>type:250</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Return type of the value.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>value</code>
+                        <span class='type'></span>
+          
+          
+                      <div class='param-description'>
+                         
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+              <div class='returns'>
+                <h4>Returns:</h4>
+          
+                <div class='returns-description'>
+                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    <p>The type</p>
+          
+                </div>
+              </div>
+          
+          </div>          <div id='method_updateTimers' class='method item private'>
+            <h3 class='name'><code>updateTimers</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>elapsed</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_learning_Learning.js.html#l442'><code>updateTimers:442</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Handle the frame update</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>elapsed</code>
+                        <span class='type'>Int</span>
+          
+          
+                      <div class='param-description'>
+                        <p>The number of milliseconds since the last update</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>      </div>
+
+      <div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+          <div id="property__app" class="property item private">
+            <h3 class="name"><code>_app</code></h3>
+            <span class="type"><a href="../classes/springroll.Application.html" class="crosslink">springroll.Application</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l92"><code>_app:92</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The reference to the application</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__body" class="property item private">
+            <h3 class="name"><code>_body</code></h3>
+            <span class="type">Element</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l69"><code>_body:69</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The body dom element, development build only!</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__destroyed" class="property item protected inherited">
+            <h3 class="name"><code>_destroyed</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+              <span class="flag protected">protected</span>
+          
+          
+          
+            <div class="meta">
+                  <p>Inherited from
+                    <a href="../classes/springroll.EventDispatcher.html#property__destroyed">springroll.EventDispatcher</a>:
+                <a href="../files/src_events_EventDispatcher.js.html#l23"><code>_destroyed:23</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the dispatcher is destroyed</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__feedback" class="property item private">
+            <h3 class="name"><code>_feedback</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l99"><code>_feedback:99</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The saved feedback or instructions</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__handle" class="property item private">
+            <h3 class="name"><code>_handle</code></h3>
+            <span class="type">Element</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l55"><code>_handle:55</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The toggle handle dom element, development build only!</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__history" class="property item private">
+            <h3 class="name"><code>_history</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l113"><code>_history:113</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The collection of api methods called</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__listeners" class="property item private inherited">
+            <h3 class="name"><code>_listeners</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>Inherited from
+                    <a href="../classes/springroll.EventDispatcher.html#property__listeners">springroll.EventDispatcher</a>:
+                <a href="../files/src_events_EventDispatcher.js.html#l16"><code>_listeners:16</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The collection of listeners</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__movie" class="property item private">
+            <h3 class="name"><code>_movie</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l106"><code>_movie:106</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The saved data for movie events</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__round" class="property item private">
+            <h3 class="name"><code>_round</code></h3>
+            <span class="type">Int</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l120"><code>_round:120</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The current level number if support, null if unsupported</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> null</p>
+          
+          
+          </div>          <div id="property__round" class="property item private">
+            <h3 class="name"><code>_round</code></h3>
+            <span class="type">Int</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l128"><code>_round:128</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The current round number if support, null if unsupported</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> null</p>
+          
+          
+          </div>          <div id="property__timers" class="property item private">
+            <h3 class="name"><code>_timers</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l82"><code>_timers:82</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The collection of timers</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__tray" class="property item private">
+            <h3 class="name"><code>_tray</code></h3>
+            <span class="type">Element</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l46"><code>_tray:46</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The documentation dom element, development build only!</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_catalog" class="property item">
+            <h3 class="name"><code>catalog</code></h3>
+            <span class="type"><a href="../classes/springroll.EventCatalog.html" class="crosslink">springroll.EventCatalog</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l32"><code>catalog:32</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Create a new instance of the event catalog</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_destroyed" class="property item inherited">
+            <h3 class="name"><code>destroyed</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>Inherited from
+                    <a href="../classes/springroll.EventDispatcher.html#property_destroyed">springroll.EventDispatcher</a>:
+                <a href="../files/src_events_EventDispatcher.js.html#l34"><code>destroyed:34</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the dispatcher is destroyed</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_showTray" class="property item">
+            <h3 class="name"><code>showTray</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l336"><code>showTray:336</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Show the documentation panel, development build only!</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_spec" class="property item">
+            <h3 class="name"><code>spec</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l236"><code>spec:236</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The tracking specification</p>
+          
+            </div>
+          
+          
+          
+              <h4>Sub-properties:</h4>
+          
+              <ul class="params-list">
+                  <li class="param">
+                      <code class="param-name">gameId</code>
+                      <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+                    <div class="param-description">
+                       
+                    </div>
+          
+                  </li>
+                  <li class="param">
+                      <code class="param-name">version</code>
+                      <span class="type">Int</span>
+          
+                    <div class="param-description">
+                       
+                    </div>
+          
+                  </li>
+                  <li class="param">
+                      <code class="param-name">events</code>
+                      <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+          
+                    <div class="param-description">
+                       
+                    </div>
+          
+                  </li>
+              </ul>
+          </div>          <div id="property_throwErrors" class="property item">
+            <h3 class="name"><code>throwErrors</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+              <span class="flag static">static</span>
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l144"><code>throwErrors:144</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the Learning Dispatcher should throw errors</p>
+          
+            </div>
+          
+          
+          
+          </div>      </div>
+
+
+      <div role='tabpanel' id='docs-events' class='tab-pane'>
+
+          <div id="event_called" class="events item">
+            <h3 class="name"><code>called</code></h3>
+            <span class="type"></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l166"><code>called:166</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>An api method was called, this happens before any validation</p>
+          
+            </div>
+          
+              <div class="params">
+                <h4>Event Payload:</h4>
+          
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name">api</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+                      <div class="param-description">
+                        <p>The name of the api method called</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id="event_learningEvent" class="events item">
+            <h3 class="name"><code>learningEvent</code></h3>
+            <span class="type"></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_learning_Learning.js.html#l155"><code>learningEvent:155</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>An event is tracked</p>
+          
+            </div>
+          
+              <div class="params">
+                <h4>Event Payload:</h4>
+          
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name">data</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class="param-description">
+                        <p>The event data</p>
+          
+                      </div>
+          
+                        <ul class="params-list">
+                            <li class="param">
+                                <code class="param-name">game_id</code>
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+                              <div class="param-description">
+                                <p>The unique game id</p>
+          
+                              </div>
+          
+                            </li>
+                            <li class="param">
+                                <code class="param-name">event_id</code>
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+                              <div class="param-description">
+                                <p>The unique event id</p>
+          
+                              </div>
+          
+                            </li>
+                            <li class="param">
+                                <code class="param-name">event_data</code>
+                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+                              <div class="param-description">
+                                <p>The data attached to event</p>
+          
+                              </div>
+          
+                                <ul class="params-list">
+                                    <li class="param">
+                                      <code class="param-name">event_code</code>
+                                      <span class="type">Int</span>
+          
+                                      <div class="param-description">
+                                        The code of the event
+                                      </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>      </div>
+  </div>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+  <script src='../assets/js/libraries.js?v=0.3.0'></script>
+  <script src='../assets/js/main.js?v=0.3.0'></script>
+</body>
+</html>

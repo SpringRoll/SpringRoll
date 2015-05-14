@@ -9,12 +9,18 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.AnimatorHint",
         "springroll.Application",
         "springroll.ApplicationOptions",
+        "springroll.ApplicationPlugin",
         "springroll.BaseState",
         "springroll.CacheManager",
         "springroll.Captions",
+        "springroll.CaptionsPlugin",
         "springroll.CombinedCallback",
+        "springroll.ConfigPlugin",
+        "springroll.Container",
+        "springroll.ContainerPlugin",
         "springroll.Debug",
         "springroll.DebugOptions",
+        "springroll.DebugPlugin",
         "springroll.DelayedCall",
         "springroll.Enum",
         "springroll.EnumValue",
@@ -26,43 +32,52 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.Features",
         "springroll.FunctionHint",
         "springroll.FunctionTask",
-        "springroll.Game",
-        "springroll.GameContainer",
         "springroll.GroupHint",
-        "springroll.HintPlayer",
-        "springroll.Language",
+        "springroll.HintsPlayer",
+        "springroll.HintsPlugin",
+        "springroll.Languages",
+        "springroll.LanguagesPlugin",
+        "springroll.Learning",
+        "springroll.LearningError",
+        "springroll.LearningMedia",
+        "springroll.LearningMediaPlugin",
+        "springroll.LearningPlugin",
         "springroll.ListTask",
         "springroll.LoadTask",
         "springroll.Loader",
+        "springroll.LoaderPlugin",
         "springroll.LoaderQueueItem",
         "springroll.LoaderResult",
         "springroll.PageVisibility",
+        "springroll.PageVisibilityPlugin",
         "springroll.PixiTask",
         "springroll.Positioner",
-        "springroll.ProgressTracker",
-        "springroll.ProgressTrackerError",
         "springroll.PropertyDispatcher",
         "springroll.SavedData",
         "springroll.Sound",
         "springroll.SoundContext",
         "springroll.SoundInstance",
         "springroll.SoundListTask",
+        "springroll.SoundPlugin",
         "springroll.StateEvent",
         "springroll.StateManager",
+        "springroll.StatesPlugin",
         "springroll.StringFilters",
+        "springroll.StringFiltersPlugin",
         "springroll.Task",
         "springroll.TaskEvent",
         "springroll.TaskManager",
         "springroll.TimeUtils",
-        "springroll.TrackingGame",
-        "springroll.TrackingGameMedia",
+        "springroll.TouchPlugin",
         "springroll.UIElement",
         "springroll.UIElementSettings",
         "springroll.UIScaler",
+        "springroll.UIScalerPlugin",
         "springroll.VOHint",
         "springroll.VOPlayer",
         "springroll.ValidationError",
         "springroll.easeljs.Animator",
+        "springroll.easeljs.AnimatorPlugin",
         "springroll.easeljs.AnimatorTimeline",
         "springroll.easeljs.AssetManager",
         "springroll.easeljs.BasePanel",
@@ -75,11 +90,12 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.easeljs.DragManager",
         "springroll.easeljs.DwellTimer",
         "springroll.easeljs.EaselJSDisplay",
+        "springroll.easeljs.ManifestsPlugin",
+        "springroll.easeljs.OffClickPlugin",
         "springroll.easeljs.ReversePlayback",
         "springroll.easeljs.SoundButton",
         "springroll.easeljs.Texture",
         "springroll.easeljs.TextureAtlas",
-        "springroll.easeljs.TrackingGame",
         "springroll.native.Circle",
         "springroll.native.DisplayAdapter",
         "springroll.native.Ellipse",
@@ -88,6 +104,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.native.Polygon",
         "springroll.native.Rectangle",
         "springroll.pixi.Animator",
+        "springroll.pixi.AnimatorPlugin",
         "springroll.pixi.AnimatorTimeline",
         "springroll.pixi.AssetManager",
         "springroll.pixi.Button",
@@ -99,6 +116,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "window.Math",
         "window.Object",
         "window.String",
+        "window.async",
         "window.extend",
         "window.include",
         "window.namespace"
@@ -106,26 +124,28 @@ YUI.add("yuidoc-meta", function(Y) {
     "modules": [
         "Captions",
         "Container",
+        "Container Client",
         "Core",
         "Debug",
         "EaselJS Animation",
         "EaselJS Cutscene",
         "EaselJS Display",
-        "EaselJS Interface",
-        "EaselJS Tracking Game",
+        "EaselJS Learning",
+        "EaselJS States",
+        "EaselJS UI",
         "EaselJS Utilities",
         "Game",
-        "Hinting",
-        "Interface",
+        "Hints",
+        "Languages",
+        "Learning",
+        "Learning Media",
         "Native Display",
         "PIXI Animation",
         "PIXI Display",
-        "PIXI Interface",
-        "Progress Tracker",
+        "PIXI UI",
         "Sound",
         "Tasks",
-        "Tracking Game",
-        "Translate"
+        "UI"
     ],
     "allModules": [
         {
@@ -135,6 +155,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Container",
             "name": "Container"
+        },
+        {
+            "displayName": "Container Client",
+            "name": "Container Client"
         },
         {
             "displayName": "Core",
@@ -157,12 +181,16 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "EaselJS Display"
         },
         {
-            "displayName": "EaselJS Interface",
-            "name": "EaselJS Interface"
+            "displayName": "EaselJS Learning",
+            "name": "EaselJS Learning"
         },
         {
-            "displayName": "EaselJS Tracking Game",
-            "name": "EaselJS Tracking Game"
+            "displayName": "EaselJS States",
+            "name": "EaselJS States"
+        },
+        {
+            "displayName": "EaselJS UI",
+            "name": "EaselJS UI"
         },
         {
             "displayName": "EaselJS Utilities",
@@ -173,12 +201,20 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "Game"
         },
         {
-            "displayName": "Hinting",
-            "name": "Hinting"
+            "displayName": "Hints",
+            "name": "Hints"
         },
         {
-            "displayName": "Interface",
-            "name": "Interface"
+            "displayName": "Languages",
+            "name": "Languages"
+        },
+        {
+            "displayName": "Learning",
+            "name": "Learning"
+        },
+        {
+            "displayName": "Learning Media",
+            "name": "Learning Media"
         },
         {
             "displayName": "Native Display",
@@ -193,12 +229,8 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "PIXI Display"
         },
         {
-            "displayName": "PIXI Interface",
-            "name": "PIXI Interface"
-        },
-        {
-            "displayName": "Progress Tracker",
-            "name": "Progress Tracker"
+            "displayName": "PIXI UI",
+            "name": "PIXI UI"
         },
         {
             "displayName": "Sound",
@@ -209,12 +241,8 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "Tasks"
         },
         {
-            "displayName": "Tracking Game",
-            "name": "Tracking Game"
-        },
-        {
-            "displayName": "Translate",
-            "name": "Translate"
+            "displayName": "UI",
+            "name": "UI"
         }
     ]
 } };
