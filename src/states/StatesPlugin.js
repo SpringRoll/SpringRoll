@@ -69,18 +69,18 @@
 
 		/**
 		 * The transition sounds to use for the state transition
-		 * @property {Object} options.transitionSounds The transition sound data
+		 * @property {Object} options.transitionSounds
 		 * @readOnly
 		 */
 		/**
 		 * The transition in sound alias or sound object
-		 * @property {Object} options.transitionSounds.in The transition sound data
+		 * @property {Object} options.transitionSounds.in
 		 * @default "TransitionIn"
 		 * @readOnly
 		 */
 		 /**
 		 * The transition out sound alias or sound object
-		 * @property {Object} options.transitionSounds.out The transition sound data
+		 * @property {Object} options.transitionSounds.out
 		 * @default "TransitionOut"
 		 * @readOnly
 		 */
