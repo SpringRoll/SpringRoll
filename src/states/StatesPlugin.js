@@ -78,7 +78,7 @@
 		 * @default "TransitionIn"
 		 * @readOnly
 		 */
-		 /**
+		/**
 		 * The transition out sound alias or sound object
 		 * @property {Object} options.transitionSounds.out
 		 * @default "TransitionOut"
@@ -188,14 +188,14 @@
 				switch (key)
 				{
 					//right arrow
-					case 39: 
+					case 39:
 					{
 						if (Debug) Debug.info("Going to next state via keyboard");
 						this.manager.next();
 						break;
 					}
 					//left arrow
-					case 37: 
+					case 37:
 					{
 						if (Debug) Debug.info("Going to previous state via keyboard");
 						this.manager.previous();
