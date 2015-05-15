@@ -19,9 +19,9 @@
 	*  @class Application
 	*  @extend EventDispatcher
 	*  @constructor
-	*  @param {Object} [options] The options for creating the application, 
+	*  @param {Object} [options] The options for creating the application,
 	* 		see `springroll.ApplicationOptions` for the specific options
-	*		that can be overridden and set. 
+	*		that can be overridden and set.
 	*/
 	var Application = function(options)
 	{
@@ -288,7 +288,7 @@
 		{
 			if (typeof value != "number") return;
 			_msPerFrame = (1000 / value) | 0;
-		}); 
+		});
 
 		if (options.resizeElement)
 		{
@@ -314,7 +314,7 @@
 		if (options.canvasId && options.display)
 		{
 			this.addDisplay(
-				options.canvasId, 
+				options.canvasId,
 				options.display,
 				options.displayOptions
 			);
@@ -646,12 +646,6 @@
 		this.paused = true;
 		this.trigger('destroy');
 
-		for (var key in _displays)
-		{
-			_displays[key].destroy();
-		}
-		_displays = null;
-
 		// Destroy in the reverse priority order
 		var plugins = Application._plugins.slice().reverse();
 
@@ -659,6 +653,12 @@
 		{
 			plugin.teardown.call(_instance);
 		});
+
+		for (var key in _displays)
+		{
+			_displays[key].destroy();
+		}
+		_displays = null;
 
 		if (_resizeElement)
 		{
