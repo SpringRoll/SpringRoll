@@ -1250,6 +1250,13 @@
 		 */
 		this._paused = false;
 
+		/**
+		 *  Should we send bellhop messages for the mute (etc) buttons?
+		 *  @property {Boolean} sendMutes
+		 *  @default true
+		 */
+		 this.sendMutes = true;
+
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
 		{
@@ -1927,7 +1934,7 @@
 			.addClass(muted ? 'muted' : 'unmuted');
 
 		SavedData.write(prop, muted);
-		if (this.client)
+		if (this.client && this.sendMutes)
 		{
 			this.client.send(prop, muted);
 		}
