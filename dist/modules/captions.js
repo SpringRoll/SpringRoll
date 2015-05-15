@@ -774,18 +774,6 @@
 		*  @property {springroll.Captions} captions
 		*/
 		this.captions = new Captions();
-
-		/**
-		*  Sets the dicitonary for the captions used by player. If a Captions object
-		*  did not exist previously, then it creates one, and sets it up on all Animators.
-		*  @method addCaptions
-		*  @param {Object} data The captions data to give to the Captions object
-		*/
-		this.addCaptions = function(data)
-		{
-			// Update the player captions
-			this.captions.data = data;
-		};
 	};
 
 	// Preload the captions
@@ -805,7 +793,7 @@
 		{
 			this.loader.load(captionsPath, function(result)
 			{
-				this.addCaptions(result.content);
+				this.captions.data = result.content;
 				done();
 			}
 			.bind(this));

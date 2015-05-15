@@ -58,7 +58,8 @@ var app = new Application({
 });
 
 // The list of sounds to load
-var soundConfig = {
+var voContext = {
+
 	// The name of the context or "group" to load sounds into
 	"context":"vo",
 	
@@ -68,7 +69,7 @@ var soundConfig = {
 	// The collection of sound assets to load
 	// where src is the base name of the file and id
 	// is the sound alias we'll refer to later
-	"soundManifest": [
+	"sounds": [
 		{
 			"id" : "Volume", 
 			"src" : "301"
@@ -84,7 +85,7 @@ var soundConfig = {
 app.on('init', function(){
 
 	// Add the config
-	app.addSounds(soundConfig);
+	app.sound.addContext(voContext);
 
 	// The image that get's loaded dynamically
 	var buttonImage;

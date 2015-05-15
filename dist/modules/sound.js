@@ -625,43 +625,43 @@
 	});
 
 	/**
-	*  Loads a config object. This should not be called until after Sound.init() is complete.
-	*  @method loadConfig
+	*  Loads a context config object. This should not be called until after Sound.init() is complete.
+	*  @method addContext
 	*  @public
 	*  @param {Object} config The config to load.
 	*  @param {String} [config.context] The optional sound context to load sounds into unless
 	*                                   otherwise specified by the individual sound. Sounds do not
 	*                                   require a context.
 	*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
+	*  @param {Array} config.sounds The list of sounds, either as String ids or Objects with
 	*                                      settings.
-	*  @param {Object|String} config.soundManifest.listItem Not actually a property called listItem,
+	*  @param {Object|String} config.sounds.listItem Not actually a property called listItem,
 	*                                                       but an entry in the array. If this is a
 	*                                                       string, then it is the same as
 	*                                                       {'id':'<yourString>'}.
-	*  @param {String} config.soundManifest.listItem.id The id to reference the sound by.
-	*  @param {String} [config.soundManifest.listItem.src] The src path to the file, without an
+	*  @param {String} config.sounds.listItem.id The id to reference the sound by.
+	*  @param {String} [config.sounds.listItem.src] The src path to the file, without an
 	*                                                      extension. If omitted, defaults to id.
-	*  @param {Number} [config.soundManifest.listItem.volume=1] The default volume for the sound,
+	*  @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
 	*                                                           from 0 to 1.
-	*  @param {Boolean} [config.soundManifest.listItem.loop=false] If the sound should loop by
+	*  @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
 	*                                                              default whenever the loop
 	*                                                              parameter in play() is not
 	*                                                              specified.
-	*  @param {String} [config.soundManifest.listItem.context] A context name to override
+	*  @param {String} [config.sounds.listItem.context] A context name to override
 	*                                                          config.context with.
-	*  @param {Boolean} [config.soundManifest.listItem.preload] If the sound should be preloaded
+	*  @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
 	*                                                           immediately.
 	*  @return {Sound} The sound object for chaining
 	*/
-	p.loadConfig = function(config)
+	p.addContext = function(config)
 	{
 		if (!config)
 		{
 			if (true && Debug) Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
-		var list = config.soundManifest;
+		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || "";
 		var defaultContext = config.context;
 
@@ -702,6 +702,14 @@
 		//return the Sound instance for chaining
 		return this;
 	};
+
+	/**
+	*  Old method for loading a context config object.
+	*  @method loadConfig
+	*  @param {Object} config The config to load.
+	*  @deprecated Use `addContext(config)` instead.
+	*/
+	p.loadConfig = p.addContext;
 
 	/**
 	*	If a sound exists in the list of recognized sounds.
@@ -2185,12 +2193,12 @@
 				}
 				this._music = value;
 
-				if (this._music)
+				if (value)
 				{
 					this._musicInstance = sound.play(
 						this._music,
 						{
-							start: sound.fadeIn.bind(sound, this._music),
+							start: sound.fadeIn.bind(sound, value),
 							loop: -1
 						}
 					);
@@ -2214,57 +2222,25 @@
 			}
 		});
 
-		/**
-		*  Convenience method to loads a Sound config object.
-		*  @method addSounds
-		*  @public
-		*  @param {Object} config The config to load.
-		*  @param {String} [config.context] The optional sound context to load sounds into unless
-		*                                   otherwise specified by the individual sound. Sounds do not
-		*                                   require a context.
-		*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-		*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
-		*                                      settings.
-		*  @param {Object|String} config.soundManifest.* An entry in the array. If this is a
-		*                                                string, then it is the same as
-		*                                                {'id':'<yourString>'}.
-		*  @param {String} config.soundManifest.*.id The id to reference the sound by.
-		*  @param {String} [config.soundManifest.*.src] The src path to the file, without an
-		*                                               extension. If omitted, defaults to id.
-		*  @param {Number} [config.soundManifest.*.volume=1] The default volume for the sound,
-		*                                                    from 0 to 1.
-		*  @param {Boolean} [config.soundManifest.*.loop=false] If the sound should loop by
-		*                                                       default whenever the loop
-		*                                                       parameter in play() is not
-		*                                                       specified.
-		*  @param {String} [config.soundManifest.*.context] A context name to override
-		*                                                   config.context with.
-		*  @return {springroll.Application} The Application object for chaining
-		*/
-		this.addSounds = function(config)
-		{
-			this.sound.loadConfig(config);
-			return this;
-		};
-
 		// Add the listener for the config loader to autoload the sounds
 		this.once('configLoaded', function(config)
 		{
 			//initialize Sound and load up global sound config
 			var sounds = config.sounds;
+			var sound = this.sound;
 			if (sounds)
 			{
 				if (sounds.vo)
 				{
-					this.addSounds(sounds.vo);
+					sound.addContext(sounds.vo);
 				}
 				if (sounds.sfx)
 				{
-					this.addSounds(sounds.sfx);
+					sound.addContext(sounds.sfx);
 				}
 				if (sounds.music)
 				{
-					this.addSounds(sounds.music);
+					sound.addContext(sounds.music);
 				}
 			}
 		});

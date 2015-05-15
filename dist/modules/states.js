@@ -1175,19 +1175,19 @@
 		/**
 		 * The transition in sound alias or sound object
 		 * @property {Object} options.transitionSounds.in
-		 * @default "TransitionIn"
+		 * @default null
 		 * @readOnly
 		 */
 		/**
 		 * The transition out sound alias or sound object
 		 * @property {Object} options.transitionSounds.out
-		 * @default "TransitionOut"
+		 * @default null
 		 * @readOnly
 		 */
 		this.options.add('transitionSounds',
 		{
-			'in' : 'TransitionIn',
-			'out' : 'TransitionOut'
+			'in' : null,
+			'out' : null
 		}, true);
 
 		/**
