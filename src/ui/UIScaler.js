@@ -80,9 +80,9 @@
 		this._backgrounds = [];
 
 		/**
-		 *	 The internal enabled
-		 *	 @property {boolean} _enabled
-		 *	 @private
+		 *	The internal enabled
+		 *	@property {boolean} _enabled
+		 *	@private
 		 */
 		this._enabled = options.enabled;
 
@@ -169,7 +169,7 @@
 	 */
 	UIScaler._getAdapter = function(display)
 	{
-		if (display === undefined)
+		if (!display)
 		{
 			display = Application.instance.display;
 		}
@@ -205,7 +205,7 @@
 
 	/**
 	 *	The design sized of the application
-	 *	@property {Object} size 
+	 *	@property {Object} size
 	 *	@default null
 	 */
 	/**
@@ -323,7 +323,7 @@
 	/**
 	 *	Remove all UIElement where the item display is a the container or it contains items
 	 *	@method removeItems
-	 *	@param  {createjs.Container|PIXI.DisplayObjectContainer} container 
+	 *	@param  {createjs.Container|PIXI.DisplayObjectContainer} container
 	 */
 	p.removeItems = function(container)
 	{
@@ -340,11 +340,11 @@
 	/**
 	 *	Register a dictionary of items to the UIScaler to control.
 	 *	@method addItems
-	 *	@param {PIXI.DisplayObjectContainer|createjs.Container} container 
+	 *	@param {PIXI.DisplayObjectContainer|createjs.Container} container
 	 *	The container where the items live
-	 *	@param {object} items The items object where the keys are the name of the property 
+	 *	@param {object} items The items object where the keys are the name of the property
 	 *	on The parent and the value is an object with keys of "titleSafe", "minScale",
-	 *	"maxScale", "centerHorizontally", "align", see UIScaler.addItem for a description 
+	 *	"maxScale", "centerHorizontally", "align", see UIScaler.addItem for a description
 	 *	of the different keys.
 	 *	@return {springroll.UIScaler} The instance of this UIScaler for chaining
 	 */
