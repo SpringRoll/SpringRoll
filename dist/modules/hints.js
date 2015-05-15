@@ -136,7 +136,7 @@
 {
 	//Import classes
 	var AbstractHint = include('springroll.AbstractHint'),
-		Animator = include('springroll.Animator');
+		Animator;
 
 	/**
 	 *  Handle the hinting played with the Animator, usually
@@ -154,6 +154,10 @@
 	 */
 	var AnimatorHint = function(game, done, instance, events, onComplete, onCancel)
 	{
+		if (!Animator)
+		{
+			Animator = include('springroll.Animator');
+		}
 		AbstractHint.call(this, game, done);
 
 		this.instance = instance;

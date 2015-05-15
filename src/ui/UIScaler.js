@@ -360,15 +360,6 @@
 		{
 			settings = items[name];
 
-			if (typeof settings !== "object")
-			{
-				if (DEBUG && Debug)
-				{
-					Debug.error(settings);
-				}
-				throw "Scaler settings must be a plain object " + settings;
-			}
-
 			if (!container[name])
 			{
 				if (DEBUG && Debug)
