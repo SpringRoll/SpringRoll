@@ -246,7 +246,7 @@
 			var exporter = new SpriteSheetExporter();
 			exporter.layoutFormat = "JSON";
 			exporter.algorithm = "maxRects";
-			exporter.allowRotate = false;
+			exporter.allowRotate = true;
 			exporter.allowTrimming = true;
 			exporter.autoSize = true;
 			exporter.maxSheetWidth = 2048;
