@@ -180,7 +180,7 @@
 			//have it set its 'paused' variable to false
 			instance.play();
 			//update the movieclip to make sure it is redrawn correctly at the next opportunity
-			instance._tick();
+			instance.advance();
 
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
