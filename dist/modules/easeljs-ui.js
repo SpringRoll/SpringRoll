@@ -1826,6 +1826,14 @@
 	 * @static
 	 */
 	var AssetManager = {};
+	
+	/**
+	*  If asset collisions (lib.X is used by multiple assets) should have a warning logged.
+	*  @property {Boolean} warnOnCollisions
+	*  @static
+	*  @default false
+	*/
+	AssetManager.warnOnCollisions = false;
 
 	/**
 	*  Array of asset ids that have been loaded by AssetManager.
@@ -2231,6 +2239,14 @@
 					var foundName = varFinder.exec(text);
 					while(foundName)
 					{
+						if(Debug && AssetManager.warnOnCollisions)
+						{
+							if(loadedLibAssets[foundName[1]])
+								Debug.warn("Asset Collision: asset '" + id +
+									"' wants to create lib.'" + foundName[1] +
+									"' which is already created by asset '" +
+									loadedLibAssets[foundName[1]] + "'");
+						}
 						//keep track of the asset id responsible
 						loadedLibAssets[foundName[1]] = id;
 						foundName = varFinder.exec(text);

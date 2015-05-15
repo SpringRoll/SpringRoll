@@ -7,7 +7,8 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Point = include('createjs.Point');
+		Point = include('createjs.Point'),
+		Debug;
 
 	/**
 	 * Create an app plugin EaselJS off click reporting to learning dispatcher
@@ -27,6 +28,11 @@
 	// Init the animator
 	p.setup = function()
 	{
+		if (!Debug)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
 		/**
 		 *  Some games need to send additional parameters to the tracker's
 		 *  offClick event. They may set them here as needed
@@ -123,7 +129,14 @@
 			arr.unshift(this.normalizePosition(ev.stageX, ev.stageY));
 
 			//send the entire array of parameters
-			this.learning.offClick.apply(this, arr);
+			if (this.learning.offClick)
+			{
+				this.learning.offClick.apply(this, arr);
+			}
+			else if (DEBUG && Debug)
+			{
+				Debug.info("Learning doesn't have an offClick event");
+			}
 		}
 	};
 
