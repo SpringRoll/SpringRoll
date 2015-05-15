@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.1 */
+/*! SpringRoll 0.3.2 */
 /**
  * @module UI
  * @namespace springroll
@@ -1278,6 +1278,8 @@
 	var TouchPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+		//Touch detecting should happen early, in case asset loading depends on it
+		this.priority = 10;
 	};
 
 	// Reference to the prototype
@@ -1316,7 +1318,8 @@
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
 					{
-						this.hasTouch = value === "true" || !!value;
+						if(value === "true" || value === true)
+							this.hasTouch = true;
 					}
 					.bind(this));
 
@@ -1333,11 +1336,14 @@
 	{
 		if (true)
 		{
-			this.hasTouch = !!this.options.forceTouch;
+			var value = this.options.forceTouch;
+			if(value === "true" || value === true)
+				this.hasTouch = true;
 		}
 
 		// Add the interaction filters, must have interface module MobilePlugin
-		this.filters.add('%INTERACTION%', !!this.hasTouch ? '_touch' : '_mouse');
+		if(this.filters)
+			this.filters.add('%INTERACTION%', !!this.hasTouch ? '_touch' : '_mouse');
 		done();
 	};
 
