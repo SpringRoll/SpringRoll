@@ -368,7 +368,7 @@
 				}
 				continue;
 			}
-			this.addItem(container[name], settings);
+			this.addItem(container[name], settings, false);
 		}
 		Application.instance.triggerResize();
 		return this;
@@ -378,7 +378,7 @@
 	 *	Manually add an item
 	 *	@method addItem
 	 *	@param {object} item The display object item to add
-	 *	@param {object|String} [settings="center"] The collection of settings or the alignment
+	 *	@param {object|String} [settings="center"] The collection of settings or the align property
 	 *	@param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
 	 *	                                          then horizontal alignment ("left", "right" and
 	 *	                                          "center"). Or you can use the short-handed
@@ -413,8 +413,12 @@
 	 *	                                        "rect", "ellipse", "circle", etc
 	 *	@return {springroll.UIScaler} The instance of this UIScaler for chaining
 	 */
-	p.addItem = function(item, settings)
+	p.addItem = function(item, settings, doResize)
 	{
+		if (doResize === undefined)
+		{
+			doResize = true;
+		}
 		if (!settings)
 		{
 			settings = {
@@ -475,6 +479,10 @@
 
 		this._items.push(new UIElement(item, element, this._size, this._adapter));
 
+		if (doResize)
+		{
+			Application.instance.triggerResize();
+		}
 		return this;
 	};
 
