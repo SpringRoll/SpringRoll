@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.0",
+        "version": "0.3.1",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -1548,7 +1548,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 13,
+            "line": 14,
             "requires": [
                 "Core",
                 "States",
@@ -2449,7 +2449,7 @@
             "module": "EaselJS States",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 13,
+            "line": 14,
             "description": "A createjs-based Game to load manifests",
             "extends": "springroll.ApplicationPlugin",
             "params": [
@@ -4449,7 +4449,7 @@
             "module": "Tasks",
             "namespace": "springroll",
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 13,
+            "line": 14,
             "description": "Create an app plugin for Hinting, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -4865,7 +4865,7 @@
             "module": "UI",
             "namespace": "springroll",
             "file": "src/ui/UIScalerPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin for touch detecting, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -11389,7 +11389,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 34,
+            "line": 35,
             "description": "Event when the manifest is finished loading",
             "itemtype": "event",
             "name": "manifestLoaded",
@@ -11406,20 +11406,20 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 40,
+            "line": 41,
             "description": "The path to the concatinated FLA exported manifests. It's useful\nto load all the manifests at once. This JSON object contains a\ndictionary of state alias and contains an array of manifest assets\n(e.g. `{\"id\": \"PlayButton\", \"src\": \"assets/images/button.png\"}`.\nSet to null and no manifest will be auto-loaded.",
             "itemtype": "property",
             "name": "options.manifestsPath",
             "type": "String",
             "readonly": "",
-            "default": "\"assets/config/manifests.json\"",
+            "default": "null",
             "class": "springroll.easeljs.ManifestsPlugin",
             "module": "EaselJS States",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 61,
+            "line": 63,
             "description": "The collection of loading assests by state",
             "itemtype": "property",
             "name": "_manifests",
@@ -11432,7 +11432,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 68,
+            "line": 70,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -11444,7 +11444,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 120,
+            "line": 129,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -21095,7 +21095,7 @@
             "itemtype": "property",
             "name": "options.captionsPath",
             "type": "String",
-            "default": "'assets/config/captions.json'",
+            "default": "null",
             "readonly": "",
             "class": "springroll.CaptionsPlugin",
             "module": "Sound",
@@ -24174,7 +24174,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 30,
+            "line": 31,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -24184,7 +24184,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 35,
+            "line": 36,
             "description": "The config has finished loading, in case you want to\nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -24206,7 +24206,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 43,
+            "line": 44,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -24223,19 +24223,19 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 52,
+            "line": 55,
             "description": "The path to the config file to load",
             "itemtype": "property",
             "name": "options.configPath",
             "type": "String",
-            "default": "'assets/config/config.json'",
+            "default": "null",
             "class": "springroll.ConfigPlugin",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 59,
+            "line": 62,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
@@ -24246,7 +24246,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 88,
+            "line": 103,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -24265,7 +24265,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 100,
+            "line": 115,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -26038,7 +26038,7 @@
         },
         {
             "file": "src/ui/UIScalerPlugin.js",
-            "line": 29,
+            "line": 32,
             "description": "The main UIScaler for any display object references\nin the main game.",
             "itemtype": "property",
             "name": "scaling",
