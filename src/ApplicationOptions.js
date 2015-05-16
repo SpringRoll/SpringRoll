@@ -49,12 +49,15 @@
 		var options = this._options;
 		var app = this._app;
 
+		// Create the options overrides
+		options = Object.merge({}, defaultOptions, options);
+
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
-		var query = options.useQueryString ? getQueryString() : {};
-
-		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options, query);
+		if (options.useQueryString)
+		{
+			Object.merge(options, getQueryString());
+		}
 
 		// Create getter and setters for all properties
 		// this is so we can dispatch events when the property changes
