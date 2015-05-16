@@ -35,7 +35,8 @@
 		"src/utils/StringFilters.js",
 		"src/utils/StringFiltersPlugin.js",
 		"src/utils/Array.js",
-		"src/utils/Math.js"
+		"src/utils/Math.js",
+		"src/utils/WeightedRandom.js"
 	],
 	"modules": {
 		"nativedisplay": {
