@@ -9,7 +9,6 @@ A light-weight, extensible, future-forward framework for building HTML5 canvas-b
 * Implementing Captions
 * Remote Debugging
 * Responsive Interfaces
-* Multi-threading
 * Game State Management
 * Preloading Assets
 * Browser Cache Control
@@ -31,7 +30,7 @@ We have intentionally avoided support for these browsers:
 
 ##Installation
 
-SpringRoll can be install using Bower.
+SpringRoll can be installed using Bower.
 
 ```bash
 bower install springroll
@@ -116,7 +115,7 @@ Modules are components which contain common code classes, documentation and/or r
 
 ##Displays
 
-The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
+The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). Features within the different modules require SpringRoll's forks of EaselJS and PixiJS. In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
 ##Documentation
 
