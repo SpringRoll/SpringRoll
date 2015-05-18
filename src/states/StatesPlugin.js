@@ -130,9 +130,6 @@
 					this.transition = this.options.transition;
 				}
 
-				// Assign for convenience to the app property
-				this.transition = this.options.transition;
-
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a
 				//'transitionLoop' animation, that will be played as soon as a state is set
