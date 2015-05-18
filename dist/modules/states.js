@@ -1212,16 +1212,22 @@
 				}
 
 				// Goto the transition state
-				if (!this.options.transition)
+				if (!this.transition)
 				{
-					if (true)
+					if (!this.options.transition)
 					{
-						throw "StateManager requires a 'transition' property to be set or through constructor options";
+						if (true)
+						{
+							throw "StateManager requires a 'transition' property to be set or through constructor options";
+						}
+						else
+						{
+							throw "No options.transition";
+						}
 					}
-					else
-					{
-						throw "No options.transition";
-					}
+
+					// Assign for convenience to the app property
+					this.transition = this.options.transition;
 				}
 
 				// Assign for convenience to the app property
