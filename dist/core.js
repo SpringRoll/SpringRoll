@@ -4239,6 +4239,25 @@
 			).replace(/%%s/g, '%s');
 		}
 	});
+	
+	/**
+	*  Returns a reversed copy of the string.
+	*  @method format
+	*  @return {String} The reversed string.
+	*/
+	if(!String.prototype.reverse)
+	{
+		Object.defineProperty(String.prototype, 'reverse', {
+			enumerable: false,
+			writable:false,
+			value: function() {
+				var o = '';
+				for (var i = this.length - 1; i >= 0; i--)
+					o += this[i];
+				return o;
+			}
+		});
+	}
 }());
 
 /**
