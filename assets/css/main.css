@@ -1,1 +1,1028 @@
-#docs-index .private a{color:#ff2e0e}#docs-index .protected a{color:#ffb300}#docs-index .deprecated a{text-decoration:line-through}#classdocs h3 code{color:#03b4e6}#classdocs .inherited h3 code{font-weight:normal}#classdocs .private h3 code{color:#ff2e0e}#classdocs .protected h3 code{color:#ffb300}#classdocs .deprecated h3 code{text-decoration:line-through}.constructor code{background:#f9f9f9}html{background:#efefef;overflow-y:scroll}ul{list-style:none}.apidocs .params-list{list-style:none}body{font-family:"Titillium Web","Helvetica",sans-serif;background:#efefef;padding-top:108px}.list-group-item{word-wrap:break-word}h1 img{margin-right:.5em}.tab-content{background:#fff;box-shadow:0 3px 8px #d6d6d6}a{color:#03b4e6;text-decoration:none}a .hidden{display:none}a:hover,a:focus{text-decoration:underline;color:#0c7ac1}.jump{position:absolute;padding:3px 6px;left:-99999px;top:0}.jump:focus{left:40%}p{margin:1.3em 0}dd p,td p{margin-bottom:0}dd p:first-child,td p:first-child{margin-top:0}h1,h2,h3,h4,h5,h6{color:#03b4e6 !important;font-weight:300;line-height:1.1;margin:0 0 .5em}h1{font-size:184.6%}h2{font-size:150%}h3{font-size:130%}h4{border-bottom:1px solid #dbdfea;font-size:115%;font-weight:normal}h5,h6{font-size:115%}code{color:#222;background:none}code,kbd,pre,samp{font-family:Menlo,Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono','Courier New',Courier,monospace;font-size:92%;line-height:1.35}p code,p kbd,p samp{background:#fcfbfa;color:#353535;border:1px solid #efeeed;padding:5px}a code,a kbd,a samp,pre code,pre kbd,pre samp,table code,table kbd,table samp,.intro code,.intro kbd,.intro samp,.toc code,.toc kbd,.toc samp{background:none;border:none;padding:0}pre.code,pre.terminal,pre.cmd{overflow-x:auto;*overflow-x:scroll;padding:1em}pre.code{background:#fff;border:1px solid #c2c7cd;border-left-width:5px;line-height:150%}pre.terminal,pre.cmd{background:#f0effc;border:1px solid #d0cbfb;border-left:5px solid #d0cbfb}pre code,pre kbd,pre samp{font-size:1em}.noselect{-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none}dd{margin:.2em 0 .7em 1em}dl{margin:1em 0}dt{font-weight:bold}caption,th{text-align:left}table{border-collapse:collapse;width:100%}td,th{border:1px solid #fff;padding:5px 12px;vertical-align:top}td{background:#e6e9f5}td dl{margin:0}td dl dl{margin:1em 0}td pre:first-child{margin-top:0}th{background:#d2d7e6;border-bottom:none;border-top:none;color:#000;font-weight:bold;line-height:1.3;white-space:nowrap}#doc{margin:auto;min-width:1024px}.content{padding:0 20px 0 25px}#sidebar .nav{margin:2em 0 0}#bd{padding:7px 0 30px;position:relative;width:99%}.toc code,.toc kbd,.toc samp{font-size:1em}.toc li{font-weight:bold}.toc li li{font-weight:normal}.button{border:1px solid #dadada;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;color:#444;display:inline-block;font-size:92%;font-weight:bold;padding:4px 13px 3px;white-space:nowrap;background:#efefef;background:-moz-linear-gradient(top, #f5f5f5 0, #efefef 50%, #e5e5e5 51%, #dfdfdf 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #f5f5f5), color-stop(50%, #efefef), color-stop(51%, #e5e5e5), color-stop(100%, #dfdfdf))}.button:hover{border-color:#466899;color:#fff;text-decoration:none;background:#6396d8;background:-moz-linear-gradient(top, #6396d8 0, #5a83bc 50%, #547ab7 51%, #466899 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #6396d8), color-stop(50%, #5a83bc), color-stop(51%, #547ab7), color-stop(100%, #466899))}.newwindow{text-align:center}#hd{padding:0 15px 1px 20px;background:#fff;background:-moz-linear-gradient(top, #fff 0, #e2e6e9 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(100%, #e2e6e9));background:-webkit-linear-gradient(top, #fff 0, #e2e6e9 100%);background:-o-linear-gradient(top, #fff 0, #e2e6e9 100%);background:-ms-linear-gradient(top, #fff 0, #e2e6e9 100%);background:linear-gradient(to bottom, #fff 0, #e2e6e9 100%)}#hd img{margin:15px 20px 15px 0;vertical-align:middle}#hd h1{color:#a3b1bb;font-size:150%}#hd a{font-size:36px;color:#a3b1bb}#hd a:hover{text-decoration:none}header{transition:all .4s ease;position:fixed;width:100%;background:#efefef;box-shadow:0 0 20px transparent;top:0;z-index:9999;height:108px}header .toggle.btn-xs{margin-left:.2em}header .logo a:hover,header .logo a:focus{text-decoration:none}header .version em{display:block;text-align:right;margin-top:33px;font-style:normal !important}header.sticky{padding:0;background:rgba(255,255,255,0.95);box-shadow:0 0 20px #d6d6d6;height:38px}header.sticky .scope-toggles{margin-top:.4em}header.sticky h1{font-size:130%;padding:.5em}header.sticky .logo{float:left}header.sticky .logo img{height:30.4px;margin-top:-0.4em}header.sticky .version{display:none}#classdocs{margin-top:-4em}#classdocs .tab-pane{padding:1em}#classdocs .item{margin:1em 0 0;border-top:none}#classdocs .item:last-child{border-bottom:none}#classdocs h2{padding-top:0 !important}#classdocs .item .params p,#classdocs .item .returns p{display:inline}#classdocs .item em code,#classdocs .item em.comment{color:green}#classdocs .item em.comment a{color:green;text-decoration:underline}#classdocs .foundat{font-size:92%;font-style:normal}.attrs .emits{margin-left:2em;padding:.5em;border-left:1px dashed #ccc}abbr{border-bottom:1px dashed #ccc;font-size:80%;cursor:help}ul li p{margin-top:0}.method .name{font-size:110%}.apidocs .methods .extends .method,.apidocs .properties .extends .property,.apidocs .attrs .extends .attr,.apidocs .events .extends .event{font-weight:bold}.apidocs .methods .extends .inherited,.apidocs .properties .extends .inherited,.apidocs .attrs .extends .inherited,.apidocs .events .extends .inherited{font-weight:normal}.yui3-js-enabled .apidocs .tabview{visibility:hidden;_visibility:visible}.apidocs .tabview.yui3-tabview-content{visibility:visible}.apidocs .tabview .yui3-tabview-panel{background:#fff;padding:1em;border:1px solid #c2c7cd !important}h2,h3,h4,h5,h6{border:none;color:#30418c;font-weight:bold;text-decoration:none}.link-docs{float:right;font-size:115%;margin:4px 4px 6px;padding:6px 30px 5px}.apidocs{zoom:1}.apidocs .box{border:1px solid;border-radius:3px;margin:1em 0;padding:0 1em}.item .flag{background:rgba(3,180,230,0.5);border-radius:3px;color:#fff;font-size:92%;padding:2px 4px;position:relative}.item .flag.optional{display:none}.flags{display:inline}.flags span:first-of-type{margin-left:1em}.apidocs .meta{border:none;border-top:1px solid #c3c3c3;color:#555;font-size:92%;padding:1em 0}.apidocs .meta p{margin:0}.apidocs .box.deprecated,.apidocs .flag.deprecated{background:#fdac9f;border:1px solid #fd7775}.apidocs .box.deprecated p{margin:.5em 0}.apidocs .flag.deprecated{color:#444}.apidocs .intro{background:none;border:none;padding:0 !important}#bd.loading .apidocs,#api-list.loading .yui3-tabview-panel{background:#fff url("../img/spinner.gif") no-repeat center 70px;min-height:150px}#bd.loading .apidocs .content,#api-list.loading .yui3-tabview-panel .apis{display:none}.apidocs .no-visible-items{color:#666}.apidocs ul.inline{display:inline;list-style:none;margin:0;padding:0}.apidocs ul.inline li{display:inline}.apidocs ul.commas li:after{content:','}.apidocs ul.commas li:last-child:after{content:''}kbd .cmd{font-family:Monaco,Helvetica}.apidocs .item.protected,.apidocs .item.private,.apidocs .index-item.protected,.apidocs .index-item.deprecated,.apidocs .index-item.private,.apidocs .item.inherited,.apidocs .index-item.inherited{display:none}.show-deprecated .item.deprecated,.show-deprecated .index-item.deprecated,.show-protected .item.protected,.show-protected .index-item.protected,.show-private .item.private,.show-private .index-item.private,.show-inherited .item.inherited,.show-inherited .index-item.inherited{display:block}.apidocs .index h3{color:#444;margin:0 0 .6em;padding-bottom:2px}.apidocs .index .no-visible-items{margin-top:2em}.apidocs .index-list{border-color:#efefef;font-size:92%;list-style:none;margin:0;padding:0;-moz-column-count:4;-moz-column-gap:10px;-moz-column-width:170px;-ms-column-count:4;-ms-column-gap:10px;-ms-column-width:170px;-o-column-count:4;-o-column-gap:10px;-o-column-width:170px;-webkit-column-count:4;-webkit-column-gap:10px;-webkit-column-width:170px;column-count:4;column-gap:10px;column-width:170px}.apidocs .no-columns .index-list{-moz-column-count:1;-ms-column-count:1;-o-column-count:1;-webkit-column-count:1;column-count:1}.apidocs .index-item{white-space:nowrap}.apidocs .index-item .flag{background:none;border:none;color:#afafaf;display:inline;margin:0 0 0 .2em;padding:0}.apidocs .args{display:inline;margin:0 .5em}.apidocs .flag.chainable{background:#46ca3b}.apidocs .flag.protected{background:#ffb300}.apidocs .flag.private{background:#ff2e0e}.apidocs .flag.async{background:#06aad4}.apidocs .flag.required{background:#e60923}.apidocs .item{margin:1.5em 0 2em;padding-bottom:2em}.apidocs .item h4,.apidocs .item h5,.apidocs .item h6{color:#444;font-family:inherit;font-size:1em}.apidocs .item .description p,.apidocs .item pre.code{margin:1em 0 0}.apidocs .item .meta{background:none;border:none;padding:0}.apidocs .item .name{display:inline;font-size:130%}.apidocs .item .type,.apidocs .item .type a,.apidocs .returns-inline{color:#555}.apidocs .item .type,.apidocs .returns-inline{font-size:92%;margin:0}.apidocs .item .type a{border-bottom:1px dotted #afafaf}.apidocs .item .type a:hover{border:none}.apidocs .params-list{list-style:square;margin:1em 0 0 2em;padding:0}.apidocs .param{margin-bottom:1em}.apidocs .param .type,.apidocs .param .type a{color:#666}.apidocs .param .type{margin:0 0 0 .5em;*margin-left:.5em}.apidocs .param-name{font-weight:bold}.apidocs .item .emits{background:#f9f9f9;border-color:#eaeaea}.apidocs .item .returns .type,.apidocs .item .returns .type a{font-size:1em;margin:0}.apidocs .constructor .item{border:none;padding-bottom:0}pre.code.prettyprint.prettyprinted{background:white;border:none;overflow:visible;tab-size:4}pre.code.prettyprint.prettyprinted li{list-style:decimal;background:white}pre.code.prettyprint.prettyprinted code span{background:white}pre.code.prettyprint.prettyprinted span.com{color:#aaa}pre.code.prettyprint.prettyprinted span.kwd{color:#ff2300}pre.code.prettyprint.prettyprinted span.str{color:#03b4e6}pre.code.prettyprint.prettyprinted li.active{background:rgba(3,180,230,0.2)}.apidocs .module-submodule-description{font-size:92%;margin:.3em 0 1em}.apidocs .module-submodule-description p:first-child{margin-top:0}#api-tabview{margin-top:0}#api-tabview-filter{padding:0 0 1em}#api-options{font-size:11px;margin-top:.5em;position:absolute;right:2em}#api-list{margin-top:-2em;*zoom:1}.apis{font-size:12px;line-height:1.4;list-style:none;margin:0;padding:.5em 0 .5em .4em}.apis a{border:1px solid transparent;display:block;margin:0 0 0 -4px;padding:.4em;text-decoration:none;_border:none;_display:inline;color:#444 !important;overflow:hidden}.apis a:hover,.apis a:focus{background:#03b4e6;color:#444;outline:none}.api-list-item a:hover,.api-list-item a:focus{font-weight:bold}.apis .message{color:#888}.apis .result a{padding:3px 5px 2px}.apis .result .type{right:4px;top:7px}.api-list-item .yui3-highlight{font-weght:bold}.nav-tabs>li{margin-bottom:-2px}.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover{color:#111;background:white;border-bottom-color:transparent}.list-group-item{margin:0;background:inherit;border:none;border-bottom:1px solid #eee}.list-group-item:hover{background:#03b4e6}.list-group-item:hover a{color:#fff}.nav-tabs>li>a{margin-right:2px;line-height:1.42857143;border:none;border-radius:4px 4px 0 0}.nav-tabs li.active:first-of-type a,.nav-tabs li.active:first-of-type a:focus,.nav-tabs li.active:first-of-type a:active{border-left-color:transparent}@media (max-width:1199px){.container{width:96%}}#sidebar .nav{margin:0;padding:0}#sidebar .navbar-nav{padding:0;background:white;width:100%}#sidebar .navbar-collapse{padding:0;margin:0;box-shadow:0 2px 4px #d6d6d6}#sidebar .navbar-nav>li{float:none}#sidebar .navbar-nav>li:hover{background:#03b4e6}#sidebar .btn-group{width:100%;padding:1em 0 .5em}#sidebar .btn.btn-default{box-shadow:0 2px 4px #d6d6d6;width:50%;border:none;background:white;color:#03b4e6}#sidebar .btn.btn-default:hover{color:white;background:#03b4e6}#sidebar .btn.btn-default:focus{border:none;outline:none}#sidebar .btn.btn-default span{margin-left:1em}@media (min-width:768px){#sidebar .btn.btn-default span{display:none}}@media (max-width:768px){#sidebar .btn.btn-default span.expanded{display:none}#sidebar .btn.btn-default.active span.collapsed{display:none}#sidebar .btn.btn-default.active span.expanded{display:inline}}#sidebar .nav>li>a{color:#03b4e6;padding:.3em 1em;margin:0}#sidebar .nav>li>a:hover{color:white}#sidebar .navbar-default{background:none;border:none}#sidebar .container-fluid{padding:0;margin:0}#docs-highlight{height:4em;background:#42c0e3;opacity:0;display:block;position:relative;left:-2%;width:104%;pointer-events:none;float:left}ul.normal{list-style:inherit}#toggle-private+.toggle-group .btn-primary{background-color:#ff2e0e;border-color:#a3a3a3}#toggle-private+.toggle-group .btn-primary.active,#toggle-private+.toggle-group .btn-primary.focus,#toggle-private+.toggle-group .btn-primary:active,#toggle-private+.toggle-group .btn-primary:focus,#toggle-private+.toggle-group .btn-primary:hover,#toggle-private+.toggle-group .btn-primary .open>.dropdown-toggle.btn-primary{background-color:#ff2e0e;border-color:#a3a3a3}#toggle-protected+.toggle-group .btn-primary{background-color:#ffb300;border-color:#a3a3a3}#toggle-protected+.toggle-group .btn-primary.active,#toggle-protected+.toggle-group .btn-primary.focus,#toggle-protected+.toggle-group .btn-primary:active,#toggle-protected+.toggle-group .btn-primary:focus,#toggle-protected+.toggle-group .btn-primary:hover,#toggle-protected+.toggle-group .btn-primary .open>.dropdown-toggle.btn-primary{background-color:#ffb300;border-color:#a3a3a3}#toggle-deprecated+.toggle-group .btn-primary{background-color:#12344f;border-color:#a3a3a3}#toggle-deprecated+.toggle-group .btn-primary.active,#toggle-deprecated+.toggle-group .btn-primary.focus,#toggle-deprecated+.toggle-group .btn-primary:active,#toggle-deprecated+.toggle-group .btn-primary:focus,#toggle-deprecated+.toggle-group .btn-primary:hover,#toggle-deprecated+.toggle-group .btn-primary .open>.dropdown-toggle.btn-primary{background-color:#12344f;border-color:#a3a3a3}.btn-primary{background-color:#03b4e6;border-color:#a3a3a3}.btn-primary.active,.btn-primary.focus,.btn-primary:active,.btn-primary:focus,.btn-primary:hover,.btn-primary .open>.dropdown-toggle.btn-primary{background-color:#03b4e6;border-color:#a3a3a3}
+/* -----------------------------------
+   Color code the docs, 
+   and hide the now-redudant flags
+ ----------------------------------- */
+#docs-index .private a {
+  color: #ff2e0e;
+}
+#docs-index .protected a {
+  color: #ffb300;
+}
+#docs-index .deprecated a {
+  text-decoration: line-through;
+}
+#classdocs h3 code {
+  color: #03b4e6;
+}
+#classdocs .inherited h3 code {
+  font-weight: normal;
+}
+#classdocs .private h3 code {
+  color: #ff2e0e;
+}
+#classdocs .protected h3 code {
+  color: #ffb300;
+}
+#classdocs .deprecated h3 code {
+  text-decoration: line-through;
+}
+/*
+ *  DESIGN BOOLEANS
+ */
+.constructor code {
+  background: #f9f9f9;
+}
+html {
+  background: #efefef;
+  overflow-y: scroll;
+}
+ul {
+  list-style: none;
+}
+.apidocs .params-list {
+  list-style: none;
+}
+body {
+  font-family: "Titillium Web", "Helvetica", sans-serif;
+  background: #efefef;
+  padding-top: 108px;
+}
+.list-group-item {
+  word-wrap: break-word;
+}
+h1 img {
+  margin-right: 0.5em;
+}
+.tab-content,
+.navbar-nav {
+  background: #fff;
+  box-shadow: 0 3px 8px #d6d6d6;
+}
+/* -- Links ------- */
+a {
+  color: #03b4e6;
+  text-decoration: none;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+  color: #0c7ac1;
+}
+.hidden {
+  display: none;
+}
+/* "Jump to Table of Contents" link is shown to assistive tools, 
+   but hidden from sight until it's focused. */
+.jump {
+  position: absolute;
+  padding: 3px 6px;
+  left: -99999px;
+  top: 0;
+}
+.jump:focus {
+  left: 40%;
+}
+/* -- Paragraphs -- */
+p {
+  margin: 1.3em 0;
+}
+dd p,
+td p {
+  margin-bottom: 0;
+}
+dd p:first-child,
+td p:first-child {
+  margin-top: 0;
+}
+/* -- Headings ---- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #03b4e6 !important;
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+h1 {
+  font-size: 184.6%;
+}
+h2 {
+  font-size: 150%;
+}
+h3 {
+  font-size: 130%;
+}
+h4 {
+  border-bottom: 1px solid #dbdfea;
+  font-size: 115%;
+  font-weight: normal;
+}
+h5,
+h6 {
+  font-size: 115%;
+}
+/* -- Code and examples ----------------------------------------------------- */
+code {
+  color: #222;
+  background: none;
+}
+code,
+kbd,
+pre,
+samp {
+  font-family: Menlo, Monaco, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
+  font-size: 92%;
+  line-height: 1.35;
+}
+p code,
+p kbd,
+p samp {
+  background: #fcfbfa;
+  color: #353535;
+  border: 1px solid #efeeed;
+  padding: 5px;
+}
+a code,
+a kbd,
+a samp,
+pre code,
+pre kbd,
+pre samp,
+table code,
+table kbd,
+table samp,
+.intro code,
+.intro kbd,
+.intro samp,
+.toc code,
+.toc kbd,
+.toc samp {
+  background: none;
+  border: none;
+  padding: 0;
+}
+pre.code,
+pre.terminal,
+pre.cmd {
+  overflow-x: auto;
+  *overflow-x: scroll;
+  padding: 1em;
+}
+pre.code {
+  background: #fff;
+  border: 1px solid #c2c7cd;
+  border-left-width: 5px;
+  line-height: 150%;
+}
+pre.terminal,
+pre.cmd {
+  background: #f0effc;
+  border: 1px solid #d0cbfb;
+  border-left: 5px solid #d0cbfb;
+}
+/* Don't reduce the font size of <code>/<kbd>/<samp> elements inside <pre>
+   blocks. */
+pre code,
+pre kbd,
+pre samp {
+  font-size: 1em;
+}
+/* Used to denote text that shouldn't be selectable, such as line numbers or
+   shell prompts. Guess which browser this doesn't work in. */
+.noselect {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+/* -- Lists  -- */
+dd {
+  margin: 0.2em 0 0.7em 1em;
+}
+dl {
+  margin: 1em 0;
+}
+dt {
+  font-weight: bold;
+}
+/* -- Tables ------ */
+caption,
+th {
+  text-align: left;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  border: 1px solid #fff;
+  padding: 5px 12px;
+  vertical-align: top;
+}
+td {
+  background: #e6e9f5;
+}
+td dl {
+  margin: 0;
+}
+td dl dl {
+  margin: 1em 0;
+}
+td pre:first-child {
+  margin-top: 0;
+}
+th {
+  background: #d2d7e6;
+  border-bottom: none;
+  border-top: none;
+  color: #000;
+  font-weight: bold;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+/* -- Layout and Content ---------------------------------------------------- */
+#doc {
+  margin: auto;
+  min-width: 1024px;
+}
+.content {
+  padding: 0 20px 0 25px;
+}
+#sidebar .nav {
+  margin: 2em 0 0;
+}
+#bd {
+  padding: 7px 0 30px;
+  position: relative;
+  width: 99%;
+}
+/* -- Table of Contents ----------------------------------------------------- */
+/* The #toc id refers to the single global table of contents, while the .toc
+   class refers to generic TOC lists that could be used throughout the page. */
+.toc code,
+.toc kbd,
+.toc samp {
+  font-size: 1em;
+}
+.toc li {
+  font-weight: bold;
+}
+.toc li li {
+  font-weight: normal;
+}
+/* -- Other Styles  */
+.button {
+  border: 1px solid #dadada;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
+  display: inline-block;
+  font-size: 92%;
+  font-weight: bold;
+  padding: 4px 13px 3px;
+  white-space: nowrap;
+  background: #efefef;
+  background: -moz-linear-gradient(top, #f5f5f5 0%, #efefef 50%, #e5e5e5 51%, #dfdfdf 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(50%, #efefef), color-stop(51%, #e5e5e5), color-stop(100%, #dfdfdf));
+}
+.button:hover {
+  border-color: #466899;
+  color: #fff;
+  text-decoration: none;
+  background: #6396d8;
+  background: -moz-linear-gradient(top, #6396d8 0%, #5a83bc 50%, #547ab7 51%, #466899 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6396d8), color-stop(50%, #5a83bc), color-stop(51%, #547ab7), color-stop(100%, #466899));
+}
+.newwindow {
+  text-align: center;
+}
+#hd {
+  padding: 0 15px 1px 20px;
+  background: #fff;
+  background: -moz-linear-gradient(top, #ffffff 0%, #e2e6e9 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #e2e6e9));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #e2e6e9 100%);
+  background: -o-linear-gradient(top, #ffffff 0%, #e2e6e9 100%);
+  background: -ms-linear-gradient(top, #ffffff 0%, #e2e6e9 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #e2e6e9 100%);
+}
+#hd img {
+  margin: 15px 20px 15px 0;
+  vertical-align: middle;
+}
+#hd h1 {
+  color: #a3b1bb;
+  font-size: 150%;
+}
+#hd a {
+  font-size: 36px;
+  color: #a3b1bb;
+}
+#hd a:hover {
+  text-decoration: none;
+}
+header {
+  transition: all 0.4s ease;
+  position: fixed;
+  width: 100%;
+  background: #efefef;
+  box-shadow: 0 0 20px transparent;
+  top: 0;
+  z-index: 9999;
+  height: 108px;
+}
+header .toggle.btn-xs {
+  margin-left: 0.2em;
+}
+header .logo a:hover,
+header .logo a:focus {
+  text-decoration: none;
+}
+header .version em {
+  display: block;
+  text-align: right;
+  margin-top: 33px;
+  font-style: normal !important;
+}
+header.sticky {
+  padding: 0;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 20px #d6d6d6;
+  height: 38px;
+}
+header.sticky .scope-toggles {
+  margin-top: 0.4em;
+}
+header.sticky h1 {
+  font-size: 130%;
+  padding: 0.5em;
+}
+header.sticky .logo {
+  float: left;
+}
+header.sticky .logo img {
+  height: 30.4px;
+  margin-top: -0.4em;
+}
+header.sticky .version {
+  display: none;
+}
+#classdocs {
+  margin-top: -4em;
+}
+#classdocs .tab-pane {
+  padding: 1em;
+}
+#classdocs .item {
+  margin: 1em 0 0;
+  border-top: none;
+}
+#classdocs .item:last-child {
+  border-bottom: none;
+}
+#classdocs h2 {
+  padding-top: 0 !important;
+}
+#classdocs .item .params p,
+#classdocs .item .returns p {
+  display: inline;
+}
+#classdocs .item em code,
+#classdocs .item em.comment {
+  color: green;
+}
+#classdocs .item em.comment a {
+  color: green;
+  text-decoration: underline;
+}
+#classdocs .foundat {
+  font-size: 92%;
+  font-style: normal;
+}
+.attrs .emits {
+  margin-left: 2em;
+  padding: 0.5em;
+  border-left: 1px dashed #ccc;
+}
+abbr {
+  border-bottom: 1px dashed #ccc;
+  font-size: 80%;
+  cursor: help;
+}
+ul li p {
+  margin-top: 0;
+}
+.method .name {
+  font-size: 110%;
+}
+.apidocs .methods .extends .method,
+.apidocs .properties .extends .property,
+.apidocs .attrs .extends .attr,
+.apidocs .events .extends .event {
+  font-weight: bold;
+}
+.apidocs .methods .extends .inherited,
+.apidocs .properties .extends .inherited,
+.apidocs .attrs .extends .inherited,
+.apidocs .events .extends .inherited {
+  font-weight: normal;
+}
+/* -- API Docs CSS  */
+/*
+This file is organized so that more generic styles are nearer the top, and more
+specific styles are nearer the bottom of the file. This allows us to take full
+advantage of the cascade to avoid redundant style rules. Please respect this
+convention when making changes.
+*/
+/* -- Generic TabView styles ------------------------------------------------ */
+/*
+These styles apply to all API doc tabviews. To change styles only for a
+specific tabview, see the other sections below.
+*/
+.yui3-js-enabled .apidocs .tabview {
+  visibility: hidden;
+  /* Hide until the TabView finishes rendering. */
+  _visibility: visible;
+}
+.apidocs .tabview.yui3-tabview-content {
+  visibility: visible;
+}
+.apidocs .tabview .yui3-tabview-panel {
+  background: #fff;
+  padding: 1em;
+  border: 1px solid #c2c7cd !important;
+}
+/* -- Generic Content Styles ------------------------------------------------ */
+/* Headings */
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border: none;
+  color: #30418c;
+  font-weight: bold;
+  text-decoration: none;
+}
+.link-docs {
+  float: right;
+  font-size: 115%;
+  margin: 4px 4px 6px;
+  padding: 6px 30px 5px;
+}
+.apidocs {
+  zoom: 1;
+}
+/* Generic box styles. */
+.apidocs .box {
+  border: 1px solid;
+  border-radius: 3px;
+  margin: 1em 0;
+  padding: 0 1em;
+}
+/* A flag is a compact, capsule-like indicator of some kind. It's used to
+   indicate private and protected items, item return types, etc. in an
+   attractive and unobtrusive way. */
+.item .flag {
+  background: rgba(3, 180, 230, 0.5);
+  border-radius: 3px;
+  color: #fff;
+  font-size: 92%;
+  padding: 2px 4px;
+  position: relative;
+}
+.item .flag.optional {
+  display: none;
+}
+.flags {
+  display: inline;
+}
+.flags span:first-of-type {
+  margin-left: 1em;
+}
+/* Class/module metadata such as "Uses", "Extends", "Defined in", etc. */
+.apidocs .meta {
+  border: none;
+  border-top: 1px solid #c3c3c3;
+  color: #555;
+  font-size: 92%;
+  padding: 1em 0;
+}
+.apidocs .meta p {
+  margin: 0;
+}
+/* Deprecation warning. */
+.apidocs .box.deprecated,
+.apidocs .flag.deprecated {
+  background: #fdac9f;
+  border: 1px solid #fd7775;
+}
+.apidocs .box.deprecated p {
+  margin: 0.5em 0;
+}
+.apidocs .flag.deprecated {
+  color: #444;
+}
+/* Module/Class intro description. */
+.apidocs .intro {
+  background: none;
+  border: none;
+  padding: 0 !important;
+}
+/* Loading spinners. */
+#bd.loading .apidocs,
+#api-list.loading .yui3-tabview-panel {
+  background: #ffffff url("../img/spinner.gif") no-repeat center 70px;
+  min-height: 150px;
+}
+#bd.loading .apidocs .content,
+#api-list.loading .yui3-tabview-panel .apis {
+  display: none;
+}
+.apidocs .no-visible-items {
+  color: #666;
+}
+/* Generic inline list. */
+.apidocs ul.inline {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.apidocs ul.inline li {
+  display: inline;
+}
+.apidocs ul.commas li:after {
+  content: ',';
+}
+.apidocs ul.commas li:last-child:after {
+  content: '';
+}
+/* Comma-separated list. */
+/* Keyboard shortcuts. */
+kbd .cmd {
+  font-family: Monaco, Helvetica;
+}
+/* -- Generic Access Level styles ------------------------------------------- */
+.apidocs .item.protected,
+.apidocs .item.private,
+.apidocs .index-item.protected,
+.apidocs .index-item.deprecated,
+.apidocs .index-item.private,
+.apidocs .item.inherited,
+.apidocs .index-item.inherited {
+  display: none;
+}
+.show-deprecated .item.deprecated,
+.show-deprecated .index-item.deprecated,
+.show-protected .item.protected,
+.show-protected .index-item.protected,
+.show-private .item.private,
+.show-private .index-item.private,
+.show-inherited .item.inherited,
+.show-inherited .index-item.inherited {
+  display: block;
+}
+/* -- Generic Item Index styles --------------------------------------------- */
+.apidocs .index h3 {
+  /*border-bottom: 1px solid #efefef;*/
+  color: #444;
+  margin: 0 0 0.6em;
+  padding-bottom: 2px;
+}
+.apidocs .index .no-visible-items {
+  margin-top: 2em;
+}
+.apidocs .index-list {
+  border-color: #efefef;
+  font-size: 92%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -moz-column-count: 4;
+  -moz-column-gap: 10px;
+  -moz-column-width: 170px;
+  -ms-column-count: 4;
+  -ms-column-gap: 10px;
+  -ms-column-width: 170px;
+  -o-column-count: 4;
+  -o-column-gap: 10px;
+  -o-column-width: 170px;
+  -webkit-column-count: 4;
+  -webkit-column-gap: 10px;
+  -webkit-column-width: 170px;
+  column-count: 4;
+  column-gap: 10px;
+  column-width: 170px;
+}
+.apidocs .no-columns .index-list {
+  -moz-column-count: 1;
+  -ms-column-count: 1;
+  -o-column-count: 1;
+  -webkit-column-count: 1;
+  column-count: 1;
+}
+.apidocs .index-item {
+  white-space: nowrap;
+}
+.apidocs .index-item .flag {
+  background: none;
+  border: none;
+  color: #afafaf;
+  display: inline;
+  margin: 0 0 0 0.2em;
+  padding: 0;
+}
+/* -- Generic API item styles ----------------------------------------------- */
+.apidocs .args {
+  display: inline;
+  margin: 0 0.5em;
+}
+.apidocs .flag.chainable {
+  background: #46ca3b;
+}
+.apidocs .flag.protected {
+  background: #ffb300;
+}
+.apidocs .flag.private {
+  background: #ff2e0e;
+}
+.apidocs .flag.async {
+  background: #06aad4;
+}
+.apidocs .flag.required {
+  background: #e60923;
+}
+.apidocs .item {
+  /*border-bottom: 1px solid #efefef;*/
+  margin: 1.5em 0 2em;
+  padding-bottom: 2em;
+}
+.apidocs .item h4,
+.apidocs .item h5,
+.apidocs .item h6 {
+  color: #444;
+  font-family: inherit;
+  font-size: 1em;
+}
+.apidocs .item .description p,
+.apidocs .item pre.code {
+  margin: 1em 0 0;
+}
+.apidocs .item .meta {
+  background: none;
+  border: none;
+  padding: 0;
+}
+.apidocs .item .name {
+  display: inline;
+  font-size: 130%;
+}
+.apidocs .item .type,
+.apidocs .item .type a,
+.apidocs .returns-inline {
+  color: #555;
+}
+.apidocs .item .type,
+.apidocs .returns-inline {
+  font-size: 92%;
+  margin: 0;
+}
+.apidocs .item .type a {
+  border-bottom: 1px dotted #afafaf;
+}
+.apidocs .item .type a:hover {
+  border: none;
+}
+/* -- Item Parameter List --------------------------------------------------- */
+.apidocs .params-list {
+  list-style: square;
+  margin: 1em 0 0 2em;
+  padding: 0;
+}
+.apidocs .param {
+  margin-bottom: 1em;
+}
+.apidocs .param .type,
+.apidocs .param .type a {
+  color: #666;
+}
+.apidocs .param .type {
+  margin: 0 0 0 0.5em;
+  *margin-left: 0.5em;
+}
+.apidocs .param-name {
+  font-weight: bold;
+}
+/* -- Item "Emits" block ---------------------------------------------------- */
+.apidocs .item .emits {
+  background: #f9f9f9;
+  border-color: #eaeaea;
+}
+/* -- Item "Returns" block -------------------------------------------------- */
+.apidocs .item .returns .type,
+.apidocs .item .returns .type a {
+  font-size: 1em;
+  margin: 0;
+}
+/* -- Class Constructor block ----------------------------------------------- */
+.apidocs .constructor .item {
+  border: none;
+  padding-bottom: 0;
+}
+/* -- File Source View ------------------------------------------------------ */
+pre.code.prettyprint.prettyprinted {
+  background: white;
+  border: none;
+  overflow: visible;
+  tab-size: 4;
+}
+pre.code.prettyprint.prettyprinted li {
+  list-style: decimal;
+  background: white;
+}
+pre.code.prettyprint.prettyprinted code span {
+  background: white;
+}
+pre.code.prettyprint.prettyprinted span.com {
+  color: #aaa;
+}
+pre.code.prettyprint.prettyprinted span.kwd {
+  color: #ff2300;
+}
+pre.code.prettyprint.prettyprinted span.str {
+  color: #03b4e6;
+}
+pre.code.prettyprint.prettyprinted li.active {
+  background: rgba(3, 180, 230, 0.2);
+}
+/* -- Submodule List  */
+.apidocs .module-submodule-description {
+  font-size: 92%;
+  margin: 0.3em 0 1em;
+}
+.apidocs .module-submodule-description p:first-child {
+  margin-top: 0;
+}
+/* -- Sidebar TabView ------------------------------------------------------- */
+#api-tabview {
+  margin-top: 0;
+  /*0.6em;*/
+}
+#api-tabview-filter {
+  padding: 0 0 1em;
+}
+/* -- Source File Contents ------- */
+/* -- API options - */
+#api-options {
+  font-size: 11px;
+  margin-top: 0.5em;
+  position: absolute;
+  right: 2em;
+}
+/* -- API list ---- */
+#api-list {
+  margin-top: -2em;
+  *zoom: 1;
+}
+.apis {
+  font-size: 12px;
+  line-height: 1.4;
+  list-style: none;
+  margin: 0;
+  padding: 0.5em 0 0.5em 0.4em;
+}
+.apis a {
+  border: 1px solid transparent;
+  display: block;
+  margin: 0 0 0 -4px;
+  padding: 0.4em;
+  text-decoration: none;
+  _border: none;
+  _display: inline;
+  color: #444 !important;
+  overflow: hidden;
+}
+.apis a:hover,
+.apis a:focus {
+  background: #03b4e6;
+  color: #444;
+  outline: none;
+}
+.api-list-item a:hover,
+.api-list-item a:focus {
+  font-weight: bold;
+}
+.apis .message {
+  color: #888;
+}
+.apis .result a {
+  padding: 3px 5px 2px;
+}
+.apis .result .type {
+  right: 4px;
+  top: 7px;
+}
+.api-list-item .yui3-highlight {
+  font-weght: bold;
+}
+.nav-tabs > li {
+  margin-bottom: -2px;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  color: #111;
+  background: white;
+  border-bottom-color: transparent;
+}
+.list-group-item {
+  margin: 0;
+  background: inherit;
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+.list-group-item:hover {
+  background: #03b4e6;
+}
+.list-group-item:hover a {
+  color: #fff;
+}
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border: none;
+  border-radius: 4px 4px 0 0;
+}
+.nav-tabs li.active:first-of-type a,
+.nav-tabs li.active:first-of-type a:focus,
+.nav-tabs li.active:first-of-type a:active {
+  border-left-color: transparent;
+}
+@media (max-width: 1199px) {
+  .container {
+    width: 96%;
+  }
+}
+#sidebar .nav {
+  margin: 0;
+  padding: 0;
+}
+#sidebar .navbar-nav {
+  padding: 0;
+  background: white;
+  width: 100%;
+}
+#sidebar .navbar-collapse {
+  padding: 0;
+  margin: 0;
+  box-shadow: 0 2px 4px #d6d6d6;
+}
+#sidebar .navbar-nav > li {
+  float: none;
+}
+#sidebar .navbar-nav > li:hover {
+  background: #03b4e6;
+}
+#sidebar .btn-close {
+  position: absolute;
+  color: #ff2e0e;
+  right: 0.35em;
+  top: 0.35em;
+  z-index: 2;
+  font-size: 1.4em;
+}
+#sidebar .btn-group {
+  width: 100%;
+  padding: 1em 0 0.5em;
+}
+#sidebar .btn.btn-default {
+  box-shadow: 0 2px 4px #d6d6d6;
+  width: 50%;
+  border: none;
+  background: white;
+  color: #03b4e6;
+}
+#sidebar .btn.btn-default:hover {
+  color: white;
+  background: #03b4e6;
+}
+#sidebar .btn.btn-default.active {
+  color: white;
+  background: #ffb300;
+}
+#sidebar .btn.btn-default:focus {
+  border: none;
+  outline: none;
+}
+#sidebar .btn.btn-default span {
+  margin-left: 1em;
+}
+@media (min-width: 768px) {
+  #sidebar .btn.btn-default span {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  #sidebar .btn.btn-default span.expanded {
+    display: none;
+  }
+  #sidebar .btn.btn-default.active span.collapsed {
+    display: none;
+  }
+  #sidebar .btn.btn-default.active span.expanded {
+    display: inline;
+  }
+}
+#sidebar .nav > li > a {
+  color: #03b4e6;
+  padding: 0.3em 1em;
+  margin: 0;
+}
+#sidebar .nav > li > a:hover {
+  color: white;
+}
+#sidebar .navbar-default {
+  background: none;
+  border: none;
+}
+#sidebar .container-fluid {
+  padding: 0;
+  margin: 0;
+}
+#docs-highlight {
+  height: 4em;
+  background: #42c0e3;
+  opacity: 0;
+  display: block;
+  position: relative;
+  left: -2%;
+  width: 104%;
+  pointer-events: none;
+  float: left;
+}
+ul.normal {
+  list-style: inherit;
+}
+/* -----------------------------------
+    BootstrapToggle button override 
+ ----------------------------------- */
+#toggle-private + .toggle-group .btn-primary {
+  background-color: #ff2e0e;
+  border-color: #a3a3a3;
+}
+#toggle-private + .toggle-group .btn-primary.active,
+#toggle-private + .toggle-group .btn-primary.focus,
+#toggle-private + .toggle-group .btn-primary:active,
+#toggle-private + .toggle-group .btn-primary:focus,
+#toggle-private + .toggle-group .btn-primary:hover,
+#toggle-private + .toggle-group .btn-primary .open > .dropdown-toggle.btn-primary {
+  background-color: #ff2e0e;
+  border-color: #a3a3a3;
+}
+#toggle-protected + .toggle-group .btn-primary {
+  background-color: #ffb300;
+  border-color: #a3a3a3;
+}
+#toggle-protected + .toggle-group .btn-primary.active,
+#toggle-protected + .toggle-group .btn-primary.focus,
+#toggle-protected + .toggle-group .btn-primary:active,
+#toggle-protected + .toggle-group .btn-primary:focus,
+#toggle-protected + .toggle-group .btn-primary:hover,
+#toggle-protected + .toggle-group .btn-primary .open > .dropdown-toggle.btn-primary {
+  background-color: #ffb300;
+  border-color: #a3a3a3;
+}
+#toggle-deprecated + .toggle-group .btn-primary {
+  background-color: #12344f;
+  border-color: #a3a3a3;
+}
+#toggle-deprecated + .toggle-group .btn-primary.active,
+#toggle-deprecated + .toggle-group .btn-primary.focus,
+#toggle-deprecated + .toggle-group .btn-primary:active,
+#toggle-deprecated + .toggle-group .btn-primary:focus,
+#toggle-deprecated + .toggle-group .btn-primary:hover,
+#toggle-deprecated + .toggle-group .btn-primary .open > .dropdown-toggle.btn-primary {
+  background-color: #12344f;
+  border-color: #a3a3a3;
+}
+.btn-primary {
+  background-color: #03b4e6;
+  border-color: #a3a3a3;
+}
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary .open > .dropdown-toggle.btn-primary {
+  background-color: #03b4e6;
+  border-color: #a3a3a3;
+}
+/*# sourceMappingURL=main.css.map */

@@ -2,42 +2,43 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.2 API Documentation : Core</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
-  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<title>SpringRoll v0.3.0 API Documentation : Core</title>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
 </head>
 
 <body>
-  <header>
-    <div class='container'>
-      <div class='version pull-right'>
-        <em>API Documentation for: 0.3.2</em>
-      </div>
-      <div class='logo'>
+<header>
+<div class='container'>
+<div class='version pull-right'>
+<em>API Documentation for: 0.3.0</em>
+</div>
+<div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-      </div>
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+</div>
 <div class='scope-toggles pull-right'>
-  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div>    </div>
-  </header>
-  <div class='container'>
-    <div class='row'>
-      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div></div>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
 <h2>APIs</h2>
 <div class='input-group'>
   <div class='input-group-addon'>
     <span class='glyphicon glyphicon-search'></span>
   </div>
   <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
 </div>
 <nav class='navbar navbar-default'>
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +48,7 @@
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
     </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
       Modules
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
@@ -457,6 +458,9 @@
           <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
         </li>
         <li class=''>
+          <a href='../modules/Game.html'>Game</a>
+        </li>
+        <li class=''>
           <a href='../modules/Hints.html'>Hints</a>
         </li>
         <li class=''>
@@ -484,9 +488,6 @@
           <a href='../modules/Sound.html'>Sound</a>
         </li>
         <li class=''>
-          <a href='../modules/States.html'>States</a>
-        </li>
-        <li class=''>
           <a href='../modules/Tasks.html'>Tasks</a>
         </li>
         <li class=''>
@@ -495,174 +496,179 @@
     </ul>
   </div>
   <!-- /.container-fluid -->
-</nav>      </nav>
-      <div class='col-sm-8 col-md-9'>
-        <div id='docs-main' class='apidocs'>
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
 <h1>Core Module</h1>
 <div class="box clearfix meta">
 
-    <div class="foundat">
-      Defined in: <a href="../files/src_ApplicationPlugin.js.html#l9"><code>Core:9</code></a>
-    </div>
+<div class="foundat">
+Defined in: <a href="../files/src_ApplicationPlugin.js.html#l9"><code>Core:9</code></a>
+</div>
 
 </div>
 
 
 <div class="box intro">
-  
+
 </div>
 
 
 
-  <p>This namespace provides the following classes:</p>
-  <ul class="module-classes normal">
-      <li class="module-class">
-        <a href="../classes/springroll.AbstractDisplay.html">
-                    springroll.AbstractDisplay
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.Application.html">
-                    springroll.Application
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.ApplicationOptions.html">
-                    springroll.ApplicationOptions
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.ApplicationPlugin.html">
-                    springroll.ApplicationPlugin
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.CacheManager.html">
-                    springroll.CacheManager
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.CombinedCallback.html">
-                    springroll.CombinedCallback
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.DebugPlugin.html">
-                    springroll.DebugPlugin
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.DelayedCall.html">
-                    springroll.DelayedCall
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.Enum.html">
-                    springroll.Enum
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.EnumValue.html">
-                    springroll.EnumValue
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.EventDispatcher.html">
-                    springroll.EventDispatcher
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.Loader.html">
-                    springroll.Loader
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.LoaderPlugin.html">
-                    springroll.LoaderPlugin
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.LoaderQueueItem.html">
-                    springroll.LoaderQueueItem
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.LoaderResult.html">
-                    springroll.LoaderResult
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.PageVisibility.html">
-                    springroll.PageVisibility
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.PageVisibilityPlugin.html">
-                    springroll.PageVisibilityPlugin
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.PropertyDispatcher.html">
-                    springroll.PropertyDispatcher
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.SavedData.html">
-                    springroll.SavedData
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/springroll.TimeUtils.html">
-                    springroll.TimeUtils
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.Array.html">
-                    window.Array
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.async.html">
-                    window.async
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.extend.html">
-                    window.extend
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.include.html">
-                    window.include
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.Math.html">
-                    window.Math
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.namespace.html">
-                    window.namespace
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.Object.html">
-                    window.Object
-                </a>
-      </li>
-      <li class="module-class">
-        <a href="../classes/window.String.html">
-                    window.String
-                </a>
-      </li>
-  </ul>
+<p>This namespace provides the following classes:</p>
+<ul class="module-classes normal">
+<li class="module-class">
+<a href="../classes/springroll.AbstractDisplay.html">
+springroll.AbstractDisplay
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.Application.html">
+springroll.Application
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.ApplicationOptions.html">
+springroll.ApplicationOptions
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.ApplicationPlugin.html">
+springroll.ApplicationPlugin
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.CacheManager.html">
+springroll.CacheManager
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.CombinedCallback.html">
+springroll.CombinedCallback
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.DebugPlugin.html">
+springroll.DebugPlugin
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.DelayedCall.html">
+springroll.DelayedCall
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.Enum.html">
+springroll.Enum
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.EnumValue.html">
+springroll.EnumValue
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.EventDispatcher.html">
+springroll.EventDispatcher
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.Loader.html">
+springroll.Loader
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.LoaderPlugin.html">
+springroll.LoaderPlugin
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.LoaderQueueItem.html">
+springroll.LoaderQueueItem
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.LoaderResult.html">
+springroll.LoaderResult
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.PageVisibility.html">
+springroll.PageVisibility
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.PageVisibilityPlugin.html">
+springroll.PageVisibilityPlugin
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.PropertyDispatcher.html">
+springroll.PropertyDispatcher
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.SavedData.html">
+springroll.SavedData
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.StatesPlugin.html">
+springroll.StatesPlugin
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.TimeUtils.html">
+springroll.TimeUtils
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.Array.html">
+window.Array
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.async.html">
+window.async
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.extend.html">
+window.extend
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.include.html">
+window.include
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.Math.html">
+window.Math
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.namespace.html">
+window.namespace
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.Object.html">
+window.Object
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/window.String.html">
+window.String
+</a>
+</li>
+</ul>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <script src='../assets/js/libraries.js?v=0.3.2'></script>
-  <script src='../assets/js/main.js?v=0.3.2'></script>
+</div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.0'></script>
+<script src='../assets/js/main.js?v=0.3.0'></script>
 </body>
 </html>
