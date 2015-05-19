@@ -578,11 +578,15 @@
 			var manifest = [];
 
 			// Add any manifests from the config
-			var configManifests = this.config.manifests;
-			if (configManifests && configManifests[alias])
+			if (this.config && this.config.manifests)
 			{
-				manifest = configManifests[alias];
+				var configManifests = this.config.manifests;
+				if (configManifests[alias])
+				{
+					manifest = configManifests[alias];
+				}
 			}
+			
 			// Add any manifest items from the createjs manifest concat
 			if (this._manifests[alias])
 			{

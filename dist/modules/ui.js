@@ -1098,6 +1098,17 @@
 	p._resize = function(w, h)
 	{
 		var _size = this._size;
+
+		// Size hasn't been setup yet
+		if (!_size) 
+		{
+			if (true && Debug)
+			{
+				Debug.warn("Unable to resize scaling because the scaling size hasn't been set.");
+			}
+			return;
+		}
+
 		var defaultRatio = _size.width / _size.height;
 		var currentRatio = w / h;
 		this._scale = currentRatio > defaultRatio ?
