@@ -9,17 +9,18 @@
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Debug,
 		LoadTask,
-		BaseState;
+		BaseState,
+		AssetManager;
 
 	/**
 	 *	A createjs-based Game to load manifests
 	 *	@class ManifestsPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 *	@param {int} [options.fps=30] The framerate to use for the main display
-	 *	@param {function} [options.display=springroll.easeljsDisplay] The 
+	 *	@param {Function} [options.display=springroll.easeljsDisplay] The
 	 *	display class to use as the default display.
-	 *	@param {boolean} [options.displayOptions.clearView=true] If the stage view
-	 *	should be cleared everytime in CreateJS stage. 
+	 *	@param {Boolean} [options.displayOptions.clearView=true] If the stage view
+	 *	should be cleared everytime in CreateJS stage.
 	 */
 	var ManifestsPlugin = function()
 	{
@@ -43,7 +44,7 @@
 		 *	to load all the manifests at once. This JSON object contains a
 		 *	dictionary of state alias and contains an array of manifest assets
 		 *	(e.g. `{"id": "PlayButton", "src": "assets/images/button.png"}`.
-	 	 *	Set to null and no manifest will be auto-loaded.
+		 *	Set to null and no manifest will be auto-loaded.
 		 *	@property {String} options.manifestsPath
 		 *	@readOnly
 		 *	@default null
@@ -59,9 +60,13 @@
 		Debug = include('springroll.Debug', false);
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
+		AssetManager = include('springroll.easeljs.AssetManager');
+		
+		//initialize the AssetManager once for the application.
+		AssetManager.init();
 
 		/**
-		 *	The collection of loading assests by state
+		 *	The collection of loading assets by state
 		 *	@property {object} _manifests
 		 *	@private
 		 */
