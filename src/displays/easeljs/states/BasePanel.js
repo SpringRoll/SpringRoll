@@ -1,7 +1,7 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function()
 {
@@ -12,7 +12,7 @@
 		Application;
 
 	/**
-	 *	Panel with convenience properties to the config, background and game.
+	 *	Panel with convenience properties to the config, background and app.
 	 *	@class BasePanel
 	 *	@extend createjs.Container
 	 *	@constructor
@@ -29,16 +29,23 @@
 		Container.call(this);
 
 		/**
-		 *	Reference to the game
-		 *	@property {Application} game
+		 *	Reference to the app
+		 *	@property {Application} app
 		 */
-		this.game = Application.instance;
+		this.app = Application.instance;
+
+		/**
+		 *	Reference to the app
+		 *	@property {Application} game
+		 *	@deprecated Use 'app' instead
+		 */
+		this.game = this.app;
 
 		/**
 		 *	Reference to the app's config
 		 *	@property {object} config
 		 */
-		this.config = this.game.config;
+		this.config = this.app.config;
 
 		/**
 		 *	All panel should probably have a background image
@@ -122,6 +129,7 @@
 	 */
 	p.destroy = function()
 	{
+		this.app = null;
 		this.game = null;
 		this.config = null;
 		this.background = null;

@@ -137,15 +137,19 @@
 	*  @property {Boolean} canceled
 	*  @readOnly
 	*/
-	Object.defineProperty(p, 'canceled', {
-		get: function() { return this._canceled; }
+	Object.defineProperty(p, 'canceled', 
+	{
+		get: function()
+		{
+			return this._canceled;
+		}
 	});
 	
 	/**
 	*   This is called by the State Manager to exit the state
 	*
 	*   @method _internalExit
-	*   @private
+	*   @protected
 	*/
 	p._internalExit = function()
 	{
@@ -172,7 +176,7 @@
 	*   Exit the state start, called by the State Manager
 	*
 	*   @method _internalExitStart
-	*   @private
+	*   @protected
 	*/
 	p._internalExitStart = function()
 	{
@@ -192,7 +196,7 @@
 	*
 	*   @method _internalEnter
 	*   @param {Function} proceed The function to call after enter has been called
-	*   @private
+	*   @protected
 	*/
 	p._internalEnter = function(proceed)
 	{
@@ -208,13 +212,24 @@
 		
 		this._onEnterProceed = proceed;
 		
-		this.enter();
+		this._internalEntering();
 		
 		if (this._onEnterProceed)
 		{
 			this._onEnterProceed();
 			this._onEnterProceed = null;
 		}
+	};
+
+	/**
+	*   When the state is entering
+	*   @method _internalEntering
+	*   @param {Function} proceed The function to call after enter has been called
+	*   @protected
+	*/
+	p._internalEntering = function()
+	{
+		this.enter();
 	};
 	
 	/**
@@ -277,7 +292,7 @@
 	*   Cancel the loading of this state
 	*
 	*   @method _internalCancel
-	*   @private
+	*   @protected
 	*/
 	p._internalCancel = function()
 	{
@@ -295,7 +310,10 @@
 	*
 	*   @method cancel
 	*/
-	p.cancel = function(){};
+	p.cancel = function()
+	{
+		// Implementation specific	
+	};
 	
 	/**
 	*   When the state is entered. Override this to start loading assets - call loadingStart()
@@ -303,7 +321,10 @@
 	*
 	*   @method enter
 	*/
-	p.enter = function(){};
+	p.enter = function()
+	{
+		// Implementation specific	
+	};
 	
 	/**
 	*   Exit the state start, called by the State Manager
@@ -325,7 +346,10 @@
 	*
 	*   @method enterDone
 	*/
-	p.enterDone = function(){};
+	p.enterDone = function()
+	{
+		// Implementation specific	
+	};
 
 	/**
 	*   Get if this is the active state
@@ -333,8 +357,12 @@
 	*   @property {Boolean} active
 	*   @readOnly
 	*/
-	Object.defineProperty(p, 'active', {
-		get: function() { return this._active; }
+	Object.defineProperty(p, 'active', 
+	{
+		get: function()
+		{
+			return this._active; 
+		}
 	});
 	
 	/**
@@ -342,8 +370,12 @@
 	*
 	* @property {Boolean} enabled
 	*/
-	Object.defineProperty(p, 'enabled', {
-		get: function() { return this._enabled; },
+	Object.defineProperty(p, 'enabled',
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
 		set: function(value)
 		{
 			this._enabled = value;
@@ -356,8 +388,12 @@
 	* @property {Boolean} destroyed
 	* @readOnly
 	*/
-	Object.defineProperty(p, 'destroyed', {
-		get: function() { return this._destroyed; }
+	Object.defineProperty(p, 'destroyed', 
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
 	});
 	
 	/**

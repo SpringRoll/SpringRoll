@@ -1,7 +1,7 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
@@ -14,8 +14,8 @@
 		AssetManager;
 
 	/**
-	 *	Abstract game state class to do some preloading of assets
-	 *	also plays well with the game audio loading.
+	 *	Abstract app state class to do some preloading of assets
+	 *	also plays well with the app audio loading.
 	 *	@class BaseState
 	 *	@extends springroll.BaseState
 	 *	@constructor
@@ -43,32 +43,47 @@
 		State.call(this, panel, nextState, prevState);
 
 		/**
-		 *	Reference to the main game
-		 *	@property {Application} game
+		 *	Reference to the main app
+		 *	@property {Application} app
 		 *	@protected
 		 */
-		this.game = Application.instance;
+		this.app = Application.instance;
+
+		/**
+		 *	Reference to the main app
+		 *	@property {Application} app
+		 *	@protected
+		 *	@deprecated Use the property 'app' instead
+		 */
+		this.game = this.app;
 
 		/**
 		 *	The instance of the VOPlayer
 		 *	@property {springroll.VOPlayer} voPlayer
 		 *	@protected
 		 */
-		this.voPlayer = this.game.voPlayer;
+		this.voPlayer = this.app.voPlayer;
+
+		/**
+		 *	The instance of the Sound
+		 *	@property {springroll.Sound} sound
+		 *	@protected
+		 */
+		this.sound = this.app.sound;
 
 		/**
 		 *	Reference to the main config object
 		 *	@property {Object} config
 		 *	@protected
 		 */
-		this.config = this.game.config;
+		this.config = this.app.config;
 
 		/**
 		 *	Reference to the scaling object
 		 *	@property {springroll.UIScaler} scaling
 		 *	@protected
 		 */
-		this.scaling = this.game.scaling;
+		this.scaling = this.app.scaling;
 
 		/**
 		 *	The assets to load each time
@@ -121,7 +136,7 @@
 	 *	by the transition
 	 *	@method enter
 	 */
-	p.enter = function()
+	p._internalEntering = function()
 	{
 		// Start prealoading assets
 		this.loadingStart();
@@ -149,6 +164,36 @@
 		{
 			onLoaded.call(this);
 		}
+
+		// Default entering
+		s._internalEntering.call(this);
+	};
+
+	/**
+	 * Extend the internal exit
+	 * @method _internalExit
+	 * @protected
+	 */
+	p._internalExit = function()
+	{
+		s._internalExit.call(this);
+
+		if (!this.assetsLoaded) return;
+
+		if (this.scaling)
+		{
+			this.scaling.removeBackground(this.panel.background);
+			this.scaling.removeItems(this.panel);
+		}
+
+		this.panel.teardown();
+
+		// Clean any assets loaded by the manifest
+		if (this.manifest && this.useDefaultManifest)
+		{
+			AssetManager.unload(this.manifest);
+		}
+		this.assetsLoaded = false;
 	};
 
 	/**
@@ -230,47 +275,23 @@
 		if (this.delayLoadFrames > 0)
 		{
 			var countdown = this.delayLoadFrames,
-				game = this.game,
+				app = this.app,
 				callback = this.loadingDone.bind(this);
 
 			var timerFunction = function()
 			{
 				if (--countdown <= 0)
 				{
-					game.off("update", timerFunction);
+					app.off("update", timerFunction);
 					callback();
 				}
 			};
-			game.on("update", timerFunction);
+			app.on("update", timerFunction);
 		}
 		else
 		{
 			this.loadingDone();
 		}
-	};
-
-	/**
-	 *	When we exit the state
-	 *	@method exit
-	 */
-	p.exit = function()
-	{
-		if (!this.assetsLoaded) return;
-
-		if (this.scaling)
-		{
-			this.scaling.removeBackground(this.panel.background);
-			this.scaling.removeItems(this.panel);
-		}
-
-		this.panel.teardown();
-
-		// Clean any assets loaded by the manifest
-		if (this.manifest && this.useDefaultManifest)
-		{
-			AssetManager.unload(this.manifest);
-		}
-		this.assetsLoaded = false;
 	};
 
 	/**
@@ -284,6 +305,8 @@
 		this.config = null;
 		this.voPlayer = null;
 		this.scaling = null;
+		this.sound = null;
+		this.app = null;
 
 		this.panel.destroy();
 
@@ -292,7 +315,5 @@
 
 	// Assign to the namespace
 	namespace('springroll.easeljs').BaseState = BaseState;
-
-	// Deprecated old namespace
-	namespace('springroll.easeljs').ManifestState = BaseState;
+	
 }());
