@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.0 API Documentation : src/states/StatesPlugin.js</title>
+<title>SpringRoll v0.3.2 API Documentation : src/states/StatesPlugin.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.0</em>
+<em>API Documentation for: 0.3.2</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -392,6 +392,9 @@
           <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class=''>
           <a href='../classes/window.Array.html'>window.Array</a>
         </li>
         <li class=''>
@@ -458,9 +461,6 @@
           <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
         </li>
         <li class=''>
-          <a href='../modules/Game.html'>Game</a>
-        </li>
-        <li class=''>
           <a href='../modules/Hints.html'>Hints</a>
         </li>
         <li class=''>
@@ -488,6 +488,9 @@
           <a href='../modules/Sound.html'>Sound</a>
         </li>
         <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
           <a href='../modules/Tasks.html'>Tasks</a>
         </li>
         <li class=''>
@@ -510,8 +513,9 @@ name
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
-*  @module Core
+*  @module States
 *  @namespace springroll
+*  @requires Core
 */
 (function()
 {
@@ -579,25 +583,25 @@ name
 
 		/**
 		 * The transition sounds to use for the state transition
-		 * @property {Object} options.transitionSounds The transition sound data
+		 * @property {Object} options.transitionSounds
 		 * @readOnly
 		 */
 		/**
 		 * The transition in sound alias or sound object
-		 * @property {Object} options.transitionSounds.in The transition sound data
-		 * @default &quot;TransitionIn&quot;
+		 * @property {Object} options.transitionSounds.in
+		 * @default null
 		 * @readOnly
 		 */
-		 /**
+		/**
 		 * The transition out sound alias or sound object
-		 * @property {Object} options.transitionSounds.out The transition sound data
-		 * @default &quot;TransitionOut&quot;
+		 * @property {Object} options.transitionSounds.out
+		 * @default null
 		 * @readOnly
 		 */
 		this.options.add(&#x27;transitionSounds&#x27;,
 		{
-			&#x27;in&#x27; : &#x27;TransitionIn&#x27;,
-			&#x27;out&#x27; : &#x27;TransitionOut&#x27;
+			&#x27;in&#x27; : null,
+			&#x27;out&#x27; : null
 		}, true);
 
 		/**
@@ -622,20 +626,23 @@ name
 				}
 
 				// Goto the transition state
-				if (!this.options.transition)
+				if (!this.transition)
 				{
-					if (DEBUG)
+					if (!this.options.transition)
 					{
-						throw &quot;StateManager requires a &#x27;transition&#x27; property to be set or through constructor options&quot;;
+						if (DEBUG)
+						{
+							throw &quot;StateManager requires a &#x27;transition&#x27; property to be set or through constructor options&quot;;
+						}
+						else
+						{
+							throw &quot;No options.transition&quot;;
+						}
 					}
-					else
-					{
-						throw &quot;No options.transition&quot;;
-					}
-				}
 
-				// Assign for convenience to the app property
-				this.transition = this.options.transition;
+					// Assign for convenience to the app property
+					this.transition = this.options.transition;
+				}
 
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a
@@ -698,14 +705,14 @@ name
 				switch (key)
 				{
 					//right arrow
-					case 39: 
+					case 39:
 					{
 						if (Debug) Debug.info(&quot;Going to next state via keyboard&quot;);
 						this.manager.next();
 						break;
 					}
 					//left arrow
-					case 37: 
+					case 37:
 					{
 						if (Debug) Debug.info(&quot;Going to previous state via keyboard&quot;);
 						this.manager.previous();
@@ -747,7 +754,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.0'></script>
-<script src='../assets/js/main.js?v=0.3.0'></script>
+<script src='../assets/js/libraries.js?v=0.3.2'></script>
+<script src='../assets/js/main.js?v=0.3.2'></script>
 </body>
 </html>

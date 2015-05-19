@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.0 API Documentation : src/media/Sound.js</title>
+<title>SpringRoll v0.3.2 API Documentation : src/media/Sound.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.0</em>
+<em>API Documentation for: 0.3.2</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -392,6 +392,9 @@
           <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class=''>
           <a href='../classes/window.Array.html'>window.Array</a>
         </li>
         <li class=''>
@@ -458,9 +461,6 @@
           <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
         </li>
         <li class=''>
-          <a href='../modules/Game.html'>Game</a>
-        </li>
-        <li class=''>
           <a href='../modules/Hints.html'>Hints</a>
         </li>
         <li class=''>
@@ -486,6 +486,9 @@
         </li>
         <li class=''>
           <a href='../modules/Sound.html'>Sound</a>
+        </li>
+        <li class=''>
+          <a href='../modules/States.html'>States</a>
         </li>
         <li class=''>
           <a href='../modules/Tasks.html'>Tasks</a>
@@ -761,43 +764,43 @@ name
 	});
 
 	/**
-	*  Loads a config object. This should not be called until after Sound.init() is complete.
-	*  @method loadConfig
+	*  Loads a context config object. This should not be called until after Sound.init() is complete.
+	*  @method addContext
 	*  @public
 	*  @param {Object} config The config to load.
 	*  @param {String} [config.context] The optional sound context to load sounds into unless
 	*                                   otherwise specified by the individual sound. Sounds do not
 	*                                   require a context.
 	*  @param {String} [config.path=&quot;&quot;] The path to prepend to all sound source urls in this config.
-	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
+	*  @param {Array} config.sounds The list of sounds, either as String ids or Objects with
 	*                                      settings.
-	*  @param {Object|String} config.soundManifest.listItem Not actually a property called listItem,
+	*  @param {Object|String} config.sounds.listItem Not actually a property called listItem,
 	*                                                       but an entry in the array. If this is a
 	*                                                       string, then it is the same as
 	*                                                       {&#x27;id&#x27;:&#x27;&lt;yourString&gt;&#x27;}.
-	*  @param {String} config.soundManifest.listItem.id The id to reference the sound by.
-	*  @param {String} [config.soundManifest.listItem.src] The src path to the file, without an
+	*  @param {String} config.sounds.listItem.id The id to reference the sound by.
+	*  @param {String} [config.sounds.listItem.src] The src path to the file, without an
 	*                                                      extension. If omitted, defaults to id.
-	*  @param {Number} [config.soundManifest.listItem.volume=1] The default volume for the sound,
+	*  @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
 	*                                                           from 0 to 1.
-	*  @param {Boolean} [config.soundManifest.listItem.loop=false] If the sound should loop by
+	*  @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
 	*                                                              default whenever the loop
 	*                                                              parameter in play() is not
 	*                                                              specified.
-	*  @param {String} [config.soundManifest.listItem.context] A context name to override
+	*  @param {String} [config.sounds.listItem.context] A context name to override
 	*                                                          config.context with.
-	*  @param {Boolean} [config.soundManifest.listItem.preload] If the sound should be preloaded
+	*  @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
 	*                                                           immediately.
 	*  @return {Sound} The sound object for chaining
 	*/
-	p.loadConfig = function(config)
+	p.addContext = function(config)
 	{
 		if (!config)
 		{
 			if (DEBUG &amp;&amp; Debug) Debug.warn(&quot;Warning - springroll.Sound was told to load a null config&quot;);
 			return;
 		}
-		var list = config.soundManifest;
+		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || &quot;&quot;;
 		var defaultContext = config.context;
 
@@ -838,6 +841,14 @@ name
 		//return the Sound instance for chaining
 		return this;
 	};
+
+	/**
+	*  Old method for loading a context config object.
+	*  @method loadConfig
+	*  @param {Object} config The config to load.
+	*  @deprecated Use &#x60;addContext(config)&#x60; instead.
+	*/
+	p.loadConfig = p.addContext;
 
 	/**
 	*	If a sound exists in the list of recognized sounds.
@@ -1783,7 +1794,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.0'></script>
-<script src='../assets/js/main.js?v=0.3.0'></script>
+<script src='../assets/js/libraries.js?v=0.3.2'></script>
+<script src='../assets/js/main.js?v=0.3.2'></script>
 </body>
 </html>

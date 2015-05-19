@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.0",
+        "version": "0.3.2",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -924,7 +924,7 @@
         "src/states/BaseState.js": {
             "name": "src/states/BaseState.js",
             "modules": {
-                "Game": 1
+                "States": 1
             },
             "classes": {
                 "springroll.BaseState": 1
@@ -1284,6 +1284,15 @@
                 "springroll": 1
             }
         },
+        "src/utils/WeightedRandom.js": {
+            "name": "src/utils/WeightedRandom.js",
+            "modules": {},
+            "classes": {
+                "springroll.WeightedRandom": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/utils/async.js": {
             "name": "src/utils/async.js",
             "modules": {},
@@ -1406,7 +1415,6 @@
                 "springroll.LoaderPlugin": 1,
                 "springroll.LoaderQueueItem": 1,
                 "springroll.LoaderResult": 1,
-                "springroll.StatesPlugin": 1,
                 "window.Array": 1,
                 "springroll.CombinedCallback": 1,
                 "springroll.DelayedCall": 1,
@@ -1418,6 +1426,7 @@
                 "springroll.PageVisibilityPlugin": 1,
                 "window.String": 1,
                 "springroll.TimeUtils": 1,
+                "springroll.WeightedRandom": 1,
                 "window.async": 1,
                 "window.extend": 1,
                 "window.include": 1,
@@ -1507,7 +1516,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 12,
+            "line": 13,
             "requires": [
                 "Core",
                 "Learning"
@@ -1549,7 +1558,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 13,
+            "line": 14,
             "requires": [
                 "Core",
                 "States",
@@ -1726,9 +1735,7 @@
             "file": "src/learning/ValidationError.js",
             "line": 10,
             "requires": [
-                "Core",
-                "Sound",
-                "Captions"
+                "Core"
             ]
         },
         "Learning Media": {
@@ -1792,21 +1799,22 @@
                 "Core"
             ]
         },
-        "Game": {
-            "name": "Game",
+        "States": {
+            "name": "States",
             "submodules": {},
             "classes": {
                 "springroll.BaseState": 1,
                 "springroll.StateEvent": 1,
-                "springroll.StateManager": 1
+                "springroll.StateManager": 1,
+                "springroll.StatesPlugin": 1
             },
             "fors": {},
             "namespaces": {
                 "springroll": 1
             },
             "tag": "module",
-            "file": "src/states/StateManager.js",
-            "line": 14,
+            "file": "src/states/StatesPlugin.js",
+            "line": 13,
             "requires": [
                 "Core"
             ]
@@ -2341,7 +2349,7 @@
             "module": "EaselJS Learning",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin EaselJS off click reporting to learning dispatcher\nautomatically, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -2451,7 +2459,7 @@
             "module": "EaselJS States",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 13,
+            "line": 14,
             "description": "A createjs-based Game to load manifests",
             "extends": "springroll.ApplicationPlugin",
             "params": [
@@ -4332,7 +4340,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/BaseState.js",
             "line": 13,
@@ -4368,7 +4376,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StateEvent.js",
             "line": 8,
@@ -4400,7 +4408,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StateManager.js",
             "line": 14,
@@ -4433,10 +4441,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll",
             "file": "src/states/StatesPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin for Loader, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -4451,7 +4459,7 @@
             "module": "Tasks",
             "namespace": "springroll",
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 13,
+            "line": 14,
             "description": "Create an app plugin for Hinting, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -4867,7 +4875,7 @@
             "module": "UI",
             "namespace": "springroll",
             "file": "src/ui/UIScalerPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin for touch detecting, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -5211,6 +5219,28 @@
             "line": 23,
             "description": "A collection of Time related utility functions"
         },
+        "springroll.WeightedRandom": {
+            "name": "springroll.WeightedRandom",
+            "shortname": "WeightedRandom",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "springroll",
+            "file": "src/utils/WeightedRandom.js",
+            "line": 3,
+            "description": "A class for generating weighted random values. Input objects are dictionary objects\nwhere the keys are the strings to be picked from, and the values are the corresponding\nodds as integers. For example:\n\n    {\n        itemWith25PercentChance: 2,\n        itemWith50PercentChance: 4,\n        otherItemWith25PercentChance: 2\n    }",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "object",
+                    "description": "The configuration object for this weighted value generator.",
+                    "type": "Object"
+                }
+            ]
+        },
         "window.async": {
             "name": "window.async",
             "shortname": "async",
@@ -5288,7 +5318,7 @@
             "params": [
                 {
                     "name": "options",
-                    "description": "The options for creating the application, \n \t\tsee `springroll.ApplicationOptions` for the specific options\n\t\tthat can be overridden and set.",
+                    "description": "The options for creating the application,\n \t\tsee `springroll.ApplicationOptions` for the specific options\n\t\tthat can be overridden and set.",
                     "type": "Object",
                     "optional": true
                 }
@@ -5552,7 +5582,19 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 194,
+            "line": 174,
+            "description": "Should we send bellhop messages for the mute (etc) buttons?",
+            "itemtype": "property",
+            "name": "sendMutes",
+            "type": "Boolean",
+            "default": "true",
+            "class": "springroll.Container",
+            "module": "Container",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/container/Container.js",
+            "line": 201,
             "description": "Fired when the pause state is toggled",
             "itemtype": "event",
             "name": "pause",
@@ -5569,7 +5611,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 200,
+            "line": 207,
             "description": "Fired when the application resumes from a paused state",
             "itemtype": "event",
             "name": "resumed",
@@ -5579,7 +5621,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 205,
+            "line": 212,
             "description": "Fired when the application becomes paused",
             "itemtype": "event",
             "name": "paused",
@@ -5589,7 +5631,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 210,
+            "line": 217,
             "description": "Fired when the application is unsupported",
             "itemtype": "event",
             "name": "unsupported",
@@ -5599,7 +5641,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 215,
+            "line": 222,
             "description": "Fired when the API cannot be called",
             "itemtype": "event",
             "name": "remoteFailed",
@@ -5609,7 +5651,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 220,
+            "line": 227,
             "description": "There was a problem with the API call",
             "itemtype": "event",
             "name": "remoteError",
@@ -5619,7 +5661,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 225,
+            "line": 232,
             "description": "Event when the application gives the load done signal",
             "itemtype": "event",
             "name": "opened",
@@ -5629,7 +5671,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 230,
+            "line": 237,
             "description": "Event when a application starts closing",
             "itemtype": "event",
             "name": "close",
@@ -5639,7 +5681,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 235,
+            "line": 242,
             "description": "Event when a application closes",
             "itemtype": "event",
             "name": "closed",
@@ -5649,7 +5691,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 240,
+            "line": 247,
             "description": "Event when a application start loading",
             "itemtype": "event",
             "name": "open",
@@ -5659,7 +5701,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 245,
+            "line": 252,
             "description": "Fired when the enabled status of the help button changes",
             "itemtype": "event",
             "name": "helpEnabled",
@@ -5676,7 +5718,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 251,
+            "line": 258,
             "description": "The features supported by the application",
             "itemtype": "event",
             "name": "features",
@@ -5723,7 +5765,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 263,
+            "line": 270,
             "description": "Event when dispatching a Learning Dispatcher event",
             "itemtype": "event",
             "name": "learningEvent",
@@ -5740,7 +5782,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 269,
+            "line": 276,
             "description": "Event when dispatching a Google Analytics event",
             "itemtype": "event",
             "name": "analyticEvent",
@@ -5781,7 +5823,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 279,
+            "line": 286,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "_internalOpen",
@@ -5822,7 +5864,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 344,
+            "line": 351,
             "description": "Open a application or path",
             "itemtype": "method",
             "name": "open",
@@ -5861,7 +5903,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 367,
+            "line": 374,
             "description": "Open application based on an API Call to SpringRoll Connect",
             "itemtype": "method",
             "name": "openRemote",
@@ -5907,7 +5949,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 422,
+            "line": 429,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onLoadDone",
@@ -5919,7 +5961,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 455,
+            "line": 462,
             "description": "Handle focus events sent from iFrame children",
             "itemtype": "method",
             "name": "onFocus",
@@ -5931,7 +5973,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 466,
+            "line": 473,
             "description": "Handle focus events sent from container's window",
             "itemtype": "method",
             "name": "onContainerFocus",
@@ -5943,7 +5985,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 477,
+            "line": 484,
             "description": "Handle blur events sent from container's window",
             "itemtype": "method",
             "name": "onContainerBlur",
@@ -5955,7 +5997,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 492,
+            "line": 499,
             "description": "Manage the focus change events sent from window and iFrame",
             "itemtype": "method",
             "name": "manageFocus",
@@ -5967,7 +6009,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 520,
+            "line": 527,
             "description": "Track an event for springroll Learning",
             "itemtype": "method",
             "name": "onLearningEvent",
@@ -5986,7 +6028,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 531,
+            "line": 538,
             "description": "Handle the application features",
             "itemtype": "method",
             "name": "onFeatures",
@@ -6005,7 +6047,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 556,
+            "line": 563,
             "description": "Reset the mutes for audio and captions",
             "itemtype": "method",
             "name": "onHelpEnabled",
@@ -6017,7 +6059,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 566,
+            "line": 573,
             "description": "Track an event for Google Analtyics",
             "itemtype": "method",
             "name": "onAnalyticEvent",
@@ -6036,7 +6078,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 605,
+            "line": 612,
             "description": "Handler when the play hint button is clicked",
             "itemtype": "method",
             "name": "onPlayHelp",
@@ -6048,7 +6090,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 618,
+            "line": 625,
             "description": "The application ended and destroyed itself",
             "itemtype": "method",
             "name": "onEndGame",
@@ -6060,7 +6102,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 631,
+            "line": 638,
             "description": "Handler when the captions mute button is clicked",
             "itemtype": "method",
             "name": "onCaptionsToggle",
@@ -6072,7 +6114,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 641,
+            "line": 648,
             "description": "If the current application is paused",
             "itemtype": "property",
             "name": "paused",
@@ -6084,7 +6126,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 680,
+            "line": 687,
             "description": "Set the captions are muted",
             "itemtype": "property",
             "name": "helpEnabled",
@@ -6095,7 +6137,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 700,
+            "line": 707,
             "description": "Handler when the sound mute button is clicked",
             "itemtype": "method",
             "name": "onSoundToggle",
@@ -6107,7 +6149,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 714,
+            "line": 721,
             "description": "Handler when the music mute button is clicked",
             "itemtype": "method",
             "name": "onMusicToggle",
@@ -6119,7 +6161,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 725,
+            "line": 732,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onVOToggle",
@@ -6131,7 +6173,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 736,
+            "line": 743,
             "description": "Handler when the voice-over mute button is clicked",
             "itemtype": "method",
             "name": "onSFXToggle",
@@ -6143,7 +6185,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 747,
+            "line": 754,
             "description": "Check for when all mutes are muted or unmuted",
             "itemtype": "method",
             "name": "_checkSoundMute",
@@ -6155,7 +6197,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 757,
+            "line": 764,
             "description": "Toggle the current paused state of the application",
             "itemtype": "method",
             "name": "onPauseToggle",
@@ -6167,7 +6209,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 768,
+            "line": 775,
             "description": "The name of the saved property if the captions are muted or not",
             "itemtype": "property",
             "name": "CAPTIONS_MUTED",
@@ -6182,7 +6224,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 777,
+            "line": 784,
             "description": "The name of the saved property if the sound is muted or not",
             "itemtype": "property",
             "name": "SOUND_MUTED",
@@ -6197,7 +6239,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 786,
+            "line": 793,
             "description": "The name of the saved property if the music is muted or not",
             "itemtype": "property",
             "name": "MUSIC_MUTED",
@@ -6212,7 +6254,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 795,
+            "line": 802,
             "description": "The name of the saved property if the voice-over is muted or not",
             "itemtype": "property",
             "name": "VO_MUTED",
@@ -6227,7 +6269,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 804,
+            "line": 811,
             "description": "The name of the saved property if the effects are muted or not",
             "itemtype": "property",
             "name": "SFX_MUTED",
@@ -6242,7 +6284,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 813,
+            "line": 820,
             "description": "The name of the saved property for the captions styles",
             "itemtype": "property",
             "name": "CAPTIONS_STYLES",
@@ -6257,7 +6299,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 822,
+            "line": 829,
             "description": "The map of the default caption style settings",
             "itemtype": "property",
             "name": "DEFAULT_CAPTIONS_STYLES",
@@ -6272,7 +6314,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 838,
+            "line": 845,
             "description": "Abstract method to handle the muting",
             "itemtype": "method",
             "name": "_setMuteProp",
@@ -6299,7 +6341,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 857,
+            "line": 864,
             "description": "Set the captions styles",
             "itemtype": "method",
             "name": "setCaptionsStyles",
@@ -6367,7 +6409,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 923,
+            "line": 930,
             "description": "Get the captions styles",
             "itemtype": "method",
             "name": "getCaptionsStyles",
@@ -6389,7 +6431,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 935,
+            "line": 942,
             "description": "Reset the captions styles",
             "itemtype": "method",
             "name": "clearCaptionsStyles",
@@ -6399,7 +6441,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 946,
+            "line": 953,
             "description": "Set the captions are enabled or not",
             "itemtype": "property",
             "name": "captionsMuted",
@@ -6411,7 +6453,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 964,
+            "line": 971,
             "description": "Set the all sound is enabled or not",
             "itemtype": "property",
             "name": "soundMuted",
@@ -6423,7 +6465,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 982,
+            "line": 989,
             "description": "Set the voice-over audio is muted",
             "itemtype": "property",
             "name": "voMuted",
@@ -6435,7 +6477,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1000,
+            "line": 1007,
             "description": "Set the music audio is muted",
             "itemtype": "property",
             "name": "musicMuted",
@@ -6447,7 +6489,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1018,
+            "line": 1025,
             "description": "Set the sound effect audio is muted",
             "itemtype": "property",
             "name": "sfxMuted",
@@ -6459,7 +6501,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1036,
+            "line": 1043,
             "description": "Reset all the buttons back to their original setting\nand clear the iframe.",
             "itemtype": "method",
             "name": "reset",
@@ -6469,7 +6511,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1064,
+            "line": 1071,
             "description": "Tell the application to start closing",
             "itemtype": "method",
             "name": "close",
@@ -6479,7 +6521,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1081,
+            "line": 1088,
             "description": "Disable a button",
             "itemtype": "method",
             "name": "disableButton",
@@ -6498,7 +6540,7 @@
         },
         {
             "file": "src/container/Container.js",
-            "line": 1093,
+            "line": 1100,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -10826,7 +10868,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 30,
+            "line": 36,
             "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed",
             "itemtype": "property",
             "name": "offClickParams",
@@ -10837,7 +10879,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 37,
+            "line": 43,
             "description": "For the learning, we want to send consistent data when sending\nPosition. This helper method will generate that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -10869,7 +10911,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 90,
+            "line": 96,
             "description": "Fires OffClick event if click on unhandled object",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -11391,7 +11433,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 34,
+            "line": 35,
             "description": "Event when the manifest is finished loading",
             "itemtype": "event",
             "name": "manifestLoaded",
@@ -11408,20 +11450,20 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 40,
+            "line": 41,
             "description": "The path to the concatinated FLA exported manifests. It's useful\nto load all the manifests at once. This JSON object contains a\ndictionary of state alias and contains an array of manifest assets\n(e.g. `{\"id\": \"PlayButton\", \"src\": \"assets/images/button.png\"}`.\nSet to null and no manifest will be auto-loaded.",
             "itemtype": "property",
             "name": "options.manifestsPath",
             "type": "String",
             "readonly": "",
-            "default": "\"assets/config/manifests.json\"",
+            "default": "null",
             "class": "springroll.easeljs.ManifestsPlugin",
             "module": "EaselJS States",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 61,
+            "line": 63,
             "description": "The collection of loading assests by state",
             "itemtype": "property",
             "name": "_manifests",
@@ -11434,7 +11476,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 68,
+            "line": 70,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -11446,7 +11488,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 120,
+            "line": 129,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -11466,6 +11508,19 @@
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
             "line": 23,
+            "description": "If asset collisions (lib.X is used by multiple assets) should have a warning logged.",
+            "itemtype": "property",
+            "name": "warnOnCollisions",
+            "type": "Boolean",
+            "static": 1,
+            "default": "false",
+            "class": "springroll.easeljs.AssetManager",
+            "module": "EaselJS UI",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/ui/AssetManager.js",
+            "line": 31,
             "description": "Array of asset ids that have been loaded by AssetManager.",
             "itemtype": "property",
             "name": "loadedAssets",
@@ -11479,7 +11534,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 31,
+            "line": 39,
             "description": "Dictionary of object definitions in the 'lib' dictionary. Each key is the name of a\ndefinition, with the value being the id of the asset that loaded it.",
             "itemtype": "property",
             "name": "loadedLibAssets",
@@ -11493,7 +11548,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 40,
+            "line": 48,
             "description": "Dictionary of TextureAtlas objects, stored by asset id.",
             "itemtype": "property",
             "name": "textureAtlases",
@@ -11507,7 +11562,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 48,
+            "line": 56,
             "description": "Dictionary of BitmapMovieClip configuration objects, stored by asset id.",
             "itemtype": "property",
             "name": "BMCConfigs",
@@ -11521,7 +11576,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 56,
+            "line": 64,
             "description": "Intializes AssetManager.",
             "itemtype": "method",
             "name": "init",
@@ -11532,7 +11587,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 80,
+            "line": 88,
             "description": "Loads all files need to make a BitmapMovieClip, given that the files are in the same\nlocation with a specific naming convention:\n\nBitmapMovieClip config file: &lt;assetId&gt;.json <br />\nBitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />\nBitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png",
             "itemtype": "method",
             "name": "loadBitmapMovieClip",
@@ -11569,7 +11624,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 121,
+            "line": 129,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "extractAssetName",
@@ -11593,7 +11648,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 150,
+            "line": 158,
             "description": "Loads a list of assets. All javascript files will be parsed so that they can be unloaded\nlater. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks\nfor special manifest items that would otherwise be invalid to handle spritesheets or images\nthat have been split into alpha and color images.\nA manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via\nAssetManager.getAtlas(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\"\n    }\n\nA manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()\nso that the individual sprites can be accessed via the global 'lib' dictionary:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\",\n        \"splitForEaselJS\":true\n    }\n\nA manifest item for a single image that has been split into color and alpha images that\nshould be recombined upon loading:\n\n    {\n        \"id\":\"myAssetId\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a TextureAtlas or spritesheet that has been split into color and\nalpha images:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be\nretrieved via AssetManager.getBitmapMovieClipConfig(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"src\":\"path/asset.json\",\n        \"bmcConfig\":true\n    }",
             "itemtype": "method",
             "name": "load",
@@ -11623,7 +11678,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 499,
+            "line": 515,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -11658,7 +11713,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 530,
+            "line": 546,
             "description": "Returns a TextureAtlas that was loaded by the specified asset id.",
             "itemtype": "method",
             "name": "getAtlas",
@@ -11680,7 +11735,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 542,
+            "line": 558,
             "description": "Returns a configuration object for a BitmapMovieClip.",
             "itemtype": "method",
             "name": "getBitmapMovieClipConfig",
@@ -11702,7 +11757,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 554,
+            "line": 570,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -11720,7 +11775,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 614,
+            "line": 630,
             "description": "Unloads all assets loaded by AssetManager.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -17232,7 +17287,7 @@
         },
         {
             "file": "src/hints/AnimatorHint.js",
-            "line": 40,
+            "line": 44,
             "description": "Run the hint",
             "itemtype": "method",
             "name": "play",
@@ -17242,7 +17297,7 @@
         },
         {
             "file": "src/hints/AnimatorHint.js",
-            "line": 55,
+            "line": 59,
             "description": "Clean-up the hint, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -21097,7 +21152,7 @@
             "itemtype": "property",
             "name": "options.captionsPath",
             "type": "String",
-            "default": "'assets/config/captions.json'",
+            "default": "null",
             "readonly": "",
             "class": "springroll.CaptionsPlugin",
             "module": "Sound",
@@ -21110,23 +21165,6 @@
             "itemtype": "property",
             "name": "captions",
             "type": "springroll.Captions",
-            "class": "springroll.CaptionsPlugin",
-            "module": "Sound",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/media/CaptionsPlugin.js",
-            "line": 54,
-            "description": "Sets the dicitonary for the captions used by player. If a Captions object\ndid not exist previously, then it creates one, and sets it up on all Animators.",
-            "itemtype": "method",
-            "name": "addCaptions",
-            "params": [
-                {
-                    "name": "data",
-                    "description": "The captions data to give to the Captions object",
-                    "type": "Object"
-                }
-            ],
             "class": "springroll.CaptionsPlugin",
             "module": "Sound",
             "namespace": "springroll"
@@ -21312,9 +21350,9 @@
         {
             "file": "src/media/Sound.js",
             "line": 252,
-            "description": "Loads a config object. This should not be called until after Sound.init() is complete.",
+            "description": "Loads a context config object. This should not be called until after Sound.init() is complete.",
             "itemtype": "method",
-            "name": "loadConfig",
+            "name": "addContext",
             "access": "public",
             "tagname": "",
             "params": [
@@ -21337,7 +21375,7 @@
                             "optdefault": "\"\""
                         },
                         {
-                            "name": "soundManifest",
+                            "name": "sounds",
                             "description": "The list of sounds, either as String ids or Objects with\n                                    settings.",
                             "type": "Array",
                             "props": [
@@ -21399,6 +21437,25 @@
         {
             "file": "src/media/Sound.js",
             "line": 331,
+            "description": "Old method for loading a context config object.",
+            "itemtype": "method",
+            "name": "loadConfig",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "The config to load.",
+                    "type": "Object"
+                }
+            ],
+            "deprecated": true,
+            "deprecationMessage": "Use `addContext(config)` instead.",
+            "class": "springroll.Sound",
+            "module": "Sound",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/media/Sound.js",
+            "line": 339,
             "description": "If a sound exists in the list of recognized sounds.",
             "itemtype": "method",
             "name": "exists",
@@ -21421,7 +21478,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 343,
+            "line": 351,
             "description": "If a context exists",
             "itemtype": "method",
             "name": "contextExists",
@@ -21444,7 +21501,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 355,
+            "line": 363,
             "description": "If a sound is unloaded.",
             "itemtype": "method",
             "name": "isUnloaded",
@@ -21467,7 +21524,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 367,
+            "line": 375,
             "description": "If a sound is loaded.",
             "itemtype": "method",
             "name": "isLoaded",
@@ -21490,7 +21547,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 379,
+            "line": 387,
             "description": "If a sound is in the process of being loaded",
             "itemtype": "method",
             "name": "isLoading",
@@ -21513,7 +21570,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 392,
+            "line": 400,
             "description": "If a sound is playing.",
             "itemtype": "method",
             "name": "isPlaying",
@@ -21536,7 +21593,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 406,
+            "line": 414,
             "description": "Gets the duration of a sound in milliseconds, if it has been loaded.",
             "itemtype": "method",
             "name": "getDuration",
@@ -21559,7 +21616,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 435,
+            "line": 443,
             "description": "Fades a sound from 0 to a specified volume.",
             "itemtype": "method",
             "name": "fadeIn",
@@ -21598,7 +21655,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 477,
+            "line": 485,
             "description": "Fades a sound from the current volume to a specified volume. A sound that ends at 0 volume\nis stopped after the fade.",
             "itemtype": "method",
             "name": "fadeOut",
@@ -21637,7 +21694,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 525,
+            "line": 533,
             "description": "The update call, used for fading sounds. This is bound to the instance of Sound",
             "itemtype": "method",
             "name": "_update",
@@ -21656,7 +21713,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 580,
+            "line": 588,
             "description": "Plays a sound.",
             "itemtype": "method",
             "name": "play",
@@ -21740,7 +21797,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 730,
+            "line": 738,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -21768,7 +21825,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 756,
+            "line": 764,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -21787,7 +21844,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 814,
+            "line": 822,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -21806,7 +21863,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 836,
+            "line": 844,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -21825,7 +21882,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 862,
+            "line": 870,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -21844,7 +21901,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 878,
+            "line": 886,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -21863,7 +21920,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 894,
+            "line": 902,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -21882,7 +21939,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 918,
+            "line": 926,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -21892,7 +21949,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 930,
+            "line": 938,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -21911,7 +21968,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 949,
+            "line": 957,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -21930,7 +21987,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 970,
+            "line": 978,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -21942,7 +21999,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 982,
+            "line": 990,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -21954,7 +22011,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 994,
+            "line": 1002,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -21978,7 +22035,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1026,
+            "line": 1034,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -21989,7 +22046,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1037,
+            "line": 1045,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -22013,7 +22070,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1068,
+            "line": 1076,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -22037,7 +22094,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1095,
+            "line": 1103,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -22061,7 +22118,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1149,
+            "line": 1157,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -22085,7 +22142,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1175,
+            "line": 1183,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -22118,7 +22175,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1191,
+            "line": 1199,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -22137,7 +22194,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1215,
+            "line": 1223,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -22156,7 +22213,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1236,
+            "line": 1244,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -22676,89 +22733,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 148,
-            "description": "Convenience method to loads a Sound config object.",
-            "itemtype": "method",
-            "name": "addSounds",
-            "access": "public",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "config",
-                    "description": "The config to load.",
-                    "type": "Object",
-                    "props": [
-                        {
-                            "name": "context",
-                            "description": "The optional sound context to load sounds into unless\n                                 otherwise specified by the individual sound. Sounds do not\n                                 require a context.",
-                            "type": "String",
-                            "optional": true
-                        },
-                        {
-                            "name": "path",
-                            "description": "The path to prepend to all sound source urls in this config.",
-                            "type": "String",
-                            "optional": true,
-                            "optdefault": "\"\""
-                        },
-                        {
-                            "name": "soundManifest",
-                            "description": "The list of sounds, either as String ids or Objects with\n                                    settings.",
-                            "type": "Array",
-                            "props": [
-                                {
-                                    "name": "",
-                                    "description": "An entry in the array. If this is a\n                                              string, then it is the same as\n                                              {'id':'<yourString>'}.",
-                                    "type": "Object|String",
-                                    "multiple": true
-                                },
-                                {
-                                    "name": "*.id",
-                                    "description": "The id to reference the sound by.",
-                                    "type": "String"
-                                },
-                                {
-                                    "name": "*.src",
-                                    "description": "The src path to the file, without an\n                                             extension. If omitted, defaults to id.",
-                                    "type": "String",
-                                    "optional": true
-                                },
-                                {
-                                    "name": "*.volume",
-                                    "description": "The default volume for the sound,\n                                                  from 0 to 1.",
-                                    "type": "Number",
-                                    "optional": true,
-                                    "optdefault": "1"
-                                },
-                                {
-                                    "name": "*.loop",
-                                    "description": "If the sound should loop by\n                                                     default whenever the loop\n                                                     parameter in play() is not\n                                                     specified.",
-                                    "type": "Boolean",
-                                    "optional": true,
-                                    "optdefault": "false"
-                                },
-                                {
-                                    "name": "*.context",
-                                    "description": "A context name to override\n                                                 config.context with.",
-                                    "type": "String",
-                                    "optional": true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "return": {
-                "description": "The Application object for chaining",
-                "type": "springroll.Application"
-            },
-            "class": "springroll.SoundPlugin",
-            "module": "Sound",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/media/SoundPlugin.js",
-            "line": 204,
+            "line": 172,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
@@ -23106,7 +23081,7 @@
             "name": "stateId",
             "type": "String",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23117,7 +23092,7 @@
             "name": "manager",
             "type": "StateManager",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23128,7 +23103,7 @@
             "name": "panel",
             "type": "createjs.Container|PIXI.DisplayObjectContainer",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23141,7 +23116,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23154,7 +23129,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23167,7 +23142,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23180,7 +23155,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23193,7 +23168,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23206,7 +23181,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23219,7 +23194,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23232,7 +23207,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23245,7 +23220,7 @@
             "access": "protected",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23257,7 +23232,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23269,7 +23244,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23279,7 +23254,7 @@
             "itemtype": "method",
             "name": "exit",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23291,7 +23266,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23301,7 +23276,7 @@
             "itemtype": "method",
             "name": "exitStart",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23320,7 +23295,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23330,7 +23305,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23349,7 +23324,7 @@
                 }
             ],
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23361,7 +23336,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23371,7 +23346,7 @@
             "itemtype": "method",
             "name": "cancel",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23381,7 +23356,7 @@
             "itemtype": "method",
             "name": "enter",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23393,7 +23368,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23403,7 +23378,7 @@
             "itemtype": "method",
             "name": "enterDone",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23415,7 +23390,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23426,7 +23401,7 @@
             "name": "enabled",
             "type": "Boolean",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23438,7 +23413,7 @@
             "type": "Boolean",
             "readonly": "",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23448,7 +23423,7 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.BaseState",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23459,7 +23434,7 @@
             "name": "currentState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23470,7 +23445,7 @@
             "name": "visibleState",
             "type": "BaseState",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23480,7 +23455,7 @@
             "name": "type",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23491,7 +23466,7 @@
             "name": "onVisible",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23502,7 +23477,7 @@
             "name": "onHidden",
             "type": "String",
             "class": "springroll.StateEvent",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23515,7 +23490,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23528,7 +23503,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23541,7 +23516,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23554,7 +23529,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23567,7 +23542,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23580,7 +23555,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23593,7 +23568,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23606,7 +23581,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23619,7 +23594,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23632,7 +23607,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23645,7 +23620,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23655,7 +23630,7 @@
             "itemtype": "event",
             "name": "onTransitionIn",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23665,7 +23640,7 @@
             "itemtype": "event",
             "name": "onTransitionInDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23675,7 +23650,7 @@
             "itemtype": "event",
             "name": "onTransitionOut",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23685,7 +23660,7 @@
             "itemtype": "event",
             "name": "onTransitionOutDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23695,7 +23670,7 @@
             "itemtype": "event",
             "name": "onInitDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23705,7 +23680,7 @@
             "itemtype": "event",
             "name": "onLoadingStart",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23715,7 +23690,7 @@
             "itemtype": "event",
             "name": "onLoadingDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23737,7 +23712,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23754,7 +23729,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23768,7 +23743,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23789,7 +23764,7 @@
                 "type": "BaseState"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23803,7 +23778,7 @@
                 "type": "Boolean"
             },
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23813,7 +23788,7 @@
             "itemtype": "method",
             "name": "loadingStart",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23823,7 +23798,7 @@
             "itemtype": "method",
             "name": "loadingDone",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23833,7 +23808,7 @@
             "itemtype": "method",
             "name": "showBlocker",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23843,7 +23818,7 @@
             "itemtype": "method",
             "name": "hideBlocker",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23853,7 +23828,7 @@
             "itemtype": "method",
             "name": "refresh",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23864,7 +23839,7 @@
             "name": "state",
             "type": "String",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23881,7 +23856,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23893,7 +23868,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23905,7 +23880,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23917,7 +23892,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23932,7 +23907,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23944,7 +23919,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23961,7 +23936,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -23978,7 +23953,7 @@
                 }
             ],
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24002,7 +23977,7 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24012,7 +23987,7 @@
             "itemtype": "method",
             "name": "next",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24022,7 +23997,7 @@
             "itemtype": "method",
             "name": "previous",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
@@ -24032,12 +24007,12 @@
             "itemtype": "method",
             "name": "destroy",
             "class": "springroll.StateManager",
-            "module": "Game",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 29,
+            "line": 30,
             "description": "Fired when an event has been added",
             "itemtype": "event",
             "name": "stateAdded",
@@ -24054,12 +24029,12 @@
                 }
             ],
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 36,
+            "line": 37,
             "description": "The collection of states",
             "itemtype": "property",
             "name": "_states",
@@ -24067,34 +24042,34 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 43,
+            "line": 44,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
             "type": "createjs.MovieClip|PIXI.Spine",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 49,
+            "line": 50,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
             "type": "springroll.StateManager",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 55,
+            "line": 56,
             "description": "The initial state to go to when everything is finished",
             "itemtype": "property",
             "name": "options.state",
@@ -24102,81 +24077,81 @@
             "default": "null",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 63,
+            "line": 64,
             "description": "The animation to use for the StateManager",
             "itemtype": "property",
             "name": "options.transition",
             "type": "createjs.MovieClip|PIXI.Spine",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 69,
+            "line": 70,
             "description": "The transition sounds to use for the state transition",
             "itemtype": "property",
-            "name": "options.transitionSounds The transition sound data",
+            "name": "options.transitionSounds",
             "type": "Object",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 74,
+            "line": 75,
             "description": "The transition in sound alias or sound object",
             "itemtype": "property",
-            "name": "options.transitionSounds.in The transition sound data",
+            "name": "options.transitionSounds.in",
             "type": "Object",
-            "default": "\"TransitionIn\"",
+            "default": "null",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 80,
+            "line": 81,
             "description": "The transition out sound alias or sound object",
             "itemtype": "property",
-            "name": "options.transitionSounds.out The transition sound data",
+            "name": "options.transitionSounds.out",
             "type": "Object",
-            "default": "\"TransitionOut\"",
+            "default": "null",
             "readonly": "",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 92,
+            "line": 93,
             "description": "The collection of states where the key is the state alias and value is the state display object",
             "itemtype": "property",
             "name": "states",
             "type": "Object",
             "default": "null",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 177,
+            "line": 181,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
             "class": "springroll.StatesPlugin",
-            "module": "Core",
+            "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 30,
+            "line": 31,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -24186,7 +24161,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 35,
+            "line": 36,
             "description": "The config has finished loading, in case you want to\nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -24208,7 +24183,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 43,
+            "line": 44,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -24225,19 +24200,19 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 52,
+            "line": 55,
             "description": "The path to the config file to load",
             "itemtype": "property",
             "name": "options.configPath",
             "type": "String",
-            "default": "'assets/config/config.json'",
+            "default": "null",
             "class": "springroll.ConfigPlugin",
             "module": "Tasks",
             "namespace": "springroll"
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 59,
+            "line": 62,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
@@ -24248,7 +24223,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 88,
+            "line": 103,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -24267,7 +24242,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 100,
+            "line": 115,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -25224,7 +25199,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 28,
+            "line": 30,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -25235,7 +25210,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 34,
+            "line": 36,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
@@ -25246,7 +25221,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 40,
+            "line": 42,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
@@ -25257,7 +25232,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 50,
+            "line": 52,
             "description": "Manually override the check for hasTouch (unminifed library version only)",
             "itemtype": "property",
             "name": "options.forceTouch",
@@ -25807,13 +25782,13 @@
             "name": "addItems",
             "params": [
                 {
-                    "name": "container",
-                    "description": "\nThe container where the items live",
+                    "name": "container\nThe",
+                    "description": "container where the items live",
                     "type": "PIXI.DisplayObjectContainer|createjs.Container"
                 },
                 {
                     "name": "items",
-                    "description": "The items object where the keys are the name of the property \non The parent and the value is an object with keys of \"titleSafe\", \"minScale\",\n\"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem for a description \nof the different keys.",
+                    "description": "The items object where the keys are the name of the property\non The parent and the value is an object with keys of \"titleSafe\", \"minScale\",\n\"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem for a description\nof the different keys.",
                     "type": "Object"
                 }
             ],
@@ -25827,7 +25802,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 386,
+            "line": 377,
             "description": "Manually add an item",
             "itemtype": "method",
             "name": "addItem",
@@ -25839,7 +25814,7 @@
                 },
                 {
                     "name": "settings",
-                    "description": "The collection of settings or the alignment",
+                    "description": "The collection of settings or the align property",
                     "type": "Object|String",
                     "optional": true,
                     "optdefault": "\"center\"",
@@ -25964,7 +25939,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 490,
+            "line": 489,
             "description": "Add background bitmaps to scale full screen, this will attempt to\nscale the background to the height of the display and crop on\nthe left and right.",
             "itemtype": "method",
             "name": "addBackground",
@@ -25985,7 +25960,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 509,
+            "line": 508,
             "description": "Remove background",
             "itemtype": "method",
             "name": "removeBackground",
@@ -26006,7 +25981,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 528,
+            "line": 527,
             "description": "Scale the UI items that have been registered to the current screen",
             "itemtype": "method",
             "name": "_resize",
@@ -26030,7 +26005,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 596,
+            "line": 595,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -26040,7 +26015,7 @@
         },
         {
             "file": "src/ui/UIScalerPlugin.js",
-            "line": 29,
+            "line": 32,
             "description": "The main UIScaler for any display object references\nin the main game.",
             "itemtype": "property",
             "name": "scaling",
@@ -27018,6 +26993,20 @@
             "namespace": "window"
         },
         {
+            "file": "src/utils/String.js",
+            "line": 44,
+            "description": "Returns a reversed copy of the string.",
+            "itemtype": "method",
+            "name": "format",
+            "return": {
+                "description": "The reversed string.",
+                "type": "String"
+            },
+            "class": "window.String",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
             "file": "src/utils/StringFilters.js",
             "line": 15,
             "description": "Dictionary of filters",
@@ -27104,6 +27093,20 @@
                 "type": "Int"
             },
             "class": "springroll.TimeUtils",
+            "module": "Core",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/WeightedRandom.js",
+            "line": 33,
+            "description": "Picks an item at random.",
+            "itemtype": "method",
+            "name": "random",
+            "return": {
+                "description": "The randomly chosen value.",
+                "type": "String"
+            },
+            "class": "springroll.WeightedRandom",
             "module": "Core",
             "namespace": "springroll"
         },
@@ -27922,7 +27925,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 109,
+            "line": 112,
             "description": "Get the query string as an object",
             "itemtype": "property",
             "name": "getQueryString",
@@ -27935,7 +27938,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 144,
+            "line": 147,
             "description": "Convert a string into a DOM Element",
             "access": "private",
             "tagname": "asDOMElement",
@@ -27952,7 +27955,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 158,
+            "line": 161,
             "description": "Override a default value",
             "access": "private",
             "tagname": "override",
@@ -27974,7 +27977,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 173,
+            "line": 176,
             "description": "The default Application options",
             "itemtype": "property",
             "name": "defaultOptions",
@@ -27987,7 +27990,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 180,
+            "line": 183,
             "description": "Use Request Animation Frame API",
             "itemtype": "property",
             "name": "raf",
@@ -27999,7 +28002,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 187,
+            "line": 190,
             "description": "The framerate to use for rendering the stage",
             "itemtype": "property",
             "name": "fps",
@@ -28011,7 +28014,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 194,
+            "line": 197,
             "description": "The element to resize the canvas to fit",
             "itemtype": "property",
             "name": "resizeElement",
@@ -28023,7 +28026,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 201,
+            "line": 204,
             "description": "Whether to resize the displays to the original aspect ratio",
             "itemtype": "property",
             "name": "uniformResize",
@@ -28035,7 +28038,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 208,
+            "line": 211,
             "description": "Use the query string parameters for options overrides",
             "itemtype": "property",
             "name": "useQueryString",
@@ -28047,7 +28050,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 215,
+            "line": 218,
             "description": "The default display DOM ID name",
             "itemtype": "property",
             "name": "canvasId",
@@ -28058,7 +28061,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 221,
+            "line": 224,
             "description": "The name of the class to automatically instantiate as the\ndisplay (e.g. `springroll.PixiDisplay`)",
             "itemtype": "property",
             "name": "display",
@@ -28069,7 +28072,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 228,
+            "line": 231,
             "description": "Display specific setup options",
             "itemtype": "property",
             "name": "displayOptions",
@@ -28080,7 +28083,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 234,
+            "line": 237,
             "description": "If using TweenJS, the Application will update the Tween itself.",
             "itemtype": "property",
             "name": "updateTween",
@@ -28092,7 +28095,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 241,
+            "line": 244,
             "description": "Used by `springroll.PixiTask`, default behavior\nis to load assets from the same domain.",
             "itemtype": "property",
             "name": "crossOrigin",
@@ -28104,7 +28107,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 249,
+            "line": 252,
             "description": "If doing uniform resizing, optional parameter to add\na maximum height relative to the original width. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original height of the canvas.",
             "itemtype": "property",
             "name": "maxHeight",
@@ -28115,7 +28118,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 258,
+            "line": 261,
             "description": "If doing uniform resizing, optional parameter to add\na maximum width relative to the original height. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original width of the canvas.",
             "itemtype": "property",
             "name": "maxWidth",
@@ -28126,7 +28129,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 267,
+            "line": 270,
             "description": "The name of the application",
             "itemtype": "property",
             "name": "name",
@@ -28451,7 +28454,7 @@
         },
         {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:90"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:96"
         },
         {
             "message": "Missing item type",
@@ -28543,7 +28546,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:177"
+            "line": " src/states/StatesPlugin.js:181"
         },
         {
             "message": "Missing item type",
@@ -28551,11 +28554,11 @@
         },
         {
             "message": "Missing item type\nConvert a string into a DOM Element",
-            "line": " src/ApplicationOptions.js:144"
+            "line": " src/ApplicationOptions.js:147"
         },
         {
             "message": "Missing item type\nOverride a default value",
-            "line": " src/ApplicationOptions.js:158"
+            "line": " src/ApplicationOptions.js:161"
         }
     ]
 }

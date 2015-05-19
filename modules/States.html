@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/displays/easeljs/mixins/MovieClip.js</title>
+<title>SpringRoll v0.3.2 API Documentation : States</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -502,51 +502,55 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<script>
-var name = {
-{
-name
-}
-}
-</script>
-<h1 class="file-heading">File:MovieClip.js</h1>
+<h1>States Module</h1>
+<div class="box clearfix meta">
 
-<div class="file">
-<pre class="code prettyprint linenums">/**
- * @module EaselJS Display
- * @namespace createjs
- * @requires Core
- */
-(function(undefined)
-{
-	// Try to include MovieClip, movieclip with CreateJS is 
-	// an optional library from easeljs. We should try to 
-	// include it and silently fail if we don&#x27;t have it
-	var MovieClip = include(&#x27;createjs.MovieClip&#x27;, false);
+<div class="foundat">
+Defined in: <a href="../files/src_states_StatesPlugin.js.html#l13"><code>States:13</code></a>
+</div>
 
-	if (!MovieClip) return;
+</div>
 
-	/**
-	 * Mixins for the CreateJS MovieClip class
-	 * @class MovieClip
-	 */
-	var p = MovieClip.prototype;
 
-	/**
-	 * Combines gotoAndStop and cache in createjs to cache right away
-	 * @method gotoAndCacheByBounds
-	 * @param {String|int} [frame=0] The 0-index frame number or frame label
-	 * @param {int} [buffer=15] The space around the nominal bounds to include in cache image
-	 */
-	p.gotoAndCacheByBounds = function(frame, buffer)
-	{
-		frame = (frame === undefined) ? 0 : frame;
-		this.gotoAndStop(frame);
-		this.cacheByBounds(buffer);
-	};
+<div class="box intro">
 
-}());</pre>
-</div></div>
+</div>
+
+
+<div class="uses">
+<p>Requires the following modules:</p>
+<ul class="module-requires normal">
+<li>
+<a href="../modules/Core.html">Core</a>
+</li>
+</ul>
+</div>
+
+<p>This namespace provides the following classes:</p>
+<ul class="module-classes normal">
+<li class="module-class">
+<a href="../classes/springroll.BaseState.html">
+springroll.BaseState
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.StateEvent.html">
+springroll.StateEvent
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.StateManager.html">
+springroll.StateManager
+</a>
+</li>
+<li class="module-class">
+<a href="../classes/springroll.StatesPlugin.html">
+springroll.StatesPlugin
+</a>
+</li>
+</ul>
+
+</div>
 </div>
 </div>
 </div>

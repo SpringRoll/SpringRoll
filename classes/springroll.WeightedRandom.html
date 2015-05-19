@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.0 API Documentation : Game</title>
+<title>SpringRoll v0.3.2 API Documentation : springroll.WeightedRandom</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.0'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.0'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.0</em>
+<em>API Documentation for: 0.3.2</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.0' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -392,6 +392,9 @@
           <a href='../classes/springroll.VOPlayer.html'>springroll.VOPlayer</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.WeightedRandom.html'>springroll.WeightedRandom</a>
+        </li>
+        <li class=''>
           <a href='../classes/window.Array.html'>window.Array</a>
         </li>
         <li class=''>
@@ -458,9 +461,6 @@
           <a href='../modules/EaselJS Utilities.html'>EaselJS Utilities</a>
         </li>
         <li class=''>
-          <a href='../modules/Game.html'>Game</a>
-        </li>
-        <li class=''>
           <a href='../modules/Hints.html'>Hints</a>
         </li>
         <li class=''>
@@ -488,6 +488,9 @@
           <a href='../modules/Sound.html'>Sound</a>
         </li>
         <li class=''>
+          <a href='../modules/States.html'>States</a>
+        </li>
+        <li class=''>
           <a href='../modules/Tasks.html'>Tasks</a>
         </li>
         <li class=''>
@@ -499,54 +502,175 @@
 </nav></nav>
 <div class='col-sm-8 col-md-9'>
 <div id='docs-main' class='apidocs'>
-<h1>Game Module</h1>
-<div class="box clearfix meta">
 
-<div class="foundat">
-Defined in: <a href="../files/src_states_StateManager.js.html#l14"><code>Game:14</code></a>
+<h1>springroll.WeightedRandom Class</h1>
+<div class='box meta'>
+
+
+<div class='foundat'>
+Defined in: <a href='../files/src_utils_WeightedRandom.js.html#l3'><code>springroll.WeightedRandom:3</code></a>
 </div>
 
-</div>
-
-
-<div class="box intro">
-
-</div>
-
-
-<div class="uses">
-<p>Requires the following modules:</p>
-<ul class="module-requires normal">
-<li>
+Module:
 <a href="../modules/Core.html">Core</a>
+
+</div>
+
+
+<div class='box intro'>
+<p>A class for generating weighted random values. Input objects are dictionary objects
+where the keys are the strings to be picked from, and the values are the corresponding
+odds as integers. For example:</p>
+<pre class="code prettyprint"><code>{
+    itemWith25PercentChance: 2,
+    itemWith50PercentChance: 4,
+    otherItemWith25PercentChance: 2
+}
+</code></pre>
+</div>
+
+<div class='constructor'>
+<h2>Constructor</h2> <div id='method_springroll.WeightedRandom' class='method item'>
+<h3 class='name'><code>springroll.WeightedRandom</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>object</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_utils_WeightedRandom.js.html#l3'><code>springroll.WeightedRandom:3</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>object</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<div class='param-description'>
+<p>The configuration object for this weighted value generator.</p>
+
+</div>
+
 </li>
 </ul>
 </div>
 
-<p>This namespace provides the following classes:</p>
-<ul class="module-classes normal">
-<li class="module-class">
-<a href="../classes/springroll.BaseState.html">
-springroll.BaseState
-</a>
-</li>
-<li class="module-class">
-<a href="../classes/springroll.StateEvent.html">
-springroll.StateEvent
-</a>
-</li>
-<li class="module-class">
-<a href="../classes/springroll.StateManager.html">
-springroll.StateManager
-</a>
-</li>
-</ul>
 
 </div>
 </div>
+
+<div id='classdocs' class='tabview'>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+</ul>
+
+<div class='tab-content'>
+
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
+
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_random'>random</a>
+
+</li>
+</ul>
+</div>
+
+
+
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div id='method_random' class='method item'>
+<h3 class='name'><code>random</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_utils_WeightedRandom.js.html#l33'><code>random:33</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Picks an item at random.</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+<p>The randomly chosen value.</p>
+
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.0'></script>
-<script src='../assets/js/main.js?v=0.3.0'></script>
+
+</div></div>
+
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.2'></script>
+<script src='../assets/js/main.js?v=0.3.2'></script>
 </body>
 </html>
