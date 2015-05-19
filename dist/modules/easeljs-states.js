@@ -401,17 +401,9 @@
 		this.panel.teardown();
 
 		// Clean any assets loaded by the manifest
-		if (this.manifest)
+		if (this.manifest && this.useDefaultManifest)
 		{
-			var id;
-			var manifest = this.manifest;
-			var len = manifest.length;
-
-			for (var i = 0; i < len; i++)
-			{
-				id = manifest[i].id;
-				delete images[id];
-			}
+			AssetManager.unload(this.manifest);
 		}
 		this.assetsLoaded = false;
 	};

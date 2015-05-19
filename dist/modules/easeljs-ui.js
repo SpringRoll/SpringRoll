@@ -2037,6 +2037,10 @@
 			var id = manifestData.id;
 			if(loadedAssets.indexOf(extractAssetName(id)) == -1)
 			{
+				if(true && Debug)
+				{
+					Debug.info("AssetManager is loading " + extractAssetName(id));
+				}
 				//look for expected manifest shorthands for atlases
 				if(manifestData.atlasData)
 				{
@@ -2118,6 +2122,13 @@
 					{
 						checkedManifest.push(manifestData);
 					}
+				}
+			}
+			else
+			{
+				if(true && Debug)
+				{
+					Debug.info("AssetManager skipping " + extractAssetName(id) + ", it is already loaded");
 				}
 			}
 		}
