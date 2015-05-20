@@ -149,7 +149,7 @@
 		// Preload the manifest files
 		if (this.useDefaultManifest && this.manifest && this.manifest.length)
 		{
-			AssetManager.load(this.manifest, null, tasks);
+			AssetManager.load(this.manifest, tasks);
 		}
 
 		this.addTasks(tasks);

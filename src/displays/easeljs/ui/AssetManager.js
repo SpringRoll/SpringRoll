@@ -221,7 +221,7 @@
 	*  @method load
 	*  @static
 	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Function} [callback] A function to call when load is complete
+	*  @param {Function|Array|TaskManager} callbackOrTaskList A function to call when load is complete
 	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
 	*                                        loading. If omitted, loads immediately with an internal
 	*                                        TaskManager.
@@ -236,6 +236,14 @@
 			}
 			return;
 		}
+
+		// 2nd argument support the array or taskmanager
+		if (Array.isArray(callback) || (callback instanceof TaskManager))
+		{
+			taskList = callback;
+			callback = null;
+		}
+
 		var checkedManifest = [];
 		for(var i = 0; i < manifest.length; ++i)
 		{
