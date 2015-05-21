@@ -2028,7 +2028,7 @@
 	*  @method load
 	*  @static
 	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Function|Array|TaskManager} [callbackOrTaskList] A function to call when load is complete
+	*  @param {Function|Array|TaskManager} callbackOrTaskList A function to call when load is complete
 	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
 	*                                        loading. If omitted, loads immediately with an internal
 	*                                        TaskManager.
