@@ -1,6 +1,6 @@
 {
 	"private": true,
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"dependencies": {
 		"grunt": "~0.4.5",
 		"library-grunt": "~0.6.0"

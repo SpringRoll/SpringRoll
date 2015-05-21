@@ -20,10 +20,14 @@
 	 *	@extends springroll.BaseState
 	 *	@constructor
 	 *	@param {createjs.Container} panel The panel
-	 *	@param {String|function} [nextState=null] The next state alias or call to next state
-	 *	@param {String|function} [prevState=null] The previous state alias or call to previous state
+	 *	@param {Object} [options] The options
+	 *	@param {String|function} [options.next=null] The next state alias or call to next state
+	 *	@param {String|function} [options.previous=null] The previous state alias or call to previous state
+	 *  @param {Boolean}} [options.useManifest=true] Automatically load and unload assets with
+	 *    the AssetManager which are found in the manifest option or property.
+	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the AssetManager.
 	 */
-	var BaseState = function(panel, nextState, prevState)
+	var BaseState = function(panel, options)
 	{
 		if (!Application)
 		{
@@ -40,12 +44,20 @@
 			throw "springroll.BaseState requires the panel be a springroll.easeljs.BasePanel";
 		}
 
-		State.call(this, panel, nextState, prevState);
+		// The options
+		options = Object.merge({
+			manifest: [],
+			useManifest: true
+		}, options || {});
+
+		// Parent class constructor
+		State.call(this, panel, options);
 
 		/**
 		 *	Reference to the main app
 		 *	@property {Application} app
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.app = Application.instance;
 
@@ -54,6 +66,7 @@
 		 *	@property {Application} app
 		 *	@protected
 		 *	@deprecated Use the property 'app' instead
+		 *	@readOnly
 		 */
 		this.game = this.app;
 
@@ -61,6 +74,7 @@
 		 *	The instance of the VOPlayer
 		 *	@property {springroll.VOPlayer} voPlayer
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.voPlayer = this.app.voPlayer;
 
@@ -68,6 +82,7 @@
 		 *	The instance of the Sound
 		 *	@property {springroll.Sound} sound
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.sound = this.app.sound;
 
@@ -75,6 +90,7 @@
 		 *	Reference to the main config object
 		 *	@property {Object} config
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.config = this.app.config;
 
@@ -82,6 +98,7 @@
 		 *	Reference to the scaling object
 		 *	@property {springroll.UIScaler} scaling
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.scaling = this.app.scaling;
 
@@ -90,39 +107,22 @@
 		 *	@property {Object} manifest
 		 *	@protected
 		 */
-		this.manifest = null;
+		this.manifest = options.manifest;
 
 		/**
-		 *	If the assets have finished loading
+		 *	Check to see if the assets have finished loading
 		 *	@property {Boolean} assetsLoaded
 		 *	@protected
+		 *	@readOnly
 		 */
 		this.assetsLoaded = false;
 
 		/**
-		 *	Should we attempt to run resize every time this state is entered
-		 *	Setting this to false in your subclass before onLoaded is called
-		 *	stops assets already on stage from re-scaling
-		 *	@property {Boolean}
-		 *	@default true
-		 *	@protected
-		 */
-		this.resizeOnReload = true;
-
-		/**
 		 *	If a manifest specific to this state should be automatically loaded by default.
-		 *	@property {Boolean} useDefaultManifest
+		 *	@property {Boolean} useManifest
 		 *	@protected
 		 */
-		this.useDefaultManifest = true;
-
-		/**
-		 *	The number of frames to delay the transition in after loading, to allow the framerate
-		 *	to stablize after heavy art instantiation.
-		 *	@property {int} delayLoadFrames
-		 *	@protected
-		 */
-		this.delayLoadFrames = 0;
+		this.useManifest = options.useManifest;
 	};
 
 	// Reference to the parent prototype
@@ -147,7 +147,7 @@
 		var tasks = [];
 
 		// Preload the manifest files
-		if (this.useDefaultManifest && this.manifest && this.manifest.length)
+		if (this.useManifest && this.manifest.length)
 		{
 			AssetManager.load(this.manifest, tasks);
 		}
@@ -157,12 +157,12 @@
 		// Start loading assets if we have some
 		if (tasks.length)
 		{
-			TaskManager.process(tasks, onLoaded.bind(this));
+			TaskManager.process(tasks, this._onLoaded.bind(this));
 		}
 		// No files to load, just continue
 		else
 		{
-			onLoaded.call(this);
+			this._onLoaded();
 		}
 
 		// Default entering
@@ -189,7 +189,7 @@
 		this.panel.teardown();
 
 		// Clean any assets loaded by the manifest
-		if (this.manifest && this.useDefaultManifest)
+		if (this.useManifest && this.manifest.length)
 		{
 			AssetManager.unload(this.manifest);
 		}
@@ -222,10 +222,10 @@
 
 	/**
 	 *	The internal call for on assets loaded
-	 *	@method onLoaded
-	 *	@private
+	 *	@method _onLoaded
+	 *	@protected
 	 */
-	var onLoaded = function()
+	p._onLoaded = function()
 	{
 		this.assetsLoaded = true;
 
@@ -237,10 +237,8 @@
 
 			if (items !== undefined)
 			{
-				if (this.resizeOnReload)
-				{
-					this.scaling.addItems(this.panel, items);
-				}
+				this.scaling.addItems(this.panel, items);
+				
 				// Background is optional, so we'll check
 				// before adding to the scaling
 				var background = this.panel.background;
@@ -253,45 +251,21 @@
 			// then scale the entire panel
 			else
 			{
-				if (this.resizeOnReload)
-				{
-					// Reset the panel scale & position, to ensure
-					// that the panel is scaled properly
-					// upon state re-entry
-					this.panel.x = this.panel.y = 0;
-					this.panel.scaleX = this.panel.scaleY = 1;
+				// Reset the panel scale & position, to ensure
+				// that the panel is scaled properly
+				// upon state re-entry
+				this.panel.x = this.panel.y = 0;
+				this.panel.scaleX = this.panel.scaleY = 1;
 
-					this.scaling.addItem(this.panel,
-					{
-						align: "top-left",
-						titleSafe: true
-					});
-				}
+				this.scaling.addItem(this.panel,
+				{
+					align: "top-left",
+					titleSafe: true
+				});
 			}
 		}
-
 		this.onAssetsLoaded();
-
-		if (this.delayLoadFrames > 0)
-		{
-			var countdown = this.delayLoadFrames,
-				app = this.app,
-				callback = this.loadingDone.bind(this);
-
-			var timerFunction = function()
-			{
-				if (--countdown <= 0)
-				{
-					app.off("update", timerFunction);
-					callback();
-				}
-			};
-			app.on("update", timerFunction);
-		}
-		else
-		{
-			this.loadingDone();
-		}
+		this.loadingDone();
 	};
 
 	/**

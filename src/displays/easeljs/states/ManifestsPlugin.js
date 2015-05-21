@@ -103,36 +103,6 @@
 				Debug.info("Application option 'manifestsPath' is empty, set to automatically load manifests JSON");
 			}
 		});
-
-		// Handle when states are added and add
-		// the manifests from either the config
-		this.on('stateAdded', function(alias, state)
-		{
-			if (!(state instanceof BaseState))
-			{
-				throw "States need to extend springroll.easeljs.BaseState";
-			}
-
-			var manifest = [];
-
-			// Add any manifests from the config
-			if (this.config && this.config.manifests)
-			{
-				var configManifests = this.config.manifests;
-				if (configManifests[alias])
-				{
-					manifest = configManifests[alias];
-				}
-			}
-			
-			// Add any manifest items from the createjs manifest concat
-			if (this._manifests[alias])
-			{
-				manifest = manifest.concat(this._manifests[alias]);
-			}
-			// Set the properties to the state
-			state.manifest = manifest;
-		});
 	};
 
 	/**
@@ -143,21 +113,11 @@
 	 */
 	var onManifestsLoaded = function(result, task, manager)
 	{
-		var lowerKey;
-		var	manifest = this._manifests;
-		var	content = result.content;
-		
-		for (var key in content)
-		{
-			lowerKey = key.toString().toLowerCase();
-			if (!manifest[lowerKey])
-			{
-				manifest[lowerKey] = content[key];
-			}
-		}
+		Object.merge(this._manifests, result.content);
 		this.trigger('manifestLoaded', manager);
 	};
 
+	// clean up
 	p.teardown = function()
 	{
 		this._manifests = null;

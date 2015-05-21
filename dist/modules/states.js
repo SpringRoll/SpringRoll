@@ -1,10 +1,10 @@
-/*! SpringRoll 0.3.2 */
+/*! SpringRoll 0.3.3 */
 /**
  * @module States
  * @namespace springroll
  * @requires Core
  */
-(function()
+(function(undefined)
 {
 	// Imports
 	var Debug,
@@ -17,11 +17,14 @@
 	*  @class BaseState
 	*  @constructor
 	*  @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
-	*                                                                this state.
-	*  @param {String|Function} [nextState=null] The next state alias
-	*  @param {String|Function} [prevState=null] The previous state alias
+	*  	this state.
+	*  @param {Object} [options] The list of options
+	*  @param {String|Function} [options.next=null] The next state alias
+	*  @param {String|Function} [options.previous=null] The previous state alias
+	*  @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
+	*    heavy object instaniation slow the game dramatically.
 	*/
-	var BaseState = function(panel, nextState, prevState)
+	var BaseState = function(panel, options)
 	{
 		if(!StateManager)
 		{
@@ -29,6 +32,18 @@
 			DelayedCall = include('springroll.DelayedCall');
 			Debug = include('springroll.Debug', false);
 		}
+
+		if (true && Debug && !panel)
+		{
+			Debug.error("BaseState requires a panel display object as the first constructor argument");
+		}
+
+		// Construct the options
+		options = Object.merge({
+			next: null,
+			previous: null,
+			delayLoad: 0
+		}, options || {});
 
 		/**
 		* The id reference
@@ -114,7 +129,7 @@
 		*  @property {String|Function} nextState
 		*  @protected
 		*/
-		this.nextState = nextState || null;
+		this.nextState = options.next;
 		
 		/**
 		*  Either the alias of the previous state or a function
@@ -123,7 +138,15 @@
 		*  @property {String|Function} prevState
 		*  @protected
 		*/
-		this.prevState = prevState || null;
+		this.prevState = options.previous;
+
+		/**
+		 *	The number of frames to delay the transition in after loading, to allow the framerate
+		 *	to stablize after heavy art instantiation.
+		 *	@property {int} delayLoad
+		 *	@protected
+		 */
+		this.delayLoad = options.delayLoad;
 
 		// Hide the panel by default
 		this.panel.visible = false;
@@ -132,55 +155,13 @@
 	var p = BaseState.prototype;
 	
 	/**
-	*  Status of whether the panel load was canceled
-	*
-	*  @property {Boolean} canceled
-	*  @readOnly
-	*/
-	Object.defineProperty(p, 'canceled', 
-	{
-		get: function()
-		{
-			return this._canceled;
-		}
-	});
-	
-	/**
-	*   This is called by the State Manager to exit the state
-	*
-	*   @method _internalExit
-	*   @protected
-	*/
-	p._internalExit = function()
-	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this.panel.visible = false;
-		this._active = false;
-		this.exit();
-	};
-	
-	/**
 	*  When the state is exited. Override this to provide state cleanup.
 	*
 	*  @method exit
 	*/
-	p.exit = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalExitStart
-	*   @protected
-	*/
-	p._internalExitStart = function()
+	p.exit = function()
 	{
-		this.exitStart();
+		// Implementation specific	
 	};
 	
 	/**
@@ -189,49 +170,44 @@
 	*
 	*   @method exitStart
 	*/
-	p.exitStart = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalEnter
-	*   @param {Function} proceed The function to call after enter has been called
-	*   @protected
-	*/
-	p._internalEnter = function(proceed)
+	p.exitStart = function()
 	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this._active = true;
-		this._canceled = false;
-		
-		this._onEnterProceed = proceed;
-		
-		this._internalEntering();
-		
-		if (this._onEnterProceed)
-		{
-			this._onEnterProceed();
-			this._onEnterProceed = null;
-		}
+		// Implementation specific	
 	};
 
 	/**
-	*   When the state is entering
-	*   @method _internalEntering
-	*   @param {Function} proceed The function to call after enter has been called
-	*   @protected
+	*   Cancel the load, implementation-specific.
+	*   This is where any async actions should be removed.
+	*
+	*   @method cancel
 	*/
-	p._internalEntering = function()
+	p.cancel = function()
 	{
-		this.enter();
+		// Implementation specific	
 	};
 	
+	/**
+	*   When the state is entered. Override this to start loading assets - call loadingStart()
+	*   to tell the StateManager that that is going on.
+	*
+	*   @method enter
+	*/
+	p.enter = function()
+	{
+		// Implementation specific	
+	};
+	
+	/**
+	*   When the state is visually entered fully - after the transition is done.
+	*   Override this to begin your state's activities.
+	*
+	*   @method enterDone
+	*/
+	p.enterDone = function()
+	{
+		// Implementation specific	
+	};
+
 	/**
 	*   Internal function to start the preloading
 	*
@@ -261,11 +237,16 @@
 	*   Internal function to finish the preloading
 	*
 	*   @method loadingDone
-	*   @param {int} [delay=0] Frames to delay the load completion to allow the framerate to
-	*                          stabilize.
+	*   @param {int} [delay] Frames to delay the load completion to allow the framerate to
+	*     stabilize. If not delay is set, defaults to the `delayLoad` property.
 	*/
 	p.loadingDone = function(delay)
 	{
+		if (delay === undefined)
+		{
+			delay = this.delayLoad;
+		}
+
 		if (!this._isLoading)
 		{
 			if (true && Debug) Debug.warn("loadingDone() was called without a load started, call loadingStart() first");
@@ -289,67 +270,18 @@
 	};
 	
 	/**
-	*   Cancel the loading of this state
+	*  Status of whether the panel load was canceled
 	*
-	*   @method _internalCancel
-	*   @protected
+	*  @property {Boolean} canceled
+	*  @readOnly
 	*/
-	p._internalCancel = function()
+	Object.defineProperty(p, 'canceled', 
 	{
-		this._active = false;
-		this._canceled = true;
-		this._isLoading = false;
-		
-		this._internalExit();
-		this.cancel();
-	};
-	
-	/**
-	*   Cancel the load, implementation-specific.
-	*   This is where any async actions should be removed.
-	*
-	*   @method cancel
-	*/
-	p.cancel = function()
-	{
-		// Implementation specific	
-	};
-	
-	/**
-	*   When the state is entered. Override this to start loading assets - call loadingStart()
-	*   to tell the StateManager that that is going on.
-	*
-	*   @method enter
-	*/
-	p.enter = function()
-	{
-		// Implementation specific	
-	};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalEnterDone
-	*   @private
-	*/
-	p._internalEnterDone = function()
-	{
-		if (this._canceled) return;
-		
-		this.enabled = true;
-		this.enterDone();
-	};
-	
-	/**
-	*   When the state is visually entered fully - after the transition is done.
-	*   Override this to begin your state's activities.
-	*
-	*   @method enterDone
-	*/
-	p.enterDone = function()
-	{
-		// Implementation specific	
-	};
+		get: function()
+		{
+			return this._canceled;
+		}
+	});
 
 	/**
 	*   Get if this is the active state
@@ -395,6 +327,108 @@
 			return this._destroyed;
 		}
 	});
+
+	/**
+	*   This is called by the State Manager to exit the state
+	*
+	*   @method _internalExit
+	*   @protected
+	*/
+	p._internalExit = function()
+	{
+		if (this._isTransitioning)
+		{
+			this._isTransitioning = false;
+			
+			this.manager._display.animator.stop(this.panel);
+		}
+		this._enabled = false;
+		this.panel.visible = false;
+		this._active = false;
+		this.exit();
+	};
+
+	/**
+	*   When the state is entering
+	*   @method _internalEntering
+	*   @param {Function} proceed The function to call after enter has been called
+	*   @protected
+	*/
+	p._internalEntering = function()
+	{
+		this.enter();
+	};
+	
+	/**
+	*   Exit the state start, called by the State Manager
+	*
+	*   @method _internalExitStart
+	*   @protected
+	*/
+	p._internalExitStart = function()
+	{
+		this.exitStart();
+	};
+	
+	/**
+	*   Exit the state start, called by the State Manager
+	*
+	*   @method _internalEnter
+	*   @param {Function} proceed The function to call after enter has been called
+	*   @protected
+	*/
+	p._internalEnter = function(proceed)
+	{
+		if (this._isTransitioning)
+		{
+			this._isTransitioning = false;
+			
+			this.manager._display.animator.stop(this.panel);
+		}
+		this._enabled = false;
+		this._active = true;
+		this._canceled = false;
+		
+		this._onEnterProceed = proceed;
+		
+		this._internalEntering();
+		
+		if (this._onEnterProceed)
+		{
+			this._onEnterProceed();
+			this._onEnterProceed = null;
+		}
+	};
+	
+	/**
+	*   Cancel the loading of this state
+	*
+	*   @method _internalCancel
+	*   @protected
+	*/
+	p._internalCancel = function()
+	{
+		this._active = false;
+		this._canceled = true;
+		this._isLoading = false;
+		
+		this._internalExit();
+		this.cancel();
+	};
+	
+	/**
+	*   Exit the state start, called by the State Manager
+	*
+	*   @method _internalEnterDone
+	*   @private
+	*/
+	p._internalEnterDone = function()
+	{
+		if (this._canceled) return;
+		
+		this.enabled = true;
+		this.enterDone();
+	};
 	
 	/**
 	*   Don't use the state object after this
@@ -495,9 +529,9 @@
 	 * @constructor
 	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
 	 *                                             displayed.
-	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	 * @param {createjs.MovieClip|PIXI.Spine} [transition] The transition MovieClip to play between
 	 *                                                   transitions.
-	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
 	 *                                  transition in, loop and out sounds. Example:
 	 *                                  {in:{alias:"myAlias", start:0.2}}.
 	 *                                  These objects are in the format for Animator from
@@ -522,7 +556,7 @@
 		* @property {createjs.MovieClip|PIXI.Spine} _transition
 		* @private
 		*/
-		this._transition = transition;
+		this._transition = transition || null;
 		
 		/**
 		* The sounds for the transition
@@ -597,9 +631,9 @@
 		this._queueStateId = null;
 
 		// Construct
-		if (this._transition.stop)
+		if (transition && transition.stop)
 		{
-			this._transition.stop();
+			transition.stop();
 		}
 		// Hide the blocker
 		this.hideBlocker();
@@ -837,7 +871,8 @@
 			// this is only possible if this is the first
 			// state we're loading
 			this._isTransitioning = true;
-			this._transition.visible = true;
+			if (this._transition)
+				this._transition.visible = true;
 			this._loopTransition();
 			this.trigger(StateManager.TRANSITION_INIT_DONE);
 			this._isLoading = true;
@@ -923,7 +958,10 @@
 	 */
 	p._onTransitionIn = function()
 	{
-		this._transition.visible = false;
+		if (this._transition)
+		{
+			this._transition.visible = false;
+		}
 		this.trigger(StateManager.TRANSITION_IN_DONE);
 		this._isTransitioning = false;
 		this.hideBlocker();
@@ -965,6 +1003,9 @@
 	*/
 	p._loopTransition = function()
 	{
+		// Ignore if no transition
+		if (!this._transition) return;
+
 		var audio;
 		if (this._transitionSounds)
 		{
@@ -1033,15 +1074,21 @@
 	p._transitioning = function(event, callback)
 	{
 		var clip = this._transition;
+		var sounds = this._transitionSounds;
+		
+		// Ignore with no transition
+		if (!clip) 
+		{
+			return callback();
+		}
+
 		clip.visible = true;
 
 		var audio;
 
-		if (this._transitionSounds)
+		if (sounds)
 		{
-			audio = event == StateManager.TRANSITION_IN ?
-				this._transitionSounds.in :
-				this._transitionSounds.out;
+			audio = (event == StateManager.TRANSITION_IN) ? sounds.in : sounds.out;
 		}
 		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
 	};
@@ -1109,7 +1156,10 @@
 
 		this.off();
 		
-		this._display.animator.stop(this._transition);
+		if (this._transition)
+		{
+			this._display.animator.stop(this._transition);
+		}
 		
 		if (this._state)
 		{
@@ -1247,37 +1297,22 @@
 					}
 				}
 
-				// Goto the transition state
-				if (!this.transition)
-				{
-					if (!this.options.transition)
-					{
-						if (true)
-						{
-							throw "StateManager requires a 'transition' property to be set or through constructor options";
-						}
-						else
-						{
-							throw "No options.transition";
-						}
-					}
-
-					// Assign for convenience to the app property
-					this.transition = this.options.transition;
-				}
+				// Get the transition from either the transition manual set or the options
+				var transition =  this.transition || this.options.transition;
+				this.transition = transition;
 
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a
 				//'transitionLoop' animation, that will be played as soon as a state is set
-				if (this.transition.gotoAndStop)
+				if (transition && transition.gotoAndStop)
 				{
-					this.transition.gotoAndStop("onTransitionOut_stop");
+					transition.gotoAndStop("onTransitionOut_stop");
 				}
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
 					this.display,
-					this.transition,
+					transition,
 					this.options.transitionSounds
 				);
 				
@@ -1298,7 +1333,10 @@
 				this._states = states;
 
 				// Add the transition on top of everything else
-				stage.addChild(this.transition);
+				if (transition)
+				{
+					stage.addChild(transition);
+				}
 
 				// Goto the first state
 				if (this.options.state)

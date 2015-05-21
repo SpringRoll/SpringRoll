@@ -19,9 +19,9 @@
 	 * @constructor
 	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
 	 *                                             displayed.
-	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	 * @param {createjs.MovieClip|PIXI.Spine} [transition] The transition MovieClip to play between
 	 *                                                   transitions.
-	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
 	 *                                  transition in, loop and out sounds. Example:
 	 *                                  {in:{alias:"myAlias", start:0.2}}.
 	 *                                  These objects are in the format for Animator from
@@ -46,7 +46,7 @@
 		* @property {createjs.MovieClip|PIXI.Spine} _transition
 		* @private
 		*/
-		this._transition = transition;
+		this._transition = transition || null;
 		
 		/**
 		* The sounds for the transition
@@ -121,9 +121,9 @@
 		this._queueStateId = null;
 
 		// Construct
-		if (this._transition.stop)
+		if (transition && transition.stop)
 		{
-			this._transition.stop();
+			transition.stop();
 		}
 		// Hide the blocker
 		this.hideBlocker();
@@ -361,7 +361,8 @@
 			// this is only possible if this is the first
 			// state we're loading
 			this._isTransitioning = true;
-			this._transition.visible = true;
+			if (this._transition)
+				this._transition.visible = true;
 			this._loopTransition();
 			this.trigger(StateManager.TRANSITION_INIT_DONE);
 			this._isLoading = true;
@@ -447,7 +448,10 @@
 	 */
 	p._onTransitionIn = function()
 	{
-		this._transition.visible = false;
+		if (this._transition)
+		{
+			this._transition.visible = false;
+		}
 		this.trigger(StateManager.TRANSITION_IN_DONE);
 		this._isTransitioning = false;
 		this.hideBlocker();
@@ -489,6 +493,9 @@
 	*/
 	p._loopTransition = function()
 	{
+		// Ignore if no transition
+		if (!this._transition) return;
+
 		var audio;
 		if (this._transitionSounds)
 		{
@@ -557,15 +564,21 @@
 	p._transitioning = function(event, callback)
 	{
 		var clip = this._transition;
+		var sounds = this._transitionSounds;
+		
+		// Ignore with no transition
+		if (!clip) 
+		{
+			return callback();
+		}
+
 		clip.visible = true;
 
 		var audio;
 
-		if (this._transitionSounds)
+		if (sounds)
 		{
-			audio = event == StateManager.TRANSITION_IN ?
-				this._transitionSounds.in :
-				this._transitionSounds.out;
+			audio = (event == StateManager.TRANSITION_IN) ? sounds.in : sounds.out;
 		}
 		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
 	};
@@ -633,7 +646,10 @@
 
 		this.off();
 		
-		this._display.animator.stop(this._transition);
+		if (this._transition)
+		{
+			this._display.animator.stop(this._transition);
+		}
 		
 		if (this._state)
 		{

@@ -111,37 +111,22 @@
 					}
 				}
 
-				// Goto the transition state
-				if (!this.transition)
-				{
-					if (!this.options.transition)
-					{
-						if (DEBUG)
-						{
-							throw "StateManager requires a 'transition' property to be set or through constructor options";
-						}
-						else
-						{
-							throw "No options.transition";
-						}
-					}
-
-					// Assign for convenience to the app property
-					this.transition = this.options.transition;
-				}
+				// Get the transition from either the transition manual set or the options
+				var transition =  this.transition || this.options.transition;
+				this.transition = transition;
 
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a
 				//'transitionLoop' animation, that will be played as soon as a state is set
-				if (this.transition.gotoAndStop)
+				if (transition && transition.gotoAndStop)
 				{
-					this.transition.gotoAndStop("onTransitionOut_stop");
+					transition.gotoAndStop("onTransitionOut_stop");
 				}
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
 					this.display,
-					this.transition,
+					transition,
 					this.options.transitionSounds
 				);
 				
@@ -162,7 +147,10 @@
 				this._states = states;
 
 				// Add the transition on top of everything else
-				stage.addChild(this.transition);
+				if (transition)
+				{
+					stage.addChild(transition);
+				}
 
 				// Goto the first state
 				if (this.options.state)
