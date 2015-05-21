@@ -643,6 +643,9 @@
 	 */
 	p.destroy = function()
 	{
+		// Only destroy the application once
+		if (this.destroyed) return;
+
 		this.paused = true;
 		this.trigger('destroy');
 
