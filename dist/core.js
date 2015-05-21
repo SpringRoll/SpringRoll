@@ -4379,7 +4379,7 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.filters.destroy();
+		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
 
