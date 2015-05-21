@@ -328,9 +328,12 @@
 		}
 
 		// Send the end application event to the container
-		this.container.send('endGame');
-		this.container.destroy();
-		this.container = null;
+		if (this.container)
+		{
+			this.container.send('endGame');
+			this.container.destroy();
+			this.container = null;
+		}
 	};
 
 	// register plugin

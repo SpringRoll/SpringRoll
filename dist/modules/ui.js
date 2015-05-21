@@ -1270,7 +1270,7 @@
 	//Clean up
 	p.teardown = function()
 	{
-		this.scaling.destroy();
+		if (this.scaling) this.scaling.destroy();
 		this.scaling = null;
 	};
 

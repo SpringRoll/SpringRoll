@@ -318,7 +318,7 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.languages.destroy();
+		if (this.languages) this.languages.destroy();
 		this.languages = null;
 	};
 

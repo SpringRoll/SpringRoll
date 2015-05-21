@@ -98,8 +98,11 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.loader.destroy();
-		this.loader = null;
+		if (this.loader)
+		{
+			this.loader.destroy();
+			this.loader = null;
+		}
 	};
 
 	// register plugin
