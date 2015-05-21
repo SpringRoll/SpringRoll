@@ -2291,9 +2291,11 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.voPlayer.destroy();
-		this.voPlayer = null;
-		
+		if (this.voPlayer)
+		{
+			this.voPlayer.destroy();
+			this.voPlayer = null;
+		}
 		if (this.sound)
 		{
 			this.sound.destroy();

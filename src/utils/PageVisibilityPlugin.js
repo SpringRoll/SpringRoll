@@ -75,7 +75,7 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this._visibility.destroy();
+		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
 

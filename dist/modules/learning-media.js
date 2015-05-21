@@ -656,8 +656,11 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.media.destroy();
-		this.media = null;
+		if (this.media)
+		{
+			this.media.destroy();
+			this.media = null;
+		}
 	};
 
 	// register plugin

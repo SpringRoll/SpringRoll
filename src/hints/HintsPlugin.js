@@ -61,9 +61,12 @@
 		{
 			this.container.off('playHelp');
 		}
-		this.hints.off('enabled');
-		this.hints.destroy();
-		this.hints = null;
+		if (this.hints)
+		{
+			this.hints.off('enabled');
+			this.hints.destroy();
+			this.hints = null;
+		}
 	};
 
 	// register plugin

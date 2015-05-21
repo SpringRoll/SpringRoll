@@ -76,8 +76,11 @@
 	// Destroy the animator
 	p.teardown = function()
 	{
-		this.learning.destroy();
-		this.learning = null;
+		if (this.learning)
+		{
+			this.learning.destroy();
+			this.learning = null;
+		}
 	};
 
 	// register plugin
