@@ -1821,7 +1821,7 @@
 			{
 				var opts = Application.instance.options;
 				var assetLoader = new AssetLoader(urls, opts.crossOrigin, opts.basePath);
-				assetLoader.onComplete = onloaded.bind(AssetManager, assetOrAssets, callback);
+				assetLoader.onComplete = onLoaded.bind(AssetManager, assetOrAssets, callback);
 				assetLoader.load();
 			}
 			else if(callback)
