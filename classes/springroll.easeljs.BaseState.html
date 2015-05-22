@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : springroll.easeljs.BaseState</title>
+<title>SpringRoll v0.3.3 API Documentation : springroll.easeljs.BaseState</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -512,7 +512,7 @@ Extends
 </div>
 
 <div class='foundat'>
-Defined in: <a href='../files/src_displays_easeljs_states_BaseState.js.html#l15'><code>springroll.easeljs.BaseState:15</code></a>
+Defined in: <a href='../files/src_displays_easeljs_states_BaseState.js.html#l16'><code>springroll.easeljs.BaseState:16</code></a>
 </div>
 
 Module:
@@ -522,8 +522,8 @@ Module:
 
 
 <div class='box intro'>
-<p>Abstract game state class to do some preloading of assets
-also plays well with the game audio loading.</p>
+<p>Abstract app state class to do some preloading of assets
+also plays well with the app audio loading.</p>
 
 </div>
 
@@ -538,10 +538,10 @@ also plays well with the game audio loading.</p>
 <code>panel</code>
 </li>
 <li class='arg'>
-<code class='optional'>[nextState=null]</code>
+<code class='optional'>[options]</code>
 </li>
 <li class='arg'>
-<code class='optional'>[prevState=null]</code>
+<code>}</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -558,7 +558,7 @@ also plays well with the game audio loading.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l15'><code>springroll.easeljs.BaseState:15</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l16'><code>springroll.easeljs.BaseState:16</code></a>
 </p>
 
 
@@ -585,10 +585,21 @@ Defined in
 
 </li>
 <li class='param'>
-<code class='param-name optional'>[nextState=null]</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
+
+<div class='param-description'>
+<p>The options</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[next=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
 <p>The next state alias or call to next state</p>
@@ -597,13 +608,37 @@ Defined in
 
 </li>
 <li class='param'>
-<code class='param-name optional'>[prevState=null]</code>
+<code class='param-name optional'>[previous=null]</code>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
-
 <div class='param-description'>
 <p>The previous state alias or call to previous state</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[manifest=[]]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The list of object to load and unload with the AssetManager.</p>
+
+</div>
+
+</li>
+</ul>
+</li>
+<li class='param'>
+<code class='param-name'>}</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<div class='param-description'>
+<p>[options.useManifest=true] Automatically load and unload assets with
+    the AssetManager which are found in the manifest option or property.</p>
 
 </div>
 
@@ -636,11 +671,11 @@ Defined in
 <h3>Methods</h3>
 
 <ul class='list-group row methods extends'>
-<li class='col-xs-6 col-md-4 index-item method private inherited'>
+<li class='col-xs-6 col-md-4 index-item method protected inherited'>
 <a href='#method__internalCancel'>_internalCancel</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private inherited'>
+<li class='col-xs-6 col-md-4 index-item method protected inherited'>
 <a href='#method__internalEnter'>_internalEnter</a>
 
 </li>
@@ -648,12 +683,20 @@ Defined in
 <a href='#method__internalEnterDone'>_internalEnterDone</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private inherited'>
+<li class='col-xs-6 col-md-4 index-item method protected inherited'>
+<a href='#method__internalEntering'>_internalEntering</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected inherited'>
 <a href='#method__internalExit'>_internalExit</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private inherited'>
+<li class='col-xs-6 col-md-4 index-item method protected inherited'>
 <a href='#method__internalExitStart'>_internalExitStart</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__onLoaded'>_onLoaded</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method protected'>
@@ -696,14 +739,6 @@ Defined in
 <a href='#method_onAssetsLoaded'>onAssetsLoaded</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_onLoaded'>onLoaded</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method_onManifestLoaded'>onManifestLoaded</a>
-
-</li>
 </ul>
 </div>
 
@@ -743,6 +778,15 @@ Defined in
 <a href='#property_active'>active</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property protected deprecated'>
+<a href='#property_app'>app</a>
+
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_app'>app</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
 <a href='#property_assetsLoaded'>assetsLoaded</a>
 
@@ -755,12 +799,8 @@ Defined in
 <a href='#property_config'>config</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item property protected'>
-<a href='#property_delayLoadFrames'>delayLoadFrames</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property protected'>
-<a href='#property_'></a>
+<li class='col-xs-6 col-md-4 index-item property protected inherited'>
+<a href='#property_delayLoad'>delayLoad</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property inherited'>
@@ -769,10 +809,6 @@ Defined in
 </li>
 <li class='col-xs-6 col-md-4 index-item property inherited'>
 <a href='#property_enabled'>enabled</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item property protected'>
-<a href='#property_game'>game</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property inherited'>
@@ -799,12 +835,16 @@ Defined in
 <a href='#property_scaling'>scaling</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_sound'>sound</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property inherited'>
 <a href='#property_stateId'>stateId</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
-<a href='#property_useDefaultManifest'>useDefaultManifest</a>
+<a href='#property_useManifest'>useManifest</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
@@ -819,7 +859,7 @@ Defined in
 
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-<div id='method__internalCancel' class='method item private inherited'>
+<div id='method__internalCancel' class='method item protected inherited'>
 <h3 class='name'><code>_internalCancel</code></h3>
 
 <span class='paren'>()</span>
@@ -827,7 +867,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -837,7 +877,7 @@ Defined in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method__internalCancel'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l275'><code>_internalCancel:275</code></a>
+<a href='../files/src_states_BaseState.js.html#l402'><code>_internalCancel:402</code></a>
 </p>
 
 
@@ -851,7 +891,7 @@ Defined in
 
 
 
-</div><div id='method__internalEnter' class='method item private inherited'>
+</div><div id='method__internalEnter' class='method item protected inherited'>
 <h3 class='name'><code>_internalEnter</code></h3>
 
 <div class='args'>
@@ -866,7 +906,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -876,7 +916,7 @@ Defined in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method__internalEnter'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l189'><code>_internalEnter:189</code></a>
+<a href='../files/src_states_BaseState.js.html#l372'><code>_internalEnter:372</code></a>
 </p>
 
 
@@ -925,7 +965,7 @@ Defined in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method__internalEnterDone'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l307'><code>_internalEnterDone:307</code></a>
+<a href='../files/src_states_BaseState.js.html#l418'><code>_internalEnterDone:418</code></a>
 </p>
 
 
@@ -939,15 +979,22 @@ Defined in
 
 
 
-</div><div id='method__internalExit' class='method item private inherited'>
-<h3 class='name'><code>_internalExit</code></h3>
+</div><div id='method__internalEntering' class='method item protected inherited'>
+<h3 class='name'><code>_internalEntering</code></h3>
 
-<span class='paren'>()</span>
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>proceed</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
 
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -956,8 +1003,8 @@ Defined in
 
 <div class='meta'>
 <p>Inherited from
-<a href='../classes/springroll.BaseState.html#method__internalExit'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l143'><code>_internalExit:143</code></a>
+<a href='../classes/springroll.BaseState.html#method__internalEntering'>springroll.BaseState</a>:
+<a href='../files/src_states_BaseState.js.html#l350'><code>_internalEntering:350</code></a>
 </p>
 
 
@@ -965,13 +1012,65 @@ Defined in
 </div>
 
 <div class='description'>
-<p>This is called by the State Manager to exit the state</p>
+<p>When the state is entering</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>proceed</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call after enter has been called</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method__internalExit' class='method item protected'>
+<h3 class='name'><code>_internalExit</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>Inherited from
+<a href='../classes/springroll.BaseState.html#method__internalExit'>
+springroll.BaseState
+</a>
+but overwritten in
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l172'><code>_internalExit:172</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Extend the internal exit</p>
 
 </div>
 
 
 
-</div><div id='method__internalExitStart' class='method item private inherited'>
+</div><div id='method__internalExitStart' class='method item protected inherited'>
 <h3 class='name'><code>_internalExitStart</code></h3>
 
 <span class='paren'>()</span>
@@ -979,7 +1078,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -989,7 +1088,7 @@ Defined in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method__internalExitStart'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l170'><code>_internalExitStart:170</code></a>
+<a href='../files/src_states_BaseState.js.html#l361'><code>_internalExitStart:361</code></a>
 </p>
 
 
@@ -998,6 +1097,38 @@ Defined in
 
 <div class='description'>
 <p>Exit the state start, called by the State Manager</p>
+
+</div>
+
+
+
+</div><div id='method__onLoaded' class='method item protected'>
+<h3 class='name'><code>_onLoaded</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l223'><code>_onLoaded:223</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The internal call for on assets loaded</p>
 
 </div>
 
@@ -1028,7 +1159,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l152'><code>addTasks:152</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l199'><code>addTasks:199</code></a>
 </p>
 
 
@@ -1077,7 +1208,7 @@ tasks to your state, override this function.</p>
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method_cancel'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l291'><code>cancel:291</code></a>
+<a href='../files/src_states_BaseState.js.html#l177'><code>cancel:177</code></a>
 </p>
 
 
@@ -1112,7 +1243,7 @@ This is where any async actions should be removed.</p>
 springroll.BaseState
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l302'><code>destroy:302</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l271'><code>destroy:271</code></a>
 </p>
 
 
@@ -1146,7 +1277,7 @@ but overwritten in
 springroll.BaseState
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l117'><code>enter:117</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l134'><code>enter:134</code></a>
 </p>
 
 
@@ -1178,7 +1309,7 @@ by the transition</p>
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method_enterDone'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l321'><code>enterDone:321</code></a>
+<a href='../files/src_states_BaseState.js.html#l199'><code>enterDone:199</code></a>
 </p>
 
 
@@ -1193,7 +1324,7 @@ Override this to begin your state&#39;s activities.</p>
 
 
 
-</div><div id='method_exit' class='method item'>
+</div><div id='method_exit' class='method item inherited'>
 <h3 class='name'><code>exit</code></h3>
 
 <span class='paren'>()</span>
@@ -1209,11 +1340,8 @@ Override this to begin your state&#39;s activities.</p>
 
 <div class='meta'>
 <p>Inherited from
-<a href='../classes/springroll.BaseState.html#method_exit'>
-springroll.BaseState
-</a>
-but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l270'><code>exit:270</code></a>
+<a href='../classes/springroll.BaseState.html#method_exit'>springroll.BaseState</a>:
+<a href='../files/src_states_BaseState.js.html#l156'><code>exit:156</code></a>
 </p>
 
 
@@ -1221,7 +1349,7 @@ but overwritten in
 </div>
 
 <div class='description'>
-<p>When we exit the state</p>
+<p>When the state is exited. Override this to provide state cleanup.</p>
 
 </div>
 
@@ -1244,7 +1372,7 @@ but overwritten in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method_exitStart'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l181'><code>exitStart:181</code></a>
+<a href='../files/src_states_BaseState.js.html#l166'><code>exitStart:166</code></a>
 </p>
 
 
@@ -1266,7 +1394,7 @@ that animation/audio is stopped when leaving the state.</p>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code class='optional'>[delay=0]</code>
+<code class='optional'>[delay]</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -1283,7 +1411,7 @@ that animation/audio is stopped when leaving the state.</p>
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method_loadingDone'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l244'><code>loadingDone:244</code></a>
+<a href='../files/src_states_BaseState.js.html#l235'><code>loadingDone:235</code></a>
 </p>
 
 
@@ -1300,14 +1428,14 @@ that animation/audio is stopped when leaving the state.</p>
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name optional'>[delay=0]</code>
+<code class='param-name optional'>[delay]</code>
 <span class='type'>Int</span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 
 <div class='param-description'>
 <p>Frames to delay the load completion to allow the framerate to
-                       stabilize.</p>
+  stabilize. If not delay is set, defaults to the <code>delayLoad</code> property.</p>
 
 </div>
 
@@ -1333,7 +1461,7 @@ that animation/audio is stopped when leaving the state.</p>
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.BaseState.html#method_loadingStart'>springroll.BaseState</a>:
-<a href='../files/src_states_BaseState.js.html#l219'><code>loadingStart:219</code></a>
+<a href='../files/src_states_BaseState.js.html#l210'><code>loadingStart:210</code></a>
 </p>
 
 
@@ -1365,7 +1493,7 @@ that animation/audio is stopped when leaving the state.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l164'><code>onAssetsLoaded:164</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l211'><code>onAssetsLoaded:211</code></a>
 </p>
 
 
@@ -1379,122 +1507,6 @@ from the TaskManager.</p>
 
 </div>
 
-
-
-</div><div id='method_onLoaded' class='method item private'>
-<h3 class='name'><code>onLoaded</code></h3>
-
-<span class='paren'>()</span>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l176'><code>onLoaded:176</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-<p>The internal call for on assets loaded</p>
-
-</div>
-
-
-
-</div><div id='method_onManifestLoaded' class='method item private'>
-<h3 class='name'><code>onManifestLoaded</code></h3>
-
-<div class='args'>
-<span class='paren'>(</span>
-<ul class='args-list inline commas'>
-<li class='arg'>
-<code>results</code>
-</li>
-<li class='arg'>
-<code>task</code>
-</li>
-<li class='arg'>
-<code>taskManager</code>
-</li>
-</ul><span class='paren'>)</span>
-</div>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l250'><code>onManifestLoaded:250</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-<p>Handler for manifest load task</p>
-
-</div>
-
-<div class='params'>
-<h4>Parameters:</h4>
-
-<ul class='params-list'>
-<li class='param'>
-<code class='param-name'>results</code>
-<span class='type'><a href="../classes/springroll.LoaderResult.html" class="crosslink">springroll.LoaderResult</a></span>
-
-
-<div class='param-description'>
-<p>The media loader results (dictionary by task id)</p>
-
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>task</code>
-<span class='type'><a href="../classes/springroll.Task.html" class="crosslink">springroll.Task</a></span>
-
-
-<div class='param-description'>
-<p>The task reference</p>
-
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name'>taskManager</code>
-<span class='type'><a href="../classes/springroll.TaskManager.html" class="crosslink">springroll.TaskManager</a></span>
-
-
-<div class='param-description'>
-<p>The task manager reference</p>
-
-</div>
-
-</li>
-</ul>
-</div>
 
 
 </div></div>
@@ -1513,7 +1525,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__active">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l61"><code>_active:61</code></a>
+<a href="../files/src_states_BaseState.js.html#l76"><code>_active:76</code></a>
 </p>
 
 
@@ -1538,7 +1550,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__canceled">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l77"><code>_canceled:77</code></a>
+<a href="../files/src_states_BaseState.js.html#l92"><code>_canceled:92</code></a>
 </p>
 
 
@@ -1563,7 +1575,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__destroyed">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l53"><code>_destroyed:53</code></a>
+<a href="../files/src_states_BaseState.js.html#l68"><code>_destroyed:68</code></a>
 </p>
 
 
@@ -1588,7 +1600,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__enabled">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l101"><code>_enabled:101</code></a>
+<a href="../files/src_states_BaseState.js.html#l116"><code>_enabled:116</code></a>
 </p>
 
 
@@ -1613,7 +1625,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__isLoading">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l69"><code>_isLoading:69</code></a>
+<a href="../files/src_states_BaseState.js.html#l84"><code>_isLoading:84</code></a>
 </p>
 
 
@@ -1638,7 +1650,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__onEnterProceed">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l85"><code>_onEnterProceed:85</code></a>
+<a href="../files/src_states_BaseState.js.html#l100"><code>_onEnterProceed:100</code></a>
 </p>
 
 
@@ -1663,7 +1675,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property__onLoadingComplete">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l93"><code>_onLoadingComplete:93</code></a>
+<a href="../files/src_states_BaseState.js.html#l108"><code>_onLoadingComplete:108</code></a>
 </p>
 
 
@@ -1687,7 +1699,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_active">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l329"><code>active:329</code></a>
+<a href="../files/src_states_BaseState.js.html#l285"><code>active:285</code></a>
 </p>
 
 
@@ -1695,6 +1707,58 @@ Defined in
 
 <div class="description">
 <p>Get if this is the active state</p>
+
+</div>
+
+
+
+</div><div id="property_app" class="property item protected deprecated">
+<h3 class="name"><code>app</code></h3>
+<span class="type">Application</span>
+
+<span class="flag deprecated"  title="Use the property &#x27;app&#x27; instead" >deprecated</span>
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l64"><code>app:64</code></a>
+</p>
+
+<p>Deprecated: Use the property &#x27;app&#x27; instead</p>
+
+</div>
+
+<div class="description">
+<p>Reference to the main app</p>
+
+</div>
+
+
+
+</div><div id="property_app" class="property item protected">
+<h3 class="name"><code>app</code></h3>
+<span class="type">Application</span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l56"><code>app:56</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the main app</p>
 
 </div>
 
@@ -1712,14 +1776,14 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l78"><code>assetsLoaded:78</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l112"><code>assetsLoaded:112</code></a>
 </p>
 
 
 </div>
 
 <div class="description">
-<p>If the assets have finished loading</p>
+<p>Check to see if the assets have finished loading</p>
 
 </div>
 
@@ -1736,7 +1800,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_canceled">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l133"><code>canceled:133</code></a>
+<a href="../files/src_states_BaseState.js.html#l271"><code>canceled:271</code></a>
 </p>
 
 
@@ -1761,7 +1825,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l57"><code>config:57</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l89"><code>config:89</code></a>
 </p>
 
 
@@ -1774,8 +1838,8 @@ Defined in
 
 
 
-</div><div id="property_delayLoadFrames" class="property item protected">
-<h3 class="name"><code>delayLoadFrames</code></h3>
+</div><div id="property_delayLoad" class="property item protected inherited">
+<h3 class="name"><code>delayLoad</code></h3>
 <span class="type">Int</span>
 
 
@@ -1784,9 +1848,9 @@ Defined in
 
 
 <div class="meta">
-<p>
-Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l102"><code>delayLoadFrames:102</code></a>
+<p>Inherited from
+<a href="../classes/springroll.BaseState.html#property_delayLoad">springroll.BaseState</a>:
+<a href="../files/src_states_BaseState.js.html#l142"><code>delayLoad:142</code></a>
 </p>
 
 
@@ -1800,34 +1864,6 @@ to stablize after heavy art instantiation.</p>
 
 
 
-</div><div id="property_" class="property item protected">
-<h3 class="name"><code></code></h3>
-<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-
-
-<span class="flag protected">protected</span>
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l85"><code>:85</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>Should we attempt to run resize every time this state is entered
-Setting this to false in your subclass before onLoaded is called
-stops assets already on stage from re-scaling</p>
-
-</div>
-
-<p><strong>Default:</strong> true</p>
-
-
 </div><div id="property_destroyed" class="property item inherited">
 <h3 class="name"><code>destroyed</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -1839,7 +1875,7 @@ stops assets already on stage from re-scaling</p>
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_destroyed">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l352"><code>destroyed:352</code></a>
+<a href="../files/src_states_BaseState.js.html#l316"><code>destroyed:316</code></a>
 </p>
 
 
@@ -1863,7 +1899,7 @@ stops assets already on stage from re-scaling</p>
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_enabled">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l339"><code>enabled:339</code></a>
+<a href="../files/src_states_BaseState.js.html#l299"><code>enabled:299</code></a>
 </p>
 
 
@@ -1871,31 +1907,6 @@ stops assets already on stage from re-scaling</p>
 
 <div class="description">
 <p>If the state is enabled, meaning that it is click ready</p>
-
-</div>
-
-
-
-</div><div id="property_game" class="property item protected">
-<h3 class="name"><code>game</code></h3>
-<span class="type">Application</span>
-
-
-<span class="flag protected">protected</span>
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l43"><code>game:43</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>Reference to the main game</p>
 
 </div>
 
@@ -1912,7 +1923,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_manager">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l39"><code>manager:39</code></a>
+<a href="../files/src_states_BaseState.js.html#l54"><code>manager:54</code></a>
 </p>
 
 
@@ -1937,7 +1948,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l71"><code>manifest:71</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l105"><code>manifest:105</code></a>
 </p>
 
 
@@ -1962,7 +1973,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_nextState">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l109"><code>nextState:109</code></a>
+<a href="../files/src_states_BaseState.js.html#l124"><code>nextState:124</code></a>
 </p>
 
 
@@ -1987,7 +1998,7 @@ to call when going to the next state.</p>
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_panel">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l46"><code>panel:46</code></a>
+<a href="../files/src_states_BaseState.js.html#l61"><code>panel:61</code></a>
 </p>
 
 
@@ -2012,7 +2023,7 @@ to call when going to the next state.</p>
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_prevState">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l118"><code>prevState:118</code></a>
+<a href="../files/src_states_BaseState.js.html#l133"><code>prevState:133</code></a>
 </p>
 
 
@@ -2038,7 +2049,7 @@ to call when going to the previous state.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l64"><code>scaling:64</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l97"><code>scaling:97</code></a>
 </p>
 
 
@@ -2046,6 +2057,31 @@ Defined in
 
 <div class="description">
 <p>Reference to the scaling object</p>
+
+</div>
+
+
+
+</div><div id="property_sound" class="property item protected">
+<h3 class="name"><code>sound</code></h3>
+<span class="type"><a href="../classes/springroll.Sound.html" class="crosslink">springroll.Sound</a></span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l81"><code>sound:81</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The instance of the Sound</p>
 
 </div>
 
@@ -2062,7 +2098,7 @@ Defined in
 <div class="meta">
 <p>Inherited from
 <a href="../classes/springroll.BaseState.html#property_stateId">springroll.BaseState</a>:
-<a href="../files/src_states_BaseState.js.html#l32"><code>stateId:32</code></a>
+<a href="../files/src_states_BaseState.js.html#l47"><code>stateId:47</code></a>
 </p>
 
 
@@ -2075,8 +2111,8 @@ Defined in
 
 
 
-</div><div id="property_useDefaultManifest" class="property item protected">
-<h3 class="name"><code>useDefaultManifest</code></h3>
+</div><div id="property_useManifest" class="property item protected">
+<h3 class="name"><code>useManifest</code></h3>
 <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 
 
@@ -2087,7 +2123,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l95"><code>useDefaultManifest:95</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l120"><code>useManifest:120</code></a>
 </p>
 
 
@@ -2112,7 +2148,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l50"><code>voPlayer:50</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l73"><code>voPlayer:73</code></a>
 </p>
 
 
@@ -2133,7 +2169,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/displays/easeljs/states/ManifestsPlugin.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/displays/easeljs/states/ManifestsPlugin.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -515,7 +515,7 @@ name
 <pre class="code prettyprint linenums">/**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
@@ -523,17 +523,18 @@ name
 	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
 		Debug,
 		LoadTask,
-		BaseState;
+		BaseState,
+		AssetManager;
 
 	/**
 	 *	A createjs-based Game to load manifests
 	 *	@class ManifestsPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 *	@param {int} [options.fps=30] The framerate to use for the main display
-	 *	@param {function} [options.display=springroll.easeljsDisplay] The 
+	 *	@param {Function} [options.display=springroll.easeljsDisplay] The
 	 *	display class to use as the default display.
-	 *	@param {boolean} [options.displayOptions.clearView=true] If the stage view
-	 *	should be cleared everytime in CreateJS stage. 
+	 *	@param {Boolean} [options.displayOptions.clearView=true] If the stage view
+	 *	should be cleared everytime in CreateJS stage.
 	 */
 	var ManifestsPlugin = function()
 	{
@@ -557,7 +558,7 @@ name
 		 *	to load all the manifests at once. This JSON object contains a
 		 *	dictionary of state alias and contains an array of manifest assets
 		 *	(e.g. &#x60;{&quot;id&quot;: &quot;PlayButton&quot;, &quot;src&quot;: &quot;assets/images/button.png&quot;}&#x60;.
-	 	 *	Set to null and no manifest will be auto-loaded.
+		 *	Set to null and no manifest will be auto-loaded.
 		 *	@property {String} options.manifestsPath
 		 *	@readOnly
 		 *	@default null
@@ -573,9 +574,13 @@ name
 		Debug = include(&#x27;springroll.Debug&#x27;, false);
 		LoadTask = include(&#x27;springroll.LoadTask&#x27;);
 		BaseState = include(&#x27;springroll.easeljs.BaseState&#x27;);
+		AssetManager = include(&#x27;springroll.easeljs.AssetManager&#x27;);
+		
+		//initialize the AssetManager once for the application.
+		AssetManager.init();
 
 		/**
-		 *	The collection of loading assests by state
+		 *	The collection of loading assets by state
 		 *	@property {object} _manifests
 		 *	@private
 		 */
@@ -612,32 +617,6 @@ name
 				Debug.info(&quot;Application option &#x27;manifestsPath&#x27; is empty, set to automatically load manifests JSON&quot;);
 			}
 		});
-
-		// Handle when states are added and add
-		// the manifests from either the config
-		this.on(&#x27;stateAdded&#x27;, function(alias, state)
-		{
-			if (!(state instanceof BaseState))
-			{
-				throw &quot;States need to extend springroll.easeljs.BaseState&quot;;
-			}
-
-			var manifest = [];
-
-			// Add any manifests from the config
-			var configManifests = this.config.manifests;
-			if (configManifests &amp;&amp; configManifests[alias])
-			{
-				manifest = configManifests[alias];
-			}
-			// Add any manifest items from the createjs manifest concat
-			if (this._manifests[alias])
-			{
-				manifest = manifest.concat(this._manifests[alias]);
-			}
-			// Set the properties to the state
-			state.manifest = manifest;
-		});
 	};
 
 	/**
@@ -648,21 +627,11 @@ name
 	 */
 	var onManifestsLoaded = function(result, task, manager)
 	{
-		var lowerKey;
-		var	manifest = this._manifests;
-		var	content = result.content;
-		
-		for (var key in content)
-		{
-			lowerKey = key.toString().toLowerCase();
-			if (!manifest[lowerKey])
-			{
-				manifest[lowerKey] = content[key];
-			}
-		}
+		Object.merge(this._manifests, result.content);
 		this.trigger(&#x27;manifestLoaded&#x27;, manager);
 	};
 
+	// clean up
 	p.teardown = function()
 	{
 		this._manifests = null;
@@ -675,7 +644,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

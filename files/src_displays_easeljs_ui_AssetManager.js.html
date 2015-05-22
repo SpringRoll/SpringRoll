@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/displays/easeljs/ui/AssetManager.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/displays/easeljs/ui/AssetManager.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -542,6 +542,17 @@ name
 	*/
 	AssetManager.warnOnCollisions = false;
 
+	if (DEBUG)
+	{
+		/**
+		*  For unminifed library only, add verbose console logs for loading/loaded assets
+		*  @property {Boolean} verbose
+		*  @static
+		*  @default false
+		*/
+		AssetManager.verbose = false;
+	}
+	
 	/**
 	*  Array of asset ids that have been loaded by AssetManager.
 	*  @property {Array} loadedAssets
@@ -651,20 +662,20 @@ name
 	*/
 	function extractAssetName(assetId)
 	{
-		if(assetId.indexOf(&quot;colorSplit-alpha_&quot;) === 0)
+		if (assetId.indexOf(&quot;colorSplit-alpha_&quot;) === 0)
 			assetId = assetId.substr(17);
-		else if(assetId.indexOf(&quot;colorSplit-color_&quot;) === 0)
+		else if (assetId.indexOf(&quot;colorSplit-color_&quot;) === 0)
 			assetId = assetId.substr(17);
 
-		if(assetId.indexOf(&quot;atlasData_&quot;) === 0)
+		if (assetId.indexOf(&quot;atlasData_&quot;) === 0)
 			return assetId.substr(10);
-		else if(assetId.indexOf(&quot;atlasImage_&quot;) === 0)
+		else if (assetId.indexOf(&quot;atlasImage_&quot;) === 0)
 			return assetId.substr(11);
-		if(assetId.indexOf(&quot;spriteData_&quot;) === 0)
+		if (assetId.indexOf(&quot;spriteData_&quot;) === 0)
 			return assetId.substr(11);
-		else if(assetId.indexOf(&quot;spriteImage_&quot;) === 0)
+		else if (assetId.indexOf(&quot;spriteImage_&quot;) === 0)
 			return assetId.substr(12);
-		else if(assetId.indexOf(&quot;bmcConfig_&quot;) === 0)
+		else if (assetId.indexOf(&quot;bmcConfig_&quot;) === 0)
 			return assetId.substr(10);
 		return assetId;
 	}
@@ -724,28 +735,42 @@ name
 	*  @method load
 	*  @static
 	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Function} [callback] A function to call when load is complete
+	*  @param {Function|Array|TaskManager} callbackOrTaskList A function to call when load is complete
 	*  @param {Array|TaskManager} [taskList] An array or TaskManager to add a ListTask to for
 	*                                        loading. If omitted, loads immediately with an internal
 	*                                        TaskManager.
 	*/
 	AssetManager.load = function(manifest, callback, taskList)
 	{
-		if(!loadedAssets)
+		if (!loadedAssets)
 		{
 			if (Debug &amp;&amp; DEBUG)
+			{
 				Debug.error(&quot;Attempting to load assets via AssetManager without calling AssetManager.init()&quot;);
+			}
 			return;
 		}
+
+		// 2nd argument support the array or taskmanager
+		if (Array.isArray(callback) || (callback instanceof TaskManager))
+		{
+			taskList = callback;
+			callback = null;
+		}
+
 		var checkedManifest = [];
 		for(var i = 0; i &lt; manifest.length; ++i)
 		{
 			var manifestData = manifest[i];
 			var id = manifestData.id;
-			if(loadedAssets.indexOf(extractAssetName(id)) == -1)
+			if (loadedAssets.indexOf(extractAssetName(id)) == -1)
 			{
+				if (DEBUG &amp;&amp; Debug &amp;&amp; AssetManager.verbose)
+				{
+					Debug.info(&quot;AssetManager is loading &quot; + extractAssetName(id));
+				}
 				//look for expected manifest shorthands for atlases
-				if(manifestData.atlasData)
+				if (manifestData.atlasData)
 				{
 					//add several items instead of just the one
 					checkedManifest.push({
@@ -753,7 +778,7 @@ name
 						src: manifestData.atlasData
 					});
 					//look for color/alpha split spritesheets
-					if(manifestData.alpha)
+					if (manifestData.alpha)
 					{
 						checkedManifest.push({
 							id: &quot;colorSplit-alpha_&quot; + (manifestData.splitForEaselJS ? &quot;spriteImage_&quot; : &quot;atlasImage_&quot;) + id,
@@ -776,7 +801,7 @@ name
 					}
 				}
 				//look for individual iamges with color/alpha split shorthands
-				else if(typeof manifestData.color == &quot;string&quot; &amp;&amp;
+				else if (typeof manifestData.color == &quot;string&quot; &amp;&amp;
 					typeof manifestData.alpha == &quot;string&quot;)
 				{
 					checkedManifest.push({
@@ -791,7 +816,7 @@ name
 					});
 				}
 				//look for JSON marked as BitmapMovieClip configs
-				else if(manifestData.bmcConfig === true)
+				else if (manifestData.bmcConfig === true)
 				{
 					checkedManifest.push({
 						id: &quot;bmcConfig_&quot; + id,
@@ -804,7 +829,7 @@ name
 				{
 					//do the (deprecated) less easy to use behavior of the
 					//developer making separate manifest items for alpha/color
-					if(manifestData.alpha === true)
+					if (manifestData.alpha === true)
 					{
 						checkedManifest.push({
 							id: &quot;colorSplit-alpha_&quot; + id,
@@ -812,7 +837,7 @@ name
 							alpha: true
 						});
 					}
-					else if(manifestData.color === true)
+					else if (manifestData.color === true)
 					{
 						checkedManifest.push({
 							id: &quot;colorSplit-color_&quot; + id,
@@ -827,21 +852,28 @@ name
 					}
 				}
 			}
+			else
+			{
+				if (DEBUG &amp;&amp; Debug &amp;&amp; AssetManager.verbose)
+				{
+					Debug.info(&quot;AssetManager skipping &quot; + extractAssetName(id) + &quot;, it is already loaded&quot;);
+				}
+			}
 		}
-		if(checkedManifest.length)
+		if (checkedManifest.length)
 		{
 			var task = new ListTask(&quot;assets&quot;, checkedManifest, onLoaded.bind(AssetManager, callback));
-			if(taskList)
+			if (taskList)
 			{
-				if(Array.isArray(taskList))
+				if (Array.isArray(taskList))
 					taskList.push(task);
-				else if(taskList instanceof TaskManager)
+				else if (taskList instanceof TaskManager)
 					taskList.addTask(task);
 			}
 			else
 				TaskManager.process([task]);
 		}
-		else if(callback)
+		else if (callback)
 			setTimeout(callback, 0);
 	};
 
@@ -859,26 +891,26 @@ name
 			var content = result.content,
 				manifestData = result.manifestData;
 			//grab any spritesheet images or JSON and keep that separate
-			if(id.indexOf(&quot;atlasData_&quot;) === 0)
+			if (id.indexOf(&quot;atlasData_&quot;) === 0)
 			{
 				id = extractAssetName(id);
 				atlasData[id] = content;
 			}
-			else if(id.indexOf(&quot;atlasImage_&quot;) &gt; -1)
+			else if (id.indexOf(&quot;atlasImage_&quot;) &gt; -1)
 			{
 				id = extractAssetName(id);
-				if(manifestData)
+				if (manifestData)
 				{
-					if(manifestData.alpha === true)
+					if (manifestData.alpha === true)
 					{
-						if(atlasImage[id])
+						if (atlasImage[id])
 							atlasImage[id].alpha = content;
 						else
 							atlasImage[id] = {alpha: content};
 					}
-					else if(manifestData.color === true)
+					else if (manifestData.color === true)
 					{
-						if(atlasImage[id])
+						if (atlasImage[id])
 							atlasImage[id].color = content;
 						else
 							atlasImage[id] = {color: content};
@@ -889,26 +921,26 @@ name
 				else
 					atlasImage[id] = content;
 			}
-			else if(id.indexOf(&quot;spriteData_&quot;) === 0)
+			else if (id.indexOf(&quot;spriteData_&quot;) === 0)
 			{
 				id = extractAssetName(id);
 				spriteData[id] = content;
 			}
-			else if(id.indexOf(&quot;spriteImage_&quot;) &gt; -1)
+			else if (id.indexOf(&quot;spriteImage_&quot;) &gt; -1)
 			{
 				id = extractAssetName(id);
-				if(manifestData)
+				if (manifestData)
 				{
-					if(manifestData.alpha === true)
+					if (manifestData.alpha === true)
 					{
-						if(spriteImage[id])
+						if (spriteImage[id])
 							spriteImage[id].alpha = content;
 						else
 							spriteImage[id] = {alpha: content};
 					}
-					else if(manifestData.color === true)
+					else if (manifestData.color === true)
 					{
-						if(spriteImage[id])
+						if (spriteImage[id])
 							spriteImage[id].color = content;
 						else
 							spriteImage[id] = {color: content};
@@ -919,40 +951,42 @@ name
 				else
 					spriteImage[id] = content;
 			}
-			else if(id.indexOf(&quot;bmcConfig_&quot;) === 0)
+			else if (id.indexOf(&quot;bmcConfig_&quot;) === 0)
 			{
 				id = extractAssetName(id);
 				BMCConfigs[id] = content;
 			}
 			//parse javascript files to find out what they are adding to the global
 			//libs dictionary
-			else if(result.url.indexOf(&quot;.js&quot;) != -1)
+			else if (result.url.indexOf(&quot;.js&quot;) != -1)
 			{
 				//get javascript text
 				var text = content.text;
-				if(!text) continue;
+				if (!text) continue;
 				//split into the initialization functions, that take &#x27;lib&#x27; as a parameter
 				var textArray = text.split(/[\(!]function\s*\(/);
 				//go through each initialization function
 				for(var i = 0; i &lt; textArray.length; ++i)
 				{
 					text = textArray[i];
-					if(!text) continue;
+					if (!text) continue;
 					//determine what the &#x27;lib&#x27; parameter has been minified into
 					var libName = text.substring(0, text.indexOf(&quot;,&quot;));
-					if(!libName) continue;
+					if (!libName) continue;
 					//get all the things that are &#x27;lib.X = &lt;stuff&gt;&#x27;
 					var varFinder = new RegExp(&quot;\\(&quot; + libName + &quot;.(\\w+)\\s*=&quot;, &quot;g&quot;);
 					var foundName = varFinder.exec(text);
-					while(foundName)
+					while (foundName)
 					{
-						if(Debug &amp;&amp; AssetManager.warnOnCollisions)
+						if (Debug &amp;&amp; AssetManager.warnOnCollisions)
 						{
-							if(loadedLibAssets[foundName[1]])
+							if (loadedLibAssets[foundName[1]])
+							{
 								Debug.warn(&quot;Asset Collision: asset &#x27;&quot; + id +
 									&quot;&#x27; wants to create lib.&#x27;&quot; + foundName[1] +
 									&quot;&#x27; which is already created by asset &#x27;&quot; +
 									loadedLibAssets[foundName[1]] + &quot;&#x27;&quot;);
+							}
 						}
 						//keep track of the asset id responsible
 						loadedLibAssets[foundName[1]] = id;
@@ -964,20 +998,20 @@ name
 			{
 				id = extractAssetName(id);
 				//store images normally, after checking for a alpha/color merge
-				if(manifestData)
+				if (manifestData)
 				{
-					if(manifestData.alpha === true)
+					if (manifestData.alpha === true)
 					{
-						if(images[id] &amp;&amp; images[id].color)
+						if (images[id] &amp;&amp; images[id].color)
 						{
 							images[id] = mergeAlpha(images[id].color, content);
 						}
 						else
 							images[id] = {alpha: content};
 					}
-					else if(manifestData.color === true)
+					else if (manifestData.color === true)
 					{
-						if(images[id] &amp;&amp; images[id].alpha)
+						if (images[id] &amp;&amp; images[id].alpha)
 							images[id] = mergeAlpha(content, images[id].alpha);
 						else
 							images[id] = {color: content};
@@ -988,16 +1022,16 @@ name
 				else
 					images[id] = content;
 			}
-			if(loadedAssets.indexOf(id) == -1)
+			if (loadedAssets.indexOf(id) == -1)
 				loadedAssets.push(id);
 		}
 		//go through the TextureAtlases we should create
 		for(id in atlasData)
 		{
-			if(atlasImage[id])
+			if (atlasImage[id])
 			{
 				//if the image needs to be merged from color and alpha data, take care of that
-				if(atlasImage[id].alpha &amp;&amp; atlasImage[id].color)
+				if (atlasImage[id].alpha &amp;&amp; atlasImage[id].color)
 					atlasImage[id] = mergeAlpha(atlasImage[id].color, atlasImage[id].alpha);
 				//create the TextureAtlas
 				textureAtlases[id] = new TextureAtlas(atlasImage[id], atlasData[id]);
@@ -1006,10 +1040,10 @@ name
 		//go through the spritesheets we need to use BitmapUtils.loadSpriteSheet() on
 		for(id in spriteData)
 		{
-			if(spriteImage[id])
+			if (spriteImage[id])
 			{
 				//if the image needs to be merged from color and alpha data, take care of that
-				if(spriteImage[id].alpha &amp;&amp; spriteImage[id].color)
+				if (spriteImage[id].alpha &amp;&amp; spriteImage[id].color)
 					spriteImage[id] = mergeAlpha(spriteImage[id].color, spriteImage[id].alpha);
 				var frames = spriteData[id].frames;
 				//diseminate the spritesheet into individual &#x27;Bitmap&#x27;
@@ -1022,7 +1056,7 @@ name
 			}
 		}
 		//perform the callback
-		if(callback)
+		if (callback)
 			callback();
 	};
 
@@ -1092,11 +1126,11 @@ name
 	{
 		var assets = [], i, length, asset;
 		//figure out the exact list of things we need to unload
-		if(Array.isArray(assetOrAssets))
+		if (Array.isArray(assetOrAssets))
 		{
 			for(i = 0, length = assetOrAssets.length; i &lt; length; ++i)
 			{
-				if(typeof assetOrAssets[i] == &quot;string&quot;)
+				if (typeof assetOrAssets[i] == &quot;string&quot;)
 					assets.push(extractAssetName(assetOrAssets[i]));
 				else
 					assets.push(extractAssetName(assetOrAssets[i].id));
@@ -1110,30 +1144,30 @@ name
 		{
 			asset = assets[i];
 			//destroy it if it is a texture atlas
-			if(textureAtlases[asset])
+			if (textureAtlases[asset])
 			{
 				textureAtlases[asset].destroy();
 				delete textureAtlases[asset];
 			}
 			//remove any BitmapMovieClip configuration data
-			if(BMCConfigs[asset])
+			if (BMCConfigs[asset])
 				delete BMCConfigs[asset];
 			//if it is a regular image, unload it
-			if(images[asset])
+			if (images[asset])
 			{
 				images[asset].src = &quot;&quot;;
 				delete images[asset];
 			}
 
 			var index = loadedAssets.indexOf(asset);
-			if(index &gt; 0)
+			if (index &gt; 0)
 				loadedAssets.splice(index, 1);
 		}
 		//go through everything we&#x27;ve put in the &#x27;lib&#x27; dictionary, and unload it
 		//if it belongs to something in the list of assets to unload
 		for(asset in loadedLibAssets)
 		{
-			if(assets.indexOf(loadedLibAssets[asset]) &gt; -1)
+			if (assets.indexOf(loadedLibAssets[asset]) &gt; -1)
 			{
 				delete lib[asset];
 				delete loadedLibAssets[asset];
@@ -1151,7 +1185,7 @@ name
 		var i, length;
 		for(i = 0, length = loadedAssets.length; i &lt; length; ++i)
 		{
-			if(images[asset])
+			if (images[asset])
 			{
 				images[asset].src = &quot;&quot;;
 				delete images[asset];
@@ -1177,7 +1211,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : springroll.BaseState</title>
+<title>SpringRoll v0.3.3 API Documentation : springroll.BaseState</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -533,10 +533,7 @@ Module:
 <code>panel</code>
 </li>
 <li class='arg'>
-<code class='optional'>[nextState=null]</code>
-</li>
-<li class='arg'>
-<code class='optional'>[prevState=null]</code>
+<code class='optional'>[options]</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -575,16 +572,27 @@ Defined in
 
 <div class='param-description'>
 <p>The panel to associate with
-                                                              this state.</p>
+    this state.</p>
 
 </div>
 
 </li>
 <li class='param'>
-<code class='param-name optional'>[nextState=null]</code>
-<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
+
+<div class='param-description'>
+<p>The list of options</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[next=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
 
 <div class='param-description'>
 <p>The next state alias</p>
@@ -593,16 +601,29 @@ Defined in
 
 </li>
 <li class='param'>
-<code class='param-name optional'>[prevState=null]</code>
+<code class='param-name optional'>[previous=null]</code>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
-
 
 <div class='param-description'>
 <p>The previous state alias</p>
 
 </div>
 
+</li>
+<li class='param'>
+<code class='param-name optional'>[delayLoad=0]</code>
+<span class='type'>Int</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The number of frames to delay the loading for cases where
+  heavy object instaniation slow the game dramatically.</p>
+
+</div>
+
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -632,11 +653,11 @@ Defined in
 <h3>Methods</h3>
 
 <ul class='list-group row methods'>
-<li class='col-xs-6 col-md-4 index-item method private'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
 <a href='#method__internalCancel'>_internalCancel</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
 <a href='#method__internalEnter'>_internalEnter</a>
 
 </li>
@@ -644,11 +665,15 @@ Defined in
 <a href='#method__internalEnterDone'>_internalEnterDone</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__internalEntering'>_internalEntering</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
 <a href='#method__internalExit'>_internalExit</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method private'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
 <a href='#method__internalExitStart'>_internalExitStart</a>
 
 </li>
@@ -727,6 +752,10 @@ Defined in
 <a href='#property_canceled'>canceled</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_delayLoad'>delayLoad</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property'>
 <a href='#property_destroyed'>destroyed</a>
 
@@ -763,7 +792,7 @@ Defined in
 
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-<div id='method__internalCancel' class='method item private'>
+<div id='method__internalCancel' class='method item protected'>
 <h3 class='name'><code>_internalCancel</code></h3>
 
 <span class='paren'>()</span>
@@ -771,7 +800,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -781,7 +810,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l275'><code>_internalCancel:275</code></a>
+<a href='../files/src_states_BaseState.js.html#l402'><code>_internalCancel:402</code></a>
 </p>
 
 
@@ -795,7 +824,7 @@ Defined in
 
 
 
-</div><div id='method__internalEnter' class='method item private'>
+</div><div id='method__internalEnter' class='method item protected'>
 <h3 class='name'><code>_internalEnter</code></h3>
 
 <div class='args'>
@@ -810,7 +839,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -820,7 +849,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l189'><code>_internalEnter:189</code></a>
+<a href='../files/src_states_BaseState.js.html#l372'><code>_internalEnter:372</code></a>
 </p>
 
 
@@ -869,7 +898,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l307'><code>_internalEnterDone:307</code></a>
+<a href='../files/src_states_BaseState.js.html#l418'><code>_internalEnterDone:418</code></a>
 </p>
 
 
@@ -883,15 +912,22 @@ Defined in
 
 
 
-</div><div id='method__internalExit' class='method item private'>
-<h3 class='name'><code>_internalExit</code></h3>
+</div><div id='method__internalEntering' class='method item protected'>
+<h3 class='name'><code>_internalEntering</code></h3>
 
-<span class='paren'>()</span>
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>proceed</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
 
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -901,7 +937,56 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l143'><code>_internalExit:143</code></a>
+<a href='../files/src_states_BaseState.js.html#l350'><code>_internalEntering:350</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>When the state is entering</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>proceed</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call after enter has been called</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method__internalExit' class='method item protected'>
+<h3 class='name'><code>_internalExit</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_BaseState.js.html#l330'><code>_internalExit:330</code></a>
 </p>
 
 
@@ -915,7 +1000,7 @@ Defined in
 
 
 
-</div><div id='method__internalExitStart' class='method item private'>
+</div><div id='method__internalExitStart' class='method item protected'>
 <h3 class='name'><code>_internalExitStart</code></h3>
 
 <span class='paren'>()</span>
@@ -923,7 +1008,7 @@ Defined in
 
 <div class='flags'>
 
-<span class='flag private'>private</span>
+<span class='flag protected'>protected</span>
 
 
 
@@ -933,7 +1018,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l170'><code>_internalExitStart:170</code></a>
+<a href='../files/src_states_BaseState.js.html#l361'><code>_internalExitStart:361</code></a>
 </p>
 
 
@@ -964,7 +1049,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l291'><code>cancel:291</code></a>
+<a href='../files/src_states_BaseState.js.html#l177'><code>cancel:177</code></a>
 </p>
 
 
@@ -996,7 +1081,7 @@ This is where any async actions should be removed.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l362'><code>destroy:362</code></a>
+<a href='../files/src_states_BaseState.js.html#l432'><code>destroy:432</code></a>
 </p>
 
 
@@ -1027,7 +1112,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l299'><code>enter:299</code></a>
+<a href='../files/src_states_BaseState.js.html#l188'><code>enter:188</code></a>
 </p>
 
 
@@ -1059,7 +1144,7 @@ to tell the StateManager that that is going on.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l321'><code>enterDone:321</code></a>
+<a href='../files/src_states_BaseState.js.html#l199'><code>enterDone:199</code></a>
 </p>
 
 
@@ -1091,7 +1176,7 @@ Override this to begin your state&#39;s activities.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l163'><code>exit:163</code></a>
+<a href='../files/src_states_BaseState.js.html#l156'><code>exit:156</code></a>
 </p>
 
 
@@ -1122,7 +1207,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l181'><code>exitStart:181</code></a>
+<a href='../files/src_states_BaseState.js.html#l166'><code>exitStart:166</code></a>
 </p>
 
 
@@ -1144,7 +1229,7 @@ that animation/audio is stopped when leaving the state.</p>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code class='optional'>[delay=0]</code>
+<code class='optional'>[delay]</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -1161,7 +1246,7 @@ that animation/audio is stopped when leaving the state.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l244'><code>loadingDone:244</code></a>
+<a href='../files/src_states_BaseState.js.html#l235'><code>loadingDone:235</code></a>
 </p>
 
 
@@ -1178,14 +1263,14 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name optional'>[delay=0]</code>
+<code class='param-name optional'>[delay]</code>
 <span class='type'>Int</span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
 
 
 <div class='param-description'>
 <p>Frames to delay the load completion to allow the framerate to
-                       stabilize.</p>
+  stabilize. If not delay is set, defaults to the <code>delayLoad</code> property.</p>
 
 </div>
 
@@ -1211,7 +1296,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_BaseState.js.html#l219'><code>loadingStart:219</code></a>
+<a href='../files/src_states_BaseState.js.html#l210'><code>loadingStart:210</code></a>
 </p>
 
 
@@ -1241,7 +1326,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l61"><code>_active:61</code></a>
+<a href="../files/src_states_BaseState.js.html#l76"><code>_active:76</code></a>
 </p>
 
 
@@ -1266,7 +1351,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l77"><code>_canceled:77</code></a>
+<a href="../files/src_states_BaseState.js.html#l92"><code>_canceled:92</code></a>
 </p>
 
 
@@ -1291,7 +1376,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l53"><code>_destroyed:53</code></a>
+<a href="../files/src_states_BaseState.js.html#l68"><code>_destroyed:68</code></a>
 </p>
 
 
@@ -1316,7 +1401,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l101"><code>_enabled:101</code></a>
+<a href="../files/src_states_BaseState.js.html#l116"><code>_enabled:116</code></a>
 </p>
 
 
@@ -1341,7 +1426,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l69"><code>_isLoading:69</code></a>
+<a href="../files/src_states_BaseState.js.html#l84"><code>_isLoading:84</code></a>
 </p>
 
 
@@ -1366,7 +1451,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l85"><code>_onEnterProceed:85</code></a>
+<a href="../files/src_states_BaseState.js.html#l100"><code>_onEnterProceed:100</code></a>
 </p>
 
 
@@ -1391,7 +1476,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l93"><code>_onLoadingComplete:93</code></a>
+<a href="../files/src_states_BaseState.js.html#l108"><code>_onLoadingComplete:108</code></a>
 </p>
 
 
@@ -1415,7 +1500,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l329"><code>active:329</code></a>
+<a href="../files/src_states_BaseState.js.html#l285"><code>active:285</code></a>
 </p>
 
 
@@ -1439,7 +1524,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l133"><code>canceled:133</code></a>
+<a href="../files/src_states_BaseState.js.html#l271"><code>canceled:271</code></a>
 </p>
 
 
@@ -1447,6 +1532,32 @@ Defined in
 
 <div class="description">
 <p>Status of whether the panel load was canceled</p>
+
+</div>
+
+
+
+</div><div id="property_delayLoad" class="property item protected">
+<h3 class="name"><code>delayLoad</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_BaseState.js.html#l142"><code>delayLoad:142</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The number of frames to delay the transition in after loading, to allow the framerate
+to stablize after heavy art instantiation.</p>
 
 </div>
 
@@ -1463,7 +1574,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l352"><code>destroyed:352</code></a>
+<a href="../files/src_states_BaseState.js.html#l316"><code>destroyed:316</code></a>
 </p>
 
 
@@ -1487,7 +1598,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l339"><code>enabled:339</code></a>
+<a href="../files/src_states_BaseState.js.html#l299"><code>enabled:299</code></a>
 </p>
 
 
@@ -1511,7 +1622,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l39"><code>manager:39</code></a>
+<a href="../files/src_states_BaseState.js.html#l54"><code>manager:54</code></a>
 </p>
 
 
@@ -1536,7 +1647,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l109"><code>nextState:109</code></a>
+<a href="../files/src_states_BaseState.js.html#l124"><code>nextState:124</code></a>
 </p>
 
 
@@ -1561,7 +1672,7 @@ to call when going to the next state.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l46"><code>panel:46</code></a>
+<a href="../files/src_states_BaseState.js.html#l61"><code>panel:61</code></a>
 </p>
 
 
@@ -1586,7 +1697,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l118"><code>prevState:118</code></a>
+<a href="../files/src_states_BaseState.js.html#l133"><code>prevState:133</code></a>
 </p>
 
 
@@ -1611,7 +1722,7 @@ to call when going to the previous state.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_BaseState.js.html#l32"><code>stateId:32</code></a>
+<a href="../files/src_states_BaseState.js.html#l47"><code>stateId:47</code></a>
 </p>
 
 
@@ -1632,7 +1743,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

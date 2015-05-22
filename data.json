@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.2",
+        "version": "0.3.3",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -1558,14 +1558,15 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 14,
+            "line": 15,
             "requires": [
                 "Core",
                 "States",
                 "Tasks",
                 "UI",
                 "Sound",
-                "EaselJS Display"
+                "EaselJS Display",
+                "EaselJS UI"
             ]
         },
         "EaselJS UI": {
@@ -2407,7 +2408,7 @@
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/BasePanel.js",
             "line": 14,
-            "description": "Panel with convenience properties to the config, background and game.",
+            "description": "Panel with convenience properties to the config, background and app.",
             "extends": "createjs.Container",
             "is_constructor": 1
         },
@@ -2422,8 +2423,8 @@
             "module": "EaselJS States",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 15,
-            "description": "Abstract game state class to do some preloading of assets\nalso plays well with the game audio loading.",
+            "line": 16,
+            "description": "Abstract app state class to do some preloading of assets\nalso plays well with the app audio loading.",
             "extends": "springroll.BaseState",
             "is_constructor": 1,
             "params": [
@@ -2433,18 +2434,38 @@
                     "type": "createjs.Container"
                 },
                 {
-                    "name": "nextState",
-                    "description": "The next state alias or call to next state",
-                    "type": "String|function",
+                    "name": "options",
+                    "description": "The options",
+                    "type": "Object",
                     "optional": true,
-                    "optdefault": "null"
+                    "props": [
+                        {
+                            "name": "next",
+                            "description": "The next state alias or call to next state",
+                            "type": "String|function",
+                            "optional": true,
+                            "optdefault": "null"
+                        },
+                        {
+                            "name": "previous",
+                            "description": "The previous state alias or call to previous state",
+                            "type": "String|function",
+                            "optional": true,
+                            "optdefault": "null"
+                        },
+                        {
+                            "name": "manifest",
+                            "description": "The list of object to load and unload with the AssetManager.",
+                            "type": "Array",
+                            "optional": true,
+                            "optdefault": "[]"
+                        }
+                    ]
                 },
                 {
-                    "name": "prevState",
-                    "description": "The previous state alias or call to previous state",
-                    "type": "String|function",
-                    "optional": true,
-                    "optdefault": "null"
+                    "name": "}",
+                    "description": "[options.useManifest=true] Automatically load and unload assets with\n    the AssetManager which are found in the manifest option or property.",
+                    "type": "Boolean"
                 }
             ]
         },
@@ -2459,7 +2480,7 @@
             "module": "EaselJS States",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 14,
+            "line": 15,
             "description": "A createjs-based Game to load manifests",
             "extends": "springroll.ApplicationPlugin",
             "params": [
@@ -2472,7 +2493,7 @@
                 },
                 {
                     "name": "options.display",
-                    "description": "The \ndisplay class to use as the default display.",
+                    "description": "The\ndisplay class to use as the default display.",
                     "type": "Function",
                     "optional": true,
                     "optdefault": "springroll.easeljsDisplay"
@@ -4349,22 +4370,37 @@
             "params": [
                 {
                     "name": "panel",
-                    "description": "The panel to associate with\n                                                              this state.",
+                    "description": "The panel to associate with\n\tthis state.",
                     "type": "createjs.Container|PIXI.DisplayObjectContainer"
                 },
                 {
-                    "name": "nextState",
-                    "description": "The next state alias",
-                    "type": "String|Function",
+                    "name": "options",
+                    "description": "The list of options",
+                    "type": "Object",
                     "optional": true,
-                    "optdefault": "null"
-                },
-                {
-                    "name": "prevState",
-                    "description": "The previous state alias",
-                    "type": "String|Function",
-                    "optional": true,
-                    "optdefault": "null"
+                    "props": [
+                        {
+                            "name": "next",
+                            "description": "The next state alias",
+                            "type": "String|Function",
+                            "optional": true,
+                            "optdefault": "null"
+                        },
+                        {
+                            "name": "previous",
+                            "description": "The previous state alias",
+                            "type": "String|Function",
+                            "optional": true,
+                            "optdefault": "null"
+                        },
+                        {
+                            "name": "delayLoad",
+                            "description": "The number of frames to delay the loading for cases where\n  heavy object instaniation slow the game dramatically.",
+                            "type": "Int",
+                            "optional": true,
+                            "optdefault": "0"
+                        }
+                    ]
                 }
             ]
         },
@@ -4424,12 +4460,14 @@
                 {
                     "name": "transition",
                     "description": "The transition MovieClip to play between\n                                                 transitions.",
-                    "type": "createjs.MovieClip|PIXI.Spine"
+                    "type": "createjs.MovieClip|PIXI.Spine",
+                    "optional": true
                 },
                 {
                     "name": "transitionSounds",
                     "description": "Data object with aliases and start times (seconds) for\n                                transition in, loop and out sounds. Example:\n                                {in:{alias:\"myAlias\", start:0.2}}.\n                                These objects are in the format for Animator from\n                                EaselJSDisplay or PixiDisplay, so they can be just the\n                                sound alias instead of an object.",
-                    "type": "Object"
+                    "type": "Object",
+                    "optional": true
                 }
             ]
         },
@@ -11131,9 +11169,9 @@
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
             "line": 31,
-            "description": "Reference to the game",
+            "description": "Reference to the app",
             "itemtype": "property",
-            "name": "game",
+            "name": "app",
             "type": "Application",
             "class": "springroll.easeljs.BasePanel",
             "module": "EaselJS States",
@@ -11142,6 +11180,19 @@
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
             "line": 37,
+            "description": "Reference to the app",
+            "itemtype": "property",
+            "name": "game",
+            "type": "Application",
+            "deprecated": true,
+            "deprecationMessage": "Use 'app' instead",
+            "class": "springroll.easeljs.BasePanel",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BasePanel.js",
+            "line": 44,
             "description": "Reference to the app's config",
             "itemtype": "property",
             "name": "config",
@@ -11152,7 +11203,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
-            "line": 43,
+            "line": 50,
             "description": "All panel should probably have a background image",
             "itemtype": "property",
             "name": "background",
@@ -11163,7 +11214,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
-            "line": 53,
+            "line": 60,
             "description": "Should be called whenever a state enters this panel, Implementation-specific",
             "itemtype": "method",
             "name": "setup",
@@ -11173,7 +11224,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
-            "line": 62,
+            "line": 69,
             "description": "Should be called whenever a state exits this panel, the default\nbehavior is to remove all children of the panel. It will stop\nany movieclip, destroy any objects, remove DwellTimers, etc.",
             "itemtype": "method",
             "name": "teardown",
@@ -11183,7 +11234,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
-            "line": 74,
+            "line": 81,
             "description": "Removes a collection of objects from the stage and destroys them if we cant.",
             "example": [
                 " this.removeChildren(this.skipButton, this.character);"
@@ -11203,7 +11254,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BasePanel.js",
-            "line": 119,
+            "line": 126,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -11213,39 +11264,14 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 43,
-            "description": "Reference to the main game",
+            "line": 56,
+            "description": "Reference to the main app",
             "itemtype": "property",
-            "name": "game",
+            "name": "app",
             "type": "Application",
             "access": "protected",
             "tagname": "",
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 50,
-            "description": "The instance of the VOPlayer",
-            "itemtype": "property",
-            "name": "voPlayer",
-            "type": "springroll.VOPlayer",
-            "access": "protected",
-            "tagname": "",
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 57,
-            "description": "Reference to the main config object",
-            "itemtype": "property",
-            "name": "config",
-            "type": "Object",
-            "access": "protected",
-            "tagname": "",
+            "readonly": "",
             "class": "springroll.easeljs.BaseState",
             "module": "EaselJS States",
             "namespace": "springroll.easeljs"
@@ -11253,19 +11279,78 @@
         {
             "file": "src/displays/easeljs/states/BaseState.js",
             "line": 64,
-            "description": "Reference to the scaling object",
+            "description": "Reference to the main app",
             "itemtype": "property",
-            "name": "scaling",
-            "type": "springroll.UIScaler",
+            "name": "app",
+            "type": "Application",
             "access": "protected",
             "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Use the property 'app' instead",
+            "readonly": "",
             "class": "springroll.easeljs.BaseState",
             "module": "EaselJS States",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 71,
+            "line": 73,
+            "description": "The instance of the VOPlayer",
+            "itemtype": "property",
+            "name": "voPlayer",
+            "type": "springroll.VOPlayer",
+            "access": "protected",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 81,
+            "description": "The instance of the Sound",
+            "itemtype": "property",
+            "name": "sound",
+            "type": "springroll.Sound",
+            "access": "protected",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 89,
+            "description": "Reference to the main config object",
+            "itemtype": "property",
+            "name": "config",
+            "type": "Object",
+            "access": "protected",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 97,
+            "description": "Reference to the scaling object",
+            "itemtype": "property",
+            "name": "scaling",
+            "type": "springroll.UIScaler",
+            "access": "protected",
+            "tagname": "",
+            "readonly": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 105,
             "description": "The assets to load each time",
             "itemtype": "property",
             "name": "manifest",
@@ -11278,37 +11363,24 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 78,
-            "description": "If the assets have finished loading",
+            "line": 112,
+            "description": "Check to see if the assets have finished loading",
             "itemtype": "property",
             "name": "assetsLoaded",
             "type": "Boolean",
             "access": "protected",
             "tagname": "",
+            "readonly": "",
             "class": "springroll.easeljs.BaseState",
             "module": "EaselJS States",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 85,
-            "description": "Should we attempt to run resize every time this state is entered\nSetting this to false in your subclass before onLoaded is called\nstops assets already on stage from re-scaling",
-            "itemtype": "property",
-            "name": "",
-            "type": "Boolean",
-            "default": "true",
-            "access": "protected",
-            "tagname": "",
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 95,
+            "line": 120,
             "description": "If a manifest specific to this state should be automatically loaded by default.",
             "itemtype": "property",
-            "name": "useDefaultManifest",
+            "name": "useManifest",
             "type": "Boolean",
             "access": "protected",
             "tagname": "",
@@ -11318,20 +11390,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 102,
-            "description": "The number of frames to delay the transition in after loading, to allow the framerate\nto stablize after heavy art instantiation.",
-            "itemtype": "property",
-            "name": "delayLoadFrames",
-            "type": "Int",
-            "access": "protected",
-            "tagname": "",
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 117,
+            "line": 134,
             "description": "Enter the state, when the panel is fully hidden\nby the transition",
             "itemtype": "method",
             "name": "enter",
@@ -11341,7 +11400,19 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 152,
+            "line": 172,
+            "description": "Extend the internal exit",
+            "itemtype": "method",
+            "name": "_internalExit",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 199,
             "description": "Implementation specific for override. When you need to add additional preload\ntasks to your state, override this function.",
             "itemtype": "method",
             "name": "addTasks",
@@ -11360,7 +11431,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 164,
+            "line": 211,
             "description": "Implementation specific for override. When all the assets have been loaded\ncan possible add options for loading assets.\nfrom the TaskManager.",
             "itemtype": "method",
             "name": "onAssetsLoaded",
@@ -11372,11 +11443,11 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 176,
+            "line": 223,
             "description": "The internal call for on assets loaded",
             "itemtype": "method",
-            "name": "onLoaded",
-            "access": "private",
+            "name": "_onLoaded",
+            "access": "protected",
             "tagname": "",
             "class": "springroll.easeljs.BaseState",
             "module": "EaselJS States",
@@ -11384,46 +11455,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 250,
-            "description": "Handler for manifest load task",
-            "itemtype": "method",
-            "name": "onManifestLoaded",
-            "access": "private",
-            "tagname": "",
-            "params": [
-                {
-                    "name": "results",
-                    "description": "The media loader results (dictionary by task id)",
-                    "type": "springroll.LoaderResult"
-                },
-                {
-                    "name": "task",
-                    "description": "The task reference",
-                    "type": "springroll.Task"
-                },
-                {
-                    "name": "taskManager",
-                    "description": "The task manager reference",
-                    "type": "springroll.TaskManager"
-                }
-            ],
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 270,
-            "description": "When we exit the state",
-            "itemtype": "method",
-            "name": "exit",
-            "class": "springroll.easeljs.BaseState",
-            "module": "EaselJS States",
-            "namespace": "springroll.easeljs"
-        },
-        {
-            "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 302,
+            "line": 271,
             "description": "Don't use after calling this",
             "itemtype": "method",
             "name": "destroy",
@@ -11433,7 +11465,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 35,
+            "line": 36,
             "description": "Event when the manifest is finished loading",
             "itemtype": "event",
             "name": "manifestLoaded",
@@ -11450,7 +11482,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 41,
+            "line": 42,
             "description": "The path to the concatinated FLA exported manifests. It's useful\nto load all the manifests at once. This JSON object contains a\ndictionary of state alias and contains an array of manifest assets\n(e.g. `{\"id\": \"PlayButton\", \"src\": \"assets/images/button.png\"}`.\nSet to null and no manifest will be auto-loaded.",
             "itemtype": "property",
             "name": "options.manifestsPath",
@@ -11463,8 +11495,8 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 63,
-            "description": "The collection of loading assests by state",
+            "line": 68,
+            "description": "The collection of loading assets by state",
             "itemtype": "property",
             "name": "_manifests",
             "type": "Object",
@@ -11476,7 +11508,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 70,
+            "line": 75,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -11488,7 +11520,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 129,
+            "line": 108,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -11520,7 +11552,20 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 31,
+            "line": 33,
+            "description": "For unminifed library only, add verbose console logs for loading/loaded assets",
+            "itemtype": "property",
+            "name": "verbose",
+            "type": "Boolean",
+            "static": 1,
+            "default": "false",
+            "class": "springroll.easeljs.AssetManager",
+            "module": "EaselJS UI",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/ui/AssetManager.js",
+            "line": 42,
             "description": "Array of asset ids that have been loaded by AssetManager.",
             "itemtype": "property",
             "name": "loadedAssets",
@@ -11534,7 +11579,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 39,
+            "line": 50,
             "description": "Dictionary of object definitions in the 'lib' dictionary. Each key is the name of a\ndefinition, with the value being the id of the asset that loaded it.",
             "itemtype": "property",
             "name": "loadedLibAssets",
@@ -11548,7 +11593,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 48,
+            "line": 59,
             "description": "Dictionary of TextureAtlas objects, stored by asset id.",
             "itemtype": "property",
             "name": "textureAtlases",
@@ -11562,7 +11607,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 56,
+            "line": 67,
             "description": "Dictionary of BitmapMovieClip configuration objects, stored by asset id.",
             "itemtype": "property",
             "name": "BMCConfigs",
@@ -11576,7 +11621,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 64,
+            "line": 75,
             "description": "Intializes AssetManager.",
             "itemtype": "method",
             "name": "init",
@@ -11587,7 +11632,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 88,
+            "line": 99,
             "description": "Loads all files need to make a BitmapMovieClip, given that the files are in the same\nlocation with a specific naming convention:\n\nBitmapMovieClip config file: &lt;assetId&gt;.json <br />\nBitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />\nBitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png",
             "itemtype": "method",
             "name": "loadBitmapMovieClip",
@@ -11624,7 +11669,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 129,
+            "line": 140,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "extractAssetName",
@@ -11648,7 +11693,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 158,
+            "line": 169,
             "description": "Loads a list of assets. All javascript files will be parsed so that they can be unloaded\nlater. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks\nfor special manifest items that would otherwise be invalid to handle spritesheets or images\nthat have been split into alpha and color images.\nA manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via\nAssetManager.getAtlas(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\"\n    }\n\nA manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()\nso that the individual sprites can be accessed via the global 'lib' dictionary:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\",\n        \"splitForEaselJS\":true\n    }\n\nA manifest item for a single image that has been split into color and alpha images that\nshould be recombined upon loading:\n\n    {\n        \"id\":\"myAssetId\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a TextureAtlas or spritesheet that has been split into color and\nalpha images:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be\nretrieved via AssetManager.getBitmapMovieClipConfig(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"src\":\"path/asset.json\",\n        \"bmcConfig\":true\n    }",
             "itemtype": "method",
             "name": "load",
@@ -11660,10 +11705,9 @@
                     "type": "Array"
                 },
                 {
-                    "name": "callback",
+                    "name": "callbackOrTaskList",
                     "description": "A function to call when load is complete",
-                    "type": "Function",
-                    "optional": true
+                    "type": "Function|Array|TaskManager"
                 },
                 {
                     "name": "taskList",
@@ -11678,7 +11722,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 515,
+            "line": 549,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -11713,7 +11757,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 546,
+            "line": 580,
             "description": "Returns a TextureAtlas that was loaded by the specified asset id.",
             "itemtype": "method",
             "name": "getAtlas",
@@ -11735,7 +11779,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 558,
+            "line": 592,
             "description": "Returns a configuration object for a BitmapMovieClip.",
             "itemtype": "method",
             "name": "getBitmapMovieClipConfig",
@@ -11757,7 +11801,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 570,
+            "line": 604,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -11775,7 +11819,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 630,
+            "line": 664,
             "description": "Unloads all assets loaded by AssetManager.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -23075,7 +23119,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 32,
+            "line": 47,
             "description": "The id reference",
             "itemtype": "property",
             "name": "stateId",
@@ -23086,7 +23130,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 39,
+            "line": 54,
             "description": "A reference to the state manager",
             "itemtype": "property",
             "name": "manager",
@@ -23097,7 +23141,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 46,
+            "line": 61,
             "description": "The panel for the state.",
             "itemtype": "property",
             "name": "panel",
@@ -23108,7 +23152,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 53,
+            "line": 68,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "_destroyed",
@@ -23121,7 +23165,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 61,
+            "line": 76,
             "description": "If the manager considers this the active panel",
             "itemtype": "property",
             "name": "_active",
@@ -23134,7 +23178,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 69,
+            "line": 84,
             "description": "If we are pre-loading the state",
             "itemtype": "property",
             "name": "_isLoading",
@@ -23147,7 +23191,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 77,
+            "line": 92,
             "description": "If we canceled entering the state",
             "itemtype": "property",
             "name": "_canceled",
@@ -23160,7 +23204,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 85,
+            "line": 100,
             "description": "When we're finishing loading",
             "itemtype": "property",
             "name": "_onEnterProceed",
@@ -23173,7 +23217,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 93,
+            "line": 108,
             "description": "If we start doing a load in enter, assign the onEnterComplete here",
             "itemtype": "property",
             "name": "_onLoadingComplete",
@@ -23186,7 +23230,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 101,
+            "line": 116,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "_enabled",
@@ -23199,7 +23243,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 109,
+            "line": 124,
             "description": "Either the alias of the next state or a function\nto call when going to the next state.",
             "itemtype": "property",
             "name": "nextState",
@@ -23212,7 +23256,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 118,
+            "line": 133,
             "description": "Either the alias of the previous state or a function\nto call when going to the previous state.",
             "itemtype": "property",
             "name": "prevState",
@@ -23225,7 +23269,98 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 133,
+            "line": 142,
+            "description": "The number of frames to delay the transition in after loading, to allow the framerate\nto stablize after heavy art instantiation.",
+            "itemtype": "property",
+            "name": "delayLoad",
+            "type": "Int",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 156,
+            "description": "When the state is exited. Override this to provide state cleanup.",
+            "itemtype": "method",
+            "name": "exit",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 166,
+            "description": "When the state has requested to be exit, pre-transition. Override this to ensure\nthat animation/audio is stopped when leaving the state.",
+            "itemtype": "method",
+            "name": "exitStart",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 177,
+            "description": "Cancel the load, implementation-specific.\nThis is where any async actions should be removed.",
+            "itemtype": "method",
+            "name": "cancel",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 188,
+            "description": "When the state is entered. Override this to start loading assets - call loadingStart()\nto tell the StateManager that that is going on.",
+            "itemtype": "method",
+            "name": "enter",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 199,
+            "description": "When the state is visually entered fully - after the transition is done.\nOverride this to begin your state's activities.",
+            "itemtype": "method",
+            "name": "enterDone",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 210,
+            "description": "Internal function to start the preloading",
+            "itemtype": "method",
+            "name": "loadingStart",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 235,
+            "description": "Internal function to finish the preloading",
+            "itemtype": "method",
+            "name": "loadingDone",
+            "params": [
+                {
+                    "name": "delay",
+                    "description": "Frames to delay the load completion to allow the framerate to\n  stabilize. If not delay is set, defaults to the `delayLoad` property.",
+                    "type": "Int",
+                    "optional": true
+                }
+            ],
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 271,
             "description": "Status of whether the panel load was canceled",
             "itemtype": "property",
             "name": "canceled",
@@ -23237,153 +23372,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 143,
-            "description": "This is called by the State Manager to exit the state",
-            "itemtype": "method",
-            "name": "_internalExit",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 163,
-            "description": "When the state is exited. Override this to provide state cleanup.",
-            "itemtype": "method",
-            "name": "exit",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 170,
-            "description": "Exit the state start, called by the State Manager",
-            "itemtype": "method",
-            "name": "_internalExitStart",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 181,
-            "description": "When the state has requested to be exit, pre-transition. Override this to ensure\nthat animation/audio is stopped when leaving the state.",
-            "itemtype": "method",
-            "name": "exitStart",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 189,
-            "description": "Exit the state start, called by the State Manager",
-            "itemtype": "method",
-            "name": "_internalEnter",
-            "params": [
-                {
-                    "name": "proceed",
-                    "description": "The function to call after enter has been called",
-                    "type": "Function"
-                }
-            ],
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 219,
-            "description": "Internal function to start the preloading",
-            "itemtype": "method",
-            "name": "loadingStart",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 244,
-            "description": "Internal function to finish the preloading",
-            "itemtype": "method",
-            "name": "loadingDone",
-            "params": [
-                {
-                    "name": "delay",
-                    "description": "Frames to delay the load completion to allow the framerate to\n                       stabilize.",
-                    "type": "Int",
-                    "optional": true,
-                    "optdefault": "0"
-                }
-            ],
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 275,
-            "description": "Cancel the loading of this state",
-            "itemtype": "method",
-            "name": "_internalCancel",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 291,
-            "description": "Cancel the load, implementation-specific.\nThis is where any async actions should be removed.",
-            "itemtype": "method",
-            "name": "cancel",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 299,
-            "description": "When the state is entered. Override this to start loading assets - call loadingStart()\nto tell the StateManager that that is going on.",
-            "itemtype": "method",
-            "name": "enter",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 307,
-            "description": "Exit the state start, called by the State Manager",
-            "itemtype": "method",
-            "name": "_internalEnterDone",
-            "access": "private",
-            "tagname": "",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 321,
-            "description": "When the state is visually entered fully - after the transition is done.\nOverride this to begin your state's activities.",
-            "itemtype": "method",
-            "name": "enterDone",
-            "class": "springroll.BaseState",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/BaseState.js",
-            "line": 329,
+            "line": 285,
             "description": "Get if this is the active state",
             "itemtype": "property",
             "name": "active",
@@ -23395,7 +23384,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 339,
+            "line": 299,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "enabled",
@@ -23406,7 +23395,7 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 352,
+            "line": 316,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "destroyed",
@@ -23418,7 +23407,93 @@
         },
         {
             "file": "src/states/BaseState.js",
-            "line": 362,
+            "line": 330,
+            "description": "This is called by the State Manager to exit the state",
+            "itemtype": "method",
+            "name": "_internalExit",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 350,
+            "description": "When the state is entering",
+            "itemtype": "method",
+            "name": "_internalEntering",
+            "params": [
+                {
+                    "name": "proceed",
+                    "description": "The function to call after enter has been called",
+                    "type": "Function"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 361,
+            "description": "Exit the state start, called by the State Manager",
+            "itemtype": "method",
+            "name": "_internalExitStart",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 372,
+            "description": "Exit the state start, called by the State Manager",
+            "itemtype": "method",
+            "name": "_internalEnter",
+            "params": [
+                {
+                    "name": "proceed",
+                    "description": "The function to call after enter has been called",
+                    "type": "Function"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 402,
+            "description": "Cancel the loading of this state",
+            "itemtype": "method",
+            "name": "_internalCancel",
+            "access": "protected",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 418,
+            "description": "Exit the state start, called by the State Manager",
+            "itemtype": "method",
+            "name": "_internalEnterDone",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.BaseState",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/BaseState.js",
+            "line": 432,
             "description": "Don't use the state object after this",
             "itemtype": "method",
             "name": "destroy",
@@ -23861,7 +23936,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 393,
+            "line": 394,
             "description": "When the transition out of a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionOut",
@@ -23873,7 +23948,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 423,
+            "line": 424,
             "description": "When the state has completed its loading sequence.\nThis should be treated as an asynchronous process.",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -23885,7 +23960,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 443,
+            "line": 444,
             "description": "When the transition into a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionIn",
@@ -23897,7 +23972,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 461,
+            "line": 465,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -23912,7 +23987,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 483,
+            "line": 487,
             "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
             "name": "_loopTransition",
@@ -23924,7 +23999,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 509,
+            "line": 516,
             "description": "Displays the transition out animation, without changing states. Upon completion, the\ntransition looping animation automatically starts playing.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -23941,7 +24016,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 530,
+            "line": 537,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -23958,7 +24033,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 549,
+            "line": 556,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -23982,7 +24057,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 574,
+            "line": 587,
             "description": "Goto the next state",
             "itemtype": "method",
             "name": "next",
@@ -23992,7 +24067,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 600,
+            "line": 613,
             "description": "Goto the previous state",
             "itemtype": "method",
             "name": "previous",
@@ -24002,7 +24077,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 626,
+            "line": 639,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -24143,7 +24218,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 181,
+            "line": 169,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
             "class": "springroll.StatesPlugin",
             "module": "States",
@@ -25776,7 +25851,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 340,
+            "line": 342,
             "description": "Register a dictionary of items to the UIScaler to control.",
             "itemtype": "method",
             "name": "addItems",
@@ -25802,7 +25877,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 377,
+            "line": 379,
             "description": "Manually add an item",
             "itemtype": "method",
             "name": "addItem",
@@ -25939,7 +26014,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 489,
+            "line": 491,
             "description": "Add background bitmaps to scale full screen, this will attempt to\nscale the background to the height of the display and crop on\nthe left and right.",
             "itemtype": "method",
             "name": "addBackground",
@@ -25960,7 +26035,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 508,
+            "line": 510,
             "description": "Remove background",
             "itemtype": "method",
             "name": "removeBackground",
@@ -25981,7 +26056,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 527,
+            "line": 531,
             "description": "Scale the UI items that have been registered to the current screen",
             "itemtype": "method",
             "name": "_resize",
@@ -26005,7 +26080,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 595,
+            "line": 610,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",
@@ -27875,7 +27950,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 679,
+            "line": 682,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -28546,7 +28621,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:181"
+            "line": " src/states/StatesPlugin.js:169"
         },
         {
             "message": "Missing item type",

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/states/StateManager.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/states/StateManager.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -533,9 +533,9 @@ name
 	 * @constructor
 	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
 	 *                                             displayed.
-	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
+	 * @param {createjs.MovieClip|PIXI.Spine} [transition] The transition MovieClip to play between
 	 *                                                   transitions.
-	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
+	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
 	 *                                  transition in, loop and out sounds. Example:
 	 *                                  {in:{alias:&quot;myAlias&quot;, start:0.2}}.
 	 *                                  These objects are in the format for Animator from
@@ -560,7 +560,7 @@ name
 		* @property {createjs.MovieClip|PIXI.Spine} _transition
 		* @private
 		*/
-		this._transition = transition;
+		this._transition = transition || null;
 		
 		/**
 		* The sounds for the transition
@@ -635,9 +635,9 @@ name
 		this._queueStateId = null;
 
 		// Construct
-		if (this._transition.stop)
+		if (transition &amp;&amp; transition.stop)
 		{
-			this._transition.stop();
+			transition.stop();
 		}
 		// Hide the blocker
 		this.hideBlocker();
@@ -875,7 +875,8 @@ name
 			// this is only possible if this is the first
 			// state we&#x27;re loading
 			this._isTransitioning = true;
-			this._transition.visible = true;
+			if (this._transition)
+				this._transition.visible = true;
 			this._loopTransition();
 			this.trigger(StateManager.TRANSITION_INIT_DONE);
 			this._isLoading = true;
@@ -961,7 +962,10 @@ name
 	 */
 	p._onTransitionIn = function()
 	{
-		this._transition.visible = false;
+		if (this._transition)
+		{
+			this._transition.visible = false;
+		}
 		this.trigger(StateManager.TRANSITION_IN_DONE);
 		this._isTransitioning = false;
 		this.hideBlocker();
@@ -1003,6 +1007,9 @@ name
 	*/
 	p._loopTransition = function()
 	{
+		// Ignore if no transition
+		if (!this._transition) return;
+
 		var audio;
 		if (this._transitionSounds)
 		{
@@ -1071,15 +1078,21 @@ name
 	p._transitioning = function(event, callback)
 	{
 		var clip = this._transition;
+		var sounds = this._transitionSounds;
+		
+		// Ignore with no transition
+		if (!clip) 
+		{
+			return callback();
+		}
+
 		clip.visible = true;
 
 		var audio;
 
-		if (this._transitionSounds)
+		if (sounds)
 		{
-			audio = event == StateManager.TRANSITION_IN ?
-				this._transitionSounds.in :
-				this._transitionSounds.out;
+			audio = (event == StateManager.TRANSITION_IN) ? sounds.in : sounds.out;
 		}
 		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
 	};
@@ -1147,7 +1160,10 @@ name
 
 		this.off();
 		
-		this._display.animator.stop(this._transition);
+		if (this._transition)
+		{
+			this._display.animator.stop(this._transition);
+		}
 		
 		if (this._state)
 		{
@@ -1176,7 +1192,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

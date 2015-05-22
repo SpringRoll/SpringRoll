@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : springroll.StateManager</title>
+<title>SpringRoll v0.3.3 API Documentation : springroll.StateManager</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -537,10 +537,10 @@ Module:
 <code>display</code>
 </li>
 <li class='arg'>
-<code>transition</code>
+<code class='optional'>[transition]</code>
 </li>
 <li class='arg'>
-<code>transitionSounds</code>
+<code class='optional'>[transitionSounds]</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
@@ -585,8 +585,9 @@ Defined in
 
 </li>
 <li class='param'>
-<code class='param-name'>transition</code>
+<code class='param-name optional'>[transition]</code>
 <span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
 
 
 <div class='param-description'>
@@ -597,8 +598,9 @@ Defined in
 
 </li>
 <li class='param'>
-<code class='param-name'>transitionSounds</code>
+<code class='param-name optional'>[transitionSounds]</code>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
 
 
 <div class='param-description'>
@@ -877,7 +879,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l483'><code>_loopTransition:483</code></a>
+<a href='../files/src_states_StateManager.js.html#l487'><code>_loopTransition:487</code></a>
 </p>
 
 
@@ -910,7 +912,7 @@ Manually looping the animation allows the animation to be synced to the audio wh
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l423'><code>_onStateLoaded:423</code></a>
+<a href='../files/src_states_StateManager.js.html#l424'><code>_onStateLoaded:424</code></a>
 </p>
 
 
@@ -943,7 +945,7 @@ This should be treated as an asynchronous process.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l443'><code>_onTransitionIn:443</code></a>
+<a href='../files/src_states_StateManager.js.html#l444'><code>_onTransitionIn:444</code></a>
 </p>
 
 
@@ -975,7 +977,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l393'><code>_onTransitionOut:393</code></a>
+<a href='../files/src_states_StateManager.js.html#l394'><code>_onTransitionOut:394</code></a>
 </p>
 
 
@@ -1010,7 +1012,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l461'><code>_processQueue:461</code></a>
+<a href='../files/src_states_StateManager.js.html#l465'><code>_processQueue:465</code></a>
 </p>
 
 
@@ -1060,7 +1062,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l549'><code>_transitioning:549</code></a>
+<a href='../files/src_states_StateManager.js.html#l556'><code>_transitioning:556</code></a>
 </p>
 
 
@@ -1246,7 +1248,7 @@ Defined in
 springroll.EventDispatcher
 </a>
 but overwritten in
-<a href='../files/src_states_StateManager.js.html#l626'><code>destroy:626</code></a>
+<a href='../files/src_states_StateManager.js.html#l639'><code>destroy:639</code></a>
 </p>
 
 
@@ -1607,7 +1609,7 @@ The state can tell the manager to stop the animation</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l574'><code>next:574</code></a>
+<a href='../files/src_states_StateManager.js.html#l587'><code>next:587</code></a>
 </p>
 
 
@@ -1913,7 +1915,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l600'><code>previous:600</code></a>
+<a href='../files/src_states_StateManager.js.html#l613'><code>previous:613</code></a>
 </p>
 
 
@@ -2069,7 +2071,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l530'><code>showTransitionIn:530</code></a>
+<a href='../files/src_states_StateManager.js.html#l537'><code>showTransitionIn:537</code></a>
 </p>
 
 
@@ -2124,7 +2126,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l509'><code>showTransitionOut:509</code></a>
+<a href='../files/src_states_StateManager.js.html#l516'><code>showTransitionOut:516</code></a>
 </p>
 
 
@@ -2826,7 +2828,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

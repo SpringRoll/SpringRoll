@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : springroll.easeljs.BasePanel</title>
+<title>SpringRoll v0.3.3 API Documentation : springroll.easeljs.BasePanel</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -522,7 +522,7 @@ Module:
 
 
 <div class='box intro'>
-<p>Panel with convenience properties to the config, background and game.</p>
+<p>Panel with convenience properties to the config, background and app.</p>
 
 </div>
 
@@ -609,6 +609,10 @@ Defined in
 
 <ul class='list-group row properties extends'>
 <li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_app'>app</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
 <a href='#property_background'>background</a>
 
 </li>
@@ -616,9 +620,10 @@ Defined in
 <a href='#property_config'>config</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item property'>
+<li class='col-xs-6 col-md-4 index-item property deprecated'>
 <a href='#property_game'>game</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 </ul>
 </div>
@@ -708,7 +713,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l74'><code>cleanupChildren:74</code></a>
+<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l81'><code>cleanupChildren:81</code></a>
 </p>
 
 
@@ -764,7 +769,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l119'><code>destroy:119</code></a>
+<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l126'><code>destroy:126</code></a>
 </p>
 
 
@@ -795,7 +800,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l53'><code>setup:53</code></a>
+<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l60'><code>setup:60</code></a>
 </p>
 
 
@@ -826,7 +831,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l62'><code>teardown:62</code></a>
+<a href='../files/src_displays_easeljs_states_BasePanel.js.html#l69'><code>teardown:69</code></a>
 </p>
 
 
@@ -846,7 +851,31 @@ any movieclip, destroy any objects, remove DwellTimers, etc.</p>
 
 <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-<div id="property_background" class="property item">
+<div id="property_app" class="property item">
+<h3 class="name"><code>app</code></h3>
+<span class="type">Application</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l31"><code>app:31</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the app</p>
+
+</div>
+
+
+
+</div><div id="property_background" class="property item">
 <h3 class="name"><code>background</code></h3>
 <span class="type">createjs.Bitmap</span>
 
@@ -857,7 +886,7 @@ any movieclip, destroy any objects, remove DwellTimers, etc.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l43"><code>background:43</code></a>
+<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l50"><code>background:50</code></a>
 </p>
 
 
@@ -881,7 +910,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l37"><code>config:37</code></a>
+<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l44"><code>config:44</code></a>
 </p>
 
 
@@ -894,10 +923,11 @@ Defined in
 
 
 
-</div><div id="property_game" class="property item">
+</div><div id="property_game" class="property item deprecated">
 <h3 class="name"><code>game</code></h3>
 <span class="type">Application</span>
 
+<span class="flag deprecated"  title="Use &#x27;app&#x27; instead" >deprecated</span>
 
 
 
@@ -905,14 +935,15 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l31"><code>game:31</code></a>
+<a href="../files/src_displays_easeljs_states_BasePanel.js.html#l37"><code>game:37</code></a>
 </p>
 
+<p>Deprecated: Use &#x27;app&#x27; instead</p>
 
 </div>
 
 <div class="description">
-<p>Reference to the game</p>
+<p>Reference to the app</p>
 
 </div>
 
@@ -926,7 +957,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

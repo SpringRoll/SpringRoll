@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/displays/easeljs/states/BasePanel.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/displays/easeljs/states/BasePanel.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -515,7 +515,7 @@ name
 <pre class="code prettyprint linenums">/**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function()
 {
@@ -526,7 +526,7 @@ name
 		Application;
 
 	/**
-	 *	Panel with convenience properties to the config, background and game.
+	 *	Panel with convenience properties to the config, background and app.
 	 *	@class BasePanel
 	 *	@extend createjs.Container
 	 *	@constructor
@@ -543,16 +543,23 @@ name
 		Container.call(this);
 
 		/**
-		 *	Reference to the game
-		 *	@property {Application} game
+		 *	Reference to the app
+		 *	@property {Application} app
 		 */
-		this.game = Application.instance;
+		this.app = Application.instance;
+
+		/**
+		 *	Reference to the app
+		 *	@property {Application} game
+		 *	@deprecated Use &#x27;app&#x27; instead
+		 */
+		this.game = this.app;
 
 		/**
 		 *	Reference to the app&#x27;s config
 		 *	@property {object} config
 		 */
-		this.config = this.game.config;
+		this.config = this.app.config;
 
 		/**
 		 *	All panel should probably have a background image
@@ -636,6 +643,7 @@ name
 	 */
 	p.destroy = function()
 	{
+		this.app = null;
 		this.game = null;
 		this.config = null;
 		this.background = null;
@@ -650,7 +658,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/states/BaseState.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/states/BaseState.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -517,7 +517,7 @@ name
  * @namespace springroll
  * @requires Core
  */
-(function()
+(function(undefined)
 {
 	// Imports
 	var Debug,
@@ -530,11 +530,14 @@ name
 	*  @class BaseState
 	*  @constructor
 	*  @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
-	*                                                                this state.
-	*  @param {String|Function} [nextState=null] The next state alias
-	*  @param {String|Function} [prevState=null] The previous state alias
+	*  	this state.
+	*  @param {Object} [options] The list of options
+	*  @param {String|Function} [options.next=null] The next state alias
+	*  @param {String|Function} [options.previous=null] The previous state alias
+	*  @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
+	*    heavy object instaniation slow the game dramatically.
 	*/
-	var BaseState = function(panel, nextState, prevState)
+	var BaseState = function(panel, options)
 	{
 		if(!StateManager)
 		{
@@ -542,6 +545,18 @@ name
 			DelayedCall = include(&#x27;springroll.DelayedCall&#x27;);
 			Debug = include(&#x27;springroll.Debug&#x27;, false);
 		}
+
+		if (DEBUG &amp;&amp; Debug &amp;&amp; !panel)
+		{
+			Debug.error(&quot;BaseState requires a panel display object as the first constructor argument&quot;);
+		}
+
+		// Construct the options
+		options = Object.merge({
+			next: null,
+			previous: null,
+			delayLoad: 0
+		}, options || {});
 
 		/**
 		* The id reference
@@ -627,7 +642,7 @@ name
 		*  @property {String|Function} nextState
 		*  @protected
 		*/
-		this.nextState = nextState || null;
+		this.nextState = options.next;
 		
 		/**
 		*  Either the alias of the previous state or a function
@@ -636,7 +651,15 @@ name
 		*  @property {String|Function} prevState
 		*  @protected
 		*/
-		this.prevState = prevState || null;
+		this.prevState = options.previous;
+
+		/**
+		 *	The number of frames to delay the transition in after loading, to allow the framerate
+		 *	to stablize after heavy art instantiation.
+		 *	@property {int} delayLoad
+		 *	@protected
+		 */
+		this.delayLoad = options.delayLoad;
 
 		// Hide the panel by default
 		this.panel.visible = false;
@@ -645,51 +668,13 @@ name
 	var p = BaseState.prototype;
 	
 	/**
-	*  Status of whether the panel load was canceled
-	*
-	*  @property {Boolean} canceled
-	*  @readOnly
-	*/
-	Object.defineProperty(p, &#x27;canceled&#x27;, {
-		get: function() { return this._canceled; }
-	});
-	
-	/**
-	*   This is called by the State Manager to exit the state
-	*
-	*   @method _internalExit
-	*   @private
-	*/
-	p._internalExit = function()
-	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this.panel.visible = false;
-		this._active = false;
-		this.exit();
-	};
-	
-	/**
 	*  When the state is exited. Override this to provide state cleanup.
 	*
 	*  @method exit
 	*/
-	p.exit = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalExitStart
-	*   @private
-	*/
-	p._internalExitStart = function()
+	p.exit = function()
 	{
-		this.exitStart();
+		// Implementation specific	
 	};
 	
 	/**
@@ -698,38 +683,44 @@ name
 	*
 	*   @method exitStart
 	*/
-	p.exitStart = function(){};
-	
-	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalEnter
-	*   @param {Function} proceed The function to call after enter has been called
-	*   @private
-	*/
-	p._internalEnter = function(proceed)
+	p.exitStart = function()
 	{
-		if (this._isTransitioning)
-		{
-			this._isTransitioning = false;
-			
-			this.manager._display.animator.stop(this.panel);
-		}
-		this._enabled = false;
-		this._active = true;
-		this._canceled = false;
-		
-		this._onEnterProceed = proceed;
-		
-		this.enter();
-		
-		if (this._onEnterProceed)
-		{
-			this._onEnterProceed();
-			this._onEnterProceed = null;
-		}
+		// Implementation specific	
+	};
+
+	/**
+	*   Cancel the load, implementation-specific.
+	*   This is where any async actions should be removed.
+	*
+	*   @method cancel
+	*/
+	p.cancel = function()
+	{
+		// Implementation specific	
 	};
 	
+	/**
+	*   When the state is entered. Override this to start loading assets - call loadingStart()
+	*   to tell the StateManager that that is going on.
+	*
+	*   @method enter
+	*/
+	p.enter = function()
+	{
+		// Implementation specific	
+	};
+	
+	/**
+	*   When the state is visually entered fully - after the transition is done.
+	*   Override this to begin your state&#x27;s activities.
+	*
+	*   @method enterDone
+	*/
+	p.enterDone = function()
+	{
+		// Implementation specific	
+	};
+
 	/**
 	*   Internal function to start the preloading
 	*
@@ -759,11 +750,16 @@ name
 	*   Internal function to finish the preloading
 	*
 	*   @method loadingDone
-	*   @param {int} [delay=0] Frames to delay the load completion to allow the framerate to
-	*                          stabilize.
+	*   @param {int} [delay] Frames to delay the load completion to allow the framerate to
+	*     stabilize. If not delay is set, defaults to the &#x60;delayLoad&#x60; property.
 	*/
 	p.loadingDone = function(delay)
 	{
+		if (delay === undefined)
+		{
+			delay = this.delayLoad;
+		}
+
 		if (!this._isLoading)
 		{
 			if (DEBUG &amp;&amp; Debug) Debug.warn(&quot;loadingDone() was called without a load started, call loadingStart() first&quot;);
@@ -787,10 +783,141 @@ name
 	};
 	
 	/**
+	*  Status of whether the panel load was canceled
+	*
+	*  @property {Boolean} canceled
+	*  @readOnly
+	*/
+	Object.defineProperty(p, &#x27;canceled&#x27;, 
+	{
+		get: function()
+		{
+			return this._canceled;
+		}
+	});
+
+	/**
+	*   Get if this is the active state
+	*
+	*   @property {Boolean} active
+	*   @readOnly
+	*/
+	Object.defineProperty(p, &#x27;active&#x27;, 
+	{
+		get: function()
+		{
+			return this._active; 
+		}
+	});
+	
+	/**
+	* If the state is enabled, meaning that it is click ready
+	*
+	* @property {Boolean} enabled
+	*/
+	Object.defineProperty(p, &#x27;enabled&#x27;,
+	{
+		get: function()
+		{
+			return this._enabled;
+		},
+		set: function(value)
+		{
+			this._enabled = value;
+		}
+	});
+	
+	/**
+	* If the state has been destroyed.
+	*
+	* @property {Boolean} destroyed
+	* @readOnly
+	*/
+	Object.defineProperty(p, &#x27;destroyed&#x27;, 
+	{
+		get: function()
+		{
+			return this._destroyed;
+		}
+	});
+
+	/**
+	*   This is called by the State Manager to exit the state
+	*
+	*   @method _internalExit
+	*   @protected
+	*/
+	p._internalExit = function()
+	{
+		if (this._isTransitioning)
+		{
+			this._isTransitioning = false;
+			
+			this.manager._display.animator.stop(this.panel);
+		}
+		this._enabled = false;
+		this.panel.visible = false;
+		this._active = false;
+		this.exit();
+	};
+
+	/**
+	*   When the state is entering
+	*   @method _internalEntering
+	*   @param {Function} proceed The function to call after enter has been called
+	*   @protected
+	*/
+	p._internalEntering = function()
+	{
+		this.enter();
+	};
+	
+	/**
+	*   Exit the state start, called by the State Manager
+	*
+	*   @method _internalExitStart
+	*   @protected
+	*/
+	p._internalExitStart = function()
+	{
+		this.exitStart();
+	};
+	
+	/**
+	*   Exit the state start, called by the State Manager
+	*
+	*   @method _internalEnter
+	*   @param {Function} proceed The function to call after enter has been called
+	*   @protected
+	*/
+	p._internalEnter = function(proceed)
+	{
+		if (this._isTransitioning)
+		{
+			this._isTransitioning = false;
+			
+			this.manager._display.animator.stop(this.panel);
+		}
+		this._enabled = false;
+		this._active = true;
+		this._canceled = false;
+		
+		this._onEnterProceed = proceed;
+		
+		this._internalEntering();
+		
+		if (this._onEnterProceed)
+		{
+			this._onEnterProceed();
+			this._onEnterProceed = null;
+		}
+	};
+	
+	/**
 	*   Cancel the loading of this state
 	*
 	*   @method _internalCancel
-	*   @private
+	*   @protected
 	*/
 	p._internalCancel = function()
 	{
@@ -801,22 +928,6 @@ name
 		this._internalExit();
 		this.cancel();
 	};
-	
-	/**
-	*   Cancel the load, implementation-specific.
-	*   This is where any async actions should be removed.
-	*
-	*   @method cancel
-	*/
-	p.cancel = function(){};
-	
-	/**
-	*   When the state is entered. Override this to start loading assets - call loadingStart()
-	*   to tell the StateManager that that is going on.
-	*
-	*   @method enter
-	*/
-	p.enter = function(){};
 	
 	/**
 	*   Exit the state start, called by the State Manager
@@ -831,47 +942,6 @@ name
 		this.enabled = true;
 		this.enterDone();
 	};
-	
-	/**
-	*   When the state is visually entered fully - after the transition is done.
-	*   Override this to begin your state&#x27;s activities.
-	*
-	*   @method enterDone
-	*/
-	p.enterDone = function(){};
-
-	/**
-	*   Get if this is the active state
-	*
-	*   @property {Boolean} active
-	*   @readOnly
-	*/
-	Object.defineProperty(p, &#x27;active&#x27;, {
-		get: function() { return this._active; }
-	});
-	
-	/**
-	* If the state is enabled, meaning that it is click ready
-	*
-	* @property {Boolean} enabled
-	*/
-	Object.defineProperty(p, &#x27;enabled&#x27;, {
-		get: function() { return this._enabled; },
-		set: function(value)
-		{
-			this._enabled = value;
-		}
-	});
-	
-	/**
-	* If the state has been destroyed.
-	*
-	* @property {Boolean} destroyed
-	* @readOnly
-	*/
-	Object.defineProperty(p, &#x27;destroyed&#x27;, {
-		get: function() { return this._destroyed; }
-	});
 	
 	/**
 	*   Don&#x27;t use the state object after this
@@ -895,7 +965,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>

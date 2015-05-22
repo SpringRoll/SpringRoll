@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.2 API Documentation : src/states/StatesPlugin.js</title>
+<title>SpringRoll v0.3.3 API Documentation : src/states/StatesPlugin.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.2'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.2'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.2'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.2</em>
+<em>API Documentation for: 0.3.3</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.2' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -625,37 +625,22 @@ name
 					}
 				}
 
-				// Goto the transition state
-				if (!this.transition)
-				{
-					if (!this.options.transition)
-					{
-						if (DEBUG)
-						{
-							throw &quot;StateManager requires a &#x27;transition&#x27; property to be set or through constructor options&quot;;
-						}
-						else
-						{
-							throw &quot;No options.transition&quot;;
-						}
-					}
-
-					// Assign for convenience to the app property
-					this.transition = this.options.transition;
-				}
+				// Get the transition from either the transition manual set or the options
+				var transition =  this.transition || this.options.transition;
+				this.transition = transition;
 
 				//if the transition is a EaselJS movieclip, start it out
 				//at the end of the transition out animation. If it has a
 				//&#x27;transitionLoop&#x27; animation, that will be played as soon as a state is set
-				if (this.transition.gotoAndStop)
+				if (transition &amp;&amp; transition.gotoAndStop)
 				{
-					this.transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
+					transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
 				}
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
 					this.display,
-					this.transition,
+					transition,
 					this.options.transitionSounds
 				);
 				
@@ -676,7 +661,10 @@ name
 				this._states = states;
 
 				// Add the transition on top of everything else
-				stage.addChild(this.transition);
+				if (transition)
+				{
+					stage.addChild(transition);
+				}
 
 				// Goto the first state
 				if (this.options.state)
@@ -754,7 +742,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.2'></script>
-<script src='../assets/js/main.js?v=0.3.2'></script>
+<script src='../assets/js/libraries.js?v=0.3.3'></script>
+<script src='../assets/js/main.js?v=0.3.3'></script>
 </body>
 </html>
