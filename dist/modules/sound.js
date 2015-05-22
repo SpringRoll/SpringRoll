@@ -496,8 +496,8 @@
 		}
 
 		var defaultOptions = {
-			plugins : appOptions.forceFlashAudio ? 
-				[FlashAudioPlugin]: 
+			plugins : appOptions.forceFlashAudio ?
+				[FlashAudioPlugin]:
 				[WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
@@ -1325,7 +1325,11 @@
 		else
 			sound = alias;
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i >= 0; --i)
+		var i;
+		for (i = arr.length - 1; i >= 0; --i)
+			arr[i].pause();
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i >= 0; --i)
 			arr[i].pause();
 	};
 
@@ -1344,10 +1348,12 @@
 		else
 			sound = alias;
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i >= 0; --i)
-		{
+		var i;
+		for (i = arr.length - 1; i >= 0; --i)
 			arr[i].unpause();
-		}
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i >= 0; --i)
+			arr[i].unpause();
 	};
 
 	/**
