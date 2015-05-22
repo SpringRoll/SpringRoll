@@ -115,7 +115,7 @@
 		var appOptions = Application.instance.options;
 
 		// First argument is function
-		if (typeof options == 'function')
+		if (isFunction(options))
 		{
 			options = { ready: options };
 		}
@@ -295,7 +295,7 @@
 		for (var i = 0, len = list.length; i < len; ++i)
 		{
 			s = list[i];
-			if (typeof s == "string") {
+			if (isString(s)) {
 				s = {id: s};
 			}
 			temp = this._sounds[s.id] = {
@@ -454,7 +454,7 @@
 	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == "string")
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -497,7 +497,7 @@
 	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == "string")
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -617,7 +617,7 @@
 		if (!this.soundEnabled) return;
 
 		var completeCallback;
-		if (options && typeof options == "function")
+		if (options && isFunction(options))
 		{
 			completeCallback = options;
 			options = null;
@@ -684,7 +684,6 @@
 		}
 		else if (loadState == LoadStates.unloaded)
 		{
-			sound.loadState = LoadStates.loading;
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
@@ -702,13 +701,7 @@
 			}
 			else
 				inst._startParams = [interrupt, delay, offset, loop];
-			Loader.instance.load(
-				sound.src, //url to load
-				this._playAfterLoad,//complete callback
-				null,//progress callback
-				0,//priority
-				sound//the sound object (contains properties for PreloadJS/SoundJS)
-			);
+			this.preloadSound(sound.id);
 			return inst;
 		}
 		else if (loadState == LoadStates.loading)
@@ -769,7 +762,7 @@
 	*/
 	p._playAfterLoad = function(result)
 	{
-		var alias = typeof result == "string" ? result : result.id;
+		var alias = isString(result) ? result : result.id;
 		var sound = this._sounds[alias];
 		sound.loadState = LoadStates.loaded;
 
@@ -942,13 +935,10 @@
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.pauseSound = function(alias)
+	p.pauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == "string")
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
@@ -965,13 +955,10 @@
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.unpauseSound = function(alias)
+	p.unpauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == "string")
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
 		var i;
 		for (i = arr.length - 1; i >= 0; --i)
@@ -1277,6 +1264,17 @@
 		this._fades = null;
 		this._contexts = null;
 		this._pool = null;
+	};
+
+	// Convenience methods for type checking
+	var isString = function(obj)
+	{
+		return typeof obj == "string";
+	};
+
+	var isFunction = function(obj)
+	{
+		return typeof obj == "function";
 	};
 
 	namespace('springroll').Sound = Sound;
