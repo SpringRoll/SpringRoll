@@ -427,6 +427,7 @@
 			{
 				if (_tickId == -1 && _tickCallback)
 				{
+					_lastFrameTime = TimeUtils.now();
 					_tickId = _useRAF ?
 						requestAnimFrame(_tickCallback) :
 						setTargetedTimeout(_tickCallback);
