@@ -1300,11 +1300,6 @@
 		// Convert these to DOM elements
 		this.asDOMElement('resizeElement');
 
-		this.respond('updateTween', function()
-		{
-			return Tween ? app.has('update', Tween.tick) : false;
-		});
-
 		this.on('updateTween', function(value)
 		{
 			if (Tween)
