@@ -327,6 +327,8 @@
 	 */
 	p.removeItems = function(container)
 	{
+		if(!this._items) return;
+		
 		var adapter = this._adapter;
 		this._items.forEach(function(item, i, items)
 		{
@@ -513,6 +515,8 @@
 	 */
 	p.removeBackground = function(bitmap)
 	{
+		if(!this._backgrounds) return;
+		
 		for (var i = 0, len = this._backgrounds.length; i < len; i++)
 		{
 			if (bitmap === this._backgrounds[i])
@@ -536,7 +540,7 @@
 		var _size = this._size;
 
 		// Size hasn't been setup yet
-		if (!_size) 
+		if (!_size)
 		{
 			if (DEBUG && Debug)
 			{
