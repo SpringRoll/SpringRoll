@@ -160,7 +160,7 @@
 	*/
 	p.exit = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -171,7 +171,7 @@
 	*/
 	p.exitStart = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 
 	/**
@@ -182,7 +182,7 @@
 	*/
 	p.cancel = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -193,7 +193,7 @@
 	*/
 	p.enter = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -204,7 +204,7 @@
 	*/
 	p.enterDone = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 
 	/**
@@ -254,7 +254,7 @@
 		
 		if(delay && typeof delay == "number")
 		{
-			new DelayedCall(this.loadingDone.bind(this), delay, false, true, true);
+			new DelayedCall(this.loadingDone.bind(this, 0), delay, false, true, true);
 			return;
 		}
 		
@@ -274,7 +274,7 @@
 	*  @property {Boolean} canceled
 	*  @readOnly
 	*/
-	Object.defineProperty(p, 'canceled', 
+	Object.defineProperty(p, 'canceled',
 	{
 		get: function()
 		{
@@ -288,11 +288,11 @@
 	*   @property {Boolean} active
 	*   @readOnly
 	*/
-	Object.defineProperty(p, 'active', 
+	Object.defineProperty(p, 'active',
 	{
 		get: function()
 		{
-			return this._active; 
+			return this._active;
 		}
 	});
 	
@@ -319,7 +319,7 @@
 	* @property {Boolean} destroyed
 	* @readOnly
 	*/
-	Object.defineProperty(p, 'destroyed', 
+	Object.defineProperty(p, 'destroyed',
 	{
 		get: function()
 		{
