@@ -49,7 +49,7 @@
 			 *  @private
 			 */
 			this._tray = $('<div class="learning-tray">' +
-				'<h2>Learning Dispatcher API  <span class="learning-version"></span></h2>' +
+				'<h2>Learning API <span class="learning-version"></span></h2>' +
 				'</div>');
 
 			/**
@@ -142,7 +142,7 @@
 	};
 
 	/**
-	 *  If the Learning Dispatcher should throw errors
+	 *  If the Learning should throw errors
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
