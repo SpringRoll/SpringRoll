@@ -22,7 +22,7 @@
 		ApplicationPlugin.call(this);
 
 		// After loader, befor sound
-		this.priority = 8;
+		this.priority = 80;
 	};
 
 	// Reference to the prototype

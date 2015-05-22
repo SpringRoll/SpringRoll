@@ -19,7 +19,7 @@
 	var LearningPlugin = function()
 	{
 		ApplicationPlugin.call(this);
-		this.priority = 1;
+		this.priority = 10;
 	};
 
 	// Reference to the prototype

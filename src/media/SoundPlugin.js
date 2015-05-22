@@ -21,7 +21,7 @@
 		ApplicationPlugin.call(this);
 
 		// Higher priority for the sound
-		this.priority = 9;
+		this.priority = 90;
 	};
 
 	// Reference to the prototype

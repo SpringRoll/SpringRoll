@@ -19,7 +19,7 @@
 	var CaptionsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
-		this.priority = 2;
+		this.priority = 20;
 	};
 
 	// Reference to the prototype

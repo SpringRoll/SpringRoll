@@ -3648,7 +3648,7 @@
 		ApplicationPlugin.call(this);
 
 		// Higher priority for loader
-		this.priority = 10;
+		this.priority = 100;
 	};
 
 	// Reference to the prototype
@@ -4385,6 +4385,8 @@
 	var StringFiltersPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+
+		this.priority = 110;
 	};
 
 	// Reference to the prototype

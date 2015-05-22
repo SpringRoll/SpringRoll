@@ -19,7 +19,7 @@
 		ApplicationPlugin.call(this);
 
 		// Higher priority for loader
-		this.priority = 10;
+		this.priority = 100;
 	};
 
 	// Reference to the prototype

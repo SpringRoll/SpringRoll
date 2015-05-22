@@ -19,7 +19,7 @@
 	{
 		ApplicationPlugin.call(this);
 
-		this.priority = 5;
+		this.priority = 50;
 	};
 
 	// Reference to the prototype

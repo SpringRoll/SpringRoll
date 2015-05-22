@@ -133,6 +133,15 @@
 		 */
 		this._round = null;
 
+		/**
+		 * Keep track of the round a feedback event was started on
+		 * the ending event should dispatch the same round.
+		 * @property {int} _feedbackStartRound
+		 * @private
+		 * @default null
+		 */
+		this._feedbackStartRound = null;
+
 		//Add event to handle the internal timers
 		updateTimers = updateTimers.bind(this);
 		app.on('update', updateTimers);
@@ -544,6 +553,7 @@
 			identifier: identifier,
 			total_duration: totalDuration
 		};
+		this._feedbackStartRound = this._round;
 		this._track(api, feedback);
 		this.startTimer('_feedback');
 		this._feedback = feedback;
@@ -566,7 +576,8 @@
 		delete feedback.total_duration;
 		feedback.duration = this.stopTimer('_feedback');
 		this._feedback = null;
-		this._track(api, feedback);
+		this._track(api, feedback, this._feedbackStartRound);
+		this._feedbackStartRound = null;
 	};
 
 	/**
@@ -767,8 +778,9 @@
 	 *  @private
 	 *  @param {string} api The name of the api
 	 *  @param {object} [input] The collection of argument values
+	 *  @param {int} [round] The explicit round to add the track event for
 	 */
-	p._track = function(api, input)
+	p._track = function(api, input, round)
 	{
 		if (!this.requires || !this.requires('startGame')) return;
 
@@ -814,7 +826,11 @@
 		}
 
 		//If we're using the concept of rounds, add it
-		if (this._round !== null)
+		if (round !== undefined)
+		{
+			data.round = round;
+		}
+		else if (this._round !== null)
 		{
 			data.round = this._round;
 		}

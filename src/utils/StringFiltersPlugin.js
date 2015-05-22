@@ -18,6 +18,8 @@
 	var StringFiltersPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+
+		this.priority = 110;
 	};
 
 	// Reference to the prototype
