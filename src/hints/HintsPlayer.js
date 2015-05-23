@@ -16,18 +16,18 @@
 	 *  Design to handle the setting and playing of hints
 	 *  @class HintsPlayer
 	 *  @constructor
-	 *  @param {springroll.Application} game Reference to the current game
+	 *  @param {springroll.Application} app Reference to the current app
 	 */
-	var HintsPlayer = function(game)
+	var HintsPlayer = function(app)
 	{
 		EventDispatcher.call(this);
 
 		/**
-		 *  Reference to the current game
+		 *  Reference to the current app
 		 *  @property {springroll.Application} _app
 		 *  @private
 		 */
-		this._app = game;
+		this._app = app;
 
 		/**
 		 *  The currently selected hint
@@ -63,6 +63,14 @@
 		this.play = this.play.bind(this);
 
 		/**
+		* If a hint is currently playing
+		* @property {Boolean} _playing
+		* @default false
+		* @private
+		*/
+		this._playing = false;
+
+		/**
 		 * Contains previously set hints to be cleaned up after the new hint plays,
 		 * to prevent erasing callbacks too soon.
 		 * @property {Array} _oldHints
@@ -73,6 +81,31 @@
 	//Reference to the prototype
 	var s = EventDispatcher.prototype;
 	var p = extend(HintsPlayer, EventDispatcher);
+	
+	/**
+	* Play an animation event
+	* @event anim
+	* @param {Object} data The event data
+	* @param {createjs.MovieClip} data.instance The movieclip instance
+	* @param {String|Array} data.events The Animator events
+	* @param {Function} data.complete Callback when complete
+	* @param {Function} data.cancel Callback when canceled
+	*/
+	
+	/**
+	* Play an Voice-Over event
+	* @event vo
+	* @param {Object} data The event data
+	* @param {String|Array} data.events The VO alias or array of aliases/times/etc
+	* @param {Function} data.complete Callback when complete
+	* @param {Function} data.cancel Callback when canceled
+	*/
+
+	/**
+	* Event when the enabled status of the hint changes
+	* @event enabled
+	* @param {Boolean} enabled If the player is enabled
+	*/
 
 	/**
 	 *  Add a VO hint to the player.
@@ -86,7 +119,7 @@
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
 		return this.set(new VOHint(
-			this._app,
+			this,
 			this._done,
 			idOrList,
 			onComplete,
@@ -107,7 +140,7 @@
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
 		return this.set(new AnimatorHint(
-			this._app,
+			this,
 			this._done,
 			instance,
 			events,
@@ -126,7 +159,7 @@
 	 */
 	p.func = function(onStart)
 	{
-		return this.set(new FunctionHint(this._app, this._done, onStart));
+		return this.set(new FunctionHint(this, this._done, onStart));
 	};
 
 	/**
@@ -137,7 +170,7 @@
 	 */
 	p.group = function()
 	{
-		return this.set(new GroupHint(this._app, this._done));
+		return this.set(new GroupHint(this, this._done));
 	};
 
 	/**
@@ -157,10 +190,11 @@
 
 	/**
 	 *  Removes the current hint
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 *  @method clear
 	 */
 	p.clear = function()
 	{
+		this._playing = false;
 		this.removeTimer();
 		this.enabled = false;
 		if (this._hint)
@@ -179,10 +213,14 @@
 	{
 		if (this._hint)
 		{
-			//Start playing the hint
-			this._hint.play(this._done);
+			// Keep track of the playing status
+			this._playing = true;
 
-			//it is now safe to destroy old hints since their callbacks have already fired
+			// Start playing the hint
+			this._hint.play();
+
+			// it is now safe to destroy old hints since 
+			// their callbacks have already fired
 			this._clearOldHints();
 		}
 		return this;
@@ -252,8 +290,7 @@
 	 */
 	p._update = function(elapsed)
 	{
-		if (this._app.media.isPlaying())
-			return;
+		if (this._playing) return;
 
 		if (this._timer > 0)
 		{
@@ -274,6 +311,7 @@
 	 */
 	p._done = function(cancelled)
 	{
+		this._playing = false;
 		this.resetTimer();
 
 		//Enable the button to play again

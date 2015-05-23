@@ -13,7 +13,7 @@
 
 	/**
 	 *  Class to create tiered hinting or randomized hinting.
-	 *     this.game.hints.group()
+	 *     this.app.hints.group()
 	 *     	.vo('Something', onCompleted)
 	 *     	.vo('Another', onComplete)
 	 *     	.addTier()
@@ -22,12 +22,12 @@
 	 *  @class GroupHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game The instance of the game
+	 *  @param {springroll.HintsPlayer} hints The instance of the hints
 	 *  @param {Function} done called on hint done
 	 */
-	var GroupHint = function(game, done)
+	var GroupHint = function(hints, done)
 	{
-		AbstractHint.call(this, game, done);
+		AbstractHint.call(this, hints, done);
 
 		/**
 		 *  The collection of tiers
@@ -81,7 +81,7 @@
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
 		this.tier.push(new VOHint(
-			this._game,
+			this._hints,
 			this._done,
 			idOrList,
 			onComplete,
@@ -103,7 +103,7 @@
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
 		this.tier.push(new AnimatorHint(
-			this._game,
+			this._hints,
 			this._done,
 			instance,
 			events,
@@ -124,7 +124,7 @@
 	p.func = function(onStart)
 	{
 		this.tier.push(new FunctionHint(
-			this._game,
+			this._hints,
 			this._done,
 			onStart));
 		return this;

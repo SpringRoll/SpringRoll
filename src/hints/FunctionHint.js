@@ -13,13 +13,13 @@
 	 *  @class FunctionHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game The instance of the game
+	 *  @param {springroll.HintsPlayer} hints The instance of the hints
 	 *  @param {Function} done called on hint done
 	 *  @param {function} onStart Function to call
 	 */
-	var FunctionHint = function(game, done, onStart)
+	var FunctionHint = function(hints, done, onStart)
 	{
-		AbstractHint.call(this, game, done);
+		AbstractHint.call(this, hints, done);
 		this.onStart = onStart;
 	};
 
@@ -33,7 +33,7 @@
 	 */
 	p.play = function()
 	{
-		this._game.hints.enabled = false;
+		this._hints.enabled = false;
 		this.onStart();
 	};
 

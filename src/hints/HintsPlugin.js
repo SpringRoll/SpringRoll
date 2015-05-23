@@ -1,7 +1,7 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound
  */
 (function()
 {
@@ -36,7 +36,35 @@
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		if (!this.media) throw "Hinting requires Learning Media module";
+		if (!this.display.animator)
+		{
+			if (DEBUG)
+			{
+				throw "Hints requires the CreateJS or PIXI Animator to run";
+			}
+			else
+			{
+				throw "No animator";
+			}
+		}
+
+		if (!this.voPlayer) 
+		{
+			if (DEBUG)
+			{
+				throw "Hints requires the Sound module to be included";
+			}
+			else
+			{
+				throw "No sound";
+			}
+		}
+
+		// Listen for events
+		this.hints.on({
+			vo: onVOHint.bind(this), 
+			anim: onAnimatorHint.bind(this)
+		});
 
 		// Send messages to the container
 		if (this.container)
@@ -54,6 +82,60 @@
 		done();
 	};
 
+	/**
+	* Handle the VO event
+	* @method onVOHint
+	* @private
+	* @param {object} data The VO data
+	*/
+	var onVOHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.voPlayer.play(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+	};
+
+	/**
+	* Handle the animator event
+	* @method onAnimatorHint
+	* @private
+	* @param {object} data The animator data
+	*/
+	var onAnimatorHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.display.animator.play(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}	
+	};
+
 	// Destroy the animator
 	p.teardown = function()
 	{
@@ -63,7 +145,7 @@
 		}
 		if (this.hints)
 		{
-			this.hints.off('enabled');
+			this.hints.off('enabled vo anim');
 			this.hints.destroy();
 			this.hints = null;
 		}

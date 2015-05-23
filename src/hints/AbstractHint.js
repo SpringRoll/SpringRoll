@@ -9,13 +9,16 @@
 	 *  Abstract base class for hints used by HintPlayer
 	 *  @class AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game The instance of the game
+	 *  @param {springroll.HintsPlayer} hints The instance of the hints
 	 *  @param {Function} done called on hint complete
 	 */
-	var AbstractHint = function(game, done)
+	var AbstractHint = function(hints, done)
 	{
-		//The instance of the game
-		this._game = game;
+		/**
+		* The reference to the hint play
+		* @property {springroll.HintsPlayer} _hints
+		*/
+		this._hints = hints;
 		this._done = done;
 	};
 
@@ -28,7 +31,8 @@
 	 */
 	p.play = function()
 	{
-		throw 'Must override Hint.play';
+		if (DEBUG)
+			throw 'Must override AbstractHint.play';
 	};
 
 	/**
@@ -53,7 +57,7 @@
 	p.destroy = function()
 	{
 		this._done = null;
-		this._game = null;
+		this._hints = null;
 	};
 
 	//Assign to namespace
