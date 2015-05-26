@@ -835,7 +835,7 @@
 			this._handle = $('<button class="learning-handle"></button>');
 
 			// Match the last position of the PT tray.
-			// ie Start with the tray open ('learning-tray-show') when reloading 
+			// ie Start with the tray open ('learning-tray-show') when reloading
 			// or returning to the game.
 			var defaultTrayPosition = SavedData.read('learning-tray-show') ?
 				'learning-tray-show' :
@@ -985,8 +985,7 @@
 				}
 				if (Debug)
 				{
-					Debug.error(error.toString());
-					Debug.error(error.stack);
+					Debug.error(error);
 				}
 			}
 			if (Learning.throwErrors)
@@ -1671,7 +1670,7 @@
 			else
 			{
 				container.find('.learning-api').after(message);
-			}	
+			}
 		};
 	}
 
