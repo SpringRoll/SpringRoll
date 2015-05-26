@@ -139,8 +139,7 @@
 (function()
 {
 	//Import classes
-	var AbstractHint = include('springroll.AbstractHint'),
-		Animator;
+	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
 	 *  Handle the hinting played with the Animator, usually
@@ -158,10 +157,6 @@
 	 */
 	var AnimatorHint = function(hints, done, instance, events, onComplete, onCancel)
 	{
-		if (!Animator)
-		{
-			Animator = include('springroll.Animator');
-		}
 		AbstractHint.call(this, hints, done);
 
 		this.instance = instance;
