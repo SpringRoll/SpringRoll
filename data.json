@@ -1881,7 +1881,7 @@
             },
             "tag": "module",
             "file": "src/utils/LanguagesPlugin.js",
-            "line": 12,
+            "line": 13,
             "requires": [
                 "Core"
             ]
@@ -2459,6 +2459,13 @@
                             "type": "Array",
                             "optional": true,
                             "optdefault": "[]"
+                        },
+                        {
+                            "name": "scaling",
+                            "description": "The scaling items to use with the UIScaler. See `UIScaler.addItems`\n    for more information about the format of the scaling objects.",
+                            "type": "Object",
+                            "optional": true,
+                            "optdefault": "null"
                         }
                     ]
                 },
@@ -3675,9 +3682,9 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "The instance of the game",
-                    "type": "springroll.TrackingGame"
+                    "name": "hints",
+                    "description": "The instance of the hints",
+                    "type": "springroll.HintsPlayer"
                 },
                 {
                     "name": "done",
@@ -3697,15 +3704,15 @@
             "module": "Hints",
             "namespace": "springroll",
             "file": "src/hints/AnimatorHint.js",
-            "line": 12,
+            "line": 11,
             "description": "Handle the hinting played with the Animator, usually\na lip-synced animation.",
             "extends": "springroll.AbstractHint",
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "The instance of the game",
-                    "type": "springroll.TrackingGame"
+                    "name": "hints",
+                    "description": "The instance of the hints",
+                    "type": "springroll.HintsPlayer"
                 },
                 {
                     "name": "done",
@@ -3751,9 +3758,9 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "The instance of the game",
-                    "type": "springroll.TrackingGame"
+                    "name": "hints",
+                    "description": "The instance of the hints",
+                    "type": "springroll.HintsPlayer"
                 },
                 {
                     "name": "done",
@@ -3779,14 +3786,14 @@
             "namespace": "springroll",
             "file": "src/hints/GroupHint.js",
             "line": 14,
-            "description": "Class to create tiered hinting or randomized hinting.\n   this.game.hints.group()\n   \t.vo('Something', onCompleted)\n   \t.vo('Another', onComplete)\n   \t.addTier()\n   \t.vo('DetailedSomething', onComplete)\n   \t.vo('DetailedAnother', onComplete);",
+            "description": "Class to create tiered hinting or randomized hinting.\n   this.app.hints.group()\n   \t.vo('Something', onCompleted)\n   \t.vo('Another', onComplete)\n   \t.addTier()\n   \t.vo('DetailedSomething', onComplete)\n   \t.vo('DetailedAnother', onComplete);",
             "extends": "springroll.AbstractHint",
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "The instance of the game",
-                    "type": "springroll.TrackingGame"
+                    "name": "hints",
+                    "description": "The instance of the hints",
+                    "type": "springroll.HintsPlayer"
                 },
                 {
                     "name": "done",
@@ -3811,8 +3818,8 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "Reference to the current game",
+                    "name": "app",
+                    "description": "Reference to the current app",
                     "type": "springroll.Application"
                 }
             ]
@@ -3849,9 +3856,9 @@
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "game",
-                    "description": "The instance of the game",
-                    "type": "springroll.TrackingGame"
+                    "name": "hints",
+                    "description": "The instance of the hints",
+                    "type": "springroll.Application"
                 },
                 {
                     "name": "done",
@@ -5125,7 +5132,7 @@
             "module": "Languages",
             "namespace": "springroll",
             "file": "src/utils/LanguagesPlugin.js",
-            "line": 12,
+            "line": 13,
             "description": "Create an app plugin for Language, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -10878,6 +10885,9 @@
             "file": "src/displays/easeljs/learning/DwellTimer.js",
             "line": 124,
             "description": "Setup a DwellTimer for a DisplayObject.",
+            "itemtype": "method",
+            "name": "create",
+            "static": 1,
             "params": [
                 {
                     "name": "obj",
@@ -10891,8 +10901,11 @@
         },
         {
             "file": "src/displays/easeljs/learning/DwellTimer.js",
-            "line": 134,
+            "line": 136,
             "description": "If exists, cleanup and remove DwellTimer from object",
+            "itemtype": "method",
+            "name": "destroy",
+            "static": 1,
             "params": [
                 {
                     "name": "obj",
@@ -11264,7 +11277,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 56,
+            "line": 58,
             "description": "Reference to the main app",
             "itemtype": "property",
             "name": "app",
@@ -11278,7 +11291,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 64,
+            "line": 66,
             "description": "Reference to the main app",
             "itemtype": "property",
             "name": "app",
@@ -11294,7 +11307,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 73,
+            "line": 75,
             "description": "The instance of the VOPlayer",
             "itemtype": "property",
             "name": "voPlayer",
@@ -11308,7 +11321,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 81,
+            "line": 83,
             "description": "The instance of the Sound",
             "itemtype": "property",
             "name": "sound",
@@ -11322,7 +11335,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 89,
+            "line": 91,
             "description": "Reference to the main config object",
             "itemtype": "property",
             "name": "config",
@@ -11336,7 +11349,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 97,
+            "line": 99,
             "description": "Reference to the scaling object",
             "itemtype": "property",
             "name": "scaling",
@@ -11350,7 +11363,22 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 105,
+            "line": 107,
+            "description": "The items to scale on the panel, see `UIScaler.addItems` for\nmore information. If no options are set in the State's constructor\nthen it will try to find an object on the app config on `scaling` property\nmatching the same state alias. For instance `config.scaling.title` if \n`title` is the state alias. If no scalingItems are set, will scale \nand position the panal itself.",
+            "itemtype": "property",
+            "name": "scalingItems",
+            "type": "Object",
+            "access": "protected",
+            "tagname": "",
+            "readonly": "",
+            "default": "null",
+            "class": "springroll.easeljs.BaseState",
+            "module": "EaselJS States",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/states/BaseState.js",
+            "line": 121,
             "description": "The assets to load each time",
             "itemtype": "property",
             "name": "manifest",
@@ -11363,7 +11391,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 112,
+            "line": 128,
             "description": "Check to see if the assets have finished loading",
             "itemtype": "property",
             "name": "assetsLoaded",
@@ -11377,7 +11405,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 120,
+            "line": 136,
             "description": "If a manifest specific to this state should be automatically loaded by default.",
             "itemtype": "property",
             "name": "useManifest",
@@ -11390,7 +11418,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 134,
+            "line": 150,
             "description": "Enter the state, when the panel is fully hidden\nby the transition",
             "itemtype": "method",
             "name": "enter",
@@ -11400,7 +11428,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 172,
+            "line": 188,
             "description": "Extend the internal exit",
             "itemtype": "method",
             "name": "_internalExit",
@@ -11412,7 +11440,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 199,
+            "line": 215,
             "description": "Implementation specific for override. When you need to add additional preload\ntasks to your state, override this function.",
             "itemtype": "method",
             "name": "addTasks",
@@ -11431,7 +11459,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 211,
+            "line": 227,
             "description": "Implementation specific for override. When all the assets have been loaded\ncan possible add options for loading assets.\nfrom the TaskManager.",
             "itemtype": "method",
             "name": "onAssetsLoaded",
@@ -11443,7 +11471,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 223,
+            "line": 239,
             "description": "The internal call for on assets loaded",
             "itemtype": "method",
             "name": "_onLoaded",
@@ -11455,7 +11483,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 271,
+            "line": 287,
             "description": "Don't use after calling this",
             "itemtype": "method",
             "name": "destroy",
@@ -17292,7 +17320,18 @@
         },
         {
             "file": "src/hints/AbstractHint.js",
-            "line": 25,
+            "line": 17,
+            "description": "The reference to the hint play",
+            "itemtype": "property",
+            "name": "_hints",
+            "type": "springroll.HintsPlayer",
+            "class": "springroll.AbstractHint",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/AbstractHint.js",
+            "line": 28,
             "description": "Run the hint",
             "itemtype": "method",
             "name": "play",
@@ -17302,7 +17341,7 @@
         },
         {
             "file": "src/hints/AbstractHint.js",
-            "line": 34,
+            "line": 38,
             "description": "Handle when the media completes",
             "itemtype": "method",
             "name": "_onPlayComplete",
@@ -17321,7 +17360,7 @@
         },
         {
             "file": "src/hints/AbstractHint.js",
-            "line": 49,
+            "line": 53,
             "description": "Clean-up the hint, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17331,7 +17370,7 @@
         },
         {
             "file": "src/hints/AnimatorHint.js",
-            "line": 44,
+            "line": 39,
             "description": "Run the hint",
             "itemtype": "method",
             "name": "play",
@@ -17341,7 +17380,7 @@
         },
         {
             "file": "src/hints/AnimatorHint.js",
-            "line": 59,
+            "line": 54,
             "description": "Clean-up the hint, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17562,7 +17601,7 @@
         {
             "file": "src/hints/HintsPlayer.js",
             "line": 25,
-            "description": "Reference to the current game",
+            "description": "Reference to the current app",
             "itemtype": "property",
             "name": "_app",
             "type": "springroll.Application",
@@ -17626,6 +17665,20 @@
         {
             "file": "src/hints/HintsPlayer.js",
             "line": 65,
+            "description": "If a hint is currently playing",
+            "itemtype": "property",
+            "name": "_playing",
+            "type": "Boolean",
+            "default": "false",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.HintsPlayer",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlayer.js",
+            "line": 73,
             "description": "Contains previously set hints to be cleaned up after the new hint plays,\nto prevent erasing callbacks too soon.",
             "itemtype": "property",
             "name": "_oldHints",
@@ -17636,7 +17689,97 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 77,
+            "line": 85,
+            "description": "Play an animation event",
+            "itemtype": "event",
+            "name": "anim",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The event data",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "instance",
+                            "description": "The movieclip instance",
+                            "type": "createjs.MovieClip"
+                        },
+                        {
+                            "name": "events",
+                            "description": "The Animator events",
+                            "type": "String|Array"
+                        },
+                        {
+                            "name": "complete",
+                            "description": "Callback when complete",
+                            "type": "Function"
+                        },
+                        {
+                            "name": "cancel",
+                            "description": "Callback when canceled",
+                            "type": "Function"
+                        }
+                    ]
+                }
+            ],
+            "class": "springroll.HintsPlayer",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlayer.js",
+            "line": 95,
+            "description": "Play an Voice-Over event",
+            "itemtype": "event",
+            "name": "vo",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The event data",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "events",
+                            "description": "The VO alias or array of aliases/times/etc",
+                            "type": "String|Array"
+                        },
+                        {
+                            "name": "complete",
+                            "description": "Callback when complete",
+                            "type": "Function"
+                        },
+                        {
+                            "name": "cancel",
+                            "description": "Callback when canceled",
+                            "type": "Function"
+                        }
+                    ]
+                }
+            ],
+            "class": "springroll.HintsPlayer",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlayer.js",
+            "line": 104,
+            "description": "Event when the enabled status of the hint changes",
+            "itemtype": "event",
+            "name": "enabled",
+            "params": [
+                {
+                    "name": "enabled",
+                    "description": "If the player is enabled",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "springroll.HintsPlayer",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlayer.js",
+            "line": 110,
             "description": "Add a VO hint to the player.",
             "itemtype": "method",
             "name": "vo",
@@ -17668,7 +17811,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 97,
+            "line": 130,
             "description": "Add an animator hint to the player",
             "itemtype": "method",
             "name": "anim",
@@ -17705,7 +17848,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 119,
+            "line": 152,
             "description": "Add an animator hint to the player. If you use this hinting method, you\nNEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods\nwith automatically re-enable the hinting button.",
             "itemtype": "method",
             "name": "func",
@@ -17726,7 +17869,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 132,
+            "line": 165,
             "description": "Create the new group hint for randomizing hints or for tiered hinting.\nYou can save this group hint for later and assign using HintsPlayer.set()",
             "itemtype": "method",
             "name": "group",
@@ -17740,7 +17883,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 143,
+            "line": 176,
             "description": "Set the current method to use",
             "itemtype": "method",
             "name": "set",
@@ -17761,19 +17904,17 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 158,
+            "line": 191,
             "description": "Removes the current hint",
-            "return": {
-                "description": "instance of the player for chaining",
-                "type": "springroll.HintsPlayer"
-            },
+            "itemtype": "method",
+            "name": "clear",
             "class": "springroll.HintsPlayer",
             "module": "Hints",
             "namespace": "springroll"
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 173,
+            "line": 207,
             "description": "Manually play the current hint",
             "itemtype": "method",
             "name": "play",
@@ -17787,7 +17928,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 191,
+            "line": 229,
             "description": "Start a timer",
             "itemtype": "method",
             "name": "startTimer",
@@ -17810,7 +17951,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 204,
+            "line": 242,
             "description": "Stop the timer and remove update listener",
             "itemtype": "method",
             "name": "stopTimer",
@@ -17824,7 +17965,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 210,
+            "line": 248,
             "description": "Stop the timer and remove update listener.\nAlias for stopTimer",
             "itemtype": "method",
             "name": "removeTimer",
@@ -17838,7 +17979,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 223,
+            "line": 261,
             "description": "Reset the timer to start over",
             "itemtype": "method",
             "name": "resetTimer",
@@ -17852,7 +17993,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 235,
+            "line": 273,
             "description": "If the help button is enabled",
             "itemtype": "property",
             "name": "enabled",
@@ -17863,7 +18004,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 247,
+            "line": 285,
             "description": "Handle the update function",
             "itemtype": "method",
             "name": "_update",
@@ -17882,7 +18023,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 270,
+            "line": 307,
             "description": "Internal callback when a hint is done playing",
             "itemtype": "method",
             "name": "_done",
@@ -17894,7 +18035,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 289,
+            "line": 327,
             "description": "destroys old hints",
             "class": "springroll.HintsPlayer",
             "module": "Hints",
@@ -17902,7 +18043,7 @@
         },
         {
             "file": "src/hints/HintsPlayer.js",
-            "line": 304,
+            "line": 342,
             "description": "Destroy, don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -17917,6 +18058,44 @@
             "itemtype": "property",
             "name": "hints",
             "type": "springroll.HintsPlayer",
+            "class": "springroll.HintsPlugin",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlugin.js",
+            "line": 85,
+            "description": "Handle the VO event",
+            "itemtype": "method",
+            "name": "onVOHint",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The VO data",
+                    "type": "Object"
+                }
+            ],
+            "class": "springroll.HintsPlugin",
+            "module": "Hints",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/hints/HintsPlugin.js",
+            "line": 111,
+            "description": "Handle the animator event",
+            "itemtype": "method",
+            "name": "onAnimatorHint",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The animator data",
+                    "type": "Object"
+                }
+            ],
             "class": "springroll.HintsPlugin",
             "module": "Hints",
             "namespace": "springroll"
@@ -18481,8 +18660,22 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 144,
-            "description": "If the Learning Dispatcher should throw errors",
+            "line": 136,
+            "description": "Keep track of the round a feedback event was started on\nthe ending event should dispatch the same round.",
+            "itemtype": "property",
+            "name": "_feedbackStartRound",
+            "type": "Int",
+            "access": "private",
+            "tagname": "",
+            "default": "null",
+            "class": "springroll.Learning",
+            "module": "Learning",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/learning/Learning.js",
+            "line": 153,
+            "description": "If the Learning should throw errors",
             "itemtype": "property",
             "name": "throwErrors",
             "type": "Boolean",
@@ -18493,7 +18686,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 155,
+            "line": 164,
             "description": "An event is tracked",
             "itemtype": "event",
             "name": "learningEvent",
@@ -18534,7 +18727,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 166,
+            "line": 175,
             "description": "An api method was called, this happens before any validation",
             "itemtype": "event",
             "name": "called",
@@ -18551,7 +18744,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 173,
+            "line": 182,
             "description": "Handle errors",
             "itemtype": "method",
             "name": "_handleError",
@@ -18574,7 +18767,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 215,
+            "line": 224,
             "description": "The map of API event name overrides",
             "itemtype": "method",
             "name": "addMap",
@@ -18591,7 +18784,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 236,
+            "line": 245,
             "description": "The tracking specification",
             "itemtype": "property",
             "name": "spec",
@@ -18619,7 +18812,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 309,
+            "line": 318,
             "description": "When clicking on a method name",
             "itemtype": "method",
             "name": "_toggleRowCollapse",
@@ -18638,7 +18831,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 320,
+            "line": 329,
             "description": "Toogle the display of the documentation",
             "itemtype": "method",
             "name": "toggleDocs",
@@ -18648,7 +18841,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 336,
+            "line": 345,
             "description": "Show the documentation panel, development build only!",
             "itemtype": "property",
             "name": "showTray",
@@ -18659,7 +18852,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 371,
+            "line": 380,
             "description": "Convenience function for measuring the duration which is common\nfor many events. These timers respect the application being paused\nand should be use instead of implementing Date.now() or some other\nDate-based method.",
             "itemtype": "method",
             "name": "startTimer",
@@ -18676,7 +18869,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 389,
+            "line": 398,
             "description": "Check the current progress of a timer, this will not destory the timer",
             "itemtype": "method",
             "name": "pollTimer",
@@ -18697,7 +18890,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 405,
+            "line": 414,
             "description": "Get the amount of time since the start of the game",
             "itemtype": "method",
             "name": "gameTime",
@@ -18711,7 +18904,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 415,
+            "line": 424,
             "description": "Stop a timer and get the final duration to send with an event. This\nwill clean-up and discard the timer and it can't be used again.",
             "itemtype": "method",
             "name": "stopTimer",
@@ -18732,7 +18925,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 429,
+            "line": 438,
             "description": "This will clean-up and discard the timer and it can't be used again.",
             "itemtype": "method",
             "name": "removeTimer",
@@ -18749,7 +18942,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 442,
+            "line": 451,
             "description": "Handle the frame update",
             "itemtype": "method",
             "name": "updateTimers",
@@ -18768,7 +18961,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 456,
+            "line": 465,
             "description": "Override for start game event",
             "itemtype": "method",
             "name": "startGame",
@@ -18778,7 +18971,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 494,
+            "line": 503,
             "description": "Override for the end game event",
             "itemtype": "method",
             "name": "endGame",
@@ -18796,7 +18989,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 524,
+            "line": 533,
             "description": "Basic method for starting a feedback or instruction",
             "itemtype": "method",
             "name": "_startFeedback",
@@ -18835,7 +19028,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 552,
+            "line": 562,
             "description": "Basic method for starting a feedback or instruction",
             "itemtype": "method",
             "name": "_startFeedback",
@@ -18854,7 +19047,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 572,
+            "line": 583,
             "description": "Start the system initiated instruction",
             "itemtype": "method",
             "name": "startInstruction",
@@ -18886,7 +19079,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 585,
+            "line": 596,
             "description": "End the system initiated instruction",
             "itemtype": "method",
             "name": "endInstruction",
@@ -18896,7 +19089,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 595,
+            "line": 606,
             "description": "Start the incorrect feedback",
             "itemtype": "method",
             "name": "startIncorrectFeedback",
@@ -18928,7 +19121,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 608,
+            "line": 619,
             "description": "End the incorrect feedback",
             "itemtype": "method",
             "name": "endIncorrectFeedback",
@@ -18938,7 +19131,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 618,
+            "line": 629,
             "description": "Start the correct feedback event",
             "itemtype": "method",
             "name": "startCorrectFeedback",
@@ -18970,7 +19163,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 637,
+            "line": 648,
             "description": "End the correct feedback event",
             "itemtype": "method",
             "name": "endCorrectFeedback",
@@ -18980,7 +19173,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 647,
+            "line": 658,
             "description": "The movie started",
             "itemtype": "method",
             "name": "startMovie",
@@ -19007,7 +19200,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 670,
+            "line": 681,
             "description": "The user decided to skip the movie playback by clicking a skip button",
             "itemtype": "method",
             "name": "skipMovie",
@@ -19017,7 +19210,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 689,
+            "line": 700,
             "description": "The movie ended",
             "itemtype": "method",
             "name": "endMovie",
@@ -19027,7 +19220,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 709,
+            "line": 720,
             "description": "Handler when an api is called",
             "itemtype": "method",
             "name": "_onCalled",
@@ -19046,7 +19239,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 727,
+            "line": 738,
             "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
             "itemtype": "method",
             "name": "_specTrack",
@@ -19072,7 +19265,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 763,
+            "line": 774,
             "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
             "itemtype": "method",
             "name": "_track",
@@ -19089,6 +19282,12 @@
                     "description": "The collection of argument values",
                     "type": "Object",
                     "optional": true
+                },
+                {
+                    "name": "round",
+                    "description": "The explicit round to add the track event for",
+                    "type": "Int",
+                    "optional": true
                 }
             ],
             "class": "springroll.Learning",
@@ -19097,7 +19296,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 856,
+            "line": 872,
             "description": "Display an error in the tray",
             "itemtype": "method",
             "name": "_showError",
@@ -19127,7 +19326,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 887,
+            "line": 903,
             "description": "Require that an api has been called",
             "itemtype": "method",
             "name": "requires",
@@ -19148,7 +19347,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 903,
+            "line": 919,
             "description": "Don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -21841,7 +22040,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 738,
+            "line": 731,
             "description": "Gets a SoundInstance, from the pool if available or maks a new one if not.",
             "itemtype": "method",
             "name": "_getSoundInst",
@@ -21869,7 +22068,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 764,
+            "line": 757,
             "description": "Plays a sound after it finishes loading.",
             "itemtype": "method",
             "name": "_playAfterload",
@@ -21888,7 +22087,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 822,
+            "line": 815,
             "description": "The callback used for when a sound instance is complete.",
             "itemtype": "method",
             "name": "_onSoundComplete",
@@ -21907,7 +22106,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 844,
+            "line": 837,
             "description": "Stops all playing or loading instances of a given sound.",
             "itemtype": "method",
             "name": "stop",
@@ -21926,7 +22125,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 870,
+            "line": 863,
             "description": "Stops all playing SoundInstances for a sound.",
             "itemtype": "method",
             "name": "_stopSound",
@@ -21945,7 +22144,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 886,
+            "line": 879,
             "description": "Stops and repools a specific SoundInstance.",
             "itemtype": "method",
             "name": "_stopInst",
@@ -21964,7 +22163,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 902,
+            "line": 895,
             "description": "Stops all sounds in a given context.",
             "itemtype": "method",
             "name": "stopContext",
@@ -21983,7 +22182,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 926,
+            "line": 919,
             "description": "Stop all sounds that are playing, regardless of context.",
             "itemtype": "method",
             "name": "stopAll",
@@ -21993,7 +22192,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 938,
+            "line": 931,
             "description": "Pauses a specific sound.",
             "itemtype": "method",
             "name": "pauseSound",
@@ -22012,7 +22211,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 957,
+            "line": 951,
             "description": "Unpauses a specific sound.",
             "itemtype": "method",
             "name": "unpauseSound",
@@ -22031,7 +22230,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 978,
+            "line": 971,
             "description": "Pauses all sounds.",
             "itemtype": "method",
             "name": "pauseAll",
@@ -22043,7 +22242,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 990,
+            "line": 983,
             "description": "Unpauses all sounds.",
             "itemtype": "method",
             "name": "unpauseAll",
@@ -22055,7 +22254,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1002,
+            "line": 995,
             "description": "Sets mute status of all sounds in a context",
             "itemtype": "method",
             "name": "setContextMute",
@@ -22079,7 +22278,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1034,
+            "line": 1027,
             "description": "Set the mute status of all sounds",
             "itemtype": "property",
             "name": "muteAll",
@@ -22090,7 +22289,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1045,
+            "line": 1038,
             "description": "Sets volume of a context. Individual sound volumes are multiplied by this value.",
             "itemtype": "method",
             "name": "setContextVolume",
@@ -22114,7 +22313,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1076,
+            "line": 1069,
             "description": "Preloads a specific sound.",
             "itemtype": "method",
             "name": "preloadSound",
@@ -22138,7 +22337,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1103,
+            "line": 1096,
             "description": "Preloads a list of sounds.",
             "itemtype": "method",
             "name": "preload",
@@ -22162,7 +22361,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1157,
+            "line": 1150,
             "description": "Marks a sound as loaded. If it needs to play after the load, then it is played.",
             "itemtype": "method",
             "name": "_markLoaded",
@@ -22186,7 +22385,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1183,
+            "line": 1176,
             "description": "Creates a Task for the springroll Task library for preloading a list of sounds.\nThis function will not work if the Task library was not loaded before the Sound library.",
             "itemtype": "method",
             "name": "createPreloadTask",
@@ -22219,7 +22418,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1199,
+            "line": 1192,
             "description": "Unloads a list of sounds to reclaim memory if possible.\nIf the sounds are playing, they are stopped.",
             "itemtype": "method",
             "name": "unload",
@@ -22238,7 +22437,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1223,
+            "line": 1216,
             "description": "Places a SoundInstance back in the pool for reuse.",
             "itemtype": "method",
             "name": "_poolinst",
@@ -22257,7 +22456,7 @@
         },
         {
             "file": "src/media/Sound.js",
-            "line": 1244,
+            "line": 1237,
             "description": "Destroys springroll.Sound. This unloads loaded sounds in SoundJS.",
             "itemtype": "method",
             "name": "destroy",
@@ -25274,7 +25473,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 30,
+            "line": 31,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -25285,7 +25484,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 36,
+            "line": 37,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
@@ -25296,7 +25495,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 42,
+            "line": 43,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
@@ -25307,7 +25506,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 52,
+            "line": 53,
             "description": "Manually override the check for hasTouch (unminifed library version only)",
             "itemtype": "property",
             "name": "options.forceTouch",
@@ -26773,11 +26972,35 @@
         },
         {
             "file": "src/utils/LanguagesPlugin.js",
-            "line": 29,
+            "line": 31,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "languages",
             "type": "springroll.Languages",
+            "class": "springroll.LanguagesPlugin",
+            "module": "Languages",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/LanguagesPlugin.js",
+            "line": 37,
+            "description": "Force a specific language",
+            "itemtype": "property",
+            "name": "options.language",
+            "type": "String",
+            "default": "null",
+            "class": "springroll.LanguagesPlugin",
+            "module": "Languages",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/utils/LanguagesPlugin.js",
+            "line": 44,
+            "description": "The path to the languages configuration file",
+            "itemtype": "property",
+            "name": "options.languagesPath",
+            "type": "String",
+            "default": "null",
             "class": "springroll.LanguagesPlugin",
             "module": "Languages",
             "namespace": "springroll"
@@ -27147,7 +27370,7 @@
         },
         {
             "file": "src/utils/StringFiltersPlugin.js",
-            "line": 29,
+            "line": 31,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "filters",
@@ -27769,7 +27992,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 438,
+            "line": 439,
             "description": "Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the\ncurrent tick.",
             "itemtype": "method",
             "name": "setTargetedTimeout",
@@ -27793,7 +28016,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 455,
+            "line": 456,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -27803,7 +28026,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 491,
+            "line": 492,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -27834,7 +28057,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 523,
+            "line": 524,
             "description": "Add a display. If this is the first display added, then it will be stored as this.display.",
             "itemtype": "method",
             "name": "addDisplay",
@@ -27866,7 +28089,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 556,
+            "line": 557,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplay",
@@ -27887,7 +28110,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 567,
+            "line": 568,
             "description": "Gets a specific renderer by the canvas id.",
             "itemtype": "method",
             "name": "getDisplays",
@@ -27911,7 +28134,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 589,
+            "line": 590,
             "description": "Removes and destroys a display",
             "itemtype": "method",
             "name": "removeDisplay",
@@ -27928,7 +28151,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 604,
+            "line": 605,
             "description": "_tick would be bound in _tickCallback",
             "itemtype": "method",
             "name": "_tick",
@@ -27940,7 +28163,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 640,
+            "line": 641,
             "description": "Destroys the application and all active displays and plugins",
             "itemtype": "method",
             "name": "destroy",
@@ -27950,7 +28173,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 682,
+            "line": 683,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -28000,7 +28223,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 112,
+            "line": 107,
             "description": "Get the query string as an object",
             "itemtype": "property",
             "name": "getQueryString",
@@ -28013,7 +28236,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 147,
+            "line": 142,
             "description": "Convert a string into a DOM Element",
             "access": "private",
             "tagname": "asDOMElement",
@@ -28030,7 +28253,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 161,
+            "line": 156,
             "description": "Override a default value",
             "access": "private",
             "tagname": "override",
@@ -28052,7 +28275,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 176,
+            "line": 171,
             "description": "The default Application options",
             "itemtype": "property",
             "name": "defaultOptions",
@@ -28065,7 +28288,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 183,
+            "line": 178,
             "description": "Use Request Animation Frame API",
             "itemtype": "property",
             "name": "raf",
@@ -28077,7 +28300,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 190,
+            "line": 185,
             "description": "The framerate to use for rendering the stage",
             "itemtype": "property",
             "name": "fps",
@@ -28089,7 +28312,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 197,
+            "line": 192,
             "description": "The element to resize the canvas to fit",
             "itemtype": "property",
             "name": "resizeElement",
@@ -28101,7 +28324,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 204,
+            "line": 199,
             "description": "Whether to resize the displays to the original aspect ratio",
             "itemtype": "property",
             "name": "uniformResize",
@@ -28113,7 +28336,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 211,
+            "line": 206,
             "description": "Use the query string parameters for options overrides",
             "itemtype": "property",
             "name": "useQueryString",
@@ -28125,7 +28348,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 218,
+            "line": 213,
             "description": "The default display DOM ID name",
             "itemtype": "property",
             "name": "canvasId",
@@ -28136,7 +28359,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 224,
+            "line": 219,
             "description": "The name of the class to automatically instantiate as the\ndisplay (e.g. `springroll.PixiDisplay`)",
             "itemtype": "property",
             "name": "display",
@@ -28147,7 +28370,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 231,
+            "line": 226,
             "description": "Display specific setup options",
             "itemtype": "property",
             "name": "displayOptions",
@@ -28158,7 +28381,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 237,
+            "line": 232,
             "description": "If using TweenJS, the Application will update the Tween itself.",
             "itemtype": "property",
             "name": "updateTween",
@@ -28170,7 +28393,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 244,
+            "line": 239,
             "description": "Used by `springroll.PixiTask`, default behavior\nis to load assets from the same domain.",
             "itemtype": "property",
             "name": "crossOrigin",
@@ -28182,7 +28405,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 252,
+            "line": 247,
             "description": "If doing uniform resizing, optional parameter to add\na maximum height relative to the original width. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original height of the canvas.",
             "itemtype": "property",
             "name": "maxHeight",
@@ -28193,7 +28416,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 261,
+            "line": 256,
             "description": "If doing uniform resizing, optional parameter to add\na maximum width relative to the original height. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original width of the canvas.",
             "itemtype": "property",
             "name": "maxWidth",
@@ -28204,7 +28427,7 @@
         },
         {
             "file": "src/ApplicationOptions.js",
-            "line": 270,
+            "line": 265,
             "description": "The name of the application",
             "itemtype": "property",
             "name": "name",
@@ -28520,14 +28743,6 @@
             "line": " src/displays/easeljs/learning/DwellTimer.js:83"
         },
         {
-            "message": "Missing item type\nSetup a DwellTimer for a DisplayObject.",
-            "line": " src/displays/easeljs/learning/DwellTimer.js:124"
-        },
-        {
-            "message": "Missing item type\nIf exists, cleanup and remove DwellTimer from object",
-            "line": " src/displays/easeljs/learning/DwellTimer.js:134"
-        },
-        {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
             "line": " src/displays/easeljs/learning/OffClickPlugin.js:96"
         },
@@ -28572,12 +28787,8 @@
             "line": " src/events/PropertyDispatcher.js:153"
         },
         {
-            "message": "Missing item type\nRemoves the current hint",
-            "line": " src/hints/HintsPlayer.js:158"
-        },
-        {
             "message": "Missing item type\ndestroys old hints",
-            "line": " src/hints/HintsPlayer.js:289"
+            "line": " src/hints/HintsPlayer.js:327"
         },
         {
             "message": "Missing item type",
@@ -28629,11 +28840,11 @@
         },
         {
             "message": "Missing item type\nConvert a string into a DOM Element",
-            "line": " src/ApplicationOptions.js:147"
+            "line": " src/ApplicationOptions.js:142"
         },
         {
             "message": "Missing item type\nOverride a default value",
-            "line": " src/ApplicationOptions.js:161"
+            "line": " src/ApplicationOptions.js:156"
         }
     ]
 }

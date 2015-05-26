@@ -629,14 +629,14 @@ name
 		var appOptions = Application.instance.options;
 
 		// First argument is function
-		if (typeof options == &#x27;function&#x27;)
+		if (isFunction(options))
 		{
 			options = { ready: options };
 		}
 
 		var defaultOptions = {
-			plugins : appOptions.forceFlashAudio ? 
-				[FlashAudioPlugin]: 
+			plugins : appOptions.forceFlashAudio ?
+				[FlashAudioPlugin]:
 				[WebAudioPlugin, FlashAudioPlugin],
 			types: [&#x27;ogg&#x27;, &#x27;mp3&#x27;],
 			swfPath: &#x27;assets/swfs/&#x27;,
@@ -809,7 +809,7 @@ name
 		for (var i = 0, len = list.length; i &lt; len; ++i)
 		{
 			s = list[i];
-			if (typeof s == &quot;string&quot;) {
+			if (isString(s)) {
 				s = {id: s};
 			}
 			temp = this._sounds[s.id] = {
@@ -968,7 +968,7 @@ name
 	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == &quot;string&quot;)
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -1011,7 +1011,7 @@ name
 	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == &quot;string&quot;)
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -1131,7 +1131,7 @@ name
 		if (!this.soundEnabled) return;
 
 		var completeCallback;
-		if (options &amp;&amp; typeof options == &quot;function&quot;)
+		if (options &amp;&amp; isFunction(options))
 		{
 			completeCallback = options;
 			options = null;
@@ -1198,7 +1198,6 @@ name
 		}
 		else if (loadState == LoadStates.unloaded)
 		{
-			sound.loadState = LoadStates.loading;
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
@@ -1216,13 +1215,7 @@ name
 			}
 			else
 				inst._startParams = [interrupt, delay, offset, loop];
-			Loader.instance.load(
-				sound.src, //url to load
-				this._playAfterLoad,//complete callback
-				null,//progress callback
-				0,//priority
-				sound//the sound object (contains properties for PreloadJS/SoundJS)
-			);
+			this.preloadSound(sound.id);
 			return inst;
 		}
 		else if (loadState == LoadStates.loading)
@@ -1283,7 +1276,7 @@ name
 	*/
 	p._playAfterLoad = function(result)
 	{
-		var alias = typeof result == &quot;string&quot; ? result : result.id;
+		var alias = isString(result) ? result : result.id;
 		var sound = this._sounds[alias];
 		sound.loadState = LoadStates.loaded;
 
@@ -1456,15 +1449,16 @@ name
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.pauseSound = function(alias)
+	p.pauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == &quot;string&quot;)
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i &gt;= 0; --i)
+		var i;
+		for (i = arr.length - 1; i &gt;= 0; --i)
+			arr[i].pause();
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i &gt;= 0; --i)
 			arr[i].pause();
 	};
 
@@ -1475,18 +1469,17 @@ name
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.unpauseSound = function(alias)
+	p.unpauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == &quot;string&quot;)
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i &gt;= 0; --i)
-		{
+		var i;
+		for (i = arr.length - 1; i &gt;= 0; --i)
 			arr[i].unpause();
-		}
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i &gt;= 0; --i)
+			arr[i].unpause();
 	};
 
 	/**
@@ -1785,6 +1778,17 @@ name
 		this._fades = null;
 		this._contexts = null;
 		this._pool = null;
+	};
+
+	// Convenience methods for type checking
+	var isString = function(obj)
+	{
+		return typeof obj == &quot;string&quot;;
+	};
+
+	var isFunction = function(obj)
+	{
+		return typeof obj == &quot;function&quot;;
 	};
 
 	namespace(&#x27;springroll&#x27;).Sound = Sound;

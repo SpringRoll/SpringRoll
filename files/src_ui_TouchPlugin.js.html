@@ -531,8 +531,9 @@ name
 	var TouchPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+		
 		//Touch detecting should happen early, in case asset loading depends on it
-		this.priority = 10;
+		this.priority = 100;
 	};
 
 	// Reference to the prototype
@@ -596,7 +597,11 @@ name
 
 		// Add the interaction filters, must have interface module MobilePlugin
 		if(this.filters)
-			this.filters.add(&#x27;%INTERACTION%&#x27;, !!this.hasTouch ? &#x27;_touch&#x27; : &#x27;_mouse&#x27;);
+		{
+			var ui = !!this.hasTouch ? &#x27;_touch&#x27; : &#x27;_mouse&#x27;;
+			this.filters.add(&#x27;%INTERACTION%&#x27;, ui);
+			this.filters.add(&#x27;%UI%&#x27;, ui);
+		}
 		done();
 	};
 

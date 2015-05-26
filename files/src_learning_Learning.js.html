@@ -563,7 +563,7 @@ name
 			 *  @private
 			 */
 			this._tray = $(&#x27;&lt;div class=&quot;learning-tray&quot;&gt;&#x27; +
-				&#x27;&lt;h2&gt;Learning Dispatcher API  &lt;span class=&quot;learning-version&quot;&gt;&lt;/span&gt;&lt;/h2&gt;&#x27; +
+				&#x27;&lt;h2&gt;Learning API &lt;span class=&quot;learning-version&quot;&gt;&lt;/span&gt;&lt;/h2&gt;&#x27; +
 				&#x27;&lt;/div&gt;&#x27;);
 
 			/**
@@ -647,6 +647,15 @@ name
 		 */
 		this._round = null;
 
+		/**
+		 * Keep track of the round a feedback event was started on
+		 * the ending event should dispatch the same round.
+		 * @property {int} _feedbackStartRound
+		 * @private
+		 * @default null
+		 */
+		this._feedbackStartRound = null;
+
 		//Add event to handle the internal timers
 		updateTimers = updateTimers.bind(this);
 		app.on(&#x27;update&#x27;, updateTimers);
@@ -656,7 +665,7 @@ name
 	};
 
 	/**
-	 *  If the Learning Dispatcher should throw errors
+	 *  If the Learning should throw errors
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
@@ -1058,6 +1067,7 @@ name
 			identifier: identifier,
 			total_duration: totalDuration
 		};
+		this._feedbackStartRound = this._round;
 		this._track(api, feedback);
 		this.startTimer(&#x27;_feedback&#x27;);
 		this._feedback = feedback;
@@ -1080,7 +1090,8 @@ name
 		delete feedback.total_duration;
 		feedback.duration = this.stopTimer(&#x27;_feedback&#x27;);
 		this._feedback = null;
-		this._track(api, feedback);
+		this._track(api, feedback, this._feedbackStartRound);
+		this._feedbackStartRound = null;
 	};
 
 	/**
@@ -1281,8 +1292,9 @@ name
 	 *  @private
 	 *  @param {string} api The name of the api
 	 *  @param {object} [input] The collection of argument values
+	 *  @param {int} [round] The explicit round to add the track event for
 	 */
-	p._track = function(api, input)
+	p._track = function(api, input, round)
 	{
 		if (!this.requires || !this.requires(&#x27;startGame&#x27;)) return;
 
@@ -1328,7 +1340,11 @@ name
 		}
 
 		//If we&#x27;re using the concept of rounds, add it
-		if (this._round !== null)
+		if (round !== undefined)
+		{
+			data.round = round;
+		}
+		else if (this._round !== null)
 		{
 			data.round = this._round;
 		}

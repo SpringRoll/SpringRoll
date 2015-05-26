@@ -540,6 +540,8 @@ name
 	 *  @param {Boolean}} [options.useManifest=true] Automatically load and unload assets with
 	 *    the AssetManager which are found in the manifest option or property.
 	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the AssetManager.
+	 *  @param {Object} [options.scaling=null] The scaling items to use with the UIScaler. See &#x60;UIScaler.addItems&#x60;
+	 *    for more information about the format of the scaling objects.
 	 */
 	var BaseState = function(panel, options)
 	{
@@ -615,6 +617,20 @@ name
 		 *	@readOnly
 		 */
 		this.scaling = this.app.scaling;
+
+		/**
+		 *	The items to scale on the panel, see &#x60;UIScaler.addItems&#x60; for
+		 *	more information. If no options are set in the State&#x27;s constructor
+		 *	then it will try to find an object on the app config on &#x60;scaling&#x60; property
+		 *	matching the same state alias. For instance &#x60;config.scaling.title&#x60; if 
+		 *	&#x60;title&#x60; is the state alias. If no scalingItems are set, will scale 
+		 *	and position the panal itself.
+		 *	@property {Object} scalingItems
+		 *	@protected
+		 *	@readOnly
+		 *	@default null
+		 */
+		this.scalingItems = options.scaling || null;
 
 		/**
 		 *	The assets to load each time
@@ -747,9 +763,9 @@ name
 
 		if (this.scaling)
 		{
-			var items = this.config.scaling[this.stateId];
+			var items = this.scalingItems || this.config.scaling[this.stateId];
 
-			if (items !== undefined)
+			if (items)
 			{
 				this.scaling.addItems(this.panel, items);
 				

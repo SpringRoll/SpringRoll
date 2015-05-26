@@ -523,7 +523,7 @@ Module:
 
 <div class='box intro'>
 <p>Class to create tiered hinting or randomized hinting.
-   this.game.hints.group()
+   this.app.hints.group()
        .vo(&#39;Something&#39;, onCompleted)
        .vo(&#39;Another&#39;, onComplete)
        .addTier()
@@ -540,7 +540,7 @@ Module:
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code>game</code>
+<code>hints</code>
 </li>
 <li class='arg'>
 <code>done</code>
@@ -576,12 +576,12 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name'>game</code>
-<span class='type'>springroll.TrackingGame</span>
+<code class='param-name'>hints</code>
+<span class='type'><a href="../classes/springroll.HintsPlayer.html" class="crosslink">springroll.HintsPlayer</a></span>
 
 
 <div class='param-description'>
-<p>The instance of the game</p>
+<p>The instance of the hints</p>
 
 </div>
 
@@ -672,6 +672,10 @@ Defined in
 <a href='#property__current'>_current</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property inherited'>
+<a href='#property__hints'>_hints</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property private'>
 <a href='#property__tier'>_tier</a>
 
@@ -713,7 +717,7 @@ Defined in
 <div class='meta'>
 <p>Inherited from
 <a href='../classes/springroll.AbstractHint.html#method__onPlayComplete'>springroll.AbstractHint</a>:
-<a href='../files/src_hints_AbstractHint.js.html#l34'><code>_onPlayComplete:34</code></a>
+<a href='../files/src_hints_AbstractHint.js.html#l38'><code>_onPlayComplete:38</code></a>
 </p>
 
 
@@ -1243,6 +1247,30 @@ Defined in
 
 <div class="description">
 <p>The current tier index</p>
+
+</div>
+
+
+
+</div><div id="property__hints" class="property item inherited">
+<h3 class="name"><code>_hints</code></h3>
+<span class="type"><a href="../classes/springroll.HintsPlayer.html" class="crosslink">springroll.HintsPlayer</a></span>
+
+
+
+
+
+<div class="meta">
+<p>Inherited from
+<a href="../classes/springroll.AbstractHint.html#property__hints">springroll.AbstractHint</a>:
+<a href="../files/src_hints_AbstractHint.js.html#l17"><code>_hints:17</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The reference to the hint play</p>
 
 </div>
 

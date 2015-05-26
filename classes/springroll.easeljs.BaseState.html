@@ -629,6 +629,18 @@ Defined in
 </div>
 
 </li>
+<li class='param'>
+<code class='param-name optional'>[scaling=null]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The scaling items to use with the UIScaler. See <code>UIScaler.addItems</code>
+    for more information about the format of the scaling objects.</p>
+
+</div>
+
+</li>
 </ul>
 </li>
 <li class='param'>
@@ -778,14 +790,14 @@ Defined in
 <a href='#property_active'>active</a>
 
 </li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_app'>app</a>
+
+</li>
 <li class='col-xs-6 col-md-4 index-item property protected deprecated'>
 <a href='#property_app'>app</a>
 
 <span class='flag deprecated'>deprecated</span>
-</li>
-<li class='col-xs-6 col-md-4 index-item property protected'>
-<a href='#property_app'>app</a>
-
 </li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
 <a href='#property_assetsLoaded'>assetsLoaded</a>
@@ -833,6 +845,10 @@ Defined in
 </li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
 <a href='#property_scaling'>scaling</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property protected'>
+<a href='#property_scalingItems'>scalingItems</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property protected'>
@@ -1056,7 +1072,7 @@ Defined in
 springroll.BaseState
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l172'><code>_internalExit:172</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l188'><code>_internalExit:188</code></a>
 </p>
 
 
@@ -1120,7 +1136,7 @@ but overwritten in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l223'><code>_onLoaded:223</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l239'><code>_onLoaded:239</code></a>
 </p>
 
 
@@ -1159,7 +1175,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l199'><code>addTasks:199</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l215'><code>addTasks:215</code></a>
 </p>
 
 
@@ -1243,7 +1259,7 @@ This is where any async actions should be removed.</p>
 springroll.BaseState
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l271'><code>destroy:271</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l287'><code>destroy:287</code></a>
 </p>
 
 
@@ -1277,7 +1293,7 @@ but overwritten in
 springroll.BaseState
 </a>
 but overwritten in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l134'><code>enter:134</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l150'><code>enter:150</code></a>
 </p>
 
 
@@ -1493,7 +1509,7 @@ that animation/audio is stopped when leaving the state.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_displays_easeljs_states_BaseState.js.html#l211'><code>onAssetsLoaded:211</code></a>
+<a href='../files/src_displays_easeljs_states_BaseState.js.html#l227'><code>onAssetsLoaded:227</code></a>
 </p>
 
 
@@ -1712,6 +1728,31 @@ from the TaskManager.</p>
 
 
 
+</div><div id="property_app" class="property item protected">
+<h3 class="name"><code>app</code></h3>
+<span class="type">Application</span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l58"><code>app:58</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Reference to the main app</p>
+
+</div>
+
+
+
 </div><div id="property_app" class="property item protected deprecated">
 <h3 class="name"><code>app</code></h3>
 <span class="type">Application</span>
@@ -1725,35 +1766,10 @@ from the TaskManager.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l64"><code>app:64</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l66"><code>app:66</code></a>
 </p>
 
 <p>Deprecated: Use the property &#x27;app&#x27; instead</p>
-
-</div>
-
-<div class="description">
-<p>Reference to the main app</p>
-
-</div>
-
-
-
-</div><div id="property_app" class="property item protected">
-<h3 class="name"><code>app</code></h3>
-<span class="type">Application</span>
-
-
-<span class="flag protected">protected</span>
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l56"><code>app:56</code></a>
-</p>
-
 
 </div>
 
@@ -1776,7 +1792,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l112"><code>assetsLoaded:112</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l128"><code>assetsLoaded:128</code></a>
 </p>
 
 
@@ -1825,7 +1841,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l89"><code>config:89</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l91"><code>config:91</code></a>
 </p>
 
 
@@ -1948,7 +1964,7 @@ to stablize after heavy art instantiation.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l105"><code>manifest:105</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l121"><code>manifest:121</code></a>
 </p>
 
 
@@ -2049,7 +2065,7 @@ to call when going to the previous state.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l97"><code>scaling:97</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l99"><code>scaling:99</code></a>
 </p>
 
 
@@ -2060,6 +2076,37 @@ Defined in
 
 </div>
 
+
+
+</div><div id="property_scalingItems" class="property item protected">
+<h3 class="name"><code>scalingItems</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag protected">protected</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l107"><code>scalingItems:107</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The items to scale on the panel, see <code>UIScaler.addItems</code> for
+more information. If no options are set in the State&#39;s constructor
+then it will try to find an object on the app config on <code>scaling</code> property
+matching the same state alias. For instance <code>config.scaling.title</code> if 
+<code>title</code> is the state alias. If no scalingItems are set, will scale 
+and position the panal itself.</p>
+
+</div>
+
+<p><strong>Default:</strong> null</p>
 
 
 </div><div id="property_sound" class="property item protected">
@@ -2074,7 +2121,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l81"><code>sound:81</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l83"><code>sound:83</code></a>
 </p>
 
 
@@ -2123,7 +2170,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l120"><code>useManifest:120</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l136"><code>useManifest:136</code></a>
 </p>
 
 
@@ -2148,7 +2195,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_displays_easeljs_states_BaseState.js.html#l73"><code>voPlayer:73</code></a>
+<a href="../files/src_displays_easeljs_states_BaseState.js.html#l75"><code>voPlayer:75</code></a>
 </p>
 
 

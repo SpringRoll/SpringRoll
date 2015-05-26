@@ -674,7 +674,7 @@ name
 	*/
 	p.exit = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -685,7 +685,7 @@ name
 	*/
 	p.exitStart = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 
 	/**
@@ -696,7 +696,7 @@ name
 	*/
 	p.cancel = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -707,7 +707,7 @@ name
 	*/
 	p.enter = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 	
 	/**
@@ -718,7 +718,7 @@ name
 	*/
 	p.enterDone = function()
 	{
-		// Implementation specific	
+		// Implementation specific
 	};
 
 	/**
@@ -768,7 +768,7 @@ name
 		
 		if(delay &amp;&amp; typeof delay == &quot;number&quot;)
 		{
-			new DelayedCall(this.loadingDone.bind(this), delay, false, true, true);
+			new DelayedCall(this.loadingDone.bind(this, 0), delay, false, true, true);
 			return;
 		}
 		
@@ -788,7 +788,7 @@ name
 	*  @property {Boolean} canceled
 	*  @readOnly
 	*/
-	Object.defineProperty(p, &#x27;canceled&#x27;, 
+	Object.defineProperty(p, &#x27;canceled&#x27;,
 	{
 		get: function()
 		{
@@ -802,11 +802,11 @@ name
 	*   @property {Boolean} active
 	*   @readOnly
 	*/
-	Object.defineProperty(p, &#x27;active&#x27;, 
+	Object.defineProperty(p, &#x27;active&#x27;,
 	{
 		get: function()
 		{
-			return this._active; 
+			return this._active;
 		}
 	});
 	
@@ -833,7 +833,7 @@ name
 	* @property {Boolean} destroyed
 	* @readOnly
 	*/
-	Object.defineProperty(p, &#x27;destroyed&#x27;, 
+	Object.defineProperty(p, &#x27;destroyed&#x27;,
 	{
 		get: function()
 		{

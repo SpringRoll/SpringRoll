@@ -515,7 +515,7 @@ name
 <pre class="code prettyprint linenums">/**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound
  */
 (function()
 {
@@ -550,7 +550,35 @@ name
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		if (!this.media) throw &quot;Hinting requires Learning Media module&quot;;
+		if (!this.display.animator)
+		{
+			if (DEBUG)
+			{
+				throw &quot;Hints requires the CreateJS or PIXI Animator to run&quot;;
+			}
+			else
+			{
+				throw &quot;No animator&quot;;
+			}
+		}
+
+		if (!this.voPlayer) 
+		{
+			if (DEBUG)
+			{
+				throw &quot;Hints requires the Sound module to be included&quot;;
+			}
+			else
+			{
+				throw &quot;No sound&quot;;
+			}
+		}
+
+		// Listen for events
+		this.hints.on({
+			vo: onVOHint.bind(this), 
+			anim: onAnimatorHint.bind(this)
+		});
 
 		// Send messages to the container
 		if (this.container)
@@ -568,6 +596,60 @@ name
 		done();
 	};
 
+	/**
+	* Handle the VO event
+	* @method onVOHint
+	* @private
+	* @param {object} data The VO data
+	*/
+	var onVOHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.voPlayer.play(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+	};
+
+	/**
+	* Handle the animator event
+	* @method onAnimatorHint
+	* @private
+	* @param {object} data The animator data
+	*/
+	var onAnimatorHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.display.animator.play(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}	
+	};
+
 	// Destroy the animator
 	p.teardown = function()
 	{
@@ -577,7 +659,7 @@ name
 		}
 		if (this.hints)
 		{
-			this.hints.off(&#x27;enabled&#x27;);
+			this.hints.off(&#x27;enabled vo anim&#x27;);
 			this.hints.destroy();
 			this.hints = null;
 		}

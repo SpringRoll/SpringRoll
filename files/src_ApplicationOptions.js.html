@@ -594,11 +594,6 @@ name
 		// Convert these to DOM elements
 		this.asDOMElement(&#x27;resizeElement&#x27;);
 
-		this.respond(&#x27;updateTween&#x27;, function()
-		{
-			return Tween ? app.has(&#x27;update&#x27;, Tween.tick) : false;
-		});
-
 		this.on(&#x27;updateTween&#x27;, function(value)
 		{
 			if (Tween)

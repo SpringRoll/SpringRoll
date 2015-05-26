@@ -521,7 +521,8 @@ name
 {
 	// Include classes
 	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
-		Languages = include(&#x27;springroll.Languages&#x27;);
+		Languages = include(&#x27;springroll.Languages&#x27;), 
+		Debug;
 
 	/**
 	 * Create an app plugin for Language, all properties and methods documented
@@ -532,6 +533,7 @@ name
 	var LanguagesPlugin = function()
 	{
 		ApplicationPlugin.call(this);
+		this.priority = 95; 
 	};
 
 	// Reference to the prototype
@@ -545,6 +547,49 @@ name
 		 * @property {springroll.Languages} languages
 		 */
 		this.languages = new Languages();
+
+		/**
+		 * Force a specific language
+		 * @property {String} options.language
+		 * @default null
+		 */
+		this.options.add(&#x27;language&#x27;, null, true);
+
+		/**
+		 * The path to the languages configuration file
+		 * @property {String} options.languagesPath
+		 * @default null
+		 */
+		this.options.add(&#x27;languagesPath&#x27;, null, true);
+	};
+
+	// preload the language configuration
+	p.preload = function(done)
+	{
+		var config = this.options.languagesPath;
+		if (config)
+		{
+			this.loader.load(config, function(result)
+			{
+				this.languages.setConfig(result.content);
+				var lang = this.options.language;
+				if (lang)
+				{
+					this.languages.setLanguage(lang);
+				}
+				done();
+			}
+			.bind(this));
+		}
+		else
+		{
+			Debug = include(&#x27;springroll.Debug&#x27;, false);
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.info(&quot;Application option &#x27;languagesPath&#x27; is empty, set to automatically load languages configuration.&quot;);
+			}
+			done();
+		}
 	};
 
 	// Destroy the animator
