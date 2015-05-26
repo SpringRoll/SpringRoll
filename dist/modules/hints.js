@@ -701,7 +701,7 @@
 	 */
 	p.stopTimer = p.removeTimer = function()
 	{
-		this._app.off('update', this._update);
+		if (this._app) this._app.off('update', this._update);
 		this._timer = this._duration = 0;
 		return this;
 	};
