@@ -329,6 +329,9 @@
 		//Callback function for ending or canceling the VO
 		var callback = function(finish)
 		{
+			//quit early if LearningMedia has been destroyed.
+			if(!this.learning) return;
+			
 			learningEnd.call(this.learning);
 			if (finish) finish();
 		};
@@ -512,6 +515,9 @@
 
 		var callback = function(learningCall, otherCall)
 		{
+			//quit early if LearningMedia has been destroyed
+			if(!this.learning) return;
+			
 			this._learningAnimatorInstance = null;
 
 			if (learningCall) //learning end event
