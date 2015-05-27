@@ -2453,7 +2453,7 @@
 			}
 
 			var index = loadedAssets.indexOf(asset);
-			if (index > 0)
+			if (index >= 0)
 				loadedAssets.splice(index, 1);
 		}
 		//go through everything we've put in the 'lib' dictionary, and unload it
