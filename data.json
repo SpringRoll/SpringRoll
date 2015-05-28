@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.3",
+        "version": "0.3.4",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -4888,7 +4888,7 @@
                         },
                         {
                             "name": "container",
-                            "description": "The container if adding items",
+                            "description": "The container if\n                                                                            adding items",
                             "type": "PIXI.DisplayObjectContainer|createjs.Container",
                             "optional": true
                         },
@@ -11364,7 +11364,7 @@
         {
             "file": "src/displays/easeljs/states/BaseState.js",
             "line": 107,
-            "description": "The items to scale on the panel, see `UIScaler.addItems` for\nmore information. If no options are set in the State's constructor\nthen it will try to find an object on the app config on `scaling` property\nmatching the same state alias. For instance `config.scaling.title` if \n`title` is the state alias. If no scalingItems are set, will scale \nand position the panal itself.",
+            "description": "The items to scale on the panel, see `UIScaler.addItems` for\nmore information. If no options are set in the State's constructor\nthen it will try to find an object on the app config on `scaling` property\nmatching the same state alias. For instance `config.scaling.title` if\n`title` is the state alias. If no scalingItems are set, will scale\nand position the panal itself.",
             "itemtype": "property",
             "name": "scalingItems",
             "type": "Object",
@@ -18767,7 +18767,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 224,
+            "line": 223,
             "description": "The map of API event name overrides",
             "itemtype": "method",
             "name": "addMap",
@@ -18784,7 +18784,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 245,
+            "line": 244,
             "description": "The tracking specification",
             "itemtype": "property",
             "name": "spec",
@@ -18812,7 +18812,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 318,
+            "line": 317,
             "description": "When clicking on a method name",
             "itemtype": "method",
             "name": "_toggleRowCollapse",
@@ -18831,7 +18831,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 329,
+            "line": 328,
             "description": "Toogle the display of the documentation",
             "itemtype": "method",
             "name": "toggleDocs",
@@ -18841,7 +18841,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 345,
+            "line": 344,
             "description": "Show the documentation panel, development build only!",
             "itemtype": "property",
             "name": "showTray",
@@ -18852,7 +18852,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 380,
+            "line": 379,
             "description": "Convenience function for measuring the duration which is common\nfor many events. These timers respect the application being paused\nand should be use instead of implementing Date.now() or some other\nDate-based method.",
             "itemtype": "method",
             "name": "startTimer",
@@ -18869,7 +18869,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 398,
+            "line": 397,
             "description": "Check the current progress of a timer, this will not destory the timer",
             "itemtype": "method",
             "name": "pollTimer",
@@ -18890,7 +18890,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 414,
+            "line": 413,
             "description": "Get the amount of time since the start of the game",
             "itemtype": "method",
             "name": "gameTime",
@@ -18904,7 +18904,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 424,
+            "line": 423,
             "description": "Stop a timer and get the final duration to send with an event. This\nwill clean-up and discard the timer and it can't be used again.",
             "itemtype": "method",
             "name": "stopTimer",
@@ -18925,7 +18925,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 438,
+            "line": 437,
             "description": "This will clean-up and discard the timer and it can't be used again.",
             "itemtype": "method",
             "name": "removeTimer",
@@ -18942,7 +18942,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 451,
+            "line": 450,
             "description": "Handle the frame update",
             "itemtype": "method",
             "name": "updateTimers",
@@ -18961,7 +18961,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 465,
+            "line": 464,
             "description": "Override for start game event",
             "itemtype": "method",
             "name": "startGame",
@@ -18971,7 +18971,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 503,
+            "line": 502,
             "description": "Override for the end game event",
             "itemtype": "method",
             "name": "endGame",
@@ -18989,7 +18989,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 533,
+            "line": 532,
             "description": "Basic method for starting a feedback or instruction",
             "itemtype": "method",
             "name": "_startFeedback",
@@ -19028,7 +19028,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 562,
+            "line": 561,
             "description": "Basic method for starting a feedback or instruction",
             "itemtype": "method",
             "name": "_startFeedback",
@@ -19047,7 +19047,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 583,
+            "line": 582,
             "description": "Start the system initiated instruction",
             "itemtype": "method",
             "name": "startInstruction",
@@ -19079,7 +19079,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 596,
+            "line": 595,
             "description": "End the system initiated instruction",
             "itemtype": "method",
             "name": "endInstruction",
@@ -19089,7 +19089,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 606,
+            "line": 605,
             "description": "Start the incorrect feedback",
             "itemtype": "method",
             "name": "startIncorrectFeedback",
@@ -19121,7 +19121,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 619,
+            "line": 618,
             "description": "End the incorrect feedback",
             "itemtype": "method",
             "name": "endIncorrectFeedback",
@@ -19131,7 +19131,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 629,
+            "line": 628,
             "description": "Start the correct feedback event",
             "itemtype": "method",
             "name": "startCorrectFeedback",
@@ -19163,7 +19163,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 648,
+            "line": 647,
             "description": "End the correct feedback event",
             "itemtype": "method",
             "name": "endCorrectFeedback",
@@ -19173,7 +19173,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 658,
+            "line": 657,
             "description": "The movie started",
             "itemtype": "method",
             "name": "startMovie",
@@ -19200,7 +19200,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 681,
+            "line": 680,
             "description": "The user decided to skip the movie playback by clicking a skip button",
             "itemtype": "method",
             "name": "skipMovie",
@@ -19210,7 +19210,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 700,
+            "line": 699,
             "description": "The movie ended",
             "itemtype": "method",
             "name": "endMovie",
@@ -19220,7 +19220,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 720,
+            "line": 719,
             "description": "Handler when an api is called",
             "itemtype": "method",
             "name": "_onCalled",
@@ -19239,7 +19239,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 738,
+            "line": 737,
             "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
             "itemtype": "method",
             "name": "_specTrack",
@@ -19265,7 +19265,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 774,
+            "line": 773,
             "description": "Generic method to track an event based on the spec, the arguments\nmirror the arguments in the event spec.",
             "itemtype": "method",
             "name": "_track",
@@ -19296,7 +19296,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 872,
+            "line": 871,
             "description": "Display an error in the tray",
             "itemtype": "method",
             "name": "_showError",
@@ -19326,7 +19326,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 903,
+            "line": 902,
             "description": "Require that an api has been called",
             "itemtype": "method",
             "name": "requires",
@@ -19347,7 +19347,7 @@
         },
         {
             "file": "src/learning/Learning.js",
-            "line": 919,
+            "line": 918,
             "description": "Don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -19650,7 +19650,7 @@
         },
         {
             "file": "src/learning/LearningMedia.js",
-            "line": 355,
+            "line": 358,
             "description": "Handles learning events for triggered Animator calls.",
             "itemtype": "method",
             "name": "triggerMoviePlay",
@@ -19688,7 +19688,7 @@
         },
         {
             "file": "src/learning/LearningMedia.js",
-            "line": 540,
+            "line": 546,
             "description": "Get an alias or group of aliases as a string",
             "itemtype": "method",
             "name": "aliasToString",
@@ -19711,7 +19711,7 @@
         },
         {
             "file": "src/learning/LearningMedia.js",
-            "line": 571,
+            "line": 577,
             "description": "Stops the currently playing animation or VO.",
             "itemtype": "method",
             "name": "stop",
@@ -19721,7 +19721,7 @@
         },
         {
             "file": "src/learning/LearningMedia.js",
-            "line": 587,
+            "line": 593,
             "description": "Whether or not VOPlayer or Animator are currently playing",
             "itemtype": "method",
             "name": "isPlaying",
@@ -19735,7 +19735,7 @@
         },
         {
             "file": "src/learning/LearningMedia.js",
-            "line": 597,
+            "line": 603,
             "description": "Destroy and don't use after this",
             "itemtype": "method",
             "name": "destroy",
@@ -25387,7 +25387,7 @@
                         },
                         {
                             "name": "pivot",
-                            "description": "The pivot point",
+                            "description": "The pivot or registration point.",
                             "type": "Object",
                             "optional": true,
                             "props": [
@@ -25413,13 +25413,13 @@
                         },
                         {
                             "name": "hitArea",
-                            "description": "An object which describes the hit area\nof the item or an array of points.",
+                            "description": "An object which describes the hit area\n                                         of the item or an array of points. See\n                                         generateHitArea().",
                             "type": "Object|Array",
                             "optional": true,
                             "props": [
                                 {
                                     "name": "type",
-                                    "description": "If the hitArea is an object, the type \nof hit area, \"rect\", \"ellipse\", \"circle\", etc",
+                                    "description": "If the hitArea is an object, the type\n                                        of hit area, \"rect\", \"ellipse\", \"circle\", etc",
                                     "type": "String",
                                     "optional": true
                                 }
@@ -25429,7 +25429,7 @@
                 },
                 {
                     "name": "adapter",
-                    "description": "The adapter for the display being positioned \nin. If omitted, uses the Application's default display.",
+                    "description": "The adapter for the display being positioned\n                                  in. If omitted, uses the Application's default display.",
                     "type": "DisplayAdapter",
                     "optional": true
                 }
@@ -25440,7 +25440,7 @@
         },
         {
             "file": "src/ui/Positioner.js",
-            "line": 91,
+            "line": 92,
             "description": "Create the polygon hit area for interface elements",
             "static": 1,
             "itemtype": "method",
@@ -25448,7 +25448,7 @@
             "params": [
                 {
                     "name": "hitArea",
-                    "description": "One of the following:\n\n\t\t  // An array of points for a polygon.\n\t[{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n\t// An object describing a rectangle.\n\t{type:\"rect\", x:0, y:0, w:10, h:30}\n\n\t// An object describing an ellipse, where x and y are the center.\n\t{type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n\t// An object describing a circle, where x and y are the center.\n\t{type:\"circle\", x:0, y:0, r:20}\n\n\t// An object describing a sector, where x and y are the center of a circle\n\t// and start/end are the start and end angles of the sector in degrees.\n\t{type:\"sector\", x:0, y:0, r:20, start:0, end:90}",
+                    "description": "One of the following:\n\n    // An array of points for a polygon.\n    [{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]\n\n    // An object describing a rectangle.\n    {type:\"rect\", x:0, y:0, w:10, h:30}\n\n    // An object describing an ellipse, where x and y are the center.\n    {type:\"ellipse\", x:0, y:0, w:10, h:30}\n\n    // An object describing a circle, where x and y are the center.\n    {type:\"circle\", x:0, y:0, r:20}\n\n    // An object describing a sector, where x and y are the center of a circle\n    // and start/end are the start and end angles of the sector in degrees.\n    {type:\"sector\", x:0, y:0, r:20, start:0, end:90}",
                     "type": "Object|Array"
                 },
                 {
@@ -25458,13 +25458,13 @@
                 },
                 {
                     "name": "adapter",
-                    "description": "The adapter for the display being positioned \nin. If omitted, uses the Application's default display.",
+                    "description": "The adapter for the display being positioned\n                                  in. If omitted, uses the Application's default display.",
                     "type": "DisplayAdapter",
                     "optional": true
                 }
             ],
             "return": {
-                "description": "A geometric shape object for hit testing, either a Polygon, \nRectangle, Ellipse, Circle, or Sector, depending on the hitArea object. The \nshape will have a contains() function for hit testing.",
+                "description": "A geometric shape object for hit testing, either a Polygon,\n                 Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.\n                 The shape will have a contains() function for hit testing.",
                 "type": "Object"
             },
             "class": "springroll.Positioner",
@@ -25755,7 +25755,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 46,
+            "line": 47,
             "description": "The configuration for each items",
             "itemtype": "property",
             "name": "_items",
@@ -25768,7 +25768,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 53,
+            "line": 54,
             "description": "The screen settings object, contains information about designed size",
             "itemtype": "property",
             "name": "_size",
@@ -25781,7 +25781,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 60,
+            "line": 61,
             "description": "The current overall scale of the game",
             "itemtype": "property",
             "name": "_scale",
@@ -25795,7 +25795,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 68,
+            "line": 69,
             "description": "The adapter for universal scale, rotation size access",
             "itemtype": "property",
             "name": "_adapter",
@@ -25808,7 +25808,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 75,
+            "line": 76,
             "description": "The collection of bitmaps to full screen scale",
             "itemtype": "property",
             "name": "_backgrounds",
@@ -25821,7 +25821,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 82,
+            "line": 83,
             "description": "The internal enabled",
             "itemtype": "property",
             "name": "_enabled",
@@ -25834,7 +25834,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 114,
+            "line": 115,
             "description": "Vertically align to the top",
             "itemtype": "property",
             "name": "ALIGN_TOP",
@@ -25849,7 +25849,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 124,
+            "line": 125,
             "description": "Vertically align to the bottom",
             "itemtype": "property",
             "name": "ALIGN_BOTTOM",
@@ -25864,7 +25864,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 134,
+            "line": 135,
             "description": "Horizontally align to the left",
             "itemtype": "property",
             "name": "ALIGN_LEFT",
@@ -25879,7 +25879,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 144,
+            "line": 145,
             "description": "Horizontally align to the right",
             "itemtype": "property",
             "name": "ALIGN_RIGHT",
@@ -25894,7 +25894,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 154,
+            "line": 155,
             "description": "Vertically or horizontally align to the center",
             "itemtype": "property",
             "name": "ALIGN_CENTER",
@@ -25909,7 +25909,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 164,
+            "line": 165,
             "description": "Get the adapter by display",
             "itemtype": "method",
             "name": "_getAdapter",
@@ -25928,7 +25928,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 194,
+            "line": 195,
             "description": "Set the display",
             "itemtype": "property",
             "name": "display",
@@ -25939,7 +25939,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 206,
+            "line": 207,
             "description": "The design sized of the application",
             "itemtype": "property",
             "name": "size",
@@ -25951,7 +25951,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 211,
+            "line": 212,
             "description": "The designed width of the application",
             "itemtype": "property",
             "name": "size.width",
@@ -25962,7 +25962,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 215,
+            "line": 216,
             "description": "The designed width of the application",
             "itemtype": "property",
             "name": "size.height",
@@ -25973,7 +25973,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 219,
+            "line": 220,
             "description": "The designed max width of the application",
             "itemtype": "property",
             "name": "size.maxWidth",
@@ -25985,7 +25985,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 224,
+            "line": 225,
             "description": "The designed maxHeight of the application",
             "itemtype": "property",
             "name": "size.maxHeight",
@@ -25997,7 +25997,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 269,
+            "line": 270,
             "description": "Get the current scale of the screen relative to the designed screen size",
             "itemtype": "property",
             "name": "scale",
@@ -26009,7 +26009,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 282,
+            "line": 283,
             "description": "The total number of items",
             "itemtype": "property",
             "name": "numItems",
@@ -26021,7 +26021,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 295,
+            "line": 296,
             "description": "Whether the UIScaler should listen to the stage resize. Setting to true\ninitialized a resize.",
             "itemtype": "property",
             "name": "enabled",
@@ -26033,7 +26033,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 323,
+            "line": 324,
             "description": "Remove all UIElement where the item display is a the container or it contains items",
             "itemtype": "method",
             "name": "removeItems",
@@ -26050,19 +26050,19 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 342,
+            "line": 343,
             "description": "Register a dictionary of items to the UIScaler to control.",
             "itemtype": "method",
             "name": "addItems",
             "params": [
                 {
-                    "name": "container\nThe",
-                    "description": "container where the items live",
+                    "name": "container",
+                    "description": "The container where the\n                                                                  items live as variables.",
                     "type": "PIXI.DisplayObjectContainer|createjs.Container"
                 },
                 {
                     "name": "items",
-                    "description": "The items object where the keys are the name of the property\non The parent and the value is an object with keys of \"titleSafe\", \"minScale\",\n\"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem for a description\nof the different keys.",
+                    "description": "The items object where the keys are the name of the property on the\n                      parent and the value is an object with keys of \"titleSafe\", \"minScale\",\n                      \"maxScale\", \"centerHorizontally\", \"align\", see UIScaler.addItem for a\n                      description of the different keys.",
                     "type": "Object"
                 }
             ],
@@ -26076,7 +26076,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 379,
+            "line": 380,
             "description": "Manually add an item",
             "itemtype": "method",
             "name": "addItem",
@@ -26213,7 +26213,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 491,
+            "line": 492,
             "description": "Add background bitmaps to scale full screen, this will attempt to\nscale the background to the height of the display and crop on\nthe left and right.",
             "itemtype": "method",
             "name": "addBackground",
@@ -26234,7 +26234,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 510,
+            "line": 511,
             "description": "Remove background",
             "itemtype": "method",
             "name": "removeBackground",
@@ -26255,7 +26255,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 531,
+            "line": 532,
             "description": "Scale the UI items that have been registered to the current screen",
             "itemtype": "method",
             "name": "_resize",
@@ -26279,7 +26279,7 @@
         },
         {
             "file": "src/ui/UIScaler.js",
-            "line": 610,
+            "line": 611,
             "description": "Destroy the scaler object",
             "itemtype": "method",
             "name": "destroy",

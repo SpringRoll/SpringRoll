@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.3 API Documentation : src/displays/easeljs/states/BaseState.js</title>
+<title>SpringRoll v0.3.4 API Documentation : src/displays/easeljs/states/BaseState.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.3'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.3'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.3'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.3</em>
+<em>API Documentation for: 0.3.4</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.3' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -622,8 +622,8 @@ name
 		 *	The items to scale on the panel, see &#x60;UIScaler.addItems&#x60; for
 		 *	more information. If no options are set in the State&#x27;s constructor
 		 *	then it will try to find an object on the app config on &#x60;scaling&#x60; property
-		 *	matching the same state alias. For instance &#x60;config.scaling.title&#x60; if 
-		 *	&#x60;title&#x60; is the state alias. If no scalingItems are set, will scale 
+		 *	matching the same state alias. For instance &#x60;config.scaling.title&#x60; if
+		 *	&#x60;title&#x60; is the state alias. If no scalingItems are set, will scale
 		 *	and position the panal itself.
 		 *	@property {Object} scalingItems
 		 *	@protected
@@ -668,6 +668,9 @@ name
 	 */
 	p._internalEntering = function()
 	{
+		// Default entering
+		s._internalEntering.call(this);
+		
 		// Start prealoading assets
 		this.loadingStart();
 
@@ -694,9 +697,6 @@ name
 		{
 			this._onLoaded();
 		}
-
-		// Default entering
-		s._internalEntering.call(this);
 	};
 
 	/**
@@ -825,7 +825,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.3'></script>
-<script src='../assets/js/main.js?v=0.3.3'></script>
+<script src='../assets/js/libraries.js?v=0.3.4'></script>
+<script src='../assets/js/main.js?v=0.3.4'></script>
 </body>
 </html>
