@@ -108,8 +108,8 @@
 		 *	The items to scale on the panel, see `UIScaler.addItems` for
 		 *	more information. If no options are set in the State's constructor
 		 *	then it will try to find an object on the app config on `scaling` property
-		 *	matching the same state alias. For instance `config.scaling.title` if 
-		 *	`title` is the state alias. If no scalingItems are set, will scale 
+		 *	matching the same state alias. For instance `config.scaling.title` if
+		 *	`title` is the state alias. If no scalingItems are set, will scale
 		 *	and position the panal itself.
 		 *	@property {Object} scalingItems
 		 *	@protected
@@ -154,6 +154,9 @@
 	 */
 	p._internalEntering = function()
 	{
+		// Default entering
+		s._internalEntering.call(this);
+		
 		// Start prealoading assets
 		this.loadingStart();
 
@@ -180,9 +183,6 @@
 		{
 			this._onLoaded();
 		}
-
-		// Default entering
-		s._internalEntering.call(this);
 	};
 
 	/**
