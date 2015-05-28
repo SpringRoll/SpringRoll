@@ -1,7 +1,7 @@
 /**
- *	@module UI
- *	@namespace springroll
- *	@requires Core
+ * @module UI
+ * @namespace springroll
+ * @requires Core
  */
 (function(undefined)
 {
@@ -13,22 +13,23 @@
 		Debug;
 
 	/**
-	 *	The UI scale is responsible for scaling UI components to help easy the burden of different
-	 *	device aspect ratios. The UI can expand either vertically or horizontally to fill excess
-	 *	space.
+	 * The UI scale is responsible for scaling UI components to help easy the burden of different
+	 * device aspect ratios. The UI can expand either vertically or horizontally to fill excess
+	 * space.
 	 *
-	 *	@class UIScaler
-	 *	@constructor
-	 *	@param {Object} [options] The options
-	 *	@param {Object} [options.size] The dimensions of the Scaler
-	 *	@param {Number} [options.size.width] The designed width
-	 *	@param {Number} [options.size.height] The designed height
-	 *	@param {Number} [options.size.maxwidth=size.width] The designed max width
-	 *	@param {Number} [options.size.maxheight=size.height] The designed max height
-	 *	@param {Object} [options.items] The items to load
-	 *	@param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if adding items
-	 *	@param {Object} [options.display] The current display
-	 *	@param {Boolean} [options.enabled=false] If the scaler is enabled
+	 * @class UIScaler
+	 * @constructor
+	 * @param {Object} [options] The options
+	 * @param {Object} [options.size] The dimensions of the Scaler
+	 * @param {Number} [options.size.width] The designed width
+	 * @param {Number} [options.size.height] The designed height
+	 * @param {Number} [options.size.maxwidth=size.width] The designed max width
+	 * @param {Number} [options.size.maxheight=size.height] The designed max height
+	 * @param {Object} [options.items] The items to load
+	 * @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if
+	 *                                                                             adding items
+	 * @param {Object} [options.display] The current display
+	 * @param {Boolean} [options.enabled=false] If the scaler is enabled
 	 */
 	var UIScaler = function(options)
 	{
@@ -44,45 +45,45 @@
 		}, options);
 
 		/**
-		 *	The configuration for each items
-		 *	@property {Array} _items
-		 *	@private
+		 * The configuration for each items
+		 * @property {Array} _items
+		 * @private
 		 */
 		this._items = [];
 
 		/**
-		 *	The screen settings object, contains information about designed size
-		 *	@property {object} _size
-		 *	@private
+		 * The screen settings object, contains information about designed size
+		 * @property {object} _size
+		 * @private
 		 */
 		this._size = null;
 
 		/**
-		 *	The current overall scale of the game
-		 *	@property {Number} _scale
-		 *	@private
-		 *	@default 1
+		 * The current overall scale of the game
+		 * @property {Number} _scale
+		 * @private
+		 * @default 1
 		 */
 		this._scale = 1;
 
 		/**
-		 *	The adapter for universal scale, rotation size access
-		 *	@property {Object} _adapter
-		 *	@private
+		 * The adapter for universal scale, rotation size access
+		 * @property {Object} _adapter
+		 * @private
 		 */
 		this._adapter = null;
 
 		/**
-		 *	The collection of bitmaps to full screen scale
-		 *	@property {Array} _backgrounds
-		 *	@private
+		 * The collection of bitmaps to full screen scale
+		 * @property {Array} _backgrounds
+		 * @private
 		 */
 		this._backgrounds = [];
 
 		/**
-		 *	The internal enabled
-		 *	@property {boolean} _enabled
-		 *	@private
+		 * The internal enabled
+		 * @property {boolean} _enabled
+		 * @private
 		 */
 		this._enabled = options.enabled;
 
@@ -112,60 +113,60 @@
 	var p = UIScaler.prototype = {};
 
 	/**
-	 *	Vertically align to the top
-	 *	@property {String} ALIGN_TOP
-	 *	@static
-	 *	@final
-	 *	@readOnly
-	 *	@default "top"
+	 * Vertically align to the top
+	 * @property {String} ALIGN_TOP
+	 * @static
+	 * @final
+	 * @readOnly
+	 * @default "top"
 	 */
 	UIScaler.ALIGN_TOP = "top";
 
 	/**
-	 *	Vertically align to the bottom
-	 *	@property {String} ALIGN_BOTTOM
-	 *	@static
-	 *	@final
-	 *	@readOnly
-	 *	@default "bottom"
+	 * Vertically align to the bottom
+	 * @property {String} ALIGN_BOTTOM
+	 * @static
+	 * @final
+	 * @readOnly
+	 * @default "bottom"
 	 */
 	UIScaler.ALIGN_BOTTOM = "bottom";
 
 	/**
-	 *	Horizontally align to the left
-	 *	@property {String} ALIGN_LEFT
-	 *	@static
-	 *	@final
-	 *	@readOnly
-	 *	@default "left"
+	 * Horizontally align to the left
+	 * @property {String} ALIGN_LEFT
+	 * @static
+	 * @final
+	 * @readOnly
+	 * @default "left"
 	 */
 	UIScaler.ALIGN_LEFT = "left";
 
 	/**
-	 *	Horizontally align to the right
-	 *	@property {String} ALIGN_RIGHT
-	 *	@static
-	 *	@final
-	 *	@readOnly
-	 *	@default "right"
+	 * Horizontally align to the right
+	 * @property {String} ALIGN_RIGHT
+	 * @static
+	 * @final
+	 * @readOnly
+	 * @default "right"
 	 */
 	UIScaler.ALIGN_RIGHT = "right";
 
 	/**
-	 *	Vertically or horizontally align to the center
-	 *	@property {String} ALIGN_CENTER
-	 *	@static
-	 *	@final
-	 *	@readOnly
-	 *	@default "center"
+	 * Vertically or horizontally align to the center
+	 * @property {String} ALIGN_CENTER
+	 * @static
+	 * @final
+	 * @readOnly
+	 * @default "center"
 	 */
 	UIScaler.ALIGN_CENTER = "center";
 
 	/**
-	 *	Get the adapter by display
-	 *	@method _getAdapter
-	 *	@private
-	 *	@param {object} display The canvas renderer display
+	 * Get the adapter by display
+	 * @method _getAdapter
+	 * @private
+	 * @param {object} display The canvas renderer display
 	 */
 	UIScaler._getAdapter = function(display)
 	{
@@ -192,8 +193,8 @@
 	};
 
 	/**
-	 *	Set the display
-	 *	@property {springroll.AbstractDisplay} display
+	 * Set the display
+	 * @property {springroll.AbstractDisplay} display
 	 */
 	Object.defineProperty(p, 'display',
 	{
@@ -204,27 +205,27 @@
 	});
 
 	/**
-	 *	The design sized of the application
-	 *	@property {Object} size
-	 *	@default null
+	 * The design sized of the application
+	 * @property {Object} size
+	 * @default null
 	 */
 	/**
-	 *	The designed width of the application
-	 *	@property {Number} size.width
+	 * The designed width of the application
+	 * @property {Number} size.width
 	 */
 	/**
-	 *	The designed width of the application
-	 *	@property {Number} size.height
+	 * The designed width of the application
+	 * @property {Number} size.height
 	 */
 	/**
-	 *	The designed max width of the application
-	 *	@property {Number} size.maxWidth
-	 *	@default  size.width
+	 * The designed max width of the application
+	 * @property {Number} size.maxWidth
+	 * @default  size.width
 	 */
 	/**
-	 *	The designed maxHeight of the application
-	 *	@property {Number} size.maxHeight
-	 *	@default  size.height
+	 * The designed maxHeight of the application
+	 * @property {Number} size.maxHeight
+	 * @default  size.height
 	 */
 	Object.defineProperty(p, 'size',
 	{
@@ -267,9 +268,9 @@
 	});
 
 	/**
-	 *	Get the current scale of the screen relative to the designed screen size
-	 *	@property {Number} scale
-	 *	@readOnly
+	 * Get the current scale of the screen relative to the designed screen size
+	 * @property {Number} scale
+	 * @readOnly
 	 */
 	Object.defineProperty(p, 'scale',
 	{
@@ -280,9 +281,9 @@
 	});
 
 	/**
-	 *	The total number of items
-	 *	@property {Number} numItems
-	 *	@readOnly
+	 * The total number of items
+	 * @property {Number} numItems
+	 * @readOnly
 	 */
 	Object.defineProperty(p, 'numItems',
 	{
@@ -293,10 +294,10 @@
 	});
 
 	/**
-	 *	Whether the UIScaler should listen to the stage resize. Setting to true
-	 *	initialized a resize.
-	 *	@property {boolean} enabled
-	 *	@default true
+	 * Whether the UIScaler should listen to the stage resize. Setting to true
+	 * initialized a resize.
+	 * @property {boolean} enabled
+	 * @default true
 	 */
 	Object.defineProperty(p, 'enabled',
 	{
@@ -321,9 +322,9 @@
 	});
 
 	/**
-	 *	Remove all UIElement where the item display is a the container or it contains items
-	 *	@method removeItems
-	 *	@param  {createjs.Container|PIXI.DisplayObjectContainer} container
+	 * Remove all UIElement where the item display is a the container or it contains items
+	 * @method removeItems
+	 * @param  {createjs.Container|PIXI.DisplayObjectContainer} container
 	 */
 	p.removeItems = function(container)
 	{
@@ -340,15 +341,15 @@
 	};
 
 	/**
-	 *	Register a dictionary of items to the UIScaler to control.
-	 *	@method addItems
-	 *	@param {PIXI.DisplayObjectContainer|createjs.Container} container
-	 *	The container where the items live
-	 *	@param {object} items The items object where the keys are the name of the property
-	 *	on The parent and the value is an object with keys of "titleSafe", "minScale",
-	 *	"maxScale", "centerHorizontally", "align", see UIScaler.addItem for a description
-	 *	of the different keys.
-	 *	@return {springroll.UIScaler} The instance of this UIScaler for chaining
+	 * Register a dictionary of items to the UIScaler to control.
+	 * @method addItems
+	 * @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the
+	 *                                                                   items live as variables.
+	 * @param {object} items The items object where the keys are the name of the property on the
+	 *                       parent and the value is an object with keys of "titleSafe", "minScale",
+	 *                       "maxScale", "centerHorizontally", "align", see UIScaler.addItem for a
+	 *                       description of the different keys.
+	 * @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	 */
 	p.addItems = function(container, items)
 	{
@@ -377,43 +378,43 @@
 	};
 
 	/**
-	 *	Manually add an item
-	 *	@method addItem
-	 *	@param {object} item The display object item to add
-	 *	@param {object|String} [settings="center"] The collection of settings or the align property
-	 *	@param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
-	 *	                                          then horizontal alignment ("left", "right" and
-	 *	                                          "center"). Or you can use the short-handed
-	 *	                                          versions: "center" = "center-center",
-	 *	                                          "top" = "top-center", "bottom" = "bottom-center",
-	 *	                                          "left" = "center-left", "right" = "center-right".
-	 *	@param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
-	 *	                                                   area. Acceptable values are false,
-	 *	                                                   "horizontal", "vertical", "all", and true.
-	 *	                                                   The default is false, and true is the same
-	 *	                                                   as "all".
-	 *	@param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
-	 *	                                        size as the stage)
-	 *	@param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
-	 *	                                        size as the stage)
-	 *	@param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
-	 *	                                                       object is directly in the center of
-	 *	                                                       the stage assuming origin point is in
-	 *	                                                       the upper-left corner.
-	 *	@param {Number} [settings.x] The initial X position of the item
-	 *	@param {Number} [settings.y] The initial Y position of the item
-	 *	@param {Object} [settings.scale] The initial scale
-	 *	@param {Number} [settings.scale.x] The initial scale X value
-	 *	@param {Number} [settings.scale.y] The initial scale Y value
-	 *	@param {Object} [settings.pivot] The pivot point
-	 *	@param {Number} [settings.pivot.x] The pivot point X location
-	 *	@param {Number} [settings.pivot.y] The pivot point Y location
-	 *	@param {Number} [settings.rotation] The initial rotation in degrees
-	 *	@param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
-	 *	                                         or an array of points.
-	 *	@param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
-	 *	                                        "rect", "ellipse", "circle", etc
-	 *	@return {springroll.UIScaler} The instance of this UIScaler for chaining
+	 * Manually add an item
+	 * @method addItem
+	 * @param {object} item The display object item to add
+	 * @param {object|String} [settings="center"] The collection of settings or the align property
+	 * @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
+	 *                                           then horizontal alignment ("left", "right" and
+	 *                                           "center"). Or you can use the short-handed
+	 *                                           versions: "center" = "center-center",
+	 *                                           "top" = "top-center", "bottom" = "bottom-center",
+	 *                                           "left" = "center-left", "right" = "center-right".
+	 * @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
+	 *                                                    area. Acceptable values are false,
+	 *                                                    "horizontal", "vertical", "all", and true.
+	 *                                                    The default is false, and true is the same
+	 *                                                    as "all".
+	 * @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
+	 *                                         size as the stage)
+	 * @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
+	 *                                         size as the stage)
+	 * @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
+	 *                                                        object is directly in the center of
+	 *                                                        the stage assuming origin point is in
+	 *                                                        the upper-left corner.
+	 * @param {Number} [settings.x] The initial X position of the item
+	 * @param {Number} [settings.y] The initial Y position of the item
+	 * @param {Object} [settings.scale] The initial scale
+	 * @param {Number} [settings.scale.x] The initial scale X value
+	 * @param {Number} [settings.scale.y] The initial scale Y value
+	 * @param {Object} [settings.pivot] The pivot point
+	 * @param {Number} [settings.pivot.x] The pivot point X location
+	 * @param {Number} [settings.pivot.y] The pivot point Y location
+	 * @param {Number} [settings.rotation] The initial rotation in degrees
+	 * @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
+	 *                                          or an array of points.
+	 * @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
+	 *                                         "rect", "ellipse", "circle", etc
+	 * @return {springroll.UIScaler} The instance of this UIScaler for chaining
 	 */
 	p.addItem = function(item, settings, doResize)
 	{
@@ -489,12 +490,12 @@
 	};
 
 	/**
-	 *	 Add background bitmaps to scale full screen, this will attempt to
-	 *	 scale the background to the height of the display and crop on
-	 *	 the left and right.
-	 *	 @method addBackground
-	 *	 @param {Bitmap} The bitmap to scale or collection of bitmaps
-	 *	 @return {springroll.UIScaler} The UIScaler for chaining
+	 *  Add background bitmaps to scale full screen, this will attempt to
+	 *  scale the background to the height of the display and crop on
+	 *  the left and right.
+	 *  @method addBackground
+	 *  @param {Bitmap} The bitmap to scale or collection of bitmaps
+	 *  @return {springroll.UIScaler} The UIScaler for chaining
 	 */
 	p.addBackground = function(bitmap)
 	{
@@ -508,10 +509,10 @@
 	};
 
 	/**
-	 *	 Remove background
-	 *	 @method removeBackground
-	 *	 @param {Bitmap} bitmap The bitmap added
-	 *	 @return {springroll.UIScaler} The UIScaler for chaining
+	 *  Remove background
+	 *  @method removeBackground
+	 *  @param {Bitmap} bitmap The bitmap added
+	 *  @return {springroll.UIScaler} The UIScaler for chaining
 	 */
 	p.removeBackground = function(bitmap)
 	{
@@ -529,11 +530,11 @@
 	};
 
 	/**
-	 *	Scale the UI items that have been registered to the current screen
-	 *	@method _resize
-	 *	@private
-	 *	@param {Number} w The current width of the application
-	 *	@param {Number} h The current height of the application
+	 * Scale the UI items that have been registered to the current screen
+	 * @method _resize
+	 * @private
+	 * @param {Number} w The current width of the application
+	 * @param {Number} h The current height of the application
 	 */
 	p._resize = function(w, h)
 	{
@@ -608,8 +609,8 @@
 	};
 
 	/**
-	 *	Destroy the scaler object
-	 *	@method destroy
+	 * Destroy the scaler object
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
