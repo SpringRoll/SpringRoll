@@ -1,6 +1,6 @@
 ![SpringRoll Logo](http://springroll.io/assets/images/logo.png)
 
-#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll)
+#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest)
 
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [EaselJS](http://www.createjs.com/EaselJS) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
