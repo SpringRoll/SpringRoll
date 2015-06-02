@@ -1589,6 +1589,22 @@
 	};
 
 	/**
+	*	Unloads all sounds. If any sounds are playing, they are stopped.
+	*	Internally this calls `unload`.
+	*	@method unloadAll
+	*	@public
+	*/
+	p.unloadAll = function()
+	{
+		var arr = [];
+		for (var i in this._sounds)
+		{
+			arr.push(i);
+		}
+		this.unload(arr);
+	};
+
+	/**
 	*	Places a SoundInstance back in the pool for reuse.
 	*	@method _poolinst
 	*	@private
