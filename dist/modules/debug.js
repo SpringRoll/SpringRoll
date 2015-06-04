@@ -1483,6 +1483,13 @@
 		this.options.add('framerate');
 
 		/**
+		 * The framerate container
+		 * @property {DOMElement} _framerate
+		 * @private
+		 */
+		this._framerate = null;
+
+		/**
 		 * The host computer for remote debugging, the debug
 		 * module must be included to use this feature. Can be an
 		 * IP address or host name. After initialization, setting
@@ -1528,39 +1535,47 @@
 	{
 		this.options.asDOMElement('framerate');
 		var framerate = this.options.framerate;
+		var display = this.display;
 
-		if (!framerate)
+		if (!framerate && display)
 		{
-			var stage = this.display.canvas;
+			var stage = display.canvas;
 			framerate = document.createElement("div");
 			framerate.id = "framerate";
 			stage.parentNode.insertBefore(framerate, stage);
 		}
 
-		// Set the default text
-		framerate.innerHTML = "FPS: 00.000";
-
-		var frameCount = 0;
-		var framerateTimer = 0;
-
-		this.on('update', function(elapsed)
+		// Check for no framerate in the case of no display
+		// and no option.framerate being set
+		if (framerate)
 		{
-			frameCount++;
-			framerateTimer += elapsed;
-			
-			// Only update the framerate every second
-			if (framerateTimer >= 1000)
+			this._framerate = framerate;
+
+			// Set the default text
+			framerate.innerHTML = "FPS: 00.000";
+
+			var frameCount = 0;
+			var framerateTimer = 0;
+
+			this.on('update', function(elapsed)
 			{
-				var fps = 1000 / framerateTimer * frameCount;
-				framerate.innerHTML = "FPS: " + fps.toFixed(3);
-				framerateTimer = 0;
-				frameCount = 0;
-			}
-		})
-		.on('resumed', function()
-		{
-			frameCount = framerateTimer = 0;
-		});
+				frameCount++;
+				framerateTimer += elapsed;
+				
+				// Only update the framerate every second
+				if (framerateTimer >= 1000)
+				{
+					var fps = 1000 / framerateTimer * frameCount;
+					framerate.innerHTML = "FPS: " + fps.toFixed(3);
+					framerateTimer = 0;
+					frameCount = 0;
+				}
+			})
+			.on('resumed', function()
+			{
+				frameCount = framerateTimer = 0;
+			});
+		}
 		done();
 	};
 
@@ -1572,7 +1587,7 @@
 			this.off('update resumed');
 
 			// Remove the framerate container
-			var framerate = document.getElementById('framerate');
+			var framerate = this._framerate;
 			if (framerate && framerate.parentNode)
 			{
 				framerate.parentNode.removeChild(framerate);
