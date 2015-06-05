@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/StringFiltersPlugin.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/mixins/String.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,62 +508,77 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:StringFiltersPlugin.js</h1>
+<h1 class="file-heading">File:String.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
- * @module UI
- * @namespace springroll
- * @requires Core
+ * @module Core
+ * @namespace window
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
-		StringFilters = include(&#x27;springroll.StringFilters&#x27;);
+	/**
+	*  Add methods to String
+	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	*  @class String
+	*/
 
 	/**
-	 * Create an app plugin for String Filters, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class StringFiltersPlugin
-	 * @extends springroll.ApplicationPlugin
-	 */
-	var StringFiltersPlugin = function()
+	*  Returns a formatted string, similar to the printf() function in many languages.
+	*  This simplified version substitutes &quot;%s&quot; with the arguments in order. To escape &quot;%s&quot;,
+	*  use &quot;%%s&quot;.
+	*  @method format
+	*  @param {Array|*} args An array or list of arguments for formatting.
+	*  @return {String} The substituted string.
+	*/
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	Object.defineProperty(String.prototype, &#x27;format&#x27;, {
+		enumerable: false,
+		writable:false,
+		value: function() {
+			if (arguments.length &lt; 1) return this;
+			var args = Array.isArray(args) ? args : Array.prototype.slice.call(arguments);
+			
+			return this.replace(
+				/([^%]|^)%(?:(\d+)\$)?s/g,
+				function(p0, p, position)
+				{
+					if (position)
+					{
+						return p + args[parseInt(position)-1];
+					}
+					return p + args.shift();
+				}
+			).replace(/%%s/g, &#x27;%s&#x27;);
+		}
+	});
+	
+	/**
+	*  Returns a reversed copy of the string.
+	*  @method format
+	*  @return {String} The reversed string.
+	*/
+	if(!String.prototype.reverse)
 	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 110;
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
-
-	// Init the animator
-	p.setup = function()
-	{
-		/**
-		 * The StringFilters instance
-		 * @property {springroll.StringFilters} filters
-		 */
-		this.filters = new StringFilters();
-	};
-
-	// Destroy the animator
-	p.teardown = function()
-	{
-		if (this.filters) this.filters.destroy();
-		this.filters = null;
-	};
-
-	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
-
-}());</pre>
+		Object.defineProperty(String.prototype, &#x27;reverse&#x27;, {
+			enumerable: false,
+			writable:false,
+			value: function() {
+				var o = &#x27;&#x27;;
+				for (var i = this.length - 1; i &gt;= 0; i--)
+					o += this[i];
+				return o;
+			}
+		});
+	}
+}());
+</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

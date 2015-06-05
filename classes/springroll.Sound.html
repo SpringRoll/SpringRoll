@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : springroll.Sound</title>
+  <title>SpringRoll v0.3.5 API Documentation : springroll.Sound</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -592,10 +592,6 @@ for managing sounds.</p>
                 <a href='#method_createPreloadTask'>createPreloadTask</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method_'></a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method public'>
                 <a href='#method_destroy'>destroy</a>
 
@@ -620,6 +616,10 @@ for managing sounds.</p>
                 <a href='#method_init'>init</a>
 
                   <span class='flag static'>static</span>
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method private'>
+                <a href='#method_'></a>
+
               </li>
               <li class='col-xs-6 col-md-4 index-item method public'>
                 <a href='#method_isLoaded'>isLoaded</a>
@@ -684,6 +684,10 @@ for managing sounds.</p>
               </li>
               <li class='col-xs-6 col-md-4 index-item method public'>
                 <a href='#method_unload'>unload</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method public'>
+                <a href='#method_unloadAll'>unloadAll</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method public'>
@@ -1064,7 +1068,7 @@ for managing sounds.</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_Sound.js.html#l1216'><code>_poolinst:1216</code></a>
+                <a href='../files/src_media_Sound.js.html#l1232'><code>_poolinst:1232</code></a>
               </p>
           
           
@@ -1606,76 +1610,6 @@ for managing sounds.</p>
                 </div>
               </div>
           
-          </div>          <div id='method_' class='method item private'>
-            <h3 class='name'><code></code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>filetypeOrder</code>
-                    </li>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_media_Sound.js.html#l208'><code>:208</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the initialization as completed</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>filetypeOrder</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The list of files types</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The callback function</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
           </div>          <div id='method_destroy' class='method item public'>
             <h3 class='name'><code>destroy</code></h3>
           
@@ -1694,7 +1628,7 @@ for managing sounds.</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_media_Sound.js.html#l1237'><code>destroy:1237</code></a>
+                <a href='../files/src_media_Sound.js.html#l1253'><code>destroy:1253</code></a>
               </p>
           
           
@@ -2170,6 +2104,76 @@ for managing sounds.</p>
           
                 </div>
               </div>
+          
+          </div>          <div id='method_' class='method item private'>
+            <h3 class='name'><code></code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>filetypeOrder</code>
+                    </li>
+                    <li class='arg'>
+                        <code>callback</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag private'>private</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_media_Sound.js.html#l208'><code>:208</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>When the initialization as completed</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>filetypeOrder</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The list of files types</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>callback</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The callback function</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
           
           </div>          <div id='method_isLoaded' class='method item public'>
             <h3 class='name'><code>isLoaded</code></h3>
@@ -3255,6 +3259,39 @@ for managing sounds.</p>
               </div>
           
           
+          </div>          <div id='method_unloadAll' class='method item public'>
+            <h3 class='name'><code>unloadAll</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag public'>public</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_media_Sound.js.html#l1216'><code>unloadAll:1216</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Unloads all sounds. If any sounds are playing, they are stopped.
+          Internally this calls <code>unload</code>.</p>
+          
+            </div>
+          
+          
+          
           </div>          <div id='method_unpauseAll' class='method item public'>
             <h3 class='name'><code>unpauseAll</code></h3>
           
@@ -3556,7 +3593,7 @@ for managing sounds.</p>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

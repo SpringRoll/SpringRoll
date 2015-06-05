@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/Object.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/mixins/Math.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,140 +508,78 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:Object.js</h1>
+<h1 class="file-heading">File:Math.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
  * @module Core
  * @namespace window
  */
-(function(Object, undefined){
+(function(Math)
+{
+	/**
+	 * Add methods to Math
+	 * @class Math
+	 */
 
 	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
-
-	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
-		var obj1 = { id : &#x27;foo&#x27;, name : &#x27;Hello!&#x27;, value : 100 };
-		var obj2 = { id : &#x27;bar&#x27;, value : 200 };
-		Object.merge({}, obj1, obj2); // Returns: { id : &#x27;bar&#x27;, name : &#x27;Hello!&#x27;, value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
-	Object.merge = function(target, source)
+	 * Return a random int between minimum and maximum values.
+	 * If a single value is supplied, it will return a number between 0 and the supplied value.
+	 * @method randomInt
+	 * @static
+	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {int} max Highest number.
+	 * @return {int} The random value
+	 */
+	Math.randomInt = function(min, max)
 	{
-		if (typeof target !== &#x27;object&#x27;)
+		if (max === undefined)
 		{
-			target = {};
+			max = min;
+			min = 0;
 		}
-		
-		for (var property in source)
-		{
-			if (source.hasOwnProperty(property))
-			{
-				var sourceProperty = source[property];
-				
-				if (typeof sourceProperty === &#x27;object&#x27; &amp;&amp; Object.isPlain(sourceProperty))
-				{
-					target[property] = Object.merge(target[property], sourceProperty);
-					continue;
-				}
-				target[property] = sourceProperty;
-			}
-		}
-		
-		for (var i = 2, l = arguments.length; i &lt; l; i++)
-		{
-			Object.merge(target, arguments[i]);
-		}
-		return target;
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	};
 
 	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
-	Object.isPlain = function(obj)
+	 * Return dist between two points
+	 * @method dist
+	 * @static
+	 * @param {Number|Point|Object} x The x position of the first point,
+	 *                                or a Point/Object with x and y values
+	 * @param {Number|Point|Object} y The y position of the first point,
+	 *                                or a second Point/Object with x and y values
+	 * @param {Number|Point|Object} x0 The x position of the second point
+	 *                                 or a Point/Object with x and y values (if x&amp;y were Numbers)
+	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	Math.dist = function(x, y, x0, y0)
 	{
-		var key;
-
-		// Must be an Object.
-		// Because of IE, we also have to check the presence of the constructor property.
-		// Make sure that DOM nodes and window objects don&#x27;t pass through, as well
-		if (!obj || typeof obj !== &quot;object&quot; || obj.nodeType || obj === window)
+		//see if the first parameter is a point
+		if(typeof x.x == &quot;number&quot; &amp;&amp; x.x == x.x)//faster !isNaN
 		{
-			return false;
+			//shift later parameters back
+			y0 = x0;
+			x0 = y;
+			
+			y = x.y;
+			x = x.x;
 		}
-
-		try {
-			// Not own constructor property must be Object
-			if ( obj.constructor &amp;&amp;
-				!hasOwn.call(obj, &quot;constructor&quot;) &amp;&amp;
-				!hasOwn.call(obj.constructor.prototype, &quot;isPrototypeOf&quot;) ) {
-				return false;
-			}
-		}
-		catch (e)
+		//see if the 2nd parameter is a point
+		if(typeof x0.x == &quot;number&quot; &amp;&amp; x0.x == x0.x)
 		{
-			// IE8,9 Will throw exceptions on certain host objects #9897
-			return false;
+			y0 = x0.y;
+			x0 = x0.x;
 		}
-
-		// Support: IE&lt;9
-		// Handle iteration over inherited properties before own properties.
-		if (support.ownLast)
-		{
-			for (key in obj)
-			{
-				return hasOwn.call(obj, key);
-			}
-		}
-
-		// Own properties are enumerated firstly, so to speed up,
-		// if last one is own, then all properties are own.
-		for (key in obj) {}
-
-		return key === undefined || hasOwn.call(obj, key);
+		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
 	};
-	
-	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
-	if(!Object.prototype.clone)
-	{
-		Object.defineProperty(Object.prototype, &#x27;clone&#x27;,
-		{
-			enumerable: false,
-			writable: true,
-			value: function()
-			{
-				var rtn = {};
-				var thisObj = this;
-				for(var key in thisObj)
-				{
-					rtn[key] = thisObj[key];
-				}
-				return rtn;
-			}
-		});
-	}
-
-}(Object));</pre>
+}(Math));</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

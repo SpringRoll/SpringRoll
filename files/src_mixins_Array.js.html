@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/ui/UIElement.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/mixins/Array.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,328 +508,83 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:UIElement.js</h1>
+<h1 class="file-heading">File:Array.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
- * @module UI
- * @namespace springroll
- * @requires Core
+ * @module Core
+ * @namespace window
  */
 (function()
 {
-	// Class imports
-	var UIScaler;
+	/**
+	*  Add methods to Array
+	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	*  @class Array
+	*/
 
 	/**
-	 *	A single UI item that needs to be resized,
-	 *	this is an internal class that you would not need to interact with.
-	 *
-	 *	@class UIElement
-	 *	@param {DisplayObject} item The item to affect
-	 *	@param {springroll.UIElementSettings} settings The scale settings
-	 *	@param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
-	 *	@param {DisplayAdapter} adapter The display adapter
-	 */
-	var UIElement = function(item, settings, designedScreen, adapter)
+	*  Shuffles the array
+	*  @method shuffle
+	*/
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	if(!Array.prototype.shuffle)
 	{
-		if (!UIScaler)
-		{
-			UIScaler = include(&#x27;springroll.UIScaler&#x27;);
-		}
-
-		/**
-		 *  The reference to the interface item we&#x27;re scaling
-		 *  @private
-		 *  @property {DisplayObject} _item
-		 */
-		this._item = item;
-
-		/**
-		 *  The reference to the scale settings
-		 *  @private
-		 *  @property {UIElementSettings} _settings
-		 */
-		this._settings = settings;
-
-		/**
-		 *  The original screen the item was designed for
-		 *  @private
-		 *  @property {ScreenSettings} _designedScreen
-		 */
-		this._designedScreen = designedScreen;
-
-		/**
-		 *  The adapter for universal scale, rotation size access
-		 *  @property {Object} _adapter
-		 *  @private
-		 */
-		this._adapter = adapter;
-
-		var scale = adapter.getScale(item);
-		var position = adapter.getPosition(item);
-
-		/**
-		 *  Original X scale of the item
-		 *  @property {Number} origScaleX
-		 *  @default 0
-		 */
-		this.origScaleX = scale.x || 1;
-
-		/**
-		 *  The original Y scale of the item
-		 *  @property {Number} origScaleY
-		 *  @default 0
-		 */
-		this.origScaleY = scale.y || 1;
-
-		/**
-		 *  Original width in pixels
-		 *  @property {Number} origWidth
-		 *  @default 0
-		 */
-		this.origWidth = item.width || 0;
-
-		/**
-		 *  The original bounds of the item with x, y, right, bottom, width, 
-		 *	height properties. Used to determine the distance to each edge of
-		 *	the item from its origin
-		 *  @property {Object} origBounds
-		 */
-		this.origBounds = adapter.getLocalBounds(item);
-
-		/**
-		 *  Original horizontal margin in pixels
-		 *  @property {Number} origMarginHori
-		 *  @default 0
-		 */
-		this.origMarginHori = 0;
-
-		/**
-		 *  Original vertical margin in pixels
-		 *  @property {Number} origMarginVert
-		 *  @default 0
-		 */
-		this.origMarginVert = 0;
-
-		switch (settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-				this.origMarginVert = position.y + this.origBounds.y * scale.y;
-				break;
-			case UIScaler.ALIGN_CENTER:
-				this.origMarginVert = designedScreen.height * 0.5 - position.y;
-				break;
-			case UIScaler.ALIGN_BOTTOM:
-				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
-				break;
-		}
-
-		switch (settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-				{
-					this.origMarginHori = position.x + this.origBounds.x * scale.x;
-					break;
-				}
-			case UIScaler.ALIGN_CENTER:
-				{
-					this.origMarginHori = designedScreen.width * 0.5 - position.x;
-					break;
-				}
-			case UIScaler.ALIGN_RIGHT:
-				{
-					this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
-					break;
-				}
-		}
-	};
-
-	// Reference to the prototype
-	var p = UIElement.prototype = {};
-
-	if (DEBUG)
-	{
-		p.toString = function()
-		{
-			return &quot;[UIElement (vertAlign=&#x27;&quot; + this._settings.vertAlign + &quot;&#x27;, horiAlign=&#x27;&quot; + this._settings.horiAlign + &quot;&#x27;)]&quot;;
-		};
+		Object.defineProperty(Array.prototype, &#x27;shuffle&#x27;, {
+			enumerable: false,
+			writable:false,
+			value: function() {
+				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+				return this;
+			}
+		});
 	}
 
 	/**
-	 * Get the current display item
-	 * @property {PIXI.DisplayObject|createjs.DisplayObject} display
-	 * @readOnly
-	 */
-	Object.defineProperty(p, &#x27;display&#x27;,
+	*  Get a random item from an array
+	*  @method random
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The random item
+	*/
+	if(!Array.prototype.random)
 	{
-		get: function()
-		{
-			return this._item;
-		}
-	});
+		Object.defineProperty(Array.prototype, &#x27;random&#x27;, {
+			enumerable: false,
+			writable: false,
+			value: function() {
+				return this[Math.floor(Math.random() * this.length)];
+			}
+		});
+	}
 
 	/**
-	 *  Adjust the item scale and position, to reflect new screen
-	 *  @method resize
-	 *  @param {Number} displayWidth The current screen width
-	 *  @param {Number} displayHeight The current screen height
-	 */
-	p.resize = function(displayWidth, displayHeight)
+	*  Get the last item in the array
+	*  @method last
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The last item
+	*/
+	if(!Array.prototype.last)
 	{
-		var adapter = this._adapter;
-		var _item = this._item;
-		var _settings = this._settings;
-		var _designedScreen = this._designedScreen;
-		var origBounds = this.origBounds;
-		var origScaleX = this.origScaleX;
-		var origScaleY = this.origScaleY;
-		var defaultRatio = _designedScreen.width / _designedScreen.height;
-		var currentRatio = displayWidth / displayHeight;
-		var overallScale = currentRatio &gt;= defaultRatio ?
-			displayHeight / _designedScreen.height :
-			displayWidth / _designedScreen.width;
-		var scaleToHeight = currentRatio &gt;= defaultRatio;
-		var letterBoxWidth = 0;
-		var letterBoxHeight = 0;
-
-		if (scaleToHeight)
+		Object.defineProperty(Array.prototype, &#x27;last&#x27;,
 		{
-			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
-		}
-		else
-		{
-			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
-		}
-
-		// Optional clamps on the min and max scale of the item
-		var itemScale = overallScale;
-		if (_settings.minScale &amp;&amp; itemScale &lt; _settings.minScale)
-		{
-			itemScale = _settings.minScale;
-		}
-		else if (_settings.maxScale &amp;&amp; itemScale &gt; _settings.maxScale)
-		{
-			itemScale = _settings.maxScale;
-		}
-
-		adapter.setScale(_item, origScaleX * itemScale, &quot;x&quot;);
-		adapter.setScale(_item, origScaleY * itemScale, &quot;y&quot;);
-		// Positioning
-		var m;
-		var x;
-		var y;
-
-		// Vertical margin
-		m = this.origMarginVert * overallScale;
-
-		// Determine if vertical alignment should be title safe
-		var titleSafe = _settings.titleSafe === true || _settings.titleSafe === &quot;vertical&quot;;
-
-		switch (_settings.vertAlign)
-		{
-			case UIScaler.ALIGN_TOP:
-				if (titleSafe)
-				{
-					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
-				}
-				else
-				{
-					y = m - origBounds.y * origScaleY * itemScale;
-				}
-				break;
-			case UIScaler.ALIGN_CENTER:
-				y = displayHeight * 0.5 - m;
-				break;
-			case UIScaler.ALIGN_BOTTOM:
-				if (titleSafe)
-				{
-					y = displayHeight - letterBoxHeight - m -
-						origBounds.bottom * origScaleY * itemScale;
-				}
-				else
-				{
-					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
-				}
-				break;
-		}
-
-		// Set the position
-		if (y !== null)
-		{
-			adapter.setPosition(_item, y, &quot;y&quot;);
-		}
-
-		// Horizontal margin
-		m = this.origMarginHori * overallScale;
-
-		// Determine if horizontal alignment should be title safe
-		titleSafe = _settings.titleSafe === true || _settings.titleSafe === &quot;horizontal&quot;;
-
-		switch (_settings.horiAlign)
-		{
-			case UIScaler.ALIGN_LEFT:
-				if (titleSafe)
-				{
-					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
-				}
-				else
-				{
-					x = m - origBounds.x * origScaleX * itemScale;
-				}
-				break;
-			case UIScaler.ALIGN_CENTER:
-				if (_settings.centeredHorizontally)
-				{
-					x = (displayWidth - _item.width) * 0.5;
-				}
-				else
-				{
-					x = displayWidth * 0.5 - m;
-				}
-				break;
-			case UIScaler.ALIGN_RIGHT:
-				if (titleSafe)
-				{
-					x = displayWidth - letterBoxWidth - m -
-						origBounds.right * origScaleX * itemScale;
-				}
-				else
-				{
-					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
-				}
-				break;
-		}
-
-		// Set the position
-		if (x !== null)
-		{
-			adapter.setPosition(_item, x, &quot;x&quot;);
-		}
-	};
-
-	/**
-	 *	Destroy this item, don&#x27;t use after this
-	 *	@method destroy
-	 */
-	p.destroy = function()
-	{
-		this._adapter = null;
-		this.origBounds = null;
-		this._item = null;
-		this._settings = null;
-		this._designedScreen = null;
-	};
-
-	// Assign to namespace
-	namespace(&#x27;springroll&#x27;).UIElement = UIElement;
-
-}());</pre>
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				return this[this.length - 1];
+			}
+		});
+	}
+}());
+</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

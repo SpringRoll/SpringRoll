@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : springroll.Container</title>
+  <title>SpringRoll v0.3.5 API Documentation : springroll.Container</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -721,12 +721,20 @@
                 <a href='#method_destroy'>destroy</a>
 
               </li>
+              <li class='col-xs-6 col-md-4 index-item method protected'>
+                <a href='#method_destroyClientCommunication'>destroyClientCommunication</a>
+
+              </li>
               <li class='col-xs-6 col-md-4 index-item method private'>
                 <a href='#method_disableButton'>disableButton</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method'>
                 <a href='#method_getCaptionsStyles'>getCaptionsStyles</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method protected'>
+                <a href='#method_initClientCommunication'>initClientCommunication</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item method protected'>
@@ -1042,7 +1050,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l754'><code>_checkSoundMute:754</code></a>
+                <a href='../files/src_container_Container.js.html#l779'><code>_checkSoundMute:779</code></a>
               </p>
           
           
@@ -1181,7 +1189,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l845'><code>_setMuteProp:845</code></a>
+                <a href='../files/src_container_Container.js.html#l870'><code>_setMuteProp:870</code></a>
               </p>
           
           
@@ -1251,7 +1259,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l942'><code>clearCaptionsStyles:942</code></a>
+                <a href='../files/src_container_Container.js.html#l967'><code>clearCaptionsStyles:967</code></a>
               </p>
           
           
@@ -1282,7 +1290,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l1071'><code>close:1071</code></a>
+                <a href='../files/src_container_Container.js.html#l1096'><code>close:1096</code></a>
               </p>
           
           
@@ -1313,7 +1321,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l1100'><code>destroy:1100</code></a>
+                <a href='../files/src_container_Container.js.html#l1125'><code>destroy:1125</code></a>
               </p>
           
           
@@ -1322,6 +1330,38 @@
           
             <div class='description'>
               <p>Destroy and don&#39;t use after this</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_destroyClientCommunication' class='method item protected'>
+            <h3 class='name'><code>destroyClientCommunication</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag protected'>protected</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_container_Container.js.html#l441'><code>destroyClientCommunication:441</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Removes the Bellhop communication layer altogether.</p>
           
             </div>
           
@@ -1352,7 +1392,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l1088'><code>disableButton:1088</code></a>
+                <a href='../files/src_container_Container.js.html#l1113'><code>disableButton:1113</code></a>
               </p>
           
           
@@ -1410,7 +1450,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l930'><code>getCaptionsStyles:930</code></a>
+                <a href='../files/src_container_Container.js.html#l955'><code>getCaptionsStyles:955</code></a>
               </p>
           
           
@@ -1451,6 +1491,39 @@
                 </div>
               </div>
           
+          </div>          <div id='method_initClientCommunication' class='method item protected'>
+            <h3 class='name'><code>initClientCommunication</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag protected'>protected</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_container_Container.js.html#l413'><code>initClientCommunication:413</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Set up communication layer between site and application.
+          May be called from subclasses if they create/destroy Bellhop instances.</p>
+          
+            </div>
+          
+          
+          
           </div>          <div id='method_manageFocus' class='method item protected'>
             <h3 class='name'><code>manageFocus</code></h3>
           
@@ -1469,7 +1542,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l499'><code>manageFocus:499</code></a>
+                <a href='../files/src_container_Container.js.html#l525'><code>manageFocus:525</code></a>
               </p>
           
           
@@ -1508,7 +1581,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l573'><code>onAnalyticEvent:573</code></a>
+                <a href='../files/src_container_Container.js.html#l599'><code>onAnalyticEvent:599</code></a>
               </p>
           
           
@@ -1557,7 +1630,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l638'><code>onCaptionsToggle:638</code></a>
+                <a href='../files/src_container_Container.js.html#l663'><code>onCaptionsToggle:663</code></a>
               </p>
           
           
@@ -1589,7 +1662,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l484'><code>onContainerBlur:484</code></a>
+                <a href='../files/src_container_Container.js.html#l510'><code>onContainerBlur:510</code></a>
               </p>
           
           
@@ -1621,7 +1694,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l473'><code>onContainerFocus:473</code></a>
+                <a href='../files/src_container_Container.js.html#l499'><code>onContainerFocus:499</code></a>
               </p>
           
           
@@ -1653,7 +1726,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l625'><code>onEndGame:625</code></a>
+                <a href='../files/src_container_Container.js.html#l651'><code>onEndGame:651</code></a>
               </p>
           
           
@@ -1692,7 +1765,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l538'><code>onFeatures:538</code></a>
+                <a href='../files/src_container_Container.js.html#l564'><code>onFeatures:564</code></a>
               </p>
           
           
@@ -1741,7 +1814,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l462'><code>onFocus:462</code></a>
+                <a href='../files/src_container_Container.js.html#l488'><code>onFocus:488</code></a>
               </p>
           
           
@@ -1773,7 +1846,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l563'><code>onHelpEnabled:563</code></a>
+                <a href='../files/src_container_Container.js.html#l589'><code>onHelpEnabled:589</code></a>
               </p>
           
           
@@ -1812,7 +1885,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l527'><code>onLearningEvent:527</code></a>
+                <a href='../files/src_container_Container.js.html#l553'><code>onLearningEvent:553</code></a>
               </p>
           
           
@@ -1861,7 +1934,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l429'><code>onLoadDone:429</code></a>
+                <a href='../files/src_container_Container.js.html#l455'><code>onLoadDone:455</code></a>
               </p>
           
           
@@ -1893,7 +1966,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l721'><code>onMusicToggle:721</code></a>
+                <a href='../files/src_container_Container.js.html#l746'><code>onMusicToggle:746</code></a>
               </p>
           
           
@@ -1925,7 +1998,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l764'><code>onPauseToggle:764</code></a>
+                <a href='../files/src_container_Container.js.html#l789'><code>onPauseToggle:789</code></a>
               </p>
           
           
@@ -1957,7 +2030,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l612'><code>onPlayHelp:612</code></a>
+                <a href='../files/src_container_Container.js.html#l638'><code>onPlayHelp:638</code></a>
               </p>
           
           
@@ -1989,7 +2062,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l743'><code>onSFXToggle:743</code></a>
+                <a href='../files/src_container_Container.js.html#l768'><code>onSFXToggle:768</code></a>
               </p>
           
           
@@ -2021,7 +2094,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l707'><code>onSoundToggle:707</code></a>
+                <a href='../files/src_container_Container.js.html#l732'><code>onSoundToggle:732</code></a>
               </p>
           
           
@@ -2053,7 +2126,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l732'><code>onVOToggle:732</code></a>
+                <a href='../files/src_container_Container.js.html#l757'><code>onVOToggle:757</code></a>
               </p>
           
           
@@ -2094,7 +2167,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l351'><code>open:351</code></a>
+                <a href='../files/src_container_Container.js.html#l335'><code>open:335</code></a>
               </p>
           
           
@@ -2188,7 +2261,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l374'><code>openRemote:374</code></a>
+                <a href='../files/src_container_Container.js.html#l358'><code>openRemote:358</code></a>
               </p>
           
           
@@ -2283,7 +2356,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l1043'><code>reset:1043</code></a>
+                <a href='../files/src_container_Container.js.html#l1068'><code>reset:1068</code></a>
               </p>
           
           
@@ -2325,7 +2398,7 @@
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_container_Container.js.html#l864'><code>setCaptionsStyles:864</code></a>
+                <a href='../files/src_container_Container.js.html#l889'><code>setCaptionsStyles:889</code></a>
               </p>
           
           
@@ -2533,7 +2606,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l775"><code>CAPTIONS_MUTED:775</code></a>
+                <a href="../files/src_container_Container.js.html#l800"><code>CAPTIONS_MUTED:800</code></a>
               </p>
           
           
@@ -2560,7 +2633,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l820"><code>CAPTIONS_STYLES:820</code></a>
+                <a href="../files/src_container_Container.js.html#l845"><code>CAPTIONS_STYLES:845</code></a>
               </p>
           
           
@@ -2608,7 +2681,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l953"><code>captionsMuted:953</code></a>
+                <a href="../files/src_container_Container.js.html#l978"><code>captionsMuted:978</code></a>
               </p>
           
           
@@ -2660,7 +2733,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l829"><code>DEFAULT_CAPTIONS_STYLES:829</code></a>
+                <a href="../files/src_container_Container.js.html#l854"><code>DEFAULT_CAPTIONS_STYLES:854</code></a>
               </p>
           
           
@@ -2732,7 +2805,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l687"><code>helpEnabled:687</code></a>
+                <a href="../files/src_container_Container.js.html#l712"><code>helpEnabled:712</code></a>
               </p>
           
           
@@ -2831,7 +2904,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l793"><code>MUSIC_MUTED:793</code></a>
+                <a href="../files/src_container_Container.js.html#l818"><code>MUSIC_MUTED:818</code></a>
               </p>
           
           
@@ -2879,7 +2952,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l1007"><code>musicMuted:1007</code></a>
+                <a href="../files/src_container_Container.js.html#l1032"><code>musicMuted:1032</code></a>
               </p>
           
           
@@ -2952,7 +3025,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l648"><code>paused:648</code></a>
+                <a href="../files/src_container_Container.js.html#l673"><code>paused:673</code></a>
               </p>
           
           
@@ -3029,7 +3102,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l811"><code>SFX_MUTED:811</code></a>
+                <a href="../files/src_container_Container.js.html#l836"><code>SFX_MUTED:836</code></a>
               </p>
           
           
@@ -3077,7 +3150,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l1025"><code>sfxMuted:1025</code></a>
+                <a href="../files/src_container_Container.js.html#l1050"><code>sfxMuted:1050</code></a>
               </p>
           
           
@@ -3105,7 +3178,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l784"><code>SOUND_MUTED:784</code></a>
+                <a href="../files/src_container_Container.js.html#l809"><code>SOUND_MUTED:809</code></a>
               </p>
           
           
@@ -3153,7 +3226,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l971"><code>soundMuted:971</code></a>
+                <a href="../files/src_container_Container.js.html#l996"><code>soundMuted:996</code></a>
               </p>
           
           
@@ -3181,7 +3254,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l802"><code>VO_MUTED:802</code></a>
+                <a href="../files/src_container_Container.js.html#l827"><code>VO_MUTED:827</code></a>
               </p>
           
           
@@ -3229,7 +3302,7 @@
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_container_Container.js.html#l989"><code>voMuted:989</code></a>
+                <a href="../files/src_container_Container.js.html#l1014"><code>voMuted:1014</code></a>
               </p>
           
           
@@ -3785,7 +3858,7 @@
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

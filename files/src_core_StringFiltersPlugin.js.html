@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/TimeUtils.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/core/StringFiltersPlugin.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,60 +508,62 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:TimeUtils.js</h1>
+<h1 class="file-heading">File:StringFiltersPlugin.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
- * @module Core
+ * @module UI
  * @namespace springroll
+ * @requires Core
  */
-(function(window){
-		
-	// Include the window.performance object
-	var performance = include(&#x27;performance&#x27;, false);
-
-	// See if we have performance.now or any of
-	// the brower-specific versions
-	var now = performance &amp;&amp; (
-		performance.now || 
-		performance.mozNow || 
-		performance.msNow || 
-		performance.oNow || 
-		performance.webkitNow
-	);
-
-	// Browser prefix polyfill
-	if (now) performance.now = now;
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;);
 
 	/**
-	*  A collection of Time related utility functions
-	*  @class TimeUtils
-	*/
-	var TimeUtils = {};
-	
-	/**
-	*  This method gets timestamp in micromilliseconds for doing performance
-	*  intense operations. Fallback support is to &#x60;Date.now()&#x60;. We aren&#x27;t overridding
-	*  &#x60;performance.now()&#x60; incase dependencies on this actually demand 
-	*  the optimization and accuracy that performance actually provides.
-	*  @static
-	*  @method now
-	*  @return {int} The number of micromilliseconds of the current timestamp
-	*/
-	TimeUtils.now = !now ? Date.now : function()
-	{ 
-		return performance.now(); 
+	 * Create an app plugin for String Filters, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class StringFiltersPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var StringFiltersPlugin = function()
+	{
+		ApplicationPlugin.call(this);
+
+		this.priority = 110;
 	};
 
-	// Assign to namespace
-	namespace(&#x27;springroll&#x27;).TimeUtils = TimeUtils;
-	
-}(window));</pre>
+	// Reference to the prototype
+	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+
+	// Init the animator
+	p.setup = function()
+	{
+		/**
+		 * The StringFilters instance
+		 * @property {springroll.StringFilters} filters
+		 */
+		var StringFilters = include(&#x27;springroll.StringFilters&#x27;);
+		this.filters = new StringFilters();
+	};
+
+	// Destroy the animator
+	p.teardown = function()
+	{
+		if (this.filters) this.filters.destroy();
+		this.filters = null;
+	};
+
+	// register plugin
+	ApplicationPlugin.register(StringFiltersPlugin);
+
+}());</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

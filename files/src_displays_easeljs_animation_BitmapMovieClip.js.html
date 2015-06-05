@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/displays/easeljs/animation/BitmapMovieClip.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/displays/easeljs/animation/BitmapMovieClip.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -520,7 +520,10 @@
 
 	&quot;use strict&quot;;
 	
-	var Container = include(&quot;createjs.Container&quot;);
+	var Container = include(&quot;createjs.Container&quot;),
+		Point = include(&quot;createjs.Point&quot;),
+		Rectangle = include(&#x27;createjs.Rectangle&#x27;),
+		Bitmap = include(&#x27;createjs.Bitmap&#x27;);
 
 	/**
 	*  A class similar to createjs.MovieClip, but made to play animations from a
@@ -605,12 +608,20 @@
 		 * @default false
 		 */
 		this.paused = false;
+		
+		/**
+		 * Boundaries of the animation, like the nominalBounds produced by Flash&#x27;s HTML5 exporter.
+		 * This uses the full, untrimmed size of the first frame.
+		 * @property nominalBounds
+		 * @type createjs.Rectangle
+		 */
+		this.nominalBounds = new Rectangle();
 
 		//==== Private properties =====
 
 		/**
-		 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
-		 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
+		 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate
+		 * for the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
 		 * appropriate to maintain the target framerate.
 		 *
 		 * @property _framerate
@@ -621,8 +632,8 @@
 		this._framerate = 0;
 
 		/**
-		 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the
-		 * animation.
+		 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for
+		 * the animation.
 		 *
 		 * @property _duration
 		 * @type Number
@@ -692,7 +703,7 @@
 		/**
 		 * The origin point of the BitmapMovieClip.
 		 * @property _origin
-		 * @type createjs.Point
+		 * @type Point
 		 * @private
 		 */
 		this._origin = null;
@@ -708,7 +719,7 @@
 
 		// mouse events should reference this, not the child bitmap
 		this.mouseChildren = false;
-		this._bitmap = new createjs.Bitmap();
+		this._bitmap = new Bitmap();
 		this.addChild(this._bitmap);
 		
 		if (atlas &amp;&amp; data)
@@ -1046,9 +1057,18 @@
 			this._scale = 1;
 		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
 		if(data.origin)
-			this._origin = new createjs.Point(data.origin.x * this._scale, data.origin.y * this._scale);
+			this._origin = new Point(data.origin.x * this._scale, data.origin.y * this._scale);
 		else
-			this._origin = new createjs.Point();
+			this._origin = new Point();
+		
+		//set up a nominal bounds, to make it easier to determine boundaries
+		//this uses the untrimmed size of the texture
+		var frame = this._frames[0];
+		var bounds = this.nominalBounds;
+		bounds.x = -this._origin.x;
+		bounds.y = -this._origin.y;
+		bounds.width = frame.width * this._scale;
+		bounds.height = frame.height * this._scale;
 	};
 
 	function labelSorter(a, b)
@@ -1198,7 +1218,7 @@
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/ApplicationOptions.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/core/utils/TimeUtils.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,290 +508,60 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:ApplicationOptions.js</h1>
+<h1 class="file-heading">File:TimeUtils.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
-*  @module Core
-*  @namespace springroll
-*/
-(function(undefined)
-{
-	var Tween = include(&#x27;createjs.Tween&#x27;, false),
-		Ticker = include(&#x27;createjs.Ticker&#x27;, false),
-		PropertyDispatcher = include(&#x27;springroll.PropertyDispatcher&#x27;),
-		Debug;
+ * @module Core
+ * @namespace springroll
+ */
+(function(window){
+		
+	// Include the window.performance object
+	var performance = include(&#x27;performance&#x27;, false);
+
+	// See if we have performance.now or any of
+	// the brower-specific versions
+	var now = performance &amp;&amp; (
+		performance.now || 
+		performance.mozNow || 
+		performance.msNow || 
+		performance.oNow || 
+		performance.webkitNow
+	);
+
+	// Browser prefix polyfill
+	if (now) performance.now = now;
 
 	/**
-	* Manage the Application options
-	* @class ApplicationOptions
-	* @extends springroll.PropertyDispatcher
-	* @constructor {Object} [overrides] The supplied options
+	*  A collection of Time related utility functions
+	*  @class TimeUtils
 	*/
-	var ApplicationOptions = function(app, options)
-	{
-		if(Debug === undefined)
-			Debug = include(&#x27;springroll.Debug&#x27;, false);
-		
-		PropertyDispatcher.call(this);
-
-		/**
-		 * The user input options
-		 * @property {Object} _options
-		 * @private
-		 */
-		this._options = options || {};
-
-		/**
-		 * Reference to the application
-		 * @property {springroll.Application} _app
-		 * @private
-		 */
-		this._app = app;
-	};
-
-	// Extend the base class
-	var p = extend(ApplicationOptions, PropertyDispatcher);
-
+	var TimeUtils = {};
+	
 	/**
-	 * Initialize the values in the options
-	 * @method init
-	 */
-	p.init = function()
-	{
-		var options = this._options;
-		var app = this._app;
-
-		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options);
-
-		// If parse querystring is turned on, we&#x27;ll
-		// override with any of the query string parameters
-		if (options.useQueryString)
-		{
-			Object.merge(options, getQueryString());
-		}
-
-		// Create getter and setters for all properties
-		// this is so we can dispatch events when the property changes
-		for(var name in options)
-		{
-			this.add(name, options[name]);
-		}
-
-		// Cannot change these properties after setup
-		this.readOnly(
-			&#x27;name&#x27;,
-			&#x27;resizeElement&#x27;,
-			&#x27;useQueryString&#x27;,
-			&#x27;canvasId&#x27;,
-			&#x27;display&#x27;,
-			&#x27;displayOptions&#x27;,
-			&#x27;uniformResize&#x27;
-		);
-
-		// Convert these to DOM elements
-		this.asDOMElement(&#x27;resizeElement&#x27;);
-
-		this.on(&#x27;updateTween&#x27;, function(value)
-		{
-			if (Tween)
-			{
-				if (Ticker)
-				{
-					Ticker.setPaused(!!value);
-				}
-				app.off(&#x27;update&#x27;, Tween.tick);
-				if (value)
-				{
-					app.on(&#x27;update&#x27;, Tween.tick);
-				}
-			}
-		});
-		
-		//trigger all of the initial values, because otherwise they don&#x27;t take effect.
-		var _properties = this._properties;
-		for(var id in _properties)
-		{
-			this.trigger(id, _properties[id].value);
-		}
-	};
-
-	/**
-	 * Get the query string as an object
-	 * @property {Object} getQueryString
-	 * @private
-	 */
-	var getQueryString = function()
-	{
-		var output = {};
-		var href = window.location.search;
-		if (!href) //empty string is false
-		{
-			return output;
-		}
-		var vars = href.substr(href.indexOf(&quot;?&quot;)+1);
-		var pound = vars.indexOf(&#x27;#&#x27;);
-		vars = pound &lt; 0 ? vars : vars.substring(0, pound);
-		var splitFlashVars = vars.split(&quot;&amp;&quot;);
-		var myVar;
-		for (var i = 0, len = splitFlashVars.length; i &lt; len; i++)
-		{
-			myVar = splitFlashVars[i].split(&quot;=&quot;);
-			var value = myVar[1];
-			if(value === &quot;true&quot; || value === undefined)
-				value = true;
-			else if(value === &quot;false&quot;)
-				value = false;
-			if (DEBUG &amp;&amp; Debug)
-			{
-				Debug.log(myVar[0] + &quot; -&gt; &quot; + value);
-			}
-			output[myVar[0]] = value;
-		}
-		return output;
-	};
-
-	/**
-	 * Convert a string into a DOM Element
-	 * @private asDOMElement
-	 * @param {String} name The property name to fetch
-	 */
-	p.asDOMElement = function(name)
-	{
-		var prop = this._properties[name];
-		if (prop &amp;&amp; prop.value &amp;&amp; typeof prop.value === &quot;string&quot;)
-		{
-			prop.value = document.getElementById(prop.value);
-		}
-	};
-
-	/**
-	 * Override a default value
-	 * @private override
-	 * @param {String} name The property name to fetch
-	 * @param {*} value The value
-	 */
-	p.override = function(name, value)
-	{
-		if (defaultOptions[name] === undefined)
-		{
-			throw &quot;ApplicationOptions doesn&#x27;t have default name &#x27;&quot; + name + &quot;&#x27;&quot;;
-		}
-		defaultOptions[name] = value;
-	};
-
-	/**
-	 * The default Application options
-	 * @property {Object} defaultOptions
-	 * @private
-	 */
-	var defaultOptions = {
-
-		/**
-		 * Use Request Animation Frame API
-		 * @property {Boolean} raf
-		 * @default true
-		 */
-		raf: true,
-
-		/**
-		 * The framerate to use for rendering the stage
-		 * @property {int} fps
-		 * @default 60
-		 */
-		fps: 60,
-
-		/**
-		 * The element to resize the canvas to fit
-		 * @property {DOMElement|String} resizeElement
-		 * @default &#x27;frame&#x27;
-		 */
-		resizeElement: &#x27;frame&#x27;,
-
-		/**
-		 * Whether to resize the displays to the original aspect ratio
-		 * @property {Boolean} uniformResize
-		 * @default true
-		 */
-		uniformResize: true,
-
-		/**
-		 * Use the query string parameters for options overrides
-		 * @property {Boolean} useQueryString
-		 * @default false
-		 */
-		useQueryString: DEBUG,
-
-		/**
-		 * The default display DOM ID name
-		 * @property {String} canvasId
-		 */
-		canvasId: null,
-
-		/**
-		 * The name of the class to automatically instantiate as the
-		 * display (e.g. &#x60;springroll.PixiDisplay&#x60;)
-		 * @property {Function} display
-		 */
-		display: null,
-
-		/**
-		 * Display specific setup options
-		 * @property {Object} displayOptions
-		 */
-		displayOptions: null,
-
-		/**
-		 * If using TweenJS, the Application will update the Tween itself.
-		 * @property {Boolean} updateTween
-		 * @default true
-		 */
-		updateTween: true,
-
-		/**
-		 * Used by &#x60;springroll.PixiTask&#x60;, default behavior
-		 * is to load assets from the same domain.
-		 * @property {Boolean} crossOrigin
-		 * @default false
-		 */
-		crossOrigin: false,
-
-		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum height relative to the original width. This
-		 * allows for &quot;title-safe&quot; responsiveness. Must be greater
-		 * than the original height of the canvas.
-		 * @property {int} maxHeight
-		 */
-		maxHeight: 0,
-
-		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum width relative to the original height. This
-		 * allows for &quot;title-safe&quot; responsiveness. Must be greater
-		 * than the original width of the canvas.
-		 * @property {int} maxWidth
-		 */
-		maxWidth: 0,
-
-		/**
-		 * The name of the application
-		 * @property {String} name
-		 * @default &#x27;&#x27;
-		 */
-		name: &#x27;&#x27;
+	*  This method gets timestamp in micromilliseconds for doing performance
+	*  intense operations. Fallback support is to &#x60;Date.now()&#x60;. We aren&#x27;t overridding
+	*  &#x60;performance.now()&#x60; incase dependencies on this actually demand 
+	*  the optimization and accuracy that performance actually provides.
+	*  @static
+	*  @method now
+	*  @return {int} The number of micromilliseconds of the current timestamp
+	*/
+	TimeUtils.now = !now ? Date.now : function()
+	{ 
+		return performance.now(); 
 	};
 
 	// Assign to namespace
-	namespace(&#x27;springroll&#x27;).ApplicationOptions = ApplicationOptions;
-
-}());</pre>
+	namespace(&#x27;springroll&#x27;).TimeUtils = TimeUtils;
+	
+}(window));</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

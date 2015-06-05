@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/LanguagesPlugin.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/core/utils/SavedData.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,105 +508,167 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:LanguagesPlugin.js</h1>
+<h1 class="file-heading">File:SavedData.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
- * @module Languages
- * @namespace springroll
- * @requires Core
- */
-(function()
-{
-	// Include classes
-	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
-		Languages = include(&#x27;springroll.Languages&#x27;), 
-		Debug;
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
 
 	/**
-	 * Create an app plugin for Language, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class LanguagesPlugin
-	 * @extends springroll.ApplicationPlugin
-	 */
-	var LanguagesPlugin = function()
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	*
+	*  @class SavedData
+	*/
+	var SavedData = {},
+
+	/** A constant to determine if we can use localStorage and sessionStorage */
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+
+	/** A constant for cookie fallback for SavedData.clear() */
+	ERASE_COOKIE = -1;
+
+	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
+	if(WEB_STORAGE_SUPPORT)
 	{
-		ApplicationPlugin.call(this);
-		this.priority = 95; 
-	};
-
-	// Reference to the prototype
-	var p = extend(LanguagesPlugin, ApplicationPlugin);
-
-	// Init the animator
-	p.setup = function()
-	{
-		/**
-		 * The StringFilters instance
-		 * @property {springroll.Languages} languages
-		 */
-		this.languages = new Languages();
-
-		/**
-		 * Force a specific language
-		 * @property {String} options.language
-		 * @default null
-		 */
-		this.options.add(&#x27;language&#x27;, null, true);
-
-		/**
-		 * The path to the languages configuration file
-		 * @property {String} options.languagesPath
-		 * @default null
-		 */
-		this.options.add(&#x27;languagesPath&#x27;, null, true);
-	};
-
-	// preload the language configuration
-	p.preload = function(done)
-	{
-		var config = this.options.languagesPath;
-		if (config)
+		try
 		{
-			this.loader.load(config, function(result)
-			{
-				this.languages.setConfig(result.content);
-				var lang = this.options.language;
-				if (lang)
-				{
-					this.languages.setLanguage(lang);
-				}
-				done();
-			}
-			.bind(this));
+			localStorage.setItem(&quot;LS_TEST&quot;, &quot;test&quot;);
+			localStorage.removeItem(&quot;LS_TEST&quot;);
+		}
+		catch(e)
+		{
+			WEB_STORAGE_SUPPORT = false;
+		}
+	}
+
+	/**
+	*  Remove a saved variable by name.
+	*  @method remove
+	*  @static
+	*  @param {String} name The name of the value to remove
+	*/
+	SavedData.remove = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			localStorage.removeItem(name);
+			sessionStorage.removeItem(name);
+		}
+		else
+			SavedData.write(name,&quot;&quot;,ERASE_COOKIE);
+	};
+
+	/**
+	*  Save a variable.
+	*  @method write
+	*  @static
+	*  @param {String} name The name of the value to save
+	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
+	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	*/
+	SavedData.write = function(name, value, tempOnly)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			if(tempOnly)
+				sessionStorage.setItem(name, JSON.stringify(value));
+			else
+				localStorage.setItem(name, JSON.stringify(value));
 		}
 		else
 		{
-			Debug = include(&#x27;springroll.Debug&#x27;, false);
-			if (DEBUG &amp;&amp; Debug)
+			var expires;
+			if (tempOnly)
 			{
-				Debug.info(&quot;Application option &#x27;languagesPath&#x27; is empty, set to automatically load languages configuration.&quot;);
+				if(tempOnly !== ERASE_COOKIE)
+					expires = &quot;&quot;;//remove when browser is closed
+				else
+					expires = &quot;; expires=Thu, 01 Jan 1970 00:00:00 GMT&quot;;//save cookie in the past for immediate removal
 			}
-			done();
+			else
+				expires = &quot;; expires=&quot;+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+
+			document.cookie = name+&quot;=&quot;+escape(JSON.stringify(value))+expires+&quot;; path=/&quot;;
 		}
 	};
 
-	// Destroy the animator
-	p.teardown = function()
+	/**
+	*  Read the value of a saved variable
+	*  @method read
+	*  @static
+	*  @param {String} name The name of the variable
+	*  @return {mixed} The value (run through &#x60;JSON.parse()&#x60;) or null if it doesn&#x27;t exist
+	*/
+	SavedData.read = function(name)
 	{
-		if (this.languages) this.languages.destroy();
-		this.languages = null;
+		if(WEB_STORAGE_SUPPORT)
+		{
+			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+			if(value)
+				return JSON.parse(value, SavedData.reviver);
+			else
+				return null;
+		}
+		else
+		{
+			var nameEQ = name + &quot;=&quot;,
+				ca = document.cookie.split(&#x27;;&#x27;),
+				i = 0, c, len;
+
+			for(i=0, len=ca.length; i&lt;len;i++)
+			{
+				c = ca[i];
+				while (c.charAt(0) == &#x27; &#x27;) c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+			}
+			return null;
+		}
 	};
 
-	// register plugin
-	ApplicationPlugin.register(LanguagesPlugin);
+	/**
+	 * When restoring from JSON via &#x60;JSON.parse&#x60;, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (&#x60;__classname&#x60;).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	SavedData.reviver = function(key, value)
+	{
+		if(value &amp;&amp; typeof value.__classname == &quot;string&quot;)
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
+	};
 
-}());</pre>
+	// Assign to the global space
+	namespace(&#x27;springroll&#x27;).SavedData = SavedData;
+
+}());
+</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

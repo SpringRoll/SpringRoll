@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/ui/Positioner.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/ui/Positioner.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -529,10 +529,10 @@
 	var DEG_TO_RAD = Math.PI / 180;
 
 	/**
-	 * Initial position a single item
-	 * @method initItem
+	 * Initial position a single display object
+	 * @method init
 	 * @static
-	 * @param {DisplayObject} item The display object to scale
+	 * @param {createjs.DisplayObject|PIXI.DisplayObject} display The display object to scale
 	 * @param {Object} settings The values for setting
 	 * @param {Number} [settings.x] The initial X position of the item
 	 * @param {Number} [settings.y] The initial Y position of the item
@@ -551,50 +551,50 @@
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
 	 *                                   in. If omitted, uses the Application&#x27;s default display.
 	 */
-	Positioner.initItem = function(item, settings, adapter)
+	Positioner.init = function(displayObject, settings, adapter)
 	{
 		//get the default adapter if not specified
 		if (!adapter)
-			adapter = springroll.UIScaler._getAdapter();
+			adapter = springroll.ScaleManager._getAdapter();
 
 		if (settings.x !== undefined)
 		{
-			adapter.setPosition(item, settings.x, &#x27;x&#x27;);
+			adapter.setPosition(displayObject, settings.x, &#x27;x&#x27;);
 		}
 
 		if (settings.y !== undefined)
 		{
-			adapter.setPosition(item, settings.y, &#x27;y&#x27;);
+			adapter.setPosition(displayObject, settings.y, &#x27;y&#x27;);
 		}
 
 		var pt = settings.scale;
-		var scale = adapter.getScale(item);
+		var scale = adapter.getScale(displayObject);
 
 		if (pt)
 		{
-			adapter.setScale(item, pt.x * scale.x, &quot;x&quot;);
-			adapter.setScale(item, pt.y * scale.y, &quot;y&quot;);
+			adapter.setScale(displayObject, pt.x * scale.x, &quot;x&quot;);
+			adapter.setScale(displayObject, pt.y * scale.y, &quot;y&quot;);
 		}
 		pt = settings.pivot;
 
 		if (pt)
 		{
-			adapter.setPivot(item, pt);
+			adapter.setPivot(displayObject, pt);
 		}
 
 		if (settings.rotation !== undefined)
 		{
-			item.rotation = settings.rotation;
+			displayObject.rotation = settings.rotation;
 			if (adapter.useRadians)
 			{
-				item.rotation *= DEG_TO_RAD;
+				displayObject.rotation *= DEG_TO_RAD;
 			}
 		}
 
 		if (settings.hitArea)
 		{
 			adapter.setHitArea(
-				item,
+				displayObject,
 				Positioner.generateHitArea(
 					settings.hitArea, 1, adapter
 				)
@@ -635,7 +635,7 @@
 	{
 		//get the default adapter if not specified
 		if (!adapter)
-			adapter = springroll.UIScaler._getAdapter();
+			adapter = springroll.ScaleManager._getAdapter();
 		if (!scale) scale = 1;
 
 		if (Array.isArray(hitArea))
@@ -704,7 +704,7 @@
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

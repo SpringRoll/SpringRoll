@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/CombinedCallback.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/core/utils/Enum.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,7 +508,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:CombinedCallback.js</h1>
+<h1 class="file-heading">File:Enum.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -517,55 +517,259 @@
  */
 (function()
 {
-	
+	var Debug;
 	/**
-	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
-	*  callbacks into one. For example usage:
+	 * An enumeration value. This class is private, and is only used by Enum.
+	 * @class EnumValue
+	 * @private
+	 * @constructor
+	 * @param {String} name The name of the enum value.
+	 * @param {int} value The integer value of the enum.
+	 * @param {String} toString A string for toString() to return, instead of the name.
+	 */
+	var EnumValue = function(name, value, toString)
+	{
+
+		if (Debug === undefined)
+			Debug = include(&#x27;springroll.Debug&#x27;, false);
+
+		/**
+		 * The name of the value, for reflection or logging purposes.
+		 * @property {String} name
+		 */
+		this.name = name;
+		/**
+		 * The integer value of this enum entry.
+		 * @property {int} _value
+		 * @private
+		 */
+		this._value = value;
+		/**
+		 * A string for toString() to return, instead of the name.
+		 * @property {String} _toString
+		 * @private
+		 */
+		this._toString = toString || this.name;
+	};
+
+	/**
+	 * The integer value of this enum entry.
+	 * @property {int} asInt
+	 */
+	Object.defineProperty(EnumValue.prototype, &quot;asInt&quot;,
+	{
+		get: function()
+		{
+			return this._value;
+		}
+	});
+
+	EnumValue.prototype.toString = function()
+	{
+		return this._toString;
+	};
+
+	/**
+	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	* referenced as a property with the same name as the EnumValue. Examples:
 	*
-	*  var voPlayer = new springroll.VOPlayer();
-	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, &quot;playing&quot;, &quot;_callback&quot;);
-	*  Animator.play(myClip, &quot;myAnim&quot;, callback);
-	*  
-	*  In this example, when Animator calls &#x27;callback&#x27;, if voPlayer[&quot;playing&quot;] is false, &#x27;myFunc&#x27; is called immediately.
-	*  If voPlayer[&quot;playing&quot;] is true, then voPlayer[&quot;_callback&quot;] is set to &#x27;myFunc&#x27; so that it will be called when voPlayer completes.
-	*  
-	*  @class CombinedCallback
-	*  @constructor
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+		var myEnum = new springroll.Enum(
+			&quot;valueOf0&quot;,
+			&quot;valueOf1&quot;,
+			&quot;valueOf2&quot;);
+		var myOtherEnum = new springroll.Enum(
+			{name: &quot;one&quot;, value:&quot;1&quot;, toString:&quot;I am the One!&quot;},
+			&quot;two&quot;,
+			{name:&quot;screwSequentialNumbers&quot;, value:42});
+			
+		myEnum.valueOf0 != 0;//enum values are not integers
+		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
+		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
+		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
+		console.log(myOtherEnum.one.toString());//outputs &quot;I am the One!&quot;
+
+		for (var i in myEnum) console.log(i); //outputs &quot;valueOf0&quot;,&quot;valueOf1&quot;,&quot;valueOf2&quot;
+	*
+	* @class Enum
+	* @constructor
+	* @param {Array|String|Object} arguments 
+	*  The list of enumeration values. You can pass either an
+	*  array or a list of parameters. Each string will be
+	*  the previous value plus one, while objects with
+	*  &#x27;name&#x27; and &#x27;value&#x27; properties will have the specified
+	*  numeric value.
 	*/
-	var CombinedCallback = function(call, obj, prop, callProp)
+	var Enum = function()
 	{
-		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
-			call();
-		else
-			obj[callProp] = call;
+		var args = Array.isArray(arguments[0]) ?
+			arguments[0] :
+			Array.prototype.slice.call(arguments);
+
+		/**
+		 * A potentially sparse array of each enum value, stored by integer values.
+		 * @property {Array} _byValue
+		 * @private
+		 */
+		Object.defineProperty(this, &#x27;_byValue&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			value: []
+		});
+
+		/**
+		 * The values that this Enum was initialized with. We save this so
+		 * that we can potentially pass this via Bellhop and re-initialize.
+		 * @public
+		 * @property {Array} rawEnumValues
+		 */
+		Object.defineProperty(this, &#x27;rawEnumValues&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			value: args
+		});
+
+		var counter = 0;
+		var item;
+		var value;
+		var name;
+
+		// Create an EnumValue for each argument provided
+		for (var i = 0, len = args.length; i &lt; len; ++i)
+		{
+			if (typeof args[i] == &quot;string&quot;)
+			{
+				name = args[i];
+			}
+			else
+			{
+				name = args[i].name;
+				value = args[i].value || counter;
+				counter = value;
+			}
+
+			// if name already exists in Enum 
+			if (this[name])
+			{
+				if (DEBUG &amp;&amp; Debug)
+				{
+					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value +
+						&quot; - an enum value already exists with that name.&quot;);
+				}
+				continue;
+			}
+
+			item = (typeof args[i] == &quot;string&quot;) ?
+				new EnumValue(name, counter, name) :
+				new EnumValue(name, value, args[i].toString || name);
+
+			this[item.name] = item;
+			if (this._byValue[counter])
+			{
+				if (Array.isArray(this._byValue[counter]))
+				{
+					this._byValue[counter].push(item);
+				}
+				else
+				{
+					this._byValue[counter] = [this._byValue[counter], item];
+				}
+			}
+			else
+			{
+				this._byValue[counter] = item;
+			}
+			counter++;
+		}
+
+		/**
+		 * The count of values the enum was initialized with.
+		 * @public
+		 * @property {int} length
+		 */
+		Object.defineProperty(this, &#x27;length&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			value: args.length
+		});
+
+		/**
+		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, &#x27;next&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			// {EnumValue} input
+			value: function(input)
+			{
+				var nextInt = input.asInt + 1;
+				if (nextInt &gt;= counter)
+				{
+					return this.first;
+				}
+				return this.valueFromInt(nextInt);
+			}
+		});
+
+		/**
+		 * Retrieves the first EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, &#x27;first&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(args[0].value || 0)
+		});
+
+		/**
+		 * Retrieves the last EnumValue in the Enum
+		 * @method {EnumValue} input
+		 * @return {EnumValue}  
+		 */
+		Object.defineProperty(this, &#x27;last&#x27;,
+		{
+			enumerable: false,
+			writable: false,
+			value: this.valueFromInt(counter-1)
+		});
 	};
 
 	/**
-	*  Creates a CombinedCallback for use.
-	*  
-	*  @method create
-	*  @static
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
-	CombinedCallback.create = function(call, obj, prop, callProp)
+	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
+	 * value, this will always retrieve the first enum value.
+	 * @method {Array} valueFromInt
+	 * @param {int} input The integer value to get an enum value for.
+	 * @return {EnumValue} The EnumValue that represents the input integer.
+	 */
+	Object.defineProperty(Enum.prototype, &#x27;valueFromInt&#x27;,
 	{
-		return CombinedCallback.bind(this, call, obj, prop, callProp);
-	};
+		enumerable: false,
+		writable: false,
+		value: function(input)
+		{
+			var rtn = this._byValue[input];
+			if (rtn)
+			{
+				return Array.isArray(rtn) ? rtn[0] : rtn;
+			}
+			return null;
+		}
+	});
 
-	namespace(&#x27;springroll&#x27;).CombinedCallback = CombinedCallback;
+	namespace(&#x27;springroll&#x27;).Enum = Enum;
 }());</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

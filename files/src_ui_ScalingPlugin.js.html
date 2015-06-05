@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/ui/UIScalerPlugin.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/ui/ScalingPlugin.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,7 +508,7 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:UIScalerPlugin.js</h1>
+<h1 class="file-heading">File:ScalingPlugin.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
@@ -520,22 +520,22 @@
 {
 	//Include classes
 	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;),
-		UIScaler = include(&#x27;springroll.UIScaler&#x27;),
+		ScaleManager = include(&#x27;springroll.ScaleManager&#x27;),
 		Debug;
 
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
-	 *	@class UIScalerPlugin
+	 *	@class ScalingPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var UIScalerPlugin = function()
+	var ScalingPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	//Reference to the prototype
-	var p = extend(UIScalerPlugin, ApplicationPlugin);
+	var p = extend(ScalingPlugin, ApplicationPlugin);
 
 	//Init the scaling
 	p.setup = function()
@@ -543,11 +543,11 @@
 		Debug = include(&#x27;springroll.Debug&#x27;, false);
 
 		/**
-		 *	The main UIScaler for any display object references
+		 *	The main ScaleManager for any display object references
 		 *	in the main game.
-		 *	@property {springroll.UIScaler} scaling
+		 *	@property {springroll.ScaleManager} scaling
 		 */
-		this.scaling = new UIScaler();
+		this.scaling = new ScaleManager();
 
 		//Add the scaling size
 		this.on(&#x27;configLoaded&#x27;, function(config)
@@ -593,14 +593,14 @@
 	};
 
 	//Register plugin
-	ApplicationPlugin.register(UIScalerPlugin);
+	ApplicationPlugin.register(ScalingPlugin);
 
 }());</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

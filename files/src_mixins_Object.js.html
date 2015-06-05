@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/PageVisibilityPlugin.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/mixins/Object.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,99 +508,140 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:PageVisibilityPlugin.js</h1>
+<h1 class="file-heading">File:Object.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
-*  @module Core
-*  @namespace springroll
-*/
-(function()
-{
-	// Include classes
-	var ApplicationPlugin = include(&#x27;springroll.ApplicationPlugin&#x27;);
-	var PageVisibility = include(&#x27;springroll.PageVisibility&#x27;);
+ * @module Core
+ * @namespace window
+ */
+(function(Object, undefined){
 
 	/**
-	 * Create an app plugin for Page Visibility listener, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class PageVisibilityPlugin
-	 * @extends springroll.ApplicationPlugin
-	 */
-	var PageVisibilityPlugin = function()
+	*  Add methods to Object
+	*  @class Object
+	*/
+
+	/**
+	*  Merges two (or more) objects, giving the last one precedence
+	*  @method merge
+	*  @example
+		var obj1 = { id : &#x27;foo&#x27;, name : &#x27;Hello!&#x27;, value : 100 };
+		var obj2 = { id : &#x27;bar&#x27;, value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : &#x27;bar&#x27;, name : &#x27;Hello!&#x27;, value : 200 }
+	*  @static
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
+	*/
+	Object.merge = function(target, source)
 	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
-
-	// Init the animator
-	p.setup = function()
-	{
-		/**
-		 * Handles the page visiblity changes automatically
-		 * to pause and unpause the application
-		 * @property {springroll.PageVisibility} _visibility
-		 * @private
-		 */
-		var visibility = this._visibility = new PageVisibility(
-			onVisible.bind(this),
-			onHidden.bind(this)
-		);
-
-		/**
-		 * The application pauses automatically when the window loses focus.
-		 * @property {Boolean} options.autoPause
-		 * @default true
-		 */
-		this.options.add(&#x27;autoPause&#x27;, true)
-			.on(&#x27;autoPause&#x27;, function(value)
+		if (typeof target !== &#x27;object&#x27;)
+		{
+			target = {};
+		}
+		
+		for (var property in source)
+		{
+			if (source.hasOwnProperty(property))
 			{
-				visibility.enabled = value;
-			})
-			.respond(&#x27;autoPause&#x27;, function()
+				var sourceProperty = source[property];
+				
+				if (typeof sourceProperty === &#x27;object&#x27; &amp;&amp; Object.isPlain(sourceProperty))
+				{
+					target[property] = Object.merge(target[property], sourceProperty);
+					continue;
+				}
+				target[property] = sourceProperty;
+			}
+		}
+		
+		for (var i = 2, l = arguments.length; i &lt; l; i++)
+		{
+			Object.merge(target, arguments[i]);
+		}
+		return target;
+	};
+
+	/**
+	*  Check to see if an object is a plain object definition
+	*  @method isPlain
+	*  @static
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
+	*/
+	Object.isPlain = function(obj)
+	{
+		var key;
+
+		// Must be an Object.
+		// Because of IE, we also have to check the presence of the constructor property.
+		// Make sure that DOM nodes and window objects don&#x27;t pass through, as well
+		if (!obj || typeof obj !== &quot;object&quot; || obj.nodeType || obj === window)
+		{
+			return false;
+		}
+
+		try {
+			// Not own constructor property must be Object
+			if ( obj.constructor &amp;&amp;
+				!hasOwn.call(obj, &quot;constructor&quot;) &amp;&amp;
+				!hasOwn.call(obj.constructor.prototype, &quot;isPrototypeOf&quot;) ) {
+				return false;
+			}
+		}
+		catch (e)
+		{
+			// IE8,9 Will throw exceptions on certain host objects #9897
+			return false;
+		}
+
+		// Support: IE&lt;9
+		// Handle iteration over inherited properties before own properties.
+		if (support.ownLast)
+		{
+			for (key in obj)
 			{
-				return visibility.enabled;
-			});
-	};
+				return hasOwn.call(obj, key);
+			}
+		}
 
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own.
+		for (key in obj) {}
+
+		return key === undefined || hasOwn.call(obj, key);
+	};
+	
 	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method onHidden
-	 *  @private
-	 */
-	var onHidden = function()
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
 	{
-		this.paused = true;
-	};
+		Object.defineProperty(Object.prototype, &#x27;clone&#x27;,
+		{
+			enumerable: false,
+			writable: true,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
 
-	/**
-	 *  Private listener for when the page is shown.
-	 *  @method onVisible
-	 *  @private
-	 */
-	var onVisible = function()
-	{
-		this.paused = false;
-	};
-
-	// Destroy the animator
-	p.teardown = function()
-	{
-		if (this._visibility) this._visibility.destroy();
-		this._visibility = null;
-	};
-
-	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
-
-}());</pre>
+}(Object));</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

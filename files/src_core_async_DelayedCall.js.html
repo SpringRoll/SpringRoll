@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/Array.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/core/async/DelayedCall.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,83 +508,199 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:Array.js</h1>
+<h1 class="file-heading">File:DelayedCall.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
  * @module Core
- * @namespace window
+ * @namespace springroll
  */
-(function()
-{
-	/**
-	*  Add methods to Array
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array
-	*/
+(function(undefined) {
+
+	var Application;
 
 	/**
-	*  Shuffles the array
-	*  @method shuffle
+	*  A class for delaying a call through the Application, instead of relying on setInterval() or
+	*  setTimeout().
+	*
+	*  @class DelayedCall
+	*  @constructor
+	*  @param {function} callback The function to call when the delay has completed.
+	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
+	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when
+	*                                  completed.
+	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
+	*                                     milliseconds for the delay.
 	*/
-	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
-	// to make it not enumerable set the enumerable property to false
-	if(!Array.prototype.shuffle)
+	var DelayedCall = function(callback, delay, repeat, autoDestroy, useFrames)
 	{
-		Object.defineProperty(Array.prototype, &#x27;shuffle&#x27;, {
-			enumerable: false,
-			writable:false,
-			value: function() {
-				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
-				return this;
-			}
-		});
-	}
-
-	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
-	if(!Array.prototype.random)
-	{
-		Object.defineProperty(Array.prototype, &#x27;random&#x27;, {
-			enumerable: false,
-			writable: false,
-			value: function() {
-				return this[Math.floor(Math.random() * this.length)];
-			}
-		});
-	}
-
-	/**
-	*  Get the last item in the array
-	*  @method last
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The last item
-	*/
-	if(!Array.prototype.last)
-	{
-		Object.defineProperty(Array.prototype, &#x27;last&#x27;,
+		if (!Application)
 		{
-			enumerable: false,
-			writable: false,
-			value: function()
+			Application = include(&#x27;springroll.Application&#x27;);
+		}
+		
+		/**
+		*  The function to call when the delay is completed.
+		*  @private
+		*  @property {function} _callback
+		*/
+		this._callback = callback;
+
+		/**
+		*  The delay time, in milliseconds.
+		*  @private
+		*  @property {int} _delay
+		*/
+		this._delay = delay;
+
+		/**
+		*  The timer counting down from _delay, in milliseconds.
+		*  @private
+		*  @property {int} _timer
+		*/
+		this._timer = delay;
+
+		/**
+		*  If the DelayedCall should repeat itself automatically.
+		*  @private
+		*  @property {Boolean} _repeat
+		*  @default false
+		*/
+		this._repeat = !!repeat;
+
+		/**
+		*  If the DelayedCall should destroy itself after completing
+		*  @private
+		*  @property {Boolean} _autoDestroy
+		*  @default true
+		*/
+		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+		
+		/**
+		*  If the DelayedCall should use frames instead of milliseconds for the delay.
+		*  @private
+		*  @property {Boolean} _useFrames
+		*  @default false
+		*/
+		this._useFrames = !!useFrames;
+
+		/**
+		*  If the DelayedCall is currently paused (not stopped).
+		*  @private
+		*  @property {Boolean} _paused
+		*/
+		this._paused = false;
+
+		//save a bound version of the update function
+		this._update = this._update.bind(this);
+
+		//start the delay
+		Application.instance.on(&quot;update&quot;, this._update);
+	};
+
+	var p = DelayedCall.prototype;
+
+	/**
+	*  The callback supplied to the Application for an update each frame.
+	*  @private
+	*  @method _update
+	*  @param {int} elapsed The time elapsed since the previous frame.
+	*/
+	p._update = function(elapsed)
+	{
+		if(!this._callback)
+		{
+			this.destroy();
+			return;
+		}
+
+		this._timer -= this._useFrames ? 1 : elapsed;
+		if(this._timer &lt;= 0)
+		{
+			this._callback();
+			if(this._repeat)
+				this._timer += this._delay;
+			else if(this._autoDestroy)
+				this.destroy();
+			else
+				Application.instance.off(&quot;update&quot;, this._update);
+		}
+	};
+
+	/**
+	*  Restarts the DelayedCall, whether it is running or not.
+	*  @public
+	*  @method restart
+	*/
+	p.restart = function()
+	{
+		if(!this._callback) return;
+		var app = Application.instance;
+		if(!app.has(&quot;update&quot;, this._update))
+			app.on(&quot;update&quot;, this._update);
+		this._timer = this._delay;
+		this._paused = false;
+	};
+
+	/**
+	*  Stops the DelayedCall, without destroying it.
+	*  @public
+	*  @method stop
+	*/
+	p.stop = function()
+	{
+		Application.instance.off(&quot;update&quot;, this._update);
+		this._paused = false;
+	};
+
+	/**
+	*  If the DelayedCall is paused or not.
+	*  @public
+	*  @property {Boolean} paused
+	*/
+	Object.defineProperty(p, &quot;paused&quot;, {
+		get: function() { return this._paused; },
+		set: function(value)
+		{
+			if(!this._callback) return;
+			var app = Application.instance;
+			if(this._paused &amp;&amp; !value)
 			{
-				return this[this.length - 1];
+				this._paused = false;
+				if(!app.has(&quot;update&quot;, this._update))
+					app.on(&quot;update&quot;, this._update);
 			}
-		});
-	}
-}());
-</pre>
+			else if(value)
+			{
+				if(app.has(&quot;update&quot;, this._update))
+				{
+					this._paused = true;
+					app.off(&quot;update&quot;, this._update);
+				}
+			}
+		}
+	});
+
+	/**
+	*  Stops and cleans up the DelayedCall. Do not use it after calling
+	*  destroy().
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		Application.instance.off(&quot;update&quot;, this._update);
+		this._callback = null;
+	};
+
+	namespace(&#x27;springroll&#x27;).DelayedCall = DelayedCall;
+}());</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

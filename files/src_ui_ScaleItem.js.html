@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : src/utils/Enum.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : src/ui/ScaleItem.js</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -508,268 +508,383 @@
   	}
   }
 </script>
-<h1 class="file-heading">File:Enum.js</h1>
+<h1 class="file-heading">File:ScaleItem.js</h1>
 
 <div class="file">
   <pre class="code prettyprint linenums">/**
- * @module Core
+ * @module UI
  * @namespace springroll
+ * @requires Core
  */
 (function()
 {
-	var Debug;
+	// Class imports
+	var ScaleManager;
+
 	/**
-	 * An enumeration value. This class is private, and is only used by Enum.
-	 * @class EnumValue
-	 * @private
-	 * @constructor
-	 * @param {String} name The name of the enum value.
-	 * @param {int} value The integer value of the enum.
-	 * @param {String} toString A string for toString() to return, instead of the name.
+	 *	A single UI item that needs to be resized,
+	 *	this is an internal class that you would not need to interact with.
+	 *
+	 *	@class ScaleItem
+	 *	@param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
+	 *	@param {String} align The vertical-horizontal alignment shorthand
+	 *	@param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 *	@param {DisplayAdapter} adapter The display adapter
 	 */
-	var EnumValue = function(name, value, toString)
+	var ScaleItem = function(display, align, designedScreen, adapter)
 	{
+		if (!ScaleManager)
+		{
+			ScaleManager = include(&#x27;springroll.ScaleManager&#x27;);
+		}
 
-		if (Debug === undefined)
-			Debug = include(&#x27;springroll.Debug&#x27;, false);
+		// Break align into parts
+		align = align.split(&#x27;-&#x27;);
 
 		/**
-		 * The name of the value, for reflection or logging purposes.
-		 * @property {String} name
+		 *	What vertical screen location the item should be aligned to: &quot;top&quot;, &quot;center&quot;, &quot;bottom&quot;
+		 *	@property {String} vertAlign
 		 */
-		this.name = name;
+		this.vertAlign = align[0];
+
 		/**
-		 * The integer value of this enum entry.
-		 * @property {int} _value
-		 * @private
+		 *	What horizontal screen location the item should be aligned to: &quot;left&quot;, &quot;center&quot;, &quot;right&quot;
+		 *	@property {String} horiAlign
 		 */
-		this._value = value;
+		this.horiAlign = align[1];
+
 		/**
-		 * A string for toString() to return, instead of the name.
-		 * @property {String} _toString
-		 * @private
+		 *	If this element should be aligned to the title safe area, not the actual screen.
+		 *	Values of &quot;horizontal&quot; and &quot;vertical&quot; make the title safe calculations take place only
+		 *	for one direction.
+		 *	@property {Boolean|String} titleSafe
+		 *	@default false
 		 */
-		this._toString = toString || this.name;
+		this.titleSafe = false;
+
+		/**
+		 *	Maximum scale allowed in physical size
+		 *	@property {Number} maxScale
+		 *	@default 1
+		 */
+		this.maxScale = 1;
+
+		/**
+		 *	Minimum scale allowed in physical size
+		 *	@property {Number} minScale
+		 *	@default 1
+		 */
+		this.minScale = 1;
+
+		/**
+		 *	If the UI element is centered horizontally
+		 *	@property {Boolean} centeredHorizontally
+		 *	@default false
+		 */
+		this.centeredHorizontally = false;
+
+		/**
+		 *  The reference to the interface item we&#x27;re scaling
+		 *  @private
+		 *  @property {PIXI.DisplayObject|createjs.DisplayObject} _display
+		 */
+		this._display = display;
+
+		/**
+		 *  The original screen the item was designed for
+		 *  @private
+		 *  @property {ScreenSettings} _designedScreen
+		 */
+		this._designedScreen = designedScreen;
+
+		/**
+		 *  The adapter for universal scale, rotation size access
+		 *  @property {Object} _adapter
+		 *  @private
+		 */
+		this._adapter = adapter;
+
+		var scale = adapter.getScale(display);
+		var position = adapter.getPosition(display);
+
+		/**
+		 *  Original X scale of the item
+		 *  @property {Number} origScaleX
+		 *  @default 0
+		 */
+		this.origScaleX = scale.x || 1;
+
+		/**
+		 *  The original Y scale of the item
+		 *  @property {Number} origScaleY
+		 *  @default 0
+		 */
+		this.origScaleY = scale.y || 1;
+
+		/**
+		 *  Original width in pixels
+		 *  @property {Number} origWidth
+		 *  @default 0
+		 */
+		this.origWidth = display.width || 0;
+
+		/**
+		 *  The original bounds of the item with x, y, right, bottom, width, 
+		 *	height properties. Used to determine the distance to each edge of
+		 *	the item from its origin
+		 *  @property {Object} origBounds
+		 */
+		this.origBounds = adapter.getLocalBounds(display);
+
+		/**
+		 *  Original horizontal margin in pixels
+		 *  @property {Number} origMarginHori
+		 *  @default 0
+		 */
+		this.origMarginHori = 0;
+
+		/**
+		 *  Original vertical margin in pixels
+		 *  @property {Number} origMarginVert
+		 *  @default 0
+		 */
+		this.origMarginVert = 0;
+
+		switch (this.vertAlign)
+		{
+			case ScaleManager.ALIGN_TOP:
+			{
+				this.origMarginVert = position.y + this.origBounds.y * scale.y;
+				break;
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
+				this.origMarginVert = designedScreen.height * 0.5 - position.y;
+				break;
+			}
+			case ScaleManager.ALIGN_BOTTOM:
+			{
+				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
+				break;
+			}
+		}
+
+		switch (this.horiAlign)
+		{
+			case ScaleManager.ALIGN_LEFT:
+			{
+				this.origMarginHori = position.x + this.origBounds.x * scale.x;
+				break;
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
+				this.origMarginHori = designedScreen.width * 0.5 - position.x;
+				break;
+			}
+			case ScaleManager.ALIGN_RIGHT:
+			{
+				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
+				break;
+			}
+		}
 	};
 
+	// Reference to the prototype
+	var p = ScaleItem.prototype = {};
+
+	if (DEBUG)
+	{
+		p.toString = function()
+		{
+			return &quot;[ScaleItem (vertAlign=&#x27;&quot; + this.vertAlign + &quot;&#x27;, horiAlign=&#x27;&quot; + this.horiAlign + &quot;&#x27;)]&quot;;
+		};
+	}
+
 	/**
-	 * The integer value of this enum entry.
-	 * @property {int} asInt
+	 * Get the current display item
+	 * @property {PIXI.DisplayObject|createjs.DisplayObject} display
+	 * @readOnly
 	 */
-	Object.defineProperty(EnumValue.prototype, &quot;asInt&quot;,
+	Object.defineProperty(p, &#x27;display&#x27;,
 	{
 		get: function()
 		{
-			return this._value;
+			return this._display;
 		}
 	});
 
-	EnumValue.prototype.toString = function()
-	{
-		return this._toString;
-	};
-
 	/**
-	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	* referenced as a property with the same name as the EnumValue. Examples:
-	*
-		var myEnum = new springroll.Enum(
-			&quot;valueOf0&quot;,
-			&quot;valueOf1&quot;,
-			&quot;valueOf2&quot;);
-		var myOtherEnum = new springroll.Enum(
-			{name: &quot;one&quot;, value:&quot;1&quot;, toString:&quot;I am the One!&quot;},
-			&quot;two&quot;,
-			{name:&quot;screwSequentialNumbers&quot;, value:42});
-			
-		myEnum.valueOf0 != 0;//enum values are not integers
-		myEnum.valueOf1 != myOtherEnum.one;//enum values are not the same as other enums
-		myEnum.valueOf2.asInt == 2;//enum values can be explicitly compared to integers
-		myOtherEnum.screwSequentialNumbers == myOtherEnum.valueFromInt(42);//can use ints to get values
-		console.log(myOtherEnum.one.toString());//outputs &quot;I am the One!&quot;
-
-		for (var i in myEnum) console.log(i); //outputs &quot;valueOf0&quot;,&quot;valueOf1&quot;,&quot;valueOf2&quot;
-	*
-	* @class Enum
-	* @constructor
-	* @param {Array|String|Object} arguments 
-	*  The list of enumeration values. You can pass either an
-	*  array or a list of parameters. Each string will be
-	*  the previous value plus one, while objects with
-	*  &#x27;name&#x27; and &#x27;value&#x27; properties will have the specified
-	*  numeric value.
-	*/
-	var Enum = function()
+	 *  Adjust the item scale and position, to reflect new screen
+	 *  @method resize
+	 *  @param {Number} displayWidth The current screen width
+	 *  @param {Number} displayHeight The current screen height
+	 */
+	p.resize = function(displayWidth, displayHeight)
 	{
-		var args = Array.isArray(arguments[0]) ?
-			arguments[0] :
-			Array.prototype.slice.call(arguments);
+		var adapter = this._adapter;
+		var _display = this._display;
+		var _designedScreen = this._designedScreen;
+		var origBounds = this.origBounds;
+		var origScaleX = this.origScaleX;
+		var origScaleY = this.origScaleY;
+		var defaultRatio = _designedScreen.width / _designedScreen.height;
+		var currentRatio = displayWidth / displayHeight;
+		var overallScale = currentRatio &gt;= defaultRatio ?
+			displayHeight / _designedScreen.height :
+			displayWidth / _designedScreen.width;
+		var scaleToHeight = currentRatio &gt;= defaultRatio;
+		var letterBoxWidth = 0;
+		var letterBoxHeight = 0;
 
-		/**
-		 * A potentially sparse array of each enum value, stored by integer values.
-		 * @property {Array} _byValue
-		 * @private
-		 */
-		Object.defineProperty(this, &#x27;_byValue&#x27;,
+		if (scaleToHeight)
 		{
-			enumerable: false,
-			writable: false,
-			value: []
-		});
-
-		/**
-		 * The values that this Enum was initialized with. We save this so
-		 * that we can potentially pass this via Bellhop and re-initialize.
-		 * @public
-		 * @property {Array} rawEnumValues
-		 */
-		Object.defineProperty(this, &#x27;rawEnumValues&#x27;,
+			letterBoxWidth = (displayWidth - _designedScreen.width * overallScale) / 2;
+		}
+		else
 		{
-			enumerable: false,
-			writable: false,
-			value: args
-		});
+			letterBoxHeight = (displayHeight - _designedScreen.height * overallScale) / 2;
+		}
 
-		var counter = 0;
-		var item;
-		var value;
-		var name;
-
-		// Create an EnumValue for each argument provided
-		for (var i = 0, len = args.length; i &lt; len; ++i)
+		// Optional clamps on the min and max scale of the item
+		var itemScale = overallScale;
+		if (this.minScale &amp;&amp; itemScale &lt; this.minScale)
 		{
-			if (typeof args[i] == &quot;string&quot;)
-			{
-				name = args[i];
-			}
-			else
-			{
-				name = args[i].name;
-				value = args[i].value || counter;
-				counter = value;
-			}
+			itemScale = this.minScale;
+		}
+		else if (this.maxScale &amp;&amp; itemScale &gt; this.maxScale)
+		{
+			itemScale = this.maxScale;
+		}
 
-			// if name already exists in Enum 
-			if (this[name])
+		adapter.setScale(_display, origScaleX * itemScale, &quot;x&quot;);
+		adapter.setScale(_display, origScaleY * itemScale, &quot;y&quot;);
+
+		// Positioning
+		var m;
+		var x;
+		var y;
+
+		// Vertical margin
+		m = this.origMarginVert * overallScale;
+
+		// Determine if vertical alignment should be title safe
+		var titleSafe = this.titleSafe === true || this.titleSafe === &quot;vertical&quot;;
+
+		switch (this.vertAlign)
+		{
+			case ScaleManager.ALIGN_TOP:
 			{
-				if (DEBUG &amp;&amp; Debug)
+				if (titleSafe)
 				{
-					Debug.error(&quot;Error creating enum value &quot; + name + &quot;: &quot; + value +
-						&quot; - an enum value already exists with that name.&quot;);
-				}
-				continue;
-			}
-
-			item = (typeof args[i] == &quot;string&quot;) ?
-				new EnumValue(name, counter, name) :
-				new EnumValue(name, value, args[i].toString || name);
-
-			this[item.name] = item;
-			if (this._byValue[counter])
-			{
-				if (Array.isArray(this._byValue[counter]))
-				{
-					this._byValue[counter].push(item);
+					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
 				}
 				else
 				{
-					this._byValue[counter] = [this._byValue[counter], item];
+					y = m - origBounds.y * origScaleY * itemScale;
 				}
+				break;
 			}
-			else
+			case ScaleManager.ALIGN_CENTER:
 			{
-				this._byValue[counter] = item;
+				y = displayHeight * 0.5 - m;
+				break;
 			}
-			counter++;
+			case ScaleManager.ALIGN_BOTTOM:
+			{
+				if (titleSafe)
+				{
+					y = displayHeight - letterBoxHeight - m -
+						origBounds.bottom * origScaleY * itemScale;
+				}
+				else
+				{
+					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
+				}
+				break;
+			}
 		}
 
-		/**
-		 * The count of values the enum was initialized with.
-		 * @public
-		 * @property {int} length
-		 */
-		Object.defineProperty(this, &#x27;length&#x27;,
+		// Set the position
+		if (y !== null)
 		{
-			enumerable: false,
-			writable: false,
-			value: args.length
-		});
+			adapter.setPosition(_display, y, &quot;y&quot;);
+		}
 
-		/**
-		 * Retrieves the next EnumValue in the Enum (loops to first value at end).
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
-		 */
-		Object.defineProperty(this, &#x27;next&#x27;,
+		// Horizontal margin
+		m = this.origMarginHori * overallScale;
+
+		// Determine if horizontal alignment should be title safe
+		titleSafe = this.titleSafe === true || this.titleSafe === &quot;horizontal&quot;;
+
+		switch (this.horiAlign)
 		{
-			enumerable: false,
-			writable: false,
-			// {EnumValue} input
-			value: function(input)
+			case ScaleManager.ALIGN_LEFT:
 			{
-				var nextInt = input.asInt + 1;
-				if (nextInt &gt;= counter)
+				if (titleSafe)
 				{
-					return this.first;
+					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
 				}
-				return this.valueFromInt(nextInt);
+				else
+				{
+					x = m - origBounds.x * origScaleX * itemScale;
+				}
+				break;
 			}
-		});
+			case ScaleManager.ALIGN_CENTER:
+			{
+				if (this.centeredHorizontally)
+				{
+					x = (displayWidth - _display.width) * 0.5;
+				}
+				else
+				{
+					x = displayWidth * 0.5 - m;
+				}
+				break;
+			}
+			case ScaleManager.ALIGN_RIGHT:
+			{
+				if (titleSafe)
+				{
+					x = displayWidth - letterBoxWidth - m -
+						origBounds.right * origScaleX * itemScale;
+				}
+				else
+				{
+					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
+				}
+				break;
+			}
+		}
 
-		/**
-		 * Retrieves the first EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
-		 */
-		Object.defineProperty(this, &#x27;first&#x27;,
+		// Set the position
+		if (x !== null)
 		{
-			enumerable: false,
-			writable: false,
-			value: this.valueFromInt(args[0].value || 0)
-		});
-
-		/**
-		 * Retrieves the last EnumValue in the Enum
-		 * @method {EnumValue} input
-		 * @return {EnumValue}  
-		 */
-		Object.defineProperty(this, &#x27;last&#x27;,
-		{
-			enumerable: false,
-			writable: false,
-			value: this.valueFromInt(counter-1)
-		});
+			adapter.setPosition(_display, x, &quot;x&quot;);
+		}
 	};
 
 	/**
-	 * Gets an enum value by integer value. If you have multiple enum values with the same integer
-	 * value, this will always retrieve the first enum value.
-	 * @method {Array} valueFromInt
-	 * @param {int} input The integer value to get an enum value for.
-	 * @return {EnumValue} The EnumValue that represents the input integer.
+	 *	Destroy this item, don&#x27;t use after this
+	 *	@method destroy
 	 */
-	Object.defineProperty(Enum.prototype, &#x27;valueFromInt&#x27;,
+	p.destroy = function()
 	{
-		enumerable: false,
-		writable: false,
-		value: function(input)
-		{
-			var rtn = this._byValue[input];
-			if (rtn)
-			{
-				return Array.isArray(rtn) ? rtn[0] : rtn;
-			}
-			return null;
-		}
-	});
+		this._adapter = null;
+		this.origBounds = null;
+		this._display = null;
+		this._designedScreen = null;
+	};
 
-	namespace(&#x27;springroll&#x27;).Enum = Enum;
+	// Assign to namespace
+	namespace(&#x27;springroll&#x27;).ScaleItem = ScaleItem;
+
 }());</pre>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

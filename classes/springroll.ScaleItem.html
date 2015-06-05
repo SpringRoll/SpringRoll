@@ -2,7 +2,7 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.5 API Documentation : src/displays/pixi/DisplayAdapter.js</title>
+  <title>SpringRoll v0.3.5 API Documentation : springroll.ScaleItem</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
@@ -501,285 +501,644 @@
 </nav>      </nav>
       <div class='col-sm-8 col-md-9'>
         <div id='docs-main' class='apidocs'>
-<script>
-  var name = {
-  	{
-  		name
-  	}
-  }
-</script>
-<h1 class="file-heading">File:DisplayAdapter.js</h1>
 
-<div class="file">
-  <pre class="code prettyprint linenums">/**
- * @module PIXI Display
- * @namespace springroll.pixi
- * @requires Core
- */
-(function(undefined)
-{
-	/**
-	*  Provide a normalized way to get size, position, scale values
-	*  as well as provide reference for different geometry classes.
-	*  @class DisplayAdapter
-	*/
-	var DisplayAdapter = {};
+<h1>springroll.ScaleItem Class</h1>
+<div class='box meta'>
 
-	/**
-	*  The geometry class for Circle
-	*  @property {Function} Circle
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Circle
-	*/
-	DisplayAdapter.Circle = include(&#x27;PIXI.Circle&#x27;);
 
-	/**
-	*  The geometry class for Ellipse
-	*  @property {Function} Ellipse
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Ellipse
-	*/
-	DisplayAdapter.Ellipse = include(&#x27;PIXI.Ellipse&#x27;);
+    <div class='foundat'>
+      Defined in: <a href='../files/src_ui_ScaleItem.js.html#l11'><code>springroll.ScaleItem:11</code></a>
+    </div>
 
-	/**
-	*  The geometry class for Rectangle
-	*  @property {Function} Rectangle
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Rectangle
-	*/
-	DisplayAdapter.Rectangle = include(&#x27;PIXI.Rectangle&#x27;);
+      Module:
+      <a href="../modules/UI.html">UI</a>
 
-	/**
-	*  The geometry class for Sector
-	*  @property {Function} Sector
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Sector
-	*/
-	DisplayAdapter.Sector = include(&#x27;PIXI.Sector&#x27;, false);
+</div>
 
-	/**
-	*  The geometry class for point
-	*  @property {Function} Point
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Point
-	*/
-	DisplayAdapter.Point = include(&#x27;PIXI.Point&#x27;);
 
-	/**
-	*  The geometry class for Polygon
-	*  @property {Function} Polygon
-	*  @readOnly
-	*  @static
-	*  @default PIXI.Polygon
-	*/
-	DisplayAdapter.Polygon = include(&#x27;PIXI.Polygon&#x27;);
+<div class='box intro'>
+  <p>A single UI item that needs to be resized,
+this is an internal class that you would not need to interact with.</p>
 
-	/**
-	*  If the rotation is expressed in radians
-	*  @property {Boolean} useRadians
-	*  @readOnly
-	*  @static
-	*  @default true
-	*/
-	DisplayAdapter.useRadians = true;
+</div>
 
-	/**
-	*  Gets the object&#x27;s boundaries in its local coordinate space, without any scaling or
-	*  rotation applied.
-	*  @method getLocalBounds
-	*  @static
-	*  @param {PIXI.DisplayObject} object The createjs display object
-	*  @return {PIXI.Rectangle} A rectangle with additional right and bottom properties.
-	*/
-	DisplayAdapter.getLocalBounds = function(object)
-	{
-		var bounds;
-		var width = object.width;
-		var height = object.height;
-		if(width &amp;&amp; height)
-		{
-			bounds = new PIXI.Rectangle(-object.pivot.x, -object.pivot.y, width / object.scale.x, height / object.scale.y);
-		}
-		else
-		{
-			bounds = new PIXI.Rectangle();
-		}
-		bounds.right = bounds.x + bounds.width;
-		bounds.bottom = bounds.y + bounds.height;
-		return bounds;
-	};
 
-	/**
-	*  Normalize the object scale
-	*  @method getScale
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI display object
-	*  @param {String} [direction] Either &quot;x&quot; or &quot;y&quot; to return a specific value
-	*  @return {object|Number} A scale object with x and y keys or a single number if direction is set
-	*/
-	DisplayAdapter.getScale = function(object, direction)
-	{
-		if (direction !== undefined)
-		{
-			return object.scale[direction];
-		}
-		return object.scale;
-	};
+<div id='classdocs' class='tabview'>
+    <span id='docs-highlight'></span>
+  <ul class='nav nav-tabs'>
+    <li id='tab-index' class='docs-toggle'>
+      <a data-toggle='tab' href='#docs-index'>Index</a>
+    </li>
+      <li id='tab-methods' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-methods'>Methods</a>
+      </li>
+      <li id='tab-properties' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-properties'>Properties</a>
+      </li>
+  </ul>
 
-	/**
-	*  Normalize the object position setting
-	*  @method setPosition
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI display object
-	*  @param {object|Number} position The position object or the value
-	* 		if the direction is set.
-	*  @param {Number} [position.x] The x value
-	*  @param {Number} [position.y] The y value
-	*  @param {String} [direction] Either &quot;x&quot; or &quot;y&quot; value
-	*  @return {PIXI.DisplayObject} Return the object for chaining
-	*/
-	DisplayAdapter.setPosition = function(object, position, direction)
-	{
-		if (direction !== undefined)
-		{
-			object.position[direction] = position;
-		}
-		else
-		{
-			if (position.x !== undefined) object.position.x = position.x;
-			if (position.y !== undefined) object.position.y = position.y;
-		}
-		return object;
-	};
+  <div class='tab-content'>
 
-	/**
-	*  Normalize the object position getting
-	*  @method getPosition
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI display object
-	*  @param {String} [direction] Either &quot;x&quot; or &quot;y&quot;, default is an object of both
-	*  @return {Object|Number} The position as an object with x and y keys if no direction
-	*		value is set, or the value of the specific direction
-	*/
-	DisplayAdapter.getPosition = function(object, direction)
-	{
-		if (direction !== undefined)
-		{
-			return object.position[direction];
-		}
-		return object.position;
-	};
+    <div role='tabpanel' id='docs-index' class='tab-pane'>
+        <div class='index-section tab-pane methods'>
+          <h3>Methods</h3>
 
-	/**
-	*  Normalize the object scale setting
-	*  @method setScale
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI Display object
-	*  @param {Number} scale The scaling object or scale value for x and y
-	*  @param {String} [direction] Either &quot;x&quot; or &quot;y&quot; if setting a specific value, default
-	* 		sets both the scale x and scale y.
-	*  @return {PIXI.DisplayObject} Return the object for chaining
-	*/
-	DisplayAdapter.setScale = function(object, scale, direction)
-	{
-		if (direction !== undefined)
-		{
-			object.scale[direction] = scale;
-		}
-		else
-		{
-			object.scale.x = object.scale.y = scale;
-		}
-		return object;
-	};
+          <ul class='list-group row methods'>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_destroy'>destroy</a>
 
-	/**
-	*  Set the pivot or registration point of an object
-	*  @method setPivot
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI Display object
-	*  @param {object|Number} pivot The object pivot point or the value if the direction is set
-	*  @param {Number} [pivot.x] The x position of the pivot point
-	*  @param {Number} [pivot.y] The y position of the pivot point
-	*  @param {String} [direction] Either &quot;x&quot; or &quot;y&quot; the value for specific direction, default
-	* 		will set using the object.
-	*  @return {PIXI.DisplayObject} Return the object for chaining
-	*/
-	DisplayAdapter.setPivot = function(object, pivot, direction)
-	{
-		if (direction !== undefined)
-		{
-			object.pivot[direction] = pivot;
-		}
-		object.pivot = pivot;
-		return object;
-	};
+              </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_resize'>resize</a>
 
-	/**
-	*  Set the hit area of the shape
-	*  @method setHitArea
-	*  @static
-	*  @param {PIXI.DisplayObject} object The PIXI Display object
-	*  @param {Object} shape The geometry object
-	*  @return {PIXI.DisplayObject} Return the object for chaining
-	*/
-	DisplayAdapter.setHitArea = function(object, shape)
-	{
-		object.hitArea = shape;
-		return object;
-	};
+              </li>
+          </ul>
+        </div>
 
-	/**
-	*  Get the original size of a bitmap
-	*  @method getBitmapSize
-	*  @static
-	*  @param {PIXI.Bitmap} bitmap The bitmap to measure
-	*  @return {object} The width (w) and height (h) of the actual bitmap size
-	*/
-	DisplayAdapter.getBitmapSize = function(bitmap)
-	{
-		return {
-			h: bitmap.height / bitmap.scale.y,
-			w: bitmap.width / bitmap.scale.x
-		};
-	};
+        <div class='index-section tab-pane properties'>
+          <h3>Properties</h3>
 
-	/**
-	*  Remove all children from a display object
-	*  @method removeChildren
-	*  @static
-	*  @param {PIXI.DisplayObjectContainer} container The display object container
-	*/
-	DisplayAdapter.removeChildren = function(container)
-	{
-		container.removeChildren(true);
-	};
+          <ul class='list-group row properties'>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__adapter'>_adapter</a>
 
-	/**
-	 * If a container contains a child
-	 * @param  {PIXI.DisplayObjectContainer} container The container
-	 * @param  {PIXI.DisplayObject} child  The object to test
-	 * @return {Boolean} If the child contained within the container
-	 */
-	DisplayAdapter.contains = function(container, child)
-	{
-		while (child)
-		{
-            if (child == container) { return true; }
-            child = child.parent;
-        }
-        return false;
-	};
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__designedScreen'>_designedScreen</a>
 
-	// Assign to namespace
-	namespace(&#x27;springroll.pixi&#x27;).DisplayAdapter = DisplayAdapter;
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__display'>_display</a>
 
-}());</pre>
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_centeredHorizontally'>centeredHorizontally</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_display'>display</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_horiAlign'>horiAlign</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_maxScale'>maxScale</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_minScale'>minScale</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origBounds'>origBounds</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origMarginHori'>origMarginHori</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origMarginVert'>origMarginVert</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origScaleX'>origScaleX</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origScaleY'>origScaleY</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_origWidth'>origWidth</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_titleSafe'>titleSafe</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_vertAlign'>vertAlign</a>
+
+              </li>
+          </ul>
+        </div>
+
+
+    </div>
+
+      <div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+          <div id='method_destroy' class='method item'>
+            <h3 class='name'><code>destroy</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_ui_ScaleItem.js.html#l354'><code>destroy:354</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Destroy this item, don&#39;t use after this</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id='method_resize' class='method item'>
+            <h3 class='name'><code>resize</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>displayWidth</code>
+                    </li>
+                    <li class='arg'>
+                        <code>displayHeight</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_ui_ScaleItem.js.html#l203'><code>resize:203</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Adjust the item scale and position, to reflect new screen</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>displayWidth</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The current screen width</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class='param'>
+                        <code class='param-name'>displayHeight</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>The current screen height</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>      </div>
+
+      <div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+          <div id="property__adapter" class="property item private">
+            <h3 class="name"><code>_adapter</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l87"><code>_adapter:87</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The adapter for universal scale, rotation size access</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__designedScreen" class="property item private">
+            <h3 class="name"><code>_designedScreen</code></h3>
+            <span class="type">ScreenSettings</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l80"><code>_designedScreen:80</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The original screen the item was designed for</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__display" class="property item private">
+            <h3 class="name"><code>_display</code></h3>
+            <span class="type">PIXI.DisplayObject | createjs.DisplayObject</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l73"><code>_display:73</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The reference to the interface item we&#39;re scaling</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_centeredHorizontally" class="property item">
+            <h3 class="name"><code>centeredHorizontally</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l66"><code>centeredHorizontally:66</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If the UI element is centered horizontally</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_display" class="property item">
+            <h3 class="name"><code>display</code></h3>
+            <span class="type">PIXI.DisplayObject | createjs.DisplayObject</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l190"><code>display:190</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Get the current display item</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_horiAlign" class="property item">
+            <h3 class="name"><code>horiAlign</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l37"><code>horiAlign:37</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>What horizontal screen location the item should be aligned to: "left", "center", "right"</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_maxScale" class="property item">
+            <h3 class="name"><code>maxScale</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l52"><code>maxScale:52</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Maximum scale allowed in physical size</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 1</p>
+          
+          
+          </div>          <div id="property_minScale" class="property item">
+            <h3 class="name"><code>minScale</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l59"><code>minScale:59</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Minimum scale allowed in physical size</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 1</p>
+          
+          
+          </div>          <div id="property_origBounds" class="property item">
+            <h3 class="name"><code>origBounds</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l118"><code>origBounds:118</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The original bounds of the item with x, y, right, bottom, width, 
+              height properties. Used to determine the distance to each edge of
+              the item from its origin</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_origMarginHori" class="property item">
+            <h3 class="name"><code>origMarginHori</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l126"><code>origMarginHori:126</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Original horizontal margin in pixels</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_origMarginVert" class="property item">
+            <h3 class="name"><code>origMarginVert</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l133"><code>origMarginVert:133</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Original vertical margin in pixels</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_origScaleX" class="property item">
+            <h3 class="name"><code>origScaleX</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l97"><code>origScaleX:97</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Original X scale of the item</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_origScaleY" class="property item">
+            <h3 class="name"><code>origScaleY</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l104"><code>origScaleY:104</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The original Y scale of the item</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_origWidth" class="property item">
+            <h3 class="name"><code>origWidth</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l111"><code>origWidth:111</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Original width in pixels</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> 0</p>
+          
+          
+          </div>          <div id="property_titleSafe" class="property item">
+            <h3 class="name"><code>titleSafe</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l43"><code>titleSafe:43</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If this element should be aligned to the title safe area, not the actual screen.
+          Values of "horizontal" and "vertical" make the title safe calculations take place only
+          for one direction.</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> false</p>
+          
+          
+          </div>          <div id="property_vertAlign" class="property item">
+            <h3 class="name"><code>vertAlign</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_ui_ScaleItem.js.html#l31"><code>vertAlign:31</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>What vertical screen location the item should be aligned to: "top", "center", "bottom"</p>
+          
+            </div>
+          
+          
+          
+          </div>      </div>
+
+
+  </div>
 </div>        </div>
       </div>
     </div>

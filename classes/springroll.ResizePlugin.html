@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : springroll.UIScalerPlugin</title>
+  <title>SpringRoll v0.3.5 API Documentation : springroll.ResizePlugin</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -502,7 +502,7 @@
       <div class='col-sm-8 col-md-9'>
         <div id='docs-main' class='apidocs'>
 
-<h1>springroll.UIScalerPlugin Class</h1>
+<h1>springroll.ResizePlugin Class</h1>
 <div class='box meta'>
 
     <div class='extends'>
@@ -511,17 +511,17 @@
     </div>
 
     <div class='foundat'>
-      Defined in: <a href='../files/src_ui_UIScalerPlugin.js.html#l13'><code>springroll.UIScalerPlugin:13</code></a>
+      Defined in: <a href='../files/src_core_ResizePlugin.js.html#l10'><code>springroll.ResizePlugin:10</code></a>
     </div>
 
       Module:
-      <a href="../modules/UI.html">UI</a>
+      <a href="../modules/Core.html">Core</a>
 
 </div>
 
 
 <div class='box intro'>
-  <p>Create an app plugin for touch detecting, all properties and methods documented
+  <p>Create an app plugin for resizing application, all properties and methods documented
 in this class are mixed-in to the main Application</p>
 
 </div>
@@ -539,6 +539,9 @@ in this class are mixed-in to the main Application</p>
       <li id='tab-properties' class='docs-toggle'>
         <a data-toggle='tab' href='#docs-properties'>Properties</a>
       </li>
+      <li id='tab-events' class='docs-toggle'>
+        <a data-toggle='tab' href='#docs-events'>Events</a>
+      </li>
   </ul>
 
   <div class='tab-content'>
@@ -548,6 +551,10 @@ in this class are mixed-in to the main Application</p>
           <h3>Methods</h3>
 
           <ul class='list-group row methods extends'>
+              <li class='col-xs-6 col-md-4 index-item method protected'>
+                <a href='#method_calculateDisplaySize'>calculateDisplaySize</a>
+
+              </li>
               <li class='col-xs-6 col-md-4 index-item method inherited'>
                 <a href='#method_preload'>preload</a>
 
@@ -564,6 +571,10 @@ in this class are mixed-in to the main Application</p>
                 <a href='#method_teardown'>teardown</a>
 
               </li>
+              <li class='col-xs-6 col-md-4 index-item method'>
+                <a href='#method_triggerResize'>triggerResize</a>
+
+              </li>
           </ul>
         </div>
 
@@ -571,23 +582,150 @@ in this class are mixed-in to the main Application</p>
           <h3>Properties</h3>
 
           <ul class='list-group row properties extends'>
-              <li class='col-xs-6 col-md-4 index-item property inherited'>
-                <a href='#property_priority'>priority</a>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__maxHeight'>_maxHeight</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__maxWidth'>_maxWidth</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__originalHeight'>_originalHeight</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__originalWidth'>_originalWidth</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__resizeElement'>_resizeElement</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property private'>
+                <a href='#property__resizeHelper'>_resizeHelper</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_scaling'>scaling</a>
+                <a href='#property_options.maxHeight'>options.maxHeight</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_options.maxWidth'>options.maxWidth</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_options.resizeElement'>options.resizeElement</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_options.uniformResize'>options.uniformResize</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property inherited'>
+                <a href='#property_priority'>priority</a>
 
               </li>
           </ul>
         </div>
 
 
+        <div class='index-section tab-pane events'>
+
+          <ul class='list-group row events extends'>
+              <li class='col-xs-6 col-md-4 index-item event'>
+                <a href='#event_resize'>resize</a>
+
+              </li>
+          </ul>
+        </div>
     </div>
 
       <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-          <div id='method_preload' class='method item inherited'>
+          <div id='method_calculateDisplaySize' class='method item protected'>
+            <h3 class='name'><code>calculateDisplaySize</code></h3>
+          
+              <div class='args'>
+                <span class='paren'>(</span>
+                <ul class='args-list inline commas'>
+                    <li class='arg'>
+                        <code>size</code>
+                    </li>
+              </ul><span class='paren'>)</span>
+              </div>
+          
+          
+            <div class='flags'>
+          
+                <span class='flag protected'>protected</span>
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_core_ResizePlugin.js.html#l172'><code>calculateDisplaySize:172</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Calculates the resizing of displays. By default, this limits the new size
+          to the initial aspect ratio of the primary display. Override this function
+          if you need variable aspect ratios.</p>
+          
+            </div>
+          
+              <div class='params'>
+                <h4>Parameters:</h4>
+          
+                <ul class='params-list'>
+                    <li class='param'>
+                        <code class='param-name'>size</code>
+                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+                      <div class='param-description'>
+                        <p>A size object containing the width and height of the resized container.
+                               The size parameter is also the output of the function, so the size
+                               properties are edited in place.</p>
+          
+                      </div>
+          
+                        <ul class='params-list'>
+                            <li class='param'>
+                                <code class='param-name'>width</code>
+                                <span class='type'>Int</span>
+          
+                              <div class='param-description'>
+                                <p>The width of the resized container.</p>
+          
+                              </div>
+          
+                            </li>
+                            <li class='param'>
+                                <code class='param-name'>height</code>
+                                <span class='type'>Int</span>
+          
+                              <div class='param-description'>
+                                <p>The height of the resized container.</p>
+          
+                              </div>
+          
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id='method_preload' class='method item inherited'>
             <h3 class='name'><code>preload</code></h3>
           
               <div class='args'>
@@ -611,7 +749,7 @@ in this class are mixed-in to the main Application</p>
             <div class='meta'>
                   <p>Inherited from
                     <a href='../classes/springroll.ApplicationPlugin.html#method_preload'>springroll.ApplicationPlugin</a>:
-                <a href='../files/src_ApplicationPlugin.js.html#l35'><code>preload:35</code></a>
+                <a href='../files/src_core_ApplicationPlugin.js.html#l40'><code>preload:40</code></a>
               </p>
           
           
@@ -670,7 +808,7 @@ in this class are mixed-in to the main Application</p>
             <div class='meta'>
                   <p>Inherited from
                     <a href='../classes/springroll.ApplicationPlugin.html#method_prioritySort'>springroll.ApplicationPlugin</a>:
-                <a href='../files/src_ApplicationPlugin.js.html#l65'><code>prioritySort:65</code></a>
+                <a href='../files/src_core_ApplicationPlugin.js.html#l70'><code>prioritySort:70</code></a>
               </p>
           
           
@@ -729,7 +867,7 @@ in this class are mixed-in to the main Application</p>
             <div class='meta'>
                   <p>Inherited from
                     <a href='../classes/springroll.ApplicationPlugin.html#method_setup'>springroll.ApplicationPlugin</a>:
-                <a href='../files/src_ApplicationPlugin.js.html#l26'><code>setup:26</code></a>
+                <a href='../files/src_core_ApplicationPlugin.js.html#l31'><code>setup:31</code></a>
               </p>
           
           
@@ -760,7 +898,7 @@ in this class are mixed-in to the main Application</p>
             <div class='meta'>
                   <p>Inherited from
                     <a href='../classes/springroll.ApplicationPlugin.html#method_teardown'>springroll.ApplicationPlugin</a>:
-                <a href='../files/src_ApplicationPlugin.js.html#l42'><code>teardown:42</code></a>
+                <a href='../files/src_core_ApplicationPlugin.js.html#l47'><code>teardown:47</code></a>
               </p>
           
           
@@ -774,11 +912,297 @@ in this class are mixed-in to the main Application</p>
           
           
           
+          </div>          <div id='method_triggerResize' class='method item'>
+            <h3 class='name'><code>triggerResize</code></h3>
+          
+              <span class='paren'>()</span>
+          
+          
+            <div class='flags'>
+          
+          
+          
+          
+          
+            </div> 
+            
+            <div class='meta'>
+                  <p>
+                      Defined in
+                <a href='../files/src_core_ResizePlugin.js.html#l136'><code>triggerResize:136</code></a>
+              </p>
+          
+          
+          
+            </div>
+          
+            <div class='description'>
+              <p>Fire a resize event with the current width and height of the display</p>
+          
+            </div>
+          
+          
+          
           </div>      </div>
 
       <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-          <div id="property_priority" class="property item inherited">
+          <div id="property__maxHeight" class="property item private">
+            <h3 class="name"><code>_maxHeight</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l38"><code>_maxHeight:38</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The maximum height of the primary display, compared to the original width.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__maxWidth" class="property item private">
+            <h3 class="name"><code>_maxWidth</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l31"><code>_maxWidth:31</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The maximum width of the primary display, compared to the original height.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__originalHeight" class="property item private">
+            <h3 class="name"><code>_originalHeight</code></h3>
+            <span class="type">Int</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l52"><code>_originalHeight:52</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The original height of the primary display, used to calculate the aspect ratio.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__originalWidth" class="property item private">
+            <h3 class="name"><code>_originalWidth</code></h3>
+            <span class="type">Int</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l45"><code>_originalWidth:45</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The original width of the primary display, used to calculate the aspect ratio.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__resizeElement" class="property item private">
+            <h3 class="name"><code>_resizeElement</code></h3>
+            <span class="type">DOMElement | Window | Null</span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l23"><code>_resizeElement:23</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Dom element (or the window) to attach resize listeners and read the size from</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> null</p>
+          
+          
+          </div>          <div id="property__resizeHelper" class="property item private">
+            <h3 class="name"><code>_resizeHelper</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l59"><code>_resizeHelper:59</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>A helper object to avoid object creation each resize event.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_options.maxHeight" class="property item">
+            <h3 class="name"><code>options.maxHeight</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l91"><code>options.maxHeight:91</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If doing uniform resizing, optional parameter to add
+          a maximum height relative to the original width. This
+          allows for "title-safe" responsiveness. Must be greater
+          than the original height of the canvas.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_options.maxWidth" class="property item">
+            <h3 class="name"><code>options.maxWidth</code></h3>
+            <span class="type">Int</span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l82"><code>options.maxWidth:82</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>If doing uniform resizing, optional parameter to add
+          a maximum width relative to the original height. This
+          allows for "title-safe" responsiveness. Must be greater
+          than the original width of the canvas.</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property_options.resizeElement" class="property item">
+            <h3 class="name"><code>options.resizeElement</code></h3>
+            <span class="type">DOMElement | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l107"><code>options.resizeElement:107</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The element to resize the canvas to fit</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> &#x27;frame&#x27;</p>
+          
+          
+          </div>          <div id="property_options.uniformResize" class="property item">
+            <h3 class="name"><code>options.uniformResize</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_core_ResizePlugin.js.html#l100"><code>options.uniformResize:100</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Whether to resize the displays to the original aspect ratio</p>
+          
+            </div>
+          
+              <p><strong>Default:</strong> true</p>
+          
+          
+          </div>          <div id="property_priority" class="property item inherited">
             <h3 class="name"><code>priority</code></h3>
             <span class="type">Int</span>
           
@@ -789,7 +1213,7 @@ in this class are mixed-in to the main Application</p>
             <div class="meta">
                   <p>Inherited from
                     <a href="../classes/springroll.ApplicationPlugin.html#property_priority">springroll.ApplicationPlugin</a>:
-                <a href="../files/src_ApplicationPlugin.js.html#l15"><code>priority:15</code></a>
+                <a href="../files/src_core_ApplicationPlugin.js.html#l20"><code>priority:20</code></a>
               </p>
           
           
@@ -803,9 +1227,14 @@ in this class are mixed-in to the main Application</p>
           
           
           
-          </div>          <div id="property_scaling" class="property item">
-            <h3 class="name"><code>scaling</code></h3>
-            <span class="type"><a href="../classes/springroll.UIScaler.html" class="crosslink">springroll.UIScaler</a></span>
+          </div>      </div>
+
+
+      <div role='tabpanel' id='docs-events' class='tab-pane'>
+
+          <div id="event_resize" class="events item">
+            <h3 class="name"><code>resize</code></h3>
+            <span class="type"></span>
           
           
           
@@ -814,29 +1243,54 @@ in this class are mixed-in to the main Application</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_ui_UIScalerPlugin.js.html#l32"><code>scaling:32</code></a>
+                <a href="../files/src_core_ResizePlugin.js.html#l75"><code>resize:75</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>The main UIScaler for any display object references
-          in the main game.</p>
+              <p>Fired when a resize is called</p>
           
             </div>
           
+              <div class="params">
+                <h4>Event Payload:</h4>
+          
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name">width</code>
+                        <span class="type">Int</span>
+          
+          
+                      <div class="param-description">
+                        <p>The width of the resize element</p>
+          
+                      </div>
+          
+                    </li>
+                    <li class="param">
+                        <code class="param-name">height</code>
+                        <span class="type">Int</span>
+          
+          
+                      <div class="param-description">
+                        <p>The height of the resize element</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
           
           
           </div>      </div>
-
-
   </div>
 </div>        </div>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

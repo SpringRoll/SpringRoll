@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.4 API Documentation : springroll.Application</title>
+  <title>SpringRoll v0.3.5 API Documentation : springroll.Application</title>
   <meta charset='utf-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.4'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
   <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.4'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.4'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
   <header>
     <div class='container'>
       <div class='version pull-right'>
-        <em>API Documentation for: 0.3.4</em>
+        <em>API Documentation for: 0.3.5</em>
       </div>
       <div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.4' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
       </div>
 <div class='scope-toggles pull-right'>
   <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -322,7 +322,19 @@
           <a href='../classes/springroll.PropertyDispatcher.html'>springroll.PropertyDispatcher</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.ResizePlugin.html'>springroll.ResizePlugin</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.SavedData.html'>springroll.SavedData</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleItem.html'>springroll.ScaleItem</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScaleManager.html'>springroll.ScaleManager</a>
+        </li>
+        <li class=''>
+          <a href='../classes/springroll.ScalingPlugin.html'>springroll.ScalingPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.Sound.html'>springroll.Sound</a>
@@ -368,18 +380,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.TouchPlugin.html'>springroll.TouchPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElement.html'>springroll.UIElement</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIElementSettings.html'>springroll.UIElementSettings</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScaler.html'>springroll.UIScaler</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.UIScalerPlugin.html'>springroll.UIScalerPlugin</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.ValidationError.html'>springroll.ValidationError</a>
@@ -523,7 +523,7 @@
 <div class='box intro'>
   <p>Creates a new application, for example (HappyCamel extends Application)
 manages displays, update loop controlling, handles resizing</p>
-<pre class="code prettyprint"><code>var app = new Application({fps:60, resizeElement:window});
+<pre class="code prettyprint"><code>var app = new Application();
 </code></pre>
 </div>
 
@@ -628,10 +628,6 @@ manages displays, update loop controlling, handles resizing</p>
                 <a href='#method_addDisplay'>addDisplay</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method protected'>
-                <a href='#method_calculateDisplaySize'>calculateDisplaySize</a>
-
-              </li>
               <li class='col-xs-6 col-md-4 index-item method'>
                 <a href='#method_destroy'>destroy</a>
 
@@ -640,9 +636,10 @@ manages displays, update loop controlling, handles resizing</p>
                 <a href='#method_getDisplay'>getDisplay</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method public'>
+              <li class='col-xs-6 col-md-4 index-item method public deprecated'>
                 <a href='#method_getDisplays'>getDisplays</a>
 
+                  <span class='flag deprecated'>deprecated</span>
               </li>
               <li class='col-xs-6 col-md-4 index-item method protected'>
                 <a href='#method_init'>init</a>
@@ -660,10 +657,6 @@ manages displays, update loop controlling, handles resizing</p>
                 <a href='#method_toString'>toString</a>
 
               </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_triggerResize'>triggerResize</a>
-
-              </li>
           </ul>
         </div>
 
@@ -672,11 +665,11 @@ manages displays, update loop controlling, handles resizing</p>
 
           <ul class='list-group row properties extends'>
               <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__aspectRatio'>_aspectRatio</a>
+                <a href='#property__displays'>_displays</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__displays'>_displays</a>
+                <a href='#property__displaysMap'>_displaysMap</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
@@ -688,23 +681,7 @@ manages displays, update loop controlling, handles resizing</p>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__maxHeight'>_maxHeight</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__maxWidth'>_maxWidth</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
                 <a href='#property__msPerFrame'>_msPerFrame</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__originalHeight'>_originalHeight</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__originalWidth'>_originalWidth</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
@@ -715,14 +692,6 @@ manages displays, update loop controlling, handles resizing</p>
                 <a href='#property__plugins'>_plugins</a>
 
                   <span class='flag static'>static</span>
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__resizeElement'>_resizeElement</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__resizeHelper'>_resizeHelper</a>
-
               </li>
               <li class='col-xs-6 col-md-4 index-item property private'>
                 <a href='#property__tickCallback'>_tickCallback</a>
@@ -738,6 +707,10 @@ manages displays, update loop controlling, handles resizing</p>
               </li>
               <li class='col-xs-6 col-md-4 index-item property public'>
                 <a href='#property_display'>display</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item property'>
+                <a href='#property_displays'>displays</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item property'>
@@ -781,6 +754,14 @@ manages displays, update loop controlling, handles resizing</p>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item event'>
+                <a href='#event_displayAdded'>displayAdded</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item event'>
+                <a href='#event_displayRemoved'>displayRemoved</a>
+
+              </li>
+              <li class='col-xs-6 col-md-4 index-item event'>
                 <a href='#event_init'>init</a>
 
               </li>
@@ -790,10 +771,6 @@ manages displays, update loop controlling, handles resizing</p>
               </li>
               <li class='col-xs-6 col-md-4 index-item event'>
                 <a href='#event_paused'>paused</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_resize'>resize</a>
 
               </li>
               <li class='col-xs-6 col-md-4 index-item event'>
@@ -828,7 +805,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l339'><code>_doInit:339</code></a>
+                <a href='../files/src_Application.js.html#l280'><code>_doInit:280</code></a>
               </p>
           
           
@@ -860,7 +837,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l270'><code>_preInit:270</code></a>
+                <a href='../files/src_Application.js.html#l231'><code>_preInit:231</code></a>
               </p>
           
           
@@ -892,7 +869,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l605'><code>_tick:605</code></a>
+                <a href='../files/src_Application.js.html#l488'><code>_tick:488</code></a>
               </p>
           
           
@@ -939,7 +916,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l524'><code>addDisplay:524</code></a>
+                <a href='../files/src_Application.js.html#l394'><code>addDisplay:394</code></a>
               </p>
           
           
@@ -1005,88 +982,6 @@ manages displays, update loop controlling, handles resizing</p>
                 </div>
               </div>
           
-          </div>          <div id='method_calculateDisplaySize' class='method item protected'>
-            <h3 class='name'><code>calculateDisplaySize</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>size</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag protected'>protected</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l492'><code>calculateDisplaySize:492</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Calculates the resizing of displays. By default, this limits the new size
-          to the initial aspect ratio of the primary display. Override this function
-          if you need variable aspect ratios.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>size</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>A size object containing the width and height of the resized container.
-                               The size parameter is also the output of the function, so the size
-                               properties are edited in place.</p>
-          
-                      </div>
-          
-                        <ul class='params-list'>
-                            <li class='param'>
-                                <code class='param-name'>width</code>
-                                <span class='type'>Int</span>
-          
-                              <div class='param-description'>
-                                <p>The width of the resized container.</p>
-          
-                              </div>
-          
-                            </li>
-                            <li class='param'>
-                                <code class='param-name'>height</code>
-                                <span class='type'>Int</span>
-          
-                              <div class='param-description'>
-                                <p>The height of the resized container.</p>
-          
-                              </div>
-          
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-              </div>
-          
-          
           </div>          <div id='method_destroy' class='method item'>
             <h3 class='name'><code>destroy</code></h3>
           
@@ -1104,7 +999,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l641'><code>destroy:641</code></a>
+                <a href='../files/src_Application.js.html#l524'><code>destroy:524</code></a>
               </p>
           
           
@@ -1145,7 +1040,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l557'><code>getDisplay:557</code></a>
+                <a href='../files/src_Application.js.html#l442'><code>getDisplay:442</code></a>
               </p>
           
           
@@ -1185,7 +1080,7 @@ manages displays, update loop controlling, handles resizing</p>
                 </div>
               </div>
           
-          </div>          <div id='method_getDisplays' class='method item public'>
+          </div>          <div id='method_getDisplays' class='method item public deprecated'>
             <h3 class='name'><code>getDisplays</code></h3>
           
               <div class='args'>
@@ -1202,6 +1097,7 @@ manages displays, update loop controlling, handles resizing</p>
               </span>
           
             <div class='flags'>
+                <span class='flag deprecated'  title='Use the displays property on the application instead.' >deprecated</span>
           
                 <span class='flag public'>public</span>
           
@@ -1213,10 +1109,11 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l568'><code>getDisplays:568</code></a>
+                <a href='../files/src_Application.js.html#l453'><code>getDisplays:453</code></a>
               </p>
           
           
+                <p>Deprecated: Use the displays property on the application instead.</p>
           
             </div>
           
@@ -1273,7 +1170,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l368'><code>init:368</code></a>
+                <a href='../files/src_Application.js.html#l306'><code>init:306</code></a>
               </p>
           
           
@@ -1311,7 +1208,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l590'><code>removeDisplay:590</code></a>
+                <a href='../files/src_Application.js.html#l471'><code>removeDisplay:471</code></a>
               </p>
           
           
@@ -1370,7 +1267,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l439'><code>setTargetedTimeout:439</code></a>
+                <a href='../files/src_Application.js.html#l377'><code>setTargetedTimeout:377</code></a>
               </p>
           
           
@@ -1433,7 +1330,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class='meta'>
                   <p>
                       Defined in
-                <a href='../files/src_Application.js.html#l683'><code>toString:683</code></a>
+                <a href='../files/src_Application.js.html#l561'><code>toString:561</code></a>
               </p>
           
           
@@ -1456,69 +1353,13 @@ manages displays, update loop controlling, handles resizing</p>
                 </div>
               </div>
           
-          </div>          <div id='method_triggerResize' class='method item'>
-            <h3 class='name'><code>triggerResize</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l456'><code>triggerResize:456</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Fire a resize event with the current width and height of the display</p>
-          
-            </div>
-          
-          
-          
           </div>      </div>
 
       <div role='tabpanel' id='docs-properties' class='tab-pane'>
 
-          <div id="property__aspectRatio" class="property item private">
-            <h3 class="name"><code>_aspectRatio</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l182"><code>_aspectRatio:182</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The aspect ratio of the primary display, as width / height.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__displays" class="property item private">
+          <div id="property__displays" class="property item private">
             <h3 class="name"><code>_displays</code></h3>
-            <span class="type">Dictionary</span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
           
           
               <span class="flag private">private</span>
@@ -1528,14 +1369,39 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l189"><code>_displays:189</code></a>
+                <a href="../files/src_Application.js.html#l147"><code>_displays:147</code></a>
               </p>
           
           
             </div>
           
             <div class="description">
-              <p>Rendering plugins, in a dictionary by canvas id</p>
+              <p>The collection of displays</p>
+          
+            </div>
+          
+          
+          
+          </div>          <div id="property__displaysMap" class="property item private">
+            <h3 class="name"><code>_displaysMap</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+          
+          
+              <span class="flag private">private</span>
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_Application.js.html#l154"><code>_displaysMap:154</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>The displays by canvas id</p>
           
             </div>
           
@@ -1553,7 +1419,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l117"><code>_enabled:117</code></a>
+                <a href="../files/src_Application.js.html#l118"><code>_enabled:118</code></a>
               </p>
           
           
@@ -1578,7 +1444,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l96"><code>_lastFrameTime:96</code></a>
+                <a href="../files/src_Application.js.html#l97"><code>_lastFrameTime:97</code></a>
               </p>
           
           
@@ -1586,56 +1452,6 @@ manages displays, update loop controlling, handles resizing</p>
           
             <div class="description">
               <p>The number of ms since the last frame update</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__maxHeight" class="property item private">
-            <h3 class="name"><code>_maxHeight</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l161"><code>_maxHeight:161</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The maximum height of the primary display, compared to the original width.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__maxWidth" class="property item private">
-            <h3 class="name"><code>_maxWidth</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l154"><code>_maxWidth:154</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The maximum width of the primary display, compared to the original height.</p>
           
             </div>
           
@@ -1653,7 +1469,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l139"><code>_msPerFrame:139</code></a>
+                <a href="../files/src_Application.js.html#l140"><code>_msPerFrame:140</code></a>
               </p>
           
           
@@ -1661,56 +1477,6 @@ manages displays, update loop controlling, handles resizing</p>
           
             <div class="description">
               <p>The number of milliseconds per frame</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__originalHeight" class="property item private">
-            <h3 class="name"><code>_originalHeight</code></h3>
-            <span class="type">Int</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l175"><code>_originalHeight:175</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The original height of the primary display, used to calculate the aspect ratio.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__originalWidth" class="property item private">
-            <h3 class="name"><code>_originalWidth</code></h3>
-            <span class="type">Int</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l168"><code>_originalWidth:168</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The original width of the primary display, used to calculate the aspect ratio.</p>
           
             </div>
           
@@ -1728,7 +1494,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l110"><code>_paused:110</code></a>
+                <a href="../files/src_Application.js.html#l111"><code>_paused:111</code></a>
               </p>
           
           
@@ -1754,7 +1520,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l87"><code>_plugins:87</code></a>
+                <a href="../files/src_Application.js.html#l88"><code>_plugins:88</code></a>
               </p>
           
           
@@ -1763,57 +1529,6 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="description">
               <p>The collection of function references to call when initializing the application
           these are registered by external modules.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__resizeElement" class="property item private">
-            <h3 class="name"><code>_resizeElement</code></h3>
-            <span class="type">DOMElement | Window | Null</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l146"><code>_resizeElement:146</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Dom element (or the window) to attach resize listeners and read the size from</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> null</p>
-          
-          
-          </div>          <div id="property__resizeHelper" class="property item private">
-            <h3 class="name"><code>_resizeHelper</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l196"><code>_resizeHelper:196</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>A helper object to avoid object creation each resize event.</p>
           
             </div>
           
@@ -1831,7 +1546,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l103"><code>_tickCallback:103</code></a>
+                <a href="../files/src_Application.js.html#l104"><code>_tickCallback:104</code></a>
               </p>
           
           
@@ -1856,7 +1571,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l124"><code>_tickId:124</code></a>
+                <a href="../files/src_Application.js.html#l125"><code>_tickId:125</code></a>
               </p>
           
           
@@ -1881,7 +1596,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l131"><code>_useRAF:131</code></a>
+                <a href="../files/src_Application.js.html#l132"><code>_useRAF:132</code></a>
               </p>
           
           
@@ -1922,6 +1637,30 @@ manages displays, update loop controlling, handles resizing</p>
           
           
           
+          </div>          <div id="property_displays" class="property item">
+            <h3 class="name"><code>displays</code></h3>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_Application.js.html#l429"><code>displays:429</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>Get all the displays</p>
+          
+            </div>
+          
+          
+          
           </div>          <div id="property_enabled" class="property item">
             <h3 class="name"><code>enabled</code></h3>
             <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
@@ -1933,7 +1672,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l375"><code>enabled:375</code></a>
+                <a href="../files/src_Application.js.html#l313"><code>enabled:313</code></a>
               </p>
           
           
@@ -1961,7 +1700,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l255"><code>instance:255</code></a>
+                <a href="../files/src_Application.js.html#l216"><code>instance:216</code></a>
               </p>
           
           
@@ -1985,7 +1724,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l69"><code>name:69</code></a>
+                <a href="../files/src_Application.js.html#l70"><code>name:70</code></a>
               </p>
           
           
@@ -2035,7 +1774,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l397"><code>paused:397</code></a>
+                <a href="../files/src_Application.js.html#l335"><code>paused:335</code></a>
               </p>
           
           
@@ -2064,7 +1803,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l211"><code>afterInit:211</code></a>
+                <a href="../files/src_Application.js.html#l167"><code>afterInit:167</code></a>
               </p>
           
           
@@ -2088,7 +1827,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l216"><code>beforeInit:216</code></a>
+                <a href="../files/src_Application.js.html#l172"><code>beforeInit:172</code></a>
               </p>
           
           
@@ -2112,7 +1851,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l250"><code>destroy:250</code></a>
+                <a href="../files/src_Application.js.html#l211"><code>destroy:211</code></a>
               </p>
           
           
@@ -2123,6 +1862,90 @@ manages displays, update loop controlling, handles resizing</p>
           
             </div>
           
+          
+          
+          </div>          <div id="event_displayAdded" class="events item">
+            <h3 class="name"><code>displayAdded</code></h3>
+            <span class="type"></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_Application.js.html#l189"><code>displayAdded:189</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>When a display is added.</p>
+          
+            </div>
+          
+              <div class="params">
+                <h4>Event Payload:</h4>
+          
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name optional">[display]</code>
+                        <span class="type"><a href="../classes/springroll.AbstractDisplay.html" class="crosslink">springroll.AbstractDisplay</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+          
+          
+                      <div class="param-description">
+                        <p>The current display being added</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
+          
+          
+          </div>          <div id="event_displayRemoved" class="events item">
+            <h3 class="name"><code>displayRemoved</code></h3>
+            <span class="type"></span>
+          
+          
+          
+          
+          
+            <div class="meta">
+                  <p>
+                      Defined in
+                <a href="../files/src_Application.js.html#l195"><code>displayRemoved:195</code></a>
+              </p>
+          
+          
+            </div>
+          
+            <div class="description">
+              <p>When a display is removed.</p>
+          
+            </div>
+          
+              <div class="params">
+                <h4>Event Payload:</h4>
+          
+                <ul class="params-list">
+                    <li class="param">
+                        <code class="param-name optional">[displayId]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+          
+          
+                      <div class="param-description">
+                        <p>The display alias</p>
+          
+                      </div>
+          
+                    </li>
+                </ul>
+              </div>
           
           
           </div>          <div id="event_init" class="events item">
@@ -2136,7 +1959,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l206"><code>init:206</code></a>
+                <a href="../files/src_Application.js.html#l162"><code>init:162</code></a>
               </p>
           
           
@@ -2160,7 +1983,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l234"><code>pause:234</code></a>
+                <a href="../files/src_Application.js.html#l183"><code>pause:183</code></a>
               </p>
           
           
@@ -2201,7 +2024,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l240"><code>paused:240</code></a>
+                <a href="../files/src_Application.js.html#l201"><code>paused:201</code></a>
               </p>
           
           
@@ -2212,58 +2035,6 @@ manages displays, update loop controlling, handles resizing</p>
           
             </div>
           
-          
-          
-          </div>          <div id="event_resize" class="events item">
-            <h3 class="name"><code>resize</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l227"><code>resize:227</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when a resize is called</p>
-          
-            </div>
-          
-              <div class="params">
-                <h4>Event Payload:</h4>
-          
-                <ul class="params-list">
-                    <li class="param">
-                        <code class="param-name">width</code>
-                        <span class="type">Int</span>
-          
-          
-                      <div class="param-description">
-                        <p>The width of the resize element</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class="param">
-                        <code class="param-name">height</code>
-                        <span class="type">Int</span>
-          
-          
-                      <div class="param-description">
-                        <p>The height of the resize element</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
           
           
           </div>          <div id="event_resumed" class="events item">
@@ -2277,7 +2048,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l245"><code>resumed:245</code></a>
+                <a href="../files/src_Application.js.html#l206"><code>resumed:206</code></a>
               </p>
           
           
@@ -2301,7 +2072,7 @@ manages displays, update loop controlling, handles resizing</p>
             <div class="meta">
                   <p>
                       Defined in
-                <a href="../files/src_Application.js.html#l221"><code>update:221</code></a>
+                <a href="../files/src_Application.js.html#l177"><code>update:177</code></a>
               </p>
           
           
@@ -2337,7 +2108,7 @@ manages displays, update loop controlling, handles resizing</p>
       </div>
     </div>
   </div>
-  <script src='../assets/js/libraries.js?v=0.3.4'></script>
-  <script src='../assets/js/main.js?v=0.3.4'></script>
+  <script src='../assets/js/libraries.js?v=0.3.5'></script>
+  <script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>
