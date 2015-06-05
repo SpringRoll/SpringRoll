@@ -481,11 +481,12 @@
 		var labels = this._labels = [];
 		var events = this._events = [];
 		
+		var name;
 		if (data.labels)
 		{
 			var positions = {}, position;
 
-			for(var name in data.labels)
+			for(name in data.labels)
 			{
 				var label = {
 					label: name,
@@ -519,13 +520,20 @@
 
 		//collect the frames
 		this._frames = [];
-
+		
+		var index;
 		for(var i = 0; i < data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
+			
+			name = frameSet.name;
+			index = name.lastIndexOf("/");
+			//strip off any folder structure included in the name
+			if(index < 0)
+				name = name.substring(index + 1);
 
 			atlas.getFrames(
-				frameSet.name,
+				name,
 				frameSet.min,
 				frameSet.max,
 				frameSet.digits,
