@@ -1389,23 +1389,7 @@
 
 		this.loading = true;
 
-		//Setup communication layer between site and application
-		this.client = new Bellhop();
-		this.client.connect(this.dom);
-
-		//Handle bellhop events coming from the application
-		this.client.on(
-		{
-			loadDone: onLoadDone.bind(this),
-			endGame: onEndGame.bind(this),
-			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
-			helpEnabled: onHelpEnabled.bind(this),
-			features: onFeatures.bind(this)
-		});
+		this.initClientCommunication();
 
 		//Open the application in the iframe
 		this.main
@@ -1503,6 +1487,48 @@
 		    return this.trigger('remoteFailed');
 		}
 		.bind(this));
+	};
+
+	/**
+	 *  Set up communication layer between site and application.
+	 *  May be called from subclasses if they create/destroy Bellhop instances.
+	 *  @protected
+	 *  @method initClientCommunication
+	 */
+	p.initClientCommunication = function()
+	{
+		//Setup communication layer between site and application
+		this.client = new Bellhop();
+		this.client.connect(this.dom);
+
+		//Handle bellhop events coming from the application
+		this.client.on(
+		{
+			loadDone: onLoadDone.bind(this),
+			endGame: onEndGame.bind(this),
+			focus: onFocus.bind(this),
+			trackEvent: onAnalyticEvent.bind(this),
+			analyticEvent: onAnalyticEvent.bind(this),
+			progressEvent: onLearningEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
+			features: onFeatures.bind(this)
+		});
+	};
+
+
+	/**
+	 *  Removes the Bellhop communication layer altogether.
+	 *  @protected
+	 *  @method destroyClientCommunication
+	 */
+	p.destroyClientCommunication = function()
+	{
+		if (this.client)
+		{
+			this.client.destroy();
+			this.client = null;
+		}
 	};
 
 	/**
@@ -1708,8 +1734,7 @@
 	 */
 	var onEndGame = function()
 	{
-		this.client.destroy();
-		this.client = null;
+		this.destroyClientCommunication();
 
 		this.reset();
 	};
@@ -2201,11 +2226,7 @@
 			this._pageVisibility = null;
 		}
 		
-		if (this.client)
-		{
-			this.client.destroy();
-			this.client = null;
-		}
+		this.destroyClientCommunication();
 
 		s.destroy.call(this);
 	};
