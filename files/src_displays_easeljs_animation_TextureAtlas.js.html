@@ -587,7 +587,7 @@
 				if(index &gt; 0)
 					name = name.substring(0, index);//strip off any &quot;.png&quot; or &quot;.jpg&quot; at the end
 				index = name.lastIndexOf(&quot;/&quot;);
-				if(index &lt; 0)
+				if(index &gt;= 0)
 					name = name.substring(index + 1);//strip off any folder structure included in the name
 				this.frames[name] = new Texture(image, data, swapFrameSize);
 			}

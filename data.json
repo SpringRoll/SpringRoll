@@ -1418,6 +1418,8 @@
                 "springroll.PageVisibility": 1,
                 "springroll.PageVisibilityPlugin": 1,
                 "springroll.ResizePlugin": 1,
+                "springroll.StringFilters": 1,
+                "springroll.StringFiltersPlugin": 1,
                 "springroll.DebugPlugin": 1,
                 "springroll.AbstractDisplay": 1,
                 "springroll.EventDispatcher": 1,
@@ -1444,29 +1446,6 @@
             "tag": "module",
             "file": "src/Application.js",
             "line": 13
-        },
-        "UI": {
-            "name": "UI",
-            "submodules": {},
-            "classes": {
-                "springroll.StringFilters": 1,
-                "springroll.StringFiltersPlugin": 1,
-                "springroll.Positioner": 1,
-                "springroll.ScaleItem": 1,
-                "springroll.ScaleManager": 1,
-                "springroll.ScalingPlugin": 1,
-                "springroll.TouchPlugin": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "springroll": 1
-            },
-            "tag": "module",
-            "file": "src/ui/TouchPlugin.js",
-            "line": 11,
-            "requires": [
-                "Core"
-            ]
         },
         "Debug": {
             "name": "Debug",
@@ -1885,6 +1864,27 @@
             "requires": [
                 "Core"
             ]
+        },
+        "UI": {
+            "name": "UI",
+            "submodules": {},
+            "classes": {
+                "springroll.Positioner": 1,
+                "springroll.ScaleItem": 1,
+                "springroll.ScaleManager": 1,
+                "springroll.ScalingPlugin": 1,
+                "springroll.TouchPlugin": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll": 1
+            },
+            "tag": "module",
+            "file": "src/ui/TouchPlugin.js",
+            "line": 11,
+            "requires": [
+                "Core"
+            ]
         }
     },
     "classes": {
@@ -2289,10 +2289,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll",
             "file": "src/core/StringFilters.js",
-            "line": 8,
+            "line": 7,
             "description": "Class for filtering strings",
             "is_constructor": 1
         },
@@ -2304,10 +2304,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll",
             "file": "src/core/StringFiltersPlugin.js",
-            "line": 11,
+            "line": 10,
             "description": "Create an app plugin for String Filters, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -6000,7 +6000,7 @@
             "access": "protected",
             "tagname": "",
             "itemtype": "method",
-            "name": "initClientCommunication",
+            "name": "initClient",
             "class": "springroll.Container",
             "module": "Container",
             "namespace": "springroll"
@@ -6012,7 +6012,7 @@
             "access": "protected",
             "tagname": "",
             "itemtype": "method",
-            "name": "destroyClientCommunication",
+            "name": "destroyClient",
             "class": "springroll.Container",
             "module": "Container",
             "namespace": "springroll"
@@ -8236,7 +8236,7 @@
         },
         {
             "file": "src/core/StringFilters.js",
-            "line": 15,
+            "line": 14,
             "description": "Dictionary of filters",
             "itemtype": "property",
             "name": "_filters",
@@ -8244,12 +8244,12 @@
             "access": "private",
             "tagname": "",
             "class": "springroll.StringFilters",
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/StringFilters.js",
-            "line": 26,
+            "line": 25,
             "description": "Register a filter",
             "itemtype": "method",
             "name": "add",
@@ -8267,12 +8267,12 @@
             ],
             "static": 1,
             "class": "springroll.StringFilters",
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/StringFilters.js",
-            "line": 71,
+            "line": 70,
             "description": "Test a string against all registered filters",
             "itemtype": "method",
             "name": "filter",
@@ -8285,28 +8285,28 @@
             ],
             "static": 1,
             "class": "springroll.StringFilters",
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/StringFilters.js",
-            "line": 92,
+            "line": 91,
             "itemtype": "method",
             "name": "destroy",
             "static": 1,
             "class": "springroll.StringFilters",
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/StringFiltersPlugin.js",
-            "line": 30,
+            "line": 29,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "filters",
             "type": "springroll.StringFilters",
             "class": "springroll.StringFiltersPlugin",
-            "module": "UI",
+            "module": "Core",
             "namespace": "springroll"
         },
         {
@@ -11066,7 +11066,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 566,
+            "line": 574,
             "description": "Copies the labels, textures, origin, and framerate from another BitmapMovieClip.\nThe labels and textures are copied by reference, instead of a deep copy.",
             "itemtype": "method",
             "name": "copyFrom",
@@ -11083,7 +11083,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 583,
+            "line": 591,
             "description": "Clone a sprite. Creates a shallow copy of loaded element",
             "itemtype": "method",
             "name": "clone",
@@ -11119,7 +11119,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 601,
+            "line": 609,
             "description": "Destroys the BitmapMovieClip, removing all children and nulling all reference variables.",
             "itemtype": "method",
             "name": "destroy",
@@ -11129,7 +11129,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 616,
+            "line": 624,
             "itemtype": "method",
             "name": "_tick",
             "params": [
@@ -11147,7 +11147,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 628,
+            "line": 636,
             "itemtype": "method",
             "name": "_goto",
             "params": [
@@ -11165,7 +11165,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 659,
+            "line": 667,
             "itemtype": "method",
             "name": "_updateTimeline",
             "access": "protected",
@@ -11176,7 +11176,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/BitmapMovieClip.js",
-            "line": 690,
+            "line": 698,
             "itemtype": "method",
             "name": "_reset",
             "access": "private",
