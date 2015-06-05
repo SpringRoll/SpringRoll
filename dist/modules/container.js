@@ -1389,7 +1389,7 @@
 
 		this.loading = true;
 
-		this.initClientCommunication();
+		this.initClient();
 
 		//Open the application in the iframe
 		this.main
@@ -1493,9 +1493,9 @@
 	 *  Set up communication layer between site and application.
 	 *  May be called from subclasses if they create/destroy Bellhop instances.
 	 *  @protected
-	 *  @method initClientCommunication
+	 *  @method initClient
 	 */
-	p.initClientCommunication = function()
+	p.initClient = function()
 	{
 		//Setup communication layer between site and application
 		this.client = new Bellhop();
@@ -1520,9 +1520,9 @@
 	/**
 	 *  Removes the Bellhop communication layer altogether.
 	 *  @protected
-	 *  @method destroyClientCommunication
+	 *  @method destroyClient
 	 */
-	p.destroyClientCommunication = function()
+	p.destroyClient = function()
 	{
 		if (this.client)
 		{
@@ -1734,7 +1734,7 @@
 	 */
 	var onEndGame = function()
 	{
-		this.destroyClientCommunication();
+		this.destroyClient();
 
 		this.reset();
 	};
@@ -2226,7 +2226,7 @@
 			this._pageVisibility = null;
 		}
 		
-		this.destroyClientCommunication();
+		this.destroyClient();
 
 		s.destroy.call(this);
 	};
