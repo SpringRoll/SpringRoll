@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.4 */
+/*! SpringRoll 0.3.5 */
 /**
  * @module Core
  * @namespace window
@@ -130,48 +130,40 @@
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
+*  Use to do class inheritence
+*  @class extend
 *  @static
 */
 (function(window){
 	
-	// The namespace function already exists
-	if ("namespace" in window) return;
-	
+	// The extend function already exists
+	if ("extend" in window) return;
+
 	/**
-	*  Create the namespace and assing to the window
+	*  Extend prototype
 	*
 	*  @example
-		var SpriteUtils = function(){};
-		namespace('springroll').SpriteUtils = SpriteUtils;
+		var p = extend(MyClass, ParentClass);
 	*
 	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
 	*/
-	var namespace = function(namespaceString) {
-		var parts = namespaceString.split('.'),
-			parent = window,
-			currentPart = '';
-
-		for(var i = 0, length = parts.length; i < length; i++)
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
 		{
-			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
-			parent = parent[currentPart];
+			superClass = window.include(superClass);
 		}
-		return parent;
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
 	};
-	
-	// Assign to the window namespace
-	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace window
@@ -239,40 +231,48 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
 *  @static
 */
 (function(window){
 	
-	// The extend function already exists
-	if ("extend" in window) return;
-
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
 	/**
-	*  Extend prototype
+	*  Create the namespace and assing to the window
 	*
 	*  @example
-		var p = extend(MyClass, ParentClass);
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
 	*
 	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
+	*  @return {object} The namespace object attached to the current window
 	*/
-	window.extend = function(subClass, superClass)
-	{
-		if (typeof superClass == "string")
-		{
-			superClass = window.include(superClass);
-		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
-	};
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
 
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
 }(window));
+
+
 /**
 *  @module Core
 *  @namespace springroll

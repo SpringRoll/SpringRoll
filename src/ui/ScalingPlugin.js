@@ -7,22 +7,22 @@
 {
 	//Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		UIScaler = include('springroll.UIScaler'),
+		ScaleManager = include('springroll.ScaleManager'),
 		Debug;
 
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
-	 *	@class UIScalerPlugin
+	 *	@class ScalingPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var UIScalerPlugin = function()
+	var ScalingPlugin = function()
 	{
 		ApplicationPlugin.call(this);
 	};
 
 	//Reference to the prototype
-	var p = extend(UIScalerPlugin, ApplicationPlugin);
+	var p = extend(ScalingPlugin, ApplicationPlugin);
 
 	//Init the scaling
 	p.setup = function()
@@ -30,11 +30,11 @@
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The main UIScaler for any display object references
+		 *	The main ScaleManager for any display object references
 		 *	in the main game.
-		 *	@property {springroll.UIScaler} scaling
+		 *	@property {springroll.ScaleManager} scaling
 		 */
-		this.scaling = new UIScaler();
+		this.scaling = new ScaleManager();
 
 		//Add the scaling size
 		this.on('configLoaded', function(config)
@@ -80,6 +80,6 @@
 	};
 
 	//Register plugin
-	ApplicationPlugin.register(UIScalerPlugin);
+	ApplicationPlugin.register(ScalingPlugin);
 
 }());

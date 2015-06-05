@@ -16,10 +16,10 @@
 	var DEG_TO_RAD = Math.PI / 180;
 
 	/**
-	 * Initial position a single item
-	 * @method initItem
+	 * Initial position a single display object
+	 * @method init
 	 * @static
-	 * @param {DisplayObject} item The display object to scale
+	 * @param {createjs.DisplayObject|PIXI.DisplayObject} display The display object to scale
 	 * @param {Object} settings The values for setting
 	 * @param {Number} [settings.x] The initial X position of the item
 	 * @param {Number} [settings.y] The initial Y position of the item
@@ -38,50 +38,50 @@
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
 	 *                                   in. If omitted, uses the Application's default display.
 	 */
-	Positioner.initItem = function(item, settings, adapter)
+	Positioner.init = function(displayObject, settings, adapter)
 	{
 		//get the default adapter if not specified
 		if (!adapter)
-			adapter = springroll.UIScaler._getAdapter();
+			adapter = springroll.ScaleManager._getAdapter();
 
 		if (settings.x !== undefined)
 		{
-			adapter.setPosition(item, settings.x, 'x');
+			adapter.setPosition(displayObject, settings.x, 'x');
 		}
 
 		if (settings.y !== undefined)
 		{
-			adapter.setPosition(item, settings.y, 'y');
+			adapter.setPosition(displayObject, settings.y, 'y');
 		}
 
 		var pt = settings.scale;
-		var scale = adapter.getScale(item);
+		var scale = adapter.getScale(displayObject);
 
 		if (pt)
 		{
-			adapter.setScale(item, pt.x * scale.x, "x");
-			adapter.setScale(item, pt.y * scale.y, "y");
+			adapter.setScale(displayObject, pt.x * scale.x, "x");
+			adapter.setScale(displayObject, pt.y * scale.y, "y");
 		}
 		pt = settings.pivot;
 
 		if (pt)
 		{
-			adapter.setPivot(item, pt);
+			adapter.setPivot(displayObject, pt);
 		}
 
 		if (settings.rotation !== undefined)
 		{
-			item.rotation = settings.rotation;
+			displayObject.rotation = settings.rotation;
 			if (adapter.useRadians)
 			{
-				item.rotation *= DEG_TO_RAD;
+				displayObject.rotation *= DEG_TO_RAD;
 			}
 		}
 
 		if (settings.hitArea)
 		{
 			adapter.setHitArea(
-				item,
+				displayObject,
 				Positioner.generateHitArea(
 					settings.hitArea, 1, adapter
 				)
@@ -122,7 +122,7 @@
 	{
 		//get the default adapter if not specified
 		if (!adapter)
-			adapter = springroll.UIScaler._getAdapter();
+			adapter = springroll.ScaleManager._getAdapter();
 		if (!scale) scale = 1;
 
 		if (Array.isArray(hitArea))

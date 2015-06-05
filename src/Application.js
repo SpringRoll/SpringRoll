@@ -14,7 +14,7 @@
 	*  Creates a new application, for example (HappyCamel extends Application)
 	*  manages displays, update loop controlling, handles resizing
 	*
-	*	var app = new Application({fps:60, resizeElement:window});
+	*	var app = new Application();
 	*
 	*  @class Application
 	*  @extend EventDispatcher
@@ -51,7 +51,8 @@
 		this.display = null;
 
 		// Reset the displays
-		_displays = {};
+		_displaysMap = {};
+		_displays = [];
 
 		// Add the _tick bind
 		_tickCallback = this._tick.bind(this);
@@ -144,64 +145,19 @@
 	_msPerFrame = 0,
 
 	/**
-	*  Dom element (or the window) to attach resize listeners and read the size from
-	*  @property {DOMElement|Window|null} _resizeElement
-	*  @private
-	*  @default null
-	*/
-	_resizeElement = null,
-
-	/**
-	*  The maximum width of the primary display, compared to the original height.
-	*  @property {Number} _maxWidth
-	*  @private
-	*/
-	_maxWidth = 0,
-	
-	/**
-	*  The maximum height of the primary display, compared to the original width.
-	*  @property {Number} _maxHeight
-	*  @private
-	*/
-	_maxHeight = 0,
-	
-	/**
-	*  The original width of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalWidth
-	*  @private
-	*/
-	_originalWidth = 0,
-	
-	/**
-	*  The original height of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalHeight
-	*  @private
-	*/
-	_originalHeight = 0,
-
-	/**
-	 *  The aspect ratio of the primary display, as width / height.
-	 *  @property {Number} _aspectRatio
-	 *  @private
-	 */
-	_aspectRatio = 0,
-
-	/**
-	 *  Rendering plugins, in a dictionary by canvas id
-	 *  @property {dictionary} _displays
+	 *  The collection of displays
+	 *  @property {Array} _displays
 	 *  @private
 	 */
 	_displays = null,
 
 	/**
-	 *  A helper object to avoid object creation each resize event.
-	 *  @property {Object} _resizeHelper
+	 *  The displays by canvas id
+	 *  @property {Object} _displaysMap
 	 *  @private
 	 */
-	_resizeHelper = {
-		width: 0,
-		height: 0
-	};
+	_displaysMap = null;
+
 
 	/**
 	 *  Fired when initialization of the application is ready
@@ -225,16 +181,21 @@
 	 */
 
 	/**
-	 *  Fired when a resize is called
-	 *  @event resize
-	 *  @param {int} width The width of the resize element
-	 *  @param {int} height The height of the resize element
-	 */
-
-	/**
 	 *  Fired when the pause state is toggled
 	 *  @event pause
 	 *  @param {boolean} paused If the application is now paused
+	 */
+
+	/**
+	 *  When a display is added.
+	 *  @event displayAdded
+	 *  @param {springroll.AbstractDisplay} [display] The current display being added
+	 */
+	
+	/**
+	 *  When a display is removed.
+	 *  @event displayRemoved
+	 *  @param {string} [displayId] The display alias
 	 */
 
 	/**
@@ -289,26 +250,6 @@
 			if (typeof value != "number") return;
 			_msPerFrame = (1000 / value) | 0;
 		});
-
-		if (options.resizeElement)
-		{
-			_resizeElement = options.resizeElement;
-			this.triggerResize = this.triggerResize.bind(this);
-			window.addEventListener("resize", this.triggerResize);
-		}
-		
-		//set up setters/getters in options for certain properties
-		_maxWidth = options.maxWidth;
-		options.on('maxWidth', function(value)
-		{
-			_maxWidth = value;
-		});
-
-		_maxHeight = options.maxHeight;
-		options.on('maxHeight', function(value)
-		{
-			_maxHeight = value;
-		});
 		
 		//add the initial display if specified
 		if (options.canvasId && options.display)
@@ -348,13 +289,10 @@
 		// Error with the async startup
 		if (err) throw err;
 
-		//do an initial resize to make sure everything is sized properly
-		this.triggerResize();
+		this.trigger('beforeInit');
 
 		//start update loop
 		this.paused = false;
-
-		this.trigger('beforeInit');
 	
 		// Dispatch the init event
 		this.trigger('init');
@@ -383,7 +321,7 @@
 		set: function(enabled)
 		{
 			_enabled = enabled;
-			this.getDisplays(function(display)
+			_displays.forEach(function(display)
 			{
 				display.enabled = enabled;
 			});
@@ -454,74 +392,6 @@
 	};
 
 	/**
-	 *  Fire a resize event with the current width and height of the display
-	 *  @method triggerResize
-	 */
-	p.triggerResize = function()
-	{
-		if (!_resizeElement) return;
-
-		// window uses innerWidth, DOM elements clientWidth
-		_resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
-		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
-
-		this.calculateDisplaySize(_resizeHelper);
-
-		// round up, as canvases require integer sizes
-		// and canvas should be slightly larger to avoid
-		// a hairline around outside of the canvas
-		_resizeHelper.width = Math.ceil(_resizeHelper.width);
-		_resizeHelper.height = Math.ceil(_resizeHelper.height);
-
-		//resize the displays
-		var key;
-		for (key in _displays)
-		{
-			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
-		}
-		//send out the resize event
-		this.trigger('resize', _resizeHelper.width, _resizeHelper.height);
-
-		//redraw all displays
-		for (key in _displays)
-		{
-			_displays[key].render(0, true); // force renderer
-		}
-	};
-
-	/**
-	 *  Calculates the resizing of displays. By default, this limits the new size
-	 *  to the initial aspect ratio of the primary display. Override this function
-	 *  if you need variable aspect ratios.
-	 *  @method calculateDisplaySize
-	 *  @protected
-	 *  @param {Object} size A size object containing the width and height of the resized container.
-	 *                       The size parameter is also the output of the function, so the size
-	 *                       properties are edited in place.
-	 *  @param {int} size.width The width of the resized container.
-	 *  @param {int} size.height The height of the resized container.
-	 */
-	p.calculateDisplaySize = function(size)
-	{
-		if (!_originalHeight || !this.options.uniformResize) return;
-
-		var maxAspectRatio = _maxWidth / _originalHeight,
-			minAspectRatio = _originalWidth / _maxHeight,
-			currentAspect = size.width / size.height;
-
-		if (currentAspect < minAspectRatio)
-		{
-			//limit to the narrower width
-			size.height = size.width / minAspectRatio;
-		}
-		else if (currentAspect > maxAspectRatio)
-		{
-			//limit to the shorter height
-			size.width = size.height * maxAspectRatio;
-		}
-	};
-
-	/**
 	 *  Add a display. If this is the first display added, then it will be stored as this.display.
 	 *  @method addDisplay
 	 *  @param {String} id The id of the canvas element, this will be used to grab the Display later
@@ -534,25 +404,40 @@
 	 */
 	p.addDisplay = function(id, displayConstructor, options)
 	{
-		if (_displays[id])
+		if (_displaysMap[id])
 		{
 			throw "Display exists with id '" + id + "'";
 		}
-		var display = _displays[id] = new displayConstructor(id, options);
+		// Creat the display
+		var display = new displayConstructor(id, options);
+
+		// Add it to the collections
+		_displaysMap[id] = display;
+		_displays.push(display);
+		
+		// Inherit the enabled state from the application
+		display.enabled = _enabled;
+
 		if (!this.display)
 		{
 			this.display = display;
-			_originalWidth = display.width;
-			_originalHeight = display.height;
-			if(!_maxWidth)
-				_maxWidth = _originalWidth;
-			if(!_maxHeight)
-				_maxHeight = _originalHeight;
 		}
-		// Inherit the enabled state from the application
-		display.enabled = _enabled;
+		this.trigger('displayAdded', display);
 		return display;
 	};
+
+	/**
+	 *  Get all the displays
+	 *  @property {Array} displays
+	 *  @readOnly
+	 */
+	Object.defineProperty(p, 'displays',
+	{
+		get: function()
+		{
+			return _displays;
+		}
+	});
 
 	/**
 	 *  Gets a specific renderer by the canvas id.
@@ -562,12 +447,13 @@
 	 */
 	p.getDisplay = function(id)
 	{
-		return _displays[id];
+		return _displaysMap[id];
 	};
 
 	/**
 	 *  Gets a specific renderer by the canvas id.
 	 *  @method getDisplays
+	 *  @deprecated Use the displays property on the application instead.
 	 *  @public
 	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
 	 *                           display
@@ -575,16 +461,11 @@
 	 */
 	p.getDisplays = function(each)
 	{
-		var output = [];
-		for (var key in _displays)
+		if (typeof each == "function")
 		{
-			output.push(_displays[key]);
-			if (typeof each === "function")
-			{
-				each.call(this, _displays[key]);
-			}
+			_displays.forEach(each);
 		}
-		return output;
+		return _displays;
 	};
 
 	/**
@@ -594,11 +475,13 @@
 	 */
 	p.removeDisplay = function(id)
 	{
-		var display = _displays[id];
+		var display = _displaysMap[id];
 		if (display)
 		{
+			_displays.splice(_displays.indexOf(display), 1);
 			display.destroy();
-			delete _displays[id];
+			delete _displaysMap[id];
+			this.trigger('displayRemoved', id);
 		}
 	};
 
@@ -623,9 +506,9 @@
 		this.trigger('update', elapsed);
 
 		//then update all displays
-		for (var key in _displays)
+		for (var i = 0; i < _displays.length; i++)
 		{
-			_displays[key].render(elapsed);
+			_displays[i].render(elapsed);
 		}
 
 		//request the next tick
@@ -658,20 +541,15 @@
 			plugin.teardown.call(_instance);
 		});
 
-		for (var key in _displays)
+		_displays.forEach(function(display)
 		{
-			_displays[key].destroy();
-		}
+			display.destroy();
+		});
 		_displays = null;
-
-		if (_resizeElement)
-		{
-			window.removeEventListener("resize", this.triggerResize);
-		}
+		_displaysMap = null;
 
 		_instance =
-		_tickCallback =
-		_resizeElement = null;
+		_tickCallback = null;
 
 		this.display = null;
 		this.options.destroy();

@@ -6,7 +6,6 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var PageVisibility = include('springroll.PageVisibility');
 
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
@@ -31,6 +30,7 @@
 		 * @property {springroll.PageVisibility} _visibility
 		 * @private
 		 */
+		var PageVisibility = include('springroll.PageVisibility');
 		var visibility = this._visibility = new PageVisibility(
 			onVisible.bind(this),
 			onHidden.bind(this)

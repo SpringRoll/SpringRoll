@@ -4,7 +4,7 @@
  */
 (function()
 {
-	var Application = include('springroll.Application');
+	var Application;
 
 	/**
 	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
@@ -12,6 +12,11 @@
 	*/
 	var ApplicationPlugin = function()
 	{
+		if (!Application)
+		{
+			Application = include('springroll.Application');
+		}
+		
 		/**
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.

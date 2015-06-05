@@ -6,7 +6,6 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Loader = include('springroll.Loader');
 
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
@@ -32,6 +31,7 @@
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
+		var Loader = include('springroll.Loader');
 		var loader = this.loader = Loader.init();
 
 		/**

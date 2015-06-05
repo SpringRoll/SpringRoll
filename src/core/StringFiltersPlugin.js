@@ -6,8 +6,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		StringFilters = include('springroll.StringFilters');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * Create an app plugin for String Filters, all properties and methods documented
@@ -32,6 +31,7 @@
 		 * The StringFilters instance
 		 * @property {springroll.StringFilters} filters
 		 */
+		var StringFilters = include('springroll.StringFilters');
 		this.filters = new StringFilters();
 	};
 

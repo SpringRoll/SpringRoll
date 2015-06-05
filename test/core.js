@@ -18,7 +18,7 @@ test('Enum', function(assert){
 
 	expect(8);
 
-	var Enum = springroll.Enum;
+	var Enum = include('springroll.Enum');
 	
 	var myEnum = new Enum("valueOf0",
 						"valueOf1",
@@ -47,7 +47,7 @@ test('Application', function(assert){
 
 	expect(5);
 
-	var Application = springroll.Application;
+	var Application = include('springroll.Application');
 
 	// New Application
 	var app = new Application();
@@ -64,7 +64,7 @@ test('Application', function(assert){
 test('Loader', function(assert){
 
 	//expect(9);
-	var Application = springroll.Application;
+	var Application = include('springroll.Application');
 
 	// New Application
 	var basePath = "http://example.com/";

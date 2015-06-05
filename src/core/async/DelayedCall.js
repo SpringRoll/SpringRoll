@@ -4,7 +4,7 @@
  */
 (function(undefined) {
 
-	var Application = include('springroll.Application');
+	var Application;
 
 	/**
 	*  A class for delaying a call through the Application, instead of relying on setInterval() or
@@ -22,6 +22,11 @@
 	*/
 	var DelayedCall = function(callback, delay, repeat, autoDestroy, useFrames)
 	{
+		if (!Application)
+		{
+			Application = include('springroll.Application');
+		}
+		
 		/**
 		*  The function to call when the delay is completed.
 		*  @private
