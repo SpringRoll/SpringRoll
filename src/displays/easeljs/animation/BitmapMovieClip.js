@@ -529,7 +529,7 @@
 			name = frameSet.name;
 			index = name.lastIndexOf("/");
 			//strip off any folder structure included in the name
-			if(index < 0)
+			if(index >= 0)
 				name = name.substring(index + 1);
 
 			atlas.getFrames(
