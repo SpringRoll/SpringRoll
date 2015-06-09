@@ -14,18 +14,40 @@
 	*  @constructor
 	*  @param {function} callback The function to call when the delay has completed.
 	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
-	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when
+	*  @param {Object|Boolean} [options=false] The options to use or repeat value
+	*  @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
 	*                                  completed.
+	*  @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
+	*                                     milliseconds for the delay.
 	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
 	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
 	*                                     milliseconds for the delay.
 	*/
-	var DelayedCall = function(callback, delay, repeat, autoDestroy, useFrames)
+	var DelayedCall = function(callback, delay, options, autoDestroy, useFrames)
 	{
 		if (!Application)
 		{
 			Application = include('springroll.Application');
 		}
+
+		// @deprecate the options as repeat param
+		if (typeof options === "boolean")
+		{
+			options = {
+				repeat: !!options,
+				autoDestroy: autoDestroy === undefined ? true : !!autoDestroy,
+				useFrames: !!useFrames
+			};
+		}
+
+		// Set the default options
+		options = Object.merge({
+			repeat: false,
+			autoDestroy: true,
+			useFrames: false
+		}, options || {});
+
 		
 		/**
 		*  The function to call when the delay is completed.
@@ -54,7 +76,7 @@
 		*  @property {Boolean} _repeat
 		*  @default false
 		*/
-		this._repeat = !!repeat;
+		this._repeat = options.repeat;
 
 		/**
 		*  If the DelayedCall should destroy itself after completing
@@ -62,7 +84,7 @@
 		*  @property {Boolean} _autoDestroy
 		*  @default true
 		*/
-		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
+		this._autoDestroy = options.autoDestroy;
 		
 		/**
 		*  If the DelayedCall should use frames instead of milliseconds for the delay.
@@ -70,7 +92,7 @@
 		*  @property {Boolean} _useFrames
 		*  @default false
 		*/
-		this._useFrames = !!useFrames;
+		this._useFrames = options.useFrames;
 
 		/**
 		*  If the DelayedCall is currently paused (not stopped).

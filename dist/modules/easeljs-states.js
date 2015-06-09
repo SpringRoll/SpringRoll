@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.5 */
+/*! SpringRoll 0.3.6 */
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
@@ -148,7 +148,7 @@
  */
 (function(undefined)
 {
-	var State = include('springroll.BaseState'),
+	var State = include('springroll.State'),
 		Debug,
 		Application,
 		ListTask,
@@ -160,7 +160,7 @@
 	 *	Abstract app state class to do some preloading of assets
 	 *	also plays well with the app audio loading.
 	 *	@class BaseState
-	 *	@extends springroll.BaseState
+	 *	@extends springroll.State
 	 *	@constructor
 	 *	@param {createjs.Container} panel The panel
 	 *	@param {Object} [options] The options
@@ -186,7 +186,7 @@
 
 		if (!(panel instanceof BasePanel))
 		{
-			throw "springroll.BaseState requires the panel be a springroll.easeljs.BasePanel";
+			throw "springroll.State requires the panel be a springroll.easeljs.BasePanel";
 		}
 
 		// The options

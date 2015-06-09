@@ -31,7 +31,7 @@
 		 * Fired when an event has been added
 		 * @event stateAdded
 		 * @param {String} alias The state alias
-		 * @param {springroll.BaseState} state The State object
+		 * @param {springroll.State} state The State object
 		 */
 		
 		/**
@@ -42,16 +42,70 @@
 		this._states = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|PIXI.Spine} transition
-		*/
-		this.transition = null;
-
-		/**
 		*  The state manager
 		*  @property {springroll.StateManager} manager
 		*/
 		this.manager = null;
+
+		/**
+		*  The transition animation to use between the StateManager state changes
+		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+		*  @private
+		*/
+		this._transition = null;
+
+		/**
+		*  The transition animation to use between the StateManager state changes
+		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+		*/
+		Object.defineProperty(this, "transition", 
+		{
+			set: function(transition)
+			{
+				if (!this.display)
+				{
+					if (DEBUG)
+					{
+						throw "No default display is available to set the states. Use the display application option";
+					}
+					else
+					{
+						throw "No default display";
+					}
+				}
+
+				// Remove the old transition
+				var stage = this.display.stage;
+				if (this._transition)
+				{
+					stage.removeChild(this._transition);
+				}
+
+				// Save the transtion reference
+				this._transition = transition;
+
+				// Add to the manager
+				if (this.manager)
+				{
+					this.manager.transition = transition;
+				}
+
+				// Add to the stage
+				if (transition)
+				{
+					// Stop the transition from playing
+					if (transition.stop)
+					{
+						transition.stop();
+					}
+					stage.addChild(transition);
+				}
+			},
+			get: function()
+			{
+				return this._transition;
+			}
+		});
 
 		/**
 		 * The initial state to go to when everything is finished
@@ -111,22 +165,21 @@
 					}
 				}
 
-				// Get the transition from either the transition manual set or the options
-				var transition =  this.transition || this.options.transition;
-				this.transition = transition;
-
-				//if the transition is a EaselJS movieclip, start it out
-				//at the end of the transition out animation. If it has a
-				//'transitionLoop' animation, that will be played as soon as a state is set
-				if (transition && transition.gotoAndStop)
+				if (!this.display)
 				{
-					transition.gotoAndStop("onTransitionOut_stop");
+					if (DEBUG)
+					{
+						throw "No default display is available to set the states. Use the display application option";
+					}
+					else
+					{
+						throw "No default display";
+					}
 				}
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
 					this.display,
-					transition,
 					this.options.transitionSounds
 				);
 				
@@ -146,16 +199,28 @@
 
 				this._states = states;
 
-				// Add the transition on top of everything else
+				// Get the transition from either the transition manual set or the options
+				var transition =  this._transition || this.options.transition;
+
+				//if the transition is a EaselJS movieclip, start it out
+				//at the end of the transition out animation. If it has a
+				//'transitionLoop' animation, that will be played as soon as a state is set
 				if (transition)
 				{
-					stage.addChild(transition);
+					// Add the transition this will addChild on top of all the panels
+					this.transition = transition;
+
+					// Goto the fully covered state
+					if (transition.gotoAndStop)
+					{
+						transition.gotoAndStop("onTransitionOut_stop");
+					}
 				}
 
 				// Goto the first state
 				if (this.options.state)
 				{
-					manager.setState(this.options.state);
+					manager.state = this.options.state;
 				}
 			},
 			get: function()
@@ -173,23 +238,24 @@
 			 */
 			window.onkeyup = function(e)
 			{
-				if (!this.manager) return;
+				if (!this.manager || !this.manager.currentState) return;
 
 				var key = e.keyCode ? e.keyCode : e.which;
+				var currentState = this.manager.currentState;
 				switch (key)
 				{
 					//right arrow
 					case 39:
 					{
 						if (Debug) Debug.info("Going to next state via keyboard");
-						this.manager.next();
+						currentState.nextState();
 						break;
 					}
 					//left arrow
 					case 37:
 					{
 						if (Debug) Debug.info("Going to previous state via keyboard");
-						this.manager.previous();
+						currentState.previousState();
 						break;
 					}
 				}
@@ -205,6 +271,7 @@
 		{
 			window.onkeyup = null;
 		}
+		this._state = null;
 		if (this.manager)
 		{
 			this.manager.destroy();
