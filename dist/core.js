@@ -2980,9 +2980,8 @@
 
 }());
 /**
- * @module UI
+ * @module Core
  * @namespace springroll
- * @requires Core
  */
 (function()
 {
@@ -3083,9 +3082,8 @@
 	namespace('springroll').StringFilters = StringFilters;
 }());
 /**
- * @module UI
+ * @module Core
  * @namespace springroll
- * @requires Core
  */
 (function()
 {

@@ -164,13 +164,17 @@
 	 *	@constructor
 	 *	@param {createjs.Container} panel The panel
 	 *	@param {Object} [options] The options
-	 *	@param {String|function} [options.next=null] The next state alias or call to next state
-	 *	@param {String|function} [options.previous=null] The previous state alias or call to previous state
-	 *  @param {Boolean}} [options.useManifest=true] Automatically load and unload assets with
-	 *    the AssetManager which are found in the manifest option or property.
-	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the AssetManager.
-	 *  @param {Object} [options.scaling=null] The scaling items to use with the UIScaler. See `UIScaler.addItems`
-	 *    for more information about the format of the scaling objects.
+	 *	@param {String|Function} [options.next=null] The next state alias or call to next state
+	 *	@param {String|Function} [options.previous=null] The previous state alias or call to
+	 *                                                   previous state
+	 *  @param {Boolean} [options.useManifest=true] Automatically load and unload assets with the
+	 *                                              AssetManager which are found in the manifest
+	 *                                              option or property.
+	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the
+	 *                                       AssetManager.
+	 *  @param {Object} [options.scaling=null] The scaling items to use with the UIScaler. See
+	 *                                         `UIScaler.addItems` for more information about the
+	 *                                         format of the scaling objects.
 	 */
 	var BaseState = function(panel, options)
 	{
@@ -392,7 +396,8 @@
 
 		if (this.scaling)
 		{
-			var items = this.scalingItems || this.config.scaling[this.stateId];
+			var items = this.scalingItems ||
+				(this.config && this.config.scaling ? this.config.scaling[this.stateId] : null);
 
 			if (items)
 			{
