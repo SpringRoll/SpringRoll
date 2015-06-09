@@ -2,42 +2,43 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.5 API Documentation : springroll.ApplicationPlugin</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
-  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<title>SpringRoll v0.3.5 API Documentation : springroll.ApplicationPlugin</title>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
-  <header>
-    <div class='container'>
-      <div class='version pull-right'>
-        <em>API Documentation for: 0.3.5</em>
-      </div>
-      <div class='logo'>
+<header>
+<div class='container'>
+<div class='version pull-right'>
+<em>API Documentation for: 0.3.5</em>
+</div>
+<div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-      </div>
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+</div>
 <div class='scope-toggles pull-right'>
-  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div>    </div>
-  </header>
-  <div class='container'>
-    <div class='row'>
-      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div></div>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
 <h2>APIs</h2>
 <div class='input-group'>
   <div class='input-group-addon'>
     <span class='glyphicon glyphicon-search'></span>
   </div>
   <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
 </div>
 <nav class='navbar navbar-default'>
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +48,7 @@
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
     </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
       Modules
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
@@ -498,348 +499,348 @@
     </ul>
   </div>
   <!-- /.container-fluid -->
-</nav>      </nav>
-      <div class='col-sm-8 col-md-9'>
-        <div id='docs-main' class='apidocs'>
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
 
 <h1>springroll.ApplicationPlugin Class</h1>
 <div class='box meta'>
 
 
-    <div class='foundat'>
-      Defined in: <a href='../files/src_core_ApplicationPlugin.js.html#l9'><code>springroll.ApplicationPlugin:9</code></a>
-    </div>
+<div class='foundat'>
+Defined in: <a href='../files/src_core_ApplicationPlugin.js.html#l9'><code>springroll.ApplicationPlugin:9</code></a>
+</div>
 
-      Module:
-      <a href="../modules/Core.html">Core</a>
+Module:
+<a href="../modules/Core.html">Core</a>
 
 </div>
 
 
 <div class='box intro'>
-  <p>Responsible for creating mixins, bindings, and setup for the SpringRoll Application</p>
+<p>Responsible for creating mixins, bindings, and setup for the SpringRoll Application</p>
 
 </div>
 
 
 <div id='classdocs' class='tabview'>
-    <span id='docs-highlight'></span>
-  <ul class='nav nav-tabs'>
-    <li id='tab-index' class='docs-toggle'>
-      <a data-toggle='tab' href='#docs-index'>Index</a>
-    </li>
-      <li id='tab-methods' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-methods'>Methods</a>
-      </li>
-      <li id='tab-properties' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-properties'>Properties</a>
-      </li>
-  </ul>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+</ul>
 
-  <div class='tab-content'>
+<div class='tab-content'>
 
-    <div role='tabpanel' id='docs-index' class='tab-pane'>
-        <div class='index-section tab-pane methods'>
-          <h3>Methods</h3>
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
 
-          <ul class='list-group row methods'>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_preload'>preload</a>
+<ul class='list-group row methods'>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_preload'>preload</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method_prioritySort'>prioritySort</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_prioritySort'>prioritySort</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_register'>register</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_register'>register</a>
 
-                  <span class='flag static'>static</span>
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_setup'>setup</a>
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_setup'>setup</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_teardown'>teardown</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_teardown'>teardown</a>
 
-              </li>
-          </ul>
-        </div>
+</li>
+</ul>
+</div>
 
-        <div class='index-section tab-pane properties'>
-          <h3>Properties</h3>
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
 
-          <ul class='list-group row properties'>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_priority'>priority</a>
+<ul class='list-group row properties'>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_priority'>priority</a>
 
-              </li>
-          </ul>
-        </div>
-
-
-    </div>
-
-      <div role='tabpanel' id='docs-methods' class='tab-pane'>
-
-          <div id='method_preload' class='method item'>
-            <h3 class='name'><code>preload</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>done</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_core_ApplicationPlugin.js.html#l40'><code>preload:40</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>The function to call right before the app is initailized. This function is bound to the application.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>done</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The done function, takes one argument for an error.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_prioritySort' class='method item private'>
-            <h3 class='name'><code>prioritySort</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>a</code>
-                    </li>
-                    <li class='arg'>
-                        <code>b</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_core_ApplicationPlugin.js.html#l70'><code>prioritySort:70</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Comparator function for sorting the plugins by priority</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>a</code>
-                        <span class='type'><a href="../classes/springroll.ApplicationPlugin.html" class="crosslink">springroll.ApplicationPlugin</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>First plugin</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>b</code>
-                        <span class='type'><a href="../classes/springroll.ApplicationPlugin.html" class="crosslink">springroll.ApplicationPlugin</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>Second plugin</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_register' class='method item'>
-            <h3 class='name'><code>register</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-                <span class='flag static'>static</span>
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_core_ApplicationPlugin.js.html#l56'><code>register:56</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Register the plugin with the Application</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_setup' class='method item'>
-            <h3 class='name'><code>setup</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_core_ApplicationPlugin.js.html#l31'><code>setup:31</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the application is being initialized. This function is bound to the application.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_teardown' class='method item'>
-            <h3 class='name'><code>teardown</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_core_ApplicationPlugin.js.html#l47'><code>teardown:47</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>When the application is being destroyed. This function is bound to the application.</p>
-          
-            </div>
-          
-          
-          
-          </div>      </div>
-
-      <div role='tabpanel' id='docs-properties' class='tab-pane'>
-
-          <div id="property_priority" class="property item">
-            <h3 class="name"><code>priority</code></h3>
-            <span class="type">Int</span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_core_ApplicationPlugin.js.html#l20"><code>priority:20</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The priority of the plugin. Higher numbers handled first. This should be set
-          in the constructor of the extending ApplicationPlugin.</p>
-          
-            </div>
-          
-          
-          
-          </div>      </div>
+</li>
+</ul>
+</div>
 
 
-  </div>
-</div>        </div>
-      </div>
-    </div>
-  </div>
-  <script src='../assets/js/libraries.js?v=0.3.5'></script>
-  <script src='../assets/js/main.js?v=0.3.5'></script>
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div id='method_preload' class='method item'>
+<h3 class='name'><code>preload</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>done</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_core_ApplicationPlugin.js.html#l40'><code>preload:40</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The function to call right before the app is initailized. This function is bound to the application.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>done</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The done function, takes one argument for an error.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method_prioritySort' class='method item private'>
+<h3 class='name'><code>prioritySort</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>a</code>
+</li>
+<li class='arg'>
+<code>b</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_core_ApplicationPlugin.js.html#l70'><code>prioritySort:70</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Comparator function for sorting the plugins by priority</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>a</code>
+<span class='type'><a href="../classes/springroll.ApplicationPlugin.html" class="crosslink">springroll.ApplicationPlugin</a></span>
+
+
+<div class='param-description'>
+<p>First plugin</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>b</code>
+<span class='type'><a href="../classes/springroll.ApplicationPlugin.html" class="crosslink">springroll.ApplicationPlugin</a></span>
+
+
+<div class='param-description'>
+<p>Second plugin</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method_register' class='method item'>
+<h3 class='name'><code>register</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+<span class='flag static'>static</span>
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_core_ApplicationPlugin.js.html#l56'><code>register:56</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Register the plugin with the Application</p>
+
+</div>
+
+
+
+</div><div id='method_setup' class='method item'>
+<h3 class='name'><code>setup</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_core_ApplicationPlugin.js.html#l31'><code>setup:31</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>When the application is being initialized. This function is bound to the application.</p>
+
+</div>
+
+
+
+</div><div id='method_teardown' class='method item'>
+<h3 class='name'><code>teardown</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_core_ApplicationPlugin.js.html#l47'><code>teardown:47</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>When the application is being destroyed. This function is bound to the application.</p>
+
+</div>
+
+
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div id="property_priority" class="property item">
+<h3 class="name"><code>priority</code></h3>
+<span class="type">Int</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_core_ApplicationPlugin.js.html#l20"><code>priority:20</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The priority of the plugin. Higher numbers handled first. This should be set
+in the constructor of the extending ApplicationPlugin.</p>
+
+</div>
+
+
+
+</div></div>
+
+
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.5'></script>
+<script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

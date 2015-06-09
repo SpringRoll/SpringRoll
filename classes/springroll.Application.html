@@ -2,42 +2,43 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.5 API Documentation : springroll.Application</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
-  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<title>SpringRoll v0.3.5 API Documentation : springroll.Application</title>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
 </head>
 
 <body>
-  <header>
-    <div class='container'>
-      <div class='version pull-right'>
-        <em>API Documentation for: 0.3.5</em>
-      </div>
-      <div class='logo'>
+<header>
+<div class='container'>
+<div class='version pull-right'>
+<em>API Documentation for: 0.3.5</em>
+</div>
+<div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-      </div>
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+</div>
 <div class='scope-toggles pull-right'>
-  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div>    </div>
-  </header>
-  <div class='container'>
-    <div class='row'>
-      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div></div>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
 <h2>APIs</h2>
 <div class='input-group'>
   <div class='input-group-addon'>
     <span class='glyphicon glyphicon-search'></span>
   </div>
   <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
 </div>
 <nav class='navbar navbar-default'>
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +48,7 @@
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
     </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
       Modules
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
@@ -498,1617 +499,1617 @@
     </ul>
   </div>
   <!-- /.container-fluid -->
-</nav>      </nav>
-      <div class='col-sm-8 col-md-9'>
-        <div id='docs-main' class='apidocs'>
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
 
 <h1>springroll.Application Class</h1>
 <div class='box meta'>
 
-    <div class='extends'>
-      Extends
-      EventDispatcher
-    </div>
+<div class='extends'>
+Extends
+EventDispatcher
+</div>
 
-    <div class='foundat'>
-      Defined in: <a href='../files/src_Application.js.html#l13'><code>springroll.Application:13</code></a>
-    </div>
+<div class='foundat'>
+Defined in: <a href='../files/src_Application.js.html#l13'><code>springroll.Application:13</code></a>
+</div>
 
-      Module:
-      <a href="../modules/Core.html">Core</a>
+Module:
+<a href="../modules/Core.html">Core</a>
 
 </div>
 
 
 <div class='box intro'>
-  <p>Creates a new application, for example (HappyCamel extends Application)
+<p>Creates a new application, for example (HappyCamel extends Application)
 manages displays, update loop controlling, handles resizing</p>
 <pre class="code prettyprint"><code>var app = new Application();
 </code></pre>
 </div>
 
-  <div class='constructor'>
-    <h2>Constructor</h2> <div id='method_springroll.Application' class='method item'>
-  <h3 class='name'><code>springroll.Application</code></h3>
+<div class='constructor'>
+<h2>Constructor</h2> <div id='method_springroll.Application' class='method item'>
+<h3 class='name'><code>springroll.Application</code></h3>
 
-    <div class='args'>
-      <span class='paren'>(</span>
-      <ul class='args-list inline commas'>
-          <li class='arg'>
-              <code class='optional'>[options]</code>
-          </li>
-    </ul><span class='paren'>)</span>
-    </div>
-
-
-  <div class='flags'>
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[options]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
 
 
+<div class='flags'>
 
 
 
-  </div> 
-  
-  <div class='meta'>
-        <p>
-            Defined in
-      <a href='../files/src_Application.js.html#l13'><code>springroll.Application:13</code></a>
-    </p>
 
 
+</div> 
 
-  </div>
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l13'><code>springroll.Application:13</code></a>
+</p>
 
-  <div class='description'>
-    
-  </div>
-
-    <div class='params'>
-      <h4>Parameters:</h4>
-
-      <ul class='params-list'>
-          <li class='param'>
-              <code class='param-name optional'>[options]</code>
-              <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-              <span class='flag optional' title='This parameter is optional.'>optional</span>
-
-
-            <div class='param-description'>
-              <p>The options for creating the application,
-         see <code>springroll.ApplicationOptions</code> for the specific options
-        that can be overridden and set.</p>
-
-            </div>
-
-          </li>
-      </ul>
-    </div>
 
 
 </div>
-  </div>
+
+<div class='description'>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The options for creating the application,
+         see <code>springroll.ApplicationOptions</code> for the specific options
+        that can be overridden and set.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div>
+</div>
 
 <div id='classdocs' class='tabview'>
-    <span id='docs-highlight'></span>
-  <ul class='nav nav-tabs'>
-    <li id='tab-index' class='docs-toggle'>
-      <a data-toggle='tab' href='#docs-index'>Index</a>
-    </li>
-      <li id='tab-methods' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-methods'>Methods</a>
-      </li>
-      <li id='tab-properties' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-properties'>Properties</a>
-      </li>
-      <li id='tab-events' class='docs-toggle'>
-        <a data-toggle='tab' href='#docs-events'>Events</a>
-      </li>
-  </ul>
+<span id='docs-highlight'></span>
+<ul class='nav nav-tabs'>
+<li id='tab-index' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-index'>Index</a>
+</li>
+<li id='tab-methods' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-methods'>Methods</a>
+</li>
+<li id='tab-properties' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-properties'>Properties</a>
+</li>
+<li id='tab-events' class='docs-toggle'>
+<a data-toggle='tab' href='#docs-events'>Events</a>
+</li>
+</ul>
 
-  <div class='tab-content'>
+<div class='tab-content'>
 
-    <div role='tabpanel' id='docs-index' class='tab-pane'>
-        <div class='index-section tab-pane methods'>
-          <h3>Methods</h3>
+<div role='tabpanel' id='docs-index' class='tab-pane'>
+<div class='index-section tab-pane methods'>
+<h3>Methods</h3>
 
-          <ul class='list-group row methods extends'>
-              <li class='col-xs-6 col-md-4 index-item method protected'>
-                <a href='#method__doInit'>_doInit</a>
+<ul class='list-group row methods extends'>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method__doInit'>_doInit</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__preInit'>_preInit</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__preInit'>_preInit</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method__tick'>_tick</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__tick'>_tick</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_addDisplay'>addDisplay</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_addDisplay'>addDisplay</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_destroy'>destroy</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_destroy'>destroy</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_getDisplay'>getDisplay</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_getDisplay'>getDisplay</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method public deprecated'>
-                <a href='#method_getDisplays'>getDisplays</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method public deprecated'>
+<a href='#method_getDisplays'>getDisplays</a>
 
-                  <span class='flag deprecated'>deprecated</span>
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method protected'>
-                <a href='#method_init'>init</a>
+<span class='flag deprecated'>deprecated</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item method protected'>
+<a href='#method_init'>init</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_removeDisplay'>removeDisplay</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_removeDisplay'>removeDisplay</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method private'>
-                <a href='#method_setTargetedTimeout'>setTargetedTimeout</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method_setTargetedTimeout'>setTargetedTimeout</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item method'>
-                <a href='#method_toString'>toString</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item method'>
+<a href='#method_toString'>toString</a>
 
-              </li>
-          </ul>
-        </div>
+</li>
+</ul>
+</div>
 
-        <div class='index-section tab-pane properties'>
-          <h3>Properties</h3>
+<div class='index-section tab-pane properties'>
+<h3>Properties</h3>
 
-          <ul class='list-group row properties extends'>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__displays'>_displays</a>
+<ul class='list-group row properties extends'>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__displays'>_displays</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__displaysMap'>_displaysMap</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__displaysMap'>_displaysMap</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__enabled'>_enabled</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__enabled'>_enabled</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__lastFrameTime'>_lastFrameTime</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__lastFrameTime'>_lastFrameTime</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__msPerFrame'>_msPerFrame</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__msPerFrame'>_msPerFrame</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__paused'>_paused</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__paused'>_paused</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__plugins'>_plugins</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__plugins'>_plugins</a>
 
-                  <span class='flag static'>static</span>
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__tickCallback'>_tickCallback</a>
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__tickCallback'>_tickCallback</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__tickId'>_tickId</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__tickId'>_tickId</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property private'>
-                <a href='#property__useRAF'>_useRAF</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__useRAF'>_useRAF</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property public'>
-                <a href='#property_display'>display</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_display'>display</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_displays'>displays</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_displays'>displays</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_enabled'>enabled</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_enabled'>enabled</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property public'>
-                <a href='#property_instance'>instance</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property public'>
+<a href='#property_instance'>instance</a>
 
-                  <span class='flag static'>static</span>
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_name'>name</a>
+<span class='flag static'>static</span>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_name'>name</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_options'>options</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_options'>options</a>
 
-              </li>
-              <li class='col-xs-6 col-md-4 index-item property'>
-                <a href='#property_paused'>paused</a>
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_paused'>paused</a>
 
-              </li>
-          </ul>
-        </div>
-
-
-        <div class='index-section tab-pane events'>
-
-          <ul class='list-group row events extends'>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_afterInit'>afterInit</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_beforeInit'>beforeInit</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_destroy'>destroy</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_displayAdded'>displayAdded</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_displayRemoved'>displayRemoved</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_init'>init</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_pause'>pause</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_paused'>paused</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_resumed'>resumed</a>
-
-              </li>
-              <li class='col-xs-6 col-md-4 index-item event'>
-                <a href='#event_update'>update</a>
-
-              </li>
-          </ul>
-        </div>
-    </div>
-
-      <div role='tabpanel' id='docs-methods' class='tab-pane'>
-
-          <div id='method__doInit' class='method item protected'>
-            <h3 class='name'><code>_doInit</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag protected'>protected</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l280'><code>_doInit:280</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Initialize the application</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__preInit' class='method item private'>
-            <h3 class='name'><code>_preInit</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l231'><code>_preInit:231</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>The internal initialization</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method__tick' class='method item private'>
-            <h3 class='name'><code>_tick</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l488'><code>_tick:488</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>_tick would be bound in _tickCallback</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_addDisplay' class='method item'>
-            <h3 class='name'><code>addDisplay</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>id</code>
-                    </li>
-                    <li class='arg'>
-                        <code>displayConstructor</code>
-                    </li>
-                    <li class='arg'>
-                        <code class='optional'>[options]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>Display</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l394'><code>addDisplay:394</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Add a display. If this is the first display added, then it will be stored as this.display.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>id</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The id of the canvas element, this will be used to grab the Display later
-                             also the Display should be the one to called document.getElementById(id)
-                             and not the application sinc we don&#39;t care about the DOMElement as this
-                             point</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>displayConstructor</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The function to call to create the display instance</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name optional'>[options]</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>Optional Display specific options</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>Display</span>:
-                    <p>The created display.</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_destroy' class='method item'>
-            <h3 class='name'><code>destroy</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l524'><code>destroy:524</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Destroys the application and all active displays and plugins</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_getDisplay' class='method item'>
-            <h3 class='name'><code>getDisplay</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>id</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'>Display</span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l442'><code>getDisplay:442</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Gets a specific renderer by the canvas id.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>id</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The id of the canvas</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'>Display</span>:
-                    <p>The requested display.</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_getDisplays' class='method item public deprecated'>
-            <h3 class='name'><code>getDisplays</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code class='optional'>[each]</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-              <span class='returns-inline'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-              </span>
-          
-            <div class='flags'>
-                <span class='flag deprecated'  title='Use the displays property on the application instead.' >deprecated</span>
-          
-                <span class='flag public'>public</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l453'><code>getDisplays:453</code></a>
-              </p>
-          
-          
-                <p>Deprecated: Use the displays property on the application instead.</p>
-          
-            </div>
-          
-            <div class='description'>
-              <p>Gets a specific renderer by the canvas id.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name optional'>[each]</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                        <span class='flag optional' title='This parameter is optional.'>optional</span>
-          
-          
-                      <div class='param-description'>
-                        <p>Optional looping method, callback takes a single parameter of the
-                                   display</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
-                    <p>The collection of Display objects</p>
-          
-                </div>
-              </div>
-          
-          </div>          <div id='method_init' class='method item protected'>
-            <h3 class='name'><code>init</code></h3>
-          
-              <span class='paren'>()</span>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag protected'>protected</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l306'><code>init:306</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Override this to do post constructor initialization</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id='method_removeDisplay' class='method item'>
-            <h3 class='name'><code>removeDisplay</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>id</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l471'><code>removeDisplay:471</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Removes and destroys a display</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>id</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The Display&#39;s id (also the canvas ID)</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_setTargetedTimeout' class='method item private'>
-            <h3 class='name'><code>setTargetedTimeout</code></h3>
-          
-              <div class='args'>
-                <span class='paren'>(</span>
-                <ul class='args-list inline commas'>
-                    <li class='arg'>
-                        <code>callback</code>
-                    </li>
-                    <li class='arg'>
-                        <code>timeInFrame=0</code>
-                    </li>
-              </ul><span class='paren'>)</span>
-              </div>
-          
-          
-            <div class='flags'>
-          
-                <span class='flag private'>private</span>
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l377'><code>setTargetedTimeout:377</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-          current tick.</p>
-          
-            </div>
-          
-              <div class='params'>
-                <h4>Parameters:</h4>
-          
-                <ul class='params-list'>
-                    <li class='param'>
-                        <code class='param-name'>callback</code>
-                        <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-                      <div class='param-description'>
-                        <p>The tick function to call.</p>
-          
-                      </div>
-          
-                    </li>
-                    <li class='param'>
-                        <code class='param-name'>timeInFrame=0</code>
-                        <span class='type'>Int</span>
-          
-          
-                      <div class='param-description'>
-                        <p>The amount of time spent in the current tick in milliseconds.</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id='method_toString' class='method item'>
-            <h3 class='name'><code>toString</code></h3>
-          
-              <span class='paren'>()</span>
-          
-              <span class='returns-inline'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-              </span>
-          
-            <div class='flags'>
-          
-          
-          
-          
-          
-            </div> 
-            
-            <div class='meta'>
-                  <p>
-                      Defined in
-                <a href='../files/src_Application.js.html#l561'><code>toString:561</code></a>
-              </p>
-          
-          
-          
-            </div>
-          
-            <div class='description'>
-              <p>The toString debugging method</p>
-          
-            </div>
-          
-          
-              <div class='returns'>
-                <h4>Returns:</h4>
-          
-                <div class='returns-description'>
-                      <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
-                    <p>The reprsentation of this class</p>
-          
-                </div>
-              </div>
-          
-          </div>      </div>
-
-      <div role='tabpanel' id='docs-properties' class='tab-pane'>
-
-          <div id="property__displays" class="property item private">
-            <h3 class="name"><code>_displays</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l147"><code>_displays:147</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The collection of displays</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__displaysMap" class="property item private">
-            <h3 class="name"><code>_displaysMap</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l154"><code>_displaysMap:154</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The displays by canvas id</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__enabled" class="property item private">
-            <h3 class="name"><code>_enabled</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l118"><code>_enabled:118</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If the current application is enabled</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__lastFrameTime" class="property item private">
-            <h3 class="name"><code>_lastFrameTime</code></h3>
-            <span class="type">Int</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l97"><code>_lastFrameTime:97</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The number of ms since the last frame update</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__msPerFrame" class="property item private">
-            <h3 class="name"><code>_msPerFrame</code></h3>
-            <span class="type">Int</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l140"><code>_msPerFrame:140</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The number of milliseconds per frame</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__paused" class="property item private">
-            <h3 class="name"><code>_paused</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l111"><code>_paused:111</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If the current application is paused</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__plugins" class="property item private">
-            <h3 class="name"><code>_plugins</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-              <span class="flag static">static</span>
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l88"><code>_plugins:88</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The collection of function references to call when initializing the application
-          these are registered by external modules.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__tickCallback" class="property item private">
-            <h3 class="name"><code>_tickCallback</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l104"><code>_tickCallback:104</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The bound callback for listening to tick events</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__tickId" class="property item private">
-            <h3 class="name"><code>_tickId</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l125"><code>_tickId:125</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The id of the active requestAnimationFrame or setTimeout call.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property__useRAF" class="property item private">
-            <h3 class="name"><code>_useRAF</code></h3>
-            <span class="type">Bool</span>
-          
-          
-              <span class="flag private">private</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l132"><code>_useRAF:132</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>If requestionAnimationFrame should be used</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> false</p>
-          
-          
-          </div>          <div id="property_display" class="property item public">
-            <h3 class="name"><code>display</code></h3>
-            <span class="type">Display</span>
-          
-          
-              <span class="flag public">public</span>
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l44"><code>display:44</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Primary renderer for the application, for simply accessing
-          Application.instance.display.stage;
-          The first display added becomes the primary display automatically.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_displays" class="property item">
-            <h3 class="name"><code>displays</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l429"><code>displays:429</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Get all the displays</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_enabled" class="property item">
-            <h3 class="name"><code>enabled</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l313"><code>enabled:313</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Enables at the application level which enables
-          and disables all the displays.</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> true</p>
-          
-          
-          </div>          <div id="property_instance" class="property item public">
-            <h3 class="name"><code>instance</code></h3>
-            <span class="type">Application</span>
-          
-          
-              <span class="flag public">public</span>
-          
-          
-              <span class="flag static">static</span>
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l216"><code>instance:216</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Get the singleton instance of the application</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_name" class="property item">
-            <h3 class="name"><code>name</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l70"><code>name:70</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>The name of the game, useful for debugging purposes</p>
-          
-            </div>
-          
-              <p><strong>Default:</strong> &quot;&quot;</p>
-          
-          
-          </div>          <div id="property_options" class="property item">
-            <h3 class="name"><code>options</code></h3>
-            <span class="type"><a href="../classes/springroll.ApplicationOptions.html" class="crosslink">springroll.ApplicationOptions</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l36"><code>options:36</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Initialization options/query string parameters, these properties are read-only
-          Application properties like raf, fps, don&#39;t have any affect on the options object.</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="property_paused" class="property item">
-            <h3 class="name"><code>paused</code></h3>
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l335"><code>paused:335</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Pause updates at the application level</p>
-          
-            </div>
-          
-          
-          
-          </div>      </div>
+</li>
+</ul>
+</div>
 
 
-      <div role='tabpanel' id='docs-events' class='tab-pane'>
+<div class='index-section tab-pane events'>
 
-          <div id="event_afterInit" class="events item">
-            <h3 class="name"><code>afterInit</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l167"><code>afterInit:167</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when initialization of the application is done</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_beforeInit" class="events item">
-            <h3 class="name"><code>beforeInit</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l172"><code>beforeInit:172</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when before initialization of the application</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_destroy" class="events item">
-            <h3 class="name"><code>destroy</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l211"><code>destroy:211</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when the application is destroyed</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_displayAdded" class="events item">
-            <h3 class="name"><code>displayAdded</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l189"><code>displayAdded:189</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>When a display is added.</p>
-          
-            </div>
-          
-              <div class="params">
-                <h4>Event Payload:</h4>
-          
-                <ul class="params-list">
-                    <li class="param">
-                        <code class="param-name optional">[display]</code>
-                        <span class="type"><a href="../classes/springroll.AbstractDisplay.html" class="crosslink">springroll.AbstractDisplay</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-          
-          
-                      <div class="param-description">
-                        <p>The current display being added</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id="event_displayRemoved" class="events item">
-            <h3 class="name"><code>displayRemoved</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l195"><code>displayRemoved:195</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>When a display is removed.</p>
-          
-            </div>
-          
-              <div class="params">
-                <h4>Event Payload:</h4>
-          
-                <ul class="params-list">
-                    <li class="param">
-                        <code class="param-name optional">[displayId]</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                        <span class="flag optional" title="This parameter is optional.">optional</span>
-          
-          
-                      <div class="param-description">
-                        <p>The display alias</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id="event_init" class="events item">
-            <h3 class="name"><code>init</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l162"><code>init:162</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when initialization of the application is ready</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_pause" class="events item">
-            <h3 class="name"><code>pause</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l183"><code>pause:183</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when the pause state is toggled</p>
-          
-            </div>
-          
-              <div class="params">
-                <h4>Event Payload:</h4>
-          
-                <ul class="params-list">
-                    <li class="param">
-                        <code class="param-name">paused</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-          
-          
-                      <div class="param-description">
-                        <p>If the application is now paused</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>          <div id="event_paused" class="events item">
-            <h3 class="name"><code>paused</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l201"><code>paused:201</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when the application becomes paused</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_resumed" class="events item">
-            <h3 class="name"><code>resumed</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l206"><code>resumed:206</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when the application resumes from a paused state</p>
-          
-            </div>
-          
-          
-          
-          </div>          <div id="event_update" class="events item">
-            <h3 class="name"><code>update</code></h3>
-            <span class="type"></span>
-          
-          
-          
-          
-          
-            <div class="meta">
-                  <p>
-                      Defined in
-                <a href="../files/src_Application.js.html#l177"><code>update:177</code></a>
-              </p>
-          
-          
-            </div>
-          
-            <div class="description">
-              <p>Fired when an update is called, every frame update</p>
-          
-            </div>
-          
-              <div class="params">
-                <h4>Event Payload:</h4>
-          
-                <ul class="params-list">
-                    <li class="param">
-                        <code class="param-name">elasped</code>
-                        <span class="type">Int</span>
-          
-          
-                      <div class="param-description">
-                        <p>The number of milliseconds since the last frame update</p>
-          
-                      </div>
-          
-                    </li>
-                </ul>
-              </div>
-          
-          
-          </div>      </div>
-  </div>
-</div>        </div>
-      </div>
-    </div>
-  </div>
-  <script src='../assets/js/libraries.js?v=0.3.5'></script>
-  <script src='../assets/js/main.js?v=0.3.5'></script>
+<ul class='list-group row events extends'>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_afterInit'>afterInit</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_beforeInit'>beforeInit</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_destroy'>destroy</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_displayAdded'>displayAdded</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_displayRemoved'>displayRemoved</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_init'>init</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_pause'>pause</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_paused'>paused</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_resumed'>resumed</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_update'>update</a>
+
+</li>
+</ul>
+</div>
+</div>
+
+<div role='tabpanel' id='docs-methods' class='tab-pane'>
+
+<div id='method__doInit' class='method item protected'>
+<h3 class='name'><code>_doInit</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l280'><code>_doInit:280</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Initialize the application</p>
+
+</div>
+
+
+
+</div><div id='method__preInit' class='method item private'>
+<h3 class='name'><code>_preInit</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l231'><code>_preInit:231</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The internal initialization</p>
+
+</div>
+
+
+
+</div><div id='method__tick' class='method item private'>
+<h3 class='name'><code>_tick</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l488'><code>_tick:488</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>_tick would be bound in _tickCallback</p>
+
+</div>
+
+
+
+</div><div id='method_addDisplay' class='method item'>
+<h3 class='name'><code>addDisplay</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>id</code>
+</li>
+<li class='arg'>
+<code>displayConstructor</code>
+</li>
+<li class='arg'>
+<code class='optional'>[options]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Display</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l394'><code>addDisplay:394</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Add a display. If this is the first display added, then it will be stored as this.display.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>id</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The id of the canvas element, this will be used to grab the Display later
+                   also the Display should be the one to called document.getElementById(id)
+                   and not the application sinc we don&#39;t care about the DOMElement as this
+                   point</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>displayConstructor</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The function to call to create the display instance</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[options]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Optional Display specific options</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Display</span>:
+<p>The created display.</p>
+
+</div>
+</div>
+
+</div><div id='method_destroy' class='method item'>
+<h3 class='name'><code>destroy</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l524'><code>destroy:524</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Destroys the application and all active displays and plugins</p>
+
+</div>
+
+
+
+</div><div id='method_getDisplay' class='method item'>
+<h3 class='name'><code>getDisplay</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>id</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'>Display</span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l442'><code>getDisplay:442</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Gets a specific renderer by the canvas id.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>id</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The id of the canvas</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'>Display</span>:
+<p>The requested display.</p>
+
+</div>
+</div>
+
+</div><div id='method_getDisplays' class='method item public deprecated'>
+<h3 class='name'><code>getDisplays</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code class='optional'>[each]</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+</span>
+
+<div class='flags'>
+<span class='flag deprecated'  title='Use the displays property on the application instead.' >deprecated</span>
+
+<span class='flag public'>public</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l453'><code>getDisplays:453</code></a>
+</p>
+
+
+<p>Deprecated: Use the displays property on the application instead.</p>
+
+</div>
+
+<div class='description'>
+<p>Gets a specific renderer by the canvas id.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[each]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>Optional looping method, callback takes a single parameter of the
+                         display</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+<p>The collection of Display objects</p>
+
+</div>
+</div>
+
+</div><div id='method_init' class='method item protected'>
+<h3 class='name'><code>init</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag protected'>protected</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l306'><code>init:306</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Override this to do post constructor initialization</p>
+
+</div>
+
+
+
+</div><div id='method_removeDisplay' class='method item'>
+<h3 class='name'><code>removeDisplay</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>id</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l471'><code>removeDisplay:471</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Removes and destroys a display</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>id</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+<div class='param-description'>
+<p>The Display&#39;s id (also the canvas ID)</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method_setTargetedTimeout' class='method item private'>
+<h3 class='name'><code>setTargetedTimeout</code></h3>
+
+<div class='args'>
+<span class='paren'>(</span>
+<ul class='args-list inline commas'>
+<li class='arg'>
+<code>callback</code>
+</li>
+<li class='arg'>
+<code>timeInFrame=0</code>
+</li>
+</ul><span class='paren'>)</span>
+</div>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l377'><code>setTargetedTimeout:377</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
+current tick.</p>
+
+</div>
+
+<div class='params'>
+<h4>Parameters:</h4>
+
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name'>callback</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<div class='param-description'>
+<p>The tick function to call.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name'>timeInFrame=0</code>
+<span class='type'>Int</span>
+
+
+<div class='param-description'>
+<p>The amount of time spent in the current tick in milliseconds.</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id='method_toString' class='method item'>
+<h3 class='name'><code>toString</code></h3>
+
+<span class='paren'>()</span>
+
+<span class='returns-inline'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+</span>
+
+<div class='flags'>
+
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_Application.js.html#l561'><code>toString:561</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>The toString debugging method</p>
+
+</div>
+
+
+<div class='returns'>
+<h4>Returns:</h4>
+
+<div class='returns-description'>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+<p>The reprsentation of this class</p>
+
+</div>
+</div>
+
+</div></div>
+
+<div role='tabpanel' id='docs-properties' class='tab-pane'>
+
+<div id="property__displays" class="property item private">
+<h3 class="name"><code>_displays</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l147"><code>_displays:147</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of displays</p>
+
+</div>
+
+
+
+</div><div id="property__displaysMap" class="property item private">
+<h3 class="name"><code>_displaysMap</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l154"><code>_displaysMap:154</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The displays by canvas id</p>
+
+</div>
+
+
+
+</div><div id="property__enabled" class="property item private">
+<h3 class="name"><code>_enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l118"><code>_enabled:118</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the current application is enabled</p>
+
+</div>
+
+
+
+</div><div id="property__lastFrameTime" class="property item private">
+<h3 class="name"><code>_lastFrameTime</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l97"><code>_lastFrameTime:97</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The number of ms since the last frame update</p>
+
+</div>
+
+
+
+</div><div id="property__msPerFrame" class="property item private">
+<h3 class="name"><code>_msPerFrame</code></h3>
+<span class="type">Int</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l140"><code>_msPerFrame:140</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The number of milliseconds per frame</p>
+
+</div>
+
+
+
+</div><div id="property__paused" class="property item private">
+<h3 class="name"><code>_paused</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l111"><code>_paused:111</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If the current application is paused</p>
+
+</div>
+
+
+
+</div><div id="property__plugins" class="property item private">
+<h3 class="name"><code>_plugins</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+<span class="flag private">private</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l88"><code>_plugins:88</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The collection of function references to call when initializing the application
+these are registered by external modules.</p>
+
+</div>
+
+
+
+</div><div id="property__tickCallback" class="property item private">
+<h3 class="name"><code>_tickCallback</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l104"><code>_tickCallback:104</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The bound callback for listening to tick events</p>
+
+</div>
+
+
+
+</div><div id="property__tickId" class="property item private">
+<h3 class="name"><code>_tickId</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l125"><code>_tickId:125</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The id of the active requestAnimationFrame or setTimeout call.</p>
+
+</div>
+
+
+
+</div><div id="property__useRAF" class="property item private">
+<h3 class="name"><code>_useRAF</code></h3>
+<span class="type">Bool</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l132"><code>_useRAF:132</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>If requestionAnimationFrame should be used</p>
+
+</div>
+
+<p><strong>Default:</strong> false</p>
+
+
+</div><div id="property_display" class="property item public">
+<h3 class="name"><code>display</code></h3>
+<span class="type">Display</span>
+
+
+<span class="flag public">public</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l44"><code>display:44</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Primary renderer for the application, for simply accessing
+Application.instance.display.stage;
+The first display added becomes the primary display automatically.</p>
+
+</div>
+
+
+
+</div><div id="property_displays" class="property item">
+<h3 class="name"><code>displays</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l429"><code>displays:429</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get all the displays</p>
+
+</div>
+
+
+
+</div><div id="property_enabled" class="property item">
+<h3 class="name"><code>enabled</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l313"><code>enabled:313</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Enables at the application level which enables
+and disables all the displays.</p>
+
+</div>
+
+<p><strong>Default:</strong> true</p>
+
+
+</div><div id="property_instance" class="property item public">
+<h3 class="name"><code>instance</code></h3>
+<span class="type">Application</span>
+
+
+<span class="flag public">public</span>
+
+
+<span class="flag static">static</span>
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l216"><code>instance:216</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get the singleton instance of the application</p>
+
+</div>
+
+
+
+</div><div id="property_name" class="property item">
+<h3 class="name"><code>name</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l70"><code>name:70</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The name of the game, useful for debugging purposes</p>
+
+</div>
+
+<p><strong>Default:</strong> &quot;&quot;</p>
+
+
+</div><div id="property_options" class="property item">
+<h3 class="name"><code>options</code></h3>
+<span class="type"><a href="../classes/springroll.ApplicationOptions.html" class="crosslink">springroll.ApplicationOptions</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l36"><code>options:36</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Initialization options/query string parameters, these properties are read-only
+Application properties like raf, fps, don&#39;t have any affect on the options object.</p>
+
+</div>
+
+
+
+</div><div id="property_paused" class="property item">
+<h3 class="name"><code>paused</code></h3>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l335"><code>paused:335</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Pause updates at the application level</p>
+
+</div>
+
+
+
+</div></div>
+
+
+<div role='tabpanel' id='docs-events' class='tab-pane'>
+
+<div id="event_afterInit" class="events item">
+<h3 class="name"><code>afterInit</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l167"><code>afterInit:167</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when initialization of the application is done</p>
+
+</div>
+
+
+
+</div><div id="event_beforeInit" class="events item">
+<h3 class="name"><code>beforeInit</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l172"><code>beforeInit:172</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when before initialization of the application</p>
+
+</div>
+
+
+
+</div><div id="event_destroy" class="events item">
+<h3 class="name"><code>destroy</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l211"><code>destroy:211</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when the application is destroyed</p>
+
+</div>
+
+
+
+</div><div id="event_displayAdded" class="events item">
+<h3 class="name"><code>displayAdded</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l189"><code>displayAdded:189</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When a display is added.</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name optional">[display]</code>
+<span class="type"><a href="../classes/springroll.AbstractDisplay.html" class="crosslink">springroll.AbstractDisplay</a></span>
+<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+<div class="param-description">
+<p>The current display being added</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id="event_displayRemoved" class="events item">
+<h3 class="name"><code>displayRemoved</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l195"><code>displayRemoved:195</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>When a display is removed.</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name optional">[displayId]</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+<div class="param-description">
+<p>The display alias</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id="event_init" class="events item">
+<h3 class="name"><code>init</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l162"><code>init:162</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when initialization of the application is ready</p>
+
+</div>
+
+
+
+</div><div id="event_pause" class="events item">
+<h3 class="name"><code>pause</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l183"><code>pause:183</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when the pause state is toggled</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">paused</code>
+<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+<div class="param-description">
+<p>If the application is now paused</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div><div id="event_paused" class="events item">
+<h3 class="name"><code>paused</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l201"><code>paused:201</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when the application becomes paused</p>
+
+</div>
+
+
+
+</div><div id="event_resumed" class="events item">
+<h3 class="name"><code>resumed</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l206"><code>resumed:206</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when the application resumes from a paused state</p>
+
+</div>
+
+
+
+</div><div id="event_update" class="events item">
+<h3 class="name"><code>update</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_Application.js.html#l177"><code>update:177</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Fired when an update is called, every frame update</p>
+
+</div>
+
+<div class="params">
+<h4>Event Payload:</h4>
+
+<ul class="params-list">
+<li class="param">
+<code class="param-name">elasped</code>
+<span class="type">Int</span>
+
+
+<div class="param-description">
+<p>The number of milliseconds since the last frame update</p>
+
+</div>
+
+</li>
+</ul>
+</div>
+
+
+</div></div>
+</div>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.5'></script>
+<script src='../assets/js/main.js?v=0.3.5'></script>
 </body>
 </html>

@@ -2750,37 +2750,39 @@
                         {
                             "name": "next",
                             "description": "The next state alias or call to next state",
-                            "type": "String|function",
+                            "type": "String|Function",
                             "optional": true,
                             "optdefault": "null"
                         },
                         {
                             "name": "previous",
-                            "description": "The previous state alias or call to previous state",
-                            "type": "String|function",
+                            "description": "The previous state alias or call to\n                                                   previous state",
+                            "type": "String|Function",
                             "optional": true,
                             "optdefault": "null"
                         },
                         {
+                            "name": "useManifest",
+                            "description": "Automatically load and unload assets with the\n                                              AssetManager which are found in the manifest\n                                              option or property.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
                             "name": "manifest",
-                            "description": "The list of object to load and unload with the AssetManager.",
+                            "description": "The list of object to load and unload with the\n                                       AssetManager.",
                             "type": "Array",
                             "optional": true,
                             "optdefault": "[]"
                         },
                         {
                             "name": "scaling",
-                            "description": "The scaling items to use with the UIScaler. See `UIScaler.addItems`\n    for more information about the format of the scaling objects.",
+                            "description": "The scaling items to use with the UIScaler. See\n                                         `UIScaler.addItems` for more information about the\n                                         format of the scaling objects.",
                             "type": "Object",
                             "optional": true,
                             "optdefault": "null"
                         }
                     ]
-                },
-                {
-                    "name": "}",
-                    "description": "[options.useManifest=true] Automatically load and unload assets with\n    the AssetManager which are found in the manifest option or property.",
-                    "type": "Boolean"
                 }
             ]
         },
@@ -12451,7 +12453,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 58,
+            "line": 62,
             "description": "Reference to the main app",
             "itemtype": "property",
             "name": "app",
@@ -12465,7 +12467,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 66,
+            "line": 70,
             "description": "Reference to the main app",
             "itemtype": "property",
             "name": "app",
@@ -12481,7 +12483,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 75,
+            "line": 79,
             "description": "The instance of the VOPlayer",
             "itemtype": "property",
             "name": "voPlayer",
@@ -12495,7 +12497,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 83,
+            "line": 87,
             "description": "The instance of the Sound",
             "itemtype": "property",
             "name": "sound",
@@ -12509,7 +12511,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 91,
+            "line": 95,
             "description": "Reference to the main config object",
             "itemtype": "property",
             "name": "config",
@@ -12523,7 +12525,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 99,
+            "line": 103,
             "description": "Reference to the scaling object",
             "itemtype": "property",
             "name": "scaling",
@@ -12537,7 +12539,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 107,
+            "line": 111,
             "description": "The items to scale on the panel, see `UIScaler.addItems` for\nmore information. If no options are set in the State's constructor\nthen it will try to find an object on the app config on `scaling` property\nmatching the same state alias. For instance `config.scaling.title` if\n`title` is the state alias. If no scalingItems are set, will scale\nand position the panal itself.",
             "itemtype": "property",
             "name": "scalingItems",
@@ -12552,7 +12554,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 121,
+            "line": 125,
             "description": "The assets to load each time",
             "itemtype": "property",
             "name": "manifest",
@@ -12565,7 +12567,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 128,
+            "line": 132,
             "description": "Check to see if the assets have finished loading",
             "itemtype": "property",
             "name": "assetsLoaded",
@@ -12579,7 +12581,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 136,
+            "line": 140,
             "description": "If a manifest specific to this state should be automatically loaded by default.",
             "itemtype": "property",
             "name": "useManifest",
@@ -12592,7 +12594,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 150,
+            "line": 154,
             "description": "Enter the state, when the panel is fully hidden\nby the transition",
             "itemtype": "method",
             "name": "enter",
@@ -12602,7 +12604,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 188,
+            "line": 192,
             "description": "Extend the internal exit",
             "itemtype": "method",
             "name": "_internalExit",
@@ -12614,7 +12616,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 215,
+            "line": 219,
             "description": "Implementation specific for override. When you need to add additional preload\ntasks to your state, override this function.",
             "itemtype": "method",
             "name": "addTasks",
@@ -12633,7 +12635,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 227,
+            "line": 231,
             "description": "Implementation specific for override. When all the assets have been loaded\ncan possible add options for loading assets.\nfrom the TaskManager.",
             "itemtype": "method",
             "name": "onAssetsLoaded",
@@ -12645,7 +12647,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 239,
+            "line": 243,
             "description": "The internal call for on assets loaded",
             "itemtype": "method",
             "name": "_onLoaded",
@@ -12657,7 +12659,7 @@
         },
         {
             "file": "src/displays/easeljs/states/BaseState.js",
-            "line": 287,
+            "line": 292,
             "description": "Don't use after calling this",
             "itemtype": "method",
             "name": "destroy",
