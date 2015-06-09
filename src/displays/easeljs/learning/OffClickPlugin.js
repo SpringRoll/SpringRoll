@@ -63,7 +63,7 @@
 				y = x.y;
 				x = x.x;
 			}
-			//TODO: Support Pixi with this as well
+
 			if (coordSpace && coordSpace.localToGlobal)
 			{
 				var globalPoint = coordSpace.localToGlobal(x, y);
@@ -78,6 +78,21 @@
 				stage_width: display.width,
 				stage_height: display.height
 			};
+		};
+
+		/**
+		 * For the learning, we want to send consistent data when sending
+		 * Position. This helper method will generate that data for the
+		 * current mouse's stage position. We are returning an object of 
+		 * `{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.
+		 *
+		 * @method mousePosition
+		 * @return {Object} `{x:int, y:int, stage_width:int, stage_height:int}`
+		 */
+		this.mousePosition = function()
+		{
+			var stage = this.display.stage;
+			return this.normalizePosition(stage.mouseX, stage.mouseY);
 		};
 	};
 
