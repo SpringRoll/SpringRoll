@@ -2709,9 +2709,13 @@
 		this.trigger('update', elapsed);
 
 		//then update all displays
-		for (var i = 0; i < _displays.length; i++)
+		//displays may be null if a tick happens while we are in the process of destroying
+		if (_displays)
 		{
-			_displays[i].render(elapsed);
+			for (var i = 0; i < _displays.length; i++)
+			{
+				_displays[i].render(elapsed);
+			}
 		}
 
 		//request the next tick
