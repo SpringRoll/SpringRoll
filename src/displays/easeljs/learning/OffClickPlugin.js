@@ -24,6 +24,8 @@
 
 	// Reference to the prototype
 	var p = extend(OffClickPlugin, ApplicationPlugin);
+	
+	var helperPoint = new Point();
 
 	// Init the animator
 	p.setup = function()
@@ -35,38 +37,56 @@
 
 		/**
 		 *  Some games need to send additional parameters to the tracker's
-		 *  offClick event. They may set them here as needed
+		 *  offClick event. They may set them here as needed. These parameters are appended
+		 *  to the normal offClick data.
 		 *  @property {Array} offClickParams
 		 */
 		this.offClickParams = [];
 
 		/**
-		 * For the learning, we want to send consistent data when sending
-		 * Position. This helper method will generate that data.
+		 * For learning events, we want to send consistent data when sending
+		 * positions. This helper method generates that data.
 		 * In the future, we may return an object with known properties,
 		 * but for now we are returning an object of {x:int, y:int,
 		 * stage_width:int, stage_height:int} in unscaled numbers.
 		 *
 		 * @method normalizePosition
-		 * @param {Number|createjs.Point} x The x position, or a point to use.
-		 * @param {Number|createjs.DisplayObject} y The y position, or a
-		 *	display object in which the position's coordinate space is in.
-		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space
-		 *	the position is in, so it can be converted to global space.
+		 * @param {createjs.DisplayObject|createjs.Point} pos A display object or point to use.
+		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
+		 *                                              it can be converted to global space. If
+		 *                                              omitted and <code>pos</code> is a
+		 *                                              DisplayObject, <code>pos.parent</code> will
+		 *                                              be used.
+		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
+		 */
+		
+		/**
+		 * For learning events, we want to send consistent data when sending
+		 * positions. This helper method generates that data.
+		 * In the future, we may return an object with known properties,
+		 * but for now we are returning an object of {x:int, y:int,
+		 * stage_width:int, stage_height:int} in unscaled numbers.
+		 *
+		 * @method normalizePosition
+		 * @param {Number} x The x position
+		 * @param {Number} y The y position
+		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
+		 *                                              it can be converted to global space.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
 		this.normalizePosition = function(x, y, coordSpace)
 		{
-			if (x instanceof Point)
+			//detect Points and DisplayObjects
+			if (x.hasOwnProperty("x"))
 			{
-				coordSpace = y;
+				coordSpace = y || x.parent;
 				y = x.y;
 				x = x.x;
 			}
 
 			if (coordSpace && coordSpace.localToGlobal)
 			{
-				var globalPoint = coordSpace.localToGlobal(x, y);
+				var globalPoint = coordSpace.localToGlobal(x, y, helperPoint);
 				x = globalPoint.x;
 				y = globalPoint.y;
 			}
@@ -81,9 +101,9 @@
 		};
 
 		/**
-		 * For the learning, we want to send consistent data when sending
-		 * Position. This helper method will generate that data for the
-		 * current mouse's stage position. We are returning an object of 
+		 * For learning events, we want to send consistent data when sending
+		 * Position. This helper method generates that data for the
+		 * current mouse's stage position. We are returning an object of
 		 * `{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.
 		 *
 		 * @method mousePosition
