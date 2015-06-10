@@ -12155,7 +12155,7 @@
                 },
                 {
                     "name": "coordSpace",
-                    "description": "The coordinate space the position is in, so\n                                             it can be converted to global space. If\n                                             omitted and pos is a DisplayObject, pos's\n                                             parent will be used.",
+                    "description": "The coordinate space the position is in, so\n                                             it can be converted to global space. If\n                                             omitted and <code>pos</code> is a\n                                             DisplayObject, <code>pos.parent</code> will\n                                             be used.",
                     "type": "createjs.DisplayObject",
                     "optional": true
                 }
@@ -12170,7 +12170,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 62,
+            "line": 63,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12202,7 +12202,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 102,
+            "line": 103,
             "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent mouse's stage position. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
             "itemtype": "method",
             "name": "mousePosition",
@@ -12216,7 +12216,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 130,
+            "line": 131,
             "description": "Fires OffClick event if click on unhandled object",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -28997,7 +28997,7 @@
         },
         {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:130"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:131"
         },
         {
             "message": "Missing item type",
