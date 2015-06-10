@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : src/states/BaseState.js</title>
+<title>SpringRoll v0.3.6 API Documentation : src/states/State.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -509,7 +509,7 @@ name
 }
 }
 </script>
-<h1 class="file-heading">File:BaseState.js</h1>
+<h1 class="file-heading">File:State.js</h1>
 
 <div class="file">
 <pre class="code prettyprint linenums">/**
@@ -525,19 +525,19 @@ name
 		DelayedCall;
 	
 	/**
-	*  Defines the base functionality for a state used by the state manager
-	*
-	*  @class BaseState
-	*  @constructor
-	*  @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
-	*  	this state.
-	*  @param {Object} [options] The list of options
-	*  @param {String|Function} [options.next=null] The next state alias
-	*  @param {String|Function} [options.previous=null] The previous state alias
-	*  @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
-	*    heavy object instaniation slow the game dramatically.
-	*/
-	var BaseState = function(panel, options)
+	 * Defines the base functionality for a state used by the state manager
+	 *
+	 * @class State
+	 * @constructor
+	 * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
+	 *  	this state.
+	 * @param {Object} [options] The list of options
+	 * @param {String|Function} [options.next=null] The next state alias or function to call when going to the next state.
+	 * @param {String|Function} [options.previous=null] The previous state alias to call when going to the previous state.
+	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
+	 *    heavy object instaniation slow the game dramatically.
+	 */
+	var State = function(panel, options)
 	{
 		if(!StateManager)
 		{
@@ -548,7 +548,7 @@ name
 
 		if (DEBUG &amp;&amp; Debug &amp;&amp; !panel)
 		{
-			Debug.error(&quot;BaseState requires a panel display object as the first constructor argument&quot;);
+			Debug.error(&quot;State requires a panel display object as the first constructor argument&quot;);
 		}
 
 		// Construct the options
@@ -559,105 +559,93 @@ name
 		}, options || {});
 
 		/**
-		* The id reference
-		*
-		* @property {String} stateId
-		*/
+		 * The id reference
+		 * @property {String} stateId
+		 */
 		this.stateId = null;
 		
 		/**
-		* A reference to the state manager
-		*
-		* @property {StateManager} manager
-		*/
+		 * A reference to the state manager
+		 * @property {StateManager} manager
+		 */
 		this.manager = null;
 		
 		/**
-		* The panel for the state.
-		*
-		* @property {createjs.Container|PIXI.DisplayObjectContainer} panel
-		*/
+		 * The panel for the state.
+		 * @property {createjs.Container|PIXI.DisplayObjectContainer} panel
+		 */
 		this.panel = panel;
 		
 		/**
-		* If the state has been destroyed.
-		*
-		* @property {Boolean} _destroyed
-		* @private
-		*/
+		 * If the state has been destroyed.
+		 * @property {Boolean} _destroyed
+		 * @private
+		 */
 		this._destroyed = false;
 		
 		/**
-		* If the manager considers this the active panel
-		*
-		* @property {Boolean} _active
-		* @private
-		*/
+		 * If the manager considers this the active panel
+		 * @property {Boolean} _active
+		 * @private
+		 */
 		this._active = false;
 		
 		/**
-		* If we are pre-loading the state
-		*
-		* @property {Boolean} _isLoading
-		* @private
-		*/
+		 * If we are pre-loading the state
+		 * @property {Boolean} _isLoading
+		 * @private
+		 */
 		this._isLoading = false;
 		
 		/**
-		* If we canceled entering the state
-		*
-		* @property {Boolean} _canceled
-		* @private
-		*/
+		 * If we canceled entering the state
+		 * @property {Boolean} _canceled
+		 * @private
+		 */
 		this._canceled = false;
 		
 		/**
-		* When we&#x27;re finishing loading
-		*
-		* @property {Function} _onEnterProceed
-		* @private
-		*/
+		 * When we&#x27;re finishing loading
+		 * @property {Function} _onEnterProceed
+		 * @private
+		 */
 		this._onEnterProceed = null;
 		
 		/**
-		* If we start doing a load in enter, assign the onEnterComplete here
-		*
-		* @property {Function} _onLoadingComplete
-		* @private
-		*/
+		 * If we start doing a load in enter, assign the onEnterComplete here
+		 * @property {Function} _onLoadingComplete
+		 * @private
+		 */
 		this._onLoadingComplete = null;
 		
 		/**
-		* If the state is enabled, meaning that it is click ready
-		*
-		* @property {Boolean} _enabled
-		* @private
-		*/
+		 * If the state is enabled, meaning that it is click ready
+		 * @property {Boolean} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		/**
-		*  Either the alias of the next state or a function
-		*  to call when going to the next state.
-		*
-		*  @property {String|Function} nextState
-		*  @protected
-		*/
-		this.nextState = options.next;
+		 * Either the alias of the next state or a function
+		 * to call when going to the next state.
+		 * @property {String|Function} _nextState
+		 * @private
+		 */
+		this._nextState = options.next;
 		
 		/**
-		*  Either the alias of the previous state or a function
-		*  to call when going to the previous state.
-		*
-		*  @property {String|Function} prevState
-		*  @protected
-		*/
-		this.prevState = options.previous;
+		 * Either the alias of the previous state or a function
+		 * to call when going to the previous state.
+		 * @property {String|Function} _prevState
+		 * @private
+		 */
+		this._prevState = options.previous;
 
 		/**
-		 *	The number of frames to delay the transition in after loading, to allow the framerate
-		 *	to stablize after heavy art instantiation.
-		 *	@property {int} delayLoad
-		 *	@protected
+		 * The number of frames to delay the transition in after loading, to allow the framerate
+		 * to stablize after heavy art instantiation.
+		 * @property {int} delayLoad
+		 * @protected
 		 */
 		this.delayLoad = options.delayLoad;
 
@@ -665,67 +653,116 @@ name
 		this.panel.visible = false;
 	};
 	
-	var p = BaseState.prototype;
+	var p = State.prototype;
 	
 	/**
-	*  When the state is exited. Override this to provide state cleanup.
-	*
-	*  @method exit
-	*/
+	 * When the state is exited. Override this to provide state cleanup.
+	 * @method exit
+	 */
 	p.exit = function()
 	{
 		// Implementation specific
 	};
 	
 	/**
-	*   When the state has requested to be exit, pre-transition. Override this to ensure
-	*   that animation/audio is stopped when leaving the state.
-	*
-	*   @method exitStart
-	*/
+	 * When the state has requested to be exit, pre-transition. Override this to ensure
+	 * that animation/audio is stopped when leaving the state.
+	 * @method exitStart
+	 */
 	p.exitStart = function()
 	{
 		// Implementation specific
 	};
 
 	/**
-	*   Cancel the load, implementation-specific.
-	*   This is where any async actions should be removed.
-	*
-	*   @method cancel
-	*/
+	 * Cancel the load, implementation-specific.
+	 * This is where any async actions should be removed.
+	 * @method cancel
+	 */
 	p.cancel = function()
 	{
 		// Implementation specific
 	};
 	
 	/**
-	*   When the state is entered. Override this to start loading assets - call loadingStart()
-	*   to tell the StateManager that that is going on.
-	*
-	*   @method enter
-	*/
+	 * When the state is entered. Override this to start loading assets - call loadingStart()
+	 * to tell the StateManager that that is going on.
+	 * @method enter
+	 */
 	p.enter = function()
 	{
 		// Implementation specific
 	};
 	
 	/**
-	*   When the state is visually entered fully - after the transition is done.
-	*   Override this to begin your state&#x27;s activities.
-	*
-	*   @method enterDone
-	*/
+	 * When the state is visually entered fully - after the transition is done.
+	 * Override this to begin your state&#x27;s activities.
+	 * @method enterDone
+	 */
 	p.enterDone = function()
 	{
 		// Implementation specific
 	};
 
 	/**
-	*   Internal function to start the preloading
-	*
-	*   @method loadingStart
-	*/
+	 * Goto the next state
+	 * @method nextState
+	 * @final
+	 */
+	p.nextState = function()
+	{
+		var type = typeof this._nextState;
+
+		if (!this._nextState)
+		{
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.info(&quot;&#x27;next&#x27; is undefined in current state, ignoring&quot;);
+			}
+			return;
+		}
+		else if (type === &quot;function&quot;)
+		{
+			this._nextState();
+		}
+		else if (type === &quot;string&quot;)
+		{
+			this.manager.state = this._nextState;
+		}
+	};
+
+	/**
+	 * Goto the previous state
+	 * @method previousState
+	 * @final
+	 */
+	p.previousState = function()
+	{
+		var type = typeof this._prevState;
+
+		if (!this._prevState)
+		{
+			if (DEBUG &amp;&amp; Debug)
+			{
+				Debug.info(&quot;&#x27;prevState&#x27; is undefined in current state, ignoring&quot;);
+			}
+			return;
+		}
+		else if (type === &quot;function&quot;)
+		{
+			this._prevState();
+		}
+		else if (type === &quot;string&quot;)
+		{
+			this.manager.state = this._prevState;
+		}
+	};
+
+	/**
+	 * Manual call to signal the start of preloading
+	 * @method loadingStart
+	 * @final
+	 */
 	p.loadingStart = function()
 	{
 		if (this._isLoading)
@@ -747,12 +784,12 @@ name
 	};
 	
 	/**
-	*   Internal function to finish the preloading
-	*
-	*   @method loadingDone
-	*   @param {int} [delay] Frames to delay the load completion to allow the framerate to
-	*     stabilize. If not delay is set, defaults to the &#x60;delayLoad&#x60; property.
-	*/
+	 * Manual call to signal the end of preloading
+	 * @method loadingDone
+	 * @final
+	 * @param {int} [delay] Frames to delay the load completion to allow the framerate to
+	 *     stabilize. If not delay is set, defaults to the &#x60;delayLoad&#x60; property.
+	 */
 	p.loadingDone = function(delay)
 	{
 		if (delay === undefined)
@@ -768,7 +805,7 @@ name
 		
 		if(delay &amp;&amp; typeof delay == &quot;number&quot;)
 		{
-			new DelayedCall(this.loadingDone.bind(this, 0), delay, false, true, true);
+			new DelayedCall(this.loadingDone.bind(this, 0), delay, {useFrames: true});
 			return;
 		}
 		
@@ -783,11 +820,10 @@ name
 	};
 	
 	/**
-	*  Status of whether the panel load was canceled
-	*
-	*  @property {Boolean} canceled
-	*  @readOnly
-	*/
+	 * Status of whether the panel load was canceled
+	 * @property {Boolean} canceled
+	 * @readOnly
+	 */
 	Object.defineProperty(p, &#x27;canceled&#x27;,
 	{
 		get: function()
@@ -797,11 +833,10 @@ name
 	});
 
 	/**
-	*   Get if this is the active state
-	*
-	*   @property {Boolean} active
-	*   @readOnly
-	*/
+	 * Get if this is the active state
+	 * @property {Boolean} active
+	 * @readOnly
+	 */
 	Object.defineProperty(p, &#x27;active&#x27;,
 	{
 		get: function()
@@ -811,10 +846,9 @@ name
 	});
 	
 	/**
-	* If the state is enabled, meaning that it is click ready
-	*
-	* @property {Boolean} enabled
-	*/
+	 * If the state is enabled, meaning that it is click ready
+	 * @property {Boolean} enabled
+	 */
 	Object.defineProperty(p, &#x27;enabled&#x27;,
 	{
 		get: function()
@@ -828,11 +862,10 @@ name
 	});
 	
 	/**
-	* If the state has been destroyed.
-	*
-	* @property {Boolean} destroyed
-	* @readOnly
-	*/
+	 * If the state has been destroyed.
+	 * @property {Boolean} destroyed
+	 * @readOnly
+	 */
 	Object.defineProperty(p, &#x27;destroyed&#x27;,
 	{
 		get: function()
@@ -842,11 +875,10 @@ name
 	});
 
 	/**
-	*   This is called by the State Manager to exit the state
-	*
-	*   @method _internalExit
-	*   @protected
-	*/
+	 * This is called by the State Manager to exit the state
+	 * @method _internalExit
+	 * @protected
+	 */
 	p._internalExit = function()
 	{
 		if (this._isTransitioning)
@@ -862,34 +894,32 @@ name
 	};
 
 	/**
-	*   When the state is entering
-	*   @method _internalEntering
-	*   @param {Function} proceed The function to call after enter has been called
-	*   @protected
-	*/
+	 * When the state is entering
+	 * @method _internalEntering
+	 * @param {Function} proceed The function to call after enter has been called
+	 * @protected
+	 */
 	p._internalEntering = function()
 	{
 		this.enter();
 	};
 	
 	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalExitStart
-	*   @protected
-	*/
+	 * Exit the state start, called by the State Manager
+	 * @method _internalExitStart
+	 * @protected
+	 */
 	p._internalExitStart = function()
 	{
 		this.exitStart();
 	};
 	
 	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalEnter
-	*   @param {Function} proceed The function to call after enter has been called
-	*   @protected
-	*/
+	 * Exit the state start, called by the State Manager
+	 * @method _internalEnter
+	 * @param {Function} proceed The function to call after enter has been called
+	 * @protected
+	 */
 	p._internalEnter = function(proceed)
 	{
 		if (this._isTransitioning)
@@ -914,11 +944,10 @@ name
 	};
 	
 	/**
-	*   Cancel the loading of this state
-	*
-	*   @method _internalCancel
-	*   @protected
-	*/
+	 * Cancel the loading of this state
+	 * @method _internalCancel
+	 * @protected
+	 */
 	p._internalCancel = function()
 	{
 		this._active = false;
@@ -930,11 +959,10 @@ name
 	};
 	
 	/**
-	*   Exit the state start, called by the State Manager
-	*
-	*   @method _internalEnterDone
-	*   @private
-	*/
+	 * Exit the state start, called by the State Manager
+	 * @method _internalEnterDone
+	 * @private
+	 */
 	p._internalEnterDone = function()
 	{
 		if (this._canceled) return;
@@ -944,10 +972,9 @@ name
 	};
 	
 	/**
-	*   Don&#x27;t use the state object after this
-	*
-	*   @method destroy
-	*/
+	 * Don&#x27;t use the state object after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.panel = null;
@@ -958,14 +985,15 @@ name
 	};
 	
 	// Add to the name space
-	namespace(&#x27;springroll&#x27;).BaseState = BaseState;
-	
+	namespace(&#x27;springroll&#x27;).State = State;
+	namespace(&#x27;springroll&#x27;).BaseState = State;
+
 }());</pre>
 </div></div>
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>

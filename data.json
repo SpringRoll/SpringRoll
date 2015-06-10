@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.5",
+        "version": "0.3.6",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -1131,13 +1131,13 @@
                 "window": 1
             }
         },
-        "src/states/BaseState.js": {
-            "name": "src/states/BaseState.js",
+        "src/states/State.js": {
+            "name": "src/states/State.js",
             "modules": {
                 "States": 1
             },
             "classes": {
-                "springroll.BaseState": 1
+                "springroll.State": 1
             },
             "fors": {},
             "namespaces": {
@@ -1825,7 +1825,7 @@
             "name": "States",
             "submodules": {},
             "classes": {
-                "springroll.BaseState": 1,
+                "springroll.State": 1,
                 "springroll.StateEvent": 1,
                 "springroll.StateManager": 1,
                 "springroll.StatesPlugin": 1
@@ -2052,11 +2052,34 @@
                     "type": "Int"
                 },
                 {
-                    "name": "repeat",
-                    "description": "If the DelayedCall should automatically repeat itself when\n                                completed.",
-                    "type": "Boolean",
+                    "name": "options",
+                    "description": "The options to use or repeat value",
+                    "type": "Object|Boolean",
                     "optional": true,
-                    "optdefault": "false"
+                    "optdefault": "false",
+                    "props": [
+                        {
+                            "name": "repeat",
+                            "description": "If the DelayedCall should automatically repeat itself when\n                                completed.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        },
+                        {
+                            "name": "autoDestroy",
+                            "description": "If the DelayedCall should clean itself up when completed.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "true"
+                        },
+                        {
+                            "name": "useFrames",
+                            "description": "If the DelayedCall should use frames instead of\n                                   milliseconds for the delay.",
+                            "type": "Boolean",
+                            "optional": true,
+                            "optdefault": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "autoDestroy",
@@ -2733,7 +2756,7 @@
             "file": "src/displays/easeljs/states/BaseState.js",
             "line": 16,
             "description": "Abstract app state class to do some preloading of assets\nalso plays well with the app audio loading.",
-            "extends": "springroll.BaseState",
+            "extends": "springroll.State",
             "is_constructor": 1,
             "params": [
                 {
@@ -4783,9 +4806,9 @@
             "line": 7,
             "description": "Add methods to String\nSee https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"
         },
-        "springroll.BaseState": {
-            "name": "springroll.BaseState",
-            "shortname": "BaseState",
+        "springroll.State": {
+            "name": "springroll.State",
+            "shortname": "State",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -4793,14 +4816,14 @@
             "extension_for": [],
             "module": "States",
             "namespace": "springroll",
-            "file": "src/states/BaseState.js",
+            "file": "src/states/State.js",
             "line": 13,
             "description": "Defines the base functionality for a state used by the state manager",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "panel",
-                    "description": "The panel to associate with\n\tthis state.",
+                    "description": "The panel to associate with\n \tthis state.",
                     "type": "createjs.Container|PIXI.DisplayObjectContainer"
                 },
                 {
@@ -4811,21 +4834,21 @@
                     "props": [
                         {
                             "name": "next",
-                            "description": "The next state alias",
+                            "description": "The next state alias or function to call when going to the next state.",
                             "type": "String|Function",
                             "optional": true,
                             "optdefault": "null"
                         },
                         {
                             "name": "previous",
-                            "description": "The previous state alias",
+                            "description": "The previous state alias to call when going to the previous state.",
                             "type": "String|Function",
                             "optional": true,
                             "optdefault": "null"
                         },
                         {
                             "name": "delayLoad",
-                            "description": "The number of frames to delay the loading for cases where\n  heavy object instaniation slow the game dramatically.",
+                            "description": "The number of frames to delay the loading for cases where\n   heavy object instaniation slow the game dramatically.",
                             "type": "Int",
                             "optional": true,
                             "optdefault": "0"
@@ -4884,20 +4907,34 @@
             "params": [
                 {
                     "name": "display",
-                    "description": "The display on which the transition animation is\n                                           displayed.",
+                    "description": "The display on which the transition animation\n      is displayed.",
                     "type": "springroll.AbstractDisplay"
                 },
                 {
-                    "name": "transition",
-                    "description": "The transition MovieClip to play between\n                                                 transitions.",
-                    "type": "createjs.MovieClip|PIXI.Spine",
-                    "optional": true
-                },
-                {
                     "name": "transitionSounds",
-                    "description": "Data object with aliases and start times (seconds) for\n                                transition in, loop and out sounds. Example:\n                                {in:{alias:\"myAlias\", start:0.2}}.\n                                These objects are in the format for Animator from\n                                EaselJSDisplay or PixiDisplay, so they can be just the\n                                sound alias instead of an object.",
+                    "description": "Data object with aliases and start times (seconds) for\n      transition in, loop and out sounds. Example: `{in:{alias:\"myAlias\", start:0.2}}`.\n      These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, \n      so they can be just the sound alias instead of an object.",
                     "type": "Object",
-                    "optional": true
+                    "optional": true,
+                    "props": [
+                        {
+                            "name": "in",
+                            "description": "The sound to play for transition in",
+                            "type": "Object|String",
+                            "optional": true
+                        },
+                        {
+                            "name": "out",
+                            "description": "The sound to play for transition out",
+                            "type": "Object|String",
+                            "optional": true
+                        },
+                        {
+                            "name": "loading",
+                            "description": "The sound to play for loading",
+                            "type": "Object|String",
+                            "optional": true
+                        }
+                    ]
                 }
             ]
         },
@@ -7110,7 +7147,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 30,
+            "line": 52,
             "description": "The function to call when the delay is completed.",
             "access": "private",
             "tagname": "",
@@ -7123,7 +7160,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 37,
+            "line": 59,
             "description": "The delay time, in milliseconds.",
             "access": "private",
             "tagname": "",
@@ -7136,7 +7173,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 44,
+            "line": 66,
             "description": "The timer counting down from _delay, in milliseconds.",
             "access": "private",
             "tagname": "",
@@ -7149,7 +7186,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 51,
+            "line": 73,
             "description": "If the DelayedCall should repeat itself automatically.",
             "access": "private",
             "tagname": "",
@@ -7163,7 +7200,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 59,
+            "line": 81,
             "description": "If the DelayedCall should destroy itself after completing",
             "access": "private",
             "tagname": "",
@@ -7177,7 +7214,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 67,
+            "line": 89,
             "description": "If the DelayedCall should use frames instead of milliseconds for the delay.",
             "access": "private",
             "tagname": "",
@@ -7191,7 +7228,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 75,
+            "line": 97,
             "description": "If the DelayedCall is currently paused (not stopped).",
             "access": "private",
             "tagname": "",
@@ -7204,7 +7241,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 91,
+            "line": 113,
             "description": "The callback supplied to the Application for an update each frame.",
             "access": "private",
             "tagname": "",
@@ -7223,7 +7260,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 118,
+            "line": 140,
             "description": "Restarts the DelayedCall, whether it is running or not.",
             "access": "public",
             "tagname": "",
@@ -7235,7 +7272,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 133,
+            "line": 155,
             "description": "Stops the DelayedCall, without destroying it.",
             "access": "public",
             "tagname": "",
@@ -7247,7 +7284,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 144,
+            "line": 166,
             "description": "If the DelayedCall is paused or not.",
             "access": "public",
             "tagname": "",
@@ -7260,7 +7297,7 @@
         },
         {
             "file": "src/core/async/DelayedCall.js",
-            "line": 172,
+            "line": 194,
             "description": "Stops and cleans up the DelayedCall. Do not use it after calling\ndestroy().",
             "access": "public",
             "tagname": "",
@@ -12095,8 +12132,8 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 36,
-            "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed",
+            "line": 38,
+            "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed. These parameters are appended\nto the normal offClick data.",
             "itemtype": "property",
             "name": "offClickParams",
             "type": "Array",
@@ -12106,24 +12143,19 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 43,
-            "description": "For the learning, we want to send consistent data when sending\nPosition. This helper method will generate that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
+            "line": 46,
+            "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
             "params": [
                 {
-                    "name": "x",
-                    "description": "The x position, or a point to use.",
-                    "type": "Number|createjs.Point"
-                },
-                {
-                    "name": "y",
-                    "description": "The y position, or a\n\tdisplay object in which the position's coordinate space is in.",
-                    "type": "Number|createjs.DisplayObject"
+                    "name": "pos",
+                    "description": "A display object or point to use.",
+                    "type": "createjs.DisplayObject|createjs.Point"
                 },
                 {
                     "name": "coordSpace",
-                    "description": "The coordinate space\n\tthe position is in, so it can be converted to global space.",
+                    "description": "The coordinate space the position is in, so\n                                             it can be converted to global space. If\n                                             omitted and pos is a DisplayObject, pos's\n                                             parent will be used.",
                     "type": "createjs.DisplayObject",
                     "optional": true
                 }
@@ -12138,7 +12170,53 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 96,
+            "line": 62,
+            "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
+            "itemtype": "method",
+            "name": "normalizePosition",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x position",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y position",
+                    "type": "Number"
+                },
+                {
+                    "name": "coordSpace",
+                    "description": "The coordinate space the position is in, so\n                                             it can be converted to global space.",
+                    "type": "createjs.DisplayObject",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "{x:int, y:int, stage_width:int, stage_height:int}",
+                "type": "Object"
+            },
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 102,
+            "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent mouse's stage position. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
+            "itemtype": "method",
+            "name": "mousePosition",
+            "return": {
+                "description": "`{x:int, y:int, stage_width:int, stage_height:int}`",
+                "type": "Object"
+            },
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 130,
             "description": "Fires OffClick event if click on unhandled object",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -25025,308 +25103,332 @@
             "namespace": "window"
         },
         {
-            "file": "src/states/BaseState.js",
+            "file": "src/states/State.js",
             "line": 47,
             "description": "The id reference",
             "itemtype": "property",
             "name": "stateId",
             "type": "String",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 54,
+            "file": "src/states/State.js",
+            "line": 53,
             "description": "A reference to the state manager",
             "itemtype": "property",
             "name": "manager",
             "type": "StateManager",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 61,
+            "file": "src/states/State.js",
+            "line": 59,
             "description": "The panel for the state.",
             "itemtype": "property",
             "name": "panel",
             "type": "createjs.Container|PIXI.DisplayObjectContainer",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 68,
+            "file": "src/states/State.js",
+            "line": 65,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "_destroyed",
             "type": "Boolean",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 76,
+            "file": "src/states/State.js",
+            "line": 72,
             "description": "If the manager considers this the active panel",
             "itemtype": "property",
             "name": "_active",
             "type": "Boolean",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 84,
+            "file": "src/states/State.js",
+            "line": 79,
             "description": "If we are pre-loading the state",
             "itemtype": "property",
             "name": "_isLoading",
             "type": "Boolean",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 92,
+            "file": "src/states/State.js",
+            "line": 86,
             "description": "If we canceled entering the state",
             "itemtype": "property",
             "name": "_canceled",
             "type": "Boolean",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 100,
+            "file": "src/states/State.js",
+            "line": 93,
             "description": "When we're finishing loading",
             "itemtype": "property",
             "name": "_onEnterProceed",
             "type": "Function",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 108,
+            "file": "src/states/State.js",
+            "line": 100,
             "description": "If we start doing a load in enter, assign the onEnterComplete here",
             "itemtype": "property",
             "name": "_onLoadingComplete",
             "type": "Function",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 116,
+            "file": "src/states/State.js",
+            "line": 107,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "_enabled",
             "type": "Boolean",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 124,
+            "file": "src/states/State.js",
+            "line": 114,
             "description": "Either the alias of the next state or a function\nto call when going to the next state.",
             "itemtype": "property",
-            "name": "nextState",
+            "name": "_nextState",
             "type": "String|Function",
-            "access": "protected",
+            "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 133,
+            "file": "src/states/State.js",
+            "line": 122,
             "description": "Either the alias of the previous state or a function\nto call when going to the previous state.",
             "itemtype": "property",
-            "name": "prevState",
+            "name": "_prevState",
             "type": "String|Function",
-            "access": "protected",
+            "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 142,
+            "file": "src/states/State.js",
+            "line": 130,
             "description": "The number of frames to delay the transition in after loading, to allow the framerate\nto stablize after heavy art instantiation.",
             "itemtype": "property",
             "name": "delayLoad",
             "type": "Int",
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 156,
+            "file": "src/states/State.js",
+            "line": 144,
             "description": "When the state is exited. Override this to provide state cleanup.",
             "itemtype": "method",
             "name": "exit",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 166,
+            "file": "src/states/State.js",
+            "line": 153,
             "description": "When the state has requested to be exit, pre-transition. Override this to ensure\nthat animation/audio is stopped when leaving the state.",
             "itemtype": "method",
             "name": "exitStart",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 177,
+            "file": "src/states/State.js",
+            "line": 163,
             "description": "Cancel the load, implementation-specific.\nThis is where any async actions should be removed.",
             "itemtype": "method",
             "name": "cancel",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 188,
+            "file": "src/states/State.js",
+            "line": 173,
             "description": "When the state is entered. Override this to start loading assets - call loadingStart()\nto tell the StateManager that that is going on.",
             "itemtype": "method",
             "name": "enter",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 199,
+            "file": "src/states/State.js",
+            "line": 183,
             "description": "When the state is visually entered fully - after the transition is done.\nOverride this to begin your state's activities.",
             "itemtype": "method",
             "name": "enterDone",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 210,
-            "description": "Internal function to start the preloading",
+            "file": "src/states/State.js",
+            "line": 193,
+            "description": "Goto the next state",
+            "itemtype": "method",
+            "name": "nextState",
+            "final": 1,
+            "class": "springroll.State",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/State.js",
+            "line": 220,
+            "description": "Goto the previous state",
+            "itemtype": "method",
+            "name": "previousState",
+            "final": 1,
+            "class": "springroll.State",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/State.js",
+            "line": 247,
+            "description": "Manual call to signal the start of preloading",
             "itemtype": "method",
             "name": "loadingStart",
-            "class": "springroll.BaseState",
+            "final": 1,
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 235,
-            "description": "Internal function to finish the preloading",
+            "file": "src/states/State.js",
+            "line": 272,
+            "description": "Manual call to signal the end of preloading",
             "itemtype": "method",
             "name": "loadingDone",
+            "final": 1,
             "params": [
                 {
                     "name": "delay",
-                    "description": "Frames to delay the load completion to allow the framerate to\n  stabilize. If not delay is set, defaults to the `delayLoad` property.",
+                    "description": "Frames to delay the load completion to allow the framerate to\n    stabilize. If not delay is set, defaults to the `delayLoad` property.",
                     "type": "Int",
                     "optional": true
                 }
             ],
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 271,
+            "file": "src/states/State.js",
+            "line": 308,
             "description": "Status of whether the panel load was canceled",
             "itemtype": "property",
             "name": "canceled",
             "type": "Boolean",
             "readonly": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 285,
+            "file": "src/states/State.js",
+            "line": 321,
             "description": "Get if this is the active state",
             "itemtype": "property",
             "name": "active",
             "type": "Boolean",
             "readonly": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 299,
+            "file": "src/states/State.js",
+            "line": 334,
             "description": "If the state is enabled, meaning that it is click ready",
             "itemtype": "property",
             "name": "enabled",
             "type": "Boolean",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 316,
+            "file": "src/states/State.js",
+            "line": 350,
             "description": "If the state has been destroyed.",
             "itemtype": "property",
             "name": "destroyed",
             "type": "Boolean",
             "readonly": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 330,
+            "file": "src/states/State.js",
+            "line": 363,
             "description": "This is called by the State Manager to exit the state",
             "itemtype": "method",
             "name": "_internalExit",
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 350,
+            "file": "src/states/State.js",
+            "line": 382,
             "description": "When the state is entering",
             "itemtype": "method",
             "name": "_internalEntering",
@@ -25339,25 +25441,25 @@
             ],
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 361,
+            "file": "src/states/State.js",
+            "line": 393,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalExitStart",
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 372,
+            "file": "src/states/State.js",
+            "line": 403,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnter",
@@ -25370,41 +25472,41 @@
             ],
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 402,
+            "file": "src/states/State.js",
+            "line": 432,
             "description": "Cancel the loading of this state",
             "itemtype": "method",
             "name": "_internalCancel",
             "access": "protected",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 418,
+            "file": "src/states/State.js",
+            "line": 447,
             "description": "Exit the state start, called by the State Manager",
             "itemtype": "method",
             "name": "_internalEnterDone",
             "access": "private",
             "tagname": "",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
         {
-            "file": "src/states/BaseState.js",
-            "line": 432,
+            "file": "src/states/State.js",
+            "line": 460,
             "description": "Don't use the state object after this",
             "itemtype": "method",
             "name": "destroy",
-            "class": "springroll.BaseState",
+            "class": "springroll.State",
             "module": "States",
             "namespace": "springroll"
         },
@@ -25464,7 +25566,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 35,
+            "line": 34,
             "description": "The display that holds the states this StateManager is managing.",
             "itemtype": "property",
             "name": "_display",
@@ -25477,20 +25579,18 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 43,
+            "line": 42,
             "description": "The click to play in between transitioning states",
             "itemtype": "property",
-            "name": "_transition",
-            "type": "createjs.MovieClip|PIXI.Spine",
-            "access": "private",
-            "tagname": "",
+            "name": "transition",
+            "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine",
             "class": "springroll.StateManager",
             "module": "States",
             "namespace": "springroll"
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 51,
+            "line": 49,
             "description": "The sounds for the transition",
             "itemtype": "property",
             "name": "_transitionSounds",
@@ -25503,7 +25603,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 59,
+            "line": 57,
             "description": "The collection of states map",
             "itemtype": "property",
             "name": "_states",
@@ -25516,11 +25616,11 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 67,
+            "line": 65,
             "description": "The currently selected state",
             "itemtype": "property",
             "name": "_state",
-            "type": "BaseState",
+            "type": "springroll.State",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -25529,7 +25629,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 75,
+            "line": 73,
             "description": "The currently selected state id",
             "itemtype": "property",
             "name": "_stateID",
@@ -25542,11 +25642,11 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 83,
+            "line": 81,
             "description": "The old state",
             "itemtype": "property",
             "name": "_oldState",
-            "type": "BaseState",
+            "type": "springroll.State",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -25555,7 +25655,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 91,
+            "line": 89,
             "description": "If the manager is loading a state",
             "itemtype": "property",
             "name": "name description",
@@ -25568,7 +25668,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 99,
+            "line": 97,
             "description": "If the state or manager is current transitioning",
             "itemtype": "property",
             "name": "_isTransitioning",
@@ -25581,7 +25681,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 107,
+            "line": 105,
             "description": "If the current object is destroyed",
             "itemtype": "property",
             "name": "_destroyed",
@@ -25594,7 +25694,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 115,
+            "line": 113,
             "description": "If we're transitioning the state, the queue the id of the next one",
             "itemtype": "property",
             "name": "_queueStateId",
@@ -25607,7 +25707,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 140,
+            "line": 133,
             "description": "The name of the Animator label and event for transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionIn",
@@ -25617,7 +25717,17 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 147,
+            "line": 140,
+            "description": "The name of the Animator label and event for loading between state change.\nthis event is only dispatched if there is a loading sequence to show in the \ntransition. Recommended to use 'loadingStart' instead for checking.",
+            "itemtype": "event",
+            "name": "onTransitionLoading",
+            "class": "springroll.StateManager",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/StateManager.js",
+            "line": 149,
             "description": "The name of the event for completing transitioning into a state.",
             "itemtype": "event",
             "name": "onTransitionInDone",
@@ -25627,7 +25737,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 154,
+            "line": 156,
             "description": "The name of the Animator label and event for transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOut",
@@ -25637,7 +25747,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 161,
+            "line": 163,
             "description": "The name of the event for completing transitioning out of a state.",
             "itemtype": "event",
             "name": "onTransitionOutDone",
@@ -25647,7 +25757,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 168,
+            "line": 170,
             "description": "The name of the event for initialization complete - the first state is then being entered.",
             "itemtype": "event",
             "name": "onInitDone",
@@ -25657,7 +25767,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 175,
+            "line": 177,
             "description": "Event when the state begins loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingStart",
@@ -25667,7 +25777,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 182,
+            "line": 184,
             "description": "Event when the state finishes loading assets when it is entered.",
             "itemtype": "event",
             "name": "onLoadingDone",
@@ -25677,7 +25787,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 189,
+            "line": 191,
             "description": "Register a state with the state manager, done initially",
             "itemtype": "method",
             "name": "addState",
@@ -25690,7 +25800,7 @@
                 {
                     "name": "state",
                     "description": "State object reference",
-                    "type": "BaseState"
+                    "type": "springroll.State"
                 }
             ],
             "class": "springroll.StateManager",
@@ -25699,15 +25809,17 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 213,
+            "line": 215,
             "description": "Dynamically change the transition",
+            "deprecated": true,
+            "deprecationMessage": "Use the transition property directly to change the transition.",
             "itemtype": "method",
             "name": "changeTransition",
             "params": [
                 {
-                    "name": "Clip",
-                    "description": "to swap for transition",
-                    "type": "createjs.MovieClip|PIXI.Spine"
+                    "name": "transition",
+                    "description": "Clip to swap for transition",
+                    "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine"
                 }
             ],
             "class": "springroll.StateManager",
@@ -25716,13 +25828,15 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 224,
+            "line": 226,
             "description": "Get the current selected state (state object)",
+            "deprecated": true,
+            "deprecationMessage": "Use the getter 'currentState' instead",
             "itemtype": "method",
             "name": "getCurrentState",
             "return": {
                 "description": "The Base State object",
-                "type": "BaseState"
+                "type": "springroll.State"
             },
             "class": "springroll.StateManager",
             "module": "States",
@@ -25730,7 +25844,19 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 235,
+            "line": 237,
+            "description": "Get the current selected state (state object)",
+            "itemtype": "property",
+            "name": "currentState",
+            "type": "springroll.State",
+            "readonly": "",
+            "class": "springroll.StateManager",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/StateManager.js",
+            "line": 250,
             "description": "Access a certain state by the ID",
             "itemtype": "method",
             "name": "getStateById",
@@ -25743,7 +25869,7 @@
             ],
             "return": {
                 "description": "The base State object",
-                "type": "BaseState"
+                "type": "springroll.State"
             },
             "class": "springroll.StateManager",
             "module": "States",
@@ -25751,7 +25877,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 248,
+            "line": 263,
             "description": "If the StateManager is busy because it is currently loading or transitioning.",
             "itemtype": "method",
             "name": "isBusy",
@@ -25765,7 +25891,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 259,
+            "line": 274,
             "description": "If the state needs to do some asyncronous tasks,\nThe state can tell the manager to stop the animation",
             "itemtype": "method",
             "name": "loadingStart",
@@ -25775,7 +25901,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 274,
+            "line": 289,
             "description": "If the state has finished it's asyncronous task loading\nLets enter the state",
             "itemtype": "method",
             "name": "loadingDone",
@@ -25785,7 +25911,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 287,
+            "line": 302,
             "description": "Show, enable the blocker clip to disable mouse clicks",
             "itemtype": "method",
             "name": "showBlocker",
@@ -25795,7 +25921,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 297,
+            "line": 312,
             "description": "Re-enable interaction with the stage",
             "itemtype": "method",
             "name": "hideBlocker",
@@ -25805,7 +25931,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 307,
+            "line": 322,
             "description": "This transitions out of the current state and\nenters it again. Can be useful for clearing a state",
             "itemtype": "method",
             "name": "refresh",
@@ -25815,7 +25941,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 319,
+            "line": 334,
             "description": "Get or change the current state, using the state id.",
             "itemtype": "property",
             "name": "state",
@@ -25826,10 +25952,12 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 334,
+            "line": 399,
             "description": "Set the current State",
             "itemtype": "method",
             "name": "setState",
+            "deprecated": true,
+            "deprecationMessage": "Use the state setter instead",
             "params": [
                 {
                     "name": "id",
@@ -25843,7 +25971,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 394,
+            "line": 411,
             "description": "When the transition out of a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionOut",
@@ -25855,7 +25983,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 424,
+            "line": 441,
             "description": "When the state has completed its loading sequence.\nThis should be treated as an asynchronous process.",
             "itemtype": "method",
             "name": "_onStateLoaded",
@@ -25867,7 +25995,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 444,
+            "line": 461,
             "description": "When the transition into a state has finished playing during a state change.",
             "itemtype": "method",
             "name": "_onTransitionIn",
@@ -25879,7 +26007,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 465,
+            "line": 482,
             "description": "Process the state queue",
             "itemtype": "method",
             "name": "_processQueue",
@@ -25894,10 +26022,10 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 487,
-            "description": "Plays the animation \"transitionLoop\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
+            "line": 504,
+            "description": "Plays the animation \"onTransitionLoading\" on the transition. Also serves as the animation callback.\nManually looping the animation allows the animation to be synced to the audio while looping.",
             "itemtype": "method",
-            "name": "_loopTransition",
+            "name": "_onTransitionLoading",
             "access": "private",
             "tagname": "",
             "class": "springroll.StateManager",
@@ -25906,7 +26034,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 516,
+            "line": 547,
             "description": "Displays the transition out animation, without changing states. Upon completion, the\ntransition looping animation automatically starts playing.",
             "itemtype": "method",
             "name": "showTransitionOut",
@@ -25923,7 +26051,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 537,
+            "line": 565,
             "description": "Displays the transition in animation, without changing states.",
             "itemtype": "method",
             "name": "showTransitionIn",
@@ -25940,7 +26068,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 556,
+            "line": 582,
             "description": "Generalized function for transitioning with the manager",
             "itemtype": "method",
             "name": "_transitioning",
@@ -25964,8 +26092,10 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 587,
+            "line": 616,
             "description": "Goto the next state",
+            "deprecated": true,
+            "deprecationMessage": "Use the method `nextState` on the state itself",
             "itemtype": "method",
             "name": "next",
             "class": "springroll.StateManager",
@@ -25974,8 +26104,10 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 613,
+            "line": 626,
             "description": "Goto the previous state",
+            "deprecated": true,
+            "deprecationMessage": "Use the method `previousState` on the state itself",
             "itemtype": "method",
             "name": "previous",
             "class": "springroll.StateManager",
@@ -25984,7 +26116,7 @@
         },
         {
             "file": "src/states/StateManager.js",
-            "line": 639,
+            "line": 636,
             "description": "Remove the state manager",
             "itemtype": "method",
             "name": "destroy",
@@ -26007,7 +26139,7 @@
                 {
                     "name": "state",
                     "description": "The State object",
-                    "type": "springroll.BaseState"
+                    "type": "springroll.State"
                 }
             ],
             "class": "springroll.StatesPlugin",
@@ -26030,17 +26162,6 @@
         {
             "file": "src/states/StatesPlugin.js",
             "line": 44,
-            "description": "The transition animation to use between the StateManager state changes",
-            "itemtype": "property",
-            "name": "transition",
-            "type": "createjs.MovieClip|PIXI.Spine",
-            "class": "springroll.StatesPlugin",
-            "module": "States",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/states/StatesPlugin.js",
-            "line": 50,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -26051,7 +26172,31 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 56,
+            "line": 50,
+            "description": "The transition animation to use between the StateManager state changes",
+            "itemtype": "property",
+            "name": "_transition",
+            "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.StatesPlugin",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/StatesPlugin.js",
+            "line": 57,
+            "description": "The transition animation to use between the StateManager state changes",
+            "itemtype": "property",
+            "name": "transition",
+            "type": "createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine",
+            "class": "springroll.StatesPlugin",
+            "module": "States",
+            "namespace": "springroll"
+        },
+        {
+            "file": "src/states/StatesPlugin.js",
+            "line": 110,
             "description": "The initial state to go to when everything is finished",
             "itemtype": "property",
             "name": "options.state",
@@ -26064,7 +26209,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 64,
+            "line": 118,
             "description": "The animation to use for the StateManager",
             "itemtype": "property",
             "name": "options.transition",
@@ -26075,7 +26220,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 70,
+            "line": 124,
             "description": "The transition sounds to use for the state transition",
             "itemtype": "property",
             "name": "options.transitionSounds",
@@ -26087,7 +26232,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 75,
+            "line": 129,
             "description": "The transition in sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.in",
@@ -26100,7 +26245,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 81,
+            "line": 135,
             "description": "The transition out sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.out",
@@ -26113,7 +26258,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 93,
+            "line": 147,
             "description": "The collection of states where the key is the state alias and value is the state display object",
             "itemtype": "property",
             "name": "states",
@@ -26125,7 +26270,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 169,
+            "line": 234,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
             "class": "springroll.StatesPlugin",
             "module": "States",
@@ -28598,7 +28743,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 524,
+            "line": 528,
             "description": "Destroys the application and all active displays and plugins",
             "itemtype": "method",
             "name": "destroy",
@@ -28608,7 +28753,7 @@
         },
         {
             "file": "src/Application.js",
-            "line": 561,
+            "line": 565,
             "description": "The toString debugging method",
             "itemtype": "method",
             "name": "toString",
@@ -28852,7 +28997,7 @@
         },
         {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:96"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:130"
         },
         {
             "message": "Missing item type",
@@ -28940,7 +29085,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:169"
+            "line": " src/states/StatesPlugin.js:234"
         },
         {
             "message": "Missing item type",

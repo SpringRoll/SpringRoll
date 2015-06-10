@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : springroll.StatesPlugin</title>
+<title>SpringRoll v0.3.6 API Documentation : springroll.StatesPlugin</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -577,6 +577,10 @@ in this class are mixed-in to the main Application</p>
 <ul class='list-group row properties extends'>
 <li class='col-xs-6 col-md-4 index-item property private'>
 <a href='#property__states'>_states</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property private'>
+<a href='#property__transition'>_transition</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property'>
@@ -848,6 +852,31 @@ Defined in
 
 
 
+</div><div id="property__transition" class="property item private">
+<h3 class="name"><code>_transition</code></h3>
+<span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | <a href="../classes/springroll.easeljs.BitmapMovieClip.html" class="crosslink">springroll.easeljs.BitmapMovieClip</a> | PIXI.Spine</span>
+
+
+<span class="flag private">private</span>
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_StatesPlugin.js.html#l50"><code>_transition:50</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The transition animation to use between the StateManager state changes</p>
+
+</div>
+
+
+
 </div><div id="property_manager" class="property item">
 <h3 class="name"><code>manager</code></h3>
 <span class="type"><a href="../classes/springroll.StateManager.html" class="crosslink">springroll.StateManager</a></span>
@@ -859,7 +888,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l50"><code>manager:50</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l44"><code>manager:44</code></a>
 </p>
 
 
@@ -883,7 +912,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l56"><code>options.state:56</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l110"><code>options.state:110</code></a>
 </p>
 
 
@@ -908,7 +937,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l64"><code>options.transition:64</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l118"><code>options.transition:118</code></a>
 </p>
 
 
@@ -932,7 +961,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l70"><code>options.transitionSounds:70</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l124"><code>options.transitionSounds:124</code></a>
 </p>
 
 
@@ -956,7 +985,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l75"><code>options.transitionSounds.in:75</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l129"><code>options.transitionSounds.in:129</code></a>
 </p>
 
 
@@ -981,7 +1010,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l81"><code>options.transitionSounds.out:81</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l135"><code>options.transitionSounds.out:135</code></a>
 </p>
 
 
@@ -1031,7 +1060,7 @@ in the constructor of the extending ApplicationPlugin.</p>
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l93"><code>states:93</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l147"><code>states:147</code></a>
 </p>
 
 
@@ -1047,7 +1076,7 @@ Defined in
 
 </div><div id="property_transition" class="property item">
 <h3 class="name"><code>transition</code></h3>
-<span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
+<span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | <a href="../classes/springroll.easeljs.BitmapMovieClip.html" class="crosslink">springroll.easeljs.BitmapMovieClip</a> | PIXI.Spine</span>
 
 
 
@@ -1056,7 +1085,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StatesPlugin.js.html#l44"><code>transition:44</code></a>
+<a href="../files/src_states_StatesPlugin.js.html#l57"><code>transition:57</code></a>
 </p>
 
 
@@ -1113,7 +1142,7 @@ Defined in
 </li>
 <li class="param">
 <code class="param-name">state</code>
-<span class="type"><a href="../classes/springroll.BaseState.html" class="crosslink">springroll.BaseState</a></span>
+<span class="type"><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 
 
 <div class="param-description">
@@ -1132,7 +1161,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : src/states/StatesPlugin.js</title>
+<title>SpringRoll v0.3.6 API Documentation : src/states/StatesPlugin.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -545,7 +545,7 @@ name
 		 * Fired when an event has been added
 		 * @event stateAdded
 		 * @param {String} alias The state alias
-		 * @param {springroll.BaseState} state The State object
+		 * @param {springroll.State} state The State object
 		 */
 		
 		/**
@@ -556,16 +556,70 @@ name
 		this._states = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|PIXI.Spine} transition
-		*/
-		this.transition = null;
-
-		/**
 		*  The state manager
 		*  @property {springroll.StateManager} manager
 		*/
 		this.manager = null;
+
+		/**
+		*  The transition animation to use between the StateManager state changes
+		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+		*  @private
+		*/
+		this._transition = null;
+
+		/**
+		*  The transition animation to use between the StateManager state changes
+		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+		*/
+		Object.defineProperty(this, &quot;transition&quot;, 
+		{
+			set: function(transition)
+			{
+				if (!this.display)
+				{
+					if (DEBUG)
+					{
+						throw &quot;No default display is available to set the states. Use the display application option&quot;;
+					}
+					else
+					{
+						throw &quot;No default display&quot;;
+					}
+				}
+
+				// Remove the old transition
+				var stage = this.display.stage;
+				if (this._transition)
+				{
+					stage.removeChild(this._transition);
+				}
+
+				// Save the transtion reference
+				this._transition = transition;
+
+				// Add to the manager
+				if (this.manager)
+				{
+					this.manager.transition = transition;
+				}
+
+				// Add to the stage
+				if (transition)
+				{
+					// Stop the transition from playing
+					if (transition.stop)
+					{
+						transition.stop();
+					}
+					stage.addChild(transition);
+				}
+			},
+			get: function()
+			{
+				return this._transition;
+			}
+		});
 
 		/**
 		 * The initial state to go to when everything is finished
@@ -625,22 +679,21 @@ name
 					}
 				}
 
-				// Get the transition from either the transition manual set or the options
-				var transition =  this.transition || this.options.transition;
-				this.transition = transition;
-
-				//if the transition is a EaselJS movieclip, start it out
-				//at the end of the transition out animation. If it has a
-				//&#x27;transitionLoop&#x27; animation, that will be played as soon as a state is set
-				if (transition &amp;&amp; transition.gotoAndStop)
+				if (!this.display)
 				{
-					transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
+					if (DEBUG)
+					{
+						throw &quot;No default display is available to set the states. Use the display application option&quot;;
+					}
+					else
+					{
+						throw &quot;No default display&quot;;
+					}
 				}
 
 				// Create the state manager
 				var manager = this.manager = new StateManager(
 					this.display,
-					transition,
 					this.options.transitionSounds
 				);
 				
@@ -660,16 +713,28 @@ name
 
 				this._states = states;
 
-				// Add the transition on top of everything else
+				// Get the transition from either the transition manual set or the options
+				var transition =  this._transition || this.options.transition;
+
+				//if the transition is a EaselJS movieclip, start it out
+				//at the end of the transition out animation. If it has a
+				//&#x27;transitionLoop&#x27; animation, that will be played as soon as a state is set
 				if (transition)
 				{
-					stage.addChild(transition);
+					// Add the transition this will addChild on top of all the panels
+					this.transition = transition;
+
+					// Goto the fully covered state
+					if (transition.gotoAndStop)
+					{
+						transition.gotoAndStop(&quot;onTransitionOut_stop&quot;);
+					}
 				}
 
 				// Goto the first state
 				if (this.options.state)
 				{
-					manager.setState(this.options.state);
+					manager.state = this.options.state;
 				}
 			},
 			get: function()
@@ -687,23 +752,24 @@ name
 			 */
 			window.onkeyup = function(e)
 			{
-				if (!this.manager) return;
+				if (!this.manager || !this.manager.currentState) return;
 
 				var key = e.keyCode ? e.keyCode : e.which;
+				var currentState = this.manager.currentState;
 				switch (key)
 				{
 					//right arrow
 					case 39:
 					{
 						if (Debug) Debug.info(&quot;Going to next state via keyboard&quot;);
-						this.manager.next();
+						currentState.nextState();
 						break;
 					}
 					//left arrow
 					case 37:
 					{
 						if (Debug) Debug.info(&quot;Going to previous state via keyboard&quot;);
-						this.manager.previous();
+						currentState.previousState();
 						break;
 					}
 				}
@@ -719,6 +785,7 @@ name
 		{
 			window.onkeyup = null;
 		}
+		this._state = null;
 		if (this.manager)
 		{
 			this.manager.destroy();
@@ -742,7 +809,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>

@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : springroll.DelayedCall</title>
+<title>SpringRoll v0.3.6 API Documentation : springroll.DelayedCall</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -537,7 +537,7 @@ setTimeout().</p>
 <code>delay</code>
 </li>
 <li class='arg'>
-<code class='optional'>[repeat=false]</code>
+<code class='optional'>[options=false]</code>
 </li>
 <li class='arg'>
 <code class='optional'>[autoDestroy=true]</code>
@@ -598,10 +598,21 @@ Defined in
 
 </li>
 <li class='param'>
+<code class='param-name optional'>[options=false]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+
+<div class='param-description'>
+<p>The options to use or repeat value</p>
+
+</div>
+
+<ul class='params-list'>
+<li class='param'>
 <code class='param-name optional'>[repeat=false]</code>
 <span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
 <span class='flag optional' title='This parameter is optional.'>optional</span>
-
 
 <div class='param-description'>
 <p>If the DelayedCall should automatically repeat itself when
@@ -609,6 +620,31 @@ Defined in
 
 </div>
 
+</li>
+<li class='param'>
+<code class='param-name optional'>[autoDestroy=true]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>If the DelayedCall should clean itself up when completed.</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[useFrames=false]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>If the DelayedCall should use frames instead of
+                                   milliseconds for the delay.</p>
+
+</div>
+
+</li>
+</ul>
 </li>
 <li class='param'>
 <code class='param-name optional'>[autoDestroy=true]</code>
@@ -751,7 +787,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_core_async_DelayedCall.js.html#l91'><code>_update:91</code></a>
+<a href='../files/src_core_async_DelayedCall.js.html#l113'><code>_update:113</code></a>
 </p>
 
 
@@ -800,7 +836,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_core_async_DelayedCall.js.html#l172'><code>destroy:172</code></a>
+<a href='../files/src_core_async_DelayedCall.js.html#l194'><code>destroy:194</code></a>
 </p>
 
 
@@ -833,7 +869,7 @@ destroy().</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_core_async_DelayedCall.js.html#l118'><code>restart:118</code></a>
+<a href='../files/src_core_async_DelayedCall.js.html#l140'><code>restart:140</code></a>
 </p>
 
 
@@ -865,7 +901,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_core_async_DelayedCall.js.html#l133'><code>stop:133</code></a>
+<a href='../files/src_core_async_DelayedCall.js.html#l155'><code>stop:155</code></a>
 </p>
 
 
@@ -895,7 +931,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l59"><code>_autoDestroy:59</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l81"><code>_autoDestroy:81</code></a>
 </p>
 
 
@@ -921,7 +957,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l30"><code>_callback:30</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l52"><code>_callback:52</code></a>
 </p>
 
 
@@ -946,7 +982,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l37"><code>_delay:37</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l59"><code>_delay:59</code></a>
 </p>
 
 
@@ -971,7 +1007,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l75"><code>_paused:75</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l97"><code>_paused:97</code></a>
 </p>
 
 
@@ -996,7 +1032,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l51"><code>_repeat:51</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l73"><code>_repeat:73</code></a>
 </p>
 
 
@@ -1022,7 +1058,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l44"><code>_timer:44</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l66"><code>_timer:66</code></a>
 </p>
 
 
@@ -1047,7 +1083,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l67"><code>_useFrames:67</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l89"><code>_useFrames:89</code></a>
 </p>
 
 
@@ -1073,7 +1109,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_core_async_DelayedCall.js.html#l144"><code>paused:144</code></a>
+<a href="../files/src_core_async_DelayedCall.js.html#l166"><code>paused:166</code></a>
 </p>
 
 
@@ -1094,7 +1130,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>

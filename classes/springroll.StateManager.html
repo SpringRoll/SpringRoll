@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : springroll.StateManager</title>
+<title>SpringRoll v0.3.6 API Documentation : springroll.StateManager</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -537,9 +537,6 @@ Module:
 <code>display</code>
 </li>
 <li class='arg'>
-<code class='optional'>[transition]</code>
-</li>
-<li class='arg'>
 <code class='optional'>[transitionSounds]</code>
 </li>
 </ul><span class='paren'>)</span>
@@ -578,21 +575,8 @@ Defined in
 
 
 <div class='param-description'>
-<p>The display on which the transition animation is
-                                           displayed.</p>
-
-</div>
-
-</li>
-<li class='param'>
-<code class='param-name optional'>[transition]</code>
-<span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
-<span class='flag optional' title='This parameter is optional.'>optional</span>
-
-
-<div class='param-description'>
-<p>The transition MovieClip to play between
-                                                 transitions.</p>
+<p>The display on which the transition animation
+      is displayed.</p>
 
 </div>
 
@@ -605,14 +589,47 @@ Defined in
 
 <div class='param-description'>
 <p>Data object with aliases and start times (seconds) for
-                                transition in, loop and out sounds. Example:
-                                {in:{alias:"myAlias", start:0.2}}.
-                                These objects are in the format for Animator from
-                                EaselJSDisplay or PixiDisplay, so they can be just the
-                                sound alias instead of an object.</p>
+      transition in, loop and out sounds. Example: <code>{in:{alias:"myAlias", start:0.2}}</code>.
+      These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
+      so they can be just the sound alias instead of an object.</p>
 
 </div>
 
+<ul class='params-list'>
+<li class='param'>
+<code class='param-name optional'>[in]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The sound to play for transition in</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[out]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The sound to play for transition out</p>
+
+</div>
+
+</li>
+<li class='param'>
+<code class='param-name optional'>[loading]</code>
+<span class='type'><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+<span class='flag optional' title='This parameter is optional.'>optional</span>
+
+<div class='param-description'>
+<p>The sound to play for loading</p>
+
+</div>
+
+</li>
+</ul>
 </li>
 </ul>
 </div>
@@ -646,15 +663,15 @@ Defined in
 
 <ul class='list-group row methods extends'>
 <li class='col-xs-6 col-md-4 index-item method private'>
-<a href='#method__loopTransition'>_loopTransition</a>
-
-</li>
-<li class='col-xs-6 col-md-4 index-item method private'>
 <a href='#method__onStateLoaded'>_onStateLoaded</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method private'>
 <a href='#method__onTransitionIn'>_onTransitionIn</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item method private'>
+<a href='#method__onTransitionLoading'>_onTransitionLoading</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item method private'>
@@ -673,17 +690,19 @@ Defined in
 <a href='#method_addState'>addState</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
 <a href='#method_changeTransition'>changeTransition</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 <li class='col-xs-6 col-md-4 index-item method inherited'>
 <a href='#method_destroy'>destroy</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
 <a href='#method_getCurrentState'>getCurrentState</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 <li class='col-xs-6 col-md-4 index-item method'>
 <a href='#method_getStateById'>getStateById</a>
@@ -709,9 +728,10 @@ Defined in
 <a href='#method_loadingStart'>loadingStart</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
 <a href='#method_next'>next</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 <li class='col-xs-6 col-md-4 index-item method inherited'>
 <a href='#method_off'>off</a>
@@ -725,17 +745,19 @@ Defined in
 <a href='#method_once'>once</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
 <a href='#method_previous'>previous</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 <li class='col-xs-6 col-md-4 index-item method'>
 <a href='#method_refresh'>refresh</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item method'>
+<li class='col-xs-6 col-md-4 index-item method deprecated'>
 <a href='#method_setState'>setState</a>
 
+<span class='flag deprecated'>deprecated</span>
 </li>
 <li class='col-xs-6 col-md-4 index-item method'>
 <a href='#method_showBlocker'>showBlocker</a>
@@ -801,11 +823,11 @@ Defined in
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property private'>
-<a href='#property__transition'>_transition</a>
+<a href='#property__transitionSounds'>_transitionSounds</a>
 
 </li>
-<li class='col-xs-6 col-md-4 index-item property private'>
-<a href='#property__transitionSounds'>_transitionSounds</a>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_currentState'>currentState</a>
 
 </li>
 <li class='col-xs-6 col-md-4 index-item property inherited'>
@@ -818,6 +840,10 @@ Defined in
 </li>
 <li class='col-xs-6 col-md-4 index-item property'>
 <a href='#property_state'>state</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item property'>
+<a href='#property_transition'>transition</a>
 
 </li>
 </ul>
@@ -848,6 +874,10 @@ Defined in
 
 </li>
 <li class='col-xs-6 col-md-4 index-item event'>
+<a href='#event_onTransitionLoading'>onTransitionLoading</a>
+
+</li>
+<li class='col-xs-6 col-md-4 index-item event'>
 <a href='#event_onTransitionOut'>onTransitionOut</a>
 
 </li>
@@ -861,40 +891,7 @@ Defined in
 
 <div role='tabpanel' id='docs-methods' class='tab-pane'>
 
-<div id='method__loopTransition' class='method item private'>
-<h3 class='name'><code>_loopTransition</code></h3>
-
-<span class='paren'>()</span>
-
-
-<div class='flags'>
-
-<span class='flag private'>private</span>
-
-
-
-
-</div> 
-
-<div class='meta'>
-<p>
-Defined in
-<a href='../files/src_states_StateManager.js.html#l487'><code>_loopTransition:487</code></a>
-</p>
-
-
-
-</div>
-
-<div class='description'>
-<p>Plays the animation "transitionLoop" on the transition. Also serves as the animation callback.
-Manually looping the animation allows the animation to be synced to the audio while looping.</p>
-
-</div>
-
-
-
-</div><div id='method__onStateLoaded' class='method item private'>
+<div id='method__onStateLoaded' class='method item private'>
 <h3 class='name'><code>_onStateLoaded</code></h3>
 
 <span class='paren'>()</span>
@@ -912,7 +909,7 @@ Manually looping the animation allows the animation to be synced to the audio wh
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l424'><code>_onStateLoaded:424</code></a>
+<a href='../files/src_states_StateManager.js.html#l441'><code>_onStateLoaded:441</code></a>
 </p>
 
 
@@ -945,7 +942,7 @@ This should be treated as an asynchronous process.</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l444'><code>_onTransitionIn:444</code></a>
+<a href='../files/src_states_StateManager.js.html#l461'><code>_onTransitionIn:461</code></a>
 </p>
 
 
@@ -954,6 +951,39 @@ Defined in
 
 <div class='description'>
 <p>When the transition into a state has finished playing during a state change.</p>
+
+</div>
+
+
+
+</div><div id='method__onTransitionLoading' class='method item private'>
+<h3 class='name'><code>_onTransitionLoading</code></h3>
+
+<span class='paren'>()</span>
+
+
+<div class='flags'>
+
+<span class='flag private'>private</span>
+
+
+
+
+</div> 
+
+<div class='meta'>
+<p>
+Defined in
+<a href='../files/src_states_StateManager.js.html#l504'><code>_onTransitionLoading:504</code></a>
+</p>
+
+
+
+</div>
+
+<div class='description'>
+<p>Plays the animation "onTransitionLoading" on the transition. Also serves as the animation callback.
+Manually looping the animation allows the animation to be synced to the audio while looping.</p>
 
 </div>
 
@@ -977,7 +1007,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l394'><code>_onTransitionOut:394</code></a>
+<a href='../files/src_states_StateManager.js.html#l411'><code>_onTransitionOut:411</code></a>
 </p>
 
 
@@ -1012,7 +1042,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l465'><code>_processQueue:465</code></a>
+<a href='../files/src_states_StateManager.js.html#l482'><code>_processQueue:482</code></a>
 </p>
 
 
@@ -1062,7 +1092,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l556'><code>_transitioning:556</code></a>
+<a href='../files/src_states_StateManager.js.html#l582'><code>_transitioning:582</code></a>
 </p>
 
 
@@ -1131,7 +1161,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l189'><code>addState:189</code></a>
+<a href='../files/src_states_StateManager.js.html#l191'><code>addState:191</code></a>
 </p>
 
 
@@ -1160,7 +1190,7 @@ Defined in
 </li>
 <li class='param'>
 <code class='param-name'>state</code>
-<span class='type'>BaseState</span>
+<span class='type'><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 
 
 <div class='param-description'>
@@ -1173,20 +1203,21 @@ Defined in
 </div>
 
 
-</div><div id='method_changeTransition' class='method item'>
+</div><div id='method_changeTransition' class='method item deprecated'>
 <h3 class='name'><code>changeTransition</code></h3>
 
 <div class='args'>
 <span class='paren'>(</span>
 <ul class='args-list inline commas'>
 <li class='arg'>
-<code>Clip</code>
+<code>transition</code>
 </li>
 </ul><span class='paren'>)</span>
 </div>
 
 
 <div class='flags'>
+<span class='flag deprecated'  title='Use the transition property directly to change the transition.' >deprecated</span>
 
 
 
@@ -1197,10 +1228,11 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l213'><code>changeTransition:213</code></a>
+<a href='../files/src_states_StateManager.js.html#l215'><code>changeTransition:215</code></a>
 </p>
 
 
+<p>Deprecated: Use the transition property directly to change the transition.</p>
 
 </div>
 
@@ -1214,12 +1246,12 @@ Defined in
 
 <ul class='params-list'>
 <li class='param'>
-<code class='param-name'>Clip</code>
-<span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
+<code class='param-name'>transition</code>
+<span class='type'><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | <a href="../classes/springroll.easeljs.BitmapMovieClip.html" class="crosslink">springroll.easeljs.BitmapMovieClip</a> | PIXI.Spine</span>
 
 
 <div class='param-description'>
-<p>to swap for transition</p>
+<p>Clip to swap for transition</p>
 
 </div>
 
@@ -1248,7 +1280,7 @@ Defined in
 springroll.EventDispatcher
 </a>
 but overwritten in
-<a href='../files/src_states_StateManager.js.html#l639'><code>destroy:639</code></a>
+<a href='../files/src_states_StateManager.js.html#l636'><code>destroy:636</code></a>
 </p>
 
 
@@ -1262,16 +1294,17 @@ but overwritten in
 
 
 
-</div><div id='method_getCurrentState' class='method item'>
+</div><div id='method_getCurrentState' class='method item deprecated'>
 <h3 class='name'><code>getCurrentState</code></h3>
 
 <span class='paren'>()</span>
 
 <span class='returns-inline'>
-<span class='type'>BaseState</span>
+<span class='type'><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 </span>
 
 <div class='flags'>
+<span class='flag deprecated'  title='Use the getter &#x27;currentState&#x27; instead' >deprecated</span>
 
 
 
@@ -1282,10 +1315,11 @@ but overwritten in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l224'><code>getCurrentState:224</code></a>
+<a href='../files/src_states_StateManager.js.html#l226'><code>getCurrentState:226</code></a>
 </p>
 
 
+<p>Deprecated: Use the getter &#x27;currentState&#x27; instead</p>
 
 </div>
 
@@ -1299,7 +1333,7 @@ Defined in
 <h4>Returns:</h4>
 
 <div class='returns-description'>
-<span class='type'>BaseState</span>:
+<span class='type'><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>:
 <p>The Base State object</p>
 
 </div>
@@ -1318,7 +1352,7 @@ Defined in
 </div>
 
 <span class='returns-inline'>
-<span class='type'>BaseState</span>
+<span class='type'><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 </span>
 
 <div class='flags'>
@@ -1332,7 +1366,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l235'><code>getStateById:235</code></a>
+<a href='../files/src_states_StateManager.js.html#l250'><code>getStateById:250</code></a>
 </p>
 
 
@@ -1366,7 +1400,7 @@ Defined in
 <h4>Returns:</h4>
 
 <div class='returns-description'>
-<span class='type'>BaseState</span>:
+<span class='type'><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>:
 <p>The base State object</p>
 
 </div>
@@ -1471,7 +1505,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l297'><code>hideBlocker:297</code></a>
+<a href='../files/src_states_StateManager.js.html#l312'><code>hideBlocker:312</code></a>
 </p>
 
 
@@ -1505,7 +1539,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l248'><code>isBusy:248</code></a>
+<a href='../files/src_states_StateManager.js.html#l263'><code>isBusy:263</code></a>
 </p>
 
 
@@ -1545,7 +1579,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l274'><code>loadingDone:274</code></a>
+<a href='../files/src_states_StateManager.js.html#l289'><code>loadingDone:289</code></a>
 </p>
 
 
@@ -1577,7 +1611,7 @@ Lets enter the state</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l259'><code>loadingStart:259</code></a>
+<a href='../files/src_states_StateManager.js.html#l274'><code>loadingStart:274</code></a>
 </p>
 
 
@@ -1592,13 +1626,14 @@ The state can tell the manager to stop the animation</p>
 
 
 
-</div><div id='method_next' class='method item'>
+</div><div id='method_next' class='method item deprecated'>
 <h3 class='name'><code>next</code></h3>
 
 <span class='paren'>()</span>
 
 
 <div class='flags'>
+<span class='flag deprecated'  title='Use the method &#x60;nextState&#x60; on the state itself' >deprecated</span>
 
 
 
@@ -1609,10 +1644,11 @@ The state can tell the manager to stop the animation</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l587'><code>next:587</code></a>
+<a href='../files/src_states_StateManager.js.html#l616'><code>next:616</code></a>
 </p>
 
 
+<p>Deprecated: Use the method &#x60;nextState&#x60; on the state itself</p>
 
 </div>
 
@@ -1898,13 +1934,14 @@ Defined in
 </div>
 </div>
 
-</div><div id='method_previous' class='method item'>
+</div><div id='method_previous' class='method item deprecated'>
 <h3 class='name'><code>previous</code></h3>
 
 <span class='paren'>()</span>
 
 
 <div class='flags'>
+<span class='flag deprecated'  title='Use the method &#x60;previousState&#x60; on the state itself' >deprecated</span>
 
 
 
@@ -1915,10 +1952,11 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l613'><code>previous:613</code></a>
+<a href='../files/src_states_StateManager.js.html#l626'><code>previous:626</code></a>
 </p>
 
 
+<p>Deprecated: Use the method &#x60;previousState&#x60; on the state itself</p>
 
 </div>
 
@@ -1946,7 +1984,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l307'><code>refresh:307</code></a>
+<a href='../files/src_states_StateManager.js.html#l322'><code>refresh:322</code></a>
 </p>
 
 
@@ -1961,7 +1999,7 @@ enters it again. Can be useful for clearing a state</p>
 
 
 
-</div><div id='method_setState' class='method item'>
+</div><div id='method_setState' class='method item deprecated'>
 <h3 class='name'><code>setState</code></h3>
 
 <div class='args'>
@@ -1975,6 +2013,7 @@ enters it again. Can be useful for clearing a state</p>
 
 
 <div class='flags'>
+<span class='flag deprecated'  title='Use the state setter instead' >deprecated</span>
 
 
 
@@ -1985,10 +2024,11 @@ enters it again. Can be useful for clearing a state</p>
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l334'><code>setState:334</code></a>
+<a href='../files/src_states_StateManager.js.html#l399'><code>setState:399</code></a>
 </p>
 
 
+<p>Deprecated: Use the state setter instead</p>
 
 </div>
 
@@ -2033,7 +2073,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l287'><code>showBlocker:287</code></a>
+<a href='../files/src_states_StateManager.js.html#l302'><code>showBlocker:302</code></a>
 </p>
 
 
@@ -2071,7 +2111,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l537'><code>showTransitionIn:537</code></a>
+<a href='../files/src_states_StateManager.js.html#l565'><code>showTransitionIn:565</code></a>
 </p>
 
 
@@ -2126,7 +2166,7 @@ Defined in
 <div class='meta'>
 <p>
 Defined in
-<a href='../files/src_states_StateManager.js.html#l516'><code>showTransitionOut:516</code></a>
+<a href='../files/src_states_StateManager.js.html#l547'><code>showTransitionOut:547</code></a>
 </p>
 
 
@@ -2313,7 +2353,7 @@ transition looping animation automatically starts playing.</p>
 springroll.EventDispatcher
 </a>
 but overwritten in
-<a href="../files/src_states_StateManager.js.html#l107"><code>_destroyed:107</code></a>
+<a href="../files/src_states_StateManager.js.html#l105"><code>_destroyed:105</code></a>
 </p>
 
 
@@ -2338,7 +2378,7 @@ but overwritten in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l35"><code>_display:35</code></a>
+<a href="../files/src_states_StateManager.js.html#l34"><code>_display:34</code></a>
 </p>
 
 
@@ -2363,7 +2403,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l99"><code>_isTransitioning:99</code></a>
+<a href="../files/src_states_StateManager.js.html#l97"><code>_isTransitioning:97</code></a>
 </p>
 
 
@@ -2403,7 +2443,7 @@ Defined in
 
 </div><div id="property__oldState" class="property item private">
 <h3 class="name"><code>_oldState</code></h3>
-<span class="type">BaseState</span>
+<span class="type"><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 
 
 <span class="flag private">private</span>
@@ -2413,7 +2453,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l83"><code>_oldState:83</code></a>
+<a href="../files/src_states_StateManager.js.html#l81"><code>_oldState:81</code></a>
 </p>
 
 
@@ -2438,7 +2478,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l115"><code>_queueStateId:115</code></a>
+<a href="../files/src_states_StateManager.js.html#l113"><code>_queueStateId:113</code></a>
 </p>
 
 
@@ -2453,7 +2493,7 @@ Defined in
 
 </div><div id="property__state" class="property item private">
 <h3 class="name"><code>_state</code></h3>
-<span class="type">BaseState</span>
+<span class="type"><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
 
 
 <span class="flag private">private</span>
@@ -2463,7 +2503,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l67"><code>_state:67</code></a>
+<a href="../files/src_states_StateManager.js.html#l65"><code>_state:65</code></a>
 </p>
 
 
@@ -2488,7 +2528,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l75"><code>_stateID:75</code></a>
+<a href="../files/src_states_StateManager.js.html#l73"><code>_stateID:73</code></a>
 </p>
 
 
@@ -2513,7 +2553,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l59"><code>_states:59</code></a>
+<a href="../files/src_states_StateManager.js.html#l57"><code>_states:57</code></a>
 </p>
 
 
@@ -2521,31 +2561,6 @@ Defined in
 
 <div class="description">
 <p>The collection of states map</p>
-
-</div>
-
-
-
-</div><div id="property__transition" class="property item private">
-<h3 class="name"><code>_transition</code></h3>
-<span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | PIXI.Spine</span>
-
-
-<span class="flag private">private</span>
-
-
-
-<div class="meta">
-<p>
-Defined in
-<a href="../files/src_states_StateManager.js.html#l43"><code>_transition:43</code></a>
-</p>
-
-
-</div>
-
-<div class="description">
-<p>The click to play in between transitioning states</p>
 
 </div>
 
@@ -2563,7 +2578,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l51"><code>_transitionSounds:51</code></a>
+<a href="../files/src_states_StateManager.js.html#l49"><code>_transitionSounds:49</code></a>
 </p>
 
 
@@ -2571,6 +2586,30 @@ Defined in
 
 <div class="description">
 <p>The sounds for the transition</p>
+
+</div>
+
+
+
+</div><div id="property_currentState" class="property item">
+<h3 class="name"><code>currentState</code></h3>
+<span class="type"><a href="../classes/springroll.State.html" class="crosslink">springroll.State</a></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_StateManager.js.html#l237"><code>currentState:237</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>Get the current selected state (state object)</p>
 
 </div>
 
@@ -2612,7 +2651,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l91"><code>name description:91</code></a>
+<a href="../files/src_states_StateManager.js.html#l89"><code>name description:89</code></a>
 </p>
 
 
@@ -2636,7 +2675,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l319"><code>state:319</code></a>
+<a href="../files/src_states_StateManager.js.html#l334"><code>state:334</code></a>
 </p>
 
 
@@ -2644,6 +2683,30 @@ Defined in
 
 <div class="description">
 <p>Get or change the current state, using the state id.</p>
+
+</div>
+
+
+
+</div><div id="property_transition" class="property item">
+<h3 class="name"><code>transition</code></h3>
+<span class="type"><a href="../classes/createjs.MovieClip.html" class="crosslink">createjs.MovieClip</a> | <a href="../classes/springroll.easeljs.BitmapMovieClip.html" class="crosslink">springroll.easeljs.BitmapMovieClip</a> | PIXI.Spine</span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_StateManager.js.html#l42"><code>transition:42</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The click to play in between transitioning states</p>
 
 </div>
 
@@ -2665,7 +2728,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l168"><code>onInitDone:168</code></a>
+<a href="../files/src_states_StateManager.js.html#l170"><code>onInitDone:170</code></a>
 </p>
 
 
@@ -2689,7 +2752,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l182"><code>onLoadingDone:182</code></a>
+<a href="../files/src_states_StateManager.js.html#l184"><code>onLoadingDone:184</code></a>
 </p>
 
 
@@ -2713,7 +2776,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l175"><code>onLoadingStart:175</code></a>
+<a href="../files/src_states_StateManager.js.html#l177"><code>onLoadingStart:177</code></a>
 </p>
 
 
@@ -2737,7 +2800,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l140"><code>onTransitionIn:140</code></a>
+<a href="../files/src_states_StateManager.js.html#l133"><code>onTransitionIn:133</code></a>
 </p>
 
 
@@ -2761,7 +2824,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l147"><code>onTransitionInDone:147</code></a>
+<a href="../files/src_states_StateManager.js.html#l149"><code>onTransitionInDone:149</code></a>
 </p>
 
 
@@ -2769,6 +2832,32 @@ Defined in
 
 <div class="description">
 <p>The name of the event for completing transitioning into a state.</p>
+
+</div>
+
+
+
+</div><div id="event_onTransitionLoading" class="events item">
+<h3 class="name"><code>onTransitionLoading</code></h3>
+<span class="type"></span>
+
+
+
+
+
+<div class="meta">
+<p>
+Defined in
+<a href="../files/src_states_StateManager.js.html#l140"><code>onTransitionLoading:140</code></a>
+</p>
+
+
+</div>
+
+<div class="description">
+<p>The name of the Animator label and event for loading between state change.
+this event is only dispatched if there is a loading sequence to show in the 
+transition. Recommended to use &#39;loadingStart&#39; instead for checking.</p>
 
 </div>
 
@@ -2785,7 +2874,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l154"><code>onTransitionOut:154</code></a>
+<a href="../files/src_states_StateManager.js.html#l156"><code>onTransitionOut:156</code></a>
 </p>
 
 
@@ -2809,7 +2898,7 @@ Defined in
 <div class="meta">
 <p>
 Defined in
-<a href="../files/src_states_StateManager.js.html#l161"><code>onTransitionOutDone:161</code></a>
+<a href="../files/src_states_StateManager.js.html#l163"><code>onTransitionOutDone:163</code></a>
 </p>
 
 
@@ -2828,7 +2917,7 @@ Defined in
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>

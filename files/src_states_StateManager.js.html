@@ -2,25 +2,25 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.5 API Documentation : src/states/StateManager.js</title>
+<title>SpringRoll v0.3.6 API Documentation : src/states/StateManager.js</title>
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.5'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
 <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.5'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.5'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
 </head>
 
 <body>
 <header>
 <div class='container'>
 <div class='version pull-right'>
-<em>API Documentation for: 0.3.5</em>
+<em>API Documentation for: 0.3.6</em>
 </div>
 <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.5' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
 </div>
 <div class='scope-toggles pull-right'>
 <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
@@ -84,9 +84,6 @@
         </li>
         <li class=''>
           <a href='../classes/springroll.ApplicationPlugin.html'>springroll.ApplicationPlugin</a>
-        </li>
-        <li class=''>
-          <a href='../classes/springroll.BaseState.html'>springroll.BaseState</a>
         </li>
         <li class=''>
           <a href='../classes/springroll.CacheManager.html'>springroll.CacheManager</a>
@@ -353,6 +350,9 @@
           <a href='../classes/springroll.SoundPlugin.html'>springroll.SoundPlugin</a>
         </li>
         <li class=''>
+          <a href='../classes/springroll.State.html'>springroll.State</a>
+        </li>
+        <li class=''>
           <a href='../classes/springroll.StateEvent.html'>springroll.StateEvent</a>
         </li>
         <li class=''>
@@ -522,7 +522,7 @@ name
 	// Imports
 	var Debug = include(&#x27;springroll.Debug&#x27;, false),
 		EventDispatcher = include(&#x27;springroll.EventDispatcher&#x27;),
-		BaseState = include(&#x27;springroll.BaseState&#x27;),
+		State = include(&#x27;springroll.State&#x27;),
 		StateEvent = include(&#x27;springroll.StateEvent&#x27;);
 	
 	/**
@@ -531,18 +531,17 @@ name
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
-	 *                                             displayed.
-	 * @param {createjs.MovieClip|PIXI.Spine} [transition] The transition MovieClip to play between
-	 *                                                   transitions.
+	 * @param {springroll.AbstractDisplay} display The display on which the transition animation
+	 *        is displayed.
 	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
-	 *                                  transition in, loop and out sounds. Example:
-	 *                                  {in:{alias:&quot;myAlias&quot;, start:0.2}}.
-	 *                                  These objects are in the format for Animator from
-	 *                                  EaselJSDisplay or PixiDisplay, so they can be just the
-	 *                                  sound alias instead of an object.
+	 *        transition in, loop and out sounds. Example: &#x60;{in:{alias:&quot;myAlias&quot;, start:0.2}}&#x60;.
+	 *        These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
+	 *        so they can be just the sound alias instead of an object.
+	 * @param {Object|String} [transitionSounds.in] The sound to play for transition in
+	 * @param {Object|String} [transitionSounds.out] The sound to play for transition out
+	 * @param {Object|String} [transitionSounds.loading] The sound to play for loading
 	 */
-	var StateManager = function(display, transition, transitionSounds)
+	var StateManager = function(display, transitionSounds)
 	{
 		EventDispatcher.call(this);
 
@@ -557,10 +556,9 @@ name
 		/**
 		* The click to play in between transitioning states
 		*
-		* @property {createjs.MovieClip|PIXI.Spine} _transition
-		* @private
+		* @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
 		*/
-		this._transition = transition || null;
+		this.transition = null;
 		
 		/**
 		* The sounds for the transition
@@ -581,7 +579,7 @@ name
 		/**
 		* The currently selected state
 		*
-		* @property {BaseState} _state
+		* @property {springroll.State} _state
 		* @private
 		*/
 		this._state = null;
@@ -597,7 +595,7 @@ name
 		/**
 		* The old state
 		*
-		* @property {BaseState} _oldState
+		* @property {springroll.State} _oldState
 		* @private
 		*/
 		this._oldState = null;
@@ -634,16 +632,11 @@ name
 		*/
 		this._queueStateId = null;
 
-		// Construct
-		if (transition &amp;&amp; transition.stop)
-		{
-			transition.stop();
-		}
 		// Hide the blocker
 		this.hideBlocker();
 
 		// Binding
-		this._loopTransition = this._loopTransition.bind(this);
+		this._onTransitionLoading = this._onTransitionLoading.bind(this);
 		this._onTransitionOut = this._onTransitionOut.bind(this);
 		this._onStateLoaded = this._onStateLoaded.bind(this);
 		this._onTransitionIn = this._onTransitionIn.bind(this);
@@ -656,62 +649,71 @@ name
 	*
 	* @event onTransitionIn
 	*/
-	StateManager.TRANSITION_IN = &quot;onTransitionIn&quot;;
+	var TRANSITION_IN = StateManager.TRANSITION_IN = &quot;onTransitionIn&quot;;
+
+	/**
+	* The name of the Animator label and event for loading between state change.
+	* this event is only dispatched if there is a loading sequence to show in the 
+	* transition. Recommended to use &#x27;loadingStart&#x27; instead for checking.
+	*
+	* @event onTransitionLoading
+	*/
+	var TRANSITION_LOADING = StateManager.TRANSITION_LOADING = &quot;onTransitionLoading&quot;;
 	
 	/**
 	* The name of the event for completing transitioning into a state.
 	*
 	* @event onTransitionInDone
 	*/
-	StateManager.TRANSITION_IN_DONE = &quot;onTransitionInDone&quot;;
+	var TRANSITION_IN_DONE = StateManager.TRANSITION_IN_DONE = &quot;onTransitionInDone&quot;;
 	
 	/**
 	* The name of the Animator label and event for transitioning out of a state.
 	*
 	* @event onTransitionOut
 	*/
-	StateManager.TRANSITION_OUT = &quot;onTransitionOut&quot;;
+	var TRANSITION_OUT = StateManager.TRANSITION_OUT = &quot;onTransitionOut&quot;;
 	
 	/**
 	* The name of the event for completing transitioning out of a state.
 	*
 	* @event onTransitionOutDone
 	*/
-	StateManager.TRANSITION_OUT_DONE = &quot;onTransitionOutDone&quot;;
+	var TRANSITION_OUT_DONE = StateManager.TRANSITION_OUT_DONE = &quot;onTransitionOutDone&quot;;
 	
 	/**
 	* The name of the event for initialization complete - the first state is then being entered.
 	*
 	* @event onInitDone
 	*/
-	StateManager.TRANSITION_INIT_DONE = &quot;onInitDone&quot;;
+	var TRANSITION_INIT_DONE = StateManager.TRANSITION_INIT_DONE = &quot;onInitDone&quot;;
 	
 	/**
 	* Event when the state begins loading assets when it is entered.
 	*
 	* @event onLoadingStart
 	*/
-	StateManager.LOADING_START = &quot;onLoadingStart&quot;;
+	var LOADING_START = StateManager.LOADING_START = &quot;onLoadingStart&quot;;
 	
 	/**
 	* Event when the state finishes loading assets when it is entered.
 	*
 	* @event onLoadingDone
 	*/
-	StateManager.LOADING_DONE = &quot;onLoadingDone&quot;;
+	var LOADING_DONE = StateManager.LOADING_DONE = &quot;onLoadingDone&quot;;
 	
 	/**
 	*  Register a state with the state manager, done initially
 	*
 	*  @method addState
 	*  @param {String} id The string alias for a state
-	*  @param {BaseState} state State object reference
+	*  @param {springroll.State} state State object reference
 	*/
 	p.addState = function(id, state)
 	{
 		if (DEBUG &amp;&amp; Debug)
 		{
-			Debug.assert(state instanceof BaseState, &quot;State (&quot;+id+&quot;) needs to subclass springroll.BaseState&quot;);
+			Debug.assert(state instanceof State, &quot;State (&quot;+id+&quot;) needs to subclass springroll.State&quot;);
 		}
 		
 		// Add to the collection of states
@@ -726,32 +728,45 @@ name
 	
 	/**
 	*  Dynamically change the transition
-	*
+	*  @deprecated Use the transition property directly to change the transition.
 	*  @method changeTransition
-	*  @param {createjs.MovieClip|PIXI.Spine} Clip to swap for transition
+	*  @param {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition Clip to swap for transition
 	*/
-	p.changeTransition = function(clip)
+	p.changeTransition = function(transition)
 	{
-		this._transition = clip;
+		this.transition = transition;
 	};
 	
 	/**
 	*   Get the current selected state (state object)
-	*
+	*   @deprecated  Use the getter &#x27;currentState&#x27; instead
 	*   @method getCurrentState
-	*   @return {BaseState} The Base State object
+	*   @return {springroll.State} The Base State object
 	*/
 	p.getCurrentState = function()
 	{
 		return this._state;
 	};
+
+	/**
+	*   Get the current selected state (state object)
+	*   @property {springroll.State} currentState
+	*   @readOnly
+	*/
+	Object.defineProperty(p, &#x27;currentState&#x27;, 
+	{
+		get: function()
+		{
+			return this._state;
+		}
+	});
 	
 	/**
 	*   Access a certain state by the ID
 	*
 	*   @method getStateById
 	*   @param {String} id State alias
-	*   @return {BaseState} The base State object
+	*   @return {springroll.State} The base State object
 	*/
 	p.getStateById = function(id)
 	{
@@ -780,9 +795,9 @@ name
 	{
 		if (this._destroyed) return;
 		
-		this.trigger(StateManager.LOADING_START);
+		this.trigger(LOADING_START);
 		
-		this._loopTransition();
+		this._onTransitionLoading();
 	};
 	
 	/**
@@ -795,7 +810,7 @@ name
 	{
 		if (this._destroyed) return;
 		
-		this.trigger(StateManager.LOADING_DONE);
+		this.trigger(LOADING_DONE);
 	};
 	
 	/**
@@ -827,17 +842,67 @@ name
 	p.refresh = function()
 	{
 		if (DEBUG &amp;&amp; Debug) Debug.assert(!!this._state, &quot;No current state to refresh!&quot;);
-		this.setState(this._stateId);
+		this.state = this._stateId;
 	};
 	
 	/**
 	*  Get or change the current state, using the state id.
 	*  @property {String} state
 	*/
-	Object.defineProperty(p, &quot;state&quot;, {
+	Object.defineProperty(p, &quot;state&quot;,
+	{
 		set : function(id)
 		{
-			this.setState(id);
+			if (DEBUG &amp;&amp; Debug) Debug.assert(this._states[id] !== undefined, &quot;No current state mattching id &#x27;&quot;+id+&quot;&#x27;&quot;);
+		
+			// If we try to transition while the transition or state
+			// is transition, then we queue the state and proceed
+			// after an animation has played out, to avoid abrupt changes
+			if (this._isTransitioning)
+			{
+				this._queueStateId = id;
+				return;
+			}
+			
+			this._stateId = id;
+			this.showBlocker();
+			this._oldState = this._state;
+			this._state = this._states[id];
+			
+			if (!this._oldState)
+			{
+				// There is not current state
+				// this is only possible if this is the first
+				// state we&#x27;re loading
+				this._isTransitioning = true;
+				if (this.transition)
+					this.transition.visible = true;
+				this._onTransitionLoading();
+				this.trigger(TRANSITION_INIT_DONE);
+				this._isLoading = true;
+				this._state._internalEnter(this._onStateLoaded);
+			}
+			else
+			{
+				// Check to see if the state is currently in a load
+				// if so cancel the state
+				if (this._isLoading)
+				{
+					this._oldState._internalCancel();
+					this._isLoading = false;
+					this._state._internalEnter(this._onStateLoaded);
+				}
+				else
+				{
+					this._isTransitioning = true;
+					this._oldState._internalExitStart();
+					this.showBlocker();
+					
+					this.trigger(TRANSITION_OUT);
+					
+					this._transitioning(TRANSITION_OUT, this._onTransitionOut);
+				}
+			}
 		},
 		get : function()
 		{
@@ -849,60 +914,12 @@ name
 	*  Set the current State
 	*
 	*  @method setState
+	*  @deprecated Use the state setter instead
 	*  @param {String} id The state id
 	*/
 	p.setState = function(id)
 	{
-		if (DEBUG &amp;&amp; Debug) Debug.assert(this._states[id] !== undefined, &quot;No current state mattching id &#x27;&quot;+id+&quot;&#x27;&quot;);
-		
-		// If we try to transition while the transition or state
-		// is transition, then we queue the state and proceed
-		// after an animation has played out, to avoid abrupt changes
-		if (this._isTransitioning)
-		{
-			this._queueStateId = id;
-			return;
-		}
-		
-		this._stateId = id;
-		this.showBlocker();
-		this._oldState = this._state;
-		this._state = this._states[id];
-		
-		if (!this._oldState)
-		{
-			// There is not current state
-			// this is only possible if this is the first
-			// state we&#x27;re loading
-			this._isTransitioning = true;
-			if (this._transition)
-				this._transition.visible = true;
-			this._loopTransition();
-			this.trigger(StateManager.TRANSITION_INIT_DONE);
-			this._isLoading = true;
-			this._state._internalEnter(this._onStateLoaded);
-		}
-		else
-		{
-			// Check to see if the state is currently in a load
-			// if so cancel the state
-			if (this._isLoading)
-			{
-				this._oldState._internalCancel();
-				this._isLoading = false;
-				this._state._internalEnter(this._onStateLoaded);
-			}
-			else
-			{
-				this._isTransitioning = true;
-				this._oldState._internalExitStart();
-				this.showBlocker();
-				
-				this.trigger(StateManager.TRANSITION_OUT);
-				
-				this._transitioning(StateManager.TRANSITION_OUT, this._onTransitionOut);
-			}
-		}
+		this.state = id;
 	};
 	
 	/**
@@ -912,7 +929,7 @@ name
 	 */
 	p._onTransitionOut = function()
 	{
-		this.trigger(StateManager.TRANSITION_OUT_DONE);
+		this.trigger(TRANSITION_OUT_DONE);
 		
 		this._isTransitioning = false;
 		
@@ -926,7 +943,7 @@ name
 		this._oldState._internalExit();
 		this._oldState = null;
 
-		this._loopTransition();//play the transition loop animation
+		this._onTransitionLoading();//play the transition loop animation
 		
 		if (!this._processQueue())
 		{
@@ -951,8 +968,8 @@ name
 			this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
-		this.trigger(StateManager.TRANSITION_IN);
-		this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
+		this.trigger(TRANSITION_IN);
+		this._transitioning(TRANSITION_IN, this._onTransitionIn);
 	};
 	
 	/**
@@ -962,11 +979,11 @@ name
 	 */
 	p._onTransitionIn = function()
 	{
-		if (this._transition)
+		if (this.transition)
 		{
-			this._transition.visible = false;
+			this.transition.visible = false;
 		}
-		this.trigger(StateManager.TRANSITION_IN_DONE);
+		this.trigger(TRANSITION_IN_DONE);
 		this._isTransitioning = false;
 		this.hideBlocker();
 		
@@ -992,34 +1009,48 @@ name
 		{
 			var queueStateId = this._queueStateId;
 			this._queueStateId = null;
-			this.setState(queueStateId);
+			this.state = queueStateId;
 			return true;
 		}
 		return false;
 	};
 
 	/**
-	*  Plays the animation &quot;transitionLoop&quot; on the transition. Also serves as the animation callback.
+	*  Plays the animation &quot;onTransitionLoading&quot; on the transition. Also serves as the animation callback.
 	*  Manually looping the animation allows the animation to be synced to the audio while looping.
 	*
-	*  @method _loopTransition
+	*  @method _onTransitionLoading
 	*  @private
 	*/
-	p._loopTransition = function()
+	p._onTransitionLoading = function()
 	{
 		// Ignore if no transition
-		if (!this._transition) return;
+		if (!this.transition) return;
 
 		var audio;
-		if (this._transitionSounds)
+		var sounds = this._transitionSounds;
+		if (sounds)
 		{
-			audio = this._transitionSounds.loop;
+			// @deprecate the use of &#x27;loop&#x27; sound property in favor of &#x27;loading&#x27;
+			audio = sounds.loading || sounds.loop; 
 		}
 		var animator = this._display.animator;
-		if (animator.instanceHasAnimation(&#x27;transitionLoop&#x27;))
+		if (animator.instanceHasAnimation(TRANSITION_LOADING))
 		{
+			this.trigger(TRANSITION_LOADING);
 			animator.play(
-				this._transition, {
+				this.transition, {
+					anim: TRANSITION_LOADING,
+					audio: audio
+				}
+			);
+		}
+		// @deprecate the use of &#x27;transitionLoop&#x27; in favor of &#x27;onTransitionLoading&#x27;
+		else if (animator.instanceHasAnimation(&#x27;transitionLoop&#x27;))
+		{
+			this.trigger(TRANSITION_LOADING);
+			animator.play(
+				this.transition, {
 					anim:&#x27;transitionLoop&#x27;,
 					audio:audio
 				}
@@ -1037,15 +1068,12 @@ name
 	p.showTransitionOut = function(callback)
 	{
 		this.showBlocker();
-		var sm = this;
-		var func = function()
+		this._transitioning(TRANSITION_OUT, function()
 		{
-			sm._loopTransition();
-
-			if (callback)
-				callback();
-		};
-		this._transitioning(StateManager.TRANSITION_OUT, func);
+			this._onTransitionLoading();
+			if (callback) callback();
+		}
+		.bind(this));
 	};
 
 	/**
@@ -1056,15 +1084,13 @@ name
 	 */
 	p.showTransitionIn = function(callback)
 	{
-		var sm = this;
-		var func = function()
+		this._transitioning(TRANSITION_IN, function()
 		{
-			sm.hideBlocker();
-			sm._transition.visible = false;
-			if (callback)
-				callback();
-		};
-		this._transitioning(StateManager.TRANSITION_IN, func);
+			this.hideBlocker();
+			this.transition.visible = false;
+			if (callback) callback();
+		}
+		.bind(this));
 	};
 	
 	/**
@@ -1077,77 +1103,48 @@ name
 	*/
 	p._transitioning = function(event, callback)
 	{
-		var clip = this._transition;
+		var transition = this.transition;
 		var sounds = this._transitionSounds;
 		
 		// Ignore with no transition
-		if (!clip) 
+		if (!transition) 
 		{
 			return callback();
 		}
 
-		clip.visible = true;
+		transition.visible = true;
 
 		var audio;
-
 		if (sounds)
 		{
-			audio = (event == StateManager.TRANSITION_IN) ? sounds.in : sounds.out;
+			audio = (event == TRANSITION_IN) ? sounds.in : sounds.out;
 		}
-		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
+		this._display.animator.play(
+			transition, 
+			{anim:event, audio:audio}, 
+			callback
+		);
 	};
 
 
 	/**
 	*  Goto the next state
+	*  @deprecated Use the method &#x60;nextState&#x60; on the state itself
 	*  @method next
 	*/
 	p.next = function()
 	{
-		var type = typeof this._state.nextState;
-
-		if (!this._state.nextState)
-		{
-			if (DEBUG &amp;&amp; Debug)
-			{
-				Debug.info(&quot;&#x27;nextState&#x27; is undefined in current state, ignoring&quot;);
-			}
-			return;
-		}
-		else if (type === &quot;function&quot;)
-		{
-			this._state.nextState();
-		}
-		else if (type === &quot;string&quot;)
-		{
-			this.setState(this._state.nextState);
-		}
+		this._state.nextState();
 	};
 
 	/**
 	*  Goto the previous state
+	*  @deprecated Use the method &#x60;previousState&#x60; on the state itself
 	*  @method previous
 	*/
 	p.previous = function()
 	{
-		var type = typeof this._state.prevState;
-
-		if (!this._state.prevState)
-		{
-			if (DEBUG &amp;&amp; Debug)
-			{
-				Debug.info(&quot;&#x27;prevState&#x27; is undefined in current state, ignoring&quot;);
-			}
-			return;
-		}
-		else if (type === &quot;function&quot;)
-		{
-			this._state.prevState();
-		}
-		else if (type === &quot;string&quot;)
-		{
-			this.setState(this._state.prevState);
-		}
+		this._state.previousState();
 	};
 	
 	/**
@@ -1160,9 +1157,9 @@ name
 
 		this.off();
 		
-		if (this._transition)
+		if (this.transition)
 		{
-			this._display.animator.stop(this._transition);
+			this._display.animator.stop(this.transition);
 		}
 		
 		if (this._state)
@@ -1179,7 +1176,7 @@ name
 			}
 		}
 
-		this._transition = null;
+		this.transition = null;
 		this._state = null;
 		this._oldState = null;
 		this._states = null;
@@ -1192,7 +1189,7 @@ name
 </div>
 </div>
 </div>
-<script src='../assets/js/libraries.js?v=0.3.5'></script>
-<script src='../assets/js/main.js?v=0.3.5'></script>
+<script src='../assets/js/libraries.js?v=0.3.6'></script>
+<script src='../assets/js/main.js?v=0.3.6'></script>
 </body>
 </html>
