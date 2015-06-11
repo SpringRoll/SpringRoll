@@ -63,14 +63,14 @@
 	};
 
 	/**
-	 *	Constrain a number between two supplies values.
+	 *	Constrain a number between two supplied values.
 	 *	If a single value is supplied, it will return a number between 0 and 
 	 *	the supplied value.
-	 *	@method randomInt
+	 *	@method constrain
 	 *	@static
-	 *	{Number} min Lowest number.
+	 *	{Number} min Lowest number. If max is omitted, then this becomes max.
 	 *	{Number} max Highest number.
-	 *	@return {int} The constrained value
+	 *	@return {Number} The constrained value
 	 */
 	Math.constrain = function (value, min, max)
 	{
@@ -79,6 +79,6 @@
 			max = min;
 			min = 0;
 		}
-		return Math.min(Math.max(parseInt(value), min), max);
+		return Math.min(Math.max(value, min), max);
 	};
 }(Math));
