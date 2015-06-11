@@ -2,7 +2,7 @@
  * @module Core
  * @namespace window
  */
-(function(Math)
+(function (Math)
 {
 	/**
 	 * Add methods to Math
@@ -18,7 +18,7 @@
 	 * @param {int} max Highest number.
 	 * @return {int} The random value
 	 */
-	Math.randomInt = function(min, max)
+	Math.randomInt = function (min, max)
 	{
 		if (max === undefined)
 		{
@@ -41,24 +41,44 @@
 	 * @param {Number} y0 The y position of the second point
 	 * @return {Number} The distance
 	 */
-	Math.dist = function(x, y, x0, y0)
+	Math.dist = function (x, y, x0, y0)
 	{
 		//see if the first parameter is a point
-		if(typeof x.x == "number" && x.x == x.x)//faster !isNaN
+		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
 		{
 			//shift later parameters back
 			y0 = x0;
 			x0 = y;
-			
+
 			y = x.y;
 			x = x.x;
 		}
 		//see if the 2nd parameter is a point
-		if(typeof x0.x == "number" && x0.x == x0.x)
+		if (typeof x0.x == "number" && x0.x == x0.x)
 		{
 			y0 = x0.y;
 			x0 = x0.x;
 		}
 		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
+	};
+
+	/**
+	 *	Constrain a number between two supplies values.
+	 *	If a single value is supplied, it will return a number between 0 and 
+	 *	the supplied value.
+	 *	@method randomInt
+	 *	@static
+	 *	{Number} min Lowest number.
+	 *	{Number} max Highest number.
+	 *	@return {int} The constrained value
+	 */
+	Math.constrain = function (value, min, max)
+	{
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
+		return Math.min(Math.max(parseInt(value), min), max);
 	};
 }(Math));
