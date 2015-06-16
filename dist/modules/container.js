@@ -608,7 +608,7 @@
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
-		if (!_visibilityChange && doc.onfocusin !== undefined) return;
+		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
 		* The visibility toggle listener function
