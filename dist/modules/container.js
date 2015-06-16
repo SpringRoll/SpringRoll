@@ -608,7 +608,7 @@
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
+		if (!_visibilityChange && doc.onfocusin !== undefined) return;
 		
 		/**
 		* The visibility toggle listener function
@@ -655,6 +655,8 @@
 		_visibilityChange = "webkitvisibilitychange";
 	}
 	
+	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
+	
 	/**
 	* If this object is enabled.
 	* @property {Function} enabled
@@ -674,6 +676,11 @@
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			if(isIE9)
+			{
+				doc.removeEventListener("focusin", this._onFocus);
+				doc.removeEventListener("focusout", this._onBlur);
+			}
 			
 			if(value)
 			{
@@ -686,6 +693,12 @@
 				global.addEventListener("blur", this._onBlur);
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
+				//IE9 is old and uses its own events
+				if(isIE9)
+				{
+					doc.addEventListener("focusin", this._onFocus);
+					doc.addEventListener("focusout", this._onBlur);
+				}
 			}
 		}
 	});
