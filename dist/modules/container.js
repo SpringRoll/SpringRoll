@@ -1241,7 +1241,7 @@
 		this._containerBlurred = false;
 
 		/**
-		 * Delays pausing of application to mitigate issues with asynchronous communication 
+		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
 		 * @type {Timeout}
 		 */
@@ -1249,7 +1249,7 @@
 
 		/**
 		 * If the application is currently paused manually
-		 * @property {boolean} _isManualPause 
+		 * @property {boolean} _isManualPause
 		 * @private
 		 * @default false
 		 */
@@ -1268,7 +1268,7 @@
 		 *  @property {Boolean} sendMutes
 		 *  @default true
 		 */
-		 this.sendMutes = true;
+		this.sendMutes = true;
 
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
@@ -1281,7 +1281,7 @@
 		}
 		
 		this._pageVisibility = new PageVisibility(
-			onContainerFocus.bind(this), 
+			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
 		);
 	};
@@ -1311,12 +1311,12 @@
 	 * @event unsupported
 	 */
 
-	 /**
+	/**
 	 * Fired when the API cannot be called
 	 * @event remoteFailed
 	 */
 
-	 /**
+	/**
 	 * There was a problem with the API call
 	 * @event remoteError
 	 */
@@ -1497,7 +1497,7 @@
 		.bind(this))
 		.fail(function()
 		{
-		    return this.trigger('remoteFailed');
+			return this.trigger('remoteFailed');
 		}
 		.bind(this));
 	};
@@ -1606,7 +1606,7 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		//Set both container and application to blurred, 
+		//Set both container and application to blurred,
 		//because some blur events are only happening on the container.
 		//If container is blurred because application area was just focused,
 		//the application's focus event will override the blur imminently.
@@ -1626,7 +1626,7 @@
 
 		//Delay setting of 'paused' in case we get another focus event soon.
 		//Focus events are sent to the container asynchronously, and this was
-		//causing rapid toggling of the pause state and related issues, 
+		//causing rapid toggling of the pause state and related issues,
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
 			function()
@@ -1637,7 +1637,7 @@
 				if (this._isManualPause === true) return;
 
 				this.paused = this._containerBlurred && this._appBlurred;
-			}.bind(this), 
+			}.bind(this),
 			100
 		);
 	};
