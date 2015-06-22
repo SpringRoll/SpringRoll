@@ -1864,6 +1864,14 @@
 	var loadedLibAssets = null;
 
 	/**
+	*  There dynamic loaded code asset.
+	*  @property {Object} loadedLibs
+	*  @private
+	*  @static
+	*/
+	var loadedLibs = null;
+
+	/**
 	*  Dictionary of TextureAtlas objects, stored by asset id.
 	*  @property {Object} textureAtlases
 	*  @private
@@ -1898,6 +1906,7 @@
 		}
 
 		loadedAssets = [];
+		loadedLibs = {};
 		loadedLibAssets = {};
 		textureAtlases = {};
 		BMCConfigs = {};
@@ -2253,6 +2262,7 @@
 			//libs dictionary
 			else if (result.url.indexOf(".js") != -1)
 			{
+				loadedLibs[id] = content;
 				//get javascript text
 				var text = content.text;
 				if (!text) continue;
@@ -2452,6 +2462,14 @@
 				delete images[asset];
 			}
 
+			// Remove javascript dom element
+			if (loadedLibs[asset])
+			{
+				var d = loadedLibs[asset];
+				d.parentNode.removeChild(d);
+				delete loadedLibs[asset];
+			}
+
 			var index = loadedAssets.indexOf(asset);
 			if (index >= 0)
 				loadedAssets.splice(index, 1);
@@ -2484,6 +2502,12 @@
 				delete images[asset];
 			}
 		}
+		for (i in loadedLibs)
+		{
+			var d = loadedLibs[i];
+			d.parentNode.removeChild(d);
+		}
+		loadedLibs = {};
 		for(i in loadedLibAssets)
 		{
 			delete lib[i];
