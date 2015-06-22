@@ -64,7 +64,7 @@
 
 	/**
 	 *	Constrain a number between 0 and a max value.
-	 *	@method constrain
+	 *	@method clamp
 	 *	@static
 	 *	@param {Number} value The number to be constrained.
 	 *	@param {Number} max Highest number.
@@ -73,14 +73,14 @@
 
 	/**
 	 *	Constrain a number between a minimum and maximum values.
-	 *	@method constrain
+	 *	@method clamp
 	 *	@static
 	 *	@param {Number} value The number to be constrained.
 	 *	@param {Number} min Lowest number to constrain value to.
 	 *	@param {Number} max Highest number.
 	 *	@return {Number} The constrained value
 	 */
-	Math.constrain = function (value, min, max)
+	Math.clamp = function (value, min, max)
 	{
 		if (max === undefined)
 		{
@@ -93,4 +93,5 @@
 			return min;
 		return value;
 	};
+
 }(Math));
