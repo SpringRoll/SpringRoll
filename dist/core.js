@@ -102,13 +102,23 @@
 	 * Return dist between two points
 	 * @method dist
 	 * @static
-	 * @param {Number|Point|Object} x The x position of the first point,
-	 *                                or a Point/Object with x and y values
-	 * @param {Number|Point|Object} y The y position of the first point,
-	 *                                or a second Point/Object with x and y values
-	 * @param {Number|Point|Object} x0 The x position of the second point
-	 *                                 or a Point/Object with x and y values (if x&y were Numbers)
+	 * @param {Number} x The x position of the first point
+	 * @param {Number} y The y position of the first point
+	 * @param {Number} x0 The x position of the second point
 	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	
+	/**
+	 * Return dist between two points
+	 * @method dist
+	 * @static
+	 * @param {Object} p1 The first point
+	 * @param {Object} p1.x The x position of the first point
+	 * @param {Object} p1.y The y position of the first point
+	 * @param {Object} p2 The second point
+	 * @param {Object} p2.x The x position of the second point
+	 * @param {Number} p2.y The y position of the second point
 	 * @return {Number} The distance
 	 */
 	Math.dist = function (x, y, x0, y0)
