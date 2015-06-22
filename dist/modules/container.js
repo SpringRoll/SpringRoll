@@ -3,7 +3,7 @@
  * @module Core
  * @namespace window
  */
-(function(Object, undefined){
+(function(Object, support, undefined){
 
 	/**
 	*  Add methods to Object
@@ -60,6 +60,7 @@
 	Object.isPlain = function(obj)
 	{
 		var key;
+		var hasOwn = support.hasOwnProperty;
 
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
@@ -124,7 +125,7 @@
 		});
 	}
 
-}(Object));
+}(Object, {}));
 /**
  * @module Core
  * @namespace window

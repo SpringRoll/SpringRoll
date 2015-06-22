@@ -3,7 +3,7 @@
  * @module Core
  * @namespace window
  */
-(function()
+(function(Array, Math, Object)
 {
 	/**
 	*  Add methods to Array
@@ -19,7 +19,8 @@
 	// to make it not enumerable set the enumerable property to false
 	if(!Array.prototype.shuffle)
 	{
-		Object.defineProperty(Array.prototype, 'shuffle', {
+		Object.defineProperty(Array.prototype, 'shuffle',
+		{
 			enumerable: false,
 			writable:false,
 			value: function() {
@@ -38,7 +39,8 @@
 	*/
 	if(!Array.prototype.random)
 	{
-		Object.defineProperty(Array.prototype, 'random', {
+		Object.defineProperty(Array.prototype, 'random',
+		{
 			enumerable: false,
 			writable: false,
 			value: function() {
@@ -66,7 +68,7 @@
 			}
 		});
 	}
-}());
+}(Array, Math, Object));
 
 /**
  * @module Core
@@ -179,7 +181,7 @@
  * @module Core
  * @namespace window
  */
-(function(Object, undefined){
+(function(Object, support, undefined){
 
 	/**
 	*  Add methods to Object
@@ -236,6 +238,7 @@
 	Object.isPlain = function(obj)
 	{
 		var key;
+		var hasOwn = support.hasOwnProperty;
 
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
@@ -300,12 +303,12 @@
 		});
 	}
 
-}(Object));
+}(Object, {}));
 /**
  * @module Core
  * @namespace window
  */
-(function()
+(function(String, Object)
 {
 	/**
 	*  Add methods to String
@@ -323,7 +326,8 @@
 	*/
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', {
+	Object.defineProperty(String.prototype, 'format', 
+	{
 		enumerable: false,
 		writable:false,
 		value: function() {
@@ -351,7 +355,8 @@
 	*/
 	if(!String.prototype.reverse)
 	{
-		Object.defineProperty(String.prototype, 'reverse', {
+		Object.defineProperty(String.prototype, 'reverse', 
+		{
 			enumerable: false,
 			writable:false,
 			value: function() {
@@ -362,7 +367,8 @@
 			}
 		});
 	}
-}());
+
+}(String, Object));
 
 /**
  * @module Core

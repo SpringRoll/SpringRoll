@@ -2,7 +2,7 @@
  * @module Core
  * @namespace window
  */
-(function()
+(function(Array, Math, Object)
 {
 	/**
 	*  Add methods to Array
@@ -18,7 +18,8 @@
 	// to make it not enumerable set the enumerable property to false
 	if(!Array.prototype.shuffle)
 	{
-		Object.defineProperty(Array.prototype, 'shuffle', {
+		Object.defineProperty(Array.prototype, 'shuffle',
+		{
 			enumerable: false,
 			writable:false,
 			value: function() {
@@ -37,7 +38,8 @@
 	*/
 	if(!Array.prototype.random)
 	{
-		Object.defineProperty(Array.prototype, 'random', {
+		Object.defineProperty(Array.prototype, 'random',
+		{
 			enumerable: false,
 			writable: false,
 			value: function() {
@@ -65,4 +67,4 @@
 			}
 		});
 	}
-}());
+}(Array, Math, Object));
