@@ -2,43 +2,42 @@
 <html lang='en'>
 
 <head>
-<title>SpringRoll v0.3.6 API Documentation : src/displays/easeljs/learning/OffClickPlugin.js</title>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.6'>
-<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.6'>
-<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.6'>
+  <title>SpringRoll v0.3.7 API Documentation : src/displays/easeljs/learning/OffClickPlugin.js</title>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.7'>
+  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.7'>
+  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.7'>
 </head>
 
 <body>
-<header>
-<div class='container'>
-<div class='version pull-right'>
-<em>API Documentation for: 0.3.6</em>
-</div>
-<div class='logo'>
+  <header>
+    <div class='container'>
+      <div class='version pull-right'>
+        <em>API Documentation for: 0.3.7</em>
+      </div>
+      <div class='logo'>
 
-<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.6' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-</div>
+        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.7' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+      </div>
 <div class='scope-toggles pull-right'>
-<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div></div>
-</header>
-<div class='container'>
-<div class='row'>
-<nav id='sidebar' class='col-sm-4 col-md-3'>
+  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div>    </div>
+  </header>
+  <div class='container'>
+    <div class='row'>
+      <nav id='sidebar' class='col-sm-4 col-md-3'>
 <h2>APIs</h2>
 <div class='input-group'>
   <div class='input-group-addon'>
     <span class='glyphicon glyphicon-search'></span>
   </div>
   <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
-  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
 </div>
 <nav class='navbar navbar-default'>
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,7 +47,7 @@
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
     </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
       Modules
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
@@ -499,20 +498,20 @@
     </ul>
   </div>
   <!-- /.container-fluid -->
-</nav></nav>
-<div class='col-sm-8 col-md-9'>
-<div id='docs-main' class='apidocs'>
+</nav>      </nav>
+      <div class='col-sm-8 col-md-9'>
+        <div id='docs-main' class='apidocs'>
 <script>
-var name = {
-{
-name
-}
-}
+  var name = {
+  	{
+  		name
+  	}
+  }
 </script>
 <h1 class="file-heading">File:OffClickPlugin.js</h1>
 
 <div class="file">
-<pre class="code prettyprint linenums">/**
+  <pre class="code prettyprint linenums">/**
  * @module EaselJS Learning
  * @namespace springroll.easeljs
  * @requires Core, Learning
@@ -539,8 +538,20 @@ name
 	// Reference to the prototype
 	var p = extend(OffClickPlugin, ApplicationPlugin);
 	
-	var helperPoint = new Point();
+	/**
+	 * The last interactive position
+	 * @property {createjs.Point} _currentPosition
+	 * @private
+	 */
+	var _currentPosition = new Point();
 
+	/**
+	 * Helper point for normalizing position
+	 * @property {createjs.Point} _helperPoint
+	 * @private
+	 */
+	var _helperPoint = new Point();
+		
 	// Init the animator
 	p.setup = function()
 	{
@@ -556,6 +567,13 @@ name
 		 *  @property {Array} offClickParams
 		 */
 		this.offClickParams = [];
+
+		/**
+		 *  Keep track of the last Pointer ID
+		 *  @property {int} _lastPointerID
+		 *  @private
+		 */
+		this._lastPointerID = null;
 
 		/**
 		 * For learning events, we want to send consistent data when sending
@@ -600,7 +618,7 @@ name
 
 			if (coordSpace &amp;&amp; coordSpace.localToGlobal)
 			{
-				var globalPoint = coordSpace.localToGlobal(x, y, helperPoint);
+				var globalPoint = coordSpace.localToGlobal(x, y, _helperPoint);
 				x = globalPoint.x;
 				y = globalPoint.y;
 			}
@@ -617,29 +635,59 @@ name
 		/**
 		 * For learning events, we want to send consistent data when sending
 		 * Position. This helper method generates that data for the
-		 * current mouse&#x27;s stage position. We are returning an object of
+		 * current stage position of mouse or touch. We are returning an object of
 		 * &#x60;{x:int, y:int, stage_width:int, stage_height:int}&#x60; in unscaled numbers.
 		 *
-		 * @method mousePosition
+		 * @method currentPosition
 		 * @return {Object} &#x60;{x:int, y:int, stage_width:int, stage_height:int}&#x60;
 		 */
-		this.mousePosition = function()
+		this.currentPosition = function()
 		{
-			var stage = this.display.stage;
-			return this.normalizePosition(stage.mouseX, stage.mouseY);
+			return this.normalizePosition(_currentPosition);
 		};
 	};
 
 	// Check for dependencies
 	p.preload = function(done)
 	{
-		//Provide convenience handling of stage off click progress events
-		onStageMouseDown = onStageMouseDown.bind(this);
-		if (this.display &amp;&amp; this.display.stage)
+		if (!this.learning)
 		{
-			this.display.stage.addEventListener(&quot;stagemousedown&quot;, onStageMouseDown);
+			if (DEBUG)
+			{
+				throw &quot;Missing learning module. Is a requirement of easeljs-learning&quot;;
+			}
+			else
+			{
+				throw &quot;No learning&quot;;
+			}
+		}
+
+		//Provide convenience handling of stage off click progress events
+		var display = this.display;
+		if (display)
+		{
+			var stage = display.stage;
+			if (stage)
+			{
+				onStageMouseDown = onStageMouseDown.bind(this);
+				onStageMouseMove = onStageMouseMove.bind(this);
+				stage.addEventListener(&quot;stagemousedown&quot;, onStageMouseDown);
+				stage.addEventListener(&quot;stagemousemove&quot;, onStageMouseMove);
+			}
 		}
 		done();
+	};
+
+	/**
+	 *  Fires event whenever the mouse is moved
+	 */
+	var onStageMouseMove = function(ev)
+	{
+		if (ev.pointerID === this._lastPointerID)
+		{
+			_currentPosition.x = ev.stageX;
+			_currentPosition.y = ev.stageY;
+		}
 	};
 
 	/**
@@ -647,8 +695,9 @@ name
 	 */
 	var onStageMouseDown = function(ev)
 	{
-		//sanity checking to make sure learning exists
-		if (!this.learning) return;
+		// Keep track of the last pointer ID
+		// this allows us to remember the last position
+		this._lastPointerID = ev.pointerID;
 
 		var stage = ev.target;
 		var target = stage._getObjectsUnderPoint(ev.stageX, ev.stageY, null, true);
@@ -693,9 +742,15 @@ name
 	p.teardown = function()
 	{
 		//Remove stage listener
-		if (this.display &amp;&amp; this.display.stage)
+		var display = this.display;
+		if (display &amp;&amp; display.stage)
 		{
-			this.display.stage.removeEventListener(&quot;stagemousedown&quot;, onStageMouseDown);
+			var stage = display.stage;
+			if (stage)
+			{
+				stage.removeEventListener(&quot;stagemousedown&quot;, onStageMouseDown);
+				stage.removeEventListener(&quot;stagemousemove&quot;, onStageMouseMove);
+			}
 		}
 		this.offClickParams = null;
 	};
@@ -704,11 +759,11 @@ name
 	ApplicationPlugin.register(OffClickPlugin);
 
 }());</pre>
-</div></div>
-</div>
-</div>
-</div>
-<script src='../assets/js/libraries.js?v=0.3.6'></script>
-<script src='../assets/js/main.js?v=0.3.6'></script>
+</div>        </div>
+      </div>
+    </div>
+  </div>
+  <script src='../assets/js/libraries.js?v=0.3.7'></script>
+  <script src='../assets/js/main.js?v=0.3.7'></script>
 </body>
 </html>

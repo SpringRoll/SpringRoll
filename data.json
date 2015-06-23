@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.6",
+        "version": "0.3.7",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -5631,7 +5631,7 @@
         {
             "file": "src/container/Container.js",
             "line": 151,
-            "description": "Delays pausing of application to mitigate issues with asynchronous communication \nbetween Game and Container",
+            "description": "Delays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
             "type": "{Timeout}",
             "class": "springroll.Container",
             "module": "Container",
@@ -8015,7 +8015,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 88,
+            "line": 90,
             "description": "If this object is enabled.",
             "itemtype": "property",
             "name": "enabled",
@@ -8028,7 +8028,7 @@
         },
         {
             "file": "src/core/PageVisibility.js",
-            "line": 123,
+            "line": 136,
             "description": "Disable the detection",
             "itemtype": "method",
             "name": "destroy",
@@ -12132,7 +12132,33 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 38,
+            "line": 28,
+            "description": "The last interactive position",
+            "itemtype": "property",
+            "name": "_currentPosition",
+            "type": "createjs.Point",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 35,
+            "description": "Helper point for normalizing position",
+            "itemtype": "property",
+            "name": "_helperPoint",
+            "type": "createjs.Point",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 50,
             "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed. These parameters are appended\nto the normal offClick data.",
             "itemtype": "property",
             "name": "offClickParams",
@@ -12143,7 +12169,20 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 46,
+            "line": 58,
+            "description": "Keep track of the last Pointer ID",
+            "itemtype": "property",
+            "name": "_lastPointerID",
+            "type": "Int",
+            "access": "private",
+            "tagname": "",
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 65,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12170,7 +12209,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 63,
+            "line": 82,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12202,10 +12241,10 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 103,
-            "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent mouse's stage position. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
+            "line": 122,
+            "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent stage position of mouse or touch. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
             "itemtype": "method",
-            "name": "mousePosition",
+            "name": "currentPosition",
             "return": {
                 "description": "`{x:int, y:int, stage_width:int, stage_height:int}`",
                 "type": "Object"
@@ -12216,7 +12255,15 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 131,
+            "line": 168,
+            "description": "Fires event whenever the mouse is moved",
+            "class": "springroll.easeljs.OffClickPlugin",
+            "module": "EaselJS Learning",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/learning/OffClickPlugin.js",
+            "line": 180,
             "description": "Fires OffClick event if click on unhandled object",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -12876,6 +12923,20 @@
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
             "line": 59,
+            "description": "There dynamic loaded code asset.",
+            "itemtype": "property",
+            "name": "loadedLibs",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "static": 1,
+            "class": "springroll.easeljs.AssetManager",
+            "module": "EaselJS UI",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/ui/AssetManager.js",
+            "line": 67,
             "description": "Dictionary of TextureAtlas objects, stored by asset id.",
             "itemtype": "property",
             "name": "textureAtlases",
@@ -12889,7 +12950,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 67,
+            "line": 75,
             "description": "Dictionary of BitmapMovieClip configuration objects, stored by asset id.",
             "itemtype": "property",
             "name": "BMCConfigs",
@@ -12903,7 +12964,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 75,
+            "line": 83,
             "description": "Intializes AssetManager.",
             "itemtype": "method",
             "name": "init",
@@ -12914,7 +12975,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 99,
+            "line": 108,
             "description": "Loads all files need to make a BitmapMovieClip, given that the files are in the same\nlocation with a specific naming convention:\n\nBitmapMovieClip config file: &lt;assetId&gt;.json <br />\nBitmapMovieClip textureAtlas json: &lt;assetId&gt;Sprite.json <br />\nBitmapMovieClip textureAtlas image: &lt;assetId&gt;Sprite.png",
             "itemtype": "method",
             "name": "loadBitmapMovieClip",
@@ -12951,7 +13012,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 140,
+            "line": 149,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "extractAssetName",
@@ -12975,7 +13036,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 169,
+            "line": 178,
             "description": "Loads a list of assets. All javascript files will be parsed so that they can be unloaded\nlater. Additionally, AssetManager will handle spritesheets automatically. AssetManager looks\nfor special manifest items that would otherwise be invalid to handle spritesheets or images\nthat have been split into alpha and color images.\nA manifest item for a TextureAtlas - this will create a TextureAtlas instance, accessible via\nAssetManager.getAtlas(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\"\n    }\n\nA manifest item for a spritesheet that should be run through BitmapUtils.loadSpriteSheet()\nso that the individual sprites can be accessed via the global 'lib' dictionary:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"atlasImage\":\"path/asset.png\",\n        \"splitForEaselJS\":true\n    }\n\nA manifest item for a single image that has been split into color and alpha images that\nshould be recombined upon loading:\n\n    {\n        \"id\":\"myAssetId\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a TextureAtlas or spritesheet that has been split into color and\nalpha images:\n\n    {\n        \"id\":\"myAssetId\",\n        \"atlasData\":\"path/asset.json\",\n        \"color\":\"path/asset-color.jpg\",\n        \"alpha\":\"path/asset-alpha.png\"\n    }\n\nA manifest item for a JSON that is configuration data for a BitmapMovieClip - it can be\nretrieved via AssetManager.getBitmapMovieClipConfig(\"myAssetId\"):\n\n    {\n        \"id\":\"myAssetId\",\n        \"src\":\"path/asset.json\",\n        \"bmcConfig\":true\n    }",
             "itemtype": "method",
             "name": "load",
@@ -13004,7 +13065,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 549,
+            "line": 559,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -13039,7 +13100,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 580,
+            "line": 590,
             "description": "Returns a TextureAtlas that was loaded by the specified asset id.",
             "itemtype": "method",
             "name": "getAtlas",
@@ -13061,7 +13122,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 592,
+            "line": 602,
             "description": "Returns a configuration object for a BitmapMovieClip.",
             "itemtype": "method",
             "name": "getBitmapMovieClipConfig",
@@ -13083,7 +13144,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 604,
+            "line": 614,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -13101,7 +13162,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/AssetManager.js",
-            "line": 664,
+            "line": 682,
             "description": "Unloads all assets loaded by AssetManager.",
             "itemtype": "method",
             "name": "unloadAll",
@@ -22935,7 +22996,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 31,
+            "line": 33,
             "description": "The captions text field object to use for the \nVOPlayer captions object.",
             "itemtype": "property",
             "name": "options.captions",
@@ -22948,7 +23009,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 40,
+            "line": 42,
             "description": "The path to the captions file to preload.",
             "itemtype": "property",
             "name": "options.captionsPath",
@@ -22961,7 +23022,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 48,
+            "line": 50,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -24898,7 +24959,7 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 31,
+            "line": 32,
             "description": "Get a random item from an array",
             "itemtype": "method",
             "name": "random",
@@ -24920,7 +24981,7 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 49,
+            "line": 51,
             "description": "Get the last item in the array",
             "itemtype": "method",
             "name": "last",
@@ -24977,18 +25038,18 @@
             "params": [
                 {
                     "name": "x",
-                    "description": "The x position of the first point,\n                               or a Point/Object with x and y values",
-                    "type": "Number|Point|Object"
+                    "description": "The x position of the first point",
+                    "type": "Number"
                 },
                 {
                     "name": "y",
-                    "description": "The y position of the first point,\n                               or a second Point/Object with x and y values",
-                    "type": "Number|Point|Object"
+                    "description": "The y position of the first point",
+                    "type": "Number"
                 },
                 {
                     "name": "x0",
-                    "description": "The x position of the second point\n                                or a Point/Object with x and y values (if x&y were Numbers)",
-                    "type": "Number|Point|Object"
+                    "description": "The x position of the second point",
+                    "type": "Number"
                 },
                 {
                     "name": "y0",
@@ -24998,6 +25059,116 @@
             ],
             "return": {
                 "description": "The distance",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 42,
+            "description": "Return dist between two points",
+            "itemtype": "method",
+            "name": "dist",
+            "static": 1,
+            "params": [
+                {
+                    "name": "p1",
+                    "description": "The first point",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x position of the first point",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y position of the first point",
+                            "type": "Object"
+                        }
+                    ]
+                },
+                {
+                    "name": "p2",
+                    "description": "The second point",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x position of the second point",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y position of the second point",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "The distance",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 75,
+            "description": "Constrain a number between 0 and a max value.",
+            "itemtype": "method",
+            "name": "clamp",
+            "static": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The number to be constrained.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "Highest number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The constrained value",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 84,
+            "description": "Constrain a number between a minimum and maximum values.",
+            "itemtype": "method",
+            "name": "clamp",
+            "static": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "The number to be constrained.",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "Lowest number to constrain value to.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "Highest number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The constrained value",
                 "type": "Number"
             },
             "class": "window.Math",
@@ -25055,7 +25226,7 @@
         },
         {
             "file": "src/mixins/Object.js",
-            "line": 102,
+            "line": 103,
             "description": "Creates a shallow copy of the object.",
             "itemtype": "method",
             "name": "clone",
@@ -25090,7 +25261,7 @@
         },
         {
             "file": "src/mixins/String.js",
-            "line": 44,
+            "line": 45,
             "description": "Returns a reversed copy of the string.",
             "itemtype": "method",
             "name": "format",
@@ -28956,7 +29127,7 @@
             "line": " src/container/Container.js:145"
         },
         {
-            "message": "Missing item type\nDelays pausing of application to mitigate issues with asynchronous communication \nbetween Game and Container",
+            "message": "Missing item type\nDelays pausing of application to mitigate issues with asynchronous communication\nbetween Game and Container",
             "line": " src/container/Container.js:151"
         },
         {
@@ -28996,8 +29167,12 @@
             "line": " src/displays/easeljs/learning/DwellTimer.js:83"
         },
         {
+            "message": "Missing item type\nFires event whenever the mouse is moved",
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:168"
+        },
+        {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:131"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:180"
         },
         {
             "message": "Missing item type",
