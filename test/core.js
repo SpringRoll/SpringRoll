@@ -104,7 +104,7 @@ test('String', function(assert){
 });
 
 test('Object', function(assert){
-	expect(12);
+	expect(13);
 
 	var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
 	var obj2 = { id : 'bar', value : 200 };
@@ -122,8 +122,10 @@ test('Object', function(assert){
 	assert.ok(Object.isPlain({}), "Empty is plain object");
 	assert.ok(Object.isPlain({value:{}}), "Nested is plain object");
 	assert.ok(Object.isPlain(result), "Result is plain object");
-	assert.notOk(Object.isPlain(new function(){}), "New function is not plain object");
+	assert.notOk(Object.isPlain(function(){}), "New function is not plain object");
 	assert.notOk(Object.isPlain(window), "Window is not a plain object");
+	
+	assert.ok(Object.merge(null, {}), "Object.merge handles null targets");
 });
 
 test('Loader', function(assert){
