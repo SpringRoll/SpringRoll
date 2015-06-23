@@ -1878,6 +1878,7 @@
 			if(!assetName) continue;
 			assets[assetName]._isLoaded = true;//keep track of the loaded status
 			var url = AssetManager.getUrl(assetName);
+			if(!url) continue;
 			var texture = Texture.fromFrame(url, true);
 			if(texture)
 			{
