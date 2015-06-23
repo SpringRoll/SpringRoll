@@ -71,7 +71,7 @@
 		});
 
 		// When the preloading is done
-		this.once('loaded', function()
+		this.once('beforeInit', function()
 		{
 			this.container.send('loadDone');
 		});

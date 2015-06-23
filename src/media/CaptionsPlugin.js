@@ -19,7 +19,9 @@
 	var CaptionsPlugin = function()
 	{
 		ApplicationPlugin.call(this);
-		this.priority = 20;
+
+		// Must happen before container plugin
+		this.priority = 60;
 	};
 
 	// Reference to the prototype
