@@ -23,7 +23,7 @@
 	*/
 	Object.merge = function(target, source)
 	{
-		if (typeof target !== 'object')
+		if (!target || typeof target !== 'object')
 		{
 			target = {};
 		}
