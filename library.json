@@ -37,7 +37,9 @@
 			"output": "pixi-display",
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
-				"src/displays/pixi/PixiDisplay.js"
+				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/mixins/Point.js",
+				"src/displays/pixi/mixins/Point.js"
 			]
 		},
 		"pixianimation": {

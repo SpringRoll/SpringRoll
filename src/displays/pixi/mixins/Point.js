@@ -1,20 +1,20 @@
 /**
- * @module EaselJS Display
- * @namespace createjs
+ * @module Pixi Display
+ * @namespace PIXI
  * @requires Core
  */
 (function(undefined)
 {
 	/**
-	*  Mixins for the CreateJS Point class, which include methods
+	*  Mixins for the PIXI Point class, which include methods
 	*  for calculating the dot product, length, distance, normalize, etc.
 	*  @class Point
 	*/
 
-	var p = include("createjs.Point", false);
-	if(!p) return;
+	var Point = include("PIXI.Point", false);
+	if(!Point) return;
 
-	p = p.prototype;
+	var p = Point.prototype;
 
 	/**
 	* Returns the dot product between this point and another one.
@@ -131,6 +131,62 @@
 		var xDiff = this.x - other.x;
 		var yDiff = this.y - other.y;
 		return xDiff * xDiff + yDiff * yDiff;
+	};
+
+	Point.localToGlobal = function(displayObject, localX, localY, outPoint)
+	{
+		//append translation
+		var worldTransform = displayObject.worldTransform;
+		//save variables for shortcuts/clearer math
+		var a1 = worldTransform.a;
+		var b1 = worldTransform.b;
+		var c1 = worldTransform.c;
+		var d1 = worldTransform.d;
+		var tx1 = worldTransform.tx;
+		var ty1 = worldTransform.ty;
+
+		var x = localX * a1 + localY * c1 + tx1;
+		var y = localX * b1 + localY * d1 + ty1;
+		if(outPoint)
+		{
+			outPoint.x = x;
+			outPoint.y = y;
+			return outPoint;
+		}
+		else
+			return new PIXI.Point(x, y);
+	};
+
+	Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
+	{
+		var worldTransform = displayObject.worldTransform;
+
+		// do a cheeky transform to get the mouse coords;
+		var a00 = worldTransform.a, a01 = worldTransform.b, a02 = worldTransform.tx,
+			a10 = worldTransform.c, a11 = worldTransform.d, a12 = worldTransform.ty,
+			id = 1 / (a00 * a11 + a01 * -a10);
+		// set the mouse coords...
+		var x = a11 * id * globalX + -a01 * id * globalX + (a12 * a01 - a02 * a11) * id;
+		var y = a00 * id * globalY + -a10 * id * globalY + (-a12 * a00 + a02 * a10) * id;
+		if(outPoint)
+		{
+			outPoint.x = x;
+			outPoint.y = y;
+			return outPoint;
+		}
+		else
+			return new PIXI.Point(x, y);
+	};
+
+	Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
+	{
+		outPoint = PIXI.Point.localToGlobal(sourceDisplayObject, x, y, outPoint);
+		return PIXI.Point.globalToLocal(targetDisplayObject, outPoint.x, outPoint.y, outPoint);
+	};
+
+	p.toString = function()
+	{
+		return "(" + this.x + ", " + this.y + ")";
 	};
 
 }());
