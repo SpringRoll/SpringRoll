@@ -135,53 +135,29 @@
 
 	Point.localToGlobal = function(displayObject, localX, localY, outPoint)
 	{
-		//append translation
-		var worldTransform = displayObject.worldTransform;
-		//save variables for shortcuts/clearer math
-		var a1 = worldTransform.a;
-		var b1 = worldTransform.b;
-		var c1 = worldTransform.c;
-		var d1 = worldTransform.d;
-		var tx1 = worldTransform.tx;
-		var ty1 = worldTransform.ty;
-
-		var x = localX * a1 + localY * c1 + tx1;
-		var y = localX * b1 + localY * d1 + ty1;
-		if(outPoint)
-		{
-			outPoint.x = x;
-			outPoint.y = y;
-			return outPoint;
-		}
-		else
-			return new PIXI.Point(x, y);
+		if(!outPoint)
+			outPoint = new PIXI.Point();
+		outPoint.x = localX;
+		outPoint.y = localY;
+		return displayObject.toGlobal(outPoint, outPoint);
 	};
 
 	Point.globalToLocal = function(displayObject, globalX, globalY, outPoint)
 	{
-		var worldTransform = displayObject.worldTransform;
-
-		// do a cheeky transform to get the mouse coords;
-		var a00 = worldTransform.a, a01 = worldTransform.b, a02 = worldTransform.tx,
-			a10 = worldTransform.c, a11 = worldTransform.d, a12 = worldTransform.ty,
-			id = 1 / (a00 * a11 + a01 * -a10);
-		// set the mouse coords...
-		var x = a11 * id * globalX + -a01 * id * globalX + (a12 * a01 - a02 * a11) * id;
-		var y = a00 * id * globalY + -a10 * id * globalY + (-a12 * a00 + a02 * a10) * id;
-		if(outPoint)
-		{
-			outPoint.x = x;
-			outPoint.y = y;
-			return outPoint;
-		}
-		else
-			return new PIXI.Point(x, y);
+		if(!outPoint)
+			outPoint = new PIXI.Point();
+		outPoint.x = globalX;
+		outPoint.y = globalY;
+		return displayObject.toLocal(outPoint, null, outPoint);
 	};
 
 	Point.localToLocal = function(sourceDisplayObject, targetDisplayObject, x, y, outPoint)
 	{
-		outPoint = PIXI.Point.localToGlobal(sourceDisplayObject, x, y, outPoint);
-		return PIXI.Point.globalToLocal(targetDisplayObject, outPoint.x, outPoint.y, outPoint);
+		if(!outPoint)
+			outPoint = new PIXI.Point();
+		outPoint.x = globalX;
+		outPoint.y = globalY;
+		return targetDisplayObject.toLocal(outPoint, sourceDisplayObject, outPoint);
 	};
 
 	p.toString = function()
