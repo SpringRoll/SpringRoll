@@ -6,7 +6,7 @@
 (function(undefined){
 
 	var AbstractDisplay = include('springroll.AbstractDisplay'),
-		Stage = include('PIXI.Stage'),
+		Container = include('PIXI.Container'),
 		CanvasRenderer = include('PIXI.CanvasRenderer'),
 		WebGLRenderer = include('PIXI.WebGLRenderer'),
 		autoDetectRenderer = include('PIXI.autoDetectRenderer');
@@ -23,8 +23,7 @@
 	* @param {String} [options.forceContext=null] If a specific renderer should be used instead of
 	*                                             WebGL falling back to Canvas. Use "webgl" or
 	*                                             "canvas2d" to specify a renderer.
-	* @param {Boolean} [options.clearView=false] If the stage should wipe the canvas between
-	*                                            renders.
+	* @param {Boolean} [options.clearView=false] If the canvas should be wiped between renders.
 	* @param {uint} [options.backgroundColor=0x000000] The background color of the stage (if it is
 	*                                                  not transparent).
 	* @param {Boolean} [options.transparent=false] If the stage should be transparent.
@@ -56,7 +55,7 @@
 		*  @readOnly
 		*  @public
 		*/
-		this.stage = new Stage(options.backgroundColor || 0);
+		this.stage = new Container();
 
 		/**
 		*  The Pixi renderer.
@@ -73,7 +72,10 @@
 			transparent: !!options.transparent,
 			antialias: !!options.antiAlias,
 			preserveDrawingBuffer: !!options.preserveDrawingBuffer,
-			clearBeforeRender: !!options.clearView
+			clearBeforeRender: !!options.clearView,
+			backgroundColor: options.backgroundColor || 0,
+			//this defaults to false, but we never want it to auto resize.
+			autoResize:false
 		};
 		var preMultAlpha = !!options.preMultAlpha;
 		if(rendererOptions.transparent && !preMultAlpha)
@@ -127,7 +129,7 @@
 		{
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 			
-			var interactionManager = this.stage.interactionManager;
+			var interactionManager = this.renderer.interactionManager;
 			if(!interactionManager) return;
 			if(value)
 			{
@@ -138,7 +140,7 @@
 			{
 				//remove event listeners
 				if(this.keepMouseover)
-					interactionManager.removeInteractionEvents();
+					interactionManager.removeClickEvents();
 				else
 					interactionManager.removeEvents();
 			}
