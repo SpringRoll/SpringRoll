@@ -7,7 +7,8 @@
 {
 	var Tween,
 		Stage,
-		DragData = include("springroll.easeljs.DragData");
+		DragData = include("springroll.easeljs.DragData"),
+		Application = include("springroll.Application");
 
 	/**
 	 *  Drag manager is responsible for handling the dragging of stage elements.
@@ -16,6 +17,8 @@
 	 *  @class DragManager
 	 *  @constructor
 	 *  @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	 *                               Optionally, this parameter an be omitted and the
+	 *                               Application's default display will be used.
 	 *  @param {function} startCallback The callback when when starting
 	 *  @param {function} endCallback The callback when ending
 	 */
@@ -25,6 +28,13 @@
 		{
 			Tween = include('createjs.Tween', false);
 			Stage = include("createjs.Stage");
+		}
+		
+		if(typeof display == "function" && !endCallback)
+		{
+			endCallback = startCallback;
+			startCallback = display;
+			display = Application.instance.display;
 		}
 
 		/**

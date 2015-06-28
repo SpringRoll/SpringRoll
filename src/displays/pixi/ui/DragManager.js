@@ -18,6 +18,8 @@
 	*  @class DragManager
 	*  @constructor
 	*  @param {PixiDisplay} display The display that this DragManager is handling objects on.
+	*                               Optionally, this parameter an be omitted and the Application's 
+	*                               default display will be used.
 	*  @param {Function} startCallback The callback when when starting
 	*  @param {Function} endCallback The callback when ending
 	*/
@@ -27,7 +29,14 @@
 		{
 			Application = include('springroll.Application');
 			Tween = include('createjs.Tween', false);
-			Point = include('PIXI.Point');
+			Point = include('PIXI.math.Point');
+		}
+		
+		if(typeof display == "function" && !endCallback)
+		{
+			endCallback = startCallback;
+			startCallback = display;
+			display = Application.instance.display;
 		}
 
 		/**
