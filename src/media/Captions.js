@@ -11,7 +11,7 @@
 
 	/**
 	* A class that creates captioning for multimedia content. Captions are
-	* created from a dictionary of captions and can be played by alias. 
+	* created from a dictionary of captions and can be played by alias.
 	*
 	* @example
 		var captionsData = {
@@ -206,7 +206,7 @@
 
 	/**
 	* Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
-	* @property {Object} data 
+	* @property {Object} data
 	*/
 	Object.defineProperty(p, 'data',
 	{
@@ -291,18 +291,13 @@
 	{
 		if (!field) return;
 
-		// PIXI style text setting
-		if (typeof field.setText === "function")
-		{
-			field.setText(text);
-		}
 		// DOM element
-		else if (field.nodeName)
+		if (field.nodeName)
 		{
 			field.innerHTML = text;
 		}
-		// The EaselJS style text setting
-		else if (field.text !== undefined)
+		// The EaselJS/PIXI v3 style text setting
+		else if (field.prototype.hasOwnProperty("text") || field.hasOwnProperty("text"))
 		{
 			field.text = text;
 		}

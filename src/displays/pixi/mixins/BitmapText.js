@@ -10,7 +10,7 @@
 	*  @class BitmapText
 	*/
 
-	var BitmapText = include("PIXI.BitmapText", false);
+	var BitmapText = include("PIXI.extras.BitmapText", false);
 	if(!BitmapText) return;
 
 	var p = BitmapText.prototype;
