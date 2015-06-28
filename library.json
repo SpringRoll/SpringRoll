@@ -38,6 +38,7 @@
 			"main": [
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js",
+				"src/displays/pixi/TickerPlugin.js",
 				"src/displays/pixi/mixins/*.js"
 			]
 		},

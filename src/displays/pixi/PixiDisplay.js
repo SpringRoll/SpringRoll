@@ -129,7 +129,7 @@
 		{
 			Object.getOwnPropertyDescriptor(s, 'enabled').set.call(this, value);
 			
-			var interactionManager = this.renderer.interactionManager;
+			var interactionManager = this.renderer.plugins.interaction;
 			if(!interactionManager) return;
 			if(value)
 			{
