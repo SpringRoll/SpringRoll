@@ -19,7 +19,7 @@
 	*  @static
 	*  @default PIXI.Circle
 	*/
-	DisplayAdapter.Circle = include('PIXI.Circle');
+	DisplayAdapter.Circle = include('PIXI.math.Circle');
 
 	/**
 	*  The geometry class for Ellipse
@@ -28,7 +28,7 @@
 	*  @static
 	*  @default PIXI.Ellipse
 	*/
-	DisplayAdapter.Ellipse = include('PIXI.Ellipse');
+	DisplayAdapter.Ellipse = include('PIXI.math.Ellipse');
 
 	/**
 	*  The geometry class for Rectangle
@@ -37,7 +37,7 @@
 	*  @static
 	*  @default PIXI.Rectangle
 	*/
-	DisplayAdapter.Rectangle = include('PIXI.Rectangle');
+	DisplayAdapter.Rectangle = include('PIXI.math.Rectangle');
 
 	/**
 	*  The geometry class for Sector
@@ -46,7 +46,7 @@
 	*  @static
 	*  @default PIXI.Sector
 	*/
-	DisplayAdapter.Sector = include('PIXI.Sector', false);
+	DisplayAdapter.Sector = include('PIXI.math.Sector');
 
 	/**
 	*  The geometry class for point
@@ -55,7 +55,7 @@
 	*  @static
 	*  @default PIXI.Point
 	*/
-	DisplayAdapter.Point = include('PIXI.Point');
+	DisplayAdapter.Point = include('PIXI.math.Point');
 
 	/**
 	*  The geometry class for Polygon
@@ -64,7 +64,7 @@
 	*  @static
 	*  @default PIXI.Polygon
 	*/
-	DisplayAdapter.Polygon = include('PIXI.Polygon');
+	DisplayAdapter.Polygon = include('PIXI.math.Polygon');
 
 	/**
 	*  If the rotation is expressed in radians

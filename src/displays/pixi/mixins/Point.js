@@ -11,7 +11,7 @@
 	*  @class Point
 	*/
 
-	var Point = include("PIXI.Point", false);
+	var Point = include("PIXI.math.Point", false);
 	if(!Point) return;
 
 	var p = Point.prototype;
