@@ -78,12 +78,12 @@
 		
 		this.on('updateTween', function(value)
 		{
+			if (Ticker)
+			{
+				Ticker.setPaused(!!value);
+			}
 			if (Tween)
 			{
-				if (Ticker)
-				{
-					Ticker.setPaused(!!value);
-				}
 				app.off('update', Tween.tick);
 				if (value)
 				{
@@ -212,7 +212,8 @@
 		displayOptions: null,
 
 		/**
-		 * If using TweenJS, the Application will update the Tween itself.
+		 * If using TweenJS, the Application will update the Tween itself. Setting this to
+		 * true stops CreateJS's Ticker.
 		 * @property {Boolean} updateTween
 		 * @default true
 		 */
