@@ -179,6 +179,13 @@
 		set: function(value)
 		{
 			this._t = value;
+			if(this._t > this._duration)
+				this._t = this._duration;
+			//add a tiny amount to stop floating point errors in their tracks
+			this.currentFrame = Math.floor(this._t * this._framerate + 0.0000001);
+			if(this.currentFrame >= this._textures.length)
+				this.currentFrame = this._textures.length - 1;
+			this._texture = this._textures[this.currentFrame];
 		}
 	});
 

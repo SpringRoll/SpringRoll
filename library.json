@@ -45,6 +45,7 @@
 		"pixianimation": {
 			"output": "pixi-animation",
 			"main": [
+				"src/displays/pixi/animation/AdvancedMovieClip.js",
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
 				"src/displays/pixi/animation/Animator.js",

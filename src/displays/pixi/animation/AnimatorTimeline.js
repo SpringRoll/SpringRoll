@@ -5,10 +5,10 @@
  */
 (function()
 {
-	var Spine = include('PIXI.Spine'),
-		AnimationState = include('PIXI.spine.AnimationState'),
-		Texture = include('PIXI.Texture'),
-		ParallelSpineData = include('springroll.pixi.ParallelSpineData');
+	var Spine = include('PIXI.spine.Spine', false),
+		AnimationState = include('PIXI.spine.AnimationState', false),
+		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
+		AdvancedMovieClip = include('springroll.pixi.AdvancedMovieClip');
 	
 	/**
 	 * Internal Animator class for keeping track of animations. AnimatorTimelines are pooled
@@ -59,7 +59,7 @@
 		*	@property {Boolean} isSpine
 		*	@public
 		*/
-		this.isSpine = clip instanceof Spine;
+		this.isSpine = Spine && clip instanceof Spine;
 
 		/**
 		*	The function to call when the clip is finished playing
@@ -233,28 +233,34 @@
 		switch(typeof listItem)
 		{
 			case "object":
+				var animStart = 0;
 				this.isAnim = true;
 				var anim = listItem.anim, clip = this.clip;
 				this.isLooping = !!listItem.loop;
 				this.speed = listItem.speed > 0 ? listItem.speed : 1;
 				if(typeof anim == "string")
 				{
-					//single spine anim
-					this.duration = clip.stateData.skeletonData.findAnimation(anim).duration;
-					clip.state.setAnimationByName(anim, this.isLooping);
+					if(Spine && clip instanceof Spine)
+					{
+						//single spine anim
+						this.duration = clip.stateData.skeletonData.findAnimation(anim).duration;
+						clip.state.setAnimationByName(anim, this.isLooping);
+					}
+					else
+					{
+						//AdvancedMovieClip
+						var length = listItem.last - listItem.first;
+						var fps = clip.framerate;
+						animStart = listItem.first / fps;
+						this.duration = length / fps;
+						this.speed = listItem.speed;
+						this.isLooping = listItem.loop;
+					}
 				}
 				else //if(Array.isArray(anim))
 				{
-					//MovieClip
-					if(anim[0] instanceof Texture)
-					{
-						clip.textures = anim;
-						clip.updateDuration();
-						this.duration = clip._duration;
-						clip.gotoAndPlay(0);
-					}
 					//concurrent spine anims
-					else if(anim[0] instanceof ParallelSpineData)
+					if(anim[0] instanceof ParallelSpineData)
 					{
 						this.spineStates = new Array(anim.length);
 						this.spineSpeeds = new Array(anim.length);
@@ -309,11 +315,15 @@
 						}
 					}
 				}
-				var startTime = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
-				if(repeat)
-					this._time_sec = 0;
-				else
+				
+				this._time_sec = animStart;
+				if(!repeat)
+				{
+					var startTime = typeof listItem.start == "number" ? listItem.start * 0.001 : 0;
 					this._time_sec = startTime < 0 ? Math.random() * this.duration : startTime;
+				}
+				if(clip instanceof AdvancedMovieClip)
+					clip.elapsedTime = this._time_sec;
 				//audio
 				if(listItem.alias)
 				{

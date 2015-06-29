@@ -5,12 +5,11 @@
  */
 (function(undefined)
 {
-	var Spine = include('PIXI.Spine'),
-		Texture = include('PIXI.Texture'),
+	var Spine = include('PIXI.spine.Spine', false),
 		AnimatorTimeline = include('springroll.pixi.AnimatorTimeline'),
 		ParallelSpineData = include('springroll.pixi.ParallelSpineData'),
 		Application = include('springroll.Application'),
-		MovieClip = include('PIXI.MovieClip'),
+		MovieClip = include('springroll.pixi.AdvancedMovieClip'),
 		Sound;
 
 	/**
@@ -67,13 +66,14 @@
 	* Play a specified animation
 	*
 	* @method play
-	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
-	*                                         object type.
+	* @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The clip to play. Animation
+	*                                                                  options vary depending on
+	*                                                                  object type.
 	* @param {String|Array} animData One of or an array of the following
 	*   * objects in the format:
 	*
 	*       {
-	*           anim:<string|array of strings|array of ParallelSpineData|array of Textures>,
+	*           anim:<string|array of strings|array of ParallelSpineData>,
 	*           start:0,
 	*           speed:1,
 	*           loop:false,
@@ -87,11 +87,11 @@
 	*       * loop is if the animation should loop (false if omitted).
 	*       * audio is audio to sync the animation to using springroll.Sound. audio can be a String
 	*           if you want the audio to start 0 milliseconds into the animation.
-	*   * strings - A single animation to play on a Spine skeleton.
-	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
+	*   * strings - A single animation to play on a Spine skeleton or AdvancedMovieClip.
+	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton or
+	*       AdvancedMovieClip.
 	*   * arrays of ParallelSpineData - An array of animations to play at the same time on a
 	*       Spine skeleton.
-	*   * arrays of Textures - An array of textures to play on a MovieClip.
 	*   * numbers - milliseconds to wait.
 	*   * functions - called upon reaching, followed immediately by the next item.
 	* @param {Function} [onComplete] The function to call once the animation has finished.
@@ -101,15 +101,7 @@
 	*/
 	Animator.play = function(clip, animData, onComplete, onCancelled)
 	{
-		var audio, options;
-
-		if (onComplete && typeof onComplete != "function")
-		{
-			options = onComplete;
-			onComplete = options.onComplete;
-			onCancelled = options.onCancelled;
-		}
-		else if(onCancelled === true)
+		if(onCancelled === true)
 			onCancelled = onComplete;
 		
 		//ensure that we can play the clip
@@ -120,28 +112,22 @@
 		}
 		
 		Animator.stop(clip);
-		//deprecation fallback
-		if(options)
-			audio = options.audio || options.soundData || null;
 		
+		//convert individual items into arrays of properly formatted items
 		if(typeof animData == "string")
 		{
-			animData = [{anim: animData, audio: audio}];
+			animData = [{anim: animData}];
 		}
 		else if(Array.isArray(animData))
 		{
 			var firstItem = animData[0];
-			if(firstItem instanceof Texture)
+			if(typeof firstItem == "string" && Spine && clip instanceof Spine)
 			{
-				animData = [{anim: animData, audio: audio}];
-			}
-			else if(typeof firstItem == "string")
-			{
-				animData = [{anim: animData, audio: audio}];
+				animData = [{anim: animData}];
 			}
 			else if(firstItem instanceof ParallelSpineData)
 			{
-				animData = [{anim: animData, audio: audio}];
+				animData = [{anim: animData}];
 			}
 		}
 		else
@@ -170,7 +156,7 @@
 	*   Creates the AnimatorTimeline for a given animation
 	*
 	*   @method _makeTimeline
-	*   @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
+	*   @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The instance to animate
 	*   @param {Array} animData List of animation events.
 	*   @param {Function} callback The function to callback when we're done
 	*   @param {Function} cancelledCallback The function to callback when cancelled
@@ -198,8 +184,17 @@
 				t.eventList.push(data);
 				continue;
 			}
-			anim = data.anim;
-			audio = data.audio;
+			//convert strings into object to attach more data to
+			if(typeof data == "string")
+			{
+				anim = data;
+				audio = null;
+			}
+			else
+			{
+				anim = data.anim;
+				audio = data.audio;
+			}
 			if (t.isSpine)
 			{
 				//allow the animations to be a string, or an array of strings
@@ -241,9 +236,48 @@
 					}
 				}
 			}
-			//standard PIXI.MovieClip
-			else if(anim[0] instanceof Texture)
+			//AdvancedMovieClip
+			else if (typeof anim == "string")
 			{
+				//go through the list of labels (they are sorted by frame number)
+				var stopLabel = anim + "_stop";
+				var loopLabel = anim + "_loop";
+	
+				var l,
+					first = -1,
+					last = -1,
+					loop = false,
+					labels = clip.getLabels();
+				for (j = 0, len = labels.length; j < len; ++j)
+				{
+					l = labels[j];
+					if (l.label == anim)
+					{
+						first = l.position;
+					}
+					else if (l.label == stopLabel)
+					{
+						last = l.position;
+						break;
+					}
+					else if (l.label == loopLabel)
+					{
+						last = l.position;
+						loop = true;
+						break;
+					}
+				}
+				if (first >= 0 && last > 0)
+				{
+					data = {
+						name: anim,
+						first: first,
+						last: last,
+						loop: loop,
+						speed: data.speed || 1,
+						start: data.start || 0
+					};
+				}
 				t.eventList.push(data);
 			}
 			//bad data, nothing we can animate with
@@ -291,10 +325,7 @@
 		if(!instance)
 			return false;
 		//check for instance of Spine, MovieClip
-		if(instance instanceof Spine || instance instanceof MovieClip)
-			return true;
-		//check for textures && _elapsedTime properties, that MovieClip has
-		if(instance.hasOwnProperty("textures") && instance.hasOwnProperty("_elapsedTime"))
+		if((Spine && instance instanceof Spine) || instance instanceof AdvancedMovieClip)
 			return true;
 		return false;
 	};
@@ -303,7 +334,8 @@
 	*   Get duration of animation (or sequence of animations) in seconds
 	*
 	*   @method getDuration
-	*   @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
+	*   @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} clip The display object that
+	*                                                                    the animation matches.
 	*   @param {String|Array} animData The animation data or array, in the format that play() uses.
 	*   @public
 	*   @static
@@ -314,7 +346,8 @@
 		//calculated in seconds
 		var duration = 0;
 		
-		//ensure one format
+		var j, events;
+		//ensure that everything is an array in a useful manner
 		if(typeof animData == "string")
 		{
 			animData = [{anim: animData}];
@@ -322,11 +355,7 @@
 		else if(Array.isArray(animData))
 		{
 			var firstItem = animData[0];
-			if(firstItem instanceof Texture)
-			{
-				animData = [{anim: animData}];
-			}
-			else if(typeof firstItem == "string")
+			if(typeof firstItem == "string" && Spine && clip instanceof Spine)
 			{
 				animData = [{anim: animData}];
 			}
@@ -348,17 +377,26 @@
 					if(typeof anim == "string")
 					{
 						//single spine anim
-						duration += clip.stateData.skeletonData.findAnimation(anim).duration;
+						if(Spine && clip instanceof Spine)
+							duration += clip.stateData.skeletonData.findAnimation(anim).duration;
+						//animation for an AdvancedMovieClip
+						else
+						{
+							events = clip.getEvents();
+							for(j = 0; j < events.length; ++j)
+							{
+								if(events[j].name == anim)
+								{
+									duration += events[j].length * clip.framerate;
+									break;
+								}
+							}
+						}
 					}
 					else //if(Array.isArray(anim))
 					{
-						//MovieClip
-						if(anim[0] instanceof Texture)
-						{
-							duration += anim.length / clip.fps;
-						}
 						//concurrent spine anims
-						else if(anim[0] instanceof ParallelSpineData)
+						if(anim[0] instanceof ParallelSpineData)
 						{
 							this.spineStates = new Array(anim.length);
 							this.spineSpeeds = new Array(anim.length);
@@ -397,6 +435,18 @@
 						}
 					}
 					break;
+				case "string":
+					//animation for an AdvancedMovieClip
+					events = clip.getEvents();
+					for(j = 0; j < events.length; ++j)
+					{
+						if(events[j].name == anim)
+						{
+							duration += events[j].length * clip.framerate;
+							break;
+						}
+					}
+					break;
 				case "number":
 					duration += listItem * 0.001;
 					break;
@@ -410,14 +460,26 @@
 	 * Checks to see if a Spine animation includes a given animation alias
 	 *
 	 * @method instanceHasAnimation
-	 * @param {PIXI.Spine} instance The animation to search. This has to be a Spine animation.
+	 * @param {springroll.pixi.AdvancedMovieClip|PIXI.spine.Spine} instance The animation to
+	 *                                                                      search.
 	 * @param {String} anim The animation alias to search for
 	 * @returns {Boolean} Returns true if the animation is found
 	 */
 	Animator.instanceHasAnimation = function(instance, anim)
 	{
-		if (instance instanceof Spine)
+		if (Spine && instance instanceof Spine)
 			return checkSpineForAnimation(instance, anim);
+		else if(instance instanceof AdvancedMovieClip)
+		{
+			var events = clip.getEvents();
+			for(var j = 0; j < events.length; ++j)
+			{
+				if(events[j].name == anim)
+				{
+					return true;
+				}
+			}
+		}
 		return false;
 	};
 	
@@ -514,7 +576,6 @@
 	 */
 	var _update = function(elapsed)
 	{
-		//TODO: finish updating to cleaner method - see Trello and AnimatorTimeline.
 		var delta = elapsed * 0.001;//ms -> sec
 		
 		for(var i = _numAnims - 1; i >= 0; --i)
@@ -644,7 +705,7 @@
 						}
 					}
 				}
-				else//standard PIXI.MovieClip
+				else//AdvancedMovieClip
 				{
 					if (t._time_sec >= t.duration)
 					{
@@ -660,7 +721,7 @@
 						else
 						{
 							extraTime = t._time_sec - t.duration;
-							c.gotoAndStop(c.textures.length - 1);
+							c.gotoAndStop(c.totalFrames - 1);
 							t._nextItem();
 							if(t.complete)
 							{
@@ -675,7 +736,7 @@
 					}
 					else
 					{
-						c._elapsedTime = t._time_sec;
+						c.elapsedTime = t._time_sec;
 					}
 				}
 			}
@@ -708,9 +769,7 @@
 					t._nextItem();
 					if (t.complete)
 					{
-						if(t.clip.gotoAndStop)
-							t.clip.gotoAndStop(t.clip.textures.length - 1);
-						else
+						if(t.isAnim)
 							updateClip(t, t._time_sec, prevTime);
 						_onMovieClipDone(t);
 						continue;
@@ -765,7 +824,7 @@
 		}
 		else
 		{
-			c._elapsedTime = time;
+			c.elapsedTime = time;
 		}
 		return complete;
 	};
@@ -805,7 +864,6 @@
 		{
 			if (timeline.useCaptions)
 				Animator.captions.stop();
-			timeline.clip.onComplete = null;
 			_timelines.splice(i, 1);
 			if (--_numAnims === 0)
 				Application.instance.off("update", _update);
