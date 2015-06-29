@@ -412,8 +412,7 @@
 	};
 	
 	/**
-	 * Returns a sorted list of the labels defined on this BitmapMovieClip. Shortcut to TweenJS:
-	 * Timeline.getLabels();
+	 * Returns a sorted list of the labels defined on this BitmapMovieClip.
 	 * @method getLabels
 	 * @return {Array[Object]} A sorted array of objects with label and position (aka frame)
 	 *                         properties.
@@ -435,8 +434,7 @@
 	};
 	
 	/**
-	 * Returns the name of the label on or immediately before the current frame. See TweenJS:
-	 * Timeline.getCurrentLabel() for more information.
+	 * Returns the name of the label on or immediately before the current frame.
 	 * @method getCurrentLabel
 	 * @return {String} The name of the current label or null if there is no label.
 	 */
@@ -581,6 +579,7 @@
 	{
 		this._frames = other._frames;
 		this._labels = other._labels;
+		this._events = other._events;
 		this._origin = other._origin;
 		this._framerate = other._framerate;
 		this._duration = other._duration;
