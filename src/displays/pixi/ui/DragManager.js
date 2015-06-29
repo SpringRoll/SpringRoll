@@ -29,7 +29,7 @@
 		{
 			Application = include('springroll.Application');
 			Tween = include('createjs.Tween', false);
-			Point = include('PIXI.math.Point');
+			Point = include('PIXI.Point');
 		}
 		
 		if(typeof display == "function" && !endCallback)

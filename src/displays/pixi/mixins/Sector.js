@@ -113,6 +113,6 @@
 	// constructor
 	p.constructor = Sector;
 
-	namespace("PIXI.math").Sector = Sector;
+	namespace("PIXI").Sector = Sector;
 
 }());

@@ -8,7 +8,7 @@
 	// Import classes
 	var Debug,
 		Container = include('PIXI.Container'),
-		Point = include('PIXI.math.Point'),
+		Point = include('PIXI.Point'),
 		Sprite = include('PIXI.Sprite'),
 		BitmapText = include('PIXI.extras.BitmapText', false),
 		Text = include('PIXI.Text');
