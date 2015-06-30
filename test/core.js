@@ -14,6 +14,48 @@ test('namespace & include', function(assert){
 	delete window.my;
 });
 
+test('mixin', function(assert){
+	
+	var instance = {};
+	var MyClass = function(value)
+	{
+		this.value = value;
+	};
+	var p = MyClass.prototype;
+
+	// Method to add to the object instance
+	p.test = function()
+	{
+		return true;
+	};
+
+	// Add a getter or setter with enumerable
+	Object.defineProperty(p, "enabled", {
+		enumerable: true,
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// We want this to fail, no enumerable property
+	Object.defineProperty(p, "active", {
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// do the mixin
+	mixin(instance, MyClass, 100);
+
+	assert.strictEqual(instance.value, 100, "Constructor arguments");
+	assert.ok(instance.test, "Instance includes prototype method");
+	assert.strictEqual(instance.test(), true, "function mixin works");
+	assert.notOk(instance.active, "Non-enumerable getter doesn't work");
+	assert.strictEqual(instance.enabled, true, "getter works");
+});
+
 test('Enum', function(assert){
 
 	expect(8);
