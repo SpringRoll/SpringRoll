@@ -4,28 +4,16 @@
 */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for loader
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(LoaderPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
@@ -81,7 +69,7 @@
 	};
 
 	// Preload task
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
@@ -96,7 +84,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.loader)
 		{
@@ -106,6 +94,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LoaderPlugin);
+	plugin.register();
 
 }());

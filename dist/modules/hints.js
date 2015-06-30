@@ -810,7 +810,6 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	var HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
@@ -819,16 +818,10 @@
 	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var HintsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(HintsPlugin, ApplicationPlugin);
-
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The hint player API
@@ -838,7 +831,7 @@
 	};
 
 	// Check for dependencies
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.display.animator)
 		{
@@ -941,7 +934,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.container)
 		{
@@ -956,6 +949,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(HintsPlugin);
+	plugin.register();
 
 }());

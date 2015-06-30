@@ -463,11 +463,9 @@
 (function(undefined)
 {
 	// Import classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Debug,
+	var Debug,
 		LoadTask,
-		BaseState,
-		AssetManager;
+		BaseState;
 
 	/**
 	 *	A createjs-based Game to load manifests
@@ -479,16 +477,10 @@
 	 *	@param {Boolean} [options.displayOptions.clearView=true] If the stage view
 	 *	should be cleared everytime in CreateJS stage.
 	 */
-	var ManifestsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Extend base plugin
-	var p = extend(ManifestsPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	// Initialize the plugin
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *	Event when the manifest is finished loading
@@ -517,10 +509,6 @@
 		Debug = include('springroll.Debug', false);
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
-		AssetManager = include('springroll.easeljs.AssetManager');
-		
-		//initialize the AssetManager once for the application.
-		AssetManager.init();
 
 		/**
 		 *	The collection of loading assets by state
@@ -575,11 +563,11 @@
 	};
 
 	// clean up
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		this._manifests = null;
 	};
 
-	ApplicationPlugin.register(ManifestsPlugin);
+	plugin.register();
 
 }());

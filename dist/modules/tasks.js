@@ -1023,8 +1023,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		TaskManager = include('springroll.TaskManager'),
+	var TaskManager = include('springroll.TaskManager'),
 		LoadTask = include('springroll.LoadTask'),
 		Debug;
 
@@ -1034,16 +1033,7 @@
 	 *	@class ConfigPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ConfigPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// After loader, befor sound
-		this.priority = 80;
-	};
-
-	// Reference to the prototype
-	var p = extend(ConfigPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 80);
 
 	/**
 	 *	The game has finished loading
@@ -1065,7 +1055,7 @@
 	 */
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Debug = include('springroll.Debug', false);
 
@@ -1084,7 +1074,7 @@
 	};
 
 	// async
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var tasks = [];
 		var configPath = this.options.configPath;
@@ -1143,12 +1133,12 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		this.config = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(ConfigPlugin);
+	plugin.register();
 
 }());

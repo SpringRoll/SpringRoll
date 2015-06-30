@@ -6,8 +6,7 @@
 (function(undefined)
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Point,
+	var Point,
 	 	Learning = include('springroll.Learning');
 
 	/**
@@ -16,17 +15,10 @@
 	 * @class LearningPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LearningPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 10;
-	};
-
-	// Reference to the prototype
-	var p = extend(LearningPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 10);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{		
 		/**
 		 *  An learning event is dispatched
@@ -74,7 +66,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.learning)
 		{
@@ -84,6 +76,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LearningPlugin);
+	plugin.register();
 
 }());

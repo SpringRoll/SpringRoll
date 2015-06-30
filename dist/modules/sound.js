@@ -2103,8 +2103,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Sound = include('springroll.Sound'),
+	var Sound = include('springroll.Sound'),
 		VOPlayer = include('springroll.VOPlayer');
 
 	/**
@@ -2113,19 +2112,10 @@
 	 * @class SoundPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var SoundPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for the sound
-		this.priority = 90;
-	};
-
-	// Reference to the prototype
-	var p = extend(SoundPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 90);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
@@ -2273,7 +2263,7 @@
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -2309,7 +2299,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.voPlayer)
 		{
@@ -2324,6 +2314,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(SoundPlugin);
+	plugin.register();
 
 }());

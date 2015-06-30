@@ -6,8 +6,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Captions = include('springroll.Captions'),
+	var Captions = include('springroll.Captions'),
 		Debug = include('springroll.Debug', false);
 
 	/**
@@ -16,19 +15,10 @@
 	 * @class CaptionsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var CaptionsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Must happen before container plugin
-		this.priority = 60;
-	};
-
-	// Reference to the prototype
-	var p = extend(CaptionsPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 60);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The captions text field object to use for the 
@@ -55,7 +45,7 @@
 	};
 
 	// Preload the captions
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		// Give the player a reference
 		if (this.voPlayer)
@@ -87,7 +77,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.captions)
 		{
@@ -97,6 +87,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(CaptionsPlugin);
+	plugin.register();
 
 }());

@@ -2302,7 +2302,7 @@
 	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
 	* @class ApplicationPlugin
 	*/
-	var ApplicationPlugin = function()
+	var ApplicationPlugin = function(priority)
 	{
 		if (!Application)
 		{
@@ -2313,8 +2313,9 @@
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.
 		 * @property {int} priority
+		 * @default 0
 		 */
-		this.priority = 0;
+		this.priority = priority || 0;
 	};
 
 	// reference to prototype
@@ -2348,14 +2349,10 @@
 	/**
 	 * Register the plugin with the Application
 	 * @method register
-	 * @static
 	 */
-	ApplicationPlugin.register = function(func)
+	p.register = function()
 	{
-		var plugin = new func();
-		Application._plugins.push(plugin);
-
-		// Sort the plugins
+		Application._plugins.push(this);
 		Application._plugins.sort(prioritySort);
 	};
 
@@ -3113,25 +3110,16 @@
 */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var PageVisibilityPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -3182,14 +3170,14 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
+	plugin.register();
 
 }());
 /**
@@ -3300,27 +3288,16 @@
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 * Create an app plugin for String Filters, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class StringFiltersPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var StringFiltersPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 110;
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 110);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -3331,14 +3308,14 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
+	plugin.register();
 
 }());
 /**
@@ -3347,21 +3324,13 @@
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 *	Create an app plugin for resizing application, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class ResizePlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ResizePlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 100;
-	};
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	/**
 	*  Dom element (or the window) to attach resize listeners and read the size from
@@ -3409,11 +3378,8 @@
 		height: 0
 	};
 
-	// Reference to the prototype
-	var p = extend(ResizePlugin, ApplicationPlugin);
-
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *  Fired when a resize is called
@@ -3549,7 +3515,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var options = this.options;
 
@@ -3565,7 +3531,7 @@
 		done();
 	};
 
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (_resizeElement)
 		{
@@ -3583,7 +3549,7 @@
 	};
 
 	// Register plugin
-	ApplicationPlugin.register(ResizePlugin);
+	plugin.register();
 
 }());
 /**
@@ -4390,28 +4356,16 @@
 */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for loader
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(LoaderPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
@@ -4467,7 +4421,7 @@
 	};
 
 	// Preload task
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
@@ -4482,7 +4436,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.loader)
 		{
@@ -4492,7 +4446,7 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LoaderPlugin);
+	plugin.register();
 
 }());
 /**

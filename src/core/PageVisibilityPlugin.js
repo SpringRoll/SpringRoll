@@ -4,25 +4,16 @@
 */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var PageVisibilityPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -73,13 +64,13 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
+	plugin.register();
 
 }());

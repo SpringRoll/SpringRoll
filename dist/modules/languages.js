@@ -288,8 +288,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Languages = include('springroll.Languages'), 
+	var Languages = include('springroll.Languages'), 
 		Debug;
 
 	/**
@@ -298,17 +297,10 @@
 	 * @class LanguagesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LanguagesPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 95; 
-	};
-
-	// Reference to the prototype
-	var p = extend(LanguagesPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 95);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
@@ -332,7 +324,7 @@
 	};
 
 	// preload the language configuration
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var config = this.options.languagesPath;
 		if (config)
@@ -361,13 +353,13 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.languages) this.languages.destroy();
 		this.languages = null;
 	};
 
 	// register plugin
-	ApplicationPlugin.register(LanguagesPlugin);
+	plugin.register();
 
 }());

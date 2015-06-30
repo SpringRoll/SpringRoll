@@ -1188,8 +1188,7 @@
 (function()
 {
 	//Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		ScaleManager = include('springroll.ScaleManager'),
+	var ScaleManager = include('springroll.ScaleManager'),
 		Debug;
 
 	/**
@@ -1198,16 +1197,10 @@
 	 *	@class ScalingPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ScalingPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	//Reference to the prototype
-	var p = extend(ScalingPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	//Init the scaling
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Debug = include('springroll.Debug', false);
 
@@ -1247,7 +1240,7 @@
 	};
 
 	//Setup the display
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.scaling.display = this.display;
 		this.scaling.enabled = true;
@@ -1255,14 +1248,14 @@
 	};
 
 	//Clean up
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.scaling) this.scaling.destroy();
 		this.scaling = null;
 	};
 
 	//Register plugin
-	ApplicationPlugin.register(ScalingPlugin);
+	plugin.register();
 
 }());
 /**
@@ -1272,28 +1265,16 @@
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class TouchPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var TouchPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		
-		//Touch detecting should happen early, in case asset loading depends on it
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(TouchPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *	If the current brower is iOS
@@ -1339,7 +1320,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (true)
 		{
@@ -1359,6 +1340,6 @@
 	};
 
 	// Register plugin
-	ApplicationPlugin.register(TouchPlugin);
+	plugin.register();
 
 }());

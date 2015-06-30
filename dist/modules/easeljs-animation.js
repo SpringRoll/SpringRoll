@@ -1265,7 +1265,6 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	var Animator = include('springroll.easeljs.Animator');
 
 	/**
@@ -1274,29 +1273,23 @@
 	 * @class AnimatorPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var AnimatorPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(AnimatorPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (Animator) Animator.destroy();
 	};
 
 	// register plugin
-	ApplicationPlugin.register(AnimatorPlugin);
+	plugin.register();
 
 }());
 /**

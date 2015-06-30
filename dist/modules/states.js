@@ -1217,8 +1217,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		StateManager = include('springroll.StateManager'),
+	var StateManager = include('springroll.StateManager'),
 		Debug = include('springroll.Debug', false);
 
 	/**
@@ -1227,16 +1226,10 @@
 	 * @class StatesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var StatesPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(StatesPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Fired when an event has been added
@@ -1476,7 +1469,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (true)
 		{
@@ -1499,6 +1492,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(StatesPlugin);
+	plugin.register();
 
 }());

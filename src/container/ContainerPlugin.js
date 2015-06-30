@@ -5,8 +5,7 @@
 (function(undefined)
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		PageVisibility = include('springroll.PageVisibility'),
+	var PageVisibility = include('springroll.PageVisibility'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -15,18 +14,10 @@
 	 * @class ContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var ContainerPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 50;
-	};
-
-	// Reference to the prototype
-	var p = extend(ContainerPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 50);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The default play-mode for the application is continuous, if the application is
@@ -153,7 +144,7 @@
 	};
 
 	// Check for application name
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.name)
 		{
@@ -318,7 +309,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._pageVisibility)
 		{
@@ -336,6 +327,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(ContainerPlugin);
+	plugin.register();
 
 }());

@@ -4,21 +4,13 @@
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 *	Create an app plugin for resizing application, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class ResizePlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ResizePlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 100;
-	};
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	/**
 	*  Dom element (or the window) to attach resize listeners and read the size from
@@ -66,11 +58,8 @@
 		height: 0
 	};
 
-	// Reference to the prototype
-	var p = extend(ResizePlugin, ApplicationPlugin);
-
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *  Fired when a resize is called
@@ -206,7 +195,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var options = this.options;
 
@@ -222,7 +211,7 @@
 		done();
 	};
 
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (_resizeElement)
 		{
@@ -240,6 +229,6 @@
 	};
 
 	// Register plugin
-	ApplicationPlugin.register(ResizePlugin);
+	plugin.register();
 
 }());

@@ -6,8 +6,7 @@
 (function()
 {
 	//Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		ScaleManager = include('springroll.ScaleManager'),
+	var ScaleManager = include('springroll.ScaleManager'),
 		Debug;
 
 	/**
@@ -16,16 +15,10 @@
 	 *	@class ScalingPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ScalingPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	//Reference to the prototype
-	var p = extend(ScalingPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
 	//Init the scaling
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Debug = include('springroll.Debug', false);
 
@@ -65,7 +58,7 @@
 	};
 
 	//Setup the display
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.scaling.display = this.display;
 		this.scaling.enabled = true;
@@ -73,13 +66,13 @@
 	};
 
 	//Clean up
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.scaling) this.scaling.destroy();
 		this.scaling = null;
 	};
 
 	//Register plugin
-	ApplicationPlugin.register(ScalingPlugin);
+	plugin.register();
 
 }());

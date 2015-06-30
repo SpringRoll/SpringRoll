@@ -6,8 +6,7 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		Point = include('createjs.Point'),
+	var Point = include('createjs.Point'),
 		Debug;
 
 	/**
@@ -17,14 +16,8 @@
 	 * @class OffClickPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var OffClickPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
 
-	// Reference to the prototype
-	var p = extend(OffClickPlugin, ApplicationPlugin);
-	
 	/**
 	 * The last interactive position
 	 * @property {createjs.Point} _currentPosition
@@ -40,7 +33,7 @@
 	var _helperPoint = new Point();
 		
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		if (!Debug)
 		{
@@ -135,7 +128,7 @@
 	};
 
 	// Check for dependencies
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.learning)
 		{
@@ -226,7 +219,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		//Remove stage listener
 		var display = this.display;
@@ -243,6 +236,6 @@
 	};
 
 	// register plugin
-	ApplicationPlugin.register(OffClickPlugin);
+	plugin.register();
 
 }());

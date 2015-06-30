@@ -5,28 +5,16 @@
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class TouchPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var TouchPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		
-		//Touch detecting should happen early, in case asset loading depends on it
-		this.priority = 100;
-	};
-
-	// Reference to the prototype
-	var p = extend(TouchPlugin, ApplicationPlugin);
+	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *	If the current brower is iOS
@@ -72,7 +60,7 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (DEBUG)
 		{
@@ -92,6 +80,6 @@
 	};
 
 	// Register plugin
-	ApplicationPlugin.register(TouchPlugin);
+	plugin.register();
 
 }());
