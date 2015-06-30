@@ -2524,3 +2524,36 @@
 	//Assign to namespace
 	namespace("springroll.easeljs").AssetManager = AssetManager;
 }());
+/**
+* @module EaselJS UI
+* @namespace springroll.easeljs
+* @requires Core, EaselJS Display
+*/
+(function(undefined)
+{
+	// Import classes
+	var AssetManager = include('springroll.easeljs.AssetManager');
+
+	/**
+	 *	Initialize the AssetManager
+	 *	@class AssetManagerPlugin
+	 *	@extends springroll.ApplicationPlugin
+	 */
+	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+
+	// Initialize the plugin
+	plugin.setup = function()
+	{
+		AssetManager.init();
+	};
+
+	// clean up
+	plugin.teardown = function()
+	{
+		AssetManager.unloadAll();
+	};
+
+	// Register the plugin
+	plugin.register();
+
+}());

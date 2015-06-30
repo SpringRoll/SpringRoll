@@ -84,7 +84,8 @@
 				"src/displays/easeljs/ui/SoundButton.js",
 				"src/displays/easeljs/ui/DragData.js",
 				"src/displays/easeljs/ui/DragManager.js",
-				"src/displays/easeljs/ui/AssetManager.js"
+				"src/displays/easeljs/ui/AssetManager.js",
+				"src/displays/easeljs/ui/AssetManagerPlugin.js"
 			]
 		},
 		"easeljsutils": {
