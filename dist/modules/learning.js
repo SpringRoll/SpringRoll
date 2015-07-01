@@ -1809,7 +1809,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

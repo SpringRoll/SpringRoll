@@ -111,6 +111,4 @@
 		this._manifests = null;
 	};
 
-	plugin.register();
-
 }());

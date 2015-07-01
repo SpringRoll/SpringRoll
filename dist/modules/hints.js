@@ -948,7 +948,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

@@ -228,7 +228,4 @@
 
 	};
 
-	// Register plugin
-	plugin.register();
-
 }());

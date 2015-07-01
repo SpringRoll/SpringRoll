@@ -216,7 +216,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

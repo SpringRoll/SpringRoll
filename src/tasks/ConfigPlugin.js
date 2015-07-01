@@ -121,7 +121,4 @@
 		this.config = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

@@ -280,7 +280,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

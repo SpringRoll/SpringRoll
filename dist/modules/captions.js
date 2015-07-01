@@ -810,7 +810,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

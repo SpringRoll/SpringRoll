@@ -1254,9 +1254,6 @@
 		this.scaling = null;
 	};
 
-	//Register plugin
-	plugin.register();
-
 }());
 /**
  *	@module UI
@@ -1338,8 +1335,5 @@
 		}
 		done();
 	};
-
-	// Register plugin
-	plugin.register();
 
 }());

@@ -86,7 +86,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

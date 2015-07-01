@@ -235,7 +235,4 @@
 		this.offClickParams = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

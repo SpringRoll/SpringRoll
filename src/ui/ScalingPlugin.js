@@ -72,7 +72,4 @@
 		this.scaling = null;
 	};
 
-	//Register plugin
-	plugin.register();
-
 }());

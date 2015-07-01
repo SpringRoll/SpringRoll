@@ -327,7 +327,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

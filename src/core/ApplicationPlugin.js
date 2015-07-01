@@ -24,6 +24,10 @@
 		 * @default 0
 		 */
 		this.priority = priority || 0;
+
+		// Add the plugin to application
+		Application._plugins.push(this);
+		Application._plugins.sort(prioritySort);
 	};
 
 	// reference to prototype
@@ -52,16 +56,6 @@
 	p.teardown = function()
 	{
 		// implementation specific
-	};
-
-	/**
-	 * Register the plugin with the Application
-	 * @method register
-	 */
-	p.register = function()
-	{
-		Application._plugins.push(this);
-		Application._plugins.sort(prioritySort);
 	};
 
 	/**

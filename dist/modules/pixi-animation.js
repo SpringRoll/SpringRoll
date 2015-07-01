@@ -1264,7 +1264,4 @@
 		if (Animator) Animator.destroy();
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

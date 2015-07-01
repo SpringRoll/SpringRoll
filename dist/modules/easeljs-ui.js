@@ -2,7 +2,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @requires Core, EaselJS Display, Tasks
  */
 (function(undefined)
 {
@@ -970,7 +970,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires  Core, EaselJS Display
+ * @requires Core, EaselJS Display, Tasks
  */
 (function()
 {
@@ -1103,7 +1103,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @requires Core, EaselJS Display, Tasks
  */
 (function()
 {
@@ -1122,7 +1122,7 @@
 /**
  * @module EaselJS UI
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @requires Core, EaselJS Display, Tasks
  */
 (function()
 {
@@ -1806,10 +1806,10 @@
 	namespace('springroll.easeljs').DragManager = DragManager;
 }());
 /**
-* @module EaselJS UI
-* @namespace springroll.easeljs
-* @requires Core, EaselJS Display
-*/
+ * @module EaselJS UI
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display, Tasks
+ */
 (function()
 {
 	var BitmapUtils,
@@ -1896,8 +1896,8 @@
 	{
 		if (!Application)
 		{
-			BitmapUtils = include('springroll.easeljs.BitmapUtils');
-			TextureAtlas = include('springroll.easeljs.TextureAtlas');
+			BitmapUtils = include('springroll.easeljs.BitmapUtils', false);
+			TextureAtlas = include('springroll.easeljs.TextureAtlas', false);
 			Loader = include('springroll.Loader');
 			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
@@ -2525,10 +2525,10 @@
 	namespace("springroll.easeljs").AssetManager = AssetManager;
 }());
 /**
-* @module EaselJS UI
-* @namespace springroll.easeljs
-* @requires Core, EaselJS Display
-*/
+ * @module EaselJS UI
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display, Tasks
+ */
 (function(undefined)
 {
 	// Import classes
@@ -2552,8 +2552,5 @@
 	{
 		AssetManager.unloadAll();
 	};
-
-	// Register the plugin
-	plugin.register();
 
 }());

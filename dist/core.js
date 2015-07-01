@@ -2316,6 +2316,10 @@
 		 * @default 0
 		 */
 		this.priority = priority || 0;
+
+		// Add the plugin to application
+		Application._plugins.push(this);
+		Application._plugins.sort(prioritySort);
 	};
 
 	// reference to prototype
@@ -2344,16 +2348,6 @@
 	p.teardown = function()
 	{
 		// implementation specific
-	};
-
-	/**
-	 * Register the plugin with the Application
-	 * @method register
-	 */
-	p.register = function()
-	{
-		Application._plugins.push(this);
-		Application._plugins.sort(prioritySort);
 	};
 
 	/**
@@ -3176,9 +3170,6 @@
 		this._visibility = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());
 /**
  * @module Core
@@ -3313,9 +3304,6 @@
 		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
-
-	// register plugin
-	plugin.register();
 
 }());
 /**
@@ -3547,9 +3535,6 @@
 		_maxWidth = 0;
 
 	};
-
-	// Register plugin
-	plugin.register();
 
 }());
 /**
@@ -4444,9 +4429,6 @@
 			this.loader = null;
 		}
 	};
-
-	// register plugin
-	plugin.register();
 
 }());
 /**

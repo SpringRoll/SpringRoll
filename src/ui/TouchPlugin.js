@@ -79,7 +79,4 @@
 		done();
 	};
 
-	// Register plugin
-	plugin.register();
-
 }());

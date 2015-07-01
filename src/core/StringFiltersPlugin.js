@@ -30,7 +30,4 @@
 		this.filters = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

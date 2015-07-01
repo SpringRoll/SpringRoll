@@ -662,7 +662,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

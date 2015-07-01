@@ -1,8 +1,8 @@
 /**
-* @module EaselJS UI
-* @namespace springroll.easeljs
-* @requires Core, EaselJS Display
-*/
+ * @module EaselJS UI
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display, Tasks
+ */
 (function(undefined)
 {
 	// Import classes
@@ -26,8 +26,5 @@
 	{
 		AssetManager.unloadAll();
 	};
-
-	// Register the plugin
-	plugin.register();
 
 }());

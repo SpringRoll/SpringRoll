@@ -93,7 +93,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

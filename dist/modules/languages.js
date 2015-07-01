@@ -359,7 +359,4 @@
 		this.languages = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

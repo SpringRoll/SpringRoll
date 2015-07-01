@@ -1491,7 +1491,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

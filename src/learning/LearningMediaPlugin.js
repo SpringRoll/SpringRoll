@@ -44,7 +44,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

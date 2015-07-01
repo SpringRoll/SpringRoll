@@ -2313,7 +2313,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

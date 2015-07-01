@@ -70,7 +70,4 @@
 		this._visibility = null;
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

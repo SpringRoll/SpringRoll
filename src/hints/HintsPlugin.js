@@ -144,7 +144,4 @@
 		}
 	};
 
-	// register plugin
-	plugin.register();
-
 }());

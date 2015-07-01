@@ -1,8 +1,8 @@
 /**
-* @module EaselJS UI
-* @namespace springroll.easeljs
-* @requires Core, EaselJS Display
-*/
+ * @module EaselJS UI
+ * @namespace springroll.easeljs
+ * @requires Core, EaselJS Display, Tasks
+ */
 (function()
 {
 	var BitmapUtils,
@@ -89,8 +89,8 @@
 	{
 		if (!Application)
 		{
-			BitmapUtils = include('springroll.easeljs.BitmapUtils');
-			TextureAtlas = include('springroll.easeljs.TextureAtlas');
+			BitmapUtils = include('springroll.easeljs.BitmapUtils', false);
+			TextureAtlas = include('springroll.easeljs.TextureAtlas', false);
 			Loader = include('springroll.Loader');
 			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');

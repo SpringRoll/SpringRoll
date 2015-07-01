@@ -1589,7 +1589,4 @@
 		Debug.disconnect();
 	};
 
-	// register plugin
-	plugin.register();
-
 }());
