@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module PIXI Animation
  * @namespace springroll.pixi
@@ -1241,8 +1241,8 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Animator = include('springroll.pixi.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Animator = include('springroll.pixi.Animator');
 
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
@@ -1250,28 +1250,19 @@
 	 * @class AnimatorPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var AnimatorPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(AnimatorPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();	
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		Animator.destroy();
+		if (Animator) Animator.destroy();
 	};
-
-	// register plugin
-	ApplicationPlugin.register(AnimatorPlugin);
 
 }());

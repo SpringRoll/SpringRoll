@@ -5,12 +5,11 @@
 (function()
 {
 	// Classes to import
-	var LoaderQueueItem,
-		CacheManager,
-		Application,
-		Sound,
+	var LoaderQueueItem = include('springroll.LoaderQueueItem'),
+		CacheManager = include('springroll.CacheManager'),
+		LoaderResult = include('springroll.LoaderResult'),
 		LoadQueue,
-		LoaderResult,
+		Sound,
 		Debug;
 
 	/**
@@ -20,18 +19,21 @@
 	*
 	*  @class Loader
 	*/
-	var Loader = function()
+	var Loader = function(app)
 	{
-		if (!Application)
+		if (!LoadQueue)
 		{
-			LoaderQueueItem = include('springroll.LoaderQueueItem');
-			CacheManager = include('springroll.CacheManager');
-			Application = include('springroll.Application');
-			LoaderResult = include('springroll.LoaderResult');
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 			Debug = include('springroll.Debug', false);
 		}
+
+		/**
+		*  The current application
+		*  @property {springroll.Application} _app 
+		*  @private
+		*/
+		this._app = app;
 
 		/**
 		*  If we can load
@@ -64,7 +66,7 @@
 		*  @public
 		*  @property {CacheManager} cacheManager
 		*/
-		this.cacheManager = null;
+		this.cacheManager = new CacheManager();
 	};
 	
 	/** The prototype */
@@ -137,12 +139,13 @@
 	*  @method init
 	*  @static
 	*  @public
+	*  @param {springroll.Application} app The current application
 	*/
-	Loader.init = function()
+	Loader.init = function(app)
 	{
 		if (!_instance)
 		{
-			_instance = new Loader();
+			_instance = new Loader(app);
 			_instance._initialize();
 		}
 		return _instance;
@@ -213,7 +216,6 @@
 		queueItems = {};
 		loaders = {};
 		retries = {};
-		this.cacheManager = new CacheManager();
 	};
 	
 	/**
@@ -230,7 +232,7 @@
 	{
 		var qi = this._getQI();
 		
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
@@ -448,7 +450,7 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new LoadQueue(true, basePath, Application.instance.options.crossOrigin);
+			rtn = new LoadQueue(true, basePath, this._app.options.crossOrigin);
 		//allow the loader to handle sound as well
 		if(Sound)
 		{

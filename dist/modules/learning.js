@@ -1,8 +1,8 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -55,7 +55,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -236,7 +236,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -470,7 +470,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -532,7 +532,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -589,7 +589,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function()
 {
@@ -776,7 +776,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function($, undefined)
 {
@@ -824,7 +824,7 @@
 			 *  @private
 			 */
 			this._tray = $('<div class="learning-tray">' +
-				'<h2>Learning Dispatcher API  <span class="learning-version"></span></h2>' +
+				'<h2>Learning API <span class="learning-version"></span></h2>' +
 				'</div>');
 
 			/**
@@ -835,7 +835,7 @@
 			this._handle = $('<button class="learning-handle"></button>');
 
 			// Match the last position of the PT tray.
-			// ie Start with the tray open ('learning-tray-show') when reloading 
+			// ie Start with the tray open ('learning-tray-show') when reloading
 			// or returning to the game.
 			var defaultTrayPosition = SavedData.read('learning-tray-show') ?
 				'learning-tray-show' :
@@ -908,6 +908,15 @@
 		 */
 		this._round = null;
 
+		/**
+		 * Keep track of the round a feedback event was started on
+		 * the ending event should dispatch the same round.
+		 * @property {int} _feedbackStartRound
+		 * @private
+		 * @default null
+		 */
+		this._feedbackStartRound = null;
+
 		//Add event to handle the internal timers
 		updateTimers = updateTimers.bind(this);
 		app.on('update', updateTimers);
@@ -917,7 +926,7 @@
 	};
 
 	/**
-	 *  If the Learning Dispatcher should throw errors
+	 *  If the Learning should throw errors
 	 *  @property {Boolean} throwErrors
 	 *  @static
 	 */
@@ -976,8 +985,7 @@
 				}
 				if (Debug)
 				{
-					Debug.error(error.toString());
-					Debug.error(error.stack);
+					Debug.error(error);
 				}
 			}
 			if (Learning.throwErrors)
@@ -1319,6 +1327,7 @@
 			identifier: identifier,
 			total_duration: totalDuration
 		};
+		this._feedbackStartRound = this._round;
 		this._track(api, feedback);
 		this.startTimer('_feedback');
 		this._feedback = feedback;
@@ -1341,7 +1350,8 @@
 		delete feedback.total_duration;
 		feedback.duration = this.stopTimer('_feedback');
 		this._feedback = null;
-		this._track(api, feedback);
+		this._track(api, feedback, this._feedbackStartRound);
+		this._feedbackStartRound = null;
 	};
 
 	/**
@@ -1542,8 +1552,9 @@
 	 *  @private
 	 *  @param {string} api The name of the api
 	 *  @param {object} [input] The collection of argument values
+	 *  @param {int} [round] The explicit round to add the track event for
 	 */
-	p._track = function(api, input)
+	p._track = function(api, input, round)
 	{
 		if (!this.requires || !this.requires('startGame')) return;
 
@@ -1589,7 +1600,11 @@
 		}
 
 		//If we're using the concept of rounds, add it
-		if (this._round !== null)
+		if (round !== undefined)
+		{
+			data.round = round;
+		}
+		else if (this._round !== null)
 		{
 			data.round = this._round;
 		}
@@ -1655,7 +1670,7 @@
 			else
 			{
 				container.find('.learning-api').after(message);
-			}	
+			}
 		};
 	}
 
@@ -1720,7 +1735,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function(undefined)
 {
@@ -1735,17 +1750,10 @@
 	 * @class LearningPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LearningPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 1;
-	};
-
-	// Reference to the prototype
-	var p = extend(LearningPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(10);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{		
 		/**
 		 *  An learning event is dispatched
@@ -1793,13 +1801,13 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.learning.destroy();
-		this.learning = null;
+		if (this.learning)
+		{
+			this.learning.destroy();
+			this.learning = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LearningPlugin);
 
 }());

@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module Sound
  * @namespace springroll
@@ -490,14 +490,14 @@
 		var appOptions = Application.instance.options;
 
 		// First argument is function
-		if (typeof options == 'function')
+		if (isFunction(options))
 		{
 			options = { ready: options };
 		}
 
 		var defaultOptions = {
-			plugins : appOptions.forceFlashAudio ? 
-				[FlashAudioPlugin]: 
+			plugins : appOptions.forceFlashAudio ?
+				[FlashAudioPlugin]:
 				[WebAudioPlugin, FlashAudioPlugin],
 			types: ['ogg', 'mp3'],
 			swfPath: 'assets/swfs/',
@@ -625,43 +625,43 @@
 	});
 
 	/**
-	*  Loads a config object. This should not be called until after Sound.init() is complete.
-	*  @method loadConfig
+	*  Loads a context config object. This should not be called until after Sound.init() is complete.
+	*  @method addContext
 	*  @public
 	*  @param {Object} config The config to load.
 	*  @param {String} [config.context] The optional sound context to load sounds into unless
 	*                                   otherwise specified by the individual sound. Sounds do not
 	*                                   require a context.
 	*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-	*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
+	*  @param {Array} config.sounds The list of sounds, either as String ids or Objects with
 	*                                      settings.
-	*  @param {Object|String} config.soundManifest.listItem Not actually a property called listItem,
+	*  @param {Object|String} config.sounds.listItem Not actually a property called listItem,
 	*                                                       but an entry in the array. If this is a
 	*                                                       string, then it is the same as
 	*                                                       {'id':'<yourString>'}.
-	*  @param {String} config.soundManifest.listItem.id The id to reference the sound by.
-	*  @param {String} [config.soundManifest.listItem.src] The src path to the file, without an
+	*  @param {String} config.sounds.listItem.id The id to reference the sound by.
+	*  @param {String} [config.sounds.listItem.src] The src path to the file, without an
 	*                                                      extension. If omitted, defaults to id.
-	*  @param {Number} [config.soundManifest.listItem.volume=1] The default volume for the sound,
+	*  @param {Number} [config.sounds.listItem.volume=1] The default volume for the sound,
 	*                                                           from 0 to 1.
-	*  @param {Boolean} [config.soundManifest.listItem.loop=false] If the sound should loop by
+	*  @param {Boolean} [config.sounds.listItem.loop=false] If the sound should loop by
 	*                                                              default whenever the loop
 	*                                                              parameter in play() is not
 	*                                                              specified.
-	*  @param {String} [config.soundManifest.listItem.context] A context name to override
+	*  @param {String} [config.sounds.listItem.context] A context name to override
 	*                                                          config.context with.
-	*  @param {Boolean} [config.soundManifest.listItem.preload] If the sound should be preloaded
+	*  @param {Boolean} [config.sounds.listItem.preload] If the sound should be preloaded
 	*                                                           immediately.
 	*  @return {Sound} The sound object for chaining
 	*/
-	p.loadConfig = function(config)
+	p.addContext = function(config)
 	{
 		if (!config)
 		{
 			if (true && Debug) Debug.warn("Warning - springroll.Sound was told to load a null config");
 			return;
 		}
-		var list = config.soundManifest;
+		var list = config.soundManifest || config.sounds || [];
 		var path = config.path || "";
 		var defaultContext = config.context;
 
@@ -670,7 +670,7 @@
 		for (var i = 0, len = list.length; i < len; ++i)
 		{
 			s = list[i];
-			if (typeof s == "string") {
+			if (isString(s)) {
 				s = {id: s};
 			}
 			temp = this._sounds[s.id] = {
@@ -702,6 +702,14 @@
 		//return the Sound instance for chaining
 		return this;
 	};
+
+	/**
+	*  Old method for loading a context config object.
+	*  @method loadConfig
+	*  @param {Object} config The config to load.
+	*  @deprecated Use `addContext(config)` instead.
+	*/
+	p.loadConfig = p.addContext;
 
 	/**
 	*	If a sound exists in the list of recognized sounds.
@@ -821,7 +829,7 @@
 	p.fadeIn = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == "string")
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -864,7 +872,7 @@
 	p.fadeOut = function(aliasOrInst, duration, targetVol, startVol)
 	{
 		var sound, inst;
-		if (typeof(aliasOrInst) == "string")
+		if (isString(aliasOrInst))
 		{
 			sound = this._sounds[aliasOrInst];
 			if (!sound) return;
@@ -984,7 +992,7 @@
 		if (!this.soundEnabled) return;
 
 		var completeCallback;
-		if (options && typeof options == "function")
+		if (options && isFunction(options))
 		{
 			completeCallback = options;
 			options = null;
@@ -1051,7 +1059,6 @@
 		}
 		else if (loadState == LoadStates.unloaded)
 		{
-			sound.loadState = LoadStates.loading;
 			sound.playAfterLoad = true;
 			inst = this._getSoundInst(null, sound.id);
 			inst.curVol = volume;
@@ -1069,13 +1076,7 @@
 			}
 			else
 				inst._startParams = [interrupt, delay, offset, loop];
-			Loader.instance.load(
-				sound.src, //url to load
-				this._playAfterLoad,//complete callback
-				null,//progress callback
-				0,//priority
-				sound//the sound object (contains properties for PreloadJS/SoundJS)
-			);
+			this.preloadSound(sound.id);
 			return inst;
 		}
 		else if (loadState == LoadStates.loading)
@@ -1136,7 +1137,7 @@
 	*/
 	p._playAfterLoad = function(result)
 	{
-		var alias = typeof result == "string" ? result : result.id;
+		var alias = isString(result) ? result : result.id;
 		var sound = this._sounds[alias];
 		sound.loadState = LoadStates.loaded;
 
@@ -1309,15 +1310,16 @@
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.pauseSound = function(alias)
+	p.pauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == "string")
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i >= 0; --i)
+		var i;
+		for (i = arr.length - 1; i >= 0; --i)
+			arr[i].pause();
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i >= 0; --i)
 			arr[i].pause();
 	};
 
@@ -1328,18 +1330,17 @@
 	*	@param {String} alias The alias of the sound to pause.
 	*		Internally, this can also be the object from the _sounds dictionary directly.
 	*/
-	p.unpauseSound = function(alias)
+	p.unpauseSound = function(sound)
 	{
-		var sound;
-		if (typeof alias == "string")
-			sound = this._sounds[alias];
-		else
-			sound = alias;
+		if (isString(sound))
+			sound = this._sounds[sound];
 		var arr = sound.playing;
-		for (var i = arr.length - 1; i >= 0; --i)
-		{
+		var i;
+		for (i = arr.length - 1; i >= 0; --i)
 			arr[i].unpause();
-		}
+		arr = sound.waitingToPlay;
+		for (i = arr.length - 1; i >= 0; --i)
+			arr[i].unpause();
 	};
 
 	/**
@@ -1588,6 +1589,22 @@
 	};
 
 	/**
+	*	Unloads all sounds. If any sounds are playing, they are stopped.
+	*	Internally this calls `unload`.
+	*	@method unloadAll
+	*	@public
+	*/
+	p.unloadAll = function()
+	{
+		var arr = [];
+		for (var i in this._sounds)
+		{
+			arr.push(i);
+		}
+		this.unload(arr);
+	};
+
+	/**
 	*	Places a SoundInstance back in the pool for reuse.
 	*	@method _poolinst
 	*	@private
@@ -1638,6 +1655,17 @@
 		this._fades = null;
 		this._contexts = null;
 		this._pool = null;
+	};
+
+	// Convenience methods for type checking
+	var isString = function(obj)
+	{
+		return typeof obj == "string";
+	};
+
+	var isFunction = function(obj)
+	{
+		return typeof obj == "function";
 	};
 
 	namespace('springroll').Sound = Sound;
@@ -2085,19 +2113,10 @@
 	 * @class SoundPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var SoundPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for the sound
-		this.priority = 9;
-	};
-
-	// Reference to the prototype
-	var p = extend(SoundPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(90);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
@@ -2185,12 +2204,12 @@
 				}
 				this._music = value;
 
-				if (this._music)
+				if (value)
 				{
 					this._musicInstance = sound.play(
 						this._music,
 						{
-							start: sound.fadeIn.bind(sound, this._music),
+							start: sound.fadeIn.bind(sound, value),
 							loop: -1
 						}
 					);
@@ -2214,57 +2233,25 @@
 			}
 		});
 
-		/**
-		*  Convenience method to loads a Sound config object.
-		*  @method addSounds
-		*  @public
-		*  @param {Object} config The config to load.
-		*  @param {String} [config.context] The optional sound context to load sounds into unless
-		*                                   otherwise specified by the individual sound. Sounds do not
-		*                                   require a context.
-		*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-		*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
-		*                                      settings.
-		*  @param {Object|String} config.soundManifest.* An entry in the array. If this is a
-		*                                                string, then it is the same as
-		*                                                {'id':'<yourString>'}.
-		*  @param {String} config.soundManifest.*.id The id to reference the sound by.
-		*  @param {String} [config.soundManifest.*.src] The src path to the file, without an
-		*                                               extension. If omitted, defaults to id.
-		*  @param {Number} [config.soundManifest.*.volume=1] The default volume for the sound,
-		*                                                    from 0 to 1.
-		*  @param {Boolean} [config.soundManifest.*.loop=false] If the sound should loop by
-		*                                                       default whenever the loop
-		*                                                       parameter in play() is not
-		*                                                       specified.
-		*  @param {String} [config.soundManifest.*.context] A context name to override
-		*                                                   config.context with.
-		*  @return {springroll.Application} The Application object for chaining
-		*/
-		this.addSounds = function(config)
-		{
-			this.sound.loadConfig(config);
-			return this;
-		};
-
 		// Add the listener for the config loader to autoload the sounds
 		this.once('configLoaded', function(config)
 		{
 			//initialize Sound and load up global sound config
 			var sounds = config.sounds;
+			var sound = this.sound;
 			if (sounds)
 			{
 				if (sounds.vo)
 				{
-					this.addSounds(sounds.vo);
+					sound.addContext(sounds.vo);
 				}
 				if (sounds.sfx)
 				{
-					this.addSounds(sounds.sfx);
+					sound.addContext(sounds.sfx);
 				}
 				if (sounds.music)
 				{
-					this.addSounds(sounds.music);
+					sound.addContext(sounds.music);
 				}
 			}
 		});
@@ -2277,7 +2264,7 @@
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -2313,19 +2300,18 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.voPlayer.destroy();
-		this.voPlayer = null;
-		
+		if (this.voPlayer)
+		{
+			this.voPlayer.destroy();
+			this.voPlayer = null;
+		}
 		if (this.sound)
 		{
 			this.sound.destroy();
 			this.sound = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(SoundPlugin);
 
 }());

@@ -1,9 +1,9 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module Core
  * @namespace window
  */
-(function(Object, undefined){
+(function(Object, support, undefined){
 
 	/**
 	*  Add methods to Object
@@ -23,7 +23,7 @@
 	*/
 	Object.merge = function(target, source)
 	{
-		if (typeof target !== 'object')
+		if (!target || typeof target !== 'object')
 		{
 			target = {};
 		}
@@ -60,6 +60,7 @@
 	Object.isPlain = function(obj)
 	{
 		var key;
+		var hasOwn = support.hasOwnProperty;
 
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
@@ -124,54 +125,46 @@
 		});
 	}
 
-}(Object));
+}(Object, {}));
 /**
  * @module Core
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
+*  Use to do class inheritence
+*  @class extend
 *  @static
 */
 (function(window){
 	
-	// The namespace function already exists
-	if ("namespace" in window) return;
-	
+	// The extend function already exists
+	if ("extend" in window) return;
+
 	/**
-	*  Create the namespace and assing to the window
+	*  Extend prototype
 	*
 	*  @example
-		var SpriteUtils = function(){};
-		namespace('springroll').SpriteUtils = SpriteUtils;
+		var p = extend(MyClass, ParentClass);
 	*
 	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
 	*/
-	var namespace = function(namespaceString) {
-		var parts = namespaceString.split('.'),
-			parent = window,
-			currentPart = '';
-
-		for(var i = 0, length = parts.length; i < length; i++)
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
 		{
-			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
-			parent = parent[currentPart];
+			superClass = window.include(superClass);
 		}
-		return parent;
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
 	};
-	
-	// Assign to the window namespace
-	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace window
@@ -239,40 +232,128 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
+ * Static class for mixing in functionality into objects.
+ * @class mixin
+ * @static
+ */
+(function(window, Object)
+{
+	// The mixin function already exists
+	if ("mixin" in window) return;
+
+	/**
+	*  Mixin functionality to an object
+	*
+	*  @example
+		mixin(instance, MyClass);
+	*
+	*  @constructor
+	*  @method mixin
+	*  @param {*} target The instance object to add functionality to
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	*  @return {*} Return reference to target
+	*/
+	var mixin = function(target, superClass)
+	{
+		if (true && !superClass)
+		{
+			throw 'Did not supply a valid mixin class';
+		}
+
+		// Include using string
+		if (typeof superClass === "string")
+		{
+			superClass = window.include(superClass);
+		}
+
+		// Check for existence of prototype
+		if (!superClass.prototype)
+		{
+			if (true)
+			{
+				throw 'The mixin class does not have a valid protoype';
+			}
+			else
+			{
+				throw 'no mixin prototype';
+			}
+		}
+		//loop over mixin prototype to add functions
+		var p = superClass.prototype;
+
+		for(var prop in p)
+		{
+			// For things that we set using Object.defineProperty
+			// very important that enumerable:true for the 
+			// defineProperty options
+			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
+			if(propDesc)
+			{
+				Object.defineProperty(target, prop, propDesc);
+			}
+			else
+			{
+				// Should cover all other prototype methods/properties
+				target[prop] = p[prop];
+			}
+		}
+		// call mixin on target and apply any arguments
+		superClass.apply(target, Array.prototype.slice.call(arguments, 2));
+		return target;
+	};
+
+	// Assign to the window namespace
+	window.mixin = mixin;
+	
+}(window, Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
 *  @static
 */
 (function(window){
 	
-	// The extend function already exists
-	if ("extend" in window) return;
-
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
 	/**
-	*  Extend prototype
+	*  Create the namespace and assing to the window
 	*
 	*  @example
-		var p = extend(MyClass, ParentClass);
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
 	*
 	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
+	*  @return {object} The namespace object attached to the current window
 	*/
-	window.extend = function(subClass, superClass)
-	{
-		if (typeof superClass == "string")
-		{
-			superClass = window.include(superClass);
-		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
-	};
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
 
+		for(var i = 0, length = parts.length; i < length; i++)
+		{
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
+		}
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
 }(window));
+
+
 /**
 *  @module Core
 *  @namespace springroll
@@ -559,7 +640,7 @@
 		object.off = p.off;
 		object.has = p.has;
 		object.once = p.once;
-		if(callConstructor)
+		if (callConstructor)
 			EventDispatcher.call(object);
 	};
 
@@ -567,7 +648,6 @@
 	namespace('springroll').EventDispatcher = EventDispatcher;
 
 }());
-
 /**
  * @module Core
  * @namespace springroll
@@ -608,7 +688,7 @@
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
+		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
 		* The visibility toggle listener function
@@ -655,6 +735,8 @@
 		_visibilityChange = "webkitvisibilitychange";
 	}
 	
+	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
+	
 	/**
 	* If this object is enabled.
 	* @property {Function} enabled
@@ -674,6 +756,11 @@
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			if(isIE9)
+			{
+				doc.removeEventListener("focusin", this._onFocus);
+				doc.removeEventListener("focusout", this._onBlur);
+			}
 			
 			if(value)
 			{
@@ -686,6 +773,12 @@
 				global.addEventListener("blur", this._onBlur);
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
+				//IE9 is old and uses its own events
+				if(isIE9)
+				{
+					doc.addEventListener("focusin", this._onFocus);
+					doc.addEventListener("focusout", this._onBlur);
+				}
 			}
 		}
 	});
@@ -1228,7 +1321,7 @@
 		this._containerBlurred = false;
 
 		/**
-		 * Delays pausing of application to mitigate issues with asynchronous communication 
+		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
 		 * @type {Timeout}
 		 */
@@ -1236,7 +1329,7 @@
 
 		/**
 		 * If the application is currently paused manually
-		 * @property {boolean} _isManualPause 
+		 * @property {boolean} _isManualPause
 		 * @private
 		 * @default false
 		 */
@@ -1250,6 +1343,13 @@
 		 */
 		this._paused = false;
 
+		/**
+		 *  Should we send bellhop messages for the mute (etc) buttons?
+		 *  @property {Boolean} sendMutes
+		 *  @default true
+		 */
+		this.sendMutes = true;
+
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
 		{
@@ -1261,7 +1361,7 @@
 		}
 		
 		this._pageVisibility = new PageVisibility(
-			onContainerFocus.bind(this), 
+			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
 		);
 	};
@@ -1291,12 +1391,12 @@
 	 * @event unsupported
 	 */
 
-	 /**
+	/**
 	 * Fired when the API cannot be called
 	 * @event remoteFailed
 	 */
 
-	 /**
+	/**
 	 * There was a problem with the API call
 	 * @event remoteError
 	 */
@@ -1382,23 +1482,7 @@
 
 		this.loading = true;
 
-		//Setup communication layer between site and application
-		this.client = new Bellhop();
-		this.client.connect(this.dom);
-
-		//Handle bellhop events coming from the application
-		this.client.on(
-		{
-			loadDone: onLoadDone.bind(this),
-			endGame: onEndGame.bind(this),
-			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
-			helpEnabled: onHelpEnabled.bind(this),
-			features: onFeatures.bind(this)
-		});
+		this.initClient();
 
 		//Open the application in the iframe
 		this.main
@@ -1493,9 +1577,51 @@
 		.bind(this))
 		.fail(function()
 		{
-		    return this.trigger('remoteFailed');
+			return this.trigger('remoteFailed');
 		}
 		.bind(this));
+	};
+
+	/**
+	 *  Set up communication layer between site and application.
+	 *  May be called from subclasses if they create/destroy Bellhop instances.
+	 *  @protected
+	 *  @method initClient
+	 */
+	p.initClient = function()
+	{
+		//Setup communication layer between site and application
+		this.client = new Bellhop();
+		this.client.connect(this.dom);
+
+		//Handle bellhop events coming from the application
+		this.client.on(
+		{
+			loadDone: onLoadDone.bind(this),
+			endGame: onEndGame.bind(this),
+			focus: onFocus.bind(this),
+			trackEvent: onAnalyticEvent.bind(this),
+			analyticEvent: onAnalyticEvent.bind(this),
+			progressEvent: onLearningEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
+			features: onFeatures.bind(this)
+		});
+	};
+
+
+	/**
+	 *  Removes the Bellhop communication layer altogether.
+	 *  @protected
+	 *  @method destroyClient
+	 */
+	p.destroyClient = function()
+	{
+		if (this.client)
+		{
+			this.client.destroy();
+			this.client = null;
+		}
 	};
 
 	/**
@@ -1560,7 +1686,7 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		//Set both container and application to blurred, 
+		//Set both container and application to blurred,
 		//because some blur events are only happening on the container.
 		//If container is blurred because application area was just focused,
 		//the application's focus event will override the blur imminently.
@@ -1580,7 +1706,7 @@
 
 		//Delay setting of 'paused' in case we get another focus event soon.
 		//Focus events are sent to the container asynchronously, and this was
-		//causing rapid toggling of the pause state and related issues, 
+		//causing rapid toggling of the pause state and related issues,
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
 			function()
@@ -1591,7 +1717,7 @@
 				if (this._isManualPause === true) return;
 
 				this.paused = this._containerBlurred && this._appBlurred;
-			}.bind(this), 
+			}.bind(this),
 			100
 		);
 	};
@@ -1701,8 +1827,7 @@
 	 */
 	var onEndGame = function()
 	{
-		this.client.destroy();
-		this.client = null;
+		this.destroyClient();
 
 		this.reset();
 	};
@@ -1927,7 +2052,7 @@
 			.addClass(muted ? 'muted' : 'unmuted');
 
 		SavedData.write(prop, muted);
-		if (this.client)
+		if (this.client && this.sendMutes)
 		{
 			this.client.send(prop, muted);
 		}
@@ -2194,11 +2319,7 @@
 			this._pageVisibility = null;
 		}
 		
-		if (this.client)
-		{
-			this.client.destroy();
-			this.client = null;
-		}
+		this.destroyClient();
 
 		s.destroy.call(this);
 	};

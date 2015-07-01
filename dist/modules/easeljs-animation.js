@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs
@@ -464,7 +464,7 @@
 			//have it set its 'paused' variable to false
 			instance.play();
 			//update the movieclip to make sure it is redrawn correctly at the next opportunity
-			instance._tick();
+			instance.advance();
 
 			// Before we add the timeline, we should check to see
 			// if there are no timelines, then start the enter frame
@@ -1265,8 +1265,8 @@
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Animator = include('springroll.easeljs.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Animator = include('springroll.easeljs.Animator');
 
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
@@ -1274,29 +1274,20 @@
 	 * @class AnimatorPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var AnimatorPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(AnimatorPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		Animator.destroy();
+		if (Animator) Animator.destroy();
 	};
-
-	// register plugin
-	ApplicationPlugin.register(AnimatorPlugin);
 
 }());
 /**
@@ -1375,7 +1366,7 @@
 				if(index > 0)
 					name = name.substring(0, index);//strip off any ".png" or ".jpg" at the end
 				index = name.lastIndexOf("/");
-				if(index < 0)
+				if(index >= 0)
 					name = name.substring(index + 1);//strip off any folder structure included in the name
 				this.frames[name] = new Texture(image, data, swapFrameSize);
 			}
@@ -1539,7 +1530,10 @@
 
 	"use strict";
 	
-	var Container = include("createjs.Container");
+	var Container = include("createjs.Container"),
+		Point = include("createjs.Point"),
+		Rectangle = include('createjs.Rectangle'),
+		Bitmap = include('createjs.Bitmap');
 
 	/**
 	*  A class similar to createjs.MovieClip, but made to play animations from a
@@ -1624,12 +1618,20 @@
 		 * @default false
 		 */
 		this.paused = false;
+		
+		/**
+		 * Boundaries of the animation, like the nominalBounds produced by Flash's HTML5 exporter.
+		 * This uses the full, untrimmed size of the first frame.
+		 * @property nominalBounds
+		 * @type createjs.Rectangle
+		 */
+		this.nominalBounds = new Rectangle();
 
 		//==== Private properties =====
 
 		/**
-		 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate for
-		 * the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
+		 * By default BitmapMovieClip instances advance one frame per tick. Specifying a framerate
+		 * for the BitmapMovieClip will cause it to advance based on elapsed time between ticks as
 		 * appropriate to maintain the target framerate.
 		 *
 		 * @property _framerate
@@ -1640,8 +1642,8 @@
 		this._framerate = 0;
 
 		/**
-		 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for the
-		 * animation.
+		 * When the BitmapMovieClip is framerate independent, this is the total time in seconds for
+		 * the animation.
 		 *
 		 * @property _duration
 		 * @type Number
@@ -1711,7 +1713,7 @@
 		/**
 		 * The origin point of the BitmapMovieClip.
 		 * @property _origin
-		 * @type createjs.Point
+		 * @type Point
 		 * @private
 		 */
 		this._origin = null;
@@ -1727,7 +1729,7 @@
 
 		// mouse events should reference this, not the child bitmap
 		this.mouseChildren = false;
-		this._bitmap = new createjs.Bitmap();
+		this._bitmap = new Bitmap();
 		this.addChild(this._bitmap);
 		
 		if (atlas && data)
@@ -2002,11 +2004,12 @@
 		var labels = this._labels = [];
 		var events = this._events = [];
 		
+		var name;
 		if (data.labels)
 		{
 			var positions = {}, position;
 
-			for(var name in data.labels)
+			for(name in data.labels)
 			{
 				var label = {
 					label: name,
@@ -2040,13 +2043,20 @@
 
 		//collect the frames
 		this._frames = [];
-
+		
+		var index;
 		for(var i = 0; i < data.frames.length; ++i)
 		{
 			var frameSet = data.frames[i];
+			
+			name = frameSet.name;
+			index = name.lastIndexOf("/");
+			//strip off any folder structure included in the name
+			if(index >= 0)
+				name = name.substring(index + 1);
 
 			atlas.getFrames(
-				frameSet.name,
+				name,
 				frameSet.min,
 				frameSet.max,
 				frameSet.digits,
@@ -2065,9 +2075,18 @@
 			this._scale = 1;
 		this._bitmap.scaleX = this._bitmap.scaleY = this._scale;
 		if(data.origin)
-			this._origin = new createjs.Point(data.origin.x * this._scale, data.origin.y * this._scale);
+			this._origin = new Point(data.origin.x * this._scale, data.origin.y * this._scale);
 		else
-			this._origin = new createjs.Point();
+			this._origin = new Point();
+		
+		//set up a nominal bounds, to make it easier to determine boundaries
+		//this uses the untrimmed size of the texture
+		var frame = this._frames[0];
+		var bounds = this.nominalBounds;
+		bounds.x = -this._origin.x;
+		bounds.y = -this._origin.y;
+		bounds.width = frame.width * this._scale;
+		bounds.height = frame.height * this._scale;
 	};
 
 	function labelSorter(a, b)

@@ -1,51 +1,459 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
+/**
+ * @module Core
+ * @namespace window
+ */
+(function(Array, Math, Object)
+{
+	/**
+	*  Add methods to Array
+	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	*  @class Array
+	*/
+
+	/**
+	*  Shuffles the array
+	*  @method shuffle
+	*/
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	if(!Array.prototype.shuffle)
+	{
+		Object.defineProperty(Array.prototype, 'shuffle',
+		{
+			enumerable: false,
+			writable:false,
+			value: function() {
+				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+				return this;
+			}
+		});
+	}
+
+	/**
+	*  Get a random item from an array
+	*  @method random
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The random item
+	*/
+	if(!Array.prototype.random)
+	{
+		Object.defineProperty(Array.prototype, 'random',
+		{
+			enumerable: false,
+			writable: false,
+			value: function() {
+				return this[Math.floor(Math.random() * this.length)];
+			}
+		});
+	}
+
+	/**
+	*  Get the last item in the array
+	*  @method last
+	*  @static
+	*  @param {Array} array The array
+	*  @return {*} The last item
+	*/
+	if(!Array.prototype.last)
+	{
+		Object.defineProperty(Array.prototype, 'last',
+		{
+			enumerable: false,
+			writable: false,
+			value: function()
+			{
+				return this[this.length - 1];
+			}
+		});
+	}
+}(Array, Math, Object));
+
+/**
+ * @module Core
+ * @namespace window
+ */
+(function (Math)
+{
+	/**
+	 * Add methods to Math
+	 * @class Math
+	 */
+
+	/**
+	 * Return a random int between minimum and maximum values.
+	 * If a single value is supplied, it will return a number between 0 and the supplied value.
+	 * @method randomInt
+	 * @static
+	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
+	 * @param {int} max Highest number.
+	 * @return {int} The random value
+	 */
+	Math.randomInt = function (min, max)
+	{
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
+		return Math.floor(Math.random() * (max - min + 1)) + min;
+	};
+
+	/**
+	 * Return dist between two points
+	 * @method dist
+	 * @static
+	 * @param {Number} x The x position of the first point
+	 * @param {Number} y The y position of the first point
+	 * @param {Number} x0 The x position of the second point
+	 * @param {Number} y0 The y position of the second point
+	 * @return {Number} The distance
+	 */
+	
+	/**
+	 * Return dist between two points
+	 * @method dist
+	 * @static
+	 * @param {Object} p1 The first point
+	 * @param {Object} p1.x The x position of the first point
+	 * @param {Object} p1.y The y position of the first point
+	 * @param {Object} p2 The second point
+	 * @param {Object} p2.x The x position of the second point
+	 * @param {Number} p2.y The y position of the second point
+	 * @return {Number} The distance
+	 */
+	Math.dist = function (x, y, x0, y0)
+	{
+		//see if the first parameter is a point
+		if (typeof x.x == "number" && x.x == x.x) //faster !isNaN
+		{
+			//shift later parameters back
+			y0 = x0;
+			x0 = y;
+
+			y = x.y;
+			x = x.x;
+		}
+		//see if the 2nd parameter is a point
+		if (typeof x0.x == "number" && x0.x == x0.x)
+		{
+			y0 = x0.y;
+			x0 = x0.x;
+		}
+		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
+	};
+
+	/**
+	 *	Constrain a number between 0 and a max value.
+	 *	@method clamp
+	 *	@static
+	 *	@param {Number} value The number to be constrained.
+	 *	@param {Number} max Highest number.
+	 *	@return {Number} The constrained value
+	 */
+
+	/**
+	 *	Constrain a number between a minimum and maximum values.
+	 *	@method clamp
+	 *	@static
+	 *	@param {Number} value The number to be constrained.
+	 *	@param {Number} min Lowest number to constrain value to.
+	 *	@param {Number} max Highest number.
+	 *	@return {Number} The constrained value
+	 */
+	Math.clamp = function (value, min, max)
+	{
+		if (max === undefined)
+		{
+			max = min;
+			min = 0;
+		}
+		if (value > max)
+			return max;
+		if (value < min)
+			return min;
+		return value;
+	};
+
+}(Math));
+/**
+ * @module Core
+ * @namespace window
+ */
+(function(Number, Object)
+{
+	/**
+	*  Add methods to Number
+	*  @class Number
+	*/
+	
+	/**
+	*  Returns a string of the number as an integer with leading zeros to fill the string out
+	*  to a certain number of digits.
+	*  @method toPaddedString
+	*  @param {Number} [totalDigits=2] The total number of digits to be displayed.
+	*  @return {String} The number string.
+	*/
+	if(!Number.prototype.toPaddedString)
+	{
+		Object.defineProperty(Number.prototype, 'toPaddedString',
+		{
+			enumerable: false,
+			writable:false,
+			value: function(totalDigits) {
+				if(!totalDigits)
+					totalDigits = 2;
+				var leader;
+				if(num < 0)
+				{
+					num *= -1;
+					leader = "-";
+				}
+				var s = String(Math.floor(num));
+				while(s.length < totalDigits)
+					s = "0" + s;
+				if(leader)
+					s = leader + s;
+				return s;
+			}
+		});
+	}
+
+}(Number, Object));
+
+/**
+ * @module Core
+ * @namespace window
+ */
+(function(Object, support, undefined){
+
+	/**
+	*  Add methods to Object
+	*  @class Object
+	*/
+
+	/**
+	*  Merges two (or more) objects, giving the last one precedence
+	*  @method merge
+	*  @example
+		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+		var obj2 = { id : 'bar', value : 200 };
+		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
+	*  @static
+	*  @param {Object} target The target object
+	*  @param {Object} source* Additional objects to add
+	*/
+	Object.merge = function(target, source)
+	{
+		if (!target || typeof target !== 'object')
+		{
+			target = {};
+		}
+		
+		for (var property in source)
+		{
+			if (source.hasOwnProperty(property))
+			{
+				var sourceProperty = source[property];
+				
+				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
+				{
+					target[property] = Object.merge(target[property], sourceProperty);
+					continue;
+				}
+				target[property] = sourceProperty;
+			}
+		}
+		
+		for (var i = 2, l = arguments.length; i < l; i++)
+		{
+			Object.merge(target, arguments[i]);
+		}
+		return target;
+	};
+
+	/**
+	*  Check to see if an object is a plain object definition
+	*  @method isPlain
+	*  @static
+	*  @param {Object} target The target object
+	*  @return {Boolean} If the object is plain
+	*/
+	Object.isPlain = function(obj)
+	{
+		var key;
+		var hasOwn = support.hasOwnProperty;
+
+		// Must be an Object.
+		// Because of IE, we also have to check the presence of the constructor property.
+		// Make sure that DOM nodes and window objects don't pass through, as well
+		if (!obj || typeof obj !== "object" || obj.nodeType || obj === window)
+		{
+			return false;
+		}
+
+		try {
+			// Not own constructor property must be Object
+			if ( obj.constructor &&
+				!hasOwn.call(obj, "constructor") &&
+				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
+				return false;
+			}
+		}
+		catch (e)
+		{
+			// IE8,9 Will throw exceptions on certain host objects #9897
+			return false;
+		}
+
+		// Support: IE<9
+		// Handle iteration over inherited properties before own properties.
+		if (support.ownLast)
+		{
+			for (key in obj)
+			{
+				return hasOwn.call(obj, key);
+			}
+		}
+
+		// Own properties are enumerated firstly, so to speed up,
+		// if last one is own, then all properties are own.
+		for (key in obj) {}
+
+		return key === undefined || hasOwn.call(obj, key);
+	};
+	
+	/**
+	*  Creates a shallow copy of the object.
+	*  @method clone
+	*  @return {Object} The shallow copy.
+	*/
+	if(!Object.prototype.clone)
+	{
+		Object.defineProperty(Object.prototype, 'clone',
+		{
+			enumerable: false,
+			writable: true,
+			value: function()
+			{
+				var rtn = {};
+				var thisObj = this;
+				for(var key in thisObj)
+				{
+					rtn[key] = thisObj[key];
+				}
+				return rtn;
+			}
+		});
+	}
+
+}(Object, {}));
+/**
+ * @module Core
+ * @namespace window
+ */
+(function(String, Object)
+{
+	/**
+	*  Add methods to String
+	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	*  @class String
+	*/
+
+	/**
+	*  Returns a formatted string, similar to the printf() function in many languages.
+	*  This simplified version substitutes "%s" with the arguments in order. To escape "%s",
+	*  use "%%s".
+	*  @method format
+	*  @param {Array|*} args An array or list of arguments for formatting.
+	*  @return {String} The substituted string.
+	*/
+	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
+	// to make it not enumerable set the enumerable property to false
+	Object.defineProperty(String.prototype, 'format', 
+	{
+		enumerable: false,
+		writable:false,
+		value: function() {
+			if (arguments.length < 1) return this;
+			var args = Array.isArray(args) ? args : Array.prototype.slice.call(arguments);
+			
+			return this.replace(
+				/([^%]|^)%(?:(\d+)\$)?s/g,
+				function(p0, p, position)
+				{
+					if (position)
+					{
+						return p + args[parseInt(position)-1];
+					}
+					return p + args.shift();
+				}
+			).replace(/%%s/g, '%s');
+		}
+	});
+	
+	/**
+	*  Returns a reversed copy of the string.
+	*  @method format
+	*  @return {String} The reversed string.
+	*/
+	if(!String.prototype.reverse)
+	{
+		Object.defineProperty(String.prototype, 'reverse', 
+		{
+			enumerable: false,
+			writable:false,
+			value: function() {
+				var o = '';
+				for (var i = this.length - 1; i >= 0; i--)
+					o += this[i];
+				return o;
+			}
+		});
+	}
+
+}(String, Object));
+
 /**
  * @module Core
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
+*  Use to do class inheritence
+*  @class extend
 *  @static
 */
 (function(window){
 	
-	// The namespace function already exists
-	if ("namespace" in window) return;
-	
+	// The extend function already exists
+	if ("extend" in window) return;
+
 	/**
-	*  Create the namespace and assing to the window
+	*  Extend prototype
 	*
 	*  @example
-		var SpriteUtils = function(){};
-		namespace('springroll').SpriteUtils = SpriteUtils;
+		var p = extend(MyClass, ParentClass);
 	*
 	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
+	*  @method extend
+	*  @param {function} subClass The reference to the class
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @return {object} Reference to the subClass's prototype
 	*/
-	var namespace = function(namespaceString) {
-		var parts = namespaceString.split('.'),
-			parent = window,
-			currentPart = '';
-
-		for(var i = 0, length = parts.length; i < length; i++)
+	window.extend = function(subClass, superClass)
+	{
+		if (typeof superClass == "string")
 		{
-			currentPart = parts[i];
-			parent[currentPart] = parent[currentPart] || {};
-			parent = parent[currentPart];
+			superClass = window.include(superClass);
 		}
-		return parent;
+		subClass.prototype = Object.create(
+			superClass.prototype
+		);
+		return subClass.prototype;
 	};
-	
-	// Assign to the window namespace
-	window.namespace = namespace;
-	
+
 }(window));
-
-
 /**
  * @module Core
  * @namespace window
@@ -113,40 +521,385 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
+ * Static class for mixing in functionality into objects.
+ * @class mixin
+ * @static
+ */
+(function(window, Object)
+{
+	// The mixin function already exists
+	if ("mixin" in window) return;
+
+	/**
+	*  Mixin functionality to an object
+	*
+	*  @example
+		mixin(instance, MyClass);
+	*
+	*  @constructor
+	*  @method mixin
+	*  @param {*} target The instance object to add functionality to
+	*  @param {function|String} superClass The parent reference or full classname
+	*  @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	*  @return {*} Return reference to target
+	*/
+	var mixin = function(target, superClass)
+	{
+		if (true && !superClass)
+		{
+			throw 'Did not supply a valid mixin class';
+		}
+
+		// Include using string
+		if (typeof superClass === "string")
+		{
+			superClass = window.include(superClass);
+		}
+
+		// Check for existence of prototype
+		if (!superClass.prototype)
+		{
+			if (true)
+			{
+				throw 'The mixin class does not have a valid protoype';
+			}
+			else
+			{
+				throw 'no mixin prototype';
+			}
+		}
+		//loop over mixin prototype to add functions
+		var p = superClass.prototype;
+
+		for(var prop in p)
+		{
+			// For things that we set using Object.defineProperty
+			// very important that enumerable:true for the 
+			// defineProperty options
+			var propDesc = Object.getOwnPropertyDescriptor(p, prop);
+			if(propDesc)
+			{
+				Object.defineProperty(target, prop, propDesc);
+			}
+			else
+			{
+				// Should cover all other prototype methods/properties
+				target[prop] = p[prop];
+			}
+		}
+		// call mixin on target and apply any arguments
+		superClass.apply(target, Array.prototype.slice.call(arguments, 2));
+		return target;
+	};
+
+	// Assign to the window namespace
+	window.mixin = mixin;
+	
+}(window, Object));
+/**
+ * @module Core
+ * @namespace window
+ */
+/**
+*  Static class for namespacing objects and adding
+*  classes to it.
+*  @class namespace
 *  @static
 */
 (function(window){
 	
-	// The extend function already exists
-	if ("extend" in window) return;
-
+	// The namespace function already exists
+	if ("namespace" in window) return;
+	
 	/**
-	*  Extend prototype
+	*  Create the namespace and assing to the window
 	*
 	*  @example
-		var p = extend(MyClass, ParentClass);
+		var SpriteUtils = function(){};
+		namespace('springroll').SpriteUtils = SpriteUtils;
 	*
 	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
+	*  @method namespace
+	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
+	*  @return {object} The namespace object attached to the current window
 	*/
-	window.extend = function(subClass, superClass)
-	{
-		if (typeof superClass == "string")
+	var namespace = function(namespaceString) {
+		var parts = namespaceString.split('.'),
+			parent = window,
+			currentPart = '';
+
+		for(var i = 0, length = parts.length; i < length; i++)
 		{
-			superClass = window.include(superClass);
+			currentPart = parts[i];
+			parent[currentPart] = parent[currentPart] || {};
+			parent = parent[currentPart];
 		}
-		subClass.prototype = Object.create(
-			superClass.prototype
-		);
-		return subClass.prototype;
+		return parent;
+	};
+	
+	// Assign to the window namespace
+	window.namespace = namespace;
+	
+}(window));
+
+
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	
+	/**
+	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
+	*  callbacks into one. For example usage:
+	*
+	*  var voPlayer = new springroll.VOPlayer();
+	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	*  Animator.play(myClip, "myAnim", callback);
+	*  
+	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
+	*  If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
+	*  
+	*  @class CombinedCallback
+	*  @constructor
+	*  @param {function} call The callback to call when everything is complete.
+	*  @param {*} obj The object to check as an additional completion dependency.
+	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	*/
+	var CombinedCallback = function(call, obj, prop, callProp)
+	{
+		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
+			call();
+		else
+			obj[callProp] = call;
 	};
 
-}(window));
+	/**
+	*  Creates a CombinedCallback for use.
+	*  
+	*  @method create
+	*  @static
+	*  @param {function} call The callback to call when everything is complete.
+	*  @param {*} obj The object to check as an additional completion dependency.
+	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	*/
+	CombinedCallback.create = function(call, obj, prop, callProp)
+	{
+		return CombinedCallback.bind(this, call, obj, prop, callProp);
+	};
+
+	namespace('springroll').CombinedCallback = CombinedCallback;
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function(undefined) {
+
+	var Application;
+
+	/**
+	*  A class for delaying a call through the Application, instead of relying on setInterval() or
+	*  setTimeout().
+	*
+	*  @class DelayedCall
+	*  @constructor
+	*  @param {function} callback The function to call when the delay has completed.
+	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
+	*  @param {Object|Boolean} [options=false] The options to use or repeat value
+	*  @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
+	*                                  completed.
+	*  @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
+	*                                     milliseconds for the delay.
+	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
+	*                                     milliseconds for the delay.
+	*/
+	var DelayedCall = function(callback, delay, options, autoDestroy, useFrames)
+	{
+		if (!Application)
+		{
+			Application = include('springroll.Application');
+		}
+
+		// @deprecate the options as repeat param
+		if (typeof options === "boolean")
+		{
+			options = {
+				repeat: !!options,
+				autoDestroy: autoDestroy === undefined ? true : !!autoDestroy,
+				useFrames: !!useFrames
+			};
+		}
+
+		// Set the default options
+		options = Object.merge({
+			repeat: false,
+			autoDestroy: true,
+			useFrames: false
+		}, options || {});
+
+		
+		/**
+		*  The function to call when the delay is completed.
+		*  @private
+		*  @property {function} _callback
+		*/
+		this._callback = callback;
+
+		/**
+		*  The delay time, in milliseconds.
+		*  @private
+		*  @property {int} _delay
+		*/
+		this._delay = delay;
+
+		/**
+		*  The timer counting down from _delay, in milliseconds.
+		*  @private
+		*  @property {int} _timer
+		*/
+		this._timer = delay;
+
+		/**
+		*  If the DelayedCall should repeat itself automatically.
+		*  @private
+		*  @property {Boolean} _repeat
+		*  @default false
+		*/
+		this._repeat = options.repeat;
+
+		/**
+		*  If the DelayedCall should destroy itself after completing
+		*  @private
+		*  @property {Boolean} _autoDestroy
+		*  @default true
+		*/
+		this._autoDestroy = options.autoDestroy;
+		
+		/**
+		*  If the DelayedCall should use frames instead of milliseconds for the delay.
+		*  @private
+		*  @property {Boolean} _useFrames
+		*  @default false
+		*/
+		this._useFrames = options.useFrames;
+
+		/**
+		*  If the DelayedCall is currently paused (not stopped).
+		*  @private
+		*  @property {Boolean} _paused
+		*/
+		this._paused = false;
+
+		//save a bound version of the update function
+		this._update = this._update.bind(this);
+
+		//start the delay
+		Application.instance.on("update", this._update);
+	};
+
+	var p = DelayedCall.prototype;
+
+	/**
+	*  The callback supplied to the Application for an update each frame.
+	*  @private
+	*  @method _update
+	*  @param {int} elapsed The time elapsed since the previous frame.
+	*/
+	p._update = function(elapsed)
+	{
+		if(!this._callback)
+		{
+			this.destroy();
+			return;
+		}
+
+		this._timer -= this._useFrames ? 1 : elapsed;
+		if(this._timer <= 0)
+		{
+			this._callback();
+			if(this._repeat)
+				this._timer += this._delay;
+			else if(this._autoDestroy)
+				this.destroy();
+			else
+				Application.instance.off("update", this._update);
+		}
+	};
+
+	/**
+	*  Restarts the DelayedCall, whether it is running or not.
+	*  @public
+	*  @method restart
+	*/
+	p.restart = function()
+	{
+		if(!this._callback) return;
+		var app = Application.instance;
+		if(!app.has("update", this._update))
+			app.on("update", this._update);
+		this._timer = this._delay;
+		this._paused = false;
+	};
+
+	/**
+	*  Stops the DelayedCall, without destroying it.
+	*  @public
+	*  @method stop
+	*/
+	p.stop = function()
+	{
+		Application.instance.off("update", this._update);
+		this._paused = false;
+	};
+
+	/**
+	*  If the DelayedCall is paused or not.
+	*  @public
+	*  @property {Boolean} paused
+	*/
+	Object.defineProperty(p, "paused", {
+		get: function() { return this._paused; },
+		set: function(value)
+		{
+			if(!this._callback) return;
+			var app = Application.instance;
+			if(this._paused && !value)
+			{
+				this._paused = false;
+				if(!app.has("update", this._update))
+					app.on("update", this._update);
+			}
+			else if(value)
+			{
+				if(app.has("update", this._update))
+				{
+					this._paused = true;
+					app.off("update", this._update);
+				}
+			}
+		}
+	});
+
+	/**
+	*  Stops and cleans up the DelayedCall. Do not use it after calling
+	*  destroy().
+	*  @public
+	*  @method destroy
+	*/
+	p.destroy = function()
+	{
+		Application.instance.off("update", this._update);
+		this._callback = null;
+	};
+
+	namespace('springroll').DelayedCall = DelayedCall;
+}());
 /**
  * @module Core
  * @namespace window
@@ -262,132 +1015,6 @@
 	namespace('springroll').async = async;
 
 }());
-/**
- * @module Core
- * @namespace window
- */
-(function(Object, undefined){
-
-	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
-
-	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
-		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
-		var obj2 = { id : 'bar', value : 200 };
-		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
-	Object.merge = function(target, source)
-	{
-		if (typeof target !== 'object')
-		{
-			target = {};
-		}
-		
-		for (var property in source)
-		{
-			if (source.hasOwnProperty(property))
-			{
-				var sourceProperty = source[property];
-				
-				if (typeof sourceProperty === 'object' && Object.isPlain(sourceProperty))
-				{
-					target[property] = Object.merge(target[property], sourceProperty);
-					continue;
-				}
-				target[property] = sourceProperty;
-			}
-		}
-		
-		for (var i = 2, l = arguments.length; i < l; i++)
-		{
-			Object.merge(target, arguments[i]);
-		}
-		return target;
-	};
-
-	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
-	Object.isPlain = function(obj)
-	{
-		var key;
-
-		// Must be an Object.
-		// Because of IE, we also have to check the presence of the constructor property.
-		// Make sure that DOM nodes and window objects don't pass through, as well
-		if (!obj || typeof obj !== "object" || obj.nodeType || obj === window)
-		{
-			return false;
-		}
-
-		try {
-			// Not own constructor property must be Object
-			if ( obj.constructor &&
-				!hasOwn.call(obj, "constructor") &&
-				!hasOwn.call(obj.constructor.prototype, "isPrototypeOf") ) {
-				return false;
-			}
-		}
-		catch (e)
-		{
-			// IE8,9 Will throw exceptions on certain host objects #9897
-			return false;
-		}
-
-		// Support: IE<9
-		// Handle iteration over inherited properties before own properties.
-		if (support.ownLast)
-		{
-			for (key in obj)
-			{
-				return hasOwn.call(obj, key);
-			}
-		}
-
-		// Own properties are enumerated firstly, so to speed up,
-		// if last one is own, then all properties are own.
-		for (key in obj) {}
-
-		return key === undefined || hasOwn.call(obj, key);
-	};
-	
-	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
-	if(!Object.prototype.clone)
-	{
-		Object.defineProperty(Object.prototype, 'clone',
-		{
-			enumerable: false,
-			writable: true,
-			value: function()
-			{
-				var rtn = {};
-				var thisObj = this;
-				for(var key in thisObj)
-				{
-					rtn[key] = thisObj[key];
-				}
-				return rtn;
-			}
-		});
-	}
-
-}(Object));
 /**
  * @module Core
  * @namespace springroll
@@ -643,6 +1270,159 @@
 	namespace('springroll').Enum = Enum;
 }());
 /**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined){
+
+	/**
+	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	*
+	*  @class SavedData
+	*/
+	var SavedData = {},
+
+	/** A constant to determine if we can use localStorage and sessionStorage */
+	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
+
+	/** A constant for cookie fallback for SavedData.clear() */
+	ERASE_COOKIE = -1;
+
+	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
+	if(WEB_STORAGE_SUPPORT)
+	{
+		try
+		{
+			localStorage.setItem("LS_TEST", "test");
+			localStorage.removeItem("LS_TEST");
+		}
+		catch(e)
+		{
+			WEB_STORAGE_SUPPORT = false;
+		}
+	}
+
+	/**
+	*  Remove a saved variable by name.
+	*  @method remove
+	*  @static
+	*  @param {String} name The name of the value to remove
+	*/
+	SavedData.remove = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			localStorage.removeItem(name);
+			sessionStorage.removeItem(name);
+		}
+		else
+			SavedData.write(name,"",ERASE_COOKIE);
+	};
+
+	/**
+	*  Save a variable.
+	*  @method write
+	*  @static
+	*  @param {String} name The name of the value to save
+	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
+	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	*/
+	SavedData.write = function(name, value, tempOnly)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			if(tempOnly)
+				sessionStorage.setItem(name, JSON.stringify(value));
+			else
+				localStorage.setItem(name, JSON.stringify(value));
+		}
+		else
+		{
+			var expires;
+			if (tempOnly)
+			{
+				if(tempOnly !== ERASE_COOKIE)
+					expires = "";//remove when browser is closed
+				else
+					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
+			}
+			else
+				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
+
+			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
+		}
+	};
+
+	/**
+	*  Read the value of a saved variable
+	*  @method read
+	*  @static
+	*  @param {String} name The name of the variable
+	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	*/
+	SavedData.read = function(name)
+	{
+		if(WEB_STORAGE_SUPPORT)
+		{
+			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
+			if(value)
+				return JSON.parse(value, SavedData.reviver);
+			else
+				return null;
+		}
+		else
+		{
+			var nameEQ = name + "=",
+				ca = document.cookie.split(';'),
+				i = 0, c, len;
+
+			for(i=0, len=ca.length; i<len;i++)
+			{
+				c = ca[i];
+				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
+			}
+			return null;
+		}
+	};
+
+	/**
+	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
+	 * In our case, this will check if the object has a specially-named property (`__classname`).
+	 * If it does, we will attempt to construct a new instance of that class, rather than using a
+	 * plain old Object. Note that this recurses through the object.
+	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+	 * @param  {String} key   each key name
+	 * @param  {Object} value Object that we wish to restore
+	 * @return {Object}       The object that was parsed - either cast to a class, or not
+	 */
+	SavedData.reviver = function(key, value)
+	{
+		if(value && typeof value.__classname == "string")
+		{
+			var _class = include(value.__classname, false);
+			if(_class)
+			{
+				var rtn = new _class();
+				//if we may call fromJSON, do so
+				if(rtn.fromJSON)
+				{
+					rtn.fromJSON(value);
+					//return the cast Object
+					return rtn;
+				}
+			}
+		}
+		//return the object we were passed in
+		return value;
+	};
+
+	// Assign to the global space
+	namespace('springroll').SavedData = SavedData;
+
+}());
+
+/**
  * @module Core
  * @namespace springroll
  */
@@ -688,6 +1468,58 @@
 	namespace('springroll').TimeUtils = TimeUtils;
 	
 }(window));
+(function(){
+	
+	/**
+	*  A class for generating weighted random values. Input objects are dictionary objects
+	*  where the keys are the strings to be picked from, and the values are the corresponding
+	*  odds as integers. For example:
+	*
+	*      {
+	*          itemWith25PercentChance: 2,
+	*          itemWith50PercentChance: 4,
+	*          otherItemWith25PercentChance: 2
+	*      }
+	*
+	*  @class WeightedRandom
+	*  @constructor
+	*  @param {Object} object The configuration object for this weighted value generator.
+	*/
+	var WeightedRandom = function(object)
+	{
+		this.max = -1;
+		this.options = [];
+		var total = 0;
+		for(var key in object)
+		{
+			total += object[key];
+			this.options.push({key:key, value:total});
+			this.max += object[key];
+		}
+	};
+
+	var p = WeightedRandom.prototype = {};
+	
+	/**
+	 * Picks an item at random.
+	 * @method random
+	 * @return {String} The randomly chosen value.
+	 */
+	p.random = function()
+	{
+		var rand = Math.randomInt(0, this.max);
+		for(var i = 0, options = this.options, length = options.length; i < length; ++i)
+		{
+			if(rand < options[i].value)
+				return options[i].key;
+		}
+		//if we are somehow here, then return null
+		return null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').WeightedRandom = WeightedRandom;
+}());
 (function()
 {
 	// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -1015,7 +1847,7 @@
 		object.off = p.off;
 		object.has = p.has;
 		object.once = p.once;
-		if(callConstructor)
+		if (callConstructor)
 			EventDispatcher.call(object);
 	};
 
@@ -1023,7 +1855,6 @@
 	namespace('springroll').EventDispatcher = EventDispatcher;
 
 }());
-
 /**
 *  @module Core
 *  @namespace springroll
@@ -1269,12 +2100,15 @@
 		var options = this._options;
 		var app = this._app;
 
+		// Create the options overrides
+		options = Object.merge({}, defaultOptions, options);
+
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
-		var query = options.useQueryString ? getQueryString() : {};
-
-		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options, query);
+		if (options.useQueryString)
+		{
+			Object.merge(options, getQueryString());
+		}
 
 		// Create getter and setters for all properties
 		// this is so we can dispatch events when the property changes
@@ -1286,22 +2120,13 @@
 		// Cannot change these properties after setup
 		this.readOnly(
 			'name',
-			'resizeElement',
 			'useQueryString',
 			'canvasId',
 			'display',
 			'displayOptions',
 			'uniformResize'
 		);
-
-		// Convert these to DOM elements
-		this.asDOMElement('resizeElement');
-
-		this.respond('updateTween', function()
-		{
-			return Tween ? app.has('update', Tween.tick) : false;
-		});
-
+		
 		this.on('updateTween', function(value)
 		{
 			if (Tween)
@@ -1412,20 +2237,6 @@
 		fps: 60,
 
 		/**
-		 * The element to resize the canvas to fit
-		 * @property {DOMElement|String} resizeElement
-		 * @default 'frame'
-		 */
-		resizeElement: 'frame',
-
-		/**
-		 * Whether to resize the displays to the original aspect ratio
-		 * @property {Boolean} uniformResize
-		 * @default true
-		 */
-		uniformResize: true,
-
-		/**
 		 * Use the query string parameters for options overrides
 		 * @property {Boolean} useQueryString
 		 * @default false
@@ -1467,24 +2278,6 @@
 		crossOrigin: false,
 
 		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum height relative to the original width. This
-		 * allows for "title-safe" responsiveness. Must be greater
-		 * than the original height of the canvas.
-		 * @property {int} maxHeight
-		 */
-		maxHeight: 0,
-
-		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum width relative to the original height. This
-		 * allows for "title-safe" responsiveness. Must be greater
-		 * than the original width of the canvas.
-		 * @property {int} maxWidth
-		 */
-		maxWidth: 0,
-
-		/**
 		 * The name of the application
 		 * @property {String} name
 		 * @default ''
@@ -1494,6 +2287,72 @@
 
 	// Assign to namespace
 	namespace('springroll').ApplicationOptions = ApplicationOptions;
+
+}());
+/**
+ *  @module Core
+ *  @namespace springroll
+ */
+(function()
+{
+	var Application;
+
+	/**
+	* Responsible for creating properties, methods to 
+	* the SpringRoll Application when it's created.
+	* @class ApplicationPlugin
+	*/
+	var ApplicationPlugin = function(priority)
+	{
+		if (!Application)
+		{
+			Application = include('springroll.Application');
+		}
+		
+		/**
+		 * The priority of the plugin. Higher numbers handled first. This should be set
+		 * in the constructor of the extending ApplicationPlugin.
+		 * @property {int} priority
+		 * @default 0
+		 */
+		this.priority = priority || 0;
+
+		/**
+		 * When the application is being initialized. This function 
+		 * is bound to the application. This should be overridden.
+		 * @property {function} setup
+		 * @protected
+		 */
+		this.setup = function(){};
+
+		/**
+		 * The function to call right before the app is initailized. 
+		 * This function is bound to the application. `preload` takes
+		 * a single parameter which is a call back to call when
+		 * the asyncronous event is completed.
+		 * @property {function} preload 
+		 * @protected
+		 */
+		this.preload = null;
+
+		/**
+		 * When the application is being destroyed. This function 
+		 * is bound to the application. This should be overridden.
+		 * @property {function} teardown
+		 * @protected
+		 */
+		this.teardown = function(){};
+
+		// Add the plugin to application
+		Application._plugins.push(this);
+		Application._plugins.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
+	};
+
+	// Assign to namespace
+	namespace('springroll').ApplicationPlugin = ApplicationPlugin;
 
 }());
 /**
@@ -1512,14 +2371,14 @@
 	*  Creates a new application, for example (HappyCamel extends Application)
 	*  manages displays, update loop controlling, handles resizing
 	*
-	*	var app = new Application({fps:60, resizeElement:window});
+	*	var app = new Application();
 	*
 	*  @class Application
 	*  @extend EventDispatcher
 	*  @constructor
-	*  @param {Object} [options] The options for creating the application, 
+	*  @param {Object} [options] The options for creating the application,
 	* 		see `springroll.ApplicationOptions` for the specific options
-	*		that can be overridden and set. 
+	*		that can be overridden and set.
 	*/
 	var Application = function(options)
 	{
@@ -1549,7 +2408,8 @@
 		this.display = null;
 
 		// Reset the displays
-		_displays = {};
+		_displaysMap = {};
+		_displays = [];
 
 		// Add the _tick bind
 		_tickCallback = this._tick.bind(this);
@@ -1642,64 +2502,19 @@
 	_msPerFrame = 0,
 
 	/**
-	*  Dom element (or the window) to attach resize listeners and read the size from
-	*  @property {DOMElement|Window|null} _resizeElement
-	*  @private
-	*  @default null
-	*/
-	_resizeElement = null,
-
-	/**
-	*  The maximum width of the primary display, compared to the original height.
-	*  @property {Number} _maxWidth
-	*  @private
-	*/
-	_maxWidth = 0,
-	
-	/**
-	*  The maximum height of the primary display, compared to the original width.
-	*  @property {Number} _maxHeight
-	*  @private
-	*/
-	_maxHeight = 0,
-	
-	/**
-	*  The original width of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalWidth
-	*  @private
-	*/
-	_originalWidth = 0,
-	
-	/**
-	*  The original height of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalHeight
-	*  @private
-	*/
-	_originalHeight = 0,
-
-	/**
-	 *  The aspect ratio of the primary display, as width / height.
-	 *  @property {Number} _aspectRatio
-	 *  @private
-	 */
-	_aspectRatio = 0,
-
-	/**
-	 *  Rendering plugins, in a dictionary by canvas id
-	 *  @property {dictionary} _displays
+	 *  The collection of displays
+	 *  @property {Array} _displays
 	 *  @private
 	 */
 	_displays = null,
 
 	/**
-	 *  A helper object to avoid object creation each resize event.
-	 *  @property {Object} _resizeHelper
+	 *  The displays by canvas id
+	 *  @property {Object} _displaysMap
 	 *  @private
 	 */
-	_resizeHelper = {
-		width: 0,
-		height: 0
-	};
+	_displaysMap = null;
+
 
 	/**
 	 *  Fired when initialization of the application is ready
@@ -1723,16 +2538,21 @@
 	 */
 
 	/**
-	 *  Fired when a resize is called
-	 *  @event resize
-	 *  @param {int} width The width of the resize element
-	 *  @param {int} height The height of the resize element
-	 */
-
-	/**
 	 *  Fired when the pause state is toggled
 	 *  @event pause
 	 *  @param {boolean} paused If the application is now paused
+	 */
+
+	/**
+	 *  When a display is added.
+	 *  @event displayAdded
+	 *  @param {springroll.AbstractDisplay} [display] The current display being added
+	 */
+	
+	/**
+	 *  When a display is removed.
+	 *  @event displayRemoved
+	 *  @param {string} [displayId] The display alias
 	 */
 
 	/**
@@ -1786,33 +2606,13 @@
 		{
 			if (typeof value != "number") return;
 			_msPerFrame = (1000 / value) | 0;
-		}); 
-
-		if (options.resizeElement)
-		{
-			_resizeElement = options.resizeElement;
-			this.triggerResize = this.triggerResize.bind(this);
-			window.addEventListener("resize", this.triggerResize);
-		}
-		
-		//set up setters/getters in options for certain properties
-		_maxWidth = options.maxWidth;
-		options.on('maxWidth', function(value)
-		{
-			_maxWidth = value;
-		});
-
-		_maxHeight = options.maxHeight;
-		options.on('maxHeight', function(value)
-		{
-			_maxHeight = value;
 		});
 		
 		//add the initial display if specified
 		if (options.canvasId && options.display)
 		{
 			this.addDisplay(
-				options.canvasId, 
+				options.canvasId,
 				options.display,
 				options.displayOptions
 			);
@@ -1846,13 +2646,10 @@
 		// Error with the async startup
 		if (err) throw err;
 
-		//do an initial resize to make sure everything is sized properly
-		this.triggerResize();
+		this.trigger('beforeInit');
 
 		//start update loop
 		this.paused = false;
-
-		this.trigger('beforeInit');
 	
 		// Dispatch the init event
 		this.trigger('init');
@@ -1881,7 +2678,7 @@
 		set: function(enabled)
 		{
 			_enabled = enabled;
-			this.getDisplays(function(display)
+			_displays.forEach(function(display)
 			{
 				display.enabled = enabled;
 			});
@@ -1925,6 +2722,7 @@
 			{
 				if (_tickId == -1 && _tickCallback)
 				{
+					_lastFrameTime = TimeUtils.now();
 					_tickId = _useRAF ?
 						requestAnimFrame(_tickCallback) :
 						setTargetedTimeout(_tickCallback);
@@ -1951,74 +2749,6 @@
 	};
 
 	/**
-	 *  Fire a resize event with the current width and height of the display
-	 *  @method triggerResize
-	 */
-	p.triggerResize = function()
-	{
-		if (!_resizeElement) return;
-
-		// window uses innerWidth, DOM elements clientWidth
-		_resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
-		_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
-
-		this.calculateDisplaySize(_resizeHelper);
-
-		// round up, as canvases require integer sizes
-		// and canvas should be slightly larger to avoid
-		// a hairline around outside of the canvas
-		_resizeHelper.width = Math.ceil(_resizeHelper.width);
-		_resizeHelper.height = Math.ceil(_resizeHelper.height);
-
-		//resize the displays
-		var key;
-		for (key in _displays)
-		{
-			_displays[key].resize(_resizeHelper.width, _resizeHelper.height);
-		}
-		//send out the resize event
-		this.trigger('resize', _resizeHelper.width, _resizeHelper.height);
-
-		//redraw all displays
-		for (key in _displays)
-		{
-			_displays[key].render(0, true); // force renderer
-		}
-	};
-
-	/**
-	 *  Calculates the resizing of displays. By default, this limits the new size
-	 *  to the initial aspect ratio of the primary display. Override this function
-	 *  if you need variable aspect ratios.
-	 *  @method calculateDisplaySize
-	 *  @protected
-	 *  @param {Object} size A size object containing the width and height of the resized container.
-	 *                       The size parameter is also the output of the function, so the size
-	 *                       properties are edited in place.
-	 *  @param {int} size.width The width of the resized container.
-	 *  @param {int} size.height The height of the resized container.
-	 */
-	p.calculateDisplaySize = function(size)
-	{
-		if (!_originalHeight || !this.options.uniformResize) return;
-
-		var maxAspectRatio = _maxWidth / _originalHeight,
-			minAspectRatio = _originalWidth / _maxHeight,
-			currentAspect = size.width / size.height;
-
-		if (currentAspect < minAspectRatio)
-		{
-			//limit to the narrower width
-			size.height = size.width / minAspectRatio;
-		}
-		else if (currentAspect > maxAspectRatio)
-		{
-			//limit to the shorter height
-			size.width = size.height * maxAspectRatio;
-		}
-	};
-
-	/**
 	 *  Add a display. If this is the first display added, then it will be stored as this.display.
 	 *  @method addDisplay
 	 *  @param {String} id The id of the canvas element, this will be used to grab the Display later
@@ -2031,25 +2761,40 @@
 	 */
 	p.addDisplay = function(id, displayConstructor, options)
 	{
-		if (_displays[id])
+		if (_displaysMap[id])
 		{
 			throw "Display exists with id '" + id + "'";
 		}
-		var display = _displays[id] = new displayConstructor(id, options);
+		// Creat the display
+		var display = new displayConstructor(id, options);
+
+		// Add it to the collections
+		_displaysMap[id] = display;
+		_displays.push(display);
+		
+		// Inherit the enabled state from the application
+		display.enabled = _enabled;
+
 		if (!this.display)
 		{
 			this.display = display;
-			_originalWidth = display.width;
-			_originalHeight = display.height;
-			if(!_maxWidth)
-				_maxWidth = _originalWidth;
-			if(!_maxHeight)
-				_maxHeight = _originalHeight;
 		}
-		// Inherit the enabled state from the application
-		display.enabled = _enabled;
+		this.trigger('displayAdded', display);
 		return display;
 	};
+
+	/**
+	 *  Get all the displays
+	 *  @property {Array} displays
+	 *  @readOnly
+	 */
+	Object.defineProperty(p, 'displays',
+	{
+		get: function()
+		{
+			return _displays;
+		}
+	});
 
 	/**
 	 *  Gets a specific renderer by the canvas id.
@@ -2059,12 +2804,13 @@
 	 */
 	p.getDisplay = function(id)
 	{
-		return _displays[id];
+		return _displaysMap[id];
 	};
 
 	/**
 	 *  Gets a specific renderer by the canvas id.
 	 *  @method getDisplays
+	 *  @deprecated Use the displays property on the application instead.
 	 *  @public
 	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
 	 *                           display
@@ -2072,16 +2818,11 @@
 	 */
 	p.getDisplays = function(each)
 	{
-		var output = [];
-		for (var key in _displays)
+		if (typeof each == "function")
 		{
-			output.push(_displays[key]);
-			if (typeof each === "function")
-			{
-				each.call(this, _displays[key]);
-			}
+			_displays.forEach(each);
 		}
-		return output;
+		return _displays;
 	};
 
 	/**
@@ -2091,11 +2832,13 @@
 	 */
 	p.removeDisplay = function(id)
 	{
-		var display = _displays[id];
+		var display = _displaysMap[id];
 		if (display)
 		{
+			_displays.splice(_displays.indexOf(display), 1);
 			display.destroy();
-			delete _displays[id];
+			delete _displaysMap[id];
+			this.trigger('displayRemoved', id);
 		}
 	};
 
@@ -2120,9 +2863,13 @@
 		this.trigger('update', elapsed);
 
 		//then update all displays
-		for (var key in _displays)
+		//displays may be null if a tick happens while we are in the process of destroying
+		if (_displays)
 		{
-			_displays[key].render(elapsed);
+			for (var i = 0; i < _displays.length; i++)
+			{
+				_displays[i].render(elapsed);
+			}
 		}
 
 		//request the next tick
@@ -2141,14 +2888,11 @@
 	 */
 	p.destroy = function()
 	{
+		// Only destroy the application once
+		if (this.destroyed) return;
+
 		this.paused = true;
 		this.trigger('destroy');
-
-		for (var key in _displays)
-		{
-			_displays[key].destroy();
-		}
-		_displays = null;
 
 		// Destroy in the reverse priority order
 		var plugins = Application._plugins.slice().reverse();
@@ -2158,14 +2902,15 @@
 			plugin.teardown.call(_instance);
 		});
 
-		if (_resizeElement)
+		_displays.forEach(function(display)
 		{
-			window.removeEventListener("resize", this.triggerResize);
-		}
+			display.destroy();
+		});
+		_displays = null;
+		_displaysMap = null;
 
 		_instance =
-		_tickCallback =
-		_resizeElement = null;
+		_tickCallback = null;
 
 		this.display = null;
 		this.options.destroy();
@@ -2186,87 +2931,6 @@
 
 	// Add to the name space
 	namespace('springroll').Application = Application;
-
-}());
-
-/**
- *  @module Core
- *  @namespace springroll
- */
-(function()
-{
-	var Application = include('springroll.Application');
-
-	/**
-	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
-	* @class ApplicationPlugin
-	*/
-	var ApplicationPlugin = function()
-	{
-		/**
-		 * The priority of the plugin. Higher numbers handled first. This should be set
-		 * in the constructor of the extending ApplicationPlugin.
-		 * @property {int} priority
-		 */
-		this.priority = 0;
-	};
-
-	// reference to prototype
-	var p = ApplicationPlugin.prototype;
-
-	/**
-	 * When the application is being initialized. This function is bound to the application.
-	 * @method setup
-	 */
-	p.setup = function()
-	{
-		// implementation specific
-	};
-
-	/**
-	 * The function to call right before the app is initailized. This function is bound to the application.
-	 * @method preload 
-	 * @param {function} done The done function, takes one argument for an error.
-	 */
-	p.preload = null;
-
-	/**
-	 * When the application is being destroyed. This function is bound to the application.
-	 * @method teardown
-	 */
-	p.teardown = function()
-	{
-		// implementation specific
-	};
-
-	/**
-	 * Register the plugin with the Application
-	 * @method register
-	 * @static
-	 */
-	ApplicationPlugin.register = function(func)
-	{
-		var plugin = new func();
-		Application._plugins.push(plugin);
-
-		// Sort the plugins
-		Application._plugins.sort(prioritySort);
-	};
-
-	/**
-	 * Comparator function for sorting the plugins by priority
-	 * @method prioritySort
-	 * @private
-	 * @param {springroll.ApplicationPlugin} a First plugin
-	 * @param {springroll.ApplicationPlugin} b Second plugin
-	 */
-	function prioritySort(a, b)
-	{
-		return b.priority - a.priority;
-	}
-
-	// Assign to namespace
-	namespace('springroll').ApplicationPlugin = ApplicationPlugin;
 
 }());
 /**
@@ -2309,7 +2973,7 @@
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
-		if (!_visibilityChange) return;
+		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
 		* The visibility toggle listener function
@@ -2356,6 +3020,8 @@
 		_visibilityChange = "webkitvisibilitychange";
 	}
 	
+	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
+	
 	/**
 	* If this object is enabled.
 	* @property {Function} enabled
@@ -2375,6 +3041,11 @@
 			global.removeEventListener("focus", this._onFocus);
 			global.removeEventListener("visibilitychange", this._onToggle);
 			doc.removeEventListener(_visibilityChange, this._onToggle, false);
+			if(isIE9)
+			{
+				doc.removeEventListener("focusin", this._onFocus);
+				doc.removeEventListener("focusout", this._onBlur);
+			}
 			
 			if(value)
 			{
@@ -2387,6 +3058,12 @@
 				global.addEventListener("blur", this._onBlur);
 				global.addEventListener("focus", this._onFocus);
 				global.addEventListener("visibilitychange", this._onToggle, false);
+				//IE9 is old and uses its own events
+				if(isIE9)
+				{
+					doc.addEventListener("focusin", this._onFocus);
+					doc.addEventListener("focusout", this._onBlur);
+				}
 			}
 		}
 	});
@@ -2416,9 +3093,7 @@
 */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var PageVisibility = include('springroll.PageVisibility');
 
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
@@ -2426,16 +3101,10 @@
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var PageVisibilityPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -2443,6 +3112,7 @@
 		 * @property {springroll.PageVisibility} _visibility
 		 * @private
 		 */
+		var PageVisibility = include('springroll.PageVisibility');
 		var visibility = this._visibility = new PageVisibility(
 			onVisible.bind(this),
 			onHidden.bind(this)
@@ -2485,208 +3155,381 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this._visibility.destroy();
+		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
 
-	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	/**
+	 * Class for filtering strings
+	 * @constructor
+	 * @class StringFilters
+	 */
+	var StringFilters = function()
+	{
+		/**
+		 * Dictionary of filters
+		 * @property {Array} _filters
+		 * @private
+		 */
+		this._filters = [];
+	};
+
+	// Reference to prototype
+	var p = StringFilters.prototype;
+
+	/**
+	 * Register a filter
+	 * @method add
+	 * @param {String|RegExp} replace The string or regex to replace
+	 * @param {String} replacement String to repalce with
+	 * @static
+	 */
+	p.add = function(replace, replacement)
+	{
+		if (!replace || (typeof replace != 'string' && replace instanceof RegExp === false))
+		{
+			if (true)
+				throw 'replace value must be a valid String or RegExp';
+			else
+				throw 'invalide replace value';
+		}
+		if (typeof replacement != 'string')
+		{
+			if (true)
+				throw 'replacement value must be astring';
+			else
+				throw 'invalid replacement value';
+		}
+		
+		if (this._filters)
+		{
+			for (var i = this._filters.length - 1; i >= 0; i--)
+			{
+				if (replace.toString() == this._filters[i].replace.toString())
+				{
+					if (true)
+						throw "Filter " + replace +
+						" already exists in this._filters array.";
+					else
+						throw "Filter already exists.";
+				}
+			}
+			this._filters.push(
+			{
+				replace: replace,
+				replacement: replacement
+			});
+		}
+	};
+
+	/**
+	 * Test a string against all registered filters
+	 * @method filter
+	 * @param {String} str The string to check
+	 * @static
+	 */
+	p.filter = function(str)
+	{
+		if (!this._filters)
+		{
+			return str;
+		}
+		for (var i = this._filters.length - 1; i >= 0; i--)
+		{
+			var replace = this._filters[i].replace;
+			var replacement = this._filters[i].replacement;
+			str = str.replace(replace, replacement);
+		}
+		return str;
+	};
+
+	/**
+	 * @method destroy
+	 * @static
+	 */
+	p.destroy = function()
+	{
+		this._filters = null;
+	};
+
+	//Assign to namespace
+	namespace('springroll').StringFilters = StringFilters;
+}());
+/**
+ * @module Core
+ * @namespace springroll
+ */
+(function()
+{
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
+	/**
+	 * Create an app plugin for String Filters, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class StringFiltersPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin(110);
+
+	// Init the animator
+	plugin.setup = function()
+	{
+		/**
+		 * The StringFilters instance
+		 * @property {springroll.StringFilters} filters
+		 */
+		var StringFilters = include('springroll.StringFilters');
+		this.filters = new StringFilters();
+	};
+
+	// Destroy the animator
+	plugin.teardown = function()
+	{
+		if (this.filters) this.filters.destroy();
+		this.filters = null;
+	};
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
-(function(undefined){
+ *	@module Core
+ *	@namespace springroll
+ */
+(function()
+{
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	
+	/**
+	 *	Create an app plugin for resizing application, all properties and methods documented
+	 *	in this class are mixed-in to the main Application
+	 *	@class ResizePlugin
+	 *	@extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin(100);
 
 	/**
-	*   The display provides the base properties for all custom display. A display
-	*   is a specialized view for the application. As the name suggests, this class
-	*   should not be instanciated directly.
-	*
-	*   @class AbstractDisplay
-	*	@constructor
-	*	@param {String} id The id of the canvas element on the page to draw to.
-	*	@param {Object} options The setup data for the display.
-	*   @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
+	*  Dom element (or the window) to attach resize listeners and read the size from
+	*  @property {DOMElement|Window|null} _resizeElement
+	*  @private
+	*  @default null
 	*/
-	var AbstractDisplay = function(id, options)
+	var _resizeElement = null;
+
+	/**
+	*  The maximum width of the primary display, compared to the original height.
+	*  @property {Number} _maxWidth
+	*  @private
+	*/
+	var _maxWidth = 0;
+	
+	/**
+	*  The maximum height of the primary display, compared to the original width.
+	*  @property {Number} _maxHeight
+	*  @private
+	*/
+	var _maxHeight = 0;
+	
+	/**
+	*  The original width of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalWidth
+	*  @private
+	*/
+	var _originalWidth = 0;
+	
+	/**
+	*  The original height of the primary display, used to calculate the aspect ratio.
+	*  @property {int} _originalHeight
+	*  @private
+	*/
+	var _originalHeight = 0;
+
+	/**
+	 *  A helper object to avoid object creation each resize event.
+	 *  @property {Object} _resizeHelper
+	 *  @private
+	 */
+	var _resizeHelper = {
+		width: 0,
+		height: 0
+	};
+
+	// Init the animator
+	plugin.setup = function()
 	{
-		options = options || {};
+		/**
+		 *  Fired when a resize is called
+		 *  @event resize
+		 *  @param {int} width The width of the resize element
+		 *  @param {int} height The height of the resize element
+		 */
+		
+		/**
+		 * If doing uniform resizing, optional parameter to add
+		 * a maximum width relative to the original height. This
+		 * allows for "title-safe" responsiveness. Must be greater
+		 * than the original width of the canvas.
+		 * @property {int} options.maxWidth
+		 */
+		this.options.add('maxWidth', 0);
 
 		/**
-		*  the canvas managed by this display
-		*  @property {DOMElement} canvas
-		*  @readOnly
-		*  @public
-		*/
-		this.canvas = document.getElementById(id);
+		 * If doing uniform resizing, optional parameter to add
+		 * a maximum height relative to the original width. This
+		 * allows for "title-safe" responsiveness. Must be greater
+		 * than the original height of the canvas.
+		 * @property {int} options.maxHeight
+		 */
+		this.options.add('maxHeight', 0);
 
 		/**
-		*  The DOM id for the canvas
-		*  @property {String} id
-		*  @readOnly
-		*  @public
-		*/
-		this.id = id;
+		 * Whether to resize the displays to the original aspect ratio
+		 * @property {Boolean} options.uniformResize
+		 * @default true
+		 */
+		this.options.add('uniformResize', true);
 
 		/**
-		*  Convenience method for getting the width of the canvas element
-		*  would be the same thing as canvas.width
-		*  @property {int} width
-		*  @readOnly
-		*  @public
-		*/
-		this.width = this.canvas.width;
+		 * The element to resize the canvas to fit
+		 * @property {DOMElement|String} options.resizeElement
+		 * @default 'frame'
+		 */
+		this.options.add('resizeElement', 'frame', true);
 
-		/**
-		*  Convenience method for getting the height of the canvas element
-		*  would be the same thing as canvas.height
-		*  @property {int} height
-		*  @readOnly
-		*  @public
-		*/
-		this.height = this.canvas.height;
-
-		/**
-		*  The main rendering context or the root display object or stage.
-		*  @property {mixed} stage
-		*  @readOnly
-		*  @public
-		*/
-		this.stage = null;
-
-		/**
-		*  If rendering is paused on this display only. Pausing all displays can be done
-		*  using Application.paused setter.
-		*  @property {Boolean} paused
-		*  @public
-		*/
-		this.paused = false;
-
-		/**
-		*  If input is enabled on the stage.
-		*  @property {Boolean} _enabled
-		*  @private
-		*/
-		this._enabled = false;
-
-		/**
-		*  If the display is visible.
-		*  @property {Boolean} _visible
-		*  @private
-		*/
-		this._visible = this.canvas.style.display != "none";
-
-		// prevent mouse down turning into text cursor
-		this.canvas.onmousedown = function(e)
+		this.options.on('maxWidth', function(value)
 		{
-			e.preventDefault();
+			_maxWidth = value;
+		});
+
+		this.options.on('maxHeight', function(value)
+		{
+			_maxHeight = value;
+		});
+
+		// Handle when a display is added, only do it once
+		// in order to get the main display
+		this.once('displayAdded', function(display)
+		{
+			_originalWidth = display.width;
+			_originalHeight = display.height;
+			if(!_maxWidth)
+				_maxWidth = _originalWidth;
+			if(!_maxHeight)
+				_maxHeight = _originalHeight;
+		});
+
+		/**
+		 *  Fire a resize event with the current width and height of the display
+		 *  @method triggerResize
+		 */
+		this.triggerResize = function()
+		{
+			if (!_resizeElement) return;
+
+			// window uses innerWidth, DOM elements clientWidth
+			_resizeHelper.width = (_resizeElement.innerWidth || _resizeElement.clientWidth) | 0;
+			_resizeHelper.height = (_resizeElement.innerHeight || _resizeElement.clientHeight) | 0;
+
+			this.calculateDisplaySize(_resizeHelper);
+
+			// round up, as canvases require integer sizes
+			// and canvas should be slightly larger to avoid
+			// a hairline around outside of the canvas
+			_resizeHelper.width = Math.ceil(_resizeHelper.width);
+			_resizeHelper.height = Math.ceil(_resizeHelper.height);
+
+			//resize the displays
+			this.displays.forEach(function(display)
+			{
+				display.resize(_resizeHelper.width, _resizeHelper.height);
+			});
+
+			//send out the resize event
+			this.trigger('resize', _resizeHelper.width, _resizeHelper.height);
+
+			//redraw all displays
+			this.displays.forEach(function(display)
+			{
+				display.render(0, true); // force renderer
+			});
 		};
 
 		/**
-		*  The Animator class to use when using this display. Other modules
-		*  uses this to determine what Animator to use, for instance states
-		*  uses Animator when playing transition animations.
-		*  @property {Animator} animator
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
-		this.animator = null;
-
-		/**
-		*  Some of the modules require a special display adapter to provide
-		*  common methods for managing display objects.
-		*  @property {DisplayAdapter} adapter
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
-		this.adapter = null;
-	};
-
-	var p = AbstractDisplay.prototype;
-
-	/**
-	*  If input is enabled on the stage for this display. The default is true.
-	*  Without a rendering library, this does not actually have an effect.
-	*  @property {Boolean} enabled
-	*  @public
-	*/
-	Object.defineProperty(p, "enabled", {
-		get: function(){ return this._enabled; },
-		set: function(value)
+		 *  Calculates the resizing of displays. By default, this limits the new size
+		 *  to the initial aspect ratio of the primary display. Override this function
+		 *  if you need variable aspect ratios.
+		 *  @method calculateDisplaySize
+		 *  @protected
+		 *  @param {Object} size A size object containing the width and height of the resized container.
+		 *                       The size parameter is also the output of the function, so the size
+		 *                       properties are edited in place.
+		 *  @param {int} size.width The width of the resized container.
+		 *  @param {int} size.height The height of the resized container.
+		 */
+		this.calculateDisplaySize = function(size)
 		{
-			this._enabled = value;
-		}
-	});
+			if (!_originalHeight || !this.options.uniformResize) return;
 
-	/**
-	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-	*  @property {Boolean} visible
-	*  @public
-	*/
-	Object.defineProperty(p, "visible", {
-		get: function(){ return this._visible; },
-		set: function(value)
+			var maxAspectRatio = _maxWidth / _originalHeight,
+				minAspectRatio = _originalWidth / _maxHeight,
+				currentAspect = size.width / size.height;
+
+			if (currentAspect < minAspectRatio)
+			{
+				//limit to the narrower width
+				size.height = size.width / minAspectRatio;
+			}
+			else if (currentAspect > maxAspectRatio)
+			{
+				//limit to the shorter height
+				size.width = size.height * maxAspectRatio;
+			}
+		};
+
+		// Do an initial resize to make sure everything is positioned correctly
+		this.once('beforeInit', this.triggerResize);
+	};
+
+	// Add common filteres interaction
+	plugin.preload = function(done)
+	{
+		var options = this.options;
+
+		// Convert to DOM element
+		options.asDOMElement('resizeElement');
+
+		if (options.resizeElement)
 		{
-			this._visible = value;
-			this.canvas.style.display = value ? "block" : "none";
+			_resizeElement = options.resizeElement;
+			this.triggerResize = this.triggerResize.bind(this);
+			window.addEventListener("resize", this.triggerResize);
 		}
-	});
-
-	/**
-	* Resizes the canvas. This is only called by the Application.
-	* @method resize
-	* @internal
-	* @param {int} width The width that the display should be
-	* @param {int} height The height that the display should be
-	*/
-	p.resize = function(width, height)
-	{
-		this.width = this.canvas.width = width;
-		this.height = this.canvas.height = height;
+		done();
 	};
 
-	/** 
-	* Updates the stage and draws it. This is only called by the Application. 
-	* This method does nothing if paused is true or visible is false.
-	* @method render
-	* @internal
-	* @param {int} elapsed The time elapsed since the previous frame.
-	* @param {Boolean} [force=false] For the re-render
-	*/
-	p.render = function(elapsed, force)
+	plugin.teardown = function()
 	{
-		// implement specific
-	};
-
-	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
-	*  The stage recursively removes all display objects here.
-	*  @method destroy
-	*  @internal
-	*/
-	p.destroy = function()
-	{
-		this.enabled = false;
-		this.animator = null;
-		this.adapter = null;
-		this.stage = null;
-		if (this.canvas.parentNode)
+		if (_resizeElement)
 		{
-			this.canvas.parentNode.removeChild(this.canvas);
+			window.removeEventListener("resize", this.triggerResize);
 		}
-		this.canvas.onmousedown = null;
-		this.canvas = null;
-	};
+		_resizeElement = null;
+		
+		_resizeHelper.width =
+		_resizeHelper.height = 
+		_originalWidth =
+		_originalHeight =
+		_maxHeight = 
+		_maxWidth = 0;
 
-	// Assign to the global namespace
-	namespace('springroll').AbstractDisplay = AbstractDisplay;
+	};
 
 }());
 /**
@@ -3003,6 +3846,487 @@
 (function()
 {
 	/**
+	 * Internal class for dealing with async load assets
+	 * @class MultiLoaderTask
+	 * @constructor
+	 * @param {String|Object} data The data properties
+	 * @param {String|Number} fallbackId The fallback id if none is set in data
+	 */
+	var MultiLoaderTask = function(data, fallbackId)
+	{
+		if (typeof data == "string")
+		{
+			data = { src:data };
+		}
+
+		/**
+		 * The source URL to load
+		 * @property {String} src
+		 */
+		this.src = data.src;
+
+		/**
+		 * Call when done with this load
+		 * @property {Function} complete
+		 */
+		this.complete = data.complete;
+
+		/**
+		 * Call on load progress
+		 * @property {Function} progress
+		 */
+		this.progress = data.progress;
+
+		/**
+		 * Load progress
+		 * @property {int} priority
+		 */
+		this.priority = data.priority;
+
+		/**
+		 * Optional data to attach to load
+		 * @property {*} data
+		 */
+		this.data = data.data;
+
+		/**
+		 * The task id
+		 * @property {String} id
+		 */
+		this.id = data.id || String(fallbackId);
+	};
+
+	// Reference to prototype
+	var p = MultiLoaderTask.prototype;
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		delete this.complete;
+		delete this.progress;
+	};
+
+	// Assign to namespace
+	namespace('springroll').MultiLoaderTask = MultiLoaderTask;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	var MultiLoaderTask = include('springroll.MultiLoaderTask'),
+		EventDispatcher = include('springroll.EventDispatcher');
+
+	/**
+	 * Class that represents a single multi load
+	 * @class MultiLoaderResult
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.Loader} loader Reference to the loader
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Function} complete Function call when done, returns results
+	 */
+	var MultiLoaderResult = function(loader, assets, complete)
+	{
+		EventDispatcher.call(this);
+
+		/**
+		 * Handler when completed with all tasks
+		 * @property {function} complete
+		 */
+		this.complete = complete;
+
+		/**
+		 * Reference to the loader
+		 * @property {springroll.Loader} loader
+		 */
+		this.loader = loader;
+
+		/**
+		 * How to display the results, either as single (0), map (1) or list (2)
+		 * @property {int} mode
+		 * @default 1
+		 */
+		this.mode = MAP_MODE;
+
+		/**
+		 * The list of tasks to load
+		 * @property {Array} tasks
+		 */
+		this.tasks = [];
+
+		/**
+		 * The results to return when we're done
+		 * @property {springroll.LoaderResult|Array|Object} results
+		 */
+		this.results = null;
+
+		// Collection of tasks to run
+		this.tasks = [];
+
+		// Update the results mode and tasks
+		this.mode = this.addAssets(assets);
+
+		// Set defaults for results
+		switch(this.mode)
+		{
+			case MAP_MODE : this.results = {}; break;
+			case LIST_MODE : this.results = []; break;
+		}
+	};
+
+	// Reference to prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(MultiLoaderResult, EventDispatcher);
+
+	/**
+	 * The result is a single LoaderResult
+	 * @property {int} SINGLE_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 0
+	 */
+	var SINGLE_MODE = 0;
+
+	/**
+	 * The result is a map of LoaderResult objects
+	 * @property {int} MAP_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 1
+	 */
+	var MAP_MODE = 1;
+
+	/**
+	 * The result is an array of LoaderResult objects
+	 * @property {int} LIST_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 2
+	 */
+	var LIST_MODE = 2;
+
+	/**
+	 * Create a list of tasks from assets
+	 * @method  addAssets
+	 * @protected
+	 * @param  {Object|Array} assets The assets to load
+	 */
+	p.addAssets = function(assets)
+	{
+		if (this.destroyed)
+		{
+			throw "load is done";
+		}
+
+		var mode = MAP_MODE;
+		if (isObject(assets) && assets.src)
+		{
+			mode = SINGLE_MODE;
+			tasks.push(new MultiLoaderTask(asset));
+		}
+		else
+		{
+			if (Array.isArray(assets))
+			{
+				assets.forEach(function(asset, id)
+				{
+					// If we don't have the id to return
+					// a mapped result, we'll fallback to array results
+					if ((isObject(asset) && !asset.id) || isString(asset))
+					{
+						mode = LIST_MODE;
+					}
+					this.addAsset(asset, id);
+				}
+				.bind(this));
+			}
+			else if (isObject(assets))
+			{
+				for(var id in assets)
+				{
+					this.addAsset(assets[id], id);
+				}
+			}
+			else
+			{
+				throw "asset type unsupported";
+			}
+		}
+		return mode;
+	};
+
+	/**
+	 * Load a single asset
+	 * @method addAsset
+	 * @param {Object|String} asset The asset to load
+	 */
+	p.addAsset = function(asset, id)
+	{
+		// async function
+		if (isFunction(asset))
+		{
+			this.tasks.push(asset);
+			asset(this.taskDone.bind(this, asset));
+		}
+		else
+		{
+			var task = new MultiLoaderTask(asset, id);
+			this.tasks.push(task);
+
+			// start loading asset
+			this.loader.load(
+				task.src,
+				this.taskDone.bind(this, task),
+				task.progress,
+				task.priority,
+				task.data
+			);
+		}
+	};
+
+	/**
+	 * Handler when a task has completed
+	 * @method  taskDone
+	 * @protected
+	 * @param  {[type]} task   [description]
+	 * @param  {[type]} result [description]
+	 * @return {[type]}        [description]
+	 */
+	p.taskDone = function(task, result)
+	{
+		// Ignore if we're destroyed
+		if (this.destroyed) return;
+
+		var index = this.tasks.indexOf(task);
+
+		// Task was already removed, because a clear
+		if (index === -1)
+		{
+			return;
+		}
+
+		// Remove the completed task
+		this.tasks.splice(index, 1);
+
+		// Assets
+		var assets = this._getAssets();
+
+		// Handle the file load tasks
+		if (task instanceof MultiLoaderTask)
+		{
+			// Handle the result
+			switch(this.mode)
+			{
+				case SINGLE_MODE: this.results = result; break;
+				case LIST_MODE: this.results.push(result); break;
+				case MAP_MODE: this.results[task.id] = result; break;
+			}
+
+			// If the task has a complete method
+			// we'll make sure that gets called
+			// with a reference to the tasks
+			// can potentially add more
+			if (task.complete)
+			{
+				task.complete(result, assets);
+			}
+
+			this.trigger('taskDone', result, assets);
+
+			// Clean up the task
+			task.destroy();
+		}
+
+		// Add new assets
+		this.addAssets(assets);
+
+		// All tasks finished!
+		if (!this.tasks.length)
+		{
+			this.complete(this.results);
+			this.trigger('completed');
+		}
+	};
+
+	/**
+	 * Get an empty assets collection
+	 * @method _getAssets
+	 * @return {Array|Object|null} Empty container for assets 
+	 */
+	p._getAssets = function()
+	{
+		switch(this.mode)
+		{
+			case SINGLE_MODE: return null;
+			case LIST_MODE: return [];
+			case MAP_MODE: return {};
+		}
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.trigger('destroyed');
+		this.tasks.forEach(function(task)
+		{
+			task.destroy();
+		});
+		this.results = null;
+		this.complete = null;
+		this.tasks = null;
+		s.destroy.call(this);
+	};
+
+	/**
+	 * Check if an object is an Object type
+	 * @method isObject
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an Object
+	 */
+	function isObject(obj)
+	{
+		return typeof obj == "object";
+	}
+
+	/**
+	 * Check if an object is an String type
+	 * @method isString
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an String
+	 */
+	function isString(obj)
+	{
+		return typeof obj == "string";
+	}
+
+	/**
+	 * Check if an object is an function type
+	 * @method isFunction
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an function
+	 */
+	function isFunction(obj)
+	{
+		return typeof obj == "function";
+	}
+
+	// Assign to namespace
+	namespace('springroll').MultiLoaderResult = MultiLoaderResult;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	var MultiLoaderResult = include('springroll.MultiLoaderResult');
+	
+	/**
+	 * Handle the asynchronous loading of multiple assets.
+	 * @class MultiLoader
+	 * @constructor
+	 * @param {springroll.Application} app The application reference
+	 * @param {Array|Object} assets The assets to load, either a list or map or single asset.
+	 * @param {Function} [complete] Completed function
+	 */
+	var MultiLoader = function(loader)
+	{
+		/**
+		 * Reference to the loader
+		 * @property {springroll.Loader} loader
+		 */
+		this.loader = loader;
+
+		/**
+		 * The collection of current multiloads
+		 * @property {Array} loads
+		 */
+		this.loads = [];
+	};
+
+	// reference to prototype
+	var p = MultiLoader.prototype;
+
+	/**
+	 * Load a bunch of assets, can only call one load at a time
+	 * @method load
+	 * @param {Object|Array} asset The assets to load
+	 * @param {function} complete The function when finished
+	 * @return {springroll.MultiLoaderResult} The reference to the current load
+	 */
+	p.load = function(assets, complete)
+	{	
+		var result = new MultiLoaderResult(
+			this.loader, 
+			assets, 
+			complete
+		);
+
+		// Add to the stack of current loads
+		this.loads.push(result);
+
+		// Handle the destroyed event
+		result.once(
+			'completed',
+			this._onLoaded.bind(this, result)
+		);
+
+		return result;
+	};
+
+	/**
+	 * Handler when a load is finished
+	 * @method _onLoaded
+	 * @private
+	 * @param {springroll.MultiLoaderResult} result The current load
+	 */
+	p._onLoaded = function(result)
+	{
+		var index = this.loads.indexOf(result);
+		if (index > -1)
+		{
+			this.loads.splice(index, 1);
+		}
+		result.destroy();
+	};
+
+	/**
+	 * Destroy the Multiloader
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.loader = null;
+		this.loads = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').MultiLoader = MultiLoader;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	/**
 	*  Represents a single item in the loader queue 
 	*
 	*  @class LoaderQueueItem
@@ -3140,13 +4464,90 @@
 */
 (function()
 {
+	/**
+	*  The return result of the Loader load
+	*  @class LoaderResult
+	*  @constructor
+	*  @param {*} content The dynamic content loaded
+	*  @param {String} url The url that was loaded
+	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
+	*/
+	var LoaderResult = function(content, url, loader, manifestData)
+	{
+		/**
+		*  The contents of the load
+		*  @public
+		*  @property {*} content
+		*/
+		this.content = content;
+
+		/**
+		*  The url of the load
+		*  @public
+		*  @property {String} url
+		*/
+		this.url = url;
+
+		/**
+		*  Reference to the preloader object
+		*  @public
+		*  @property {createjs.LoaderQueue} loader
+		*/
+		this.loader = loader;
+		
+		/**
+		*  The full manifest data for the load item.
+		*  @public
+		*  @property {String} manifestData
+		*/
+		this.manifestData = manifestData;
+	};
+	
+	/** Reference to the prototype */
+	var p = LoaderResult.prototype;
+	
+	/**
+	* A to string method
+	* @public
+	* @method toString
+	* @return {String} A string rep of the object
+	*/
+	p.toString = function()
+	{
+		return "[LoaderResult('"+this.url+"')]";
+	};
+	
+	/**
+	* Destroy this result
+	* @public
+	* @method destroy
+	*/
+	p.destroy = function()
+	{
+		this.callback = null;
+		this.url = null;
+		this.content = null;
+		this.manifestData = null;
+	};
+	
+	// Assign to the name space
+	// MediaLoadeResult is deprecated
+	namespace('springroll').MediaLoaderResult = LoaderResult;
+	namespace('springroll').LoaderResult = LoaderResult;
+	
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
 	// Classes to import
-	var LoaderQueueItem,
-		CacheManager,
-		Application,
-		Sound,
+	var LoaderQueueItem = include('springroll.LoaderQueueItem'),
+		CacheManager = include('springroll.CacheManager'),
+		LoaderResult = include('springroll.LoaderResult'),
 		LoadQueue,
-		LoaderResult,
+		Sound,
 		Debug;
 
 	/**
@@ -3156,18 +4557,21 @@
 	*
 	*  @class Loader
 	*/
-	var Loader = function()
+	var Loader = function(app)
 	{
-		if (!Application)
+		if (!LoadQueue)
 		{
-			LoaderQueueItem = include('springroll.LoaderQueueItem');
-			CacheManager = include('springroll.CacheManager');
-			Application = include('springroll.Application');
-			LoaderResult = include('springroll.LoaderResult');
 			LoadQueue = include('createjs.LoadQueue');
 			Sound = include('createjs.Sound', false);
 			Debug = include('springroll.Debug', false);
 		}
+
+		/**
+		*  The current application
+		*  @property {springroll.Application} _app 
+		*  @private
+		*/
+		this._app = app;
 
 		/**
 		*  If we can load
@@ -3200,7 +4604,7 @@
 		*  @public
 		*  @property {CacheManager} cacheManager
 		*/
-		this.cacheManager = null;
+		this.cacheManager = new CacheManager();
 	};
 	
 	/** The prototype */
@@ -3273,12 +4677,13 @@
 	*  @method init
 	*  @static
 	*  @public
+	*  @param {springroll.Application} app The current application
 	*/
-	Loader.init = function()
+	Loader.init = function(app)
 	{
 		if (!_instance)
 		{
-			_instance = new Loader();
+			_instance = new Loader(app);
 			_instance._initialize();
 		}
 		return _instance;
@@ -3349,7 +4754,6 @@
 		queueItems = {};
 		loaders = {};
 		retries = {};
-		this.cacheManager = new CacheManager();
 	};
 	
 	/**
@@ -3366,7 +4770,7 @@
 	{
 		var qi = this._getQI();
 		
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
@@ -3584,7 +4988,7 @@
 			rtn._basePath = basePath;//apparently they neglected to make this public
 		}
 		else
-			rtn = new LoadQueue(true, basePath, Application.instance.options.crossOrigin);
+			rtn = new LoadQueue(true, basePath, this._app.options.crossOrigin);
 		//allow the loader to handle sound as well
 		if(Sound)
 		{
@@ -3631,9 +5035,9 @@
 */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Loader = include('springroll.Loader');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Loader = include('springroll.Loader'),
+		MultiLoader = include('springroll.MultiLoader');
 
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
@@ -3641,25 +5045,22 @@
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for loader
-		this.priority = 10;
-	};
-
-	// Reference to the prototype
-	var p = extend(LoaderPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
-		var loader = this.loader = Loader.init();
+		var loader = this.loader = Loader.init(this);
+
+		/**
+		 * Reference to the multiple asset loader
+		 * @property {springroll.MultiLoader} multiLoader
+		 */
+		this.multiLoader = new MultiLoader(loader);
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -3705,16 +5106,76 @@
 		 * @property {String} options.versionsFile
 		 */
 		this.options.add('versionsFile', null, true);
+
+		/**
+		 * Simple load of a single file. Pass-through for `Loader.instance.load`.
+		 * @method load
+		 * @param {String} source The file to load
+		 * @param {Function} complete The completed callback with a single
+		 *        parameters which is a `springroll.LoaderResult` object.
+		 * @param {Function} [progress] Update callback, return 0-1
+		 * @param {int} [priority] The load priority to use
+		 * @param {*} [data] The data to attach to load item
+		 */
+		/**
+		 * Load a single file with options.
+		 * @method load
+		 * @param {Object} options The file resource to load
+		 * @param {String} options.src The file to load
+		 * @param {Function} [options.complete=null] Callback when finished
+		 * @param {Function} [options.progress=null] Callback on load progress,
+		 *        has a parameter which is the percentage loaded from 0 to 1.
+		 * @param {int} [options.priority=0] The load priority. See `Loader.load`
+		 *        for more information about load priority.
+		 * @param {*} [options.data] Additional data to attach to load is
+		 *        accessible in the loader's result. 
+		 * @param {Function} [complete] The completed callback with a single
+		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        only use if `options.complete` is undefined.
+		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 */
+		/**
+		 * Load a map of multiple assets and return mapped LoaderResult objects.
+		 * @method load
+		 * @param {Object} assets Load a map of assets where the key is the asset
+		 *        id and the value is either a string or an Object with `src`,
+		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 * @param {Function} complete Callback where the only parameter is the
+		 *        map of the results by ID.
+		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 */
+		/**
+		 * Load a list of multiple assets and return array of LoaderResult objects.
+		 * @method load
+		 * @param {Array} assets The list of assets where each value 
+		 *        is either a string or an Object with `src`,
+		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 *        If each object has a `id` the result will be a mapped object.
+		 * @param {Function} complete Callback where the only parameter is the
+		 *        collection or map of the results.
+		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 */
+		this.load = function(source, complete, progress, priority, data)
+		{
+			if (typeof source == "string")
+			{
+				this.loader.load(source, complete, progress, priority, data);
+			}
+			else
+			{
+				return this.multiLoader.load(source, complete);
+			}
+		};
 	};
 
 	// Preload task
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
 		{
 			// Try to load the default versions file
-			Loader.instance.cacheManager.addVersionsFile(versionsFile, done);
+			this.loader.cacheManager.addVersionsFile(versionsFile, done);
 		}
 		else
 		{
@@ -3723,143 +5184,21 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.loader.destroy();
-		this.loader = null;
+		if (this.loader)
+		{
+			this.loader.destroy();
+			this.loader = null;
+		}
+
+		if (this.multiLoader)
+		{
+			this.multiLoader.destroy();
+			this.multiLoader = null;
+		}
 	};
 
-	// register plugin
-	ApplicationPlugin.register(LoaderPlugin);
-
-}());
-/**
-*  @module Core
-*  @namespace springroll
-*/
-(function()
-{
-	/**
-	*  The return result of the Loader load
-	*  @class LoaderResult
-	*  @constructor
-	*  @param {*} content The dynamic content loaded
-	*  @param {String} url The url that was loaded
-	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
-	*/
-	var LoaderResult = function(content, url, loader, manifestData)
-	{
-		/**
-		*  The contents of the load
-		*  @public
-		*  @property {*} content
-		*/
-		this.content = content;
-
-		/**
-		*  The url of the load
-		*  @public
-		*  @property {String} url
-		*/
-		this.url = url;
-
-		/**
-		*  Reference to the preloader object
-		*  @public
-		*  @property {createjs.LoaderQueue} loader
-		*/
-		this.loader = loader;
-		
-		/**
-		*  The full manifest data for the load item.
-		*  @public
-		*  @property {String} manifestData
-		*/
-		this.manifestData = manifestData;
-	};
-	
-	/** Reference to the prototype */
-	var p = LoaderResult.prototype;
-	
-	/**
-	* A to string method
-	* @public
-	* @method toString
-	* @return {String} A string rep of the object
-	*/
-	p.toString = function()
-	{
-		return "[LoaderResult('"+this.url+"')]";
-	};
-	
-	/**
-	* Destroy this result
-	* @public
-	* @method destroy
-	*/
-	p.destroy = function()
-	{
-		this.callback = null;
-		this.url = null;
-		this.content = null;
-		this.manifestData = null;
-	};
-	
-	// Assign to the name space
-	// MediaLoadeResult is deprecated
-	namespace('springroll').MediaLoaderResult = LoaderResult;
-	namespace('springroll').LoaderResult = LoaderResult;
-	
-}());
-/**
- * @module Core
- * @namespace springroll
- */
-(function()
-{
-	
-	/**
-	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
-	*  callbacks into one. For example usage:
-	*
-	*  var voPlayer = new springroll.VOPlayer();
-	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
-	*  Animator.play(myClip, "myAnim", callback);
-	*  
-	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
-	*  If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
-	*  
-	*  @class CombinedCallback
-	*  @constructor
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
-	var CombinedCallback = function(call, obj, prop, callProp)
-	{
-		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
-			call();
-		else
-			obj[callProp] = call;
-	};
-
-	/**
-	*  Creates a CombinedCallback for use.
-	*  
-	*  @method create
-	*  @static
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
-	CombinedCallback.create = function(call, obj, prop, callProp)
-	{
-		return CombinedCallback.bind(this, call, obj, prop, callProp);
-	};
-
-	namespace('springroll').CombinedCallback = CombinedCallback;
 }());
 /**
 *  @module Core
@@ -3868,655 +5207,190 @@
 (function(undefined){
 
 	/**
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	*   The display provides the base properties for all custom display. A display
+	*   is a specialized view for the application. As the name suggests, this class
+	*   should not be instanciated directly.
 	*
-	*  @class SavedData
+	*   @class AbstractDisplay
+	*	@constructor
+	*	@param {String} id The id of the canvas element on the page to draw to.
+	*	@param {Object} options The setup data for the display.
+	*   @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
 	*/
-	var SavedData = {},
-
-	/** A constant to determine if we can use localStorage and sessionStorage */
-	WEB_STORAGE_SUPPORT = window.Storage !== undefined,
-
-	/** A constant for cookie fallback for SavedData.clear() */
-	ERASE_COOKIE = -1;
-
-	//in iOS, if the user is in Private Browsing, writing to localStorage throws an error.
-	if(WEB_STORAGE_SUPPORT)
+	var AbstractDisplay = function(id, options)
 	{
-		try
-		{
-			localStorage.setItem("LS_TEST", "test");
-			localStorage.removeItem("LS_TEST");
-		}
-		catch(e)
-		{
-			WEB_STORAGE_SUPPORT = false;
-		}
-	}
+		options = options || {};
 
-	/**
-	*  Remove a saved variable by name.
-	*  @method remove
-	*  @static
-	*  @param {String} name The name of the value to remove
-	*/
-	SavedData.remove = function(name)
-	{
-		if(WEB_STORAGE_SUPPORT)
+		/**
+		*  the canvas managed by this display
+		*  @property {DOMElement} canvas
+		*  @readOnly
+		*  @public
+		*/
+		this.canvas = document.getElementById(id);
+
+		/**
+		*  The DOM id for the canvas
+		*  @property {String} id
+		*  @readOnly
+		*  @public
+		*/
+		this.id = id;
+
+		/**
+		*  Convenience method for getting the width of the canvas element
+		*  would be the same thing as canvas.width
+		*  @property {int} width
+		*  @readOnly
+		*  @public
+		*/
+		this.width = this.canvas.width;
+
+		/**
+		*  Convenience method for getting the height of the canvas element
+		*  would be the same thing as canvas.height
+		*  @property {int} height
+		*  @readOnly
+		*  @public
+		*/
+		this.height = this.canvas.height;
+
+		/**
+		*  The main rendering context or the root display object or stage.
+		*  @property {mixed} stage
+		*  @readOnly
+		*  @public
+		*/
+		this.stage = null;
+
+		/**
+		*  If rendering is paused on this display only. Pausing all displays can be done
+		*  using Application.paused setter.
+		*  @property {Boolean} paused
+		*  @public
+		*/
+		this.paused = false;
+
+		/**
+		*  If input is enabled on the stage.
+		*  @property {Boolean} _enabled
+		*  @private
+		*/
+		this._enabled = false;
+
+		/**
+		*  If the display is visible.
+		*  @property {Boolean} _visible
+		*  @private
+		*/
+		this._visible = this.canvas.style.display != "none";
+
+		// prevent mouse down turning into text cursor
+		this.canvas.onmousedown = function(e)
 		{
-			localStorage.removeItem(name);
-			sessionStorage.removeItem(name);
-		}
-		else
-			SavedData.write(name,"",ERASE_COOKIE);
+			e.preventDefault();
+		};
+
+		/**
+		*  The Animator class to use when using this display. Other modules
+		*  uses this to determine what Animator to use, for instance states
+		*  uses Animator when playing transition animations.
+		*  @property {Animator} animator
+		*  @readOnly
+		*  @public
+		*  @default null
+		*/
+		this.animator = null;
+
+		/**
+		*  Some of the modules require a special display adapter to provide
+		*  common methods for managing display objects.
+		*  @property {DisplayAdapter} adapter
+		*  @readOnly
+		*  @public
+		*  @default null
+		*/
+		this.adapter = null;
 	};
 
-	/**
-	*  Save a variable.
-	*  @method write
-	*  @static
-	*  @param {String} name The name of the value to save
-	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
-	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
-	*/
-	SavedData.write = function(name, value, tempOnly)
-	{
-		if(WEB_STORAGE_SUPPORT)
-		{
-			if(tempOnly)
-				sessionStorage.setItem(name, JSON.stringify(value));
-			else
-				localStorage.setItem(name, JSON.stringify(value));
-		}
-		else
-		{
-			var expires;
-			if (tempOnly)
-			{
-				if(tempOnly !== ERASE_COOKIE)
-					expires = "";//remove when browser is closed
-				else
-					expires = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";//save cookie in the past for immediate removal
-			}
-			else
-				expires = "; expires="+new Date(2147483646000).toGMTString();//THE END OF (32bit UNIX) TIME!
-
-			document.cookie = name+"="+escape(JSON.stringify(value))+expires+"; path=/";
-		}
-	};
+	var p = AbstractDisplay.prototype;
 
 	/**
-	*  Read the value of a saved variable
-	*  @method read
-	*  @static
-	*  @param {String} name The name of the variable
-	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
-	*/
-	SavedData.read = function(name)
-	{
-		if(WEB_STORAGE_SUPPORT)
-		{
-			var value = localStorage.getItem(name) || sessionStorage.getItem(name);
-			if(value)
-				return JSON.parse(value, SavedData.reviver);
-			else
-				return null;
-		}
-		else
-		{
-			var nameEQ = name + "=",
-				ca = document.cookie.split(';'),
-				i = 0, c, len;
-
-			for(i=0, len=ca.length; i<len;i++)
-			{
-				c = ca[i];
-				while (c.charAt(0) == ' ') c = c.substring(1,c.length);
-				if (c.indexOf(nameEQ) === 0) return JSON.parse(unescape(c.substring(nameEQ.length,c.length)), SavedData.reviver);
-			}
-			return null;
-		}
-	};
-
-	/**
-	 * When restoring from JSON via `JSON.parse`, we may pass a reviver function.
-	 * In our case, this will check if the object has a specially-named property (`__classname`).
-	 * If it does, we will attempt to construct a new instance of that class, rather than using a
-	 * plain old Object. Note that this recurses through the object.
-	 * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
-	 * @param  {String} key   each key name
-	 * @param  {Object} value Object that we wish to restore
-	 * @return {Object}       The object that was parsed - either cast to a class, or not
-	 */
-	SavedData.reviver = function(key, value)
-	{
-		if(value && typeof value.__classname == "string")
-		{
-			var _class = include(value.__classname, false);
-			if(_class)
-			{
-				var rtn = new _class();
-				//if we may call fromJSON, do so
-				if(rtn.fromJSON)
-				{
-					rtn.fromJSON(value);
-					//return the cast Object
-					return rtn;
-				}
-			}
-		}
-		//return the object we were passed in
-		return value;
-	};
-
-	// Assign to the global space
-	namespace('springroll').SavedData = SavedData;
-
-}());
-
-/**
- * @module Core
- * @namespace springroll
- */
-(function(undefined) {
-
-	var Application = include('springroll.Application');
-
-	/**
-	*  A class for delaying a call through the Application, instead of relying on setInterval() or
-	*  setTimeout().
-	*
-	*  @class DelayedCall
-	*  @constructor
-	*  @param {function} callback The function to call when the delay has completed.
-	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
-	*  @param {Boolean} [repeat=false] If the DelayedCall should automatically repeat itself when
-	*                                  completed.
-	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
-	*                                     milliseconds for the delay.
-	*/
-	var DelayedCall = function(callback, delay, repeat, autoDestroy, useFrames)
-	{
-		/**
-		*  The function to call when the delay is completed.
-		*  @private
-		*  @property {function} _callback
-		*/
-		this._callback = callback;
-
-		/**
-		*  The delay time, in milliseconds.
-		*  @private
-		*  @property {int} _delay
-		*/
-		this._delay = delay;
-
-		/**
-		*  The timer counting down from _delay, in milliseconds.
-		*  @private
-		*  @property {int} _timer
-		*/
-		this._timer = delay;
-
-		/**
-		*  If the DelayedCall should repeat itself automatically.
-		*  @private
-		*  @property {Boolean} _repeat
-		*  @default false
-		*/
-		this._repeat = !!repeat;
-
-		/**
-		*  If the DelayedCall should destroy itself after completing
-		*  @private
-		*  @property {Boolean} _autoDestroy
-		*  @default true
-		*/
-		this._autoDestroy = autoDestroy === undefined ? true : !!autoDestroy;
-		
-		/**
-		*  If the DelayedCall should use frames instead of milliseconds for the delay.
-		*  @private
-		*  @property {Boolean} _useFrames
-		*  @default false
-		*/
-		this._useFrames = !!useFrames;
-
-		/**
-		*  If the DelayedCall is currently paused (not stopped).
-		*  @private
-		*  @property {Boolean} _paused
-		*/
-		this._paused = false;
-
-		//save a bound version of the update function
-		this._update = this._update.bind(this);
-
-		//start the delay
-		Application.instance.on("update", this._update);
-	};
-
-	var p = DelayedCall.prototype;
-
-	/**
-	*  The callback supplied to the Application for an update each frame.
-	*  @private
-	*  @method _update
-	*  @param {int} elapsed The time elapsed since the previous frame.
-	*/
-	p._update = function(elapsed)
-	{
-		if(!this._callback)
-		{
-			this.destroy();
-			return;
-		}
-
-		this._timer -= this._useFrames ? 1 : elapsed;
-		if(this._timer <= 0)
-		{
-			this._callback();
-			if(this._repeat)
-				this._timer += this._delay;
-			else if(this._autoDestroy)
-				this.destroy();
-			else
-				Application.instance.off("update", this._update);
-		}
-	};
-
-	/**
-	*  Restarts the DelayedCall, whether it is running or not.
+	*  If input is enabled on the stage for this display. The default is true.
+	*  Without a rendering library, this does not actually have an effect.
+	*  @property {Boolean} enabled
 	*  @public
-	*  @method restart
 	*/
-	p.restart = function()
-	{
-		if(!this._callback) return;
-		var app = Application.instance;
-		if(!app.has("update", this._update))
-			app.on("update", this._update);
-		this._timer = this._delay;
-		this._paused = false;
-	};
-
-	/**
-	*  Stops the DelayedCall, without destroying it.
-	*  @public
-	*  @method stop
-	*/
-	p.stop = function()
-	{
-		Application.instance.off("update", this._update);
-		this._paused = false;
-	};
-
-	/**
-	*  If the DelayedCall is paused or not.
-	*  @public
-	*  @property {Boolean} paused
-	*/
-	Object.defineProperty(p, "paused", {
-		get: function() { return this._paused; },
+	Object.defineProperty(p, "enabled", {
+		get: function(){ return this._enabled; },
 		set: function(value)
 		{
-			if(!this._callback) return;
-			var app = Application.instance;
-			if(this._paused && !value)
-			{
-				this._paused = false;
-				if(!app.has("update", this._update))
-					app.on("update", this._update);
-			}
-			else if(value)
-			{
-				if(app.has("update", this._update))
-				{
-					this._paused = true;
-					app.off("update", this._update);
-				}
-			}
+			this._enabled = value;
 		}
 	});
 
 	/**
-	*  Stops and cleans up the DelayedCall. Do not use it after calling
-	*  destroy().
+	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
+	*  @property {Boolean} visible
 	*  @public
-	*  @method destroy
 	*/
-	p.destroy = function()
-	{
-		Application.instance.off("update", this._update);
-		this._callback = null;
-	};
-
-	namespace('springroll').DelayedCall = DelayedCall;
-}());
-/**
- * @module Core
- * @namespace window
- */
-(function()
-{
-	/**
-	*  Add methods to String
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class String
-	*/
-
-	/**
-	*  Returns a formatted string, similar to the printf() function in many languages.
-	*  This simplified version substitutes "%s" with the arguments in order. To escape "%s",
-	*  use "%%s".
-	*  @method format
-	*  @param {Array|*} args An array or list of arguments for formatting.
-	*  @return {String} The substituted string.
-	*/
-	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
-	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', {
-		enumerable: false,
-		writable:false,
-		value: function() {
-			if (arguments.length < 1) return this;
-			var args = Array.isArray(args) ? args : Array.prototype.slice.call(arguments);
-			
-			return this.replace(
-				/([^%]|^)%(?:(\d+)\$)?s/g,
-				function(p0, p, position)
-				{
-					if (position)
-					{
-						return p + args[parseInt(position)-1];
-					}
-					return p + args.shift();
-				}
-			).replace(/%%s/g, '%s');
+	Object.defineProperty(p, "visible", {
+		get: function(){ return this._visible; },
+		set: function(value)
+		{
+			this._visible = value;
+			this.canvas.style.display = value ? "block" : "none";
 		}
 	});
-}());
 
-/**
- * @module UI
- * @namespace springroll
- * @requires Core
- */
-(function()
-{
 	/**
-	 * Class for filtering strings
-	 * @constructor
-	 * @class StringFilters
-	 */
-	var StringFilters = function()
+	* Resizes the canvas. This is only called by the Application.
+	* @method resize
+	* @internal
+	* @param {int} width The width that the display should be
+	* @param {int} height The height that the display should be
+	*/
+	p.resize = function(width, height)
 	{
-		/**
-		 * Dictionary of filters
-		 * @property {Array} _filters
-		 * @private
-		 */
-		this._filters = [];
+		this.width = this.canvas.width = width;
+		this.height = this.canvas.height = height;
 	};
 
-	// Reference to prototype
-	var p = StringFilters.prototype;
-
-	/**
-	 * Register a filter
-	 * @method add
-	 * @param {String|RegExp} replace The string or regex to replace
-	 * @param {String} replacement String to repalce with
-	 * @static
-	 */
-	p.add = function(replace, replacement)
+	/** 
+	* Updates the stage and draws it. This is only called by the Application. 
+	* This method does nothing if paused is true or visible is false.
+	* @method render
+	* @internal
+	* @param {int} elapsed The time elapsed since the previous frame.
+	* @param {Boolean} [force=false] For the re-render
+	*/
+	p.render = function(elapsed, force)
 	{
-		if (!replace || (typeof replace != 'string' && replace instanceof RegExp === false))
-		{
-			if (true)
-				throw 'replace value must be a valid String or RegExp';
-			else
-				throw 'invalide replace value';
-		}
-		if (typeof replacement != 'string')
-		{
-			if (true)
-				throw 'replacement value must be astring';
-			else
-				throw 'invalid replacement value';
-		}
-		
-		if (this._filters)
-		{
-			for (var i = this._filters.length - 1; i >= 0; i--)
-			{
-				if (replace.toString() == this._filters[i].replace.toString())
-				{
-					if (true)
-						throw "Filter " + replace +
-						" already exists in this._filters array.";
-					else
-						throw "Filter already exists.";
-				}
-			}
-			this._filters.push(
-			{
-				replace: replace,
-				replacement: replacement
-			});
-		}
+		// implement specific
 	};
 
 	/**
-	 * Test a string against all registered filters
-	 * @method filter
-	 * @param {String} str The string to check
-	 * @static
-	 */
-	p.filter = function(str)
-	{
-		if (!this._filters)
-		{
-			return str;
-		}
-		for (var i = this._filters.length - 1; i >= 0; i--)
-		{
-			var replace = this._filters[i].replace;
-			var replacement = this._filters[i].replacement;
-			str = str.replace(replace, replacement);
-		}
-		return str;
-	};
-
-	/**
-	 * @method destroy
-	 * @static
-	 */
+	*  Destroys the display. This method is called by the Application and should 
+	*  not be called directly, use Application.removeDisplay(id). 
+	*  The stage recursively removes all display objects here.
+	*  @method destroy
+	*  @internal
+	*/
 	p.destroy = function()
 	{
-		this._filters = null;
+		this.enabled = false;
+		this.animator = null;
+		this.adapter = null;
+		this.stage = null;
+		if (this.canvas.parentNode)
+		{
+			this.canvas.parentNode.removeChild(this.canvas);
+		}
+		this.canvas.onmousedown = null;
+		this.canvas = null;
 	};
 
-	//Assign to namespace
-	namespace('springroll').StringFilters = StringFilters;
-}());
-/**
- * @module UI
- * @namespace springroll
- * @requires Core
- */
-(function()
-{
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		StringFilters = include('springroll.StringFilters');
-
-	/**
-	 * Create an app plugin for String Filters, all properties and methods documented
-	 * in this class are mixed-in to the main Application
-	 * @class StringFiltersPlugin
-	 * @extends springroll.ApplicationPlugin
-	 */
-	var StringFiltersPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
-
-	// Init the animator
-	p.setup = function()
-	{
-		/**
-		 * The StringFilters instance
-		 * @property {springroll.StringFilters} filters
-		 */
-		this.filters = new StringFilters();
-	};
-
-	// Destroy the animator
-	p.teardown = function()
-	{
-		if (this.filters) this.filters.destroy();
-		this.filters = null;
-	};
-
-	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
+	// Assign to the global namespace
+	namespace('springroll').AbstractDisplay = AbstractDisplay;
 
 }());
-/**
- * @module Core
- * @namespace window
- */
-(function()
-{
-	/**
-	*  Add methods to Array
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array
-	*/
-
-	/**
-	*  Shuffles the array
-	*  @method shuffle
-	*/
-	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
-	// to make it not enumerable set the enumerable property to false
-	if(!Array.prototype.shuffle)
-	{
-		Object.defineProperty(Array.prototype, 'shuffle', {
-			enumerable: false,
-			writable:false,
-			value: function() {
-				for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
-				return this;
-			}
-		});
-	}
-
-	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
-	if(!Array.prototype.random)
-	{
-		Object.defineProperty(Array.prototype, 'random', {
-			enumerable: false,
-			writable: false,
-			value: function() {
-				return this[Math.floor(Math.random() * this.length)];
-			}
-		});
-	}
-
-	/**
-	*  Get the last item in the array
-	*  @method last
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The last item
-	*/
-	if(!Array.prototype.last)
-	{
-		Object.defineProperty(Array.prototype, 'last',
-		{
-			enumerable: false,
-			writable: false,
-			value: function()
-			{
-				return this[this.length - 1];
-			}
-		});
-	}
-}());
-
-/**
- * @module Core
- * @namespace window
- */
-(function(Math)
-{
-	/**
-	 * Add methods to Math
-	 * @class Math
-	 */
-
-	/**
-	 * Return a random int between minimum and maximum values.
-	 * If a single value is supplied, it will return a number between 0 and the supplied value.
-	 * @method randomInt
-	 * @static
-	 * @param {int} min Lowest number. If max is omitted, then this becomes max.
-	 * @param {int} max Highest number.
-	 * @return {int} The random value
-	 */
-	Math.randomInt = function(min, max)
-	{
-		if (max === undefined)
-		{
-			max = min;
-			min = 0;
-		}
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	};
-
-	/**
-	 * Return dist between two points
-	 * @method dist
-	 * @static
-	 * @param {Number|Point|Object} x The x position of the first point,
-	 *                                or a Point/Object with x and y values
-	 * @param {Number|Point|Object} y The y position of the first point,
-	 *                                or a second Point/Object with x and y values
-	 * @param {Number|Point|Object} x0 The x position of the second point
-	 *                                 or a Point/Object with x and y values (if x&y were Numbers)
-	 * @param {Number} y0 The y position of the second point
-	 * @return {Number} The distance
-	 */
-	Math.dist = function(x, y, x0, y0)
-	{
-		//see if the first parameter is a point
-		if(typeof x.x == "number" && x.x == x.x)//faster !isNaN
-		{
-			//shift later parameters back
-			y0 = x0;
-			x0 = y;
-			
-			y = x.y;
-			x = x.x;
-		}
-		//see if the 2nd parameter is a point
-		if(typeof x0.x == "number" && x0.x == x0.x)
-		{
-			y0 = x0.y;
-			x0 = x0.x;
-		}
-		return Math.sqrt((x - x0) * (x - x0) + (y - y0) * (y - y0));
-	};
-}(Math));

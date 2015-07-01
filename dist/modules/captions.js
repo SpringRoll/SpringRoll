@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module Captions
  * @namespace springroll
@@ -740,17 +740,10 @@
 	 * @class CaptionsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var CaptionsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 2;
-	};
-
-	// Reference to the prototype
-	var p = extend(CaptionsPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(60);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The captions text field object to use for the 
@@ -764,32 +757,20 @@
 		/**
 		 * The path to the captions file to preload.
 		 * @property {string} options.captionsPath
-		 * @default 'assets/config/captions.json'
+		 * @default null
 		 * @readOnly
 		 */
-		this.options.add('captionsPath', 'assets/config/captions.json', true);
+		this.options.add('captionsPath', null, true);
 		
 		/**
 		*  The global captions object
 		*  @property {springroll.Captions} captions
 		*/
 		this.captions = new Captions();
-
-		/**
-		*  Sets the dicitonary for the captions used by player. If a Captions object
-		*  did not exist previously, then it creates one, and sets it up on all Animators.
-		*  @method addCaptions
-		*  @param {Object} data The captions data to give to the Captions object
-		*/
-		this.addCaptions = function(data)
-		{
-			// Update the player captions
-			this.captions.data = data;
-		};
 	};
 
 	// Preload the captions
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		// Give the player a reference
 		if (this.voPlayer)
@@ -805,19 +786,23 @@
 		{
 			this.loader.load(captionsPath, function(result)
 			{
-				this.addCaptions(result.content);
+				this.captions.data = result.content;
 				done();
 			}
 			.bind(this));
 		}
 		else
 		{
+			if (true && Debug)
+			{
+				Debug.info("Application option 'captionsPath' is empty, set to automatically load captions JSON");
+			}
 			done();
 		}
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.captions)
 		{
@@ -825,8 +810,5 @@
 			this.captions = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(CaptionsPlugin);
 
 }());

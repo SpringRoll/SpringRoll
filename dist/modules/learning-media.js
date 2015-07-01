@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.0 */
+/*! SpringRoll 0.3.7 */
 /**
  * @module Learning Media
  * @namespace springroll
@@ -329,6 +329,9 @@
 		//Callback function for ending or canceling the VO
 		var callback = function(finish)
 		{
+			//quit early if LearningMedia has been destroyed.
+			if(!this.learning) return;
+			
 			learningEnd.call(this.learning);
 			if (finish) finish();
 		};
@@ -512,6 +515,9 @@
 
 		var callback = function(learningCall, otherCall)
 		{
+			//quit early if LearningMedia has been destroyed
+			if(!this.learning) return;
+			
 			this._learningAnimatorInstance = null;
 
 			if (learningCall) //learning end event
@@ -619,7 +625,7 @@
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-	 	LearningMedia = include('springroll.LearningMedia');
+		LearningMedia = include('springroll.LearningMedia');
 
 	/**
 	 * Create an app plugin for Learning Media, all properties and methods documented
@@ -627,16 +633,10 @@
 	 * @class LearningMediaPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LearningMediaPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(LearningMediaPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * For media conveninece methods tracking media events, such as 
@@ -647,20 +647,20 @@
 	};
 
 	// Setup the game media
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.media.init(this);
 		done();
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.media.destroy();
-		this.media = null;
+		if (this.media)
+		{
+			this.media.destroy();
+			this.media = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LearningMediaPlugin);
 
 }());

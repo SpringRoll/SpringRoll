@@ -21,7 +21,14 @@
 		"src/core/StringFilters.js",
 		"src/core/StringFiltersPlugin.js",
 		"src/core/ResizePlugin.js",
-		"src/loaders/*.js",
+		"src/loaders/CacheManager.js",
+		"src/loaders/MultiLoaderTask.js",
+		"src/loaders/MultiLoaderResult.js",
+		"src/loaders/MultiLoader.js",
+		"src/loaders/LoaderQueueItem.js",
+		"src/loaders/LoaderResult.js",
+		"src/loaders/Loader.js",
+		"src/loaders/LoaderPlugin.js",
 		"src/displays/*.js"
 	],
 	"modules": {
