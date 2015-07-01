@@ -5,13 +5,15 @@
  */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class TouchPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
 	plugin.setup = function()

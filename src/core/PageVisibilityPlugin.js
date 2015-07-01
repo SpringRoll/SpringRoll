@@ -4,13 +4,15 @@
 */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()

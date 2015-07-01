@@ -288,7 +288,8 @@
 (function()
 {
 	// Include classes
-	var Languages = include('springroll.Languages'), 
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Languages = include('springroll.Languages'), 
 		Debug;
 
 	/**
@@ -297,7 +298,7 @@
 	 * @class LanguagesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 95);
+	var plugin = new ApplicationPlugin(95);
 
 	// Init the animator
 	plugin.setup = function()

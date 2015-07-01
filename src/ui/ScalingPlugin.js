@@ -6,7 +6,8 @@
 (function()
 {
 	//Include classes
-	var ScaleManager = include('springroll.ScaleManager'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		ScaleManager = include('springroll.ScaleManager'),
 		Debug;
 
 	/**
@@ -15,7 +16,7 @@
 	 *	@class ScalingPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	//Init the scaling
 	plugin.setup = function()

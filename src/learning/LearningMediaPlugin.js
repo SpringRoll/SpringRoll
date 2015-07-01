@@ -6,7 +6,8 @@
 (function(undefined)
 {
 	// Include classes
-	var LearningMedia = include('springroll.LearningMedia');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		LearningMedia = include('springroll.LearningMedia');
 
 	/**
 	 * Create an app plugin for Learning Media, all properties and methods documented
@@ -14,7 +15,7 @@
 	 * @class LearningMediaPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()

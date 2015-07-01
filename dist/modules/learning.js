@@ -1740,7 +1740,8 @@
 (function(undefined)
 {
 	// Include classes
-	var Point,
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Point,
 	 	Learning = include('springroll.Learning');
 
 	/**
@@ -1749,7 +1750,7 @@
 	 * @class LearningPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 10);
+	var plugin = new ApplicationPlugin(10);
 
 	// Init the animator
 	plugin.setup = function()

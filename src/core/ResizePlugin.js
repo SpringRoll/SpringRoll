@@ -4,13 +4,15 @@
  */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	
 	/**
 	 *	Create an app plugin for resizing application, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class ResizePlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
+	var plugin = new ApplicationPlugin(100);
 
 	/**
 	*  Dom element (or the window) to attach resize listeners and read the size from

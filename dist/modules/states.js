@@ -1217,7 +1217,8 @@
 (function()
 {
 	// Include classes
-	var StateManager = include('springroll.StateManager'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		StateManager = include('springroll.StateManager'),
 		Debug = include('springroll.Debug', false);
 
 	/**
@@ -1226,7 +1227,7 @@
 	 * @class StatesPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()

@@ -3104,13 +3104,15 @@
 */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()
@@ -3279,13 +3281,15 @@
  */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
 	/**
 	 * Create an app plugin for String Filters, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class StringFiltersPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 110);
+	var plugin = new ApplicationPlugin(110);
 
 	// Init the animator
 	plugin.setup = function()
@@ -3312,13 +3316,15 @@
  */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+	
 	/**
 	 *	Create an app plugin for resizing application, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class ResizePlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
+	var plugin = new ApplicationPlugin(100);
 
 	/**
 	*  Dom element (or the window) to attach resize listeners and read the size from
@@ -4341,13 +4347,15 @@
 */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
 	plugin.setup = function()

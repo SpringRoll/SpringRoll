@@ -6,7 +6,8 @@
 (function()
 {
 	// Include classes
-	var Sound = include('springroll.Sound'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Sound = include('springroll.Sound'),
 		VOPlayer = include('springroll.VOPlayer');
 
 	/**
@@ -15,7 +16,7 @@
 	 * @class SoundPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 90);
+	var plugin = new ApplicationPlugin(90);
 
 	// Initialize
 	plugin.setup = function()

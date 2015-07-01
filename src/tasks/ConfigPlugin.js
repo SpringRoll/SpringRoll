@@ -6,7 +6,8 @@
 (function()
 {
 	// Include classes
-	var TaskManager = include('springroll.TaskManager'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		TaskManager = include('springroll.TaskManager'),
 		LoadTask = include('springroll.LoadTask'),
 		Debug;
 
@@ -16,7 +17,7 @@
 	 *	@class ConfigPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 80);
+	var plugin = new ApplicationPlugin(80);
 
 	/**
 	 *	The game has finished loading

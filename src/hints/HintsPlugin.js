@@ -6,7 +6,8 @@
 (function()
 {
 	// Include classes
-	var HintsPlayer = include('springroll.HintsPlayer');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
 	 * Create an app plugin for Hinting, all properties and methods documented
@@ -14,7 +15,7 @@
 	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 	
 	// Init the animator
 	plugin.setup = function()

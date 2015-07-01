@@ -1265,7 +1265,8 @@
 (function()
 {
 	// Include classes
-	var Animator = include('springroll.easeljs.Animator');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Animator = include('springroll.easeljs.Animator');
 
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
@@ -1273,7 +1274,7 @@
 	 * @class AnimatorPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()

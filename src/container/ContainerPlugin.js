@@ -5,7 +5,8 @@
 (function(undefined)
 {
 	// Include classes
-	var PageVisibility = include('springroll.PageVisibility'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		PageVisibility = include('springroll.PageVisibility'),
 		Bellhop = include('Bellhop');
 
 	/**
@@ -14,7 +15,7 @@
 	 * @class ContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 50);
+	var plugin = new ApplicationPlugin(50);
 
 	// Init the animator
 	plugin.setup = function()

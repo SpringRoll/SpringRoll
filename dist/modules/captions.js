@@ -730,7 +730,8 @@
 (function()
 {
 	// Include classes
-	var Captions = include('springroll.Captions'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Captions = include('springroll.Captions'),
 		Debug = include('springroll.Debug', false);
 
 	/**
@@ -739,7 +740,7 @@
 	 * @class CaptionsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 60);
+	var plugin = new ApplicationPlugin(60);
 
 	// Initialize
 	plugin.setup = function()

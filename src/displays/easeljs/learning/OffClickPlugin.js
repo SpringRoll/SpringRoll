@@ -6,7 +6,8 @@
 (function()
 {
 	// Include classes
-	var Point = include('createjs.Point'),
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Point = include('createjs.Point'),
 		Debug;
 
 	/**
@@ -16,7 +17,7 @@
 	 * @class OffClickPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	/**
 	 * The last interactive position

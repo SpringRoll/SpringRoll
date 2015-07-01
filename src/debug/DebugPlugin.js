@@ -5,7 +5,8 @@
 (function()
 {
 	// Include classes
-	var Debug = include('springroll.Debug');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug = include('springroll.Debug');
 
 	/**
 	 * Create an app plugin for Debug, all properties and methods documented
@@ -13,7 +14,7 @@
 	 * @class DebugPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
 	plugin.setup = function()

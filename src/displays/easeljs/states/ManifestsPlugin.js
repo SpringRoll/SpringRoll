@@ -6,7 +6,8 @@
 (function(undefined)
 {
 	// Import classes
-	var Debug,
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug,
 		LoadTask,
 		BaseState;
 
@@ -20,7 +21,7 @@
 	 *	@param {Boolean} [options.displayOptions.clearView=true] If the stage view
 	 *	should be cleared everytime in CreateJS stage.
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin');
+	var plugin = new ApplicationPlugin();
 
 	// Initialize the plugin
 	plugin.setup = function()

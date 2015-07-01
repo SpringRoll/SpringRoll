@@ -4,13 +4,15 @@
 */
 (function()
 {
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
 	 * in this class are mixed-in to the main Application
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var plugin = mixin({}, 'springroll.ApplicationPlugin', 100);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
 	plugin.setup = function()
