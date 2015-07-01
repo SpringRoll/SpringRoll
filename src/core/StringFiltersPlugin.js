@@ -1,13 +1,10 @@
 /**
- * @module UI
+ * @module Core
  * @namespace springroll
- * @requires Core
  */
 (function()
 {
-	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		StringFilters = include('springroll.StringFilters');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 
 	/**
 	 * Create an app plugin for String Filters, all properties and methods documented
@@ -15,32 +12,24 @@
 	 * @class StringFiltersPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var StringFiltersPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(StringFiltersPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(110);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The StringFilters instance
 		 * @property {springroll.StringFilters} filters
 		 */
+		var StringFilters = include('springroll.StringFilters');
 		this.filters = new StringFilters();
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.filters) this.filters.destroy();
 		this.filters = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(StringFiltersPlugin);
 
 }());

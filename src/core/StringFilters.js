@@ -1,7 +1,6 @@
 /**
- * @module UI
+ * @module Core
  * @namespace springroll
- * @requires Core
  */
 (function()
 {

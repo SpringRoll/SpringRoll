@@ -16,19 +16,10 @@
 	 * @class SoundPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var SoundPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for the sound
-		this.priority = 9;
-	};
-
-	// Reference to the prototype
-	var p = extend(SoundPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(90);
 
 	// Initialize
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The relative location to the FlashPlugin swf for SoundJS
@@ -116,12 +107,12 @@
 				}
 				this._music = value;
 
-				if (this._music)
+				if (value)
 				{
 					this._musicInstance = sound.play(
 						this._music,
 						{
-							start: sound.fadeIn.bind(sound, this._music),
+							start: sound.fadeIn.bind(sound, value),
 							loop: -1
 						}
 					);
@@ -145,57 +136,25 @@
 			}
 		});
 
-		/**
-		*  Convenience method to loads a Sound config object.
-		*  @method addSounds
-		*  @public
-		*  @param {Object} config The config to load.
-		*  @param {String} [config.context] The optional sound context to load sounds into unless
-		*                                   otherwise specified by the individual sound. Sounds do not
-		*                                   require a context.
-		*  @param {String} [config.path=""] The path to prepend to all sound source urls in this config.
-		*  @param {Array} config.soundManifest The list of sounds, either as String ids or Objects with
-		*                                      settings.
-		*  @param {Object|String} config.soundManifest.* An entry in the array. If this is a
-		*                                                string, then it is the same as
-		*                                                {'id':'<yourString>'}.
-		*  @param {String} config.soundManifest.*.id The id to reference the sound by.
-		*  @param {String} [config.soundManifest.*.src] The src path to the file, without an
-		*                                               extension. If omitted, defaults to id.
-		*  @param {Number} [config.soundManifest.*.volume=1] The default volume for the sound,
-		*                                                    from 0 to 1.
-		*  @param {Boolean} [config.soundManifest.*.loop=false] If the sound should loop by
-		*                                                       default whenever the loop
-		*                                                       parameter in play() is not
-		*                                                       specified.
-		*  @param {String} [config.soundManifest.*.context] A context name to override
-		*                                                   config.context with.
-		*  @return {springroll.Application} The Application object for chaining
-		*/
-		this.addSounds = function(config)
-		{
-			this.sound.loadConfig(config);
-			return this;
-		};
-
 		// Add the listener for the config loader to autoload the sounds
 		this.once('configLoaded', function(config)
 		{
 			//initialize Sound and load up global sound config
 			var sounds = config.sounds;
+			var sound = this.sound;
 			if (sounds)
 			{
 				if (sounds.vo)
 				{
-					this.addSounds(sounds.vo);
+					sound.addContext(sounds.vo);
 				}
 				if (sounds.sfx)
 				{
-					this.addSounds(sounds.sfx);
+					sound.addContext(sounds.sfx);
 				}
 				if (sounds.music)
 				{
-					this.addSounds(sounds.music);
+					sound.addContext(sounds.music);
 				}
 			}
 		});
@@ -208,7 +167,7 @@
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		Sound.init({
 			swfPath : this.options.swfPath,
@@ -244,19 +203,18 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.voPlayer.destroy();
-		this.voPlayer = null;
-		
+		if (this.voPlayer)
+		{
+			this.voPlayer.destroy();
+			this.voPlayer = null;
+		}
 		if (this.sound)
 		{
 			this.sound.destroy();
 			this.sound = null;
 		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(SoundPlugin);
 
 }());

@@ -75,11 +75,8 @@ app.on('loading', function(tasks)
 });
 
 // Wait until the app is ready
-app.on('init', function(){
-
-	// Load up the configuration for the sound effects
-	//this.addSounds(config.sfx).addSounds(config.music);
-
+app.on('init', function()
+{
 	var centerX = (this.display.width - image.width) / 2;
 
 	// Add the buttons

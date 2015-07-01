@@ -1,5 +1,5 @@
 /**
- * @module Game
+ * @module States
  * @namespace springroll
  * @requires Core
  */
@@ -8,7 +8,7 @@
 	// Imports
 	var Debug = include('springroll.Debug', false),
 		EventDispatcher = include('springroll.EventDispatcher'),
-		BaseState = include('springroll.BaseState'),
+		State = include('springroll.State'),
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
@@ -17,18 +17,17 @@
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {springroll.AbstractDisplay} display The display on which the transition animation is
-	 *                                             displayed.
-	 * @param {createjs.MovieClip|PIXI.Spine} transition The transition MovieClip to play between
-	 *                                                   transitions.
-	 * @param {Object} transitionSounds Data object with aliases and start times (seconds) for
-	 *                                  transition in, loop and out sounds. Example:
-	 *                                  {in:{alias:"myAlias", start:0.2}}.
-	 *                                  These objects are in the format for Animator from
-	 *                                  EaselJSDisplay or PixiDisplay, so they can be just the
-	 *                                  sound alias instead of an object.
+	 * @param {springroll.AbstractDisplay} display The display on which the transition animation
+	 *        is displayed.
+	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
+	 *        transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
+	 *        These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
+	 *        so they can be just the sound alias instead of an object.
+	 * @param {Object|String} [transitionSounds.in] The sound to play for transition in
+	 * @param {Object|String} [transitionSounds.out] The sound to play for transition out
+	 * @param {Object|String} [transitionSounds.loading] The sound to play for loading
 	 */
-	var StateManager = function(display, transition, transitionSounds)
+	var StateManager = function(display, transitionSounds)
 	{
 		EventDispatcher.call(this);
 
@@ -43,10 +42,9 @@
 		/**
 		* The click to play in between transitioning states
 		*
-		* @property {createjs.MovieClip|PIXI.Spine} _transition
-		* @private
+		* @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
 		*/
-		this._transition = transition;
+		this.transition = null;
 		
 		/**
 		* The sounds for the transition
@@ -67,7 +65,7 @@
 		/**
 		* The currently selected state
 		*
-		* @property {BaseState} _state
+		* @property {springroll.State} _state
 		* @private
 		*/
 		this._state = null;
@@ -83,7 +81,7 @@
 		/**
 		* The old state
 		*
-		* @property {BaseState} _oldState
+		* @property {springroll.State} _oldState
 		* @private
 		*/
 		this._oldState = null;
@@ -120,16 +118,11 @@
 		*/
 		this._queueStateId = null;
 
-		// Construct
-		if (this._transition.stop)
-		{
-			this._transition.stop();
-		}
 		// Hide the blocker
 		this.hideBlocker();
 
 		// Binding
-		this._loopTransition = this._loopTransition.bind(this);
+		this._onTransitionLoading = this._onTransitionLoading.bind(this);
 		this._onTransitionOut = this._onTransitionOut.bind(this);
 		this._onStateLoaded = this._onStateLoaded.bind(this);
 		this._onTransitionIn = this._onTransitionIn.bind(this);
@@ -142,62 +135,71 @@
 	*
 	* @event onTransitionIn
 	*/
-	StateManager.TRANSITION_IN = "onTransitionIn";
+	var TRANSITION_IN = StateManager.TRANSITION_IN = "onTransitionIn";
+
+	/**
+	* The name of the Animator label and event for loading between state change.
+	* this event is only dispatched if there is a loading sequence to show in the 
+	* transition. Recommended to use 'loadingStart' instead for checking.
+	*
+	* @event onTransitionLoading
+	*/
+	var TRANSITION_LOADING = StateManager.TRANSITION_LOADING = "onTransitionLoading";
 	
 	/**
 	* The name of the event for completing transitioning into a state.
 	*
 	* @event onTransitionInDone
 	*/
-	StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
+	var TRANSITION_IN_DONE = StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
 	
 	/**
 	* The name of the Animator label and event for transitioning out of a state.
 	*
 	* @event onTransitionOut
 	*/
-	StateManager.TRANSITION_OUT = "onTransitionOut";
+	var TRANSITION_OUT = StateManager.TRANSITION_OUT = "onTransitionOut";
 	
 	/**
 	* The name of the event for completing transitioning out of a state.
 	*
 	* @event onTransitionOutDone
 	*/
-	StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
+	var TRANSITION_OUT_DONE = StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
 	
 	/**
 	* The name of the event for initialization complete - the first state is then being entered.
 	*
 	* @event onInitDone
 	*/
-	StateManager.TRANSITION_INIT_DONE = "onInitDone";
+	var TRANSITION_INIT_DONE = StateManager.TRANSITION_INIT_DONE = "onInitDone";
 	
 	/**
 	* Event when the state begins loading assets when it is entered.
 	*
 	* @event onLoadingStart
 	*/
-	StateManager.LOADING_START = "onLoadingStart";
+	var LOADING_START = StateManager.LOADING_START = "onLoadingStart";
 	
 	/**
 	* Event when the state finishes loading assets when it is entered.
 	*
 	* @event onLoadingDone
 	*/
-	StateManager.LOADING_DONE = "onLoadingDone";
+	var LOADING_DONE = StateManager.LOADING_DONE = "onLoadingDone";
 	
 	/**
 	*  Register a state with the state manager, done initially
 	*
 	*  @method addState
 	*  @param {String} id The string alias for a state
-	*  @param {BaseState} state State object reference
+	*  @param {springroll.State} state State object reference
 	*/
 	p.addState = function(id, state)
 	{
 		if (DEBUG && Debug)
 		{
-			Debug.assert(state instanceof BaseState, "State ("+id+") needs to subclass springroll.BaseState");
+			Debug.assert(state instanceof State, "State ("+id+") needs to subclass springroll.State");
 		}
 		
 		// Add to the collection of states
@@ -212,32 +214,45 @@
 	
 	/**
 	*  Dynamically change the transition
-	*
+	*  @deprecated Use the transition property directly to change the transition.
 	*  @method changeTransition
-	*  @param {createjs.MovieClip|PIXI.Spine} Clip to swap for transition
+	*  @param {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition Clip to swap for transition
 	*/
-	p.changeTransition = function(clip)
+	p.changeTransition = function(transition)
 	{
-		this._transition = clip;
+		this.transition = transition;
 	};
 	
 	/**
 	*   Get the current selected state (state object)
-	*
+	*   @deprecated  Use the getter 'currentState' instead
 	*   @method getCurrentState
-	*   @return {BaseState} The Base State object
+	*   @return {springroll.State} The Base State object
 	*/
 	p.getCurrentState = function()
 	{
 		return this._state;
 	};
+
+	/**
+	*   Get the current selected state (state object)
+	*   @property {springroll.State} currentState
+	*   @readOnly
+	*/
+	Object.defineProperty(p, 'currentState', 
+	{
+		get: function()
+		{
+			return this._state;
+		}
+	});
 	
 	/**
 	*   Access a certain state by the ID
 	*
 	*   @method getStateById
 	*   @param {String} id State alias
-	*   @return {BaseState} The base State object
+	*   @return {springroll.State} The base State object
 	*/
 	p.getStateById = function(id)
 	{
@@ -266,9 +281,9 @@
 	{
 		if (this._destroyed) return;
 		
-		this.trigger(StateManager.LOADING_START);
+		this.trigger(LOADING_START);
 		
-		this._loopTransition();
+		this._onTransitionLoading();
 	};
 	
 	/**
@@ -281,7 +296,7 @@
 	{
 		if (this._destroyed) return;
 		
-		this.trigger(StateManager.LOADING_DONE);
+		this.trigger(LOADING_DONE);
 	};
 	
 	/**
@@ -313,17 +328,67 @@
 	p.refresh = function()
 	{
 		if (DEBUG && Debug) Debug.assert(!!this._state, "No current state to refresh!");
-		this.setState(this._stateId);
+		this.state = this._stateId;
 	};
 	
 	/**
 	*  Get or change the current state, using the state id.
 	*  @property {String} state
 	*/
-	Object.defineProperty(p, "state", {
+	Object.defineProperty(p, "state",
+	{
 		set : function(id)
 		{
-			this.setState(id);
+			if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
+		
+			// If we try to transition while the transition or state
+			// is transition, then we queue the state and proceed
+			// after an animation has played out, to avoid abrupt changes
+			if (this._isTransitioning)
+			{
+				this._queueStateId = id;
+				return;
+			}
+			
+			this._stateId = id;
+			this.showBlocker();
+			this._oldState = this._state;
+			this._state = this._states[id];
+			
+			if (!this._oldState)
+			{
+				// There is not current state
+				// this is only possible if this is the first
+				// state we're loading
+				this._isTransitioning = true;
+				if (this.transition)
+					this.transition.visible = true;
+				this._onTransitionLoading();
+				this.trigger(TRANSITION_INIT_DONE);
+				this._isLoading = true;
+				this._state._internalEnter(this._onStateLoaded);
+			}
+			else
+			{
+				// Check to see if the state is currently in a load
+				// if so cancel the state
+				if (this._isLoading)
+				{
+					this._oldState._internalCancel();
+					this._isLoading = false;
+					this._state._internalEnter(this._onStateLoaded);
+				}
+				else
+				{
+					this._isTransitioning = true;
+					this._oldState._internalExitStart();
+					this.showBlocker();
+					
+					this.trigger(TRANSITION_OUT);
+					
+					this._transitioning(TRANSITION_OUT, this._onTransitionOut);
+				}
+			}
 		},
 		get : function()
 		{
@@ -335,59 +400,12 @@
 	*  Set the current State
 	*
 	*  @method setState
+	*  @deprecated Use the state setter instead
 	*  @param {String} id The state id
 	*/
 	p.setState = function(id)
 	{
-		if (DEBUG && Debug) Debug.assert(this._states[id] !== undefined, "No current state mattching id '"+id+"'");
-		
-		// If we try to transition while the transition or state
-		// is transition, then we queue the state and proceed
-		// after an animation has played out, to avoid abrupt changes
-		if (this._isTransitioning)
-		{
-			this._queueStateId = id;
-			return;
-		}
-		
-		this._stateId = id;
-		this.showBlocker();
-		this._oldState = this._state;
-		this._state = this._states[id];
-		
-		if (!this._oldState)
-		{
-			// There is not current state
-			// this is only possible if this is the first
-			// state we're loading
-			this._isTransitioning = true;
-			this._transition.visible = true;
-			this._loopTransition();
-			this.trigger(StateManager.TRANSITION_INIT_DONE);
-			this._isLoading = true;
-			this._state._internalEnter(this._onStateLoaded);
-		}
-		else
-		{
-			// Check to see if the state is currently in a load
-			// if so cancel the state
-			if (this._isLoading)
-			{
-				this._oldState._internalCancel();
-				this._isLoading = false;
-				this._state._internalEnter(this._onStateLoaded);
-			}
-			else
-			{
-				this._isTransitioning = true;
-				this._oldState._internalExitStart();
-				this.showBlocker();
-				
-				this.trigger(StateManager.TRANSITION_OUT);
-				
-				this._transitioning(StateManager.TRANSITION_OUT, this._onTransitionOut);
-			}
-		}
+		this.state = id;
 	};
 	
 	/**
@@ -397,7 +415,7 @@
 	 */
 	p._onTransitionOut = function()
 	{
-		this.trigger(StateManager.TRANSITION_OUT_DONE);
+		this.trigger(TRANSITION_OUT_DONE);
 		
 		this._isTransitioning = false;
 		
@@ -411,7 +429,7 @@
 		this._oldState._internalExit();
 		this._oldState = null;
 
-		this._loopTransition();//play the transition loop animation
+		this._onTransitionLoading();//play the transition loop animation
 		
 		if (!this._processQueue())
 		{
@@ -436,8 +454,8 @@
 			this.trigger(StateEvent.VISIBLE, new StateEvent(StateEvent.VISIBLE, this._state));
 		this._state.panel.visible = true;
 		
-		this.trigger(StateManager.TRANSITION_IN);
-		this._transitioning(StateManager.TRANSITION_IN, this._onTransitionIn);
+		this.trigger(TRANSITION_IN);
+		this._transitioning(TRANSITION_IN, this._onTransitionIn);
 	};
 	
 	/**
@@ -447,8 +465,11 @@
 	 */
 	p._onTransitionIn = function()
 	{
-		this._transition.visible = false;
-		this.trigger(StateManager.TRANSITION_IN_DONE);
+		if (this.transition)
+		{
+			this.transition.visible = false;
+		}
+		this.trigger(TRANSITION_IN_DONE);
 		this._isTransitioning = false;
 		this.hideBlocker();
 		
@@ -474,31 +495,48 @@
 		{
 			var queueStateId = this._queueStateId;
 			this._queueStateId = null;
-			this.setState(queueStateId);
+			this.state = queueStateId;
 			return true;
 		}
 		return false;
 	};
 
 	/**
-	*  Plays the animation "transitionLoop" on the transition. Also serves as the animation callback.
+	*  Plays the animation "onTransitionLoading" on the transition. Also serves as the animation callback.
 	*  Manually looping the animation allows the animation to be synced to the audio while looping.
 	*
-	*  @method _loopTransition
+	*  @method _onTransitionLoading
 	*  @private
 	*/
-	p._loopTransition = function()
+	p._onTransitionLoading = function()
 	{
+		// Ignore if no transition
+		if (!this.transition) return;
+
 		var audio;
-		if (this._transitionSounds)
+		var sounds = this._transitionSounds;
+		if (sounds)
 		{
-			audio = this._transitionSounds.loop;
+			// @deprecate the use of 'loop' sound property in favor of 'loading'
+			audio = sounds.loading || sounds.loop; 
 		}
 		var animator = this._display.animator;
-		if (animator.instanceHasAnimation('transitionLoop'))
+		if (animator.instanceHasAnimation(TRANSITION_LOADING))
 		{
+			this.trigger(TRANSITION_LOADING);
 			animator.play(
-				this._transition, {
+				this.transition, {
+					anim: TRANSITION_LOADING,
+					audio: audio
+				}
+			);
+		}
+		// @deprecate the use of 'transitionLoop' in favor of 'onTransitionLoading'
+		else if (animator.instanceHasAnimation('transitionLoop'))
+		{
+			this.trigger(TRANSITION_LOADING);
+			animator.play(
+				this.transition, {
 					anim:'transitionLoop',
 					audio:audio
 				}
@@ -516,15 +554,12 @@
 	p.showTransitionOut = function(callback)
 	{
 		this.showBlocker();
-		var sm = this;
-		var func = function()
+		this._transitioning(TRANSITION_OUT, function()
 		{
-			sm._loopTransition();
-
-			if (callback)
-				callback();
-		};
-		this._transitioning(StateManager.TRANSITION_OUT, func);
+			this._onTransitionLoading();
+			if (callback) callback();
+		}
+		.bind(this));
 	};
 
 	/**
@@ -535,15 +570,13 @@
 	 */
 	p.showTransitionIn = function(callback)
 	{
-		var sm = this;
-		var func = function()
+		this._transitioning(TRANSITION_IN, function()
 		{
-			sm.hideBlocker();
-			sm._transition.visible = false;
-			if (callback)
-				callback();
-		};
-		this._transitioning(StateManager.TRANSITION_IN, func);
+			this.hideBlocker();
+			this.transition.visible = false;
+			if (callback) callback();
+		}
+		.bind(this));
 	};
 	
 	/**
@@ -556,71 +589,48 @@
 	*/
 	p._transitioning = function(event, callback)
 	{
-		var clip = this._transition;
-		clip.visible = true;
+		var transition = this.transition;
+		var sounds = this._transitionSounds;
+		
+		// Ignore with no transition
+		if (!transition) 
+		{
+			return callback();
+		}
+
+		transition.visible = true;
 
 		var audio;
-
-		if (this._transitionSounds)
+		if (sounds)
 		{
-			audio = event == StateManager.TRANSITION_IN ?
-				this._transitionSounds.in :
-				this._transitionSounds.out;
+			audio = (event == TRANSITION_IN) ? sounds.in : sounds.out;
 		}
-		this._display.animator.play(clip, {anim:event, audio:audio}, callback);
+		this._display.animator.play(
+			transition, 
+			{anim:event, audio:audio}, 
+			callback
+		);
 	};
 
 
 	/**
 	*  Goto the next state
+	*  @deprecated Use the method `nextState` on the state itself
 	*  @method next
 	*/
 	p.next = function()
 	{
-		var type = typeof this._state.nextState;
-
-		if (!this._state.nextState)
-		{
-			if (DEBUG && Debug)
-			{
-				Debug.info("'nextState' is undefined in current state, ignoring");
-			}
-			return;
-		}
-		else if (type === "function")
-		{
-			this._state.nextState();
-		}
-		else if (type === "string")
-		{
-			this.setState(this._state.nextState);
-		}
+		this._state.nextState();
 	};
 
 	/**
 	*  Goto the previous state
+	*  @deprecated Use the method `previousState` on the state itself
 	*  @method previous
 	*/
 	p.previous = function()
 	{
-		var type = typeof this._state.prevState;
-
-		if (!this._state.prevState)
-		{
-			if (DEBUG && Debug)
-			{
-				Debug.info("'prevState' is undefined in current state, ignoring");
-			}
-			return;
-		}
-		else if (type === "function")
-		{
-			this._state.prevState();
-		}
-		else if (type === "string")
-		{
-			this.setState(this._state.prevState);
-		}
+		this._state.previousState();
 	};
 	
 	/**
@@ -633,7 +643,10 @@
 
 		this.off();
 		
-		this._display.animator.stop(this._transition);
+		if (this.transition)
+		{
+			this._display.animator.stop(this.transition);
+		}
 		
 		if (this._state)
 		{
@@ -649,7 +662,7 @@
 			}
 		}
 
-		this._transition = null;
+		this.transition = null;
 		this._state = null;
 		this._oldState = null;
 		this._states = null;

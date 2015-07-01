@@ -15,18 +15,10 @@
 	 * @class ContainerPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var ContainerPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		this.priority = 5;
-	};
-
-	// Reference to the prototype
-	var p = extend(ContainerPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(50);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The default play-mode for the application is continuous, if the application is
@@ -70,7 +62,7 @@
 		});
 
 		// When the preloading is done
-		this.once('loaded', function()
+		this.once('beforeInit', function()
 		{
 			this.container.send('loadDone');
 		});
@@ -153,7 +145,7 @@
 	};
 
 	// Check for application name
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (!this.name)
 		{
@@ -204,7 +196,7 @@
 			});
 
 			// Turn off the page hide and show auto pausing the App
-			this.autoPause = false;
+			this.options.autoPause = false;
 
 			//handle detecting and sending blur/focus events
 			var container = this.container;
@@ -318,7 +310,7 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this._pageVisibility)
 		{
@@ -327,12 +319,12 @@
 		}
 
 		// Send the end application event to the container
-		this.container.send('endGame');
-		this.container.destroy();
-		this.container = null;
+		if (this.container)
+		{
+			this.container.send('endGame');
+			this.container.destroy();
+			this.container = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(ContainerPlugin);
 
 }());

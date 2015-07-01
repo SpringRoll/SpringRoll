@@ -14,11 +14,53 @@ test('namespace & include', function(assert){
 	delete window.my;
 });
 
+test('mixin', function(assert){
+	
+	var instance = {};
+	var MyClass = function(value)
+	{
+		this.value = value;
+	};
+	var p = MyClass.prototype;
+
+	// Method to add to the object instance
+	p.test = function()
+	{
+		return true;
+	};
+
+	// Add a getter or setter with enumerable
+	Object.defineProperty(p, "enabled", {
+		enumerable: true,
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// We want this to fail, no enumerable property
+	Object.defineProperty(p, "active", {
+		get: function()
+		{
+			return true;
+		}
+	});
+
+	// do the mixin
+	mixin(instance, MyClass, 100);
+
+	assert.strictEqual(instance.value, 100, "Constructor arguments");
+	assert.ok(instance.test, "Instance includes prototype method");
+	assert.strictEqual(instance.test(), true, "function mixin works");
+	assert.notOk(instance.active, "Non-enumerable getter doesn't work");
+	assert.strictEqual(instance.enabled, true, "getter works");
+});
+
 test('Enum', function(assert){
 
 	expect(8);
 
-	var Enum = springroll.Enum;
+	var Enum = include('springroll.Enum');
 	
 	var myEnum = new Enum("valueOf0",
 						"valueOf1",
@@ -47,7 +89,7 @@ test('Application', function(assert){
 
 	expect(5);
 
-	var Application = springroll.Application;
+	var Application = include('springroll.Application');
 
 	// New Application
 	var app = new Application();
@@ -61,10 +103,77 @@ test('Application', function(assert){
 	assert.ok(!app.loader, "Loader was destroyed");
 });
 
+test('Math', function(assert){
+	expect(11);
+
+	assert.strictEqual(10, Math.clamp(20,2,10), "Upper clamp");
+	assert.strictEqual(2, Math.clamp(-1,2,10), "Lower clamp");
+	assert.strictEqual(0, Math.clamp(-1,10), "Zero-based clamp");
+	assert.strictEqual(4, Math.dist({x:0,y:4}, {x:0,y:0}), "2 Point distance");
+	assert.strictEqual(4, Math.dist(0,4,0,0), "X, Y, X1, Y1 distance");
+
+	var i = Math.randomInt(4, 10);
+	assert.ok(i >= 4, "Random Int Min");
+	assert.ok(i <= 10, "Random Int Max");
+	assert.equal(parseInt(i), i, "Is Int");
+
+	i = Math.randomInt(100);
+	assert.ok(i >= 0, "Zero-based Random Int Min");
+	assert.ok(i <= 100, "Zero-based Random Int Max");
+	assert.equal(parseInt(i), i, "Zero-based Is Int");
+});
+
+test('Array', function(assert){
+	expect(6);
+	var arr = [1, 2, 3];
+	assert.strictEqual(3, arr.last(), "Last property");
+	assert.ok(arr.indexOf(arr.random()) > -1, "Random item");
+	arr.shuffle();
+	assert.strictEqual(arr.length, 3, "Array length after shuffle");
+	assert.ok(arr.indexOf(1) > -1, "First item index");
+	assert.ok(arr.indexOf(2) > -1, "Second item index");
+	assert.ok(arr.indexOf(3) > -1, "Third item index");
+});
+
+test('String', function(assert){
+	expect(2);
+	var str = "Test String";
+	assert.strictEqual(str.reverse(), "gnirtS tseT", "String reverse");
+	str = "My name is %s!";
+	var sub = "John";
+	var result = "My name is John!";
+	assert.strictEqual(str.format("John"), result, "String formatting");
+});
+
+test('Object', function(assert){
+	expect(13);
+
+	var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
+	var obj2 = { id : 'bar', value : 200 };
+	var result = Object.merge(obj1, obj2);
+	assert.strictEqual(result.id, 'bar', "Override existing property id");
+	assert.strictEqual(result.value, 200, "Override existing property value");
+	assert.strictEqual(result.name, 'Hello!', "Base property");
+
+	var resultCopy = result.clone();
+	assert.notStrictEqual(resultCopy, result, "Clone object");
+	assert.strictEqual(result.id, resultCopy.id, "Cloned property id");
+	assert.strictEqual(result.value, resultCopy.value, "Cloned property value");
+	assert.strictEqual(result.name, resultCopy.name, "Cloned property name");
+
+	assert.ok(Object.isPlain({}), "Empty is plain object");
+	assert.ok(Object.isPlain({value:{}}), "Nested is plain object");
+	assert.ok(Object.isPlain(result), "Result is plain object");
+	assert.notOk(Object.isPlain(function(){}), "New function is not plain object");
+	assert.notOk(Object.isPlain(window), "Window is not a plain object");
+	
+	assert.ok(Object.merge(null, {}), "Object.merge handles null targets");
+});
+
 test('Loader', function(assert){
 
 	//expect(9);
-	var Application = springroll.Application;
+	var Application = include('springroll.Application');
 
 	// New Application
 	var basePath = "http://example.com/";

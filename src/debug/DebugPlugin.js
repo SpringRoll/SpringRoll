@@ -14,16 +14,10 @@
 	 * @class DebugPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var DebugPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(DebugPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Enable the Debug class. After initialization, this
@@ -45,6 +39,13 @@
 		 * @property {String|DOMElement} options.framerate
 		 */
 		this.options.add('framerate');
+
+		/**
+		 * The framerate container
+		 * @property {DOMElement} _framerate
+		 * @private
+		 */
+		this._framerate = null;
 
 		/**
 		 * The host computer for remote debugging, the debug
@@ -88,55 +89,63 @@
 		});
 	};
 
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		this.options.asDOMElement('framerate');
 		var framerate = this.options.framerate;
+		var display = this.display;
 
-		if (!framerate)
+		if (!framerate && display)
 		{
-			var stage = this.display.canvas;
+			var stage = display.canvas;
 			framerate = document.createElement("div");
 			framerate.id = "framerate";
 			stage.parentNode.insertBefore(framerate, stage);
 		}
 
-		// Set the default text
-		framerate.innerHTML = "FPS: 00.000";
-
-		var frameCount = 0;
-		var framerateTimer = 0;
-
-		this.on('update', function(elapsed)
+		// Check for no framerate in the case of no display
+		// and no option.framerate being set
+		if (framerate)
 		{
-			frameCount++;
-			framerateTimer += elapsed;
-			
-			// Only update the framerate every second
-			if (framerateTimer >= 1000)
+			this._framerate = framerate;
+
+			// Set the default text
+			framerate.innerHTML = "FPS: 00.000";
+
+			var frameCount = 0;
+			var framerateTimer = 0;
+
+			this.on('update', function(elapsed)
 			{
-				var fps = 1000 / framerateTimer * frameCount;
-				framerate.innerHTML = "FPS: " + fps.toFixed(3);
-				framerateTimer = 0;
-				frameCount = 0;
-			}
-		})
-		.on('resumed', function()
-		{
-			frameCount = framerateTimer = 0;
-		});
+				frameCount++;
+				framerateTimer += elapsed;
+				
+				// Only update the framerate every second
+				if (framerateTimer >= 1000)
+				{
+					var fps = 1000 / framerateTimer * frameCount;
+					framerate.innerHTML = "FPS: " + fps.toFixed(3);
+					framerateTimer = 0;
+					frameCount = 0;
+				}
+			})
+			.on('resumed', function()
+			{
+				frameCount = framerateTimer = 0;
+			});
+		}
 		done();
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (DEBUG)
 		{
 			this.off('update resumed');
 
 			// Remove the framerate container
-			var framerate = document.getElementById('framerate');
+			var framerate = this._framerate;
 			if (framerate && framerate.parentNode)
 			{
 				framerate.parentNode.removeChild(framerate);
@@ -144,8 +153,5 @@
 		}
 		Debug.disconnect();
 	};
-
-	// register plugin
-	ApplicationPlugin.register(DebugPlugin);
 
 }());

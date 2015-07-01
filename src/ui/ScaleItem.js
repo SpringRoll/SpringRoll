@@ -6,38 +6,76 @@
 (function()
 {
 	// Class imports
-	var UIScaler;
+	var ScaleManager;
 
 	/**
 	 *	A single UI item that needs to be resized,
 	 *	this is an internal class that you would not need to interact with.
 	 *
-	 *	@class UIElement
-	 *	@param {DisplayObject} item The item to affect
-	 *	@param {springroll.UIElementSettings} settings The scale settings
+	 *	@class ScaleItem
+	 *	@param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
+	 *	@param {String} align The vertical-horizontal alignment shorthand
 	 *	@param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
 	 *	@param {DisplayAdapter} adapter The display adapter
 	 */
-	var UIElement = function(item, settings, designedScreen, adapter)
+	var ScaleItem = function(display, align, designedScreen, adapter)
 	{
-		if (!UIScaler)
+		if (!ScaleManager)
 		{
-			UIScaler = include('springroll.UIScaler');
+			ScaleManager = include('springroll.ScaleManager');
 		}
+
+		// Break align into parts
+		align = align.split('-');
+
+		/**
+		 *	What vertical screen location the item should be aligned to: "top", "center", "bottom"
+		 *	@property {String} vertAlign
+		 */
+		this.vertAlign = align[0];
+
+		/**
+		 *	What horizontal screen location the item should be aligned to: "left", "center", "right"
+		 *	@property {String} horiAlign
+		 */
+		this.horiAlign = align[1];
+
+		/**
+		 *	If this element should be aligned to the title safe area, not the actual screen.
+		 *	Values of "horizontal" and "vertical" make the title safe calculations take place only
+		 *	for one direction.
+		 *	@property {Boolean|String} titleSafe
+		 *	@default false
+		 */
+		this.titleSafe = false;
+
+		/**
+		 *	Maximum scale allowed in physical size
+		 *	@property {Number} maxScale
+		 *	@default 1
+		 */
+		this.maxScale = 1;
+
+		/**
+		 *	Minimum scale allowed in physical size
+		 *	@property {Number} minScale
+		 *	@default 1
+		 */
+		this.minScale = 1;
+
+		/**
+		 *	If the UI element is centered horizontally
+		 *	@property {Boolean} centeredHorizontally
+		 *	@default false
+		 */
+		this.centeredHorizontally = false;
 
 		/**
 		 *  The reference to the interface item we're scaling
 		 *  @private
-		 *  @property {DisplayObject} _item
+		 *  @property {PIXI.DisplayObject|createjs.DisplayObject} _display
 		 */
-		this._item = item;
-
-		/**
-		 *  The reference to the scale settings
-		 *  @private
-		 *  @property {UIElementSettings} _settings
-		 */
-		this._settings = settings;
+		this._display = display;
 
 		/**
 		 *  The original screen the item was designed for
@@ -53,8 +91,8 @@
 		 */
 		this._adapter = adapter;
 
-		var scale = adapter.getScale(item);
-		var position = adapter.getPosition(item);
+		var scale = adapter.getScale(display);
+		var position = adapter.getPosition(display);
 
 		/**
 		 *  Original X scale of the item
@@ -75,7 +113,7 @@
 		 *  @property {Number} origWidth
 		 *  @default 0
 		 */
-		this.origWidth = item.width || 0;
+		this.origWidth = display.width || 0;
 
 		/**
 		 *  The original bounds of the item with x, y, right, bottom, width, 
@@ -83,7 +121,7 @@
 		 *	the item from its origin
 		 *  @property {Object} origBounds
 		 */
-		this.origBounds = adapter.getLocalBounds(item);
+		this.origBounds = adapter.getLocalBounds(display);
 
 		/**
 		 *  Original horizontal margin in pixels
@@ -99,47 +137,53 @@
 		 */
 		this.origMarginVert = 0;
 
-		switch (settings.vertAlign)
+		switch (this.vertAlign)
 		{
-			case UIScaler.ALIGN_TOP:
+			case ScaleManager.ALIGN_TOP:
+			{
 				this.origMarginVert = position.y + this.origBounds.y * scale.y;
 				break;
-			case UIScaler.ALIGN_CENTER:
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
 				this.origMarginVert = designedScreen.height * 0.5 - position.y;
 				break;
-			case UIScaler.ALIGN_BOTTOM:
+			}
+			case ScaleManager.ALIGN_BOTTOM:
+			{
 				this.origMarginVert = designedScreen.height - (position.y + this.origBounds.bottom * scale.y);
 				break;
+			}
 		}
 
-		switch (settings.horiAlign)
+		switch (this.horiAlign)
 		{
-			case UIScaler.ALIGN_LEFT:
-				{
-					this.origMarginHori = position.x + this.origBounds.x * scale.x;
-					break;
-				}
-			case UIScaler.ALIGN_CENTER:
-				{
-					this.origMarginHori = designedScreen.width * 0.5 - position.x;
-					break;
-				}
-			case UIScaler.ALIGN_RIGHT:
-				{
-					this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
-					break;
-				}
+			case ScaleManager.ALIGN_LEFT:
+			{
+				this.origMarginHori = position.x + this.origBounds.x * scale.x;
+				break;
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
+				this.origMarginHori = designedScreen.width * 0.5 - position.x;
+				break;
+			}
+			case ScaleManager.ALIGN_RIGHT:
+			{
+				this.origMarginHori = designedScreen.width - (position.x + this.origBounds.right * scale.x);
+				break;
+			}
 		}
 	};
 
 	// Reference to the prototype
-	var p = UIElement.prototype = {};
+	var p = ScaleItem.prototype = {};
 
 	if (DEBUG)
 	{
 		p.toString = function()
 		{
-			return "[UIElement (vertAlign='" + this._settings.vertAlign + "', horiAlign='" + this._settings.horiAlign + "')]";
+			return "[ScaleItem (vertAlign='" + this.vertAlign + "', horiAlign='" + this.horiAlign + "')]";
 		};
 	}
 
@@ -152,7 +196,7 @@
 	{
 		get: function()
 		{
-			return this._item;
+			return this._display;
 		}
 	});
 
@@ -165,8 +209,7 @@
 	p.resize = function(displayWidth, displayHeight)
 	{
 		var adapter = this._adapter;
-		var _item = this._item;
-		var _settings = this._settings;
+		var _display = this._display;
 		var _designedScreen = this._designedScreen;
 		var origBounds = this.origBounds;
 		var origScaleX = this.origScaleX;
@@ -191,17 +234,18 @@
 
 		// Optional clamps on the min and max scale of the item
 		var itemScale = overallScale;
-		if (_settings.minScale && itemScale < _settings.minScale)
+		if (this.minScale && itemScale < this.minScale)
 		{
-			itemScale = _settings.minScale;
+			itemScale = this.minScale;
 		}
-		else if (_settings.maxScale && itemScale > _settings.maxScale)
+		else if (this.maxScale && itemScale > this.maxScale)
 		{
-			itemScale = _settings.maxScale;
+			itemScale = this.maxScale;
 		}
 
-		adapter.setScale(_item, origScaleX * itemScale, "x");
-		adapter.setScale(_item, origScaleY * itemScale, "y");
+		adapter.setScale(_display, origScaleX * itemScale, "x");
+		adapter.setScale(_display, origScaleY * itemScale, "y");
+
 		// Positioning
 		var m;
 		var x;
@@ -211,11 +255,12 @@
 		m = this.origMarginVert * overallScale;
 
 		// Determine if vertical alignment should be title safe
-		var titleSafe = _settings.titleSafe === true || _settings.titleSafe === "vertical";
+		var titleSafe = this.titleSafe === true || this.titleSafe === "vertical";
 
-		switch (_settings.vertAlign)
+		switch (this.vertAlign)
 		{
-			case UIScaler.ALIGN_TOP:
+			case ScaleManager.ALIGN_TOP:
+			{
 				if (titleSafe)
 				{
 					y = letterBoxHeight + m - origBounds.y * origScaleY * itemScale;
@@ -225,10 +270,14 @@
 					y = m - origBounds.y * origScaleY * itemScale;
 				}
 				break;
-			case UIScaler.ALIGN_CENTER:
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
 				y = displayHeight * 0.5 - m;
 				break;
-			case UIScaler.ALIGN_BOTTOM:
+			}
+			case ScaleManager.ALIGN_BOTTOM:
+			{
 				if (titleSafe)
 				{
 					y = displayHeight - letterBoxHeight - m -
@@ -239,23 +288,25 @@
 					y = displayHeight - m - origBounds.bottom * origScaleY * itemScale;
 				}
 				break;
+			}
 		}
 
 		// Set the position
 		if (y !== null)
 		{
-			adapter.setPosition(_item, y, "y");
+			adapter.setPosition(_display, y, "y");
 		}
 
 		// Horizontal margin
 		m = this.origMarginHori * overallScale;
 
 		// Determine if horizontal alignment should be title safe
-		titleSafe = _settings.titleSafe === true || _settings.titleSafe === "horizontal";
+		titleSafe = this.titleSafe === true || this.titleSafe === "horizontal";
 
-		switch (_settings.horiAlign)
+		switch (this.horiAlign)
 		{
-			case UIScaler.ALIGN_LEFT:
+			case ScaleManager.ALIGN_LEFT:
+			{
 				if (titleSafe)
 				{
 					x = letterBoxWidth + m - origBounds.x * origScaleX * itemScale;
@@ -265,17 +316,21 @@
 					x = m - origBounds.x * origScaleX * itemScale;
 				}
 				break;
-			case UIScaler.ALIGN_CENTER:
-				if (_settings.centeredHorizontally)
+			}
+			case ScaleManager.ALIGN_CENTER:
+			{
+				if (this.centeredHorizontally)
 				{
-					x = (displayWidth - _item.width) * 0.5;
+					x = (displayWidth - _display.width) * 0.5;
 				}
 				else
 				{
 					x = displayWidth * 0.5 - m;
 				}
 				break;
-			case UIScaler.ALIGN_RIGHT:
+			}
+			case ScaleManager.ALIGN_RIGHT:
+			{
 				if (titleSafe)
 				{
 					x = displayWidth - letterBoxWidth - m -
@@ -286,12 +341,13 @@
 					x = displayWidth - m - origBounds.right * origScaleX * itemScale;
 				}
 				break;
+			}
 		}
 
 		// Set the position
 		if (x !== null)
 		{
-			adapter.setPosition(_item, x, "x");
+			adapter.setPosition(_display, x, "x");
 		}
 	};
 
@@ -303,12 +359,11 @@
 	{
 		this._adapter = null;
 		this.origBounds = null;
-		this._item = null;
-		this._settings = null;
+		this._display = null;
 		this._designedScreen = null;
 	};
 
 	// Assign to namespace
-	namespace('springroll').UIElement = UIElement;
+	namespace('springroll').ScaleItem = ScaleItem;
 
 }());

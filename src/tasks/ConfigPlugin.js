@@ -8,7 +8,8 @@
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		TaskManager = include('springroll.TaskManager'),
-		LoadTask = include('springroll.LoadTask');
+		LoadTask = include('springroll.LoadTask'),
+		Debug;
 
 	/**
 	 *	Create an app plugin for Hinting, all properties and methods documented
@@ -16,16 +17,7 @@
 	 *	@class ConfigPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var ConfigPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// After loader, befor sound
-		this.priority = 8;
-	};
-
-	// Reference to the prototype
-	var p = extend(ConfigPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(80);
 
 	/**
 	 *	The game has finished loading
@@ -47,14 +39,16 @@
 	 */
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
+		Debug = include('springroll.Debug', false);
+
 		/**
 		 *	The path to the config file to load
 		 *	@property {String} options.configPath
-		 *	@default 'assets/config/config.json'
+		 *	@default null
 		 */
-		this.options.add('configPath', 'assets/config/config.json', true);
+		this.options.add('configPath', null, true);
 
 		/**
 		 *	The game configuration loaded from and external JSON file
@@ -64,25 +58,37 @@
 	};
 
 	// async
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var tasks = [];
+		var configPath = this.options.configPath;
 
 		// If there's a config path then add it
-		if (this.options.configPath)
+		if (configPath)
 		{
 			tasks.push(new LoadTask(
 				'config',
-				this.options.configPath,
+				configPath,
 				onConfigLoaded.bind(this)
 			));
+		}
+		else if (DEBUG && Debug)
+		{
+			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON");
 		}
 
 		//Allow extending game to add additional tasks
 		this.trigger('loading', tasks);
 
-		// Load the tasks
-		TaskManager.process(tasks, onTasksComplete.bind(this, done));
+		if (tasks.length)
+		{
+			// Load the tasks
+			TaskManager.process(tasks, onTasksComplete.bind(this, done));
+		}
+		else
+		{
+			onTasksComplete.call(this, done);
+		}
 	};
 
 	/**
@@ -111,12 +117,9 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		this.config = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(ConfigPlugin);
 
 }());

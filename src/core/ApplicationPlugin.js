@@ -4,20 +4,30 @@
  */
 (function()
 {
-	var Application = include('springroll.Application');
+	var Application;
 
 	/**
 	* Responsible for creating mixins, bindings, and setup for the SpringRoll Application
 	* @class ApplicationPlugin
 	*/
-	var ApplicationPlugin = function()
+	var ApplicationPlugin = function(priority)
 	{
+		if (!Application)
+		{
+			Application = include('springroll.Application');
+		}
+		
 		/**
 		 * The priority of the plugin. Higher numbers handled first. This should be set
 		 * in the constructor of the extending ApplicationPlugin.
 		 * @property {int} priority
+		 * @default 0
 		 */
-		this.priority = 0;
+		this.priority = priority || 0;
+
+		// Add the plugin to application
+		Application._plugins.push(this);
+		Application._plugins.sort(prioritySort);
 	};
 
 	// reference to prototype
@@ -46,20 +56,6 @@
 	p.teardown = function()
 	{
 		// implementation specific
-	};
-
-	/**
-	 * Register the plugin with the Application
-	 * @method register
-	 * @static
-	 */
-	ApplicationPlugin.register = function(func)
-	{
-		var plugin = new func();
-		Application._plugins.push(plugin);
-
-		// Sort the plugins
-		Application._plugins.sort(prioritySort);
 	};
 
 	/**

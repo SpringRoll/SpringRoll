@@ -4,9 +4,7 @@
 */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var PageVisibility = include('springroll.PageVisibility');
 
 	/**
 	 * Create an app plugin for Page Visibility listener, all properties and methods documented
@@ -14,16 +12,10 @@
 	 * @class PageVisibilityPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var PageVisibilityPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(PageVisibilityPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Handles the page visiblity changes automatically
@@ -31,6 +23,7 @@
 		 * @property {springroll.PageVisibility} _visibility
 		 * @private
 		 */
+		var PageVisibility = include('springroll.PageVisibility');
 		var visibility = this._visibility = new PageVisibility(
 			onVisible.bind(this),
 			onHidden.bind(this)
@@ -73,13 +66,10 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this._visibility.destroy();
+		if (this._visibility) this._visibility.destroy();
 		this._visibility = null;
 	};
-
-	// register plugin
-	ApplicationPlugin.register(PageVisibilityPlugin);
 
 }());

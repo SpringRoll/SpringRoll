@@ -5,25 +5,18 @@
  */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-
+	
 	/**
 	 *	Create an app plugin for touch detecting, all properties and methods documented
 	 *	in this class are mixed-in to the main Application
 	 *	@class TouchPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var TouchPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(TouchPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *	If the current brower is iOS
@@ -55,7 +48,8 @@
 			this.options.add('forceTouch', false)
 				.on('forceTouch', function(value)
 					{
-						this.hasTouch = value === "true" || !!value;
+						if(value === "true" || value === true)
+							this.hasTouch = true;
 					}
 					.bind(this));
 
@@ -68,19 +62,23 @@
 	};
 
 	// Add common filteres interaction
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		if (DEBUG)
 		{
-			this.hasTouch = !!this.options.forceTouch;
+			var value = this.options.forceTouch;
+			if(value === "true" || value === true)
+				this.hasTouch = true;
 		}
 
 		// Add the interaction filters, must have interface module MobilePlugin
-		this.filters.add('%INTERACTION%', !!this.hasTouch ? '_touch' : '_mouse');
+		if(this.filters)
+		{
+			var ui = !!this.hasTouch ? '_touch' : '_mouse';
+			this.filters.add('%INTERACTION%', ui);
+			this.filters.add('%UI%', ui);
+		}
 		done();
 	};
-
-	// Register plugin
-	ApplicationPlugin.register(TouchPlugin);
 
 }());

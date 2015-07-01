@@ -3,7 +3,7 @@
 		"sfx" : {
 			"context":"sfx",
 			"path":"assets/sound/sfx/",
-			"soundManifest": [
+			"sounds": [
 				"FoodChute",
 				"TipEarned",
 				"TrashChute"
@@ -12,7 +12,7 @@
 		"music" : {
 			"context":"music",
 			"path":"assets/sound/music/",
-			"soundManifest": [
+			"sounds": [
 				"TitleMusic"
 			]
 		}

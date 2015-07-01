@@ -1,41 +1,28 @@
 {
 	"name": "SpringRoll",
-	"version": "0.3.0",
+	"version": "0.3.7",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
 	"main": [
-		"src/Application.less",
-		"src/utils/namespace.js",
-		"src/utils/include.js",
-		"src/utils/extend.js",
-		"src/utils/async.js",
-		"src/utils/Object.js",
-		"src/utils/Enum.js",
-		"src/utils/TimeUtils.js",
-		"src/polyfills/requestAnimationFrame.js",
+		"src/mixins/*.js",
+		"src/utils/*.js",
+		"src/core/async/*.js",
+		"src/core/utils/*.js",
+		"src/polyfills/*.js",
 		"src/events/EventDispatcher.js",
 		"src/events/PropertyDispatcher.js",
-		"src/utils/TimeUtils.js",
-		"src/ApplicationOptions.js",
+		"src/core/ApplicationOptions.js",
+		"src/core/ApplicationPlugin.js",
 		"src/Application.js",
-		"src/ApplicationPlugin.js",
-		"src/utils/PageVisibility.js",
-		"src/utils/PageVisibilityPlugin.js",
-		"src/displays/AbstractDisplay.js",
-		"src/loaders/CacheManager.js",
-		"src/loaders/LoaderQueueItem.js",
-		"src/loaders/Loader.js",
-		"src/loaders/LoaderPlugin.js",
-		"src/loaders/LoaderResult.js",
-		"src/utils/CombinedCallback.js",
-		"src/data/SavedData.js",
-		"src/utils/DelayedCall.js",
-		"src/utils/String.js",
-		"src/utils/StringFilters.js",
-		"src/utils/StringFiltersPlugin.js",
-		"src/utils/Array.js",
-		"src/utils/Math.js"
+		"src/Application.less",
+		"src/core/PageVisibility.js",
+		"src/core/PageVisibilityPlugin.js",
+		"src/core/StringFilters.js",
+		"src/core/StringFiltersPlugin.js",
+		"src/core/ResizePlugin.js",
+		"src/loaders/*.js",
+		"src/displays/*.js"
 	],
 	"modules": {
 		"nativedisplay": {
@@ -97,7 +84,8 @@
 				"src/displays/easeljs/ui/SoundButton.js",
 				"src/displays/easeljs/ui/DragData.js",
 				"src/displays/easeljs/ui/DragManager.js",
-				"src/displays/easeljs/ui/AssetManager.js"
+				"src/displays/easeljs/ui/AssetManager.js",
+				"src/displays/easeljs/ui/AssetManagerPlugin.js"
 			]
 		},
 		"easeljsutils": {
@@ -128,7 +116,7 @@
 			]
 		},
 		"states": [
-			"src/states/BaseState.js",
+			"src/states/State.js",
 			"src/states/StateEvent.js",
 			"src/states/StateManager.js",
 			"src/states/StatesPlugin.js"
@@ -152,11 +140,10 @@
 			"src/media/SoundPlugin.js"
 		],
 		"ui": [
-			"src/ui/UIElement.js",
-			"src/ui/UIElementSettings.js",
+			"src/ui/ScaleItem.js",
 			"src/ui/Positioner.js",
-			"src/ui/UIScaler.js",
-			"src/ui/UIScalerPlugin.js",
+			"src/ui/ScaleManager.js",
+			"src/ui/ScalingPlugin.js",
 			"src/ui/TouchPlugin.js"
 		],
 		"captions": [
@@ -165,8 +152,8 @@
 			"src/media/CaptionsPlugin.js"
 		],
 		"languages": [
-			"src/utils/Languages.js",
-			"src/utils/LanguagesPlugin.js"
+			"src/languages/Languages.js",
+			"src/languages/LanguagesPlugin.js"
 		],
 		"debug": [
 			"src/debug/Debug.less",
@@ -210,13 +197,11 @@
 		"container": {
 			"output": "container",
 			"main": [
-				"src/utils/Object.js",
-				"src/utils/namespace.js",
-				"src/utils/include.js",
-				"src/utils/extend.js",
+				"src/mixins/Object.js",
+				"src/utils/*.js",
 				"src/events/EventDispatcher.js",
-				"src/utils/PageVisibility.js",
-				"src/data/SavedData.js",
+				"src/core/PageVisibility.js",
+				"src/core/utils/SavedData.js",
 				"src/container/Features.js",
 				"src/container/Container.js"
 			]

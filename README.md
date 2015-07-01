@@ -1,6 +1,6 @@
 ![SpringRoll Logo](http://springroll.io/assets/images/logo.png)
 
-#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll)
+#SpringRoll [![Build Status](https://travis-ci.org/SpringRoll/SpringRoll.svg?branch=master)](https://travis-ci.org/SpringRoll/SpringRoll) [![Dependency Status](https://david-dm.org/SpringRoll/SpringRoll.svg?style=flat)](https://david-dm.org/SpringRoll/SpringRoll) [![GitHub version](https://badge.fury.io/gh/SpringRoll%2FSpringRoll.svg)](https://github.com/SpringRoll/SpringRoll/releases/latest)
 
 A light-weight, extensible, future-forward framework for building HTML5 canvas-based games and applications. The framework is built on a display plugin architecture to work with [PixiJS](http://pixijs.org), [EaselJS](http://www.createjs.com/EaselJS) and native canvas rendering. The framework comes with several modules for doing common multimedia development tasks, such as:
 
@@ -9,7 +9,6 @@ A light-weight, extensible, future-forward framework for building HTML5 canvas-b
 * Implementing Captions
 * Remote Debugging
 * Responsive Interfaces
-* Multi-threading
 * Game State Management
 * Preloading Assets
 * Browser Cache Control
@@ -31,7 +30,7 @@ We have intentionally avoided support for these browsers:
 
 ##Installation
 
-SpringRoll can be install using Bower.
+SpringRoll can be installed using Bower.
 
 ```bash
 bower install springroll
@@ -88,35 +87,35 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 Modules are components which contain common code classes, documentation and/or related tools that can easily be bundled into a project. The goal of these modules is to provide convenient solutions to common problems producers face when authoring games. All modules are optional and located in the **dist/modules** folder, except the Core Module.
 
 * **[Core Module](https://github.com/SpringRoll/SpringRoll/wiki/Core-Module)** (required)
-* **[Container](https://github.com/SpringRoll/SpringRoll/wiki/Container)**
-* **[Container Client Module](https://github.com/SpringRoll/SpringRoll/wiki/Container-Client-Module)**
-* **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)**
-* **[Debug Module](https://github.com/SpringRoll/SpringRoll/wiki/Debug-Module)**
+* **[Container](https://github.com/SpringRoll/SpringRoll/wiki/Container)** _container_
+* **[Container Client Module](https://github.com/SpringRoll/SpringRoll/wiki/Container-Client-Module)** _container-client_
+* **[Captions Module](https://github.com/SpringRoll/SpringRoll/wiki/Captions-Module)** _captions_
+* **[Debug Module](https://github.com/SpringRoll/SpringRoll/wiki/Debug-Module)** _debug_
 * EaselJS
-	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)**
-	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)**
-	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)**
-	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)**
-	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)**
-	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)**
-	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)**
-* **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)**
-* **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)**
-* **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)**
-* **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)**
-* **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)**
+	* **[EaselJS Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Animation-Module)** _easeljs-animation_
+	* **[EaselJS Cutscene Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Cutscene-Module)** _easeljs-cutscene_
+	* **[EaselJS Display Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Display-Module)** _easeljs-display_
+	* **[EaselJS Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Learning-Module)** _easeljs-learning_
+	* **[EaselJS States Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-States-Module)** _easeljs-states_
+	* **[EaselJS UI Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-UI-Module)** _easeljs-ui_
+	* **[EaselJS Utilities Module](https://github.com/SpringRoll/SpringRoll/wiki/EaselJS-Utilities-Module)** _easeljs-utils_
+* **[Hints Module](https://github.com/SpringRoll/SpringRoll/wiki/Hints-Module)** _easeljs-hints_
+* **[Languages Module](https://github.com/SpringRoll/SpringRoll/wiki/Languages-Module)** _languages_
+* **[Learning Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Module)** _learning_
+* **[Learning Media Module](https://github.com/SpringRoll/SpringRoll/wiki/Learning-Media-Module)** _learning-media_
+* **[Native Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Native-Display-Module)** _native-display_
 * Pixi.js
-	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)**
-	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)**
-	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)**
-* **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)**
-* **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)**
-* **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)**
-* **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)**
+	* **[Pixi.js Animation Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Animation-Module)** _pixi-animation_
+	* **[Pixi.js Display Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-Display-Module)** _pixi-display_
+	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)** _pixi-ui_
+* **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)** _sound_
+* **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)** _states_
+* **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)** _tasks_
+* **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)** _ui_
 
 ##Displays
 
-The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
+The Framework is inherently canvas-rendering agnostic. We support two different rendering display plugins for [EaselJS](http://www.createjs.com/EaselJS) and [Pixi.js](http://www.pixijs.com/). Features within the different modules require SpringRoll's forks of EaselJS and PixiJS. In addition, there is a generic display for rendering using [Context2d](http://www.w3.org/TR/2014/CR-2dcontext-20140821/) or [WebGL](http://get.webgl.org/). An Application built with the Framework can support all three displays methods simultaneously.
 
 ##Documentation
 

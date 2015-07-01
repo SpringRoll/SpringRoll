@@ -6,8 +6,7 @@
 (function()
 {
 	//Import classes
-	var AbstractHint = include('springroll.AbstractHint'),
-		Animator = include('springroll.Animator');
+	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
 	 *  Handle the hinting played with the Animator, usually
@@ -15,7 +14,7 @@
 	 *  @class AnimatorHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game The instance of the game
+	 *  @param {springroll.HintsPlayer} hints The instance of the hints
 	 *  @param {Function} done called on hint complete
 	 *  @param {createjs.MovieClip|*} instance The media instance to play
 	 *  @param {String|object|Array} events The event or events to play
@@ -23,9 +22,9 @@
 	 *  @param {function|boolean} onCancel If the call is cancelled, true set onComplete
 	 *         to also be the cancelled callback
 	 */
-	var AnimatorHint = function(game, done, instance, events, onComplete, onCancel)
+	var AnimatorHint = function(hints, done, instance, events, onComplete, onCancel)
 	{
-		AbstractHint.call(this, game, done);
+		AbstractHint.call(this, hints, done);
 
 		this.instance = instance;
 		this.events = events;
@@ -43,13 +42,13 @@
 	 */
 	p.play = function()
 	{
-		this._game.hints.enabled = false;
-		this._game.media.playInstruction(
-			this.instance,
-			this.events,
-			this._onPlayComplete.bind(this, this.onComplete, false),
-			this._onPlayComplete.bind(this, this.onCancel, true)
-		);
+		this._hints.enabled = false;
+		this._hints.trigger('anim', {
+			instance: this.instance,
+			events: this.events,
+			complete: this._onPlayComplete.bind(this, this.onComplete, false),
+			cancel: this._onPlayComplete.bind(this, this.onCancel, true)
+		});
 	};
 
 	/**

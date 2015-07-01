@@ -1,13 +1,13 @@
 /**
  * @module Hints
  * @namespace springroll
- * @requires Core, Sound, Learning
+ * @requires Core, Sound
  */
 (function()
 {
 	// Include classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var HintsPlayer = include('springroll.HintsPlayer');
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		HintsPlayer = include('springroll.HintsPlayer');
 
 	/**
 	 * Create an app plugin for Hinting, all properties and methods documented
@@ -15,16 +15,10 @@
 	 * @class HintsPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var HintsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Reference to the prototype
-	var p = extend(HintsPlugin, ApplicationPlugin);
-
+	var plugin = new ApplicationPlugin();
+	
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * The hint player API
@@ -34,9 +28,37 @@
 	};
 
 	// Check for dependencies
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
-		if (!this.media) throw "Hinting requires Learning Media module";
+		if (!this.display.animator)
+		{
+			if (DEBUG)
+			{
+				throw "Hints requires the CreateJS or PIXI Animator to run";
+			}
+			else
+			{
+				throw "No animator";
+			}
+		}
+
+		if (!this.voPlayer) 
+		{
+			if (DEBUG)
+			{
+				throw "Hints requires the Sound module to be included";
+			}
+			else
+			{
+				throw "No sound";
+			}
+		}
+
+		// Listen for events
+		this.hints.on({
+			vo: onVOHint.bind(this), 
+			anim: onAnimatorHint.bind(this)
+		});
 
 		// Send messages to the container
 		if (this.container)
@@ -54,19 +76,73 @@
 		done();
 	};
 
+	/**
+	* Handle the VO event
+	* @method onVOHint
+	* @private
+	* @param {object} data The VO data
+	*/
+	var onVOHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.voPlayer.play(
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+	};
+
+	/**
+	* Handle the animator event
+	* @method onAnimatorHint
+	* @private
+	* @param {object} data The animator data
+	*/
+	var onAnimatorHint = function(data)
+	{
+		if (!!this.media)
+		{
+			this.media.playInstruction(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}
+		else
+		{
+			this.display.animator.play(
+				data.instance,
+				data.events,
+				data.complete,
+				data.cancel
+			);
+		}	
+	};
+
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
 		if (this.container)
 		{
 			this.container.off('playHelp');
 		}
-		this.hints.off('enabled');
-		this.hints.destroy();
-		this.hints = null;
+		if (this.hints)
+		{
+			this.hints.off('enabled vo anim');
+			this.hints.destroy();
+			this.hints = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(HintsPlugin);
 
 }());

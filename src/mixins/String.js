@@ -2,7 +2,7 @@
  * @module Core
  * @namespace window
  */
-(function()
+(function(String, Object)
 {
 	/**
 	*  Add methods to String
@@ -20,7 +20,8 @@
 	*/
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', {
+	Object.defineProperty(String.prototype, 'format', 
+	{
 		enumerable: false,
 		writable:false,
 		value: function() {
@@ -40,4 +41,25 @@
 			).replace(/%%s/g, '%s');
 		}
 	});
-}());
+	
+	/**
+	*  Returns a reversed copy of the string.
+	*  @method format
+	*  @return {String} The reversed string.
+	*/
+	if(!String.prototype.reverse)
+	{
+		Object.defineProperty(String.prototype, 'reverse', 
+		{
+			enumerable: false,
+			writable:false,
+			value: function() {
+				var o = '';
+				for (var i = this.length - 1; i >= 0; i--)
+					o += this[i];
+				return o;
+			}
+		});
+	}
+
+}(String, Object));

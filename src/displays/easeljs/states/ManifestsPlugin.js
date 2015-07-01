@@ -1,12 +1,13 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display
+ *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
 	// Import classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug,
 		LoadTask,
 		BaseState;
 
@@ -15,21 +16,15 @@
 	 *	@class ManifestsPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 *	@param {int} [options.fps=30] The framerate to use for the main display
-	 *	@param {function} [options.display=springroll.easeljsDisplay] The 
+	 *	@param {Function} [options.display=springroll.easeljsDisplay] The
 	 *	display class to use as the default display.
-	 *	@param {boolean} [options.displayOptions.clearView=true] If the stage view
-	 *	should be cleared everytime in CreateJS stage. 
+	 *	@param {Boolean} [options.displayOptions.clearView=true] If the stage view
+	 *	should be cleared everytime in CreateJS stage.
 	 */
-	var ManifestsPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
-
-	// Extend base plugin
-	var p = extend(ManifestsPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin();
 
 	// Initialize the plugin
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 *	Event when the manifest is finished loading
@@ -42,12 +37,12 @@
 		 *	to load all the manifests at once. This JSON object contains a
 		 *	dictionary of state alias and contains an array of manifest assets
 		 *	(e.g. `{"id": "PlayButton", "src": "assets/images/button.png"}`.
-	 	 *	Set to null and no manifest will be auto-loaded.
+		 *	Set to null and no manifest will be auto-loaded.
 		 *	@property {String} options.manifestsPath
 		 *	@readOnly
-		 *	@default "assets/config/manifests.json"
+		 *	@default null
 		 */
-		this.options.add('manifestsPath', "assets/config/manifests.json", true);
+		this.options.add('manifestsPath', null, true);
 
 		// Change the defaults
 		this.options.override('fps', 30);
@@ -55,11 +50,12 @@
 		this.options.override('displayOptions', { clearView: true });
 		this.options.override('canvasId', 'stage');
 
+		Debug = include('springroll.Debug', false);
 		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
 
 		/**
-		 *	The collection of loading assests by state
+		 *	The collection of loading assets by state
 		 *	@property {object} _manifests
 		 *	@private
 		 */
@@ -79,41 +75,22 @@
 		});
 
 		// When config loads, load the manifests
-		this.once('configLoaded', function(config, taskManager)
+		this.once('loading', function(tasks)
 		{
-			if (!this.options.manifestsPath) return;
+			var manifestsPath = this.options.manifestsPath;
 
-			taskManager.addTask(new LoadTask(
-				"manifests",
-				this.options.manifestsPath,
-				onManifestsLoaded.bind(this)
-			));
-		});
-
-		// Handle when states are added and add
-		// the manifests from either the config
-		this.on('stateAdded', function(alias, state)
-		{
-			if (!(state instanceof BaseState))
+			if (manifestsPath)
 			{
-				throw "States need to extend springroll.easeljs.BaseState";
+				tasks.push(new LoadTask(
+					"manifests",
+					manifestsPath,
+					onManifestsLoaded.bind(this)
+				));
 			}
-
-			var manifest = [];
-
-			// Add any manifests from the config
-			var configManifests = this.config.manifests;
-			if (configManifests && configManifests[alias])
+			else if (DEBUG && Debug)
 			{
-				manifest = configManifests[alias];
+				Debug.info("Application option 'manifestsPath' is empty, set to automatically load manifests JSON");
 			}
-			// Add any manifest items from the createjs manifest concat
-			if (this._manifests[alias])
-			{
-				manifest = manifest.concat(this._manifests[alias]);
-			}
-			// Set the properties to the state
-			state.manifest = manifest;
 		});
 	};
 
@@ -125,26 +102,14 @@
 	 */
 	var onManifestsLoaded = function(result, task, manager)
 	{
-		var lowerKey;
-		var	manifest = this._manifests;
-		var	content = result.content;
-		
-		for (var key in content)
-		{
-			lowerKey = key.toString().toLowerCase();
-			if (!manifest[lowerKey])
-			{
-				manifest[lowerKey] = content[key];
-			}
-		}
+		Object.merge(this._manifests, result.content);
 		this.trigger('manifestLoaded', manager);
 	};
 
-	p.teardown = function()
+	// clean up
+	plugin.teardown = function()
 	{
 		this._manifests = null;
 	};
-
-	ApplicationPlugin.register(ManifestsPlugin);
 
 }());

@@ -149,7 +149,7 @@
 		this._containerBlurred = false;
 
 		/**
-		 * Delays pausing of application to mitigate issues with asynchronous communication 
+		 * Delays pausing of application to mitigate issues with asynchronous communication
 		 * between Game and Container
 		 * @type {Timeout}
 		 */
@@ -157,7 +157,7 @@
 
 		/**
 		 * If the application is currently paused manually
-		 * @property {boolean} _isManualPause 
+		 * @property {boolean} _isManualPause
 		 * @private
 		 * @default false
 		 */
@@ -171,6 +171,13 @@
 		 */
 		this._paused = false;
 
+		/**
+		 *  Should we send bellhop messages for the mute (etc) buttons?
+		 *  @property {Boolean} sendMutes
+		 *  @default true
+		 */
+		this.sendMutes = true;
+
 		//Set the defaults if we have none for the controls
 		if (SavedData.read(CAPTIONS_MUTED) === null)
 		{
@@ -182,7 +189,7 @@
 		}
 		
 		this._pageVisibility = new PageVisibility(
-			onContainerFocus.bind(this), 
+			onContainerFocus.bind(this),
 			onContainerBlur.bind(this)
 		);
 	};
@@ -212,12 +219,12 @@
 	 * @event unsupported
 	 */
 
-	 /**
+	/**
 	 * Fired when the API cannot be called
 	 * @event remoteFailed
 	 */
 
-	 /**
+	/**
 	 * There was a problem with the API call
 	 * @event remoteError
 	 */
@@ -303,23 +310,7 @@
 
 		this.loading = true;
 
-		//Setup communication layer between site and application
-		this.client = new Bellhop();
-		this.client.connect(this.dom);
-
-		//Handle bellhop events coming from the application
-		this.client.on(
-		{
-			loadDone: onLoadDone.bind(this),
-			endGame: onEndGame.bind(this),
-			focus: onFocus.bind(this),
-			trackEvent: onAnalyticEvent.bind(this),
-			analyticEvent: onAnalyticEvent.bind(this),
-			progressEvent: onLearningEvent.bind(this),
-			learningEvent: onLearningEvent.bind(this),
-			helpEnabled: onHelpEnabled.bind(this),
-			features: onFeatures.bind(this)
-		});
+		this.initClient();
 
 		//Open the application in the iframe
 		this.main
@@ -414,9 +405,51 @@
 		.bind(this))
 		.fail(function()
 		{
-		    return this.trigger('remoteFailed');
+			return this.trigger('remoteFailed');
 		}
 		.bind(this));
+	};
+
+	/**
+	 *  Set up communication layer between site and application.
+	 *  May be called from subclasses if they create/destroy Bellhop instances.
+	 *  @protected
+	 *  @method initClient
+	 */
+	p.initClient = function()
+	{
+		//Setup communication layer between site and application
+		this.client = new Bellhop();
+		this.client.connect(this.dom);
+
+		//Handle bellhop events coming from the application
+		this.client.on(
+		{
+			loadDone: onLoadDone.bind(this),
+			endGame: onEndGame.bind(this),
+			focus: onFocus.bind(this),
+			trackEvent: onAnalyticEvent.bind(this),
+			analyticEvent: onAnalyticEvent.bind(this),
+			progressEvent: onLearningEvent.bind(this),
+			learningEvent: onLearningEvent.bind(this),
+			helpEnabled: onHelpEnabled.bind(this),
+			features: onFeatures.bind(this)
+		});
+	};
+
+
+	/**
+	 *  Removes the Bellhop communication layer altogether.
+	 *  @protected
+	 *  @method destroyClient
+	 */
+	p.destroyClient = function()
+	{
+		if (this.client)
+		{
+			this.client.destroy();
+			this.client = null;
+		}
 	};
 
 	/**
@@ -481,7 +514,7 @@
 	 */
 	var onContainerBlur = function(e)
 	{
-		//Set both container and application to blurred, 
+		//Set both container and application to blurred,
 		//because some blur events are only happening on the container.
 		//If container is blurred because application area was just focused,
 		//the application's focus event will override the blur imminently.
@@ -501,7 +534,7 @@
 
 		//Delay setting of 'paused' in case we get another focus event soon.
 		//Focus events are sent to the container asynchronously, and this was
-		//causing rapid toggling of the pause state and related issues, 
+		//causing rapid toggling of the pause state and related issues,
 		//especially in Internet Explorer
 		this._pauseTimer = setTimeout(
 			function()
@@ -512,7 +545,7 @@
 				if (this._isManualPause === true) return;
 
 				this.paused = this._containerBlurred && this._appBlurred;
-			}.bind(this), 
+			}.bind(this),
 			100
 		);
 	};
@@ -622,8 +655,7 @@
 	 */
 	var onEndGame = function()
 	{
-		this.client.destroy();
-		this.client = null;
+		this.destroyClient();
 
 		this.reset();
 	};
@@ -848,7 +880,7 @@
 			.addClass(muted ? 'muted' : 'unmuted');
 
 		SavedData.write(prop, muted);
-		if (this.client)
+		if (this.client && this.sendMutes)
 		{
 			this.client.send(prop, muted);
 		}
@@ -1115,11 +1147,7 @@
 			this._pageVisibility = null;
 		}
 		
-		if (this.client)
-		{
-			this.client.destroy();
-			this.client = null;
-		}
+		this.destroyClient();
 
 		s.destroy.call(this);
 	};

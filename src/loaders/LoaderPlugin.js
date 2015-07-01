@@ -4,9 +4,7 @@
 */
 (function()
 {
-	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
-	var Loader = include('springroll.Loader');
 
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
@@ -14,24 +12,16 @@
 	 * @class LoaderPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LoaderPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-
-		// Higher priority for loader
-		this.priority = 10;
-	};
-
-	// Reference to the prototype
-	var p = extend(LoaderPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(100);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{
 		/**
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
+		var Loader = include('springroll.Loader');
 		var loader = this.loader = Loader.init();
 
 		/**
@@ -81,7 +71,7 @@
 	};
 
 	// Preload task
-	p.preload = function(done)
+	plugin.preload = function(done)
 	{
 		var versionsFile = this.options.versionsFile;
 		if (versionsFile)
@@ -96,13 +86,13 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.loader.destroy();
-		this.loader = null;
+		if (this.loader)
+		{
+			this.loader.destroy();
+			this.loader = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LoaderPlugin);
 
 }());

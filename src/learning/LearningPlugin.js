@@ -1,7 +1,7 @@
 /**
  * @module Learning
  * @namespace springroll
- * @requires Core, Sound, Captions
+ * @requires Core
  */
 (function(undefined)
 {
@@ -16,17 +16,10 @@
 	 * @class LearningPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
-	var LearningPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-		this.priority = 1;
-	};
-
-	// Reference to the prototype
-	var p = extend(LearningPlugin, ApplicationPlugin);
+	var plugin = new ApplicationPlugin(10);
 
 	// Init the animator
-	p.setup = function()
+	plugin.setup = function()
 	{		
 		/**
 		 *  An learning event is dispatched
@@ -74,13 +67,13 @@
 	};
 
 	// Destroy the animator
-	p.teardown = function()
+	plugin.teardown = function()
 	{
-		this.learning.destroy();
-		this.learning = null;
+		if (this.learning)
+		{
+			this.learning.destroy();
+			this.learning = null;
+		}
 	};
-
-	// register plugin
-	ApplicationPlugin.register(LearningPlugin);
 
 }());

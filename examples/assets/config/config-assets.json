@@ -1,0 +1,20 @@
+{
+	"scaling": {
+		"flower" : {
+			"x" : 400,
+			"y" : 400,
+			"align": "bottom-center"
+		},
+		"closeButton" : {
+			"x" : 660,
+			"y" : 10,
+			"align": "top-right",
+			"titleSafe": true
+		}
+	},
+	"scalingSize": {
+		"width": 800,
+		"height": 500,
+		"maxWidth": 1000
+	}
+}

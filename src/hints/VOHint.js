@@ -14,15 +14,15 @@
 	 *  @class VOHint
 	 *  @extends springroll.AbstractHint
 	 *  @constructor
-	 *  @param {springroll.TrackingGame} game The instance of the game
+	 *  @param {springroll.Application} hints The instance of the hints
 	 *  @param {Function} done called on hint complete
 	 *  @param {String|Array} idOrList
 	 *  @param {Function} onComplete
 	 *  @param {Function} onCancel
 	 */
-	var VOHint = function(game, done, idOrList, onComplete, onCancel)
+	var VOHint = function(hints, done, idOrList, onComplete, onCancel)
 	{
-		AbstractHint.call(this, game, done);
+		AbstractHint.call(this, hints, done);
 
 		this.idOrList = idOrList;
 		this.onComplete = onComplete;
@@ -39,12 +39,12 @@
 	 */
 	p.play = function()
 	{
-		this._game.hints.enabled = false;
-		this._game.media.playInstruction(
-			this.idOrList,
-			this._onPlayComplete.bind(this, this.onComplete, false),
-			this._onPlayComplete.bind(this, this.onCancel, true)
-		);
+		this._hints.enabled = false;
+		this._hints.trigger('vo', {
+			events: this.idOrList,
+			complete: this._onPlayComplete.bind(this, this.onComplete, false),
+			cancel: this._onPlayComplete.bind(this, this.onCancel, true)
+		});
 	};
 
 	/**

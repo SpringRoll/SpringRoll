@@ -123,6 +123,8 @@
 
 	/**
 	 *  Setup a DwellTimer for a DisplayObject.
+	 *  @method create
+	 *  @static
 	 *  @param {createjs.DisplayObject} obj Clickable DisplayObject
 	 */
 	DwellTimer.create = function(obj)
@@ -133,6 +135,8 @@
 
 	/**
 	 *  If exists, cleanup and remove DwellTimer from object
+	 *  @method destroy
+	 *  @static
 	 *  @param {createjs.DisplayObject} obj DisplayObject with DwellTimer to cleanup
 	 */
 	DwellTimer.destroy = function(obj)

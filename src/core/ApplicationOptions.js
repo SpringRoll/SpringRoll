@@ -49,12 +49,15 @@
 		var options = this._options;
 		var app = this._app;
 
+		// Create the options overrides
+		options = Object.merge({}, defaultOptions, options);
+
 		// If parse querystring is turned on, we'll
 		// override with any of the query string parameters
-		var query = options.useQueryString ? getQueryString() : {};
-
-		// Create the options overrides
-		options = Object.merge({}, defaultOptions, options, query);
+		if (options.useQueryString)
+		{
+			Object.merge(options, getQueryString());
+		}
 
 		// Create getter and setters for all properties
 		// this is so we can dispatch events when the property changes
@@ -66,22 +69,13 @@
 		// Cannot change these properties after setup
 		this.readOnly(
 			'name',
-			'resizeElement',
 			'useQueryString',
 			'canvasId',
 			'display',
 			'displayOptions',
 			'uniformResize'
 		);
-
-		// Convert these to DOM elements
-		this.asDOMElement('resizeElement');
-
-		this.respond('updateTween', function()
-		{
-			return Tween ? app.has('update', Tween.tick) : false;
-		});
-
+		
 		this.on('updateTween', function(value)
 		{
 			if (Tween)
@@ -192,20 +186,6 @@
 		fps: 60,
 
 		/**
-		 * The element to resize the canvas to fit
-		 * @property {DOMElement|String} resizeElement
-		 * @default 'frame'
-		 */
-		resizeElement: 'frame',
-
-		/**
-		 * Whether to resize the displays to the original aspect ratio
-		 * @property {Boolean} uniformResize
-		 * @default true
-		 */
-		uniformResize: true,
-
-		/**
 		 * Use the query string parameters for options overrides
 		 * @property {Boolean} useQueryString
 		 * @default false
@@ -245,24 +225,6 @@
 		 * @default false
 		 */
 		crossOrigin: false,
-
-		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum height relative to the original width. This
-		 * allows for "title-safe" responsiveness. Must be greater
-		 * than the original height of the canvas.
-		 * @property {int} maxHeight
-		 */
-		maxHeight: 0,
-
-		/**
-		 * If doing uniform resizing, optional parameter to add
-		 * a maximum width relative to the original height. This
-		 * allows for "title-safe" responsiveness. Must be greater
-		 * than the original width of the canvas.
-		 * @property {int} maxWidth
-		 */
-		maxWidth: 0,
 
 		/**
 		 * The name of the application
