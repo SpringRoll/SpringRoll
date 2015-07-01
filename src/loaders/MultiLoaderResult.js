@@ -152,7 +152,8 @@
 	/**
 	 * Load a single asset
 	 * @method addAsset
-	 * @param {Object|String} asset The asset to load
+	 * @param {Object|String|Function} asset The asset to load, 
+	 *        can either be an object, URL/path, or async function.
 	 */
 	p.addAsset = function(asset, id)
 	{
@@ -182,9 +183,8 @@
 	 * Handler when a task has completed
 	 * @method  taskDone
 	 * @protected
-	 * @param  {[type]} task   [description]
-	 * @param  {[type]} result [description]
-	 * @return {[type]}        [description]
+	 * @param  {Function|springroll.MultiLoaderTask} task Reference to original task
+	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
 	{
@@ -238,6 +238,11 @@
 		if (!this.tasks.length)
 		{
 			this.complete(this.results);
+
+			/**
+			 * When all events are completed
+			 * @event completed
+			 */
 			this.trigger('completed');
 		}
 	};
@@ -263,6 +268,10 @@
 	 */
 	p.destroy = function()
 	{
+		/**
+		 * When the loader result has been destroyed
+		 * @event destroyed
+		 */
 		this.trigger('destroyed');
 		this.tasks.forEach(function(task)
 		{
