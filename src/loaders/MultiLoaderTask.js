@@ -12,22 +12,22 @@
 	 * @class MultiLoaderTask
 	 * @extends springroll.MultiTask
 	 * @constructor
-	 * @param {String|Object} data The data properties
-	 * @param {String|Number} fallbackId The fallback id if none is set in data
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The source
+	 * @param {String} [asset.id] Id of asset
+	 * @param {*} [asset.data] Optional data
+	 * @param {int} [asset.priority=0] The priority
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var MultiLoaderTask = function(data, fallbackId)
+	var MultiLoaderTask = function(data)
 	{
 		if (!Loader)
 		{
 			Loader = include('springroll.Loader');
 		}
-		
-		MultiTask.call(this);
 
-		if (typeof data == "string")
-		{
-			data = { src:data };
-		}
+		MultiTask.call(this);
 
 		/**
 		 * The source URL to load
@@ -63,7 +63,13 @@
 		 * The task id
 		 * @property {String} id
 		 */
-		this.id = data.id || String(fallbackId);
+		this.id = data.id;
+
+		/**
+		 * Reference to the original asset data
+		 * @property {Object} originalAsset
+		 */
+		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -84,7 +90,8 @@
 			callback,
 			this.progress,
 			this.priority,
-			this.data
+			this.data,
+			this.originalAsset
 		);
 	};
 
@@ -96,6 +103,8 @@
 	{
 		s.destroy.call(this);
 		
+		this.originalAsset = null;
+		this.data = null;
 		this.complete = null;
 		this.progress = null;
 	};

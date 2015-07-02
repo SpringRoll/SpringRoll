@@ -267,7 +267,7 @@
 				}
 				if(Sound.instance.exists(alias))
 				{
-					Sound.instance.preloadSound(alias);
+					Sound.instance.preload(alias);
 					data.alias = alias;
 					data.audioStart = start;
 				

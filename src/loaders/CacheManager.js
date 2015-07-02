@@ -5,9 +5,7 @@
 (function(undefined){
 
 	// Classes to import
-	var Debug,
-		Application,
-		Loader;
+	var Debug;
 
 	/**
 	*  Used for managing the browser cache of loading external elements
@@ -16,18 +14,22 @@
 	*  uses the query string to bust browser versions.
 	*
 	*  @class CacheManager
+	*  @constructor
+	*  @param {springroll.Application} app Reference to application
 	*/
-	var CacheManager = function()
+	var CacheManager = function(app)
 	{
-		if(!Application)
+		if (DEBUG && !Debug)
 		{
-			Application = include('springroll.Application');
-			Loader = include('springroll.Loader');
 			Debug = include('springroll.Debug', false);
 		}
 
-		this._applySpecificVersion = this._applySpecificVersion.bind(this);
-		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
+		/**
+		 * The current application
+		 * @protected
+		 * @property {springroll.Application} _app
+		 */
+		this._app = app;
 
 		/**
 		*  The collection of version numbers
@@ -48,6 +50,10 @@
 		*  @property {String} _globalVersion
 		*/
 		this._globalVersion = null;
+
+		// Function bindings
+		this._applySpecificVersion = this._applySpecificVersion.bind(this);
+		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
 
 		// Initial set
 		this.cacheBust = false;
@@ -78,7 +84,7 @@
 			}
 			else
 			{
-				var version = Application.instance.options.version;
+				var version = this._app.options.version;
 				this._globalVersion = version ? "v=" + version : null;
 				if(this._globalVersion)
 				{
@@ -101,6 +107,7 @@
 	*/
 	p.destroy = function()
 	{
+		this._app = null;
 		this._versions = null;
 		this._filters = null;
 		this._applySpecificVersion = null;
@@ -119,8 +126,6 @@
 	{
 		if (DEBUG && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
 
-		var loader = Loader.instance;
-
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
 		{
@@ -137,7 +142,7 @@
 		var cm = this;
 
 		// Load the version
-		loader.load(url,
+		this._app.load(url,
 			function(result)
 			{
 				// check for a valid result content
@@ -218,7 +223,7 @@
 	p._applySpecificVersion = function(url)
 	{
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		var ver = this._versions[url];
@@ -242,7 +247,7 @@
 	{
 		if(!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		//apply the versioning if it isn't already on the url
@@ -266,7 +271,7 @@
 	*/
 	p._applyBasePath = function(url)
 	{
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			url = basePath + url;

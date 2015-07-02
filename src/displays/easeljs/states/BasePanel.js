@@ -1,7 +1,7 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
+ *	@requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function()
 {

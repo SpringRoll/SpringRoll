@@ -24,6 +24,13 @@
 		*  @property {*} data
 		*/
 		this.data = null;
+
+		/**
+		*  The data of the original asset for multi-load
+		*  @public
+		*  @property {Object} originalAsset
+		*/
+		this.originalAsset = null;
 		
 		/**
 		*  The callback function of the load, to call when 
@@ -116,6 +123,21 @@
 	{
 		return "[LoaderQueueItem(url:'"+this.url+"', priority:"+this.priority+")]";
 	};
+
+	/**
+	 * Clear all the data
+	 * @method clear
+	 */
+	p.reset = function()
+	{
+		this.callback = 
+		this.updateCallback = 
+		this.data = 
+		this.originalAsset = 
+		this.url = null;
+		
+		this.progress = 0;
+	};
 	
 	/**
 	*  Destroy this result
@@ -124,9 +146,7 @@
 	*/
 	p.destroy = function()
 	{
-		this.callback = null;
-		this.updateCallback = null;
-		this.data = null;
+		this.reset();
 		this._boundFail = null;
 		this._boundProgress = null;
 		this._boundComplete = null;

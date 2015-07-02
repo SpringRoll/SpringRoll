@@ -29,7 +29,6 @@
 		<script src="../dist/modules/easeljs-animation.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 		<script src="../dist/modules/states.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 
 		<!-- CreateJS Assets -->
 		<script src="assets/js/Transition.js"></script>
@@ -52,7 +51,6 @@ var Application = include('springroll.Application'),
 	Bitmap = include('createjs.Bitmap'),
 	Container = include('createjs.Container'),
 	State = include('springroll.BaseState'),
-	LoadTask = include('springroll.LoadTask'),
 	Loader = include('springroll.Loader'),
 	Transition = include('lib.Transition');
 
@@ -70,17 +68,16 @@ var app = new Application({
 // The button image
 var image = null;
 
-app.on('loading', function(tasks)
+app.on('loading', function(assets)
 {
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		function(result)
+	assets.push({
+		src: 'assets/images/button.png', 
+		complete: function(result)
 		{
 			// Save the bitmap image to use late
 			image = result.content
 		}
-	));
+	});
 });
 
 // Wait until the app is ready

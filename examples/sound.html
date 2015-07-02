@@ -26,7 +26,6 @@
 		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/sound.js"></script>
 
     </head>
@@ -45,7 +44,6 @@ var Application = include('springroll.Application'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Button = include('springroll.easeljs.Button'),
 	Shape = include('createjs.Shape'),
-	LoadTask = include('springroll.LoadTask'),
 	Tween = include('createjs.Tween');
 
 // Create the new application
@@ -61,17 +59,16 @@ var app = new Application({
 // The button image
 var image = null;
 
-app.on('loading', function(tasks)
+app.on('loading', function(assets)
 {
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		function(result)
+	assets.push({
+		src: 'assets/images/button.png', 
+		complete: function(result)
 		{
 			// Save the bitmap image to use late
 			image = result.content
 		}
-	));
+	});
 });
 
 // Wait until the app is ready

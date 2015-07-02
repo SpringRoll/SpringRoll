@@ -19,7 +19,6 @@
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 
@@ -49,7 +48,6 @@
 var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	Debug = include('springroll.Debug'),
-	LoadTask = include('springroll.LoadTask'),
 	EaselJSDisplay = include('springroll.easeljs.EaselJSDisplay');
 
 // Create the new application
@@ -67,16 +65,15 @@ var app = new Application({
 var buttonImage;
 
 // Load the button
-app.on('loading', function(tasks)
+app.on('loading', function(assets)
 {
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		function(result)
+	assets.push({
+		src: 'assets/images/button.png', 
+		complete: function(result)
 		{
 			buttonImage = result.content;
 		}
-	));
+	});
 });
 
 // Handle the events

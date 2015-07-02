@@ -1,14 +1,11 @@
 /**
- *	@module Tasks
- *	@namespace springroll
- *	@requires Core
- */
+*  @module Core
+*  @namespace springroll
+*/
 (function()
 {
 	// Include classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		TaskManager = include('springroll.TaskManager'),
-		LoadTask = include('springroll.LoadTask'),
 		Debug;
 
 	/**
@@ -60,34 +57,34 @@
 	// async
 	plugin.preload = function(done)
 	{
-		var tasks = [];
+		var assets = [];
 		var configPath = this.options.configPath;
 
 		// If there's a config path then add it
 		if (configPath)
 		{
-			tasks.push(new LoadTask(
-				'config',
-				configPath,
-				onConfigLoaded.bind(this)
-			));
+			assets.push({
+				src: configPath,
+				complete: onConfigLoaded.bind(this)
+			});
 		}
 		else if (DEBUG && Debug)
 		{
-			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON");
+			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON (optional).");
 		}
 
 		//Allow extending game to add additional tasks
-		this.trigger('loading', tasks);
+		this.trigger('loading', assets);
 
-		if (tasks.length)
+		var callback = onTasksComplete.bind(this, done);
+
+		if (assets.length)
 		{
-			// Load the tasks
-			TaskManager.process(tasks, onTasksComplete.bind(this, done));
+			this.load(assets, callback);
 		}
 		else
 		{
-			onTasksComplete.call(this, done);
+			callback();
 		}
 	};
 
@@ -95,12 +92,13 @@
 	 *	Callback when the config is loaded
 	 *	@method onConfigLoaded
 	 *	@private
-	 *	@param {springroll.LoaderResult} result The Loader result from the load task
+	 *	@param {springroll.LoaderResult} result The Loader result from the load
+	 *	@param {Array} assets The array to add new load tasks to
 	 */
-	var onConfigLoaded = function(result, task, manager)
+	var onConfigLoaded = function(result, assets)
 	{
 		var config = this.config = result.content;
-		this.trigger('configLoaded', config, manager);
+		this.trigger('configLoaded', config, assets);
 	};
 
 	/**
@@ -110,9 +108,7 @@
 	 */
 	var onTasksComplete = function(done)
 	{
-		//Ready to initialize
 		this.trigger('loaded');
-
 		done();
 	};
 

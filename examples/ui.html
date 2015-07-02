@@ -63,28 +63,24 @@ var app = new Application({
 
 var images = {};
 
-app.on('loading', function(tasks)
+app.on('loading', function(assets)
 {
-	// Load the background image
-	tasks.push(new LoadTask(
-		'background', 
-		'assets/images/background.jpg', 
-		onImageLoaded
-	));
-
-	// Load the button image
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		onImageLoaded
-	));
+	assets.push({
+		src: 'assets/images/background.jpg', 
+		complete: onImageLoaded,
+		data: 'background'
+	},{
+		src: 'assets/images/button.png', 
+		complete: onImageLoaded,
+		data: 'button'
+	});
 });
 
 
 // Callback when an image is loaded
-var onImageLoaded = function(result, task)
+var onImageLoaded = function(result)
 {
-	images[task.id] = result.content;
+	images[result.data] = result.content;
 };
 
 // Wait until the app is ready

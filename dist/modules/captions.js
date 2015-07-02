@@ -784,7 +784,7 @@
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
-			this.loader.load(captionsPath, function(result)
+			this.load(captionsPath, function(result)
 			{
 				this.captions.data = result.content;
 				done();

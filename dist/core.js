@@ -3420,9 +3420,7 @@
 (function(undefined){
 
 	// Classes to import
-	var Debug,
-		Application,
-		Loader;
+	var Debug;
 
 	/**
 	*  Used for managing the browser cache of loading external elements
@@ -3431,18 +3429,22 @@
 	*  uses the query string to bust browser versions.
 	*
 	*  @class CacheManager
+	*  @constructor
+	*  @param {springroll.Application} app Reference to application
 	*/
-	var CacheManager = function()
+	var CacheManager = function(app)
 	{
-		if(!Application)
+		if (true && !Debug)
 		{
-			Application = include('springroll.Application');
-			Loader = include('springroll.Loader');
 			Debug = include('springroll.Debug', false);
 		}
 
-		this._applySpecificVersion = this._applySpecificVersion.bind(this);
-		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
+		/**
+		 * The current application
+		 * @protected
+		 * @property {springroll.Application} _app
+		 */
+		this._app = app;
 
 		/**
 		*  The collection of version numbers
@@ -3463,6 +3465,10 @@
 		*  @property {String} _globalVersion
 		*/
 		this._globalVersion = null;
+
+		// Function bindings
+		this._applySpecificVersion = this._applySpecificVersion.bind(this);
+		this._applyGlobalVersion = this._applyGlobalVersion.bind(this);
 
 		// Initial set
 		this.cacheBust = false;
@@ -3493,7 +3499,7 @@
 			}
 			else
 			{
-				var version = Application.instance.options.version;
+				var version = this._app.options.version;
 				this._globalVersion = version ? "v=" + version : null;
 				if(this._globalVersion)
 				{
@@ -3516,6 +3522,7 @@
 	*/
 	p.destroy = function()
 	{
+		this._app = null;
 		this._versions = null;
 		this._filters = null;
 		this._applySpecificVersion = null;
@@ -3534,8 +3541,6 @@
 	{
 		if (true && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
 
-		var loader = Loader.instance;
-
 		// If we already cache busting, we can ignore this
 		if (this.cacheBust)
 		{
@@ -3552,7 +3557,7 @@
 		var cm = this;
 
 		// Load the version
-		loader.load(url,
+		this._app.load(url,
 			function(result)
 			{
 				// check for a valid result content
@@ -3633,7 +3638,7 @@
 	p._applySpecificVersion = function(url)
 	{
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		var ver = this._versions[url];
@@ -3657,7 +3662,7 @@
 	{
 		if(!this._globalVersion) return url;
 		//don't apply versioning if the asset is retrieved from a php service
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if(basePath && basePath.indexOf("?") > 0) return url;
 		
 		//apply the versioning if it isn't already on the url
@@ -3681,7 +3686,7 @@
 	*/
 	p._applyBasePath = function(url)
 	{
-		var basePath = Application.instance.options.basePath;
+		var basePath = this._app.options.basePath;
 		if (basePath && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			url = basePath + url;
@@ -3866,22 +3871,22 @@
 	 * @class MultiLoaderTask
 	 * @extends springroll.MultiTask
 	 * @constructor
-	 * @param {String|Object} data The data properties
-	 * @param {String|Number} fallbackId The fallback id if none is set in data
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.src The source
+	 * @param {String} [asset.id] Id of asset
+	 * @param {*} [asset.data] Optional data
+	 * @param {int} [asset.priority=0] The priority
+	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var MultiLoaderTask = function(data, fallbackId)
+	var MultiLoaderTask = function(data)
 	{
 		if (!Loader)
 		{
 			Loader = include('springroll.Loader');
 		}
-		
-		MultiTask.call(this);
 
-		if (typeof data == "string")
-		{
-			data = { src:data };
-		}
+		MultiTask.call(this);
 
 		/**
 		 * The source URL to load
@@ -3917,7 +3922,13 @@
 		 * The task id
 		 * @property {String} id
 		 */
-		this.id = data.id || String(fallbackId);
+		this.id = data.id;
+
+		/**
+		 * Reference to the original asset data
+		 * @property {Object} originalAsset
+		 */
+		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -3938,7 +3949,8 @@
 			callback,
 			this.progress,
 			this.priority,
-			this.data
+			this.data,
+			this.originalAsset
 		);
 	};
 
@@ -3950,6 +3962,8 @@
 	{
 		s.destroy.call(this);
 		
+		this.originalAsset = null;
+		this.data = null;
 		this.complete = null;
 		this.progress = null;
 	};
@@ -3964,7 +3978,8 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask'),
+	var Debug,
+		MultiTask = include('springroll.MultiTask'),
 		MultiLoaderTask = include('springroll.MultiLoaderTask'),
 		MultiAsyncTask = include('springroll.MultiAsyncTask'),
 		EventDispatcher = include('springroll.EventDispatcher');
@@ -3981,6 +3996,8 @@
 	var MultiLoaderResult = function(assets, complete, parallel)
 	{
 		EventDispatcher.call(this);
+
+		Debug = include('springroll.Debug', false);
 
 		/**
 		 * Handler when completed with all tasks
@@ -4071,7 +4088,7 @@
 	
 	/**
 	 * When a task is finished
-	 * @event taskDone
+	 * @event loadDone
 	 * @param {springroll.LoaderResult} result The load result
 	 * @param {Object|Array} assets The object collection
 	 *        to add new assets to.
@@ -4080,7 +4097,7 @@
 	/**
 	 * Create a list of tasks from assets
 	 * @method  addTasks
-	 * @protected
+	 * @private
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
@@ -4100,7 +4117,7 @@
 		{
 			if (Array.isArray(assets))
 			{
-				assets.forEach(function(asset, id)
+				assets.forEach(function(asset)
 				{
 					// If we don't have the id to return
 					// a mapped result, we'll fallback to array results
@@ -4108,15 +4125,34 @@
 					{
 						mode = LIST_MODE;
 					}
-					this.addTask(asset, id);
+					if (isString(asset))
+					{
+						asset = { src: asset };
+					}
+					this.addTask(asset);
 				}
 				.bind(this));
 			}
 			else if (isObject(assets))
 			{
+				var asset;
 				for(var id in assets)
 				{
-					this.addTask(assets[id], id);
+					asset = asset[id];
+
+					// Convert to asset with ID
+					if (isString(asset))
+					{
+						asset = {
+							id: id,
+							src: asset
+						};
+					}
+					else if (!asset.id)
+					{
+						asset.id = id;
+					}
+					this.addTask(asset);
 				}
 			}
 			else
@@ -4128,8 +4164,25 @@
 	};
 
 	/**
+	 * Load a single asset
+	 * @method addTask
+	 * @private
+	 * @param {Object|String|Function} asset The asset to load, 
+	 *        can either be an object, URL/path, or async function.
+	 */
+	p.addTask = function(asset)
+	{
+		this.tasks.push(
+			isFunction(asset) ? 
+				new MultiAsyncTask(asset):
+				new MultiLoaderTask(asset)
+		);
+	};
+
+	/**
 	 * Run the next task that's waiting
 	 * @method  nextTask
+	 * @private
 	 */
 	p.nextTask = function()
 	{
@@ -4148,29 +4201,9 @@
 	};
 
 	/**
-	 * Load a single asset
-	 * @method addTask
-	 * @param {Object|String|Function} asset The asset to load, 
-	 *        can either be an object, URL/path, or async function.
-	 */
-	p.addTask = function(asset, id)
-	{
-		var task;
-		if (isFunction(asset))
-		{
-			task = new MultiAsyncTask(asset);
-		}
-		else
-		{
-			task = new MultiLoaderTask(asset, id);
-		}
-		this.tasks.push(task);
-	};
-
-	/**
 	 * Handler when a task has completed
 	 * @method  taskDone
-	 * @protected
+	 * @private
 	 * @param  {Function|springroll.MultiLoaderTask} task Reference to original task
 	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
@@ -4191,7 +4224,7 @@
 		this.tasks.splice(index, 1);
 
 		// Assets
-		var assets = getAssetsContainer(this.mode);
+		var additionalAssets = [];
 
 		// Handle the file load tasks
 		if (task instanceof MultiLoaderTask)
@@ -4210,14 +4243,25 @@
 			// can potentially add more
 			if (task.complete)
 			{
-				task.complete(result, assets);
+				task.complete(result, additionalAssets);
 			}
-			this.trigger('taskDone', result, assets);
+			this.trigger('loadDone', result, additionalAssets);
 		}
 		task.destroy();
 
-		// Add new assets
-		this.addTasks(assets);
+		// Add new assets to the things to load
+		var mode = this.addTasks(additionalAssets);
+
+		// Check to make sure if we're in 
+		// map mode, we keep it that way
+		if (this.mode === MAP_MODE && mode !== this.mode)
+		{
+			if (true && Debug)
+			{
+				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
+			}
+			throw "Load assets require IDs";
+		}
 
 		if (this.tasks.length)
 		{
@@ -4417,6 +4461,13 @@
 		*  @property {*} data
 		*/
 		this.data = null;
+
+		/**
+		*  The data of the original asset for multi-load
+		*  @public
+		*  @property {Object} originalAsset
+		*/
+		this.originalAsset = null;
 		
 		/**
 		*  The callback function of the load, to call when 
@@ -4509,6 +4560,21 @@
 	{
 		return "[LoaderQueueItem(url:'"+this.url+"', priority:"+this.priority+")]";
 	};
+
+	/**
+	 * Clear all the data
+	 * @method clear
+	 */
+	p.reset = function()
+	{
+		this.callback = 
+		this.updateCallback = 
+		this.data = 
+		this.originalAsset = 
+		this.url = null;
+		
+		this.progress = 0;
+	};
 	
 	/**
 	*  Destroy this result
@@ -4517,9 +4583,7 @@
 	*/
 	p.destroy = function()
 	{
-		this.callback = null;
-		this.updateCallback = null;
-		this.data = null;
+		this.reset();
 		this._boundFail = null;
 		this._boundProgress = null;
 		this._boundComplete = null;
@@ -4542,8 +4606,10 @@
 	*  @param {*} content The dynamic content loaded
 	*  @param {String} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
+	*  @param {*} [data] Optional data associated with object
+	*  @param {Object} [originalAsset] The original load asset (multi-load)
 	*/
-	var LoaderResult = function(content, url, loader, manifestData)
+	var LoaderResult = function(content, url, loader, data, originalAsset)
 	{
 		/**
 		*  The contents of the load
@@ -4567,11 +4633,18 @@
 		this.loader = loader;
 		
 		/**
-		*  The full manifest data for the load item.
+		*  The data for the load item.
 		*  @public
-		*  @property {String} manifestData
+		*  @property {*} data
 		*/
-		this.manifestData = manifestData;
+		this.data = data;
+
+		/**
+		*  The data of the original asset for multi-load
+		*  @public
+		*  @property {Object} originalAsset
+		*/
+		this.originalAsset = originalAsset;
 	};
 	
 	/** Reference to the prototype */
@@ -4587,29 +4660,37 @@
 	{
 		return "[LoaderResult('"+this.url+"')]";
 	};
+
+	/**
+	* Reset to the original state
+	* @method reset
+	*/
+	p.reset = function()
+	{
+		this.content = 
+		this.url = 
+		this.loader = 
+		this.data =
+		this.originalAsset =
+		this.id = null;
+	};
 	
 	/**
 	* Destroy this result
-	* @public
 	* @method destroy
 	*/
 	p.destroy = function()
 	{
-		this.callback = null;
-		this.url = null;
-		this.content = null;
-		this.manifestData = null;
+		this.reset();
 	};
 	
 	// Assign to the name space
-	// MediaLoadeResult is deprecated
-	namespace('springroll').MediaLoaderResult = LoaderResult;
 	namespace('springroll').LoaderResult = LoaderResult;
 	
 }());
 /**
-*  @module Core
-*  @namespace springroll
+ * @module Core
+ * @namespace springroll
 */
 (function()
 {
@@ -4622,12 +4703,12 @@
 		Debug;
 
 	/**
-	*  The Loader is the singleton loader for loading all assets
-	*  including images, data, code and sounds. Loader supports cache-busting
-	*  in the browser using dynamic query string parameters.
+	 * The Loader is the singleton loader for loading all assets
+	 * including images, data, code and sounds. Loader supports cache-busting
+	 * in the browser using dynamic query string parameters.
 	*
-	*  @class Loader
-	*/
+	 * @class Loader
+	 */
 	var Loader = function(app)
 	{
 		if (!LoadQueue)
@@ -4638,44 +4719,52 @@
 		}
 
 		/**
-		*  The current application
-		*  @property {springroll.Application} _app 
-		*  @private
-		*/
+		 * The current application
+		 * @property {springroll.Application} _app 
+		 * @private
+		 */
 		this._app = app;
 
 		/**
-		*  If we can load
-		*  @property {Boolean} _canLoad 
-		*  @default true
-		*  @private
-		*/
+		 * If we can load
+		 * @property {Boolean} _canLoad 
+		 * @default true
+		 * @private
+		 */
 		this._canLoad = true;
 
 		if (true)
 		{
 			/**
-			*  If the logging should be verbose (unminified library only)
-			*  @property {Boolean} verbose
-			*  @default  false
-			*/
+			 * If the logging should be verbose (unminified library only)
+			 * @property {Boolean} verbose
+			 * @default  false
+			 */
 			this.verbose = false;
 		}
 		
 		/**
-		*  The maximum number of simulaneous loads
-		*  @public
-		*  @property {int} maxSimultaneousLoads
-		*  @default 2
-		*/
+		 * The maximum number of simulaneous loads
+		 * @public
+		 * @property {int} maxSimultaneousLoads
+		 * @default 2
+		 */
 		this.maxSimultaneousLoads = 2;
 		
 		/**
-		*  The reference to the cache manager
-		*  @public
-		*  @property {CacheManager} cacheManager
-		*/
-		this.cacheManager = new CacheManager();
+		 * The reference to the cache manager
+		 * @public
+		 * @property {CacheManager} cacheManager
+		 */
+		this.cacheManager = new CacheManager(app);
+
+		// Create objects
+		qiPool = [];
+		loaderPool = [];
+		queue = [];
+		queueItems = {};
+		loaders = {};
+		retries = {};
 	};
 	
 	/** The prototype */
@@ -4685,113 +4774,107 @@
 	* Reference to the private instance object
 	* @static
 	* @protected
-	*/
+	 */
 	var _instance = null;
 	
 	/**
-	*  The collection of LoaderQueueItems
-	*  @private
-	*/
+	 * The collection of LoaderQueueItems
+	 * @private
+	 */
 	var queue = null;
 	
 	/**
-	*  The collection of LoaderQueueItems by url
-	*  @private
-	*/
+	 * The collection of LoaderQueueItems by url
+	 * @private
+	 */
 	var queueItems = null;
 	
 	/**
-	*  The collection of loaders
-	*  @private
-	*  @property {object} loaders
-	*/
+	 * The collection of loaders
+	 * @private
+	 * @property {object} loaders
+	 */
 	var loaders = null;
 	
 	/**
-	*  The pool of queue items
-	*  @private
-	*  @property {array} loaders
-	*/
+	 * The pool of queue items
+	 * @private
+	 * @property {array} loaders
+	 */
 	var qiPool = null;
 
 	/**
-	*  The pool of loader items
-	*  @private
-	*  @property {array} loaders
-	*/
+	 * The pool of loader items
+	 * @private
+	 * @property {array} loaders
+	 */
 	var loaderPool = null;
-
-	/**
-	*  The pool of result items
-	*  @private
-	*  @property {array} loaders
-	*/
-	var resultPool = null;
 	
 	/**
-	*  The current number of items loading
-	*  @private
-	*  @property {int} numLoads
-	*  @default 0
-	*/
+	 * The current number of items loading
+	 * @private
+	 * @property {int} numLoads
+	 * @default 0
+	 */
 	var numLoads = 0;
 	
 	/**
-	*  The retry attempts
-	*  @private
-	*  @property {Object} retries
-	*/
+	 * The retry attempts
+	 * @private
+	 * @property {Object} retries
+	 */
 	var retries = null;
 	
 	/**
-	*  Static constructor creating the singleton
-	*  @method init
-	*  @static
-	*  @public
-	*  @param {springroll.Application} app The current application
-	*/
+	 * Static constructor creating the singleton
+	 * @method init
+	 * @static
+	 * @public
+	 * @param {springroll.Application} app The current application
+	 */
 	Loader.init = function(app)
 	{
 		if (!_instance)
 		{
 			_instance = new Loader(app);
-			_instance._initialize();
 		}
 		return _instance;
 	};
 		
 	/**
-	*  Static function for getting the singleton instance
-	*  @static
-	*  @readOnly
-	*  @public
-	*  @property {Loader} instance
-	*/
-	Object.defineProperty(Loader, "instance", {
-		get:function()
+	 * Static function for getting the singleton instance
+	 * @static
+	 * @readOnly
+	 * @public
+	 * @property {Loader} instance
+	 */
+	Object.defineProperty(Loader, "instance",
+	{
+		get: function()
 		{
 			return _instance;
 		}
 	});
 	
 	/**
-	*  Destroy the Loader singleton, don't use after this
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the Loader singleton, don't use after this
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		var i, len, key, arr = this.queue;
 		if(arr)
 		{
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
-			arr = qiPool;
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
-			arr = resultPool;
-			for(i = 0, len = arr.length; i < i; ++i)
-				arr[i].destroy();
+			this.queue.forEach(function(item)
+			{
+				item.destroy();
+			});
+
+			qiPool.forEach(function(qi)
+			{
+				qi.destroy();
+			});
 			for(key in loaders)
 			{
 				queueItems[key].destroy();
@@ -4800,44 +4883,29 @@
 		}
 		_instance = null;
 		if (this.cacheManager)
+		{
 			this.cacheManager.destroy();
+		}
 		this.cacheManager = null;
 		queue = null;
-		resultPool = null;
 		loaderPool = null;
 		qiPool = null;
 		queueItems = null;
 		retries = null;
 		loaders = null;
 	};
-	
+
 	/**
-	*  Initilize the object
-	*  @protected
-	*  @method _initialize
-	*/
-	p._initialize = function()
-	{
-		qiPool = [];
-		loaderPool = [];
-		resultPool = [];
-		queue = [];
-		queueItems = {};
-		loaders = {};
-		retries = {};
-	};
-	
-	/**
-	*  Load a file
-	*  @method load
-	*  @public
-	*  @param {string} url The file path to load
-	*  @param {function} callback The callback function when completed
-	*  @param {function*} updateCallback The callback for load progress update, passes 0-1 as param
-	*  @param {int*} priority The priority of the load
-	*  @param {*} data optional data
-	*/
-	p.load = function(url, callback, updateCallback, priority, data)
+	 * Load a file
+	 * @method load
+	 * @public
+	 * @param {string} url The file path to load
+	 * @param {function} callback The callback function when completed
+	 * @param {function} [updateCallback] The callback for load progress update, passes 0-1 as param
+	 * @param {int} [priority=0] The priority of the load
+	 * @param {*} [data] optional data
+	 */
+	p.load = function(url, callback, updateCallback, priority, data, originalAsset)
 	{
 		var qi = this._getQI();
 		
@@ -4852,6 +4920,7 @@
 		qi.updateCallback = updateCallback || null;
 		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
 		qi.data = data || null;
+		qi.originalAsset = originalAsset || null;
 		
 		queue.push(qi);
 		
@@ -4865,11 +4934,11 @@
 	};
 	
 	/**
-	*  There was an error loading the file
-	*  @private
-	*  @method _onLoadFailed
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*/
+	 * There was an error loading the file
+	 * @private
+	 * @method _onLoadFailed
+	 * @param {LoaderQueueItem} qi The loader queue item
+	 */
 	p._onLoadFailed = function(qi, event)
 	{
 		if(!_instance)
@@ -4883,7 +4952,7 @@
 		var loader = loaders[qi.url];
 		loader.removeAllEventListeners();
 		loader.close();
-		this._poolLoader(loader);
+		_poolLoader(loader);
 		
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
@@ -4903,12 +4972,12 @@
 	};
 	
 	/**
-	*  The file load progress event
-	*  @method _onLoadProgress
-	*  @private
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} event The progress event
-	*/
+	 * The file load progress event
+	 * @method _onLoadProgress
+	 * @private
+	 * @param {LoaderQueueItem} qi The loader queue item
+	 * @param {object} event The progress event
+	 */
 	p._onLoadProgress = function(qi, event)
 	{
 		qi.progress = event.progress;
@@ -4918,12 +4987,12 @@
 	};
 	
 	/**
-	*  The file was loaded successfully
-	*  @private
-	*  @method _onLoadCompleted
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} ev The load event
-	*/
+	 * The file was loaded successfully
+	 * @private
+	 * @method _onLoadCompleted
+	 * @param {LoaderQueueItem} qi The loader queue item
+	 * @param {object} ev The load event
+	 */
 	p._onLoadCompleted = function(qi, ev)
 	{
 		if(!_instance)
@@ -4936,18 +5005,25 @@
 		var loader = loaders[qi.url];
 		loader.removeAllEventListeners();
 		loader.close();
-		this._poolLoader(loader);
+		_poolLoader(loader);
 		
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
-		this._loadDone(qi, this._getResult(ev.result, qi.url, loader, qi.data));
+
+		this._loadDone(qi, this._getResult(
+			ev.result, 
+			qi.url, 
+			loader, 
+			qi.data, 
+			qi.originalAsset
+		));
 	};
 	
 	/**
-	*  Attempt to do the next load
-	*  @method _tryNextLoad
-	*  @private
-	*/
+	 * Attempt to do the next load
+	 * @method _tryNextLoad
+	 * @private
+	 */
 	p._tryNextLoad = function()
 	{
 		if (numLoads > this.maxSimultaneousLoads - 1 || queue.length === 0) return;
@@ -4967,39 +5043,49 @@
 		
 		// Add to the list of loaders
 		loaders[qi.url] = loader;
-		
 		loader.addEventListener("fileload", qi._boundComplete);
 		loader.addEventListener("error", qi._boundFail);
 		loader.addEventListener("fileprogress", qi._boundProgress);
 		var url = this.cacheManager.prepare(qi.url);
-		loader.loadFile(qi.data ? {id:qi.data.id, src:url, data:qi.data} : url);
+		
+		// Load the file
+		loader.loadFile(qi.originalAsset ? {
+			id:qi.originalAsset.id, 
+			src:url, 
+			data:qi.originalAsset
+		} : url);
 	};
 	
 	/**
-	*  Alert that the loading is finished
-	*  @private
-	*  @method _loadDone
-	*  @param {LoaderQueueItem} qi The loader queue item
-	*  @param {object} result The event from preloadjs or null
-	*/
+	 * Alert that the loading is finished
+	 * @private
+	 * @method _loadDone
+	 * @param {LoaderQueueItem} qi The loader queue item
+	 * @param {object} result The event from preloadjs or null
+	 */
 	p._loadDone = function(qi, result)
 	{
 		numLoads--;
-		if(qi.data && result)//a way to keep track of load results without excessive function binding
-			result.id = qi.data.id;
+
+		// A way to keep track of load results without 
+		// excessive function binding
+		if(qi.originalAsset && result)
+		{
+			result.id = qi.originalAsset.id;
+		}
 		qi.callback(result);
-		//qi.destroy();
-		this._poolQI(qi);
+
+		_poolQI(qi);
 		this._tryNextLoad();
 	};
 	
 	/**
-	*  Cancel a load that's currently in progress
-	*  @public
-	*  @method cancel
-	*  @param {string} url The url
-	*  @return {bool} If canceled returns true, false if not canceled
-	*/
+	 * Cancel a load that's currently in progress
+	 * @public
+	 * @method cancel
+	 * @param {string} url The url
+	 * @return {bool} If canceled returns true, false if not canceled
+	 */
 	p.cancel = function(url)
 	{
 		var qi = queueItems[url];
@@ -5011,8 +5097,8 @@
 			delete loaders[url];
 			delete queueItems[qi.url];
 			numLoads--;
-			this._poolLoader(loader);
-			this._poolQI(qi);
+			_poolLoader(loader);
+			_poolQI(qi);
 			return true;
 		}
 		
@@ -5021,84 +5107,111 @@
 			qi = queue[i];
 			if (qi.url == url){
 				queue.splice(i, 1);
-				this._poolQI(qi);
+				_poolQI(qi);
 				return true;
 			}
 		}
 		return false;
 	};
 	
+	/**
+	 * Get a Queue item from the pool or new
+	 * @method  _getQI
+	 * @private
+	 * @return  {springroll.LoaderQueueItem} The Queue item to use
+	 */
 	p._getQI = function()
 	{
-		var rtn;
-		if(qiPool.length)
-			rtn = qiPool.pop();
+		var qi;
+		if (qiPool.length)
+		{
+			qi = qiPool.pop();
+		}
 		else
 		{
-			rtn = new LoaderQueueItem();
-			rtn._boundFail = this._onLoadFailed.bind(this, rtn);
-			rtn._boundProgress = this._onLoadProgress.bind(this, rtn);
-			rtn._boundComplete = this._onLoadCompleted.bind(this, rtn);
+			qi = new LoaderQueueItem();
+			qi._boundFail = this._onLoadFailed.bind(this, qi);
+			qi._boundProgress = this._onLoadProgress.bind(this, qi);
+			qi._boundComplete = this._onLoadCompleted.bind(this, qi);
 		}
-		return rtn;
+		return qi;
 	};
 	
-	p._poolQI = function(qi)
+	/**
+	 * Pool the loader queue item
+	 * @method  _poolQI
+	 * @private
+	 * @param  {springroll.LoaderQueueItem} qi Queue item that's done
+	 */
+	var _poolQI = function(qi)
 	{
+		qi.reset();
 		qiPool.push(qi);
-		qi.callback = qi.updateCallback = qi.data = qi.url = null;
-		qi.progress = 0;
 	};
 	
+	/**
+	 * Get a loader from the pool or create new
+	 * @method  _getLoader
+	 * @private
+	 * @param  {String} basePath
+	 * @return {createjs.LoadQueue} The load queue
+	 */
 	p._getLoader = function(basePath)
 	{
-		var rtn;
-		if(loaderPool.length)
+		var result;
+		if (loaderPool.length)
 		{
-			rtn = loaderPool.pop();
-			rtn._basePath = basePath;//apparently they neglected to make this public
+			result = loaderPool.pop();
+			result._basePath = basePath; //apparently they neglected to make this public
 		}
 		else
-			rtn = new LoadQueue(true, basePath, this._app.options.crossOrigin);
-		//allow the loader to handle sound as well
-		if(Sound)
 		{
-			rtn.installPlugin(Sound);
+			result = new LoadQueue(true, basePath, this._app.options.crossOrigin);
 		}
-		return rtn;
+		//allow the loader to handle sound as well
+		if (Sound)
+		{
+			result.installPlugin(Sound);
+		}
+		return result;
 	};
 	
-	p._poolLoader = function(loader)
+	/**
+	 * Add loader to the loader pool
+	 * @method  _poolLoader
+	 * @private
+	 * @param {createjs.LoadQueue} loader The load queue
+	 */
+	var _poolLoader = function(loader)
 	{
-		loader.removeAll();//clear the loader for reuse
+		loader.removeAll();
 		loaderPool.push(loader);
 	};
 	
-	p._getResult = function(result, url, loader, manifestData)
+	/**
+	 * Get the result of the load
+	 * @method _getResult
+	 * @private
+	 * @param  {*} content The loader result
+	 * @param  {String} url The URL that was loaded
+	 * @param  {createjs.Loader} loader Loader instance
+	 * @param  {*} data Optional data to associate with load
+	 * @param  {Object} originalAsset The original multi-load asset
+	 * @return {springroll.LoaderResult} The resulting load
+	 */
+	p._getResult = function(content, url, loader, data, originalAsset)
 	{
-		var rtn;
-		if(resultPool.length)
-		{
-			rtn = resultPool.pop();
-			rtn.content = result;
-			rtn.url = url;
-			rtn.loader = loader;
-			rtn.manifestData = manifestData;
-		}
-		else
-			rtn = new LoaderResult(result, url, loader, manifestData);
-		return rtn;
+		return new LoaderResult(
+			content,
+			url,
+			loader,
+			data,
+			originalAsset
+		);
 	};
 	
-	p._poolResult = function(result)
-	{
-		result.content = result.url = result.loader = result.id = null;
-		resultPool.push(result);
-	};
-	
-	// MediaLoader name is deprecated
-	namespace('springroll').MediaLoader = Loader;
 	namespace('springroll').Loader = Loader;
+	
 }());
 /**
 *  @module Core
@@ -5281,6 +5394,127 @@
 			this.multiLoader.destroy();
 			this.multiLoader = null;
 		}
+	};
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		Debug;
+
+	/**
+	 *	Create an app plugin for Hinting, all properties and methods documented
+	 *	in this class are mixed-in to the main Application
+	 *	@class ConfigPlugin
+	 *	@extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin(80);
+
+	/**
+	 *	The game has finished loading
+	 *	@event loaded
+	 */
+
+	/**
+	 *	The config has finished loading, in case you want to
+	 *	add additional tasks to the manager after this.
+	 *	@event configLoaded
+	 *	@param {Object} config The JSON object for config
+	 *	@param {TaskManager} manager The task manager
+	 */
+
+	/**
+	 *	The game has started loading
+	 *	@event loading
+	 *	@param {Array} tasks The list of tasks to preload
+	 */
+
+	// Init the animator
+	plugin.setup = function()
+	{
+		Debug = include('springroll.Debug', false);
+
+		/**
+		 *	The path to the config file to load
+		 *	@property {String} options.configPath
+		 *	@default null
+		 */
+		this.options.add('configPath', null, true);
+
+		/**
+		 *	The game configuration loaded from and external JSON file
+		 *	@property {Object} config
+		 */
+		this.config = null;
+	};
+
+	// async
+	plugin.preload = function(done)
+	{
+		var assets = [];
+		var configPath = this.options.configPath;
+
+		// If there's a config path then add it
+		if (configPath)
+		{
+			assets.push({
+				src: configPath,
+				complete: onConfigLoaded.bind(this)
+			});
+		}
+		else if (true && Debug)
+		{
+			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON (optional).");
+		}
+
+		//Allow extending game to add additional tasks
+		this.trigger('loading', assets);
+
+		var callback = onTasksComplete.bind(this, done);
+
+		if (assets.length)
+		{
+			this.load(assets, callback);
+		}
+		else
+		{
+			callback();
+		}
+	};
+
+	/**
+	 *	Callback when the config is loaded
+	 *	@method onConfigLoaded
+	 *	@private
+	 *	@param {springroll.LoaderResult} result The Loader result from the load
+	 *	@param {Array} assets The array to add new load tasks to
+	 */
+	var onConfigLoaded = function(result, assets)
+	{
+		var config = this.config = result.content;
+		this.trigger('configLoaded', config, assets);
+	};
+
+	/**
+	 *	Callback when tasks are completed
+	 *	@method onTasksComplete
+	 *	@private
+	 */
+	var onTasksComplete = function(done)
+	{
+		this.trigger('loaded');
+		done();
+	};
+
+	// Destroy the animator
+	plugin.teardown = function()
+	{
+		this.config = null;
 	};
 
 }());

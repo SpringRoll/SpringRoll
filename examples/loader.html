@@ -44,14 +44,15 @@ var app = new springroll.Application({
 // Wait until the app is ready
 app.on('init', function(){
 
-	// Load assets with IDs
+	// Load assets with IDs,
+	// ever asset being loaded must contain an ID field
 	this.load([
 			{
 				id:'background',
 				src:'assets/images/background.jpg',
 				complete: function(result, assets)
 				{
-					assets.captions = "assets/config/captions.json";
+					assets.push({id:'captions', src: "assets/config/captions.json"});
 				}
 			},
 			function(done)

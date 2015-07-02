@@ -2,7 +2,7 @@
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
- * @requires Core, Tasks, EaselJS Display, EaselJS Utilities
+ * @requires Core, EaselJS Display, EaselJS Utilities
  */
 (function()
 {
@@ -10,14 +10,11 @@
 		Container = include('createjs.Container'),
 		BitmapUtils,
 		Application,
-		LoadTask,
-		TaskManager,
-		Sound,
-		ListTask;
+		Sound;
 
 	/**
 	*  Cutscene is a class for playing a single EaselJS animation synced to a
-	*  single audio file with springroll.Sound, with optional captions. Utilizes the Tasks module.
+	*  single audio file with springroll.Sound, with optional captions.
 	*
 	*  @class Cutscene
 	*  @constructor
@@ -41,10 +38,7 @@
 		{
 			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
-			LoadTask = include('springroll.LoadTask');
-			TaskManager = include('springroll.TaskManager');
 			Sound = include('springroll.Sound');
-			ListTask = include('springroll.ListTask');
 			BitmapUtils = include('springroll.easeljs.BitmapUtils');
 		}
 
@@ -103,13 +97,6 @@
 		*	@private
 		*/
 		this.pathReplaceVal = options.pathReplaceVal || null;
-
-		/**
-		*	The TaskManager used to load up assets.
-		*	@property {TaskManager} _taskMan
-		*	@private
-		*/
-		this._taskMan = null;
 
 		/**
 		*	The time elapsed in seconds.
@@ -248,43 +235,50 @@
 	{
 		this.display.stage.addChild(this);
 
-		// create a texture from an image path
-		this._taskMan = new TaskManager([new LoadTask(
-			"config", this.config, this.onConfigLoaded.bind(this)
-		)]);
-
-		this._taskMan.on(TaskManager.ALL_TASKS_DONE, this.onLoadComplete.bind(this));
-		this._taskMan.startAll();
+		Application.instance.load({
+			id: "config",
+			src: this.config,
+			complete: this.onConfigLoaded.bind(this)
+		}, this.onLoadComplete.bind(this));
 	};
 
 	/**
 	*	Callback for when the config file is loaded.
 	*	@method onConfigLoaded
-	*	@param {LoaderResult} result The loaded result.
+	*	@param {springroll.LoaderResult} result The loaded result.
 	*	@private
 	*/
-	p.onConfigLoaded = function(result)
+	p.onConfigLoaded = function(result, assets)
 	{
 		this.config = result.content;
 
-		//parse config
+		// parse config
 		this.framerate = this.config.settings.fps;
 
-		//figure out what to load
-		var manifest = [];
-		//the javascript file
-		manifest.push({id:"clip", src:this.config.settings.clip});
+		var manifest = {};
+
+		// load the javascript file
+		manifest.clip = this.config.settings.clip;
+
 		//all the images
-		var url;
 		for (var key in this.config.images)
 		{
-			url = this.pathReplaceTarg ?
-				this.config.images[key].replace(this.pathReplaceTarg, this.pathReplaceVal) :
+			manifest[key] = this.pathReplaceTarg ?
+				this.config.images[key].replace(
+					this.pathReplaceTarg, 
+					this.pathReplaceVal) :
 				this.config.images[key];
-			manifest.push({id:key, src:url});
 		}
 
-		this._taskMan.addTask(new ListTask("art", manifest, this.onArtLoaded.bind(this)));
+		// Add a task to just load the assets
+		assets.push(function(done)
+		{
+			Application.instance.load(
+				manifest, 
+				this.onArtLoaded.bind(this, done)
+			);
+		}.bind(this));
+
 		if(this.config.settings.audioAlias)
 		{
 			this._audioAliases = [this.config.settings.audioAlias];
@@ -306,10 +300,12 @@
 			if (true && Debug) Debug.error("Cutscene really needs some audio to play");
 			return;
 		}
-		if(this._audioAliases.length)
+		if (this._audioAliases.length)
 		{
-			this._taskMan.addTask(Sound.instance.createPreloadTask("audio",
-				this._audioAliases, this.onAudioLoaded));
+			Sound.instance.preload(
+				this._audioAliases, 
+				this.onAudioLoaded
+			);
 		}
 	};
 
@@ -334,7 +330,7 @@
 	*	@param {Object} results The loaded results.
 	*	@private
 	*/
-	p.onArtLoaded = function(results)
+	p.onArtLoaded = function(done, results)
 	{
 		if(!window.images)
 			window.images = {};
@@ -391,7 +387,7 @@
 					}
 				}
 			}
-			else//anything left must be individual images that we were expecting
+			else //anything left must be individual images that we were expecting
 			{
 				images[id] = result;
 				this._imagesToUnload.push(id);
@@ -404,24 +400,21 @@
 				BitmapUtils.loadSpriteSheet(
 					atlasData[id],
 					atlasImages[id],
-					this.imageScale);
+					this.imageScale
+				);
 				this._imagesToUnload.push(atlasImages[id]);
 			}
 		}
+		done();
 	};
 
 	/**
 	*	Callback for when all loading is complete.
 	*	@method onLoadComplete
-	*	@param {Event} evt An event
 	*	@private
 	*/
-	p.onLoadComplete = function(evt)
+	p.onLoadComplete = function()
 	{
-		this._taskMan.off();
-		this._taskMan.destroy();
-		this._taskMan = null;
-
 		var clip = this._clip = new lib[this.config.settings.clipClass]();
 		//if the animation was for the older ComicCutscene, we should handle it gracefully
 		//so if the clip only has one frame or is a container, then we get the child of the clip
@@ -724,12 +717,6 @@
 			}
 		}
 		this._libItemsToUnload = this._imagesToUnload = this.config = null;
-		if(this._taskMan)
-		{
-			this._taskMan.off();
-			this._taskMan.destroy();
-			this._taskMan = null;
-		}
 		this._activeSyncAudio = this._activeAudio = this._audioAliases = this._audio = null;
 		this._loadCallback = this._endCallback = this._clip = this._captionsObj = null;
 		if(this.parent)

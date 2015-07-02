@@ -635,7 +635,7 @@
 				}
 				if (Sound.instance.exists(alias))
 				{
-					Sound.instance.preloadSound(alias);
+					Sound.instance.preload(alias);
 					animData.alias = alias;
 					animData.audioStart = start;
 

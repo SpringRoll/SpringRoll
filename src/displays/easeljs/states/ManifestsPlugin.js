@@ -1,14 +1,13 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
+ *	@requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
 	// Import classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Debug,
-		LoadTask,
 		BaseState;
 
 	/**
@@ -51,7 +50,6 @@
 		this.options.override('canvasId', 'stage');
 
 		Debug = include('springroll.Debug', false);
-		LoadTask = include('springroll.LoadTask');
 		BaseState = include('springroll.easeljs.BaseState');
 
 		/**
@@ -81,11 +79,11 @@
 
 			if (manifestsPath)
 			{
-				tasks.push(new LoadTask(
-					"manifests",
-					manifestsPath,
-					onManifestsLoaded.bind(this)
-				));
+				tasks.push({
+					id: "manifests",
+					src: manifestsPath,
+					complete: onManifestsLoaded.bind(this)
+				});
 			}
 			else if (DEBUG && Debug)
 			{

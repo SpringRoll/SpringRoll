@@ -48,7 +48,7 @@
 		var config = this.options.languagesPath;
 		if (config)
 		{
-			this.loader.load(config, function(result)
+			this.load(config, function(result)
 			{
 				this.languages.setConfig(result.content);
 				var lang = this.options.language;

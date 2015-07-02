@@ -4,7 +4,8 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask'),
+	var Debug,
+		MultiTask = include('springroll.MultiTask'),
 		MultiLoaderTask = include('springroll.MultiLoaderTask'),
 		MultiAsyncTask = include('springroll.MultiAsyncTask'),
 		EventDispatcher = include('springroll.EventDispatcher');
@@ -21,6 +22,8 @@
 	var MultiLoaderResult = function(assets, complete, parallel)
 	{
 		EventDispatcher.call(this);
+
+		Debug = include('springroll.Debug', false);
 
 		/**
 		 * Handler when completed with all tasks
@@ -111,7 +114,7 @@
 	
 	/**
 	 * When a task is finished
-	 * @event taskDone
+	 * @event loadDone
 	 * @param {springroll.LoaderResult} result The load result
 	 * @param {Object|Array} assets The object collection
 	 *        to add new assets to.
@@ -120,7 +123,7 @@
 	/**
 	 * Create a list of tasks from assets
 	 * @method  addTasks
-	 * @protected
+	 * @private
 	 * @param  {Object|Array} assets The assets to load
 	 */
 	p.addTasks = function(assets)
@@ -140,7 +143,7 @@
 		{
 			if (Array.isArray(assets))
 			{
-				assets.forEach(function(asset, id)
+				assets.forEach(function(asset)
 				{
 					// If we don't have the id to return
 					// a mapped result, we'll fallback to array results
@@ -148,15 +151,34 @@
 					{
 						mode = LIST_MODE;
 					}
-					this.addTask(asset, id);
+					if (isString(asset))
+					{
+						asset = { src: asset };
+					}
+					this.addTask(asset);
 				}
 				.bind(this));
 			}
 			else if (isObject(assets))
 			{
+				var asset;
 				for(var id in assets)
 				{
-					this.addTask(assets[id], id);
+					asset = asset[id];
+
+					// Convert to asset with ID
+					if (isString(asset))
+					{
+						asset = {
+							id: id,
+							src: asset
+						};
+					}
+					else if (!asset.id)
+					{
+						asset.id = id;
+					}
+					this.addTask(asset);
 				}
 			}
 			else
@@ -168,8 +190,25 @@
 	};
 
 	/**
+	 * Load a single asset
+	 * @method addTask
+	 * @private
+	 * @param {Object|String|Function} asset The asset to load, 
+	 *        can either be an object, URL/path, or async function.
+	 */
+	p.addTask = function(asset)
+	{
+		this.tasks.push(
+			isFunction(asset) ? 
+				new MultiAsyncTask(asset):
+				new MultiLoaderTask(asset)
+		);
+	};
+
+	/**
 	 * Run the next task that's waiting
 	 * @method  nextTask
+	 * @private
 	 */
 	p.nextTask = function()
 	{
@@ -188,29 +227,9 @@
 	};
 
 	/**
-	 * Load a single asset
-	 * @method addTask
-	 * @param {Object|String|Function} asset The asset to load, 
-	 *        can either be an object, URL/path, or async function.
-	 */
-	p.addTask = function(asset, id)
-	{
-		var task;
-		if (isFunction(asset))
-		{
-			task = new MultiAsyncTask(asset);
-		}
-		else
-		{
-			task = new MultiLoaderTask(asset, id);
-		}
-		this.tasks.push(task);
-	};
-
-	/**
 	 * Handler when a task has completed
 	 * @method  taskDone
-	 * @protected
+	 * @private
 	 * @param  {Function|springroll.MultiLoaderTask} task Reference to original task
 	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
@@ -231,7 +250,7 @@
 		this.tasks.splice(index, 1);
 
 		// Assets
-		var assets = getAssetsContainer(this.mode);
+		var additionalAssets = [];
 
 		// Handle the file load tasks
 		if (task instanceof MultiLoaderTask)
@@ -250,14 +269,25 @@
 			// can potentially add more
 			if (task.complete)
 			{
-				task.complete(result, assets);
+				task.complete(result, additionalAssets);
 			}
-			this.trigger('taskDone', result, assets);
+			this.trigger('loadDone', result, additionalAssets);
 		}
 		task.destroy();
 
-		// Add new assets
-		this.addTasks(assets);
+		// Add new assets to the things to load
+		var mode = this.addTasks(additionalAssets);
+
+		// Check to make sure if we're in 
+		// map mode, we keep it that way
+		if (this.mode === MAP_MODE && mode !== this.mode)
+		{
+			if (DEBUG && Debug)
+			{
+				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
+			}
+			throw "Load assets require IDs";
+		}
 
 		if (this.tasks.length)
 		{

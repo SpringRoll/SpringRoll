@@ -11,8 +11,10 @@
 	*  @param {*} content The dynamic content loaded
 	*  @param {String} url The url that was loaded
 	*  @param {createjs.LoadQueue} loader The LoadQueue that performed the load
+	*  @param {*} [data] Optional data associated with object
+	*  @param {Object} [originalAsset] The original load asset (multi-load)
 	*/
-	var LoaderResult = function(content, url, loader, manifestData)
+	var LoaderResult = function(content, url, loader, data, originalAsset)
 	{
 		/**
 		*  The contents of the load
@@ -36,11 +38,18 @@
 		this.loader = loader;
 		
 		/**
-		*  The full manifest data for the load item.
+		*  The data for the load item.
 		*  @public
-		*  @property {String} manifestData
+		*  @property {*} data
 		*/
-		this.manifestData = manifestData;
+		this.data = data;
+
+		/**
+		*  The data of the original asset for multi-load
+		*  @public
+		*  @property {Object} originalAsset
+		*/
+		this.originalAsset = originalAsset;
 	};
 	
 	/** Reference to the prototype */
@@ -56,23 +65,31 @@
 	{
 		return "[LoaderResult('"+this.url+"')]";
 	};
+
+	/**
+	* Reset to the original state
+	* @method reset
+	*/
+	p.reset = function()
+	{
+		this.content = 
+		this.url = 
+		this.loader = 
+		this.data =
+		this.originalAsset =
+		this.id = null;
+	};
 	
 	/**
 	* Destroy this result
-	* @public
 	* @method destroy
 	*/
 	p.destroy = function()
 	{
-		this.callback = null;
-		this.url = null;
-		this.content = null;
-		this.manifestData = null;
+		this.reset();
 	};
 	
 	// Assign to the name space
-	// MediaLoadeResult is deprecated
-	namespace('springroll').MediaLoaderResult = LoaderResult;
 	namespace('springroll').LoaderResult = LoaderResult;
 	
 }());

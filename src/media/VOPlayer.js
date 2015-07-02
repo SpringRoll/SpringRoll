@@ -352,7 +352,7 @@
 			{
 				if (!s.isLoaded(next))
 				{
-					s.preloadSound(next);
+					s.preload(next);
 				}
 				break;
 			}

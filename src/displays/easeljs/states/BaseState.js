@@ -1,7 +1,7 @@
 /**
  *	@module EaselJS States
  *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
+ *	@requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function(undefined)
 {
@@ -10,7 +10,6 @@
 		Application,
 		ListTask,
 		BasePanel,
-		TaskManager,
 		AssetManager;
 
 	/**
@@ -40,7 +39,6 @@
 			Application = include('springroll.Application');
 			BasePanel = include('springroll.easeljs.BasePanel');
 			ListTask = include('springroll.ListTask');
-			TaskManager = include('springroll.TaskManager');
 			Debug = include('springroll.Debug', false);
 			AssetManager = include('springroll.easeljs.AssetManager');
 		}
@@ -180,7 +178,7 @@
 		// Start loading assets if we have some
 		if (tasks.length)
 		{
-			TaskManager.process(tasks, this._onLoaded.bind(this));
+			this.app.load(tasks, this._onLoaded.bind(this));
 		}
 		// No files to load, just continue
 		else
@@ -231,7 +229,6 @@
 	/**
 	 *	Implementation specific for override. When all the assets have been loaded
 	 *	can possible add options for loading assets.
-	 *	from the TaskManager.
 	 *	@method onAssetsLoaded
 	 *	@protected
 	 */
@@ -248,7 +245,6 @@
 	p._onLoaded = function()
 	{
 		this.assetsLoaded = true;
-
 		this.panel.setup();
 
 		if (this.scaling)

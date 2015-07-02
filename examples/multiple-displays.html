@@ -25,7 +25,6 @@
 		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/pixi-display.js"></script>
 		<script src="../dist/modules/pixi-ui.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 
@@ -46,6 +45,8 @@
 var Texture = include('PIXI.Texture'),
 	Sprite = include('PIXI.Sprite'),
 	Point = include('PIXI.Point'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	PixiDisplay = include('springroll.PixiDisplay'),
 	Application = include('springroll.Application'),
 	Debug = include('springroll.Debug'),
 	EButton = include('springroll.easeljs.Button'),
@@ -53,7 +54,7 @@ var Texture = include('PIXI.Texture'),
 
 var DrawingApp = function(options)
 {
-	Application.call(this, options);
+	Application.call(this, options, this.init);
 };
 
 var pixiStage;
@@ -79,23 +80,32 @@ var pixiSwapButton;
 var createjsSwapButton;
 
 // Extend the createjs container
+var s = Application.prototype;
 var p = extend(DrawingApp, Application);
 
 p.init = function()
 {
 	Debug.log("DrawingApp is ready to use.");
 
-	this.addDisplay("pixiStage", springroll.PixiDisplay,
+	this.addDisplay(
+		"pixiStage", 
+		PixiDisplay,
 		{
 			clearView: true,
 			transparent: true
-		});
-	var cjsDisplay = this.addDisplay("easelStage", springroll.EaselJSDisplay,
+		}
+	);
+	
+	var easelDisplay = this.addDisplay(
+		"easelStage", 
+		EaselJSDisplay,
 		{
 			clearView: true
-		});
-	cjsDisplay.visible = false;
-	cjsDisplay.enabled = false;
+		}
+	);
+
+	easelDisplay.visible = false;
+	easelDisplay.enabled = false;
 	
 	pixiStage = this.getDisplay("pixiStage").stage;
 	easelStage = this.getDisplay("easelStage").stage;
@@ -120,7 +130,7 @@ p.init = function()
 	this._assetLoader.onComplete = this._onCompletedLoad.bind(this);
 	this._assetLoader.load();
 
-	this.loader.load(
+	this.load(
 		'assets/images/button.png',
 		this._onCJSButtonLoaded.bind(this)
 	);
@@ -252,21 +262,21 @@ p._clear = function()
 p.swapDisplay = function()
 {
 	var pixiDisplay = this.getDisplay("pixiStage"),
-		cjsDisplay = this.getDisplay("easelStage");
+		easelDisplay = this.getDisplay("easelStage");
 
 	if(pixiDisplay.visible)
 	{
 		pixiDisplay.enabled = false;
 		pixiDisplay.visible = false;
-		cjsDisplay.enabled = true;
-		cjsDisplay.visible = true;
+		easelDisplay.enabled = true;
+		easelDisplay.visible = true;
 	}
 	else
 	{
 		pixiDisplay.enabled = true;
 		pixiDisplay.visible = true;
-		cjsDisplay.enabled = false;
-		cjsDisplay.visible = false;
+		easelDisplay.enabled = false;
+		easelDisplay.visible = false;
 	}
 };
 
@@ -357,7 +367,7 @@ p.destroy = function()
 		easelStage = null;
 	}
 
-	springroll.Application.prototype.destroy.call(this);
+	s.destroy.call(this);
 };
 
 /**
