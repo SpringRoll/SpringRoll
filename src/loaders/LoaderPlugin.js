@@ -29,7 +29,7 @@
 		 * Reference to the multiple asset loader
 		 * @property {springroll.MultiLoader} multiLoader
 		 */
-		this.multiLoader = new MultiLoader(loader);
+		this.multiLoader = new MultiLoader();
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -101,6 +101,7 @@
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameters which is a `springroll.LoaderResult` object. will
 		 *        only use if `options.complete` is undefined.
+		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
 		/**
@@ -111,6 +112,7 @@
 		 *        `complete`, `progress`, `priority`, and `data` keys.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
+		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
 		/**
@@ -122,17 +124,28 @@
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
+		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
-		this.load = function(source, complete, progress, priority, data)
+		this.load = function(source, complete, progressOrStartAll, priority, data)
 		{
 			if (typeof source == "string")
 			{
-				this.loader.load(source, complete, progress, priority, data);
+				this.loader.load(
+					source, 
+					complete, 
+					progressOrStartAll, 
+					priority, 
+					data
+				);
 			}
 			else
 			{
-				return this.multiLoader.load(source, complete);
+				return this.multiLoader.load(
+					source, 
+					complete, 
+					progressOrStartAll
+				);
 			}
 		};
 	};

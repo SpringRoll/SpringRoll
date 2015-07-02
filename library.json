@@ -22,6 +22,8 @@
 		"src/core/StringFiltersPlugin.js",
 		"src/core/ResizePlugin.js",
 		"src/loaders/CacheManager.js",
+		"src/loaders/MultiTask.js",
+		"src/loaders/MultiAsyncTask.js",
 		"src/loaders/MultiLoaderTask.js",
 		"src/loaders/MultiLoaderResult.js",
 		"src/loaders/MultiLoader.js",

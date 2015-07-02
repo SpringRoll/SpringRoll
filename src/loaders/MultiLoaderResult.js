@@ -4,7 +4,9 @@
 */
 (function()
 {
-	var MultiLoaderTask = include('springroll.MultiLoaderTask'),
+	var MultiTask = include('springroll.MultiTask'),
+		MultiLoaderTask = include('springroll.MultiLoaderTask'),
+		MultiAsyncTask = include('springroll.MultiAsyncTask'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -12,25 +14,20 @@
 	 * @class MultiLoaderResult
 	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {springroll.Loader} loader Reference to the loader
 	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} complete Function call when done, returns results
+	 * @param {Function} [complete=null] Function call when done, returns results
+	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
 	 */
-	var MultiLoaderResult = function(loader, assets, complete)
+	var MultiLoaderResult = function(assets, complete, parallel)
 	{
 		EventDispatcher.call(this);
 
 		/**
 		 * Handler when completed with all tasks
 		 * @property {function} complete
+		 * @default  null
 		 */
-		this.complete = complete;
-
-		/**
-		 * Reference to the loader
-		 * @property {springroll.Loader} loader
-		 */
-		this.loader = loader;
+		this.complete = complete || null;
 
 		/**
 		 * How to display the results, either as single (0), map (1) or list (2)
@@ -38,6 +35,13 @@
 		 * @default 1
 		 */
 		this.mode = MAP_MODE;
+
+		/**
+		 * If we should run the tasks in parallel (true) or serial (false)
+		 * @property {Boolean} parallel
+		 * @default false
+		 */
+		this.parallel = !!parallel;
 
 		/**
 		 * The list of tasks to load
@@ -51,18 +55,14 @@
 		 */
 		this.results = null;
 
-		// Collection of tasks to run
-		this.tasks = [];
-
 		// Update the results mode and tasks
-		this.mode = this.addAssets(assets);
+		this.mode = this.addTasks(assets);
 
-		// Set defaults for results
-		switch(this.mode)
-		{
-			case MAP_MODE : this.results = {}; break;
-			case LIST_MODE : this.results = []; break;
-		}
+		// Set the default container for the results
+		this.results = getAssetsContainer(this.mode);
+
+		// Start running
+		this.nextTask();
 	};
 
 	// Reference to prototype
@@ -100,12 +100,30 @@
 	var LIST_MODE = 2;
 
 	/**
+	 * When all events are completed
+	 * @event complete
+	 */
+		
+	/**
+	 * When the loader result has been destroyed
+	 * @event destroyed
+	 */
+	
+	/**
+	 * When a task is finished
+	 * @event taskDone
+	 * @param {springroll.LoaderResult} result The load result
+	 * @param {Object|Array} assets The object collection
+	 *        to add new assets to.
+	 */
+
+	/**
 	 * Create a list of tasks from assets
-	 * @method  addAssets
+	 * @method  addTasks
 	 * @protected
 	 * @param  {Object|Array} assets The assets to load
 	 */
-	p.addAssets = function(assets)
+	p.addTasks = function(assets)
 	{
 		if (this.destroyed)
 		{
@@ -130,7 +148,7 @@
 					{
 						mode = LIST_MODE;
 					}
-					this.addAsset(asset, id);
+					this.addTask(asset, id);
 				}
 				.bind(this));
 			}
@@ -138,7 +156,7 @@
 			{
 				for(var id in assets)
 				{
-					this.addAsset(assets[id], id);
+					this.addTask(assets[id], id);
 				}
 			}
 			else
@@ -150,33 +168,43 @@
 	};
 
 	/**
+	 * Run the next task that's waiting
+	 * @method  nextTask
+	 */
+	p.nextTask = function()
+	{
+		var tasks = this.tasks;
+		for (var i = 0; i < tasks.length; i++)
+		{
+			var task = tasks[i];
+			if (task.status === MultiTask.WAITING)
+			{
+				task.start(this.taskDone.bind(this, task));
+				
+				// If we aren't running in parallel, then stop
+				if (!this.parallel) return;
+			}
+		}
+	};
+
+	/**
 	 * Load a single asset
-	 * @method addAsset
+	 * @method addTask
 	 * @param {Object|String|Function} asset The asset to load, 
 	 *        can either be an object, URL/path, or async function.
 	 */
-	p.addAsset = function(asset, id)
+	p.addTask = function(asset, id)
 	{
-		// async function
+		var task;
 		if (isFunction(asset))
 		{
-			this.tasks.push(asset);
-			asset(this.taskDone.bind(this, asset));
+			task = new MultiAsyncTask(asset);
 		}
 		else
 		{
-			var task = new MultiLoaderTask(asset, id);
-			this.tasks.push(task);
-
-			// start loading asset
-			this.loader.load(
-				task.src,
-				this.taskDone.bind(this, task),
-				task.progress,
-				task.priority,
-				task.data
-			);
+			task = new MultiLoaderTask(asset, id);
 		}
+		this.tasks.push(task);
 	};
 
 	/**
@@ -203,7 +231,7 @@
 		this.tasks.splice(index, 1);
 
 		// Assets
-		var assets = this._getAssets();
+		var assets = getAssetsContainer(this.mode);
 
 		// Handle the file load tasks
 		if (task instanceof MultiLoaderTask)
@@ -224,37 +252,39 @@
 			{
 				task.complete(result, assets);
 			}
-
 			this.trigger('taskDone', result, assets);
-
-			// Clean up the task
-			task.destroy();
 		}
+		task.destroy();
 
 		// Add new assets
-		this.addAssets(assets);
+		this.addTasks(assets);
 
-		// All tasks finished!
-		if (!this.tasks.length)
+		if (this.tasks.length)
 		{
-			this.complete(this.results);
-
-			/**
-			 * When all events are completed
-			 * @event completed
-			 */
-			this.trigger('completed');
+			// Run the next task
+			this.nextTask();
+		}
+		else
+		{
+			// We're finished!
+			if (this.complete)
+			{
+				this.complete(this.results);
+			}
+			this.trigger('complete', this.results);
 		}
 	};
 
 	/**
 	 * Get an empty assets collection
-	 * @method _getAssets
+	 * @method getAssetsContainer
+	 * @private
+	 * @param {int} mode The mode
 	 * @return {Array|Object|null} Empty container for assets 
 	 */
-	p._getAssets = function()
+	var getAssetsContainer = function(mode)
 	{
-		switch(this.mode)
+		switch(mode)
 		{
 			case SINGLE_MODE: return null;
 			case LIST_MODE: return [];
@@ -268,10 +298,6 @@
 	 */
 	p.destroy = function()
 	{
-		/**
-		 * When the loader result has been destroyed
-		 * @event destroyed
-		 */
 		this.trigger('destroyed');
 		this.tasks.forEach(function(task)
 		{

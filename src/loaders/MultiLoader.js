@@ -2,7 +2,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var MultiLoaderResult = include('springroll.MultiLoaderResult');
 	
@@ -10,18 +10,9 @@
 	 * Handle the asynchronous loading of multiple assets.
 	 * @class MultiLoader
 	 * @constructor
-	 * @param {springroll.Application} app The application reference
-	 * @param {Array|Object} assets The assets to load, either a list or map or single asset.
-	 * @param {Function} [complete] Completed function
 	 */
-	var MultiLoader = function(loader)
+	var MultiLoader = function()
 	{
-		/**
-		 * Reference to the loader
-		 * @property {springroll.Loader} loader
-		 */
-		this.loader = loader;
-
 		/**
 		 * The collection of current multiloads
 		 * @property {Array} loads
@@ -36,15 +27,16 @@
 	 * Load a bunch of assets, can only call one load at a time
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
-	 * @param {function} complete The function when finished
+	 * @param {function} [complete] The function when finished
+	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
 	 * @return {springroll.MultiLoaderResult} The reference to the current load
 	 */
-	p.load = function(assets, complete)
+	p.load = function(assets, complete, startAll)
 	{	
 		var result = new MultiLoaderResult(
-			this.loader, 
 			assets, 
-			complete
+			complete,
+			(startAll === undefined ? true : !!startAll)
 		);
 
 		// Add to the stack of current loads
@@ -52,7 +44,7 @@
 
 		// Handle the destroyed event
 		result.once(
-			'completed',
+			'complete',
 			this._onLoaded.bind(this, result)
 		);
 
@@ -81,7 +73,6 @@
 	 */
 	p.destroy = function()
 	{
-		this.loader = null;
 		this.loads = null;
 	};
 

@@ -44,7 +44,8 @@ var app = new springroll.Application({
 // Wait until the app is ready
 app.on('init', function(){
 
-	var loader = this.load([
+	// Load assets with IDs
+	this.load([
 			{
 				id:'background',
 				src:'assets/images/background.jpg',
@@ -61,7 +62,7 @@ app.on('init', function(){
 				{
 					console.log("Wait done.");
 					done();
-				}, 500);
+				}, 1000);
 			},
 			{
 				id:'button',
@@ -73,6 +74,24 @@ app.on('init', function(){
 			console.info(">>> RESULTS", results);
 		}
 	);
+
+	// Load a simple array of files
+	var loader = this.load([
+		'assets/images/background.jpg',
+		'assets/images/button.png'
+	]);
+
+	// Listen when a task is finished
+	loader.on('taskDone', function(result)
+	{
+		console.log("taskDone", result);
+	});
+
+	// Listen when completed
+	loader.once('complete', function(results)
+	{
+		console.log(">>> Array RESULTS", results);
+	});
 });
 </script>
 		</div>
