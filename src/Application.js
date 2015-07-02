@@ -6,7 +6,6 @@
 {
 	// classes to import
 	var TimeUtils = include('springroll.TimeUtils'),
-		async = include('springroll.async'),
 		EventDispatcher = include('springroll.EventDispatcher'),
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
@@ -22,8 +21,9 @@
 	*  @param {Object} [options] The options for creating the application,
 	* 		see `springroll.ApplicationOptions` for the specific options
 	*		that can be overridden and set.
+	*  @param {Function} [init=null] The callback when initialized
 	*/
-	var Application = function(options)
+	var Application = function(options, init)
 	{
 		if (_instance)
 		{
@@ -49,6 +49,12 @@
 		 *  @public
 		 */
 		this.display = null;
+
+		/**
+		 *  Override this to do post constructor initialization
+		 *  @property {Function} init
+		 */
+		this.init = init || null;
 
 		// Reset the displays
 		_displaysMap = {};
@@ -273,8 +279,8 @@
 			}
 		});
 
-		// Run the asyncronous tasks
-		async.waterfall(tasks, this._doInit.bind(this));
+		// Run the asyncronous tasks in series
+		this.load(tasks, this._doInit.bind(this), false);
 	};
 
 	/**
@@ -282,12 +288,9 @@
 	 *  @method _doInit
 	 *  @protected
 	 */
-	p._doInit = function(err)
+	p._doInit = function()
 	{
 		if (this.destroyed) return;
-
-		// Error with the async startup
-		if (err) throw err;
 
 		this.trigger('beforeInit');
 
@@ -297,18 +300,11 @@
 		// Dispatch the init event
 		this.trigger('init');
 
-		// Call the init function
-		if (this.init) this.init();
+		// Call the init function, bind to app
+		if (this.init) this.init.call(this);
 
 		this.trigger('afterInit');
 	};
-
-	/**
-	 *  Override this to do post constructor initialization
-	 *  @method init
-	 *  @protected
-	 */
-	p.init = null;
 
 	/**
 	 *  Enables at the application level which enables
