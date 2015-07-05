@@ -456,14 +456,15 @@
 	{
 		var canvas = mergeAlpha(results.color.content, results.alpha.content);
 		var baseTexture = new PIXI.BaseTexture(canvas);
-		var id = PIXI.filenameFromUrl(task.id);
+		var id = PIXI.utils.filenameFromUrl(task.id);
 		baseTexture.imageUrl = id;
-		PIXI.BaseTextureCache[id] = baseTexture;
+		PIXI.utils.BaseTextureCache[id] = baseTexture;
 	};
 	
 	/**
 	*  Callback for when all split textures have been loaded and recombined. This starts the loading
-	*  of assets within PixiJS.
+	*  of assets within PixiJS. The result of loading in this order is that PIXI recognizes that
+	*  the image does not need to be loaded, but loads any spritesheet JSON correctly.
 	*  @method onAllSplitsLoaded
 	*  @static
 	*  @private
@@ -557,7 +558,8 @@
 				delete BitmapText.fonts[asset];
 		}
 		//anything else is a texture
-		Texture.destroyTexture(assetUrlCache[asset]);
+		if(PIXI.utils.BaseTextureCache[assetUrlCache[asset]])
+			PIXI.utils.BaseTextureCache[assetUrlCache[asset]].destroy();
 		delete AssetManager.scales[asset];
 		delete assetUrlCache[asset];
 	};
