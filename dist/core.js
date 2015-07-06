@@ -1485,6 +1485,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
+		enumerable:true,
 		get: function()
 		{
 			return this._destroyed;
@@ -1716,25 +1717,6 @@
 		}
 		return typeOfValue;
 	}
-
-	/**
-	*  Adds EventDispatcher methods and properties to an object or object prototype.
-	*  @method mixIn
-	*  @param {Object} object The object or prototype
-	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
-	*  @static
-	*  @public
-	*/
-	EventDispatcher.mixIn = function(object, callConstructor)
-	{
-		object.trigger = p.trigger;
-		object.on = p.on;
-		object.off = p.off;
-		object.has = p.has;
-		object.once = p.once;
-		if (callConstructor)
-			EventDispatcher.call(object);
-	};
 
 	// Assign to name space
 	namespace('springroll').EventDispatcher = EventDispatcher;
@@ -5709,24 +5691,37 @@
 }());
 (function(){
 	
-	var Application = include('springroll.Application');
+	var Application = include('springroll.Application'),
+		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * @method
-	 * @private
 	 * @name springroll.Application#getDisplays
 	 * @see {@link springroll.Application#displays}
 	 * @deprecated since version 0.3.5
 	 */
 	Application.prototype.getDisplays = function(each)
 	{
-		console.warn('getDisplays is not deprecated, please use displays property');
+		console.warn('getDisplays is now deprecated, please use displays property, e.g.: app.displays.forEach(function(display){});');
 
 		if (typeof each == "function")
 		{
 			_displays.forEach(each);
 		}
 		return _displays;
+	};
+
+	/**
+	 * @method
+	 * @static
+	 * @name springroll.EventDispatcher#mixIn
+	 * @see {@link window.mixin}
+	 * @deprecated since version 0.4.0
+	 */
+	EventDispatcher.mixIn = function(object, callConstructor)
+	{
+		console.log('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
+		return mixin(object, EventDispatcher);
 	};
 
 }());

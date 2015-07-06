@@ -5,7 +5,7 @@
 		BaseState = include('springroll.easeljs.BaseState');
 	
 	/**
-	 * @property {springroll.Application} game
+	 * @property
 	 * @name springroll.BasePanel#game
 	 * @see {@link springroll.BasePanel#app}
 	 * @deprecated since version 0.3.0
@@ -20,7 +20,7 @@
 	});
 
 	/**
-	 * @property {springroll.Application} game
+	 * @property
 	 * @name springroll.BaseState#game
 	 * @see {@link springroll.BaseState#app}
 	 * @deprecated since version 0.3.0
