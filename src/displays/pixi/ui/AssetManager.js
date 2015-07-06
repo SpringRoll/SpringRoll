@@ -6,7 +6,7 @@
 (function()
 {
 	var Debug,
-		BitmapText = include('PIXI.BitmapText'),
+		BitmapText = include('PIXI.extras.BitmapText'),
 		Texture = include('PIXI.Texture'),
 		Loader = include('springroll.Loader'),
 		AssetLoader = include('PIXI.AssetLoader'),
@@ -554,6 +554,8 @@
 		//unload the bitmap font if relevant
 		if(a.isFont)
 		{
+			//TODO: Pixi V3 mentions that this fonts dictionary might be a temporary, deprecated
+			//thing - we might need to keep track of loaded fonts ourselves
 			if(BitmapText.fonts[asset])
 				delete BitmapText.fonts[asset];
 		}
