@@ -36,13 +36,6 @@
 		this.app = Application.instance;
 
 		/**
-		 *	Reference to the app
-		 *	@property {Application} game
-		 *	@deprecated Use 'app' instead
-		 */
-		this.game = this.app;
-
-		/**
 		 *	Reference to the app's config
 		 *	@property {object} config
 		 */
@@ -131,7 +124,6 @@
 	p.destroy = function()
 	{
 		this.app = null;
-		this.game = null;
 		this.config = null;
 		this.background = null;
 
@@ -207,15 +199,6 @@
 		 *	@readOnly
 		 */
 		this.app = Application.instance;
-
-		/**
-		 *	Reference to the main app
-		 *	@property {Application} app
-		 *	@protected
-		 *	@deprecated Use the property 'app' instead
-		 *	@readOnly
-		 */
-		this.game = this.app;
 
 		/**
 		 *	The instance of the VOPlayer
@@ -435,7 +418,6 @@
 	p.destroy = function()
 	{
 		this.manifest = null;
-		this.game = null;
 		this.config = null;
 		this.voPlayer = null;
 		this.scaling = null;
@@ -564,3 +546,40 @@
 	};
 
 }());
+(function(Object)
+{
+	// Include classes
+	var BasePanel = include('springroll.easeljs.BasePanel'),
+		BaseState = include('springroll.easeljs.BaseState');
+	
+	/**
+	 * @property {springroll.Application} game
+	 * @name springroll.BasePanel#game
+	 * @see {@link springroll.BasePanel#app}
+	 * @deprecated since version 0.3.0
+	 */
+	Object.defineProperty(BasePanel.prototype, 'game', 
+	{
+		get: function()
+		{
+			console.warn('game is now deprecated, please use the app property, e.g. : panel.app');
+			return this.app;
+		}
+	});
+
+	/**
+	 * @property {springroll.Application} game
+	 * @name springroll.BaseState#game
+	 * @see {@link springroll.BaseState#app}
+	 * @deprecated since version 0.3.0
+	 */
+	Object.defineProperty(BaseState.prototype, 'game', 
+	{
+		get: function()
+		{
+			console.warn('game is now deprecated, please use the app property, e.g. : state.app');
+			return this.app;
+		}
+	});
+
+}(Object));

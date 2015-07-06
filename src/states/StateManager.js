@@ -211,28 +211,6 @@
 		// Give the state a reference to the manager
 		state.manager = this;
 	};
-	
-	/**
-	*  Dynamically change the transition
-	*  @deprecated Use the transition property directly to change the transition.
-	*  @method changeTransition
-	*  @param {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition Clip to swap for transition
-	*/
-	p.changeTransition = function(transition)
-	{
-		this.transition = transition;
-	};
-	
-	/**
-	*   Get the current selected state (state object)
-	*   @deprecated  Use the getter 'currentState' instead
-	*   @method getCurrentState
-	*   @return {springroll.State} The Base State object
-	*/
-	p.getCurrentState = function()
-	{
-		return this._state;
-	};
 
 	/**
 	*   Get the current selected state (state object)
@@ -395,18 +373,6 @@
 			return this._stateId;
 		}
 	});
-
-	/**
-	*  Set the current State
-	*
-	*  @method setState
-	*  @deprecated Use the state setter instead
-	*  @param {String} id The state id
-	*/
-	p.setState = function(id)
-	{
-		this.state = id;
-	};
 	
 	/**
 	 * When the transition out of a state has finished playing during a state change.
@@ -610,27 +576,6 @@
 			{anim:event, audio:audio}, 
 			callback
 		);
-	};
-
-
-	/**
-	*  Goto the next state
-	*  @deprecated Use the method `nextState` on the state itself
-	*  @method next
-	*/
-	p.next = function()
-	{
-		this._state.nextState();
-	};
-
-	/**
-	*  Goto the previous state
-	*  @deprecated Use the method `previousState` on the state itself
-	*  @method previous
-	*/
-	p.previous = function()
-	{
-		this._state.previousState();
 	};
 	
 	/**

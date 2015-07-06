@@ -35,13 +35,6 @@
 		this.app = Application.instance;
 
 		/**
-		 *	Reference to the app
-		 *	@property {Application} game
-		 *	@deprecated Use 'app' instead
-		 */
-		this.game = this.app;
-
-		/**
 		 *	Reference to the app's config
 		 *	@property {object} config
 		 */
@@ -130,7 +123,6 @@
 	p.destroy = function()
 	{
 		this.app = null;
-		this.game = null;
 		this.config = null;
 		this.background = null;
 

@@ -2689,24 +2689,6 @@
 	};
 
 	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplays
-	 *  @deprecated Use the displays property on the application instead.
-	 *  @public
-	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
-	 *                           display
-	 *  @return {Array} The collection of Display objects
-	 */
-	p.getDisplays = function(each)
-	{
-		if (typeof each == "function")
-		{
-			_displays.forEach(each);
-		}
-		return _displays;
-	};
-
-	/**
 	 * Removes and destroys a display
 	 * @method removeDisplay
 	 * @param {String} id The Display's id (also the canvas ID)
@@ -5723,5 +5705,28 @@
 
 	// Assign to the global namespace
 	namespace('springroll').AbstractDisplay = AbstractDisplay;
+
+}());
+(function(){
+	
+	var Application = include('springroll.Application');
+
+	/**
+	 * @method
+	 * @private
+	 * @name springroll.Application#getDisplays
+	 * @see {@link springroll.Application#displays}
+	 * @deprecated since version 0.3.5
+	 */
+	Application.prototype.getDisplays = function(each)
+	{
+		console.warn('getDisplays is not deprecated, please use displays property');
+
+		if (typeof each == "function")
+		{
+			_displays.forEach(each);
+		}
+		return _displays;
+	};
 
 }());

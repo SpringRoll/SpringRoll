@@ -634,14 +634,6 @@
 	};
 
 	/**
-	 * Old method for loading a context config object.
-	 * @method loadConfig
-	 * @param {Object} config The config to load.
-	 * @deprecated Use `addContext(config)` instead.
- 	 */
-	p.loadConfig = p.addContext;
-
-	/**
 	 * If a sound exists in the list of recognized sounds.
 	 * @method exists
 	 * @public
@@ -1369,23 +1361,6 @@
 				}
 			}
 		}
-	};
-
-	/**
-	 * Preloads a specific sound.
-	 * @method preloadSound
-	 * @deprecated Please use springroll.Sound's preload function instead
-	 * @public
-	 * @param {String} alias The alias of the sound to load.
-	 * @param {function} callback The function to call when the sound is finished loading.
-	 */
-	p.preloadSound = function(alias, callback)
-	{
-		if (true && Debug)
-		{
-			Debug.warn("Sound.prototype.preloadSound is deprecated, use preload.");
-		}
-		this.preload(alias, callback);
 	};
 
 	/**
@@ -2217,6 +2192,38 @@
 			this.sound.destroy();
 			this.sound = null;
 		}
+	};
+
+}());
+(function()
+{
+	var Sound = include('springroll.Sound');
+
+	// Reference to prototype
+	var p = Sound.prototype;
+
+ 	/**
+	 * @method
+	 * @name springroll.Sound#loadConfig
+	 * @see {@link springroll.Sound#addContext}
+	 * @deprecated since version 0.3.0
+	 */
+	p.loadConfig = function(config)
+	{
+		console.warn("loadConfig is now deprecated, please use addContext method, e.g. : app.sound.addContext(config);");
+		return this.addContext(config);
+	};
+
+	/**
+	 * @method
+	 * @name springroll.Sound#preloadSound
+	 * @see {@link springroll.Sound#preload}
+	 * @deprecated since version 0.4.0
+	 */
+	p.preloadSound = function(alias, callback)
+	{
+		console.warn("preloadSound is now deprecated, please use preload method, e.g. : app.sound.preload(alias, callback);");
+		this.preload(alias, callback);
 	};
 
 }());

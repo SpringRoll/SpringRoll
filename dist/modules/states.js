@@ -749,28 +749,6 @@
 		// Give the state a reference to the manager
 		state.manager = this;
 	};
-	
-	/**
-	*  Dynamically change the transition
-	*  @deprecated Use the transition property directly to change the transition.
-	*  @method changeTransition
-	*  @param {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition Clip to swap for transition
-	*/
-	p.changeTransition = function(transition)
-	{
-		this.transition = transition;
-	};
-	
-	/**
-	*   Get the current selected state (state object)
-	*   @deprecated  Use the getter 'currentState' instead
-	*   @method getCurrentState
-	*   @return {springroll.State} The Base State object
-	*/
-	p.getCurrentState = function()
-	{
-		return this._state;
-	};
 
 	/**
 	*   Get the current selected state (state object)
@@ -933,18 +911,6 @@
 			return this._stateId;
 		}
 	});
-
-	/**
-	*  Set the current State
-	*
-	*  @method setState
-	*  @deprecated Use the state setter instead
-	*  @param {String} id The state id
-	*/
-	p.setState = function(id)
-	{
-		this.state = id;
-	};
 	
 	/**
 	 * When the transition out of a state has finished playing during a state change.
@@ -1148,27 +1114,6 @@
 			{anim:event, audio:audio}, 
 			callback
 		);
-	};
-
-
-	/**
-	*  Goto the next state
-	*  @deprecated Use the method `nextState` on the state itself
-	*  @method next
-	*/
-	p.next = function()
-	{
-		this._state.nextState();
-	};
-
-	/**
-	*  Goto the previous state
-	*  @deprecated Use the method `previousState` on the state itself
-	*  @method previous
-	*/
-	p.previous = function()
-	{
-		this._state.previousState();
 	};
 	
 	/**
@@ -1490,6 +1435,75 @@
 			}
 			this.transition = null;
 		}
+	};
+
+}());
+(function()
+{
+	// Include classes
+	var StateManager = include('springroll.StateManager');
+
+	// Reference to the prototype
+	var p = StateManager.prototype;
+
+	/**
+	 * @method
+	 * @name springroll.StateManager#changeTransition
+	 * @see {@link springroll.StateManager#transition}
+	 * @deprecated since version 0.3.0
+	 */
+	p.changeTransition = function(transition)
+	{
+		console.warn("changeTransition is now deprecated, please use the property transition: e.g.: app.manager.transition = myTransition; ");
+		this.transition = transition;
+	};
+
+	/**
+	 * @method
+	 * @name springroll.StateManager#getCurrentState
+	 * @see {@link springroll.StateManager#currentState}
+	 * @deprecated since version 0.3.0
+	 */
+	p.getCurrentState = function()
+	{
+		console.warn("getCurrentState is now deprecated, please use the property currentState: e.g.: app.manager.currentState;");
+		return this.currentState;
+	};
+
+	/**
+	 * @method
+	 * @name springroll.StateManager#setState
+	 * @see {@link springroll.StateManager#state}
+	 * @deprecated since version 0.3.0
+	 */
+	p.setState = function(id)
+	{
+		console.warn("setState is now deprecated, please use the property state: e.g.: app.manager.state = 'title';");
+		this.state = id;
+	};
+
+	/**
+	 * @method
+	 * @name springroll.StateManager#next
+	 * @see {@link springroll.BaseState#nextState}
+	 * @deprecated since version 0.3.0
+	 */
+	p.next = function()
+	{
+		console.warn("next is now deprecated, please use the nextState method on BaseState: e.g.: app.manager.currentState.nextState();");
+		this._state.nextState();
+	};
+
+	/**
+	 * @method
+	 * @name springroll.StateManager#previous
+	 * @see {@link springroll.BaseState#previousState}
+	 * @deprecated since version 0.3.0
+	 */
+	p.previous = function()
+	{
+		console.warn("previous is now deprecated, please use the previousState method on BaseState: e.g.: app.manager.currentState.previousState();");
+		this._state.previousState();
 	};
 
 }());

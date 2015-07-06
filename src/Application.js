@@ -447,24 +447,6 @@
 	};
 
 	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplays
-	 *  @deprecated Use the displays property on the application instead.
-	 *  @public
-	 *  @param {function} [each] Optional looping method, callback takes a single parameter of the
-	 *                           display
-	 *  @return {Array} The collection of Display objects
-	 */
-	p.getDisplays = function(each)
-	{
-		if (typeof each == "function")
-		{
-			_displays.forEach(each);
-		}
-		return _displays;
-	};
-
-	/**
 	 * Removes and destroys a display
 	 * @method removeDisplay
 	 * @param {String} id The Display's id (also the canvas ID)

@@ -66,15 +66,6 @@
 		this.app = Application.instance;
 
 		/**
-		 *	Reference to the main app
-		 *	@property {Application} app
-		 *	@protected
-		 *	@deprecated Use the property 'app' instead
-		 *	@readOnly
-		 */
-		this.game = this.app;
-
-		/**
 		 *	The instance of the VOPlayer
 		 *	@property {springroll.VOPlayer} voPlayer
 		 *	@protected
@@ -292,7 +283,6 @@
 	p.destroy = function()
 	{
 		this.manifest = null;
-		this.game = null;
 		this.config = null;
 		this.voPlayer = null;
 		this.scaling = null;

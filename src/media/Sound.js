@@ -323,14 +323,6 @@
 	};
 
 	/**
-	 * Old method for loading a context config object.
-	 * @method loadConfig
-	 * @param {Object} config The config to load.
-	 * @deprecated Use `addContext(config)` instead.
- 	 */
-	p.loadConfig = p.addContext;
-
-	/**
 	 * If a sound exists in the list of recognized sounds.
 	 * @method exists
 	 * @public
@@ -1058,23 +1050,6 @@
 				}
 			}
 		}
-	};
-
-	/**
-	 * Preloads a specific sound.
-	 * @method preloadSound
-	 * @deprecated Please use springroll.Sound's preload function instead
-	 * @public
-	 * @param {String} alias The alias of the sound to load.
-	 * @param {function} callback The function to call when the sound is finished loading.
-	 */
-	p.preloadSound = function(alias, callback)
-	{
-		if (DEBUG && Debug)
-		{
-			Debug.warn("Sound.prototype.preloadSound is deprecated, use preload.");
-		}
-		this.preload(alias, callback);
 	};
 
 	/**

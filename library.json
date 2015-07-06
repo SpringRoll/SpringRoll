@@ -32,7 +32,8 @@
 		"src/loaders/Loader.js",
 		"src/loaders/LoaderPlugin.js",
 		"src/loaders/ConfigPlugin.js",
-		"src/displays/*.js"
+		"src/displays/*.js",
+		"src/deprecation/core.js"
 	],
 	"modules": {
 		"nativedisplay": {
@@ -122,14 +123,16 @@
 			"main": [
 				"src/displays/easeljs/states/BasePanel.js",
 				"src/displays/easeljs/states/BaseState.js",
-				"src/displays/easeljs/states/ManifestsPlugin.js"
+				"src/displays/easeljs/states/ManifestsPlugin.js",
+				"src/deprecation/easeljs-states.js"
 			]
 		},
 		"states": [
 			"src/states/State.js",
 			"src/states/StateEvent.js",
 			"src/states/StateManager.js",
-			"src/states/StatesPlugin.js"
+			"src/states/StatesPlugin.js",
+			"src/deprecation/states.js"
 		],
 		"tasks": [
 			"src/tasks/TaskEvent.js",
@@ -146,7 +149,8 @@
 			"src/media/SoundListTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js",
-			"src/media/SoundPlugin.js"
+			"src/media/SoundPlugin.js",
+			"src/deprecation/sound.js"
 		],
 		"ui": [
 			"src/ui/ScaleItem.js",
