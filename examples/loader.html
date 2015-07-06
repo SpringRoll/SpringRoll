@@ -38,7 +38,13 @@
 var app = new springroll.Application({
 	canvasId: "stage",
 	debug: true,
-	display: springroll.EaselJSDisplay
+	display: springroll.EaselJSDisplay,
+	preload: ["assets/images/background.jpg"]
+});
+
+app.once('loaded', function(results)
+{
+	console.log("Loaded", results);
 });
 
 // Wait until the app is ready

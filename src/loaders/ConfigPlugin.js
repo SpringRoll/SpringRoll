@@ -48,6 +48,14 @@
 		this.options.add('configPath', null, true);
 
 		/**
+		 * The collection of assets to preload, can be individual
+		 * URLs or objects with keys `src`, `complete`, `progress`, etc. 
+		 * @property {String} options.preload
+		 * @default []
+		 */
+		this.options.add('preload', [], true);
+
+		/**
 		 *	The game configuration loaded from and external JSON file
 		 *	@property {Object} config
 		 */
@@ -57,13 +65,14 @@
 	// async
 	plugin.preload = function(done)
 	{
-		var assets = [];
+		var assets = this.options.preload || [];
 		var configPath = this.options.configPath;
 
 		// If there's a config path then add it
 		if (configPath)
 		{
 			assets.push({
+				id: 'config',
 				src: configPath,
 				complete: onConfigLoaded.bind(this)
 			});
@@ -76,7 +85,7 @@
 		//Allow extending game to add additional tasks
 		this.trigger('loading', assets);
 
-		var callback = onTasksComplete.bind(this, done);
+		var callback = onLoadComplete.bind(this, done);
 
 		if (assets.length)
 		{
@@ -102,13 +111,15 @@
 	};
 
 	/**
-	 *	Callback when tasks are completed
-	 *	@method onTasksComplete
-	 *	@private
+	 * Callback when tasks are completed
+	 * @method onLoadComplete
+	 * @private
+	 * @param {function} done Call when we're done
+	 * @param {Array} results The collection of final LoaderResult objects
 	 */
-	var onTasksComplete = function(done)
+	var onLoadComplete = function(done, results)
 	{
-		this.trigger('loaded');
+		this.trigger('loaded', results);
 		done();
 	};
 

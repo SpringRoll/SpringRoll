@@ -379,9 +379,10 @@
 
 		// A way to keep track of load results without 
 		// excessive function binding
-		if(qi.originalAsset && result)
+		var asset = qi.originalAsset;
+		if(asset && asset.id && result)
 		{
-			result.id = qi.originalAsset.id;
+			result.id = asset.id;
 		}
 		qi.callback(result);
 
