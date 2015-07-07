@@ -104,13 +104,15 @@ test('Application', function(assert){
 });
 
 test('Math', function(assert){
-	expect(11);
+	expect(13);
 
 	assert.strictEqual(10, Math.clamp(20,2,10), "Upper clamp");
 	assert.strictEqual(2, Math.clamp(-1,2,10), "Lower clamp");
 	assert.strictEqual(0, Math.clamp(-1,10), "Zero-based clamp");
 	assert.strictEqual(4, Math.dist({x:0,y:4}, {x:0,y:0}), "2 Point distance");
+	assert.strictEqual(16, Math.distSq({x:0,y:4}, {x:0,y:0}), "2 Point distance squared");
 	assert.strictEqual(4, Math.dist(0,4,0,0), "X, Y, X1, Y1 distance");
+	assert.strictEqual(16, Math.distSq(0,4,0,0), "X, Y, X1, Y1 distance squared");
 
 	var i = Math.randomInt(4, 10);
 	assert.ok(i >= 4, "Random Int Min");

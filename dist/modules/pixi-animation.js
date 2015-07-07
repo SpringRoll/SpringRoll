@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.7 */
+/*! SpringRoll 0.3.8 */
 /**
  * @module PIXI Animation
  * @namespace springroll.pixi
