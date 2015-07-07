@@ -81,6 +81,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.easeljs.AnimatorPlugin",
         "springroll.easeljs.AnimatorTimeline",
         "springroll.easeljs.AssetManager",
+        "springroll.easeljs.AssetManagerPlugin",
         "springroll.easeljs.BasePanel",
         "springroll.easeljs.BaseState",
         "springroll.easeljs.BitmapMovieClip",
@@ -115,11 +116,13 @@ YUI.add("yuidoc-meta", function(Y) {
         "springroll.pixi.PixiDisplay",
         "window.Array",
         "window.Math",
+        "window.Number",
         "window.Object",
         "window.String",
         "window.async",
         "window.extend",
         "window.include",
+        "window.mixin",
         "window.namespace"
     ],
     "modules": [

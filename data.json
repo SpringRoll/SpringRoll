@@ -2,7 +2,7 @@
     "project": {
         "name": "SpringRoll",
         "description": "An application framework for building HTML5 Canvas games and applications",
-        "version": "0.3.7",
+        "version": "0.3.8",
         "url": "https://github.com/SpringRoll/SpringRoll"
     },
     "files": {
@@ -412,6 +412,17 @@
             },
             "classes": {
                 "springroll.easeljs.AssetManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "springroll.easeljs": 1
+            }
+        },
+        "src/displays/easeljs/ui/AssetManagerPlugin.js": {
+            "name": "src/displays/easeljs/ui/AssetManagerPlugin.js",
+            "modules": {},
+            "classes": {
+                "springroll.easeljs.AssetManagerPlugin": 1
             },
             "fors": {},
             "namespaces": {
@@ -1109,6 +1120,17 @@
                 "window": 1
             }
         },
+        "src/mixins/Number.js": {
+            "name": "src/mixins/Number.js",
+            "modules": {},
+            "classes": {
+                "window.Number": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "window": 1
+            }
+        },
         "src/mixins/Object.js": {
             "name": "src/mixins/Object.js",
             "modules": {},
@@ -1348,6 +1370,17 @@
                 "window": 1
             }
         },
+        "src/utils/mixin.js": {
+            "name": "src/utils/mixin.js",
+            "modules": {},
+            "classes": {
+                "window.mixin": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "window": 1
+            }
+        },
         "src/utils/namespace.js": {
             "name": "src/utils/namespace.js",
             "modules": {},
@@ -1431,10 +1464,12 @@
                 "springroll.LoaderResult": 1,
                 "window.Array": 1,
                 "window.Math": 1,
+                "window.Number": 1,
                 "window.Object": 1,
                 "window.String": 1,
                 "window.extend": 1,
                 "window.include": 1,
+                "window.mixin": 1,
                 "window.namespace": 1,
                 "springroll.Application": 1
             },
@@ -1561,7 +1596,7 @@
             },
             "tag": "module",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 15,
+            "line": 14,
             "requires": [
                 "Core",
                 "States",
@@ -1577,6 +1612,7 @@
             "submodules": {},
             "classes": {
                 "springroll.easeljs.AssetManager": 1,
+                "springroll.easeljs.AssetManagerPlugin": 1,
                 "springroll.easeljs.Button": 1,
                 "springroll.easeljs.DragManager": 1,
                 "springroll.easeljs.SoundButton": 1
@@ -1590,7 +1626,8 @@
             "line": 11,
             "requires": [
                 "Core",
-                "EaselJS Display"
+                "EaselJS Display",
+                "Tasks"
             ]
         },
         "EaselJS Utilities": {
@@ -1881,7 +1918,7 @@
             },
             "tag": "module",
             "file": "src/ui/TouchPlugin.js",
-            "line": 11,
+            "line": 10,
             "requires": [
                 "Core"
             ]
@@ -2285,7 +2322,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 10,
+            "line": 9,
             "description": "Create an app plugin for Page Visibility listener, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -2300,7 +2337,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/ResizePlugin.js",
-            "line": 10,
+            "line": 9,
             "description": "Create an app plugin for resizing application, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -2330,7 +2367,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/core/StringFiltersPlugin.js",
-            "line": 10,
+            "line": 9,
             "description": "Create an app plugin for String Filters, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -2820,7 +2857,7 @@
             "module": "EaselJS States",
             "namespace": "springroll.easeljs",
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 15,
+            "line": 14,
             "description": "A createjs-based Game to load manifests",
             "extends": "springroll.ApplicationPlugin",
             "params": [
@@ -2861,6 +2898,21 @@
             "line": 16,
             "description": "Class for managing the loading and unloading of assets.",
             "static": 1
+        },
+        "springroll.easeljs.AssetManagerPlugin": {
+            "name": "springroll.easeljs.AssetManagerPlugin",
+            "shortname": "AssetManagerPlugin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "EaselJS UI",
+            "namespace": "springroll.easeljs",
+            "file": "src/displays/easeljs/ui/AssetManagerPlugin.js",
+            "line": 12,
+            "description": "Initialize the AssetManager",
+            "extends": "springroll.ApplicationPlugin"
         },
         "springroll.easeljs.Button": {
             "name": "springroll.easeljs.Button",
@@ -4532,7 +4584,7 @@
             "module": "Core",
             "namespace": "springroll",
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 10,
+            "line": 9,
             "description": "Create an app plugin for Loader, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -4777,6 +4829,20 @@
             "file": "src/mixins/Math.js",
             "line": 7,
             "description": "Add methods to Math"
+        },
+        "window.Number": {
+            "name": "window.Number",
+            "shortname": "Number",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "window",
+            "file": "src/mixins/Number.js",
+            "line": 7,
+            "description": "Add methods to Number"
         },
         "window.Object": {
             "name": "window.Object",
@@ -5366,7 +5432,7 @@
             "module": "UI",
             "namespace": "springroll",
             "file": "src/ui/TouchPlugin.js",
-            "line": 11,
+            "line": 10,
             "description": "Create an app plugin for touch detecting, all properties and methods documented\nin this class are mixed-in to the main Application",
             "extends": "springroll.ApplicationPlugin"
         },
@@ -5398,6 +5464,21 @@
             "file": "src/utils/include.js",
             "line": 5,
             "description": "Used to include required classes by name",
+            "static": 1
+        },
+        "window.mixin": {
+            "name": "window.mixin",
+            "shortname": "mixin",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Core",
+            "namespace": "window",
+            "file": "src/utils/mixin.js",
+            "line": 5,
+            "description": "Static class for mixing in functionality into objects.",
             "static": 1
         },
         "window.namespace": {
@@ -6659,7 +6740,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 31,
+            "line": 23,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
             "name": "options.singlePlay",
@@ -6672,7 +6753,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 41,
+            "line": 33,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
             "name": "options.playOptions",
@@ -6684,7 +6765,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 52,
+            "line": 44,
             "description": "Send a message to let the site know that this has\nbeen loaded, if the site is there",
             "itemtype": "property",
             "name": "container",
@@ -6695,7 +6776,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 78,
+            "line": 70,
             "description": "The default play-mode for the application is continuous, if the application is\nrunning as part of a sequence is it considered in \"single play\" mode\nand the application will therefore close itself.",
             "itemtype": "property",
             "name": "singlePlay",
@@ -6708,7 +6789,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 88,
+            "line": 80,
             "description": "The optional play options to use if the application is played in \"single play\"\nmode. These options are passed from the application container to specify\noptions that are used for this single play session. For instance,\nif you want the single play to focus on a certain level or curriculum\nsuch as `{ \"shape\": \"square\" }`",
             "itemtype": "property",
             "name": "playOptions",
@@ -6720,7 +6801,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 99,
+            "line": 91,
             "description": "When a application is in singlePlay mode it will end.\nIt's unnecessary to check `if (this.singlePlay)` just\ncall the method and it will end the application if it can.",
             "itemtype": "method",
             "name": "singlePlayEnd",
@@ -6730,7 +6811,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 113,
+            "line": 105,
             "description": "Manually close the application, this can happen when playing through once",
             "itemtype": "method",
             "name": "endGame",
@@ -6749,7 +6830,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 124,
+            "line": 116,
             "description": "Track a Google Analytics event",
             "itemtype": "method",
             "name": "analyticEvent",
@@ -6778,7 +6859,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 219,
+            "line": 211,
             "description": "When the container pauses the application",
             "itemtype": "method",
             "name": "onPause",
@@ -6797,7 +6878,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 231,
+            "line": 223,
             "description": "Handler when the sound is muted",
             "itemtype": "method",
             "name": "onSoundMuted",
@@ -6816,7 +6897,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 242,
+            "line": 234,
             "description": "Handler when the captions are muted",
             "itemtype": "method",
             "name": "onCaptionsMuted",
@@ -6835,7 +6916,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 253,
+            "line": 245,
             "description": "Handler when the context is muted",
             "itemtype": "method",
             "name": "onContextMuted",
@@ -6859,7 +6940,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 265,
+            "line": 257,
             "description": "The captions style is being set",
             "itemtype": "method",
             "name": "onCaptionsStyles",
@@ -6878,7 +6959,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 289,
+            "line": 281,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onPlayOptions",
@@ -6897,7 +6978,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 300,
+            "line": 292,
             "description": "Handler when a application enters single play mode",
             "itemtype": "method",
             "name": "onSinglePlay",
@@ -6909,7 +6990,7 @@
         },
         {
             "file": "src/container/ContainerPlugin.js",
-            "line": 310,
+            "line": 302,
             "description": "Game container requests closing the application",
             "itemtype": "method",
             "name": "onClose",
@@ -7872,13 +7953,14 @@
             "itemtype": "property",
             "name": "priority",
             "type": "Int",
+            "default": "0",
             "class": "springroll.ApplicationPlugin",
             "module": "Core",
             "namespace": "springroll"
         },
         {
             "file": "src/core/ApplicationPlugin.js",
-            "line": 31,
+            "line": 36,
             "description": "When the application is being initialized. This function is bound to the application.",
             "itemtype": "method",
             "name": "setup",
@@ -7888,7 +7970,7 @@
         },
         {
             "file": "src/core/ApplicationPlugin.js",
-            "line": 40,
+            "line": 45,
             "description": "The function to call right before the app is initailized. This function is bound to the application.",
             "itemtype": "method",
             "name": "preload",
@@ -7905,7 +7987,7 @@
         },
         {
             "file": "src/core/ApplicationPlugin.js",
-            "line": 47,
+            "line": 52,
             "description": "When the application is being destroyed. This function is bound to the application.",
             "itemtype": "method",
             "name": "teardown",
@@ -7915,18 +7997,7 @@
         },
         {
             "file": "src/core/ApplicationPlugin.js",
-            "line": 56,
-            "description": "Register the plugin with the Application",
-            "itemtype": "method",
-            "name": "register",
-            "static": 1,
-            "class": "springroll.ApplicationPlugin",
-            "module": "Core",
-            "namespace": "springroll"
-        },
-        {
-            "file": "src/core/ApplicationPlugin.js",
-            "line": 70,
+            "line": 61,
             "description": "Comparator function for sorting the plugins by priority",
             "itemtype": "method",
             "name": "prioritySort",
@@ -8038,7 +8109,7 @@
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 27,
+            "line": 20,
             "description": "Handles the page visiblity changes automatically\nto pause and unpause the application",
             "itemtype": "property",
             "name": "_visibility",
@@ -8051,7 +8122,7 @@
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 39,
+            "line": 32,
             "description": "The application pauses automatically when the window loses focus.",
             "itemtype": "property",
             "name": "options.autoPause",
@@ -8063,7 +8134,7 @@
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 55,
+            "line": 48,
             "description": "Private listener for when the page is hidden.",
             "itemtype": "method",
             "name": "onHidden",
@@ -8075,7 +8146,7 @@
         },
         {
             "file": "src/core/PageVisibilityPlugin.js",
-            "line": 65,
+            "line": 58,
             "description": "Private listener for when the page is shown.",
             "itemtype": "method",
             "name": "onVisible",
@@ -8087,7 +8158,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 23,
+            "line": 17,
             "description": "Dom element (or the window) to attach resize listeners and read the size from",
             "itemtype": "property",
             "name": "_resizeElement",
@@ -8101,7 +8172,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 31,
+            "line": 25,
             "description": "The maximum width of the primary display, compared to the original height.",
             "itemtype": "property",
             "name": "_maxWidth",
@@ -8114,7 +8185,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 38,
+            "line": 32,
             "description": "The maximum height of the primary display, compared to the original width.",
             "itemtype": "property",
             "name": "_maxHeight",
@@ -8127,7 +8198,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 45,
+            "line": 39,
             "description": "The original width of the primary display, used to calculate the aspect ratio.",
             "itemtype": "property",
             "name": "_originalWidth",
@@ -8140,7 +8211,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 52,
+            "line": 46,
             "description": "The original height of the primary display, used to calculate the aspect ratio.",
             "itemtype": "property",
             "name": "_originalHeight",
@@ -8153,7 +8224,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 59,
+            "line": 53,
             "description": "A helper object to avoid object creation each resize event.",
             "itemtype": "property",
             "name": "_resizeHelper",
@@ -8166,7 +8237,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 75,
+            "line": 66,
             "description": "Fired when a resize is called",
             "itemtype": "event",
             "name": "resize",
@@ -8188,7 +8259,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 82,
+            "line": 73,
             "description": "If doing uniform resizing, optional parameter to add\na maximum width relative to the original height. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original width of the canvas.",
             "itemtype": "property",
             "name": "options.maxWidth",
@@ -8199,7 +8270,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 91,
+            "line": 82,
             "description": "If doing uniform resizing, optional parameter to add\na maximum height relative to the original width. This\nallows for \"title-safe\" responsiveness. Must be greater\nthan the original height of the canvas.",
             "itemtype": "property",
             "name": "options.maxHeight",
@@ -8210,7 +8281,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 100,
+            "line": 91,
             "description": "Whether to resize the displays to the original aspect ratio",
             "itemtype": "property",
             "name": "options.uniformResize",
@@ -8222,7 +8293,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 107,
+            "line": 98,
             "description": "The element to resize the canvas to fit",
             "itemtype": "property",
             "name": "options.resizeElement",
@@ -8234,7 +8305,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 136,
+            "line": 127,
             "description": "Fire a resize event with the current width and height of the display",
             "itemtype": "method",
             "name": "triggerResize",
@@ -8244,7 +8315,7 @@
         },
         {
             "file": "src/core/ResizePlugin.js",
-            "line": 172,
+            "line": 163,
             "description": "Calculates the resizing of displays. By default, this limits the new size\nto the initial aspect ratio of the primary display. Override this function\nif you need variable aspect ratios.",
             "itemtype": "method",
             "name": "calculateDisplaySize",
@@ -8339,7 +8410,7 @@
         },
         {
             "file": "src/core/StringFiltersPlugin.js",
-            "line": 29,
+            "line": 20,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "filters",
@@ -9734,7 +9805,7 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 28,
+            "line": 22,
             "description": "Enable the Debug class. After initialization, this\nis a pass-through to Debug.enabled.",
             "itemtype": "property",
             "name": "options.debug",
@@ -9746,7 +9817,7 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 36,
+            "line": 30,
             "description": "Minimum log level from 0 to 4",
             "itemtype": "property",
             "name": "options.minLogLevel",
@@ -9758,7 +9829,7 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 43,
+            "line": 37,
             "description": "The framerate container",
             "itemtype": "property",
             "name": "options.framerate",
@@ -9769,7 +9840,7 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 49,
+            "line": 43,
             "description": "The framerate container",
             "itemtype": "property",
             "name": "_framerate",
@@ -9782,7 +9853,7 @@
         },
         {
             "file": "src/debug/DebugPlugin.js",
-            "line": 56,
+            "line": 50,
             "description": "The host computer for remote debugging, the debug\nmodule must be included to use this feature. Can be an\nIP address or host name. After initialization, setting\nthis will still connect or disconect Debug for remote\ndebugging. This is a write-only property.",
             "itemtype": "property",
             "name": "options.debugRemote",
@@ -12132,7 +12203,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 28,
+            "line": 22,
             "description": "The last interactive position",
             "itemtype": "property",
             "name": "_currentPosition",
@@ -12145,7 +12216,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 35,
+            "line": 29,
             "description": "Helper point for normalizing position",
             "itemtype": "property",
             "name": "_helperPoint",
@@ -12158,7 +12229,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 50,
+            "line": 44,
             "description": "Some games need to send additional parameters to the tracker's\noffClick event. They may set them here as needed. These parameters are appended\nto the normal offClick data.",
             "itemtype": "property",
             "name": "offClickParams",
@@ -12169,7 +12240,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 58,
+            "line": 52,
             "description": "Keep track of the last Pointer ID",
             "itemtype": "property",
             "name": "_lastPointerID",
@@ -12182,7 +12253,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 65,
+            "line": 59,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12209,7 +12280,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 82,
+            "line": 76,
             "description": "For learning events, we want to send consistent data when sending\npositions. This helper method generates that data.\nIn the future, we may return an object with known properties,\nbut for now we are returning an object of {x:int, y:int,\nstage_width:int, stage_height:int} in unscaled numbers.",
             "itemtype": "method",
             "name": "normalizePosition",
@@ -12241,7 +12312,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 122,
+            "line": 116,
             "description": "For learning events, we want to send consistent data when sending\nPosition. This helper method generates that data for the\ncurrent stage position of mouse or touch. We are returning an object of\n`{x:int, y:int, stage_width:int, stage_height:int}` in unscaled numbers.",
             "itemtype": "method",
             "name": "currentPosition",
@@ -12255,7 +12326,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 168,
+            "line": 162,
             "description": "Fires event whenever the mouse is moved",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -12263,7 +12334,7 @@
         },
         {
             "file": "src/displays/easeljs/learning/OffClickPlugin.js",
-            "line": 180,
+            "line": 174,
             "description": "Fires OffClick event if click on unhandled object",
             "class": "springroll.easeljs.OffClickPlugin",
             "module": "EaselJS Learning",
@@ -12794,7 +12865,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 36,
+            "line": 29,
             "description": "Event when the manifest is finished loading",
             "itemtype": "event",
             "name": "manifestLoaded",
@@ -12811,7 +12882,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 42,
+            "line": 35,
             "description": "The path to the concatinated FLA exported manifests. It's useful\nto load all the manifests at once. This JSON object contains a\ndictionary of state alias and contains an array of manifest assets\n(e.g. `{\"id\": \"PlayButton\", \"src\": \"assets/images/button.png\"}`.\nSet to null and no manifest will be auto-loaded.",
             "itemtype": "property",
             "name": "options.manifestsPath",
@@ -12824,7 +12895,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 68,
+            "line": 57,
             "description": "The collection of loading assets by state",
             "itemtype": "property",
             "name": "_manifests",
@@ -12837,7 +12908,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 75,
+            "line": 64,
             "description": "Read-only getter to return _manifests",
             "itemtype": "property",
             "name": "manifests",
@@ -12849,7 +12920,7 @@
         },
         {
             "file": "src/displays/easeljs/states/ManifestsPlugin.js",
-            "line": 108,
+            "line": 97,
             "description": "Callback to when manifests have been loaded",
             "itemtype": "method",
             "name": "onManifestsLoaded",
@@ -16653,7 +16724,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 506,
+            "line": 507,
             "description": "Unload an asset or list of assets.",
             "itemtype": "method",
             "name": "unload",
@@ -16671,7 +16742,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 528,
+            "line": 529,
             "description": "Unload an asset",
             "itemtype": "method",
             "name": "unloadAsset",
@@ -16691,7 +16762,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 564,
+            "line": 565,
             "description": "Assemble a dictionary of Texture arrays representing animations from the PixiJS\ntexture cache.\nExample of a getAnims() call:\n\n\t\t\tvar animationDictionary = AssetManager.getAnims(\n\t\t\t\t{\n\t\t\t\t\t\"bobIdleHappy\":{\"name\":\"bob_idle_happy#\", \"numberMin\":1, \"numberMax\":139},\n\t\t\t\t\t\"bobIdleNeutral\":{\"name\":\"bob_idle_neutral#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobIdleMad\":{\"name\":\"bob_idle_mad#\", \"numberMin\":1, \"numberMax\":140},\n\t\t\t\t\t\"bobPos\":{\"name\":\"bob_react_pos#\", \"numberMin\":1, \"numberMax\":23},\n\t\t\t\t\t\"bobNeg\":{\"name\":\"bob_react_neg#\", \"numberMin\":1, \"numberMax\":31},\n\t\t\t\t},\n\t\t\t\t4);",
             "itemtype": "method",
             "name": "getAnims",
@@ -16726,7 +16797,7 @@
         },
         {
             "file": "src/displays/pixi/ui/AssetManager.js",
-            "line": 646,
+            "line": 647,
             "description": "Pulled from EaselJS's SpriteSheetUtils.\nMerges the rgb channels of one image with the alpha channel of another. This can be used to\ncombine a compressed JPEG image containing color data with a PNG32 monochromatic image\ncontaining alpha data. With certain types of images (those with detail that lend itself to\nJPEG compression) this can provide significant file size savings versus a single RGBA PNG32.\nThis method is very fast (generally on the order of 1-2 ms to run).",
             "itemtype": "method",
             "name": "mergeAlpha",
@@ -19368,7 +19439,7 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 29,
+            "line": 23,
             "description": "The hint player API",
             "itemtype": "property",
             "name": "hints",
@@ -19379,7 +19450,7 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 85,
+            "line": 79,
             "description": "Handle the VO event",
             "itemtype": "method",
             "name": "onVOHint",
@@ -19398,7 +19469,7 @@
         },
         {
             "file": "src/hints/HintsPlugin.js",
-            "line": 111,
+            "line": 105,
             "description": "Handle the animator event",
             "itemtype": "method",
             "name": "onAnimatorHint",
@@ -19706,7 +19777,7 @@
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 31,
+            "line": 24,
             "description": "The StringFilters instance",
             "itemtype": "property",
             "name": "languages",
@@ -19717,7 +19788,7 @@
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 37,
+            "line": 30,
             "description": "Force a specific language",
             "itemtype": "property",
             "name": "options.language",
@@ -19729,7 +19800,7 @@
         },
         {
             "file": "src/languages/LanguagesPlugin.js",
-            "line": 44,
+            "line": 37,
             "description": "The path to the languages configuration file",
             "itemtype": "property",
             "name": "options.languagesPath",
@@ -21364,7 +21435,7 @@
         },
         {
             "file": "src/learning/LearningMediaPlugin.js",
-            "line": 29,
+            "line": 23,
             "description": "For media conveninece methods tracking media events, such as \nplayFeedback, playMovie, etc",
             "itemtype": "property",
             "name": "media",
@@ -21375,7 +21446,7 @@
         },
         {
             "file": "src/learning/LearningPlugin.js",
-            "line": 31,
+            "line": 24,
             "description": "An learning event is dispatched",
             "itemtype": "event",
             "name": "learningEvent",
@@ -21416,7 +21487,7 @@
         },
         {
             "file": "src/learning/LearningPlugin.js",
-            "line": 41,
+            "line": 34,
             "description": "The Learning Dispatcher instance",
             "itemtype": "property",
             "name": "learning",
@@ -22103,7 +22174,7 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 30,
+            "line": 20,
             "description": "Reference to the loader singleton",
             "itemtype": "property",
             "name": "loader",
@@ -22114,7 +22185,7 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 37,
+            "line": 27,
             "description": "Override the end-user browser cache by adding\n\"?v=\" to the end of each file path requested. Use\nfor developmently, debugging only!",
             "itemtype": "property",
             "name": "options.cacheBust",
@@ -22126,7 +22197,7 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 54,
+            "line": 44,
             "description": "The optional file path to prefix to any relative file\nrequests this is a great way to load all load requests\nwith a CDN path.",
             "itemtype": "property",
             "name": "options.basePath",
@@ -22137,7 +22208,7 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 62,
+            "line": 52,
             "description": "The current version number for your application. This\nnumber will automatically be appended to all file\nrequests. For instance, if the version is \"0.0.1\" all\nfile requests will be appended with \"?v=0.0.1\"",
             "itemtype": "property",
             "name": "options.version",
@@ -22148,7 +22219,7 @@
         },
         {
             "file": "src/loaders/LoaderPlugin.js",
-            "line": 71,
+            "line": 61,
             "description": "Path to a text file which contains explicit version\nnumbers for each asset. This is useful for controlling\nthe live browser cache. For instance, this text file\nwould have an asset on each line followed by a number:\n`assets/config/config.json 2` would load\n`assets/config/config.json?v=2`",
             "itemtype": "property",
             "name": "options.versionsFile",
@@ -22996,7 +23067,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 33,
+            "line": 24,
             "description": "The captions text field object to use for the \nVOPlayer captions object.",
             "itemtype": "property",
             "name": "options.captions",
@@ -23009,7 +23080,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 42,
+            "line": 33,
             "description": "The path to the captions file to preload.",
             "itemtype": "property",
             "name": "options.captionsPath",
@@ -23022,7 +23093,7 @@
         },
         {
             "file": "src/media/CaptionsPlugin.js",
-            "line": 50,
+            "line": 41,
             "description": "The global captions object",
             "itemtype": "property",
             "name": "captions",
@@ -24484,7 +24555,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 33,
+            "line": 24,
             "description": "The relative location to the FlashPlugin swf for SoundJS",
             "itemtype": "property",
             "name": "options.swfPath",
@@ -24497,7 +24568,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 41,
+            "line": 32,
             "description": "For the Sound class to use the Flash plugin shim",
             "itemtype": "property",
             "name": "options.forceFlashAudio",
@@ -24510,7 +24581,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 49,
+            "line": 40,
             "description": "The order in which file types are\npreferred, where \"ogg\" becomes a \".ogg\"\nextension on all sound file urls.",
             "itemtype": "property",
             "name": "options.audioTypes",
@@ -24523,7 +24594,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 61,
+            "line": 52,
             "description": "Set the initial mute state of the all the audio \n(unminifed library version only)",
             "itemtype": "property",
             "name": "options.mute",
@@ -24536,7 +24607,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 71,
+            "line": 62,
             "description": "The current music alias playing",
             "itemtype": "property",
             "name": "_music",
@@ -24549,7 +24620,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 78,
+            "line": 69,
             "description": "The current music SoundInstance playing",
             "itemtype": "property",
             "name": "_musicInstance",
@@ -24562,7 +24633,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 85,
+            "line": 76,
             "description": "The global player for playing voice over",
             "itemtype": "property",
             "name": "voPlayer",
@@ -24573,7 +24644,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 91,
+            "line": 82,
             "description": "The global player for all audio, also accessible through singleton",
             "itemtype": "property",
             "name": "sound",
@@ -24584,7 +24655,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 97,
+            "line": 88,
             "description": "Get or set the current music alias to play",
             "itemtype": "property",
             "name": "music",
@@ -24596,7 +24667,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 136,
+            "line": 127,
             "description": "The SoundInstance for the current music, for adjusting volume.",
             "itemtype": "property",
             "name": "musicInstance",
@@ -24607,7 +24678,7 @@
         },
         {
             "file": "src/media/SoundPlugin.js",
-            "line": 172,
+            "line": 163,
             "description": "The sound is ready to use",
             "itemtype": "event",
             "name": "soundReady",
@@ -25031,7 +25102,7 @@
         {
             "file": "src/mixins/Math.js",
             "line": 31,
-            "description": "Return dist between two points",
+            "description": "Return distance between two points",
             "itemtype": "method",
             "name": "dist",
             "static": 1,
@@ -25068,7 +25139,7 @@
         {
             "file": "src/mixins/Math.js",
             "line": 42,
-            "description": "Return dist between two points",
+            "description": "Return distance between two points",
             "itemtype": "method",
             "name": "dist",
             "static": 1,
@@ -25118,7 +25189,95 @@
         },
         {
             "file": "src/mixins/Math.js",
-            "line": 75,
+            "line": 59,
+            "description": "Return squared distance between two points",
+            "itemtype": "method",
+            "name": "distSq",
+            "static": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x position of the first point",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y position of the first point",
+                    "type": "Number"
+                },
+                {
+                    "name": "x0",
+                    "description": "The x position of the second point",
+                    "type": "Number"
+                },
+                {
+                    "name": "y0",
+                    "description": "The y position of the second point",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "The distance",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 70,
+            "description": "Return squared distance between two points",
+            "itemtype": "method",
+            "name": "distSq",
+            "static": 1,
+            "params": [
+                {
+                    "name": "p1",
+                    "description": "The first point",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x position of the first point",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y position of the first point",
+                            "type": "Object"
+                        }
+                    ]
+                },
+                {
+                    "name": "p2",
+                    "description": "The second point",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "x",
+                            "description": "The x position of the second point",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "y",
+                            "description": "The y position of the second point",
+                            "type": "Number"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "The distance",
+                "type": "Number"
+            },
+            "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Math.js",
+            "line": 103,
             "description": "Constrain a number between 0 and a max value.",
             "itemtype": "method",
             "name": "clamp",
@@ -25145,7 +25304,7 @@
         },
         {
             "file": "src/mixins/Math.js",
-            "line": 84,
+            "line": 112,
             "description": "Constrain a number between a minimum and maximum values.",
             "itemtype": "method",
             "name": "clamp",
@@ -25172,6 +25331,29 @@
                 "type": "Number"
             },
             "class": "window.Math",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/mixins/Number.js",
+            "line": 12,
+            "description": "Returns a string of the number as an integer with leading zeros to fill the string out\nto a certain number of digits.",
+            "itemtype": "method",
+            "name": "toPaddedString",
+            "params": [
+                {
+                    "name": "totalDigits",
+                    "description": "The total number of digits to be displayed.",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": "2"
+                }
+            ],
+            "return": {
+                "description": "The number string.",
+                "type": "String"
+            },
+            "class": "window.Number",
             "module": "Core",
             "namespace": "window"
         },
@@ -26297,7 +26479,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 30,
+            "line": 24,
             "description": "Fired when an event has been added",
             "itemtype": "event",
             "name": "stateAdded",
@@ -26319,7 +26501,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 37,
+            "line": 31,
             "description": "The collection of states",
             "itemtype": "property",
             "name": "_states",
@@ -26332,7 +26514,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 44,
+            "line": 38,
             "description": "The state manager",
             "itemtype": "property",
             "name": "manager",
@@ -26343,7 +26525,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 50,
+            "line": 44,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "_transition",
@@ -26356,7 +26538,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 57,
+            "line": 51,
             "description": "The transition animation to use between the StateManager state changes",
             "itemtype": "property",
             "name": "transition",
@@ -26367,7 +26549,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 110,
+            "line": 104,
             "description": "The initial state to go to when everything is finished",
             "itemtype": "property",
             "name": "options.state",
@@ -26380,7 +26562,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 118,
+            "line": 112,
             "description": "The animation to use for the StateManager",
             "itemtype": "property",
             "name": "options.transition",
@@ -26391,7 +26573,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 124,
+            "line": 118,
             "description": "The transition sounds to use for the state transition",
             "itemtype": "property",
             "name": "options.transitionSounds",
@@ -26403,7 +26585,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 129,
+            "line": 123,
             "description": "The transition in sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.in",
@@ -26416,7 +26598,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 135,
+            "line": 129,
             "description": "The transition out sound alias or sound object",
             "itemtype": "property",
             "name": "options.transitionSounds.out",
@@ -26429,7 +26611,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 147,
+            "line": 141,
             "description": "The collection of states where the key is the state alias and value is the state display object",
             "itemtype": "property",
             "name": "states",
@@ -26441,7 +26623,7 @@
         },
         {
             "file": "src/states/StatesPlugin.js",
-            "line": 234,
+            "line": 228,
             "description": "Debug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
             "class": "springroll.StatesPlugin",
             "module": "States",
@@ -26449,7 +26631,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 31,
+            "line": 22,
             "description": "The game has finished loading",
             "itemtype": "event",
             "name": "loaded",
@@ -26459,7 +26641,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 36,
+            "line": 27,
             "description": "The config has finished loading, in case you want to\nadd additional tasks to the manager after this.",
             "itemtype": "event",
             "name": "configLoaded",
@@ -26481,7 +26663,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 44,
+            "line": 35,
             "description": "The game has started loading",
             "itemtype": "event",
             "name": "loading",
@@ -26498,7 +26680,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 55,
+            "line": 46,
             "description": "The path to the config file to load",
             "itemtype": "property",
             "name": "options.configPath",
@@ -26510,7 +26692,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 62,
+            "line": 53,
             "description": "The game configuration loaded from and external JSON file",
             "itemtype": "property",
             "name": "config",
@@ -26521,7 +26703,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 103,
+            "line": 94,
             "description": "Callback when the config is loaded",
             "itemtype": "method",
             "name": "onConfigLoaded",
@@ -26540,7 +26722,7 @@
         },
         {
             "file": "src/tasks/ConfigPlugin.js",
-            "line": 115,
+            "line": 106,
             "description": "Callback when tasks are completed",
             "itemtype": "method",
             "name": "onTasksComplete",
@@ -28255,7 +28437,7 @@
         },
         {
             "file": "src/ui/ScalingPlugin.js",
-            "line": 32,
+            "line": 26,
             "description": "The main ScaleManager for any display object references\nin the main game.",
             "itemtype": "property",
             "name": "scaling",
@@ -28266,7 +28448,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 31,
+            "line": 21,
             "description": "If the current brower is iOS",
             "itemtype": "property",
             "name": "isIOS",
@@ -28277,7 +28459,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 37,
+            "line": 27,
             "description": "If the current brower is Android",
             "itemtype": "property",
             "name": "isAndroid",
@@ -28288,7 +28470,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 43,
+            "line": 33,
             "description": "If the current brower has touch input available",
             "itemtype": "property",
             "name": "hasTouch",
@@ -28299,7 +28481,7 @@
         },
         {
             "file": "src/ui/TouchPlugin.js",
-            "line": 53,
+            "line": 43,
             "description": "Manually override the check for hasTouch (unminifed library version only)",
             "itemtype": "property",
             "name": "options.forceTouch",
@@ -28368,6 +28550,42 @@
                 "type": "Object|function"
             },
             "class": "window.include",
+            "module": "Core",
+            "namespace": "window"
+        },
+        {
+            "file": "src/utils/mixin.js",
+            "line": 15,
+            "description": "Mixin functionality to an object",
+            "example": [
+                "\n\t\tmixin(instance, MyClass);"
+            ],
+            "is_constructor": 1,
+            "itemtype": "method",
+            "name": "mixin",
+            "params": [
+                {
+                    "name": "target",
+                    "description": "The instance object to add functionality to",
+                    "type": "*"
+                },
+                {
+                    "name": "superClass",
+                    "description": "The parent reference or full classname",
+                    "type": "Function|String"
+                },
+                {
+                    "name": "args",
+                    "description": "Any additional arguments to pass to the constructor of the superClass",
+                    "type": "*",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "Return reference to target",
+                "type": "*"
+            },
+            "class": "window.mixin",
             "module": "Core",
             "namespace": "window"
         },
@@ -29168,11 +29386,11 @@
         },
         {
             "message": "Missing item type\nFires event whenever the mouse is moved",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:168"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:162"
         },
         {
             "message": "Missing item type\nFires OffClick event if click on unhandled object",
-            "line": " src/displays/easeljs/learning/OffClickPlugin.js:180"
+            "line": " src/displays/easeljs/learning/OffClickPlugin.js:174"
         },
         {
             "message": "Missing item type",
@@ -29260,7 +29478,7 @@
         },
         {
             "message": "Missing item type\nDebug key strokes\n→ = trigger a skip to the next state for testing\n← = trigger a skip to the previous state for testing",
-            "line": " src/states/StatesPlugin.js:234"
+            "line": " src/states/StatesPlugin.js:228"
         },
         {
             "message": "Missing item type",
