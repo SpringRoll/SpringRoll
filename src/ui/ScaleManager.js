@@ -86,6 +86,16 @@
 		 */
 		this._enabled = options.enabled;
 
+		if (DEBUG)
+		{
+			/**
+			 * If we should log verbose messages (unminified module only!)
+			 * @property {Boolean} verbose
+			 * @default false
+			 */
+			this.verbose = false;
+		}
+
 		// Set the designed size
 		this.size = options.size;
 
@@ -364,7 +374,7 @@
 
 			if (!container[name])
 			{
-				if (DEBUG && Debug)
+				if (DEBUG && Debug && this.verbose)
 				{
 					Debug.info("ScaleManager: could not find object '" + name + "'");
 				}
