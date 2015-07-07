@@ -143,7 +143,6 @@
 	var State = include('springroll.State'),
 		Debug,
 		Application,
-		ListTask,
 		BasePanel,
 		AssetManager;
 
@@ -173,7 +172,6 @@
 		{
 			Application = include('springroll.Application');
 			BasePanel = include('springroll.easeljs.BasePanel');
-			ListTask = include('springroll.ListTask');
 			Debug = include('springroll.Debug', false);
 			AssetManager = include('springroll.easeljs.AssetManager');
 		}
