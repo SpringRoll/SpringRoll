@@ -6,21 +6,21 @@
 {
 	/**
 	 * Internal class for dealing with async load assets
-	 * @class MultiTask
+	 * @class Task
 	 * @abstract
 	 */
-	var MultiTask = function()
+	var Task = function()
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
 		 * @default 0
 		 */
-		this.status = MultiTask.WAITING;
+		this.status = Task.WAITING;
 	};
 
 	// Reference to prototype
-	var p = MultiTask.prototype;
+	var p = Task.prototype;
 
 	/**
 	 * Status for waiting to be run
@@ -30,7 +30,7 @@
 	 * @final
 	 * @default 0
 	 */
-	MultiTask.WAITING = 0;
+	Task.WAITING = 0;
 
 	/**
 	 * Task is currently being run
@@ -40,7 +40,7 @@
 	 * @final
 	 * @default 1
 	 */
-	MultiTask.RUNNING = 1;
+	Task.RUNNING = 1;
 
 	/**
 	 * Status for task is finished
@@ -50,7 +50,7 @@
 	 * @final
 	 * @default 2
 	 */
-	MultiTask.FINISHED = 2;
+	Task.FINISHED = 2;
 
 	/**
 	 * Start the task
@@ -59,7 +59,7 @@
 	 */
 	p.start = function(callback)
 	{
-		this.status = MultiTask.RUNNING;
+		callback();
 	};
 
 	/**
@@ -68,10 +68,10 @@
 	 */
 	p.destroy = function()
 	{
-		this.status = MultiTask.FINISHED;
+		// implementation specific
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiTask = MultiTask;
+	namespace('springroll').Task = Task;
 
 }());

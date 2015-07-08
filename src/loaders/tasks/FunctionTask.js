@@ -4,18 +4,18 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets
-	 * @class MultiAsyncTask
-	 * @extends springroll.MultiTask
+	 * Internal class for dealing with async function calls with MultiLoader.
+	 * @class FunctionTask
+	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Function} async The data properties
 	 */
-	var MultiAsyncTask = function(async)
+	var FunctionTask = function(async)
 	{
-		MultiTask.call(this);
+		Task.call(this);
 
 		/**
 		 * The asynchronous call
@@ -25,8 +25,7 @@
 	};
 
 	// Reference to prototype
-	var s = MultiTask.prototype;
-	var p = extend(MultiAsyncTask, MultiTask);
+	var p = extend(FunctionTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -35,7 +34,7 @@
 	 * @param {*} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
-	MultiAsyncTask.test = function(asset)
+	FunctionTask.test = function(asset)
 	{
 		return typeof asset == "function";
 	};
@@ -47,7 +46,6 @@
 	 */
 	p.start = function(callback)
 	{
-		s.start.call(this);
 		this.async(callback);
 	};
 
@@ -57,11 +55,10 @@
 	 */
 	p.destroy = function()
 	{
-		s.destroy.call(this);
 		this.async = null;
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiAsyncTask = MultiAsyncTask;
+	namespace('springroll').FunctionTask = FunctionTask;
 
 }());

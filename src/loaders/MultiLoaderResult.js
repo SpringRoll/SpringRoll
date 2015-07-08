@@ -6,7 +6,7 @@
 {
 	var Debug,
 		MultiLoader,
-		MultiTask = include('springroll.MultiTask'),
+		Task = include('springroll.Task'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -243,8 +243,9 @@
 		for (var i = 0; i < tasks.length; i++)
 		{
 			var task = tasks[i];
-			if (task.status === MultiTask.WAITING)
+			if (task.status === Task.WAITING)
 			{
+				task.status = Task.RUNNING;
 				task.start(this.taskDone.bind(this, task));
 				
 				// If we aren't running in parallel, then stop
@@ -257,7 +258,7 @@
 	 * Handler when a task has completed
 	 * @method  taskDone
 	 * @private
-	 * @param  {springroll.MultiTask} task Reference to original task
+	 * @param  {springroll.Task} task Reference to original task
 	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
@@ -300,6 +301,7 @@
 			}
 			this.trigger('loadDone', result, additionalAssets);
 		}
+		task.status = Task.FINISHED;
 		task.destroy();
 
 		// Add new assets to the things to load
@@ -358,6 +360,7 @@
 		this.trigger('destroyed');
 		this.tasks.forEach(function(task)
 		{
+			task.status = Task.FINISHED;
 			task.destroy();
 		});
 		this.results = null;

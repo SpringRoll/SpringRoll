@@ -3725,21 +3725,21 @@
 {
 	/**
 	 * Internal class for dealing with async load assets
-	 * @class MultiTask
+	 * @class Task
 	 * @abstract
 	 */
-	var MultiTask = function()
+	var Task = function()
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
 		 * @default 0
 		 */
-		this.status = MultiTask.WAITING;
+		this.status = Task.WAITING;
 	};
 
 	// Reference to prototype
-	var p = MultiTask.prototype;
+	var p = Task.prototype;
 
 	/**
 	 * Status for waiting to be run
@@ -3749,7 +3749,7 @@
 	 * @final
 	 * @default 0
 	 */
-	MultiTask.WAITING = 0;
+	Task.WAITING = 0;
 
 	/**
 	 * Task is currently being run
@@ -3759,7 +3759,7 @@
 	 * @final
 	 * @default 1
 	 */
-	MultiTask.RUNNING = 1;
+	Task.RUNNING = 1;
 
 	/**
 	 * Status for task is finished
@@ -3769,7 +3769,7 @@
 	 * @final
 	 * @default 2
 	 */
-	MultiTask.FINISHED = 2;
+	Task.FINISHED = 2;
 
 	/**
 	 * Start the task
@@ -3778,7 +3778,7 @@
 	 */
 	p.start = function(callback)
 	{
-		this.status = MultiTask.RUNNING;
+		callback();
 	};
 
 	/**
@@ -3787,11 +3787,11 @@
 	 */
 	p.destroy = function()
 	{
-		this.status = MultiTask.FINISHED;
+		// implementation specific
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiTask = MultiTask;
+	namespace('springroll').Task = Task;
 
 }());
 /**
@@ -3800,18 +3800,18 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask');
+	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async load assets
-	 * @class MultiAsyncTask
-	 * @extends springroll.MultiTask
+	 * Internal class for dealing with async function calls with MultiLoader.
+	 * @class FunctionTask
+	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Function} async The data properties
 	 */
-	var MultiAsyncTask = function(async)
+	var FunctionTask = function(async)
 	{
-		MultiTask.call(this);
+		Task.call(this);
 
 		/**
 		 * The asynchronous call
@@ -3821,8 +3821,7 @@
 	};
 
 	// Reference to prototype
-	var s = MultiTask.prototype;
-	var p = extend(MultiAsyncTask, MultiTask);
+	var p = extend(FunctionTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -3831,7 +3830,7 @@
 	 * @param {*} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
-	MultiAsyncTask.test = function(asset)
+	FunctionTask.test = function(asset)
 	{
 		return typeof asset == "function";
 	};
@@ -3843,7 +3842,6 @@
 	 */
 	p.start = function(callback)
 	{
-		s.start.call(this);
 		this.async(callback);
 	};
 
@@ -3853,12 +3851,11 @@
 	 */
 	p.destroy = function()
 	{
-		s.destroy.call(this);
 		this.async = null;
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiAsyncTask = MultiAsyncTask;
+	namespace('springroll').FunctionTask = FunctionTask;
 
 }());
 /**
@@ -3867,13 +3864,13 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask'),
+	var Task = include('springroll.Task'),
 		Application = include('springroll.Application');
 
 	/**
-	 * Internal class for dealing with async load assets
-	 * @class MultiLoaderTask
-	 * @extends springroll.MultiTask
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class LoadTask
+	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
@@ -3883,9 +3880,9 @@
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var MultiLoaderTask = function(data)
+	var LoadTask = function(data)
 	{
-		MultiTask.call(this);
+		Task.call(this);
 
 		/**
 		 * The source URL to load
@@ -3931,8 +3928,7 @@
 	};
 
 	// Reference to prototype
-	var s = MultiTask.prototype;
-	var p = extend(MultiLoaderTask, MultiTask);
+	var p = extend(LoadTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -3941,7 +3937,7 @@
 	 * @param {*} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
-	MultiLoaderTask.test = function(asset)
+	LoadTask.test = function(asset)
 	{
 		return typeof asset == "object" && !!asset.src;
 	};
@@ -3953,8 +3949,6 @@
 	 */
 	p.start = function(callback)
 	{
-		s.start.call(this);
-		
 		Application.instance.loader.load(
 			this.src,
 			callback,
@@ -3970,9 +3964,7 @@
 	 * @method destroy
 	 */
 	p.destroy = function()
-	{
-		s.destroy.call(this);
-		
+	{		
 		this.originalAsset = null;
 		this.data = null;
 		this.complete = null;
@@ -3980,7 +3972,7 @@
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiLoaderTask = MultiLoaderTask;
+	namespace('springroll').LoadTask = LoadTask;
 
 }());
 /**
@@ -3991,7 +3983,7 @@
 {
 	var Debug,
 		MultiLoader,
-		MultiTask = include('springroll.MultiTask'),
+		Task = include('springroll.Task'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -4228,8 +4220,9 @@
 		for (var i = 0; i < tasks.length; i++)
 		{
 			var task = tasks[i];
-			if (task.status === MultiTask.WAITING)
+			if (task.status === Task.WAITING)
 			{
+				task.status = Task.RUNNING;
 				task.start(this.taskDone.bind(this, task));
 				
 				// If we aren't running in parallel, then stop
@@ -4242,7 +4235,7 @@
 	 * Handler when a task has completed
 	 * @method  taskDone
 	 * @private
-	 * @param  {springroll.MultiTask} task Reference to original task
+	 * @param  {springroll.Task} task Reference to original task
 	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
@@ -4285,6 +4278,7 @@
 			}
 			this.trigger('loadDone', result, additionalAssets);
 		}
+		task.status = Task.FINISHED;
 		task.destroy();
 
 		// Add new assets to the things to load
@@ -4343,6 +4337,7 @@
 		this.trigger('destroyed');
 		this.tasks.forEach(function(task)
 		{
+			task.status = Task.FINISHED;
 			task.destroy();
 		});
 		this.results = null;
@@ -4398,7 +4393,7 @@
 (function(undefined)
 {
 	var MultiLoaderResult = include('springroll.MultiLoaderResult'),
-		MultiTask = include('springroll.MultiTask'),
+		Task = include('springroll.Task'),
 		Debug;
 	
 	/**
@@ -4420,15 +4415,15 @@
 		this.loads = [];
 
 		// Register the default tasks
-		this.register('springroll.MultiLoaderTask');
-		this.register('springroll.MultiAsyncTask');
+		this.register('springroll.LoadTask');
+		this.register('springroll.FunctionTask');
 	};
 
 	// reference to prototype
 	var p = MultiLoader.prototype;
 
 	/**
-	 * Register new tasks types, these tasks must extend MultiTask
+	 * Register new tasks types, these tasks must extend Task
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
@@ -4442,9 +4437,9 @@
 
 		if (true && Debug)
 		{
-			if (!(TaskClass.prototype instanceof MultiTask))
+			if (!(TaskClass.prototype instanceof Task))
 			{
-				Debug.error("Registering task much extend MultiTask", TaskClass);
+				Debug.error("Registering task much extend Task", TaskClass);
 			}
 			else if (!TaskClass.test)
 			{

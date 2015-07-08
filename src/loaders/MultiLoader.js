@@ -5,7 +5,7 @@
 (function(undefined)
 {
 	var MultiLoaderResult = include('springroll.MultiLoaderResult'),
-		MultiTask = include('springroll.MultiTask'),
+		Task = include('springroll.Task'),
 		Debug;
 	
 	/**
@@ -27,15 +27,15 @@
 		this.loads = [];
 
 		// Register the default tasks
-		this.register('springroll.MultiLoaderTask');
-		this.register('springroll.MultiAsyncTask');
+		this.register('springroll.LoadTask');
+		this.register('springroll.FunctionTask');
 	};
 
 	// reference to prototype
 	var p = MultiLoader.prototype;
 
 	/**
-	 * Register new tasks types, these tasks must extend MultiTask
+	 * Register new tasks types, these tasks must extend Task
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
@@ -49,9 +49,9 @@
 
 		if (DEBUG && Debug)
 		{
-			if (!(TaskClass.prototype instanceof MultiTask))
+			if (!(TaskClass.prototype instanceof Task))
 			{
-				Debug.error("Registering task much extend MultiTask", TaskClass);
+				Debug.error("Registering task much extend Task", TaskClass);
 			}
 			else if (!TaskClass.test)
 			{

@@ -4,13 +4,13 @@
 */
 (function()
 {
-	var MultiTask = include('springroll.MultiTask'),
+	var Task = include('springroll.Task'),
 		Application = include('springroll.Application');
 
 	/**
-	 * Internal class for dealing with async load assets
-	 * @class MultiLoaderTask
-	 * @extends springroll.MultiTask
+	 * Internal class for dealing with async load assets through Loader.
+	 * @class LoadTask
+	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
@@ -20,9 +20,9 @@
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var MultiLoaderTask = function(data)
+	var LoadTask = function(data)
 	{
-		MultiTask.call(this);
+		Task.call(this);
 
 		/**
 		 * The source URL to load
@@ -68,8 +68,7 @@
 	};
 
 	// Reference to prototype
-	var s = MultiTask.prototype;
-	var p = extend(MultiLoaderTask, MultiTask);
+	var p = extend(LoadTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -78,7 +77,7 @@
 	 * @param {*} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
-	MultiLoaderTask.test = function(asset)
+	LoadTask.test = function(asset)
 	{
 		return typeof asset == "object" && !!asset.src;
 	};
@@ -90,8 +89,6 @@
 	 */
 	p.start = function(callback)
 	{
-		s.start.call(this);
-		
 		Application.instance.loader.load(
 			this.src,
 			callback,
@@ -107,9 +104,7 @@
 	 * @method destroy
 	 */
 	p.destroy = function()
-	{
-		s.destroy.call(this);
-		
+	{		
 		this.originalAsset = null;
 		this.data = null;
 		this.complete = null;
@@ -117,6 +112,6 @@
 	};
 
 	// Assign to namespace
-	namespace('springroll').MultiLoaderTask = MultiLoaderTask;
+	namespace('springroll').LoadTask = LoadTask;
 
 }());
