@@ -4098,19 +4098,22 @@
 		{
 			throw "load is done";
 		}
-
+		
+		var asset;
 		var mode = MAP_MODE;
 		if (isObject(assets) && assets.src)
 		{
 			mode = SINGLE_MODE;
-			tasks.push(new MultiLoaderTask(asset));
+			this.addTask(asset);
 		}
 		else
 		{
 			if (Array.isArray(assets))
 			{
-				assets.forEach(function(asset)
+				for (var i = 0; i < assets.length; i++)
 				{
+					asset = assets[i];
+				
 					// If we don't have the id to return
 					// a mapped result, we'll fallback to array results
 					if ((isObject(asset) && !asset.id) || isString(asset))
@@ -4123,11 +4126,9 @@
 					}
 					this.addTask(asset);
 				}
-				.bind(this));
 			}
 			else if (isObject(assets))
 			{
-				var asset;
 				for(var id in assets)
 				{
 					asset = asset[id];
