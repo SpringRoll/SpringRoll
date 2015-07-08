@@ -260,6 +260,14 @@
 		this.assetsLoaded = false;
 
 		/**
+		 *	The collection of assets preloaded
+		 *	@property {Object} assets
+		 *	@protected
+		 *	@readOnly
+		 */
+		this.assets = null;
+
+		/**
 		 *	If a manifest specific to this state should be automatically loaded by default.
 		 *	@property {Boolean} useManifest
 		 *	@protected
@@ -291,18 +299,17 @@
 
 		var tasks = [];
 
-		// Preload the manifest files
-		if (this.useManifest && this.manifest.length)
-		{
-			AssetManager.load(this.manifest, tasks);
-		}
-
 		this.addTasks(tasks);
 
+		if (this.useManifest && this.manifest.length)
+		{
+			tasks = this.manifest.concat(tasks);
+		}
+		
 		// Start loading assets if we have some
 		if (tasks.length)
 		{
-			this.app.load(tasks, this._onLoaded.bind(this));
+			AssetManager.load(tasks, this._onLoaded.bind(this));
 		}
 		// No files to load, just continue
 		else
@@ -335,6 +342,7 @@
 		{
 			AssetManager.unload(this.manifest);
 		}
+		this.assets = null;
 		this.assetsLoaded = false;
 	};
 
@@ -366,8 +374,9 @@
 	 *	@method _onLoaded
 	 *	@protected
 	 */
-	p._onLoaded = function()
+	p._onLoaded = function(assets)
 	{
+		this.assets = assets || null;
 		this.assetsLoaded = true;
 		this.panel.setup();
 
@@ -421,6 +430,7 @@
 		this.scaling = null;
 		this.sound = null;
 		this.app = null;
+		this.assets = null;
 
 		this.panel.destroy();
 

@@ -25,41 +25,46 @@
 	* @method loadSpriteSheet
 	* @static
 	* @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
-	*                                 expected to fit the JSON Hash format as exported from
-	*                                 TexturePacker.
+	*        expected to fit the JSON Hash format as exported from
+	*        TexturePacker.
 	* @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
-	*                                                   the frames.
+	*        the frames.
 	* @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
-	*                           a half sized spritesheet should have a scale of 2.
+	*        a half sized spritesheet should have a scale of 2.
 	*/
 	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
 	{
-		if(scale > 0)
+		if (scale > 0)
 		{
 			// Do nothing
 		}
-		//look for scale in spritesheet data
-		else if(spritesheetData.meta && parseFloat(spritesheetData.meta.scale))
+		else if (spritesheetData.meta && parseFloat(spritesheetData.meta.scale))
 		{
+			// look for scale in spritesheet data
 			scale = 1 / parseFloat(spritesheetData.meta.scale);
 		}
 		else
 		{
-			scale = 1;//scale should default to 1
+			// scale should default to 1
+			scale = 1;
 		}
 		
 		var frameDict = spritesheetData.frames || spritesheetData;
-		//TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
-		//swap them ourselves
+		// TexturePacker outputs frames with (not) swapped width & height when rotated, so we need to
+		// swap them ourselves
 		var swapFrameSize = spritesheetData.meta &&
 				spritesheetData.meta.app == "http://www.codeandweb.com/texturepacker";
-		for(var key in frameDict)
+		for (var key in frameDict)
 		{
 			var frame = frameDict[key];
 			var index = key.indexOf(".");
-			if(index > 0)
-				key = key.substring(0, index);//remove any file extension from the frame id
+			if (index > 0)
+			{
+				// remove any file extension from the frame id
+				key = key.substring(0, index);
+			}
 			var bitmap = lib[key];
+
 			/* jshint ignore:start */
 			var newBitmap = lib[key] = function()
 			{
@@ -77,28 +82,43 @@
 				}
 			};
 			/* jshint ignore:end */
+
 			var p = newBitmap.prototype = new Container();
-			p._image = spritesheetImage;//give it a reference to the spritesheet
-			p._scale = scale;//tell it what scale to use on the Bitmap to bring it to normal size
+
+			//give it a reference to the spritesheet
+			p._image = spritesheetImage;
+
+			//tell it what scale to use on the Bitmap to bring it to normal size
+			p._scale = scale;
+
 			var rotated = frame.rotated;
 			if(rotated)
+			{
 				p._rotated = true;
+			}
 			var frameRect = frame.frame;
+
 			//save the source rectangle of the sprite
-			p._frameRect = new Rectangle(frameRect.x,
-										frameRect.y,
-										(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
-										(rotated && swapFrameSize) ? frameRect.w : frameRect.h);
+			p._frameRect = new Rectangle(
+				frameRect.x,
+				frameRect.y,
+				(rotated && swapFrameSize) ? frameRect.h : frameRect.w,
+				(rotated && swapFrameSize) ? frameRect.w : frameRect.h
+			);
+
 			//if the sprite is trimmed, then save the amount that was trimmed
 			//off the left and top sides
-			if(frame.trimmed)
+			if (frame.trimmed)
 			{
 				p._frameOffsetX = frame.spriteSourceSize.x;
 				p._frameOffsetY = frame.spriteSourceSize.y;
 			}
 			else
+			{
 				p._frameOffsetX = p._frameOffsetY = 0;
-			if(bitmap && bitmap.prototype.nominalBounds)
+			}
+
+			if (bitmap && bitmap.prototype.nominalBounds)
 			{
 				//keep the nominal bounds from the original bitmap, if it existed
 				p.nominalBounds = bitmap.prototype.nominalBounds;
@@ -106,8 +126,9 @@
 			else
 			{
 				p.nominalBounds = new Rectangle(0, 0,
-												frame.sourceSize.w * scale,
-												frame.sourceSize.h * scale);
+					frame.sourceSize.w * scale,
+					frame.sourceSize.h * scale
+				);
 			}
 		}
 	};
@@ -117,7 +138,7 @@
 	 * @method bitmapFromTexture
 	 * @static
 	 * @param {Texture} texture The texture from a TextureAtlas to create the Bitmap analogue from.
-	 * @param {[type]} scale A scale for the spritesheet to undo, e.g. a half sized spritesheet
+	 * @param {Number} scale A scale for the spritesheet to undo, e.g. a half sized spritesheet
 	 *                       gets a scale of 2 to restore it to normal size.
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
@@ -128,20 +149,30 @@
 		}
 		else
 		{
-			scale = 1;//scale should default to 1
+			// scale should default to 1
+			scale = 1;
 		}
 		var output = new Container();
 		var bitmap = new Bitmap(texture.image);
 		output.addChild(bitmap);
 		bitmap.sourceRect = texture.frame;
-		bitmap.setTransform(texture.offset.x * scale, texture.offset.y * scale, scale, scale);
+		bitmap.setTransform(
+			texture.offset.x * scale, 
+			texture.offset.y * scale, 
+			scale, 
+			scale
+		);
+
 		if(texture.rotated)
 		{
 			bitmap.rotation = -90;
 			bitmap.regX = bitmap.sourceRect.width;
 		}
 		//set up a nominal bounds to be kind
-		output.nominalBounds = new Rectangle(0, 0, texture.width * scale, texture.height * scale);
+		output.nominalBounds = new Rectangle(0, 0, 
+			texture.width * scale, 
+			texture.height * scale
+		);
 		return output;
 	};
 
@@ -169,7 +200,7 @@
 		}
 
 		var key, bitmap, newBitmap, p;
-		if(typeof idOrDict == "string")
+		if (typeof idOrDict == "string")
 		{
 			key = idOrDict;
 			bitmap = lib[key];
@@ -192,7 +223,7 @@
 		}
 		else
 		{
-			for(key in idOrDict)
+			for (key in idOrDict)
 			{
 				bitmap = lib[key];
 				if(bitmap)

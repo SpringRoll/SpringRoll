@@ -25,10 +25,6 @@
 		 * @property {Array} loads
 		 */
 		this.loads = [];
-
-		// Register the default tasks
-		this.register('springroll.LoadTask');
-		this.register('springroll.FunctionTask');
 	};
 
 	// reference to prototype

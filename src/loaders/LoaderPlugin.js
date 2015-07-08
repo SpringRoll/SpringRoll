@@ -29,7 +29,12 @@
 		 * Reference to the multiple asset loader
 		 * @property {springroll.MultiLoader} multiLoader
 		 */
-		this.multiLoader = new MultiLoader();
+		var multiLoader = this.multiLoader = new MultiLoader();
+
+		// Register the default tasks
+		multiLoader.register('springroll.LoadTask');
+		multiLoader.register('springroll.FunctionTask');
+		multiLoader.register('springroll.ColorAlphaTask');
 
 		/**
 		 * Override the end-user browser cache by adding

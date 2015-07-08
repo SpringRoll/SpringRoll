@@ -12,7 +12,7 @@
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class AnimatorPlugin
+	 * @class AnimationPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin();	

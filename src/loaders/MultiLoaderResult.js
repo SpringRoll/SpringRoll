@@ -180,7 +180,7 @@
 			{
 				for(var id in assets)
 				{
-					asset = applyDefaults(asset[id]);
+					asset = applyDefaults(assets[id]);
 
 					if (!asset.id)
 					{
@@ -293,7 +293,7 @@
 	 * @method  taskDone
 	 * @private
 	 * @param  {springroll.Task} task Reference to original task
-	 * @param  {springroll.LoaderResult} [result] The result of load
+	 * @param  {*} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
 	{

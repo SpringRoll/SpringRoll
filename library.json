@@ -24,12 +24,15 @@
 		"src/loaders/CacheManager.js",
 		"src/loaders/tasks/Task.js",
 		"src/loaders/tasks/FunctionTask.js",
+		"src/loaders/tasks/ColorAlphaTask.js",
 		"src/loaders/tasks/LoadTask.js",
 		"src/loaders/MultiLoaderResult.js",
 		"src/loaders/MultiLoader.js",
 		"src/loaders/LoaderQueueItem.js",
 		"src/loaders/LoaderResult.js",
 		"src/loaders/Loader.js",
+		"src/loaders/AssetManager.js",
+		"src/loaders/AssetManagerPlugin.js",
 		"src/loaders/LoaderPlugin.js",
 		"src/loaders/ConfigPlugin.js",
 		"src/displays/*.js",
@@ -57,7 +60,7 @@
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
 				"src/displays/pixi/animation/Animator.js",
-				"src/displays/pixi/animation/AnimatorPlugin.js"
+				"src/displays/pixi/animation/AnimationPlugin.js"
 			]
 		},
 		"pixiui": {
@@ -82,10 +85,12 @@
 			"main": [
 				"src/displays/easeljs/animation/AnimatorTimeline.js",
 				"src/displays/easeljs/animation/Animator.js",
-				"src/displays/easeljs/animation/AnimatorPlugin.js",
+				"src/displays/easeljs/animation/AnimationPlugin.js",
 				"src/displays/easeljs/animation/TextureAtlas.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
-				"src/displays/easeljs/animation/ReversePlayback.js"
+				"src/displays/easeljs/animation/ReversePlayback.js",
+				"src/displays/easeljs/animation/TextureAtlasTask.js",
+				"src/displays/easeljs/animation/BitmapMovieClipTask.js" 
 			]
 		},
 		"easeljsui": {
@@ -94,9 +99,7 @@
 				"src/displays/easeljs/ui/Button.js",
 				"src/displays/easeljs/ui/SoundButton.js",
 				"src/displays/easeljs/ui/DragData.js",
-				"src/displays/easeljs/ui/DragManager.js",
-				"src/displays/easeljs/ui/AssetManager.js",
-				"src/displays/easeljs/ui/AssetManagerPlugin.js"
+				"src/displays/easeljs/ui/DragManager.js"
 			]
 		},
 		"easeljsutils": {

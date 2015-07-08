@@ -11,20 +11,20 @@
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
-	 * @param {Object} data The data properties
-	 * @param {Function} data.async The required function to call
-	 * @param {Function} [data.complete] The function to call when we're done
-	 * @param {String} [data.id] The task id for mapping the result, if any
+	 * @param {Object} asset The data properties
+	 * @param {Function} asset.async The required function to call
+	 * @param {Function} [asset.complete] The function to call when we're done
+	 * @param {String} [asset.id] The task id for mapping the result, if any
 	 */
-	var FunctionTask = function(data)
+	var FunctionTask = function(asset)
 	{
-		Task.call(this, data);
+		Task.call(this, asset);
 
 		/**
 		 * The asynchronous call
 		 * @property {Function} async
 		 */
-		this.async = data.async;
+		this.async = asset.async;
 	};
 
 	// Reference to prototype

@@ -9,11 +9,11 @@
 	 * @class Task
 	 * @abstract
 	 * @constructor
-	 * @param {Object} data The asset data
-	 * @param {String} [data.id] The task ID
-	 * @param {Function} [data.complete] Call when complete
+	 * @param {Object} asset The asset data
+	 * @param {String} [asset.id] The task ID
+	 * @param {Function} [asset.complete] Call when complete
 	 */
-	var Task = function(data)
+	var Task = function(asset)
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
@@ -28,19 +28,19 @@
 		 * @property {Function} complete
 		 * @default null
 		 */
-		this.complete = data.complete || null;
+		this.complete = asset.complete || null;
 
 		/**
 		 * The task id
 		 * @property {String} id
 		 */
-		this.id = data.id || null;
+		this.id = asset.id || null;
 
 		/**
 		 * Reference to the original asset data
 		 * @property {Object} originalAsset
 		 */
-		this.originalAsset = data;
+		this.originalAsset = asset;
 	};
 
 	// Reference to prototype

@@ -20,33 +20,33 @@
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var LoadTask = function(data)
+	var LoadTask = function(asset)
 	{
-		Task.call(this, data);
+		Task.call(this, asset);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
-		this.src = data.src;
+		this.src = asset.src;
 
 		/**
 		 * Call on load progress
 		 * @property {Function} progress
 		 */
-		this.progress = data.progress;
+		this.progress = asset.progress;
 
 		/**
 		 * Load progress
 		 * @property {int} priority
 		 */
-		this.priority = data.priority;
+		this.priority = asset.priority;
 
 		/**
 		 * Optional data to attach to load
 		 * @property {*} data
 		 */
-		this.data = data.data;
+		this.data = asset.data;
 	};
 
 	// Reference to prototype

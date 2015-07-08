@@ -1,13 +1,12 @@
 /**
- * @module EaselJS UI
- * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, Tasks
- */
+*  @module Core
+*  @namespace springroll
+*/
 (function(undefined)
 {
 	// Import classes
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		AssetManager = include('springroll.easeljs.AssetManager');
+		AssetManager = include('springroll.AssetManager');
 
 	/**
 	 *	Initialize the AssetManager

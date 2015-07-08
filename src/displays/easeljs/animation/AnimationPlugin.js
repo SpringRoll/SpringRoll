@@ -12,7 +12,7 @@
 	/**
 	 * Create an app plugin for Animator, all properties and methods documented
 	 * in this class are mixed-in to the main Application
-	 * @class AnimatorPlugin
+	 * @class AnimationPlugin
 	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin();
@@ -20,6 +20,11 @@
 	// Init the animator
 	plugin.setup = function()
 	{
+		// Register the tasks
+		this.multiLoader.register('springroll.easeljs.TextureAtlasTask');
+		this.multiLoader.register('springroll.easeljs.BitmapMovieClipTask');
+
+		// Init the animation
 		Animator.init();
 		Animator.captions = this.captions || null;
 	};

@@ -3728,11 +3728,11 @@
 	 * @class Task
 	 * @abstract
 	 * @constructor
-	 * @param {Object} data The asset data
-	 * @param {String} [data.id] The task ID
-	 * @param {Function} [data.complete] Call when complete
+	 * @param {Object} asset The asset data
+	 * @param {String} [asset.id] The task ID
+	 * @param {Function} [asset.complete] Call when complete
 	 */
-	var Task = function(data)
+	var Task = function(asset)
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
@@ -3747,19 +3747,19 @@
 		 * @property {Function} complete
 		 * @default null
 		 */
-		this.complete = data.complete || null;
+		this.complete = asset.complete || null;
 
 		/**
 		 * The task id
 		 * @property {String} id
 		 */
-		this.id = data.id || null;
+		this.id = asset.id || null;
 
 		/**
 		 * Reference to the original asset data
 		 * @property {Object} originalAsset
 		 */
-		this.originalAsset = data;
+		this.originalAsset = asset;
 	};
 
 	// Reference to prototype
@@ -3834,20 +3834,20 @@
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
-	 * @param {Object} data The data properties
-	 * @param {Function} data.async The required function to call
-	 * @param {Function} [data.complete] The function to call when we're done
-	 * @param {String} [data.id] The task id for mapping the result, if any
+	 * @param {Object} asset The data properties
+	 * @param {Function} asset.async The required function to call
+	 * @param {Function} [asset.complete] The function to call when we're done
+	 * @param {String} [asset.id] The task id for mapping the result, if any
 	 */
-	var FunctionTask = function(data)
+	var FunctionTask = function(asset)
 	{
-		Task.call(this, data);
+		Task.call(this, asset);
 
 		/**
 		 * The asynchronous call
 		 * @property {Function} async
 		 */
-		this.async = data.async;
+		this.async = asset.async;
 	};
 
 	// Reference to prototype
@@ -3900,6 +3900,116 @@
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
+	 * @class ColorAlphaTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @param {Object} asset The data properties
+	 * @param {String} asset.color The source path to the color image
+	 * @param {String} asset.alpha The source path to the alpha image
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete] The event to call when done
+	 */
+	var ColorAlphaTask = function(asset)
+	{
+		Task.call(this, asset);
+
+		/**
+		 * The atlas color source path
+		 * @property {String} color
+		 */
+		this.color = asset.color;
+
+		/**
+		 * The atlas alpha source path
+		 * @property {String} alpha
+		 */
+		this.alpha = asset.alpha;
+	};
+
+	// Reference to prototype
+	var p = extend(ColorAlphaTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	ColorAlphaTask.test = function(asset)
+	{
+		return !!asset.color && !!asset.alpha;
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		Application.instance.load({
+				alpha: this.alpha,
+				color: this.color
+			}, 
+			function(results)
+			{
+				callback(ColorAlphaTask.mergeAlpha(
+					results.color.content,
+					results.alpha.content
+				));
+			}
+		);
+	};
+
+	/**
+	* Pulled from EaselJS's SpriteSheetUtils.
+	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	* combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	* containing alpha data. With certain types of images (those with detail that lend itself to
+	* JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	* This method is very fast (generally on the order of 1-2 ms to run).
+	* @method mergeAlpha
+	* @static
+	* @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	* @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	* @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	*                          canvas will be created.
+	* @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	*                  Texture.
+	*/
+	ColorAlphaTask.mergeAlpha = function(rgbImage, alphaImage, canvas)
+	{
+		if (!canvas)
+		{
+			canvas = document.createElement("canvas");
+		}
+		canvas.width = Math.max(alphaImage.width, rgbImage.width);
+		canvas.height = Math.max(alphaImage.height, rgbImage.height);
+		var ctx = canvas.getContext("2d");
+		ctx.save();
+		ctx.drawImage(rgbImage,0,0);
+		ctx.globalCompositeOperation = "destination-in";
+		ctx.drawImage(alphaImage,0,0);
+		ctx.restore();
+		return canvas;
+	};
+
+	// Assign to namespace
+	namespace('springroll').ColorAlphaTask = ColorAlphaTask;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
 	 * @class LoadTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -3911,33 +4021,33 @@
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 */
-	var LoadTask = function(data)
+	var LoadTask = function(asset)
 	{
-		Task.call(this, data);
+		Task.call(this, asset);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
-		this.src = data.src;
+		this.src = asset.src;
 
 		/**
 		 * Call on load progress
 		 * @property {Function} progress
 		 */
-		this.progress = data.progress;
+		this.progress = asset.progress;
 
 		/**
 		 * Load progress
 		 * @property {int} priority
 		 */
-		this.priority = data.priority;
+		this.priority = asset.priority;
 
 		/**
 		 * Optional data to attach to load
 		 * @property {*} data
 		 */
-		this.data = data.data;
+		this.data = asset.data;
 	};
 
 	// Reference to prototype
@@ -4169,7 +4279,7 @@
 			{
 				for(var id in assets)
 				{
-					asset = applyDefaults(asset[id]);
+					asset = applyDefaults(assets[id]);
 
 					if (!asset.id)
 					{
@@ -4282,7 +4392,7 @@
 	 * @method  taskDone
 	 * @private
 	 * @param  {springroll.Task} task Reference to original task
-	 * @param  {springroll.LoaderResult} [result] The result of load
+	 * @param  {*} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
 	{
@@ -4462,10 +4572,6 @@
 		 * @property {Array} loads
 		 */
 		this.loads = [];
-
-		// Register the default tasks
-		this.register('springroll.LoadTask');
-		this.register('springroll.FunctionTask');
 	};
 
 	// reference to prototype
@@ -5366,6 +5472,227 @@
 */
 (function()
 {
+	var Application = include('springroll.Application'),
+		LoaderResult = include('springroll.LoaderResult'),
+		Debug;
+
+	/**
+	 * Class for managing the loading and unloading of assets.
+	 * @class AssetManager
+	 * @static
+	 */
+	var AssetManager = {};
+	
+	/**
+	*  Array of asset objects that have been loaded by AssetManager.
+	*  @property {Object} _loadedAssets
+	*  @private
+	*  @static
+	*/
+	var _loadedAssets = null;
+
+	/**
+	 * Intializes AssetManager.
+	 * @method init
+	 * @static
+	 * @param {springroll.Application} app
+	 */
+	AssetManager.init = function(app)
+	{
+		if (true)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+		_loadedAssets = {};
+	};
+
+	/**
+	*  Load a collection of assets for the MultiLoader and remembers the results
+	*  so that it's possible to unload those assets later. 
+	*  @method load
+	*  @static
+	*  @param {Array} manifest The collection of asset manifests
+	*  @param {Array} assetList An array to add assets for loading. 
+	*        If omitted, loads immediately with an internal load.
+	*/
+	/**
+	*  Load a collection of assets for the MultiLoader and remembers the results
+	*  so that it's possible to unload those assets later. 
+	*  @method load
+	*  @static
+	*  @param {Array} manifest The collection of asset manifests
+	*  @param {Function} callback A function to call when load is complete
+	*  @param {Array} [assetList] An array to add assets for loading. 
+	*        If omitted, loads immediately with an internal load.
+	*/
+	AssetManager.load = function(assets, callback, assetList)
+	{
+		// 2nd argument support the array
+		if (Array.isArray(callback))
+		{
+			assetList = callback;
+			callback = null;
+		}
+
+		if (assets && assets.length)
+		{
+			var asset;
+
+			// Check the assets for valid IDs
+			for (var i = 0; i < assets.length; i++)
+			{
+				asset = assets[i];
+				if (!asset.id)
+				{
+					if (true && Debug)
+					{
+						Debug.error("Each asset passed to the AssetManager.load must have an id", asset);
+						return;
+					}
+					else
+					{
+						throw "asset missing id";
+					}
+				}
+			}
+
+			if (assetList)
+			{
+				// Add to the list of tasks already in progress
+				assetList.push({
+					async: onLoaded.bind(null, assets),
+					complete: callback
+				});
+			}
+			else
+			{
+				// Do the load directly
+				onLoaded(assets, callback);
+			}
+		}
+		else if (callback)
+		{
+			setTimeout(callback, 0);
+		}	
+	};
+
+	/**
+	 * Handle the asset load
+	 * @method  onLoaded
+	 * @static
+	 * @private
+	 * @param  {Array}   assets   Collection of assets to load
+	 * @param  {Function} done Callback when completed
+	 */
+	var onLoaded = function(assets, done)
+	{
+		// Load the assets thru the multiloader
+		Application.instance.load(assets, function(results)
+		{
+			var result;
+			for (var id in results)
+			{
+				result = results[id];
+				_loadedAssets[id] = result instanceof LoaderResult ? result.content : result;
+			}
+			if (done) done(results);
+		});
+	};
+
+	/**
+	*  Get an asset by ID
+	*  @method getAsset
+	*  @static
+	*  @param {String} id The id of the asset to get
+	*  @return {*} The asset returned from load
+	*/
+	AssetManager.getAsset = function(id)
+	{
+		return _loadedAssets[id];
+	};
+
+	/**
+	*  Unload an asset or list of assets.
+	*  @method unload
+	*  @static
+	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id. As an
+	*         array, it can be a manifest with {id:"", src:""} objects.
+	*/
+	AssetManager.unload = function(assets)
+	{
+		if (typeof assets === "string")
+		{
+			assets = [assets];
+		}
+		assets.forEach(function(asset)
+		{
+			var id = asset.id || asset;
+			var result = _loadedAssets[id];
+			if (result.destroy)
+			{
+				result.destroy();
+			}
+			delete _loadedAssets[id];
+		});
+	};
+
+	/**
+	*  Unloads all assets loaded by AssetManager.
+	*  @method unloadAll
+	*  @static
+	*/
+	AssetManager.unloadAll = function()
+	{
+		for(var id in _loadedAssets)
+		{
+			var result = _loadedAssets[id];
+			if (result.destroy)
+			{
+				result.destroy();
+			}
+			delete _loadedAssets[id];
+		}
+	};
+
+	// Assign to namespace
+	namespace("springroll").AssetManager = AssetManager;
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function(undefined)
+{
+	// Import classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
+		AssetManager = include('springroll.AssetManager');
+
+	/**
+	 *	Initialize the AssetManager
+	 *	@class AssetManagerPlugin
+	 *	@extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin();
+
+	// Initialize the plugin
+	plugin.setup = function()
+	{
+		AssetManager.init();
+	};
+
+	// clean up
+	plugin.teardown = function()
+	{
+		AssetManager.unloadAll();
+	};
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),
 		MultiLoader = include('springroll.MultiLoader');
@@ -5391,7 +5718,12 @@
 		 * Reference to the multiple asset loader
 		 * @property {springroll.MultiLoader} multiLoader
 		 */
-		this.multiLoader = new MultiLoader();
+		var multiLoader = this.multiLoader = new MultiLoader();
+
+		// Register the default tasks
+		multiLoader.register('springroll.LoadTask');
+		multiLoader.register('springroll.FunctionTask');
+		multiLoader.register('springroll.ColorAlphaTask');
 
 		/**
 		 * Override the end-user browser cache by adding

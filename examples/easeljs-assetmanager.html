@@ -23,7 +23,6 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/ui.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
@@ -49,10 +48,9 @@ var Application = include('springroll.Application'),
 	UIScaler = include('springroll.UIScaler'),
 	Button = include('springroll.easeljs.Button'),
 	LoadTask = include('springroll.LoadTask'),
-	TaskManager = include('springroll.TaskManager'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
-	AssetManager = include('springroll.easeljs.AssetManager'),
-	BitmapMovieClip = include('springroll.easeljs.BitmapMovieClip'),
+	AssetManager = include('springroll.AssetManager'),
+	Bitmap = include('createjs.Bitmap'),
 	Animator = include('springroll.easeljs.Animator');
 
 // Create the new application
@@ -69,78 +67,76 @@ var app = new Application({
 
 var images = {};
 
-app.on('loading', function(tasks)
+app.on('loading', function(assets)
 {
-	//load the background and button
-	AssetManager.load(
-	[
+	// Add the load to the preload tasks
+	// this will be load before the application
+	// is ready
+	AssetManager.load([
 		{
-			id:'background',
+			id:'Background',
 			src:'assets/images/background.jpg'
 		},
 		{
-			id:'button',
+			id:'Button',
 			src:'assets/images/button.png'
 		},
 		{
-			id:'FlowerData',
-			src:'assets/images/FlowerData.json',
-			bmcConfig:true
-		},
-		{
-			id:'FlowerSheet',
-			atlasData:'assets/images/FlowerSheet.json',
-			atlasImage:'assets/images/FlowerSheet.png'
+			id:'Flower',
+			anim:'assets/images/FlowerData.json',
+			atlas:'assets/images/FlowerSheet.json',
+			image:'assets/images/FlowerSheet.png'
 		}
 	],
-	tasks);
+	assets);
 });
 
 // Wait until the app is ready
-app.on('init', function(){
-
-	console.log("Main app init");
-	var stage = this.display.stage;
-
+app.on('init', function()
+{
 	// Add the background to the stage
-	var background = new createjs.Bitmap(images.background);
+	var background = new Bitmap(AssetManager.getAsset('Background'));
 	
-	this.flower = new BitmapMovieClip(
-									AssetManager.getAtlas("FlowerSheet"),
-									AssetManager.getBitmapMovieClipConfig("FlowerData"));
+	this.flower = AssetManager.getAsset('Flower');
 	
-	//create a button that destroys the universe
-	this.closeButton = new Button(images.button, {
+	// Create a button that destroys the universe
+	this.closeButton = new Button(AssetManager.getAsset('Button'), {
 		text: 'Unload',
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 
-	stage.addChild(background);
-	stage.addChild(this.flower);
-	stage.addChild(this.closeButton);
+	this.display.stage.addChild(
+		background, 
+		this.flower, 
+		this.closeButton
+	);
 
 	// Add the background to the scaling
 	this.scaling.addBackground(background);
 	
-	this.closeButton.addEventListener(Button.BUTTON_PRESS, unloadAssets);
-	
+	// Add the animation
 	Animator.play(this.flower, "wet");
+
+	// Handler to clear the stage
+	this.closeButton.addEventListener(Button.BUTTON_PRESS, function()
+	{
+		// Destroy display objects
+		app.closeButton.destroy();
+		app.closeButton = null;
+
+		// Stop the animation
+		Animator.stop(app.flower);
+		app.flower = null;
+
+		// Remove all display objects
+		app.display.stage.removeAllChildren();
+
+		// Unload image assets
+		AssetManager.unload(['Flower', 'Background', 'Button']);
+	});
 });
 
-function unloadAssets()
-{
-	var app = Application.instance;
-	//destroy display objects
-	app.closeButton.destroy();
-	app.closeButton = null;
-	Animator.stop(app.flower);
-	app.flower.destroy();
-	app.flower = null;
-	app.display.stage.removeAllChildren();
-	//unload image assets
-	AssetManager.unload(['background', 'button']);
-};
 
 </script>
 		</div>
