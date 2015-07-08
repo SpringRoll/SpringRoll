@@ -8,8 +8,12 @@
 	 * Internal class for dealing with async load assets
 	 * @class Task
 	 * @abstract
+	 * @constructor
+	 * @param {Object} data The asset data
+	 * @param {String} [data.id] The task ID
+	 * @param {Function} [data.complete] Call when complete
 	 */
-	var Task = function()
+	var Task = function(data)
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
@@ -17,6 +21,26 @@
 		 * @default 0
 		 */
 		this.status = Task.WAITING;
+
+		/**
+		 * The user call to fire when completed, returns the arguments
+		 * result, originalAsset, and additionalAssets
+		 * @property {Function} complete
+		 * @default null
+		 */
+		this.complete = data.complete || null;
+
+		/**
+		 * The task id
+		 * @property {String} id
+		 */
+		this.id = data.id || null;
+
+		/**
+		 * Reference to the original asset data
+		 * @property {Object} originalAsset
+		 */
+		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -68,7 +92,10 @@
 	 */
 	p.destroy = function()
 	{
-		// implementation specific
+		this.status = Task.FINISHED;
+		this.id = null;
+		this.complete = null;
+		this.originalAsset = null;
 	};
 
 	// Assign to namespace

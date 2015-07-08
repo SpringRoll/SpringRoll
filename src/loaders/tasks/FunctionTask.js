@@ -11,17 +11,20 @@
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
-	 * @param {Function} async The data properties
+	 * @param {Object} data The data properties
+	 * @param {Function} data.async The required function to call
+	 * @param {Function} [data.complete] The function to call when we're done
+	 * @param {String} [data.id] The task id for mapping the result, if any
 	 */
-	var FunctionTask = function(async)
+	var FunctionTask = function(data)
 	{
-		Task.call(this);
+		Task.call(this, data);
 
 		/**
 		 * The asynchronous call
 		 * @property {Function} async
 		 */
-		this.async = async;
+		this.async = data.async;
 	};
 
 	// Reference to prototype
@@ -31,12 +34,12 @@
 	 * Test if we should run this task
 	 * @method test
 	 * @static
-	 * @param {*} asset The asset to check
+	 * @param {Object} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
 	FunctionTask.test = function(asset)
 	{
-		return typeof asset == "function";
+		return !!asset.async;
 	};
 
 	/**
@@ -55,6 +58,7 @@
 	 */
 	p.destroy = function()
 	{
+		Task.prototype.destroy.call(this);
 		this.async = null;
 	};
 

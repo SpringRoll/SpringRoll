@@ -22,19 +22,13 @@
 	 */
 	var LoadTask = function(data)
 	{
-		Task.call(this);
+		Task.call(this, data);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
 		this.src = data.src;
-
-		/**
-		 * Call when done with this load
-		 * @property {Function} complete
-		 */
-		this.complete = data.complete;
 
 		/**
 		 * Call on load progress
@@ -53,18 +47,6 @@
 		 * @property {*} data
 		 */
 		this.data = data.data;
-
-		/**
-		 * The task id
-		 * @property {String} id
-		 */
-		this.id = data.id;
-
-		/**
-		 * Reference to the original asset data
-		 * @property {Object} originalAsset
-		 */
-		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -74,12 +56,12 @@
 	 * Test if we should run this task
 	 * @method test
 	 * @static
-	 * @param {*} asset The asset to check
+	 * @param {Object} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
 	LoadTask.test = function(asset)
 	{
-		return typeof asset == "object" && !!asset.src;
+		return !!asset.src;
 	};
 
 	/**
@@ -104,10 +86,9 @@
 	 * @method destroy
 	 */
 	p.destroy = function()
-	{		
-		this.originalAsset = null;
+	{
+		Task.prototype.destroy.call(this);
 		this.data = null;
-		this.complete = null;
 		this.progress = null;
 	};
 

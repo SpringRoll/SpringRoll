@@ -77,7 +77,7 @@
 		this.options.add('versionsFile', null, true);
 
 		/**
-		 * Simple load of a single file. Pass-through for `Loader.instance.load`.
+		 * Simple load of a single file.
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
@@ -85,6 +85,7 @@
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {int} [priority] The load priority to use
 		 * @param {*} [data] The data to attach to load item
+		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
 		/**
 		 * Load a single file with options.
@@ -129,24 +130,24 @@
 		 */
 		this.load = function(source, complete, progressOrStartAll, priority, data)
 		{
+			// If the load arguments are setup like the Loader.load call
+			// then we'll convert to an object that we can use
 			if (typeof source == "string")
 			{
-				this.loader.load(
-					source, 
-					complete, 
-					progressOrStartAll, 
-					priority, 
-					data
-				);
+				source = {
+					src: source,
+					complete: complete,
+					progress: progressOrStartAll,
+					priority: priority,
+					data: data
+				};
 			}
-			else
-			{
-				return this.multiLoader.load(
-					source, 
-					complete, 
-					progressOrStartAll
-				);
-			}
+
+			return this.multiLoader.load(
+				source, 
+				complete, 
+				progressOrStartAll
+			);
 		};
 	};
 

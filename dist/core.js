@@ -3727,8 +3727,12 @@
 	 * Internal class for dealing with async load assets
 	 * @class Task
 	 * @abstract
+	 * @constructor
+	 * @param {Object} data The asset data
+	 * @param {String} [data.id] The task ID
+	 * @param {Function} [data.complete] Call when complete
 	 */
-	var Task = function()
+	var Task = function(data)
 	{
 		/**
 		 * The current status of the task (waiting, running, etc)
@@ -3736,6 +3740,26 @@
 		 * @default 0
 		 */
 		this.status = Task.WAITING;
+
+		/**
+		 * The user call to fire when completed, returns the arguments
+		 * result, originalAsset, and additionalAssets
+		 * @property {Function} complete
+		 * @default null
+		 */
+		this.complete = data.complete || null;
+
+		/**
+		 * The task id
+		 * @property {String} id
+		 */
+		this.id = data.id || null;
+
+		/**
+		 * Reference to the original asset data
+		 * @property {Object} originalAsset
+		 */
+		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -3787,7 +3811,10 @@
 	 */
 	p.destroy = function()
 	{
-		// implementation specific
+		this.status = Task.FINISHED;
+		this.id = null;
+		this.complete = null;
+		this.originalAsset = null;
 	};
 
 	// Assign to namespace
@@ -3807,17 +3834,20 @@
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
-	 * @param {Function} async The data properties
+	 * @param {Object} data The data properties
+	 * @param {Function} data.async The required function to call
+	 * @param {Function} [data.complete] The function to call when we're done
+	 * @param {String} [data.id] The task id for mapping the result, if any
 	 */
-	var FunctionTask = function(async)
+	var FunctionTask = function(data)
 	{
-		Task.call(this);
+		Task.call(this, data);
 
 		/**
 		 * The asynchronous call
 		 * @property {Function} async
 		 */
-		this.async = async;
+		this.async = data.async;
 	};
 
 	// Reference to prototype
@@ -3827,12 +3857,12 @@
 	 * Test if we should run this task
 	 * @method test
 	 * @static
-	 * @param {*} asset The asset to check
+	 * @param {Object} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
 	FunctionTask.test = function(asset)
 	{
-		return typeof asset == "function";
+		return !!asset.async;
 	};
 
 	/**
@@ -3851,6 +3881,7 @@
 	 */
 	p.destroy = function()
 	{
+		Task.prototype.destroy.call(this);
 		this.async = null;
 	};
 
@@ -3882,19 +3913,13 @@
 	 */
 	var LoadTask = function(data)
 	{
-		Task.call(this);
+		Task.call(this, data);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
 		this.src = data.src;
-
-		/**
-		 * Call when done with this load
-		 * @property {Function} complete
-		 */
-		this.complete = data.complete;
 
 		/**
 		 * Call on load progress
@@ -3913,18 +3938,6 @@
 		 * @property {*} data
 		 */
 		this.data = data.data;
-
-		/**
-		 * The task id
-		 * @property {String} id
-		 */
-		this.id = data.id;
-
-		/**
-		 * Reference to the original asset data
-		 * @property {Object} originalAsset
-		 */
-		this.originalAsset = data;
 	};
 
 	// Reference to prototype
@@ -3934,12 +3947,12 @@
 	 * Test if we should run this task
 	 * @method test
 	 * @static
-	 * @param {*} asset The asset to check
+	 * @param {Object} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
 	LoadTask.test = function(asset)
 	{
-		return typeof asset == "object" && !!asset.src;
+		return !!asset.src;
 	};
 
 	/**
@@ -3964,10 +3977,9 @@
 	 * @method destroy
 	 */
 	p.destroy = function()
-	{		
-		this.originalAsset = null;
+	{
+		Task.prototype.destroy.call(this);
 		this.data = null;
-		this.complete = null;
 		this.progress = null;
 	};
 
@@ -4098,10 +4110,10 @@
 	
 	/**
 	 * When a task is finished
-	 * @event loadDone
-	 * @param {springroll.LoaderResult} result The load result
-	 * @param {Object|Array} assets The object collection
-	 *        to add new assets to.
+	 * @event taskDone
+	 * @param {springroll.LoaderResult|*} result The load result
+	 * @param {Object} originalAsset The original asset loaded
+	 * @param {Array} assets The object collection to add new assets to.
 	 */
 
 	/**
@@ -4123,10 +4135,18 @@
 		
 		var asset;
 		var mode = MAP_MODE;
-		if (isObject(assets) && assets.src)
+
+		// Apply the defaults incase this is a single 
+		// thing that we're trying to load
+		assets = applyDefaults(assets);
+
+		// Check for a task definition on the asset
+		var isSingle = getTaskByAsset(assets);
+
+		if (isSingle)
 		{
-			mode = SINGLE_MODE;
 			this.addTask(asset);
+			return SINGLE_MODE;
 		}
 		else
 		{
@@ -4134,18 +4154,12 @@
 			{
 				for (var i = 0; i < assets.length; i++)
 				{
-					asset = assets[i];
+					asset = applyDefaults(assets[i]);
 
-					// Convert to an object
-					if (isString(asset))
-					{
-						asset = { src: asset };
-					}
-
-					// If we don't have the id to return
-					// a mapped result, we'll fallback to array results
 					if (!asset.id)
 					{
+						// If we don't have the id to return
+						// a mapped result, we'll fallback to array results
 						mode = LIST_MODE;
 					}
 					this.addTask(asset);
@@ -4155,17 +4169,9 @@
 			{
 				for(var id in assets)
 				{
-					asset = asset[id];
+					asset = applyDefaults(asset[id]);
 
-					// Convert to asset with ID
-					if (isString(asset))
-					{
-						asset = {
-							id: id,
-							src: asset
-						};
-					}
-					else if (!asset.id)
+					if (!asset.id)
 					{
 						asset.id = id;
 					}
@@ -4181,16 +4187,59 @@
 	};
 
 	/**
+	 * Convert assets into object defaults
+	 * @method applyDefaults
+	 * @private
+	 * @static
+	 * @param  {*} asset The function to convert
+	 * @return {Object} The object asset to use
+	 */
+	function applyDefaults(asset)
+	{
+		// convert to a LoadTask
+		if (isString(asset))
+		{
+			return { src: asset };
+		}
+		// convert to a FunctionTask
+		else if (isFunction(asset))
+		{
+			return { async: asset };
+		}
+		return asset;
+	}
+
+	/**
 	 * Load a single asset
 	 * @method addTask
 	 * @private
-	 * @param {Object|Function} asset The asset to load, 
+	 * @param {Object} asset The asset to load, 
 	 *        can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
 	{
-		var TaskClass;
+		var TaskClass = getTaskByAsset(asset);
+		if (TaskClass)
+		{
+			this.tasks.push(new TaskClass(asset));
+		}
+		else if (true && Debug)
+		{
+			Debug.error("Unable to find a task definitation for asset", asset);
+		}
+	};
 
+	/**
+	 * Get the Task definition for an asset
+	 * @method  getTaskByAsset
+	 * @private
+	 * @static
+	 * @param  {Object} asset The asset to check
+	 * @return {Function} The Task class
+	 */
+	function getTaskByAsset(asset)
+	{
+		var TaskClass;
 		var taskDefs = MultiLoader.taskDefs;
 
 		// Loop backwards to get the registered tasks first
@@ -4200,14 +4249,11 @@
 			TaskClass = taskDefs[i];
 			if (TaskClass.test(asset))
 			{
-				return this.tasks.push(new TaskClass(asset));
+				return TaskClass;
 			}
 		}
-		if (true && Debug)
-		{
-			Debug.error("Unable to find a task definitation for asset", asset);
-		}
-	};
+		return null;
+	}
 
 	/**
 	 * Run the next task that's waiting
@@ -4243,6 +4289,9 @@
 		// Ignore if we're destroyed
 		if (this.destroyed) return;
 
+		// Default to null
+		result = result || null;
+
 		var index = this.tasks.indexOf(task);
 
 		// Task was already removed, because a clear
@@ -4267,18 +4316,18 @@
 				case LIST_MODE: this.results.push(result); break;
 				case MAP_MODE: this.results[task.id] = result; break;
 			}
-
-			// If the task has a complete method
-			// we'll make sure that gets called
-			// with a reference to the tasks
-			// can potentially add more
-			if (task.complete)
-			{
-				task.complete(result, additionalAssets);
-			}
-			this.trigger('loadDone', result, additionalAssets);
 		}
-		task.status = Task.FINISHED;
+
+		// If the task has a complete method
+		// we'll make sure that gets called
+		// with a reference to the tasks
+		// can potentially add more
+		if (task.complete)
+		{
+			task.complete(result, task.originalAsset, additionalAssets);
+		}
+		this.trigger('taskDone', result, task.originalAsset, additionalAssets);
+
 		task.destroy();
 
 		// Add new assets to the things to load
@@ -5390,7 +5439,7 @@
 		this.options.add('versionsFile', null, true);
 
 		/**
-		 * Simple load of a single file. Pass-through for `Loader.instance.load`.
+		 * Simple load of a single file.
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
@@ -5398,6 +5447,7 @@
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {int} [priority] The load priority to use
 		 * @param {*} [data] The data to attach to load item
+		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
 		/**
 		 * Load a single file with options.
@@ -5442,24 +5492,24 @@
 		 */
 		this.load = function(source, complete, progressOrStartAll, priority, data)
 		{
+			// If the load arguments are setup like the Loader.load call
+			// then we'll convert to an object that we can use
 			if (typeof source == "string")
 			{
-				this.loader.load(
-					source, 
-					complete, 
-					progressOrStartAll, 
-					priority, 
-					data
-				);
+				source = {
+					src: source,
+					complete: complete,
+					progress: progressOrStartAll,
+					priority: priority,
+					data: data
+				};
 			}
-			else
-			{
-				return this.multiLoader.load(
-					source, 
-					complete, 
-					progressOrStartAll
-				);
-			}
+
+			return this.multiLoader.load(
+				source, 
+				complete, 
+				progressOrStartAll
+			);
 		};
 	};
 

@@ -121,10 +121,10 @@
 	
 	/**
 	 * When a task is finished
-	 * @event loadDone
-	 * @param {springroll.LoaderResult} result The load result
-	 * @param {Object|Array} assets The object collection
-	 *        to add new assets to.
+	 * @event taskDone
+	 * @param {springroll.LoaderResult|*} result The load result
+	 * @param {Object} originalAsset The original asset loaded
+	 * @param {Array} assets The object collection to add new assets to.
 	 */
 
 	/**
@@ -146,10 +146,18 @@
 		
 		var asset;
 		var mode = MAP_MODE;
-		if (isObject(assets) && assets.src)
+
+		// Apply the defaults incase this is a single 
+		// thing that we're trying to load
+		assets = applyDefaults(assets);
+
+		// Check for a task definition on the asset
+		var isSingle = getTaskByAsset(assets);
+
+		if (isSingle)
 		{
-			mode = SINGLE_MODE;
 			this.addTask(asset);
+			return SINGLE_MODE;
 		}
 		else
 		{
@@ -157,18 +165,12 @@
 			{
 				for (var i = 0; i < assets.length; i++)
 				{
-					asset = assets[i];
+					asset = applyDefaults(assets[i]);
 
-					// Convert to an object
-					if (isString(asset))
-					{
-						asset = { src: asset };
-					}
-
-					// If we don't have the id to return
-					// a mapped result, we'll fallback to array results
 					if (!asset.id)
 					{
+						// If we don't have the id to return
+						// a mapped result, we'll fallback to array results
 						mode = LIST_MODE;
 					}
 					this.addTask(asset);
@@ -178,17 +180,9 @@
 			{
 				for(var id in assets)
 				{
-					asset = asset[id];
+					asset = applyDefaults(asset[id]);
 
-					// Convert to asset with ID
-					if (isString(asset))
-					{
-						asset = {
-							id: id,
-							src: asset
-						};
-					}
-					else if (!asset.id)
+					if (!asset.id)
 					{
 						asset.id = id;
 					}
@@ -204,16 +198,59 @@
 	};
 
 	/**
+	 * Convert assets into object defaults
+	 * @method applyDefaults
+	 * @private
+	 * @static
+	 * @param  {*} asset The function to convert
+	 * @return {Object} The object asset to use
+	 */
+	function applyDefaults(asset)
+	{
+		// convert to a LoadTask
+		if (isString(asset))
+		{
+			return { src: asset };
+		}
+		// convert to a FunctionTask
+		else if (isFunction(asset))
+		{
+			return { async: asset };
+		}
+		return asset;
+	}
+
+	/**
 	 * Load a single asset
 	 * @method addTask
 	 * @private
-	 * @param {Object|Function} asset The asset to load, 
+	 * @param {Object} asset The asset to load, 
 	 *        can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
 	{
-		var TaskClass;
+		var TaskClass = getTaskByAsset(asset);
+		if (TaskClass)
+		{
+			this.tasks.push(new TaskClass(asset));
+		}
+		else if (DEBUG && Debug)
+		{
+			Debug.error("Unable to find a task definitation for asset", asset);
+		}
+	};
 
+	/**
+	 * Get the Task definition for an asset
+	 * @method  getTaskByAsset
+	 * @private
+	 * @static
+	 * @param  {Object} asset The asset to check
+	 * @return {Function} The Task class
+	 */
+	function getTaskByAsset(asset)
+	{
+		var TaskClass;
 		var taskDefs = MultiLoader.taskDefs;
 
 		// Loop backwards to get the registered tasks first
@@ -223,14 +260,11 @@
 			TaskClass = taskDefs[i];
 			if (TaskClass.test(asset))
 			{
-				return this.tasks.push(new TaskClass(asset));
+				return TaskClass;
 			}
 		}
-		if (DEBUG && Debug)
-		{
-			Debug.error("Unable to find a task definitation for asset", asset);
-		}
-	};
+		return null;
+	}
 
 	/**
 	 * Run the next task that's waiting
@@ -266,6 +300,9 @@
 		// Ignore if we're destroyed
 		if (this.destroyed) return;
 
+		// Default to null
+		result = result || null;
+
 		var index = this.tasks.indexOf(task);
 
 		// Task was already removed, because a clear
@@ -290,18 +327,18 @@
 				case LIST_MODE: this.results.push(result); break;
 				case MAP_MODE: this.results[task.id] = result; break;
 			}
-
-			// If the task has a complete method
-			// we'll make sure that gets called
-			// with a reference to the tasks
-			// can potentially add more
-			if (task.complete)
-			{
-				task.complete(result, additionalAssets);
-			}
-			this.trigger('loadDone', result, additionalAssets);
 		}
-		task.status = Task.FINISHED;
+
+		// If the task has a complete method
+		// we'll make sure that gets called
+		// with a reference to the tasks
+		// can potentially add more
+		if (task.complete)
+		{
+			task.complete(result, task.originalAsset, additionalAssets);
+		}
+		this.trigger('taskDone', result, task.originalAsset, additionalAssets);
+
 		task.destroy();
 
 		// Add new assets to the things to load
