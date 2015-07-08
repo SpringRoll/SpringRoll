@@ -5,7 +5,7 @@
 (function()
 {
 	var MultiTask = include('springroll.MultiTask'),
-		Loader;
+		Application = include('springroll.Application');
 
 	/**
 	 * Internal class for dealing with async load assets
@@ -22,11 +22,6 @@
 	 */
 	var MultiLoaderTask = function(data)
 	{
-		if (!Loader)
-		{
-			Loader = include('springroll.Loader');
-		}
-
 		MultiTask.call(this);
 
 		/**
@@ -77,6 +72,18 @@
 	var p = extend(MultiLoaderTask, MultiTask);
 
 	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {*} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	MultiLoaderTask.test = function(asset)
+	{
+		return typeof asset == "object" && !!asset.src;
+	};
+
+	/**
 	 * Start the task
 	 * @method  start
 	 * @param  {Function} callback Callback when finished
@@ -85,7 +92,7 @@
 	{
 		s.start.call(this);
 		
-		Loader.instance.load(
+		Application.instance.loader.load(
 			this.src,
 			callback,
 			this.progress,

@@ -5,9 +5,8 @@
 (function()
 {
 	var Debug,
+		MultiLoader,
 		MultiTask = include('springroll.MultiTask'),
-		MultiLoaderTask = include('springroll.MultiLoaderTask'),
-		MultiAsyncTask = include('springroll.MultiAsyncTask'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -23,7 +22,15 @@
 	{
 		EventDispatcher.call(this);
 
-		Debug = include('springroll.Debug', false);
+		if (!MultiLoader)
+		{
+			MultiLoader = include('springroll.MultiLoader');
+		}
+
+		if (DEBUG)
+		{
+			Debug = include('springroll.Debug', false);
+		}
 
 		/**
 		 * Handler when completed with all tasks
@@ -130,7 +137,11 @@
 	{
 		if (this.destroyed)
 		{
-			throw "load is done";
+			if (DEBUG && Debug)
+			{
+				Debug.warn("MultiLoaderResult is already destroyed");
+			}
+			return;
 		}
 		
 		var asset;
@@ -147,16 +158,18 @@
 				for (var i = 0; i < assets.length; i++)
 				{
 					asset = assets[i];
-				
-					// If we don't have the id to return
-					// a mapped result, we'll fallback to array results
-					if ((isObject(asset) && !asset.id) || isString(asset))
-					{
-						mode = LIST_MODE;
-					}
+
+					// Convert to an object
 					if (isString(asset))
 					{
 						asset = { src: asset };
+					}
+
+					// If we don't have the id to return
+					// a mapped result, we'll fallback to array results
+					if (!asset.id)
+					{
+						mode = LIST_MODE;
 					}
 					this.addTask(asset);
 				}
@@ -182,9 +195,9 @@
 					this.addTask(asset);
 				}
 			}
-			else
+			else if (DEBUG && Debug)
 			{
-				throw "asset type unsupported";
+				Debug.error("Asset type unsupported", asset);
 			}
 		}
 		return mode;
@@ -194,16 +207,29 @@
 	 * Load a single asset
 	 * @method addTask
 	 * @private
-	 * @param {Object|String|Function} asset The asset to load, 
+	 * @param {Object|Function} asset The asset to load, 
 	 *        can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
 	{
-		this.tasks.push(
-			isFunction(asset) ? 
-				new MultiAsyncTask(asset):
-				new MultiLoaderTask(asset)
-		);
+		var TaskClass;
+
+		var taskDefs = MultiLoader.taskDefs;
+
+		// Loop backwards to get the registered tasks first
+		// then will default to the basic Loader task
+		for (var i = taskDefs.length - 1; i >= 0; i--)
+		{
+			TaskClass = taskDefs[i];
+			if (TaskClass.test(asset))
+			{
+				return this.tasks.push(new TaskClass(asset));
+			}
+		}
+		if (DEBUG && Debug)
+		{
+			Debug.error("Unable to find a task definitation for asset", asset);
+		}
 	};
 
 	/**
@@ -231,7 +257,7 @@
 	 * Handler when a task has completed
 	 * @method  taskDone
 	 * @private
-	 * @param  {Function|springroll.MultiLoaderTask} task Reference to original task
+	 * @param  {springroll.MultiTask} task Reference to original task
 	 * @param  {springroll.LoaderResult} [result] The result of load
 	 */
 	p.taskDone = function(task, result)
@@ -254,7 +280,7 @@
 		var additionalAssets = [];
 
 		// Handle the file load tasks
-		if (task instanceof MultiLoaderTask)
+		if (result)
 		{
 			// Handle the result
 			switch(this.mode)
@@ -287,7 +313,7 @@
 			{
 				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
 			}
-			throw "Load assets require IDs";
+			throw "Assets require IDs";
 		}
 
 		if (this.tasks.length)

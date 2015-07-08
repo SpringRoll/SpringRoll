@@ -7,7 +7,7 @@
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class MultiTask
-	 * @constructor
+	 * @abstract
 	 */
 	var MultiTask = function()
 	{

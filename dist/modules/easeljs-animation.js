@@ -1187,7 +1187,11 @@
 				instance.advance();
 			}
 		}
-		for (i = 0; i < _removedTimelines.length; i++)
+		if (!_removedTimelines) return;
+		//we need to save the length before iterating because we have seen _removedTimelines get
+		//destroyed out from under us when this gets called at the end of an activity
+		var len = _removedTimelines.length;
+		for (i = 0; i < len; i++)
 		{
 			t = _removedTimelines[i];
 			Animator._remove(t);
@@ -1257,6 +1261,7 @@
 	namespace('springroll.easeljs').Animator = Animator;
 
 }());
+
 /**
  * @module EaselJS Animation
  * @namespace springroll.easeljs

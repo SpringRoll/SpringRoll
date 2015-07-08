@@ -4,7 +4,9 @@
 */
 (function(undefined)
 {
-	var MultiLoaderResult = include('springroll.MultiLoaderResult');
+	var MultiLoaderResult = include('springroll.MultiLoaderResult'),
+		MultiTask = include('springroll.MultiTask'),
+		Debug;
 	
 	/**
 	 * Handle the asynchronous loading of multiple assets.
@@ -13,15 +15,73 @@
 	 */
 	var MultiLoader = function()
 	{
+		if (DEBUG)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
 		/**
 		 * The collection of current multiloads
 		 * @property {Array} loads
 		 */
 		this.loads = [];
+
+		// Register the default tasks
+		this.register('springroll.MultiLoaderTask');
+		this.register('springroll.MultiAsyncTask');
 	};
 
 	// reference to prototype
 	var p = MultiLoader.prototype;
+
+	/**
+	 * Register new tasks types, these tasks must extend MultiTask
+	 * @method register
+	 * @private
+	 * @param {Function|String} TaskClass The class task reference
+	 */
+	p.register = function(TaskClass)
+	{
+		if (typeof TaskClass == "string")
+		{
+			TaskClass = include(TaskClass);
+		}
+
+		if (DEBUG && Debug)
+		{
+			if (!(TaskClass.prototype instanceof MultiTask))
+			{
+				Debug.error("Registering task much extend MultiTask", TaskClass);
+			}
+			else if (!TaskClass.test)
+			{
+				Debug.error("Registering task much have test method");
+			}
+		}
+		_taskDefs.push(TaskClass);
+	};
+
+	/**
+	 * The collection of task definitions
+	 * @property {Array} _taskDefs
+	 * @static
+	 * @private
+	 */
+	var _taskDefs = [];
+
+	/**
+	 * The collection of task definitions
+	 * @property {Array} taskDefs
+	 * @static
+	 * @readOnly
+	 */
+	Object.defineProperty(MultiLoader, "taskDefs",
+	{
+		get: function()
+		{
+			return _taskDefs;
+		}
+	});
 
 	/**
 	 * Load a bunch of assets, can only call one load at a time
@@ -74,6 +134,9 @@
 	p.destroy = function()
 	{
 		this.loads = null;
+
+		// Unregister all task definitions
+		_taskDefs.length = 0;
 	};
 
 	// Assign to namespace

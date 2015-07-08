@@ -29,6 +29,18 @@
 	var p = extend(MultiAsyncTask, MultiTask);
 
 	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {*} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	MultiAsyncTask.test = function(asset)
+	{
+		return typeof asset == "function";
+	};
+
+	/**
 	 * Start the task
 	 * @method start
 	 * @param {Function} callback Callback when done
