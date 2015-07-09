@@ -12,9 +12,8 @@
 	 * @param {String} url The url that was loaded
 	 * @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	 * @param {*} [data] Optional data associated with object
-	 * @param {Object} [originalAsset] The original load asset (multi-load)
 	 */
-	var LoaderResult = function(content, url, loader, data, originalAsset)
+	var LoaderResult = function(content, url, loader, data)
 	{
 		/**
 		 * The contents of the load
@@ -39,12 +38,6 @@
 		 * @property {*} data
 		 */
 		this.data = data;
-
-		/**
-		 * The data of the original asset for multi-load
-		 * @property {Object} originalAsset
-		 */
-		this.originalAsset = originalAsset;
 
 		/**
 		 * The original asset id, if any
@@ -77,7 +70,6 @@
 		this.url = 
 		this.loader = 
 		this.data =
-		this.originalAsset =
 		this.id = null;
 	};
 	

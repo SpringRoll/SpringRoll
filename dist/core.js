@@ -4724,13 +4724,6 @@
 		*  @property {*} data
 		*/
 		this.data = null;
-
-		/**
-		*  The data of the original asset for multi-load
-		*  @public
-		*  @property {Object} originalAsset
-		*/
-		this.originalAsset = null;
 		
 		/**
 		*  The callback function of the load, to call when 
@@ -4833,7 +4826,6 @@
 		this.callback = 
 		this.updateCallback = 
 		this.data = 
-		this.originalAsset = 
 		this.url = null;
 		
 		this.progress = 0;
@@ -4870,9 +4862,8 @@
 	 * @param {String} url The url that was loaded
 	 * @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	 * @param {*} [data] Optional data associated with object
-	 * @param {Object} [originalAsset] The original load asset (multi-load)
 	 */
-	var LoaderResult = function(content, url, loader, data, originalAsset)
+	var LoaderResult = function(content, url, loader, data)
 	{
 		/**
 		 * The contents of the load
@@ -4897,12 +4888,6 @@
 		 * @property {*} data
 		 */
 		this.data = data;
-
-		/**
-		 * The data of the original asset for multi-load
-		 * @property {Object} originalAsset
-		 */
-		this.originalAsset = originalAsset;
 
 		/**
 		 * The original asset id, if any
@@ -4935,7 +4920,6 @@
 		this.url = 
 		this.loader = 
 		this.data =
-		this.originalAsset =
 		this.id = null;
 	};
 	
@@ -5169,7 +5153,7 @@
 	 * @param {int} [priority=0] The priority of the load
 	 * @param {*} [data] optional data
 	 */
-	p.load = function(url, callback, updateCallback, priority, data, originalAsset)
+	p.load = function(url, callback, updateCallback, priority, data)
 	{
 		var qi = this._getQI();
 		
@@ -5184,7 +5168,6 @@
 		qi.updateCallback = updateCallback || null;
 		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
 		qi.data = data || null;
-		qi.originalAsset = originalAsset || null;
 		
 		queue.push(qi);
 		
@@ -5278,8 +5261,7 @@
 			ev.result, 
 			qi.url, 
 			loader, 
-			qi.data, 
-			qi.originalAsset
+			qi.data
 		));
 	};
 	
@@ -5313,11 +5295,7 @@
 		var url = this.cacheManager.prepare(qi.url);
 		
 		// Load the file
-		loader.loadFile(qi.originalAsset ? {
-			id:qi.originalAsset.id, 
-			src:url, 
-			data:qi.originalAsset
-		} : url);
+		loader.loadFile(url);
 	};
 	
 	/**
@@ -5331,13 +5309,6 @@
 	{
 		numLoads--;
 
-		// A way to keep track of load results without 
-		// excessive function binding
-		var asset = qi.originalAsset;
-		if(asset && asset.id && result)
-		{
-			result.id = asset.id;
-		}
 		qi.callback(result);
 
 		_poolQI(qi);
@@ -5461,17 +5432,15 @@
 	 * @param  {String} url The URL that was loaded
 	 * @param  {createjs.Loader} loader Loader instance
 	 * @param  {*} data Optional data to associate with load
-	 * @param  {Object} originalAsset The original multi-load asset
 	 * @return {springroll.LoaderResult} The resulting load
 	 */
-	p._getResult = function(content, url, loader, data, originalAsset)
+	p._getResult = function(content, url, loader, data)
 	{
 		return new LoaderResult(
 			content,
 			url,
 			loader,
-			data,
-			originalAsset
+			data
 		);
 	};
 	

@@ -24,13 +24,6 @@
 		*  @property {*} data
 		*/
 		this.data = null;
-
-		/**
-		*  The data of the original asset for multi-load
-		*  @public
-		*  @property {Object} originalAsset
-		*/
-		this.originalAsset = null;
 		
 		/**
 		*  The callback function of the load, to call when 
@@ -133,7 +126,6 @@
 		this.callback = 
 		this.updateCallback = 
 		this.data = 
-		this.originalAsset = 
 		this.url = null;
 		
 		this.progress = 0;
