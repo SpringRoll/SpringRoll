@@ -689,6 +689,7 @@
 		var i, length;
 		for(i = 0, length = loadedAssets.length; i < length; ++i)
 		{
+			var asset = loadedAssets[i];
 			if (images[asset])
 			{
 				images[asset].src = "";
