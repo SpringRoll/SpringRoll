@@ -932,7 +932,7 @@
 	 * of state priorities.
 	 * @method generateSettingsFromAtlas
 	 * @static
-	 * @param {TextureAtlas} atlas The TextureAtlas to pull all frames from.
+	 * @param {springroll.easeljs.TextureAtlas} atlas The TextureAtlas to pull all frames from.
 	 * @param {String} baseName The base name for all frames in the atlas.
 	 * @param {Array} statePriority The state order, as well as determining frame names in the
 	 *                              atlas. Each state frame name in the atlas should be

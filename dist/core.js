@@ -5638,7 +5638,7 @@
 	{
 		if (typeof assets === "string")
 		{
-			assets = [assets];
+			assets = Array.prototype.slice.call(arguments);
 		}
 		assets.forEach(function(asset)
 		{

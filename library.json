@@ -77,12 +77,14 @@
 			"main": [
 				"src/displays/easeljs/mixins/*.js",
 				"src/displays/easeljs/utils/BitmapUtils.js",
-				"src/displays/easeljs/utils/FlashArt.js",
-				"src/displays/easeljs/utils/FlashArtTask.js",
-				"src/displays/easeljs/utils/SpritesheetTask.js",
+				"src/displays/easeljs/display/FlashArt.js",
+				"src/displays/easeljs/display/FlashArtTask.js",
+				"src/displays/easeljs/display/TextureAtlas.js",
+				"src/displays/easeljs/display/TextureAtlasTask.js",
+				"src/displays/easeljs/display/SpritesheetTask.js",
+				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
-				"src/displays/easeljs/EaselJSDisplay.js",
-				"src/displays/easeljs/EaselJSDisplayPlugin.js"
+				"src/displays/easeljs/EaselJSDisplay.js"
 			]
 		},
 		"easeljsanimation": {
@@ -91,10 +93,8 @@
 				"src/displays/easeljs/animation/AnimatorTimeline.js",
 				"src/displays/easeljs/animation/Animator.js",
 				"src/displays/easeljs/animation/AnimationPlugin.js",
-				"src/displays/easeljs/animation/TextureAtlas.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
 				"src/displays/easeljs/animation/ReversePlayback.js",
-				"src/displays/easeljs/animation/TextureAtlasTask.js",
 				"src/displays/easeljs/animation/BitmapMovieClipTask.js"
 			]
 		},

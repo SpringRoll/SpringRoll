@@ -3,10 +3,8 @@
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display
  */
-(function(undefined) {
-
-	"use strict";
-	
+(function(undefined)
+{
 	var Container = include("createjs.Container"),
 		Point = include("createjs.Point"),
 		Rectangle = include('createjs.Rectangle'),
@@ -47,7 +45,7 @@
 	*  @class BitmapMovieClip
 	*  @extends createjs.Container
 	*  @constructor
-	*  @param {TextureAtlas} [atlas] The texture atlas to pull frames from.
+	*  @param {springroll.easeljs.TextureAtlas} [atlas] The texture atlas to pull frames from.
 	*  @param {Object} [data] Initialization data
 	*  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
 	*                          current framerate.
@@ -457,7 +455,7 @@
 	/**
 	 *  Initializes or re-initializes the BitmapMovieClip.
 	 *  @method init
-	 *  @param {TextureAtlas} atlas The texture atlas to pull frames from.
+	 *  @param {springroll.easeljs.TextureAtlas} atlas The texture atlas to pull frames from.
 	 *  @param {Object} data Initialization data
 	 *  @param {int} [data.fps] Framerate to play the movieclip at. Omitting this will use the
 	 *                          current framerate.

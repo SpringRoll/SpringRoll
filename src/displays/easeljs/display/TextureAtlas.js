@@ -1,12 +1,10 @@
 /**
- * @module EaselJS Animation
+ * @module EaselJS Display
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @requires Core
  */
-(function(undefined) {
-
-	"use strict";
-
+(function(undefined)
+{
 	/**
 	* Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
 	* loading.
