@@ -174,7 +174,7 @@
 	p.destroy = function()
 	{
 		var i, len, key, arr = this.queue;
-		if(arr)
+		if (arr)
 		{
 			this.queue.forEach(function(item)
 			{
@@ -210,33 +210,24 @@
 	 * @method load
 	 * @public
 	 * @param {string} url The file path to load
-	 * @param {function} callback The callback function when completed
-	 * @param {function} [updateCallback] The callback for load progress update, passes 0-1 as param
-	 * @param {int} [priority=0] The priority of the load
+	 * @param {function} complete The callback function when completed
+	 * @param {function} [progress] The callback for load progress update, passes 0-1 as param
 	 * @param {*} [data] optional data
 	 */
-	p.load = function(url, callback, updateCallback, priority, data)
+	p.load = function(url, complete, progress, data)
 	{
 		var qi = this._getQI();
-		
 		var basePath = this._app.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
 		}
-		
 		qi.url = url;
-		qi.callback = callback;
-		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
+		qi.complete = complete;
+		qi.progress = progress || null;
 		qi.data = data || null;
 		
 		queue.push(qi);
-		
-		// Sory by priority
-		queue.sort(function(a, b){
-			return a.priority - b.priority;
-		});
 		
 		// Try to load the next queue item
 		this._tryNextLoad();
@@ -250,8 +241,7 @@
 	 */
 	p._onLoadFailed = function(qi, event)
 	{
-		if(!_instance)
-			return;
+		if (!_instance) return;
 		
 		if (DEBUG && Debug) 
 		{
@@ -266,12 +256,18 @@
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
 		
-		if(retries[qi.url])
+		if (retries[qi.url])
+		{
 			retries[qi.url]++;
+		}
 		else
+		{
 			retries[qi.url] = 1;
-		if(retries[qi.url] > 3)
+		}
+		if (retries[qi.url] > 3)
+		{
 			this._loadDone(qi, null);
+		}
 		else
 		{
 			numLoads--;
@@ -289,9 +285,11 @@
 	 */
 	p._onLoadProgress = function(qi, event)
 	{
-		qi.progress = event.progress;
-		if (qi.updateCallback){
-			qi.updateCallback(qi.progress);
+		qi.loaded = event.progress;
+
+		if (qi.progress)
+		{
+			qi.progress(qi.loaded);
 		}
 	};
 	
@@ -304,8 +302,7 @@
 	 */
 	p._onLoadCompleted = function(qi, ev)
 	{
-		if(!_instance)
-			return;
+		if (!_instance) return;
 
 		if (DEBUG && Debug && this.verbose)
 		{
@@ -351,13 +348,12 @@
 		
 		// Add to the list of loaders
 		loaders[qi.url] = loader;
-		loader.addEventListener("fileload", qi._boundComplete);
-		loader.addEventListener("error", qi._boundFail);
-		loader.addEventListener("fileprogress", qi._boundProgress);
-		var url = this.cacheManager.prepare(qi.url);
+		loader.addEventListener("fileload", qi._complete);
+		loader.addEventListener("error", qi._fail);
+		loader.addEventListener("fileprogress", qi._progress);
 		
-		// Load the file
-		loader.loadFile(url);
+		// Load the file, format the URL
+		loader.loadFile(this.cacheManager.prepare(qi.url));
 	};
 	
 	/**
@@ -370,7 +366,7 @@
 	p._loadDone = function(qi, result)
 	{
 		numLoads--;
-		qi.callback(result);
+		qi.complete(result);
 		_poolQI(qi);
 		this._tryNextLoad();
 	};
@@ -426,9 +422,9 @@
 		else
 		{
 			qi = new LoaderQueueItem();
-			qi._boundFail = this._onLoadFailed.bind(this, qi);
-			qi._boundProgress = this._onLoadProgress.bind(this, qi);
-			qi._boundComplete = this._onLoadCompleted.bind(this, qi);
+			qi._fail = this._onLoadFailed.bind(this, qi);
+			qi._progress = this._onLoadProgress.bind(this, qi);
+			qi._complete = this._onLoadCompleted.bind(this, qi);
 		}
 		return qi;
 	};

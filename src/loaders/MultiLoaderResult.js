@@ -121,7 +121,7 @@
 	
 	/**
 	 * When a task is finished
-	 * @event taskDone
+	 * @event progress
 	 * @param {springroll.LoaderResult|*} result The load result
 	 * @param {Object} originalAsset The original asset loaded
 	 * @param {Array} assets The object collection to add new assets to.
@@ -156,7 +156,7 @@
 
 		if (isSingle)
 		{
-			this.addTask(asset);
+			this.addTask(assets);
 			return SINGLE_MODE;
 		}
 		else
@@ -337,7 +337,7 @@
 		{
 			task.complete(result, task.originalAsset, additionalAssets);
 		}
-		this.trigger('taskDone', result, task.originalAsset, additionalAssets);
+		this.trigger('progress', result, task.originalAsset, additionalAssets);
 
 		task.destroy();
 

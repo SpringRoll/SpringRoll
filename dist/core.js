@@ -4016,10 +4016,9 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} [asset.id] Id of asset
-	 * @param {*} [asset.data] Optional data
-	 * @param {int} [asset.priority=0] The priority
-	 * @param {Function} [asset.complete] The event to call when done
-	 * @param {Function} [asset.progress] The event to call on load progress
+	 * @param {*} [asset.data=null] Optional data
+	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call on load progress
 	 */
 	var LoadTask = function(asset)
 	{
@@ -4035,19 +4034,13 @@
 		 * Call on load progress
 		 * @property {Function} progress
 		 */
-		this.progress = asset.progress;
-
-		/**
-		 * Load progress
-		 * @property {int} priority
-		 */
-		this.priority = asset.priority;
+		this.progress = asset.progress || null;
 
 		/**
 		 * Optional data to attach to load
 		 * @property {*} data
 		 */
-		this.data = asset.data;
+		this.data = asset.data || null;
 	};
 
 	// Reference to prototype
@@ -4076,7 +4069,6 @@
 			this.src,
 			callback,
 			this.progress,
-			this.priority,
 			this.data,
 			this.originalAsset
 		);
@@ -4220,7 +4212,7 @@
 	
 	/**
 	 * When a task is finished
-	 * @event taskDone
+	 * @event progress
 	 * @param {springroll.LoaderResult|*} result The load result
 	 * @param {Object} originalAsset The original asset loaded
 	 * @param {Array} assets The object collection to add new assets to.
@@ -4255,7 +4247,7 @@
 
 		if (isSingle)
 		{
-			this.addTask(asset);
+			this.addTask(assets);
 			return SINGLE_MODE;
 		}
 		else
@@ -4436,7 +4428,7 @@
 		{
 			task.complete(result, task.originalAsset, additionalAssets);
 		}
-		this.trigger('taskDone', result, task.originalAsset, additionalAssets);
+		this.trigger('progress', result, task.originalAsset, additionalAssets);
 
 		task.destroy();
 
@@ -4705,116 +4697,82 @@
 (function()
 {
 	/**
-	*  Represents a single item in the loader queue 
+	 * Represents a single item in the loader queue 
 	*
-	*  @class LoaderQueueItem
-	*/
+	 * @class LoaderQueueItem
+	 */
 	var LoaderQueueItem = function()
 	{
 		/**
-		*  The url of the load
-		*  @public
-		*  @property {string} url
-		*/
+		 * The url of the load
+		 * @public
+		 * @property {string} url
+		 */
 		this.url = null;
 		
 		/**
-		*  Data associate with the load
-		*  @public
-		*  @property {*} data
-		*/
+		 * Data associate with the load
+		 * @public
+		 * @property {*} data
+		 */
 		this.data = null;
 		
 		/**
-		*  The callback function of the load, to call when 
-		*  the load as finished, takes one argument as result
-		*  @public
-		*  @property {function} callback
-		*/
-		this.callback = null;
+		 * The callback function of the load, to call when 
+		 * the load as finished, takes one argument as result
+		 * @public
+		 * @property {function} complete
+		 */
+		this.complete = null;
 		
 		/**
-		*  The priority of this item
-		*  @property {int} priority
-		*  @public
-		*/
-		this.priority = 0;
+		 * The amount we've loaded so far, from 0 to 1
+		 * @public
+		 * @property {Number} loaded
+		 */
+		this.loaded = 0;
 		
 		/**
-		*  The amount we've loaded so far, from 0 to 1
-		*  @public
-		*  @property {Number} progress
-		*/
-		this.progress = 0;
+		 * The progress callback
+		 * @public
+		 * @proprty {function} progress
+		 */
+		this.progress = null;
 		
 		/**
-		*  The progress callback
-		*  @public
-		*  @proprty {function} updateCallback
-		*/
-		this.updateCallback = null;
-		
-		/**
-		*  The callback when a load queue item fails
-		*  @private
-		*  @proprty {function} _boundFail
-		*/
-		this._boundFail = null;
+		 * The callback when a load queue item fails
+		 * @private
+		 * @proprty {function} _fail
+		 */
+		this._fail = null;
 
 		/**
-		*  The callback when a load queue item progresses
-		*  @private
-		*  @proprty {function} _boundProgress
-		*/
-		this._boundProgress = null;
+		 * The callback when a load queue item progresses
+		 * @private
+		 * @proprty {function} _progress
+		 */
+		this._progress = null;
 
 		/**
-		*  The callback when a load queue item completes
-		*  @private
-		*  @proprty {function} _boundComplete
-		*/
-		this._boundComplete = null;
+		 * The callback when a load queue item completes
+		 * @private
+		 * @proprty {function} _complete
+		 */
+		this._complete = null;
 	};
 	
 	/** Reference to the prototype */
 	var p = LoaderQueueItem.prototype;
 	
-	/** 
-	* Highest priority
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_HIGH
-	*/
-	LoaderQueueItem.PRIORITY_HIGH = 1;
-	
-	/** 
-	* Normal priority, the default
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_NORMAL
-	*/
-	LoaderQueueItem.PRIORITY_NORMAL = 0;
-	
-	/** 
-	* Lowest priority
-	* @static
-	* @public
-	* @final
-	* @property {int} PRIORITY_LOW
-	*/
-	LoaderQueueItem.PRIORITY_LOW = -1;
-	
 	/**
-	*  Represent this object as a string
-	*  @public
-	*  @method toString
-	*  @return {string} The string representation of this object
-	*/
+	 * Represent this object as a string
+	 * @public
+	 * @method toString
+	 * @return {string} The string representation of this object
+	 */
 	p.toString = function()
 	{
-		return "[LoaderQueueItem(url:'"+this.url+"', priority:"+this.priority+")]";
+		return "[LoaderQueueItem(url:'"+this.url+"')]";
 	};
 
 	/**
@@ -4823,19 +4781,19 @@
 	 */
 	p.reset = function()
 	{
-		this.callback = 
-		this.updateCallback = 
+		this.complete = 
+		this.progress = 
 		this.data = 
 		this.url = null;
 		
-		this.progress = 0;
+		this.loaded = 0;
 	};
 	
 	/**
-	*  Destroy this result
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy this result
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.reset();
@@ -5112,7 +5070,7 @@
 	p.destroy = function()
 	{
 		var i, len, key, arr = this.queue;
-		if(arr)
+		if (arr)
 		{
 			this.queue.forEach(function(item)
 			{
@@ -5148,33 +5106,24 @@
 	 * @method load
 	 * @public
 	 * @param {string} url The file path to load
-	 * @param {function} callback The callback function when completed
-	 * @param {function} [updateCallback] The callback for load progress update, passes 0-1 as param
-	 * @param {int} [priority=0] The priority of the load
+	 * @param {function} complete The callback function when completed
+	 * @param {function} [progress] The callback for load progress update, passes 0-1 as param
 	 * @param {*} [data] optional data
 	 */
-	p.load = function(url, callback, updateCallback, priority, data)
+	p.load = function(url, complete, progress, data)
 	{
 		var qi = this._getQI();
-		
 		var basePath = this._app.options.basePath;
 		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
 		{
 			qi.basePath = basePath;
 		}
-		
 		qi.url = url;
-		qi.callback = callback;
-		qi.updateCallback = updateCallback || null;
-		qi.priority = priority || LoaderQueueItem.PRIORITY_NORMAL;
+		qi.complete = complete;
+		qi.progress = progress || null;
 		qi.data = data || null;
 		
 		queue.push(qi);
-		
-		// Sory by priority
-		queue.sort(function(a, b){
-			return a.priority - b.priority;
-		});
 		
 		// Try to load the next queue item
 		this._tryNextLoad();
@@ -5188,8 +5137,7 @@
 	 */
 	p._onLoadFailed = function(qi, event)
 	{
-		if(!_instance)
-			return;
+		if (!_instance) return;
 		
 		if (true && Debug) 
 		{
@@ -5204,12 +5152,18 @@
 		delete queueItems[qi.url];
 		delete loaders[qi.url];
 		
-		if(retries[qi.url])
+		if (retries[qi.url])
+		{
 			retries[qi.url]++;
+		}
 		else
+		{
 			retries[qi.url] = 1;
-		if(retries[qi.url] > 3)
+		}
+		if (retries[qi.url] > 3)
+		{
 			this._loadDone(qi, null);
+		}
 		else
 		{
 			numLoads--;
@@ -5227,9 +5181,11 @@
 	 */
 	p._onLoadProgress = function(qi, event)
 	{
-		qi.progress = event.progress;
-		if (qi.updateCallback){
-			qi.updateCallback(qi.progress);
+		qi.loaded = event.progress;
+
+		if (qi.progress)
+		{
+			qi.progress(qi.loaded);
 		}
 	};
 	
@@ -5242,8 +5198,7 @@
 	 */
 	p._onLoadCompleted = function(qi, ev)
 	{
-		if(!_instance)
-			return;
+		if (!_instance) return;
 
 		if (true && Debug && this.verbose)
 		{
@@ -5289,13 +5244,12 @@
 		
 		// Add to the list of loaders
 		loaders[qi.url] = loader;
-		loader.addEventListener("fileload", qi._boundComplete);
-		loader.addEventListener("error", qi._boundFail);
-		loader.addEventListener("fileprogress", qi._boundProgress);
-		var url = this.cacheManager.prepare(qi.url);
+		loader.addEventListener("fileload", qi._complete);
+		loader.addEventListener("error", qi._fail);
+		loader.addEventListener("fileprogress", qi._progress);
 		
-		// Load the file
-		loader.loadFile(url);
+		// Load the file, format the URL
+		loader.loadFile(this.cacheManager.prepare(qi.url));
 	};
 	
 	/**
@@ -5308,9 +5262,7 @@
 	p._loadDone = function(qi, result)
 	{
 		numLoads--;
-
-		qi.callback(result);
-
+		qi.complete(result);
 		_poolQI(qi);
 		this._tryNextLoad();
 	};
@@ -5366,9 +5318,9 @@
 		else
 		{
 			qi = new LoaderQueueItem();
-			qi._boundFail = this._onLoadFailed.bind(this, qi);
-			qi._boundProgress = this._onLoadProgress.bind(this, qi);
-			qi._boundComplete = this._onLoadCompleted.bind(this, qi);
+			qi._fail = this._onLoadFailed.bind(this, qi);
+			qi._progress = this._onLoadProgress.bind(this, qi);
+			qi._complete = this._onLoadCompleted.bind(this, qi);
 		}
 		return qi;
 	};
@@ -5762,7 +5714,6 @@
 		 * @param {Function} complete The completed callback with a single
 		 *        parameters which is a `springroll.LoaderResult` object.
 		 * @param {Function} [progress] Update callback, return 0-1
-		 * @param {int} [priority] The load priority to use
 		 * @param {*} [data] The data to attach to load item
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
@@ -5774,8 +5725,6 @@
 		 * @param {Function} [options.complete=null] Callback when finished
 		 * @param {Function} [options.progress=null] Callback on load progress,
 		 *        has a parameter which is the percentage loaded from 0 to 1.
-		 * @param {int} [options.priority=0] The load priority. See `Loader.load`
-		 *        for more information about load priority.
 		 * @param {*} [options.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
@@ -5789,7 +5738,7 @@
 		 * @method load
 		 * @param {Object} assets Load a map of assets where the key is the asset
 		 *        id and the value is either a string or an Object with `src`,
-		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 *        `complete`, `progress` and `data` keys.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
@@ -5800,14 +5749,14 @@
 		 * @method load
 		 * @param {Array} assets The list of assets where each value 
 		 *        is either a string or an Object with `src`,
-		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 *        `complete`, `progress` and `data` keys.
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
-		this.load = function(source, complete, progressOrStartAll, priority, data)
+		this.load = function(source, complete, progressOrStartAll, data)
 		{
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -5815,10 +5764,9 @@
 			{
 				source = {
 					src: source,
-					complete: complete,
-					progress: progressOrStartAll,
-					priority: priority,
-					data: data
+					complete: complete || null,
+					progress: progressOrStartAll || null,
+					data: data || null
 				};
 			}
 

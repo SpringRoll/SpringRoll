@@ -88,7 +88,6 @@
 		 * @param {Function} complete The completed callback with a single
 		 *        parameters which is a `springroll.LoaderResult` object.
 		 * @param {Function} [progress] Update callback, return 0-1
-		 * @param {int} [priority] The load priority to use
 		 * @param {*} [data] The data to attach to load item
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
@@ -100,8 +99,6 @@
 		 * @param {Function} [options.complete=null] Callback when finished
 		 * @param {Function} [options.progress=null] Callback on load progress,
 		 *        has a parameter which is the percentage loaded from 0 to 1.
-		 * @param {int} [options.priority=0] The load priority. See `Loader.load`
-		 *        for more information about load priority.
 		 * @param {*} [options.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
@@ -115,7 +112,7 @@
 		 * @method load
 		 * @param {Object} assets Load a map of assets where the key is the asset
 		 *        id and the value is either a string or an Object with `src`,
-		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 *        `complete`, `progress` and `data` keys.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
@@ -126,14 +123,14 @@
 		 * @method load
 		 * @param {Array} assets The list of assets where each value 
 		 *        is either a string or an Object with `src`,
-		 *        `complete`, `progress`, `priority`, and `data` keys.
+		 *        `complete`, `progress` and `data` keys.
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.MultiLoaderResult} The multi files loading
 		 */
-		this.load = function(source, complete, progressOrStartAll, priority, data)
+		this.load = function(source, complete, progressOrStartAll, data)
 		{
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -141,10 +138,9 @@
 			{
 				source = {
 					src: source,
-					complete: complete,
-					progress: progressOrStartAll,
-					priority: priority,
-					data: data
+					complete: complete || null,
+					progress: progressOrStartAll || null,
+					data: data || null
 				};
 			}
 

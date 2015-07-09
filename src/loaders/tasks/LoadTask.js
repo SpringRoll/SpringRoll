@@ -15,10 +15,9 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} [asset.id] Id of asset
-	 * @param {*} [asset.data] Optional data
-	 * @param {int} [asset.priority=0] The priority
-	 * @param {Function} [asset.complete] The event to call when done
-	 * @param {Function} [asset.progress] The event to call on load progress
+	 * @param {*} [asset.data=null] Optional data
+	 * @param {Function} [asset.complete=null] The event to call when done
+	 * @param {Function} [asset.progress=null] The event to call on load progress
 	 */
 	var LoadTask = function(asset)
 	{
@@ -34,19 +33,13 @@
 		 * Call on load progress
 		 * @property {Function} progress
 		 */
-		this.progress = asset.progress;
-
-		/**
-		 * Load progress
-		 * @property {int} priority
-		 */
-		this.priority = asset.priority;
+		this.progress = asset.progress || null;
 
 		/**
 		 * Optional data to attach to load
 		 * @property {*} data
 		 */
-		this.data = asset.data;
+		this.data = asset.data || null;
 	};
 
 	// Reference to prototype
@@ -75,7 +68,6 @@
 			this.src,
 			callback,
 			this.progress,
-			this.priority,
 			this.data,
 			this.originalAsset
 		);

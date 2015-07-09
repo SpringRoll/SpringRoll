@@ -50,6 +50,9 @@
 		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
+				"src/displays/pixi/display/PixiAssets.js",
+				"src/displays/pixi/display/PixiLoadTask.js",
+				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js"
 			]
@@ -68,8 +71,7 @@
 			"main": [
 				"src/displays/pixi/ui/Button.js",
 				"src/displays/pixi/ui/DragData.js",
-				"src/displays/pixi/ui/DragManager.js",
-				"src/displays/pixi/ui/AssetManager.js"
+				"src/displays/pixi/ui/DragManager.js"
 			]
 		},
 		"easeljsdisplay": {

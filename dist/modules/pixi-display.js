@@ -4,6 +4,201 @@
  * @namespace springroll.pixi
  * @requires Core
  */
+(function()
+{
+	// Import classes
+	var Texture = include('PIXI.Texture');
+
+	/**
+	 * Container for the Pixi assets
+	 * @class PixiAssets
+	 * @constructor
+	 * @param {Array} urls The collection of URLs that have been loaded
+	 */
+	var PixiAssets = function(urls)
+	{
+		/**
+		 * The Asset URLs that have been loaded
+		 * @property {Array} urls
+		 */
+		this.urls = urls;
+	};
+
+	// Reference to the prototype
+	var p = PixiAssets.prototype;
+
+	/**
+	 * Destroy and clean-up
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.urls.forEach(function(url)
+		{
+			Texture.destroyTexture(url);
+		});
+		this.urls = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll.pixi').PixiAssets = PixiAssets;
+
+}());
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
+(function()
+{
+	var Loader = include('springroll.Loader'),
+		Application = include('springroll.Application'),
+		AssetLoader = include('PIXI.AssetLoader'),
+		PixiAssets = include('springroll.pixi.PixiAssets'),
+		Task = include('springroll.Task');
+
+	/**
+	 * PixiLoadTask loads things through PIXI.AssetLoader for pixi.js.
+	 * This means textures, spritesheets, and bitmap fonts.
+	 * @class PixiLoadTask
+	 * @constructor
+	 * @param {Array} asset.urls The urls to load using PIXI.AssetLoader
+	 * @param {String} [asset.id] The id of the task
+	 * @param {Function} [asset.complete] The callback to call when the load is completed
+	 * @param {Function} [asset.progress] The optional callback to call each time 
+	 * an itemfinishes loading
+	 */
+	var PixiLoadTask = function(asset)
+	{
+		Task.call(this, asset);
+
+		/**
+		 * The optional callback to get updates (to show load progress)
+		 * @property {Function} progress
+		 * @private
+		 */
+		this.progress = asset.progress;
+
+		/**
+		 * The AssetLoader used to load all files.
+		 * @property {PIXI.AssetLoader} _assetLoader
+		 * @private
+		 */
+		this._assetLoader = null;
+
+		/**
+		 * The urls of the files to load (passed through cache manager)
+		 * @property {Array} urls
+		 */
+		this.urls = asset.urls.slice(0);
+
+		/**
+		 * The original urls of the files to load
+		 * @property {Array} originalUrls
+		 */
+		this.originalUrls = asset.urls;
+
+		// Prepare each url via the cache manager
+		this.urls.forEach(function(url, i, urls)
+		{
+			urls[i] = Loader.instance.cacheManager.prepare(url, true);
+		});
+	};
+
+	// Extend the base Task
+	var p = extend(PixiLoadTask, Task);
+
+	/**
+	 * Test to see if we should load an asset
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to test
+	 * @return {Boolean} If this qualifies for this task
+	 */
+	PixiLoadTask.test = function(asset)
+	{
+		return !!asset.urls && Array.isArray(asset.urls);
+	};
+
+	/**
+	 * Start the load
+	 * @method start
+	 * @param callback Callback to call when the load is done
+	 */
+	p.start = function(callback)
+	{
+		var options = Application.instance.options;
+
+		this._assetLoader = new AssetLoader(
+			this.urls,
+			options.crossOrigin,
+			options.basePath
+		);
+
+		var assets = new PixiAssets(this.originalUrls);
+		this._assetLoader.onComplete = callback.bind(null, assets);
+
+		if (this.progress)
+		{
+			this._assetLoader.onProgress = this.progress;
+		}
+		this._assetLoader.load();
+	};
+
+	/**
+	 * Destroy this load task and don't use after this.
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		Task.prototype.destroy.call(this);
+
+		this.progress = null;
+		this.urls = null;
+
+		if (this._assetLoader)
+		{
+			this._assetLoader.onComplete = null;
+			this._assetLoader.onProgress = null;
+		}
+		this._assetLoader = null;
+	};
+
+	// Assign to the namespace
+	namespace('springroll.pixi').PixiLoadTask = PixiLoadTask;
+
+}());
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
+(function()
+{
+	// Include classes
+	var ApplicationPlugin = include('springroll.ApplicationPlugin');
+
+	/**
+	 * Create an app plugin for EaselJSDisplay, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class PixiDisplayPlugin
+	 * @extends springroll.ApplicationPlugin
+	 */
+	var plugin = new ApplicationPlugin();
+
+	// Register the tasks
+	plugin.setup = function()
+	{
+		var multiLoader = this.multiLoader;
+		multiLoader.register('springroll.pixi.PixiLoadTask', 60);
+	};
+
+}());
+/**
+ * @module PIXI Display
+ * @namespace springroll.pixi
+ * @requires Core
+ */
 (function(undefined)
 {
 	/**
