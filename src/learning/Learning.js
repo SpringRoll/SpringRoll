@@ -825,7 +825,7 @@
 		}
 
 		//If we're using the concept of rounds, add it
-		if (round !== undefined)
+		if (round !== undefined && round !== null)
 		{
 			data.round = round;
 		}
