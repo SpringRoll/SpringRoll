@@ -89,8 +89,10 @@
 				"src/displays/easeljs/animation/TextureAtlas.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
 				"src/displays/easeljs/animation/ReversePlayback.js",
+				"src/displays/easeljs/animation/FlashArt.js",
 				"src/displays/easeljs/animation/TextureAtlasTask.js",
-				"src/displays/easeljs/animation/BitmapMovieClipTask.js" 
+				"src/displays/easeljs/animation/BitmapMovieClipTask.js",
+				"src/displays/easeljs/animation/FlashArtTask.js" 
 			]
 		},
 		"easeljsui": {

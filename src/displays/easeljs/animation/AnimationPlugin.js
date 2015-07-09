@@ -23,6 +23,7 @@
 		// Register the tasks
 		this.multiLoader.register('springroll.easeljs.TextureAtlasTask');
 		this.multiLoader.register('springroll.easeljs.BitmapMovieClipTask');
+		this.multiLoader.register('springroll.easeljs.FlashArtTask');
 
 		// Init the animation
 		Animator.init();
