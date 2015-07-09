@@ -56,9 +56,12 @@
 	 */
 	p.start = function(callback)
 	{
-		this.loadAtlas({ animFile: this.anim }, function(textureAtlas, results)
+		this.loadAtlas({ _anim: this.anim }, function(textureAtlas, results)
 		{
-			callback(new BitmapMovieClip(textureAtlas, results.animFile.content), results);
+			callback(new BitmapMovieClip(
+				textureAtlas, 
+				results._anim.content
+			), results);
 		});
 	};
 

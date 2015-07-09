@@ -50,8 +50,6 @@
 		 * @property {String} alpha
 		 */
 		this.alpha = asset.alpha;
-
-		//this.splitForEaselJS = asset.splitForEaselJS;
 	};
 
 	// Reference to prototype
@@ -88,34 +86,34 @@
 	 */
 	p.loadAtlas = function(assets, done)
 	{
-		assets.atlasFile = this.atlas;
+		assets._atlas = this.atlas;
 
 		if (this.image)
 		{
-			assets.imageFile = this.image;
+			assets._image = this.image;
 		}
 		else 
 		{
-			assets.colorFile = this.color;
-			assets.alphaFile = this.alpha;
+			assets._color = this.color;
+			assets._alpha = this.alpha;
 		}
 
 		// Do the load
 		Application.instance.load(assets, function(results)
 		{
 			var image;
-			if (results.imageFile)
+			if (results._image)
 			{
-				image = results.imageFile.content;
+				image = results._image.content;
 			}
 			else
 			{
 				image = ColorAlphaTask.mergeAlpha(
-					results.colorFile.content,
-					results.alphaFile.content
+					results._color.content,
+					results._alpha.content
 				);
 			}
-			var atlas = new TextureAtlas(image, results.atlasFile.content);
+			var atlas = new TextureAtlas(image, results._atlas.content);
 			done(atlas, results);
 		});
 	};

@@ -2,7 +2,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var Application = include('springroll.Application'),
 		LoaderResult = include('springroll.LoaderResult'),
@@ -31,7 +31,7 @@
 	 */
 	AssetManager.init = function(app)
 	{
-		if (DEBUG)
+		if (Debug === undefined)
 		{
 			Debug = include('springroll.Debug', false);
 		}
@@ -133,13 +133,17 @@
 
 	/**
 	*  Get an asset by ID
-	*  @method getAsset
+	*  @method get
 	*  @static
 	*  @param {String} id The id of the asset to get
 	*  @return {*} The asset returned from load
 	*/
-	AssetManager.getAsset = function(id)
+	AssetManager.get = function(id)
 	{
+		if (DEBUG && Debug && !_loadedAssets[id])
+		{
+			Debug.error("AssetManager: no asset matching id: '" + id + "'");
+		}
 		return _loadedAssets[id];
 	};
 
@@ -154,7 +158,7 @@
 	{
 		if (typeof assets === "string")
 		{
-			assets = [assets];
+			assets = Array.prototype.slice.call(arguments);
 		}
 		assets.forEach(function(asset)
 		{

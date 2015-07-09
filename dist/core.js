@@ -4354,7 +4354,7 @@
 
 		// Loop backwards to get the registered tasks first
 		// then will default to the basic Loader task
-		for (var i = taskDefs.length - 1; i >= 0; i--)
+		for (var i = 0, len = taskDefs.length; i < len; i++)
 		{
 			TaskClass = taskDefs[i];
 			if (TaskClass.test(asset))
@@ -4582,13 +4582,18 @@
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
+	 * @param {int} [priority=0] The priority, higher prioity tasks
+	 *        are tested first. More general Tasks should be lower
+	 *        and more specific tasks should be higher.
 	 */
-	p.register = function(TaskClass)
+	p.register = function(TaskClass, priority)
 	{
 		if (typeof TaskClass == "string")
 		{
 			TaskClass = include(TaskClass);
 		}
+
+		TaskClass.priority = priority || 0;
 
 		if (true && Debug)
 		{
@@ -4602,6 +4607,13 @@
 			}
 		}
 		_taskDefs.push(TaskClass);
+
+		// Sort definitions by priority
+		// where the higher priorities are first
+		_taskDefs.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
 	};
 
 	/**
@@ -5470,7 +5482,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var Application = include('springroll.Application'),
 		LoaderResult = include('springroll.LoaderResult'),
@@ -5499,7 +5511,7 @@
 	 */
 	AssetManager.init = function(app)
 	{
-		if (true)
+		if (Debug === undefined)
 		{
 			Debug = include('springroll.Debug', false);
 		}
@@ -5601,13 +5613,17 @@
 
 	/**
 	*  Get an asset by ID
-	*  @method getAsset
+	*  @method get
 	*  @static
 	*  @param {String} id The id of the asset to get
 	*  @return {*} The asset returned from load
 	*/
-	AssetManager.getAsset = function(id)
+	AssetManager.get = function(id)
 	{
+		if (true && Debug && !_loadedAssets[id])
+		{
+			Debug.error("AssetManager: no asset matching id: '" + id + "'");
+		}
 		return _loadedAssets[id];
 	};
 
@@ -5721,9 +5737,9 @@
 		var multiLoader = this.multiLoader = new MultiLoader();
 
 		// Register the default tasks
-		multiLoader.register('springroll.LoadTask');
-		multiLoader.register('springroll.FunctionTask');
-		multiLoader.register('springroll.ColorAlphaTask');
+		multiLoader.register('springroll.LoadTask', 0);
+		multiLoader.register('springroll.FunctionTask', 10);
+		multiLoader.register('springroll.ColorAlphaTask', 20);
 
 		/**
 		 * Override the end-user browser cache by adding

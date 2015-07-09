@@ -2,7 +2,7 @@
 /**
  * @module EaselJS Cutscene
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display, EaselJS Utilities
+ * @requires Core, EaselJS Display
  */
 (function()
 {
@@ -13,25 +13,25 @@
 		Sound;
 
 	/**
-	*  Cutscene is a class for playing a single EaselJS animation synced to a
-	*  single audio file with springroll.Sound, with optional captions.
-	*
-	*  @class Cutscene
-	*  @constructor
-	*  @param {Object} options The runtime specific setup data for the cutscene.
-	*  @param {String|Display} options.display The display or display id of the EaselJSDisplay
-	*                                          to draw on.
-	*  @param {String} options.configUrl The url of the json config file describing the cutscene.
-	*                                    See the example project.
-	*  @param {Function} [options.loadCallback] A function to call when loading is complete.
-	*  @param {String} [options.pathReplaceTarg] A string found in the paths of images that should
-	*                                            be replaced with another value.
-	*  @param {String} [options.pathReplaceVal] The string to use when replacing
-	*                                           options.pathReplaceTarg.
-	*  @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
-	*                                         cutscene.
-	*  @param {Captions} [options.captions] A Captions instance to display captions text on.
-	*/
+	 *  Cutscene is a class for playing a single EaselJS animation synced to a
+	 *  single audio file with springroll.Sound, with optional captions.
+	 *
+	 *  @class Cutscene
+	 *  @constructor
+	 *  @param {Object} options The runtime specific setup data for the cutscene.
+	 *  @param {String|Display} options.display The display or display id of the EaselJSDisplay
+	 *       to draw on.
+	 *  @param {String} options.configUrl The url of the json config file describing the cutscene.
+	 *       See the example project.
+	 *  @param {Function} [options.loadCallback] A function to call when loading is complete.
+	 *  @param {String} [options.pathReplaceTarg] A string found in the paths of images that should
+	 *       be replaced with another value.
+	 *  @param {String} [options.pathReplaceVal] The string to use when replacing
+	 *       options.pathReplaceTarg.
+	 *  @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
+	 *       cutscene.
+	 *  @param {Captions} [options.captions] A Captions instance to display captions text on.
+	 */ 
 	var Cutscene = function(options)
 	{
 		if(!Application)
@@ -44,176 +44,176 @@
 
 		Container.call(this);
 
-		if(!options)
+		if (!options)
+		{
 			throw new Error("need options to create Cutscene");
+		}
 
 		/**
-		*	When the cutscene is ready to use
-		*	@property {Boolean} isReady
-		*	@public
-		*/
+		 * When the cutscene is ready to use
+		 * @property {Boolean} isReady
+		 */ 
 		this.isReady = false;
 
 		/**
-		*	The framerate the cutscene should play at.
-		*	@property {int} framerate
-		*	@private
-		*/
+		 * The framerate the cutscene should play at.
+		 * @property {int} framerate
+		 * @private
+		 */ 
 		this.framerate = 0;
 
 		/**
-		*	Reference to the display we are drawing on
-		*	@property {Display} display
-		*	@public
-		*/
+		 * Reference to the display we are drawing on
+		 * @property {Display} display
+		 */ 
 		this.display = typeof options.display == "string" ?
 			Application.instance.getDisplay(options.display) :
 			options.display;
 
 		/**
-		*	The source url for the config until it is loaded, then the config object.
-		*	@property {String|Object} config
-		*	@private
-		*/
+		 * The source url for the config until it is loaded, then the config object.
+		 * @property {String|Object} config
+		 * @private
+		 */ 
 		this.config = options.configUrl;
 
 		/**
-		*	The scaling value for all images.
-		*	@property {Number} imageScale
-		*	@private
-		*/
+		 * The scaling value for all images.
+		 * @property {Number} imageScale
+		 * @private
+		 */ 
 		this.imageScale = options.imageScale || 1;
 
 		/**
-		*	A string found in the paths of images that should be replaced with another value.
-		*	@property {String} pathReplaceTarg
-		*	@private
-		*/
+		 * A string found in the paths of images that should be replaced with another value.
+		 * @property {String} pathReplaceTarg
+		 * @private
+		 */ 
 		this.pathReplaceTarg = options.pathReplaceTarg || null;
 
 		/**
-		*	The string to use when replacing options.pathReplaceTarg.
-		*	@property {String} pathReplaceVal
-		*	@private
-		*/
+		 * The string to use when replacing options.pathReplaceTarg.
+		 * @property {String} pathReplaceVal
+		 * @private
+		 */ 
 		this.pathReplaceVal = options.pathReplaceVal || null;
 
 		/**
-		*	The time elapsed in seconds.
-		*	@property {Number} _elapsedTime
-		*	@private
-		*/
+		 * The time elapsed in seconds.
+		 * @property {Number} _elapsedTime
+		 * @private
+		 */ 
 		this._elapsedTime = 0;
 
 		/**
-		*	All audio aliases used by this Cutscene, for preloading and later unloading.
-		*	@property {Array} _audioAliases
-		*	@private
-		*/
+		 * All audio aliases used by this Cutscene, for preloading and later unloading.
+		 * @property {Array} _audioAliases
+		 * @private
+		 */ 
 		this._audioAliases = null;
 
 		/**
-		*	Time sorted list of audio that needs to be played, as well as information on if they
-		*	should be synced or not.
-		*	@property {Array} _audio
-		*	@private
-		*/
+		 * Time sorted list of audio that needs to be played, as well as information on if they
+		 * should be synced or not.
+		 * @property {Array} _audio
+		 * @private
+		 */ 
 		this._audio = null;
 
 		/**
-		*	Index of the sound that is next up in _audio.
-		*	@property {int} _audioIndex
-		*	@private
-		*/
+		 * Index of the sound that is next up in _audio.
+		 * @property {int} _audioIndex
+		 * @private
+		 */ 
 		this._audioIndex = 0;
 
 		/**
-		*	Time sorted list of audio that needs to be played, as well as information on if they
-		*	should be synced or not.
-		*	@property {Array} _audio
-		*	@private
-		*/
+		 * Time sorted list of audio that needs to be played, as well as information on if they
+		 * should be synced or not.
+		 * @property {Array} _audio
+		 * @private
+		 */ 
 		this._audio = null;
 
 		/**
-		*	The clip that is being animated.
-		*	@property {createjs.MovieClip} _clip
-		*	@private
-		*/
+		 * The clip that is being animated.
+		 * @property {createjs.MovieClip} _clip
+		 * @private
+		 */ 
 		this._clip = null;
 
 		/**
-		*	The queue of sound instances of playing audio that the animation should be synced to.
-		*	Only the most recent active one will be synced to.
-		*	@property {Array} _activeSyncAudio
-		*	@private
-		*/
+		 * The queue of sound instances of playing audio that the animation should be synced to.
+		 * Only the most recent active one will be synced to.
+		 * @property {Array} _activeSyncAudio
+		 * @private
+		 */ 
 		this._activeSyncAudio = [];
 
 		/**
-		*	The time in seconds into the animation that the current synced audio started.
-		*	@property {Number} _soundStartTime
-		*	@private
-		*/
+		 * The time in seconds into the animation that the current synced audio started.
+		 * @property {Number} _soundStartTime
+		 * @private
+		 */ 
 		this._soundStartTime = -1;
 
 		/**
-		*	Array of active SoundInstances that are not the currently synced one.
-		*	@property {Array} _activeAudio
-		*	@private
-		*/
+		 * Array of active SoundInstances that are not the currently synced one.
+		 * @property {Array} _activeAudio
+		 * @private
+		 */ 
 		this._activeAudio = [];
 
 		/**
-		*	If the animation has finished playing.
-		*	@property {Boolean} _animFinished
-		*	@private
-		*/
+		 * If the animation has finished playing.
+		 * @property {Boolean} _animFinished
+		 * @private
+		 */ 
 		this._animFinished = false;
 
 		/**
-		*	If the audio has finished playing.
-		*	@property {Boolean} _audioFinished
-		*	@private
-		*/
+		 * If the audio has finished playing.
+		 * @property {Boolean} _audioFinished
+		 * @private
+		 */ 
 		this._audioFinished = false;
 
 		/**
-		*	The Captions object to use to manage captions.
-		*	@property {Captions} _captionsObj
-		*	@private
-		*/
+		 * The Captions object to use to manage captions.
+		 * @property {Captions} _captionsObj
+		 * @private
+		 */ 
 		this._captionsObj = options.captions || null;
 
 		// Make sure the captions don't update themselves
 		if (this._captionsObj) this._captionsObj.selfUpdate = false;
 
 		/**
-		*	The function to call when loading is complete.
-		*	@property {Function} _loadCallback
-		*	@private
-		*/
+		 * The function to call when loading is complete.
+		 * @property {Function} _loadCallback
+		 * @private
+		 */ 
 		this._loadCallback = options.loadCallback || null;
 
 		/**
-		*	The function to call when playback is complete.
-		*	@property {Function} _endCallback
-		*	@private
-		*/
+		 * The function to call when playback is complete.
+		 * @property {Function} _endCallback
+		 * @private
+		 */ 
 		this._endCallback = null;
 		
 		/**
-		*	Names of library (window.lib) items to delete when the cutscene is destroyed.
-		*	@property {Array} _libItemsToUnload
-		*	@private
-		*/
+		 * Names of library (window.lib) items to delete when the cutscene is destroyed.
+		 * @property {Array} _libItemsToUnload
+		 * @private
+		 */ 
 		this._libItemsToUnload = [];
 		
 		/**
-		*	Names of image (window.images) entries to unload when the cutscene is destroyed.
-		*	@property {Array} _imagesToUnload
-		*	@private
-		*/
+		 * Names of image (window.images) entries to unload when the cutscene is destroyed.
+		 * @property {Array} _imagesToUnload
+		 * @private
+		 */ 
 		this._imagesToUnload = [];
 
 		//bind some callbacks
@@ -226,11 +226,11 @@
 	var p = extend(Cutscene, Container);
 
 	/**
-	*   Called from the constructor to complete setup and start loading.
-	*
-	*   @method setup
-	*   @private
-	*/
+	 * Called from the constructor to complete setup and start loading.
+	 *
+	 * @method setup
+	 * @private
+	 */ 
 	p.setup = function()
 	{
 		this.display.stage.addChild(this);
@@ -243,11 +243,11 @@
 	};
 
 	/**
-	*	Callback for when the config file is loaded.
-	*	@method onConfigLoaded
-	*	@param {springroll.LoaderResult} result The loaded result.
-	*	@private
-	*/
+	 * Callback for when the config file is loaded.
+	 * @method onConfigLoaded
+	 * @param {springroll.LoaderResult} result The loaded result.
+	 * @private
+	 */ 
 	p.onConfigLoaded = function(result, assets)
 	{
 		this.config = result.content;
@@ -315,21 +315,21 @@
 	}
 
 	/**
-	*	Callback for when the audio has been preloaded.
-	*	@method onAudioLoaded
-	*	@private
-	*/
+	 * Callback for when the audio has been preloaded.
+	 * @method onAudioLoaded
+	 * @private
+	 */ 
 	p.onAudioLoaded = function()
 	{
 		//do nothing
 	};
 
 	/**
-	*	Callback for when all art assets have been loaded.
-	*	@method onArtLoaded
-	*	@param {Object} results The loaded results.
-	*	@private
-	*/
+	 * Callback for when all art assets have been loaded.
+	 * @method onArtLoaded
+	 * @param {Object} results The loaded results.
+	 * @private
+	 */ 
 	p.onArtLoaded = function(done, results)
 	{
 		if(!window.images)
@@ -409,10 +409,10 @@
 	};
 
 	/**
-	*	Callback for when all loading is complete.
-	*	@method onLoadComplete
-	*	@private
-	*/
+	 * Callback for when all loading is complete.
+	 * @method onLoadComplete
+	 * @private
+	 */ 
 	p.onLoadComplete = function()
 	{
 		var clip = this._clip = new lib[this.config.settings.clipClass]();
@@ -444,12 +444,12 @@
 	};
 
 	/**
-	*	Listener for when the Application is resized.
-	*	@method resize
-	*	@param {int} width The new width of the display.
-	*	@param {int} height The new height of the display.
-	*	@private
-	*/
+	 * Listener for when the Application is resized.
+	 * @method resize
+	 * @param {int} width The new width of the display.
+	 * @param {int} height The new height of the display.
+	 * @private
+	 */ 
 	p.resize = function(width, height)
 	{
 		if(!this._clip) return;
@@ -476,11 +476,10 @@
 	};
 
 	/**
-	*	Starts playing the cutscene.
-	*	@method start
-	*	@param {Function} callback The function to call when playback is complete.
-	*	@public
-	*/
+	 * Starts playing the cutscene.
+	 * @method start
+	 * @param {Function} callback The function to call when playback is complete.
+	 */ 
 	p.start = function(callback)
 	{
 		this._endCallback = callback;
@@ -527,10 +526,10 @@
 	};
 
 	/**
-	*	Callback for when the audio has finished playing.
-	*	@method _audioCallback
-	*	@private
-	*/
+	 * Callback for when the audio has finished playing.
+	 * @method _audioCallback
+	 * @private
+	 */ 
 	p._audioCallback = function(instanceRef)
 	{
 		var index = this._activeSyncAudio.indexOf(instanceRef.instance);
@@ -571,11 +570,11 @@
 	};
 
 	/**
-	*	Listener for frame updates.
-	*	@method update
-	*	@param {int} elapsed Time in milliseconds
-	*	@private
-	*/
+	 * Listener for frame updates.
+	 * @method update
+	 * @param {int} elapsed Time in milliseconds
+	 * @private
+	 */ 
 	p.update = function(elapsed)
 	{
 		if(this._animFinished) return;
@@ -663,11 +662,10 @@
 	};
 
 	/**
-	*	Stops playback of the cutscene.
-	*	@method stop
-	*	@param {Boolean} [doCallback=false] If the end callback should be performed.
-	*	@public
-	*/
+	 * Stops playback of the cutscene.
+	 * @method stop
+	 * @param {Boolean} [doCallback=false] If the end callback should be performed.
+	 */ 
 	p.stop = function(doCallback)
 	{
 		Application.instance.off("update", this.update);
@@ -687,10 +685,9 @@
 	};
 
 	/**
-	*	Destroys the cutscene.
-	*	@method destroy
-	*	@public
-	*/
+	 * Destroys the cutscene.
+	 * @method destroy
+	 */ 
 	p.destroy = function()
 	{
 		Application.instance.off("resize", this.resize);
@@ -726,4 +723,5 @@
 
 	namespace("springroll").Cutscene = Cutscene;
 	namespace("springroll.easeljs").Cutscene = Cutscene;
+
 }());

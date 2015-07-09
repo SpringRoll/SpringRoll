@@ -21,9 +21,8 @@
 	plugin.setup = function()
 	{
 		// Register the tasks
-		this.multiLoader.register('springroll.easeljs.TextureAtlasTask');
-		this.multiLoader.register('springroll.easeljs.BitmapMovieClipTask');
-		this.multiLoader.register('springroll.easeljs.FlashArtTask');
+		this.multiLoader.register('springroll.easeljs.TextureAtlasTask', 30);
+		this.multiLoader.register('springroll.easeljs.BitmapMovieClipTask', 40);
 
 		// Init the animation
 		Animator.init();

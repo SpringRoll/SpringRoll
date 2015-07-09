@@ -32,9 +32,9 @@
 		var multiLoader = this.multiLoader = new MultiLoader();
 
 		// Register the default tasks
-		multiLoader.register('springroll.LoadTask');
-		multiLoader.register('springroll.FunctionTask');
-		multiLoader.register('springroll.ColorAlphaTask');
+		multiLoader.register('springroll.LoadTask', 0);
+		multiLoader.register('springroll.FunctionTask', 10);
+		multiLoader.register('springroll.ColorAlphaTask', 20);
 
 		/**
 		 * Override the end-user browser cache by adding

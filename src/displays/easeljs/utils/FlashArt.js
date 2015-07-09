@@ -1,9 +1,9 @@
 /**
- * @module EaselJS Animation
+ * @module EaselJS Display
  * @namespace springroll.easeljs
- * @requires Core, EaselJS Display
+ * @requires Core
  */
-(function()
+(function(undefined)
 {
 	var Debug;
 
@@ -17,7 +17,7 @@
 	 */
 	var FlashArt = function(id, dom, libName)
 	{
-		if (DEBUG)
+		if (DEBUG && Debug === undefined)
 		{
 			Debug = include('springroll.Debug', false);
 		}

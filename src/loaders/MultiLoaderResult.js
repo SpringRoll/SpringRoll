@@ -255,7 +255,7 @@
 
 		// Loop backwards to get the registered tasks first
 		// then will default to the basic Loader task
-		for (var i = taskDefs.length - 1; i >= 0; i--)
+		for (var i = 0, len = taskDefs.length; i < len; i++)
 		{
 			TaskClass = taskDefs[i];
 			if (TaskClass.test(asset))

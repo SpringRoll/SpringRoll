@@ -35,13 +35,18 @@
 	 * @method register
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
+	 * @param {int} [priority=0] The priority, higher prioity tasks
+	 *        are tested first. More general Tasks should be lower
+	 *        and more specific tasks should be higher.
 	 */
-	p.register = function(TaskClass)
+	p.register = function(TaskClass, priority)
 	{
 		if (typeof TaskClass == "string")
 		{
 			TaskClass = include(TaskClass);
 		}
+
+		TaskClass.priority = priority || 0;
 
 		if (DEBUG && Debug)
 		{
@@ -55,6 +60,13 @@
 			}
 		}
 		_taskDefs.push(TaskClass);
+
+		// Sort definitions by priority
+		// where the higher priorities are first
+		_taskDefs.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
 	};
 
 	/**
