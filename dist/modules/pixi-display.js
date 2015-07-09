@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.8 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module PIXI Display
  * @namespace springroll.pixi
