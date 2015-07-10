@@ -23,34 +23,35 @@
 	 * @param {String} [asset.alpha] The alpha image path, if not using image property
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var TextureAtlasTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.atlas);
 
 		/**
 		 * The TextureAtlas data source path
 		 * @property {String} atlas
 		 */
-		this.atlas = asset.atlas;
+		this.atlas = this.filter(asset.atlas);
 
 		/**
 		 * The atlas source path
 		 * @property {String} image
 		 */
-		this.image = asset.image;
+		this.image = this.filter(asset.image);
 
 		/**
 		 * The atlas color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The atlas alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 	};
 
 	// Reference to prototype
@@ -105,16 +106,16 @@
 			var image;
 			if (results._image)
 			{
-				image = results._image.content;
+				image = results._image;
 			}
 			else
 			{
 				image = ColorAlphaTask.mergeAlpha(
-					results._color.content,
-					results._alpha.content
+					results._color,
+					results._alpha
 				);
 			}
-			var atlas = new TextureAtlas(image, results._atlas.content);
+			var atlas = new TextureAtlas(image, results._atlas);
 			done(atlas, results);
 		});
 	};

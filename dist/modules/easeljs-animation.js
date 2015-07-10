@@ -2182,6 +2182,7 @@
 	 * @param {String} [asset.alpha] The alpha image path, if not using image property
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var BitmapMovieClipTask = function(asset)
 	{
@@ -2191,7 +2192,7 @@
 		 * The BitmapMovieclip data source path
 		 * @property {String} anim
 		 */
-		this.anim = asset.anim;
+		this.anim = this.filter(asset.anim);
 	};
 
 	// Reference to prototype
@@ -2220,7 +2221,7 @@
 		{
 			callback(new BitmapMovieClip(
 				textureAtlas, 
-				results._anim.content
+				results._anim
 			), results);
 		});
 	};

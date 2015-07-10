@@ -32,7 +32,8 @@
 		var assetManager = this.assetManager = new AssetManager();
 
 		// Register the default tasks
-		assetManager.register('springroll.LoadTask', 0);
+		assetManager.register('springroll.LoadTask');
+		assetManager.register('springroll.ListTask');
 		assetManager.register('springroll.FunctionTask', 10);
 		assetManager.register('springroll.ColorAlphaTask', 20);
 
@@ -86,7 +87,7 @@
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object.
+		 *        parameters result object.
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
@@ -104,7 +105,7 @@
 		 * @param {*} [options.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        parameter which is a result object. will
 		 *        only use if `options.complete` is undefined.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.AssetLoad} The multi files loading
@@ -116,13 +117,13 @@
 		 * @param {Function} [options.complete=null] Callback when finished
 		 * @param {Boolean} [options.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        parameters which is a result object. will
 		 *        only use if `options.complete` is undefined.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
-		 * Load a map of multiple assets and return mapped LoaderResult objects.
+		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function} complete Callback where the only parameter is the
@@ -131,7 +132,7 @@
 		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
-		 * Load a list of multiple assets and return array of LoaderResult objects.
+		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
 		 *        If each object has a `id` the result will be a mapped object.
@@ -148,14 +149,13 @@
 			{
 				source = {
 					src: source,
-					complete: complete || null,
 					progress: progressOrStartAll || null,
 					cache: !!cache,
 					data: data || null
 				};
 			}
 
-			return this.assetManager.load(
+			return assetManager.load(
 				source, 
 				complete, 
 				progressOrStartAll
@@ -178,7 +178,7 @@
 			
 			for (var i = 0; i < assets.length; i++)
 			{
-				this.assetManager.cache.delete(assets[i]);
+				assetManager.cache.delete(assets[i]);
 			}
 		};
 
@@ -188,7 +188,7 @@
 		 */
 		this.unloadAll = function()
 		{
-			this.assetManager.cache.empty();
+			assetManager.cache.empty();
 		};
 
 		/**
@@ -199,8 +199,18 @@
 		 */
 		this.cache = function(id)
 		{
-			return this.assetManager.cache.read(id);
+			return assetManager.cache.read(id);
 		};
+
+		// Refresh the default size as soon as the first display
+		// is added to the aplication
+		this.once('displayAdded', function(display)
+		{
+			assetManager.sizes.refresh(
+				display.width, 
+				display.height
+			);
+		});
 	};
 
 	// Preload task

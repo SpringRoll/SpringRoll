@@ -1,3 +1,7 @@
+/**
+*  @module Core
+*  @namespace springroll
+*/
 (function(undefined)
 {
 	var Debug;
@@ -73,13 +77,51 @@
 		var result = this._cache[id];
 		if (result)
 		{
-			if (result.destroy)
+			// Destroy mapped result
+			if (Object.isPlain(result))
 			{
-				result.destroy();
+				for (var key in result)
+				{
+					destroyResult(result[key]);
+				}
+			}
+			// Destroy list of results
+			else if (Array.isArray(result))
+			{
+				result.forEach(destroyResult);
+			}
+			// Destory single
+			else
+			{
+				destroyResult(result);
 			}
 			delete this._cache[id];
 		}
 	};
+
+	/**
+	 * Destroy a result object
+	 * @method destroyResult
+	 * @private
+	 * @param  {*} result The object to destroy
+	 */
+	function destroyResult(result)
+	{
+		// Ignore null results or empty objects
+		if (!result) return;
+
+		// Destroy any objects with a destroy function 
+		if (result.destroy)
+		{
+			result.destroy();
+		}
+
+		// Clear images if we have an HTML node
+		if (result.tagName == "IMG")
+		{
+			result.src = "";
+		}
+	}
 
 	/**
 	 * Remove all assets from the cache

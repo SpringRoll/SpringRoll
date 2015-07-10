@@ -3549,35 +3549,33 @@
 		var cm = this;
 
 		// Load the version
-		this._app.load(url,
-			function(result)
+		this._app.load(url, function(versions)
+		{
+			// check for a valid result content
+			if (versions)
 			{
-				// check for a valid result content
-				if (result && result.content)
+				// Remove carrage returns and split on newlines
+				var lines = versions.replace(/\r/g, '').split("\n");
+				var i, parts;
+
+				// Go line by line
+				for (i = 0, len = lines.length; i < len; i++)
 				{
-					// Remove carrage returns and split on newlines
-					var lines = result.content.replace(/\r/g, '').split("\n");
-					var i, parts;
+					// Check for a valid line
+					if (!lines[i]) continue;
 
-					// Go line by line
-					for (i = 0, len = lines.length; i < len; i++)
-					{
-						// Check for a valid line
-						if (!lines[i]) continue;
+					// Split lines
+					parts = lines[i].split(' ');
 
-						// Split lines
-						parts = lines[i].split(' ');
+					// Add the parts
+					if (parts.length != 2) continue;
 
-						// Add the parts
-						if (parts.length != 2) continue;
-
-						// Add the versioning
-						cm.addVersion((baseUrl || "") + parts[0], parts[1]);
-					}
+					// Add the versioning
+					cm.addVersion((baseUrl || "") + parts[0], parts[1]);
 				}
-				if (callback) callback();
 			}
-		);
+			if (callback) callback();
+		});
 	};
 
 	/**
@@ -3723,7 +3721,8 @@
 */
 (function()
 {
-	var Debug;
+	var Debug,
+		Application = include('springroll.Application');
 
 	/**
 	 * Internal class for dealing with async load assets
@@ -3734,8 +3733,11 @@
 	 * @param {String} [asset.id=null] The task ID
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} [asset.complete=null] Call when complete
+	 * @param {String} fallbackId The ID to set if no ID is explicitly set
+	 *        this can be used for caching something that has no id
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
 	 */
-	var Task = function(asset)
+	var Task = function(asset, fallbackId)
 	{
 		if (Debug === undefined)
 		{
@@ -3751,9 +3753,10 @@
 
 		/**
 		 * The user call to fire when completed, returns the arguments
-		 * result, originalAsset, and additionalAssets
+		 * result, original, and additionalAssets
 		 * @property {Function} complete
 		 * @default null
+		 * @readOnly
 		 */
 		this.complete = asset.complete || null;
 
@@ -3761,6 +3764,7 @@
 		 * If we should cache the load and use later
 		 * @property {Boolean} cache
 		 * @default false
+		 * @readOnly
 		 */
 		this.cache = !!asset.cache;
 
@@ -3769,21 +3773,46 @@
 		 * @property {String} id
 		 */
 		this.id = asset.id || null;
-
+	
 		/**
 		 * Reference to the original asset data
-		 * @property {Object} originalAsset
+		 * @property {Object} original
+		 * @readOnly
 		 */
-		this.originalAsset = asset;
+		this.original = asset;
 
-		// Check for ID if we're caching
+		// We're trying to cache but we don't have an ID
 		if (this.cache && !this.id)
 		{
-			if (true && Debug)
+			if (fallbackId)
 			{
-				Debug.error("Caching an asset requires and id, none set", asset);
+				if (true && Debug)
+				{
+					Debug.info("Asset contains no id property, using the fallback '%s'", fallbackId);
+				}
+				
+				// Remove the file extension
+				fallbackId = fallbackId.substr(0, fallback.lastIndexOf('.'));
+
+				// Check for the last folder slash then remove it
+				var slashIndex = fallbackId.lastIndexOf('/');
+				if (slashIndex > -1)
+				{
+					fallbackId = fallbackId.substr(slashIndex + 1);
+				}
+				// Update the id
+				this.id = fallbackId;
 			}
-			this.cache = false;
+
+			// Check for ID if we're caching
+			if (!this.id)
+			{
+				if (true && Debug)
+				{
+					Debug.error("Caching an asset requires and id, none set", asset);
+				}
+				this.cache = false;
+			}
 		}
 	};
 
@@ -3831,6 +3860,31 @@
 	};
 
 	/**
+	 * Add the sizing to each filter
+	 * @method filter
+	 * @protected
+	 * @param {String} url The url to filter
+	 */
+	p.filter = function(url) 
+	{
+		var sizes = Application.instance.assetManager.sizes;
+
+		// See if we should add sizing
+		if (url && sizes.test(url))
+		{
+			// Get the current size supported byt this asset
+			var size = sizes.size(this.original.sizes);
+
+			// Update the URL size token
+			url = sizes.filter(url, size);
+
+			// Pass along the scale to the original asset data
+			this.original.scale = size.scale;
+		}
+		return url;
+	};
+
+	/**
 	 * Destroy this and discard
 	 * @method destroy
 	 */
@@ -3839,7 +3893,7 @@
 		this.status = Task.FINISHED;
 		this.id = null;
 		this.complete = null;
-		this.originalAsset = null;
+		this.original = null;
 	};
 
 	// Assign to namespace
@@ -3935,22 +3989,23 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var ColorAlphaTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.color);
 
 		/**
 		 * The atlas color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The atlas alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 	};
 
 	// Reference to prototype
@@ -4037,6 +4092,76 @@
 
 	/**
 	 * Internal class for dealing with async load assets through Loader.
+	 * @class ListTask
+	 * @extends springroll.Task
+	 * @constructor
+	 * @param {Object} asset The data properties
+	 * @param {Array} asset.assets The collection of assets to load
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {String} [asset.id] Id of asset
+	 * @param {Function} [asset.complete=null] The event to call when done
+	 */
+	var ListTask = function(asset)
+	{
+		Task.call(this, asset);
+
+		/**
+		 * The collection of assets to load
+		 * @property {Array} assets
+		 */
+		this.assets = asset.assets;
+	};
+
+	// Reference to prototype
+	var p = extend(ListTask, Task);
+
+	/**
+	 * Test if we should run this task
+	 * @method test
+	 * @static
+	 * @param {Object} asset The asset to check
+	 * @return {Boolean} If the asset is compatible with this asset
+	 */
+	ListTask.test = function(asset)
+	{
+		return !!asset.assets && Array.isArray(asset.assets);
+	};
+
+	/**
+	 * Start the task
+	 * @method  start
+	 * @param  {Function} callback Callback when finished
+	 */
+	p.start = function(callback)
+	{
+		Application.instance.load(this.assets, callback);
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		Task.prototype.destroy.call(this);
+		this.assets = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').ListTask = ListTask;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	var Task = include('springroll.Task'),
+		Application = include('springroll.Application');
+
+	/**
+	 * Internal class for dealing with async load assets through Loader.
 	 * @class LoadTask
 	 * @extends springroll.Task
 	 * @constructor
@@ -4044,19 +4169,21 @@
 	 * @param {String} asset.src The source
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
+	 * @param {Boolean} [asset.advanced=false] If we should return the LoaderResult
 	 * @param {*} [asset.data=null] Optional data
 	 * @param {Function} [asset.complete=null] The event to call when done
 	 * @param {Function} [asset.progress=null] The event to call on load progress
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var LoadTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.src);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
-		this.src = asset.src;
+		this.src = this.filter(asset.src);
 
 		/**
 		 * Call on load progress
@@ -4069,6 +4196,14 @@
 		 * @property {*} data
 		 */
 		this.data = asset.data || null;
+
+		/**
+		 * If turned on return a springroll.LoaderResult object
+		 * instead of the content
+		 * @property {Boolean} advanced
+		 * @default false
+		 */
+		this.advanced = !!asset.advanced;
 	};
 
 	// Reference to prototype
@@ -4093,12 +4228,20 @@
 	 */
 	p.start = function(callback)
 	{
+		var advanced = this.advanced;
+
 		Application.instance.loader.load(
 			this.src,
-			callback,
+			function(result)
+			{
+				if (result && !advanced)
+				{
+					result = result.content;
+				}
+				callback(result);
+			},
 			this.progress,
-			this.data,
-			this.originalAsset
+			this.data
 		);
 	};
 
@@ -4292,7 +4435,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderResult('"+this.url+"')]";
+		return "[LoaderResult(url: '"+this.url+"')]";
 	};
 
 	/**
@@ -4828,6 +4971,10 @@
 	namespace('springroll').Loader = Loader;
 	
 }());
+/**
+*  @module Core
+*  @namespace springroll
+*/
 (function(undefined)
 {
 	var Debug;
@@ -4903,13 +5050,51 @@
 		var result = this._cache[id];
 		if (result)
 		{
-			if (result.destroy)
+			// Destroy mapped result
+			if (Object.isPlain(result))
 			{
-				result.destroy();
+				for (var key in result)
+				{
+					destroyResult(result[key]);
+				}
+			}
+			// Destroy list of results
+			else if (Array.isArray(result))
+			{
+				result.forEach(destroyResult);
+			}
+			// Destory single
+			else
+			{
+				destroyResult(result);
 			}
 			delete this._cache[id];
 		}
 	};
+
+	/**
+	 * Destroy a result object
+	 * @method destroyResult
+	 * @private
+	 * @param  {*} result The object to destroy
+	 */
+	function destroyResult(result)
+	{
+		// Ignore null results or empty objects
+		if (!result) return;
+
+		// Destroy any objects with a destroy function 
+		if (result.destroy)
+		{
+			result.destroy();
+		}
+
+		// Clear images if we have an HTML node
+		if (result.tagName == "IMG")
+		{
+			result.src = "";
+		}
+	}
 
 	/**
 	 * Remove all assets from the cache
@@ -4943,10 +5128,203 @@
 */
 (function()
 {
+	var Debug;
+
+	/**
+	 * Remember the assets loaded by the AssetManager
+	 * @class AssetSizes
+	 */
+	var AssetSizes = function()
+	{
+		if (Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * The collection of size objects
+		 * @property {Array} _sizes
+		 * @private
+		 */
+		this._sizes = [];
+
+		/**
+		 * The map of size objects
+		 * @property {_sizesMap} _sizesMap
+		 * @private
+		 */
+		this._sizesMap = {};
+
+		/**
+		 * The preferred size
+		 * @property {Object} _preferredSize
+		 * @readOnly
+		 */
+		this._preferredSize = null;
+	};
+
+	// Reference to the prototype
+	var p = AssetSizes.prototype;
+
+	/**
+	 * The name of the URL substitution variable
+	 * @property {String} SIZE_TOKEN
+	 * @static
+	 * @default  "%SIZE%"
+	 */
+	AssetSizes.SIZE_TOKEN = "%SIZE%";
+
+	/**
+	 * Remove the pre-defined sizes
+	 * @method  reset
+	 */
+	p.reset = function()
+	{
+		this._sizes.length = 0;
+		this._sizesMap = {};
+	};
+
+	/**
+	 * Add a new size definition
+	 * @method define
+	 * @param {String} id The name of the folder which contains size
+	 * @param {int} maxSize The maximum size capable of using this
+	 * @param {Number} scale The scale of assets
+	 * @param {Array} fallback The size fallbacks if this size isn't available
+	 *        for the current asset request.
+	 */
+	p.define = function(id, maxSize, scale, fallback)
+	{
+		var size = {
+			id: id,
+			maxSize: maxSize,
+			scale: scale,
+			fallback: fallback
+		};
+
+		this._sizesMap[id] = size;
+		this._sizes.push(size);
+
+		// Sor from smallest to largest maxSize
+		this._sizes.sort(function(a, b)
+		{
+			return a.maxSize - b.maxSize;
+		});
+	};
+
+	/**
+	 * Update a URL by size
+	 * @method  filter
+	 * @param  {String} url The asset to load
+	 * @param {Object} [size] The currrent size object
+	 * @param {Object} [size.id] The name of the current size
+	 * @return {String} The formatted url
+	 */
+	p.filter = function(url, size)
+	{
+		size = size || this._preferredSize;
+		return url.replace(AssetSizes.SIZE_TOKEN, size.id);
+	};
+
+	/**
+	 * Make sure we have a token
+	 * @method  test
+	 * @param  {String}  url The URL to test
+	 * @return {Boolean} If we have the token
+	 */
+	p.test = function(url)
+	{
+		return url.indexOf(AssetSizes.SIZE_TOKEN) > -1;
+	};
+
+	/**
+	 * Get a size based on the current asset sizes supported
+	 * @method size
+	 * @param  {Object} [supported] Return the preferred size if nothing is set
+	 * @return {Object} Return the size object with id, scale, maxSize and fallback keys
+	 */
+	p.size = function(supported)
+	{
+		var size = this._preferredSize;
+		var fallback = size.fallback;
+
+		// There's custom support and it says we don't support
+		// the default size.
+		if (supported && !supported[size.id])
+		{
+			for (var i = 0, len = fallback.length; i < len; i++)
+			{
+				var alt = fallback[i];
+
+				// Undefined means we support it, or true
+				if (supported[alt] !== false)
+				{
+					size = this._sizesMap[alt];
+					break;
+				}
+			}
+		}
+		// Umm something's wrong, the asset doesn't support
+		// either the current size or any of the fallbacks
+		if (!size)
+		{
+			throw "Asset does not support any valid size";
+		}
+		return size;
+	};
+
+	/**
+	 * Refresh the current preferred size based on width and height
+	 * @method refresh
+	 * @param  {Number} width  The width of the stage
+	 * @param  {Number} height The height of the stage
+	 * @return {Object} The size
+	 */
+	p.refresh = function(width, height)
+	{
+		var minSize = Math.min(width, height);
+		var size = null;
+		var sizes = this._sizes;
+
+		// Check the largest first
+		for(var i = sizes.length - 1; i >= 0; --i)
+		{
+			if (sizes[i].maxSize > minSize)
+			{
+				size = sizes[i];
+			}
+			else
+			{
+				break;
+			}	
+		}
+		this._preferredSize = size;
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this._preferredSize = null;
+		this._sizes = null;
+		this._sizesMap = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').AssetSizes = AssetSizes;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
 	var Debug,
 		AssetManager,
 		Task = include('springroll.Task'),
-		LoaderResult = include('springroll.LoaderResult'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -5007,7 +5385,7 @@
 
 		/**
 		 * The results to return when we're done
-		 * @property {springroll.LoaderResult|Array|Object} results
+		 * @property {Array|Object} results
 		 */
 		this.results = null;
 
@@ -5068,9 +5446,9 @@
 	/**
 	 * When a task is finished
 	 * @event progress
-	 * @param {springroll.LoaderResult|*} result The load result
-	 * @param {Object} originalAsset The original asset loaded
+	 * @param {*} result The load result
 	 * @param {Array} assets The object collection to add new assets to.
+	 * @param {Object} original The original asset loaded
 	 */
 
 	/**
@@ -5122,7 +5500,7 @@
 					this.addTask(asset);
 				}
 			}
-			else if (isObject(assets))
+			else if (Object.isPlain(assets))
 			{
 				for(var id in assets)
 				{
@@ -5261,7 +5639,7 @@
 		this.tasks.splice(index, 1);
 
 		// Assets
-		var additionalAssets = [];
+		var assets = [];
 
 		// Handle the file load tasks
 		if (result)
@@ -5277,12 +5655,7 @@
 			// Should we cache the task?
 			if (task.cache)
 			{
-				this.manager.cache.write(
-					task.id, 
-					(result instanceof LoaderResult) ? 
-						result.content : 
-						result
-				);
+				this.manager.cache.write(task.id, result);
 			}
 		}
 
@@ -5292,14 +5665,14 @@
 		// can potentially add more
 		if (task.complete)
 		{
-			task.complete(result, task.originalAsset, additionalAssets);
+			task.complete(result, assets, task.original);
 		}
-		this.trigger('progress', result, task.originalAsset, additionalAssets);
+		this.trigger('progress', result, assets, task.original);
 
 		task.destroy();
 
 		// Add new assets to the things to load
-		var mode = this.addTasks(additionalAssets);
+		var mode = this.addTasks(assets);
 
 		// Check to make sure if we're in 
 		// map mode, we keep it that way
@@ -5307,7 +5680,7 @@
 		{
 			if (true && Debug)
 			{
-				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
+				Debug.error("Load assets require IDs to return mapped results", assets);
 			}
 			throw "Assets require IDs";
 		}
@@ -5365,18 +5738,6 @@
 	};
 
 	/**
-	 * Check if an object is an Object type
-	 * @method isObject
-	 * @private
-	 * @param  {*}  obj The object
-	 * @return {Boolean} If it's an Object
-	 */
-	function isObject(obj)
-	{
-		return typeof obj == "object";
-	}
-
-	/**
 	 * Check if an object is an String type
 	 * @method isString
 	 * @private
@@ -5412,6 +5773,7 @@
 {
 	var AssetLoad = include('springroll.AssetLoad'),
 		AssetCache = include('springroll.AssetCache'),
+		AssetSizes = include('springroll.AssetSizes'),
 		Task = include('springroll.Task'),
 		Debug;
 	
@@ -5444,6 +5806,16 @@
 		 * @property {springroll.AssetCache} cache
 		 */
 		this.cache = new AssetCache();
+
+		/**
+		 * Handle multiple asset spritesheets
+		 * @property {springroll.AssetSizes} sizes
+		 */
+		this.sizes = new AssetSizes();
+
+		// Add the default built-in sizes for "half" and "full"
+		this.sizes.define('half', 400, 0.5, ['full']);
+		this.sizes.define('full', 10000, 1, ['half']);
 	};
 
 	// reference to prototype
@@ -5539,8 +5911,12 @@
 	 */
 	p.destroy = function()
 	{
+		this.sizes.destroy();
+		this.sizes = null;
+
 		this.cache.destroy();
 		this.cache = null;
+
 		this.loads = null;
 		this.taskDefs = null;
 	};
@@ -5583,7 +5959,8 @@
 		var assetManager = this.assetManager = new AssetManager();
 
 		// Register the default tasks
-		assetManager.register('springroll.LoadTask', 0);
+		assetManager.register('springroll.LoadTask');
+		assetManager.register('springroll.ListTask');
 		assetManager.register('springroll.FunctionTask', 10);
 		assetManager.register('springroll.ColorAlphaTask', 20);
 
@@ -5637,7 +6014,7 @@
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object.
+		 *        parameters result object.
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
@@ -5655,7 +6032,7 @@
 		 * @param {*} [options.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        parameter which is a result object. will
 		 *        only use if `options.complete` is undefined.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.AssetLoad} The multi files loading
@@ -5667,13 +6044,13 @@
 		 * @param {Function} [options.complete=null] Callback when finished
 		 * @param {Boolean} [options.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        parameters which is a result object. will
 		 *        only use if `options.complete` is undefined.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
 		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
-		 * Load a map of multiple assets and return mapped LoaderResult objects.
+		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function} complete Callback where the only parameter is the
@@ -5682,7 +6059,7 @@
 		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
-		 * Load a list of multiple assets and return array of LoaderResult objects.
+		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
 		 *        If each object has a `id` the result will be a mapped object.
@@ -5699,14 +6076,13 @@
 			{
 				source = {
 					src: source,
-					complete: complete || null,
 					progress: progressOrStartAll || null,
 					cache: !!cache,
 					data: data || null
 				};
 			}
 
-			return this.assetManager.load(
+			return assetManager.load(
 				source, 
 				complete, 
 				progressOrStartAll
@@ -5729,7 +6105,7 @@
 			
 			for (var i = 0; i < assets.length; i++)
 			{
-				this.assetManager.cache.delete(assets[i]);
+				assetManager.cache.delete(assets[i]);
 			}
 		};
 
@@ -5739,7 +6115,7 @@
 		 */
 		this.unloadAll = function()
 		{
-			this.assetManager.cache.empty();
+			assetManager.cache.empty();
 		};
 
 		/**
@@ -5750,8 +6126,18 @@
 		 */
 		this.cache = function(id)
 		{
-			return this.assetManager.cache.read(id);
+			return assetManager.cache.read(id);
 		};
+
+		// Refresh the default size as soon as the first display
+		// is added to the aplication
+		this.once('displayAdded', function(display)
+		{
+			assetManager.sizes.refresh(
+				display.width, 
+				display.height
+			);
+		});
 	};
 
 	// Preload task
@@ -5865,10 +6251,6 @@
 				complete: onConfigLoaded.bind(this)
 			});
 		}
-		else if (true && Debug)
-		{
-			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON (optional).");
-		}
 
 		//Allow extending game to add additional tasks
 		this.trigger('loading', assets);
@@ -5889,12 +6271,12 @@
 	 *	Callback when the config is loaded
 	 *	@method onConfigLoaded
 	 *	@private
-	 *	@param {springroll.LoaderResult} result The Loader result from the load
+	 *	@param {Object} config The Loader result from the load
 	 *	@param {Array} assets The array to add new load tasks to
 	 */
-	var onConfigLoaded = function(result, assets)
+	var onConfigLoaded = function(config, assets)
 	{
-		var config = this.config = result.content;
+		this.config = config;
 		this.trigger('configLoaded', config, assets);
 	};
 

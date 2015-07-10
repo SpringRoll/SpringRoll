@@ -56,9 +56,12 @@ app.on('init', function(){
 			{
 				id:'background',
 				src:'assets/images/background.jpg',
-				complete: function(result, task, assets)
+				complete: function(result, assets)
 				{
-					assets.push({id:'captions', src: "assets/config/captions.json"});
+					assets.push({
+						id:'captions', 
+						src: "assets/config/captions.json"
+					});
 				}
 			},
 			function(done)
@@ -89,9 +92,9 @@ app.on('init', function(){
 	]);
 
 	// Listen when a task is finished
-	loader.on('progress', function(result, task)
+	loader.on('progress', function(result)
 	{
-		console.log("progress", result, task);
+		console.log("progress", result);
 	});
 
 	// Listen when completed

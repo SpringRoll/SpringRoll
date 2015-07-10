@@ -142,35 +142,33 @@
 		var cm = this;
 
 		// Load the version
-		this._app.load(url,
-			function(result)
+		this._app.load(url, function(versions)
+		{
+			// check for a valid result content
+			if (versions)
 			{
-				// check for a valid result content
-				if (result && result.content)
+				// Remove carrage returns and split on newlines
+				var lines = versions.replace(/\r/g, '').split("\n");
+				var i, parts;
+
+				// Go line by line
+				for (i = 0, len = lines.length; i < len; i++)
 				{
-					// Remove carrage returns and split on newlines
-					var lines = result.content.replace(/\r/g, '').split("\n");
-					var i, parts;
+					// Check for a valid line
+					if (!lines[i]) continue;
 
-					// Go line by line
-					for (i = 0, len = lines.length; i < len; i++)
-					{
-						// Check for a valid line
-						if (!lines[i]) continue;
+					// Split lines
+					parts = lines[i].split(' ');
 
-						// Split lines
-						parts = lines[i].split(' ');
+					// Add the parts
+					if (parts.length != 2) continue;
 
-						// Add the parts
-						if (parts.length != 2) continue;
-
-						// Add the versioning
-						cm.addVersion((baseUrl || "") + parts[0], parts[1]);
-					}
+					// Add the versioning
+					cm.addVersion((baseUrl || "") + parts[0], parts[1]);
 				}
-				if (callback) callback();
 			}
-		);
+			if (callback) callback();
+		});
 	};
 
 	/**

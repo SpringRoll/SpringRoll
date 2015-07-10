@@ -95,9 +95,9 @@ app.on('init', function(){
 
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
-	app.loader.load('assets/images/button.png', function(result){
-
-		buttonImage = result.content;
+	app.load('assets/images/button.png', function(image)
+	{
+		buttonImage = image;
 
 		// Add the buttons and handle the clicks
 		addButton('Volume', 200, 100, onPlayButton);

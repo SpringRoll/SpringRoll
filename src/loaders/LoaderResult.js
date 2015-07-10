@@ -57,7 +57,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderResult('"+this.url+"')]";
+		return "[LoaderResult(url: '"+this.url+"')]";
 	};
 
 	/**

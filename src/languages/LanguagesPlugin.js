@@ -45,12 +45,12 @@
 	// preload the language configuration
 	plugin.preload = function(done)
 	{
-		var config = this.options.languagesPath;
-		if (config)
+		var languagesConfig = this.options.languagesPath;
+		if (languagesConfig)
 		{
-			this.load(config, function(result)
+			this.load(languagesConfig, function(config)
 			{
-				this.languages.setConfig(result.content);
+				this.languages.setConfig(config);
 				var lang = this.options.language;
 				if (lang)
 				{

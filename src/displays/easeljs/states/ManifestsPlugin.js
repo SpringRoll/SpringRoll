@@ -73,13 +73,13 @@
 		});
 
 		// When config loads, load the manifests
-		this.once('loading', function(tasks)
+		this.once('loading', function(assets)
 		{
 			var manifestsPath = this.options.manifestsPath;
 
 			if (manifestsPath)
 			{
-				tasks.push({
+				assets.push({
 					id: "manifests",
 					src: manifestsPath,
 					complete: onManifestsLoaded.bind(this)
@@ -98,9 +98,9 @@
 	 *	@private
 	 *	@param {array} tasks The collection of preload tasks
 	 */
-	var onManifestsLoaded = function(result, task, manager)
+	var onManifestsLoaded = function(manifests, task, manager)
 	{
-		Object.merge(this._manifests, result.content);
+		Object.merge(this._manifests, manifests);
 		this.trigger('manifestLoaded', manager);
 	};
 

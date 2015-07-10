@@ -66,22 +66,22 @@ var app = new Application({
 });
 
 // The button image
-var image = null;
+var buttonImage = null;
 
-app.on('loading', function(assets)
+app.once('loading', function(assets)
 {
 	assets.push({
 		src: 'assets/images/button.png', 
-		complete: function(result)
+		complete: function(image)
 		{
 			// Save the bitmap image to use late
-			image = result.content
+			buttonImage = image
 		}
 	});
 });
 
 // Wait until the app is ready
-app.on('init', function()
+app.once('init', function()
 {
 	// Add the states to the application
 	// this is a map where the key is the state
@@ -107,7 +107,7 @@ function getTitleState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.nextButton = new Button(image, {
+		var button = this.nextButton = new Button(buttonImage, {
 			text: "Play",
 			font: "24px Arial",
 			color: "#ffffff"
@@ -115,7 +115,7 @@ function getTitleState()
 		button.x = 330;
 		button.y = 230;
 		this.panel.addChild(button);
-		button.on('buttonPress', this.nextState.bind(this));
+		button.addEventListener('buttonPress', this.nextState.bind(this));
 	};
 
 	// When the transition is done transitioning out of state
@@ -142,27 +142,32 @@ function getGameState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.backButton = new Button(image, {
+		var button = this.backButton = new Button(buttonImage, {
 			text: "Back",
 			font: "24px Arial",
 			color: "#ffffff"
 		});
 		this.panel.addChild(button);
-		button.on('buttonPress', this.previousState.bind(this));
+		button.addEventListener('buttonPress', this.previousState.bind(this));
+
+		console.log("Start loading");
 
 		// Start async loading
 		this.loadingStart();
 
 		// Load the background
-		Loader.instance.load(
+		Application.instance.load(
 			'assets/images/background.jpg', 
 			onLoadingDone.bind(this)
 		);
 	};
 
-	var onLoadingDone = function(result)
+	var onLoadingDone = function(background)
 	{
-		this.panel.addChildAt(new Bitmap(result.content), 0);
+		console.log("Loading done");
+		this.panel.addChildAt(new Bitmap(background), 0);
+
+		// Resume the load
 		this.loadingDone();
 	};
 

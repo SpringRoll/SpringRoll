@@ -27,11 +27,11 @@
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
-	 * @param {Number} [asset.scale=1] The scale for BitmapUtils.loadSpriteSheet();
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var SpritesheetTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.src);
 
 		if (!BitmapUtils)
 		{
@@ -42,31 +42,31 @@
 		 * The path to the flash asset
 		 * @property {String} src
 		 */
-		this.src = asset.src;
+		this.src = this.filter(asset.src);
 
 		/**
 		 * The spritesheet data source path
 		 * @property {String} spritesheet
 		 */
-		this.spritesheet = asset.spritesheet;
+		this.spritesheet = this.filter(asset.spritesheet);
 
 		/**
 		 * The spritesheet source path
 		 * @property {String} image
 		 */
-		this.image = asset.image;
+		this.image = this.filter(asset.image);
 
 		/**
 		 * The spritesheet color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The spritesheet alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 
 		/**
 		 * The name of the window object library items hang on
@@ -74,13 +74,6 @@
 		 * @default 'lib'
 		 */
 		this.libName = asset.libName || 'lib';
-
-		/**
-		 * The scale for the spritesheet
-		 * @property {Number} scale
-		 * @default  1
-		 */
-		this.scale = asset.scale || 1;
 	};
 
 	// Reference to prototype
@@ -130,21 +123,21 @@
 
 			if (results._image)
 			{
-				image = results._image.content;
+				image = results._image;
 			}
 			else
 			{
 				image = ColorAlphaTask.mergeAlpha(
-					results._color.content,
-					results._alpha.content
+					results._color,
+					results._alpha
 				);
 			}
 
-			BitmapUtils.loadSpriteSheet(results._spritesheet.content, image, this.scale);
+			BitmapUtils.loadSpriteSheet(results._spritesheet, image, this.original.scale);
 
 			callback(new FlashArt(
 				this.id,
-				results._flash.content,
+				results._flash,
 				this.libName 
 			));
 		}

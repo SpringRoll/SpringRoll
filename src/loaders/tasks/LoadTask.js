@@ -16,19 +16,21 @@
 	 * @param {String} asset.src The source
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
+	 * @param {Boolean} [asset.advanced=false] If we should return the LoaderResult
 	 * @param {*} [asset.data=null] Optional data
 	 * @param {Function} [asset.complete=null] The event to call when done
 	 * @param {Function} [asset.progress=null] The event to call on load progress
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var LoadTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.src);
 
 		/**
 		 * The source URL to load
 		 * @property {String} src
 		 */
-		this.src = asset.src;
+		this.src = this.filter(asset.src);
 
 		/**
 		 * Call on load progress
@@ -41,6 +43,14 @@
 		 * @property {*} data
 		 */
 		this.data = asset.data || null;
+
+		/**
+		 * If turned on return a springroll.LoaderResult object
+		 * instead of the content
+		 * @property {Boolean} advanced
+		 * @default false
+		 */
+		this.advanced = !!asset.advanced;
 	};
 
 	// Reference to prototype
@@ -65,12 +75,20 @@
 	 */
 	p.start = function(callback)
 	{
+		var advanced = this.advanced;
+
 		Application.instance.loader.load(
 			this.src,
-			callback,
+			function(result)
+			{
+				if (result && !advanced)
+				{
+					result = result.content;
+				}
+				callback(result);
+			},
 			this.progress,
-			this.data,
-			this.originalAsset
+			this.data
 		);
 	};
 

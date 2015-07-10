@@ -138,6 +138,7 @@
 
 		var assets = new PixiAssets(this.originalUrls);
 		this._assetLoader.onComplete = callback.bind(null, assets);
+		// Loop through urls on complete and set the baseTexture scale according to the asset scale
 
 		if (this.progress)
 		{

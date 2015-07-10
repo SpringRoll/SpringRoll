@@ -19,10 +19,10 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {*} [asset.data] Optional data
-	 * @param {int} [asset.priority=0] The priority
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var FlashArtTask = function(asset)
 	{
@@ -59,11 +59,11 @@
 	 */
 	p.start = function(callback)
 	{
-		LoadTask.prototype.start.call(this, function(result)
+		LoadTask.prototype.start.call(this, function(domElement)
 		{
 			callback(new FlashArt(
 				this.id,
-				result.content, 
+				domElement,
 				this.libName 
 			));
 		}

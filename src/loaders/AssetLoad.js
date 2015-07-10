@@ -7,7 +7,6 @@
 	var Debug,
 		AssetManager,
 		Task = include('springroll.Task'),
-		LoaderResult = include('springroll.LoaderResult'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -68,7 +67,7 @@
 
 		/**
 		 * The results to return when we're done
-		 * @property {springroll.LoaderResult|Array|Object} results
+		 * @property {Array|Object} results
 		 */
 		this.results = null;
 
@@ -129,9 +128,9 @@
 	/**
 	 * When a task is finished
 	 * @event progress
-	 * @param {springroll.LoaderResult|*} result The load result
-	 * @param {Object} originalAsset The original asset loaded
+	 * @param {*} result The load result
 	 * @param {Array} assets The object collection to add new assets to.
+	 * @param {Object} original The original asset loaded
 	 */
 
 	/**
@@ -183,7 +182,7 @@
 					this.addTask(asset);
 				}
 			}
-			else if (isObject(assets))
+			else if (Object.isPlain(assets))
 			{
 				for(var id in assets)
 				{
@@ -322,7 +321,7 @@
 		this.tasks.splice(index, 1);
 
 		// Assets
-		var additionalAssets = [];
+		var assets = [];
 
 		// Handle the file load tasks
 		if (result)
@@ -338,12 +337,7 @@
 			// Should we cache the task?
 			if (task.cache)
 			{
-				this.manager.cache.write(
-					task.id, 
-					(result instanceof LoaderResult) ? 
-						result.content : 
-						result
-				);
+				this.manager.cache.write(task.id, result);
 			}
 		}
 
@@ -353,14 +347,14 @@
 		// can potentially add more
 		if (task.complete)
 		{
-			task.complete(result, task.originalAsset, additionalAssets);
+			task.complete(result, assets, task.original);
 		}
-		this.trigger('progress', result, task.originalAsset, additionalAssets);
+		this.trigger('progress', result, assets, task.original);
 
 		task.destroy();
 
 		// Add new assets to the things to load
-		var mode = this.addTasks(additionalAssets);
+		var mode = this.addTasks(assets);
 
 		// Check to make sure if we're in 
 		// map mode, we keep it that way
@@ -368,7 +362,7 @@
 		{
 			if (DEBUG && Debug)
 			{
-				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
+				Debug.error("Load assets require IDs to return mapped results", assets);
 			}
 			throw "Assets require IDs";
 		}
@@ -424,18 +418,6 @@
 		this.manager = null;
 		s.destroy.call(this);
 	};
-
-	/**
-	 * Check if an object is an Object type
-	 * @method isObject
-	 * @private
-	 * @param  {*}  obj The object
-	 * @return {Boolean} If it's an Object
-	 */
-	function isObject(obj)
-	{
-		return typeof obj == "object";
-	}
 
 	/**
 	 * Check if an object is an String type

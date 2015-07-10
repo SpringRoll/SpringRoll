@@ -784,9 +784,9 @@
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
-			this.load(captionsPath, function(result)
+			this.load(captionsPath, function(data)
 			{
-				this.captions.data = result.content;
+				this.captions.data = data;
 				done();
 			}
 			.bind(this));

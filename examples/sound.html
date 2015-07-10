@@ -56,25 +56,24 @@ var app = new Application({
 	}
 });
 
-// The button image
-var image = null;
+var buttonImage;
 
-app.on('loading', function(assets)
+app.once('loading', function(assets)
 {
 	assets.push({
+		
 		src: 'assets/images/button.png', 
-		complete: function(result)
+		complete: function(image)
 		{
-			// Save the bitmap image to use late
-			image = result.content
+			buttonImage = image;
 		}
 	});
 });
 
 // Wait until the app is ready
-app.on('init', function()
+app.once('init', function()
 {
-	var centerX = (this.display.width - image.width) / 2;
+	var centerX = (this.display.width - buttonImage.width) / 2;
 
 	// Add the buttons
 	addButton("FoodChute", centerX, 60, onPlayEffect);
@@ -86,7 +85,7 @@ app.on('init', function()
 // Add a new button to the stage
 function addButton(text, x, y, callback)
 {
-	var button = new Button(image, {
+	var button = new Button(buttonImage, {
 		text: text,
 		font: "16px Arial",
 		color: "#ffffff"

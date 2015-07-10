@@ -33,7 +33,7 @@
 	 */ 
 	var Cutscene = function(options)
 	{
-		if(!Application)
+		if (!Application)
 		{
 			Debug = include('springroll.Debug', false);
 			Application = include('springroll.Application');
@@ -244,12 +244,13 @@
 	/**
 	 * Callback for when the config file is loaded.
 	 * @method onConfigLoaded
-	 * @param {springroll.LoaderResult} result The loaded result.
+	 * @param {Object} config The loaded config.
+	 * @param {Array} [assets] Add additional tasks
 	 * @private
 	 */ 
-	p.onConfigLoaded = function(result, assets)
+	p.onConfigLoaded = function(config, assets)
 	{
-		this.config = result.content;
+		this.config = config;
 
 		// parse config
 		this.framerate = this.config.settings.fps;
@@ -270,27 +271,24 @@
 		}
 
 		// Add a task to just load the assets
-		assets.push(function(done)
-		{
-			Application.instance.load(
-				manifest, 
-				this.onArtLoaded.bind(this, done)
-			);
-		}.bind(this));
+		assets.push({
+			assets: manifest, 
+			complete: this.onArtLoaded.bind(this, done)
+		});
 
-		if(this.config.settings.audioAlias)
+		if (this.config.settings.audioAlias)
 		{
 			this._audioAliases = [this.config.settings.audioAlias];
 			this._audio = [{alias:this.config.settings.audioAlias, start:0, sync:true}];
 		}
-		else if(this.config.settings.audio)
+		else if (this.config.settings.audio)
 		{
 			this._audio = this.config.settings.audio.slice();
 			this._audio.sort(audioSorter);
 			this._audioAliases = [];
-			for(var i = 0, length = this._audio.length; i < length; ++i)
+			for (var i = 0, length = this._audio.length; i < length; ++i)
 			{
-				if(this._audioAliases.indexOf(this._audio[i].alias) == -1)
+				if (this._audioAliases.indexOf(this._audio[i].alias) == -1)
 					this._audioAliases.push(this._audio[i].alias);
 			}
 		}
@@ -331,7 +329,7 @@
 	 */ 
 	p.onArtLoaded = function(done, results)
 	{
-		if(!window.images)
+		if (!window.images)
 			window.images = {};
 		var atlasData = {}, atlasImages = {}, id;
 
@@ -339,7 +337,7 @@
 		for (id in results)
 		{
 			result = results[id].content;
-			if(id.indexOf("atlasData_") === 0)//look for spritesheet data
+			if (id.indexOf("atlasData_") === 0)//look for spritesheet data
 			{
 				atlasData[id.replace("atlasData_", "")] = result;
 			}
@@ -353,17 +351,17 @@
 				
 				//get javascript text
 				var text = result.text;
-				if(!text) continue;
+				if (!text) continue;
 				//split into the initialization functions, that take 'lib' as a parameter
 				var textArray = text.split(/[\(!]function\s*\(/);
 				//go through each initialization function
-				for(var i = 0; i < textArray.length; ++i)
+				for (var i = 0; i < textArray.length; ++i)
 				{
 					text = textArray[i];
-					if(!text) continue;
+					if (!text) continue;
 					//determine what the 'lib' parameter has been minified into
 					var libName = text.substring(0, text.indexOf(","));
-					if(!libName) continue;
+					if (!libName) continue;
 					//get all the things that are 'lib.X = <stuff>'
 					var varFinder = new RegExp("\\(" + libName + ".(\\w+)\\s*=", "g");
 					var foundName = varFinder.exec(text);
@@ -377,7 +375,7 @@
 				
 				//if bitmaps need scaling, then do black magic to the object prototypes so the
 				//scaling is built in
-				if(this.imageScale != 1)
+				if (this.imageScale != 1)
 				{
 					imgScale = this.imageScale;
 					for (key in this.config.images)
@@ -394,7 +392,7 @@
 		}
 		for (id in atlasData)//if we loaded any spritesheets, load them up
 		{
-			if(atlasData[id] && atlasImages[id])
+			if (atlasData[id] && atlasImages[id])
 			{
 				BitmapUtils.loadSpriteSheet(
 					atlasData[id],
@@ -418,7 +416,7 @@
 		//if the animation was for the older ComicCutscene, we should handle it gracefully
 		//so if the clip only has one frame or is a container, then we get the child of the clip
 		//as the animation
-		if(!this._clip.timeline || this._clip.timeline.duration == 1)
+		if (!this._clip.timeline || this._clip.timeline.duration == 1)
 		{
 			clip = this._clip.getChildAt(0);
 		}
@@ -435,7 +433,7 @@
 
 		this.isReady = true;
 
-		if(this._loadCallback)
+		if (this._loadCallback)
 		{
 			this._loadCallback();
 			this._loadCallback = null;
@@ -451,14 +449,14 @@
 	 */ 
 	p.resize = function(width, height)
 	{
-		if(!this._clip) return;
+		if (!this._clip) return;
 
 		var settings = this.config.settings;
 		var designedRatio = settings.designedWidth / settings.designedHeight,
 			currentRatio = width / height,
 			scale;
 
-		if(designedRatio > currentRatio)
+		if (designedRatio > currentRatio)
 		{
 			//current ratio is narrower than the designed ratio, scale to width
 			scale = width / settings.designedWidth;
@@ -486,14 +484,14 @@
 		this._elapsedTime = 0;
 		this._animFinished = false;
 		this._audioFinished = false;
-		for(var i = 0; i < this._audio.length; ++i)
+		for (var i = 0; i < this._audio.length; ++i)
 		{
 			var data = this._audio[i];
-			if(data.start === 0)
+			if (data.start === 0)
 			{
 				var alias = data.alias;
 				var instanceRef = {};
-				if(data.sync)
+				if (data.sync)
 				{
 					var audio = Sound.instance.play(
 						alias,
@@ -502,7 +500,7 @@
 					instanceRef.instance = audio;
 					audio._audioData = data;
 					this._soundStartTime = data.start;
-					if(this._captionsObj)
+					if (this._captionsObj)
 					{
 						this._captionsObj.play(alias);
 					}
@@ -532,20 +530,20 @@
 	p._audioCallback = function(instanceRef)
 	{
 		var index = this._activeSyncAudio.indexOf(instanceRef.instance);
-		if(index != -1)
+		if (index != -1)
 		{
-			if(index === 0)
+			if (index === 0)
 				this._activeSyncAudio.shift();
 			else
 				this._activeSyncAudio.splice(index, 1);
 
-			if(this._activeSyncAudio.length < 1)
+			if (this._activeSyncAudio.length < 1)
 			{
 				this._audioFinished = true;
 				this._soundStartTime = -1;
-				if(this._captionsObj)
+				if (this._captionsObj)
 					this._captionsObj.stop();
-				if(this._animFinished)
+				if (this._animFinished)
 				{
 					this.stop(true);
 				}
@@ -554,7 +552,7 @@
 			{
 				var data = this._activeSyncAudio[0]._audioData;
 				this._soundStartTime = data.start;
-				if(this._captionsObj)
+				if (this._captionsObj)
 				{
 					this._captionsObj.play(data.alias);
 				}
@@ -563,7 +561,7 @@
 		else
 		{
 			index = this._activeAudio.indexOf(instanceRef.instance);
-			if(index != -1)
+			if (index != -1)
 				this._activeAudio.splice(index, 1);
 		}
 	};
@@ -576,20 +574,20 @@
 	 */ 
 	p.update = function(elapsed)
 	{
-		if(this._animFinished) return;
+		if (this._animFinished) return;
 
 		//update the elapsed time first, in case it starts audio
-		if(!this._activeSyncAudio.length)
+		if (!this._activeSyncAudio.length)
 			this._elapsedTime += elapsed * 0.001;
 
-		for(var i = this._audioIndex; i < this._audio.length; ++i)
+		for (var i = this._audioIndex; i < this._audio.length; ++i)
 		{
 			var data = this._audio[i];
-			if(data.start <= this._elapsedTime)
+			if (data.start <= this._elapsedTime)
 			{
 				var alias = data.alias;
 				var instanceRef = {};
-				if(data.sync)
+				if (data.sync)
 				{
 					this._audioFinished = false;
 					var audio = Sound.instance.play(
@@ -599,7 +597,7 @@
 					instanceRef.instance = audio;
 					audio._audioData = data;
 					this._soundStartTime = data.start;
-					if(this._captionsObj)
+					if (this._captionsObj)
 					{
 						this._captionsObj.play(alias);
 					}
@@ -621,12 +619,12 @@
 				break;
 		}
 
-		if(this._activeSyncAudio.length)
+		if (this._activeSyncAudio.length)
 		{
 			var pos = this._activeSyncAudio[0].position * 0.001;
 			//sometimes (at least with the flash plugin), the first check of the
 			//position would be very incorrect
-			if(this._elapsedTime === 0 && pos > elapsed * 2)
+			if (this._elapsedTime === 0 && pos > elapsed * 2)
 			{
 				//do nothing here
 			}
@@ -637,11 +635,11 @@
 			}
 		}
 
-		if(this._captionsObj && this._soundStartTime >= 0)
+		if (this._captionsObj && this._soundStartTime >= 0)
 		{
 			this._captionsObj.seek(this._activeSyncAudio[0].position);
 		}
-		if(!this._animFinished)
+		if (!this._animFinished)
 		{
 			//set the elapsed time of the clip
 			var clip = (!this._clip.timeline || this._clip.timeline.duration == 1) ?
@@ -649,10 +647,10 @@
 				this._clip;
 			clip.elapsedTime = this._elapsedTime;
 			clip.advance();
-			if(clip.currentFrame == clip.timeline.duration)
+			if (clip.currentFrame == clip.timeline.duration)
 			{
 				this._animFinished = true;
-				if(this._audioFinished)
+				if (this._audioFinished)
 				{
 					this.stop(true);
 				}
@@ -669,14 +667,14 @@
 	{
 		Application.instance.off("update", this.update);
 		var i;
-		for(i = 0; i < this._activeSyncAudio.length; ++i)
+		for (i = 0; i < this._activeSyncAudio.length; ++i)
 			this._activeSyncAudio[i].stop();
-		for(i = 0; i < this._activeAudio.length; ++i)
+		for (i = 0; i < this._activeAudio.length; ++i)
 			this._activeAudio[i].stop();
-		if(this._captionsObj)
+		if (this._captionsObj)
 			this._captionsObj.stop();
 
-		if(doCallback && this._endCallback)
+		if (doCallback && this._endCallback)
 		{
 			this._endCallback();
 			this._endCallback = null;
@@ -695,14 +693,14 @@
 		Sound.instance.unload(this._audioAliases);
 		//unload library stuff
 		var i;
-		for(i = this._libItemsToUnload.length - 1; i >= 0; --i)
+		for (i = this._libItemsToUnload.length - 1; i >= 0; --i)
 		{
 			delete lib[this._libItemsToUnload[i]];
 		}
-		for(i = this._imagesToUnload.length - 1; i >= 0; --i)
+		for (i = this._imagesToUnload.length - 1; i >= 0; --i)
 		{
 			var img = this._imagesToUnload[i];
-			if(typeof img == "string")
+			if (typeof img == "string")
 			{
 				images[img].src = "";
 				delete images[img];
@@ -715,7 +713,7 @@
 		this._libItemsToUnload = this._imagesToUnload = this.config = null;
 		this._activeSyncAudio = this._activeAudio = this._audioAliases = this._audio = null;
 		this._loadCallback = this._endCallback = this._clip = this._captionsObj = null;
-		if(this.parent)
+		if (this.parent)
 			this.parent.removeChild(this);
 		this.display = null;
 	};

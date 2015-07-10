@@ -6,6 +6,7 @@
 {
 	var AssetLoad = include('springroll.AssetLoad'),
 		AssetCache = include('springroll.AssetCache'),
+		AssetSizes = include('springroll.AssetSizes'),
 		Task = include('springroll.Task'),
 		Debug;
 	
@@ -38,6 +39,16 @@
 		 * @property {springroll.AssetCache} cache
 		 */
 		this.cache = new AssetCache();
+
+		/**
+		 * Handle multiple asset spritesheets
+		 * @property {springroll.AssetSizes} sizes
+		 */
+		this.sizes = new AssetSizes();
+
+		// Add the default built-in sizes for "half" and "full"
+		this.sizes.define('half', 400, 0.5, ['full']);
+		this.sizes.define('full', 10000, 1, ['half']);
 	};
 
 	// reference to prototype
@@ -133,8 +144,12 @@
 	 */
 	p.destroy = function()
 	{
+		this.sizes.destroy();
+		this.sizes = null;
+
 		this.cache.destroy();
 		this.cache = null;
+
 		this.loads = null;
 		this.taskDefs = null;
 	};

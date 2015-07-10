@@ -18,22 +18,23 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var ColorAlphaTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.color);
 
 		/**
 		 * The atlas color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The atlas alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 	};
 
 	// Reference to prototype

@@ -69,10 +69,10 @@ app.on('init', function(){
 
 	// Lets setup the interface for playing the captions
 	// but we need a button image to create buttons
-	this.loader.load('assets/images/button.png', function(result){
-
+	this.load('assets/images/button.png', function(image)
+	{
 		// Create a play button
-		var playButton = new Button(result.content, {
+		var playButton = new Button(image, {
 			text: 'Play',
 			font: "16px Arial",
 			color: "#ffffff"
@@ -88,7 +88,7 @@ app.on('init', function(){
 		});
 
 		// Create a stop button
-		var stopButton = new Button(result.content, {
+		var stopButton = new Button(image, {
 			text: 'Stop',
 			font: "16px Arial",
 			color: "#ffffff"

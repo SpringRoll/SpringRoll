@@ -613,10 +613,10 @@
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {*} [asset.data] Optional data
-	 * @param {int} [asset.priority=0] The priority
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {Function} [asset.progress] The event to call on load progress
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var FlashArtTask = function(asset)
 	{
@@ -653,11 +653,11 @@
 	 */
 	p.start = function(callback)
 	{
-		LoadTask.prototype.start.call(this, function(result)
+		LoadTask.prototype.start.call(this, function(domElement)
 		{
 			callback(new FlashArt(
 				this.id,
-				result.content, 
+				domElement,
 				this.libName 
 			));
 		}
@@ -922,34 +922,35 @@
 	 * @param {String} [asset.alpha] The alpha image path, if not using image property
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var TextureAtlasTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.atlas);
 
 		/**
 		 * The TextureAtlas data source path
 		 * @property {String} atlas
 		 */
-		this.atlas = asset.atlas;
+		this.atlas = this.filter(asset.atlas);
 
 		/**
 		 * The atlas source path
 		 * @property {String} image
 		 */
-		this.image = asset.image;
+		this.image = this.filter(asset.image);
 
 		/**
 		 * The atlas color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The atlas alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 	};
 
 	// Reference to prototype
@@ -1004,16 +1005,16 @@
 			var image;
 			if (results._image)
 			{
-				image = results._image.content;
+				image = results._image;
 			}
 			else
 			{
 				image = ColorAlphaTask.mergeAlpha(
-					results._color.content,
-					results._alpha.content
+					results._color,
+					results._alpha
 				);
 			}
-			var atlas = new TextureAtlas(image, results._atlas.content);
+			var atlas = new TextureAtlas(image, results._atlas);
 			done(atlas, results);
 		});
 	};
@@ -1051,11 +1052,11 @@
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
-	 * @param {Number} [asset.scale=1] The scale for BitmapUtils.loadSpriteSheet();
+	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
 	var SpritesheetTask = function(asset)
 	{
-		Task.call(this, asset);
+		Task.call(this, asset, asset.src);
 
 		if (!BitmapUtils)
 		{
@@ -1066,31 +1067,31 @@
 		 * The path to the flash asset
 		 * @property {String} src
 		 */
-		this.src = asset.src;
+		this.src = this.filter(asset.src);
 
 		/**
 		 * The spritesheet data source path
 		 * @property {String} spritesheet
 		 */
-		this.spritesheet = asset.spritesheet;
+		this.spritesheet = this.filter(asset.spritesheet);
 
 		/**
 		 * The spritesheet source path
 		 * @property {String} image
 		 */
-		this.image = asset.image;
+		this.image = this.filter(asset.image);
 
 		/**
 		 * The spritesheet color source path
 		 * @property {String} color
 		 */
-		this.color = asset.color;
+		this.color = this.filter(asset.color);
 
 		/**
 		 * The spritesheet alpha source path
 		 * @property {String} alpha
 		 */
-		this.alpha = asset.alpha;
+		this.alpha = this.filter(asset.alpha);
 
 		/**
 		 * The name of the window object library items hang on
@@ -1098,13 +1099,6 @@
 		 * @default 'lib'
 		 */
 		this.libName = asset.libName || 'lib';
-
-		/**
-		 * The scale for the spritesheet
-		 * @property {Number} scale
-		 * @default  1
-		 */
-		this.scale = asset.scale || 1;
 	};
 
 	// Reference to prototype
@@ -1154,21 +1148,21 @@
 
 			if (results._image)
 			{
-				image = results._image.content;
+				image = results._image;
 			}
 			else
 			{
 				image = ColorAlphaTask.mergeAlpha(
-					results._color.content,
-					results._alpha.content
+					results._color,
+					results._alpha
 				);
 			}
 
-			BitmapUtils.loadSpriteSheet(results._spritesheet.content, image, this.scale);
+			BitmapUtils.loadSpriteSheet(results._spritesheet, image, this.original.scale);
 
 			callback(new FlashArt(
 				this.id,
-				results._flash.content,
+				results._flash,
 				this.libName 
 			));
 		}

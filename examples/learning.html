@@ -65,13 +65,13 @@ var app = new Application({
 var buttonImage;
 
 // Load the button
-app.on('loading', function(assets)
+app.once('loading', function(assets)
 {
 	assets.push({
 		src: 'assets/images/button.png', 
-		complete: function(result)
+		complete: function(image)
 		{
-			buttonImage = result.content;
+			buttonImage = image;
 		}
 	});
 });
@@ -83,7 +83,7 @@ app.on('learningEvent', function(data)
 }); 
 
 // Wait until the app is ready
-app.on('init', function()
+app.once('init', function()
 {
 	var learning = this.learning;
 

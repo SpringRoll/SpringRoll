@@ -77,10 +77,6 @@
 				complete: onConfigLoaded.bind(this)
 			});
 		}
-		else if (DEBUG && Debug)
-		{
-			Debug.info("Application option 'configPath' is empty, set to automatically load config JSON (optional).");
-		}
 
 		//Allow extending game to add additional tasks
 		this.trigger('loading', assets);
@@ -101,12 +97,12 @@
 	 *	Callback when the config is loaded
 	 *	@method onConfigLoaded
 	 *	@private
-	 *	@param {springroll.LoaderResult} result The Loader result from the load
+	 *	@param {Object} config The Loader result from the load
 	 *	@param {Array} assets The array to add new load tasks to
 	 */
-	var onConfigLoaded = function(result, assets)
+	var onConfigLoaded = function(config, assets)
 	{
-		var config = this.config = result.content;
+		this.config = config;
 		this.trigger('configLoaded', config, assets);
 	};
 

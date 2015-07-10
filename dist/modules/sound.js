@@ -1407,7 +1407,8 @@
 						id: sound.id, 
 						src: sound.src,
 						complete: this._markLoaded,
-						data: sound
+						data: sound,
+						advanced: true
 					});
 				}
 			}
