@@ -4895,7 +4895,11 @@
 	 */
 	p.delete = function(asset)
 	{
-		var id = asset.id || asset;
+		var id = typeof asset == "string" ? asset : asset.id;
+
+		// If we don't have an ID, stop
+		if (!id) return;
+
 		var result = this._cache[id];
 		if (result)
 		{
@@ -5718,7 +5722,7 @@
 		 */
 		this.unload = function(assets)
 		{
-			if (typeof assets === "string")
+			if (typeof assets == "string")
 			{
 				assets = Array.prototype.slice.call(arguments);
 			}

@@ -171,7 +171,7 @@
 		 */
 		this.unload = function(assets)
 		{
-			if (typeof assets === "string")
+			if (typeof assets == "string")
 			{
 				assets = Array.prototype.slice.call(arguments);
 			}

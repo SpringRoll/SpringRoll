@@ -8,8 +8,7 @@
 	var State = include('springroll.State'),
 		Debug,
 		Application,
-		BasePanel,
-		AssetManager;
+		BasePanel;
 
 	/**
 	 *	Abstract app state class to do some preloading of assets
@@ -21,15 +20,13 @@
 	 *	@param {Object} [options] The options
 	 *	@param {String|Function} [options.next=null] The next state alias or call to next state
 	 *	@param {String|Function} [options.previous=null] The previous state alias or call to
-	 *                                                   previous state
-	 *  @param {Boolean} [options.useManifest=true] Automatically load and unload assets with the
-	 *                                              AssetManager which are found in the manifest
-	 *                                              option or property.
-	 *  @param {Array} [options.manifest=[]] The list of object to load and unload with the
-	 *                                       AssetManager.
-	 *  @param {Object} [options.scaling=null] The scaling items to use with the UIScaler. See
-	 *                                         `UIScaler.addItems` for more information about the
-	 *                                         format of the scaling objects.
+	 *         previous state
+	 *  @param {Boolean} [options.useManifest=true] Automatically load and unload assets 
+	 *         which are found in the manifest option or property.
+	 *  @param {Array} [options.manifest=[]] The list of object to load and unload.
+	 *  @param {Object} [options.scaling=null] The scaling items to use with the ScaleManager. 
+	 *         See `ScaleManager.addItems` for more information about the
+	 *         format of the scaling objects.
 	 */
 	var BaseState = function(panel, options)
 	{
@@ -38,7 +35,6 @@
 			Application = include('springroll.Application');
 			BasePanel = include('springroll.easeljs.BasePanel');
 			Debug = include('springroll.Debug', false);
-			AssetManager = include('springroll.easeljs.AssetManager');
 		}
 
 		if (!(panel instanceof BasePanel))
@@ -125,14 +121,6 @@
 		this.assetsLoaded = false;
 
 		/**
-		 *	The collection of assets preloaded
-		 *	@property {Object} assets
-		 *	@protected
-		 *	@readOnly
-		 */
-		this.assets = null;
-
-		/**
 		 *	If a manifest specific to this state should be automatically loaded by default.
 		 *	@property {Boolean} useManifest
 		 *	@protected
@@ -162,19 +150,19 @@
 		// Boolean to see if we've preloaded assests
 		this.assetsLoaded = false;
 
-		var tasks = [];
+		var assets = [];
 
-		this.addTasks(tasks);
+		this.addTasks(assets);
 
 		if (this.useManifest && this.manifest.length)
 		{
-			tasks = this.manifest.concat(tasks);
+			assets = this.manifest.concat(assets);
 		}
 		
 		// Start loading assets if we have some
 		if (tasks.length)
 		{
-			AssetManager.load(tasks, this._onLoaded.bind(this));
+			this.app.load(assets, this._onLoaded.bind(this));
 		}
 		// No files to load, just continue
 		else
@@ -205,9 +193,8 @@
 		// Clean any assets loaded by the manifest
 		if (this.useManifest && this.manifest.length)
 		{
-			AssetManager.unload(this.manifest);
+			this.app.unload(this.manifest);
 		}
-		this.assets = null;
 		this.assetsLoaded = false;
 	};
 
@@ -239,9 +226,8 @@
 	 *	@method _onLoaded
 	 *	@protected
 	 */
-	p._onLoaded = function(assets)
+	p._onLoaded = function()
 	{
-		this.assets = assets || null;
 		this.assetsLoaded = true;
 		this.panel.setup();
 
@@ -295,7 +281,6 @@
 		this.scaling = null;
 		this.sound = null;
 		this.app = null;
-		this.assets = null;
 
 		this.panel.destroy();
 
