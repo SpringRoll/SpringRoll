@@ -20,6 +20,7 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} asset.spritesheet The TextureAtlas source data
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The spritesheet image path
 	 * @param {String} [asset.color] The spritesheet color image path, if not using image property
 	 * @param {String} [asset.alpha] The spritesheet alpha image path, if not using image property

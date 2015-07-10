@@ -17,6 +17,7 @@
 	 * @class PixiLoadTask
 	 * @constructor
 	 * @param {Array} asset.urls The urls to load using PIXI.AssetLoader
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] The id of the task
 	 * @param {Function} [asset.complete] The callback to call when the load is completed
 	 * @param {Function} [asset.progress] The optional callback to call each time 

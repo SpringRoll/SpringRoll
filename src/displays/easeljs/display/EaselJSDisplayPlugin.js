@@ -19,11 +19,11 @@
 	// Register the tasks
 	plugin.setup = function()
 	{
-		var multiLoader = this.multiLoader;
+		var assetManager = this.assetManager;
 		
-		multiLoader.register('springroll.easeljs.TextureAtlasTask', 30);
-		multiLoader.register('springroll.easeljs.FlashArtTask', 50);
-		multiLoader.register('springroll.easeljs.SpritesheetTask', 60);
+		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
+		assetManager.register('springroll.easeljs.FlashArtTask', 50);
+		assetManager.register('springroll.easeljs.SpritesheetTask', 60);
 	};
 
 }());

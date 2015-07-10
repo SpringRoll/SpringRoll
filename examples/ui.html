@@ -22,7 +22,6 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/ui.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
@@ -43,10 +42,7 @@
 <script>
 
 var Application = include('springroll.Application'),
-	UIScaler = include('springroll.UIScaler'),
 	Button = include('springroll.easeljs.Button'),
-	LoadTask = include('springroll.LoadTask'),
-	TaskManager = include('springroll.TaskManager'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 // Create the new application
@@ -61,45 +57,39 @@ var app = new Application({
 	}
 });
 
-var images = {};
-
-app.on('loading', function(assets)
+app.once('loading', function(assets)
 {
-	assets.push({
-		src: 'assets/images/background.jpg', 
-		complete: onImageLoaded,
-		data: 'background'
-	},{
-		src: 'assets/images/button.png', 
-		complete: onImageLoaded,
-		data: 'button'
-	});
+	assets.push(
+		{
+			id: 'Background',
+			src: 'assets/images/background.jpg',
+			cache: true 
+		},
+		{
+			id: 'Button',
+			src: 'assets/images/button.png',
+			cache: true
+		}
+	);
 });
 
-
-// Callback when an image is loaded
-var onImageLoaded = function(result)
-{
-	images[result.data] = result.content;
-};
-
 // Wait until the app is ready
-app.on('init', function(){
+app.once('init', function(){
 
 	console.log("Main app init");
 	var stage = this.display.stage;
 
 	// Add the background to the stage 
-	var background = new createjs.Bitmap(images.background);
+	var background = new createjs.Bitmap(this.cache('Background'));
 
 	// Create and add some buttons
-	this.playButton = new Button(images.button, {
+	this.playButton = new Button(this.cache('Button'), {
 		text: 'Play',
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 
-	this.closeButton = new Button(images.button, {
+	this.closeButton = new Button(this.cache('Button'), {
 		text: 'Close',
 		font: "16px Arial",
 		color: "#ffffff"

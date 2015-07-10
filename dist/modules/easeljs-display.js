@@ -610,6 +610,7 @@
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {*} [asset.data] Optional data
 	 * @param {int} [asset.priority=0] The priority
@@ -915,6 +916,7 @@
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.atlas The TextureAtlas source data
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The atlas image path
 	 * @param {String} [asset.color] The color image path, if not using image property
 	 * @param {String} [asset.alpha] The alpha image path, if not using image property
@@ -1042,6 +1044,7 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} asset.spritesheet The TextureAtlas source data
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The spritesheet image path
 	 * @param {String} [asset.color] The spritesheet color image path, if not using image property
 	 * @param {String} [asset.alpha] The spritesheet alpha image path, if not using image property
@@ -1197,11 +1200,11 @@
 	// Register the tasks
 	plugin.setup = function()
 	{
-		var multiLoader = this.multiLoader;
+		var assetManager = this.assetManager;
 		
-		multiLoader.register('springroll.easeljs.TextureAtlasTask', 30);
-		multiLoader.register('springroll.easeljs.FlashArtTask', 50);
-		multiLoader.register('springroll.easeljs.SpritesheetTask', 60);
+		assetManager.register('springroll.easeljs.TextureAtlasTask', 30);
+		assetManager.register('springroll.easeljs.FlashArtTask', 50);
+		assetManager.register('springroll.easeljs.SpritesheetTask', 60);
 	};
 
 }());

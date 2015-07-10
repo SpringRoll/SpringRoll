@@ -3723,17 +3723,25 @@
 */
 (function()
 {
+	var Debug;
+
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class Task
 	 * @abstract
 	 * @constructor
 	 * @param {Object} asset The asset data
-	 * @param {String} [asset.id] The task ID
-	 * @param {Function} [asset.complete] Call when complete
+	 * @param {String} [asset.id=null] The task ID
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {Function} [asset.complete=null] Call when complete
 	 */
 	var Task = function(asset)
 	{
+		if (Debug === undefined)
+		{
+			Debug = include("springroll.Debug", false);
+		}
+		
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
@@ -3750,6 +3758,13 @@
 		this.complete = asset.complete || null;
 
 		/**
+		 * If we should cache the load and use later
+		 * @property {Boolean} cache
+		 * @default false
+		 */
+		this.cache = !!asset.cache;
+
+		/**
 		 * The task id
 		 * @property {String} id
 		 */
@@ -3760,6 +3775,16 @@
 		 * @property {Object} originalAsset
 		 */
 		this.originalAsset = asset;
+
+		// Check for ID if we're caching
+		if (this.cache && !this.id)
+		{
+			if (true && Debug)
+			{
+				Debug.error("Caching an asset requires and id, none set", asset);
+			}
+			this.cache = false;
+		}
 	};
 
 	// Reference to prototype
@@ -3830,11 +3855,12 @@
 	var Task = include('springroll.Task');
 
 	/**
-	 * Internal class for dealing with async function calls with MultiLoader.
+	 * Internal class for dealing with async function calls with AssetManager.
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Object} asset The data properties
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} asset.async The required function to call
 	 * @param {Function} [asset.complete] The function to call when we're done
 	 * @param {String} [asset.id] The task id for mapping the result, if any
@@ -3906,6 +3932,7 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.color The source path to the color image
 	 * @param {String} asset.alpha The source path to the alpha image
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
 	 */
@@ -4015,6 +4042,7 @@
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {*} [asset.data=null] Optional data
 	 * @param {Function} [asset.complete=null] The event to call when done
@@ -4087,607 +4115,6 @@
 
 	// Assign to namespace
 	namespace('springroll').LoadTask = LoadTask;
-
-}());
-/**
-*  @module Core
-*  @namespace springroll
-*/
-(function()
-{
-	var Debug,
-		MultiLoader,
-		Task = include('springroll.Task'),
-		EventDispatcher = include('springroll.EventDispatcher');
-
-	/**
-	 * Class that represents a single multi load
-	 * @class MultiLoaderResult
-	 * @extends springroll.EventDispatcher
-	 * @constructor
-	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} [complete=null] Function call when done, returns results
-	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
-	 */
-	var MultiLoaderResult = function(assets, complete, parallel)
-	{
-		EventDispatcher.call(this);
-
-		if (!MultiLoader)
-		{
-			MultiLoader = include('springroll.MultiLoader');
-		}
-
-		if (true)
-		{
-			Debug = include('springroll.Debug', false);
-		}
-
-		/**
-		 * Handler when completed with all tasks
-		 * @property {function} complete
-		 * @default  null
-		 */
-		this.complete = complete || null;
-
-		/**
-		 * How to display the results, either as single (0), map (1) or list (2)
-		 * @property {int} mode
-		 * @default 1
-		 */
-		this.mode = MAP_MODE;
-
-		/**
-		 * If we should run the tasks in parallel (true) or serial (false)
-		 * @property {Boolean} parallel
-		 * @default false
-		 */
-		this.parallel = !!parallel;
-
-		/**
-		 * The list of tasks to load
-		 * @property {Array} tasks
-		 */
-		this.tasks = [];
-
-		/**
-		 * The results to return when we're done
-		 * @property {springroll.LoaderResult|Array|Object} results
-		 */
-		this.results = null;
-
-		// Update the results mode and tasks
-		this.mode = this.addTasks(assets);
-
-		// Set the default container for the results
-		this.results = getAssetsContainer(this.mode);
-
-		// Start running
-		this.nextTask();
-	};
-
-	// Reference to prototype
-	var s = EventDispatcher.prototype;
-	var p = extend(MultiLoaderResult, EventDispatcher);
-
-	/**
-	 * The result is a single LoaderResult
-	 * @property {int} SINGLE_MODE
-	 * @private
-	 * @final
-	 * @static
-	 * @default 0
-	 */
-	var SINGLE_MODE = 0;
-
-	/**
-	 * The result is a map of LoaderResult objects
-	 * @property {int} MAP_MODE
-	 * @private
-	 * @final
-	 * @static
-	 * @default 1
-	 */
-	var MAP_MODE = 1;
-
-	/**
-	 * The result is an array of LoaderResult objects
-	 * @property {int} LIST_MODE
-	 * @private
-	 * @final
-	 * @static
-	 * @default 2
-	 */
-	var LIST_MODE = 2;
-
-	/**
-	 * When all events are completed
-	 * @event complete
-	 */
-		
-	/**
-	 * When the loader result has been destroyed
-	 * @event destroyed
-	 */
-	
-	/**
-	 * When a task is finished
-	 * @event progress
-	 * @param {springroll.LoaderResult|*} result The load result
-	 * @param {Object} originalAsset The original asset loaded
-	 * @param {Array} assets The object collection to add new assets to.
-	 */
-
-	/**
-	 * Create a list of tasks from assets
-	 * @method  addTasks
-	 * @private
-	 * @param  {Object|Array} assets The assets to load
-	 */
-	p.addTasks = function(assets)
-	{
-		if (this.destroyed)
-		{
-			if (true && Debug)
-			{
-				Debug.warn("MultiLoaderResult is already destroyed");
-			}
-			return;
-		}
-		
-		var asset;
-		var mode = MAP_MODE;
-
-		// Apply the defaults incase this is a single 
-		// thing that we're trying to load
-		assets = applyDefaults(assets);
-
-		// Check for a task definition on the asset
-		var isSingle = getTaskByAsset(assets);
-
-		if (isSingle)
-		{
-			this.addTask(assets);
-			return SINGLE_MODE;
-		}
-		else
-		{
-			if (Array.isArray(assets))
-			{
-				for (var i = 0; i < assets.length; i++)
-				{
-					asset = applyDefaults(assets[i]);
-
-					if (!asset.id)
-					{
-						// If we don't have the id to return
-						// a mapped result, we'll fallback to array results
-						mode = LIST_MODE;
-					}
-					this.addTask(asset);
-				}
-			}
-			else if (isObject(assets))
-			{
-				for(var id in assets)
-				{
-					asset = applyDefaults(assets[id]);
-
-					if (!asset.id)
-					{
-						asset.id = id;
-					}
-					this.addTask(asset);
-				}
-			}
-			else if (true && Debug)
-			{
-				Debug.error("Asset type unsupported", asset);
-			}
-		}
-		return mode;
-	};
-
-	/**
-	 * Convert assets into object defaults
-	 * @method applyDefaults
-	 * @private
-	 * @static
-	 * @param  {*} asset The function to convert
-	 * @return {Object} The object asset to use
-	 */
-	function applyDefaults(asset)
-	{
-		// convert to a LoadTask
-		if (isString(asset))
-		{
-			return { src: asset };
-		}
-		// convert to a FunctionTask
-		else if (isFunction(asset))
-		{
-			return { async: asset };
-		}
-		return asset;
-	}
-
-	/**
-	 * Load a single asset
-	 * @method addTask
-	 * @private
-	 * @param {Object} asset The asset to load, 
-	 *        can either be an object, URL/path, or async function.
-	 */
-	p.addTask = function(asset)
-	{
-		var TaskClass = getTaskByAsset(asset);
-		if (TaskClass)
-		{
-			this.tasks.push(new TaskClass(asset));
-		}
-		else if (true && Debug)
-		{
-			Debug.error("Unable to find a task definitation for asset", asset);
-		}
-	};
-
-	/**
-	 * Get the Task definition for an asset
-	 * @method  getTaskByAsset
-	 * @private
-	 * @static
-	 * @param  {Object} asset The asset to check
-	 * @return {Function} The Task class
-	 */
-	function getTaskByAsset(asset)
-	{
-		var TaskClass;
-		var taskDefs = MultiLoader.taskDefs;
-
-		// Loop backwards to get the registered tasks first
-		// then will default to the basic Loader task
-		for (var i = 0, len = taskDefs.length; i < len; i++)
-		{
-			TaskClass = taskDefs[i];
-			if (TaskClass.test(asset))
-			{
-				return TaskClass;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Run the next task that's waiting
-	 * @method  nextTask
-	 * @private
-	 */
-	p.nextTask = function()
-	{
-		var tasks = this.tasks;
-		for (var i = 0; i < tasks.length; i++)
-		{
-			var task = tasks[i];
-			if (task.status === Task.WAITING)
-			{
-				task.status = Task.RUNNING;
-				task.start(this.taskDone.bind(this, task));
-				
-				// If we aren't running in parallel, then stop
-				if (!this.parallel) return;
-			}
-		}
-	};
-
-	/**
-	 * Handler when a task has completed
-	 * @method  taskDone
-	 * @private
-	 * @param  {springroll.Task} task Reference to original task
-	 * @param  {*} [result] The result of load
-	 */
-	p.taskDone = function(task, result)
-	{
-		// Ignore if we're destroyed
-		if (this.destroyed) return;
-
-		// Default to null
-		result = result || null;
-
-		var index = this.tasks.indexOf(task);
-
-		// Task was already removed, because a clear
-		if (index === -1)
-		{
-			return;
-		}
-
-		// Remove the completed task
-		this.tasks.splice(index, 1);
-
-		// Assets
-		var additionalAssets = [];
-
-		// Handle the file load tasks
-		if (result)
-		{
-			// Handle the result
-			switch(this.mode)
-			{
-				case SINGLE_MODE: this.results = result; break;
-				case LIST_MODE: this.results.push(result); break;
-				case MAP_MODE: this.results[task.id] = result; break;
-			}
-		}
-
-		// If the task has a complete method
-		// we'll make sure that gets called
-		// with a reference to the tasks
-		// can potentially add more
-		if (task.complete)
-		{
-			task.complete(result, task.originalAsset, additionalAssets);
-		}
-		this.trigger('progress', result, task.originalAsset, additionalAssets);
-
-		task.destroy();
-
-		// Add new assets to the things to load
-		var mode = this.addTasks(additionalAssets);
-
-		// Check to make sure if we're in 
-		// map mode, we keep it that way
-		if (this.mode === MAP_MODE && mode !== this.mode)
-		{
-			if (true && Debug)
-			{
-				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
-			}
-			throw "Assets require IDs";
-		}
-
-		if (this.tasks.length)
-		{
-			// Run the next task
-			this.nextTask();
-		}
-		else
-		{
-			// We're finished!
-			if (this.complete)
-			{
-				this.complete(this.results);
-			}
-			this.trigger('complete', this.results);
-		}
-	};
-
-	/**
-	 * Get an empty assets collection
-	 * @method getAssetsContainer
-	 * @private
-	 * @param {int} mode The mode
-	 * @return {Array|Object|null} Empty container for assets 
-	 */
-	var getAssetsContainer = function(mode)
-	{
-		switch(mode)
-		{
-			case SINGLE_MODE: return null;
-			case LIST_MODE: return [];
-			case MAP_MODE: return {};
-		}
-	};
-
-	/**
-	 * Destroy this and discard
-	 * @method destroy
-	 */
-	p.destroy = function()
-	{
-		this.trigger('destroyed');
-		this.tasks.forEach(function(task)
-		{
-			task.status = Task.FINISHED;
-			task.destroy();
-		});
-		this.results = null;
-		this.complete = null;
-		this.tasks = null;
-		s.destroy.call(this);
-	};
-
-	/**
-	 * Check if an object is an Object type
-	 * @method isObject
-	 * @private
-	 * @param  {*}  obj The object
-	 * @return {Boolean} If it's an Object
-	 */
-	function isObject(obj)
-	{
-		return typeof obj == "object";
-	}
-
-	/**
-	 * Check if an object is an String type
-	 * @method isString
-	 * @private
-	 * @param  {*}  obj The object
-	 * @return {Boolean} If it's an String
-	 */
-	function isString(obj)
-	{
-		return typeof obj == "string";
-	}
-
-	/**
-	 * Check if an object is an function type
-	 * @method isFunction
-	 * @private
-	 * @param  {*}  obj The object
-	 * @return {Boolean} If it's an function
-	 */
-	function isFunction(obj)
-	{
-		return typeof obj == "function";
-	}
-
-	// Assign to namespace
-	namespace('springroll').MultiLoaderResult = MultiLoaderResult;
-
-}());
-/**
-*  @module Core
-*  @namespace springroll
-*/
-(function(undefined)
-{
-	var MultiLoaderResult = include('springroll.MultiLoaderResult'),
-		Task = include('springroll.Task'),
-		Debug;
-	
-	/**
-	 * Handle the asynchronous loading of multiple assets.
-	 * @class MultiLoader
-	 * @constructor
-	 */
-	var MultiLoader = function()
-	{
-		if (true)
-		{
-			Debug = include('springroll.Debug', false);
-		}
-
-		/**
-		 * The collection of current multiloads
-		 * @property {Array} loads
-		 */
-		this.loads = [];
-	};
-
-	// reference to prototype
-	var p = MultiLoader.prototype;
-
-	/**
-	 * Register new tasks types, these tasks must extend Task
-	 * @method register
-	 * @private
-	 * @param {Function|String} TaskClass The class task reference
-	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *        are tested first. More general Tasks should be lower
-	 *        and more specific tasks should be higher.
-	 */
-	p.register = function(TaskClass, priority)
-	{
-		if (typeof TaskClass == "string")
-		{
-			TaskClass = include(TaskClass);
-		}
-
-		TaskClass.priority = priority || 0;
-
-		if (true && Debug)
-		{
-			if (!(TaskClass.prototype instanceof Task))
-			{
-				Debug.error("Registering task much extend Task", TaskClass);
-			}
-			else if (!TaskClass.test)
-			{
-				Debug.error("Registering task much have test method");
-			}
-		}
-		_taskDefs.push(TaskClass);
-
-		// Sort definitions by priority
-		// where the higher priorities are first
-		_taskDefs.sort(function(a, b)
-		{
-			return b.priority - a.priority;
-		});
-	};
-
-	/**
-	 * The collection of task definitions
-	 * @property {Array} _taskDefs
-	 * @static
-	 * @private
-	 */
-	var _taskDefs = [];
-
-	/**
-	 * The collection of task definitions
-	 * @property {Array} taskDefs
-	 * @static
-	 * @readOnly
-	 */
-	Object.defineProperty(MultiLoader, "taskDefs",
-	{
-		get: function()
-		{
-			return _taskDefs;
-		}
-	});
-
-	/**
-	 * Load a bunch of assets, can only call one load at a time
-	 * @method load
-	 * @param {Object|Array} asset The assets to load
-	 * @param {function} [complete] The function when finished
-	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
-	 * @return {springroll.MultiLoaderResult} The reference to the current load
-	 */
-	p.load = function(assets, complete, startAll)
-	{	
-		var result = new MultiLoaderResult(
-			assets, 
-			complete,
-			(startAll === undefined ? true : !!startAll)
-		);
-
-		// Add to the stack of current loads
-		this.loads.push(result);
-
-		// Handle the destroyed event
-		result.once(
-			'complete',
-			this._onLoaded.bind(this, result)
-		);
-
-		return result;
-	};
-
-	/**
-	 * Handler when a load is finished
-	 * @method _onLoaded
-	 * @private
-	 * @param {springroll.MultiLoaderResult} result The current load
-	 */
-	p._onLoaded = function(result)
-	{
-		var index = this.loads.indexOf(result);
-		if (index > -1)
-		{
-			this.loads.splice(index, 1);
-		}
-		result.destroy();
-	};
-
-	/**
-	 * Destroy the Multiloader
-	 * @method destroy
-	 */
-	p.destroy = function()
-	{
-		this.loads = null;
-
-		// Unregister all task definitions
-		_taskDefs.length = 0;
-	};
-
-	// Assign to namespace
-	namespace('springroll').MultiLoader = MultiLoader;
 
 }());
 /**
@@ -5249,7 +4676,9 @@
 		loader.addEventListener("fileprogress", qi._progress);
 		
 		// Load the file, format the URL
-		loader.loadFile(this.cacheManager.prepare(qi.url));
+		var url = this.cacheManager.prepare(qi.url);
+		loader.loadFile(qi.data && qi.data.id ? 
+			{id:qi.data.id, src:url, data:qi.data} : url);
 	};
 	
 	/**
@@ -5399,200 +4828,577 @@
 	namespace('springroll').Loader = Loader;
 	
 }());
-/**
-*  @module Core
-*  @namespace springroll
-*/
 (function(undefined)
 {
-	var Application = include('springroll.Application'),
-		LoaderResult = include('springroll.LoaderResult'),
-		Debug;
+	var Debug;
 
 	/**
-	 * Class for managing the loading and unloading of assets.
-	 * @class AssetManager
-	 * @static
+	 * Remember the assets loaded by the AssetManager
+	 * @class AssetCache
 	 */
-	var AssetManager = {};
-	
-	/**
-	*  Array of asset objects that have been loaded by AssetManager.
-	*  @property {Object} _loadedAssets
-	*  @private
-	*  @static
-	*/
-	var _loadedAssets = null;
-
-	/**
-	 * Intializes AssetManager.
-	 * @method init
-	 * @static
-	 * @param {springroll.Application} app
-	 */
-	AssetManager.init = function(app)
+	var AssetCache = function()
 	{
 		if (Debug === undefined)
 		{
 			Debug = include('springroll.Debug', false);
 		}
-		_loadedAssets = {};
+
+		/**
+		 * The cache containing assets
+		 * @property {Object} _cache
+		 * @private
+		 */
+		this._cache = {};
 	};
 
-	/**
-	*  Load a collection of assets for the MultiLoader and remembers the results
-	*  so that it's possible to unload those assets later. 
-	*  @method load
-	*  @static
-	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Array} assetList An array to add assets for loading. 
-	*        If omitted, loads immediately with an internal load.
-	*/
-	/**
-	*  Load a collection of assets for the MultiLoader and remembers the results
-	*  so that it's possible to unload those assets later. 
-	*  @method load
-	*  @static
-	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Function} callback A function to call when load is complete
-	*  @param {Array} [assetList] An array to add assets for loading. 
-	*        If omitted, loads immediately with an internal load.
-	*/
-	AssetManager.load = function(assets, callback, assetList)
-	{
-		// 2nd argument support the array
-		if (Array.isArray(callback))
-		{
-			assetList = callback;
-			callback = null;
-		}
-
-		if (assets && assets.length)
-		{
-			var asset;
-
-			// Check the assets for valid IDs
-			for (var i = 0; i < assets.length; i++)
-			{
-				asset = assets[i];
-				if (!asset.id)
-				{
-					if (true && Debug)
-					{
-						Debug.error("Each asset passed to the AssetManager.load must have an id", asset);
-						return;
-					}
-					else
-					{
-						throw "asset missing id";
-					}
-				}
-			}
-
-			if (assetList)
-			{
-				// Add to the list of tasks already in progress
-				assetList.push({
-					async: onLoaded.bind(null, assets),
-					complete: callback
-				});
-			}
-			else
-			{
-				// Do the load directly
-				onLoaded(assets, callback);
-			}
-		}
-		else if (callback)
-		{
-			setTimeout(callback, 0);
-		}	
-	};
+	// Reference to the prototype
+	var p = AssetCache.prototype;
 
 	/**
-	 * Handle the asset load
-	 * @method  onLoaded
-	 * @static
-	 * @private
-	 * @param  {Array}   assets   Collection of assets to load
-	 * @param  {Function} done Callback when completed
+	 * Remove a single asset from the cache
+	 * @method read
+	 * @param {String} id The asset to remove
 	 */
-	var onLoaded = function(assets, done)
+	p.read = function(id)
 	{
-		// Load the assets thru the multiloader
-		Application.instance.load(assets, function(results)
+		if (true && Debug && !this._cache[id])
 		{
-			var result;
-			for (var id in results)
+			Debug.warn("AssetCache: no asset matching id: '" + id + "'");
+		}
+		return this._cache[id] || null;
+	};
+
+	/**
+	 * Remove a single asset from the cache
+	 * @method write
+	 * @param {String} id The asset to remove
+	 * @param {*} content The asset content to save
+	 */
+	p.write = function(id, content)
+	{
+		if (this._cache[id])
+		{
+			if (true && Debug)
 			{
-				result = results[id];
-				_loadedAssets[id] = result instanceof LoaderResult ? result.content : result;
+				Debug.warn("AssetCache: overwriting existing asset: '" + id + "'");
 			}
-			if (done) done(results);
-		});
+			// Remove it first
+			this.delete(id);
+		}
+		this._cache[id] = content;
 	};
 
 	/**
-	*  Get an asset by ID
-	*  @method get
-	*  @static
-	*  @param {String} id The id of the asset to get
-	*  @return {*} The asset returned from load
-	*/
-	AssetManager.get = function(id)
+	 * Remove a single asset from the cache
+	 * @method delete
+	 * @param {Object|String} asset The asset to remove
+	 */
+	p.delete = function(asset)
 	{
-		if (true && Debug && !_loadedAssets[id])
+		var id = asset.id || asset;
+		var result = this._cache[id];
+		if (result)
 		{
-			Debug.error("AssetManager: no asset matching id: '" + id + "'");
-		}
-		return _loadedAssets[id];
-	};
-
-	/**
-	*  Unload an asset or list of assets.
-	*  @method unload
-	*  @static
-	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id. As an
-	*         array, it can be a manifest with {id:"", src:""} objects.
-	*/
-	AssetManager.unload = function(assets)
-	{
-		if (typeof assets === "string")
-		{
-			assets = Array.prototype.slice.call(arguments);
-		}
-		assets.forEach(function(asset)
-		{
-			var id = asset.id || asset;
-			var result = _loadedAssets[id];
 			if (result.destroy)
 			{
 				result.destroy();
 			}
-			delete _loadedAssets[id];
-		});
+			delete this._cache[id];
+		}
 	};
 
 	/**
-	*  Unloads all assets loaded by AssetManager.
-	*  @method unloadAll
-	*  @static
-	*/
-	AssetManager.unloadAll = function()
+	 * Remove all assets from the cache
+	 * @method empty
+	 */
+	p.empty = function()
 	{
-		for(var id in _loadedAssets)
+		for(var id in this._cache)
 		{
-			var result = _loadedAssets[id];
-			if (result.destroy)
-			{
-				result.destroy();
-			}
-			delete _loadedAssets[id];
+			this.delete(id);
 		}
+	};
+
+	/**
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.empty();
+		this._cache = null;
 	};
 
 	// Assign to namespace
-	namespace("springroll").AssetManager = AssetManager;
+	namespace('springroll').AssetCache = AssetCache;
+
+}());
+/**
+*  @module Core
+*  @namespace springroll
+*/
+(function()
+{
+	var Debug,
+		AssetManager,
+		Task = include('springroll.Task'),
+		LoaderResult = include('springroll.LoaderResult'),
+		EventDispatcher = include('springroll.EventDispatcher');
+
+	/**
+	 * Class that represents a single multi load
+	 * @class AssetLoad
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Function} [complete=null] Function call when done, returns results
+	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 */
+	var AssetLoad = function(manager, assets, complete, parallel)
+	{
+		EventDispatcher.call(this);
+
+		if (!AssetManager)
+		{
+			AssetManager = include('springroll.AssetManager');
+		}
+
+		if (true)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * Reference to the Task Manager
+		 * @property {springroll.AssetManager} manager
+		 */
+		this.manager = manager;
+
+		/**
+		 * Handler when completed with all tasks
+		 * @property {function} complete
+		 * @default  null
+		 */
+		this.complete = complete || null;
+
+		/**
+		 * How to display the results, either as single (0), map (1) or list (2)
+		 * @property {int} mode
+		 * @default 1
+		 */
+		this.mode = MAP_MODE;
+
+		/**
+		 * If we should run the tasks in parallel (true) or serial (false)
+		 * @property {Boolean} parallel
+		 * @default false
+		 */
+		this.parallel = !!parallel;
+
+		/**
+		 * The list of tasks to load
+		 * @property {Array} tasks
+		 */
+		this.tasks = [];
+
+		/**
+		 * The results to return when we're done
+		 * @property {springroll.LoaderResult|Array|Object} results
+		 */
+		this.results = null;
+
+		// Update the results mode and tasks
+		this.mode = this.addTasks(assets);
+
+		// Set the default container for the results
+		this.results = getAssetsContainer(this.mode);
+
+		// Start running
+		this.nextTask();
+	};
+
+	// Reference to prototype
+	var s = EventDispatcher.prototype;
+	var p = extend(AssetLoad, EventDispatcher);
+
+	/**
+	 * The result is a single result
+	 * @property {int} SINGLE_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 0
+	 */
+	var SINGLE_MODE = 0;
+
+	/**
+	 * The result is a map of result objects
+	 * @property {int} MAP_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 1
+	 */
+	var MAP_MODE = 1;
+
+	/**
+	 * The result is an array of result objects
+	 * @property {int} LIST_MODE
+	 * @private
+	 * @final
+	 * @static
+	 * @default 2
+	 */
+	var LIST_MODE = 2;
+
+	/**
+	 * When all events are completed
+	 * @event complete
+	 */
+		
+	/**
+	 * When the loader result has been destroyed
+	 * @event destroyed
+	 */
+	
+	/**
+	 * When a task is finished
+	 * @event progress
+	 * @param {springroll.LoaderResult|*} result The load result
+	 * @param {Object} originalAsset The original asset loaded
+	 * @param {Array} assets The object collection to add new assets to.
+	 */
+
+	/**
+	 * Create a list of tasks from assets
+	 * @method  addTasks
+	 * @private
+	 * @param  {Object|Array} assets The assets to load
+	 */
+	p.addTasks = function(assets)
+	{
+		if (this.destroyed)
+		{
+			if (true && Debug)
+			{
+				Debug.warn("AssetLoad is already destroyed");
+			}
+			return;
+		}
+		
+		var asset;
+		var mode = MAP_MODE;
+
+		// Apply the defaults incase this is a single 
+		// thing that we're trying to load
+		assets = applyDefaults(assets);
+
+		// Check for a task definition on the asset
+		var isSingle = this.getTaskByAsset(assets);
+
+		if (isSingle)
+		{
+			this.addTask(assets);
+			return SINGLE_MODE;
+		}
+		else
+		{
+			if (Array.isArray(assets))
+			{
+				for (var i = 0; i < assets.length; i++)
+				{
+					asset = applyDefaults(assets[i]);
+
+					if (!asset.id)
+					{
+						// If we don't have the id to return
+						// a mapped result, we'll fallback to array results
+						mode = LIST_MODE;
+					}
+					this.addTask(asset);
+				}
+			}
+			else if (isObject(assets))
+			{
+				for(var id in assets)
+				{
+					asset = applyDefaults(assets[id]);
+
+					if (!asset.id)
+					{
+						asset.id = id;
+					}
+					this.addTask(asset);
+				}
+			}
+			else if (true && Debug)
+			{
+				Debug.error("Asset type unsupported", asset);
+			}
+		}
+		return mode;
+	};
+
+	/**
+	 * Convert assets into object defaults
+	 * @method applyDefaults
+	 * @private
+	 * @static
+	 * @param  {*} asset The function to convert
+	 * @return {Object} The object asset to use
+	 */
+	function applyDefaults(asset)
+	{
+		// convert to a LoadTask
+		if (isString(asset))
+		{
+			return { src: asset };
+		}
+		// convert to a FunctionTask
+		else if (isFunction(asset))
+		{
+			return { async: asset };
+		}
+		return asset;
+	}
+
+	/**
+	 * Load a single asset
+	 * @method addTask
+	 * @private
+	 * @param {Object} asset The asset to load, 
+	 *        can either be an object, URL/path, or async function.
+	 */
+	p.addTask = function(asset)
+	{
+		var TaskClass = this.getTaskByAsset(asset);
+		if (TaskClass)
+		{
+			this.tasks.push(new TaskClass(asset));
+		}
+		else if (true && Debug)
+		{
+			Debug.error("Unable to find a task definitation for asset", asset);
+		}
+	};
+
+	/**
+	 * Get the Task definition for an asset
+	 * @method  getTaskByAsset
+	 * @private
+	 * @static
+	 * @param  {Object} asset The asset to check
+	 * @return {Function} The Task class
+	 */
+	p.getTaskByAsset = function(asset)
+	{
+		var TaskClass;
+		var taskDefs = this.manager.taskDefs;
+
+		// Loop backwards to get the registered tasks first
+		// then will default to the basic Loader task
+		for (var i = 0, len = taskDefs.length; i < len; i++)
+		{
+			TaskClass = taskDefs[i];
+			if (TaskClass.test(asset))
+			{
+				return TaskClass;
+			}
+		}
+		return null;
+	};
+
+	/**
+	 * Run the next task that's waiting
+	 * @method  nextTask
+	 * @private
+	 */
+	p.nextTask = function()
+	{
+		var tasks = this.tasks;
+		for (var i = 0; i < tasks.length; i++)
+		{
+			var task = tasks[i];
+			if (task.status === Task.WAITING)
+			{
+				task.status = Task.RUNNING;
+				task.start(this.taskDone.bind(this, task));
+				
+				// If we aren't running in parallel, then stop
+				if (!this.parallel) return;
+			}
+		}
+	};
+
+	/**
+	 * Handler when a task has completed
+	 * @method  taskDone
+	 * @private
+	 * @param  {springroll.Task} task Reference to original task
+	 * @param  {*} [result] The result of load
+	 */
+	p.taskDone = function(task, result)
+	{
+		// Ignore if we're destroyed
+		if (this.destroyed) return;
+
+		// Default to null
+		result = result || null;
+
+		var index = this.tasks.indexOf(task);
+
+		// Task was already removed, because a clear
+		if (index === -1)
+		{
+			return;
+		}
+
+		// Remove the completed task
+		this.tasks.splice(index, 1);
+
+		// Assets
+		var additionalAssets = [];
+
+		// Handle the file load tasks
+		if (result)
+		{
+			// Handle the result
+			switch(this.mode)
+			{
+				case SINGLE_MODE: this.results = result; break;
+				case LIST_MODE: this.results.push(result); break;
+				case MAP_MODE: this.results[task.id] = result; break;
+			}
+
+			// Should we cache the task?
+			if (task.cache)
+			{
+				this.manager.cache.write(
+					task.id, 
+					(result instanceof LoaderResult) ? 
+						result.content : 
+						result
+				);
+			}
+		}
+
+		// If the task has a complete method
+		// we'll make sure that gets called
+		// with a reference to the tasks
+		// can potentially add more
+		if (task.complete)
+		{
+			task.complete(result, task.originalAsset, additionalAssets);
+		}
+		this.trigger('progress', result, task.originalAsset, additionalAssets);
+
+		task.destroy();
+
+		// Add new assets to the things to load
+		var mode = this.addTasks(additionalAssets);
+
+		// Check to make sure if we're in 
+		// map mode, we keep it that way
+		if (this.mode === MAP_MODE && mode !== this.mode)
+		{
+			if (true && Debug)
+			{
+				Debug.error("Load assets require IDs to return mapped results", additionalAssets);
+			}
+			throw "Assets require IDs";
+		}
+
+		if (this.tasks.length)
+		{
+			// Run the next task
+			this.nextTask();
+		}
+		else
+		{
+			// We're finished!
+			if (this.complete)
+			{
+				this.complete(this.results);
+			}
+			this.trigger('complete', this.results);
+		}
+	};
+
+	/**
+	 * Get an empty assets collection
+	 * @method getAssetsContainer
+	 * @private
+	 * @param {int} mode The mode
+	 * @return {Array|Object|null} Empty container for assets 
+	 */
+	var getAssetsContainer = function(mode)
+	{
+		switch(mode)
+		{
+			case SINGLE_MODE: return null;
+			case LIST_MODE: return [];
+			case MAP_MODE: return {};
+		}
+	};
+
+	/**
+	 * Destroy this and discard
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.trigger('destroyed');
+		this.tasks.forEach(function(task)
+		{
+			task.status = Task.FINISHED;
+			task.destroy();
+		});
+		this.results = null;
+		this.complete = null;
+		this.tasks = null;
+		this.manager = null;
+		s.destroy.call(this);
+	};
+
+	/**
+	 * Check if an object is an Object type
+	 * @method isObject
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an Object
+	 */
+	function isObject(obj)
+	{
+		return typeof obj == "object";
+	}
+
+	/**
+	 * Check if an object is an String type
+	 * @method isString
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an String
+	 */
+	function isString(obj)
+	{
+		return typeof obj == "string";
+	}
+
+	/**
+	 * Check if an object is an function type
+	 * @method isFunction
+	 * @private
+	 * @param  {*}  obj The object
+	 * @return {Boolean} If it's an function
+	 */
+	function isFunction(obj)
+	{
+		return typeof obj == "function";
+	}
+
+	// Assign to namespace
+	namespace('springroll').AssetLoad = AssetLoad;
+
 }());
 /**
 *  @module Core
@@ -5600,28 +5406,143 @@
 */
 (function(undefined)
 {
-	// Import classes
-	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
-		AssetManager = include('springroll.AssetManager');
+	var AssetLoad = include('springroll.AssetLoad'),
+		AssetCache = include('springroll.AssetCache'),
+		Task = include('springroll.Task'),
+		Debug;
+	
+	/**
+	 * Handle the asynchronous loading of multiple assets.
+	 * @class AssetManager
+	 * @constructor
+	 */
+	var AssetManager = function()
+	{
+		if (true)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
+		/**
+		 * The collection of current multiloads
+		 * @property {Array} loads
+		 */
+		this.loads = [];
+
+		/**
+		 * The collection of task definitions
+		 * @property {Array} taskDefs
+		 */
+		this.taskDefs = [];
+
+		/**
+		 * The cache of assets
+		 * @property {springroll.AssetCache} cache
+		 */
+		this.cache = new AssetCache();
+	};
+
+	// reference to prototype
+	var p = AssetManager.prototype;
 
 	/**
-	 *	Initialize the AssetManager
-	 *	@class AssetManagerPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Register new tasks types, these tasks must extend Task
+	 * @method register
+	 * @private
+	 * @param {Function|String} TaskClass The class task reference
+	 * @param {int} [priority=0] The priority, higher prioity tasks
+	 *        are tested first. More general Tasks should be lower
+	 *        and more specific tasks should be higher.
 	 */
-	var plugin = new ApplicationPlugin();
-
-	// Initialize the plugin
-	plugin.setup = function()
+	p.register = function(TaskClass, priority)
 	{
-		AssetManager.init();
+		if (typeof TaskClass == "string")
+		{
+			TaskClass = include(TaskClass);
+		}
+
+		TaskClass.priority = priority || 0;
+
+		if (true && Debug)
+		{
+			if (!(TaskClass.prototype instanceof Task))
+			{
+				Debug.error("Registering task much extend Task", TaskClass);
+			}
+			else if (!TaskClass.test)
+			{
+				Debug.error("Registering task much have test method");
+			}
+		}
+		this.taskDefs.push(TaskClass);
+
+		// Sort definitions by priority
+		// where the higher priorities are first
+		this.taskDefs.sort(function(a, b)
+		{
+			return b.priority - a.priority;
+		});
 	};
 
-	// clean up
-	plugin.teardown = function()
-	{
-		AssetManager.unloadAll();
+	/**
+	 * Load a bunch of assets, can only call one load at a time
+	 * @method load
+	 * @param {Object|Array} asset The assets to load
+	 * @param {function} [complete] The function when finished
+	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
+	 * @return {springroll.AssetLoad} The reference to the current load
+	 */
+	p.load = function(assets, complete, startAll)
+	{	
+		var result = new AssetLoad(
+			this,
+			assets, 
+			complete,
+			(startAll === undefined ? true : !!startAll)
+		);
+
+		// Add to the stack of current loads
+		this.loads.push(result);
+
+		// Handle the destroyed event
+		result.once(
+			'complete',
+			this._onLoaded.bind(this, result)
+		);
+
+		return result;
 	};
+
+	/**
+	 * Handler when a load is finished
+	 * @method _onLoaded
+	 * @private
+	 * @param {springroll.AssetLoad} result The current load
+	 */
+	p._onLoaded = function(result)
+	{
+		var index = this.loads.indexOf(result);
+		if (index > -1)
+		{
+			this.loads.splice(index, 1);
+		}
+		result.destroy();
+	};
+
+	/**
+	 * Destroy the AssetManager
+	 * @method destroy
+	 */
+	p.destroy = function()
+	{
+		this.cache.destroy();
+		this.cache = null;
+		this.loads = null;
+		this.taskDefs = null;
+	};
+
+	// Assign to namespace
+	namespace('springroll').AssetManager = AssetManager;
 
 }());
 /**
@@ -5632,7 +5553,7 @@
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),
-		MultiLoader = include('springroll.MultiLoader');
+		AssetManager = include('springroll.AssetManager');
 
 	/**
 	 * Create an app plugin for Loader, all properties and methods documented
@@ -5653,14 +5574,14 @@
 
 		/**
 		 * Reference to the multiple asset loader
-		 * @property {springroll.MultiLoader} multiLoader
+		 * @property {springroll.AssetManager} assetManager
 		 */
-		var multiLoader = this.multiLoader = new MultiLoader();
+		var assetManager = this.assetManager = new AssetManager();
 
 		// Register the default tasks
-		multiLoader.register('springroll.LoadTask', 0);
-		multiLoader.register('springroll.FunctionTask', 10);
-		multiLoader.register('springroll.ColorAlphaTask', 20);
+		assetManager.register('springroll.LoadTask', 0);
+		assetManager.register('springroll.FunctionTask', 10);
+		assetManager.register('springroll.ColorAlphaTask', 20);
 
 		/**
 		 * Override the end-user browser cache by adding
@@ -5714,14 +5635,16 @@
 		 * @param {Function} complete The completed callback with a single
 		 *        parameters which is a `springroll.LoaderResult` object.
 		 * @param {Function} [progress] Update callback, return 0-1
+		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
-		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a single file with options.
 		 * @method load
 		 * @param {Object} options The file resource to load
 		 * @param {String} options.src The file to load
+		 * @param {Boolean} [options.cache=false] If the result should be cached for later
 		 * @param {Function} [options.complete=null] Callback when finished
 		 * @param {Function} [options.progress=null] Callback on load progress,
 		 *        has a parameter which is the percentage loaded from 0 to 1.
@@ -5731,32 +5654,40 @@
 		 *        parameters which is a `springroll.LoaderResult` object. will
 		 *        only use if `options.complete` is undefined.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 * @return {springroll.AssetLoad} The multi files loading
+		 */
+		/**
+		 * Load a custom asset with options.
+		 * @method load
+		 * @param {Object} options The file resource to load
+		 * @param {Function} [options.complete=null] Callback when finished
+		 * @param {Boolean} [options.cache=false] If the result should be cached for later
+		 * @param {Function} [complete] The completed callback with a single
+		 *        parameters which is a `springroll.LoaderResult` object. will
+		 *        only use if `options.complete` is undefined.
+		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped LoaderResult objects.
 		 * @method load
-		 * @param {Object} assets Load a map of assets where the key is the asset
-		 *        id and the value is either a string or an Object with `src`,
-		 *        `complete`, `progress` and `data` keys.
+		 * @param {Object} assets Load a map of assets.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a list of multiple assets and return array of LoaderResult objects.
 		 * @method load
-		 * @param {Array} assets The list of assets where each value 
-		 *        is either a string or an Object with `src`,
-		 *        `complete`, `progress` and `data` keys.
+		 * @param {Array} assets The list of assets.
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.MultiLoaderResult} The multi files loading
+		 * @return {springroll.AssetLoad} The multi files loading
 		 */
-		this.load = function(source, complete, progressOrStartAll, data)
+		this.load = function(source, complete, progressOrStartAll, cache, data)
 		{
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -5766,15 +5697,56 @@
 					src: source,
 					complete: complete || null,
 					progress: progressOrStartAll || null,
+					cache: !!cache,
 					data: data || null
 				};
 			}
 
-			return this.multiLoader.load(
+			return this.assetManager.load(
 				source, 
 				complete, 
 				progressOrStartAll
 			);
+		};
+
+		/**
+		 * Unload an asset or list of assets.
+		 * @method unload
+		 * @param {Array|String} assets The collection of asset ids or 
+		 *        single asset id. As an array, it can be a manifest 
+		 *        with objects that contain an ID. Or multiple strings.
+		 */
+		this.unload = function(assets)
+		{
+			if (typeof assets === "string")
+			{
+				assets = Array.prototype.slice.call(arguments);
+			}
+			
+			for (var i = 0; i < assets.length; i++)
+			{
+				this.assetManager.cache.delete(assets[i]);
+			}
+		};
+
+		/**
+		 * Unload all assets from the assets cache
+		 * @method unloadAll
+		 */
+		this.unloadAll = function()
+		{
+			this.assetManager.cache.empty();
+		};
+
+		/**
+		 * Get an asset from the cache by ID
+		 * @method cache
+		 * @param {String} id The asset to fetch
+		 * @return {*|null} The cached object or null if empty
+		 */
+		this.cache = function(id)
+		{
+			return this.assetManager.cache.read(id);
 		};
 	};
 
@@ -5802,10 +5774,10 @@
 			this.loader = null;
 		}
 
-		if (this.multiLoader)
+		if (this.assetManager)
 		{
-			this.multiLoader.destroy();
-			this.multiLoader = null;
+			this.assetManager.destroy();
+			this.assetManager = null;
 		}
 	};
 

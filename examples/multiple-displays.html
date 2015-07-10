@@ -44,7 +44,6 @@
 // Import library dependencies
 var Application = include('springroll.Application'),
 	Texture = include('PIXI.Texture'),
-	AssetManager = include('springroll.AssetManager'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	PixiDisplay = include('springroll.PixiDisplay'),
 	EaselJSButton = include('springroll.easeljs.Button'),
@@ -55,21 +54,21 @@ var app = new Application({
 	debug: true
 });
 
-// Handle the preloading of assets
-// see the AssetManager example for more about this
+// Preload and cache the assets
 app.once('loading', function(assets)
 {
-	var manifest = [
+	assets.push(
 		{
 			id: "PixiAssets",
-			urls: ['assets/images/button.json']
+			urls: ['assets/images/button.json'],
+			cache: true
 		},
 		{
 			id: 'Button',
-			src: 'assets/images/button.png'
+			src: 'assets/images/button.png',
+			cache: true
 		}
-	];
-	AssetManager.load(manifest, assets);
+	);
 })
 
 // App is ready to use, lets build some displays
@@ -77,7 +76,6 @@ app.once('init', function()
 {	
 	this.initPixi();
 	this.initEasel();
-
 	this.toggleDisplay(true);
 });
 
@@ -127,7 +125,7 @@ app.initEasel = function()
 	});
 	
 	// Setup the toggle button
-	var button = new EaselJSButton(AssetManager.get('Button'), {
+	var button = new EaselJSButton(this.cache('Button'), {
 		text: "PIXI.js",
 		font: "20px Arial",
 		color: "#ffffff"

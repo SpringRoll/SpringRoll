@@ -353,7 +353,9 @@
 		loader.addEventListener("fileprogress", qi._progress);
 		
 		// Load the file, format the URL
-		loader.loadFile(this.cacheManager.prepare(qi.url));
+		var url = this.cacheManager.prepare(qi.url);
+		loader.loadFile(qi.data && qi.data.id ? 
+			{id:qi.data.id, src:url, data:qi.data} : url);
 	};
 	
 	/**

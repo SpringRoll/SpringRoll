@@ -21,7 +21,7 @@
 	plugin.setup = function()
 	{
 		// Register the tasks
-		this.multiLoader.register('springroll.easeljs.BitmapMovieClipTask', 40);
+		this.assetManager.register('springroll.easeljs.BitmapMovieClipTask', 40);
 
 		// Init the animation
 		Animator.init();

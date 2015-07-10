@@ -748,7 +748,7 @@
  	 */
 	p._playAfterLoad = function(result)
 	{
-		var alias = isString(result) ? result : result.id;
+		var alias = isString(result) ? result : result.data.id;
 		var sound = this._sounds[alias];
 		sound.loadState = LoadStates.loaded;
 
@@ -765,15 +765,22 @@
 			startParams = inst._startParams;
 			volume = inst.curVol;
 			pan = inst._pan;
-			//startParams[0] is interrupt;
-			//startParams[1] is delay;
-			//startParams[2] is offset;
-			//startParams[3] is loop;
-			channel = SoundJS.play(alias, startParams[0], startParams[1], startParams[2],
-									startParams[3], volume, pan);
+			channel = SoundJS.play(
+				alias, 
+				startParams[0], // interrupt
+				startParams[1], // delay
+				startParams[2], // offset
+				startParams[3], // loop
+				volume, 
+				pan
+			);
 
 			if (!channel || channel.playState == SoundJS.PLAY_FAILED)
 			{
+				if (DEBUG && Debug)
+				{
+					Debug.error("Play failed for sound '%s'", alias);
+				}
 				if (inst._endCallback)
 					inst._endCallback();
 				this._poolInst(inst);
@@ -1062,7 +1069,7 @@
 	 */
 	p.preload = function(list, callback)
 	{
-		if (typeof list === "string")
+		if (isString(list))
 		{
 			list = [list];
 		}
@@ -1073,7 +1080,7 @@
 			return;
 		}
 
-		var tasks = [];
+		var assets = [];
 		var sound;
 		for (var i = 0, len = list.length; i < len; ++i)
 		{
@@ -1085,7 +1092,7 @@
 					sound.loadState = LoadStates.loading;
 
 					//sound is passed last so that SoundJS gets the sound ID
-					tasks.push({
+					assets.push({
 						id: sound.id, 
 						src: sound.src,
 						complete: this._markLoaded,
@@ -1098,9 +1105,9 @@
 				Debug.error("springroll.Sound was asked to preload " + list[i] + " but it is not a registered sound!");
 			}
 		}
-		if (tasks.length > 0)
+		if (assets.length > 0)
 		{
-			Application.instance.load(tasks, callback);
+			Application.instance.load(assets, callback);
 		}
 		else if (callback)
 		{
@@ -1117,7 +1124,7 @@
  	 */
 	p._markLoaded = function(result)
 	{
-		var alias = result.id;
+		var alias = result.data.id;
 		var sound = this._sounds[alias];
 		if (sound)
 		{
@@ -1227,15 +1234,16 @@
 	};
 
 	// Convenience methods for type checking
-	var isString = function(obj)
+	function isString(obj)
 	{
 		return typeof obj == "string";
-	};
+	}
 
-	var isFunction = function(obj)
+	function isFunction(obj)
 	{
 		return typeof obj == "function";
-	};
+	}
 
 	namespace('springroll').Sound = Sound;
+
 }());

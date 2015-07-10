@@ -4,192 +4,142 @@
 */
 (function(undefined)
 {
-	var Application = include('springroll.Application'),
-		LoaderResult = include('springroll.LoaderResult'),
+	var AssetLoad = include('springroll.AssetLoad'),
+		AssetCache = include('springroll.AssetCache'),
+		Task = include('springroll.Task'),
 		Debug;
-
-	/**
-	 * Class for managing the loading and unloading of assets.
-	 * @class AssetManager
-	 * @static
-	 */
-	var AssetManager = {};
 	
 	/**
-	*  Array of asset objects that have been loaded by AssetManager.
-	*  @property {Object} _loadedAssets
-	*  @private
-	*  @static
-	*/
-	var _loadedAssets = null;
-
-	/**
-	 * Intializes AssetManager.
-	 * @method init
-	 * @static
-	 * @param {springroll.Application} app
+	 * Handle the asynchronous loading of multiple assets.
+	 * @class AssetManager
+	 * @constructor
 	 */
-	AssetManager.init = function(app)
+	var AssetManager = function()
 	{
-		if (Debug === undefined)
+		if (DEBUG)
 		{
 			Debug = include('springroll.Debug', false);
 		}
-		_loadedAssets = {};
+
+		/**
+		 * The collection of current multiloads
+		 * @property {Array} loads
+		 */
+		this.loads = [];
+
+		/**
+		 * The collection of task definitions
+		 * @property {Array} taskDefs
+		 */
+		this.taskDefs = [];
+
+		/**
+		 * The cache of assets
+		 * @property {springroll.AssetCache} cache
+		 */
+		this.cache = new AssetCache();
 	};
 
-	/**
-	*  Load a collection of assets for the MultiLoader and remembers the results
-	*  so that it's possible to unload those assets later. 
-	*  @method load
-	*  @static
-	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Array} assetList An array to add assets for loading. 
-	*        If omitted, loads immediately with an internal load.
-	*/
-	/**
-	*  Load a collection of assets for the MultiLoader and remembers the results
-	*  so that it's possible to unload those assets later. 
-	*  @method load
-	*  @static
-	*  @param {Array} manifest The collection of asset manifests
-	*  @param {Function} callback A function to call when load is complete
-	*  @param {Array} [assetList] An array to add assets for loading. 
-	*        If omitted, loads immediately with an internal load.
-	*/
-	AssetManager.load = function(assets, callback, assetList)
-	{
-		// 2nd argument support the array
-		if (Array.isArray(callback))
-		{
-			assetList = callback;
-			callback = null;
-		}
-
-		if (assets && assets.length)
-		{
-			var asset;
-
-			// Check the assets for valid IDs
-			for (var i = 0; i < assets.length; i++)
-			{
-				asset = assets[i];
-				if (!asset.id)
-				{
-					if (DEBUG && Debug)
-					{
-						Debug.error("Each asset passed to the AssetManager.load must have an id", asset);
-						return;
-					}
-					else
-					{
-						throw "asset missing id";
-					}
-				}
-			}
-
-			if (assetList)
-			{
-				// Add to the list of tasks already in progress
-				assetList.push({
-					async: onLoaded.bind(null, assets),
-					complete: callback
-				});
-			}
-			else
-			{
-				// Do the load directly
-				onLoaded(assets, callback);
-			}
-		}
-		else if (callback)
-		{
-			setTimeout(callback, 0);
-		}	
-	};
+	// reference to prototype
+	var p = AssetManager.prototype;
 
 	/**
-	 * Handle the asset load
-	 * @method  onLoaded
-	 * @static
+	 * Register new tasks types, these tasks must extend Task
+	 * @method register
 	 * @private
-	 * @param  {Array}   assets   Collection of assets to load
-	 * @param  {Function} done Callback when completed
+	 * @param {Function|String} TaskClass The class task reference
+	 * @param {int} [priority=0] The priority, higher prioity tasks
+	 *        are tested first. More general Tasks should be lower
+	 *        and more specific tasks should be higher.
 	 */
-	var onLoaded = function(assets, done)
+	p.register = function(TaskClass, priority)
 	{
-		// Load the assets thru the multiloader
-		Application.instance.load(assets, function(results)
+		if (typeof TaskClass == "string")
 		{
-			var result;
-			for (var id in results)
+			TaskClass = include(TaskClass);
+		}
+
+		TaskClass.priority = priority || 0;
+
+		if (DEBUG && Debug)
+		{
+			if (!(TaskClass.prototype instanceof Task))
 			{
-				result = results[id];
-				_loadedAssets[id] = result instanceof LoaderResult ? result.content : result;
+				Debug.error("Registering task much extend Task", TaskClass);
 			}
-			if (done) done(results);
+			else if (!TaskClass.test)
+			{
+				Debug.error("Registering task much have test method");
+			}
+		}
+		this.taskDefs.push(TaskClass);
+
+		// Sort definitions by priority
+		// where the higher priorities are first
+		this.taskDefs.sort(function(a, b)
+		{
+			return b.priority - a.priority;
 		});
 	};
 
 	/**
-	*  Get an asset by ID
-	*  @method get
-	*  @static
-	*  @param {String} id The id of the asset to get
-	*  @return {*} The asset returned from load
-	*/
-	AssetManager.get = function(id)
-	{
-		if (DEBUG && Debug && !_loadedAssets[id])
-		{
-			Debug.error("AssetManager: no asset matching id: '" + id + "'");
-		}
-		return _loadedAssets[id];
+	 * Load a bunch of assets, can only call one load at a time
+	 * @method load
+	 * @param {Object|Array} asset The assets to load
+	 * @param {function} [complete] The function when finished
+	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
+	 * @return {springroll.AssetLoad} The reference to the current load
+	 */
+	p.load = function(assets, complete, startAll)
+	{	
+		var result = new AssetLoad(
+			this,
+			assets, 
+			complete,
+			(startAll === undefined ? true : !!startAll)
+		);
+
+		// Add to the stack of current loads
+		this.loads.push(result);
+
+		// Handle the destroyed event
+		result.once(
+			'complete',
+			this._onLoaded.bind(this, result)
+		);
+
+		return result;
 	};
 
 	/**
-	*  Unload an asset or list of assets.
-	*  @method unload
-	*  @static
-	*  @param {Array|String} assetOrAssets The collection of asset ids or single asset id. As an
-	*         array, it can be a manifest with {id:"", src:""} objects.
-	*/
-	AssetManager.unload = function(assets)
+	 * Handler when a load is finished
+	 * @method _onLoaded
+	 * @private
+	 * @param {springroll.AssetLoad} result The current load
+	 */
+	p._onLoaded = function(result)
 	{
-		if (typeof assets === "string")
+		var index = this.loads.indexOf(result);
+		if (index > -1)
 		{
-			assets = Array.prototype.slice.call(arguments);
+			this.loads.splice(index, 1);
 		}
-		assets.forEach(function(asset)
-		{
-			var id = asset.id || asset;
-			var result = _loadedAssets[id];
-			if (result.destroy)
-			{
-				result.destroy();
-			}
-			delete _loadedAssets[id];
-		});
+		result.destroy();
 	};
 
 	/**
-	*  Unloads all assets loaded by AssetManager.
-	*  @method unloadAll
-	*  @static
-	*/
-	AssetManager.unloadAll = function()
+	 * Destroy the AssetManager
+	 * @method destroy
+	 */
+	p.destroy = function()
 	{
-		for(var id in _loadedAssets)
-		{
-			var result = _loadedAssets[id];
-			if (result.destroy)
-			{
-				result.destroy();
-			}
-			delete _loadedAssets[id];
-		}
+		this.cache.destroy();
+		this.cache = null;
+		this.loads = null;
+		this.taskDefs = null;
 	};
 
 	// Assign to namespace
-	namespace("springroll").AssetManager = AssetManager;
+	namespace('springroll').AssetManager = AssetManager;
+
 }());

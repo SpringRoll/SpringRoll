@@ -4,17 +4,25 @@
 */
 (function()
 {
+	var Debug;
+
 	/**
 	 * Internal class for dealing with async load assets
 	 * @class Task
 	 * @abstract
 	 * @constructor
 	 * @param {Object} asset The asset data
-	 * @param {String} [asset.id] The task ID
-	 * @param {Function} [asset.complete] Call when complete
+	 * @param {String} [asset.id=null] The task ID
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
+	 * @param {Function} [asset.complete=null] Call when complete
 	 */
 	var Task = function(asset)
 	{
+		if (Debug === undefined)
+		{
+			Debug = include("springroll.Debug", false);
+		}
+		
 		/**
 		 * The current status of the task (waiting, running, etc)
 		 * @property {int} status
@@ -31,6 +39,13 @@
 		this.complete = asset.complete || null;
 
 		/**
+		 * If we should cache the load and use later
+		 * @property {Boolean} cache
+		 * @default false
+		 */
+		this.cache = !!asset.cache;
+
+		/**
 		 * The task id
 		 * @property {String} id
 		 */
@@ -41,6 +56,16 @@
 		 * @property {Object} originalAsset
 		 */
 		this.originalAsset = asset;
+
+		// Check for ID if we're caching
+		if (this.cache && !this.id)
+		{
+			if (DEBUG && Debug)
+			{
+				Debug.error("Caching an asset requires and id, none set", asset);
+			}
+			this.cache = false;
+		}
 	};
 
 	// Reference to prototype

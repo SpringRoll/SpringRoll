@@ -14,6 +14,7 @@
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {*} [asset.data=null] Optional data
 	 * @param {Function} [asset.complete=null] The event to call when done

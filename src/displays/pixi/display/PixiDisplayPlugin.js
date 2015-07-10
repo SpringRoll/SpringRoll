@@ -19,8 +19,7 @@
 	// Register the tasks
 	plugin.setup = function()
 	{
-		var multiLoader = this.multiLoader;
-		multiLoader.register('springroll.pixi.PixiLoadTask', 60);
+		this.assetManager.register('springroll.pixi.PixiLoadTask', 60);
 	};
 
 }());

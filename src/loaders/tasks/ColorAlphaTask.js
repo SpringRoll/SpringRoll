@@ -15,6 +15,7 @@
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.color The source path to the color image
 	 * @param {String} asset.alpha The source path to the alpha image
+	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete] The event to call when done
 	 */

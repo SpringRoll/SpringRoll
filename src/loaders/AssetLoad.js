@@ -5,32 +5,39 @@
 (function()
 {
 	var Debug,
-		MultiLoader,
+		AssetManager,
 		Task = include('springroll.Task'),
+		LoaderResult = include('springroll.LoaderResult'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
 	 * Class that represents a single multi load
-	 * @class MultiLoaderResult
+	 * @class AssetLoad
 	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {Object|Array} assets The collection of assets to load
 	 * @param {Function} [complete=null] Function call when done, returns results
 	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
 	 */
-	var MultiLoaderResult = function(assets, complete, parallel)
+	var AssetLoad = function(manager, assets, complete, parallel)
 	{
 		EventDispatcher.call(this);
 
-		if (!MultiLoader)
+		if (!AssetManager)
 		{
-			MultiLoader = include('springroll.MultiLoader');
+			AssetManager = include('springroll.AssetManager');
 		}
 
 		if (DEBUG)
 		{
 			Debug = include('springroll.Debug', false);
 		}
+
+		/**
+		 * Reference to the Task Manager
+		 * @property {springroll.AssetManager} manager
+		 */
+		this.manager = manager;
 
 		/**
 		 * Handler when completed with all tasks
@@ -77,10 +84,10 @@
 
 	// Reference to prototype
 	var s = EventDispatcher.prototype;
-	var p = extend(MultiLoaderResult, EventDispatcher);
+	var p = extend(AssetLoad, EventDispatcher);
 
 	/**
-	 * The result is a single LoaderResult
+	 * The result is a single result
 	 * @property {int} SINGLE_MODE
 	 * @private
 	 * @final
@@ -90,7 +97,7 @@
 	var SINGLE_MODE = 0;
 
 	/**
-	 * The result is a map of LoaderResult objects
+	 * The result is a map of result objects
 	 * @property {int} MAP_MODE
 	 * @private
 	 * @final
@@ -100,7 +107,7 @@
 	var MAP_MODE = 1;
 
 	/**
-	 * The result is an array of LoaderResult objects
+	 * The result is an array of result objects
 	 * @property {int} LIST_MODE
 	 * @private
 	 * @final
@@ -139,7 +146,7 @@
 		{
 			if (DEBUG && Debug)
 			{
-				Debug.warn("MultiLoaderResult is already destroyed");
+				Debug.warn("AssetLoad is already destroyed");
 			}
 			return;
 		}
@@ -152,7 +159,7 @@
 		assets = applyDefaults(assets);
 
 		// Check for a task definition on the asset
-		var isSingle = getTaskByAsset(assets);
+		var isSingle = this.getTaskByAsset(assets);
 
 		if (isSingle)
 		{
@@ -229,7 +236,7 @@
 	 */
 	p.addTask = function(asset)
 	{
-		var TaskClass = getTaskByAsset(asset);
+		var TaskClass = this.getTaskByAsset(asset);
 		if (TaskClass)
 		{
 			this.tasks.push(new TaskClass(asset));
@@ -248,10 +255,10 @@
 	 * @param  {Object} asset The asset to check
 	 * @return {Function} The Task class
 	 */
-	function getTaskByAsset(asset)
+	p.getTaskByAsset = function(asset)
 	{
 		var TaskClass;
-		var taskDefs = MultiLoader.taskDefs;
+		var taskDefs = this.manager.taskDefs;
 
 		// Loop backwards to get the registered tasks first
 		// then will default to the basic Loader task
@@ -264,7 +271,7 @@
 			}
 		}
 		return null;
-	}
+	};
 
 	/**
 	 * Run the next task that's waiting
@@ -326,6 +333,17 @@
 				case SINGLE_MODE: this.results = result; break;
 				case LIST_MODE: this.results.push(result); break;
 				case MAP_MODE: this.results[task.id] = result; break;
+			}
+
+			// Should we cache the task?
+			if (task.cache)
+			{
+				this.manager.cache.write(
+					task.id, 
+					(result instanceof LoaderResult) ? 
+						result.content : 
+						result
+				);
 			}
 		}
 
@@ -403,6 +421,7 @@
 		this.results = null;
 		this.complete = null;
 		this.tasks = null;
+		this.manager = null;
 		s.destroy.call(this);
 	};
 
@@ -443,6 +462,6 @@
 	}
 
 	// Assign to namespace
-	namespace('springroll').MultiLoaderResult = MultiLoaderResult;
+	namespace('springroll').AssetLoad = AssetLoad;
 
 }());
