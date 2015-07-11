@@ -46,75 +46,60 @@ var Application = include('springroll.Application'),
 	Shape = include('createjs.Shape'),
 	Tween = include('createjs.Tween');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
 	configPath: "assets/config/config-sounds.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: [{
+		src: 'assets/images/button.png',
+		cache: true
+	}]
 });
 
-var buttonImage;
-
-app.once('loading', function(assets)
-{
-	assets.push({
-		
-		src: 'assets/images/button.png', 
-		complete: function(image)
-		{
-			buttonImage = image;
-		}
-	});
-});
-
-// Wait until the app is ready
 app.once('init', function()
 {
-	var centerX = (this.display.width - buttonImage.width) / 2;
+	var sound = this.sound;
 
-	// Add the buttons
-	addButton("FoodChute", centerX, 60, onPlayEffect);
-	addButton("TipEarned", centerX, 120, onPlayEffect);
-	addButton("TrashChute", centerX, 180, onPlayEffect);
-	addButton("TitleMusic", centerX, 300, onPlayMusic);					
+	this.addButton("Food Chute", 335, 60, function()
+	{
+		sound.play("FoodChute");
+	});
+
+	this.addButton("Tip Earned", 335, 120, function()
+	{
+		sound.play("TipEarned");
+	});
+
+	this.addButton("Trash Chute", 335, 180, function()
+	{
+		sound.play("TrashChute");
+	});
+
+	this.addButton("Title Music", 335, 300, function()
+	{
+		// sound.play() also works, but this using
+		// the music setter fades in the audio 
+		// and fades out if music is being switched
+		app.music = "TitleMusic";
+	});					
 });
 
-// Add a new button to the stage
-function addButton(text, x, y, callback)
+// Simple convenience function for creating some
+// buttons and adding them to the stage
+app.addButton = function(text, x, y, onPress)
 {
-	var button = new Button(buttonImage, {
+	var button = new Button(this.cache('button'), {
 		text: text,
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 	button.x = x || 0;
 	button.y = y || 0;
-	app.display.stage.addChild(button);
-	button.on('buttonPress', callback);
-}
-
-// Click handler for playing effect
-function onPlayEffect(e)
-{
-	var alias = e.target.label.text;
-	// Play the sound based on the label
-	app.sound.play(alias, {
-		start : function(){ console.log("Started '" + alias + "'"); },
-		complete : function(){ console.log("Completed '" + alias + "'"); }
-	});	
-}
-
-// Click handler for playing music
-function onPlayMusic(e)
-{
-	// Play the sound based on the label
-	var alias = e.target.label.text;
-	app.sound.isPlaying(alias) ?
-		app.sound.stop(alias): 
-		app.sound.play(alias);	
+	button.on('buttonPress', onPress);
+	this.display.stage.addChild(button);
 }
 
 </script>

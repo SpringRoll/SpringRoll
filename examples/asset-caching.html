@@ -45,40 +45,22 @@ var Application = include('springroll.Application'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Animator = include('springroll.easeljs.Animator');
 
-// Create the new application
 var app = new Application({
 	resizeElement : "stageContainer",
 	framerate: "framerate",
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	displayOptions: {
-		clearView: true // clear the stage on render
-	}
-});
-
-// Add the manifest with the loading event to make sure
-// assets are loaded before the application is init
-app.once('loading', function(assets)
-{
-	assets.push(
-		// Standard asset loading
+		clearView: true
+	},
+	// Add the manifest with the loading event to make sure
+	// assets are loaded before the application is init
+	preload: [
 		{
 			id:'Button',
 			src:'assets/images/button.png',
 			cache: true
 		},
-		{
-			id: 'Collection',
-			assets: [
-				{
-					src: 'assets/images/background.jpg',
-					advanced: true
-				}, 
-				'assets/images/logo.png'
-			],
-			cache: true
-		},
-		// Load some Flash data
 		{
 			id: 'Transition',
 			src: 'assets/js/Transition.js',
@@ -93,10 +75,9 @@ app.once('loading', function(assets)
 			image:'assets/images/FlowerSheet.png',
 			cache: true
 		}
-	);
+	]
 });
 
-// Wait until the app is ready
 app.once('init', function()
 {
 	// The asset manager just loaded the JavaScript

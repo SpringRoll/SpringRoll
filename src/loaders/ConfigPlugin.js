@@ -26,13 +26,13 @@
 	 *	add additional tasks to the manager after this.
 	 *	@event configLoaded
 	 *	@param {Object} config The JSON object for config
-	 *	@param {TaskManager} manager The task manager
+	 *	@param {Array} assets Container to add additional assets to
 	 */
 
 	/**
 	 *	The game has started loading
 	 *	@event loading
-	 *	@param {Array} tasks The list of tasks to preload
+	 *	@param {Array} assets The list of tasks to preload
 	 */
 
 	// Init the animator
@@ -98,9 +98,10 @@
 	 *	@method onConfigLoaded
 	 *	@private
 	 *	@param {Object} config The Loader result from the load
+	 *  @param {Object} asset Original asset data
 	 *	@param {Array} assets The array to add new load tasks to
 	 */
-	var onConfigLoaded = function(config, assets)
+	var onConfigLoaded = function(config, asset, assets)
 	{
 		this.config = config;
 		this.trigger('configLoaded', config, assets);

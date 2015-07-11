@@ -69,13 +69,8 @@
 		{
 			if (fallbackId)
 			{
-				if (DEBUG && Debug)
-				{
-					Debug.info("Asset contains no id property, using the fallback '%s'", fallbackId);
-				}
-				
 				// Remove the file extension
-				fallbackId = fallbackId.substr(0, fallback.lastIndexOf('.'));
+				fallbackId = fallbackId.substr(0, fallbackId.lastIndexOf('.'));
 
 				// Check for the last folder slash then remove it
 				var slashIndex = fallbackId.lastIndexOf('/');
@@ -83,6 +78,7 @@
 				{
 					fallbackId = fallbackId.substr(slashIndex + 1);
 				}
+
 				// Update the id
 				this.id = fallbackId;
 			}

@@ -2532,7 +2532,7 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, this._doInit.bind(this), false);
+		this.load(tasks, this._doInit.bind(this), null, false);
 	};
 
 	/**
@@ -3786,13 +3786,8 @@
 		{
 			if (fallbackId)
 			{
-				if (true && Debug)
-				{
-					Debug.info("Asset contains no id property, using the fallback '%s'", fallbackId);
-				}
-				
 				// Remove the file extension
-				fallbackId = fallbackId.substr(0, fallback.lastIndexOf('.'));
+				fallbackId = fallbackId.substr(0, fallbackId.lastIndexOf('.'));
 
 				// Check for the last folder slash then remove it
 				var slashIndex = fallbackId.lastIndexOf('/');
@@ -3800,6 +3795,7 @@
 				{
 					fallbackId = fallbackId.substr(slashIndex + 1);
 				}
+
 				// Update the id
 				this.id = fallbackId;
 			}
@@ -3865,7 +3861,7 @@
 	 * @protected
 	 * @param {String} url The url to filter
 	 */
-	p.filter = function(url) 
+	p.filter = function(url)
 	{
 		var sizes = Application.instance.assetManager.sizes;
 
@@ -4234,11 +4230,13 @@
 			this.src,
 			function(result)
 			{
-				if (result && !advanced)
+				var content = result;
+				if (content && !advanced)
 				{
-					result = result.content;
+					content = result.content;
+					result.destroy();
 				}
-				callback(result);
+				callback(content);
 			},
 			this.progress,
 			this.data
@@ -5323,28 +5321,16 @@
 (function()
 {
 	var Debug,
-		AssetManager,
-		Task = include('springroll.Task'),
-		EventDispatcher = include('springroll.EventDispatcher');
+		Task = include('springroll.Task');
 
 	/**
 	 * Class that represents a single multi load
 	 * @class AssetLoad
-	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} [complete=null] Function call when done, returns results
-	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
-	var AssetLoad = function(manager, assets, complete, parallel)
+	var AssetLoad = function(manager)
 	{
-		EventDispatcher.call(this);
-
-		if (!AssetManager)
-		{
-			AssetManager = include('springroll.AssetManager');
-		}
-
 		if (true)
 		{
 			Debug = include('springroll.Debug', false);
@@ -5356,12 +5342,17 @@
 		 */
 		this.manager = manager;
 
+		if (true)
+		{
+			this.id = AssetLoad.ID++;
+		}
+
 		/**
 		 * Handler when completed with all tasks
 		 * @property {function} complete
 		 * @default  null
 		 */
-		this.complete = complete || null;
+		this.complete = null;
 
 		/**
 		 * How to display the results, either as single (0), map (1) or list (2)
@@ -5375,7 +5366,7 @@
 		 * @property {Boolean} parallel
 		 * @default false
 		 */
-		this.parallel = !!parallel;
+		this.parallel = false;
 
 		/**
 		 * The list of tasks to load
@@ -5389,19 +5380,83 @@
 		 */
 		this.results = null;
 
+		/**
+		 * If the load is currently running
+		 * @property {Boolean} running
+		 * @default false
+		 */
+		this.running = false;
+	};
+
+	// Reference to prototype
+	var p = AssetLoad.prototype;
+
+	if (true)
+	{
+		/**
+		 * Debugging Keep track of how many we've created
+		 * @property {int} ID
+		 * @static
+		 * @private
+		 */
+		AssetLoad.ID = 1;
+
+		/**
+		 * Debugging purposes
+		 * @method toString
+		 */
+		p.toString = function()
+		{
+			return "[AssetLoad (index: " + this.id + ")]";
+		};		
+	}
+
+	/**
+	 * Initialize the Load 
+	 * @method start
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Function} [complete=null] Function call when done, returns results
+	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 */
+	p.start = function(assets, complete, progress, parallel)
+	{
+		// Keep track if we're currently running
+		this.running = true;
+
+		this.complete = complete || null;
+		this.progress = progress || null;
+		this.parallel = !!parallel;
+
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
 
 		// Set the default container for the results
 		this.results = getAssetsContainer(this.mode);
-
+		
 		// Start running
 		this.nextTask();
 	};
 
-	// Reference to prototype
-	var s = EventDispatcher.prototype;
-	var p = extend(AssetLoad, EventDispatcher);
+	/**
+	 * Set back to the original state
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		// Cancel any tasks
+		this.tasks.forEach(function(task)
+		{
+			task.status = Task.FINISHED;
+			task.destroy();
+		});
+		this.mode = MAP_MODE;
+		this.tasks.length = 0;
+		this.results = null;
+		this.complete = null;
+		this.progress = null;
+		this.parallel = false;
+		this.running = false;
+	};
 
 	/**
 	 * The result is a single result
@@ -5434,24 +5489,6 @@
 	var LIST_MODE = 2;
 
 	/**
-	 * When all events are completed
-	 * @event complete
-	 */
-		
-	/**
-	 * When the loader result has been destroyed
-	 * @event destroyed
-	 */
-	
-	/**
-	 * When a task is finished
-	 * @event progress
-	 * @param {*} result The load result
-	 * @param {Array} assets The object collection to add new assets to.
-	 * @param {Object} original The original asset loaded
-	 */
-
-	/**
 	 * Create a list of tasks from assets
 	 * @method  addTasks
 	 * @private
@@ -5459,7 +5496,7 @@
 	 */
 	p.addTasks = function(assets)
 	{
-		if (this.destroyed)
+		if (!this.running)
 		{
 			if (true && Debug)
 			{
@@ -5622,7 +5659,7 @@
 	p.taskDone = function(task, result)
 	{
 		// Ignore if we're destroyed
-		if (this.destroyed) return;
+		if (!this.running) return;
 
 		// Default to null
 		result = result || null;
@@ -5665,10 +5702,12 @@
 		// can potentially add more
 		if (task.complete)
 		{
-			task.complete(result, assets, task.original);
+			task.complete(result, task.original, assets);
 		}
-		this.trigger('progress', result, assets, task.original);
-
+		if (this.progress)
+		{
+			this.progress(result, task.original, assets);
+		}
 		task.destroy();
 
 		// Add new assets to the things to load
@@ -5697,7 +5736,6 @@
 			{
 				this.complete(this.results);
 			}
-			this.trigger('complete', this.results);
 		}
 	};
 
@@ -5724,17 +5762,9 @@
 	 */
 	p.destroy = function()
 	{
-		this.trigger('destroyed');
-		this.tasks.forEach(function(task)
-		{
-			task.status = Task.FINISHED;
-			task.destroy();
-		});
-		this.results = null;
-		this.complete = null;
+		this.reset();
 		this.tasks = null;
 		this.manager = null;
-		s.destroy.call(this);
 	};
 
 	/**
@@ -5792,24 +5822,35 @@
 		/**
 		 * The collection of current multiloads
 		 * @property {Array} loads
+		 * @private
 		 */
 		this.loads = [];
 
 		/**
+		 * The expired loads to recycle
+		 * @property {Array} loadPool
+		 * @private
+		 */
+		this.loadPool = [];
+
+		/**
 		 * The collection of task definitions
 		 * @property {Array} taskDefs
+		 * @readOnly
 		 */
 		this.taskDefs = [];
 
 		/**
 		 * The cache of assets
 		 * @property {springroll.AssetCache} cache
+		 * @readOnly
 		 */
 		this.cache = new AssetCache();
 
 		/**
 		 * Handle multiple asset spritesheets
 		 * @property {springroll.AssetSizes} sizes
+		 * @readOnly
 		 */
 		this.sizes = new AssetSizes();
 
@@ -5865,44 +5906,71 @@
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
 	 * @param {function} [complete] The function when finished
+	 * @param {function} [progress] The function when finished a single task
 	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
-	p.load = function(assets, complete, startAll)
+	p.load = function(assets, complete, progress, startAll)
 	{	
-		var result = new AssetLoad(
-			this,
-			assets, 
-			complete,
-			(startAll === undefined ? true : !!startAll)
-		);
+		var load = this.getLoad();
 
 		// Add to the stack of current loads
-		this.loads.push(result);
+		this.loads.push(load);
 
-		// Handle the destroyed event
-		result.once(
-			'complete',
-			this._onLoaded.bind(this, result)
-		);
+		// Bind the complete
+		complete = this._onLoaded.bind(this, complete, load);
 
-		return result;
+		// Default startAll to be true
+		startAll = (startAll === undefined ? true : !!startAll);
+
+		// Start the load
+		load.start(assets, complete, progress, startAll);
+	};
+
+	/**
+	 * Stash the load for use later
+	 * @method poolLoad
+	 * @private
+	 * @param {springroll.AssetLoad} load The load to recycle
+	 */
+	p.poolLoad = function(load)
+	{
+		load.reset();
+		this.loadPool.push(load);
+	};
+
+	/**
+	 * Get either a new AssetLoad or a recycled one
+	 * @method getLoad
+	 * @private
+	 * @return {springroll.AssetLoad} The load to use
+	 */
+	p.getLoad = function()
+	{
+		if (this.loadPool.length > 0)
+		{
+			return this.loadPool.pop();
+		}
+		return new AssetLoad(this);
 	};
 
 	/**
 	 * Handler when a load is finished
 	 * @method _onLoaded
 	 * @private
-	 * @param {springroll.AssetLoad} result The current load
+	 * @param {function} complete The function to call when done
+	 * @param {springroll.AssetLoad} load The current load
+	 * @param {*} The returned results
 	 */
-	p._onLoaded = function(result)
+	p._onLoaded = function(complete, load, results)
 	{
-		var index = this.loads.indexOf(result);
+		var index = this.loads.indexOf(load);
 		if (index > -1)
 		{
 			this.loads.splice(index, 1);
 		}
-		result.destroy();
+		if (complete) complete(results);
+		this.poolLoad(load);
 	};
 
 	/**
@@ -5917,6 +5985,7 @@
 		this.cache.destroy();
 		this.cache = null;
 
+		this.loadPool = null;
 		this.loads = null;
 		this.taskDefs = null;
 	};
@@ -6018,7 +6087,6 @@
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a single file with options.
@@ -6034,8 +6102,8 @@
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameter which is a result object. will
 		 *        only use if `options.complete` is undefined.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a custom asset with options.
@@ -6046,8 +6114,8 @@
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameters which is a result object. will
 		 *        only use if `options.complete` is undefined.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
@@ -6055,8 +6123,8 @@
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
@@ -6065,10 +6133,10 @@
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
-		this.load = function(source, complete, progressOrStartAll, cache, data)
+		this.load = function(source, complete, progress, cacheOrStartAll, data)
 		{
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -6076,16 +6144,17 @@
 			{
 				source = {
 					src: source,
-					progress: progressOrStartAll || null,
-					cache: !!cache,
+					progress: progress || null,
+					cache: !!cacheOrStartAll,
 					data: data || null
 				};
 			}
 
-			return assetManager.load(
+			assetManager.load(
 				source, 
 				complete, 
-				progressOrStartAll
+				progress,
+				cacheOrStartAll
 			);
 		};
 
@@ -6200,13 +6269,13 @@
 	 *	add additional tasks to the manager after this.
 	 *	@event configLoaded
 	 *	@param {Object} config The JSON object for config
-	 *	@param {TaskManager} manager The task manager
+	 *	@param {Array} assets Container to add additional assets to
 	 */
 
 	/**
 	 *	The game has started loading
 	 *	@event loading
-	 *	@param {Array} tasks The list of tasks to preload
+	 *	@param {Array} assets The list of tasks to preload
 	 */
 
 	// Init the animator
@@ -6272,9 +6341,10 @@
 	 *	@method onConfigLoaded
 	 *	@private
 	 *	@param {Object} config The Loader result from the load
+	 *  @param {Object} asset Original asset data
 	 *	@param {Array} assets The array to add new load tasks to
 	 */
-	var onConfigLoaded = function(config, assets)
+	var onConfigLoaded = function(config, asset, assets)
 	{
 		this.config = config;
 		this.trigger('configLoaded', config, assets);

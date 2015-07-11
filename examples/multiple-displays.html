@@ -51,13 +51,8 @@ var Application = include('springroll.Application'),
 
 var app = new Application({
 	framerate: "framerate",
-	debug: true
-});
-
-// Preload and cache the assets
-app.once('loading', function(assets)
-{
-	assets.push(
+	debug: true,
+	preload: [
 		{
 			id: "PixiAssets",
 			urls: ['assets/images/button.json'],
@@ -68,10 +63,9 @@ app.once('loading', function(assets)
 			src: 'assets/images/button.png',
 			cache: true
 		}
-	);
-})
+	]
+});
 
-// App is ready to use, lets build some displays
 app.once('init', function()
 {	
 	this.initPixi();
@@ -79,10 +73,7 @@ app.once('init', function()
 	this.toggleDisplay(true);
 });
 
-/**
- * Initialize the PIXI.js Display
- * @method initPixi
- */
+// Initialize the PIXI.js Display
 app.initPixi = function()
 {
 	var display = this.addDisplay("pixi", PixiDisplay, {
@@ -114,10 +105,7 @@ app.initPixi = function()
 	display.stage.addChild(button);
 };
 
-/**
- * Initialize the EaselJS Display
- * @method initEasel
- */
+// Initialize the EaselJS Display
 app.initEasel = function()
 {
 	var display = this.addDisplay("easeljs", EaselJSDisplay, {
@@ -134,17 +122,14 @@ app.initEasel = function()
 	button.x = (display.width - button.width) / 2;
 	button.y = (display.height - button.height) / 2;
 	button.addEventListener(
-		EaselJSButton.BUTTON_PRESS,
+		'buttonPress',
 		this.toggleDisplay.bind(this, true)
 	);
 
 	display.stage.addChild(button);
 };
 
-/**
-* Switch the displays of which one is showing
-* @method toggleDisplay
-*/
+// Switch the displays of which one is showing
 app.toggleDisplay = function(showPixi)
 {
 	var pixi = this.getDisplay("pixi");
@@ -158,7 +143,6 @@ app.toggleDisplay = function(showPixi)
 	pixi.enabled = showPixi;
 	pixi.visible = showPixi;
 };
-
 </script>
 		</div>
     </body>

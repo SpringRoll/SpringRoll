@@ -1223,7 +1223,7 @@
 		this.scaling = new ScaleManager();
 
 		//Add the scaling size
-		this.on('configLoaded', function(config)
+		this.once('configLoaded', function(config)
 		{
 			var scalingSize = config.scalingSize;
 			if (scalingSize)

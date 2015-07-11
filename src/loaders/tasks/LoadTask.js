@@ -81,11 +81,13 @@
 			this.src,
 			function(result)
 			{
-				if (result && !advanced)
+				var content = result;
+				if (content && !advanced)
 				{
-					result = result.content;
+					content = result.content;
+					result.destroy();
 				}
-				callback(result);
+				callback(content);
 			},
 			this.progress,
 			this.data

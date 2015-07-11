@@ -280,7 +280,7 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, this._doInit.bind(this), false);
+		this.load(tasks, this._doInit.bind(this), null, false);
 	};
 
 	/**

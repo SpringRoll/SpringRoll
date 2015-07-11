@@ -91,7 +91,6 @@
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a single file with options.
@@ -107,8 +106,8 @@
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameter which is a result object. will
 		 *        only use if `options.complete` is undefined.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a custom asset with options.
@@ -119,8 +118,8 @@
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameters which is a result object. will
 		 *        only use if `options.complete` is undefined.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
@@ -128,8 +127,8 @@
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        map of the results by ID.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
@@ -138,10 +137,10 @@
 		 *        If each object has a `id` the result will be a mapped object.
 		 * @param {Function} complete Callback where the only parameter is the
 		 *        collection or map of the results.
+		 * @param {Function} [progress] The callback when a single item is finished.
 		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
-		 * @return {springroll.AssetLoad} The multi files loading
 		 */
-		this.load = function(source, complete, progressOrStartAll, cache, data)
+		this.load = function(source, complete, progress, cacheOrStartAll, data)
 		{
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
@@ -149,16 +148,17 @@
 			{
 				source = {
 					src: source,
-					progress: progressOrStartAll || null,
-					cache: !!cache,
+					progress: progress || null,
+					cache: !!cacheOrStartAll,
 					data: data || null
 				};
 			}
 
-			return assetManager.load(
+			assetManager.load(
 				source, 
 				complete, 
-				progressOrStartAll
+				progress,
+				cacheOrStartAll
 			);
 		};
 

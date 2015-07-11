@@ -25,24 +25,35 @@
 		/**
 		 * The collection of current multiloads
 		 * @property {Array} loads
+		 * @private
 		 */
 		this.loads = [];
 
 		/**
+		 * The expired loads to recycle
+		 * @property {Array} loadPool
+		 * @private
+		 */
+		this.loadPool = [];
+
+		/**
 		 * The collection of task definitions
 		 * @property {Array} taskDefs
+		 * @readOnly
 		 */
 		this.taskDefs = [];
 
 		/**
 		 * The cache of assets
 		 * @property {springroll.AssetCache} cache
+		 * @readOnly
 		 */
 		this.cache = new AssetCache();
 
 		/**
 		 * Handle multiple asset spritesheets
 		 * @property {springroll.AssetSizes} sizes
+		 * @readOnly
 		 */
 		this.sizes = new AssetSizes();
 
@@ -98,44 +109,71 @@
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
 	 * @param {function} [complete] The function when finished
+	 * @param {function} [progress] The function when finished a single task
 	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
-	p.load = function(assets, complete, startAll)
+	p.load = function(assets, complete, progress, startAll)
 	{	
-		var result = new AssetLoad(
-			this,
-			assets, 
-			complete,
-			(startAll === undefined ? true : !!startAll)
-		);
+		var load = this.getLoad();
 
 		// Add to the stack of current loads
-		this.loads.push(result);
+		this.loads.push(load);
 
-		// Handle the destroyed event
-		result.once(
-			'complete',
-			this._onLoaded.bind(this, result)
-		);
+		// Bind the complete
+		complete = this._onLoaded.bind(this, complete, load);
 
-		return result;
+		// Default startAll to be true
+		startAll = (startAll === undefined ? true : !!startAll);
+
+		// Start the load
+		load.start(assets, complete, progress, startAll);
+	};
+
+	/**
+	 * Stash the load for use later
+	 * @method poolLoad
+	 * @private
+	 * @param {springroll.AssetLoad} load The load to recycle
+	 */
+	p.poolLoad = function(load)
+	{
+		load.reset();
+		this.loadPool.push(load);
+	};
+
+	/**
+	 * Get either a new AssetLoad or a recycled one
+	 * @method getLoad
+	 * @private
+	 * @return {springroll.AssetLoad} The load to use
+	 */
+	p.getLoad = function()
+	{
+		if (this.loadPool.length > 0)
+		{
+			return this.loadPool.pop();
+		}
+		return new AssetLoad(this);
 	};
 
 	/**
 	 * Handler when a load is finished
 	 * @method _onLoaded
 	 * @private
-	 * @param {springroll.AssetLoad} result The current load
+	 * @param {function} complete The function to call when done
+	 * @param {springroll.AssetLoad} load The current load
+	 * @param {*} The returned results
 	 */
-	p._onLoaded = function(result)
+	p._onLoaded = function(complete, load, results)
 	{
-		var index = this.loads.indexOf(result);
+		var index = this.loads.indexOf(load);
 		if (index > -1)
 		{
 			this.loads.splice(index, 1);
 		}
-		result.destroy();
+		if (complete) complete(results);
+		this.poolLoad(load);
 	};
 
 	/**
@@ -150,6 +188,7 @@
 		this.cache.destroy();
 		this.cache = null;
 
+		this.loadPool = null;
 		this.loads = null;
 		this.taskDefs = null;
 	};

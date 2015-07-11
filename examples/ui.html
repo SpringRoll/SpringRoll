@@ -43,9 +43,9 @@
 
 var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
+	Bitmap = include('createjs.Bitmap'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
-// Create the new application
 var app = new Application({
 	resizeElement : "stageContainer",
 	framerate: "framerate",
@@ -53,13 +53,9 @@ var app = new Application({
 	configPath: "assets/config/config-ui.json",
 	display: EaselJSDisplay,
 	displayOptions: {
-		clearView: true // clear the stage on render
-	}
-});
-
-app.once('loading', function(assets)
-{
-	assets.push(
+		clearView: true
+	},
+	preload: [
 		{
 			id: 'Background',
 			src: 'assets/images/background.jpg',
@@ -70,19 +66,13 @@ app.once('loading', function(assets)
 			src: 'assets/images/button.png',
 			cache: true
 		}
-	);
+	]
 });
 
-// Wait until the app is ready
-app.once('init', function(){
+app.once('init', function()
+{
+	var background = new Bitmap(this.cache('Background'));
 
-	console.log("Main app init");
-	var stage = this.display.stage;
-
-	// Add the background to the stage 
-	var background = new createjs.Bitmap(this.cache('Background'));
-
-	// Create and add some buttons
 	this.playButton = new Button(this.cache('Button'), {
 		text: 'Play',
 		font: "16px Arial",
@@ -95,15 +85,14 @@ app.once('init', function(){
 		color: "#ffffff"
 	});
 
-	stage.addChild(background);
-	stage.addChild(this.playButton);
-	stage.addChild(this.closeButton);
+	this.display.stage.addChild(
+		background,
+		this.playButton,
+		this.closeButton
+	);
 
 	// Add the background to the scaling
 	this.scaling.addBackground(background);
-
-	// Manually call resize
-	this.triggerResize();
 });
 
 </script>

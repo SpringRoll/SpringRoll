@@ -34,43 +34,53 @@
 			<canvas id="stage" width="800" height="500"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
-// Create the new application
-var app = new springroll.Application({
+// Include classes
+var Application = include('springroll.Application'),
+	EaselJSDisplay = include('springroll.EaselJSDisplay'),
+	Debug = include('springroll.Debug'),
+	Shape = include('createjs.Shape');
+
+var app = new Application({
 	canvasId: "stage",
 	debug: true,
-	display: springroll.EaselJSDisplay,
-	preload: ["assets/images/background.jpg"]
+	display: EaselJSDisplay,
+	preload: [
+		"assets/images/background.jpg"
+	]
 });
 
+// Handled the preload assets
 app.once('loaded', function(results)
 {
-	console.log("Loaded", results);
+	Debug.green(">>> Preloaded RESULTS", results);
 });
 
-// Wait until the app is ready
-app.on('init', function(){
-
-	// Load assets with IDs,
-	// ever asset being loaded must contain an ID field
-	this.load([
+app.once('init', function()
+{
+	// Load a bunch of assets with IDs to get Object results
+	// Format: this.load(assets, onComplete, onProgress);
+	this.load(
+		[
 			{
 				id:'background',
 				src:'assets/images/background.jpg',
-				complete: function(result, assets)
+				complete: function(result, asset, assets)
 				{
+					// Add addition asset on callback
 					assets.push({
 						id:'captions', 
 						src: "assets/config/captions.json"
 					});
 				}
 			},
+			// Can use an asynchronous function
 			function(done)
 			{
 				// do asynchronous task
-				console.log("Wait 500ms seconds...");
+				Debug.blue("Wait 500ms seconds...");
 				setTimeout(function()
 				{
-					console.log("Wait done.");
+					Debug.blue("Wait done.");
 					done();
 				}, 1000);
 			},
@@ -79,29 +89,28 @@ app.on('init', function(){
 				src:'assets/images/button.png'
 			}
 		],
+		// Handle the callback
 		function(results)
 		{
-			console.info(">>> RESULTS", results);
+			Debug.green(">>> Object RESULTS", results);
 		}
 	);
 
 	// Load a simple array of files
-	var loader = this.load([
-		'assets/images/background.jpg',
-		'assets/images/button.png'
-	]);
-
-	// Listen when a task is finished
-	loader.on('progress', function(result)
-	{
-		console.log("progress", result);
-	});
-
-	// Listen when completed
-	loader.once('complete', function(results)
-	{
-		console.log(">>> Array RESULTS", results);
-	});
+	this.load(
+		[
+			'assets/images/logo.png',
+			'assets/images/button.png'
+		], 
+		function(results) // complete
+		{
+			Debug.green(">>> Array RESULTS", results);
+		},
+		function(result, asset)
+		{
+			Debug.orange(">>> Finished loading", asset.src);
+		}
+	);
 });
 </script>
 		</div>

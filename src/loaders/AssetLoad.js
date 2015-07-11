@@ -5,28 +5,16 @@
 (function()
 {
 	var Debug,
-		AssetManager,
-		Task = include('springroll.Task'),
-		EventDispatcher = include('springroll.EventDispatcher');
+		Task = include('springroll.Task');
 
 	/**
 	 * Class that represents a single multi load
 	 * @class AssetLoad
-	 * @extends springroll.EventDispatcher
 	 * @constructor
-	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} [complete=null] Function call when done, returns results
-	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
-	var AssetLoad = function(manager, assets, complete, parallel)
+	var AssetLoad = function(manager)
 	{
-		EventDispatcher.call(this);
-
-		if (!AssetManager)
-		{
-			AssetManager = include('springroll.AssetManager');
-		}
-
 		if (DEBUG)
 		{
 			Debug = include('springroll.Debug', false);
@@ -38,12 +26,17 @@
 		 */
 		this.manager = manager;
 
+		if (DEBUG)
+		{
+			this.id = AssetLoad.ID++;
+		}
+
 		/**
 		 * Handler when completed with all tasks
 		 * @property {function} complete
 		 * @default  null
 		 */
-		this.complete = complete || null;
+		this.complete = null;
 
 		/**
 		 * How to display the results, either as single (0), map (1) or list (2)
@@ -57,7 +50,7 @@
 		 * @property {Boolean} parallel
 		 * @default false
 		 */
-		this.parallel = !!parallel;
+		this.parallel = false;
 
 		/**
 		 * The list of tasks to load
@@ -71,19 +64,83 @@
 		 */
 		this.results = null;
 
+		/**
+		 * If the load is currently running
+		 * @property {Boolean} running
+		 * @default false
+		 */
+		this.running = false;
+	};
+
+	// Reference to prototype
+	var p = AssetLoad.prototype;
+
+	if (DEBUG)
+	{
+		/**
+		 * Debugging Keep track of how many we've created
+		 * @property {int} ID
+		 * @static
+		 * @private
+		 */
+		AssetLoad.ID = 1;
+
+		/**
+		 * Debugging purposes
+		 * @method toString
+		 */
+		p.toString = function()
+		{
+			return "[AssetLoad (index: " + this.id + ")]";
+		};		
+	}
+
+	/**
+	 * Initialize the Load 
+	 * @method start
+	 * @param {Object|Array} assets The collection of assets to load
+	 * @param {Function} [complete=null] Function call when done, returns results
+	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 */
+	p.start = function(assets, complete, progress, parallel)
+	{
+		// Keep track if we're currently running
+		this.running = true;
+
+		this.complete = complete || null;
+		this.progress = progress || null;
+		this.parallel = !!parallel;
+
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
 
 		// Set the default container for the results
 		this.results = getAssetsContainer(this.mode);
-
+		
 		// Start running
 		this.nextTask();
 	};
 
-	// Reference to prototype
-	var s = EventDispatcher.prototype;
-	var p = extend(AssetLoad, EventDispatcher);
+	/**
+	 * Set back to the original state
+	 * @method reset
+	 */
+	p.reset = function()
+	{
+		// Cancel any tasks
+		this.tasks.forEach(function(task)
+		{
+			task.status = Task.FINISHED;
+			task.destroy();
+		});
+		this.mode = MAP_MODE;
+		this.tasks.length = 0;
+		this.results = null;
+		this.complete = null;
+		this.progress = null;
+		this.parallel = false;
+		this.running = false;
+	};
 
 	/**
 	 * The result is a single result
@@ -116,24 +173,6 @@
 	var LIST_MODE = 2;
 
 	/**
-	 * When all events are completed
-	 * @event complete
-	 */
-		
-	/**
-	 * When the loader result has been destroyed
-	 * @event destroyed
-	 */
-	
-	/**
-	 * When a task is finished
-	 * @event progress
-	 * @param {*} result The load result
-	 * @param {Array} assets The object collection to add new assets to.
-	 * @param {Object} original The original asset loaded
-	 */
-
-	/**
 	 * Create a list of tasks from assets
 	 * @method  addTasks
 	 * @private
@@ -141,7 +180,7 @@
 	 */
 	p.addTasks = function(assets)
 	{
-		if (this.destroyed)
+		if (!this.running)
 		{
 			if (DEBUG && Debug)
 			{
@@ -304,7 +343,7 @@
 	p.taskDone = function(task, result)
 	{
 		// Ignore if we're destroyed
-		if (this.destroyed) return;
+		if (!this.running) return;
 
 		// Default to null
 		result = result || null;
@@ -347,10 +386,12 @@
 		// can potentially add more
 		if (task.complete)
 		{
-			task.complete(result, assets, task.original);
+			task.complete(result, task.original, assets);
 		}
-		this.trigger('progress', result, assets, task.original);
-
+		if (this.progress)
+		{
+			this.progress(result, task.original, assets);
+		}
 		task.destroy();
 
 		// Add new assets to the things to load
@@ -379,7 +420,6 @@
 			{
 				this.complete(this.results);
 			}
-			this.trigger('complete', this.results);
 		}
 	};
 
@@ -406,17 +446,9 @@
 	 */
 	p.destroy = function()
 	{
-		this.trigger('destroyed');
-		this.tasks.forEach(function(task)
-		{
-			task.status = Task.FINISHED;
-			task.destroy();
-		});
-		this.results = null;
-		this.complete = null;
+		this.reset();
 		this.tasks = null;
 		this.manager = null;
-		s.destroy.call(this);
 	};
 
 	/**

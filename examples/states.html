@@ -54,33 +54,20 @@ var Application = include('springroll.Application'),
 	Loader = include('springroll.Loader'),
 	Transition = include('lib.Transition');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
-	state: "title", // initial state
-	transition: new Transition(), // transition movieclip
+	state: "title",
+	transition: new Transition(),
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: [{
+		src: 'assets/images/button.png',
+		cache: true
+	}]
 });
 
-// The button image
-var buttonImage = null;
-
-app.once('loading', function(assets)
-{
-	assets.push({
-		src: 'assets/images/button.png', 
-		complete: function(image)
-		{
-			// Save the bitmap image to use late
-			buttonImage = image
-		}
-	});
-});
-
-// Wait until the app is ready
 app.once('init', function()
 {
 	// Add the states to the application
@@ -107,15 +94,10 @@ function getTitleState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.nextButton = new Button(buttonImage, {
-			text: "Play",
-			font: "24px Arial",
-			color: "#ffffff"
-		});
-		button.x = 330;
-		button.y = 230;
+		var button = addButton("Play");
 		this.panel.addChild(button);
-		button.addEventListener('buttonPress', this.nextState.bind(this));
+		button.on('buttonPress', this.nextState.bind(this));
+		this.nextButton = button;
 	};
 
 	// When the transition is done transitioning out of state
@@ -142,21 +124,16 @@ function getGameState()
 	// When the transition starts transitining into to state
 	state.enter = function()
 	{
-		var button = this.backButton = new Button(buttonImage, {
-			text: "Back",
-			font: "24px Arial",
-			color: "#ffffff"
-		});
+		var button = addButton("Back");
 		this.panel.addChild(button);
-		button.addEventListener('buttonPress', this.previousState.bind(this));
-
-		console.log("Start loading");
+		button.on('buttonPress', this.previousState.bind(this));
+		this.backButton = button;
 
 		// Start async loading
 		this.loadingStart();
 
 		// Load the background
-		Application.instance.load(
+		app.load(
 			'assets/images/background.jpg', 
 			onLoadingDone.bind(this)
 		);
@@ -164,7 +141,6 @@ function getGameState()
 
 	var onLoadingDone = function(background)
 	{
-		console.log("Loading done");
 		this.panel.addChildAt(new Bitmap(background), 0);
 
 		// Resume the load
@@ -180,6 +156,19 @@ function getGameState()
 	};
 	return state;
 }
+
+// Create a simple button
+var addButton = function(text)
+{
+	var button = new Button(app.cache('button'), {
+		text: text,
+		font: "24px Arial",
+		color: "#ffffff"
+	});
+	button.x = 330;
+	button.y = 230;
+	return button;
+};
 
 </script>
 		</div>

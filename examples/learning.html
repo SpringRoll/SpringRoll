@@ -58,22 +58,11 @@ var app = new Application({
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
-});
-
-// The button states image
-var buttonImage;
-
-// Load the button
-app.once('loading', function(assets)
-{
-	assets.push({
-		src: 'assets/images/button.png', 
-		complete: function(image)
-		{
-			buttonImage = image;
-		}
-	});
+	},
+	preload: [{
+		src: 'assets/images/button.png',
+		cache: true
+	}]
 });
 
 // Handle the events
@@ -87,20 +76,20 @@ app.once('init', function()
 {
 	var learning = this.learning;
 
-	addButton("startGame", 0, 0, function(){
+	this.addButton("startGame", 0, 0, function(){
 		learning.startGame();
 	});
 
-	addButton("startRound", 1, 0, function(){
+	this.addButton("startRound", 1, 0, function(){
 		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
 	});
 
-	addButton("startRound", 1, 0, function(){
+	this.addButton("startRound", 1, 0, function(){
 		learning.startTimer('round');
 		learning.startRound(1, {size:1, type:"tub", animal:"pig"}, [1, 2], ["pig", "hog"], 1);
 	});
 
-	addButton("endRound", 1, 1, function(){
+	this.addButton("endRound", 1, 1, function(){
 		learning.requires("startRound");
 		learning.endRound(
 			1, 
@@ -111,41 +100,41 @@ app.once('init', function()
 		);
 	});
 
-	addButton("startInstruction", 2, 0, function(){
+	this.addButton("startInstruction", 2, 0, function(){
 		learning.startInstruction("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endInstruction", 2, 1, function(){
+	this.addButton("endInstruction", 2, 1, function(){
 		learning.endInstruction();
 	});
 
-	addButton("startIncorrect", 2, 2, function(){
+	this.addButton("startIncorrect", 2, 2, function(){
 		learning.startIncorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endIncorrect", 2, 3, function(){
+	this.addButton("endIncorrect", 2, 3, function(){
 		learning.endIncorrectFeedback();
 	});
 
-	addButton("startCorrect", 2, 4, function(){
+	this.addButton("startCorrect", 2, 4, function(){
 		learning.startCorrectFeedback("Audio caption or text", "SomeAudio", "audio", 1000);
 	});
 
-	addButton("endCorrect", 2, 5, function(){
+	this.addButton("endCorrect", 2, 5, function(){
 		learning.endCorrectFeedback();
 	});
 
-	addButton("endGame", 4, 0, function(){
+	this.addButton("endGame", 4, 0, function(){
 		learning.endGame();
 	});
 });
 
 // Generic method for adding a button to the stage
 // add a label and some positioning information
-var addButton = function(label, row, col, handler)
+app.addButton = function(label, row, col, handler)
 {
 	// Create a play button
-	var button = new Button(buttonImage, {
+	var button = new Button(this.cache('button'), {
 		text: label,
 		font: "16px Arial",
 		color: "#ffffff"
@@ -159,7 +148,7 @@ var addButton = function(label, row, col, handler)
 		button.on('buttonPress', handler);
 	}
 
-	app.display.stage.addChild(button);
+	this.display.stage.addChild(button);
 	return button;
 };
 
