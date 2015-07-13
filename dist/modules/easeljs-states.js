@@ -212,7 +212,7 @@
 
 		/**
 		 *	Reference to the main app
-		 *	@property {Application} app
+		 *	@property {Application} game
 		 *	@protected
 		 *	@deprecated Use the property 'app' instead
 		 *	@readOnly
