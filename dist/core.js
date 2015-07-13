@@ -4027,14 +4027,14 @@
 	p.start = function(callback)
 	{
 		Application.instance.load({
-				alpha: this.alpha,
-				color: this.color
+				_alpha: this.alpha,
+				_color: this.color
 			}, 
 			function(results)
 			{
 				callback(ColorAlphaTask.mergeAlpha(
-					results.color.content,
-					results.alpha.content
+					results._color,
+					results._alpha
 				));
 			}
 		);

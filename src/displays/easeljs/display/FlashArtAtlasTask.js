@@ -14,12 +14,12 @@
 	/**
 	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
 	 * that pulls the image from a spritesheet.
-	 * @class SpritesheetTask
+	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
-	 * @param {String} asset.spritesheet The TextureAtlas source data
+	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.image] The spritesheet image path
 	 * @param {String} [asset.color] The spritesheet color image path, if not using image property
@@ -29,7 +29,7 @@
 	 * @param {String} [asset.libItem='lib'] The global window object for symbols
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported
 	 */
-	var SpritesheetTask = function(asset)
+	var FlashArtAtlasTask = function(asset)
 	{
 		Task.call(this, asset, asset.src);
 
@@ -46,9 +46,9 @@
 
 		/**
 		 * The spritesheet data source path
-		 * @property {String} spritesheet
+		 * @property {String} atlas
 		 */
-		this.spritesheet = this.filter(asset.spritesheet);
+		this.atlas = this.filter(asset.atlas);
 
 		/**
 		 * The spritesheet source path
@@ -77,7 +77,7 @@
 	};
 
 	// Reference to prototype
-	var p = extend(SpritesheetTask, Task);
+	var p = extend(FlashArtAtlasTask, Task);
 
 	/**
 	 * Test if we should run this task
@@ -86,11 +86,11 @@
 	 * @param {Object} asset The asset to check
 	 * @return {Boolean} If the asset is compatible with this asset
 	 */
-	SpritesheetTask.test = function(asset)
+	FlashArtAtlasTask.test = function(asset)
 	{
 		return asset.src && 
 			asset.src.search(/\.js$/i) > -1 && 
-			asset.spritesheet && 
+			asset.atlas && 
 			(asset.image || (asset.color && asset.alpha));
 	};
 
@@ -103,7 +103,7 @@
 	{
 		var assets = {
 			_flash : this.src,
-			_spritesheet: this.spritesheet
+			_atlas: this.atlas
 		};
 
 		if (this.image)
@@ -133,7 +133,7 @@
 				);
 			}
 
-			BitmapUtils.loadSpriteSheet(results._spritesheet, image, this.original.scale);
+			BitmapUtils.loadSpriteSheet(results._atlas, image, this.original.scale);
 
 			callback(new FlashArt(
 				this.id,
@@ -145,6 +145,6 @@
 	};
 
 	// Assign to namespace
-	namespace('springroll.easeljs').SpritesheetTask = SpritesheetTask;
+	namespace('springroll.easeljs').FlashArtAtlasTask = FlashArtAtlasTask;
 
 }());
