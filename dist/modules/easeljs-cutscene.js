@@ -337,7 +337,7 @@
 		var result, imgScale, key;
 		for (id in results)
 		{
-			result = results[id].content;
+			result = results[id];
 			if (id.indexOf("atlasData_") === 0)//look for spritesheet data
 			{
 				atlasData[id.replace("atlasData_", "")] = result;
