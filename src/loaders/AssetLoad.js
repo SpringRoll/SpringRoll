@@ -2,7 +2,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var Debug,
 		Task = include('springroll.Task');
@@ -47,10 +47,17 @@
 
 		/**
 		 * If we should run the tasks in parallel (true) or serial (false)
-		 * @property {Boolean} parallel
+		 * @property {Boolean} startAll
+		 * @default true
+		 */
+		this.startAll = true;
+
+		/**
+		 * If we should try to cache all items in the load
+		 * @property {Boolean} cacheAll
 		 * @default false
 		 */
-		this.parallel = false;
+		this.cacheAll = false;
 
 		/**
 		 * The list of tasks to load
@@ -99,17 +106,22 @@
 	 * Initialize the Load 
 	 * @method start
 	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} [complete=null] Function call when done, returns results
-	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 * @param {Object} [options] The loading options
+	 * @param {Function} [options.complete=null] Function call when done, returns results
+	 * @param {Function} [options.progress=null] Function call when task is done, returns result
+	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
 	 */
-	p.start = function(assets, complete, progress, parallel)
+	p.start = function(assets, options)
 	{
 		// Keep track if we're currently running
 		this.running = true;
 
-		this.complete = complete || null;
-		this.progress = progress || null;
-		this.parallel = !!parallel;
+		// Save options to load
+		this.complete = options.complete;
+		this.progress = options.progress;
+		this.startAll = options.startAll;
+		this.cacheAll = options.cacheAll;
 
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
@@ -138,7 +150,8 @@
 		this.results = null;
 		this.complete = null;
 		this.progress = null;
-		this.parallel = false;
+		this.startAll = true;
+		this.cacheAll = false;
 		this.running = false;
 	};
 
@@ -277,6 +290,10 @@
 		var TaskClass = this.getTaskByAsset(asset);
 		if (TaskClass)
 		{
+			if (asset.cache === undefined && this.cacheAll)
+			{
+				asset.cache = true;
+			}
 			this.tasks.push(new TaskClass(asset));
 		}
 		else if (DEBUG && Debug)
@@ -328,7 +345,7 @@
 				task.start(this.taskDone.bind(this, task));
 				
 				// If we aren't running in parallel, then stop
-				if (!this.parallel) return;
+				if (!this.startAll) return;
 			}
 		}
 	};

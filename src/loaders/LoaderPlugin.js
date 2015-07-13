@@ -2,7 +2,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),
@@ -95,53 +95,57 @@
 		/**
 		 * Load a single file with options.
 		 * @method load
-		 * @param {Object} options The file resource to load
-		 * @param {String} options.src The file to load
-		 * @param {Boolean} [options.cache=false] If the result should be cached for later
-		 * @param {Function} [options.complete=null] Callback when finished
-		 * @param {Function} [options.progress=null] Callback on load progress,
+		 * @param {Object} asset The file resource to load
+		 * @param {String} asset.src The file to load
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {Function} [asset.progress=null] Callback on load progress,
 		 *        has a parameter which is the percentage loaded from 0 to 1.
-		 * @param {*} [options.data] Additional data to attach to load is
+		 * @param {*} [asset.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameter which is a result object. will
-		 *        only use if `options.complete` is undefined.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 *        only use if `asset.complete` is undefined.
 		 */
 		/**
-		 * Load a custom asset with options.
+		 * Load a single custom asset with options.
 		 * @method load
-		 * @param {Object} options The file resource to load
-		 * @param {Function} [options.complete=null] Callback when finished
-		 * @param {Boolean} [options.cache=false] If the result should be cached for later
+		 * @param {Object} asset The single asset resource to load, properties
+		 *        will depend on the type of asset loading.
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {String} [asset.id=null] The ID to attach to this asset
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameters which is a result object. will
-		 *        only use if `options.complete` is undefined.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 *        only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
-		 * @param {Function} complete Callback where the only parameter is the
-		 *        map of the results by ID.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *        map of the results by ID, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
 		 *        If each object has a `id` the result will be a mapped object.
-		 * @param {Function} complete Callback where the only parameter is the
-		 *        collection or map of the results.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *        collection or map of the results, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 */
-		this.load = function(source, complete, progress, cacheOrStartAll, data)
+		this.load = function(source, complete, progress, cache, data)
 		{
+			var options; 
+
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
 			if (typeof source == "string")
@@ -149,17 +153,25 @@
 				source = {
 					src: source,
 					progress: progress || null,
-					cache: !!cacheOrStartAll,
-					data: data || null
+					complete: complete || null,
+					cache: !!cache,
+					data: data || null,
 				};
 			}
+			else
+			{
+				// Presume complete is an options object
+				options = complete;
 
-			assetManager.load(
-				source, 
-				complete, 
-				progress,
-				cacheOrStartAll
-			);
+				// Second argument is callback
+				if (typeof complete === "function")
+				{
+					options = {
+						complete: complete
+					};
+				}
+			}
+			assetManager.load(source, options);
 		};
 
 		/**

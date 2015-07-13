@@ -108,26 +108,38 @@
 	 * Load a bunch of assets, can only call one load at a time
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
-	 * @param {function} [complete] The function when finished
-	 * @param {function} [progress] The function when finished a single task
-	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
+	 * @param {Object} [options] The loading options
+	 * @param {function} [options.complete] The function when finished
+	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
+	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
-	p.load = function(assets, complete, progress, startAll)
-	{	
+	p.load = function(assets, options)
+	{
+		// Apply defaults to options
+		options = Object.merge({
+			complete: null,
+			progress: null,
+			cacheAll: false,
+			startAll: true
+		}, options);
+
 		var load = this.getLoad();
 
 		// Add to the stack of current loads
 		this.loads.push(load);
 
-		// Bind the complete
-		complete = this._onLoaded.bind(this, complete, load);
-
-		// Default startAll to be true
-		startAll = (startAll === undefined ? true : !!startAll);
+		// Override the complete callback with a bind of the 
+		// original callback with the task
+		options.complete = this._onLoaded.bind(
+			this, 
+			options.complete, 
+			load
+		);
 
 		// Start the load
-		load.start(assets, complete, progress, startAll);
+		load.start(assets, options);
 	};
 
 	/**

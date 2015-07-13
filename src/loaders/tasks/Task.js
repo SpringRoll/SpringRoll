@@ -67,7 +67,7 @@
 		// We're trying to cache but we don't have an ID
 		if (this.cache && !this.id)
 		{
-			if (fallbackId)
+			if (fallbackId && typeof fallbackId == "string")
 			{
 				// Remove the file extension
 				fallbackId = fallbackId.substr(0, fallbackId.lastIndexOf('.'));

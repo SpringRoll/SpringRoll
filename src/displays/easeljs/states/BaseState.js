@@ -160,9 +160,12 @@
 		}
 		
 		// Start loading assets if we have some
-		if (tasks.length)
+		if (assets.length)
 		{
-			this.app.load(assets, this._onLoaded.bind(this));
+			this.app.load(assets, {
+				complete: this._onLoaded.bind(this),
+				cacheAll: true
+			});
 		}
 		// No files to load, just continue
 		else

@@ -2532,7 +2532,10 @@
 		});
 
 		// Run the asyncronous tasks in series
-		this.load(tasks, this._doInit.bind(this), null, false);
+		this.load(tasks, {
+			complete: this._doInit.bind(this), 
+			startAll: false
+		});
 	};
 
 	/**
@@ -3784,7 +3787,7 @@
 		// We're trying to cache but we don't have an ID
 		if (this.cache && !this.id)
 		{
-			if (fallbackId)
+			if (fallbackId && typeof fallbackId == "string")
 			{
 				// Remove the file extension
 				fallbackId = fallbackId.substr(0, fallbackId.lastIndexOf('.'));
@@ -5318,7 +5321,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var Debug,
 		Task = include('springroll.Task');
@@ -5363,10 +5366,17 @@
 
 		/**
 		 * If we should run the tasks in parallel (true) or serial (false)
-		 * @property {Boolean} parallel
+		 * @property {Boolean} startAll
+		 * @default true
+		 */
+		this.startAll = true;
+
+		/**
+		 * If we should try to cache all items in the load
+		 * @property {Boolean} cacheAll
 		 * @default false
 		 */
-		this.parallel = false;
+		this.cacheAll = false;
 
 		/**
 		 * The list of tasks to load
@@ -5415,17 +5425,22 @@
 	 * Initialize the Load 
 	 * @method start
 	 * @param {Object|Array} assets The collection of assets to load
-	 * @param {Function} [complete=null] Function call when done, returns results
-	 * @param {Boolean} [parallel=false] If we should run the tasks in ordeer
+	 * @param {Object} [options] The loading options
+	 * @param {Function} [options.complete=null] Function call when done, returns results
+	 * @param {Function} [options.progress=null] Function call when task is done, returns result
+	 * @param {Boolean} [options.startAll=true] If we should run the tasks in order
+	 * @param {Boolean} [options.cacheAll=false] If we should run the tasks in order
 	 */
-	p.start = function(assets, complete, progress, parallel)
+	p.start = function(assets, options)
 	{
 		// Keep track if we're currently running
 		this.running = true;
 
-		this.complete = complete || null;
-		this.progress = progress || null;
-		this.parallel = !!parallel;
+		// Save options to load
+		this.complete = options.complete;
+		this.progress = options.progress;
+		this.startAll = options.startAll;
+		this.cacheAll = options.cacheAll;
 
 		// Update the results mode and tasks
 		this.mode = this.addTasks(assets);
@@ -5454,7 +5469,8 @@
 		this.results = null;
 		this.complete = null;
 		this.progress = null;
-		this.parallel = false;
+		this.startAll = true;
+		this.cacheAll = false;
 		this.running = false;
 	};
 
@@ -5593,6 +5609,10 @@
 		var TaskClass = this.getTaskByAsset(asset);
 		if (TaskClass)
 		{
+			if (asset.cache === undefined && this.cacheAll)
+			{
+				asset.cache = true;
+			}
 			this.tasks.push(new TaskClass(asset));
 		}
 		else if (true && Debug)
@@ -5644,7 +5664,7 @@
 				task.start(this.taskDone.bind(this, task));
 				
 				// If we aren't running in parallel, then stop
-				if (!this.parallel) return;
+				if (!this.startAll) return;
 			}
 		}
 	};
@@ -5905,26 +5925,38 @@
 	 * Load a bunch of assets, can only call one load at a time
 	 * @method load
 	 * @param {Object|Array} asset The assets to load
-	 * @param {function} [complete] The function when finished
-	 * @param {function} [progress] The function when finished a single task
-	 * @param {Boolean} [startAll=true] If we should run all the tasks at once, in parallel
+	 * @param {Object} [options] The loading options
+	 * @param {function} [options.complete] The function when finished
+	 * @param {function} [options.progress] The function when finished a single task
+	 * @param {Boolean} [options.startAll=true] If we should run all the tasks at once, in parallel
+	 * @param {Boolean} [options.cacheAll=false] If we should cache all files
 	 * @return {springroll.AssetLoad} The reference to the current load
 	 */
-	p.load = function(assets, complete, progress, startAll)
-	{	
+	p.load = function(assets, options)
+	{
+		// Apply defaults to options
+		options = Object.merge({
+			complete: null,
+			progress: null,
+			cacheAll: false,
+			startAll: true
+		}, options);
+
 		var load = this.getLoad();
 
 		// Add to the stack of current loads
 		this.loads.push(load);
 
-		// Bind the complete
-		complete = this._onLoaded.bind(this, complete, load);
-
-		// Default startAll to be true
-		startAll = (startAll === undefined ? true : !!startAll);
+		// Override the complete callback with a bind of the 
+		// original callback with the task
+		options.complete = this._onLoaded.bind(
+			this, 
+			options.complete, 
+			load
+		);
 
 		// Start the load
-		load.start(assets, complete, progress, startAll);
+		load.start(assets, options);
 	};
 
 	/**
@@ -5998,7 +6030,7 @@
 *  @module Core
 *  @namespace springroll
 */
-(function()
+(function(undefined)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),
@@ -6091,53 +6123,57 @@
 		/**
 		 * Load a single file with options.
 		 * @method load
-		 * @param {Object} options The file resource to load
-		 * @param {String} options.src The file to load
-		 * @param {Boolean} [options.cache=false] If the result should be cached for later
-		 * @param {Function} [options.complete=null] Callback when finished
-		 * @param {Function} [options.progress=null] Callback on load progress,
+		 * @param {Object} asset The file resource to load
+		 * @param {String} asset.src The file to load
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {Function} [asset.progress=null] Callback on load progress,
 		 *        has a parameter which is the percentage loaded from 0 to 1.
-		 * @param {*} [options.data] Additional data to attach to load is
+		 * @param {*} [asset.data] Additional data to attach to load is
 		 *        accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameter which is a result object. will
-		 *        only use if `options.complete` is undefined.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 *        only use if `asset.complete` is undefined.
 		 */
 		/**
-		 * Load a custom asset with options.
+		 * Load a single custom asset with options.
 		 * @method load
-		 * @param {Object} options The file resource to load
-		 * @param {Function} [options.complete=null] Callback when finished
-		 * @param {Boolean} [options.cache=false] If the result should be cached for later
+		 * @param {Object} asset The single asset resource to load, properties
+		 *        will depend on the type of asset loading.
+		 * @param {Function} [asset.complete=null] Callback when finished
+		 * @param {String} [asset.id=null] The ID to attach to this asset
+		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
 		 *        parameters which is a result object. will
-		 *        only use if `options.complete` is undefined.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 *        only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
-		 * @param {Function} complete Callback where the only parameter is the
-		 *        map of the results by ID.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *        map of the results by ID, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 */
 		/**
 		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
 		 *        If each object has a `id` the result will be a mapped object.
-		 * @param {Function} complete Callback where the only parameter is the
-		 *        collection or map of the results.
-		 * @param {Function} [progress] The callback when a single item is finished.
-		 * @param {Boolean} [startAll=true] If tasks should be run in parallel
+		 * @param {Function|Object} [options] Callback where the only parameter is the
+		 *        collection or map of the results, or the collection of load options.
+		 * @param {Function} [options.complete=null] The complete callback if using load options.
+		 * @param {Function} [options.progress=null] The callback when a single item is finished.
+		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
+		 * @param {Boolean} [options.startAll=true] If tasks should be run in parallel
 		 */
-		this.load = function(source, complete, progress, cacheOrStartAll, data)
+		this.load = function(source, complete, progress, cache, data)
 		{
+			var options; 
+
 			// If the load arguments are setup like the Loader.load call
 			// then we'll convert to an object that we can use
 			if (typeof source == "string")
@@ -6145,17 +6181,25 @@
 				source = {
 					src: source,
 					progress: progress || null,
-					cache: !!cacheOrStartAll,
-					data: data || null
+					complete: complete || null,
+					cache: !!cache,
+					data: data || null,
 				};
 			}
+			else
+			{
+				// Presume complete is an options object
+				options = complete;
 
-			assetManager.load(
-				source, 
-				complete, 
-				progress,
-				cacheOrStartAll
-			);
+				// Second argument is callback
+				if (typeof complete === "function")
+				{
+					options = {
+						complete: complete
+					};
+				}
+			}
+			assetManager.load(source, options);
 		};
 
 		/**
