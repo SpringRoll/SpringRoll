@@ -819,7 +819,7 @@
 			}
 			else
 			{
-				c.updateAnim(time - prevTime);
+				c.update(time - prevTime);
 			}
 		}
 		else
