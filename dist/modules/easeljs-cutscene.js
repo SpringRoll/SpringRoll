@@ -454,12 +454,14 @@
 			this._captions.stop();
 		}
 
-		this.dispatchEvent('complete');
-
-		if (doCallback && this._endCallback)
+		if (doCallback)
 		{
-			this._endCallback();
-			this._endCallback = null;
+			this.dispatchEvent('complete');
+			if (this._endCallback)
+			{
+				this._endCallback();
+				this._endCallback = null;
+			}
 		}
 	};
 
@@ -487,6 +489,7 @@
 		{
 			this.parent.removeChild(this);
 		}
+		this.removeAllEventListeners();
 	};
 
 	namespace("springroll").Cutscene = Cutscene;
@@ -704,7 +707,6 @@
 				{
 					results._audio.destroy();
 				}
-				cutscene.removeAllEventListeners();
 			});
 			callback(cutscene);
 		}
