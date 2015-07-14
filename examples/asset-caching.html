@@ -41,6 +41,7 @@
 <script>
 
 var Application = include('springroll.Application'),
+	Bitmap = include('createjs.Bitmap'),
 	Button = include('springroll.easeljs.Button'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay'),
 	Animator = include('springroll.easeljs.Animator');
@@ -56,6 +57,11 @@ var app = new Application({
 	// Add the manifest with the loading event to make sure
 	// assets are loaded before the application is init
 	preload: [
+		{
+			id: 'Background',
+			src: 'assets/images/background2.jpg',
+			cache: true
+		},
 		{
 			id:'Button',
 			src:'assets/images/button.png',
@@ -85,6 +91,9 @@ app.once('init', function()
 	// from the JavaScript library
 	var transition = new lib.Transition();
 	
+	// Background image
+	var background = new Bitmap(this.cache('Background'));
+
 	// Get the Bitmap movieclip
 	var flower = this.cache('Flower');
 	
@@ -97,13 +106,18 @@ app.once('init', function()
 
 	// Fudge positions
 	transition.x = -140;
-	flower.x = 400;
-	flower.y = 200;
+	flower.x = 410;
+	flower.y = 260;
 	unloadButton.x = 340;
 	unloadButton.y = 300;
 
 	// Add items to the stage
-	this.display.stage.addChild(flower, unloadButton, transition);
+	this.display.stage.addChild(
+		background,
+		flower,
+		unloadButton,
+		transition
+	);
 	
 	// Add the animation
 	Animator.play(flower, "wet");
@@ -127,7 +141,12 @@ app.once('init', function()
 		app.display.stage.removeAllChildren();
 
 		// Unload assets that have been loaded
-		app.unload('Button', 'Flower', 'Transition');
+		app.unload(
+			'Background',
+			'Button',
+			'Flower',
+			'Transition'
+		);
 	});
 });
 

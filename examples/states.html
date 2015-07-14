@@ -134,7 +134,7 @@ function getGameState()
 
 		// Load the background
 		app.load(
-			'assets/images/background.jpg', 
+			'assets/images/background2.jpg', 
 			onLoadingDone.bind(this)
 		);
 	};
@@ -162,11 +162,11 @@ var addButton = function(text)
 {
 	var button = new Button(app.cache('button'), {
 		text: text,
-		font: "24px Arial",
+		font: "20px Arial",
 		color: "#ffffff"
 	});
-	button.x = 330;
-	button.y = 230;
+	button.x = 340;
+	button.y = 300;
 	return button;
 };
 
