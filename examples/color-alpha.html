@@ -32,7 +32,6 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<div id="framerate">FPS: 00.000</div>
 			<canvas id="stage" width="800" height="533"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
@@ -43,7 +42,6 @@ var Application = include('springroll.Application'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
 var app = new Application({
-	framerate: "framerate",
 	canvasId: "stage",
 	display: EaselJSDisplay,
 	preload: [

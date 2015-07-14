@@ -114,7 +114,9 @@
 		"easeljscutscene": {
 			"output": "easeljs-cutscene",
 			"main": [
-				"src/displays/easeljs/cutscene/Cutscene.js"
+				"src/displays/easeljs/cutscene/Cutscene.js",
+				"src/displays/easeljs/cutscene/CutsceneTask.js",
+				"src/displays/easeljs/cutscene/CutscenePlugin.js"
 			]
 		},
 		"easeljslearning": {
@@ -143,7 +145,7 @@
 		"sound": [
 			"src/media/SoundContext.js",
 			"src/media/SoundInstance.js",
-			"src/media/SoundListTask.js",
+			"src/media/SoundTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js",
 			"src/media/SoundPlugin.js",

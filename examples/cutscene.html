@@ -15,13 +15,19 @@
 		<script src="assets/js/examples.js"></script>
 
         <!-- External dependencies -->
-        <script src="../components/preloadjs/lib/preloadjs.min.js"></script>
+        <script src="../components/soundjs/lib/soundjs.min.js"></script>
+		<script src="../components/soundjs/lib/flashaudioplugin.min.js"></script>
+		<script src="../components/tweenjs/lib/tweenjs.min.js"></script>
+		<script src="../components/preloadjs/lib/preloadjs.min.js"></script>
 		<script src="../components/easeljs/lib/easeljs.combined.js"></script>
+		<script src="../components/easeljs/lib/movieclip.combined.js"></script>
 
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>
 		<script src="../dist/modules/debug.js"></script>
+		<script src="../dist/modules/sound.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
+		<script src="../dist/modules/easeljs-cutscene.js"></script>
 
     </head>
     <body>
@@ -31,7 +37,7 @@
 				<button id="code">Code</button>
 				<button id="back">Back</button>
 			</nav>
-			<canvas id="stage" width="800" height="500"></canvas>
+			<canvas id="stage" width="1024" height="660"></canvas>
 			<pre id="codeDisplay"></pre>
 <script>
 // Include classes
@@ -43,18 +49,25 @@ var Application = include('springroll.Application'),
 var app = new Application({
 	canvasId: "stage",
 	debug: true,
-	display: EaselJSDisplay
+	configPath: 'assets/cutscene/config.json',
+	display: EaselJSDisplay,
+	displayOptions: {
+		clearView: true
+	}
 });
 
 // Wait until the app is ready
 app.once('init', function()
 {
-	var shape = new Shape();
-	shape.graphics.beginFill("#69a1df")
-		.drawCircle(400, 250, 100);
-
-	// Add it to the EaselJS stage
-	this.display.stage.addChild(shape);
+	var stage = this.display.stage;
+	this.load(this.config.intro, function(cutscene)
+	{
+		stage.addChild(cutscene);
+		cutscene.start(function()
+		{
+			cutscene.destroy();
+		});
+	});
 });
 </script>
 		</div>

@@ -85,6 +85,9 @@
 		*/
 		this.sound = null;
 
+		// Add new task
+		this.assetManager.register('springroll.SoundTask');
+
 		/**
 		*  Get or set the current music alias to play
 		*  @property {String} music

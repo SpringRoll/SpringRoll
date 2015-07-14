@@ -4095,7 +4095,7 @@
 	 * @extends springroll.Task
 	 * @constructor
 	 * @param {Object} asset The data properties
-	 * @param {Array} asset.assets The collection of assets to load
+	 * @param {Array|Object} asset.assets The collection of assets to load
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] Id of asset
 	 * @param {Function} [asset.complete=null] The event to call when done
@@ -4106,7 +4106,7 @@
 
 		/**
 		 * The collection of assets to load
-		 * @property {Array} assets
+		 * @property {Array|Object} assets
 		 */
 		this.assets = asset.assets;
 	};
@@ -4123,7 +4123,7 @@
 	 */
 	ListTask.test = function(asset)
 	{
-		return !!asset.assets && Array.isArray(asset.assets);
+		return !!asset.assets && (Array.isArray(asset.assets) || Object.isPlain(asset.assets));
 	};
 
 	/**

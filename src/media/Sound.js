@@ -9,7 +9,6 @@
 		Debug,
 		SoundContext,
 		SoundInstance,
-		SoundListTask,
 		WebAudioPlugin = include('createjs.WebAudioPlugin'),
 		FlashAudioPlugin = include('createjs.FlashAudioPlugin', false),
 		SoundJS = include('createjs.Sound'),
@@ -29,7 +28,6 @@
 			Debug = include('springroll.Debug', false);
 			SoundContext = include('springroll.SoundContext');
 			SoundInstance = include('springroll.SoundInstance');
-			SoundListTask = include('springroll.SoundListTask', false);
 		}
 
 		/**

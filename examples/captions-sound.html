@@ -95,7 +95,8 @@ app.once('init', function()
 	// Add the buttons and handle the clicks
 	this.addButton('Volume', 200, 100, function()
 	{
-		voPlayer.play('Volume');
+		var vol = 'Volume';
+		voPlayer.play(vol);
 	});
 	this.addButton('GoodJob', 340, 100, function()
 	{
