@@ -20,7 +20,7 @@
 	*/
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', 
+	Object.defineProperty(String.prototype, 'format',
 	{
 		enumerable: false,
 		writable:false,
@@ -44,12 +44,12 @@
 	
 	/**
 	*  Returns a reversed copy of the string.
-	*  @method format
+	*  @method reverse
 	*  @return {String} The reversed string.
 	*/
 	if(!String.prototype.reverse)
 	{
-		Object.defineProperty(String.prototype, 'reverse', 
+		Object.defineProperty(String.prototype, 'reverse',
 		{
 			enumerable: false,
 			writable:false,
