@@ -10326,7 +10326,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 913,
+            "line": 917,
             "description": "The sound has been started",
             "itemtype": "method",
             "name": "onSoundStarted",
@@ -10345,7 +10345,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 927,
+            "line": 931,
             "description": "The sound is done",
             "itemtype": "method",
             "name": "onSoundDone",
@@ -10364,7 +10364,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 945,
+            "line": 949,
             "description": "Check to see if we have timeline",
             "itemtype": "method",
             "name": "_hasTimelines",
@@ -10381,7 +10381,7 @@
         },
         {
             "file": "src/displays/easeljs/animation/Animator.js",
-            "line": 959,
+            "line": 963,
             "description": "String representation of this class",
             "itemtype": "method",
             "name": "toString",
@@ -12666,7 +12666,7 @@
             "line": 70,
             "description": "Reference to the main app",
             "itemtype": "property",
-            "name": "app",
+            "name": "game",
             "type": "Application",
             "access": "protected",
             "tagname": "",
@@ -13864,6 +13864,19 @@
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
             "line": 137,
+            "description": "The pointer id that triggered the drag. This is only used when multitouch is false\n- the DragData is indexed by pointer id when multitouch is true.",
+            "access": "private",
+            "tagname": "",
+            "itemtype": "property",
+            "name": "_dragPointerID",
+            "type": "Number",
+            "class": "springroll.easeljs.DragManager",
+            "module": "EaselJS UI",
+            "namespace": "springroll.easeljs"
+        },
+        {
+            "file": "src/displays/easeljs/ui/DragManager.js",
+            "line": 145,
             "description": "Callback when we start dragging",
             "access": "private",
             "tagname": "",
@@ -13876,7 +13889,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 144,
+            "line": 152,
             "description": "Callback when we are done dragging",
             "access": "private",
             "tagname": "",
@@ -13889,7 +13902,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 156,
+            "line": 164,
             "description": "The collection of draggable objects",
             "access": "private",
             "tagname": "",
@@ -13902,7 +13915,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 163,
+            "line": 171,
             "description": "A point for reuse instead of lots of object creation.",
             "access": "private",
             "tagname": "",
@@ -13915,7 +13928,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 170,
+            "line": 178,
             "description": "If this DragManager is using multitouch for dragging.",
             "access": "private",
             "tagname": "",
@@ -13928,14 +13941,14 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 178,
+            "line": 186,
             "class": "springroll.easeljs.DragManager",
             "module": "EaselJS UI",
             "namespace": "springroll.easeljs"
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 181,
+            "line": 189,
             "description": "If the DragManager allows multitouch dragging. Setting this stops any current\ndrags.",
             "itemtype": "property",
             "name": "multitouch",
@@ -13946,7 +13959,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 212,
+            "line": 220,
             "description": "Manually starts dragging an object. If a mouse down event is not\nsupplied as the second argument, it defaults to a held drag, that ends as\nsoon as the mouse is released. When using multitouch, passing a mouse event is\nrequired.",
             "itemtype": "method",
             "name": "startDrag",
@@ -13970,7 +13983,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 229,
+            "line": 237,
             "description": "Mouse down on an obmect",
             "itemtype": "method",
             "name": "_objMouseDown",
@@ -13994,7 +14007,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 307,
+            "line": 317,
             "description": "Start the sticky click",
             "itemtype": "method",
             "name": "_triggerStickyClick",
@@ -14013,7 +14026,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 322,
+            "line": 332,
             "description": "Start hold dragging",
             "itemtype": "method",
             "name": "_triggerHeldDrag",
@@ -14032,7 +14045,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 353,
+            "line": 363,
             "description": "Internal start dragging on the stage",
             "itemtype": "method",
             "name": "_startDrag",
@@ -14044,7 +14057,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 370,
+            "line": 380,
             "description": "Stops dragging the currently dragged object.",
             "access": "public",
             "tagname": "",
@@ -14071,7 +14084,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 396,
+            "line": 406,
             "description": "Internal stop dragging on the stage",
             "itemtype": "method",
             "name": "_stopDrag",
@@ -14095,7 +14108,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 469,
+            "line": 482,
             "description": "Update the object position based on the mouse",
             "itemtype": "method",
             "name": "_updateObjPosition",
@@ -14114,7 +14127,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 520,
+            "line": 537,
             "description": "Handles snapping the dragged object to the nearest among a list of points",
             "itemtype": "method",
             "name": "_handlePointSnap",
@@ -14143,7 +14156,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 600,
+            "line": 617,
             "description": "Adds properties and functions to the object - use enableDrag() and disableDrag() on\nobjects to enable/disable them (they start out disabled). Properties added to objects:\n_dragBounds (Rectangle), _onMouseDownListener (Function),\n_dragMan (springroll.DragManager) reference to the DragManager\nthese will override any existing properties of the same name",
             "itemtype": "method",
             "name": "addObject",
@@ -14168,7 +14181,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 632,
+            "line": 649,
             "description": "Removes properties and functions added by addObject().",
             "access": "public",
             "tagname": "",
@@ -14187,7 +14200,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 651,
+            "line": 668,
             "description": "Destroy the manager",
             "access": "public",
             "tagname": "",
@@ -14199,7 +14212,7 @@
         },
         {
             "file": "src/displays/easeljs/ui/DragManager.js",
-            "line": 683,
+            "line": 700,
             "class": "springroll.easeljs.DragManager",
             "module": "EaselJS UI",
             "namespace": "springroll.easeljs"
@@ -25446,7 +25459,7 @@
             "line": 45,
             "description": "Returns a reversed copy of the string.",
             "itemtype": "method",
-            "name": "format",
+            "name": "reverse",
             "return": {
                 "description": "The reversed string.",
                 "type": "String"
@@ -29398,11 +29411,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/easeljs/ui/DragManager.js:178"
+            "line": " src/displays/easeljs/ui/DragManager.js:186"
         },
         {
             "message": "Missing item type",
-            "line": " src/displays/easeljs/ui/DragManager.js:683"
+            "line": " src/displays/easeljs/ui/DragManager.js:700"
         },
         {
             "message": "Missing item type\nIf a container contains a child",

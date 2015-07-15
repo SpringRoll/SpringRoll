@@ -2,42 +2,43 @@
 <html lang='en'>
 
 <head>
-  <title>SpringRoll v0.3.8 API Documentation : src/displays/easeljs/ui/DragManager.js</title>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
-  <link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.8'>
-  <link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.8'>
-  <link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.8'>
+<title>SpringRoll v0.3.8 API Documentation : src/displays/easeljs/ui/DragManager.js</title>
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+<link rel='shortcut icon' type='image/png' href='../assets/images/favicon.ico?v=0.3.8'>
+<link href='//fonts.googleapis.com/css?family=Titillium+Web:300,200,600' rel='stylesheet' type='text/css'>
+<link rel='stylesheet' type='text/css' href='../assets/css/libraries.css?v=0.3.8'>
+<link rel='stylesheet' type='text/css' href='../assets/css/main.css?v=0.3.8'>
 </head>
 
 <body>
-  <header>
-    <div class='container'>
-      <div class='version pull-right'>
-        <em>API Documentation for: 0.3.8</em>
-      </div>
-      <div class='logo'>
+<header>
+<div class='container'>
+<div class='version pull-right'>
+<em>API Documentation for: 0.3.8</em>
+</div>
+<div class='logo'>
 
-        <h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.8' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
-      </div>
+<h1><a href='https://github.com/SpringRoll/SpringRoll'><img src='../assets/images/logo.png?v=0.3.8' title='SpringRoll'><span class='project-name'>SpringRoll</span></a></h1> 
+</div>
 <div class='scope-toggles pull-right'>
-  <input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
-  <input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
-  <input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
-  <input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
-</div>    </div>
-  </header>
-  <div class='container'>
-    <div class='row'>
-      <nav id='sidebar' class='col-sm-4 col-md-3'>
+<input class='scope-toggle' id='toggle-inherited' type='checkbox' data-toggle='toggle' data-on='Inherited' data-off='Inherited' data-size='mini'>
+<input class='scope-toggle' id='toggle-protected' type='checkbox' data-toggle='toggle' data-on='Protected' data-off='Protected' data-size='mini'>
+<input class='scope-toggle' id='toggle-private' type='checkbox' data-toggle='toggle' data-on='Private' data-off='Private' data-size='mini'>
+<input class='scope-toggle' id='toggle-deprecated' type='checkbox' data-toggle='toggle' data-on='Deprecated' data-off='Deprecated' data-size='mini'>
+</div></div>
+</header>
+<div class='container'>
+<div class='row'>
+<nav id='sidebar' class='col-sm-4 col-md-3'>
 <h2>APIs</h2>
 <div class='input-group'>
   <div class='input-group-addon'>
     <span class='glyphicon glyphicon-search'></span>
   </div>
   <input type='search' class='form-control' id='api-filter' placeholder='Type to filter APIs'>
+  <span class='collapsed btn-close glyphicon glyphicon-remove-sign hidden'></span>
 </div>
 <nav class='navbar navbar-default'>
   <!-- Brand and toggle get grouped for better mobile display -->
@@ -47,7 +48,7 @@
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
     </button>
-    <button type="button" class="sidebar-toggle collapsed btn btn-default"id='toggle-modules'  data-target='#modules-collapse'>
+    <button type="button" class="sidebar-toggle collapsed btn btn-default" id='toggle-modules' data-target='#modules-collapse'>
       Modules
       <span class='collapsed glyphicon glyphicon-chevron-up'></span>
       <span class='expanded glyphicon glyphicon-chevron-down'></span>
@@ -507,20 +508,20 @@
     </ul>
   </div>
   <!-- /.container-fluid -->
-</nav>      </nav>
-      <div class='col-sm-8 col-md-9'>
-        <div id='docs-main' class='apidocs'>
+</nav></nav>
+<div class='col-sm-8 col-md-9'>
+<div id='docs-main' class='apidocs'>
 <script>
-  var name = {
-  	{
-  		name
-  	}
-  }
+var name = {
+{
+name
+}
+}
 </script>
 <h1 class="file-heading">File:DragManager.js</h1>
 
 <div class="file">
-  <pre class="code prettyprint linenums">/**
+<pre class="code prettyprint linenums">/**
  * @module EaselJS UI
  * @namespace springroll.easeljs
  * @requires Core, EaselJS Display, Tasks
@@ -655,6 +656,14 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
+		
+		/**
+		 * The pointer id that triggered the drag. This is only used when multitouch is false
+		 * - the DragData is indexed by pointer id when multitouch is true.
+		 * @private
+		 * @property {Number} _dragPointerID
+		 */
+		this._dragPointerID = 0;
 
 		/**
 		 * Callback when we start dragging
@@ -800,6 +809,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
+			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -807,6 +817,7 @@
 			//override the target for the mousedown/touchstart event to be
 			//this object, in case we are dragging a cloned object
 			this._theStage._getPointerData(ev.pointerID).target = obj;
+			this._dragPointerID = ev.pointerID;
 			//if it is a touch event, force it to be the held drag type
 			if (!this.allowStickyClick || ev.nativeEvent.type == &#x27;touchstart&#x27;)
 			{
@@ -955,6 +966,9 @@
 		}
 		else
 		{
+			//don&#x27;t stop the drag if a different finger than the dragging one was released
+			if(ev &amp;&amp; ev.pointerID != this._dragPointerID &amp;&amp; this._dragPointerID &gt; -1) return;
+			
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -1002,11 +1016,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
+			if(!data) return;
+			
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
+			if(ev.pointerID != this._dragPointerID &amp;&amp; this._dragPointerID &gt; -1) return;
+			
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}
@@ -1097,7 +1115,7 @@
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function(enable)
 	{
-		// Allow for the enableDrag(false) 
+		// Allow for the enableDrag(false)
 		if (enable === false)
 		{
 			disableDrag.apply(this);
@@ -1206,11 +1224,11 @@
 	namespace(&#x27;springroll&#x27;).DragManager = DragManager;
 	namespace(&#x27;springroll.easeljs&#x27;).DragManager = DragManager;
 }());</pre>
-</div>        </div>
-      </div>
-    </div>
-  </div>
-  <script src='../assets/js/libraries.js?v=0.3.8'></script>
-  <script src='../assets/js/main.js?v=0.3.8'></script>
+</div></div>
+</div>
+</div>
+</div>
+<script src='../assets/js/libraries.js?v=0.3.8'></script>
+<script src='../assets/js/main.js?v=0.3.8'></script>
 </body>
 </html>
