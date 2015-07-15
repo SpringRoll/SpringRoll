@@ -55,8 +55,10 @@ var app = new Application({
 		clearView: true
 	},
 	preload: [{
-		"anim": "assets/cutscene/js/Intro.js",
-		"animClass": "Intro",
+		// if no "id" prop, defaults to "animClass"
+		// this is used to fetch Cutscene from the cache
+		"animClass": "Intro", // e.g. lib.Intro name of the movieclip
+		"anim": "assets/cutscene/js/Intro.js", // Flash export
 		"fps": 30,
 		"width" :1024,
 		"height" :660,

@@ -32,7 +32,7 @@
 	 */
 	var CutsceneTask = function(asset)
 	{
-		Task.call(this, asset, asset.anim.src || asset.anim);
+		Task.call(this, asset, asset.animClass);
 
 		// Reference to the application
 		var app = Application.instance;
