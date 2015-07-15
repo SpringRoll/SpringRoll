@@ -286,7 +286,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
-			this._dragPointerID = 0;
+			this._dragPointerID = -1;//allow any touch/mouse up to stop drag
 			this._startDrag();
 		}
 		else
@@ -444,7 +444,7 @@
 		else
 		{
 			//don't stop the drag if a different finger than the dragging one was released
-			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID) return;
+			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
 			
 			obj = this.draggedObj;
 			this.draggedObj = null;
@@ -500,7 +500,7 @@
 		}
 		else
 		{
-			if(ev.pointerID != this._dragPointerID && this._dragPointerID) return;
+			if(ev.pointerID != this._dragPointerID && this._dragPointerID > -1) return;
 			
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
