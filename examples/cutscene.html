@@ -53,21 +53,75 @@ var app = new Application({
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: [{
+		"anim": "assets/cutscene/js/Intro.js",
+		"animClass": "Intro",
+		"fps": 30,
+		"width" :1024,
+		"height" :660,
+		"audio": [
+			{
+				"alias": "EDD_Intro_1",
+				"start": 0.2, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Intro_2_alt",
+				"start": 9.5333, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Intro_3",
+				"start": 10.7667, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Ovi_3",
+				"start": 11.7667, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Intro_5",
+				"start": 12.5667, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Ovi_6_alt",
+				"start": 14.5
+			},
+			{
+				"alias": "EDD_Intro_6_shorter",
+				"start": 14.8, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Intro_8",
+				"start": 18.4667, 
+				"sync":true
+			},
+			{
+				"alias": "EDD_Intro_7",
+				"start": 20.8, 
+				"sync":true
+			}
+		],
+		"images": {
+			"Intro_BG": "assets/cutscene/images/Intro_BG.jpg",
+			"Intro_FG_L": "assets/cutscene/images/Intro_FG_L.png",
+			"Intro_FG_R": "assets/cutscene/images/Intro_FG_R.png",
+			"Intro_MG": "assets/cutscene/images/Intro_MG.png"
+		}
+	}]
 });
 
 // Wait until the app is ready
 app.once('init', function()
 {
 	var stage = this.display.stage;
-	this.load(this.config.intro, function(cutscene)
-	{
-		stage.addChild(cutscene);
-		cutscene.start(function()
-		{
-			cutscene.destroy();
-		});
-	});
+	var cutscene = this.cache('Intro');
+	stage.addChild(cutscene);
+	cutscene.start();
 });
 </script>
 		</div>

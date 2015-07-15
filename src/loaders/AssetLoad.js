@@ -219,19 +219,19 @@
 		}
 		else
 		{
+			var task;
 			if (Array.isArray(assets))
 			{
 				for (var i = 0; i < assets.length; i++)
 				{
 					asset = applyDefaults(assets[i]);
-
-					if (!asset.id)
+					task = this.addTask(asset);
+					if (!task.id)
 					{
 						// If we don't have the id to return
 						// a mapped result, we'll fallback to array results
 						mode = LIST_MODE;
 					}
-					this.addTask(asset);
 				}
 			}
 			else if (Object.isPlain(assets))
@@ -239,12 +239,11 @@
 				for(var id in assets)
 				{
 					asset = applyDefaults(assets[id]);
-
-					if (!asset.id)
+					task = this.addTask(asset);
+					if (!task.id)
 					{
-						asset.id = id;
+						task.id = id;
 					}
-					this.addTask(asset);
 				}
 			}
 			else if (DEBUG && Debug)
@@ -288,18 +287,21 @@
 	p.addTask = function(asset)
 	{
 		var TaskClass = this.getTaskByAsset(asset);
+		var task;
 		if (TaskClass)
 		{
 			if (asset.cache === undefined && this.cacheAll)
 			{
 				asset.cache = true;
 			}
-			this.tasks.push(new TaskClass(asset));
+			task = new TaskClass(asset);
+			this.tasks.push(task);
 		}
 		else if (DEBUG && Debug)
 		{
 			Debug.error("Unable to find a task definitation for asset", asset);
 		}
+		return task;
 	};
 
 	/**
@@ -421,8 +423,12 @@
 			if (DEBUG && Debug)
 			{
 				Debug.error("Load assets require IDs to return mapped results", assets);
+				return;
 			}
-			throw "Assets require IDs";
+			else
+			{
+				throw "Assets require IDs";
+			}
 		}
 
 		if (this.tasks.length)

@@ -5538,19 +5538,19 @@
 		}
 		else
 		{
+			var task;
 			if (Array.isArray(assets))
 			{
 				for (var i = 0; i < assets.length; i++)
 				{
 					asset = applyDefaults(assets[i]);
-
-					if (!asset.id)
+					task = this.addTask(asset);
+					if (!task.id)
 					{
 						// If we don't have the id to return
 						// a mapped result, we'll fallback to array results
 						mode = LIST_MODE;
 					}
-					this.addTask(asset);
 				}
 			}
 			else if (Object.isPlain(assets))
@@ -5558,12 +5558,11 @@
 				for(var id in assets)
 				{
 					asset = applyDefaults(assets[id]);
-
-					if (!asset.id)
+					task = this.addTask(asset);
+					if (!task.id)
 					{
-						asset.id = id;
+						task.id = id;
 					}
-					this.addTask(asset);
 				}
 			}
 			else if (true && Debug)
@@ -5607,18 +5606,21 @@
 	p.addTask = function(asset)
 	{
 		var TaskClass = this.getTaskByAsset(asset);
+		var task;
 		if (TaskClass)
 		{
 			if (asset.cache === undefined && this.cacheAll)
 			{
 				asset.cache = true;
 			}
-			this.tasks.push(new TaskClass(asset));
+			task = new TaskClass(asset);
+			this.tasks.push(task);
 		}
 		else if (true && Debug)
 		{
 			Debug.error("Unable to find a task definitation for asset", asset);
 		}
+		return task;
 	};
 
 	/**
@@ -5740,8 +5742,12 @@
 			if (true && Debug)
 			{
 				Debug.error("Load assets require IDs to return mapped results", assets);
+				return;
 			}
-			throw "Assets require IDs";
+			else
+			{
+				throw "Assets require IDs";
+			}
 		}
 
 		if (this.tasks.length)
@@ -6352,7 +6358,7 @@
 	// async
 	plugin.preload = function(done)
 	{
-		var assets = this.options.preload || [];
+		var assets = [];
 		var configPath = this.options.configPath;
 
 		// If there's a config path then add it
@@ -6361,23 +6367,51 @@
 			assets.push({
 				id: 'config',
 				src: configPath,
+				cache: false,
 				complete: onConfigLoaded.bind(this)
 			});
 		}
-
-		//Allow extending game to add additional tasks
-		this.trigger('loading', assets);
+		else
+		{
+			addPreloadAssets(this, assets);
+		}
 
 		var callback = onLoadComplete.bind(this, done);
 
 		if (assets.length)
 		{
-			this.load(assets, callback);
+			this.load(assets, {
+				complete: callback,
+				cacheAll: true
+			});
 		}
 		else
 		{
 			callback();
 		}
+	};
+
+	/**
+	 *	Add the preload assets to the list of assets to load
+	 *	@method addPreloadAssets
+	 *	@private
+	 *	@param {springroll.Application} app Reference to the application
+	 *	@param {Array} assets The array to add new load tasks to
+	 */
+	var addPreloadAssets = function(app, assets)
+	{
+		var preload = app.options.preload;
+
+		if (preload && preload.length)
+		{
+			preload.forEach(function(asset)
+			{
+				assets.push(asset);
+			});
+		}
+		
+		// Allow extending game to add additional tasks
+		app.trigger('loading', assets);
 	};
 
 	/**
@@ -6392,6 +6426,7 @@
 	{
 		this.config = config;
 		this.trigger('configLoaded', config, assets);
+		addPreloadAssets(this, assets);
 	};
 
 	/**

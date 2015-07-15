@@ -65,7 +65,7 @@
 	// async
 	plugin.preload = function(done)
 	{
-		var assets = this.options.preload || [];
+		var assets = [];
 		var configPath = this.options.configPath;
 
 		// If there's a config path then add it
@@ -74,23 +74,51 @@
 			assets.push({
 				id: 'config',
 				src: configPath,
+				cache: false,
 				complete: onConfigLoaded.bind(this)
 			});
 		}
-
-		//Allow extending game to add additional tasks
-		this.trigger('loading', assets);
+		else
+		{
+			addPreloadAssets(this, assets);
+		}
 
 		var callback = onLoadComplete.bind(this, done);
 
 		if (assets.length)
 		{
-			this.load(assets, callback);
+			this.load(assets, {
+				complete: callback,
+				cacheAll: true
+			});
 		}
 		else
 		{
 			callback();
 		}
+	};
+
+	/**
+	 *	Add the preload assets to the list of assets to load
+	 *	@method addPreloadAssets
+	 *	@private
+	 *	@param {springroll.Application} app Reference to the application
+	 *	@param {Array} assets The array to add new load tasks to
+	 */
+	var addPreloadAssets = function(app, assets)
+	{
+		var preload = app.options.preload;
+
+		if (preload && preload.length)
+		{
+			preload.forEach(function(asset)
+			{
+				assets.push(asset);
+			});
+		}
+		
+		// Allow extending game to add additional tasks
+		app.trigger('loading', assets);
 	};
 
 	/**
@@ -105,6 +133,7 @@
 	{
 		this.config = config;
 		this.trigger('configLoaded', config, assets);
+		addPreloadAssets(this, assets);
 	};
 
 	/**
