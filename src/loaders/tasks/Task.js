@@ -70,7 +70,11 @@
 			if (fallbackId && typeof fallbackId == "string")
 			{
 				// Remove the file extension
-				fallbackId = fallbackId.substr(0, fallbackId.lastIndexOf('.'));
+				var extIndex = fallbackId.lastIndexOf('.');
+				if (extIndex > -1)
+				{
+					fallbackId = fallbackId.substr(0, extIndex);
+				}
 
 				// Check for the last folder slash then remove it
 				var slashIndex = fallbackId.lastIndexOf('/');
