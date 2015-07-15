@@ -1254,6 +1254,14 @@
 		 * @property {createjs.Point} _dragOffset
 		 */
 		this._dragOffset = null;
+		
+		/**
+		 * The pointer id that triggered the drag. This is only used when multitouch is false
+		 * - the DragData is indexed by pointer id when multitouch is true.
+		 * @private
+		 * @property {Number} _dragPointerID
+		 */
+		this._dragPointerID = 0;
 
 		/**
 		 * Callback when we start dragging
@@ -1399,6 +1407,7 @@
 		if (!ev)
 		{
 			this.isHeldDrag = true;
+			this._dragPointerID = 0;
 			this._startDrag();
 		}
 		else
@@ -1406,6 +1415,7 @@
 			//override the target for the mousedown/touchstart event to be
 			//this object, in case we are dragging a cloned object
 			this._theStage._getPointerData(ev.pointerID).target = obj;
+			this._dragPointerID = ev.pointerID;
 			//if it is a touch event, force it to be the held drag type
 			if (!this.allowStickyClick || ev.nativeEvent.type == 'touchstart')
 			{
@@ -1554,6 +1564,9 @@
 		}
 		else
 		{
+			//don't stop the drag if a different finger than the dragging one was released
+			if(ev && ev.pointerID != this._dragPointerID && this._dragPointerID) return;
+			
 			obj = this.draggedObj;
 			this.draggedObj = null;
 		}
@@ -1601,11 +1614,15 @@
 		if (this._multitouch)
 		{
 			var data = this.draggedObj[ev.pointerID];
+			if(!data) return;
+			
 			draggedObj = data.obj;
 			dragOffset = data.dragOffset;
 		}
 		else
 		{
+			if(ev.pointerID != this._dragPointerID && this._dragPointerID) return;
+			
 			draggedObj = this.draggedObj;
 			dragOffset = this._dragOffset;
 		}
@@ -1696,7 +1713,7 @@
 	//=== Giving functions and properties to draggable objects objects
 	var enableDrag = function(enable)
 	{
-		// Allow for the enableDrag(false) 
+		// Allow for the enableDrag(false)
 		if (enable === false)
 		{
 			disableDrag.apply(this);
