@@ -44,10 +44,14 @@ var app = new Application({
 	canvasId: "stage",
 	debug: true,
 	display: EaselJSDisplay,
+	// Assets can be preloaded using the preload option
+	// which is an array of assets to load
+	// all preload assets are cached by default
 	preload: ["assets/images/background.jpg"]
 });
 
-// Handled the preload assets
+// While preload assets are cache, the result
+// of the preload is accessible by the loaded handler
 app.once('loaded', function(results)
 {
 	Debug.green(">>> Preloaded RESULTS", results);
@@ -99,14 +103,16 @@ app.once('init', function()
 		[
 			'assets/images/logo.png',
 			'assets/images/button.png'
-		], 
-		function(results) // complete
+		],
 		{
-			Debug.green(">>> Array RESULTS", results);
-		},
-		function(result, asset)
-		{
-			Debug.orange(">>> Finished loading", asset.src);
+			complete: function(results)
+			{
+				Debug.green(">>> Array RESULTS", results);
+			},
+			progress: function(result, asset) 
+			{
+				Debug.orange(">>> Finished loading", asset.src);
+			}
 		}
 	);
 });
