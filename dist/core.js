@@ -33,7 +33,6 @@
 	/**
 	*  Get a random item from an array
 	*  @method random
-	*  @static
 	*  @param {Array} array The array
 	*  @return {*} The random item
 	*/
@@ -52,7 +51,6 @@
 	/**
 	*  Get the last item in the array
 	*  @method last
-	*  @static
 	*  @param {Array} array The array
 	*  @return {*} The last item
 	*/
