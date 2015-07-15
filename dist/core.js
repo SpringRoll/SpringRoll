@@ -232,6 +232,7 @@
 			value: function(totalDigits) {
 				if(!totalDigits)
 					totalDigits = 2;
+				var num = this;
 				var leader;
 				if(num < 0)
 				{
