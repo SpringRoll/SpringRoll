@@ -25047,7 +25047,6 @@
             "description": "Get a random item from an array",
             "itemtype": "method",
             "name": "random",
-            "static": 1,
             "params": [
                 {
                     "name": "array",
@@ -25065,11 +25064,10 @@
         },
         {
             "file": "src/mixins/Array.js",
-            "line": 51,
+            "line": 50,
             "description": "Get the last item in the array",
             "itemtype": "method",
             "name": "last",
-            "static": 1,
             "params": [
                 {
                     "name": "array",
