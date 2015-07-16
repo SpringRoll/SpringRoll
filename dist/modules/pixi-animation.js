@@ -7,16 +7,16 @@
 (function()
 {
 	/**
-	* Class for assisting in creating an array of Spine animations to play at the same time
-	* on one skeleton through Animator. Concurrent animations will play until one non-looping
-	* animation ends.
-	*
-	* @class ParallelSpineData
-	* @constructor
-	* @param {String} anim The name of the animation on the skeleton.
-	* @param {Boolean} [loop=false] If this animation should loop.
-	* @param {Number} [speed=1] The speed at which this animation should be played.
-	*/
+	 * Class for assisting in creating an array of Spine animations to play at the same time
+	 * on one skeleton through Animator. Concurrent animations will play until one non-looping
+	 * animation ends.
+	 *
+	 * @class ParallelSpineData
+	 * @constructor
+	 * @param {String} anim The name of the animation on the skeleton.
+	 * @param {Boolean} [loop=false] If this animation should loop.
+	 * @param {Number} [speed=1] The speed at which this animation should be played.
+	 */
 	var ParallelSpineData = function(anim, loop, speed)
 	{
 		this.anim = anim;
@@ -47,11 +47,12 @@
 	 *
 	 * @class AnimatorTimeline
 	 * @constructor
+	 * @private
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
 	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
 	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                     interrupted.
+	 *                                   interrupted.
 	 */
 	var AnimatorTimeline = function(clip, callback, speed, cancelledCallback)
 	{
@@ -72,151 +73,151 @@
 	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
 	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                     interrupted.
+	 *                                   interrupted.
 	 * @returns {Animator.AnimatorTimeline}
 	 */
 	p.init = function(clip, callback, speed, cancelledCallback)
 	{
 		/**
-		*	The clip for this AnimTimeLine
-		*	@property {PIXI.MovieClip|PIXI.Spine} clip
-		*	@public
-		*/
+		 *	The clip for this AnimTimeLine
+		 *	@property {PIXI.MovieClip|PIXI.Spine} clip
+		 *	@public
+		 */
 		this.clip = clip;
 
 		/**
-		*	Whether the clip is a PIXI.Spine
-		*	@property {Boolean} isSpine
-		*	@public
-		*/
+		 *	Whether the clip is a PIXI.Spine
+		 *	@property {Boolean} isSpine
+		 *	@public
+		 */
 		this.isSpine = clip instanceof Spine;
 
 		/**
-		*	The function to call when the clip is finished playing
-		*	@property {Function} callback
-		*	@public
-		*/
+		 *	The function to call when the clip is finished playing
+		 *	@property {Function} callback
+		 *	@public
+		 */
 		this.callback = callback;
 		
 		/**
-		*	The function to call if the clip's playback is interrupted.
-		*	@property {Function} cancelledCallback
-		*	@public
-		*/
+		 *	The function to call if the clip's playback is interrupted.
+		 *	@property {Function} cancelledCallback
+		 *	@public
+		 */
 		this.cancelledCallback = cancelledCallback;
 		
 		/**
-		* The current animation duration in seconds.
-		* @property {Number} duration
-		* @public
-		*/
+		 * The current animation duration in seconds.
+		 * @property {Number} duration
+		 * @public
+		 */
 		this.duration = 0;
 
 		/**
-		*	A speed multiplier for the current animation. Concurrent Spine animations use
-		*	spineSpeeds instead.
-		*	@property {Number} speed
-		*	@public
-		*/
+		 *	A speed multiplier for the current animation. Concurrent Spine animations use
+		 *	spineSpeeds instead.
+		 *	@property {Number} speed
+		 *	@public
+		 */
 		this.speed = speed;
 		
 		/**
-		*	A list of animation, audio, functions, and/or pauses to play.
-		*	@property {Array} eventList
-		*	@public
-		*/
+		 *	A list of animation, audio, functions, and/or pauses to play.
+		 *	@property {Array} eventList
+		 *	@public
+		 */
 		this.eventList.length = 0;
 		
 		/**
-		* The index of the active animation in eventList.
-		* @property {int} listIndex
-		*/
+		 * The index of the active animation in eventList.
+		 * @property {int} listIndex
+		 */
 		this.listIndex = -1;
 
 		/**
-		*	@property {Array} spineStates
-		*	@public
-		*/
+		 *	@property {Array} spineStates
+		 *	@public
+		 */
 		this.spineStates = null;
 
 		/**
-		*	If the current animation loops
-		*	@property {Boolean} isLooping
-		*	@public
-		*/
+		 *	If the current animation loops
+		 *	@property {Boolean} isLooping
+		 *	@public
+		 */
 		this.isLooping = null;
 
 		/**
-		*	The position of the animation in seconds
-		*	@property {Number} _time_sec
-		*	@private
-		*/
+		 *	The position of the animation in seconds
+		 *	@property {Number} _time_sec
+		 *	@private
+		 */
 		this._time_sec = 0;
 
 		/**
-		*	Sound alias to sync to during the animation.
-		*	@property {String} soundAlias
-		*	@public
-		*/
+		 *	Sound alias to sync to during the animation.
+		 *	@property {String} soundAlias
+		 *	@public
+		 */
 		this.soundAlias = null;
 
 		/**
-		*	A sound instance object from Sound, used for tracking sound position.
-		*	@property {Object} soundInst
-		*	@public
-		*/
+		 *	A sound instance object from Sound, used for tracking sound position.
+		 *	@property {Object} soundInst
+		 *	@public
+		 */
 		this.soundInst = null;
 
 		/**
-		*	If the timeline will, but has yet to, play a sound
-		*	@property {Boolean} playSound
-		*	@public
-		*/
+		 *	If the timeline will, but has yet to, play a sound
+		 *	@property {Boolean} playSound
+		 *	@public
+		 */
 		this.playSound = false;
 
 		/**
-		*	The time (seconds) into the animation that the sound starts.
-		*	@property {Number} soundStart
-		*	@public
-		*/
+		 *	The time (seconds) into the animation that the sound starts.
+		 *	@property {Number} soundStart
+		 *	@public
+		 */
 		this.soundStart = 0;
 
 		/**
-		*	The time (seconds) into the animation that the sound ends
-		*	@property {Number} soundEnd
-		*	@public
-		*/
+		 *	The time (seconds) into the animation that the sound ends
+		 *	@property {Number} soundEnd
+		 *	@public
+		 */
 		this.soundEnd = 0;
 
 		/**
-		*  If this timeline plays captions
-		*
-		*  @property {Boolean} useCaptions
-		*  @readOnly
-		*/
+		 * If this timeline plays captions
+		 *
+		 * @property {Boolean} useCaptions
+		 * @readOnly
+		 */
 		this.useCaptions = false;
 
 		/**
-		*	If this animation is paused.
-		*	@property {Boolean} _paused
-		*	@private
-		*/
+		 *	If this animation is paused.
+		 *	@property {Boolean} _paused
+		 *	@private
+		 */
 		this._paused = false;
 		
 		/**
-		*	If the timeline is actively playing an animation, instead of a pause timer.
-		*
-		*	@property {Boolean} isAnim
-		*	@public
-		*/
+		 *	If the timeline is actively playing an animation, instead of a pause timer.
+		 *
+		 *	@property {Boolean} isAnim
+		 *	@public
+		 */
 		this.isAnim = false;
 		
 		/**
-		* If the timeline is complete. Looping timelines will never complete.
-		* @property {Boolean} complete
-		* @public
-		* @readOnly
-		*/
+		 * If the timeline is complete. Looping timelines will never complete.
+		 * @property {Boolean} complete
+		 * @public
+		 * @readOnly
+		 */
 		this.complete = false;
 
 		return this;
@@ -365,21 +366,21 @@
 	};
 	
 	/**
-	* The position of the current animation, or the current pause timer, in milliseconds.
-	* @property {Number} time
-	* @public
-	*/
+	 * The position of the current animation, or the current pause timer, in milliseconds.
+	 * @property {Number} time
+	 * @public
+	 */
 	Object.defineProperty(p, "time", {
 		get: function() { return this._time_sec * 1000; },
 		set: function(value) { this._time_sec = value * 0.001; }
 	});
 	
 	/**
-	* Sets and gets the animation's paused status.
-	*
-	* @property {Boolean} paused
-	* @public
-	*/
+	 * Sets and gets the animation's paused status.
+	 *
+	 * @property {Boolean} paused
+	 * @public
+	 */
 	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value) {
@@ -415,25 +416,25 @@
 		Sound;
 
 	/**
-	*  Animator for interacting with Spine animations
-	*  @class Animator
-	*  @static
-	*/
+	 * Animator for interacting with Spine animations
+	 * @class Animator
+	 * @static
+	 */
 	var Animator = {};
 	
 	/**
-	* The collection of AnimatorTimelines that are playing
-	* @property {Array} _timelines
-	* @private
-	*/
+	 * The collection of AnimatorTimelines that are playing
+	 * @property {Array} _timelines
+	 * @private
+	 */
 	var _timelines = null,
 	
 	/**
-	* The number of animations
-	* @property {int} _numAnims
-	* @private
-	* @static
-	*/
+	 * The number of animations
+	 * @property {int} _numAnims
+	 * @private
+	 * @static
+	 */
 	_numAnims = 0,
 	
 	/**
@@ -445,10 +446,10 @@
 	_animPool = null;
 	
 	/**
-	*  The global captions object to use with animator
-	*  @property {springroll.Captions} captions
-	*  @public
-	*/
+	 * The global captions object to use with animator
+	 * @property {springroll.Captions} captions
+	 * @public
+	 */
 	Animator.captions = null;
 
 	/**
@@ -465,41 +466,41 @@
 	};
 	
 	/**
-	* Play a specified animation
-	*
-	* @method play
-	* @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
-	*                                         object type.
-	* @param {String|Array} animData One of or an array of the following
-	*   * objects in the format:
-	*
-	*       {
-	*           anim:<string|array of strings|array of ParallelSpineData|array of Textures>,
-	*           start:0,
-	*           speed:1,
-	*           loop:false,
-	*           audio:{alias:"MyAlias", start:300}
-	*       }
-	*
-	*       * anim is the data about the animation to play. See below for more info
-	*       * start is milliseconds into the animation to start (0 if omitted). A value of -1
-	*           starts from a random time in the animation.
-	*       * speed is a multiplier for the animation speed (1 if omitted).
-	*       * loop is if the animation should loop (false if omitted).
-	*       * audio is audio to sync the animation to using springroll.Sound. audio can be a String
-	*           if you want the audio to start 0 milliseconds into the animation.
-	*   * strings - A single animation to play on a Spine skeleton.
-	*   * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
-	*   * arrays of ParallelSpineData - An array of animations to play at the same time on a
-	*       Spine skeleton.
-	*   * arrays of Textures - An array of textures to play on a MovieClip.
-	*   * numbers - milliseconds to wait.
-	*   * functions - called upon reaching, followed immediately by the next item.
-	* @param {Function} [onComplete] The function to call once the animation has finished.
-	* @param {Function} [onCancelled] A callback function for when an animation is stopped with
-	*                                 Animator.stop() or to play another animation.
-	* @return {springroll.pixi.AnimatorTimeline} The timeline object
-	*/
+	 * Play a specified animation
+	 *
+	 * @method play
+	 * @param {PIXI.MovieClip|PIXI.Spine} clip The clip to play. Animation options vary depending on
+	 *                                     object type.
+	 * @param {String|Array} animData One of or an array of the following
+	 * * objects in the format:
+	 *
+	 *   {
+	 *       anim:<string|array of strings|array of ParallelSpineData|array of Textures>,
+	 *       start:0,
+	 *       speed:1,
+	 *       loop:false,
+	 *       audio:{alias:"MyAlias", start:300}
+	 *   }
+	 *
+	 *   * anim is the data about the animation to play. See below for more info
+	 *   * start is milliseconds into the animation to start (0 if omitted). A value of -1
+	 *       starts from a random time in the animation.
+	 *   * speed is a multiplier for the animation speed (1 if omitted).
+	 *   * loop is if the animation should loop (false if omitted).
+	 *   * audio is audio to sync the animation to using springroll.Sound. audio can be a String
+	 *       if you want the audio to start 0 milliseconds into the animation.
+	 * * strings - A single animation to play on a Spine skeleton.
+	 * * arrays of strings - An array of animations to play sequentially on a Spine skeleton.
+	 * * arrays of ParallelSpineData - An array of animations to play at the same time on a
+	 *   Spine skeleton.
+	 * * arrays of Textures - An array of textures to play on a MovieClip.
+	 * * numbers - milliseconds to wait.
+	 * * functions - called upon reaching, followed immediately by the next item.
+	 * @param {Function} [onComplete] The function to call once the animation has finished.
+	 * @param {Function} [onCancelled] A callback function for when an animation is stopped with
+	 *                             Animator.stop() or to play another animation.
+	 * @return {springroll.pixi.AnimatorTimeline} The timeline object
+	 */
 	Animator.play = function(clip, animData, onComplete, onCancelled)
 	{
 		var audio, options;
@@ -568,17 +569,17 @@
 	};
 	
 	/**
-	*   Creates the AnimatorTimeline for a given animation
-	*
-	*   @method _makeTimeline
-	*   @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
-	*   @param {Array} animData List of animation events.
-	*   @param {Function} callback The function to callback when we're done
-	*   @param {Function} cancelledCallback The function to callback when cancelled
-	*   @return {springroll.pixi.AnimatorTimeline} The Timeline object
-	*   @private
-	*   @static
-	*/
+	 * Creates the AnimatorTimeline for a given animation
+	 *
+	 * @method _makeTimeline
+	 * @param {PIXI.Spine|PIXI.MovieClip} clip The instance to animate
+	 * @param {Array} animData List of animation events.
+	 * @param {Function} callback The function to callback when we're done
+	 * @param {Function} cancelledCallback The function to callback when cancelled
+	 * @return {springroll.pixi.AnimatorTimeline} The Timeline object
+	 * @private
+	 * @static
+	 */
 	Animator._makeTimeline = function(clip, animData, callback, cancelledCallback)
 	{
 		var t = _animPool.length ?
@@ -681,12 +682,12 @@
 	};
 	
 	/**
-	*   Determines if a given instance can be animated by Animator.
-	*   @method canAnimate
-	*   @param {PIXI.DisplayObject} instance The object to check for animation properties.
-	*   @return {Boolean} If the instance can be animated or not.
-	*   @static
-	*/
+	 * Determines if a given instance can be animated by Animator.
+	 * @method canAnimate
+	 * @param {PIXI.DisplayObject} instance The object to check for animation properties.
+	 * @return {Boolean} If the instance can be animated or not.
+	 * @static
+	 */
 	Animator.canAnimate = function(instance)
 	{
 		if(!instance)
@@ -701,15 +702,15 @@
 	};
 	
 	/**
-	*   Get duration of animation (or sequence of animations) in seconds
-	*
-	*   @method getDuration
-	*   @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
-	*   @param {String|Array} animData The animation data or array, in the format that play() uses.
-	*   @public
-	*   @static
-	*	@return {Number} Duration of animation event in milliseconds
-	*/
+	 * Get duration of animation (or sequence of animations) in seconds
+	 *
+	 * @method getDuration
+	 * @param {PIXI.MovieClip|PIXI.Spine} clip The display object that the animation matches.
+	 * @param {String|Array} animData The animation data or array, in the format that play() uses.
+	 * @public
+	 * @static
+	 *	@return {Number} Duration of animation event in milliseconds
+	 */
 	Animator.getDuration = function(clip, animData)
 	{
 		//calculated in seconds

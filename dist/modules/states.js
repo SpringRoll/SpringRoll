@@ -17,12 +17,12 @@
 	 * @class State
 	 * @constructor
 	 * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
-	 *  	this state.
+	 * 	this state.
 	 * @param {Object} [options] The list of options
 	 * @param {String|Function} [options.next=null] The next state alias or function to call when going to the next state.
 	 * @param {String|Function} [options.previous=null] The previous state alias to call when going to the previous state.
 	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
-	 *    heavy object instaniation slow the game dramatically.
+	 *  heavy object instaniation slow the game dramatically.
 	 */
 	var State = function(panel, options)
 	{
@@ -275,7 +275,7 @@
 	 * @method loadingDone
 	 * @final
 	 * @param {int} [delay] Frames to delay the load completion to allow the framerate to
-	 *     stabilize. If not delay is set, defaults to the `delayLoad` property.
+	 *   stabilize. If not delay is set, defaults to the `delayLoad` property.
 	 */
 	p.loadingDone = function(delay)
 	{
@@ -484,52 +484,52 @@
 (function(undefined){
 	
 	/**
-	*   A state-related event used by the State Manager
-	*
-	*   @class StateEvent
-	*   @constructor
-	*   @param {String} type The type of event.
-	*   @param {BaseState} currentState The currentState of the state manager
-	*   @param {BaseState} visibleState The current state being transitioned or changing visibility,
-	*                                   default to currentState
-	*/
+	 * A state-related event used by the State Manager
+	 *
+	 * @class StateEvent
+	 * @constructor
+	 * @param {String} type The type of event.
+	 * @param {BaseState} currentState The currentState of the state manager
+	 * @param {BaseState} visibleState The current state being transitioned or changing visibility,
+	 *                               default to currentState
+	 */
 	var StateEvent = function(type, currentState, visibleState)
 	{
 		/**
-		* A reference to the current state of the state manager
-		*
-		* @property {BaseState} currentState
-		*/
+		 * A reference to the current state of the state manager
+		 *
+		 * @property {BaseState} currentState
+		 */
 		this.currentState = currentState;
 		
 		/**
-		* A reference to the state who's actually being transitioned or being changed
-		*
-		* @property {BaseState} visibleState
-		*/
+		 * A reference to the state who's actually being transitioned or being changed
+		 *
+		 * @property {BaseState} visibleState
+		 */
 		this.visibleState = visibleState === undefined ? currentState : visibleState;
 		
 		/** The type of event
 		 *
 		 * @property {String} type
-		*/
+		 */
 		this.type = type;
 	};
 	
 	var p = StateEvent.prototype;
 	
 	/**
-	* When the state besome visible
-	*
-	* @event {String} onVisible
-	*/
+	 * When the state besome visible
+	 *
+	 * @event {String} onVisible
+	 */
 	StateEvent.VISIBLE = "onVisible";
 	
 	/**
-	* When the state becomes hidden
-	*
-	* @event {String} onHidden
-	*/
+	 * When the state becomes hidden
+	 *
+	 * @event {String} onHidden
+	 */
 	StateEvent.HIDDEN = "onHidden";
 	
 	// Add to the name space
@@ -550,17 +550,17 @@
 		StateEvent = include('springroll.StateEvent');
 	
 	/**
-	 *  The State Manager used for managing the different states of a game or site
+	 * The State Manager used for managing the different states of a game or site
 	 *
 	 * @class StateManager
 	 * @extends springroll.EventDispatcher
 	 * @constructor
 	 * @param {springroll.AbstractDisplay} display The display on which the transition animation
-	 *        is displayed.
+	 *     is displayed.
 	 * @param {Object} [transitionSounds] Data object with aliases and start times (seconds) for
-	 *        transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
-	 *        These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
-	 *        so they can be just the sound alias instead of an object.
+	 *     transition in, loop and out sounds. Example: `{in:{alias:"myAlias", start:0.2}}`.
+	 *     These objects are in the format for Animator from EaselJSDisplay or PixiDisplay, 
+	 *     so they can be just the sound alias instead of an object.
 	 * @param {Object|String} [transitionSounds.in] The sound to play for transition in
 	 * @param {Object|String} [transitionSounds.out] The sound to play for transition out
 	 * @param {Object|String} [transitionSounds.loading] The sound to play for loading
@@ -570,90 +570,90 @@
 		EventDispatcher.call(this);
 
 		/**
-		* The display that holds the states this StateManager is managing.
-		*
-		* @property {springroll.AbstractDisplay} _display
-		* @private
-		*/
+		 * The display that holds the states this StateManager is managing.
+		 *
+		 * @property {springroll.AbstractDisplay} _display
+		 * @private
+		 */
 		this._display = display;
 		
 		/**
-		* The click to play in between transitioning states
-		*
-		* @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
-		*/
+		 * The click to play in between transitioning states
+		 *
+		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+		 */
 		this.transition = null;
 		
 		/**
-		* The sounds for the transition
-		*
-		* @property {Object} _transitionSounds
-		* @private
-		*/
+		 * The sounds for the transition
+		 *
+		 * @property {Object} _transitionSounds
+		 * @private
+		 */
 		this._transitionSounds = transitionSounds || null;
 		
 		/**
-		* The collection of states map
-		*
-		* @property {Object} _states
-		* @private
-		*/
+		 * The collection of states map
+		 *
+		 * @property {Object} _states
+		 * @private
+		 */
 		this._states = {};
 		
 		/**
-		* The currently selected state
-		*
-		* @property {springroll.State} _state
-		* @private
-		*/
+		 * The currently selected state
+		 *
+		 * @property {springroll.State} _state
+		 * @private
+		 */
 		this._state = null;
 		
 		/**
-		* The currently selected state id
-		*
-		* @property {String} _stateID
-		* @private
-		*/
+		 * The currently selected state id
+		 *
+		 * @property {String} _stateID
+		 * @private
+		 */
 		this._stateId = null;
 		
 		/**
-		* The old state
-		*
-		* @property {springroll.State} _oldState
-		* @private
-		*/
+		 * The old state
+		 *
+		 * @property {springroll.State} _oldState
+		 * @private
+		 */
 		this._oldState = null;
 		
 		/**
-		* If the manager is loading a state
-		*
-		* @property {Boolean} name description
-		* @private
-		*/
+		 * If the manager is loading a state
+		 *
+		 * @property {Boolean} name description
+		 * @private
+		 */
 		this._isLoading = false;
 		
 		/**
-		* If the state or manager is current transitioning
-		*
-		* @property {Boolean} _isTransitioning
-		* @private
-		*/
+		 * If the state or manager is current transitioning
+		 *
+		 * @property {Boolean} _isTransitioning
+		 * @private
+		 */
 		this._isTransitioning = false;
 		
 		/**
-		* If the current object is destroyed
-		*
-		* @property {Boolean} _destroyed
-		* @private
-		*/
+		 * If the current object is destroyed
+		 *
+		 * @property {Boolean} _destroyed
+		 * @private
+		 */
 		this._destroyed = false;
 		
 		/**
-		* If we're transitioning the state, the queue the id of the next one
-		*
-		* @property {String} _queueStateId
-		* @private
-		*/
+		 * If we're transitioning the state, the queue the id of the next one
+		 *
+		 * @property {String} _queueStateId
+		 * @private
+		 */
 		this._queueStateId = null;
 
 		// Hide the blocker
@@ -669,70 +669,70 @@
 	var p = extend(StateManager, EventDispatcher);
 
 	/**
-	* The name of the Animator label and event for transitioning into a state.
-	*
-	* @event onTransitionIn
-	*/
+	 * The name of the Animator label and event for transitioning into a state.
+	 *
+	 * @event onTransitionIn
+	 */
 	var TRANSITION_IN = StateManager.TRANSITION_IN = "onTransitionIn";
 
 	/**
-	* The name of the Animator label and event for loading between state change.
-	* this event is only dispatched if there is a loading sequence to show in the 
-	* transition. Recommended to use 'loadingStart' instead for checking.
-	*
-	* @event onTransitionLoading
-	*/
+	 * The name of the Animator label and event for loading between state change.
+	 * this event is only dispatched if there is a loading sequence to show in the 
+	 * transition. Recommended to use 'loadingStart' instead for checking.
+	 *
+	 * @event onTransitionLoading
+	 */
 	var TRANSITION_LOADING = StateManager.TRANSITION_LOADING = "onTransitionLoading";
 	
 	/**
-	* The name of the event for completing transitioning into a state.
-	*
-	* @event onTransitionInDone
-	*/
+	 * The name of the event for completing transitioning into a state.
+	 *
+	 * @event onTransitionInDone
+	 */
 	var TRANSITION_IN_DONE = StateManager.TRANSITION_IN_DONE = "onTransitionInDone";
 	
 	/**
-	* The name of the Animator label and event for transitioning out of a state.
-	*
-	* @event onTransitionOut
-	*/
+	 * The name of the Animator label and event for transitioning out of a state.
+	 *
+	 * @event onTransitionOut
+	 */
 	var TRANSITION_OUT = StateManager.TRANSITION_OUT = "onTransitionOut";
 	
 	/**
-	* The name of the event for completing transitioning out of a state.
-	*
-	* @event onTransitionOutDone
-	*/
+	 * The name of the event for completing transitioning out of a state.
+	 *
+	 * @event onTransitionOutDone
+	 */
 	var TRANSITION_OUT_DONE = StateManager.TRANSITION_OUT_DONE = "onTransitionOutDone";
 	
 	/**
-	* The name of the event for initialization complete - the first state is then being entered.
-	*
-	* @event onInitDone
-	*/
+	 * The name of the event for initialization complete - the first state is then being entered.
+	 *
+	 * @event onInitDone
+	 */
 	var TRANSITION_INIT_DONE = StateManager.TRANSITION_INIT_DONE = "onInitDone";
 	
 	/**
-	* Event when the state begins loading assets when it is entered.
-	*
-	* @event onLoadingStart
-	*/
+	 * Event when the state begins loading assets when it is entered.
+	 *
+	 * @event onLoadingStart
+	 */
 	var LOADING_START = StateManager.LOADING_START = "onLoadingStart";
 	
 	/**
-	* Event when the state finishes loading assets when it is entered.
-	*
-	* @event onLoadingDone
-	*/
+	 * Event when the state finishes loading assets when it is entered.
+	 *
+	 * @event onLoadingDone
+	 */
 	var LOADING_DONE = StateManager.LOADING_DONE = "onLoadingDone";
 	
 	/**
-	*  Register a state with the state manager, done initially
-	*
-	*  @method addState
-	*  @param {String} id The string alias for a state
-	*  @param {springroll.State} state State object reference
-	*/
+	 * Register a state with the state manager, done initially
+	 *
+	 * @method addState
+	 * @param {String} id The string alias for a state
+	 * @param {springroll.State} state State object reference
+	 */
 	p.addState = function(id, state)
 	{
 		if (true && Debug)
@@ -751,10 +751,10 @@
 	};
 
 	/**
-	*   Get the current selected state (state object)
-	*   @property {springroll.State} currentState
-	*   @readOnly
-	*/
+	 * Get the current selected state (state object)
+	 * @property {springroll.State} currentState
+	 * @readOnly
+	 */
 	Object.defineProperty(p, 'currentState', 
 	{
 		get: function()
@@ -764,12 +764,12 @@
 	});
 	
 	/**
-	*   Access a certain state by the ID
-	*
-	*   @method getStateById
-	*   @param {String} id State alias
-	*   @return {springroll.State} The base State object
-	*/
+	 * Access a certain state by the ID
+	 *
+	 * @method getStateById
+	 * @param {String} id State alias
+	 * @return {springroll.State} The base State object
+	 */
 	p.getStateById = function(id)
 	{
 		if (true && Debug) Debug.assert(this._states[id] !== undefined, "No alias matching " + id);
@@ -777,22 +777,22 @@
 	};
 	
 	/**
-	* If the StateManager is busy because it is currently loading or transitioning.
-	*
-	* @method isBusy
-	* @return {Boolean} If StateManager is busy
-	*/
+	 * If the StateManager is busy because it is currently loading or transitioning.
+	 *
+	 * @method isBusy
+	 * @return {Boolean} If StateManager is busy
+	 */
 	p.isBusy = function()
 	{
 		return this._isLoading || this._isTransitioning;
 	};
 	
 	/**
-	*   If the state needs to do some asyncronous tasks,
-	*   The state can tell the manager to stop the animation
-	*
-	*   @method loadingStart
-	*/
+	 * If the state needs to do some asyncronous tasks,
+	 * The state can tell the manager to stop the animation
+	 *
+	 * @method loadingStart
+	 */
 	p.loadingStart = function()
 	{
 		if (this._destroyed) return;
@@ -803,11 +803,11 @@
 	};
 	
 	/**
-	*   If the state has finished it's asyncronous task loading
-	*   Lets enter the state
-	*
-	*   @method loadingDone
-	*/
+	 * If the state has finished it's asyncronous task loading
+	 * Lets enter the state
+	 *
+	 * @method loadingDone
+	 */
 	p.loadingDone = function()
 	{
 		if (this._destroyed) return;
@@ -816,31 +816,31 @@
 	};
 	
 	/**
-	*   Show, enable the blocker clip to disable mouse clicks
-	*
-	*   @method showBlocker
-	*/
+	 * Show, enable the blocker clip to disable mouse clicks
+	 *
+	 * @method showBlocker
+	 */
 	p.showBlocker = function()
 	{
 		this._display.enabled = false;
 	};
 	
 	/**
-	*   Re-enable interaction with the stage
-	*
-	*   @method hideBlocker
-	*/
+	 * Re-enable interaction with the stage
+	 *
+	 * @method hideBlocker
+	 */
 	p.hideBlocker = function()
 	{
 		this._display.enabled = true;
 	};
 	
 	/**
-	*   This transitions out of the current state and
-	*   enters it again. Can be useful for clearing a state
-	*
-	*   @method refresh
-	*/
+	 * This transitions out of the current state and
+	 * enters it again. Can be useful for clearing a state
+	 *
+	 * @method refresh
+	 */
 	p.refresh = function()
 	{
 		if (true && Debug) Debug.assert(!!this._state, "No current state to refresh!");
@@ -848,9 +848,9 @@
 	};
 	
 	/**
-	*  Get or change the current state, using the state id.
-	*  @property {String} state
-	*/
+	 * Get or change the current state, using the state id.
+	 * @property {String} state
+	 */
 	Object.defineProperty(p, "state",
 	{
 		set : function(id)
@@ -943,12 +943,12 @@
 	};
 	
 	/**
-	*   When the state has completed its loading sequence.
-	*   This should be treated as an asynchronous process.
-	*
-	*   @method _onStateLoaded
-	*   @private
-	*/
+	 * When the state has completed its loading sequence.
+	 * This should be treated as an asynchronous process.
+	 *
+	 * @method _onStateLoaded
+	 * @private
+	 */
 	p._onStateLoaded = function()
 	{
 		this._isLoading = false;
@@ -984,12 +984,12 @@
 	};
 	
 	/**
-	*  Process the state queue
-	*
-	*  @method _processQueue
-	*  @return If there is a queue to process
-	*  @private
-	*/
+	 * Process the state queue
+	 *
+	 * @method _processQueue
+	 * @return If there is a queue to process
+	 * @private
+	 */
 	p._processQueue = function()
 	{
 		// If we have a state queued up
@@ -1006,12 +1006,12 @@
 	};
 
 	/**
-	*  Plays the animation "onTransitionLoading" on the transition. Also serves as the animation callback.
-	*  Manually looping the animation allows the animation to be synced to the audio while looping.
-	*
-	*  @method _onTransitionLoading
-	*  @private
-	*/
+	 * Plays the animation "onTransitionLoading" on the transition. Also serves as the animation callback.
+	 * Manually looping the animation allows the animation to be synced to the audio while looping.
+	 *
+	 * @method _onTransitionLoading
+	 * @private
+	 */
 	p._onTransitionLoading = function()
 	{
 		// Ignore if no transition
@@ -1084,13 +1084,13 @@
 	};
 	
 	/**
-	*   Generalized function for transitioning with the manager
-	*
-	*   @method _transitioning
-	*   @param {String} The animator event to play
-	*   @param {Function} The callback function after transition is done
-	*   @private
-	*/
+	 * Generalized function for transitioning with the manager
+	 *
+	 * @method _transitioning
+	 * @param {String} The animator event to play
+	 * @param {Function} The callback function after transition is done
+	 * @private
+	 */
 	p._transitioning = function(event, callback)
 	{
 		var transition = this.transition;
@@ -1117,9 +1117,9 @@
 	};
 	
 	/**
-	*   Remove the state manager
-	*   @method destroy
-	*/
+	 * Remove the state manager
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._destroyed = true;
@@ -1155,10 +1155,10 @@
 	namespace('springroll').StateManager = StateManager;
 })();
 /**
-*  @module States
-*  @namespace springroll
-*  @requires Core
-*/
+ * @module States
+ * @namespace springroll
+ * @requires Core
+ */
 (function()
 {
 	// Include classes
@@ -1185,29 +1185,29 @@
 		 */
 		
 		/**
-		*  The collection of states
-		*  @property {Object} _states
-		*  @private
-		*/
+		 * The collection of states
+		 * @property {Object} _states
+		 * @private
+		 */
 		this._states = null;
 
 		/**
-		*  The state manager
-		*  @property {springroll.StateManager} manager
-		*/
+		 * The state manager
+		 * @property {springroll.StateManager} manager
+		 */
 		this.manager = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
-		*  @private
-		*/
+		 * The transition animation to use between the StateManager state changes
+		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+		 * @private
+		 */
 		this._transition = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
-		*/
+		 * The transition animation to use between the StateManager state changes
+		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+		 */
 		Object.defineProperty(this, "transition", 
 		{
 			set: function(transition)
@@ -1295,10 +1295,10 @@
 		}, true);
 
 		/**
-		*  The collection of states where the key is the state alias and value is the state display object
-		*  @property {Object} states
-		*  @default null
-		*/
+		 * The collection of states where the key is the state alias and value is the state display object
+		 * @property {Object} states
+		 * @default null
+		 */
 		Object.defineProperty(this, "states",
 		{
 			set: function(states)

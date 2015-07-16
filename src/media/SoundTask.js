@@ -13,6 +13,7 @@
 	 * that pulls the image from a spritesheet.
 	 * @class SoundTask
 	 * @extends springroll.Task
+	 * @private
 	 * @constructor
 	 * @param {Object} asset The data properties
 	 * @param {Array} asset.sounds The list of Sound aliases

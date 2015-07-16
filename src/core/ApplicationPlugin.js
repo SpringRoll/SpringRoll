@@ -1,16 +1,16 @@
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function()
 {
 	var Application;
 
 	/**
-	* Responsible for creating properties, methods to 
-	* the SpringRoll Application when it's created.
-	* @class ApplicationPlugin
-	*/
+	 * Responsible for creating properties, methods to 
+	 * the SpringRoll Application when it's created.
+	 * @class ApplicationPlugin
+	 */
 	var ApplicationPlugin = function(priority)
 	{
 		if (!Application)

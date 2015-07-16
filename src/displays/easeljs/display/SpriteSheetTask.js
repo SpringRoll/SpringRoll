@@ -14,6 +14,7 @@
 	 * @class SpriteSheetTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.images The source
 	 * @param {String} asset.frames The TextureAtlas source data

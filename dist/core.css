@@ -1,7 +1,7 @@
 /*! SpringRoll 0.4.0 */
 /** 
-*  Here's the assumed markup structure for basic Application
-*
+ * Here's the assumed markup structure for basic Application
+ *
 	<body>
 		<div class="frame">
 			<div class="content">
@@ -9,7 +9,7 @@
 			</div>
 		</div>
 	</body>
-*/
+ */
 body {
   padding: 0;
   margin: 0;
@@ -19,8 +19,8 @@ body {
   height: 100%;
 }
 /**
-* Base frame
-*/
+ * Base frame
+ */
 .frame,
 #frame {
   position: absolute;
@@ -29,10 +29,10 @@ body {
   height: 100%;
 }
 /**
-* We'll vertically center the content
-* the JavaScript will resize the canvas
-* content to the Window size
-*/
+ * We'll vertically center the content
+ * the JavaScript will resize the canvas
+ * content to the Window size
+ */
 .content,
 #content {
   position: absolute;

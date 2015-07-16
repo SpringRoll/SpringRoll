@@ -14,6 +14,7 @@
 	 * @class BitmapMovieClipTask
 	 * @extends springroll.TextureAtlasTask
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.anim Path to the JSON configuration for BitmapMovieClip
 	 * @param {String} asset.atlas The TextureAtlas source data

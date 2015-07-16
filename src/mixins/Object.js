@@ -5,21 +5,21 @@
 (function(Object, support, undefined){
 
 	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
+	 * Add methods to Object
+	 * @class Object
+	 */
 
 	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
+	 * Merges two (or more) objects, giving the last one precedence
+	 * @method merge
+	 * @example
 		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
+	 * @static
+	 * @param {Object} target The target object
+	 * @param {Object} source* Additional objects to add
+	 */
 	Object.merge = function(target, source)
 	{
 		if (!target || typeof target !== 'object')
@@ -50,12 +50,12 @@
 	};
 
 	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
+	 * Check to see if an object is a plain object definition
+	 * @method isPlain
+	 * @static
+	 * @param {Object} target The target object
+	 * @return {Boolean} If the object is plain
+	 */
 	Object.isPlain = function(obj)
 	{
 		var key;
@@ -101,10 +101,10 @@
 	};
 	
 	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
+	 * Creates a shallow copy of the object.
+	 * @method clone
+	 * @return {Object} The shallow copy.
+	 */
 	if(!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',

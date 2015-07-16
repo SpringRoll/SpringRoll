@@ -15,54 +15,54 @@
 		Text = include('PIXI.Text');
 
 	/**
-	*  A Multipurpose button class. It is designed to have one image, and an optional text label.
-	*  The button can be a normal button or a selectable button.
-	*  The button functions similarly with both EaselJS and PIXI, but slightly differently in
-	*  initialization and callbacks.
-	*  Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
-	*  
-	*  @class Button
-	*  @extends PIXI.DisplayObjectContainer
-	*  @constructor
-	*  @param {Object} imageSettings Information about the art to be used for button states, as well as if the button is selectable or not.
-	*  @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to ["disabled", "down", "over", "up"].
-	*         Previous versions of Button used a hard coded order: ["highlighted", "disabled", "down", "over", "selected", "up"].
-	*  @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button. This can be either the texture itself,
-	*         or an object with 'tex' and 'label' properties.
-	*  @param {PIXI.Texture} [imageSettings.up.tex] The sourceRect for the state within the image.
-	*  @param {Object} [imageSettings.up.label=null] Label information specific to this state. Properties on this parameter override data 
-	*         in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
-	*  @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the button. If omitted, uses the up state.
-	*  @param {PIXI.Texture} [imageSettings.over.tex] The sourceRect for the state within the image.
-	*  @param {Object} [imageSettings.over.label=null] Label information specific to this state. Properties on this parameter override data 
-	*         in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
-	*  @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the button. If omitted, uses the up state.
-	*  @param {PIXI.Texture} [imageSettings.down.tex] The sourceRect for the state within the image.
-	*  @param {Object} [imageSettings.down.label=null] Label information specific to this state. Properties on this parameter override data 
-	*         in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
-	*  @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled state of the button. If omitted, uses the up state.
-	*  @param {PIXI.Texture} [imageSettings.disabled.tex] The sourceRect for the state within the image.
-	*  @param {Object} [imageSettings.disabled.label=null] Label information specific to this state. Properties on this parameter override data 
-	*         in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
-	*  @param {Object|PIXI.Texture} [imageSettings.<yourCustomState>=null] The visual information about a custom state found in imageSettings.priority.
-	*         Any state added this way has a property of the same name added to the button. Examples of previous states that have been
-	*         moved to this system are "selected" and "highlighted".
-	*  @param {PIXI.Texture} [imageSettings.<yourCustomState>.tex] The texture for the custom state.
-	*  @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to this state. Properties on this parameter 
-	*         override data in the label parameter for this button state only. All values except "text" from the label parameter may be
-	*         overridden.
-	*  @param {PIXI.Point} [imageSettings.origin=null] An optional offset for all button graphics, in case you want button 
-	*         positioning to not include a highlight glow, or any other reason you would want to offset the button art and label.
-	*  @param {Number} [imageSettings.scale=1] The scale to use for the textures. This allows smaller art assets than the designed size to be used.
-	*  @param {Object} [label=null] Information about the text label on the button. Omitting this makes the button not use a label.
-	*  @param {String} [label.type] If label.type is "bitmap", then a PIXI.BitmapText text is created, otherwise a PIXI.Text is created for the label.
-	*  @param {String} [label.text] The text to display on the label.
-	*  @param {Object} [label.style] The style of the text field, in the format that PIXI.BitmapText and PIXI.Text expect.
-	*  @param {String|Number} [label.x="center"] An x position to place the label text at relative to the button.
-	*  @param {String|Number} [label.y="center"] A y position to place the label text at relative to the button. If omitted,
-	*         "center" is used, which attempts to vertically center the label on the button.
-	*  @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
-	*/
+	 * A Multipurpose button class. It is designed to have one image, and an optional text label.
+	 * The button can be a normal button or a selectable button.
+	 * The button functions similarly with both EaselJS and PIXI, but slightly differently in
+	 * initialization and callbacks.
+	 * Use releaseCallback and overCallback to know about button clicks and mouse overs, respectively.
+	 * 
+	 * @class Button
+	 * @extends PIXI.DisplayObjectContainer
+	 * @constructor
+	 * @param {Object} imageSettings Information about the art to be used for button states, as well as if the button is selectable or not.
+	 * @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to ["disabled", "down", "over", "up"].
+	 *     Previous versions of Button used a hard coded order: ["highlighted", "disabled", "down", "over", "selected", "up"].
+	 * @param {Object|PIXI.Texture} [imageSettings.up] The texture for the up state of the button. This can be either the texture itself,
+	 *     or an object with 'tex' and 'label' properties.
+	 * @param {PIXI.Texture} [imageSettings.up.tex] The sourceRect for the state within the image.
+	 * @param {Object} [imageSettings.up.label=null] Label information specific to this state. Properties on this parameter override data 
+	 *     in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
+	 * @param {Object|PIXI.Texture} [imageSettings.over=null] The texture for the over state of the button. If omitted, uses the up state.
+	 * @param {PIXI.Texture} [imageSettings.over.tex] The sourceRect for the state within the image.
+	 * @param {Object} [imageSettings.over.label=null] Label information specific to this state. Properties on this parameter override data 
+	 *     in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
+	 * @param {Object|PIXI.Texture} [imageSettings.down=null] The texture for the down state of the button. If omitted, uses the up state.
+	 * @param {PIXI.Texture} [imageSettings.down.tex] The sourceRect for the state within the image.
+	 * @param {Object} [imageSettings.down.label=null] Label information specific to this state. Properties on this parameter override data 
+	 *     in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
+	 * @param {Object|PIXI.Texture} [imageSettings.disabled=null] The texture for the disabled state of the button. If omitted, uses the up state.
+	 * @param {PIXI.Texture} [imageSettings.disabled.tex] The sourceRect for the state within the image.
+	 * @param {Object} [imageSettings.disabled.label=null] Label information specific to this state. Properties on this parameter override data 
+	 *     in the label parameter for this button state only. All values except "text" and "type" from the label parameter may be overridden.
+	 * @param {Object|PIXI.Texture} [imageSettings.<yourCustomState>=null] The visual information about a custom state found in imageSettings.priority.
+	 *     Any state added this way has a property of the same name added to the button. Examples of previous states that have been
+	 *     moved to this system are "selected" and "highlighted".
+	 * @param {PIXI.Texture} [imageSettings.<yourCustomState>.tex] The texture for the custom state.
+	 * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to this state. Properties on this parameter 
+	 *     override data in the label parameter for this button state only. All values except "text" from the label parameter may be
+	 *     overridden.
+	 * @param {PIXI.Point} [imageSettings.origin=null] An optional offset for all button graphics, in case you want button 
+	 *     positioning to not include a highlight glow, or any other reason you would want to offset the button art and label.
+	 * @param {Number} [imageSettings.scale=1] The scale to use for the textures. This allows smaller art assets than the designed size to be used.
+	 * @param {Object} [label=null] Information about the text label on the button. Omitting this makes the button not use a label.
+	 * @param {String} [label.type] If label.type is "bitmap", then a PIXI.BitmapText text is created, otherwise a PIXI.Text is created for the label.
+	 * @param {String} [label.text] The text to display on the label.
+	 * @param {Object} [label.style] The style of the text field, in the format that PIXI.BitmapText and PIXI.Text expect.
+	 * @param {String|Number} [label.x="center"] An x position to place the label text at relative to the button.
+	 * @param {String|Number} [label.y="center"] A y position to place the label text at relative to the button. If omitted,
+	 *     "center" is used, which attempts to vertically center the label on the button.
+	 * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
+	 */
 	var Button = function(imageSettings, label, enabled)
 	{
 		Debug = include('springroll.Debug', false);
@@ -74,128 +74,128 @@
 		DisplayObjectContainer.call(this);
 
 		/*
-		*  The sprite that is the body of the button.
-		*  @public
-		*  @property {PIXI.Sprite} back
-		*  @readOnly
-		*/
+		 * The sprite that is the body of the button.
+		 * @public
+		 * @property {PIXI.Sprite} back
+		 * @readOnly
+		 */
 		this.back = new Sprite(imageSettings.up);
 
 		/*
-		*  The text field of the button. The label is centered by both width and height on the button.
-		*  @public
-		*  @property {PIXI.Text|PIXI.BitmapText} label
-		*  @readOnly
-		*/
+		 * The text field of the button. The label is centered by both width and height on the button.
+		 * @public
+		 * @property {PIXI.Text|PIXI.BitmapText} label
+		 * @readOnly
+		 */
 		this.label = null;
 
 		/**
-		*  The function that should be called when the button is released.
-		*  @public
-		*  @property {function} releaseCallback
-		*/
+		 * The function that should be called when the button is released.
+		 * @public
+		 * @property {function} releaseCallback
+		 */
 		this.releaseCallback = null;
 
 		/**
-		*  The function that should be called when the button is moused over.
-		*  @public
-		*  @property {function} overCallback
-		*/
+		 * The function that should be called when the button is moused over.
+		 * @public
+		 * @property {function} overCallback
+		 */
 		this.overCallback = null;
 		
 		/**
-		*  The function that should be called when mouse leaves the button.
-		*  @public
-		*  @property {function} outCallback
-		*/
+		 * The function that should be called when mouse leaves the button.
+		 * @public
+		 * @property {function} outCallback
+		 */
 		this.outCallback = null;
 
 		/**
-		* A dictionary of state booleans, keyed by state name.
-		* @private
-		* @property {Object} _stateFlags
-		*/
+		 * A dictionary of state booleans, keyed by state name.
+		 * @private
+		 * @property {Object} _stateFlags
+		 */
 		this._stateFlags = {};
 
 		/**
-		* An array of state names (Strings), in their order of priority.
-		* The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
-		* @private
-		* @property {Array} _statePriority
-		*/
+		 * An array of state names (Strings), in their order of priority.
+		 * The standard order previously was ["highlighted", "disabled", "down", "over", "selected", "up"].
+		 * @private
+		 * @property {Array} _statePriority
+		 */
 		this._statePriority = imageSettings.priority || DEFAULT_PRIORITY;
 		
 		/**
-		* A dictionary of state graphic data, keyed by state name.
-		* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-		* Additionally, each object will contain a 'label' object if the button has a text label.
-		* @private
-		* @property {Object} _stateData
-		*/
+		 * A dictionary of state graphic data, keyed by state name.
+		 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		 * Additionally, each object will contain a 'label' object if the button has a text label.
+		 * @private
+		 * @property {Object} _stateData
+		 */
 		this._stateData = null;
 
 		/**
-		* The current style for the label, to avoid setting this if it is unchanged.
-		* @private
-		* @property {Object} _currentLabelStyle
-		*/
+		 * The current style for the label, to avoid setting this if it is unchanged.
+		 * @private
+		 * @property {Object} _currentLabelStyle
+		 */
 		this._currentLabelStyle = null;
 
 		/**
-		* An offset to button positioning, generally used to adjust for a highlight around the button.
-		* @private
-		* @property {PIXI.Point} _offset
-		*/
+		 * An offset to button positioning, generally used to adjust for a highlight around the button.
+		 * @private
+		 * @property {PIXI.Point} _offset
+		 */
 		this._offset = new Point();
 		
 		//===callbacks for mouse/touch events
 		/*
-		* Callback for mouse over, bound to this button.
-		* @private
-		* @property {Function} _overCB
-		*/
+		 * Callback for mouse over, bound to this button.
+		 * @private
+		 * @property {Function} _overCB
+		 */
 		this._overCB = null;
 
 		/*
-		* Callback for mouse out, bound to this button.
-		* @private
-		* @property {Function} _outCB
-		*/
+		 * Callback for mouse out, bound to this button.
+		 * @private
+		 * @property {Function} _outCB
+		 */
 		this._outCB = null;
 
 		/*
-		* Callback for mouse down, bound to this button.
-		* @private
-		* @property {Function} _downCB
-		*/
+		 * Callback for mouse down, bound to this button.
+		 * @private
+		 * @property {Function} _downCB
+		 */
 		this._downCB = null;
 
 		/*
-		* Callback for mouse up, bound to this button.
-		* @private
-		* @property {Function} _upCB
-		*/
+		 * Callback for mouse up, bound to this button.
+		 * @private
+		 * @property {Function} _upCB
+		 */
 		this._upCB = null;
 
 		/**
-		* Callback for mouse up outside, bound to this button.
-		* @private
-		* @property {Function} _upOutCB
-		*/
+		 * Callback for mouse up outside, bound to this button.
+		 * @private
+		 * @property {Function} _upOutCB
+		 */
 		this._upOutCB = null;
 		
 		/*
-		* The width of the button art, independent of the scaling of the button itself.
-		* @private
-		* @property {Number} _width
-		*/
+		 * The width of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _width
+		 */
 		this._width = 0;
 
 		/*
-		* The height of the button art, independent of the scaling of the button itself.
-		* @private
-		* @property {Number} _height
-		*/
+		 * The height of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _height
+		 */
 		this._height = 0;
 
 		this.initialize(imageSettings, label, enabled);
@@ -205,28 +205,28 @@
 	var p = Button.prototype = Object.create(DisplayObjectContainer.prototype);
 	
 	/*
-	* A list of state names that should not have properties autogenerated.
-	* @private
-	* @static
-	* @property {Array} RESERVED_STATES
-	*/
+	 * A list of state names that should not have properties autogenerated.
+	 * @private
+	 * @static
+	 * @property {Array} RESERVED_STATES
+	 */
 	var RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
 
 	/*
-	* A state priority list to use as the default.
-	* @private
-	* @static
-	* @property {Array} DEFAULT_PRIORITY
-	*/
+	 * A state priority list to use as the default.
+	 * @private
+	 * @static
+	 * @property {Array} DEFAULT_PRIORITY
+	 */
 	var DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
 	
 	/** 
-	*  Constructor for the button when using PIXI.
-	*  @method initialize
-	*  @param  {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
-	*  @param {Object} [label=null] Information about the text label on the button. Omitting this makes the button not use a label.
-	*  @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
-	*/
+	 * Constructor for the button when using PIXI.
+	 * @method initialize
+	 * @param  {Object} [imageSettings] Information about the art to be used for button states, as well as if the button is selectable or not.
+	 * @param {Object} [label=null] Information about the text label on the button. Omitting this makes the button not use a label.
+	 * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
+	 */
 	p.initialize = function(imageSettings, label, enabled)
 	{
 		this.addChild(this.back);
@@ -357,8 +357,8 @@
 	};
 
 	/*
-	*  A simple function for making a shallow copy of an object.
-	*/
+	 * A simple function for making a shallow copy of an object.
+	 */
 	function clone(obj)
 	{
 		if (!obj || "object" != typeof obj) return null;
@@ -370,10 +370,10 @@
 	}
 	
 	/*
-	*  The width of the button, based on the width of back. This value is affected by scale.
-	*  @public
-	*  @property {Number} width
-	*/
+	 * The width of the button, based on the width of back. This value is affected by scale.
+	 * @public
+	 * @property {Number} width
+	 */
 	Object.defineProperty(p, "width", {
 		get:function(){return this._width * this.scale.x;},
 		set:function(value){
@@ -381,10 +381,10 @@
 		}
 	});
 	/*
-	*  The height of the button, based on the height of back. This value is affected by scale.
-	*  @public
-	*  @property {Number} height
-	*/
+	 * The height of the button, based on the height of back. This value is affected by scale.
+	 * @public
+	 * @property {Number} height
+	 */
 	Object.defineProperty(p, "height", {
 		get:function(){return this._height * this.scale.y;},
 		set:function(value){
@@ -393,11 +393,11 @@
 	});
 	
 	/*
-	*  Sets the text of the label. This does nothing if the button was not initialized with a label.
-	*  @public
-	*  @method setText
-	*  @param {String} text The text to set the label to.
-	*/
+	 * Sets the text of the label. This does nothing if the button was not initialized with a label.
+	 * @public
+	 * @method setText
+	 * @param {String} text The text to set the label to.
+	 */
 	p.setText = function(text)
 	{
 		if (this.label)
@@ -452,11 +452,11 @@
 	};
 	
 	/*
-	*  Whether or not the button is enabled.
-	*  @public
-	*  @property {Boolean} enabled
-	*  @default true
-	*/
+	 * Whether or not the button is enabled.
+	 * @public
+	 * @property {Boolean} enabled
+	 * @default true
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function() { return !this._stateFlags.disabled; },
 		set: function(value)
@@ -486,12 +486,12 @@
 	});
 
 	/**
-	*  Adds a property to the button. Setting the property sets the value in
-	*  _stateFlags and calls _updateState().
-	*  @private
-	*  @method _addProperty
-	*  @param {String} propertyName The property name to add to the button.
-	*/
+	 * Adds a property to the button. Setting the property sets the value in
+	 * _stateFlags and calls _updateState().
+	 * @private
+	 * @method _addProperty
+	 * @param {String} propertyName The property name to add to the button.
+	 */
 	p._addProperty = function(propertyName)
 	{
 		//check to make sure we don't add reserved names
@@ -508,10 +508,10 @@
 	};
 	
 	/*
-	*  Updates back based on the current button state.
-	*  @private
-	*  @method _updateState
-	*/
+	 * Updates back based on the current button state.
+	 * @private
+	 * @method _updateState
+	 */
 	p._updateState = function()
 	{
 		if (!this.back) return;
@@ -577,8 +577,8 @@
 	};
 
 	/*
-	* A simple function for comparing the properties of two objects
-	*/
+	 * A simple function for comparing the properties of two objects
+	 */
 	function doObjectsMatch(obj1, obj2)
 	{
 		if (obj1 === obj2)
@@ -592,10 +592,10 @@
 	}
 	
 	/**
-	*  The callback for when the button is moused over.
-	*  @private
-	*  @method _onOver
-	*/
+	 * The callback for when the button is moused over.
+	 * @private
+	 * @method _onOver
+	 */
 	p._onOver = function(data)
 	{
 		this._stateFlags.over = true;
@@ -605,10 +605,10 @@
 	};
 	
 	/**
-	*  The callback for when the mouse leaves the button area.
-	*  @private
-	*  @method _onOut
-	*/
+	 * The callback for when the mouse leaves the button area.
+	 * @private
+	 * @method _onOut
+	 */
 	p._onOut = function(data)
 	{
 		this._stateFlags.over = false;
@@ -618,10 +618,10 @@
 	};
 	
 	/**
-	*  The callback for when the button receives a mouse down event.
-	*  @private
-	*  @method _onDown
-	*/
+	 * The callback for when the button receives a mouse down event.
+	 * @private
+	 * @method _onDown
+	 */
 	p._onDown = function(data)
 	{
 		data.originalEvent.preventDefault();
@@ -633,11 +633,11 @@
 	};
 	
 	/**
-	*  The callback for when the button for when the mouse/touch is released on the button
-	*  - only when the button was held down initially.
-	*  @private
-	*  @method _onUp
-	*/
+	 * The callback for when the button for when the mouse/touch is released on the button
+	 * - only when the button was held down initially.
+	 * @private
+	 * @method _onUp
+	 */
 	p._onUp = function(data)
 	{
 		data.originalEvent.preventDefault();
@@ -651,10 +651,10 @@
 	};
 	
 	/**
-	*  The callback for when the mouse/touch is released outside the button when the button was held down.
-	*  @private
-	*  @method _onUpOutside
-	*/
+	 * The callback for when the mouse/touch is released outside the button when the button was held down.
+	 * @private
+	 * @method _onUpOutside
+	 */
 	p._onUpOutside = function(data)
 	{
 		this._stateFlags.down = false;
@@ -665,10 +665,10 @@
 	};
 	
 	/*
-	*  Destroys the button.
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroys the button.
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.mousedown = this.touchstart = this.mouseover = this.mouseout = null;
@@ -725,15 +725,15 @@
 		DragData = include("springroll.pixi.DragData");
 
 	/**
-	*  Drag manager is responsible for handling the dragging of stage elements
-	*  supports click-n-stick and click-n-drag functionality.
-	*
-	*  @class DragManager
-	*  @constructor
-	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
-	*  @param {function} startCallback The callback when when starting
-	*  @param {function} endCallback The callback when ending
-	*/
+	 * Drag manager is responsible for handling the dragging of stage elements
+	 * supports click-n-stick and click-n-drag functionality.
+	 *
+	 * @class DragManager
+	 * @constructor
+	 * @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
+	 * @param {function} startCallback The callback when when starting
+	 * @param {function} endCallback The callback when ending
+	 */
 	var DragManager = function(stage, startCallback, endCallback)
 	{
 		if(!Application)
@@ -744,120 +744,120 @@
 		}
 
 		/**
-		* The object that's being dragged, or a dictionary of DragData being dragged
-		* by id if multitouch is true.
-		* @public
-		* @readOnly
-		* @property {PIXI.DisplayObject|Dictionary} draggedObj
-		*/
+		 * The object that's being dragged, or a dictionary of DragData being dragged
+		 * by id if multitouch is true.
+		 * @public
+		 * @readOnly
+		 * @property {PIXI.DisplayObject|Dictionary} draggedObj
+		 */
 		this.draggedObj = null;
 		
 		/**
-		* The radius in pixel to allow for dragging, or else does sticky click
-		* @public
-		* @property dragStartThreshold
-		* @default 20
-		*/
+		 * The radius in pixel to allow for dragging, or else does sticky click
+		 * @public
+		 * @property dragStartThreshold
+		 * @default 20
+		 */
 		this.dragStartThreshold = 20;
 		
 		/**
-		* The position x, y of the mouse down on the stage. This is only used
-		* when multitouch is false - the DragData has it when multitouch is true.
-		* @private
-		* @property {PIXI.Point} mouseDownStagePos
-		*/
+		 * The position x, y of the mouse down on the stage. This is only used
+		 * when multitouch is false - the DragData has it when multitouch is true.
+		 * @private
+		 * @property {PIXI.Point} mouseDownStagePos
+		 */
 		this.mouseDownStagePos = new Point(0, 0);
 
 		/**
-		* The position x, y of the object when interaction with it started. If multitouch is
-		* true, then this will only be set during a drag stop callback, for the object that just
-		* stopped getting dragged.
-		* @property {PIXI.Point} mouseDownObjPos
-		*/
+		 * The position x, y of the object when interaction with it started. If multitouch is
+		 * true, then this will only be set during a drag stop callback, for the object that just
+		 * stopped getting dragged.
+		 * @property {PIXI.Point} mouseDownObjPos
+		 */
 		this.mouseDownObjPos = new Point(0, 0);
 		
 		/**
-		* If sticky click dragging is allowed.
-		* @public
-		* @property {Bool} allowStickyClick
-		* @default true
-		*/
+		 * If sticky click dragging is allowed.
+		 * @public
+		 * @property {Bool} allowStickyClick
+		 * @default true
+		 */
 		this.allowStickyClick = true;
 		
 		/**
-		* Is the move touch based
-		* @public
-		* @readOnly
-		* @property {Bool} isTouchMove
-		* @default false
-		*/
+		 * Is the move touch based
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isTouchMove
+		 * @default false
+		 */
 		this.isTouchMove = false;
 		
 		/**
-		* Is the drag being held on mouse down (not sticky clicking)
-		* @public
-		* @readOnly
-		* @property {Bool} isHeldDrag
-		* @default false
-		*/
+		 * Is the drag being held on mouse down (not sticky clicking)
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isHeldDrag
+		 * @default false
+		 */
 		this.isHeldDrag = false;
 		
 		/**
-		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
-		* @public
-		* @readOnly
-		* @property {Bool} isStickyClick
-		* @default false
-		*/
+		 * Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isStickyClick
+		 * @default false
+		 */
 		this.isStickyClick = false;
 
 		/**
-		* Settings for snapping.
-		*
-		*  Format for snapping to a list of points:
-		*	{
-		*		mode:"points",
-		*		dist:20,//snap when within 20 pixels/units
-		*		points:[
-		*			{ x: 20, y:30 },
-		*			{ x: 50, y:10 }
-		*		]
-		*	}
-		*
-		* @public
-		* @property {Object} snapSettings
-		* @default null
-		*/
+		 * Settings for snapping.
+		 *
+		 * Format for snapping to a list of points:
+		 *	{
+		 *		mode:"points",
+		 *		dist:20,//snap when within 20 pixels/units
+		 *		points:[
+		 *			{ x: 20, y:30 },
+		 *			{ x: 50, y:10 }
+		 *		]
+		 *	}
+		 *
+		 * @public
+		 * @property {Object} snapSettings
+		 * @default null
+		 */
 		this.snapSettings = null;
 		
 		/**
-		* Reference to the stage
-		* @private
-		* @property {PIXI.Stage} _theStage
-		*/
+		 * Reference to the stage
+		 * @private
+		 * @property {PIXI.Stage} _theStage
+		 */
 		this._theStage = stage;
 		
 		/**
-		* The offset from the dragged object's position that the initial mouse event
-		* was at. This is only used when multitouch is false - the DragData has
-		* it when multitouch is true.
-		* @private
-		* @property {PIXI.Point} _dragOffset
-		*/
+		 * The offset from the dragged object's position that the initial mouse event
+		 * was at. This is only used when multitouch is false - the DragData has
+		 * it when multitouch is true.
+		 * @private
+		 * @property {PIXI.Point} _dragOffset
+		 */
 		this._dragOffset = null;
 		
 		/**
-		* External callback when we start dragging
-		* @private
-		* @property {Function} _dragStartCallback
-		*/
+		 * External callback when we start dragging
+		 * @private
+		 * @property {Function} _dragStartCallback
+		 */
 		this._dragStartCallback = startCallback;
 		
 		/**
-		* External callback when we are done dragging
-		* @private
-		* @property {Function} _dragEndCallback
-		*/
+		 * External callback when we are done dragging
+		 * @private
+		 * @property {Function} _dragEndCallback
+		 */
 		this._dragEndCallback = endCallback;
 		
 		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
@@ -866,17 +866,17 @@
 		this._updateObjPosition = this._updateObjPosition.bind(this);
 		
 		/**
-		* The collection of draggable objects
-		* @private
-		* @property {Array} _draggableObjects
-		*/
+		 * The collection of draggable objects
+		 * @private
+		 * @property {Array} _draggableObjects
+		 */
 		this._draggableObjects = [];
 		
 		/**
-		* If this DragManager is using multitouch for dragging.
-		* @private
-		* @property {Boolean} _multitouch
-		*/
+		 * If this DragManager is using multitouch for dragging.
+		 * @private
+		 * @property {Boolean} _multitouch
+		 */
 		this._multitouch = false;
 
 		this.helperPoint = new Point(0, 0);
@@ -886,10 +886,10 @@
 	var p = DragManager.prototype = {};
 	
 	/**
-	* If the DragManager allows multitouch dragging. Setting this stops any current
-	* drags.
-	* @property {Boolean} multitouch
-	*/
+	 * If the DragManager allows multitouch dragging. Setting this stops any current
+	 * drags.
+	 * @property {Boolean} multitouch
+	 */
 	Object.defineProperty(p, "multitouch", {
 		get: function(){ return this._multitouch; },
 		set: function(value)
@@ -911,29 +911,29 @@
 		}});
 	
 	/**
-	*  Manually starts dragging an object. If a mouse down event is not supplied
-	*  as the second argument, it defaults to a held drag, that ends as soon as
-	*  the mouse is released. When using multitouch, passing a interaction data is
-	*  required.
-	*  @method startDrag
-	*  @public
-	*  @param {PIXI.DisplayObject} object The object that should be dragged.
-	*  @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	*/
+	 * Manually starts dragging an object. If a mouse down event is not supplied
+	 * as the second argument, it defaults to a held drag, that ends as soon as
+	 * the mouse is released. When using multitouch, passing a interaction data is
+	 * required.
+	 * @method startDrag
+	 * @public
+	 * @param {PIXI.DisplayObject} object The object that should be dragged.
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 */
 	p.startDrag = function(object, interactionData)
 	{
 		this._objMouseDown(object, interactionData);
 	};
 	
 	/**
-	* Mouse down on an obmect
-	*  @method _objMouseDown
-	*  @private
-	*  @param {PIXI.DisplayObject} object The object that should be dragged.
-	*  @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	*/
+	 * Mouse down on an obmect
+	 * @method _objMouseDown
+	 * @private
+	 * @param {PIXI.DisplayObject} object The object that should be dragged.
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 */
 	p._objMouseDown = function(obj, interactionData)
 	{
 		// if we are dragging something, then ignore any mouse downs
@@ -1002,12 +1002,12 @@
 	};
 	
 	/**
-	* Start the sticky click
-	* @method _triggerStickyClick
-	* @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	* @private
-	*/
+	 * Start the sticky click
+	 * @method _triggerStickyClick
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 * @private
+	 */
 	p._triggerStickyClick = function(interactionData)
 	{
 		this.isStickyClick = true;
@@ -1020,11 +1020,11 @@
 	};
 
 	/**
-	* Start hold dragging
-	* @method _triggerHeldDrag
-	* @private
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	*/
+	 * Start hold dragging
+	 * @method _triggerHeldDrag
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 */
 	p._triggerHeldDrag = function(interactionData)
 	{
 		var mouseDownStagePos, draggedObj;
@@ -1050,11 +1050,11 @@
 	};
 
 	/**
-	* Internal start dragging on the stage
-	* @method _startDrag
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	* @private
-	*/
+	 * Internal start dragging on the stage
+	 * @method _startDrag
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @private
+	 */
 	p._startDrag = function(interactionData)
 	{
 		var im = this._theStage.interactionManager;
@@ -1073,13 +1073,13 @@
 	};
 	
 	/**
-	* Stops dragging the currently dragged object.
-	* @public
-	* @method stopDrag
-	* @param {Bool} [doCallback=false] If the drag end callback should be called.
-	* @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
-	*                                       is true. If this is omitted, it stops all drags.
-	*/
+	 * Stops dragging the currently dragged object.
+	 * @public
+	 * @method stopDrag
+	 * @param {Bool} [doCallback=false] If the drag end callback should be called.
+	 * @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
+	 *                                   is true. If this is omitted, it stops all drags.
+	 */
 	p.stopDrag = function(doCallback, obj)
 	{
 		var id = null;
@@ -1099,12 +1099,12 @@
 	};
 
 	/**
-	* Internal stop dragging on the stage
-	* @method _stopDrag
-	* @private
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	* @param {Bool} doCallback If we should do the callback
-	*/
+	 * Internal stop dragging on the stage
+	 * @method _stopDrag
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @param {Bool} doCallback If we should do the callback
+	 */
 	p._stopDrag = function(interactionData, doCallback)
 	{
 		var obj, id;
@@ -1170,11 +1170,11 @@
 	};
 
 	/**
-	* Update the object position based on the mouse
-	* @method _updateObjPosition
-	* @private
-	* @param {PIXI.InteractionData} interactionData Mouse move event
-	*/
+	 * Update the object position based on the mouse
+	 * @method _updateObjPosition
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData Mouse move event
+	 */
 	p._updateObjPosition = function(interactionData)
 	{
 		if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
@@ -1228,13 +1228,13 @@
 	};
 
 	/**
-	* Handles snapping the dragged object to the nearest among a list of points
-	* @method _handlePointSnap
-	* @private
-	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
-	* @param {PIXI.Point} dragOffset The drag offset for the dragged object.
-	* @param {PIXI.DisplayObject} obj The object to snap.
-	*/
+	 * Handles snapping the dragged object to the nearest among a list of points
+	 * @method _handlePointSnap
+	 * @private
+	 * @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
+	 * @param {PIXI.Point} dragOffset The drag offset for the dragged object.
+	 * @param {PIXI.DisplayObject} obj The object to snap.
+	 */
 	p._handlePointSnap = function(localMousePos, dragOffset, obj)
 	{
 		var snapSettings = this.snapSettings;
@@ -1262,8 +1262,8 @@
 	};
 
 	/*
-	* Small distance squared function
-	*/
+	 * Small distance squared function
+	 */
 	var distSquared = function(x1, y1, x2, y2)
 	{
 		var xDiff = x1 - x2;
@@ -1272,8 +1272,8 @@
 	};
 	
 	/**
-	* Simple clamp function
-	*/
+	 * Simple clamp function
+	 */
 	var clamp = function(x,a,b)
 	{
 		return (x < a ? a : (x > b ? b : x));
@@ -1298,16 +1298,16 @@
 	};
 	
 	/**
-	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
-	* objects to enable/disable them (they start out disabled). Properties added to objects:
-	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
-	* these will override any existing properties of the same name
-	* @method addObject
-	* @public
-	* @param {PIXI.DisplayObject} obj The display object
-	* @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
-	*                                      will be added to this object.
-	*/
+	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
+	 * objects to enable/disable them (they start out disabled). Properties added to objects:
+	 * _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
+	 * these will override any existing properties of the same name
+	 * @method addObject
+	 * @public
+	 * @param {PIXI.DisplayObject} obj The display object
+	 * @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
+	 *                                  will be added to this object.
+	 */
 	p.addObject = function(obj, bounds)
 	{
 		if(bounds)
@@ -1329,11 +1329,11 @@
 	};
 	
 	/**
-	* Removes properties and functions added by addObject().
-	* @public
-	* @method removeObject
-	* @param {PIXI.DisplayObject} obj The display object
-	*/
+	 * Removes properties and functions added by addObject().
+	 * @public
+	 * @method removeObject
+	 * @param {PIXI.DisplayObject} obj The display object
+	 */
 	p.removeObject = function(obj)
 	{
 		var index = this._draggableObjects.indexOf(obj);
@@ -1350,10 +1350,10 @@
 	};
 	
 	/**
-	*  Destroy the manager
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the manager
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		//clean up dragged obj

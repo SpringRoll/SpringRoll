@@ -9,42 +9,43 @@
 	var EventCatalog = include('springroll.EventCatalog');
 
 	/**
-	 *  Define the signature of the api
-	 *  @class EventSignature
-	 *  @constructor
-	 *  @param {string} api The name of the API
-	 *  @param {array} [args] The list of arguments to be called
-	 *  @param {string} [info] The info description of the API
+	 * Define the signature of the api
+	 * @class EventSignature
+	 * @constructor
+	 * @private
+	 * @param {string} api The name of the API
+	 * @param {array} [args] The list of arguments to be called
+	 * @param {string} [info] The info description of the API
 	 */
 	var EventSignature = function(eventCode, api, args, eventArgs, info)
 	{
 		/**
-		 *  The event code
-		 *  @property {string} eventCode
+		 * The event code
+		 * @property {string} eventCode
 		 */
 		this.eventCode = eventCode;
 
 		/**
-		 *  The name of the method
-		 *  @property {string} api
+		 * The name of the method
+		 * @property {string} api
 		 */
 		this.api = api;
 
 		/**
-		 *  The arguments to be called by the API
-		 *  @property {array} args
+		 * The arguments to be called by the API
+		 * @property {array} args
 		 */
 		this.args = args || null;
 
 		/**
-		 *  The arguments required by the spec
-		 *  @property {array} eventArgs
+		 * The arguments required by the spec
+		 * @property {array} eventArgs
 		 */
 		this.eventArgs = eventArgs || null;
 
 		/**
-		 *  The API description
-		 *  @property {string} info
+		 * The API description
+		 * @property {string} info
 		 */
 		this.info = info || null;
 	};
@@ -53,12 +54,12 @@
 	var p = EventSignature.prototype;
 
 	/**
-	 *  See if the event args or the api args has an property by name
-	 *  @method hasProperty
-	 *  @param {string}  property The name of the argument
-	 *  @param {Boolean} [isEventArg=false] If we're checking on the event args, default
-	 *         checks on the API arguments.
-	 *  @return {Boolean} If the property is found
+	 * See if the event args or the api args has an property by name
+	 * @method hasProperty
+	 * @param {string}  property The name of the argument
+	 * @param {Boolean} [isEventArg=false] If we're checking on the event args, default
+	 *       checks on the API arguments.
+	 * @return {Boolean} If the property is found
 	 */
 	p.hasProperty = function(property, isEventArg)
 	{
@@ -81,8 +82,8 @@
 	if (DEBUG)
 	{
 		/**
-		 *  Generate documentation, development build only!
-		 *  @method docs
+		 * Generate documentation, development build only!
+		 * @method docs
 		 */
 		p.docs = function()
 		{
@@ -102,12 +103,12 @@
 		};
 
 		/**
-		 *  Create the markup for the arguments
-		 *  @method _argsDocs
-		 *  @private
-		 *  @param {array} args The list of arguments
-		 *  @param {array} ignoreNames Ignore any name matching these collection of string
-		 *  @return {string} The markup
+		 * Create the markup for the arguments
+		 * @method _argsDocs
+		 * @private
+		 * @param {array} args The list of arguments
+		 * @param {array} ignoreNames Ignore any name matching these collection of string
+		 * @return {string} The markup
 		 */
 		p._argsDocs = function(args, ignoreNames)
 		{
@@ -170,12 +171,12 @@
 	}
 
 	/**
-	 *  Get the api signature of a method
-	 *  @method _format
-	 *  @private
-	 *  @param {array} args The API arguments
-	 *  @param {string} [indent="\t"] The indentation
-	 *  @return {string} The signature api
+	 * Get the api signature of a method
+	 * @method _format
+	 * @private
+	 * @param {array} args The API arguments
+	 * @param {string} [indent="\t"] The indentation
+	 * @return {string} The signature api
 	 */
 	p._format = function(args, indent)
 	{
@@ -219,9 +220,9 @@
 	};
 
 	/**
-	 *  Get the string representation of the signature
-	 *  @method toString
-	 *  @return {string} The string version of the signature
+	 * Get the string representation of the signature
+	 * @method toString
+	 * @return {string} The string version of the signature
 	 */
 	p.toString = function()
 	{

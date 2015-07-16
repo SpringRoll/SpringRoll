@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Debug,
@@ -12,12 +12,13 @@
 	 * @class Task
 	 * @abstract
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The asset data
 	 * @param {String} [asset.id=null] The task ID
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} [asset.complete=null] Call when complete
 	 * @param {String} fallbackId The ID to set if no ID is explicitly set
-	 *        this can be used for caching something that has no id
+	 *      this can be used for caching something that has no id
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
 	 */
 	var Task = function(asset, fallbackId)

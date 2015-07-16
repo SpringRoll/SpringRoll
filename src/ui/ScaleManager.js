@@ -26,7 +26,7 @@
 	 * @param {Number} [options.size.maxheight=size.height] The designed max height
 	 * @param {Object} [options.items] The items to load
 	 * @param {PIXI.DisplayObjectContainer|createjs.Container} [options.container] The container if
-	 *                                                                             adding items
+	 *                                                                           adding items
 	 * @param {Object} [options.display] The current display
 	 * @param {Boolean} [options.enabled=false] If the scaler is enabled
 	 */
@@ -353,11 +353,11 @@
 	 * Register a dictionary of items to the ScaleManager to control.
 	 * @method addItems
 	 * @param {PIXI.DisplayObjectContainer|createjs.Container} container The container where the
-	 *                                                                   items live as variables.
+	 *                                                                 items live as variables.
 	 * @param {object} items The items object where the keys are the name of the property on the
-	 *                       parent and the value is an object with keys of "titleSafe", "minScale",
-	 *                       "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
-	 *                       description of the different keys.
+	 *                     parent and the value is an object with keys of "titleSafe", "minScale",
+	 *                     "maxScale", "centerHorizontally", "align", see ScaleManager.addItem for a
+	 *                     description of the different keys.
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
 	p.addItems = function(container, items)
@@ -392,19 +392,19 @@
 	 * @param {createjs.DisplayObject|PIXI.DisplayObject} displayObject The display object item
 	 * @param {object|String} [settings="center"] The collection of settings or the align property
 	 * @param {String} [settings.align="center"] The vertical alignment ("top", "bottom", "center")
-	 *        then horizontal alignment ("left", "right" and "center"). Or you can use the short-
-	 *        handed versions: "center" = "center-center", "top" = "top-center", 
-	 *        "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
+	 *      then horizontal alignment ("left", "right" and "center"). Or you can use the short-
+	 *      handed versions: "center" = "center-center", "top" = "top-center", 
+	 *      "bottom" = "bottom-center", "left" = "center-left", "right" = "center-right".
 	 * @param {Boolean|String} [settings.titleSafe=false] If the item needs to be in the title safe
-	 *        area. Acceptable values are false, "horizontal", "vertical", "all", and true.
-	 *        The default is false, and true is the same as "all".
+	 *      area. Acceptable values are false, "horizontal", "vertical", "all", and true.
+	 *      The default is false, and true is the same as "all".
 	 * @param {Number} [settings.minScale=NaN] The minimum scale amount (default, scales the same
-	 *        size as the stage)
+	 *      size as the stage)
 	 * @param {Number} [settings.maxScale=NaN] The maximum scale amount (default, scales the same
-	 *        size as the stage)
+	 *      size as the stage)
 	 * @param {Boolean} [settings.centeredHorizontally=false] Makes sure that the center of the
-	 *        object is directly in the center of the stage assuming origin point is in
-	 *        the upper-left corner.
+	 *      object is directly in the center of the stage assuming origin point is in
+	 *      the upper-left corner.
 	 * @param {Number} [settings.x] The initial X position of the item
 	 * @param {Number} [settings.y] The initial Y position of the item
 	 * @param {Object} [settings.scale] The initial scale
@@ -415,9 +415,9 @@
 	 * @param {Number} [settings.pivot.y] The pivot point Y location
 	 * @param {Number} [settings.rotation] The initial rotation in degrees
 	 * @param {Object|Array} [settings.hitArea] An object which describes the hit area of the item
-	 *        or an array of points.
+	 *      or an array of points.
 	 * @param {String} [settings.hitArea.type] If the hitArea is an object, the type of hit area,
-	 *        "rect", "ellipse", "circle", etc
+	 *      "rect", "ellipse", "circle", etc
 	 * @return {springroll.ScaleManager} The instance of this ScaleManager for chaining
 	 */
 	p.addItem = function(displayObject, settings, doResize)
@@ -489,12 +489,12 @@
 	};
 
 	/**
-	 *  Add background bitmaps to scale full screen, this will attempt to
-	 *  scale the background to the height of the display and crop on
-	 *  the left and right.
-	 *  @method addBackground
-	 *  @param {Bitmap} The bitmap to scale or collection of bitmaps
-	 *  @return {springroll.ScaleManager} The ScaleManager for chaining
+	 * Add background bitmaps to scale full screen, this will attempt to
+	 * scale the background to the height of the display and crop on
+	 * the left and right.
+	 * @method addBackground
+	 * @param {Bitmap} The bitmap to scale or collection of bitmaps
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
 	p.addBackground = function(bitmap)
 	{
@@ -508,10 +508,10 @@
 	};
 
 	/**
-	 *  Remove background
-	 *  @method removeBackground
-	 *  @param {Bitmap} bitmap The bitmap added
-	 *  @return {springroll.ScaleManager} The ScaleManager for chaining
+	 * Remove background
+	 * @method removeBackground
+	 * @param {Bitmap} bitmap The bitmap added
+	 * @return {springroll.ScaleManager} The ScaleManager for chaining
 	 */
 	p.removeBackground = function(bitmap)
 	{

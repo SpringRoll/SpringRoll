@@ -1,9 +1,9 @@
 /*! SpringRoll 0.4.0 */
 /**
-*  The captions styles, this work with the container
-*  to allow for the managed display settings of
-*  the output captions
-*/
+ * The captions styles, this work with the container
+ * to allow for the managed display settings of
+ * the output captions
+ */
 .captions,
 #captions {
   position: absolute;

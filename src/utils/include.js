@@ -3,28 +3,28 @@
  * @namespace window
  */
 /**
-*  Used to include required classes by name
-*  @class include
-*  @static
-*/
+ * Used to include required classes by name
+ * @class include
+ * @static
+ */
 (function(window, undefined){
 	
 	// The include function already exists
 	if ("include" in window) return;
 	
 	/**
-	*  Import a class
-	*
-	*  @example
+	 * Import a class
+	 *
+	 * @example
 		var Application = include('springroll.Application');
-	*
-	*  @constructor
-	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
-	*  @param {Boolean} [required=true] If the class we're trying to include is required.
-	* 		For classes that aren't found and are required, an error is thrown.
-	*  @return {object|function} The object attached at the given namespace
-	*/
+	 *
+	 * @constructor
+	 * @method include
+	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
+	 * @param {Boolean} [required=true] If the class we're trying to include is required.
+	 * 		For classes that aren't found and are required, an error is thrown.
+	 * @return {object|function} The object attached at the given namespace
+	 */
 	var include = function(namespaceString, required)
 	{
 		var parts = namespaceString.split('.'),

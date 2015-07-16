@@ -9,14 +9,14 @@
 		DragData = include("springroll.easeljs.DragData");
 
 	/**
-	 *  Drag manager is responsible for handling the dragging of stage elements.
-	 *  Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
+	 * Drag manager is responsible for handling the dragging of stage elements.
+	 * Supports click-n-stick (click to start, move mouse, click to release) and click-n-drag (standard dragging) functionality.
 	 *
-	 *  @class DragManager
-	 *  @constructor
-	 *  @param {createjs.Stage} stage The stage that this DragManager is monitoring.
-	 *  @param {function} startCallback The callback when when starting
-	 *  @param {function} endCallback The callback when ending
+	 * @class DragManager
+	 * @constructor
+	 * @param {createjs.Stage} stage The stage that this DragManager is monitoring.
+	 * @param {function} startCallback The callback when when starting
+	 * @param {function} endCallback The callback when ending
 	 */
 	var DragManager = function(stage, startCallback, endCallback)
 	{
@@ -102,15 +102,15 @@
 		/**
 		 * Settings for snapping.
 		 *
-		 *  Format for snapping to a list of points:
-		 *	{
-		 *		mode:"points",
-		 *		dist:20,//snap when within 20 pixels/units
-		 *		points:[
-		 *			{ x: 20, y:30 },
-		 *			{ x: 50, y:10 }
-		 *		]
-		 *	}
+		 * Format for snapping to a list of points:
+		 * {
+		 * 	mode:"points",
+		 * 	dist:20,//snap when within 20 pixels/units
+		 * 	points:[
+		 * 		{ x: 20, y:30 },
+		 * 		{ x: 50, y:10 }
+		 * 	]
+		 * }
 		 *
 		 * @public
 		 * @property {Object} snapSettings
@@ -210,16 +210,16 @@
 	});
 
 	/**
-	 *  Manually starts dragging an object. If a mouse down event is not
-	 *  supplied as the second argument, it defaults to a held drag, that ends as
-	 *  soon as the mouse is released. When using multitouch, passing a mouse event is
-	 *  required.
-	 *  @method startDrag
-	 *  @public
-	 *  @param {createjs.DisplayObject} object The object that should be dragged.
-	 *  @param {createjs.MouseEvent} ev A mouse down event that should be considered to have
-	 *                                  started the drag, to determine what type of drag should be
-	 *                                  used.
+	 * Manually starts dragging an object. If a mouse down event is not
+	 * supplied as the second argument, it defaults to a held drag, that ends as
+	 * soon as the mouse is released. When using multitouch, passing a mouse event is
+	 * required.
+	 * @method startDrag
+	 * @public
+	 * @param {createjs.DisplayObject} object The object that should be dragged.
+	 * @param {createjs.MouseEvent} ev A mouse down event that should be considered to have
+	 *                                started the drag, to determine what type of drag should be
+	 *                                used.
 	 */
 	p.startDrag = function(object, ev)
 	{
@@ -228,11 +228,11 @@
 
 	/**
 	 * Mouse down on an obmect
-	 *  @method _objMouseDown
-	 *  @private
-	 *  @param {createjs.MouseEvent} ev A mouse down event to listen to to determine
-	 *                                  what type of drag should be used.
-	 *  @param {createjs.DisplayObject} object The object that should be dragged.
+	 * @method _objMouseDown
+	 * @private
+	 * @param {createjs.MouseEvent} ev A mouse down event to listen to to determine
+	 *                                what type of drag should be used.
+	 * @param {createjs.DisplayObject} object The object that should be dragged.
 	 */
 	p._objMouseDown = function(ev, obj)
 	{
@@ -373,7 +373,7 @@
 	 * @method stopDrag
 	 * @param {Boolean} [doCallback=false] If the drag end callback should be called.
 	 * @param {createjs.DisplayObject} [obj] A specific object to stop dragging, if multitouch
-	 *                                       is true. If this is omitted, it stops all drags.
+	 *                                     is true. If this is omitted, it stops all drags.
 	 */
 	p.stopDrag = function(doCallback, obj)
 	{
@@ -522,7 +522,7 @@
 	 * @method _handlePointSnap
 	 * @private
 	 * @param {createjs.Point} localMousePos The mouse position in the same
-	 *                                       space as the dragged object.
+	 *                                     space as the dragged object.
 	 * @param {createjs.Point} dragOffset The drag offset for the dragged object.
 	 * @param {createjs.DisplayObject} obj The object to snap.
 	 */
@@ -607,7 +607,7 @@
 	 * @public
 	 * @param {createjs.DisplayObject} obj The display object
 	 * @param {createjs.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
-	 *                                      will be added to this object.
+	 *                                    will be added to this object.
 	 */
 	p.addObject = function(obj, bounds)
 	{
@@ -649,9 +649,9 @@
 	};
 
 	/**
-	 *  Destroy the manager
-	 *  @public
-	 *  @method destroy
+	 * Destroy the manager
+	 * @public
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

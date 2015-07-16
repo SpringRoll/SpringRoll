@@ -15,6 +15,7 @@
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result

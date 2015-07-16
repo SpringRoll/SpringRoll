@@ -7,18 +7,19 @@
 (function()
 {
 	/**
-	 *  Abstract base class for hints used by HintPlayer
-	 *  @class AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
+	 * Abstract base class for hints used by HintPlayer
+	 * @class AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint complete
 	 */
 	var AbstractHint = function(hints, done)
 	{
 		/**
-		* The reference to the hint play
-		* @property {springroll.HintsPlayer} _hints
-		*/
+		 * The reference to the hint play
+		 * @property {springroll.HintsPlayer} _hints
+		 */
 		this._hints = hints;
 		this._done = done;
 	};
@@ -27,8 +28,8 @@
 	var p = AbstractHint.prototype;
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -37,10 +38,10 @@
 	};
 
 	/**
-	 *  Handle when the media completes
-	 *  @method _onPlayComplete
-	 *  @private
-	 *  @param {function} original The original callback, either complete or cancelled
+	 * Handle when the media completes
+	 * @method _onPlayComplete
+	 * @private
+	 * @param {function} original The original callback, either complete or cancelled
 	 */
 	p._onPlayComplete = function(original, cancelled)
 	{
@@ -52,8 +53,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -76,16 +77,17 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  A hint designed to be played with the VOPlayer, typically
-	 *  off-screen voice-over.
-	 *  @class VOHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.Application} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
-	 *  @param {String|Array} idOrList
-	 *  @param {Function} onComplete
-	 *  @param {Function} onCancel
+	 * A hint designed to be played with the VOPlayer, typically
+	 * off-screen voice-over.
+	 * @class VOHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.Application} hints The instance of the hints
+	 * @param {Function} done called on hint complete
+	 * @param {String|Array} idOrList
+	 * @param {Function} onComplete
+	 * @param {Function} onCancel
 	 */
 	var VOHint = function(hints, done, idOrList, onComplete, onCancel)
 	{
@@ -101,8 +103,8 @@
 	var p = extend(VOHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -115,8 +117,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -142,18 +144,19 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  Handle the hinting played with the Animator, usually
-	 *  a lip-synced animation.
-	 *  @class AnimatorHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
-	 *  @param {createjs.MovieClip|*} instance The media instance to play
-	 *  @param {String|object|Array} events The event or events to play
-	 *  @param {function} onComplete Callback when finished
-	 *  @param {function|boolean} onCancel If the call is cancelled, true set onComplete
-	 *         to also be the cancelled callback
+	 * Handle the hinting played with the Animator, usually
+	 * a lip-synced animation.
+	 * @class AnimatorHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint complete
+	 * @param {createjs.MovieClip|*} instance The media instance to play
+	 * @param {String|object|Array} events The event or events to play
+	 * @param {function} onComplete Callback when finished
+	 * @param {function|boolean} onCancel If the call is cancelled, true set onComplete
+	 *      to also be the cancelled callback
 	 */
 	var AnimatorHint = function(hints, done, instance, events, onComplete, onCancel)
 	{
@@ -170,8 +173,8 @@
 	var p = extend(AnimatorHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -185,8 +188,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -213,13 +216,14 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  Generic function to act as a hint
-	 *  @class FunctionHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint done
-	 *  @param {function} onStart Function to call
+	 * Generic function to act as a hint
+	 * @class FunctionHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint done
+	 * @param {function} onStart Function to call
 	 */
 	var FunctionHint = function(hints, done, onStart)
 	{
@@ -232,8 +236,8 @@
 	var p = extend(FunctionHint, AbstractHint);
 
 	/**
-	 *  Start function hint
-	 *  @method play
+	 * Start function hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -242,8 +246,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -269,42 +273,43 @@
 		VOHint = include('springroll.VOHint');
 
 	/**
-	 *  Class to create tiered hinting or randomized hinting.
-	 *     this.app.hints.group()
-	 *     	.vo('Something', onCompleted)
-	 *     	.vo('Another', onComplete)
-	 *     	.addTier()
-	 *     	.vo('DetailedSomething', onComplete)
-	 *     	.vo('DetailedAnother', onComplete);
-	 *  @class GroupHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint done
+	 * Class to create tiered hinting or randomized hinting.
+	 *  this.app.hints.group()
+	 *  	.vo('Something', onCompleted)
+	 *  	.vo('Another', onComplete)
+	 *  	.addTier()
+	 *  	.vo('DetailedSomething', onComplete)
+	 *  	.vo('DetailedAnother', onComplete);
+	 * @class GroupHint
+	 * @private
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint done
 	 */
 	var GroupHint = function(hints, done)
 	{
 		AbstractHint.call(this, hints, done);
 
 		/**
-		 *  The collection of tiers
-		 *  @property {Array} tiers
+		 * The collection of tiers
+		 * @property {Array} tiers
 		 */
 		this._tiers = [
 			[] //our first tier
 		];
 
 		/**
-		 *  The current tier index
-		 *  @property {int} _current
-		 *  @private
+		 * The current tier index
+		 * @property {int} _current
+		 * @private
 		 */
 		this._current = -1;
 
 		/**
-		 *  The current tier selected
-		 *  @property {array} _tier
-		 *  @private
+		 * The current tier selected
+		 * @property {array} _tier
+		 * @private
 		 */
 		this._tier = null;
 
@@ -316,8 +321,8 @@
 	var p = extend(GroupHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -327,13 +332,13 @@
 	};
 
 	/**
-	 *  Add a VO hint to the player.
-	 *  @method setVO
-	 *  @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
-	 *  @param {function} onComplete Call when the VO is done playing
-	 *  @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.VOHint} The newly added hint
+	 * Add a VO hint to the player.
+	 * @method setVO
+	 * @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
+	 * @param {function} onComplete Call when the VO is done playing
+	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
+	 *      a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.VOHint} The newly added hint
 	 */
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
@@ -348,14 +353,14 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player
-	 *  @method setAnim
-	 *  @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
-	 *  @param {String|Array|Object} events The event aliases to play, see Animator.play
-	 *  @param {function} onComplete Call when the VO is done playing
-	 *  @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.AnimatorHint} The newly added hint
+	 * Add an animator hint to the player
+	 * @method setAnim
+	 * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
+	 * @param {String|Array|Object} events The event aliases to play, see Animator.play
+	 * @param {function} onComplete Call when the VO is done playing
+	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
+	 *      a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.AnimatorHint} The newly added hint
 	 */
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
@@ -371,12 +376,12 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player. If you use this hinting method, you
-	 *  NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
-	 *  with automatically re-enable the hinting button.
-	 *  @method setFunc
-	 *  @param {function} onStart The instance of the clip to play with Animator
-	 *  @return {springroll.FunctionHint} The newly added hint
+	 * Add an animator hint to the player. If you use this hinting method, you
+	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
+	 * with automatically re-enable the hinting button.
+	 * @method setFunc
+	 * @param {function} onStart The instance of the clip to play with Animator
+	 * @return {springroll.FunctionHint} The newly added hint
 	 */
 	p.func = function(onStart)
 	{
@@ -388,9 +393,9 @@
 	};
 
 	/**
-	 *  Add a new timeout tier of hinting
-	 *  @method addTier
-	 *  @return {springroll.GroupHint} The instance of the group hint, for chaining
+	 * Add a new timeout tier of hinting
+	 * @method addTier
+	 * @return {springroll.GroupHint} The instance of the group hint, for chaining
 	 */
 	p.addTier = function()
 	{
@@ -400,9 +405,9 @@
 	};
 
 	/**
-	 *  Advance to the next tier of hints.
-	 *  @method nextTier
-	 *  @return {springroll.GroupHint} The instance of the group hint, for chaining
+	 * Advance to the next tier of hints.
+	 * @method nextTier
+	 * @return {springroll.GroupHint} The instance of the group hint, for chaining
 	 */
 	p.nextTier = function()
 	{
@@ -419,9 +424,9 @@
 	};
 
 	/**
-	 *  Reset the current tier to be the first
-	 *  @method reset
-	 *  @return {[type]} [description]
+	 * Reset the current tier to be the first
+	 * @method reset
+	 * @return {[type]} [description]
 	 */
 	p.reset = function()
 	{
@@ -430,8 +435,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -461,40 +466,40 @@
 		GroupHint = include('springroll.GroupHint');
 
 	/**
-	 *  Design to handle the setting and playing of hints
-	 *  @class HintsPlayer
-	 *  @constructor
-	 *  @param {springroll.Application} app Reference to the current app
+	 * Design to handle the setting and playing of hints
+	 * @class HintsPlayer
+	 * @constructor
+	 * @param {springroll.Application} app Reference to the current app
 	 */
 	var HintsPlayer = function(app)
 	{
 		EventDispatcher.call(this);
 
 		/**
-		 *  Reference to the current app
-		 *  @property {springroll.Application} _app
-		 *  @private
+		 * Reference to the current app
+		 * @property {springroll.Application} _app
+		 * @private
 		 */
 		this._app = app;
 
 		/**
-		 *  The currently selected hint
-		 *  @property {springroll.AbstractHint} _hint
-		 *  @private
+		 * The currently selected hint
+		 * @property {springroll.AbstractHint} _hint
+		 * @private
 		 */
 		this._hint = null;
 
 		/**
-		 *  The total number of milliseconds until playing
-		 *  @property {int} _duration
-		 *  @private
+		 * The total number of milliseconds until playing
+		 * @property {int} _duration
+		 * @private
 		 */
 		this._duration = 0;
 
 		/**
-		 *  The countdown in milliseconds
-		 *  @property {int} _timer
-		 *  @private
+		 * The countdown in milliseconds
+		 * @property {int} _timer
+		 * @private
 		 */
 		this._timer = 0;
 
@@ -511,11 +516,11 @@
 		this.play = this.play.bind(this);
 
 		/**
-		* If a hint is currently playing
-		* @property {Boolean} _playing
-		* @default false
-		* @private
-		*/
+		 * If a hint is currently playing
+		 * @property {Boolean} _playing
+		 * @default false
+		 * @private
+		 */
 		this._playing = false;
 
 		/**
@@ -531,38 +536,38 @@
 	var p = extend(HintsPlayer, EventDispatcher);
 	
 	/**
-	* Play an animation event
-	* @event anim
-	* @param {Object} data The event data
-	* @param {createjs.MovieClip} data.instance The movieclip instance
-	* @param {String|Array} data.events The Animator events
-	* @param {Function} data.complete Callback when complete
-	* @param {Function} data.cancel Callback when canceled
-	*/
+	 * Play an animation event
+	 * @event anim
+	 * @param {Object} data The event data
+	 * @param {createjs.MovieClip} data.instance The movieclip instance
+	 * @param {String|Array} data.events The Animator events
+	 * @param {Function} data.complete Callback when complete
+	 * @param {Function} data.cancel Callback when canceled
+	 */
 	
 	/**
-	* Play an Voice-Over event
-	* @event vo
-	* @param {Object} data The event data
-	* @param {String|Array} data.events The VO alias or array of aliases/times/etc
-	* @param {Function} data.complete Callback when complete
-	* @param {Function} data.cancel Callback when canceled
-	*/
+	 * Play an Voice-Over event
+	 * @event vo
+	 * @param {Object} data The event data
+	 * @param {String|Array} data.events The VO alias or array of aliases/times/etc
+	 * @param {Function} data.complete Callback when complete
+	 * @param {Function} data.cancel Callback when canceled
+	 */
 
 	/**
-	* Event when the enabled status of the hint changes
-	* @event enabled
-	* @param {Boolean} enabled If the player is enabled
-	*/
+	 * Event when the enabled status of the hint changes
+	 * @event enabled
+	 * @param {Boolean} enabled If the player is enabled
+	 */
 
 	/**
-	 *  Add a VO hint to the player.
-	 *  @method vo
-	 *  @param {String|Array} idOrList The list of VO element, see VOPlayer.play
-	 *  @param {Function} onComplete Call when the VO is done playing
-	 *  @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.VOHint} The newly added hint
+	 * Add a VO hint to the player.
+	 * @method vo
+	 * @param {String|Array} idOrList The list of VO element, see VOPlayer.play
+	 * @param {Function} onComplete Call when the VO is done playing
+	 * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
+	 *       a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.VOHint} The newly added hint
 	 */
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
@@ -576,14 +581,14 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player
-	 *  @method anim
-	 *  @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
-	 *  @param {String|Array|Object} events The event aliases to play, see Animator.play
-	 *  @param {Function} onComplete Call when the VO is done playing
-	 *  @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.AnimatorHint} The newly added hint
+	 * Add an animator hint to the player
+	 * @method anim
+	 * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
+	 * @param {String|Array|Object} events The event aliases to play, see Animator.play
+	 * @param {Function} onComplete Call when the VO is done playing
+	 * @param {Function|Boolean} [onCancel] Call when the VO is cancelled playing,
+	 *       a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.AnimatorHint} The newly added hint
 	 */
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
@@ -598,12 +603,12 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player. If you use this hinting method, you
-	 *  NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
-	 *  with automatically re-enable the hinting button.
-	 *  @method func
-	 *  @param {Function} onStart The instance of the clip to play with Animator
-	 *  @return {springroll.FunctionHint} The newly added hint
+	 * Add an animator hint to the player. If you use this hinting method, you
+	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
+	 * with automatically re-enable the hinting button.
+	 * @method func
+	 * @param {Function} onStart The instance of the clip to play with Animator
+	 * @return {springroll.FunctionHint} The newly added hint
 	 */
 	p.func = function(onStart)
 	{
@@ -611,10 +616,10 @@
 	};
 
 	/**
-	 *  Create the new group hint for randomizing hints or for tiered hinting.
-	 *  You can save this group hint for later and assign using HintsPlayer.set()
-	 *  @method group
-	 *  @return {springroll.GroupHint} The new group hint
+	 * Create the new group hint for randomizing hints or for tiered hinting.
+	 * You can save this group hint for later and assign using HintsPlayer.set()
+	 * @method group
+	 * @return {springroll.GroupHint} The new group hint
 	 */
 	p.group = function()
 	{
@@ -622,10 +627,10 @@
 	};
 
 	/**
-	 *  Set the current method to use
-	 *  @method set
-	 *  @param {springroll.AbstractHint} hint The new hint to add
-	 *  @return {springroll.AbstractHint} Instance of the player, for chaining
+	 * Set the current method to use
+	 * @method set
+	 * @param {springroll.AbstractHint} hint The new hint to add
+	 * @return {springroll.AbstractHint} Instance of the player, for chaining
 	 */
 	p.set = function(hint)
 	{
@@ -637,8 +642,8 @@
 	};
 
 	/**
-	 *  Removes the current hint
-	 *  @method clear
+	 * Removes the current hint
+	 * @method clear
 	 */
 	p.clear = function()
 	{
@@ -653,9 +658,9 @@
 	};
 
 	/**
-	 *  Manually play the current hint
-	 *  @method play
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 * Manually play the current hint
+	 * @method play
+	 * @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.play = function()
 	{
@@ -675,10 +680,10 @@
 	};
 
 	/**
-	 *  Start a timer
-	 *  @method startTimer
-	 *  @param {int} [duration=12000] The number of milliseconds before playing hint
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 * Start a timer
+	 * @method startTimer
+	 * @param {int} [duration=12000] The number of milliseconds before playing hint
+	 * @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.startTimer = function(duration)
 	{
@@ -688,16 +693,16 @@
 	};
 
 	/**
-	 *  Stop the timer and remove update listener
-	 *  @method stopTimer
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 * Stop the timer and remove update listener
+	 * @method stopTimer
+	 * @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 
 	/**
-	 *  Stop the timer and remove update listener.
-	 *  Alias for stopTimer
-	 *  @method removeTimer
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 * Stop the timer and remove update listener.
+	 * Alias for stopTimer
+	 * @method removeTimer
+	 * @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.stopTimer = p.removeTimer = function()
 	{
@@ -707,9 +712,9 @@
 	};
 
 	/**
-	 *  Reset the timer to start over
-	 *  @method resetTimer
-	 *  @return {springroll.HintsPlayer} instance of the player for chaining
+	 * Reset the timer to start over
+	 * @method resetTimer
+	 * @return {springroll.HintsPlayer} instance of the player for chaining
 	 */
 	p.resetTimer = function()
 	{
@@ -719,8 +724,8 @@
 	};
 
 	/**
-	 *  If the help button is enabled
-	 *  @property {Boolean} enabled
+	 * If the help button is enabled
+	 * @property {Boolean} enabled
 	 */
 	Object.defineProperty(p, 'enabled',
 	{
@@ -731,10 +736,10 @@
 	});
 
 	/**
-	 *  Handle the update function
-	 *  @method _update
-	 *  @private
-	 *  @param {int} elapsed Number of milliseconds since the last update
+	 * Handle the update function
+	 * @method _update
+	 * @private
+	 * @param {int} elapsed Number of milliseconds since the last update
 	 */
 	p._update = function(elapsed)
 	{
@@ -753,9 +758,9 @@
 	};
 
 	/**
-	 *  Internal callback when a hint is done playing
-	 *  @method _done
-	 *  @private
+	 * Internal callback when a hint is done playing
+	 * @method _done
+	 * @private
 	 */
 	p._done = function(cancelled)
 	{
@@ -788,8 +793,8 @@
 	};
 
 	/**
-	 *  Destroy, don't use after this
-	 *  @method destroy
+	 * Destroy, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -881,11 +886,11 @@
 	};
 
 	/**
-	* Handle the VO event
-	* @method onVOHint
-	* @private
-	* @param {object} data The VO data
-	*/
+	 * Handle the VO event
+	 * @method onVOHint
+	 * @private
+	 * @param {object} data The VO data
+	 */
 	var onVOHint = function(data)
 	{
 		if (!!this.media)
@@ -907,11 +912,11 @@
 	};
 
 	/**
-	* Handle the animator event
-	* @method onAnimatorHint
-	* @private
-	* @param {object} data The animator data
-	*/
+	 * Handle the animator event
+	 * @method onAnimatorHint
+	 * @private
+	 * @param {object} data The animator data
+	 */
 	var onAnimatorHint = function(data)
 	{
 		if (!!this.media)

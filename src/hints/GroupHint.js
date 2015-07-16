@@ -12,42 +12,43 @@
 		VOHint = include('springroll.VOHint');
 
 	/**
-	 *  Class to create tiered hinting or randomized hinting.
-	 *     this.app.hints.group()
-	 *     	.vo('Something', onCompleted)
-	 *     	.vo('Another', onComplete)
-	 *     	.addTier()
-	 *     	.vo('DetailedSomething', onComplete)
-	 *     	.vo('DetailedAnother', onComplete);
-	 *  @class GroupHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint done
+	 * Class to create tiered hinting or randomized hinting.
+	 *  this.app.hints.group()
+	 *  	.vo('Something', onCompleted)
+	 *  	.vo('Another', onComplete)
+	 *  	.addTier()
+	 *  	.vo('DetailedSomething', onComplete)
+	 *  	.vo('DetailedAnother', onComplete);
+	 * @class GroupHint
+	 * @private
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint done
 	 */
 	var GroupHint = function(hints, done)
 	{
 		AbstractHint.call(this, hints, done);
 
 		/**
-		 *  The collection of tiers
-		 *  @property {Array} tiers
+		 * The collection of tiers
+		 * @property {Array} tiers
 		 */
 		this._tiers = [
 			[] //our first tier
 		];
 
 		/**
-		 *  The current tier index
-		 *  @property {int} _current
-		 *  @private
+		 * The current tier index
+		 * @property {int} _current
+		 * @private
 		 */
 		this._current = -1;
 
 		/**
-		 *  The current tier selected
-		 *  @property {array} _tier
-		 *  @private
+		 * The current tier selected
+		 * @property {array} _tier
+		 * @private
 		 */
 		this._tier = null;
 
@@ -59,8 +60,8 @@
 	var p = extend(GroupHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -70,13 +71,13 @@
 	};
 
 	/**
-	 *  Add a VO hint to the player.
-	 *  @method setVO
-	 *  @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
-	 *  @param {function} onComplete Call when the VO is done playing
-	 *  @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.VOHint} The newly added hint
+	 * Add a VO hint to the player.
+	 * @method setVO
+	 * @param {string|array} [idOrList] The list of VO element, see VOPlayer.play
+	 * @param {function} onComplete Call when the VO is done playing
+	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
+	 *      a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.VOHint} The newly added hint
 	 */
 	p.vo = function(idOrList, onComplete, onCancel)
 	{
@@ -91,14 +92,14 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player
-	 *  @method setAnim
-	 *  @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
-	 *  @param {String|Array|Object} events The event aliases to play, see Animator.play
-	 *  @param {function} onComplete Call when the VO is done playing
-	 *  @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
-	 *         a value of true sets onComplete to also be the onCancelled callback.
-	 *  @return {springroll.AnimatorHint} The newly added hint
+	 * Add an animator hint to the player
+	 * @method setAnim
+	 * @param {createjs.MovieClip|*} instance The instance of the clip to play with Animator
+	 * @param {String|Array|Object} events The event aliases to play, see Animator.play
+	 * @param {function} onComplete Call when the VO is done playing
+	 * @param {function|boolean} [onCancel] Call when the VO is cancelled playing,
+	 *      a value of true sets onComplete to also be the onCancelled callback.
+	 * @return {springroll.AnimatorHint} The newly added hint
 	 */
 	p.anim = function(instance, events, onComplete, onCancel)
 	{
@@ -114,12 +115,12 @@
 	};
 
 	/**
-	 *  Add an animator hint to the player. If you use this hinting method, you
-	 *  NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
-	 *  with automatically re-enable the hinting button.
-	 *  @method setFunc
-	 *  @param {function} onStart The instance of the clip to play with Animator
-	 *  @return {springroll.FunctionHint} The newly added hint
+	 * Add an animator hint to the player. If you use this hinting method, you
+	 * NEED to re-enable the hinting when it's done. Whereas the VO and ANIM methods
+	 * with automatically re-enable the hinting button.
+	 * @method setFunc
+	 * @param {function} onStart The instance of the clip to play with Animator
+	 * @return {springroll.FunctionHint} The newly added hint
 	 */
 	p.func = function(onStart)
 	{
@@ -131,9 +132,9 @@
 	};
 
 	/**
-	 *  Add a new timeout tier of hinting
-	 *  @method addTier
-	 *  @return {springroll.GroupHint} The instance of the group hint, for chaining
+	 * Add a new timeout tier of hinting
+	 * @method addTier
+	 * @return {springroll.GroupHint} The instance of the group hint, for chaining
 	 */
 	p.addTier = function()
 	{
@@ -143,9 +144,9 @@
 	};
 
 	/**
-	 *  Advance to the next tier of hints.
-	 *  @method nextTier
-	 *  @return {springroll.GroupHint} The instance of the group hint, for chaining
+	 * Advance to the next tier of hints.
+	 * @method nextTier
+	 * @return {springroll.GroupHint} The instance of the group hint, for chaining
 	 */
 	p.nextTier = function()
 	{
@@ -162,9 +163,9 @@
 	};
 
 	/**
-	 *  Reset the current tier to be the first
-	 *  @method reset
-	 *  @return {[type]} [description]
+	 * Reset the current tier to be the first
+	 * @method reset
+	 * @return {[type]} [description]
 	 */
 	p.reset = function()
 	{
@@ -173,8 +174,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

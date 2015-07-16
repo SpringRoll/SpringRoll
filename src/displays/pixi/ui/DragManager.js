@@ -12,15 +12,15 @@
 		DragData = include("springroll.pixi.DragData");
 
 	/**
-	*  Drag manager is responsible for handling the dragging of stage elements
-	*  supports click-n-stick and click-n-drag functionality.
-	*
-	*  @class DragManager
-	*  @constructor
-	*  @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
-	*  @param {function} startCallback The callback when when starting
-	*  @param {function} endCallback The callback when ending
-	*/
+	 * Drag manager is responsible for handling the dragging of stage elements
+	 * supports click-n-stick and click-n-drag functionality.
+	 *
+	 * @class DragManager
+	 * @constructor
+	 * @param {PIXI.Stage} stage The stage that this DragManager is monitoring.
+	 * @param {function} startCallback The callback when when starting
+	 * @param {function} endCallback The callback when ending
+	 */
 	var DragManager = function(stage, startCallback, endCallback)
 	{
 		if(!Application)
@@ -31,120 +31,120 @@
 		}
 
 		/**
-		* The object that's being dragged, or a dictionary of DragData being dragged
-		* by id if multitouch is true.
-		* @public
-		* @readOnly
-		* @property {PIXI.DisplayObject|Dictionary} draggedObj
-		*/
+		 * The object that's being dragged, or a dictionary of DragData being dragged
+		 * by id if multitouch is true.
+		 * @public
+		 * @readOnly
+		 * @property {PIXI.DisplayObject|Dictionary} draggedObj
+		 */
 		this.draggedObj = null;
 		
 		/**
-		* The radius in pixel to allow for dragging, or else does sticky click
-		* @public
-		* @property dragStartThreshold
-		* @default 20
-		*/
+		 * The radius in pixel to allow for dragging, or else does sticky click
+		 * @public
+		 * @property dragStartThreshold
+		 * @default 20
+		 */
 		this.dragStartThreshold = 20;
 		
 		/**
-		* The position x, y of the mouse down on the stage. This is only used
-		* when multitouch is false - the DragData has it when multitouch is true.
-		* @private
-		* @property {PIXI.Point} mouseDownStagePos
-		*/
+		 * The position x, y of the mouse down on the stage. This is only used
+		 * when multitouch is false - the DragData has it when multitouch is true.
+		 * @private
+		 * @property {PIXI.Point} mouseDownStagePos
+		 */
 		this.mouseDownStagePos = new Point(0, 0);
 
 		/**
-		* The position x, y of the object when interaction with it started. If multitouch is
-		* true, then this will only be set during a drag stop callback, for the object that just
-		* stopped getting dragged.
-		* @property {PIXI.Point} mouseDownObjPos
-		*/
+		 * The position x, y of the object when interaction with it started. If multitouch is
+		 * true, then this will only be set during a drag stop callback, for the object that just
+		 * stopped getting dragged.
+		 * @property {PIXI.Point} mouseDownObjPos
+		 */
 		this.mouseDownObjPos = new Point(0, 0);
 		
 		/**
-		* If sticky click dragging is allowed.
-		* @public
-		* @property {Bool} allowStickyClick
-		* @default true
-		*/
+		 * If sticky click dragging is allowed.
+		 * @public
+		 * @property {Bool} allowStickyClick
+		 * @default true
+		 */
 		this.allowStickyClick = true;
 		
 		/**
-		* Is the move touch based
-		* @public
-		* @readOnly
-		* @property {Bool} isTouchMove
-		* @default false
-		*/
+		 * Is the move touch based
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isTouchMove
+		 * @default false
+		 */
 		this.isTouchMove = false;
 		
 		/**
-		* Is the drag being held on mouse down (not sticky clicking)
-		* @public
-		* @readOnly
-		* @property {Bool} isHeldDrag
-		* @default false
-		*/
+		 * Is the drag being held on mouse down (not sticky clicking)
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isHeldDrag
+		 * @default false
+		 */
 		this.isHeldDrag = false;
 		
 		/**
-		* Is the drag a sticky clicking (click on a item, then mouse the mouse)
-		* @public
-		* @readOnly
-		* @property {Bool} isStickyClick
-		* @default false
-		*/
+		 * Is the drag a sticky clicking (click on a item, then mouse the mouse)
+		 * @public
+		 * @readOnly
+		 * @property {Bool} isStickyClick
+		 * @default false
+		 */
 		this.isStickyClick = false;
 
 		/**
-		* Settings for snapping.
-		*
-		*  Format for snapping to a list of points:
-		*	{
-		*		mode:"points",
-		*		dist:20,//snap when within 20 pixels/units
-		*		points:[
-		*			{ x: 20, y:30 },
-		*			{ x: 50, y:10 }
-		*		]
-		*	}
-		*
-		* @public
-		* @property {Object} snapSettings
-		* @default null
-		*/
+		 * Settings for snapping.
+		 *
+		 * Format for snapping to a list of points:
+		 *	{
+		 *		mode:"points",
+		 *		dist:20,//snap when within 20 pixels/units
+		 *		points:[
+		 *			{ x: 20, y:30 },
+		 *			{ x: 50, y:10 }
+		 *		]
+		 *	}
+		 *
+		 * @public
+		 * @property {Object} snapSettings
+		 * @default null
+		 */
 		this.snapSettings = null;
 		
 		/**
-		* Reference to the stage
-		* @private
-		* @property {PIXI.Stage} _theStage
-		*/
+		 * Reference to the stage
+		 * @private
+		 * @property {PIXI.Stage} _theStage
+		 */
 		this._theStage = stage;
 		
 		/**
-		* The offset from the dragged object's position that the initial mouse event
-		* was at. This is only used when multitouch is false - the DragData has
-		* it when multitouch is true.
-		* @private
-		* @property {PIXI.Point} _dragOffset
-		*/
+		 * The offset from the dragged object's position that the initial mouse event
+		 * was at. This is only used when multitouch is false - the DragData has
+		 * it when multitouch is true.
+		 * @private
+		 * @property {PIXI.Point} _dragOffset
+		 */
 		this._dragOffset = null;
 		
 		/**
-		* External callback when we start dragging
-		* @private
-		* @property {Function} _dragStartCallback
-		*/
+		 * External callback when we start dragging
+		 * @private
+		 * @property {Function} _dragStartCallback
+		 */
 		this._dragStartCallback = startCallback;
 		
 		/**
-		* External callback when we are done dragging
-		* @private
-		* @property {Function} _dragEndCallback
-		*/
+		 * External callback when we are done dragging
+		 * @private
+		 * @property {Function} _dragEndCallback
+		 */
 		this._dragEndCallback = endCallback;
 		
 		this._triggerHeldDrag = this._triggerHeldDrag.bind(this);
@@ -153,17 +153,17 @@
 		this._updateObjPosition = this._updateObjPosition.bind(this);
 		
 		/**
-		* The collection of draggable objects
-		* @private
-		* @property {Array} _draggableObjects
-		*/
+		 * The collection of draggable objects
+		 * @private
+		 * @property {Array} _draggableObjects
+		 */
 		this._draggableObjects = [];
 		
 		/**
-		* If this DragManager is using multitouch for dragging.
-		* @private
-		* @property {Boolean} _multitouch
-		*/
+		 * If this DragManager is using multitouch for dragging.
+		 * @private
+		 * @property {Boolean} _multitouch
+		 */
 		this._multitouch = false;
 
 		this.helperPoint = new Point(0, 0);
@@ -173,10 +173,10 @@
 	var p = DragManager.prototype = {};
 	
 	/**
-	* If the DragManager allows multitouch dragging. Setting this stops any current
-	* drags.
-	* @property {Boolean} multitouch
-	*/
+	 * If the DragManager allows multitouch dragging. Setting this stops any current
+	 * drags.
+	 * @property {Boolean} multitouch
+	 */
 	Object.defineProperty(p, "multitouch", {
 		get: function(){ return this._multitouch; },
 		set: function(value)
@@ -198,29 +198,29 @@
 		}});
 	
 	/**
-	*  Manually starts dragging an object. If a mouse down event is not supplied
-	*  as the second argument, it defaults to a held drag, that ends as soon as
-	*  the mouse is released. When using multitouch, passing a interaction data is
-	*  required.
-	*  @method startDrag
-	*  @public
-	*  @param {PIXI.DisplayObject} object The object that should be dragged.
-	*  @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	*/
+	 * Manually starts dragging an object. If a mouse down event is not supplied
+	 * as the second argument, it defaults to a held drag, that ends as soon as
+	 * the mouse is released. When using multitouch, passing a interaction data is
+	 * required.
+	 * @method startDrag
+	 * @public
+	 * @param {PIXI.DisplayObject} object The object that should be dragged.
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 */
 	p.startDrag = function(object, interactionData)
 	{
 		this._objMouseDown(object, interactionData);
 	};
 	
 	/**
-	* Mouse down on an obmect
-	*  @method _objMouseDown
-	*  @private
-	*  @param {PIXI.DisplayObject} object The object that should be dragged.
-	*  @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	*/
+	 * Mouse down on an obmect
+	 * @method _objMouseDown
+	 * @private
+	 * @param {PIXI.DisplayObject} object The object that should be dragged.
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 */
 	p._objMouseDown = function(obj, interactionData)
 	{
 		// if we are dragging something, then ignore any mouse downs
@@ -289,12 +289,12 @@
 	};
 	
 	/**
-	* Start the sticky click
-	* @method _triggerStickyClick
-	* @param {PIXI.InteractionData} interactionData The interaction data about
-	*                                                the input event that triggered this.
-	* @private
-	*/
+	 * Start the sticky click
+	 * @method _triggerStickyClick
+	 * @param {PIXI.InteractionData} interactionData The interaction data about
+	 *                                            the input event that triggered this.
+	 * @private
+	 */
 	p._triggerStickyClick = function(interactionData)
 	{
 		this.isStickyClick = true;
@@ -307,11 +307,11 @@
 	};
 
 	/**
-	* Start hold dragging
-	* @method _triggerHeldDrag
-	* @private
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	*/
+	 * Start hold dragging
+	 * @method _triggerHeldDrag
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 */
 	p._triggerHeldDrag = function(interactionData)
 	{
 		var mouseDownStagePos, draggedObj;
@@ -337,11 +337,11 @@
 	};
 
 	/**
-	* Internal start dragging on the stage
-	* @method _startDrag
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	* @private
-	*/
+	 * Internal start dragging on the stage
+	 * @method _startDrag
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @private
+	 */
 	p._startDrag = function(interactionData)
 	{
 		var im = this._theStage.interactionManager;
@@ -360,13 +360,13 @@
 	};
 	
 	/**
-	* Stops dragging the currently dragged object.
-	* @public
-	* @method stopDrag
-	* @param {Bool} [doCallback=false] If the drag end callback should be called.
-	* @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
-	*                                       is true. If this is omitted, it stops all drags.
-	*/
+	 * Stops dragging the currently dragged object.
+	 * @public
+	 * @method stopDrag
+	 * @param {Bool} [doCallback=false] If the drag end callback should be called.
+	 * @param {PIXI.DisplayObject} [obj] A specific object to stop dragging, if multitouch
+	 *                                   is true. If this is omitted, it stops all drags.
+	 */
 	p.stopDrag = function(doCallback, obj)
 	{
 		var id = null;
@@ -386,12 +386,12 @@
 	};
 
 	/**
-	* Internal stop dragging on the stage
-	* @method _stopDrag
-	* @private
-	* @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
-	* @param {Bool} doCallback If we should do the callback
-	*/
+	 * Internal stop dragging on the stage
+	 * @method _stopDrag
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData The ineraction data about the moved mouse
+	 * @param {Bool} doCallback If we should do the callback
+	 */
 	p._stopDrag = function(interactionData, doCallback)
 	{
 		var obj, id;
@@ -457,11 +457,11 @@
 	};
 
 	/**
-	* Update the object position based on the mouse
-	* @method _updateObjPosition
-	* @private
-	* @param {PIXI.InteractionData} interactionData Mouse move event
-	*/
+	 * Update the object position based on the mouse
+	 * @method _updateObjPosition
+	 * @private
+	 * @param {PIXI.InteractionData} interactionData Mouse move event
+	 */
 	p._updateObjPosition = function(interactionData)
 	{
 		if(!this.isTouchMove && !this._theStage.interactionManager.mouseInStage) return;
@@ -515,13 +515,13 @@
 	};
 
 	/**
-	* Handles snapping the dragged object to the nearest among a list of points
-	* @method _handlePointSnap
-	* @private
-	* @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
-	* @param {PIXI.Point} dragOffset The drag offset for the dragged object.
-	* @param {PIXI.DisplayObject} obj The object to snap.
-	*/
+	 * Handles snapping the dragged object to the nearest among a list of points
+	 * @method _handlePointSnap
+	 * @private
+	 * @param {PIXI.Point} localMousePos The mouse position in the same space as the dragged object.
+	 * @param {PIXI.Point} dragOffset The drag offset for the dragged object.
+	 * @param {PIXI.DisplayObject} obj The object to snap.
+	 */
 	p._handlePointSnap = function(localMousePos, dragOffset, obj)
 	{
 		var snapSettings = this.snapSettings;
@@ -549,8 +549,8 @@
 	};
 
 	/*
-	* Small distance squared function
-	*/
+	 * Small distance squared function
+	 */
 	var distSquared = function(x1, y1, x2, y2)
 	{
 		var xDiff = x1 - x2;
@@ -559,8 +559,8 @@
 	};
 	
 	/**
-	* Simple clamp function
-	*/
+	 * Simple clamp function
+	 */
 	var clamp = function(x,a,b)
 	{
 		return (x < a ? a : (x > b ? b : x));
@@ -585,16 +585,16 @@
 	};
 	
 	/**
-	* Adds properties and functions to the object - use enableDrag() and disableDrag() on
-	* objects to enable/disable them (they start out disabled). Properties added to objects:
-	* _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
-	* these will override any existing properties of the same name
-	* @method addObject
-	* @public
-	* @param {PIXI.DisplayObject} obj The display object
-	* @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
-	*                                      will be added to this object.
-	*/
+	 * Adds properties and functions to the object - use enableDrag() and disableDrag() on
+	 * objects to enable/disable them (they start out disabled). Properties added to objects:
+	 * _dragBounds (Rectangle), _onMouseDownListener (Function), _dragMan (springroll.DragManager) reference to the DragManager
+	 * these will override any existing properties of the same name
+	 * @method addObject
+	 * @public
+	 * @param {PIXI.DisplayObject} obj The display object
+	 * @param {PIXI.Rectangle} [bounds] The rectangle bounds. 'right' and 'bottom' properties
+	 *                                  will be added to this object.
+	 */
 	p.addObject = function(obj, bounds)
 	{
 		if(bounds)
@@ -616,11 +616,11 @@
 	};
 	
 	/**
-	* Removes properties and functions added by addObject().
-	* @public
-	* @method removeObject
-	* @param {PIXI.DisplayObject} obj The display object
-	*/
+	 * Removes properties and functions added by addObject().
+	 * @public
+	 * @method removeObject
+	 * @param {PIXI.DisplayObject} obj The display object
+	 */
 	p.removeObject = function(obj)
 	{
 		var index = this._draggableObjects.indexOf(obj);
@@ -637,10 +637,10 @@
 	};
 	
 	/**
-	*  Destroy the manager
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the manager
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		//clean up dragged obj

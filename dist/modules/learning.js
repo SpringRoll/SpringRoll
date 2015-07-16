@@ -7,26 +7,27 @@
 (function()
 {
 	/**
-	 *  General errors when using the Learning Dispatcher
-	 *  @class LearningError
-	 *  @extends Error
-	 *  @constructor
-	 *  @param {string} message The error message
-	 *  @param {int} eventCode The number of the event
+	 * General errors when using the Learning Dispatcher
+	 * @class LearningError
+	 * @extends Error
+	 * @constructor
+	 * @private
+	 * @param {string} message The error message
+	 * @param {int} eventCode The number of the event
 	 */
 	var LearningError = function(message)
 	{
 		var e = Error.call(this, message);
 
 		/**
-		 *  The error message
-		 *  @property {string} message
+		 * The error message
+		 * @property {string} message
 		 */
 		this.message = message;
 
 		/**
-		 *  The stack trace
-		 *  @property {string} stack
+		 * The stack trace
+		 * @property {string} stack
 		 */
 		this.stack = e.stack;
 	};
@@ -38,9 +39,9 @@
 	p.constructor = LearningError;
 
 	/**
-	 *  To string override
-	 *  @method toString
-	 *  @return {string} The string representation of the error
+	 * To string override
+	 * @method toString
+	 * @return {string} The string representation of the error
 	 */
 	p.toString = function()
 	{
@@ -62,8 +63,9 @@
 	var LearningError = include('springroll.LearningError');
 
 	/**
-	 *  A map of all the event codes to the API method names
-	 *  @class EventCatalog
+	 * A map of all the event codes to the API method names
+	 * @class EventCatalog
+	 * @private
 	 */
 	var EventCatalog = function()
 	{
@@ -78,11 +80,11 @@
 	var p = EventCatalog.prototype;
 
 	/**
-	 *  The map of event codes to method names
-	 *  @property {Object} defaultEvents
-	 *  @static
-	 *  @private
-	 *  @readOnly
+	 * The map of event codes to method names
+	 * @property {Object} defaultEvents
+	 * @static
+	 * @private
+	 * @readOnly
 	 */
 	var defaultEvents = {
 		"2000": "startGame",
@@ -115,11 +117,11 @@
 	};
 
 	/**
-	 *  The list of global argument names common to all events. This will
-	 *  ignore any event spec arguments matching these names because
-	 *  they are automatically submitted with event calls.
-	 *  @property {Array} globals
-	 *  @static
+	 * The list of global argument names common to all events. This will
+	 * ignore any event spec arguments matching these names because
+	 * they are automatically submitted with event calls.
+	 * @property {Array} globals
+	 * @static
 	 */
 	EventCatalog.globals = [
 		'game_time',
@@ -128,11 +130,11 @@
 	];
 
 	/**
-	*  Look up an event code by API name
-	*  @method loopkup
-	*  @param {string} api The name of the API method
-	*  @return {string} The matching event code
-	*/
+	 * Look up an event code by API name
+	 * @method loopkup
+	 * @param {string} api The name of the API method
+	 * @return {string} The matching event code
+	 */
 	p.lookup = function(api)
 	{
 		for (var eventCode in this.events)
@@ -146,10 +148,10 @@
 	};
 
 	/**
-	*  Add additional apis
-	*  @method add
-	*  @param {object} map The map of event codes to API names
-	*/
+	 * Add additional apis
+	 * @method add
+	 * @param {object} map The map of event codes to API names
+	 */
 	p.add = function(map)
 	{
 		for (var eventCode in map)
@@ -190,11 +192,11 @@
 	];
 
 	/**
-	 *  The built-in argument overrides, provides consistent arguments
-	 *  order for common API calls.
-	 *  @property {Object} args
-	 *  @static
-	 *  @readOnly
+	 * The built-in argument overrides, provides consistent arguments
+	 * order for common API calls.
+	 * @property {Object} args
+	 * @static
+	 * @readOnly
 	 */
 	EventCatalog.args = {
 		"3010": feedbackArgs,
@@ -220,9 +222,9 @@
 	};
 
 	/**
-	*  Destroy this catalog, don't use after this
-	*  @method destroy
-	*/
+	 * Destroy this catalog, don't use after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.events = null;
@@ -244,42 +246,43 @@
 	var EventCatalog = include('springroll.EventCatalog');
 
 	/**
-	 *  Define the signature of the api
-	 *  @class EventSignature
-	 *  @constructor
-	 *  @param {string} api The name of the API
-	 *  @param {array} [args] The list of arguments to be called
-	 *  @param {string} [info] The info description of the API
+	 * Define the signature of the api
+	 * @class EventSignature
+	 * @constructor
+	 * @private
+	 * @param {string} api The name of the API
+	 * @param {array} [args] The list of arguments to be called
+	 * @param {string} [info] The info description of the API
 	 */
 	var EventSignature = function(eventCode, api, args, eventArgs, info)
 	{
 		/**
-		 *  The event code
-		 *  @property {string} eventCode
+		 * The event code
+		 * @property {string} eventCode
 		 */
 		this.eventCode = eventCode;
 
 		/**
-		 *  The name of the method
-		 *  @property {string} api
+		 * The name of the method
+		 * @property {string} api
 		 */
 		this.api = api;
 
 		/**
-		 *  The arguments to be called by the API
-		 *  @property {array} args
+		 * The arguments to be called by the API
+		 * @property {array} args
 		 */
 		this.args = args || null;
 
 		/**
-		 *  The arguments required by the spec
-		 *  @property {array} eventArgs
+		 * The arguments required by the spec
+		 * @property {array} eventArgs
 		 */
 		this.eventArgs = eventArgs || null;
 
 		/**
-		 *  The API description
-		 *  @property {string} info
+		 * The API description
+		 * @property {string} info
 		 */
 		this.info = info || null;
 	};
@@ -288,12 +291,12 @@
 	var p = EventSignature.prototype;
 
 	/**
-	 *  See if the event args or the api args has an property by name
-	 *  @method hasProperty
-	 *  @param {string}  property The name of the argument
-	 *  @param {Boolean} [isEventArg=false] If we're checking on the event args, default
-	 *         checks on the API arguments.
-	 *  @return {Boolean} If the property is found
+	 * See if the event args or the api args has an property by name
+	 * @method hasProperty
+	 * @param {string}  property The name of the argument
+	 * @param {Boolean} [isEventArg=false] If we're checking on the event args, default
+	 *       checks on the API arguments.
+	 * @return {Boolean} If the property is found
 	 */
 	p.hasProperty = function(property, isEventArg)
 	{
@@ -316,8 +319,8 @@
 	if (true)
 	{
 		/**
-		 *  Generate documentation, development build only!
-		 *  @method docs
+		 * Generate documentation, development build only!
+		 * @method docs
 		 */
 		p.docs = function()
 		{
@@ -337,12 +340,12 @@
 		};
 
 		/**
-		 *  Create the markup for the arguments
-		 *  @method _argsDocs
-		 *  @private
-		 *  @param {array} args The list of arguments
-		 *  @param {array} ignoreNames Ignore any name matching these collection of string
-		 *  @return {string} The markup
+		 * Create the markup for the arguments
+		 * @method _argsDocs
+		 * @private
+		 * @param {array} args The list of arguments
+		 * @param {array} ignoreNames Ignore any name matching these collection of string
+		 * @return {string} The markup
 		 */
 		p._argsDocs = function(args, ignoreNames)
 		{
@@ -405,12 +408,12 @@
 	}
 
 	/**
-	 *  Get the api signature of a method
-	 *  @method _format
-	 *  @private
-	 *  @param {array} args The API arguments
-	 *  @param {string} [indent="\t"] The indentation
-	 *  @return {string} The signature api
+	 * Get the api signature of a method
+	 * @method _format
+	 * @private
+	 * @param {array} args The API arguments
+	 * @param {string} [indent="\t"] The indentation
+	 * @return {string} The signature api
 	 */
 	p._format = function(args, indent)
 	{
@@ -454,9 +457,9 @@
 	};
 
 	/**
-	 *  Get the string representation of the signature
-	 *  @method toString
-	 *  @return {string} The string version of the signature
+	 * Get the string representation of the signature
+	 * @method toString
+	 * @return {string} The string version of the signature
 	 */
 	p.toString = function()
 	{
@@ -478,32 +481,33 @@
 	var LearningError = include('springroll.LearningError');
 
 	/**
-	 *  General errors when using the Learning Dispatcher
-	 *  @class EventError
-	 *  @extends springroll.LearningError
-	 *  @constructor
-	 *  @param {string} message The error message
-	 *  @param {int} eventCode The number of the event
+	 * General errors when using the Learning Dispatcher
+	 * @class EventError
+	 * @extends springroll.LearningError
+	 * @private
+	 * @constructor
+	 * @param {string} message The error message
+	 * @param {int} eventCode The number of the event
 	 */
 	var EventError = function(message, eventCode, api)
 	{
 		LearningError.call(this, message);
 
 		/**
-		 *  The name of the property erroring on
-		 *  @property {int} eventCode
+		 * The name of the property erroring on
+		 * @property {int} eventCode
 		 */
 		this.eventCode = eventCode;
 
 		/**
-		 *  The name of the API method errored on
-		 *  @property {string} api
+		 * The name of the API method errored on
+		 * @property {string} api
 		 */
 		this.api = api;
 
 		/**
-		 *  The definition of the API and all it's arguments
-		 *  @property {springroll.EventSignature} signature
+		 * The definition of the API and all it's arguments
+		 * @property {springroll.EventSignature} signature
 		 */
 		this.signature = null;
 	};
@@ -515,9 +519,9 @@
 	p.constructor = EventError;
 
 	/**
-	 *  To string override
-	 *  @method toString
-	 *  @return {string} The string representation of the error
+	 * To string override
+	 * @method toString
+	 * @return {string} The string representation of the error
 	 */
 	p.toString = function()
 	{
@@ -539,26 +543,27 @@
 	var EventError = include('springroll.EventError');
 
 	/**
-	 *  Error when validating value by Learning Dispatcher
-	 *  @class ValidationError
-	 *  @extends springroll.EventError
-	 *  @constructor
-	 *  @param {string} message The error message
-	 *  @param {string} property The name of the property
+	 * Error when validating value by Learning Dispatcher
+	 * @class ValidationError
+	 * @extends springroll.EventError
+	 * @private
+	 * @constructor
+	 * @param {string} message The error message
+	 * @param {string} property The name of the property
 	 */
 	var ValidationError = function(message, property, value)
 	{
 		EventError.call(this, message, null, null);
 
 		/**
-		 *  The name of the property erroring on
-		 *  @property {string} property
+		 * The name of the property erroring on
+		 * @property {string} property
 		 */
 		this.property = property;
 
 		/**
-		 *  The supplied value, if any
-		 *  @property {*} value
+		 * The supplied value, if any
+		 * @property {*} value
 		 */
 		this.value = value;
 	};
@@ -570,9 +575,9 @@
 	ValidationError.prototype.constructor = ValidationError;
 
 	/**
-	 *  To string override
-	 *  @method toString
-	 *  @return {string} The string representation of the error
+	 * To string override
+	 * @method toString
+	 * @return {string} The string representation of the error
 	 */
 	p.toString = function()
 	{
@@ -599,19 +604,19 @@
 		EventCatalog = include('springroll.EventCatalog');
 
 	/**
-	 *  Utility class for handling events
-	 *  @class EventUtils
-	 *  @static
+	 * Utility class for handling events
+	 * @class EventUtils
+	 * @private
 	 */
 	var EventUtils = {};
 
 	/**
-	 *  Convert an array of input arguments into a data map
-	 *  @method argsMap
-	 *  @static
-	 *  @param {Array} allArgs All the event arguments
-	 *  @param {array} inputs The data to validate
-	 *  @return {Object} The validated event data object
+	 * Convert an array of input arguments into a data map
+	 * @method argsMap
+	 * @static
+	 * @param {Array} allArgs All the event arguments
+	 * @param {array} inputs The data to validate
+	 * @return {Object} The validated event data object
 	 */
 	EventUtils.argsMap = function(allArgs, inputs)
 	{
@@ -644,12 +649,12 @@
 	};
 
 	/**
-	 *  Validate arguments
-	 *  @method validate
-	 *  @static
-	 *  @param {Array} args The event arguments
-	 *  @param {object} inputs The data to validate
-	 *  @return {Object} The validated event data object
+	 * Validate arguments
+	 * @method validate
+	 * @static
+	 * @param {Array} args The event arguments
+	 * @param {object} inputs The data to validate
+	 * @return {Object} The validated event data object
 	 */
 	EventUtils.validate = function(args, inputs)
 	{
@@ -678,13 +683,13 @@
 	};
 
 	/**
-	 *  Do the actual type validation on a specific value
-	 *  @method _validate
-	 *  @private
-	 *  @constructor
-	 *  @param {string|Array} type The type of value, if an array a set of valid items
-	 *  @param {*} value The value to test against
-	 *  @param {array} args The list of properties to validate if a typed object
+	 * Do the actual type validation on a specific value
+	 * @method _validate
+	 * @private
+	 * @constructor
+	 * @param {string|Array} type The type of value, if an array a set of valid items
+	 * @param {*} value The value to test against
+	 * @param {array} args The list of properties to validate if a typed object
 	 */
 	var validateValue = function(type, value, args, parent)
 	{
@@ -793,20 +798,20 @@
 		ValidationError = include('springroll.ValidationError');
 
 	/**
-	 *  The base game class
-	 *  @class Learning
-	 *  @extends springroll.EventDispatcher
-	 *  @constructor
-	 *  @param {springroll.Application} app The application reference
-	 *  @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
+	 * The base game class
+	 * @class Learning
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.Application} app The application reference
+	 * @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
 	 */
 	var Learning = function(app, showTray)
 	{
 		EventDispatcher.call(this);
 
 		/**
-		 *  Create a new instance of the event catalog
-		 *  @property {springroll.EventCatalog} catalog
+		 * Create a new instance of the event catalog
+		 * @property {springroll.EventCatalog} catalog
 		 */
 		this.catalog = new EventCatalog();
 
@@ -819,18 +824,18 @@
 			}
 
 			/**
-			 *  The documentation dom element, development build only!
-			 *  @property {Element} _tray
-			 *  @private
+			 * The documentation dom element, development build only!
+			 * @property {Element} _tray
+			 * @private
 			 */
 			this._tray = $('<div class="learning-tray">' +
 				'<h2>Learning API <span class="learning-version"></span></h2>' +
 				'</div>');
 
 			/**
-			 *  The toggle handle dom element, development build only!
-			 *  @property {Element} _handle
-			 *  @private
+			 * The toggle handle dom element, development build only!
+			 * @property {Element} _handle
+			 * @private
 			 */
 			this._handle = $('<button class="learning-handle"></button>');
 
@@ -842,9 +847,9 @@
 				'learning-tray-hide';
 			
 			/**
-			 *  The body dom element, development build only!
-			 *  @property {Element} _body
-			 *  @private
+			 * The body dom element, development build only!
+			 * @property {Element} _body
+			 * @private
 			 */
 			this._body = $("body").append(this._tray, this._handle)
 				.addClass(defaultTrayPosition);
@@ -855,9 +860,9 @@
 		}
 
 		/**
-		 *  The collection of timers
-		 *  @property {object} _timers
-		 *  @private
+		 * The collection of timers
+		 * @property {object} _timers
+		 * @private
 		 */
 		this._timers = {};
 
@@ -865,46 +870,46 @@
 		this.spec = null;
 
 		/**
-		 *  The reference to the application
-		 *  @property {springroll.Application} _app
-		 *  @private
+		 * The reference to the application
+		 * @property {springroll.Application} _app
+		 * @private
 		 */
 		this._app = app;
 
 		/**
-		 *  The saved feedback or instructions
-		 *  @property {Object} _feedback
-		 *  @private
+		 * The saved feedback or instructions
+		 * @property {Object} _feedback
+		 * @private
 		 */
 		this._feedback = null;
 
 		/**
-		 *  The saved data for movie events
-		 *  @property {Object} _movie
-		 *  @private
+		 * The saved data for movie events
+		 * @property {Object} _movie
+		 * @private
 		 */
 		this._movie = null;
 
 		/**
-		 *  The collection of api methods called
-		 *  @property {array} _history
-		 *  @private
+		 * The collection of api methods called
+		 * @property {array} _history
+		 * @private
 		 */
 		this._history = [];
 
 		/**
-		 *  The current level number if support, null if unsupported
-		 *  @property {int} _round
-		 *  @private
-		 *  @default null
+		 * The current level number if support, null if unsupported
+		 * @property {int} _round
+		 * @private
+		 * @default null
 		 */
 		this._level = null;
 
 		/**
-		 *  The current round number if support, null if unsupported
-		 *  @property {int} _round
-		 *  @private
-		 *  @default null
+		 * The current round number if support, null if unsupported
+		 * @property {int} _round
+		 * @private
+		 * @default null
 		 */
 		this._round = null;
 
@@ -926,9 +931,9 @@
 	};
 
 	/**
-	 *  If the Learning should throw errors
-	 *  @property {Boolean} throwErrors
-	 *  @static
+	 * If the Learning should throw errors
+	 * @property {Boolean} throwErrors
+	 * @static
 	 */
 	Learning.throwErrors = false;
 
@@ -937,29 +942,29 @@
 	var p = extend(Learning, EventDispatcher);
 
 	/**
-	 *  An event is tracked
-	 *  @event learningEvent
-	 *  @param {object} data The event data
-	 *  @param {string} data.game_id The unique game id
-	 *  @param {string} data.event_id The unique event id
-	 *  @param {object} data.event_data The data attached to event
-	 *  @param {int} data.event_data.event_code The code of the event
+	 * An event is tracked
+	 * @event learningEvent
+	 * @param {object} data The event data
+	 * @param {string} data.game_id The unique game id
+	 * @param {string} data.event_id The unique event id
+	 * @param {object} data.event_data The data attached to event
+	 * @param {int} data.event_data.event_code The code of the event
 	 */
 	var EVENT = 'learningEvent';
 
 	/**
-	 *  An api method was called, this happens before any validation
-	 *  @event called
-	 *  @param {string} api The name of the api method called
+	 * An api method was called, this happens before any validation
+	 * @event called
+	 * @param {string} api The name of the api method called
 	 */
 	var CALLED = 'called';
 
 	/**
-	 *  Handle errors
-	 *  @method _handleError
-	 *  @private
-	 *  @param {Error} error The error to handle
-	 *  @return {[type]}       [description]
+	 * Handle errors
+	 * @method _handleError
+	 * @private
+	 * @param {Error} error The error to handle
+	 * @return {[type]}       [description]
 	 */
 	p._handleError = function(error)
 	{
@@ -996,10 +1001,10 @@
 	};
 
 	/**
-	 *  The map of API event name overrides
-	 *  @method addMap
-	 *  @param {object} eventDictionary The collection of game-specific APIs, this is a map
-	 *         of the eventCode to the name of the API method
+	 * The map of API event name overrides
+	 * @method addMap
+	 * @param {object} eventDictionary The collection of game-specific APIs, this is a map
+	 *       of the eventCode to the name of the API method
 	 */
 	p.addMap = function(eventDictionary)
 	{
@@ -1017,11 +1022,11 @@
 	};
 
 	/**
-	 *  The tracking specification
-	 *  @property {object} spec
-	 *  @property {string} spec.gameId
-	 *  @property {int} spec.version
-	 *  @property {array} spec.events
+	 * The tracking specification
+	 * @property {object} spec
+	 * @property {string} spec.gameId
+	 * @property {int} spec.version
+	 * @property {array} spec.events
 	 */
 	Object.defineProperty(p, "spec",
 	{
@@ -1090,10 +1095,10 @@
 	if (true)
 	{
 		/**
-		 *  When clicking on a method name
-		 *  @method _toggleRowCollapse
-		 *  @private
-		 *  @param {event} e The click event
+		 * When clicking on a method name
+		 * @method _toggleRowCollapse
+		 * @private
+		 * @param {event} e The click event
 		 */
 		p._toggleRowCollapse = function(e)
 		{
@@ -1101,8 +1106,8 @@
 		};
 
 		/**
-		 *  Toogle the display of the documentation
-		 *  @method toggleDocs
+		 * Toogle the display of the documentation
+		 * @method toggleDocs
 		 */
 		p.toggleDocs = function()
 		{
@@ -1117,8 +1122,8 @@
 		};
 
 		/**
-		 *  Show the documentation panel, development build only!
-		 *  @property {boolean} showTray
+		 * Show the documentation panel, development build only!
+		 * @property {boolean} showTray
 		 */
 		Object.defineProperty(p, 'showTray',
 		{
@@ -1152,12 +1157,12 @@
 	}
 
 	/**
-	 *  Convenience function for measuring the duration which is common
-	 *  for many events. These timers respect the application being paused
-	 *  and should be use instead of implementing Date.now() or some other
-	 *  Date-based method.
-	 *  @method startTimer
-	 *  @param {string} alias A unique alias for this timer
+	 * Convenience function for measuring the duration which is common
+	 * for many events. These timers respect the application being paused
+	 * and should be use instead of implementing Date.now() or some other
+	 * Date-based method.
+	 * @method startTimer
+	 * @param {string} alias A unique alias for this timer
 	 */
 	p.startTimer = function(alias)
 	{
@@ -1170,10 +1175,10 @@
 	};
 
 	/**
-	 *  Check the current progress of a timer, this will not destory the timer
-	 *  @method pollTimer
-	 *  @param {string} alias The unique alias for this timer
-	 *  @return {int} The timer in milliseconds
+	 * Check the current progress of a timer, this will not destory the timer
+	 * @method pollTimer
+	 * @param {string} alias The unique alias for this timer
+	 * @return {int} The timer in milliseconds
 	 */
 	p.pollTimer = function(alias)
 	{
@@ -1186,9 +1191,9 @@
 	};
 
 	/**
-	 *  Get the amount of time since the start of the game
-	 *  @method gameTime
-	 *  @return {int} The time since the beginning of the game in milliseconds
+	 * Get the amount of time since the start of the game
+	 * @method gameTime
+	 * @return {int} The time since the beginning of the game in milliseconds
 	 */
 	p.gameTime = function()
 	{
@@ -1196,11 +1201,11 @@
 	};
 
 	/**
-	 *  Stop a timer and get the final duration to send with an event. This
-	 *  will clean-up and discard the timer and it can't be used again.
-	 *  @method stopTimer
-	 *  @param {string} alias The unique alias for this timer
-	 *  @return {int} The timer in milliseconds
+	 * Stop a timer and get the final duration to send with an event. This
+	 * will clean-up and discard the timer and it can't be used again.
+	 * @method stopTimer
+	 * @param {string} alias The unique alias for this timer
+	 * @return {int} The timer in milliseconds
 	 */
 	p.stopTimer = function(alias)
 	{
@@ -1210,9 +1215,9 @@
 	};
 
 	/**
-	 *  This will clean-up and discard the timer and it can't be used again.
-	 *  @method removeTimer
-	 *  @param {string} alias The unique alias for this timer
+	 * This will clean-up and discard the timer and it can't be used again.
+	 * @method removeTimer
+	 * @param {string} alias The unique alias for this timer
 	 */
 	p.removeTimer = function(alias)
 	{
@@ -1223,10 +1228,10 @@
 	};
 
 	/**
-	 *  Handle the frame update
-	 *  @method updateTimers
-	 *  @private
-	 *  @param {int} elapsed The number of milliseconds since the last update
+	 * Handle the frame update
+	 * @method updateTimers
+	 * @private
+	 * @param {int} elapsed The number of milliseconds since the last update
 	 */
 	var updateTimers = function(elapsed)
 	{
@@ -1237,8 +1242,8 @@
 	};
 
 	/**
-	 *  Override for start game event
-	 *  @method startGame
+	 * Override for start game event
+	 * @method startGame
 	 */
 	p.startGame = function()
 	{
@@ -1275,9 +1280,9 @@
 	};
 
 	/**
-	 *  Override for the end game event
-	 *  @method endGame
-	 *  @param {string} [exitType] The exit type for certain games
+	 * Override for the end game event
+	 * @method endGame
+	 * @param {string} [exitType] The exit type for certain games
 	 */
 	p.endGame = function(exitType)
 	{
@@ -1305,14 +1310,14 @@
 	};
 
 	/**
-	 *  Basic method for starting a feedback or instruction
-	 *  @method _startFeedback
-	 *  @private
-	 *  @param {string} api     The event method to call
-	 *  @param {string} description   Description of the instruction
-	 *  @param {string} identifier    A unique identifier
-	 *  @param {string} mediaType     Either audio animation or other
-	 *  @param {int} totalDuration The estimated time of instruction in milliseconds
+	 * Basic method for starting a feedback or instruction
+	 * @method _startFeedback
+	 * @private
+	 * @param {string} api     The event method to call
+	 * @param {string} description   Description of the instruction
+	 * @param {string} identifier    A unique identifier
+	 * @param {string} mediaType     Either audio animation or other
+	 * @param {int} totalDuration The estimated time of instruction in milliseconds
 	 */
 	p._startFeedback = function(api, description, identifier, mediaType, totalDuration)
 	{
@@ -1334,10 +1339,10 @@
 	};
 
 	/**
-	 *  Basic method for starting a feedback or instruction
-	 *  @method _startFeedback
-	 *  @private
-	 *  @param {string} api The event method to call
+	 * Basic method for starting a feedback or instruction
+	 * @method _startFeedback
+	 * @private
+	 * @param {string} api The event method to call
 	 */
 	p._endFeedback = function(api)
 	{
@@ -1355,12 +1360,12 @@
 	};
 
 	/**
-	 *  Start the system initiated instruction
-	 *  @method startInstruction
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the system initiated instruction
+	 * @method startInstruction
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startInstruction = function(description, identifier, mediaType, totalDuration)
 	{
@@ -1368,8 +1373,8 @@
 	};
 
 	/**
-	 *  End the system initiated instruction
-	 *  @method endInstruction
+	 * End the system initiated instruction
+	 * @method endInstruction
 	 */
 	p.endInstruction = function()
 	{
@@ -1378,12 +1383,12 @@
 	};
 
 	/**
-	 *  Start the incorrect feedback
-	 *  @method startIncorrectFeedback
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the incorrect feedback
+	 * @method startIncorrectFeedback
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startIncorrectFeedback = function(description, identifier, mediaType, totalDuration)
 	{
@@ -1391,8 +1396,8 @@
 	};
 
 	/**
-	 *  End the incorrect feedback
-	 *  @method endIncorrectFeedback
+	 * End the incorrect feedback
+	 * @method endIncorrectFeedback
 	 */
 	p.endIncorrectFeedback = function()
 	{
@@ -1401,12 +1406,12 @@
 	};
 
 	/**
-	 *  Start the correct feedback event
-	 *  @method startCorrectFeedback
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the correct feedback event
+	 * @method startCorrectFeedback
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startCorrectFeedback = function(description, identifier, mediaType, totalDuration)
 	{
@@ -1420,8 +1425,8 @@
 	};
 
 	/**
-	 *  End the correct feedback event
-	 *  @method endCorrectFeedback
+	 * End the correct feedback event
+	 * @method endCorrectFeedback
 	 */
 	p.endCorrectFeedback = function()
 	{
@@ -1430,11 +1435,11 @@
 	};
 
 	/**
-	 *  The movie started
-	 *  @method startMovie
-	 *  @param {string} movieId The identifier for the movie that's playing
-	 *  @param {int} duration  The duration of the media playback in milliseconds
-	 *  @param {string} description The text or description of the instruction
+	 * The movie started
+	 * @method startMovie
+	 * @param {string} movieId The identifier for the movie that's playing
+	 * @param {int} duration  The duration of the media playback in milliseconds
+	 * @param {string} description The text or description of the instruction
 	 */
 	p.startMovie = function(movieId, duration, description)
 	{
@@ -1453,8 +1458,8 @@
 	};
 
 	/**
-	 *  The user decided to skip the movie playback by clicking a skip button
-	 *  @method skipMovie
+	 * The user decided to skip the movie playback by clicking a skip button
+	 * @method skipMovie
 	 */
 	p.skipMovie = function()
 	{
@@ -1472,8 +1477,8 @@
 	};
 
 	/**
-	 *  The movie ended
-	 *  @method endMovie
+	 * The movie ended
+	 * @method endMovie
 	 */
 	p.endMovie = function()
 	{
@@ -1492,10 +1497,10 @@
 	};
 
 	/**
-	 *  Handler when an api is called
-	 *  @method _onCalled
-	 *  @private
-	 *  @param {string} api The name of the API method called
+	 * Handler when an api is called
+	 * @method _onCalled
+	 * @private
+	 * @param {string} api The name of the API method called
 	 */
 	p._onCalled = function(api)
 	{
@@ -1510,12 +1515,12 @@
 	};
 
 	/**
-	 *  Generic method to track an event based on the spec, the arguments
-	 *  mirror the arguments in the event spec.
-	 *  @method _specTrack
-	 *  @private
-	 *  @param {string} api The name of the api
-	 *  @param {*} [...extraArgs] The Additional arguments
+	 * Generic method to track an event based on the spec, the arguments
+	 * mirror the arguments in the event spec.
+	 * @method _specTrack
+	 * @private
+	 * @param {string} api The name of the api
+	 * @param {*} [...extraArgs] The Additional arguments
 	 */
 	p._specTrack = function(api)
 	{
@@ -1546,13 +1551,13 @@
 	};
 	
 	/**
-	 *  Generic method to track an event based on the spec, the arguments
-	 *  mirror the arguments in the event spec.
-	 *  @method _track
-	 *  @private
-	 *  @param {string} api The name of the api
-	 *  @param {object} [input] The collection of argument values
-	 *  @param {int} [round] The explicit round to add the track event for
+	 * Generic method to track an event based on the spec, the arguments
+	 * mirror the arguments in the event spec.
+	 * @method _track
+	 * @private
+	 * @param {string} api The name of the api
+	 * @param {object} [input] The collection of argument values
+	 * @param {int} [round] The explicit round to add the track event for
 	 */
 	p._track = function(api, input, round)
 	{
@@ -1644,12 +1649,12 @@
 	if (true)
 	{
 		/**
-		 *  Display an error in the tray
-		 *  @method _showError
-		 *  @private
-		 *  @param {string} message The message to log
-		 *  @param {string} api      The name of the api
-		 *  @param {string} [property] Optional property
+		 * Display an error in the tray
+		 * @method _showError
+		 * @private
+		 * @param {string} message The message to log
+		 * @param {string} api      The name of the api
+		 * @param {string} [property] Optional property
 		 */
 		p._showError = function(message, api, property)
 		{
@@ -1675,10 +1680,10 @@
 	}
 
 	/**
-	 *  Require that an api has been called
-	 *  @method requires
-	 *  @param {String} api The names of the method or API call
-	 *  @return {Boolean} If the api was called before
+	 * Require that an api has been called
+	 * @method requires
+	 * @param {String} api The names of the method or API call
+	 * @return {Boolean} If the api was called before
 	 */
 	p.requires = function(api)
 	{
@@ -1691,8 +1696,8 @@
 	};
 
 	/**
-	 *  Don't use after this
-	 *  @method destroy
+	 * Don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -1756,13 +1761,13 @@
 	plugin.setup = function()
 	{		
 		/**
-		 *  An learning event is dispatched
-		 *  @event learningEvent
-		 *  @param {object} data The event data
-		 *  @param {string} data.game_id The unique game id
-		 *  @param {string} data.event_id The unique event id
-		 *  @param {object} data.event_data The data attached to event
-		 *  @param {int} data.event_data.event_code The code of the event
+		 * An learning event is dispatched
+		 * @event learningEvent
+		 * @param {object} data The event data
+		 * @param {string} data.game_id The unique game id
+		 * @param {string} data.event_id The unique event id
+		 * @param {object} data.event_data The data attached to event
+		 * @param {int} data.event_data.event_code The code of the event
 		 */
 
 		/**

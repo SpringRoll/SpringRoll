@@ -12,22 +12,22 @@
 		Sound;
 
 	/**
-	 *  Cutscene is a class for playing a single EaselJS animation synced to a
-	 *  single audio file with springroll.Sound, with optional captions.
+	 * Cutscene is a class for playing a single EaselJS animation synced to a
+	 * single audio file with springroll.Sound, with optional captions.
 	 *
-	 *  @class Cutscene
-	 *  @extends createjs.Container
-	 *  @constructor
-	 *  @param {Object} options The runtime specific setup data for the cutscene.
-	 *  @param {createjs.Container} options.clip The movieclip animation
-	 *  @param {int} options.width The width of the animation
-	 *  @param {int} options.height The height of the animation
-	 *  @param {String|springroll.AbstractDisplay} options.display The display or display 
-	 *         id of the EaselJSDisplay to draw on.
-	 *  @param {Array} options.audio The audio being played
-	 *  @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
-	 *       Cutscene.
-	 *  @param {springroll.Captions} [options.captions] A Captions instance to display captions text on.
+	 * @class Cutscene
+	 * @extends createjs.Container
+	 * @constructor
+	 * @param {Object} options The runtime specific setup data for the cutscene.
+	 * @param {createjs.Container} options.clip The movieclip animation
+	 * @param {int} options.width The width of the animation
+	 * @param {int} options.height The height of the animation
+	 * @param {String|springroll.AbstractDisplay} options.display The display or display 
+	 *       id of the EaselJSDisplay to draw on.
+	 * @param {Array} options.audio The audio being played
+	 * @param {Number} [options.imageScale=1] Scaling to apply to all images loaded for the
+	 *     Cutscene.
+	 * @param {springroll.Captions} [options.captions] A Captions instance to display captions text on.
 	 */ 
 	var Cutscene = function(options)
 	{

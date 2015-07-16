@@ -9,16 +9,17 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  A hint designed to be played with the VOPlayer, typically
-	 *  off-screen voice-over.
-	 *  @class VOHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.Application} hints The instance of the hints
-	 *  @param {Function} done called on hint complete
-	 *  @param {String|Array} idOrList
-	 *  @param {Function} onComplete
-	 *  @param {Function} onCancel
+	 * A hint designed to be played with the VOPlayer, typically
+	 * off-screen voice-over.
+	 * @class VOHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.Application} hints The instance of the hints
+	 * @param {Function} done called on hint complete
+	 * @param {String|Array} idOrList
+	 * @param {Function} onComplete
+	 * @param {Function} onCancel
 	 */
 	var VOHint = function(hints, done, idOrList, onComplete, onCancel)
 	{
@@ -34,8 +35,8 @@
 	var p = extend(VOHint, AbstractHint);
 
 	/**
-	 *  Run the hint
-	 *  @method play
+	 * Run the hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -48,8 +49,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

@@ -1,7 +1,7 @@
 /**
  * @module Core
  * @namespace springroll
-*/
+ */
 (function()
 {
 	// Classes to import
@@ -16,7 +16,6 @@
 	 * The Loader is the singleton loader for loading all assets
 	 * including images, data, code and sounds. Loader supports cache-busting
 	 * in the browser using dynamic query string parameters.
-	*
 	 * @class Loader
 	 */
 	var Loader = function(app)
@@ -81,9 +80,9 @@
 	var p = Loader.prototype;
 	
 	/**
-	* Reference to the private instance object
-	* @static
-	* @protected
+	 * Reference to the private instance object
+	 * @static
+	 * @protected
 	 */
 	var _instance = null;
 	

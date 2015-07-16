@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
@@ -28,6 +28,7 @@
 		/**
 		 * Reference to the multiple asset loader
 		 * @property {springroll.AssetManager} assetManager
+		 * @private
 		 */
 		var assetManager = this.assetManager = new AssetManager();
 
@@ -87,7 +88,7 @@
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
-		 *        parameters result object.
+		 *      parameters result object.
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
@@ -100,31 +101,31 @@
 		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [asset.complete=null] Callback when finished
 		 * @param {Function} [asset.progress=null] Callback on load progress,
-		 *        has a parameter which is the percentage loaded from 0 to 1.
+		 *      has a parameter which is the percentage loaded from 0 to 1.
 		 * @param {*} [asset.data] Additional data to attach to load is
-		 *        accessible in the loader's result. 
+		 *      accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameter which is a result object. will
-		 *        only use if `asset.complete` is undefined.
+		 *      parameter which is a result object. will
+		 *      only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a single custom asset with options.
 		 * @method load
 		 * @param {Object} asset The single asset resource to load, properties
-		 *        will depend on the type of asset loading.
+		 *      will depend on the type of asset loading.
 		 * @param {Function} [asset.complete=null] Callback when finished
 		 * @param {String} [asset.id=null] The ID to attach to this asset
 		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a result object. will
-		 *        only use if `asset.complete` is undefined.
+		 *      parameters which is a result object. will
+		 *      only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function|Object} [options] Callback where the only parameter is the
-		 *        map of the results by ID, or the collection of load options.
+		 *      map of the results by ID, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
@@ -134,9 +135,9 @@
 		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
-		 *        If each object has a `id` the result will be a mapped object.
+		 *      If each object has a `id` the result will be a mapped object.
 		 * @param {Function|Object} [options] Callback where the only parameter is the
-		 *        collection or map of the results, or the collection of load options.
+		 *      collection or map of the results, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
@@ -178,8 +179,8 @@
 		 * Unload an asset or list of assets.
 		 * @method unload
 		 * @param {Array|String} assets The collection of asset ids or 
-		 *        single asset id. As an array, it can be a manifest 
-		 *        with objects that contain an ID. Or multiple strings.
+		 *      single asset id. As an array, it can be a manifest 
+		 *      with objects that contain an ID. Or multiple strings.
 		 */
 		this.unload = function(assets)
 		{

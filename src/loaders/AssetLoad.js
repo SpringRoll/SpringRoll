@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Debug,
@@ -11,6 +11,7 @@
 	 * Class that represents a single multi load
 	 * @class AssetLoad
 	 * @constructor
+	 * @private
 	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
 	var AssetLoad = function(manager)
@@ -282,7 +283,7 @@
 	 * @method addTask
 	 * @private
 	 * @param {Object} asset The asset to load, 
-	 *        can either be an object, URL/path, or async function.
+	 *      can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
 	{

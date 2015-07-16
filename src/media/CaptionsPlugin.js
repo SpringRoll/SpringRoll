@@ -39,9 +39,9 @@
 		this.options.add('captionsPath', null, true);
 		
 		/**
-		*  The global captions object
-		*  @property {springroll.Captions} captions
-		*/
+		 * The global captions object
+		 * @property {springroll.Captions} captions
+		 */
 		this.captions = new Captions();
 	};
 

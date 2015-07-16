@@ -15,6 +15,7 @@
 	 * @class CutsceneTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String|Object} asset.anim The path the animation
 	 * @param {String} asset.animClass The name of the animation class

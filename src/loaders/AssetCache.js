@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Debug;
@@ -9,6 +9,7 @@
 	/**
 	 * Remember the assets loaded by the AssetManager
 	 * @class AssetCache
+	 * @private
 	 */
 	var AssetCache = function()
 	{

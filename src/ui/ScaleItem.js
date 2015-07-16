@@ -9,14 +9,15 @@
 	var ScaleManager;
 
 	/**
-	 *	A single UI item that needs to be resized,
-	 *	this is an internal class that you would not need to interact with.
+	 * A single UI item that needs to be resized,
+	 * this is an internal class that you would not need to interact with.
 	 *
-	 *	@class ScaleItem
-	 *	@param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
-	 *	@param {String} align The vertical-horizontal alignment shorthand
-	 *	@param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
-	 *	@param {DisplayAdapter} adapter The display adapter
+	 * @class ScaleItem
+	 * @private
+	 * @param {PIXI.DisplayObject|createjs.DisplayObject} display The item to affect
+	 * @param {String} align The vertical-horizontal alignment shorthand
+	 * @param {springroll.ScreenSettings} designedScreen The original screen the item was designed for
+	 * @param {DisplayAdapter} adapter The display adapter
 	 */
 	var ScaleItem = function(display, align, designedScreen, adapter)
 	{
@@ -29,65 +30,65 @@
 		align = align.split('-');
 
 		/**
-		 *	What vertical screen location the item should be aligned to: "top", "center", "bottom"
-		 *	@property {String} vertAlign
+		 * What vertical screen location the item should be aligned to: "top", "center", "bottom"
+		 * @property {String} vertAlign
 		 */
 		this.vertAlign = align[0];
 
 		/**
-		 *	What horizontal screen location the item should be aligned to: "left", "center", "right"
-		 *	@property {String} horiAlign
+		 * What horizontal screen location the item should be aligned to: "left", "center", "right"
+		 * @property {String} horiAlign
 		 */
 		this.horiAlign = align[1];
 
 		/**
-		 *	If this element should be aligned to the title safe area, not the actual screen.
-		 *	Values of "horizontal" and "vertical" make the title safe calculations take place only
-		 *	for one direction.
-		 *	@property {Boolean|String} titleSafe
-		 *	@default false
+		 * If this element should be aligned to the title safe area, not the actual screen.
+		 * Values of "horizontal" and "vertical" make the title safe calculations take place only
+		 * for one direction.
+		 * @property {Boolean|String} titleSafe
+		 * @default false
 		 */
 		this.titleSafe = false;
 
 		/**
-		 *	Maximum scale allowed in physical size
-		 *	@property {Number} maxScale
-		 *	@default 1
+		 * Maximum scale allowed in physical size
+		 * @property {Number} maxScale
+		 * @default 1
 		 */
 		this.maxScale = 1;
 
 		/**
-		 *	Minimum scale allowed in physical size
-		 *	@property {Number} minScale
-		 *	@default 1
+		 * Minimum scale allowed in physical size
+		 * @property {Number} minScale
+		 * @default 1
 		 */
 		this.minScale = 1;
 
 		/**
-		 *	If the UI element is centered horizontally
-		 *	@property {Boolean} centeredHorizontally
-		 *	@default false
+		 * If the UI element is centered horizontally
+		 * @property {Boolean} centeredHorizontally
+		 * @default false
 		 */
 		this.centeredHorizontally = false;
 
 		/**
-		 *  The reference to the interface item we're scaling
-		 *  @private
-		 *  @property {PIXI.DisplayObject|createjs.DisplayObject} _display
+		 * The reference to the interface item we're scaling
+		 * @private
+		 * @property {PIXI.DisplayObject|createjs.DisplayObject} _display
 		 */
 		this._display = display;
 
 		/**
-		 *  The original screen the item was designed for
-		 *  @private
-		 *  @property {ScreenSettings} _designedScreen
+		 * The original screen the item was designed for
+		 * @private
+		 * @property {ScreenSettings} _designedScreen
 		 */
 		this._designedScreen = designedScreen;
 
 		/**
-		 *  The adapter for universal scale, rotation size access
-		 *  @property {Object} _adapter
-		 *  @private
+		 * The adapter for universal scale, rotation size access
+		 * @property {Object} _adapter
+		 * @private
 		 */
 		this._adapter = adapter;
 
@@ -95,45 +96,45 @@
 		var position = adapter.getPosition(display);
 
 		/**
-		 *  Original X scale of the item
-		 *  @property {Number} origScaleX
-		 *  @default 0
+		 * Original X scale of the item
+		 * @property {Number} origScaleX
+		 * @default 0
 		 */
 		this.origScaleX = scale.x || 1;
 
 		/**
-		 *  The original Y scale of the item
-		 *  @property {Number} origScaleY
-		 *  @default 0
+		 * The original Y scale of the item
+		 * @property {Number} origScaleY
+		 * @default 0
 		 */
 		this.origScaleY = scale.y || 1;
 
 		/**
-		 *  Original width in pixels
-		 *  @property {Number} origWidth
-		 *  @default 0
+		 * Original width in pixels
+		 * @property {Number} origWidth
+		 * @default 0
 		 */
 		this.origWidth = display.width || 0;
 
 		/**
-		 *  The original bounds of the item with x, y, right, bottom, width, 
-		 *	height properties. Used to determine the distance to each edge of
-		 *	the item from its origin
-		 *  @property {Object} origBounds
+		 * The original bounds of the item with x, y, right, bottom, width, 
+		 * height properties. Used to determine the distance to each edge of
+		 * the item from its origin
+		 * @property {Object} origBounds
 		 */
 		this.origBounds = adapter.getLocalBounds(display);
 
 		/**
-		 *  Original horizontal margin in pixels
-		 *  @property {Number} origMarginHori
-		 *  @default 0
+		 * Original horizontal margin in pixels
+		 * @property {Number} origMarginHori
+		 * @default 0
 		 */
 		this.origMarginHori = 0;
 
 		/**
-		 *  Original vertical margin in pixels
-		 *  @property {Number} origMarginVert
-		 *  @default 0
+		 * Original vertical margin in pixels
+		 * @property {Number} origMarginVert
+		 * @default 0
 		 */
 		this.origMarginVert = 0;
 
@@ -201,10 +202,10 @@
 	});
 
 	/**
-	 *  Adjust the item scale and position, to reflect new screen
-	 *  @method resize
-	 *  @param {Number} displayWidth The current screen width
-	 *  @param {Number} displayHeight The current screen height
+	 * Adjust the item scale and position, to reflect new screen
+	 * @method resize
+	 * @param {Number} displayWidth The current screen width
+	 * @param {Number} displayHeight The current screen height
 	 */
 	p.resize = function(displayWidth, displayHeight)
 	{
@@ -352,8 +353,8 @@
 	};
 
 	/**
-	 *	Destroy this item, don't use after this
-	 *	@method destroy
+	 * Destroy this item, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

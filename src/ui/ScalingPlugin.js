@@ -1,7 +1,7 @@
 /**
- *	@module UI
- *	@namespace springroll
- *	@requires Core
+ * @module UI
+ * @namespace springroll
+ * @requires Core
  */
 (function()
 {
@@ -11,10 +11,10 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for touch detecting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ScalingPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for touch detecting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ScalingPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin();
 
@@ -24,9 +24,9 @@
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The main ScaleManager for any display object references
-		 *	in the main game.
-		 *	@property {springroll.ScaleManager} scaling
+		 * The main ScaleManager for any display object references
+		 * in the main game.
+		 * @property {springroll.ScaleManager} scaling
 		 */
 		this.scaling = new ScaleManager();
 

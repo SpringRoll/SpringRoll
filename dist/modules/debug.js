@@ -385,7 +385,7 @@
 	 * @param {Array} message The message to send
 	 * @param {level} [level=0] The log level to send
 	 * @param {String} [stack] A stack to use for the message. A stack will be created if stack
-	 *                         is omitted.
+	 *                       is omitted.
 	 * @return {Debug} The instance of debug for chaining
 	 */
 	Debug._remoteLog = function(message, level, stack)
@@ -1435,9 +1435,9 @@
 	namespace('springroll').DebugOptions = DebugOptions;
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	// Include classes

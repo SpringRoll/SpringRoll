@@ -13,18 +13,18 @@
 	if ("mixin" in window) return;
 
 	/**
-	*  Mixin functionality to an object
-	*
-	*  @example
+	 * Mixin functionality to an object
+	 *
+	 * @example
 		mixin(instance, MyClass);
-	*
-	*  @constructor
-	*  @method mixin
-	*  @param {*} target The instance object to add functionality to
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @param {*} [args] Any additional arguments to pass to the constructor of the superClass
-	*  @return {*} Return reference to target
-	*/
+	 *
+	 * @constructor
+	 * @method mixin
+	 * @param {*} target The instance object to add functionality to
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	 * @return {*} Return reference to target
+	 */
 	var mixin = function(target, superClass)
 	{
 		if (DEBUG && !superClass)

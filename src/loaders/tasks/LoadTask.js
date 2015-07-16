@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task'),
@@ -12,6 +12,7 @@
 	 * @class LoadTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {Boolean} [asset.cache=false] If we should cache the result

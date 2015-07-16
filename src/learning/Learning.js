@@ -18,20 +18,20 @@
 		ValidationError = include('springroll.ValidationError');
 
 	/**
-	 *  The base game class
-	 *  @class Learning
-	 *  @extends springroll.EventDispatcher
-	 *  @constructor
-	 *  @param {springroll.Application} app The application reference
-	 *  @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
+	 * The base game class
+	 * @class Learning
+	 * @extends springroll.EventDispatcher
+	 * @constructor
+	 * @param {springroll.Application} app The application reference
+	 * @param {boolean} [showTray=false] Show the documentation at init or false (dev build only!)
 	 */
 	var Learning = function(app, showTray)
 	{
 		EventDispatcher.call(this);
 
 		/**
-		 *  Create a new instance of the event catalog
-		 *  @property {springroll.EventCatalog} catalog
+		 * Create a new instance of the event catalog
+		 * @property {springroll.EventCatalog} catalog
 		 */
 		this.catalog = new EventCatalog();
 
@@ -44,18 +44,18 @@
 			}
 
 			/**
-			 *  The documentation dom element, development build only!
-			 *  @property {Element} _tray
-			 *  @private
+			 * The documentation dom element, development build only!
+			 * @property {Element} _tray
+			 * @private
 			 */
 			this._tray = $('<div class="learning-tray">' +
 				'<h2>Learning API <span class="learning-version"></span></h2>' +
 				'</div>');
 
 			/**
-			 *  The toggle handle dom element, development build only!
-			 *  @property {Element} _handle
-			 *  @private
+			 * The toggle handle dom element, development build only!
+			 * @property {Element} _handle
+			 * @private
 			 */
 			this._handle = $('<button class="learning-handle"></button>');
 
@@ -67,9 +67,9 @@
 				'learning-tray-hide';
 			
 			/**
-			 *  The body dom element, development build only!
-			 *  @property {Element} _body
-			 *  @private
+			 * The body dom element, development build only!
+			 * @property {Element} _body
+			 * @private
 			 */
 			this._body = $("body").append(this._tray, this._handle)
 				.addClass(defaultTrayPosition);
@@ -80,9 +80,9 @@
 		}
 
 		/**
-		 *  The collection of timers
-		 *  @property {object} _timers
-		 *  @private
+		 * The collection of timers
+		 * @property {object} _timers
+		 * @private
 		 */
 		this._timers = {};
 
@@ -90,46 +90,46 @@
 		this.spec = null;
 
 		/**
-		 *  The reference to the application
-		 *  @property {springroll.Application} _app
-		 *  @private
+		 * The reference to the application
+		 * @property {springroll.Application} _app
+		 * @private
 		 */
 		this._app = app;
 
 		/**
-		 *  The saved feedback or instructions
-		 *  @property {Object} _feedback
-		 *  @private
+		 * The saved feedback or instructions
+		 * @property {Object} _feedback
+		 * @private
 		 */
 		this._feedback = null;
 
 		/**
-		 *  The saved data for movie events
-		 *  @property {Object} _movie
-		 *  @private
+		 * The saved data for movie events
+		 * @property {Object} _movie
+		 * @private
 		 */
 		this._movie = null;
 
 		/**
-		 *  The collection of api methods called
-		 *  @property {array} _history
-		 *  @private
+		 * The collection of api methods called
+		 * @property {array} _history
+		 * @private
 		 */
 		this._history = [];
 
 		/**
-		 *  The current level number if support, null if unsupported
-		 *  @property {int} _round
-		 *  @private
-		 *  @default null
+		 * The current level number if support, null if unsupported
+		 * @property {int} _round
+		 * @private
+		 * @default null
 		 */
 		this._level = null;
 
 		/**
-		 *  The current round number if support, null if unsupported
-		 *  @property {int} _round
-		 *  @private
-		 *  @default null
+		 * The current round number if support, null if unsupported
+		 * @property {int} _round
+		 * @private
+		 * @default null
 		 */
 		this._round = null;
 
@@ -151,9 +151,9 @@
 	};
 
 	/**
-	 *  If the Learning should throw errors
-	 *  @property {Boolean} throwErrors
-	 *  @static
+	 * If the Learning should throw errors
+	 * @property {Boolean} throwErrors
+	 * @static
 	 */
 	Learning.throwErrors = false;
 
@@ -162,29 +162,29 @@
 	var p = extend(Learning, EventDispatcher);
 
 	/**
-	 *  An event is tracked
-	 *  @event learningEvent
-	 *  @param {object} data The event data
-	 *  @param {string} data.game_id The unique game id
-	 *  @param {string} data.event_id The unique event id
-	 *  @param {object} data.event_data The data attached to event
-	 *  @param {int} data.event_data.event_code The code of the event
+	 * An event is tracked
+	 * @event learningEvent
+	 * @param {object} data The event data
+	 * @param {string} data.game_id The unique game id
+	 * @param {string} data.event_id The unique event id
+	 * @param {object} data.event_data The data attached to event
+	 * @param {int} data.event_data.event_code The code of the event
 	 */
 	var EVENT = 'learningEvent';
 
 	/**
-	 *  An api method was called, this happens before any validation
-	 *  @event called
-	 *  @param {string} api The name of the api method called
+	 * An api method was called, this happens before any validation
+	 * @event called
+	 * @param {string} api The name of the api method called
 	 */
 	var CALLED = 'called';
 
 	/**
-	 *  Handle errors
-	 *  @method _handleError
-	 *  @private
-	 *  @param {Error} error The error to handle
-	 *  @return {[type]}       [description]
+	 * Handle errors
+	 * @method _handleError
+	 * @private
+	 * @param {Error} error The error to handle
+	 * @return {[type]}       [description]
 	 */
 	p._handleError = function(error)
 	{
@@ -221,10 +221,10 @@
 	};
 
 	/**
-	 *  The map of API event name overrides
-	 *  @method addMap
-	 *  @param {object} eventDictionary The collection of game-specific APIs, this is a map
-	 *         of the eventCode to the name of the API method
+	 * The map of API event name overrides
+	 * @method addMap
+	 * @param {object} eventDictionary The collection of game-specific APIs, this is a map
+	 *       of the eventCode to the name of the API method
 	 */
 	p.addMap = function(eventDictionary)
 	{
@@ -242,11 +242,11 @@
 	};
 
 	/**
-	 *  The tracking specification
-	 *  @property {object} spec
-	 *  @property {string} spec.gameId
-	 *  @property {int} spec.version
-	 *  @property {array} spec.events
+	 * The tracking specification
+	 * @property {object} spec
+	 * @property {string} spec.gameId
+	 * @property {int} spec.version
+	 * @property {array} spec.events
 	 */
 	Object.defineProperty(p, "spec",
 	{
@@ -315,10 +315,10 @@
 	if (DEBUG)
 	{
 		/**
-		 *  When clicking on a method name
-		 *  @method _toggleRowCollapse
-		 *  @private
-		 *  @param {event} e The click event
+		 * When clicking on a method name
+		 * @method _toggleRowCollapse
+		 * @private
+		 * @param {event} e The click event
 		 */
 		p._toggleRowCollapse = function(e)
 		{
@@ -326,8 +326,8 @@
 		};
 
 		/**
-		 *  Toogle the display of the documentation
-		 *  @method toggleDocs
+		 * Toogle the display of the documentation
+		 * @method toggleDocs
 		 */
 		p.toggleDocs = function()
 		{
@@ -342,8 +342,8 @@
 		};
 
 		/**
-		 *  Show the documentation panel, development build only!
-		 *  @property {boolean} showTray
+		 * Show the documentation panel, development build only!
+		 * @property {boolean} showTray
 		 */
 		Object.defineProperty(p, 'showTray',
 		{
@@ -377,12 +377,12 @@
 	}
 
 	/**
-	 *  Convenience function for measuring the duration which is common
-	 *  for many events. These timers respect the application being paused
-	 *  and should be use instead of implementing Date.now() or some other
-	 *  Date-based method.
-	 *  @method startTimer
-	 *  @param {string} alias A unique alias for this timer
+	 * Convenience function for measuring the duration which is common
+	 * for many events. These timers respect the application being paused
+	 * and should be use instead of implementing Date.now() or some other
+	 * Date-based method.
+	 * @method startTimer
+	 * @param {string} alias A unique alias for this timer
 	 */
 	p.startTimer = function(alias)
 	{
@@ -395,10 +395,10 @@
 	};
 
 	/**
-	 *  Check the current progress of a timer, this will not destory the timer
-	 *  @method pollTimer
-	 *  @param {string} alias The unique alias for this timer
-	 *  @return {int} The timer in milliseconds
+	 * Check the current progress of a timer, this will not destory the timer
+	 * @method pollTimer
+	 * @param {string} alias The unique alias for this timer
+	 * @return {int} The timer in milliseconds
 	 */
 	p.pollTimer = function(alias)
 	{
@@ -411,9 +411,9 @@
 	};
 
 	/**
-	 *  Get the amount of time since the start of the game
-	 *  @method gameTime
-	 *  @return {int} The time since the beginning of the game in milliseconds
+	 * Get the amount of time since the start of the game
+	 * @method gameTime
+	 * @return {int} The time since the beginning of the game in milliseconds
 	 */
 	p.gameTime = function()
 	{
@@ -421,11 +421,11 @@
 	};
 
 	/**
-	 *  Stop a timer and get the final duration to send with an event. This
-	 *  will clean-up and discard the timer and it can't be used again.
-	 *  @method stopTimer
-	 *  @param {string} alias The unique alias for this timer
-	 *  @return {int} The timer in milliseconds
+	 * Stop a timer and get the final duration to send with an event. This
+	 * will clean-up and discard the timer and it can't be used again.
+	 * @method stopTimer
+	 * @param {string} alias The unique alias for this timer
+	 * @return {int} The timer in milliseconds
 	 */
 	p.stopTimer = function(alias)
 	{
@@ -435,9 +435,9 @@
 	};
 
 	/**
-	 *  This will clean-up and discard the timer and it can't be used again.
-	 *  @method removeTimer
-	 *  @param {string} alias The unique alias for this timer
+	 * This will clean-up and discard the timer and it can't be used again.
+	 * @method removeTimer
+	 * @param {string} alias The unique alias for this timer
 	 */
 	p.removeTimer = function(alias)
 	{
@@ -448,10 +448,10 @@
 	};
 
 	/**
-	 *  Handle the frame update
-	 *  @method updateTimers
-	 *  @private
-	 *  @param {int} elapsed The number of milliseconds since the last update
+	 * Handle the frame update
+	 * @method updateTimers
+	 * @private
+	 * @param {int} elapsed The number of milliseconds since the last update
 	 */
 	var updateTimers = function(elapsed)
 	{
@@ -462,8 +462,8 @@
 	};
 
 	/**
-	 *  Override for start game event
-	 *  @method startGame
+	 * Override for start game event
+	 * @method startGame
 	 */
 	p.startGame = function()
 	{
@@ -500,9 +500,9 @@
 	};
 
 	/**
-	 *  Override for the end game event
-	 *  @method endGame
-	 *  @param {string} [exitType] The exit type for certain games
+	 * Override for the end game event
+	 * @method endGame
+	 * @param {string} [exitType] The exit type for certain games
 	 */
 	p.endGame = function(exitType)
 	{
@@ -530,14 +530,14 @@
 	};
 
 	/**
-	 *  Basic method for starting a feedback or instruction
-	 *  @method _startFeedback
-	 *  @private
-	 *  @param {string} api     The event method to call
-	 *  @param {string} description   Description of the instruction
-	 *  @param {string} identifier    A unique identifier
-	 *  @param {string} mediaType     Either audio animation or other
-	 *  @param {int} totalDuration The estimated time of instruction in milliseconds
+	 * Basic method for starting a feedback or instruction
+	 * @method _startFeedback
+	 * @private
+	 * @param {string} api     The event method to call
+	 * @param {string} description   Description of the instruction
+	 * @param {string} identifier    A unique identifier
+	 * @param {string} mediaType     Either audio animation or other
+	 * @param {int} totalDuration The estimated time of instruction in milliseconds
 	 */
 	p._startFeedback = function(api, description, identifier, mediaType, totalDuration)
 	{
@@ -559,10 +559,10 @@
 	};
 
 	/**
-	 *  Basic method for starting a feedback or instruction
-	 *  @method _startFeedback
-	 *  @private
-	 *  @param {string} api The event method to call
+	 * Basic method for starting a feedback or instruction
+	 * @method _startFeedback
+	 * @private
+	 * @param {string} api The event method to call
 	 */
 	p._endFeedback = function(api)
 	{
@@ -580,12 +580,12 @@
 	};
 
 	/**
-	 *  Start the system initiated instruction
-	 *  @method startInstruction
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the system initiated instruction
+	 * @method startInstruction
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startInstruction = function(description, identifier, mediaType, totalDuration)
 	{
@@ -593,8 +593,8 @@
 	};
 
 	/**
-	 *  End the system initiated instruction
-	 *  @method endInstruction
+	 * End the system initiated instruction
+	 * @method endInstruction
 	 */
 	p.endInstruction = function()
 	{
@@ -603,12 +603,12 @@
 	};
 
 	/**
-	 *  Start the incorrect feedback
-	 *  @method startIncorrectFeedback
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the incorrect feedback
+	 * @method startIncorrectFeedback
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startIncorrectFeedback = function(description, identifier, mediaType, totalDuration)
 	{
@@ -616,8 +616,8 @@
 	};
 
 	/**
-	 *  End the incorrect feedback
-	 *  @method endIncorrectFeedback
+	 * End the incorrect feedback
+	 * @method endIncorrectFeedback
 	 */
 	p.endIncorrectFeedback = function()
 	{
@@ -626,12 +626,12 @@
 	};
 
 	/**
-	 *  Start the correct feedback event
-	 *  @method startCorrectFeedback
-	 *  @param {string} description The text description of the instruction
-	 *  @param {string} identifier A unique identifier for this peice of instruction
-	 *  @param {string} mediaType The type of media, audio animation or other
-	 *  @param {int} total_duration The estimated duration of the media in milliseconds
+	 * Start the correct feedback event
+	 * @method startCorrectFeedback
+	 * @param {string} description The text description of the instruction
+	 * @param {string} identifier A unique identifier for this peice of instruction
+	 * @param {string} mediaType The type of media, audio animation or other
+	 * @param {int} total_duration The estimated duration of the media in milliseconds
 	 */
 	p.startCorrectFeedback = function(description, identifier, mediaType, totalDuration)
 	{
@@ -645,8 +645,8 @@
 	};
 
 	/**
-	 *  End the correct feedback event
-	 *  @method endCorrectFeedback
+	 * End the correct feedback event
+	 * @method endCorrectFeedback
 	 */
 	p.endCorrectFeedback = function()
 	{
@@ -655,11 +655,11 @@
 	};
 
 	/**
-	 *  The movie started
-	 *  @method startMovie
-	 *  @param {string} movieId The identifier for the movie that's playing
-	 *  @param {int} duration  The duration of the media playback in milliseconds
-	 *  @param {string} description The text or description of the instruction
+	 * The movie started
+	 * @method startMovie
+	 * @param {string} movieId The identifier for the movie that's playing
+	 * @param {int} duration  The duration of the media playback in milliseconds
+	 * @param {string} description The text or description of the instruction
 	 */
 	p.startMovie = function(movieId, duration, description)
 	{
@@ -678,8 +678,8 @@
 	};
 
 	/**
-	 *  The user decided to skip the movie playback by clicking a skip button
-	 *  @method skipMovie
+	 * The user decided to skip the movie playback by clicking a skip button
+	 * @method skipMovie
 	 */
 	p.skipMovie = function()
 	{
@@ -697,8 +697,8 @@
 	};
 
 	/**
-	 *  The movie ended
-	 *  @method endMovie
+	 * The movie ended
+	 * @method endMovie
 	 */
 	p.endMovie = function()
 	{
@@ -717,10 +717,10 @@
 	};
 
 	/**
-	 *  Handler when an api is called
-	 *  @method _onCalled
-	 *  @private
-	 *  @param {string} api The name of the API method called
+	 * Handler when an api is called
+	 * @method _onCalled
+	 * @private
+	 * @param {string} api The name of the API method called
 	 */
 	p._onCalled = function(api)
 	{
@@ -735,12 +735,12 @@
 	};
 
 	/**
-	 *  Generic method to track an event based on the spec, the arguments
-	 *  mirror the arguments in the event spec.
-	 *  @method _specTrack
-	 *  @private
-	 *  @param {string} api The name of the api
-	 *  @param {*} [...extraArgs] The Additional arguments
+	 * Generic method to track an event based on the spec, the arguments
+	 * mirror the arguments in the event spec.
+	 * @method _specTrack
+	 * @private
+	 * @param {string} api The name of the api
+	 * @param {*} [...extraArgs] The Additional arguments
 	 */
 	p._specTrack = function(api)
 	{
@@ -771,13 +771,13 @@
 	};
 	
 	/**
-	 *  Generic method to track an event based on the spec, the arguments
-	 *  mirror the arguments in the event spec.
-	 *  @method _track
-	 *  @private
-	 *  @param {string} api The name of the api
-	 *  @param {object} [input] The collection of argument values
-	 *  @param {int} [round] The explicit round to add the track event for
+	 * Generic method to track an event based on the spec, the arguments
+	 * mirror the arguments in the event spec.
+	 * @method _track
+	 * @private
+	 * @param {string} api The name of the api
+	 * @param {object} [input] The collection of argument values
+	 * @param {int} [round] The explicit round to add the track event for
 	 */
 	p._track = function(api, input, round)
 	{
@@ -869,12 +869,12 @@
 	if (DEBUG)
 	{
 		/**
-		 *  Display an error in the tray
-		 *  @method _showError
-		 *  @private
-		 *  @param {string} message The message to log
-		 *  @param {string} api      The name of the api
-		 *  @param {string} [property] Optional property
+		 * Display an error in the tray
+		 * @method _showError
+		 * @private
+		 * @param {string} message The message to log
+		 * @param {string} api      The name of the api
+		 * @param {string} [property] Optional property
 		 */
 		p._showError = function(message, api, property)
 		{
@@ -900,10 +900,10 @@
 	}
 
 	/**
-	 *  Require that an api has been called
-	 *  @method requires
-	 *  @param {String} api The names of the method or API call
-	 *  @return {Boolean} If the api was called before
+	 * Require that an api has been called
+	 * @method requires
+	 * @param {String} api The names of the method or API call
+	 * @return {Boolean} If the api was called before
 	 */
 	p.requires = function(api)
 	{
@@ -916,8 +916,8 @@
 	};
 
 	/**
-	 *  Don't use after this
-	 *  @method destroy
+	 * Don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

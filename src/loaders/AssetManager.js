@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var AssetLoad = include('springroll.AssetLoad'),
@@ -71,8 +71,8 @@
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
 	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *        are tested first. More general Tasks should be lower
-	 *        and more specific tasks should be higher.
+	 *      are tested first. More general Tasks should be lower
+	 *      and more specific tasks should be higher.
 	 */
 	p.register = function(TaskClass, priority)
 	{

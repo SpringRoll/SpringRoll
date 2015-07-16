@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Debug;
@@ -9,6 +9,7 @@
 	/**
 	 * Remember the assets loaded by the AssetManager
 	 * @class AssetSizes
+	 * @private
 	 */
 	var AssetSizes = function()
 	{
@@ -67,7 +68,7 @@
 	 * @param {int} maxSize The maximum size capable of using this
 	 * @param {Number} scale The scale of assets
 	 * @param {Array} fallback The size fallbacks if this size isn't available
-	 *        for the current asset request.
+	 *      for the current asset request.
 	 */
 	p.define = function(id, maxSize, scale, fallback)
 	{

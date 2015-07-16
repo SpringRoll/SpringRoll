@@ -42,17 +42,17 @@
 		}
 
 		/**
-		 *  Some games need to send additional parameters to the tracker's
-		 *  offClick event. They may set them here as needed. These parameters are appended
-		 *  to the normal offClick data.
-		 *  @property {Array} offClickParams
+		 * Some games need to send additional parameters to the tracker's
+		 * offClick event. They may set them here as needed. These parameters are appended
+		 * to the normal offClick data.
+		 * @property {Array} offClickParams
 		 */
 		this.offClickParams = [];
 
 		/**
-		 *  Keep track of the last Pointer ID
-		 *  @property {int} _lastPointerID
-		 *  @private
+		 * Keep track of the last Pointer ID
+		 * @property {int} _lastPointerID
+		 * @private
 		 */
 		this._lastPointerID = null;
 
@@ -66,10 +66,10 @@
 		 * @method normalizePosition
 		 * @param {createjs.DisplayObject|createjs.Point} pos A display object or point to use.
 		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
-		 *                                              it can be converted to global space. If
-		 *                                              omitted and <code>pos</code> is a
-		 *                                              DisplayObject, <code>pos.parent</code> will
-		 *                                              be used.
+		 *                                            it can be converted to global space. If
+		 *                                            omitted and <code>pos</code> is a
+		 *                                            DisplayObject, <code>pos.parent</code> will
+		 *                                            be used.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
 		
@@ -84,7 +84,7 @@
 		 * @param {Number} x The x position
 		 * @param {Number} y The y position
 		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
-		 *                                              it can be converted to global space.
+		 *                                            it can be converted to global space.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
 		this.normalizePosition = function(x, y, coordSpace)
@@ -160,7 +160,7 @@
 	};
 
 	/**
-	 *  Fires event whenever the mouse is moved
+	 * Fires event whenever the mouse is moved
 	 */
 	var onStageMouseMove = function(ev)
 	{
@@ -172,7 +172,7 @@
 	};
 
 	/**
-	 *  Fires OffClick event if click on unhandled object
+	 * Fires OffClick event if click on unhandled object
 	 */
 	var onStageMouseDown = function(ev)
 	{

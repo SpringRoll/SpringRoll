@@ -16,6 +16,7 @@
 	 * This means textures, spritesheets, and bitmap fonts.
 	 * @class PixiLoadTask
 	 * @constructor
+	 * @private
 	 * @param {Array} asset.urls The urls to load using PIXI.AssetLoader
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {String} [asset.id] The id of the task

@@ -16,12 +16,12 @@
 	 * @class State
 	 * @constructor
 	 * @param {createjs.Container|PIXI.DisplayObjectContainer} panel The panel to associate with
-	 *  	this state.
+	 * 	this state.
 	 * @param {Object} [options] The list of options
 	 * @param {String|Function} [options.next=null] The next state alias or function to call when going to the next state.
 	 * @param {String|Function} [options.previous=null] The previous state alias to call when going to the previous state.
 	 * @param {int} [options.delayLoad=0] The number of frames to delay the loading for cases where
-	 *    heavy object instaniation slow the game dramatically.
+	 *  heavy object instaniation slow the game dramatically.
 	 */
 	var State = function(panel, options)
 	{
@@ -274,7 +274,7 @@
 	 * @method loadingDone
 	 * @final
 	 * @param {int} [delay] Frames to delay the load completion to allow the framerate to
-	 *     stabilize. If not delay is set, defaults to the `delayLoad` property.
+	 *   stabilize. If not delay is set, defaults to the `delayLoad` property.
 	 */
 	p.loadingDone = function(delay)
 	{

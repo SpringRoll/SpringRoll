@@ -77,48 +77,48 @@
 (function(undefined)
 {
 	/**
-	*  Mixins for the CreateJS Point class, which include methods
-	*  for calculating the dot product, length, distance, normalize, etc.
-	*  @class Point
-	*/
+	 * Mixins for the CreateJS Point class, which include methods
+	 * for calculating the dot product, length, distance, normalize, etc.
+	 * @class Point
+	 */
 	
 	var p = include("createjs.Point").prototype;
 	
 	/**
-	* Returns the dot product between this point and another one.
-	* @method dotProd
-	* @param other {Point} The point to form a dot product with
-	* @return The dot product between the two points.
-	*/
+	 * Returns the dot product between this point and another one.
+	 * @method dotProd
+	 * @param other {Point} The point to form a dot product with
+	 * @return The dot product between the two points.
+	 */
 	p.dotProd = function(other)
 	{
 		return this.x * other.x + this.y * other.y;
 	};
 
 	/**
-	* Returns the length (or magnitude) of this point.
-	* @method length
-	* @return The length of this point.
-	*/
+	 * Returns the length (or magnitude) of this point.
+	 * @method length
+	 * @return The length of this point.
+	 */
 	p.length = function()
 	{
 		return Math.sqrt(this.x * this.x + this.y * this.y);
 	};
 
 	/**
-	* Returns the squared length (or magnitude) of this point. This is faster than length().
-	* @method lengthSq
-	* @return The length squared of this point.
-	*/
+	 * Returns the squared length (or magnitude) of this point. This is faster than length().
+	 * @method lengthSq
+	 * @return The length squared of this point.
+	 */
 	p.lengthSq = function()
 	{
 		return this.x * this.x + this.y * this.y;
 	};
 
 	/**
-	* Reduces the point to a length of 1.
-	* @method normalize
-	*/
+	 * Reduces the point to a length of 1.
+	 * @method normalize
+	 */
 	p.normalize = function()
 	{
 		var oneOverLen = 1 / this.length();
@@ -127,10 +127,10 @@
 	};
 
 	/**
-	* Subtracts the x and y values of a point from this point.
-	* @method subtract
-	* @param other {Point} The point to subtract from this one
-	*/
+	 * Subtracts the x and y values of a point from this point.
+	 * @method subtract
+	 * @param other {Point} The point to subtract from this one
+	 */
 	p.subtract = function(other)
 	{
 		this.x -= other.x;
@@ -138,10 +138,10 @@
 	};
 
 	/**
-	* Adds the x and y values of a point to this point.
-	* @method add
-	* @param other {Point} The point to add to this one
-	*/
+	 * Adds the x and y values of a point to this point.
+	 * @method add
+	 * @param other {Point} The point to add to this one
+	 */
 	p.add = function(other)
 	{
 		this.x += other.x;
@@ -149,10 +149,10 @@
 	};
 
 	/**
-	* Truncate the length of the point to a maximum.
-	* @method truncate
-	* @param maxLength {Number} The maximum length to allow in this point.
-	*/
+	 * Truncate the length of the point to a maximum.
+	 * @method truncate
+	 * @param maxLength {Number} The maximum length to allow in this point.
+	 */
 	p.truncate = function(maxLength)
 	{
 		var l = this.length();
@@ -165,10 +165,10 @@
 	};
 
 	/**
-	* Multiplies the x and y values of this point by a value.
-	* @method scaleBy
-	* @param value {Number} The value to scale by.
-	*/
+	 * Multiplies the x and y values of this point by a value.
+	 * @method scaleBy
+	 * @param value {Number} The value to scale by.
+	 */
 	p.scaleBy = function(value)
 	{
 		this.x *= value;
@@ -176,11 +176,11 @@
 	};
 
 	/**
-	* Calculates the distance between this and another point.
-	* @method distance
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance.
-	*/
+	 * Calculates the distance between this and another point.
+	 * @method distance
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance.
+	 */
 	p.distance = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -189,11 +189,11 @@
 	};
 
 	/**
-	* Calculates the squared distance between this and another point.
-	* @method distanceSq
-	* @param other {Point} The point to calculate the distance to.
-	* @return {Number} The distance squared.
-	*/
+	 * Calculates the squared distance between this and another point.
+	 * @method distanceSq
+	 * @param other {Point} The point to calculate the distance to.
+	 * @return {Number} The distance squared.
+	 */
 	p.distanceSq = function(other)
 	{
 		var xDiff = this.x - other.x;
@@ -252,27 +252,27 @@
 		Rectangle = include('createjs.Rectangle');
 	
 	/**
-	* Designed to provide utility related to Bitmaps.
-	* @class BitmapUtils
-	*/
+	 * Designed to provide utility related to Bitmaps.
+	 * @class BitmapUtils
+	 */
 	var BitmapUtils = {};
 
 	/**
-	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	* that pulls the image from a spritesheet. This function should be
-	* called after you have loaded up javascript assets exported from Flash,
-	* but before you have instantiated those assets.
-	*
-	* @method loadSpriteSheet
-	* @static
-	* @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
-	*        expected to fit the JSON Hash format as exported from
-	*        TexturePacker.
-	* @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
-	*        the frames.
-	* @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
-	*        a half sized spritesheet should have a scale of 2.
-	*/
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet. This function should be
+	 * called after you have loaded up javascript assets exported from Flash,
+	 * but before you have instantiated those assets.
+	 *
+	 * @method loadSpriteSheet
+	 * @static
+	 * @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
+	 *    expected to fit the JSON Hash format as exported from
+	 *    TexturePacker.
+	 * @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
+	 *    the frames.
+	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
+	 *    a half sized spritesheet should have a scale of 2.
+	 */
 	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
 	{
 		if (scale > 0)
@@ -380,7 +380,7 @@
 	 * @static
 	 * @param {Texture} texture The texture from a TextureAtlas to create the Bitmap analogue from.
 	 * @param {Number} scale A scale for the spritesheet to undo, e.g. a half sized spritesheet
-	 *                       gets a scale of 2 to restore it to normal size.
+	 *                     gets a scale of 2 to restore it to normal size.
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
 	{
@@ -418,16 +418,16 @@
 	};
 
 	/**
-	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	* that uses a scaled bitmap, so you can load up smaller bitmaps behind
-	* the scenes that are scaled back up to normal size, or high res bitmaps
-	* that are scaled down.
-	*
-	* @method replaceWithScaledBitmap
-	* @static
-	* @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
-	* @param {Number} [scale=1] The scale to apply to the image(s).
-	*/
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that uses a scaled bitmap, so you can load up smaller bitmaps behind
+	 * the scenes that are scaled back up to normal size, or high res bitmaps
+	 * that are scaled down.
+	 *
+	 * @method replaceWithScaledBitmap
+	 * @static
+	 * @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
+	 * @param {Number} [scale=1] The scale to apply to the image(s).
+	 */
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1
@@ -503,6 +503,7 @@
 	 * Handles the Asset loading for Flash Art takes care of unloading
 	 * @class FlashArt
 	 * @constructor
+	 * @private
 	 * @param {String} id The asset id
 	 * @param {NodeElement} dom The `<script>` element added to the document
 	 * @param {String} [libName='lib'] The window parameter name
@@ -555,9 +556,9 @@
 	FlashArt.globalSymbols = {};
 
 	/**
-	 *  Get the name of all the library elements of the dom text
-	 *  @method parseSymbols
-	 *  @param {String} text The DOM text contents
+	 * Get the name of all the library elements of the dom text
+	 * @method parseSymbols
+	 * @param {String} text The DOM text contents
 	 */
 	p.parseSymbols = function(text)
 	{
@@ -643,6 +644,7 @@
 	 * @class FlashArtTask
 	 * @extends springroll.LoadTask
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
@@ -711,27 +713,27 @@
 (function(undefined)
 {
 	/**
-	* Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
-	* loading.
-	*
-	* @class TextureAtlas
-	* @constructor
-	* @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from. This can
-	*                                              also be an array of images, if the TextureAtlas
-	*                                              should be built from several spritesheets.
-	* @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas. This
-	*                                       is expected to fit the JSON Hash format as exported from
-	*                                       TexturePacker. This can also be an array of data
-	*                                       objects, if the TextureAtlas should be built from
-	*                                       several spritesheets.
-	*/
+	 * Handles a spritesheet. File extensions and folder paths are dropped from frame names upon
+	 * loading.
+	 *
+	 * @class TextureAtlas
+	 * @constructor
+	 * @param {Image|HTMLCanvasElement|Array} image The image that all textures pull from. This can
+	 *                                          also be an array of images, if the TextureAtlas
+	 *                                          should be built from several spritesheets.
+	 * @param {Object|Array} spritesheetData The JSON object describing the frames in the atlas. This
+	 *                                   is expected to fit the JSON Hash format as exported from
+	 *                                   TexturePacker. This can also be an array of data
+	 *                                   objects, if the TextureAtlas should be built from
+	 *                                   several spritesheets.
+	 */
 	var TextureAtlas = function(image, spritesheetData)
 	{
 		/**
-		* The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
-		* @property {Array} _image
-		* @private
-		*/
+		 * The an array of image elements (Image|HTMLCanvasElement) that frames in texture atlas use.
+		 * @property {Array} _image
+		 * @private
+		 */
 		if(Array.isArray(image))
 		{
 			this._images = image;
@@ -743,16 +745,16 @@
 		}
 
 		/**
-		* The dictionary of Textures that this atlas consists of.
-		* @property {Object} frames
-		*/
+		 * The dictionary of Textures that this atlas consists of.
+		 * @property {Object} frames
+		 */
 		this.frames = {};
 		
 		/**
-		* The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
-		* otherwise
-		* @property {Number} scale
-		*/
+		 * The scale of the texture atlas, if available in spritesheet metadata. Defaults to 1,
+		 * otherwise
+		 * @property {Number} scale
+		 */
 		if(spritesheetData[0].meta && parseFloat(spritesheetData[0].meta.scale))
 		{
 			this.scale = parseFloat(spritesheetData[0].meta.scale);
@@ -788,33 +790,33 @@
 	var p = TextureAtlas.prototype = {};
 
 	/**
-	* Gets a frame by name.
-	* @method getFrame
-	* @param {String} name The frame name to get.
-	* @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
-	*/
+	 * Gets a frame by name.
+	 * @method getFrame
+	 * @param {String} name The frame name to get.
+	 * @return {createjs.TextureAtlas.Texture} The texture by that name, or null if it doesn't exist.
+	 */
 	p.getFrame = function(name)
 	{
 		return this.frames[name] || null;
 	};
 
 	/**
-	* Get an array of Textures that match a specific name. If a frame in a sequence is not in the
-	* atlas, the previous frame in the sequence is used in place of it.
-	* @method getFrames
-	* @param {String} name The base name of all frames to look for, like "anim_#" to search for an
-	*                      animation exported as anim_0001.png (the ".png" is dropped when the
-	*                      TextureAtlas is loaded).
-	* @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences
-	*                        generally start at 1.
-	* @param {int} numberMax The number to go until while looking for frames. If your animation runs
-	*                        from frame 0001 to frame 0014, numberMax would be 14.
-	* @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
-	*                            anim_0001.png
-	* @param {Array} [outArray] If already using an array, this can fill it instead of creating a
-	*                           new one.
-	* @return {Array} The collection of createjs.TextureAtlas.Textures.
-	*/
+	 * Get an array of Textures that match a specific name. If a frame in a sequence is not in the
+	 * atlas, the previous frame in the sequence is used in place of it.
+	 * @method getFrames
+	 * @param {String} name The base name of all frames to look for, like "anim_#" to search for an
+	 *                  animation exported as anim_0001.png (the ".png" is dropped when the
+	 *                  TextureAtlas is loaded).
+	 * @param {int} numberMin The number to start on while looking for frames. Flash PNG sequences
+	 *                    generally start at 1.
+	 * @param {int} numberMax The number to go until while looking for frames. If your animation runs
+	 *                    from frame 0001 to frame 0014, numberMax would be 14.
+	 * @param {int} [maxDigits=4] Maximum number of digits, like 4 for an animation exported as
+	 *                        anim_0001.png
+	 * @param {Array} [outArray] If already using an array, this can fill it instead of creating a
+	 *                       new one.
+	 * @return {Array} The collection of createjs.TextureAtlas.Textures.
+	 */
 	p.getFrames = function(name, numberMin, numberMax, maxDigits, outArray)
 	{
 		if(maxDigits === undefined)
@@ -872,9 +874,9 @@
 	};
 
 	/**
-	* Destroys the TextureAtlas by nulling the image and frame dictionary references.
-	* @method destroy
-	*/
+	 * Destroys the TextureAtlas by nulling the image and frame dictionary references.
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.image = null;
@@ -885,50 +887,50 @@
 	namespace("springroll.easeljs").TextureAtlas = TextureAtlas;
 
 	/**
-	* A Texture - a specific portion of an image that can then be drawn by a Bitmap.
-	* This class is hidden within TextureAtlas, and can't be manually created.
-	* @class Texture
-	*/
+	 * A Texture - a specific portion of an image that can then be drawn by a Bitmap.
+	 * This class is hidden within TextureAtlas, and can't be manually created.
+	 * @class Texture
+	 */
 	var Texture = function(image, data, swapRotatedSize)
 	{
 		/**
-		* The image element that this texture references.
-		* @property {Image|HTMLCanvasElement} image
-		*/
+		 * The image element that this texture references.
+		 * @property {Image|HTMLCanvasElement} image
+		 */
 		this.image = image;
 		/**
-		* If this texture has been rotated (90 degrees clockwise).
-		* @property {Boolean} rotated
-		*/
+		 * If this texture has been rotated (90 degrees clockwise).
+		 * @property {Boolean} rotated
+		 */
 		this.rotated = data.rotated;
 		
 		var f = data.frame;
 		/**
-		* The frame rectangle within the image.
-		* @property {createjs.Rectangle} frame
-		*/
+		 * The frame rectangle within the image.
+		 * @property {createjs.Rectangle} frame
+		 */
 		this.frame = new createjs.Rectangle(f.x, f.y,
 			(data.rotated && swapRotatedSize) ? f.h : f.w,
 			(data.rotated && swapRotatedSize) ? f.w : f.h);
 		/**
-		* If this texture has been trimmed.
-		* @property {Boolean} trimmed
-		*/
+		 * If this texture has been trimmed.
+		 * @property {Boolean} trimmed
+		 */
 		this.trimmed = data.trimmed;
 		/**
-		* The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
-		* @property {createjs.Point} offset
-		*/
+		 * The offset that the trimmed sprite should be placed at to restore it to the untrimmed position.
+		 * @property {createjs.Point} offset
+		 */
 		this.offset = new createjs.Point(data.spriteSourceSize.x, data.spriteSourceSize.y);
 		/**
-		* The width of the untrimmed texture.
-		* @property {Number} width
-		*/
+		 * The width of the untrimmed texture.
+		 * @property {Number} width
+		 */
 		this.width = data.sourceSize.w;
 		/**
-		* The height of the untrimmed texture.
-		* @property {Number} height
-		*/
+		 * The height of the untrimmed texture.
+		 * @property {Number} height
+		 */
 		this.height = data.sourceSize.h;
 	};
 }());
@@ -949,6 +951,7 @@
 	 * @class TextureAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.atlas The TextureAtlas source data
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
@@ -1077,6 +1080,7 @@
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} asset.atlas The TextureAtlas source data
@@ -1224,6 +1228,7 @@
 	 * @class SpriteSheetTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.images The source
 	 * @param {String} asset.frames The TextureAtlas source data
@@ -1338,89 +1343,89 @@
 
 }());
 /**
- *	@module EaselJS Display
- *	@namespace springroll.easeljs
- *	@requires Core
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
  */
 (function(undefined)
 {
 	/**
-	 *	Provide a normalized way to get size, position, scale values
-	 *	as well as provide reference for different geometry classes.
-	 *	@class DisplayAdapter
+	 * Provide a normalized way to get size, position, scale values
+	 * as well as provide reference for different geometry classes.
+	 * @class DisplayAdapter
 	 */
 	var DisplayAdapter = {};
 
 	/**
-	 *	The geometry class for Circle
-	 *	@property {Function} Circle
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Circle
+	 * The geometry class for Circle
+	 * @property {Function} Circle
+	 * @readOnly
+	 * @static
+	 * @default createjs.Circle
 	 */
 	DisplayAdapter.Circle = include('createjs.Circle', false);
 
 	/**
-	 *	The geometry class for Ellipse
-	 *	@property {Function} Ellipse
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Ellipse
+	 * The geometry class for Ellipse
+	 * @property {Function} Ellipse
+	 * @readOnly
+	 * @static
+	 * @default createjs.Ellipse
 	 */
 	DisplayAdapter.Ellipse = include('createjs.Ellipse', false);
 
 	/**
-	 *	The geometry class for Rectangle
-	 *	@property {Function} Rectangle
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Rectangle
+	 * The geometry class for Rectangle
+	 * @property {Function} Rectangle
+	 * @readOnly
+	 * @static
+	 * @default createjs.Rectangle
 	 */
 	DisplayAdapter.Rectangle = include('createjs.Rectangle');
 
 	/**
-	 *	The geometry class for Sector
-	 *	@property {Function} Sector
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Sector
+	 * The geometry class for Sector
+	 * @property {Function} Sector
+	 * @readOnly
+	 * @static
+	 * @default createjs.Sector
 	 */
 	DisplayAdapter.Sector = include('createjs.Sector', false);
 
 	/**
-	 *	The geometry class for point
-	 *	@property {Function} Point
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Point
+	 * The geometry class for point
+	 * @property {Function} Point
+	 * @readOnly
+	 * @static
+	 * @default createjs.Point
 	 */
 	DisplayAdapter.Point = include('createjs.Point');
 
 	/**
-	 *	The geometry class for Polygon
-	 *	@property {Function} Polygon
-	 *	@readOnly
-	 *	@static
-	 *	@default createjs.Polygon
+	 * The geometry class for Polygon
+	 * @property {Function} Polygon
+	 * @readOnly
+	 * @static
+	 * @default createjs.Polygon
 	 */
 	DisplayAdapter.Polygon = include('createjs.Polygon', false);
 
 	/**
-	 *	If the rotation is expressed in radians
-	 *	@property {Boolean} useRadians
-	 *	@readOnly
-	 *	@static
-	 *	@default false
+	 * If the rotation is expressed in radians
+	 * @property {Boolean} useRadians
+	 * @readOnly
+	 * @static
+	 * @default false
 	 */
 	DisplayAdapter.useRadians = false;
 
 	/**
-	 *	Gets the object's boundaries in its local coordinate space, without any scaling or
-	 *	rotation applied.
-	 *	@method getLocalBounds
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs display object
-	 *	@return {createjs.Rectangle} A rectangle with additional right and bottom properties.
+	 * Gets the object's boundaries in its local coordinate space, without any scaling or
+	 * rotation applied.
+	 * @method getLocalBounds
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs display object
+	 * @return {createjs.Rectangle} A rectangle with additional right and bottom properties.
 	 */
 	DisplayAdapter.getLocalBounds = function(object)
 	{
@@ -1465,12 +1470,12 @@
 	};
 
 	/**
-	 *	Normalize the object scale
-	 *	@method getScale
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs display object
-	 *	@param {String} [direction] Either "x" or "y" to return a specific value
-	 *	@return {object|Number} A scale object with x and y keys or a single number if direction is set
+	 * Normalize the object scale
+	 * @method getScale
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs display object
+	 * @param {String} [direction] Either "x" or "y" to return a specific value
+	 * @return {object|Number} A scale object with x and y keys or a single number if direction is set
 	 */
 	DisplayAdapter.getScale = function(object, direction)
 	{
@@ -1485,16 +1490,16 @@
 	};
 
 	/**
-	 *	Normalize the object position setting
-	 *	@method setPosition
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs display object
-	 *	@param {object|Number} position The position object or the value
-	 *	if the direction is set.
-	 *	@param {Number} [position.x] The x value
-	 *	@param {Number} [position.y] The y value
-	 *	@param {String} [direction] Either "x" or "y" value
-	 *	@return {createjs.DisplayObject} Return the object for chaining
+	 * Normalize the object position setting
+	 * @method setPosition
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs display object
+	 * @param {object|Number} position The position object or the value
+	 * if the direction is set.
+	 * @param {Number} [position.x] The x value
+	 * @param {Number} [position.y] The y value
+	 * @param {String} [direction] Either "x" or "y" value
+	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
 	DisplayAdapter.setPosition = function(object, position, direction)
 	{
@@ -1513,13 +1518,13 @@
 	};
 
 	/**
-	 *	Normalize the object position getting
-	 *	@method getPosition
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs display object
-	 *	@param {String} [direction] Either "x" or "y", default is an object of both
-	 *	@return {Object|Number} The position as an object with x and y keys if 
-	 *	no direction value is set, or the value of the specific direction
+	 * Normalize the object position getting
+	 * @method getPosition
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs display object
+	 * @param {String} [direction] Either "x" or "y", default is an object of both
+	 * @return {Object|Number} The position as an object with x and y keys if 
+	 * no direction value is set, or the value of the specific direction
 	 */
 	DisplayAdapter.getPosition = function(object, direction)
 	{
@@ -1534,14 +1539,14 @@
 	};
 
 	/**
-	 *	Normalize the object scale setting
-	 *	@method setScale
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs Display object
-	 *	@param {Number} scale The scaling object or scale value for x and y
-	 *	@param {String} [direction] Either "x" or "y" if setting a specific value, default
-	 *	sets both the scale x and scale y.
-	 *	@return {createjs.DisplayObject} Return the object for chaining
+	 * Normalize the object scale setting
+	 * @method setScale
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs Display object
+	 * @param {Number} scale The scaling object or scale value for x and y
+	 * @param {String} [direction] Either "x" or "y" if setting a specific value, default
+	 * sets both the scale x and scale y.
+	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
 	DisplayAdapter.setScale = function(object, scale, direction)
 	{
@@ -1557,16 +1562,16 @@
 	};
 
 	/**
-	 *	Set the pivot or registration point of an object
-	 *	@method setPivot
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs Display object
-	 *	@param {object|Number} pivot The object pivot point or the value if the direction is set
-	 *	@param {Number} [pivot.x] The x position of the pivot point
-	 *	@param {Number} [pivot.y] The y position of the pivot point
-	 *	@param {String} [direction] Either "x" or "y" the value for specific direction, 
-	 *	default will set using the object.
-	 *	@return {createjs.DisplayObject} Return the object for chaining
+	 * Set the pivot or registration point of an object
+	 * @method setPivot
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs Display object
+	 * @param {object|Number} pivot The object pivot point or the value if the direction is set
+	 * @param {Number} [pivot.x] The x position of the pivot point
+	 * @param {Number} [pivot.y] The y position of the pivot point
+	 * @param {String} [direction] Either "x" or "y" the value for specific direction, 
+	 * default will set using the object.
+	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
 	DisplayAdapter.setPivot = function(object, pivot, direction)
 	{
@@ -1580,12 +1585,12 @@
 	};
 
 	/**
-	 *	Set the hit area of the shape
-	 *	@method setHitArea
-	 *	@static
-	 *	@param {createjs.DisplayObject} object The createjs Display object
-	 *	@param {Object} shape The geometry object
-	 *	@return {createjs.DisplayObject} Return the object for chaining
+	 * Set the hit area of the shape
+	 * @method setHitArea
+	 * @static
+	 * @param {createjs.DisplayObject} object The createjs Display object
+	 * @param {Object} shape The geometry object
+	 * @return {createjs.DisplayObject} Return the object for chaining
 	 */
 	DisplayAdapter.setHitArea = function(object, shape)
 	{
@@ -1594,11 +1599,11 @@
 	};
 
 	/**
-	 *	Get the original size of a bitmap
-	 *	@method getBitmapSize
-	 *	@static
-	 *	@param {createjs.Bitmap} bitmap The bitmap to measure
-	 *	@return {object} The width (w) and height (h) of the actual bitmap size
+	 * Get the original size of a bitmap
+	 * @method getBitmapSize
+	 * @static
+	 * @param {createjs.Bitmap} bitmap The bitmap to measure
+	 * @return {object} The width (w) and height (h) of the actual bitmap size
 	 */
 	DisplayAdapter.getBitmapSize = function(bitmap)
 	{
@@ -1634,10 +1639,10 @@
 	};
 
 	/**
-	 *	Remove all children from a display object
-	 *	@method removeChildren
-	 *	@static
-	 *	@param {createjs.Container} container The display object container
+	 * Remove all children from a display object
+	 * @method removeChildren
+	 * @static
+	 * @param {createjs.Container} container The display object container
 	 */
 	DisplayAdapter.removeChildren = function(container)
 	{
@@ -1645,10 +1650,10 @@
 	};
 
 	/**
-	 *	If a container contains a child
-	 *	@param  {createjs.Container} container The container
-	 *	@param  {createjs.DisplayObject} child  The object to test
-	 *	@return {Boolean} If the child contained within the container
+	 * If a container contains a child
+	 * @param  {createjs.Container} container The container
+	 * @param  {createjs.DisplayObject} child  The object to test
+	 * @return {Boolean} If the child contained within the container
 	 */
 	DisplayAdapter.contains = function(container, child)
 	{
@@ -1660,9 +1665,9 @@
 
 }());
 /**
- *	@module EaselJS Display
- *	@namespace springroll.easeljs
- *	@requires Core
+ * @module EaselJS Display
+ * @namespace springroll.easeljs
+ * @requires Core
  */
 (function(undefined)
 {
@@ -1672,16 +1677,16 @@
 		Touch;
 
 	/**
-	 *	EaselJSDisplay is a display plugin for the springroll Framework
-	 *	that uses the EaselJS library for rendering.
-	 *	@class EaselJSDisplay
-	 *	@extends springroll.AbstractDisplay
-	 *	@constructor
-	 *	@param {String} id The id of the canvas element on the page to draw to.
-	 *	@param {Object} options The setup data for the EaselJS stage.
-	 *	@param {String} [options.stageType="stage"] If the stage should be a normal stage or a SpriteStage (use "spriteStage").
-	 *	@param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
-	 *	@param {int} [options.mouseOverRate=30] How many times per second to check for mouseovers. To disable them, use 0 or -1.
+	 * EaselJSDisplay is a display plugin for the springroll Framework
+	 * that uses the EaselJS library for rendering.
+	 * @class EaselJSDisplay
+	 * @extends springroll.AbstractDisplay
+	 * @constructor
+	 * @param {String} id The id of the canvas element on the page to draw to.
+	 * @param {Object} options The setup data for the EaselJS stage.
+	 * @param {String} [options.stageType="stage"] If the stage should be a normal stage or a SpriteStage (use "spriteStage").
+	 * @param {Boolean} [options.clearView=false] If the stage should wipe the canvas between renders.
+	 * @param {int} [options.mouseOverRate=30] How many times per second to check for mouseovers. To disable them, use 0 or -1.
 	 */
 	var EaselJSDisplay = function(id, options)
 	{
@@ -1697,17 +1702,17 @@
 		{};
 
 		/**
-		 *	The rate at which EaselJS calculates mouseover events, in times/second.
-		 *	@property {int} mouseOverRate
-		 *	@public
-		 *	@default 30
+		 * The rate at which EaselJS calculates mouseover events, in times/second.
+		 * @property {int} mouseOverRate
+		 * @public
+		 * @default 30
 		 */
 		this.mouseOverRate = options.mouseOverRate || 30;
 
 		/**
-		 *	If the display should keep mouse move events running when the display is disabled.
-		 *	@property {Boolean} keepMouseover
-		 *	@public
+		 * If the display should keep mouse move events running when the display is disabled.
+		 * @property {Boolean} keepMouseover
+		 * @public
 		 */
 		this.keepMouseover = options.keepMouseover || false;
 
@@ -1719,10 +1724,10 @@
 		else
 		{
 			/**
-			 *	The rendering library's stage element, the root display object
-			 *	@property {createjs.Stage|createjs.SpriteStage} stage
-			 *	@readOnly
-			 *	@public
+			 * The rendering library's stage element, the root display object
+			 * @property {createjs.Stage|createjs.SpriteStage} stage
+			 * @readOnly
+			 * @public
 			 */
 			this.stage = new Stage(id);
 		}
@@ -1736,20 +1741,20 @@
 	var p = extend(EaselJSDisplay, AbstractDisplay);
 
 	/**
-	 *	An internal helper to avoid creating an object each render
-	 *	while telling EaselJS the amount of time elapsed.
-	 *	@property DELTA_HELPER
-	 *	@static
-	 *	@private
+	 * An internal helper to avoid creating an object each render
+	 * while telling EaselJS the amount of time elapsed.
+	 * @property DELTA_HELPER
+	 * @static
+	 * @private
 	 */
 	var DELTA_HELPER = {
 		delta: 0
 	};
 
 	/**
-	 *	If input is enabled on the stage for this display. The default is true.
-	 *	@property {Boolean} enabled
-	 *	@public
+	 * If input is enabled on the stage for this display. The default is true.
+	 * @property {Boolean} enabled
+	 * @public
 	 */
 	Object.defineProperty(p, "enabled",
 	{
@@ -1787,12 +1792,12 @@
 	});
 
 	/**
-	 *	Updates the stage and draws it. This is only called by the Application.
-	 *	This method does nothing if paused is true or visible is false.
-	 *	@method render
-	 *	@internal
-	 *	@param {int} elapsed The time elapsed since the previous frame.
-	 *	@param {Boolean} [force=false] Will re-render even if the game is paused or not visible
+	 * Updates the stage and draws it. This is only called by the Application.
+	 * This method does nothing if paused is true or visible is false.
+	 * @method render
+	 * @internal
+	 * @param {int} elapsed The time elapsed since the previous frame.
+	 * @param {Boolean} [force=false] Will re-render even if the game is paused or not visible
 	 */
 	p.render = function(elapsed, force)
 	{
@@ -1804,11 +1809,11 @@
 	};
 
 	/**
-	 *	Destroys the display. This method is called by the Application and should
-	 *	not be called directly, use Application.removeDisplay(id).
-	 *	The stage recursively removes all display objects here.
-	 *	@method destroy
-	 *	@internal
+	 * Destroys the display. This method is called by the Application and should
+	 * not be called directly, use Application.removeDisplay(id).
+	 * The stage recursively removes all display objects here.
+	 * @method destroy
+	 * @internal
 	 */
 	p.destroy = function()
 	{

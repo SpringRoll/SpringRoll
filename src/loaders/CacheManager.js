@@ -1,22 +1,22 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	// Classes to import
 	var Debug;
 
 	/**
-	*  Used for managing the browser cache of loading external elements
-	*  can easily load version manifest and apply it to the media loader
-	*  supports cache busting all media load requests
-	*  uses the query string to bust browser versions.
-	*
-	*  @class CacheManager
-	*  @constructor
-	*  @param {springroll.Application} app Reference to application
-	*/
+	 * Used for managing the browser cache of loading external elements
+	 * can easily load version manifest and apply it to the media loader
+	 * supports cache busting all media load requests
+	 * uses the query string to bust browser versions.
+	 *
+	 * @class CacheManager
+	 * @constructor
+	 * @param {springroll.Application} app Reference to application
+	 */
 	var CacheManager = function(app)
 	{
 		if (DEBUG && !Debug)
@@ -32,23 +32,23 @@
 		this._app = app;
 
 		/**
-		*  The collection of version numbers
-		*  @protected
-		*  @property {Dictionary} _versions
-		*/
+		 * The collection of version numbers
+		 * @protected
+		 * @property {Dictionary} _versions
+		 */
 		this._versions = {};
 
 		/**
-		*  The list of URL filtering functions.
-		*  @protected
-		*  @property {Array} _filters
-		*/
+		 * The list of URL filtering functions.
+		 * @protected
+		 * @property {Array} _filters
+		 */
 		this._filters = [];
 
 		/**
-		*  A global version or cache busting string to apply to every url.
-		*  @property {String} _globalVersion
-		*/
+		 * A global version or cache busting string to apply to every url.
+		 * @property {String} _globalVersion
+		 */
 		this._globalVersion = null;
 
 		// Function bindings
@@ -63,11 +63,11 @@
 	var p = CacheManager.prototype = {};
 
 	/**
-	*  If we are suppose to cache bust every file
-	*  @property {Boolean} cacheBust
-	*  @public
-	*  @default false
-	*/
+	 * If we are suppose to cache bust every file
+	 * @property {Boolean} cacheBust
+	 * @public
+	 * @default false
+	 */
 	Object.defineProperty(p, "cacheBust",
 	{
 		get: function()
@@ -101,10 +101,10 @@
 	});
 
 	/**
-	*  Destroy the cache manager, don't use after this.
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the cache manager, don't use after this.
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._app = null;
@@ -115,13 +115,13 @@
 	};
 
 	/**
-	*  Adds a versions text file containing versions for different assets.
-	*  @public
-	*  @method addVersionsFile
-	*  @param {String} url The url of the versions file.
-	*  @param {Function} callback Callback when the versions file has been loaded.
-	*  @param {String} baseUrl A base url to prepend all lines of the file.
-	*/
+	 * Adds a versions text file containing versions for different assets.
+	 * @public
+	 * @method addVersionsFile
+	 * @param {String} url The url of the versions file.
+	 * @param {Function} callback Callback when the versions file has been loaded.
+	 * @param {String} baseUrl A base url to prepend all lines of the file.
+	 */
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
 		if (DEBUG && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
@@ -172,12 +172,12 @@
 	};
 
 	/**
-	*  Add a version number for a file
-	*  @method addVersion
-	*  @public
-	*  @param {String} url The url of the object
-	*  @param {String} version Version number or has of file
-	*/
+	 * Add a version number for a file
+	 * @method addVersion
+	 * @public
+	 * @param {String} url The url of the object
+	 * @param {String} version Version number or has of file
+	 */
 	p.addVersion = function(url, version)
 	{
 		if (!this._versions[url])
@@ -185,13 +185,13 @@
 	};
 
 	/**
-	*  Adds a function for running all urls through, to modify them if needed.
-	*  Functions used should accept one string parameter (the url), and return the
-	*  modified url.
-	*  @method registerURLFilter
-	*  @public
-	*  @param {Function} filter The function that will handle urls.
-	*/
+	 * Adds a function for running all urls through, to modify them if needed.
+	 * Functions used should accept one string parameter (the url), and return the
+	 * modified url.
+	 * @method registerURLFilter
+	 * @public
+	 * @param {Function} filter The function that will handle urls.
+	 */
 	p.registerURLFilter = function(filter)
 	{
 		if(this._filters.indexOf(filter) == -1)
@@ -199,11 +199,11 @@
 	};
 
 	/**
-	*  Removes a function from the list of filtering functions.
-	*  @method unregisterURLFilter
-	*  @public
-	*  @param {Function} filter The function to remove.
-	*/
+	 * Removes a function from the list of filtering functions.
+	 * @method unregisterURLFilter
+	 * @public
+	 * @param {Function} filter The function to remove.
+	 */
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
@@ -212,12 +212,12 @@
 	};
 
 	/**
-	*  Applies a url specific version to a url from the versions file.
-	*  @method _applySpecificVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a url specific version to a url from the versions file.
+	 * @method _applySpecificVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applySpecificVersion = function(url)
 	{
 		//don't apply versioning if the asset is retrieved from a php service
@@ -235,12 +235,12 @@
 	};
 
 	/**
-	*  Applies cache busting or a global version to a url.
-	*  @method _applyGlobalVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies cache busting or a global version to a url.
+	 * @method _applyGlobalVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applyGlobalVersion = function(url)
 	{
 		if(!this._globalVersion) return url;
@@ -259,14 +259,14 @@
 	};
 
 	/**
-	*  Applies a base path to a relative url. This is not used in the filtering
-	*  system because PreloadJS has its own method of prepending the base path
-	*  that we use. Instead, it is used with an extra parameter to prepare().
-	*  @method _applyBasePath
-	*  @private
-	*  @param {String} url The url to prepend the base path to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a base path to a relative url. This is not used in the filtering
+	 * system because PreloadJS has its own method of prepending the base path
+	 * that we use. Instead, it is used with an extra parameter to prepare().
+	 * @method _applyBasePath
+	 * @private
+	 * @param {String} url The url to prepend the base path to.
+	 * @return {String} The modified url.
+	 */
 	p._applyBasePath = function(url)
 	{
 		var basePath = this._app.options.basePath;
@@ -278,16 +278,16 @@
 	};
 
 	/**
-	*  Prepare a URL with the necessary cache busting and/or versioning
-	*  as well as the base directory.
-	*  @public
-	*  @method prepare
-	*  @param {String} url The url to prepare
-	*  @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
-	*		This defaults to false because it can potentially interfere with later regular
-	*		expression checks, particularly with PreloadJS
-	*  @return {String} The final url with version/cache and basePath added
-	*/
+	 * Prepare a URL with the necessary cache busting and/or versioning
+	 * as well as the base directory.
+	 * @public
+	 * @method prepare
+	 * @param {String} url The url to prepare
+	 * @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
+	 *		This defaults to false because it can potentially interfere with later regular
+	 *		expression checks, particularly with PreloadJS
+	 * @return {String} The final url with version/cache and basePath added
+	 */
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string

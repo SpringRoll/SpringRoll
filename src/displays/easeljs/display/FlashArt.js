@@ -11,6 +11,7 @@
 	 * Handles the Asset loading for Flash Art takes care of unloading
 	 * @class FlashArt
 	 * @constructor
+	 * @private
 	 * @param {String} id The asset id
 	 * @param {NodeElement} dom The `<script>` element added to the document
 	 * @param {String} [libName='lib'] The window parameter name
@@ -63,9 +64,9 @@
 	FlashArt.globalSymbols = {};
 
 	/**
-	 *  Get the name of all the library elements of the dom text
-	 *  @method parseSymbols
-	 *  @param {String} text The DOM text contents
+	 * Get the name of all the library elements of the dom text
+	 * @method parseSymbols
+	 * @param {String} text The DOM text contents
 	 */
 	p.parseSymbols = function(text)
 	{

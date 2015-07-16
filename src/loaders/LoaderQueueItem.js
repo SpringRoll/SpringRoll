@@ -1,13 +1,13 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	/**
 	 * Represents a single item in the loader queue 
-	*
 	 * @class LoaderQueueItem
+	 * @private
 	 */
 	var LoaderQueueItem = function()
 	{

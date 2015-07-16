@@ -6,15 +6,15 @@
 (function(Array, Math, Object)
 {
 	/**
-	*  Add methods to Array
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array
-	*/
+	 * Add methods to Array
+	 * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	 * @class Array
+	 */
 
 	/**
-	*  Shuffles the array
-	*  @method shuffle
-	*/
+	 * Shuffles the array
+	 * @method shuffle
+	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
 	if(!Array.prototype.shuffle)
@@ -31,12 +31,12 @@
 	}
 
 	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
+	 * Get a random item from an array
+	 * @method random
+	 * @static
+	 * @param {Array} array The array
+	 * @return {*} The random item
+	 */
 	if(!Array.prototype.random)
 	{
 		Object.defineProperty(Array.prototype, 'random',
@@ -50,12 +50,12 @@
 	}
 
 	/**
-	*  Get the last item in the array
-	*  @method last
-	*  @static
-	*  @param {Array} array The array
-	*  @return {*} The last item
-	*/
+	 * Get the last item in the array
+	 * @method last
+	 * @static
+	 * @param {Array} array The array
+	 * @return {*} The last item
+	 */
 	if(!Array.prototype.last)
 	{
 		Object.defineProperty(Array.prototype, 'last',
@@ -173,22 +173,22 @@
 	};
 
 	/**
-	 *	Constrain a number between 0 and a max value.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between 0 and a max value.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 
 	/**
-	 *	Constrain a number between a minimum and maximum values.
-	 *	@method clamp
-	 *	@static
-	 *	@param {Number} value The number to be constrained.
-	 *	@param {Number} min Lowest number to constrain value to.
-	 *	@param {Number} max Highest number.
-	 *	@return {Number} The constrained value
+	 * Constrain a number between a minimum and maximum values.
+	 * @method clamp
+	 * @static
+	 * @param {Number} value The number to be constrained.
+	 * @param {Number} min Lowest number to constrain value to.
+	 * @param {Number} max Highest number.
+	 * @return {Number} The constrained value
 	 */
 	Math.clamp = function (value, min, max)
 	{
@@ -212,17 +212,17 @@
 (function(Number, Object)
 {
 	/**
-	*  Add methods to Number
-	*  @class Number
-	*/
+	 * Add methods to Number
+	 * @class Number
+	 */
 	
 	/**
-	*  Returns a string of the number as an integer with leading zeros to fill the string out
-	*  to a certain number of digits.
-	*  @method toPaddedString
-	*  @param {Number} [totalDigits=2] The total number of digits to be displayed.
-	*  @return {String} The number string.
-	*/
+	 * Returns a string of the number as an integer with leading zeros to fill the string out
+	 * to a certain number of digits.
+	 * @method toPaddedString
+	 * @param {Number} [totalDigits=2] The total number of digits to be displayed.
+	 * @return {String} The number string.
+	 */
 	if(!Number.prototype.toPaddedString)
 	{
 		Object.defineProperty(Number.prototype, 'toPaddedString',
@@ -257,21 +257,21 @@
 (function(Object, support, undefined){
 
 	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
+	 * Add methods to Object
+	 * @class Object
+	 */
 
 	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
+	 * Merges two (or more) objects, giving the last one precedence
+	 * @method merge
+	 * @example
 		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
+	 * @static
+	 * @param {Object} target The target object
+	 * @param {Object} source* Additional objects to add
+	 */
 	Object.merge = function(target, source)
 	{
 		if (!target || typeof target !== 'object')
@@ -302,12 +302,12 @@
 	};
 
 	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
+	 * Check to see if an object is a plain object definition
+	 * @method isPlain
+	 * @static
+	 * @param {Object} target The target object
+	 * @return {Boolean} If the object is plain
+	 */
 	Object.isPlain = function(obj)
 	{
 		var key;
@@ -353,10 +353,10 @@
 	};
 	
 	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
+	 * Creates a shallow copy of the object.
+	 * @method clone
+	 * @return {Object} The shallow copy.
+	 */
 	if(!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
@@ -384,19 +384,19 @@
 (function(String, Object)
 {
 	/**
-	*  Add methods to String
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class String
-	*/
+	 * Add methods to String
+	 * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	 * @class String
+	 */
 
 	/**
-	*  Returns a formatted string, similar to the printf() function in many languages.
-	*  This simplified version substitutes "%s" with the arguments in order. To escape "%s",
-	*  use "%%s".
-	*  @method format
-	*  @param {Array|*} args An array or list of arguments for formatting.
-	*  @return {String} The substituted string.
-	*/
+	 * Returns a formatted string, similar to the printf() function in many languages.
+	 * This simplified version substitutes "%s" with the arguments in order. To escape "%s",
+	 * use "%%s".
+	 * @method format
+	 * @param {Array|*} args An array or list of arguments for formatting.
+	 * @return {String} The substituted string.
+	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
 	Object.defineProperty(String.prototype, 'format', 
@@ -422,10 +422,10 @@
 	});
 	
 	/**
-	*  Returns a reversed copy of the string.
-	*  @method format
-	*  @return {String} The reversed string.
-	*/
+	 * Returns a reversed copy of the string.
+	 * @method format
+	 * @return {String} The reversed string.
+	 */
 	if(!String.prototype.reverse)
 	{
 		Object.defineProperty(String.prototype, 'reverse', 
@@ -448,27 +448,27 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
-*  @static
-*/
+ * Use to do class inheritence
+ * @class extend
+ * @static
+ */
 (function(window){
 	
 	// The extend function already exists
 	if ("extend" in window) return;
 
 	/**
-	*  Extend prototype
-	*
-	*  @example
+	 * Extend prototype
+	 *
+	 * @example
 		var p = extend(MyClass, ParentClass);
-	*
-	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
-	*/
+	 *
+	 * @constructor
+	 * @method extend
+	 * @param {function} subClass The reference to the class
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @return {object} Reference to the subClass's prototype
+	 */
 	window.extend = function(subClass, superClass)
 	{
 		if (typeof superClass == "string")
@@ -487,28 +487,28 @@
  * @namespace window
  */
 /**
-*  Used to include required classes by name
-*  @class include
-*  @static
-*/
+ * Used to include required classes by name
+ * @class include
+ * @static
+ */
 (function(window, undefined){
 	
 	// The include function already exists
 	if ("include" in window) return;
 	
 	/**
-	*  Import a class
-	*
-	*  @example
+	 * Import a class
+	 *
+	 * @example
 		var Application = include('springroll.Application');
-	*
-	*  @constructor
-	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
-	*  @param {Boolean} [required=true] If the class we're trying to include is required.
-	* 		For classes that aren't found and are required, an error is thrown.
-	*  @return {object|function} The object attached at the given namespace
-	*/
+	 *
+	 * @constructor
+	 * @method include
+	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
+	 * @param {Boolean} [required=true] If the class we're trying to include is required.
+	 * 		For classes that aren't found and are required, an error is thrown.
+	 * @return {object|function} The object attached at the given namespace
+	 */
 	var include = function(namespaceString, required)
 	{
 		var parts = namespaceString.split('.'),
@@ -559,18 +559,18 @@
 	if ("mixin" in window) return;
 
 	/**
-	*  Mixin functionality to an object
-	*
-	*  @example
+	 * Mixin functionality to an object
+	 *
+	 * @example
 		mixin(instance, MyClass);
-	*
-	*  @constructor
-	*  @method mixin
-	*  @param {*} target The instance object to add functionality to
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @param {*} [args] Any additional arguments to pass to the constructor of the superClass
-	*  @return {*} Return reference to target
-	*/
+	 *
+	 * @constructor
+	 * @method mixin
+	 * @param {*} target The instance object to add functionality to
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	 * @return {*} Return reference to target
+	 */
 	var mixin = function(target, superClass)
 	{
 		if (true && !superClass)
@@ -629,28 +629,28 @@
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
-*  @static
-*/
+ * Static class for namespacing objects and adding
+ * classes to it.
+ * @class namespace
+ * @static
+ */
 (function(window){
 	
 	// The namespace function already exists
 	if ("namespace" in window) return;
 	
 	/**
-	*  Create the namespace and assing to the window
-	*
-	*  @example
+	 * Create the namespace and assing to the window
+	 *
+	 * @example
 		var SpriteUtils = function(){};
 		namespace('springroll').SpriteUtils = SpriteUtils;
-	*
-	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
-	*/
+	 *
+	 * @constructor
+	 * @method namespace
+	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
+	 * @return {object} The namespace object attached to the current window
+	 */
 	var namespace = function(namespaceString) {
 		var parts = namespaceString.split('.'),
 			parent = window,
@@ -679,23 +679,23 @@
 {
 	
 	/**
-	*  A function that is used as a normal callback, but checks an object for a property in order to combine two
-	*  callbacks into one. For example usage:
-	*
-	*  var voPlayer = new springroll.VOPlayer();
-	*  var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
-	*  Animator.play(myClip, "myAnim", callback);
-	*  
-	*  In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
-	*  If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
-	*  
-	*  @class CombinedCallback
-	*  @constructor
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
+	 * A function that is used as a normal callback, but checks an object for a property in order to combine two
+	 * callbacks into one. For example usage:
+	 *
+	 * var voPlayer = new springroll.VOPlayer();
+	 * var callback = springroll.CombinedCallback.create(myFunc.bind(this), voPlayer, "playing", "_callback");
+	 * Animator.play(myClip, "myAnim", callback);
+	 * 
+	 * In this example, when Animator calls 'callback', if voPlayer["playing"] is false, 'myFunc' is called immediately.
+	 * If voPlayer["playing"] is true, then voPlayer["_callback"] is set to 'myFunc' so that it will be called when voPlayer completes.
+	 * 
+	 * @class CombinedCallback
+	 * @constructor
+	 * @param {function} call The callback to call when everything is complete.
+	 * @param {*} obj The object to check as an additional completion dependency.
+	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 */
 	var CombinedCallback = function(call, obj, prop, callProp)
 	{
 		if(!obj[prop])//accept anything that resolves to false: eg voPlayer.playing == false
@@ -705,15 +705,15 @@
 	};
 
 	/**
-	*  Creates a CombinedCallback for use.
-	*  
-	*  @method create
-	*  @static
-	*  @param {function} call The callback to call when everything is complete.
-	*  @param {*} obj The object to check as an additional completion dependency.
-	*  @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
-	*  @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
-	*/
+	 * Creates a CombinedCallback for use.
+	 * 
+	 * @method create
+	 * @static
+	 * @param {function} call The callback to call when everything is complete.
+	 * @param {*} obj The object to check as an additional completion dependency.
+	 * @param {String} prop The property to check on obj. If obj[prop] is false, then it is considered complete.
+	 * @param {String} callProp The property to set on obj if obj[prop] is true when the CombinedCallback is called.
+	 */
 	CombinedCallback.create = function(call, obj, prop, callProp)
 	{
 		return CombinedCallback.bind(this, call, obj, prop, callProp);
@@ -730,23 +730,23 @@
 	var Application;
 
 	/**
-	*  A class for delaying a call through the Application, instead of relying on setInterval() or
-	*  setTimeout().
-	*
-	*  @class DelayedCall
-	*  @constructor
-	*  @param {function} callback The function to call when the delay has completed.
-	*  @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
-	*  @param {Object|Boolean} [options=false] The options to use or repeat value
-	*  @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
-	*                                  completed.
-	*  @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*  @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
-	*                                     milliseconds for the delay.
-	*  @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
-	*  @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
-	*                                     milliseconds for the delay.
-	*/
+	 * A class for delaying a call through the Application, instead of relying on setInterval() or
+	 * setTimeout().
+	 *
+	 * @class DelayedCall
+	 * @constructor
+	 * @param {function} callback The function to call when the delay has completed.
+	 * @param {int} delay The time to delay the call, in milliseconds (or optionally frames).
+	 * @param {Object|Boolean} [options=false] The options to use or repeat value
+	 * @param {Boolean} [options.repeat=false] If the DelayedCall should automatically repeat itself when
+	 *                              completed.
+	 * @param {Boolean} [options.autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	 * @param {Boolean} [options.useFrames=false] If the DelayedCall should use frames instead of
+	 *                                 milliseconds for the delay.
+	 * @param {Boolean} [autoDestroy=true] If the DelayedCall should clean itself up when completed.
+	 * @param {Boolean} [useFrames=false] If the DelayedCall should use frames instead of
+	 *                                 milliseconds for the delay.
+	 */
 	var DelayedCall = function(callback, delay, options, autoDestroy, useFrames)
 	{
 		if (!Application)
@@ -773,55 +773,55 @@
 
 		
 		/**
-		*  The function to call when the delay is completed.
-		*  @private
-		*  @property {function} _callback
-		*/
+		 * The function to call when the delay is completed.
+		 * @private
+		 * @property {function} _callback
+		 */
 		this._callback = callback;
 
 		/**
-		*  The delay time, in milliseconds.
-		*  @private
-		*  @property {int} _delay
-		*/
+		 * The delay time, in milliseconds.
+		 * @private
+		 * @property {int} _delay
+		 */
 		this._delay = delay;
 
 		/**
-		*  The timer counting down from _delay, in milliseconds.
-		*  @private
-		*  @property {int} _timer
-		*/
+		 * The timer counting down from _delay, in milliseconds.
+		 * @private
+		 * @property {int} _timer
+		 */
 		this._timer = delay;
 
 		/**
-		*  If the DelayedCall should repeat itself automatically.
-		*  @private
-		*  @property {Boolean} _repeat
-		*  @default false
-		*/
+		 * If the DelayedCall should repeat itself automatically.
+		 * @private
+		 * @property {Boolean} _repeat
+		 * @default false
+		 */
 		this._repeat = options.repeat;
 
 		/**
-		*  If the DelayedCall should destroy itself after completing
-		*  @private
-		*  @property {Boolean} _autoDestroy
-		*  @default true
-		*/
+		 * If the DelayedCall should destroy itself after completing
+		 * @private
+		 * @property {Boolean} _autoDestroy
+		 * @default true
+		 */
 		this._autoDestroy = options.autoDestroy;
 		
 		/**
-		*  If the DelayedCall should use frames instead of milliseconds for the delay.
-		*  @private
-		*  @property {Boolean} _useFrames
-		*  @default false
-		*/
+		 * If the DelayedCall should use frames instead of milliseconds for the delay.
+		 * @private
+		 * @property {Boolean} _useFrames
+		 * @default false
+		 */
 		this._useFrames = options.useFrames;
 
 		/**
-		*  If the DelayedCall is currently paused (not stopped).
-		*  @private
-		*  @property {Boolean} _paused
-		*/
+		 * If the DelayedCall is currently paused (not stopped).
+		 * @private
+		 * @property {Boolean} _paused
+		 */
 		this._paused = false;
 
 		//save a bound version of the update function
@@ -834,11 +834,11 @@
 	var p = DelayedCall.prototype;
 
 	/**
-	*  The callback supplied to the Application for an update each frame.
-	*  @private
-	*  @method _update
-	*  @param {int} elapsed The time elapsed since the previous frame.
-	*/
+	 * The callback supplied to the Application for an update each frame.
+	 * @private
+	 * @method _update
+	 * @param {int} elapsed The time elapsed since the previous frame.
+	 */
 	p._update = function(elapsed)
 	{
 		if(!this._callback)
@@ -861,10 +861,10 @@
 	};
 
 	/**
-	*  Restarts the DelayedCall, whether it is running or not.
-	*  @public
-	*  @method restart
-	*/
+	 * Restarts the DelayedCall, whether it is running or not.
+	 * @public
+	 * @method restart
+	 */
 	p.restart = function()
 	{
 		if(!this._callback) return;
@@ -876,10 +876,10 @@
 	};
 
 	/**
-	*  Stops the DelayedCall, without destroying it.
-	*  @public
-	*  @method stop
-	*/
+	 * Stops the DelayedCall, without destroying it.
+	 * @public
+	 * @method stop
+	 */
 	p.stop = function()
 	{
 		Application.instance.off("update", this._update);
@@ -887,10 +887,10 @@
 	};
 
 	/**
-	*  If the DelayedCall is paused or not.
-	*  @public
-	*  @property {Boolean} paused
-	*/
+	 * If the DelayedCall is paused or not.
+	 * @public
+	 * @property {Boolean} paused
+	 */
 	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value)
@@ -915,11 +915,11 @@
 	});
 
 	/**
-	*  Stops and cleans up the DelayedCall. Do not use it after calling
-	*  destroy().
-	*  @public
-	*  @method destroy
-	*/
+	 * Stops and cleans up the DelayedCall. Do not use it after calling
+	 * destroy().
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		Application.instance.off("update", this._update);
@@ -935,6 +935,7 @@
 (function()
 {
 	var Debug;
+	
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -955,12 +956,14 @@
 		 * @property {String} name
 		 */
 		this.name = name;
+
 		/**
 		 * The integer value of this enum entry.
 		 * @property {int} _value
 		 * @private
 		 */
 		this._value = value;
+
 		/**
 		 * A string for toString() to return, instead of the name.
 		 * @property {String} _toString
@@ -987,9 +990,9 @@
 	};
 
 	/**
-	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	* referenced as a property with the same name as the EnumValue. Examples:
-	*
+	 * An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	 * referenced as a property with the same name as the EnumValue. Examples:
+	 *
 		var myEnum = new springroll.Enum(
 			"valueOf0",
 			"valueOf1",
@@ -1006,16 +1009,16 @@
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
 		for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
-	*
-	* @class Enum
-	* @constructor
-	* @param {Array|String|Object} arguments 
-	*  The list of enumeration values. You can pass either an
-	*  array or a list of parameters. Each string will be
-	*  the previous value plus one, while objects with
-	*  'name' and 'value' properties will have the specified
-	*  numeric value.
-	*/
+	 *
+	 * @class Enum
+	 * @constructor
+	 * @param {Array|String|Object} arguments 
+	 * The list of enumeration values. You can pass either an
+	 * array or a list of parameters. Each string will be
+	 * the previous value plus one, while objects with
+	 * 'name' and 'value' properties will have the specified
+	 * numeric value.
+	 */
 	var Enum = function()
 	{
 		var args = Array.isArray(arguments[0]) ?
@@ -1183,16 +1186,16 @@
 	namespace('springroll').Enum = Enum;
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
-	*
-	*  @class SavedData
-	*/
+	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	 *
+	 * @class SavedData
+	 */
 	var SavedData = {},
 
 	/** A constant to determine if we can use localStorage and sessionStorage */
@@ -1216,11 +1219,11 @@
 	}
 
 	/**
-	*  Remove a saved variable by name.
-	*  @method remove
-	*  @static
-	*  @param {String} name The name of the value to remove
-	*/
+	 * Remove a saved variable by name.
+	 * @method remove
+	 * @static
+	 * @param {String} name The name of the value to remove
+	 */
 	SavedData.remove = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1233,13 +1236,13 @@
 	};
 
 	/**
-	*  Save a variable.
-	*  @method write
-	*  @static
-	*  @param {String} name The name of the value to save
-	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
-	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
-	*/
+	 * Save a variable.
+	 * @method write
+	 * @static
+	 * @param {String} name The name of the value to save
+	 * @param {mixed} value The value to save. This will be run through JSON.stringify().
+	 * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1267,12 +1270,12 @@
 	};
 
 	/**
-	*  Read the value of a saved variable
-	*  @method read
-	*  @static
-	*  @param {String} name The name of the variable
-	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
-	*/
+	 * Read the value of a saved variable
+	 * @method read
+	 * @static
+	 * @param {String} name The name of the variable
+	 * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	 */
 	SavedData.read = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1358,20 +1361,20 @@
 	if (now) performance.now = now;
 
 	/**
-	*  A collection of Time related utility functions
-	*  @class TimeUtils
-	*/
+	 * A collection of Time related utility functions
+	 * @class TimeUtils
+	 */
 	var TimeUtils = {};
 	
 	/**
-	*  This method gets timestamp in micromilliseconds for doing performance
-	*  intense operations. Fallback support is to `Date.now()`. We aren't overridding
-	*  `performance.now()` incase dependencies on this actually demand 
-	*  the optimization and accuracy that performance actually provides.
-	*  @static
-	*  @method now
-	*  @return {int} The number of micromilliseconds of the current timestamp
-	*/
+	 * This method gets timestamp in micromilliseconds for doing performance
+	 * intense operations. Fallback support is to `Date.now()`. We aren't overridding
+	 * `performance.now()` incase dependencies on this actually demand 
+	 * the optimization and accuracy that performance actually provides.
+	 * @static
+	 * @method now
+	 * @return {int} The number of micromilliseconds of the current timestamp
+	 */
 	TimeUtils.now = !now ? Date.now : function()
 	{ 
 		return performance.now(); 
@@ -1384,20 +1387,20 @@
 (function(){
 	
 	/**
-	*  A class for generating weighted random values. Input objects are dictionary objects
-	*  where the keys are the strings to be picked from, and the values are the corresponding
-	*  odds as integers. For example:
-	*
-	*      {
-	*          itemWith25PercentChance: 2,
-	*          itemWith50PercentChance: 4,
-	*          otherItemWith25PercentChance: 2
-	*      }
-	*
-	*  @class WeightedRandom
-	*  @constructor
-	*  @param {Object} object The configuration object for this weighted value generator.
-	*/
+	 * A class for generating weighted random values. Input objects are dictionary objects
+	 * where the keys are the strings to be picked from, and the values are the corresponding
+	 * odds as integers. For example:
+	 *
+	 *  {
+	 *      itemWith25PercentChance: 2,
+	 *      itemWith50PercentChance: 4,
+	 *      otherItemWith25PercentChance: 2
+	 *  }
+	 *
+	 * @class WeightedRandom
+	 * @constructor
+	 * @param {Object} object The configuration object for this weighted value generator.
+	 */
 	var WeightedRandom = function(object)
 	{
 		this.max = -1;
@@ -1475,25 +1478,25 @@
 }());
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
-	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
-	*
-	*  @class EventDispatcher
-	*  @constructor
-	*/
+	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
+	 * but is more robust in terms of inputs for the `on()` and `off()` methods.
+	 *
+	 * @class EventDispatcher
+	 * @constructor
+	 */
 	var EventDispatcher = function()
 	{
 		/**
-		* The collection of listeners
-		* @property {Array} _listeners
-		* @private
-		*/
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
 		this._listeners = [];
 
 		/**
@@ -1521,11 +1524,11 @@
 	});
 
 	/**
-	*  Dispatch an event
-	*  @method trigger
-	*  @param {String} type The type of event to trigger
-	*  @param {*} arguments Additional parameters for the listener functions.
-	*/
+	 * Dispatch an event
+	 * @method trigger
+	 * @param {String} type The type of event to trigger
+	 * @param {*} arguments Additional parameters for the listener functions.
+	 */
 	p.trigger = function(type)
 	{
 		if (this._destroyed) return;
@@ -1556,30 +1559,30 @@
 	};
 
 	/**
-	*  Add an event listener but only handle it one time.
-	*
-	*  @method once
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener but only handle it one time.
+	 *
+	 * @method once
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.once = function(name, callback, priority)
 	{
 		return this.on(name, callback, priority, true);
 	};
 
 	/**
-	*  Add an event listener. The parameters for the listener functions depend on the event.
-	*
-	*  @method on
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener. The parameters for the listener functions depend on the event.
+	 *
+	 * @method on
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.on = function(name, callback, priority, once)
 	{
 		if (this._destroyed) return;
@@ -1639,13 +1642,13 @@
 	}
 
 	/**
-	*  Remove the event listener
-	*
-	*  @method off
-	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
-	*  @param {Function|Array*} callback The listener function or collection of callback functions
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Remove the event listener
+	 *
+	 * @method off
+	 * @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+	 * @param {Function|Array*} callback The listener function or collection of callback functions
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.off = function(name, callback)
 	{
 		if (this._destroyed) return;
@@ -1696,13 +1699,13 @@
 	};
 
 	/**
-	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
-	*
-	*  @method has
-	*  @param {String} name The name of the single event type to check for
-	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
-	*  @return {Boolean} If the EventDispatcher has the specified listener.
-	*/
+	 * Checks if the EventDispatcher has a specific listener or any listener for a given event.
+	 *
+	 * @method has
+	 * @param {String} name The name of the single event type to check for
+	 * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+	 * @return {Boolean} If the EventDispatcher has the specified listener.
+	 */
 	p.has = function(name, callback)
 	{
 		if(!name) return false;
@@ -1715,9 +1718,9 @@
 	};
 
 	/**
-	*  Destroy and don't use after this
-	*  @method destroy
-	*/
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._destroyed = true;
@@ -1725,13 +1728,13 @@
 	};
 
 	/**
-	*  Return type of the value.
-	*
-	*  @private
-	*  @method type
-	*  @param  {*} value
-	*  @return {String} The type
-	*/
+	 * Return type of the value.
+	 *
+	 * @private
+	 * @method type
+	 * @param  {*} value
+	 * @return {String} The type
+	 */
 	function type(value)
 	{
 		if (value === null)
@@ -1751,20 +1754,20 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
-	* Event dispatcher with ability to detect whenever a property
-	* is changed.
-	* @class PropertyDispatcher
-	* @extends springroll.EventDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Event dispatcher with ability to detect whenever a property
+	 * is changed.
+	 * @class PropertyDispatcher
+	 * @extends springroll.EventDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var PropertyDispatcher = function()
 	{
 		EventDispatcher.call(this);
@@ -1945,9 +1948,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Tween = include('createjs.Tween', false),
@@ -1956,11 +1959,11 @@
 		Debug;
 
 	/**
-	* Manage the Application options
-	* @class ApplicationOptions
-	* @extends springroll.PropertyDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Manage the Application options
+	 * @class ApplicationOptions
+	 * @extends springroll.PropertyDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var ApplicationOptions = function(app, options)
 	{
 		if(Debug === undefined)
@@ -2185,18 +2188,18 @@
 
 }());
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function()
 {
 	var Application;
 
 	/**
-	* Responsible for creating properties, methods to 
-	* the SpringRoll Application when it's created.
-	* @class ApplicationPlugin
-	*/
+	 * Responsible for creating properties, methods to 
+	 * the SpringRoll Application when it's created.
+	 * @class ApplicationPlugin
+	 */
 	var ApplicationPlugin = function(priority)
 	{
 		if (!Application)
@@ -2251,8 +2254,8 @@
 
 }());
 /**
- *  @module Core
- *  @namespace springroll
+  * @module Core
+  * @namespace springroll
  */
 (function(undefined)
 {
@@ -2262,19 +2265,19 @@
 		ApplicationOptions = include('springroll.ApplicationOptions');
 
 	/**
-	*  Creates a new application, for example (HappyCamel extends Application)
-	*  manages displays, update loop controlling, handles resizing
-	*
-	*	var app = new Application();
-	*
-	*  @class Application
-	*  @extend EventDispatcher
-	*  @constructor
-	*  @param {Object} [options] The options for creating the application,
-	* 		see `springroll.ApplicationOptions` for the specific options
-	*		that can be overridden and set.
-	*  @param {Function} [init=null] The callback when initialized
-	*/
+	 * Creates a new application, for example (HappyCamel extends Application)
+	 * manages displays, update loop controlling, handles resizing
+	 *
+	 *	var app = new Application();
+	 *
+	 * @class Application
+	 * @extend EventDispatcher
+	 * @constructor
+	 * @param {Object} [options] The options for creating the application,
+	 * 		see `springroll.ApplicationOptions` for the specific options
+	 *		that can be overridden and set.
+	 * @param {Function} [init=null] The callback when initialized
+	 */
 	var Application = function(options, init)
 	{
 		if (_instance)
@@ -2286,25 +2289,25 @@
 		EventDispatcher.call(this);
 
 		/**
-		 *  Initialization options/query string parameters, these properties are read-only
-		 *  Application properties like raf, fps, don't have any affect on the options object.
-		 *  @property {springroll.ApplicationOptions} options
-		 *  @readOnly
+		 * Initialization options/query string parameters, these properties are read-only
+		 * Application properties like raf, fps, don't have any affect on the options object.
+		 * @property {springroll.ApplicationOptions} options
+		 * @readOnly
 		 */
 		this.options = new ApplicationOptions(this, options);
 
 		/**
-		 *  Primary renderer for the application, for simply accessing
-		 *  Application.instance.display.stage;
-		 *  The first display added becomes the primary display automatically.
-		 *  @property {Display} display
-		 *  @public
+		 * Primary renderer for the application, for simply accessing
+		 * Application.instance.display.stage;
+		 * The first display added becomes the primary display automatically.
+		 * @property {Display} display
+		 * @public
 		 */
 		this.display = null;
 
 		/**
-		 *  Override this to do post constructor initialization
-		 *  @property {Function} init
+		 * Override this to do post constructor initialization
+		 * @property {Function} init
 		 */
 		this.init = init || null;
 
@@ -2326,10 +2329,10 @@
 		this.options.init();
 
 		/**
-		*  The name of the game, useful for debugging purposes
-		*  @property {String} name
-		*  @default ""
-		*/
+		 * The name of the game, useful for debugging purposes
+		 * @property {String} name
+		 * @default ""
+		 */
 		this.name = this.options.name;
 
 		//other initialization stuff too
@@ -2344,54 +2347,54 @@
 	var p = extend(Application, EventDispatcher);
 
 	/**
-	 *  The collection of function references to call when initializing the application
-	 *  these are registered by external modules.
-	 *  @property {Array} _plugins
-	 *  @private
-	 *  @static
+	 * The collection of function references to call when initializing the application
+	 * these are registered by external modules.
+	 * @property {Array} _plugins
+	 * @private
+	 * @static
 	 */
 	Application._plugins = [];
 
 	/**
-	 *  The number of ms since the last frame update
-	 *  @private
-	 *  @property {int} _lastFrameTime
+	 * The number of ms since the last frame update
+	 * @private
+	 * @property {int} _lastFrameTime
 	 */
 	var _lastFrameTime = 0,
 
 	/**
-	 *	The bound callback for listening to tick events
-	 *	@private
-	 *   @property {Function} _tickCallback
+	 * The bound callback for listening to tick events
+	 * @private
+	 * @property {Function} _tickCallback
 	 */
 	_tickCallback = null,
 
 	/**
-	 *  If the current application is paused
-	 *  @private
-	 *  @property {Boolean} _paused
+	 * If the current application is paused
+	 * @private
+	 * @property {Boolean} _paused
 	 */
 	_paused = false,
 
 	/**
-	 *  If the current application is enabled
-	 *  @private
-	 *  @property {Boolean} _enabled
+	 * If the current application is enabled
+	 * @private
+	 * @property {Boolean} _enabled
 	 */
 	_enabled = true,
 
 	/**
-	 *  The id of the active requestAnimationFrame or setTimeout call.
-	 *  @property {Number} _tickId
-	 *  @private
+	 * The id of the active requestAnimationFrame or setTimeout call.
+	 * @property {Number} _tickId
+	 * @private
 	 */
 	_tickId = -1,
 
 	/**
-	 *  If requestionAnimationFrame should be used
-	 *  @private
-	 *  @property {Bool} _useRAF
-	 *  @default false
+	 * If requestionAnimationFrame should be used
+	 * @private
+	 * @property {Bool} _useRAF
+	 * @default false
 	 */
 	_useRAF = false,
 
@@ -2403,79 +2406,79 @@
 	_msPerFrame = 0,
 
 	/**
-	 *  The collection of displays
-	 *  @property {Array} _displays
-	 *  @private
+	 * The collection of displays
+	 * @property {Array} _displays
+	 * @private
 	 */
 	_displays = null,
 
 	/**
-	 *  The displays by canvas id
-	 *  @property {Object} _displaysMap
-	 *  @private
+	 * The displays by canvas id
+	 * @property {Object} _displaysMap
+	 * @private
 	 */
 	_displaysMap = null;
 
 
 	/**
-	 *  Fired when initialization of the application is ready
-	 *  @event init
+	 * Fired when initialization of the application is ready
+	 * @event init
 	 */
 	
 	/**
-	 *  Fired when initialization of the application is done
-	 *  @event afterInit
+	 * Fired when initialization of the application is done
+	 * @event afterInit
 	 */
 	
 	/**
-	 *  Fired when before initialization of the application
-	 *  @event beforeInit
+	 * Fired when before initialization of the application
+	 * @event beforeInit
 	 */
 	
 	/**
-	 *  Fired when an update is called, every frame update
-	 *  @event update
-	 *  @param {int} elasped The number of milliseconds since the last frame update
+	 * Fired when an update is called, every frame update
+	 * @event update
+	 * @param {int} elasped The number of milliseconds since the last frame update
 	 */
 
 	/**
-	 *  Fired when the pause state is toggled
-	 *  @event pause
-	 *  @param {boolean} paused If the application is now paused
+	 * Fired when the pause state is toggled
+	 * @event pause
+	 * @param {boolean} paused If the application is now paused
 	 */
 
 	/**
-	 *  When a display is added.
-	 *  @event displayAdded
-	 *  @param {springroll.AbstractDisplay} [display] The current display being added
+	 * When a display is added.
+	 * @event displayAdded
+	 * @param {springroll.AbstractDisplay} [display] The current display being added
 	 */
 	
 	/**
-	 *  When a display is removed.
-	 *  @event displayRemoved
-	 *  @param {string} [displayId] The display alias
+	 * When a display is removed.
+	 * @event displayRemoved
+	 * @param {string} [displayId] The display alias
 	 */
 
 	/**
-	 *  Fired when the application becomes paused
-	 *  @event paused
+	 * Fired when the application becomes paused
+	 * @event paused
 	 */
 
 	/**
-	 *  Fired when the application resumes from a paused state
-	 *  @event resumed
+	 * Fired when the application resumes from a paused state
+	 * @event resumed
 	 */
 
 	/**
-	 *  Fired when the application is destroyed
-	 *  @event destroy
+	 * Fired when the application is destroyed
+	 * @event destroy
 	 */
 
 	/**
-	 *  Get the singleton instance of the application
-	 *  @property {Application} instance
-	 *  @static
-	 *  @public
+	 * Get the singleton instance of the application
+	 * @property {Application} instance
+	 * @static
+	 * @public
 	 */
 	var _instance = null;
 	Object.defineProperty(Application, "instance",
@@ -2487,9 +2490,9 @@
 	});
 
 	/**
-	 *  The internal initialization
-	 *  @method _preInit
-	 *  @private
+	 * The internal initialization
+	 * @method _preInit
+	 * @private
 	 */
 	p._preInit = function()
 	{
@@ -2539,9 +2542,9 @@
 	};
 
 	/**
-	 *  Initialize the application
-	 *  @method _doInit
-	 *  @protected
+	 * Initialize the application
+	 * @method _doInit
+	 * @protected
 	 */
 	p._doInit = function()
 	{
@@ -2562,10 +2565,10 @@
 	};
 
 	/**
-	 *  Enables at the application level which enables
-	 *  and disables all the displays.
-	 *  @property {Boolean} enabled
-	 *  @default true
+	 * Enables at the application level which enables
+	 * and disables all the displays.
+	 * @property {Boolean} enabled
+	 * @default true
 	 */
 	Object.defineProperty(p, "enabled",
 	{
@@ -2584,8 +2587,8 @@
 	});
 
 	/**
-	 *  Pause updates at the application level
-	 *  @property {Boolean} paused
+	 * Pause updates at the application level
+	 * @property {Boolean} paused
 	 */
 	Object.defineProperty(p, "paused",
 	{
@@ -2626,12 +2629,12 @@
 	});
 
 	/**
-	 *  Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
-	 *  current tick.
-	 *  @method setTargetedTimeout
-	 *  @param {Function} callback The tick function to call.
-	 *  @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
-	 *  @private
+	 * Makes a setTimeout with a time based on _msPerFrame and the amount of time spent in the
+	 * current tick.
+	 * @method setTargetedTimeout
+	 * @param {Function} callback The tick function to call.
+	 * @param {int} timeInFrame=0 The amount of time spent in the current tick in milliseconds.
+	 * @private
 	 */
 	var setTargetedTimeout = function(callback, timeInFrame)
 	{
@@ -2643,15 +2646,15 @@
 	};
 
 	/**
-	 *  Add a display. If this is the first display added, then it will be stored as this.display.
-	 *  @method addDisplay
-	 *  @param {String} id The id of the canvas element, this will be used to grab the Display later
-	 *                     also the Display should be the one to called document.getElementById(id)
-	 *                     and not the application sinc we don't care about the DOMElement as this
-	 *                     point
-	 *  @param {function} displayConstructor The function to call to create the display instance
-	 *  @param {Object} [options] Optional Display specific options
-	 *  @return {Display} The created display.
+	 * Add a display. If this is the first display added, then it will be stored as this.display.
+	 * @method addDisplay
+	 * @param {String} id The id of the canvas element, this will be used to grab the Display later
+	 *                   also the Display should be the one to called document.getElementById(id)
+	 *                   and not the application sinc we don't care about the DOMElement as this
+	 *                   point
+	 * @param {function} displayConstructor The function to call to create the display instance
+	 * @param {Object} [options] Optional Display specific options
+	 * @return {Display} The created display.
 	 */
 	p.addDisplay = function(id, displayConstructor, options)
 	{
@@ -2678,9 +2681,9 @@
 	};
 
 	/**
-	 *  Get all the displays
-	 *  @property {Array} displays
-	 *  @readOnly
+	 * Get all the displays
+	 * @property {Array} displays
+	 * @readOnly
 	 */
 	Object.defineProperty(p, 'displays',
 	{
@@ -2691,10 +2694,10 @@
 	});
 
 	/**
-	 *  Gets a specific renderer by the canvas id.
-	 *  @method getDisplay
-	 *  @param {String} id The id of the canvas
-	 *  @return {Display} The requested display.
+	 * Gets a specific renderer by the canvas id.
+	 * @method getDisplay
+	 * @param {String} id The id of the canvas
+	 * @return {Display} The requested display.
 	 */
 	p.getDisplay = function(id)
 	{
@@ -2719,9 +2722,9 @@
 	};
 
 	/**
-	 *  _tick would be bound in _tickCallback
-	 *  @method _tick
-	 *  @private
+	 * _tick would be bound in _tickCallback
+	 * @method _tick
+	 * @private
 	 */
 	p._tick = function()
 	{
@@ -2796,10 +2799,10 @@
 	};
 
 	/**
-	*  The toString debugging method
-	*  @method toString
-	*  @return {String} The reprsentation of this class
-	*/
+	 * The toString debugging method
+	 * @method toString
+	 * @return {String} The reprsentation of this class
+	 */
 	p.toString = function()
 	{
 		return "[Application name='" + this.name + "']";
@@ -2816,46 +2819,46 @@
 (function(global, doc, undefined){
 		
 	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
-	*  or "unpaused" events on the application instead of using one of these yourself.
-	*
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {Function} onFocus Callback when the page becomes visible
-	*  @param {Function} onBlur Callback when the page loses visibility
-	*/
+	 * Handle the page visiblity change, if supported. Application uses one of these to
+	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
+	 * or "unpaused" events on the application instead of using one of these yourself.
+	 *
+	 * @class PageVisibility
+	 * @constructor
+	 * @param {Function} onFocus Callback when the page becomes visible
+	 * @param {Function} onBlur Callback when the page loses visibility
+	 */
 	var PageVisibility = function(onFocus, onBlur)
 	{
 		/**
-		* Callback when the page becomes visible
-		* @property {Function} _onFocus
-		* @private
-		*/
+		 * Callback when the page becomes visible
+		 * @property {Function} _onFocus
+		 * @private
+		 */
 		this._onFocus = onFocus;
 		
 		/**
-		* Callback when the page loses visibility
-		* @property {Function} _onBlur
-		* @private
-		*/
+		 * Callback when the page loses visibility
+		 * @property {Function} _onBlur
+		 * @private
+		 */
 		this._onBlur = onBlur;
 		
 		/**
-		* If this object is enabled.
-		* @property {Function} _enabled
-		* @private
-		*/
+		 * If this object is enabled.
+		 * @property {Function} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
-		* The visibility toggle listener function
-		* @property {Function} _onToggle
-		* @private
-		*/
+		 * The visibility toggle listener function
+		 * @property {Function} _onToggle
+		 * @private
+		 */
 		this._onToggle = function()
 		{
 			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
@@ -2871,11 +2874,11 @@
 	p = PageVisibility.prototype,
 	
 	/**
-	* The name of the visibility change event for the browser
-	*
-	* @property {String} _visibilityChange
-	* @private
-	*/
+	 * The name of the visibility change event for the browser
+	 *
+	 * @property {String} _visibilityChange
+	 * @private
+	 */
 	_visibilityChange = null;
 	
 	// Select the visiblity change event name
@@ -2899,10 +2902,10 @@
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
 	
 	/**
-	* If this object is enabled.
-	* @property {Function} enabled
-	* @private
-	*/
+	 * If this object is enabled.
+	 * @property {Function} enabled
+	 * @private
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function() { return this._enabled; },
 		set: function(value)
@@ -2945,9 +2948,9 @@
 	});
 	
 	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
+	 * Disable the detection
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		// If this browser doesn't support visibility
@@ -2964,9 +2967,9 @@
 	
 }(window, document));
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
@@ -3011,9 +3014,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method onHidden
-	 *  @private
+	 * Private listener for when the page is hidden.
+	 * @method onHidden
+	 * @private
 	 */
 	var onHidden = function()
 	{
@@ -3021,9 +3024,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is shown.
-	 *  @method onVisible
-	 *  @private
+	 * Private listener for when the page is shown.
+	 * @method onVisible
+	 * @private
 	 */
 	var onVisible = function()
 	{
@@ -3176,61 +3179,61 @@
 
 }());
 /**
- *	@module Core
- *	@namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ResizePlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for resizing application, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ResizePlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin(100);
 
 	/**
-	*  Dom element (or the window) to attach resize listeners and read the size from
-	*  @property {DOMElement|Window|null} _resizeElement
-	*  @private
-	*  @default null
-	*/
+	 * Dom element (or the window) to attach resize listeners and read the size from
+	 * @property {DOMElement|Window|null} _resizeElement
+	 * @private
+	 * @default null
+	 */
 	var _resizeElement = null;
 
 	/**
-	*  The maximum width of the primary display, compared to the original height.
-	*  @property {Number} _maxWidth
-	*  @private
-	*/
+	 * The maximum width of the primary display, compared to the original height.
+	 * @property {Number} _maxWidth
+	 * @private
+	 */
 	var _maxWidth = 0;
 	
 	/**
-	*  The maximum height of the primary display, compared to the original width.
-	*  @property {Number} _maxHeight
-	*  @private
-	*/
+	 * The maximum height of the primary display, compared to the original width.
+	 * @property {Number} _maxHeight
+	 * @private
+	 */
 	var _maxHeight = 0;
 	
 	/**
-	*  The original width of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalWidth
-	*  @private
-	*/
+	 * The original width of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalWidth
+	 * @private
+	 */
 	var _originalWidth = 0;
 	
 	/**
-	*  The original height of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalHeight
-	*  @private
-	*/
+	 * The original height of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalHeight
+	 * @private
+	 */
 	var _originalHeight = 0;
 
 	/**
-	 *  A helper object to avoid object creation each resize event.
-	 *  @property {Object} _resizeHelper
-	 *  @private
+	 * A helper object to avoid object creation each resize event.
+	 * @property {Object} _resizeHelper
+	 * @private
 	 */
 	var _resizeHelper = {
 		width: 0,
@@ -3241,10 +3244,10 @@
 	plugin.setup = function()
 	{
 		/**
-		 *  Fired when a resize is called
-		 *  @event resize
-		 *  @param {int} width The width of the resize element
-		 *  @param {int} height The height of the resize element
+		 * Fired when a resize is called
+		 * @event resize
+		 * @param {int} width The width of the resize element
+		 * @param {int} height The height of the resize element
 		 */
 		
 		/**
@@ -3302,8 +3305,8 @@
 		});
 
 		/**
-		 *  Fire a resize event with the current width and height of the display
-		 *  @method triggerResize
+		 * Fire a resize event with the current width and height of the display
+		 * @method triggerResize
 		 */
 		this.triggerResize = function()
 		{
@@ -3338,16 +3341,16 @@
 		};
 
 		/**
-		 *  Calculates the resizing of displays. By default, this limits the new size
-		 *  to the initial aspect ratio of the primary display. Override this function
-		 *  if you need variable aspect ratios.
-		 *  @method calculateDisplaySize
-		 *  @protected
-		 *  @param {Object} size A size object containing the width and height of the resized container.
-		 *                       The size parameter is also the output of the function, so the size
-		 *                       properties are edited in place.
-		 *  @param {int} size.width The width of the resized container.
-		 *  @param {int} size.height The height of the resized container.
+		 * Calculates the resizing of displays. By default, this limits the new size
+		 * to the initial aspect ratio of the primary display. Override this function
+		 * if you need variable aspect ratios.
+		 * @method calculateDisplaySize
+		 * @protected
+		 * @param {Object} size A size object containing the width and height of the resized container.
+		 *                     The size parameter is also the output of the function, so the size
+		 *                     properties are edited in place.
+		 * @param {int} size.width The width of the resized container.
+		 * @param {int} size.height The height of the resized container.
 		 */
 		this.calculateDisplaySize = function(size)
 		{
@@ -3409,24 +3412,24 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	// Classes to import
 	var Debug;
 
 	/**
-	*  Used for managing the browser cache of loading external elements
-	*  can easily load version manifest and apply it to the media loader
-	*  supports cache busting all media load requests
-	*  uses the query string to bust browser versions.
-	*
-	*  @class CacheManager
-	*  @constructor
-	*  @param {springroll.Application} app Reference to application
-	*/
+	 * Used for managing the browser cache of loading external elements
+	 * can easily load version manifest and apply it to the media loader
+	 * supports cache busting all media load requests
+	 * uses the query string to bust browser versions.
+	 *
+	 * @class CacheManager
+	 * @constructor
+	 * @param {springroll.Application} app Reference to application
+	 */
 	var CacheManager = function(app)
 	{
 		if (true && !Debug)
@@ -3442,23 +3445,23 @@
 		this._app = app;
 
 		/**
-		*  The collection of version numbers
-		*  @protected
-		*  @property {Dictionary} _versions
-		*/
+		 * The collection of version numbers
+		 * @protected
+		 * @property {Dictionary} _versions
+		 */
 		this._versions = {};
 
 		/**
-		*  The list of URL filtering functions.
-		*  @protected
-		*  @property {Array} _filters
-		*/
+		 * The list of URL filtering functions.
+		 * @protected
+		 * @property {Array} _filters
+		 */
 		this._filters = [];
 
 		/**
-		*  A global version or cache busting string to apply to every url.
-		*  @property {String} _globalVersion
-		*/
+		 * A global version or cache busting string to apply to every url.
+		 * @property {String} _globalVersion
+		 */
 		this._globalVersion = null;
 
 		// Function bindings
@@ -3473,11 +3476,11 @@
 	var p = CacheManager.prototype = {};
 
 	/**
-	*  If we are suppose to cache bust every file
-	*  @property {Boolean} cacheBust
-	*  @public
-	*  @default false
-	*/
+	 * If we are suppose to cache bust every file
+	 * @property {Boolean} cacheBust
+	 * @public
+	 * @default false
+	 */
 	Object.defineProperty(p, "cacheBust",
 	{
 		get: function()
@@ -3511,10 +3514,10 @@
 	});
 
 	/**
-	*  Destroy the cache manager, don't use after this.
-	*  @public
-	*  @method destroy
-	*/
+	 * Destroy the cache manager, don't use after this.
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._app = null;
@@ -3525,13 +3528,13 @@
 	};
 
 	/**
-	*  Adds a versions text file containing versions for different assets.
-	*  @public
-	*  @method addVersionsFile
-	*  @param {String} url The url of the versions file.
-	*  @param {Function} callback Callback when the versions file has been loaded.
-	*  @param {String} baseUrl A base url to prepend all lines of the file.
-	*/
+	 * Adds a versions text file containing versions for different assets.
+	 * @public
+	 * @method addVersionsFile
+	 * @param {String} url The url of the versions file.
+	 * @param {Function} callback Callback when the versions file has been loaded.
+	 * @param {String} baseUrl A base url to prepend all lines of the file.
+	 */
 	p.addVersionsFile = function(url, callback, baseUrl)
 	{
 		if (true && Debug) Debug.assert(/^.*\.txt$/.test(url), "The versions file must be a *.txt file");
@@ -3582,12 +3585,12 @@
 	};
 
 	/**
-	*  Add a version number for a file
-	*  @method addVersion
-	*  @public
-	*  @param {String} url The url of the object
-	*  @param {String} version Version number or has of file
-	*/
+	 * Add a version number for a file
+	 * @method addVersion
+	 * @public
+	 * @param {String} url The url of the object
+	 * @param {String} version Version number or has of file
+	 */
 	p.addVersion = function(url, version)
 	{
 		if (!this._versions[url])
@@ -3595,13 +3598,13 @@
 	};
 
 	/**
-	*  Adds a function for running all urls through, to modify them if needed.
-	*  Functions used should accept one string parameter (the url), and return the
-	*  modified url.
-	*  @method registerURLFilter
-	*  @public
-	*  @param {Function} filter The function that will handle urls.
-	*/
+	 * Adds a function for running all urls through, to modify them if needed.
+	 * Functions used should accept one string parameter (the url), and return the
+	 * modified url.
+	 * @method registerURLFilter
+	 * @public
+	 * @param {Function} filter The function that will handle urls.
+	 */
 	p.registerURLFilter = function(filter)
 	{
 		if(this._filters.indexOf(filter) == -1)
@@ -3609,11 +3612,11 @@
 	};
 
 	/**
-	*  Removes a function from the list of filtering functions.
-	*  @method unregisterURLFilter
-	*  @public
-	*  @param {Function} filter The function to remove.
-	*/
+	 * Removes a function from the list of filtering functions.
+	 * @method unregisterURLFilter
+	 * @public
+	 * @param {Function} filter The function to remove.
+	 */
 	p.unregisterURLFilter = function(filter)
 	{
 		var index = this._filters.indexOf(filter);
@@ -3622,12 +3625,12 @@
 	};
 
 	/**
-	*  Applies a url specific version to a url from the versions file.
-	*  @method _applySpecificVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a url specific version to a url from the versions file.
+	 * @method _applySpecificVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applySpecificVersion = function(url)
 	{
 		//don't apply versioning if the asset is retrieved from a php service
@@ -3645,12 +3648,12 @@
 	};
 
 	/**
-	*  Applies cache busting or a global version to a url.
-	*  @method _applyGlobalVersion
-	*  @private
-	*  @param {String} url The url to apply versioning to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies cache busting or a global version to a url.
+	 * @method _applyGlobalVersion
+	 * @private
+	 * @param {String} url The url to apply versioning to.
+	 * @return {String} The modified url.
+	 */
 	p._applyGlobalVersion = function(url)
 	{
 		if(!this._globalVersion) return url;
@@ -3669,14 +3672,14 @@
 	};
 
 	/**
-	*  Applies a base path to a relative url. This is not used in the filtering
-	*  system because PreloadJS has its own method of prepending the base path
-	*  that we use. Instead, it is used with an extra parameter to prepare().
-	*  @method _applyBasePath
-	*  @private
-	*  @param {String} url The url to prepend the base path to.
-	*  @return {String} The modified url.
-	*/
+	 * Applies a base path to a relative url. This is not used in the filtering
+	 * system because PreloadJS has its own method of prepending the base path
+	 * that we use. Instead, it is used with an extra parameter to prepare().
+	 * @method _applyBasePath
+	 * @private
+	 * @param {String} url The url to prepend the base path to.
+	 * @return {String} The modified url.
+	 */
 	p._applyBasePath = function(url)
 	{
 		var basePath = this._app.options.basePath;
@@ -3688,16 +3691,16 @@
 	};
 
 	/**
-	*  Prepare a URL with the necessary cache busting and/or versioning
-	*  as well as the base directory.
-	*  @public
-	*  @method prepare
-	*  @param {String} url The url to prepare
-	*  @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
-	*		This defaults to false because it can potentially interfere with later regular
-	*		expression checks, particularly with PreloadJS
-	*  @return {String} The final url with version/cache and basePath added
-	*/
+	 * Prepare a URL with the necessary cache busting and/or versioning
+	 * as well as the base directory.
+	 * @public
+	 * @method prepare
+	 * @param {String} url The url to prepare
+	 * @param {Boolean} [applyBasePath=false] If the global base path should be applied to the url.
+	 *		This defaults to false because it can potentially interfere with later regular
+	 *		expression checks, particularly with PreloadJS
+	 * @return {String} The final url with version/cache and basePath added
+	 */
 	p.prepare = function(url, applyBasePath)
 	{
 		//apply first in case the base path is strange and makes the rest of the path a query string
@@ -3719,9 +3722,9 @@
 }());
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Debug,
@@ -3732,12 +3735,13 @@
 	 * @class Task
 	 * @abstract
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The asset data
 	 * @param {String} [asset.id=null] The task ID
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} [asset.complete=null] Call when complete
 	 * @param {String} fallbackId The ID to set if no ID is explicitly set
-	 *        this can be used for caching something that has no id
+	 *      this can be used for caching something that has no id
 	 * @param {Object} [asset.sizes=null] Define if certain sizes are not supported.
 	 */
 	var Task = function(asset, fallbackId)
@@ -3904,9 +3908,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task');
@@ -3916,6 +3920,7 @@
 	 * @class FunctionTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
 	 * @param {Function} asset.async The required function to call
@@ -3973,9 +3978,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task'),
@@ -3986,6 +3991,7 @@
 	 * @class ColorAlphaTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.color The source path to the color image
 	 * @param {String} asset.alpha The source path to the alpha image
@@ -4048,21 +4054,21 @@
 	};
 
 	/**
-	* Pulled from EaselJS's SpriteSheetUtils.
-	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
-	* combine a compressed JPEG image containing color data with a PNG32 monochromatic image
-	* containing alpha data. With certain types of images (those with detail that lend itself to
-	* JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
-	* This method is very fast (generally on the order of 1-2 ms to run).
-	* @method mergeAlpha
-	* @static
-	* @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
-	* @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
-	* @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
-	*                          canvas will be created.
-	* @return {Canvas} A canvas with the combined image data. This can be used as a source for a
-	*                  Texture.
-	*/
+	 * Pulled from EaselJS's SpriteSheetUtils.
+	 * Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	 * combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	 * containing alpha data. With certain types of images (those with detail that lend itself to
+	 * JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	 * This method is very fast (generally on the order of 1-2 ms to run).
+	 * @method mergeAlpha
+	 * @static
+	 * @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	 * @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	 * @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	 *                      canvas will be created.
+	 * @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	 *              Texture.
+	 */
 	ColorAlphaTask.mergeAlpha = function(rgbImage, alphaImage, canvas)
 	{
 		if (!canvas)
@@ -4085,9 +4091,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task'),
@@ -4098,6 +4104,7 @@
 	 * @class ListTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {Array|Object} asset.assets The collection of assets to load
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
@@ -4155,9 +4162,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task'),
@@ -4168,6 +4175,7 @@
 	 * @class LoadTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {Boolean} [asset.cache=false] If we should cache the result
@@ -4266,15 +4274,15 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	/**
 	 * Represents a single item in the loader queue 
-	*
 	 * @class LoaderQueueItem
+	 * @private
 	 */
 	var LoaderQueueItem = function()
 	{
@@ -4382,9 +4390,9 @@
 	
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	/**
@@ -4472,7 +4480,7 @@
 /**
  * @module Core
  * @namespace springroll
-*/
+ */
 (function()
 {
 	// Classes to import
@@ -4487,7 +4495,6 @@
 	 * The Loader is the singleton loader for loading all assets
 	 * including images, data, code and sounds. Loader supports cache-busting
 	 * in the browser using dynamic query string parameters.
-	*
 	 * @class Loader
 	 */
 	var Loader = function(app)
@@ -4552,9 +4559,9 @@
 	var p = Loader.prototype;
 	
 	/**
-	* Reference to the private instance object
-	* @static
-	* @protected
+	 * Reference to the private instance object
+	 * @static
+	 * @protected
 	 */
 	var _instance = null;
 	
@@ -4977,9 +4984,9 @@
 	
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Debug;
@@ -4987,6 +4994,7 @@
 	/**
 	 * Remember the assets loaded by the AssetManager
 	 * @class AssetCache
+	 * @private
 	 */
 	var AssetCache = function()
 	{
@@ -5128,9 +5136,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Debug;
@@ -5138,6 +5146,7 @@
 	/**
 	 * Remember the assets loaded by the AssetManager
 	 * @class AssetSizes
+	 * @private
 	 */
 	var AssetSizes = function()
 	{
@@ -5196,7 +5205,7 @@
 	 * @param {int} maxSize The maximum size capable of using this
 	 * @param {Number} scale The scale of assets
 	 * @param {Array} fallback The size fallbacks if this size isn't available
-	 *        for the current asset request.
+	 *      for the current asset request.
 	 */
 	p.define = function(id, maxSize, scale, fallback)
 	{
@@ -5322,9 +5331,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var Debug,
@@ -5334,6 +5343,7 @@
 	 * Class that represents a single multi load
 	 * @class AssetLoad
 	 * @constructor
+	 * @private
 	 * @param {springroll.AssetManager} manager Reference to the manager
 	 */
 	var AssetLoad = function(manager)
@@ -5605,7 +5615,7 @@
 	 * @method addTask
 	 * @private
 	 * @param {Object} asset The asset to load, 
-	 *        can either be an object, URL/path, or async function.
+	 *      can either be an object, URL/path, or async function.
 	 */
 	p.addTask = function(asset)
 	{
@@ -5826,9 +5836,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var AssetLoad = include('springroll.AssetLoad'),
@@ -5898,8 +5908,8 @@
 	 * @private
 	 * @param {Function|String} TaskClass The class task reference
 	 * @param {int} [priority=0] The priority, higher prioity tasks
-	 *        are tested first. More general Tasks should be lower
-	 *        and more specific tasks should be higher.
+	 *      are tested first. More general Tasks should be lower
+	 *      and more specific tasks should be higher.
 	 */
 	p.register = function(TaskClass, priority)
 	{
@@ -6037,9 +6047,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
@@ -6066,6 +6076,7 @@
 		/**
 		 * Reference to the multiple asset loader
 		 * @property {springroll.AssetManager} assetManager
+		 * @private
 		 */
 		var assetManager = this.assetManager = new AssetManager();
 
@@ -6125,7 +6136,7 @@
 		 * @method load
 		 * @param {String} source The file to load
 		 * @param {Function} complete The completed callback with a single
-		 *        parameters result object.
+		 *      parameters result object.
 		 * @param {Function} [progress] Update callback, return 0-1
 		 * @param {Boolean} [cache=false] Save to the asset cache after load
 		 * @param {*} [data] The data to attach to load item
@@ -6138,31 +6149,31 @@
 		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [asset.complete=null] Callback when finished
 		 * @param {Function} [asset.progress=null] Callback on load progress,
-		 *        has a parameter which is the percentage loaded from 0 to 1.
+		 *      has a parameter which is the percentage loaded from 0 to 1.
 		 * @param {*} [asset.data] Additional data to attach to load is
-		 *        accessible in the loader's result. 
+		 *      accessible in the loader's result. 
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameter which is a result object. will
-		 *        only use if `asset.complete` is undefined.
+		 *      parameter which is a result object. will
+		 *      only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a single custom asset with options.
 		 * @method load
 		 * @param {Object} asset The single asset resource to load, properties
-		 *        will depend on the type of asset loading.
+		 *      will depend on the type of asset loading.
 		 * @param {Function} [asset.complete=null] Callback when finished
 		 * @param {String} [asset.id=null] The ID to attach to this asset
 		 * @param {Boolean} [asset.cache=false] If the result should be cached for later
 		 * @param {Function} [complete] The completed callback with a single
-		 *        parameters which is a result object. will
-		 *        only use if `asset.complete` is undefined.
+		 *      parameters which is a result object. will
+		 *      only use if `asset.complete` is undefined.
 		 */
 		/**
 		 * Load a map of multiple assets and return mapped result objects.
 		 * @method load
 		 * @param {Object} assets Load a map of assets.
 		 * @param {Function|Object} [options] Callback where the only parameter is the
-		 *        map of the results by ID, or the collection of load options.
+		 *      map of the results by ID, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
@@ -6172,9 +6183,9 @@
 		 * Load a list of multiple assets and return array of result objects.
 		 * @method load
 		 * @param {Array} assets The list of assets.
-		 *        If each object has a `id` the result will be a mapped object.
+		 *      If each object has a `id` the result will be a mapped object.
 		 * @param {Function|Object} [options] Callback where the only parameter is the
-		 *        collection or map of the results, or the collection of load options.
+		 *      collection or map of the results, or the collection of load options.
 		 * @param {Function} [options.complete=null] The complete callback if using load options.
 		 * @param {Function} [options.progress=null] The callback when a single item is finished.
 		 * @param {Boolean} [options.cacheAll=false] If tasks should be cached
@@ -6216,8 +6227,8 @@
 		 * Unload an asset or list of assets.
 		 * @method unload
 		 * @param {Array|String} assets The collection of asset ids or 
-		 *        single asset id. As an array, it can be a manifest 
-		 *        with objects that contain an ID. Or multiple strings.
+		 *      single asset id. As an array, it can be a manifest 
+		 *      with objects that contain an ID. Or multiple strings.
 		 */
 		this.unload = function(assets)
 		{
@@ -6296,9 +6307,9 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	// Include classes
@@ -6306,30 +6317,30 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for Hinting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ConfigPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for Hinting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ConfigPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin(80);
 
 	/**
-	 *	The game has finished loading
-	 *	@event loaded
+	 * The game has finished loading
+	 * @event loaded
 	 */
 
 	/**
-	 *	The config has finished loading, in case you want to
-	 *	add additional tasks to the manager after this.
-	 *	@event configLoaded
-	 *	@param {Object} config The JSON object for config
-	 *	@param {Array} assets Container to add additional assets to
+	 * The config has finished loading, in case you want to
+	 * add additional tasks to the manager after this.
+	 * @event configLoaded
+	 * @param {Object} config The JSON object for config
+	 * @param {Array} assets Container to add additional assets to
 	 */
 
 	/**
-	 *	The game has started loading
-	 *	@event loading
-	 *	@param {Array} assets The list of tasks to preload
+	 * The game has started loading
+	 * @event loading
+	 * @param {Array} assets The list of tasks to preload
 	 */
 
 	// Init the animator
@@ -6338,9 +6349,9 @@
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The path to the config file to load
-		 *	@property {String} options.configPath
-		 *	@default null
+		 * The path to the config file to load
+		 * @property {String} options.configPath
+		 * @default null
 		 */
 		this.options.add('configPath', null, true);
 
@@ -6353,8 +6364,8 @@
 		this.options.add('preload', [], true);
 
 		/**
-		 *	The game configuration loaded from and external JSON file
-		 *	@property {Object} config
+		 * The game configuration loaded from and external JSON file
+		 * @property {Object} config
 		 */
 		this.config = null;
 	};
@@ -6396,11 +6407,11 @@
 	};
 
 	/**
-	 *	Add the preload assets to the list of assets to load
-	 *	@method addPreloadAssets
-	 *	@private
-	 *	@param {springroll.Application} app Reference to the application
-	 *	@param {Array} assets The array to add new load tasks to
+	 * Add the preload assets to the list of assets to load
+	 * @method addPreloadAssets
+	 * @private
+	 * @param {springroll.Application} app Reference to the application
+	 * @param {Array} assets The array to add new load tasks to
 	 */
 	var addPreloadAssets = function(app, assets)
 	{
@@ -6419,12 +6430,12 @@
 	};
 
 	/**
-	 *	Callback when the config is loaded
-	 *	@method onConfigLoaded
-	 *	@private
-	 *	@param {Object} config The Loader result from the load
-	 *  @param {Object} asset Original asset data
-	 *	@param {Array} assets The array to add new load tasks to
+	 * Callback when the config is loaded
+	 * @method onConfigLoaded
+	 * @private
+	 * @param {Object} config The Loader result from the load
+	 * @param {Object} asset Original asset data
+	 * @param {Array} assets The array to add new load tasks to
 	 */
 	var onConfigLoaded = function(config, asset, assets)
 	{
@@ -6454,88 +6465,89 @@
 
 }());
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*   The display provides the base properties for all custom display. A display
-	*   is a specialized view for the application. As the name suggests, this class
-	*   should not be instanciated directly.
-	*
-	*   @class AbstractDisplay
-	*	@constructor
-	*	@param {String} id The id of the canvas element on the page to draw to.
-	*	@param {Object} options The setup data for the display.
-	*   @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
-	*/
+	 * The display provides the base properties for all custom display. A display
+	 * is a specialized view for the application. As the name suggests, this class
+	 * should not be instanciated directly.
+	 *
+	 * @class AbstractDisplay
+	 * @constructor
+	 * @private
+	 * @param {String} id The id of the canvas element on the page to draw to.
+	 * @param {Object} options The setup data for the display.
+	 * @param {String} [options.contextId="2d"] Valid options are "2d" and "webgl"
+	 */
 	var AbstractDisplay = function(id, options)
 	{
 		options = options || {};
 
 		/**
-		*  the canvas managed by this display
-		*  @property {DOMElement} canvas
-		*  @readOnly
-		*  @public
-		*/
+		 * the canvas managed by this display
+		 * @property {DOMElement} canvas
+		 * @readOnly
+		 * @public
+		 */
 		this.canvas = document.getElementById(id);
 
 		/**
-		*  The DOM id for the canvas
-		*  @property {String} id
-		*  @readOnly
-		*  @public
-		*/
+		 * The DOM id for the canvas
+		 * @property {String} id
+		 * @readOnly
+		 * @public
+		 */
 		this.id = id;
 
 		/**
-		*  Convenience method for getting the width of the canvas element
-		*  would be the same thing as canvas.width
-		*  @property {int} width
-		*  @readOnly
-		*  @public
-		*/
+		 * Convenience method for getting the width of the canvas element
+		 * would be the same thing as canvas.width
+		 * @property {int} width
+		 * @readOnly
+		 * @public
+		 */
 		this.width = this.canvas.width;
 
 		/**
-		*  Convenience method for getting the height of the canvas element
-		*  would be the same thing as canvas.height
-		*  @property {int} height
-		*  @readOnly
-		*  @public
-		*/
+		 * Convenience method for getting the height of the canvas element
+		 * would be the same thing as canvas.height
+		 * @property {int} height
+		 * @readOnly
+		 * @public
+		 */
 		this.height = this.canvas.height;
 
 		/**
-		*  The main rendering context or the root display object or stage.
-		*  @property {mixed} stage
-		*  @readOnly
-		*  @public
-		*/
+		 * The main rendering context or the root display object or stage.
+		 * @property {mixed} stage
+		 * @readOnly
+		 * @public
+		 */
 		this.stage = null;
 
 		/**
-		*  If rendering is paused on this display only. Pausing all displays can be done
-		*  using Application.paused setter.
-		*  @property {Boolean} paused
-		*  @public
-		*/
+		 * If rendering is paused on this display only. Pausing all displays can be done
+		 * using Application.paused setter.
+		 * @property {Boolean} paused
+		 * @public
+		 */
 		this.paused = false;
 
 		/**
-		*  If input is enabled on the stage.
-		*  @property {Boolean} _enabled
-		*  @private
-		*/
+		 * If input is enabled on the stage.
+		 * @property {Boolean} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		/**
-		*  If the display is visible.
-		*  @property {Boolean} _visible
-		*  @private
-		*/
+		 * If the display is visible.
+		 * @property {Boolean} _visible
+		 * @private
+		 */
 		this._visible = this.canvas.style.display != "none";
 
 		// prevent mouse down turning into text cursor
@@ -6545,35 +6557,35 @@
 		};
 
 		/**
-		*  The Animator class to use when using this display. Other modules
-		*  uses this to determine what Animator to use, for instance states
-		*  uses Animator when playing transition animations.
-		*  @property {Animator} animator
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
+		 * The Animator class to use when using this display. Other modules
+		 * uses this to determine what Animator to use, for instance states
+		 * uses Animator when playing transition animations.
+		 * @property {Animator} animator
+		 * @readOnly
+		 * @public
+		 * @default null
+		 */
 		this.animator = null;
 
 		/**
-		*  Some of the modules require a special display adapter to provide
-		*  common methods for managing display objects.
-		*  @property {DisplayAdapter} adapter
-		*  @readOnly
-		*  @public
-		*  @default null
-		*/
+		 * Some of the modules require a special display adapter to provide
+		 * common methods for managing display objects.
+		 * @property {DisplayAdapter} adapter
+		 * @readOnly
+		 * @public
+		 * @default null
+		 */
 		this.adapter = null;
 	};
 
 	var p = AbstractDisplay.prototype;
 
 	/**
-	*  If input is enabled on the stage for this display. The default is true.
-	*  Without a rendering library, this does not actually have an effect.
-	*  @property {Boolean} enabled
-	*  @public
-	*/
+	 * If input is enabled on the stage for this display. The default is true.
+	 * Without a rendering library, this does not actually have an effect.
+	 * @property {Boolean} enabled
+	 * @public
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function(){ return this._enabled; },
 		set: function(value)
@@ -6583,10 +6595,10 @@
 	});
 
 	/**
-	*  If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
-	*  @property {Boolean} visible
-	*  @public
-	*/
+	 * If the display is visible, using "display: none" css on the canvas. Invisible displays won't render.
+	 * @property {Boolean} visible
+	 * @public
+	 */
 	Object.defineProperty(p, "visible", {
 		get: function(){ return this._visible; },
 		set: function(value)
@@ -6597,12 +6609,12 @@
 	});
 
 	/**
-	* Resizes the canvas. This is only called by the Application.
-	* @method resize
-	* @internal
-	* @param {int} width The width that the display should be
-	* @param {int} height The height that the display should be
-	*/
+	 * Resizes the canvas. This is only called by the Application.
+	 * @method resize
+	 * @internal
+	 * @param {int} width The width that the display should be
+	 * @param {int} height The height that the display should be
+	 */
 	p.resize = function(width, height)
 	{
 		this.width = this.canvas.width = width;
@@ -6610,25 +6622,25 @@
 	};
 
 	/** 
-	* Updates the stage and draws it. This is only called by the Application. 
-	* This method does nothing if paused is true or visible is false.
-	* @method render
-	* @internal
-	* @param {int} elapsed The time elapsed since the previous frame.
-	* @param {Boolean} [force=false] For the re-render
-	*/
+	 * Updates the stage and draws it. This is only called by the Application. 
+	 * This method does nothing if paused is true or visible is false.
+	 * @method render
+	 * @internal
+	 * @param {int} elapsed The time elapsed since the previous frame.
+	 * @param {Boolean} [force=false] For the re-render
+	 */
 	p.render = function(elapsed, force)
 	{
 		// implement specific
 	};
 
 	/**
-	*  Destroys the display. This method is called by the Application and should 
-	*  not be called directly, use Application.removeDisplay(id). 
-	*  The stage recursively removes all display objects here.
-	*  @method destroy
-	*  @internal
-	*/
+	 * Destroys the display. This method is called by the Application and should 
+	 * not be called directly, use Application.removeDisplay(id). 
+	 * The stage recursively removes all display objects here.
+	 * @method destroy
+	 * @internal
+	 */
 	p.destroy = function()
 	{
 		this.enabled = false;

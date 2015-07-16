@@ -60,39 +60,39 @@
 		}
 
 		/**
-		*  The current music alias playing
-		*  @property {String} _music
-		*  @private
-		*/
+		 * The current music alias playing
+		 * @property {String} _music
+		 * @private
+		 */
 		this._music = null;
 		
 		/**
-		*  The current music SoundInstance playing
-		*  @property {SoundInstance} _musicInstance
-		*  @private
-		*/
+		 * The current music SoundInstance playing
+		 * @property {SoundInstance} _musicInstance
+		 * @private
+		 */
 		this._musicInstance = null;
 
 		/**
-		*  The global player for playing voice over
-		*  @property {springroll.VOPlayer} voPlayer
-		*/
+		 * The global player for playing voice over
+		 * @property {springroll.VOPlayer} voPlayer
+		 */
 		this.voPlayer = new VOPlayer();
 
 		/**
-		*  The global player for all audio, also accessible through singleton
-		*  @property {springroll.Sound} sound
-		*/
+		 * The global player for all audio, also accessible through singleton
+		 * @property {springroll.Sound} sound
+		 */
 		this.sound = null;
 
 		// Add new task
 		this.assetManager.register('springroll.SoundTask');
 
 		/**
-		*  Get or set the current music alias to play
-		*  @property {String} music
-		*  @default null
-		*/
+		 * Get or set the current music alias to play
+		 * @property {String} music
+		 * @default null
+		 */
 		Object.defineProperty(this, "music",
 		{
 			set: function(value)
@@ -128,9 +128,9 @@
 		});
 		
 		/**
-		*  The SoundInstance for the current music, for adjusting volume.
-		*  @property {SoundInstance} musicInstance
-		*/
+		 * The SoundInstance for the current music, for adjusting volume.
+		 * @property {SoundInstance} musicInstance
+		 */
 		Object.defineProperty(this, "musicInstance",
 		{
 			get: function()
@@ -164,9 +164,9 @@
 	};
 
 	/**
-	*  The sound is ready to use
-	*  @event soundReady
-	*/
+	 * The sound is ready to use
+	 * @event soundReady
+	 */
 	var SOUND_READY = 'soundReady';
 
 	// Start the initialization of the sound

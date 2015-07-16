@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	// Include classes
@@ -9,30 +9,30 @@
 		Debug;
 
 	/**
-	 *	Create an app plugin for Hinting, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ConfigPlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for Hinting, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ConfigPlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin(80);
 
 	/**
-	 *	The game has finished loading
-	 *	@event loaded
+	 * The game has finished loading
+	 * @event loaded
 	 */
 
 	/**
-	 *	The config has finished loading, in case you want to
-	 *	add additional tasks to the manager after this.
-	 *	@event configLoaded
-	 *	@param {Object} config The JSON object for config
-	 *	@param {Array} assets Container to add additional assets to
+	 * The config has finished loading, in case you want to
+	 * add additional tasks to the manager after this.
+	 * @event configLoaded
+	 * @param {Object} config The JSON object for config
+	 * @param {Array} assets Container to add additional assets to
 	 */
 
 	/**
-	 *	The game has started loading
-	 *	@event loading
-	 *	@param {Array} assets The list of tasks to preload
+	 * The game has started loading
+	 * @event loading
+	 * @param {Array} assets The list of tasks to preload
 	 */
 
 	// Init the animator
@@ -41,9 +41,9 @@
 		Debug = include('springroll.Debug', false);
 
 		/**
-		 *	The path to the config file to load
-		 *	@property {String} options.configPath
-		 *	@default null
+		 * The path to the config file to load
+		 * @property {String} options.configPath
+		 * @default null
 		 */
 		this.options.add('configPath', null, true);
 
@@ -56,8 +56,8 @@
 		this.options.add('preload', [], true);
 
 		/**
-		 *	The game configuration loaded from and external JSON file
-		 *	@property {Object} config
+		 * The game configuration loaded from and external JSON file
+		 * @property {Object} config
 		 */
 		this.config = null;
 	};
@@ -99,11 +99,11 @@
 	};
 
 	/**
-	 *	Add the preload assets to the list of assets to load
-	 *	@method addPreloadAssets
-	 *	@private
-	 *	@param {springroll.Application} app Reference to the application
-	 *	@param {Array} assets The array to add new load tasks to
+	 * Add the preload assets to the list of assets to load
+	 * @method addPreloadAssets
+	 * @private
+	 * @param {springroll.Application} app Reference to the application
+	 * @param {Array} assets The array to add new load tasks to
 	 */
 	var addPreloadAssets = function(app, assets)
 	{
@@ -122,12 +122,12 @@
 	};
 
 	/**
-	 *	Callback when the config is loaded
-	 *	@method onConfigLoaded
-	 *	@private
-	 *	@param {Object} config The Loader result from the load
-	 *  @param {Object} asset Original asset data
-	 *	@param {Array} assets The array to add new load tasks to
+	 * Callback when the config is loaded
+	 * @method onConfigLoaded
+	 * @private
+	 * @param {Object} config The Loader result from the load
+	 * @param {Object} asset Original asset data
+	 * @param {Array} assets The array to add new load tasks to
 	 */
 	var onConfigLoaded = function(config, asset, assets)
 	{

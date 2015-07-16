@@ -10,10 +10,10 @@
 		Debug;
 
 	/**
-	* A class that creates captioning for multimedia content. Captions are
-	* created from a dictionary of captions and can be played by alias. 
-	*
-	* @example
+	 * A class that creates captioning for multimedia content. Captions are
+	 * created from a dictionary of captions and can be played by alias. 
+	 *
+	 * @example
 		var captionsData = {
 			"Alias1": [
 				{"start":0, "end":2000, "content":"Ohh that looks awesome!"}
@@ -28,120 +28,120 @@
 		captions.data = captionsData;
 		captions.textField = document.getElementById("captions");
 		captions.play("Alias1");
-	*
-	* @class Captions
-	* @constructor
-	* @param {Object} [data=null] The captions dictionary
-	* @param {String|DOMElement} [textField=null] The output text field
-	* @param {Boolean} [selfUpdate=true] If the captions playback should update itself
-	*/
+	 *
+	 * @class Captions
+	 * @constructor
+	 * @param {Object} [data=null] The captions dictionary
+	 * @param {String|DOMElement} [textField=null] The output text field
+	 * @param {Boolean} [selfUpdate=true] If the captions playback should update itself
+	 */
 	var Captions = function(data, textField, selfUpdate)
 	{
 		Debug = include('springroll.Debug', false);
 
 		/**
-		* An object used as a dictionary with keys that should be the same as sound aliases
-		*
-		* @private
-		* @property {Object} _data
-		*/
+		 * An object used as a dictionary with keys that should be the same as sound aliases
+		 *
+		 * @private
+		 * @property {Object} _data
+		 */
 		this._data = null;
 
 		/**
-		* A reference to the Text object that Captions should be controlling.
-		* Only one text field can be controlled at a time.
-		*
-		* @private
-		* @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
-		*/
+		 * A reference to the Text object that Captions should be controlling.
+		 * Only one text field can be controlled at a time.
+		 *
+		 * @private
+		 * @property {createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} _textField
+		 */
 		this._textField = null;
 
 		/**
-		* The function to call when playback is complete.
-		*
-		* @private
-		* @property {Function} _completeCallback
-		*/
+		 * The function to call when playback is complete.
+		 *
+		 * @private
+		 * @property {Function} _completeCallback
+		 */
 		this._completeCallback = null;
 
 		/**
-		* The collection of line objects - {start:0, end:0, content:""}
-		*
-		* @private
-		* @property {Array} _lines
-		*/
+		 * The collection of line objects - {start:0, end:0, content:""}
+		 *
+		 * @private
+		 * @property {Array} _lines
+		 */
 		this._lines = [];
 		
 		/**
-		* The alias of the current caption.
-		*
-		* @private
-		* @property {String} _currentAlias
-		*/
+		 * The alias of the current caption.
+		 *
+		 * @private
+		 * @property {String} _currentAlias
+		 */
 		this._currentAlias = 0;
 
 		/**
-		* The duration in milliseconds of the current caption.
-		*
-		* @private
-		* @property {int} _currentDuration
-		*/
+		 * The duration in milliseconds of the current caption.
+		 *
+		 * @private
+		 * @property {int} _currentDuration
+		 */
 		this._currentDuration = 0;
 
 		/**
-		* The current playback time, in milliseconds.
-		*
-		* @private
-		* @property {int} _currentTime
-		*/
+		 * The current playback time, in milliseconds.
+		 *
+		 * @private
+		 * @property {int} _currentTime
+		 */
 		this._currentTime = 0;
 
 		/**
-		* The current line index.
-		*
-		* @private
-		* @property {int} _currentLine
-		*/
+		 * The current line index.
+		 *
+		 * @private
+		 * @property {int} _currentLine
+		 */
 		this._currentLine = -1;
 
 		/**
-		* The last active line index.
-		*
-		* @private
-		* @property {int} _lastActiveLine
-		*/
+		 * The last active line index.
+		 *
+		 * @private
+		 * @property {int} _lastActiveLine
+		 */
 		this._lastActiveLine = -1;
 
 		/**
-		* If we're playing.
-		*
-		* @private
-		* @property {Boolean} _playing
-		*/
+		 * If we're playing.
+		 *
+		 * @private
+		 * @property {Boolean} _playing
+		 */
 		this._playing = false;
 
 		/**
-		* If this instance has been destroyed already.
-		*
-		* @private
-		* @property {Boolean} _destroyed
-		*/
+		 * If this instance has been destroyed already.
+		 *
+		 * @private
+		 * @property {Boolean} _destroyed
+		 */
 		this._destroyed = false;
 
 		/**
-		*  If the captions object should do its own update.
-		*  @property {Boolean} _selfUpdate
-		*  @private
-		*  @default true
-		*/
+		 * If the captions object should do its own update.
+		 * @property {Boolean} _selfUpdate
+		 * @private
+		 * @default true
+		 */
 		this._selfUpdate = true;
 
 		/**
-		*  If the captions are muted
-		*  @property {Boolean} _mute
-		*  @private
-		*  @default false
-		*/
+		 * If the captions are muted
+		 * @property {Boolean} _mute
+		 * @private
+		 * @default false
+		 */
 		this._mute = false;
 
 		// Bind the update function
@@ -154,19 +154,19 @@
 	};
 
 	/**
-	* Reference to the prototype
-	*
-	* @static
-	* @private
-	* @property {Object} p
-	*/
+	 * Reference to the prototype
+	 *
+	 * @static
+	 * @private
+	 * @property {Object} p
+	 */
 	var p = Captions.prototype;
 
 	/**
-	* Set if all captions are currently muted.
-	* @property {Boolean} mute
-	* @default false
-	*/
+	 * Set if all captions are currently muted.
+	 * @property {Boolean} mute
+	 * @default false
+	 */
 	Object.defineProperty(p, 'mute',
 	{
 		get : function()
@@ -181,12 +181,12 @@
 	});
 
 	/**
-	*  If the captions object should do it's own updating unless you want to manuall
-	*  seek. In general, self-updating should not be set to false unless the sync
-	*  of the captions needs to be exact with something else.
-	*  @property {Boolean} selfUpdate
-	*  @default true
-	*/
+	 * If the captions object should do it's own updating unless you want to manuall
+	 * seek. In general, self-updating should not be set to false unless the sync
+	 * of the captions needs to be exact with something else.
+	 * @property {Boolean} selfUpdate
+	 * @default true
+	 */
 	Object.defineProperty(p, 'selfUpdate', {
 		set : function(selfUpdate)
 		{
@@ -205,9 +205,9 @@
 	});
 
 	/**
-	* Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
-	* @property {Object} data 
-	*/
+	 * Sets the dictionary object to use for captions. This overrides the current dictionary, if present.
+	 * @property {Object} data 
+	 */
 	Object.defineProperty(p, 'data',
 	{
 		set: function(dict)
@@ -262,9 +262,9 @@
 	});
 
 	/**
-	*  The text field that the captions uses to update.
-	*  @property {String|createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
-	*/
+	 * The text field that the captions uses to update.
+	 * @property {String|createjs.Text|PIXI.Text|PIXI.BitmapText|DOMElement} textField
+	 */
 	Object.defineProperty(p, 'textField',
 	{
 		set: function(field)
@@ -332,8 +332,8 @@
 	 *
 	 * @method  getFullCaption
 	 * @param {String|Array} alias The alias or Array of aliases for which to get the text.
-	 *                             Any non-String values in this Array are silently and
-	 *                             harmlessly ignored.
+	 *                           Any non-String values in this Array are silently and
+	 *                           harmlessly ignored.
 	 * @param {String} [separator=" "] The separation between each line.
 	 * @return {String} The entire caption, concatinated by the separator.
 	 */
@@ -390,12 +390,12 @@
 	};
 
 	/**
-	* Sets an array of line data as the current caption data to play.
-	*
-	* @private
-	* @method _load
-	* @param {String} data The string
-	*/
+	 * Sets an array of line data as the current caption data to play.
+	 *
+	 * @private
+	 * @method _load
+	 * @param {String} data The string
+	 */
 	p._load = function(data)
 	{
 		if (this._destroyed) return;
@@ -413,11 +413,11 @@
 	};
 
 	/**
-	*  Reset the captions
-	*
-	*  @private
-	*  @method _reset
-	*/
+	 * Reset the captions
+	 *
+	 * @private
+	 * @method _reset
+	 */
 	p._reset = function()
 	{
 		this._currentLine = -1;
@@ -425,14 +425,14 @@
 	};
 
 	/**
-	*  Take the captions timecode and convert to milliseconds
-	*  format is in HH:MM:ss:mmm
-	*
-	*  @private
-	*  @method _timeCodeToMilliseconds
-	*  @param {String} input The input string of the format
-	*  @return {int} Time in milliseconds
-	*/
+	 * Take the captions timecode and convert to milliseconds
+	 * format is in HH:MM:ss:mmm
+	 *
+	 * @private
+	 * @method _timeCodeToMilliseconds
+	 * @param {String} input The input string of the format
+	 * @return {int} Time in milliseconds
+	 */
 	function _timeCodeToMilliseconds(input)
 	{
 		var lastPeriodIndex = input.lastIndexOf(".");
@@ -446,12 +446,12 @@
 	}
 
 	/**
-	* The playing status.
-	*
-	* @public
-	* @property {Boolean} playing
-	* @readOnly
-	*/
+	 * The playing status.
+	 *
+	 * @public
+	 * @property {Boolean} playing
+	 * @readOnly
+	 */
 	Object.defineProperty(p, 'playing', {
 		get : function()
 		{
@@ -460,10 +460,10 @@
 	});
 
 	/**
-	*  Calculate the total duration of the current caption
-	*  @private
-	*  @method _getTotalDuration
-	*/
+	 * Calculate the total duration of the current caption
+	 * @private
+	 * @method _getTotalDuration
+	 */
 	p._getTotalDuration = function()
 	{
 		var lines = this._lines;
@@ -471,10 +471,10 @@
 	};
 
 	/**
-	*  Get the current duration of the current caption
-	*  @property {int} currentDuration
-	*  @readOnly
-	*/
+	 * Get the current duration of the current caption
+	 * @property {int} currentDuration
+	 * @readOnly
+	 */
 	Object.defineProperty(p, 'currentDuration',
 	{
 		get: function()
@@ -484,10 +484,10 @@
 	});
 	
 	/**
-	*  Get the current caption alias.
-	*  @property {String} currentAlias
-	*  @readOnly
-	*/
+	 * Get the current caption alias.
+	 * @property {String} currentAlias
+	 * @readOnly
+	 */
 	Object.defineProperty(p, 'currentAlias',
 	{
 		get: function()
@@ -497,13 +497,13 @@
 	});
 
 	/**
-	*  Start the caption playback.
-	*
-	*  @public
-	*  @method play
-	*  @param {String} alias The desired caption's alias
-	*  @param {function} callback The function to call when the caption is finished playing
-	*/
+	 * Start the caption playback.
+	 *
+	 * @public
+	 * @method play
+	 * @param {String} alias The desired caption's alias
+	 * @param {function} callback The function to call when the caption is finished playing
+	 */
 	p.play = function(alias, callback)
 	{
 		this.stop();
@@ -517,11 +517,11 @@
 	};
 
 	/**
-	* Convience function for stopping captions.
-	*
-	* @public
-	* @method stop
-	*/
+	 * Convience function for stopping captions.
+	 *
+	 * @public
+	 * @method stop
+	 */
 	p.stop = function()
 	{
 		this._playing = false;
@@ -533,12 +533,12 @@
 	};
 
 	/**
-	* Goto a specific time.
-	*
-	* @public
-	* @method seek
-	* @param {int} time The time in milliseconds to seek to in the captions
-	*/
+	 * Goto a specific time.
+	 *
+	 * @public
+	 * @method seek
+	 * @param {int} time The time in milliseconds to seek to in the captions
+	 */
 	p.seek = function(time)
 	{
 		// Update the current time
@@ -586,12 +586,12 @@
 	};
 
 	/**
-	* Callback for when a frame is entered.
-	*
-	* @private
-	* @method _updatePercent
-	* @param {number} progress The progress in the current sound as a percentage (0-1)
-	*/
+	 * Callback for when a frame is entered.
+	 *
+	 * @private
+	 * @method _updatePercent
+	 * @param {number} progress The progress in the current sound as a percentage (0-1)
+	 */
 	p._updatePercent = function(progress)
 	{
 		if (this._destroyed) return;
@@ -600,13 +600,13 @@
 	};
 
 	/**
-	* Function to update the amount of time elapsed for the caption playback.
-	* Call this to advance the caption by a given amount of time.
-	*
-	* @public
-	* @method update
-	* @param {int} progress The time elapsed since the last frame in milliseconds
-	*/
+	 * Function to update the amount of time elapsed for the caption playback.
+	 * Call this to advance the caption by a given amount of time.
+	 *
+	 * @public
+	 * @method update
+	 * @param {int} progress The time elapsed since the last frame in milliseconds
+	 */
 	p.update = function(elapsed)
 	{
 		if (this._destroyed || !this._playing) return;
@@ -615,11 +615,11 @@
 	};
 
 	/**
-	* Calculates the captions after increasing the current time.
-	*
-	* @private
-	* @method _calcUpdate
-	*/
+	 * Calculates the captions after increasing the current time.
+	 *
+	 * @private
+	 * @method _calcUpdate
+	 */
 	p._calcUpdate = function()
 	{
 		var lines = this._lines;
@@ -651,11 +651,11 @@
 	};
 
 	/**
-	*  Updates the text in the managed text field.
-	*
-	*  @private
-	*  @method _updateCaptions
-	*/
+	 * Updates the text in the managed text field.
+	 *
+	 * @private
+	 * @method _updateCaptions
+	 */
 	p._updateCaptions = function()
 	{
 		setText(
@@ -669,8 +669,8 @@
 	 *
 	 * @method getLength
 	 * @param {String|Array} alias The alias or array of aliases for which to get duration.
-	 *                             Array may contain integers (milliseconds) to account for
-	 *                             un-captioned gaps.
+	 *                           Array may contain integers (milliseconds) to account for
+	 *                           un-captioned gaps.
 	 * @return {int} Length/duration of caption in milliseconds.
 	 */
 	p.getLength = function(alias)
@@ -702,10 +702,10 @@
 	};
 
 	/**
-	*  Destroy this load task and don't use after this
-	*
-	*  @method destroy
-	*/
+	 * Destroy this load task and don't use after this
+	 *
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		if (this._destroyed) return;

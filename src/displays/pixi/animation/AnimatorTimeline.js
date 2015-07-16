@@ -17,11 +17,12 @@
 	 *
 	 * @class AnimatorTimeline
 	 * @constructor
+	 * @private
 	 * @param {PIXI.MovieClip|Pixi.Spine} clip The AnimatorTimeline's clip
 	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
 	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                     interrupted.
+	 *                                   interrupted.
 	 */
 	var AnimatorTimeline = function(clip, callback, speed, cancelledCallback)
 	{
@@ -42,151 +43,151 @@
 	 * @param {Function} callback The function to call when the clip is finished playing
 	 * @param {Number} speed The speed at which the clip should be played
 	 * @param {Function} cancelledCallback The function to call if the clip's playback is
-	 *                                     interrupted.
+	 *                                   interrupted.
 	 * @returns {Animator.AnimatorTimeline}
 	 */
 	p.init = function(clip, callback, speed, cancelledCallback)
 	{
 		/**
-		*	The clip for this AnimTimeLine
-		*	@property {PIXI.MovieClip|PIXI.Spine} clip
-		*	@public
-		*/
+		 *	The clip for this AnimTimeLine
+		 *	@property {PIXI.MovieClip|PIXI.Spine} clip
+		 *	@public
+		 */
 		this.clip = clip;
 
 		/**
-		*	Whether the clip is a PIXI.Spine
-		*	@property {Boolean} isSpine
-		*	@public
-		*/
+		 *	Whether the clip is a PIXI.Spine
+		 *	@property {Boolean} isSpine
+		 *	@public
+		 */
 		this.isSpine = clip instanceof Spine;
 
 		/**
-		*	The function to call when the clip is finished playing
-		*	@property {Function} callback
-		*	@public
-		*/
+		 *	The function to call when the clip is finished playing
+		 *	@property {Function} callback
+		 *	@public
+		 */
 		this.callback = callback;
 		
 		/**
-		*	The function to call if the clip's playback is interrupted.
-		*	@property {Function} cancelledCallback
-		*	@public
-		*/
+		 *	The function to call if the clip's playback is interrupted.
+		 *	@property {Function} cancelledCallback
+		 *	@public
+		 */
 		this.cancelledCallback = cancelledCallback;
 		
 		/**
-		* The current animation duration in seconds.
-		* @property {Number} duration
-		* @public
-		*/
+		 * The current animation duration in seconds.
+		 * @property {Number} duration
+		 * @public
+		 */
 		this.duration = 0;
 
 		/**
-		*	A speed multiplier for the current animation. Concurrent Spine animations use
-		*	spineSpeeds instead.
-		*	@property {Number} speed
-		*	@public
-		*/
+		 *	A speed multiplier for the current animation. Concurrent Spine animations use
+		 *	spineSpeeds instead.
+		 *	@property {Number} speed
+		 *	@public
+		 */
 		this.speed = speed;
 		
 		/**
-		*	A list of animation, audio, functions, and/or pauses to play.
-		*	@property {Array} eventList
-		*	@public
-		*/
+		 *	A list of animation, audio, functions, and/or pauses to play.
+		 *	@property {Array} eventList
+		 *	@public
+		 */
 		this.eventList.length = 0;
 		
 		/**
-		* The index of the active animation in eventList.
-		* @property {int} listIndex
-		*/
+		 * The index of the active animation in eventList.
+		 * @property {int} listIndex
+		 */
 		this.listIndex = -1;
 
 		/**
-		*	@property {Array} spineStates
-		*	@public
-		*/
+		 *	@property {Array} spineStates
+		 *	@public
+		 */
 		this.spineStates = null;
 
 		/**
-		*	If the current animation loops
-		*	@property {Boolean} isLooping
-		*	@public
-		*/
+		 *	If the current animation loops
+		 *	@property {Boolean} isLooping
+		 *	@public
+		 */
 		this.isLooping = null;
 
 		/**
-		*	The position of the animation in seconds
-		*	@property {Number} _time_sec
-		*	@private
-		*/
+		 *	The position of the animation in seconds
+		 *	@property {Number} _time_sec
+		 *	@private
+		 */
 		this._time_sec = 0;
 
 		/**
-		*	Sound alias to sync to during the animation.
-		*	@property {String} soundAlias
-		*	@public
-		*/
+		 *	Sound alias to sync to during the animation.
+		 *	@property {String} soundAlias
+		 *	@public
+		 */
 		this.soundAlias = null;
 
 		/**
-		*	A sound instance object from Sound, used for tracking sound position.
-		*	@property {Object} soundInst
-		*	@public
-		*/
+		 *	A sound instance object from Sound, used for tracking sound position.
+		 *	@property {Object} soundInst
+		 *	@public
+		 */
 		this.soundInst = null;
 
 		/**
-		*	If the timeline will, but has yet to, play a sound
-		*	@property {Boolean} playSound
-		*	@public
-		*/
+		 *	If the timeline will, but has yet to, play a sound
+		 *	@property {Boolean} playSound
+		 *	@public
+		 */
 		this.playSound = false;
 
 		/**
-		*	The time (seconds) into the animation that the sound starts.
-		*	@property {Number} soundStart
-		*	@public
-		*/
+		 *	The time (seconds) into the animation that the sound starts.
+		 *	@property {Number} soundStart
+		 *	@public
+		 */
 		this.soundStart = 0;
 
 		/**
-		*	The time (seconds) into the animation that the sound ends
-		*	@property {Number} soundEnd
-		*	@public
-		*/
+		 *	The time (seconds) into the animation that the sound ends
+		 *	@property {Number} soundEnd
+		 *	@public
+		 */
 		this.soundEnd = 0;
 
 		/**
-		*  If this timeline plays captions
-		*
-		*  @property {Boolean} useCaptions
-		*  @readOnly
-		*/
+		 * If this timeline plays captions
+		 *
+		 * @property {Boolean} useCaptions
+		 * @readOnly
+		 */
 		this.useCaptions = false;
 
 		/**
-		*	If this animation is paused.
-		*	@property {Boolean} _paused
-		*	@private
-		*/
+		 *	If this animation is paused.
+		 *	@property {Boolean} _paused
+		 *	@private
+		 */
 		this._paused = false;
 		
 		/**
-		*	If the timeline is actively playing an animation, instead of a pause timer.
-		*
-		*	@property {Boolean} isAnim
-		*	@public
-		*/
+		 *	If the timeline is actively playing an animation, instead of a pause timer.
+		 *
+		 *	@property {Boolean} isAnim
+		 *	@public
+		 */
 		this.isAnim = false;
 		
 		/**
-		* If the timeline is complete. Looping timelines will never complete.
-		* @property {Boolean} complete
-		* @public
-		* @readOnly
-		*/
+		 * If the timeline is complete. Looping timelines will never complete.
+		 * @property {Boolean} complete
+		 * @public
+		 * @readOnly
+		 */
 		this.complete = false;
 
 		return this;
@@ -335,21 +336,21 @@
 	};
 	
 	/**
-	* The position of the current animation, or the current pause timer, in milliseconds.
-	* @property {Number} time
-	* @public
-	*/
+	 * The position of the current animation, or the current pause timer, in milliseconds.
+	 * @property {Number} time
+	 * @public
+	 */
 	Object.defineProperty(p, "time", {
 		get: function() { return this._time_sec * 1000; },
 		set: function(value) { this._time_sec = value * 0.001; }
 	});
 	
 	/**
-	* Sets and gets the animation's paused status.
-	*
-	* @property {Boolean} paused
-	* @public
-	*/
+	 * Sets and gets the animation's paused status.
+	 *
+	 * @property {Boolean} paused
+	 * @public
+	 */
 	Object.defineProperty(p, "paused", {
 		get: function() { return this._paused; },
 		set: function(value) {

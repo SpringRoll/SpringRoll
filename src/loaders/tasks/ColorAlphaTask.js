@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var Task = include('springroll.Task'),
@@ -12,6 +12,7 @@
 	 * @class ColorAlphaTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.color The source path to the color image
 	 * @param {String} asset.alpha The source path to the alpha image
@@ -74,21 +75,21 @@
 	};
 
 	/**
-	* Pulled from EaselJS's SpriteSheetUtils.
-	* Merges the rgb channels of one image with the alpha channel of another. This can be used to
-	* combine a compressed JPEG image containing color data with a PNG32 monochromatic image
-	* containing alpha data. With certain types of images (those with detail that lend itself to
-	* JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
-	* This method is very fast (generally on the order of 1-2 ms to run).
-	* @method mergeAlpha
-	* @static
-	* @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
-	* @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
-	* @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
-	*                          canvas will be created.
-	* @return {Canvas} A canvas with the combined image data. This can be used as a source for a
-	*                  Texture.
-	*/
+	 * Pulled from EaselJS's SpriteSheetUtils.
+	 * Merges the rgb channels of one image with the alpha channel of another. This can be used to
+	 * combine a compressed JPEG image containing color data with a PNG32 monochromatic image
+	 * containing alpha data. With certain types of images (those with detail that lend itself to
+	 * JPEG compression) this can provide significant file size savings versus a single RGBA PNG32.
+	 * This method is very fast (generally on the order of 1-2 ms to run).
+	 * @method mergeAlpha
+	 * @static
+	 * @param {Image} rbgImage The image (or canvas) containing the RGB channels to use.
+	 * @param {Image} alphaImage The image (or canvas) containing the alpha channel to use.
+	 * @param {Canvas} [canvas] If specified, this canvas will be used and returned. If not, a new
+	 *                      canvas will be created.
+	 * @return {Canvas} A canvas with the combined image data. This can be used as a source for a
+	 *              Texture.
+	 */
 	ColorAlphaTask.mergeAlpha = function(rgbImage, alphaImage, canvas)
 	{
 		if (!canvas)

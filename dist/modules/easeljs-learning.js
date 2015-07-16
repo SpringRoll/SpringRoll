@@ -9,17 +9,17 @@
 	var Application = include('springroll.Application');
 
 	/**
-	 *  Fires DwellTime Learning events for clickable objects
-	 *  @class DwellTimer
-	 *  @constructor
-	 *  @param {createjs.DisplayObject} target  Object for which to add dwellTime events
-	 *  @param {springroll.Learning} [learning] Learning Dispatcher instance to use
+	 * Fires DwellTime Learning events for clickable objects
+	 * @class DwellTimer
+	 * @constructor
+	 * @param {createjs.DisplayObject} target  Object for which to add dwellTime events
+	 * @param {springroll.Learning} [learning] Learning Dispatcher instance to use
 	 */
 	var DwellTimer = function(target, learning)
 	{
 		/**
-		 *  Interactable DisplayObject
-		 *  @property {createjs.DisplayObject} target
+		 * Interactable DisplayObject
+		 * @property {createjs.DisplayObject} target
 		 */
 		this.target = target;
 
@@ -29,14 +29,14 @@
 		}
 
 		/**
-		 *  name of this timer
-		 *  @property {String}
+		 * name of this timer
+		 * @property {String}
 		 */
 		this.timer = target.id + "_dwell";
 
 		/**
-		 *  Reference to Learning Dispatcher
-		 *  @property {springroll.Learning} learning
+		 * Reference to Learning Dispatcher
+		 * @property {springroll.Learning} learning
 		 */
 		this.learning = learning || Application.instance.learning;
 
@@ -52,14 +52,14 @@
 	var p = DwellTimer.prototype;
 
 	/**
-	 *  minimum length of dwell time necessary to fire event
-	 *  @property {Number}
+	 * minimum length of dwell time necessary to fire event
+	 * @property {Number}
 	 */
 	var MIN_TIME = 1000;
 
 	/**
-	 *  start timer on mouseover
-	 *  @param {createjs.MouseEvent} ev Mouse Event
+	 * start timer on mouseover
+	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOver = function(ev)
 	{
@@ -82,8 +82,8 @@
 	};
 
 	/**
-	 *  Dwell ended - fire event if dwelled long enough
-	 *  @param {createjs.MouseEvent} ev Mouse Event
+	 * Dwell ended - fire event if dwelled long enough
+	 * @param {createjs.MouseEvent} ev Mouse Event
 	 */
 	p.mouseOut = function(ev)
 	{
@@ -102,8 +102,8 @@
 	};
 
 	/**
-	 *  Remove all listeners and whatnot
-	 *  @method destroy
+	 * Remove all listeners and whatnot
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
@@ -123,10 +123,10 @@
 	};
 
 	/**
-	 *  Setup a DwellTimer for a DisplayObject.
-	 *  @method create
-	 *  @static
-	 *  @param {createjs.DisplayObject} obj Clickable DisplayObject
+	 * Setup a DwellTimer for a DisplayObject.
+	 * @method create
+	 * @static
+	 * @param {createjs.DisplayObject} obj Clickable DisplayObject
 	 */
 	DwellTimer.create = function(obj)
 	{
@@ -135,10 +135,10 @@
 	};
 
 	/**
-	 *  If exists, cleanup and remove DwellTimer from object
-	 *  @method destroy
-	 *  @static
-	 *  @param {createjs.DisplayObject} obj DisplayObject with DwellTimer to cleanup
+	 * If exists, cleanup and remove DwellTimer from object
+	 * @method destroy
+	 * @static
+	 * @param {createjs.DisplayObject} obj DisplayObject with DwellTimer to cleanup
 	 */
 	DwellTimer.destroy = function(obj)
 	{
@@ -196,17 +196,17 @@
 		}
 
 		/**
-		 *  Some games need to send additional parameters to the tracker's
-		 *  offClick event. They may set them here as needed. These parameters are appended
-		 *  to the normal offClick data.
-		 *  @property {Array} offClickParams
+		 * Some games need to send additional parameters to the tracker's
+		 * offClick event. They may set them here as needed. These parameters are appended
+		 * to the normal offClick data.
+		 * @property {Array} offClickParams
 		 */
 		this.offClickParams = [];
 
 		/**
-		 *  Keep track of the last Pointer ID
-		 *  @property {int} _lastPointerID
-		 *  @private
+		 * Keep track of the last Pointer ID
+		 * @property {int} _lastPointerID
+		 * @private
 		 */
 		this._lastPointerID = null;
 
@@ -220,10 +220,10 @@
 		 * @method normalizePosition
 		 * @param {createjs.DisplayObject|createjs.Point} pos A display object or point to use.
 		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
-		 *                                              it can be converted to global space. If
-		 *                                              omitted and <code>pos</code> is a
-		 *                                              DisplayObject, <code>pos.parent</code> will
-		 *                                              be used.
+		 *                                            it can be converted to global space. If
+		 *                                            omitted and <code>pos</code> is a
+		 *                                            DisplayObject, <code>pos.parent</code> will
+		 *                                            be used.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
 		
@@ -238,7 +238,7 @@
 		 * @param {Number} x The x position
 		 * @param {Number} y The y position
 		 * @param {createjs.DisplayObject} [coordSpace] The coordinate space the position is in, so
-		 *                                              it can be converted to global space.
+		 *                                            it can be converted to global space.
 		 * @return {Object} {x:int, y:int, stage_width:int, stage_height:int}
 		 */
 		this.normalizePosition = function(x, y, coordSpace)
@@ -314,7 +314,7 @@
 	};
 
 	/**
-	 *  Fires event whenever the mouse is moved
+	 * Fires event whenever the mouse is moved
 	 */
 	var onStageMouseMove = function(ev)
 	{
@@ -326,7 +326,7 @@
 	};
 
 	/**
-	 *  Fires OffClick event if click on unhandled object
+	 * Fires OffClick event if click on unhandled object
 	 */
 	var onStageMouseDown = function(ev)
 	{

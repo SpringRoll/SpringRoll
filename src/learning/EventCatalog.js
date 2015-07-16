@@ -8,8 +8,9 @@
 	var LearningError = include('springroll.LearningError');
 
 	/**
-	 *  A map of all the event codes to the API method names
-	 *  @class EventCatalog
+	 * A map of all the event codes to the API method names
+	 * @class EventCatalog
+	 * @private
 	 */
 	var EventCatalog = function()
 	{
@@ -24,11 +25,11 @@
 	var p = EventCatalog.prototype;
 
 	/**
-	 *  The map of event codes to method names
-	 *  @property {Object} defaultEvents
-	 *  @static
-	 *  @private
-	 *  @readOnly
+	 * The map of event codes to method names
+	 * @property {Object} defaultEvents
+	 * @static
+	 * @private
+	 * @readOnly
 	 */
 	var defaultEvents = {
 		"2000": "startGame",
@@ -61,11 +62,11 @@
 	};
 
 	/**
-	 *  The list of global argument names common to all events. This will
-	 *  ignore any event spec arguments matching these names because
-	 *  they are automatically submitted with event calls.
-	 *  @property {Array} globals
-	 *  @static
+	 * The list of global argument names common to all events. This will
+	 * ignore any event spec arguments matching these names because
+	 * they are automatically submitted with event calls.
+	 * @property {Array} globals
+	 * @static
 	 */
 	EventCatalog.globals = [
 		'game_time',
@@ -74,11 +75,11 @@
 	];
 
 	/**
-	*  Look up an event code by API name
-	*  @method loopkup
-	*  @param {string} api The name of the API method
-	*  @return {string} The matching event code
-	*/
+	 * Look up an event code by API name
+	 * @method loopkup
+	 * @param {string} api The name of the API method
+	 * @return {string} The matching event code
+	 */
 	p.lookup = function(api)
 	{
 		for (var eventCode in this.events)
@@ -92,10 +93,10 @@
 	};
 
 	/**
-	*  Add additional apis
-	*  @method add
-	*  @param {object} map The map of event codes to API names
-	*/
+	 * Add additional apis
+	 * @method add
+	 * @param {object} map The map of event codes to API names
+	 */
 	p.add = function(map)
 	{
 		for (var eventCode in map)
@@ -136,11 +137,11 @@
 	];
 
 	/**
-	 *  The built-in argument overrides, provides consistent arguments
-	 *  order for common API calls.
-	 *  @property {Object} args
-	 *  @static
-	 *  @readOnly
+	 * The built-in argument overrides, provides consistent arguments
+	 * order for common API calls.
+	 * @property {Object} args
+	 * @static
+	 * @readOnly
 	 */
 	EventCatalog.args = {
 		"3010": feedbackArgs,
@@ -166,9 +167,9 @@
 	};
 
 	/**
-	*  Destroy this catalog, don't use after this
-	*  @method destroy
-	*/
+	 * Destroy this catalog, don't use after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.events = null;

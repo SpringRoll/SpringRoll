@@ -10,27 +10,27 @@
 		Rectangle = include('createjs.Rectangle');
 	
 	/**
-	* Designed to provide utility related to Bitmaps.
-	* @class BitmapUtils
-	*/
+	 * Designed to provide utility related to Bitmaps.
+	 * @class BitmapUtils
+	 */
 	var BitmapUtils = {};
 
 	/**
-	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	* that pulls the image from a spritesheet. This function should be
-	* called after you have loaded up javascript assets exported from Flash,
-	* but before you have instantiated those assets.
-	*
-	* @method loadSpriteSheet
-	* @static
-	* @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
-	*        expected to fit the JSON Hash format as exported from
-	*        TexturePacker.
-	* @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
-	*        the frames.
-	* @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
-	*        a half sized spritesheet should have a scale of 2.
-	*/
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that pulls the image from a spritesheet. This function should be
+	 * called after you have loaded up javascript assets exported from Flash,
+	 * but before you have instantiated those assets.
+	 *
+	 * @method loadSpriteSheet
+	 * @static
+	 * @param {Object} spritesheetData The JSON object describing the frames in the atlas. This is
+	 *    expected to fit the JSON Hash format as exported from
+	 *    TexturePacker.
+	 * @param {Image|HTMLCanvasElement} spritesheetImage The spritesheet image that contains all of
+	 *    the frames.
+	 * @param {Number} [scale=1] The scale to apply to all sprites from the spritesheet. For example,
+	 *    a half sized spritesheet should have a scale of 2.
+	 */
 	BitmapUtils.loadSpriteSheet = function(spritesheetData, spritesheetImage, scale)
 	{
 		if (scale > 0)
@@ -138,7 +138,7 @@
 	 * @static
 	 * @param {Texture} texture The texture from a TextureAtlas to create the Bitmap analogue from.
 	 * @param {Number} scale A scale for the spritesheet to undo, e.g. a half sized spritesheet
-	 *                       gets a scale of 2 to restore it to normal size.
+	 *                     gets a scale of 2 to restore it to normal size.
 	 */
 	BitmapUtils.bitmapFromTexture = function(texture, scale)
 	{
@@ -176,16 +176,16 @@
 	};
 
 	/**
-	* Replaces Bitmaps in the global lib dictionary with a faux Bitmap
-	* that uses a scaled bitmap, so you can load up smaller bitmaps behind
-	* the scenes that are scaled back up to normal size, or high res bitmaps
-	* that are scaled down.
-	*
-	* @method replaceWithScaledBitmap
-	* @static
-	* @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
-	* @param {Number} [scale=1] The scale to apply to the image(s).
-	*/
+	 * Replaces Bitmaps in the global lib dictionary with a faux Bitmap
+	 * that uses a scaled bitmap, so you can load up smaller bitmaps behind
+	 * the scenes that are scaled back up to normal size, or high res bitmaps
+	 * that are scaled down.
+	 *
+	 * @method replaceWithScaledBitmap
+	 * @static
+	 * @param {String|Object} idOrDict A dictionary of Bitmap ids to replace, or a single id.
+	 * @param {Number} [scale=1] The scale to apply to the image(s).
+	 */
 	BitmapUtils.replaceWithScaledBitmap = function(idOrDict, scale)
 	{
 		//scale is required, but it doesn't hurt to check - also, don't bother for a scale of 1

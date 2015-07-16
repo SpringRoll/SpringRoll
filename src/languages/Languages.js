@@ -9,21 +9,21 @@
 		EventDispatcher = include('springroll.EventDispatcher');
 	
 	/**
-	*  Keeps track of the user locale, by auto-detecting the browser language, allowing a user
-	*  selection, and automatically modifying any url that runs through the CacheManager.
-	*
-	*  @class Languages
-	*  @extend EventDispatcher
-	*  @constructor
-	*  @param {Object} config The language settings to be used.
-	*  @param {String} config.default The default language name to use if asked for one that is
-	*                                 not present.
-	*  @param {Array} config.languages An array of all supported languages, with entries being
-	*                                  locale ids (dialects allowed). Locale ids should be lower
-	*                                  case.
-	*  @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
-	*                                            language.
-	*/
+	 * Keeps track of the user locale, by auto-detecting the browser language, allowing a user
+	 * selection, and automatically modifying any url that runs through the CacheManager.
+	 *
+	 * @class Languages
+	 * @extend EventDispatcher
+	 * @constructor
+	 * @param {Object} config The language settings to be used.
+	 * @param {String} config.default The default language name to use if asked for one that is
+	 *                             not present.
+	 * @param {Array} config.languages An array of all supported languages, with entries being
+	 *                              locale ids (dialects allowed). Locale ids should be lower
+	 *                              case.
+	 * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
+	 *                                        language.
+	 */
 	var Languages = function(config)
 	{
 		if (_instance)
@@ -35,39 +35,39 @@
 		EventDispatcher.call(this);
 
 		/**
-		*  The value to replace with the current language in URLS.
-		*  @property {String} _replace
-		*  @private
-		*  @default "%LANG%"
-		*/
+		 * The value to replace with the current language in URLS.
+		 * @property {String} _replace
+		 * @private
+		 * @default "%LANG%"
+		 */
 		this._replace = "%LANG%";
 		
 		/**
-		*  The current language.
-		*  @property {String} _current
-		*  @private
-		*/
+		 * The current language.
+		 * @property {String} _current
+		 * @private
+		 */
 		this._current = null;
 		
 		/**
-		*  The default language.
-		*  @property {String} _default
-		*  @private
-		*/
+		 * The default language.
+		 * @property {String} _default
+		 * @private
+		 */
 		this._default = null;
 		
 		/**
-		*  Available languages.
-		*  @property {Array} languages
-		*  @public
-		*/
+		 * Available languages.
+		 * @property {Array} languages
+		 * @public
+		 */
 		this.languages = null;
 		
 		/**
-		*  A dictionary of translated strings, set with setStringTable().
-		*  @property {Dictionary} _stringTable
-		*  @private
-		*/
+		 * A dictionary of translated strings, set with setStringTable().
+		 * @property {Dictionary} _stringTable
+		 * @private
+		 */
 		this._stringTable = null;
 	};
 	
@@ -76,22 +76,22 @@
 	var p = extend(Languages, EventDispatcher);
 	
 	/**
-	*  Fired when the chosen language has changed.
-	*  @event changed
-	*  @param {String} language The newly chosen language.
-	*/
+	 * Fired when the chosen language has changed.
+	 * @event changed
+	 * @param {String} language The newly chosen language.
+	 */
 
 	/**
 	 * Configure 
 	 * @method setConfig
 	 * @param {Object} config The language settings to be used.
 	 * @param {String} config.default The default language name to use if asked for one that is
-	 *                                not present.
+	 *                              not present.
 	 * @param {Array} config.languages An array of all supported languages, with entries being
-	 *                                 locale ids (dialects allowed). Locale ids should be lower
-	 *                                 case.
+	 *                               locale ids (dialects allowed). Locale ids should be lower
+	 *                               case.
 	 * @param {String} [config.replace="%LANG%"] A string to replace in urls with the current
-	 *                                            language.
+	 *                                          language.
 	 */
 	p.setConfig = function(config)
 	{
@@ -113,11 +113,11 @@
 	};
 	
 	/**
-	*  Get the singleton instance of the Languages object.
-	*  @property {springroll.Languages} instance
-	*  @static
-	*  @public
-	*/
+	 * Get the singleton instance of the Languages object.
+	 * @property {springroll.Languages} instance
+	 * @static
+	 * @public
+	 */
 	var _instance = null;
 	Object.defineProperty(Languages, "instance",
 	{
@@ -128,11 +128,11 @@
 	});
 	
 	/**
-	*  The current language.
-	*  @property {String} current
-	*  @readOnly
-	*  @public
-	*/
+	 * The current language.
+	 * @property {String} current
+	 * @readOnly
+	 * @public
+	 */
 	Object.defineProperty(p, "current",
 	{
 		get: function()
@@ -142,10 +142,10 @@
 	});
 	
 	/**
-	*  Gets the preferred languages from the browser.
-	*  @method getPreferredLanguages
-	*  @return {Array} The list of preferred languages in order of preference.
-	*/
+	 * Gets the preferred languages from the browser.
+	 * @method getPreferredLanguages
+	 * @return {Array} The list of preferred languages in order of preference.
+	 */
 	p.getPreferredLanguages = function()
 	{
 		var rtn;
@@ -166,11 +166,11 @@
 	};
 	
 	/**
-	*  Sets the current language, based on specified preferences and what is available.
-	*  @method setLanguage
-	*  @param {Array|String} languageList The list of preferred languages in order of preference,
-	*                                    or a single language.
-	*/
+	 * Sets the current language, based on specified preferences and what is available.
+	 * @method setLanguage
+	 * @param {Array|String} languageList The list of preferred languages in order of preference,
+	 *                                or a single language.
+	 */
 	p.setLanguage = function(languageList)
 	{
 		if(!languageList) return;
@@ -209,35 +209,35 @@
 	};
 	
 	/**
-	*  Sets the string table for later reference.
-	*  @method setStringTable
-	*  @param {Dictionary} dictionary The string table, with keys that you would use to reference
-	*                                the translations.
-	*/
+	 * Sets the string table for later reference.
+	 * @method setStringTable
+	 * @param {Dictionary} dictionary The string table, with keys that you would use to reference
+	 *                            the translations.
+	 */
 	p.setStringTable = function(dictionary)
 	{
 		this._stringTable = dictionary;
 	};
 	
 	/**
-	*  Gets a string from the current string table.
-	*  @method getString
-	*  @param {String} key The key of the string to get.
-	*  @return {String} The translated string.
-	*/
+	 * Gets a string from the current string table.
+	 * @method getString
+	 * @param {String} key The key of the string to get.
+	 * @return {String} The translated string.
+	 */
 	p.getString = function(key)
 	{
 		return this._stringTable ? this._stringTable[key] : null;
 	};
 	
 	/**
-	*  Gets a formatted string from the current string table. See String.format() in the Core
-	*  module.
-	*  @method getFormattedString
-	*  @param {String} key The key of the string to get.
-	*  @param {Array|*} args An array or list of arguments for formatting.
-	*  @return {String} The translated string.
-	*/
+	 * Gets a formatted string from the current string table. See String.format() in the Core
+	 * module.
+	 * @method getFormattedString
+	 * @param {String} key The key of the string to get.
+	 * @param {Array|*} args An array or list of arguments for formatting.
+	 * @return {String} The translated string.
+	 */
 	p.getFormattedString = function(key)
 	{
 		var string = this._stringTable ? this._stringTable[key] : null;
@@ -248,10 +248,10 @@
 	};
 	
 	/**
-	*  Modifies a url, replacing a specified value with the current language.
-	*  @method modifyUrl
-	*  @param {String} url The url to modify to a language specific version.
-	*/
+	 * Modifies a url, replacing a specified value with the current language.
+	 * @method modifyUrl
+	 * @param {String} url The url to modify to a language specific version.
+	 */
 	p.modifyUrl = function(url)
 	{
 		while(url.indexOf(this._replace) >= 0)
@@ -260,9 +260,9 @@
 	};
 	
 	/**
-	*  Destroys the Languages object.
-	*  @method destroy
-	*/
+	 * Destroys the Languages object.
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		if (Loader.instance)

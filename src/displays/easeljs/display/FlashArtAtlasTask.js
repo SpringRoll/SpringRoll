@@ -17,6 +17,7 @@
 	 * @class FlashArtAtlasTask
 	 * @extends springroll.Task
 	 * @constructor
+	 * @private
 	 * @param {Object} asset The data properties
 	 * @param {String} asset.src The source
 	 * @param {String} asset.atlas The TextureAtlas source data
