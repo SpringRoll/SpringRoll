@@ -30,11 +30,11 @@
 	}
 
 	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
+	 * Get a random item from an array
+	 * @method random
+	 * @param {Array} array The array
+	 * @return {*} The random item
+	 */
 	if(!Array.prototype.random)
 	{
 		Object.defineProperty(Array.prototype, 'random',

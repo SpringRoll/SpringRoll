@@ -33,7 +33,6 @@
 	/**
 	 * Get a random item from an array
 	 * @method random
-	 * @static
 	 * @param {Array} array The array
 	 * @return {*} The random item
 	 */
@@ -52,7 +51,6 @@
 	/**
 	 * Get the last item in the array
 	 * @method last
-	 * @static
 	 * @param {Array} array The array
 	 * @return {*} The last item
 	 */
@@ -232,6 +230,7 @@
 			value: function(totalDigits) {
 				if(!totalDigits)
 					totalDigits = 2;
+				var num = this;
 				var leader;
 				if(num < 0)
 				{
@@ -399,7 +398,7 @@
 	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
-	Object.defineProperty(String.prototype, 'format', 
+	Object.defineProperty(String.prototype, 'format',
 	{
 		enumerable: false,
 		writable:false,
@@ -423,12 +422,12 @@
 	
 	/**
 	 * Returns a reversed copy of the string.
-	 * @method format
+	 * @method reverse
 	 * @return {String} The reversed string.
 	 */
 	if(!String.prototype.reverse)
 	{
-		Object.defineProperty(String.prototype, 'reverse', 
+		Object.defineProperty(String.prototype, 'reverse',
 		{
 			enumerable: false,
 			writable:false,
