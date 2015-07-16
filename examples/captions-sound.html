@@ -114,7 +114,7 @@ app.once('init', function()
 app.addButton = function(label, x, y, handler)
 {
 	// Create a play button
-	var button = new Button(this.cache('button'), {
+	var button = new Button(this.getCache('button'), {
 		text: label,
 		font: "16px Arial",
 		color: "#ffffff"

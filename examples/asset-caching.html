@@ -87,13 +87,13 @@ app.once('init', function()
 	var transition = new lib.Transition();
 	
 	// Background image
-	var background = new Bitmap(this.cache('Background'));
+	var background = new Bitmap(this.getCache('Background'));
 
 	// Get the Bitmap movieclip
-	var flower = this.cache('Flower');
+	var flower = this.getCache('Flower');
 	
 	// Create a button that destroys the universe
-	var unloadButton = new Button(this.cache('Button'), {
+	var unloadButton = new Button(this.getCache('Button'), {
 		text: 'Unload',
 		font: "16px Arial",
 		color: "#ffffff"

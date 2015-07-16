@@ -76,7 +76,7 @@ app.once('init', function()
 app.makeButtons = function()
 {
 	// Create a play button
-	this.playButton = new Button(this.cache('button'), {
+	this.playButton = new Button(this.getCache('button'), {
 		text: 'Play',
 		font: "16px Arial",
 		color: "#ffffff"
@@ -85,7 +85,7 @@ app.makeButtons = function()
 	this.playButton.y = 100;
 
 	// Create a stop button
-	this.stopButton = new Button(this.cache('button'), {
+	this.stopButton = new Button(this.getCache('button'), {
 		text: 'Stop',
 		font: "16px Arial",
 		color: "#ffffff"

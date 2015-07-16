@@ -57,7 +57,7 @@ var app = new Application({
 
 app.once('init', function()
 {
-	var background = new Bitmap(this.cache('background'));
+	var background = new Bitmap(this.getCache('background'));
 	this.display.stage.addChild(background);
 	
 	this.on('resize', function(w, h)

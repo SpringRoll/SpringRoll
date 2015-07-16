@@ -121,7 +121,7 @@ var app = new Application({
 app.once('init', function()
 {
 	var stage = this.display.stage;
-	var cutscene = this.cache('Intro');
+	var cutscene = this.getCache('Intro');
 	stage.addChild(cutscene);
 	cutscene.start();
 });

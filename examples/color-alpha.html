@@ -64,11 +64,11 @@ var app = new Application({
 app.once('init', function()
 {
 	// Use the alpha-color image as a bitmap
-	var character = new Bitmap(this.cache('AlphaImage'));
+	var character = new Bitmap(this.getCache('AlphaImage'));
 	character.x = 240;
 
 	// Create a background
-	var background = new Bitmap(this.cache('Background'));
+	var background = new Bitmap(this.getCache('Background'));
 
 	// Add to the stage
 	this.display.stage.addChild(

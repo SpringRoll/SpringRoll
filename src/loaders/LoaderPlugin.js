@@ -206,11 +206,11 @@
 
 		/**
 		 * Get an asset from the cache by ID
-		 * @method cache
+		 * @method getCache
 		 * @param {String} id The asset to fetch
 		 * @return {*|null} The cached object or null if empty
 		 */
-		this.cache = function(id)
+		this.getCache = function(id)
 		{
 			return assetManager.cache.read(id);
 		};

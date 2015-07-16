@@ -7,7 +7,7 @@ test('Asset Manager', function(assert)
 	assert.ok(!!app.assetManager, "Asset Manager exists");
 	assert.ok(!!app.load, "Application load");
 	assert.ok(!!app.unload, "Application unload");
-	assert.ok(!!app.cache, "Application cache");
+	assert.ok(!!app.getCache, "Application getCache");
 });
 
 test('Single Asset', function(assert)
@@ -125,9 +125,9 @@ test('Cached Assets', function(assert)
 		complete: function(results)
 		{
 			start();
-			assert.ok(!!app.cache('image'), "Cache Image is returned");
-			assert.ok(!app.cache('config'), "Override cache all");
-			assert.ok(!!app.cache('_FILE_'), "Custom ID specified");
+			assert.ok(!!app.getCache('image'), "Cache Image is returned");
+			assert.ok(!app.getCache('config'), "Override cache all");
+			assert.ok(!!app.getCache('_FILE_'), "Custom ID specified");
 		},
 		cacheAll: true
 	});

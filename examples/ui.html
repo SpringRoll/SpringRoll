@@ -69,15 +69,15 @@ var app = new Application({
 
 app.once('init', function()
 {
-	var background = new Bitmap(this.cache('Background'));
+	var background = new Bitmap(this.getCache('Background'));
 
-	this.playButton = new Button(this.cache('Button'), {
+	this.playButton = new Button(this.getCache('Button'), {
 		text: 'Play',
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 
-	this.closeButton = new Button(this.cache('Button'), {
+	this.closeButton = new Button(this.getCache('Button'), {
 		text: 'Close',
 		font: "16px Arial",
 		color: "#ffffff"

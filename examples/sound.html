@@ -88,7 +88,7 @@ app.once('init', function()
 // buttons and adding them to the stage
 app.addButton = function(text, x, y, onPress)
 {
-	var button = new Button(this.cache('button'), {
+	var button = new Button(this.getCache('button'), {
 		text: text,
 		font: "16px Arial",
 		color: "#ffffff"
