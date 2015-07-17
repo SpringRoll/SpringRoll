@@ -73,7 +73,7 @@ The basic usage is to create a canvas element on the DOM, assign it an ID and th
 
 			// Listen for when the application
 			// has been fully initialized
-			app.on('init', function(){
+			app.once('init', function(){
 				// Ready!
 			});
 
@@ -110,7 +110,6 @@ Modules are components which contain common code classes, documentation and/or r
 	* **[Pixi.js UI Module](https://github.com/SpringRoll/SpringRoll/wiki/Pixi.js-UI-Module)** _pixi-ui_
 * **[Sound Module](https://github.com/SpringRoll/SpringRoll/wiki/Sound-Module)** _sound_
 * **[States Module](https://github.com/SpringRoll/SpringRoll/wiki/States-Module)** _states_
-* **[Tasks Module](https://github.com/SpringRoll/SpringRoll/wiki/Tasks-Module)** _tasks_
 * **[UI Module](https://github.com/SpringRoll/SpringRoll/wiki/UI-Module)** _ui_
 
 ##Displays
