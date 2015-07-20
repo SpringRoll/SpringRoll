@@ -10,10 +10,9 @@
 	 * @constructor
 	 * @param {*} content The dynamic content loaded
 	 * @param {String} url The url that was loaded
-	 * @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	 * @param {*} [data] Optional data associated with object
 	 */
-	var LoaderResult = function(content, url, loader, data)
+	var LoaderResult = function(content, url, data)
 	{
 		/**
 		 * The contents of the load
@@ -26,12 +25,6 @@
 		 * @property {String} url
 		 */
 		this.url = url;
-
-		/**
-		 * Reference to the preloader object
-		 * @property {createjs.LoaderQueue} loader
-		 */
-		this.loader = loader;
 		
 		/**
 		 * The data for the load item.
@@ -68,7 +61,6 @@
 	{
 		this.content = 
 		this.url = 
-		this.loader = 
 		this.data =
 		this.id = null;
 	};

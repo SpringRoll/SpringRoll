@@ -4278,20 +4278,45 @@
  */
 (function()
 {
+	var LoadQueue = include('createjs.LoadQueue'),
+		Debug,
+		Sound = include('createjs.Sound', false);
+
 	/**
 	 * Represents a single item in the loader queue 
 	 * @class LoaderQueueItem
-	 * @private
+	 * @extends createjs.LoadQueue
 	 */
 	var LoaderQueueItem = function()
 	{
+		LoadQueue.call(this, true); // preferXHR is always true!
+
+		if (Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
 		/**
-		 * The url of the load
+		 * The number of times this load has been retried
+		 * @property {int} retries
+		 * @default
+		 */
+		this.retries = 0;
+
+		/**
+		 * The original input url of the load
 		 * @public
 		 * @property {string} url
 		 */
 		this.url = null;
-		
+
+		/**
+		 * The actual url of the load
+		 * @public
+		 * @property {string} preparedUrl
+		 */
+		this.preparedUrl = null;
+
 		/**
 		 * Data associate with the load
 		 * @public
@@ -4303,48 +4328,66 @@
 		 * The callback function of the load, to call when 
 		 * the load as finished, takes one argument as result
 		 * @public
-		 * @property {function} complete
+		 * @property {function} onComplete
 		 */
-		this.complete = null;
-		
-		/**
-		 * The amount we've loaded so far, from 0 to 1
-		 * @public
-		 * @property {Number} loaded
-		 */
-		this.loaded = 0;
+		this.onComplete = null;
 		
 		/**
 		 * The progress callback
 		 * @public
-		 * @proprty {function} progress
+		 * @proprty {function} onProgress
 		 */
-		this.progress = null;
+		this.onProgress = null;
 		
 		/**
 		 * The callback when a load queue item fails
 		 * @private
-		 * @proprty {function} _fail
+		 * @proprty {function} _onFailed
 		 */
-		this._fail = null;
+		this._onFailed = this._onFailed.bind(this);
 
 		/**
 		 * The callback when a load queue item progresses
 		 * @private
-		 * @proprty {function} _progress
+		 * @proprty {function} _onProgress
 		 */
-		this._progress = null;
+		this._onProgress = this._onProgress.bind(this);
 
 		/**
 		 * The callback when a load queue item completes
 		 * @private
-		 * @proprty {function} _complete
+		 * @proprty {function} _onCompleted
 		 */
-		this._complete = null;
+		this._onCompleted = this._onCompleted.bind(this);
+
+		// Install the sound plugin if we have sound module
+		if (Sound)
+		{
+			this.installPlugin(Sound);
+		}
 	};
 	
 	/** Reference to the prototype */
-	var p = LoaderQueueItem.prototype;
+	var p = extend(LoaderQueueItem, LoadQueue);
+
+	/**
+	 * Represent this object as a string
+	 * @property {int} MAX_RETRIES
+	 * @static
+	 * @default 3
+	 */
+	var MAX_RETRIES = LoaderQueueItem.MAX_RETRIES = 3;
+
+	if (true)
+	{
+		/**
+		 * If the loads should be verbose
+		 * @property {Boolean} verbose
+		 * @static
+		 * @default false
+		 */
+		LoaderQueueItem.verbose = false;
+	}
 	
 	/**
 	 * Represent this object as a string
@@ -4358,30 +4401,148 @@
 	};
 
 	/**
+	 * The base path of the load
+	 * @property {String} basePath
+	 * @default null
+	 */
+	Object.defineProperty(p, 'basePath', 
+	{
+		set: function(basePath)
+		{
+			this._basePath = basePath;
+		}
+	});
+
+	/**
+	 * If this load should be cross origin
+	 * @property {Boolean} crossOrigin
+	 * @default false
+	 */
+	Object.defineProperty(p, 'crossOrigin',
+	{
+		set: function(crossOrigin)
+		{
+			this._crossOrigin = crossOrigin;
+		}
+	});
+
+	/**
 	 * Clear all the data
 	 * @method clear
 	 */
-	p.reset = function()
+	p.clear = function()
 	{
-		this.complete = 
-		this.progress = 
-		this.data = 
+		this.basePath = "";
+		this.crossOrigin = false;
+		this.retries = 0;
+		this.onComplete = null;
+		this.onProgress = null;
+		this.data =  null;
+		this.preparedUrl =  null;
 		this.url = null;
-		
-		this.loaded = 0;
+
+		this.removeAllEventListeners();
+		this.close();
 	};
-	
+
 	/**
-	 * Destroy this result
-	 * @public
-	 * @method destroy
+	 * Start the loading
+	 * @method  start
+	 * @param {int} maxCurrentLoads The max number of simultaneous load
 	 */
-	p.destroy = function()
+	p.start = function(maxCurrentLoads)
 	{
-		this.reset();
-		this._boundFail = null;
-		this._boundProgress = null;
-		this._boundComplete = null;
+		if (true && Debug && LoaderQueueItem.verbose)
+		{
+			Debug.log("Attempting to load file '" + this.url + "'");
+		}
+		this.addEventListener('fileload', this._onCompleted);
+		this.addEventListener('error', this._onFailed);
+		this.addEventListener('fileprogress', this._onProgress);
+		this._internalStart();
+	};
+
+	/**
+	 * Start the loading internally
+	 * @method  _internalStart
+	 * @private
+	 */
+	p._internalStart = function()
+	{
+		var url = this.preparedUrl;
+
+		// Special loading for the Sound, requires the ID
+		if (this.data && this.data.id)
+		{
+			url = {
+				id: this.data.id, 
+				src: url, 
+				data: this.data
+			};
+		}
+
+		// Load the file
+		this.loadFile(url);
+	};
+
+	/**
+	 * The file load progress event
+	 * @method _onProgress
+	 * @private
+	 * @param {object} event The progress event
+	 */
+	p._onProgress = function(event)
+	{
+		if (this.onProgress)
+		{
+			this.onProgress(this.progress);
+		}
+	};
+
+	/**
+	 * There was an error loading the file
+	 * @private
+	 * @method _onFailed
+	 */
+	p._onFailed = function(event)
+	{
+		if (true && Debug) 
+		{
+			Debug.error("Unable to load file: " + this.url  + " - reason: " + event.error);
+		}
+		this.retry();
+	};
+
+	/**
+	 * Retry the current load
+	 * @method  retry
+	 */
+	p.retry = function()
+	{
+		this.retries++;
+		if (this.retries > MAX_RETRIES)
+		{
+			this.onComplete(this, null);
+		}
+		else
+		{
+			this._internalStart();
+		}
+	};
+
+	/**
+	 * The file was loaded successfully
+	 * @private
+	 * @method _onCompleted
+	 * @param {object} ev The load event
+	 */
+	p._onCompleted = function(ev)
+	{
+		if (true && Debug && LoaderQueueItem.verbose)
+		{
+			Debug.log("File loaded successfully from " + this.url);
+		}
+		this.onComplete(this, ev.result);
 	};
 	
 	// Assign to the name space
@@ -4400,10 +4561,9 @@
 	 * @constructor
 	 * @param {*} content The dynamic content loaded
 	 * @param {String} url The url that was loaded
-	 * @param {createjs.LoadQueue} loader The LoadQueue that performed the load
 	 * @param {*} [data] Optional data associated with object
 	 */
-	var LoaderResult = function(content, url, loader, data)
+	var LoaderResult = function(content, url, data)
 	{
 		/**
 		 * The contents of the load
@@ -4416,12 +4576,6 @@
 		 * @property {String} url
 		 */
 		this.url = url;
-
-		/**
-		 * Reference to the preloader object
-		 * @property {createjs.LoaderQueue} loader
-		 */
-		this.loader = loader;
 		
 		/**
 		 * The data for the load item.
@@ -4458,7 +4612,6 @@
 	{
 		this.content = 
 		this.url = 
-		this.loader = 
 		this.data =
 		this.id = null;
 	};
@@ -4480,15 +4633,12 @@
  * @module Core
  * @namespace springroll
  */
-(function()
+(function(undefined)
 {
 	// Classes to import
 	var LoaderQueueItem = include('springroll.LoaderQueueItem'),
 		CacheManager = include('springroll.CacheManager'),
-		LoaderResult = include('springroll.LoaderResult'),
-		LoadQueue,
-		Sound,
-		Debug;
+		LoaderResult = include('springroll.LoaderResult');
 
 	/**
 	 * The Loader is the singleton loader for loading all assets
@@ -4498,45 +4648,20 @@
 	 */
 	var Loader = function(app)
 	{
-		if (!LoadQueue)
-		{
-			LoadQueue = include('createjs.LoadQueue');
-			Sound = include('createjs.Sound', false);
-			Debug = include('springroll.Debug', false);
-		}
-
 		/**
 		 * The current application
-		 * @property {springroll.Application} _app 
+		 * @property {springroll.Application} app 
 		 * @private
 		 */
-		this._app = app;
-
-		/**
-		 * If we can load
-		 * @property {Boolean} _canLoad 
-		 * @default true
-		 * @private
-		 */
-		this._canLoad = true;
-
-		if (true)
-		{
-			/**
-			 * If the logging should be verbose (unminified library only)
-			 * @property {Boolean} verbose
-			 * @default  false
-			 */
-			this.verbose = false;
-		}
+		this.app = app;
 		
 		/**
 		 * The maximum number of simulaneous loads
 		 * @public
-		 * @property {int} maxSimultaneousLoads
+		 * @property {int} maxCurrentLoads
 		 * @default 2
 		 */
-		this.maxSimultaneousLoads = 2;
+		this.maxCurrentLoads = 2;
 		
 		/**
 		 * The reference to the cache manager
@@ -4545,103 +4670,39 @@
 		 */
 		this.cacheManager = new CacheManager(app);
 
-		// Create objects
-		qiPool = [];
-		loaderPool = [];
-		queue = [];
-		queueItems = {};
-		loaders = {};
-		retries = {};
+		/**
+		 * The collection of LoaderQueueItems by url
+		 * @private
+		 * @property {Object} loads
+		 */
+		this.loads = {};
+		
+		/**
+		 * The pool of queue items
+		 * @private
+		 * @property {array} loadPool
+		 */
+		this.loadPool = [];
 	};
 	
 	/** The prototype */
 	var p = Loader.prototype;
-	
-	/**
-	 * Reference to the private instance object
-	 * @static
-	 * @protected
-	 */
-	var _instance = null;
-	
-	/**
-	 * The collection of LoaderQueueItems
-	 * @private
-	 */
-	var queue = null;
-	
-	/**
-	 * The collection of LoaderQueueItems by url
-	 * @private
-	 */
-	var queueItems = null;
-	
-	/**
-	 * The collection of loaders
-	 * @private
-	 * @property {object} loaders
-	 */
-	var loaders = null;
-	
-	/**
-	 * The pool of queue items
-	 * @private
-	 * @property {array} loaders
-	 */
-	var qiPool = null;
 
-	/**
-	 * The pool of loader items
-	 * @private
-	 * @property {array} loaders
-	 */
-	var loaderPool = null;
-	
-	/**
-	 * The current number of items loading
-	 * @private
-	 * @property {int} numLoads
-	 * @default 0
-	 */
-	var numLoads = 0;
-	
-	/**
-	 * The retry attempts
-	 * @private
-	 * @property {Object} retries
-	 */
-	var retries = null;
-	
-	/**
-	 * Static constructor creating the singleton
-	 * @method init
-	 * @static
-	 * @public
-	 * @param {springroll.Application} app The current application
-	 */
-	Loader.init = function(app)
+	if (true)
 	{
-		if (!_instance)
+		/**
+		 * If the logging should be verbose (unminified library only)
+		 * @property {Boolean} verbose
+		 * @default  false
+		 */
+		Object.defineProperty(p, 'verbose', 
 		{
-			_instance = new Loader(app);
-		}
-		return _instance;
-	};
-		
-	/**
-	 * Static function for getting the singleton instance
-	 * @static
-	 * @readOnly
-	 * @public
-	 * @property {Loader} instance
-	 */
-	Object.defineProperty(Loader, "instance",
-	{
-		get: function()
-		{
-			return _instance;
-		}
-	});
+			set: function(verbose)
+			{
+				LoaderQueueItem.verbose = verbose;
+			}
+		});
+	}
 	
 	/**
 	 * Destroy the Loader singleton, don't use after this
@@ -4650,36 +4711,20 @@
 	 */
 	p.destroy = function()
 	{
-		var i, len, key, arr = this.queue;
-		if (arr)
-		{
-			this.queue.forEach(function(item)
-			{
-				item.destroy();
-			});
+		var i, len, key;
 
-			qiPool.forEach(function(qi)
-			{
-				qi.destroy();
-			});
-			for(key in loaders)
-			{
-				queueItems[key].destroy();
-				loaders[key].close();
-			}
-		}
-		_instance = null;
+		this.loadPool.forEach(function(load)
+		{
+			load.clear();
+		});
+		this.loadPool = null;
+
 		if (this.cacheManager)
 		{
 			this.cacheManager.destroy();
 		}
 		this.cacheManager = null;
-		queue = null;
-		loaderPool = null;
-		qiPool = null;
-		queueItems = null;
-		retries = null;
-		loaders = null;
+		this.loads = null;
 	};
 
 	/**
@@ -4690,164 +4735,57 @@
 	 * @param {function} complete The callback function when completed
 	 * @param {function} [progress] The callback for load progress update, passes 0-1 as param
 	 * @param {*} [data] optional data
+	 * @return {createjs.LoadQueue} The load queue item
 	 */
 	p.load = function(url, complete, progress, data)
 	{
-		var qi = this._getQI();
-		var basePath = this._app.options.basePath;
-		if (basePath !== undefined && /^http(s)?\:/.test(url) === false && url.search(basePath) == -1)
-		{
-			qi.basePath = basePath;
-		}
-		qi.url = url;
-		qi.complete = complete;
-		qi.progress = progress || null;
-		qi.data = data || null;
-		
-		queue.push(qi);
-		
-		// Try to load the next queue item
-		this._tryNextLoad();
-	};
-	
-	/**
-	 * There was an error loading the file
-	 * @private
-	 * @method _onLoadFailed
-	 * @param {LoaderQueueItem} qi The loader queue item
-	 */
-	p._onLoadFailed = function(qi, event)
-	{
-		if (!_instance) return;
-		
-		if (true && Debug) 
-		{
-			Debug.error("Unable to load file: " + qi.url  + " - reason: " + event.error);
-		}
-		
-		var loader = loaders[qi.url];
-		loader.removeAllEventListeners();
-		loader.close();
-		_poolLoader(loader);
-		
-		delete queueItems[qi.url];
-		delete loaders[qi.url];
-		
-		if (retries[qi.url])
-		{
-			retries[qi.url]++;
-		}
-		else
-		{
-			retries[qi.url] = 1;
-		}
-		if (retries[qi.url] > 3)
-		{
-			this._loadDone(qi, null);
-		}
-		else
-		{
-			numLoads--;
-			queue.push(qi);
-			this._tryNextLoad();
-		}
-	};
-	
-	/**
-	 * The file load progress event
-	 * @method _onLoadProgress
-	 * @private
-	 * @param {LoaderQueueItem} qi The loader queue item
-	 * @param {object} event The progress event
-	 */
-	p._onLoadProgress = function(qi, event)
-	{
-		qi.loaded = event.progress;
+		var options = this.app.options;
 
-		if (qi.progress)
-		{
-			qi.progress(qi.loaded);
-		}
-	};
-	
-	/**
-	 * The file was loaded successfully
-	 * @private
-	 * @method _onLoadCompleted
-	 * @param {LoaderQueueItem} qi The loader queue item
-	 * @param {object} ev The load event
-	 */
-	p._onLoadCompleted = function(qi, ev)
-	{
-		if (!_instance) return;
+		// Get a new loader object
+		var load = this._getLoad();
 
-		if (true && Debug && this.verbose)
+		var basePath = options.basePath;
+		if (basePath !== undefined && 
+			/^http(s)?\:/.test(url) === false && 
+			url.search(basePath) == -1)
 		{
-			Debug.log("File loaded successfully from " + qi.url);
+			load.basePath = basePath;
 		}
-		var loader = loaders[qi.url];
-		loader.removeAllEventListeners();
-		loader.close();
-		_poolLoader(loader);
-		
-		delete queueItems[qi.url];
-		delete loaders[qi.url];
+		load.crossOrigin = options.crossOrigin;
+		load.url = url;
+		load.preparedUrl = this.cacheManager.prepare(url);
+		load.onComplete = this._onComplete.bind(this, complete);
+		load.onProgress = progress || null;
+		load.data = data || null;
+		load.setMaxConnections(this.maxCurrentLoads);
 
-		this._loadDone(qi, this._getResult(
-			ev.result, 
-			qi.url, 
-			loader, 
-			qi.data
-		));
+		this.loads[url] = load;
+
+		load.start();
+
+		return load;
 	};
-	
+
 	/**
-	 * Attempt to do the next load
-	 * @method _tryNextLoad
+	 * Handler for the file complete
+	 * @method _onComplete
 	 * @private
+	 * @param  {function} complete Callback function when done
+	 * @param  {springroll.LoaderQueueResult} load The LoadQueue
+	 * @param  {null|*} result   [description]
 	 */
-	p._tryNextLoad = function()
+	p._onComplete = function(complete, load, result)
 	{
-		if (numLoads > this.maxSimultaneousLoads - 1 || queue.length === 0) return;
-		
-		numLoads++;
-		
-		var qi = queue.shift();
-		
-		if (true && Debug && this.verbose)
+		if (result)
 		{
-			Debug.log("Attempting to load file '" + qi.url + "'");
+			result = new LoaderResult(
+				result,
+				load.url,
+				load.data
+			);
 		}
-		
-		queueItems[qi.url] = qi;
-		
-		var loader = this._getLoader(qi.basePath);
-		
-		// Add to the list of loaders
-		loaders[qi.url] = loader;
-		loader.addEventListener("fileload", qi._complete);
-		loader.addEventListener("error", qi._fail);
-		loader.addEventListener("fileprogress", qi._progress);
-		
-		// Load the file, format the URL
-		var url = this.cacheManager.prepare(qi.url);
-		loader.loadFile(qi.data && qi.data.id ? 
-			{id:qi.data.id, src:url, data:qi.data} : url);
-	};
-	
-	/**
-	 * Alert that the loading is finished
-	 * @private
-	 * @method _loadDone
-	 * @param {LoaderQueueItem} qi The loader queue item
-	 * @param {object} result The event from preloadjs or null
-	 */
-	p._loadDone = function(qi, result)
-	{
-		numLoads--;
-		qi.complete(result);
-		_poolQI(qi);
-		this._tryNextLoad();
+		complete(result);
+		this._putLoad(load);
 	};
 	
 	/**
@@ -4859,124 +4797,40 @@
 	 */
 	p.cancel = function(url)
 	{
-		var qi = queueItems[url];
-		var loader = loaders[url];
+		var load = this.loads[url];
 		
-		if (qi && loader)
+		if (load)
 		{
-			loader.close();
-			delete loaders[url];
-			delete queueItems[qi.url];
-			numLoads--;
-			_poolLoader(loader);
-			_poolQI(qi);
+			load.clear();
+			this._putLoad(load);
 			return true;
-		}
-		
-		for(var i = 0, len = queue.length; i < len; i++)
-		{
-			qi = queue[i];
-			if (qi.url == url){
-				queue.splice(i, 1);
-				_poolQI(qi);
-				return true;
-			}
 		}
 		return false;
 	};
 	
 	/**
 	 * Get a Queue item from the pool or new
-	 * @method  _getQI
+	 * @method  _getLoad
 	 * @private
 	 * @return  {springroll.LoaderQueueItem} The Queue item to use
 	 */
-	p._getQI = function()
+	p._getLoad = function()
 	{
-		var qi;
-		if (qiPool.length)
-		{
-			qi = qiPool.pop();
-		}
-		else
-		{
-			qi = new LoaderQueueItem();
-			qi._fail = this._onLoadFailed.bind(this, qi);
-			qi._progress = this._onLoadProgress.bind(this, qi);
-			qi._complete = this._onLoadCompleted.bind(this, qi);
-		}
-		return qi;
+		var loadPool = this.loadPool;
+		return loadPool.length ? loadPool.pop(): new LoaderQueueItem();
 	};
 	
 	/**
 	 * Pool the loader queue item
-	 * @method  _poolQI
+	 * @method  _putLoad
 	 * @private
-	 * @param  {springroll.LoaderQueueItem} qi Queue item that's done
+	 * @param  {springroll.LoaderQueueItem} load Queue item that's done
 	 */
-	var _poolQI = function(qi)
+	p._putLoad = function(load)
 	{
-		qi.reset();
-		qiPool.push(qi);
-	};
-	
-	/**
-	 * Get a loader from the pool or create new
-	 * @method  _getLoader
-	 * @private
-	 * @param  {String} basePath
-	 * @return {createjs.LoadQueue} The load queue
-	 */
-	p._getLoader = function(basePath)
-	{
-		var result;
-		if (loaderPool.length)
-		{
-			result = loaderPool.pop();
-			result._basePath = basePath; //apparently they neglected to make this public
-		}
-		else
-		{
-			result = new LoadQueue(true, basePath, this._app.options.crossOrigin);
-		}
-		//allow the loader to handle sound as well
-		if (Sound)
-		{
-			result.installPlugin(Sound);
-		}
-		return result;
-	};
-	
-	/**
-	 * Add loader to the loader pool
-	 * @method  _poolLoader
-	 * @private
-	 * @param {createjs.LoadQueue} loader The load queue
-	 */
-	var _poolLoader = function(loader)
-	{
-		loader.removeAll();
-		loaderPool.push(loader);
-	};
-	
-	/**
-	 * Get the result of the load
-	 * @method _getResult
-	 * @private
-	 * @param  {*} content The loader result
-	 * @param  {String} url The URL that was loaded
-	 * @param  {createjs.Loader} loader Loader instance
-	 * @param  {*} data Optional data to associate with load
-	 * @return {springroll.LoaderResult} The resulting load
-	 */
-	p._getResult = function(content, url, loader, data)
-	{
-		return new LoaderResult(
-			content,
-			url,
-			loader,
-			data
-		);
+		delete this.loads[load.url];
+		load.clear();
+		this.loadPool.push(load);
 	};
 	
 	namespace('springroll').Loader = Loader;
@@ -6070,7 +5924,7 @@
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
-		var loader = this.loader = Loader.init(this);
+		var loader = this.loader = new Loader(this);
 
 		/**
 		 * Reference to the multiple asset loader
@@ -6661,6 +6515,7 @@
 (function(){
 	
 	var Application = include('springroll.Application'),
+		Loader = include('springroll.Loader'),
 		EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
@@ -6689,8 +6544,24 @@
 	 */
 	EventDispatcher.mixIn = function(object, callConstructor)
 	{
-		console.log('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
+		console.warn('mixIn is now deprecated, please use window.mixin, e.g.: mixin(object, EventDispatcher);');
 		return mixin(object, EventDispatcher);
 	};
+
+	/**
+	 * @property
+	 * @static
+	 * @name springroll.Loader#instance
+	 * @see {@link springroll.Application#loader}
+	 * @deprecated since version 0.4.0
+	 */
+	Object.defineProperty(Loader, "instance",
+	{
+		get: function()
+		{
+			console.warn('Loader.instance is now deprecated, please use Application\'s loader property, e.g.: app.loader.load(url, callback);');
+			return Application.instance.loader;
+		}
+	});
 
 }());

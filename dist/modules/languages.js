@@ -7,6 +7,7 @@
 (function(window, undefined){
 	
 	var Loader = include('springroll.Loader'),
+		Application = include('springroll.Application'),
 		EventDispatcher = include('springroll.EventDispatcher');
 	
 	/**
@@ -110,7 +111,7 @@
 		
 		//connect to the CacheManager
 		this.modifyUrl = this.modifyUrl.bind(this);
-		Loader.instance.cacheManager.registerURLFilter(this.modifyUrl);
+		Application.instance.loader.cacheManager.registerURLFilter(this.modifyUrl);
 	};
 	
 	/**
@@ -266,9 +267,10 @@
 	 */
 	p.destroy = function()
 	{
-		if (Loader.instance)
+		var loader = Application.instance.loader;
+		if (loader)
 		{
-			Loader.instance.cacheManager.unregisterURLFilter(this.modifyUrl);
+			loader.cacheManager.unregisterURLFilter(this.modifyUrl);
 		}
 		this.modifyUrl = this.languages = null;
 		_instance = null;

@@ -51,8 +51,7 @@
  */
 (function()
 {
-	var Loader = include('springroll.Loader'),
-		Application = include('springroll.Application'),
+	var Application = include('springroll.Application'),
 		AssetLoader = include('PIXI.AssetLoader'),
 		PixiAssets = include('springroll.pixi.PixiAssets'),
 		Task = include('springroll.Task');
@@ -103,7 +102,7 @@
 		// Prepare each url via the cache manager
 		this.urls.forEach(function(url, i, urls)
 		{
-			urls[i] = Loader.instance.cacheManager.prepare(url, true);
+			urls[i] = Application.instance.loader.cacheManager.prepare(url, true);
 		});
 	};
 

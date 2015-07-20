@@ -4,20 +4,45 @@
  */
 (function()
 {
+	var LoadQueue = include('createjs.LoadQueue'),
+		Debug,
+		Sound = include('createjs.Sound', false);
+
 	/**
 	 * Represents a single item in the loader queue 
 	 * @class LoaderQueueItem
-	 * @private
+	 * @extends createjs.LoadQueue
 	 */
 	var LoaderQueueItem = function()
 	{
+		LoadQueue.call(this, true); // preferXHR is always true!
+
+		if (Debug === undefined)
+		{
+			Debug = include('springroll.Debug', false);
+		}
+
 		/**
-		 * The url of the load
+		 * The number of times this load has been retried
+		 * @property {int} retries
+		 * @default
+		 */
+		this.retries = 0;
+
+		/**
+		 * The original input url of the load
 		 * @public
 		 * @property {string} url
 		 */
 		this.url = null;
-		
+
+		/**
+		 * The actual url of the load
+		 * @public
+		 * @property {string} preparedUrl
+		 */
+		this.preparedUrl = null;
+
 		/**
 		 * Data associate with the load
 		 * @public
@@ -29,48 +54,66 @@
 		 * The callback function of the load, to call when 
 		 * the load as finished, takes one argument as result
 		 * @public
-		 * @property {function} complete
+		 * @property {function} onComplete
 		 */
-		this.complete = null;
-		
-		/**
-		 * The amount we've loaded so far, from 0 to 1
-		 * @public
-		 * @property {Number} loaded
-		 */
-		this.loaded = 0;
+		this.onComplete = null;
 		
 		/**
 		 * The progress callback
 		 * @public
-		 * @proprty {function} progress
+		 * @proprty {function} onProgress
 		 */
-		this.progress = null;
+		this.onProgress = null;
 		
 		/**
 		 * The callback when a load queue item fails
 		 * @private
-		 * @proprty {function} _fail
+		 * @proprty {function} _onFailed
 		 */
-		this._fail = null;
+		this._onFailed = this._onFailed.bind(this);
 
 		/**
 		 * The callback when a load queue item progresses
 		 * @private
-		 * @proprty {function} _progress
+		 * @proprty {function} _onProgress
 		 */
-		this._progress = null;
+		this._onProgress = this._onProgress.bind(this);
 
 		/**
 		 * The callback when a load queue item completes
 		 * @private
-		 * @proprty {function} _complete
+		 * @proprty {function} _onCompleted
 		 */
-		this._complete = null;
+		this._onCompleted = this._onCompleted.bind(this);
+
+		// Install the sound plugin if we have sound module
+		if (Sound)
+		{
+			this.installPlugin(Sound);
+		}
 	};
 	
 	/** Reference to the prototype */
-	var p = LoaderQueueItem.prototype;
+	var p = extend(LoaderQueueItem, LoadQueue);
+
+	/**
+	 * Represent this object as a string
+	 * @property {int} MAX_RETRIES
+	 * @static
+	 * @default 3
+	 */
+	var MAX_RETRIES = LoaderQueueItem.MAX_RETRIES = 3;
+
+	if (DEBUG)
+	{
+		/**
+		 * If the loads should be verbose
+		 * @property {Boolean} verbose
+		 * @static
+		 * @default false
+		 */
+		LoaderQueueItem.verbose = false;
+	}
 	
 	/**
 	 * Represent this object as a string
@@ -84,30 +127,148 @@
 	};
 
 	/**
+	 * The base path of the load
+	 * @property {String} basePath
+	 * @default null
+	 */
+	Object.defineProperty(p, 'basePath', 
+	{
+		set: function(basePath)
+		{
+			this._basePath = basePath;
+		}
+	});
+
+	/**
+	 * If this load should be cross origin
+	 * @property {Boolean} crossOrigin
+	 * @default false
+	 */
+	Object.defineProperty(p, 'crossOrigin',
+	{
+		set: function(crossOrigin)
+		{
+			this._crossOrigin = crossOrigin;
+		}
+	});
+
+	/**
 	 * Clear all the data
 	 * @method clear
 	 */
-	p.reset = function()
+	p.clear = function()
 	{
-		this.complete = 
-		this.progress = 
-		this.data = 
+		this.basePath = "";
+		this.crossOrigin = false;
+		this.retries = 0;
+		this.onComplete = null;
+		this.onProgress = null;
+		this.data =  null;
+		this.preparedUrl =  null;
 		this.url = null;
-		
-		this.loaded = 0;
+
+		this.removeAllEventListeners();
+		this.close();
 	};
-	
+
 	/**
-	 * Destroy this result
-	 * @public
-	 * @method destroy
+	 * Start the loading
+	 * @method  start
+	 * @param {int} maxCurrentLoads The max number of simultaneous load
 	 */
-	p.destroy = function()
+	p.start = function(maxCurrentLoads)
 	{
-		this.reset();
-		this._boundFail = null;
-		this._boundProgress = null;
-		this._boundComplete = null;
+		if (DEBUG && Debug && LoaderQueueItem.verbose)
+		{
+			Debug.log("Attempting to load file '" + this.url + "'");
+		}
+		this.addEventListener('fileload', this._onCompleted);
+		this.addEventListener('error', this._onFailed);
+		this.addEventListener('fileprogress', this._onProgress);
+		this._internalStart();
+	};
+
+	/**
+	 * Start the loading internally
+	 * @method  _internalStart
+	 * @private
+	 */
+	p._internalStart = function()
+	{
+		var url = this.preparedUrl;
+
+		// Special loading for the Sound, requires the ID
+		if (this.data && this.data.id)
+		{
+			url = {
+				id: this.data.id, 
+				src: url, 
+				data: this.data
+			};
+		}
+
+		// Load the file
+		this.loadFile(url);
+	};
+
+	/**
+	 * The file load progress event
+	 * @method _onProgress
+	 * @private
+	 * @param {object} event The progress event
+	 */
+	p._onProgress = function(event)
+	{
+		if (this.onProgress)
+		{
+			this.onProgress(this.progress);
+		}
+	};
+
+	/**
+	 * There was an error loading the file
+	 * @private
+	 * @method _onFailed
+	 */
+	p._onFailed = function(event)
+	{
+		if (DEBUG && Debug) 
+		{
+			Debug.error("Unable to load file: " + this.url  + " - reason: " + event.error);
+		}
+		this.retry();
+	};
+
+	/**
+	 * Retry the current load
+	 * @method  retry
+	 */
+	p.retry = function()
+	{
+		this.retries++;
+		if (this.retries > MAX_RETRIES)
+		{
+			this.onComplete(this, null);
+		}
+		else
+		{
+			this._internalStart();
+		}
+	};
+
+	/**
+	 * The file was loaded successfully
+	 * @private
+	 * @method _onCompleted
+	 * @param {object} ev The load event
+	 */
+	p._onCompleted = function(ev)
+	{
+		if (DEBUG && Debug && LoaderQueueItem.verbose)
+		{
+			Debug.log("File loaded successfully from " + this.url);
+		}
+		this.onComplete(this, ev.result);
 	};
 	
 	// Assign to the name space

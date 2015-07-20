@@ -23,7 +23,7 @@
 		 * Reference to the loader singleton
 		 * @property {springroll.Loader} loader
 		 */
-		var loader = this.loader = Loader.init(this);
+		var loader = this.loader = new Loader(this);
 
 		/**
 		 * Reference to the multiple asset loader
