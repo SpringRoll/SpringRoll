@@ -9,10 +9,10 @@
      * @class Polygon
      * @constructor
      * @param points* {Array<Point>|Array<Number>|Point...|Number...} This can be an array of Points that form the polygon,
-     *      a flat array of numbers that will be interpreted as [x,y, x,y, ...], or the arguments passed can be
-     *      all the points of the polygon e.g. `new Polygon(new Point(), new Point(), ...)`, or the
-     *      arguments passed can be flat x,y values e.g. `new Polygon(x,y, x,y, x,y, ...)` where `x` and `y` are
-     *      Numbers.
+      *     a flat array of numbers that will be interpreted as [x,y, x,y, ...], or the arguments passed can be
+      *     all the points of the polygon e.g. `new Polygon(new Point(), new Point(), ...)`, or the
+      *     arguments passed can be flat x,y values e.g. `new Polygon(x,y, x,y, x,y, ...)` where `x` and `y` are
+      *     Numbers.
      */
     var Polygon = function(points)
     {

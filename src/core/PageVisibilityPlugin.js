@@ -1,7 +1,7 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
@@ -46,9 +46,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is hidden.
-	 *  @method onHidden
-	 *  @private
+	 * Private listener for when the page is hidden.
+	 * @method onHidden
+	 * @private
 	 */
 	var onHidden = function()
 	{
@@ -56,9 +56,9 @@
 	};
 
 	/**
-	 *  Private listener for when the page is shown.
-	 *  @method onVisible
-	 *  @private
+	 * Private listener for when the page is shown.
+	 * @method onVisible
+	 * @private
 	 */
 	var onVisible = function()
 	{

@@ -1,18 +1,18 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	var EventDispatcher = include('springroll.EventDispatcher');
 
 	/**
-	* Event dispatcher with ability to detect whenever a property
-	* is changed.
-	* @class PropertyDispatcher
-	* @extends springroll.EventDispatcher
-	* @constructor {Object} [overrides] The supplied options
-	*/
+	 * Event dispatcher with ability to detect whenever a property
+	 * is changed.
+	 * @class PropertyDispatcher
+	 * @extends springroll.EventDispatcher
+	 * @constructor {Object} [overrides] The supplied options
+	 */
 	var PropertyDispatcher = function()
 	{
 		EventDispatcher.call(this);

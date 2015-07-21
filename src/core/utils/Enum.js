@@ -5,6 +5,7 @@
 (function()
 {
 	var Debug;
+	
 	/**
 	 * An enumeration value. This class is private, and is only used by Enum.
 	 * @class EnumValue
@@ -25,12 +26,14 @@
 		 * @property {String} name
 		 */
 		this.name = name;
+
 		/**
 		 * The integer value of this enum entry.
 		 * @property {int} _value
 		 * @private
 		 */
 		this._value = value;
+
 		/**
 		 * A string for toString() to return, instead of the name.
 		 * @property {String} _toString
@@ -57,9 +60,9 @@
 	};
 
 	/**
-	* An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
-	* referenced as a property with the same name as the EnumValue. Examples:
-	*
+	 * An enumeration, similar to Enums in C#. Each value is created as an EnumValue on the Enum,
+	 * referenced as a property with the same name as the EnumValue. Examples:
+	 *
 		var myEnum = new springroll.Enum(
 			"valueOf0",
 			"valueOf1",
@@ -76,16 +79,16 @@
 		console.log(myOtherEnum.one.toString());//outputs "I am the One!"
 
 		for (var i in myEnum) console.log(i); //outputs "valueOf0","valueOf1","valueOf2"
-	*
-	* @class Enum
-	* @constructor
-	* @param {Array|String|Object} arguments 
-	*  The list of enumeration values. You can pass either an
-	*  array or a list of parameters. Each string will be
-	*  the previous value plus one, while objects with
-	*  'name' and 'value' properties will have the specified
-	*  numeric value.
-	*/
+	 *
+	 * @class Enum
+	 * @constructor
+	 * @param {Array|String|Object} arguments 
+	 * The list of enumeration values. You can pass either an
+	 * array or a list of parameters. Each string will be
+	 * the previous value plus one, while objects with
+	 * 'name' and 'value' properties will have the specified
+	 * numeric value.
+	 */
 	var Enum = function()
 	{
 		var args = Array.isArray(arguments[0]) ?

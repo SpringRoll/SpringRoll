@@ -5,9 +5,6 @@
  */
 (function(undefined)
 {
-	// Try to include Container, movieclip with CreateJS is 
-	// an optional library from easeljs. We should try to 
-	// include it and silently fail if we don't have it
 	var Container = include('createjs.Container', false);
 
 	if (!Container) return;

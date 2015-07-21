@@ -22,7 +22,6 @@
 		<!-- Library and modules -->
 		<script src="../dist/core.js"></script>	
 		<script src="../dist/modules/debug.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/ui.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
@@ -43,13 +42,10 @@
 <script>
 
 var Application = include('springroll.Application'),
-	UIScaler = include('springroll.UIScaler'),
 	Button = include('springroll.easeljs.Button'),
-	LoadTask = include('springroll.LoadTask'),
-	TaskManager = include('springroll.TaskManager'),
+	Bitmap = include('createjs.Bitmap'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
-// Create the new application
 var app = new Application({
 	resizeElement : "stageContainer",
 	framerate: "framerate",
@@ -57,67 +53,44 @@ var app = new Application({
 	configPath: "assets/config/config-ui.json",
 	display: EaselJSDisplay,
 	displayOptions: {
-		clearView: true // clear the stage on render
-	}
+		clearView: true
+	},
+	preload: [
+		{
+			id: 'Background',
+			src: 'assets/images/background.jpg'
+		},
+		{
+			id: 'Button',
+			src: 'assets/images/button.png'
+		}
+	]
 });
 
-var images = {};
-
-app.on('loading', function(tasks)
+app.once('init', function()
 {
-	// Load the background image
-	tasks.push(new LoadTask(
-		'background', 
-		'assets/images/background.jpg', 
-		onImageLoaded
-	));
+	var background = new Bitmap(this.getCache('Background'));
 
-	// Load the button image
-	tasks.push(new LoadTask(
-		'button', 
-		'assets/images/button.png', 
-		onImageLoaded
-	));
-});
-
-
-// Callback when an image is loaded
-var onImageLoaded = function(result, task)
-{
-	images[task.id] = result.content;
-};
-
-// Wait until the app is ready
-app.on('init', function(){
-
-	console.log("Main app init");
-	var stage = this.display.stage;
-
-	// Add the background to the stage 
-	var background = new createjs.Bitmap(images.background);
-
-	// Create and add some buttons
-	this.playButton = new Button(images.button, {
+	this.playButton = new Button(this.getCache('Button'), {
 		text: 'Play',
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 
-	this.closeButton = new Button(images.button, {
+	this.closeButton = new Button(this.getCache('Button'), {
 		text: 'Close',
 		font: "16px Arial",
 		color: "#ffffff"
 	});
 
-	stage.addChild(background);
-	stage.addChild(this.playButton);
-	stage.addChild(this.closeButton);
+	this.display.stage.addChild(
+		background,
+		this.playButton,
+		this.closeButton
+	);
 
 	// Add the background to the scaling
 	this.scaling.addBackground(background);
-
-	// Manually call resize
-	this.triggerResize();
 });
 
 </script>

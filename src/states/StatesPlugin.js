@@ -1,8 +1,8 @@
 /**
-*  @module States
-*  @namespace springroll
-*  @requires Core
-*/
+ * @module States
+ * @namespace springroll
+ * @requires Core
+ */
 (function()
 {
 	// Include classes
@@ -29,29 +29,29 @@
 		 */
 		
 		/**
-		*  The collection of states
-		*  @property {Object} _states
-		*  @private
-		*/
+		 * The collection of states
+		 * @property {Object} _states
+		 * @private
+		 */
 		this._states = null;
 
 		/**
-		*  The state manager
-		*  @property {springroll.StateManager} manager
-		*/
+		 * The state manager
+		 * @property {springroll.StateManager} manager
+		 */
 		this.manager = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
-		*  @private
-		*/
+		 * The transition animation to use between the StateManager state changes
+		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} _transition
+		 * @private
+		 */
 		this._transition = null;
 
 		/**
-		*  The transition animation to use between the StateManager state changes
-		*  @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
-		*/
+		 * The transition animation to use between the StateManager state changes
+		 * @property {createjs.MovieClip|springroll.easeljs.BitmapMovieClip|PIXI.Spine} transition
+		 */
 		Object.defineProperty(this, "transition", 
 		{
 			set: function(transition)
@@ -139,10 +139,10 @@
 		}, true);
 
 		/**
-		*  The collection of states where the key is the state alias and value is the state display object
-		*  @property {Object} states
-		*  @default null
-		*/
+		 * The collection of states where the key is the state alias and value is the state display object
+		 * @property {Object} states
+		 * @default null
+		 */
 		Object.defineProperty(this, "states",
 		{
 			set: function(states)

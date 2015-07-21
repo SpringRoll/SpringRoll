@@ -11,19 +11,19 @@
 		EventCatalog = include('springroll.EventCatalog');
 
 	/**
-	 *  Utility class for handling events
-	 *  @class EventUtils
-	 *  @static
+	 * Utility class for handling events
+	 * @class EventUtils
+	 * @private
 	 */
 	var EventUtils = {};
 
 	/**
-	 *  Convert an array of input arguments into a data map
-	 *  @method argsMap
-	 *  @static
-	 *  @param {Array} allArgs All the event arguments
-	 *  @param {array} inputs The data to validate
-	 *  @return {Object} The validated event data object
+	 * Convert an array of input arguments into a data map
+	 * @method argsMap
+	 * @static
+	 * @param {Array} allArgs All the event arguments
+	 * @param {array} inputs The data to validate
+	 * @return {Object} The validated event data object
 	 */
 	EventUtils.argsMap = function(allArgs, inputs)
 	{
@@ -56,12 +56,12 @@
 	};
 
 	/**
-	 *  Validate arguments
-	 *  @method validate
-	 *  @static
-	 *  @param {Array} args The event arguments
-	 *  @param {object} inputs The data to validate
-	 *  @return {Object} The validated event data object
+	 * Validate arguments
+	 * @method validate
+	 * @static
+	 * @param {Array} args The event arguments
+	 * @param {object} inputs The data to validate
+	 * @return {Object} The validated event data object
 	 */
 	EventUtils.validate = function(args, inputs)
 	{
@@ -90,13 +90,13 @@
 	};
 
 	/**
-	 *  Do the actual type validation on a specific value
-	 *  @method _validate
-	 *  @private
-	 *  @constructor
-	 *  @param {string|Array} type The type of value, if an array a set of valid items
-	 *  @param {*} value The value to test against
-	 *  @param {array} args The list of properties to validate if a typed object
+	 * Do the actual type validation on a specific value
+	 * @method _validate
+	 * @private
+	 * @constructor
+	 * @param {string|Array} type The type of value, if an array a set of valid items
+	 * @param {*} value The value to test against
+	 * @param {array} args The list of properties to validate if a typed object
 	 */
 	var validateValue = function(type, value, args, parent)
 	{

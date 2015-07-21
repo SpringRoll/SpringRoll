@@ -9,6 +9,7 @@
 	 * Initially layouts all interface elements
 	 * @class Positioner
 	 * @static
+	 * @private
 	 */
 	var Positioner = {};
 
@@ -31,12 +32,12 @@
 	 * @param {Number} [settings.pivot.y] The pivot point Y location
 	 * @param {Number} [settings.rotation] The initial rotation in degrees
 	 * @param {Object|Array} [settings.hitArea] An object which describes the hit area
-	 *                                          of the item or an array of points. See
-	 *                                          generateHitArea().
+	 *                                        of the item or an array of points. See
+	 *                                        generateHitArea().
 	 * @param {String} [settings.hitArea.type] If the hitArea is an object, the type
-	 *                                         of hit area, "rect", "ellipse", "circle", etc
+	 *                                       of hit area, "rect", "ellipse", "circle", etc
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-	 *                                   in. If omitted, uses the Application's default display.
+	 *                                 in. If omitted, uses the Application's default display.
 	 */
 	Positioner.init = function(displayObject, settings, adapter)
 	{
@@ -95,28 +96,28 @@
 	 * @method generateHitArea
 	 * @param {Object|Array} hitArea One of the following:
 	 *
-	 *     // An array of points for a polygon.
-	 *     [{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
+	 *   // An array of points for a polygon.
+	 *   [{x:0, y:0}, {x:0, y:20}, {x:20, y:0}]
 	 *
-	 *     // An object describing a rectangle.
-	 *     {type:"rect", x:0, y:0, w:10, h:30}
+	 *   // An object describing a rectangle.
+	 *   {type:"rect", x:0, y:0, w:10, h:30}
 	 *
-	 *     // An object describing an ellipse, where x and y are the center.
-	 *     {type:"ellipse", x:0, y:0, w:10, h:30}
+	 *   // An object describing an ellipse, where x and y are the center.
+	 *   {type:"ellipse", x:0, y:0, w:10, h:30}
 	 *
-	 *     // An object describing a circle, where x and y are the center.
-	 *     {type:"circle", x:0, y:0, r:20}
+	 *   // An object describing a circle, where x and y are the center.
+	 *   {type:"circle", x:0, y:0, r:20}
 	 *
-	 *     // An object describing a sector, where x and y are the center of a circle
-	 *     // and start/end are the start and end angles of the sector in degrees.
-	 *     {type:"sector", x:0, y:0, r:20, start:0, end:90}
+	 *   // An object describing a sector, where x and y are the center of a circle
+	 *   // and start/end are the start and end angles of the sector in degrees.
+	 *   {type:"sector", x:0, y:0, r:20, start:0, end:90}
 	 *
 	 * @param {Number} scale The size to scale hitArea by
 	 * @param {DisplayAdapter} [adapter] The adapter for the display being positioned
-	 *                                   in. If omitted, uses the Application's default display.
+	 *                                 in. If omitted, uses the Application's default display.
 	 * @return {Object} A geometric shape object for hit testing, either a Polygon,
-	 *                  Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
-	 *                  The shape will have a contains() function for hit testing.
+	 *                Rectangle, Ellipse, Circle, or Sector, depending on the hitArea object.
+	 *                The shape will have a contains() function for hit testing.
 	 */
 	Positioner.generateHitArea = function(hitArea, scale, adapter)
 	{

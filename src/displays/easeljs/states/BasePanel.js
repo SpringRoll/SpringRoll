@@ -1,7 +1,7 @@
 /**
- *	@module EaselJS States
- *	@namespace springroll.easeljs
- *	@requires Core, States, Tasks, UI, Sound, EaselJS Display, EaselJS UI
+ * @module EaselJS States
+ * @namespace springroll.easeljs
+ * @requires Core, States, UI, Sound, EaselJS Display, EaselJS UI
  */
 (function()
 {
@@ -12,10 +12,10 @@
 		Application;
 
 	/**
-	 *	Panel with convenience properties to the config, background and app.
-	 *	@class BasePanel
-	 *	@extend createjs.Container
-	 *	@constructor
+	 * Panel with convenience properties to the config, background and app.
+	 * @class BasePanel
+	 * @extend createjs.Container
+	 * @constructor
 	 */
 	var BasePanel = function()
 	{
@@ -29,27 +29,20 @@
 		Container.call(this);
 
 		/**
-		 *	Reference to the app
-		 *	@property {Application} app
+		 * Reference to the app
+		 * @property {Application} app
 		 */
 		this.app = Application.instance;
 
 		/**
-		 *	Reference to the app
-		 *	@property {Application} game
-		 *	@deprecated Use 'app' instead
-		 */
-		this.game = this.app;
-
-		/**
-		 *	Reference to the app's config
-		 *	@property {object} config
+		 * Reference to the app's config
+		 * @property {object} config
 		 */
 		this.config = this.app.config;
 
 		/**
-		 *	All panel should probably have a background image
-		 *	@property {createjs.Bitmap} background
+		 * All panel should probably have a background image
+		 * @property {createjs.Bitmap} background
 		 */
 		this.background = null;
 	};
@@ -58,8 +51,8 @@
 	var p = extend(BasePanel, Container);
 
 	/**
-	 *	Should be called whenever a state enters this panel, Implementation-specific
-	 *	@method setup
+	 * Should be called whenever a state enters this panel, Implementation-specific
+	 * @method setup
 	 */
 	p.setup = function()
 	{
@@ -67,10 +60,10 @@
 	};
 
 	/**
-	 *	Should be called whenever a state exits this panel, the default
-	 *	behavior is to remove all children of the panel. It will stop
-	 *	any movieclip, destroy any objects, remove DwellTimers, etc.
-	 *	@method teardown
+	 * Should be called whenever a state exits this panel, the default
+	 * behavior is to remove all children of the panel. It will stop
+	 * any movieclip, destroy any objects, remove DwellTimers, etc.
+	 * @method teardown
 	 */
 	p.teardown = function()
 	{
@@ -79,10 +72,10 @@
 	};
 
 	/**
-	 *	Removes a collection of objects from the stage and destroys them if we cant.
-	 *	@example this.removeChildren(this.skipButton, this.character);
-	 *	@method cleanupChildren
-	 *	@param {array|*} children Assets to clean can either be individual children or collections of children
+	 * Removes a collection of objects from the stage and destroys them if we cant.
+	 * @example this.removeChildren(this.skipButton, this.character);
+	 * @method cleanupChildren
+	 * @param {array|*} children Assets to clean can either be individual children or collections of children
 	 */
 	p.cleanupChildren = function(children)
 	{
@@ -124,13 +117,12 @@
 	};
 
 	/**
-	 *	Destroy and don't use after this
-	 *	@method destroy
+	 * Destroy and don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{
 		this.app = null;
-		this.game = null;
 		this.config = null;
 		this.background = null;
 

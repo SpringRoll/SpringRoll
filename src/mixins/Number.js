@@ -5,17 +5,17 @@
 (function(Number, Object)
 {
 	/**
-	*  Add methods to Number
-	*  @class Number
-	*/
+	 * Add methods to Number
+	 * @class Number
+	 */
 	
 	/**
-	*  Returns a string of the number as an integer with leading zeros to fill the string out
-	*  to a certain number of digits.
-	*  @method toPaddedString
-	*  @param {Number} [totalDigits=2] The total number of digits to be displayed.
-	*  @return {String} The number string.
-	*/
+	 * Returns a string of the number as an integer with leading zeros to fill the string out
+	 * to a certain number of digits.
+	 * @method toPaddedString
+	 * @param {Number} [totalDigits=2] The total number of digits to be displayed.
+	 * @return {String} The number string.
+	 */
 	if(!Number.prototype.toPaddedString)
 	{
 		Object.defineProperty(Number.prototype, 'toPaddedString',

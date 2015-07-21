@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.8 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module Learning Media
  * @namespace springroll
@@ -10,9 +10,9 @@
 		StringFilters = include('springroll.StringFilters');
 
 	/**
-	 *  This class contains a bunch of media playing class
-	 *  to provide convenience around using the Learning Dispatcher
-	 *  @class LearningMedia
+	 * This class contains a bunch of media playing class
+	 * to provide convenience around using the Learning Dispatcher
+	 * @class LearningMedia
 	 */
 	var LearningMedia = function()
 	{
@@ -58,17 +58,17 @@
 	};
 
 	/**
-	 *  Plays animation or list of animations using springroll.Animator,
-	 *  firing startMovie and endMovie or skipMovie Learning events.
-	 *  @method playMovie
-	 *  @param {MovieClip} instance The MovieClip to animate.
-	 *  @param {String|Array|Object} events Event or list of events to animate. See
-	 *                                     springroll.Animator.play() docs for details.
-	 *   @param {Function} [onComplete]	VO/Animation Ended callback
-	 *   @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
-	 *                                         If set to 'true' (Boolean), will use same callback as 'onComplete'
-	 *                                         If omited, no callback will be fired on interruption.
-	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of the played animation.
+	 * Plays animation or list of animations using springroll.Animator,
+	 * firing startMovie and endMovie or skipMovie Learning events.
+	 * @method playMovie
+	 * @param {MovieClip} instance The MovieClip to animate.
+	 * @param {String|Array|Object} events Event or list of events to animate. See
+	 *                                   springroll.Animator.play() docs for details.
+	 * @param {Function} [onComplete]	VO/Animation Ended callback
+	 * @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                       If set to 'true' (Boolean), will use same callback as 'onComplete'
+	 *                                       If omited, no callback will be fired on interruption.
+	 * @return {springroll.AnimatorTimeline} AnimatorTimeline of the played animation.
 	 */
 	p.playMovie = function(instance, events, onComplete, onCancel)
 	{
@@ -91,26 +91,26 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events
+	 * Plays events/aliases using Animator or VOPlayer, and fires startInstruction and endInstruction Learning events
 	 *
-	 *  Example Animator usage:
-	 *  game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 * Example Animator usage:
+	 * game.playInstruction(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
-	 *  Example VOPlayer usage:
-	 *  game.playInstruction("soundAlias", doneFunction, interruptedFunction);
+	 * Example VOPlayer usage:
+	 * game.playInstruction("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playInstruction
-	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
-	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
-	 *  @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
-	 *                                         See VOPlayer.play docs for options.
-	 *                                         If 'instance' is present, Event or list of events to animate with createjs.Animator.
-	 *                                         See springroll.Animator.play() docs for options
-	 *  @param {Function} [onComplete]	VO/Animation Ended callback
-	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
-	 *                                        If set to 'true' (Boolean), will use same callback as 'onComplete'
-	 *                                        If omited, no callback will be fired on interruption.
-	 *    @return {springroll.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 * @method playInstruction
+	 * @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                               Omit this parameter to play alias(es) with VOPlayer instead
+	 * @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                       See VOPlayer.play docs for options.
+	 *                                       If 'instance' is present, Event or list of events to animate with createjs.Animator.
+	 *                                       See springroll.Animator.play() docs for options
+	 * @param {Function} [onComplete]	VO/Animation Ended callback
+	 * @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                      If set to 'true' (Boolean), will use same callback as 'onComplete'
+	 *                                      If omited, no callback will be fired on interruption.
+	 *  @return {springroll.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
 	 */
 	p.playInstruction = function(instance, events, onComplete, onCancel)
 	{
@@ -161,26 +161,26 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events
+	 * Plays events/aliases using Animator or VOPlayer, and fires startIncorrectFeedback and endIncorrectFeedback Learning events
 	 *
-	 *  Example Animator usage:
-	 *  game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 * Example Animator usage:
+	 * game.playIncorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
-	 *  Example VOPlayer usage:
-	 *  game.playIncorrectFeedback("soundAlias", doneFunction, interruptedFunction);
+	 * Example VOPlayer usage:
+	 * game.playIncorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playIncorrectFeedback
-	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
-	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
-	 *  @param {String|Array|Object} events   If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
-	 *                                         See VOPlayer.play docs for options.
-	 *                                         If 'instance' is present, Event or list of events to animate with createjs.Animator.
-	 *                                         See springroll.Animator.play() docs for options
-	 *  @param {Function} [onComplete]	VO/Animation Ended callback
-	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
-	 *                                        If set to 'true' (Boolean), will use same callback as 'onComplete'
-	 *                                        If omited, no callback will be fired on interruption.
-	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 * @method playIncorrectFeedback
+	 * @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                               Omit this parameter to play alias(es) with VOPlayer instead
+	 * @param {String|Array|Object} events   If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                       See VOPlayer.play docs for options.
+	 *                                       If 'instance' is present, Event or list of events to animate with createjs.Animator.
+	 *                                       See springroll.Animator.play() docs for options
+	 * @param {Function} [onComplete]	VO/Animation Ended callback
+	 * @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                      If set to 'true' (Boolean), will use same callback as 'onComplete'
+	 *                                      If omited, no callback will be fired on interruption.
+	 * @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
 	 */
 	p.playIncorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
@@ -232,26 +232,26 @@
 	};
 
 	/**
-	 *  Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events
+	 * Plays events/aliases using Animator or VOPlayer, and fires startCorrectFeedback and endCorrectFeedback Learning events
 	 *
-	 *  Example Animator usage:
-	 *  game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
+	 * Example Animator usage:
+	 * game.playCorrectFeedback(someMovieClip, {"anim":"frameLabel", "audio":"soundAlias"}, doneFunction, interruptedFunction);
 	 *
-	 *  Example VOPlayer usage:
-	 *  game.playCorrectFeedback("soundAlias", doneFunction, interruptedFunction);
+	 * Example VOPlayer usage:
+	 * game.playCorrectFeedback("soundAlias", doneFunction, interruptedFunction);
 	 *
-	 *  @method playCorrectFeedback
-	 *  @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
-	 *                                 Omit this parameter to play alias(es) with VOPlayer instead
-	 *  @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
-	 *                                         See VOPlayer.play docs for options.
-	 *                                         If 'instance' is present, Event or list of events to animate with createjs.Animator.
-	 *                                         See springroll.Animator.play() docs for options
-	 *  @param {Function} [onComplete]	VO/Animation Ended callback
-	 *  @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
-	 *                                        If set to 'true' (Boolean), will use same callback as 'onComplete'.
-	 *                                        If omited, no callback will be fired on interruption.
-	 *  @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
+	 * @method playCorrectFeedback
+	 * @param {MovieClip} [instance] createjs.MovieClip instance to play with Animator.
+	 *                               Omit this parameter to play alias(es) with VOPlayer instead
+	 * @param {String|Array|Object} event    If 'instance' is omitted, Alias or Array of aliases for VO lines to play with VOPlayer.
+	 *                                       See VOPlayer.play docs for options.
+	 *                                       If 'instance' is present, Event or list of events to animate with createjs.Animator.
+	 *                                       See springroll.Animator.play() docs for options
+	 * @param {Function} [onComplete]	VO/Animation Ended callback
+	 * @param {Function|Boolean} [onCancel] VO/Animation Cancelled (interrupted) callback.
+	 *                                      If set to 'true' (Boolean), will use same callback as 'onComplete'.
+	 *                                      If omited, no callback will be fired on interruption.
+	 * @return {springroll.easeljs.AnimatorTimeline|undefined} AnimatorTimeline of the played animation, or nothing if VO only.
 	 */
 	p.playCorrectFeedback = function(instance, events, onComplete, onCancel)
 	{
@@ -303,14 +303,14 @@
 	};
 
 	/**
-	 *  Generalized method for playing either feedback or instructions
-	 *  @method triggerVOPlay
-	 *  @protected
-	 *  @param {String|Array} alias    Alias or Array of aliases for VO lines to play
-	 *  @param {Function} learningStart The learning to call while starting
-	 *  @param {Function} learningEnd The learning call to call after finishing/canceling VO
-	 *  @param {Function} [onComplete]    VO Ended callback
-	 *  @param {Function} [onCancel] VO Cancelled (interrupted) callback
+	 * Generalized method for playing either feedback or instructions
+	 * @method triggerVOPlay
+	 * @protected
+	 * @param {String|Array} alias    Alias or Array of aliases for VO lines to play
+	 * @param {Function} learningStart The learning to call while starting
+	 * @param {Function} learningEnd The learning call to call after finishing/canceling VO
+	 * @param {Function} [onComplete]    VO Ended callback
+	 * @param {Function} [onCancel] VO Cancelled (interrupted) callback
 	 */
 	p.triggerVOPlay = function(alias, learningStart, learningEnd, onComplete, onCancel)
 	{
@@ -357,17 +357,17 @@
 	};
 
 	/**
-	 *  Handles learning events for triggered Animator calls.
-	 *  @method triggerMoviePlay
-	 *  @protected
-	 *  @param {MovieClip} instance The MovieClip to animate.
-	 *  @param {String|Array} events Event or list of events to animate. See
-	 *                              springroll.Animator.play() docs for details.
-	 *  @param {Object} options Additional options. See springroll.Animator.play() docs
-	 *                          for details.
-	 *  @param {String} learningEvent Learning VO/animation event type
-	 *                               ("movie", "instruction", "incorrect", or "correct").
-	 *  @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
+	 * Handles learning events for triggered Animator calls.
+	 * @method triggerMoviePlay
+	 * @protected
+	 * @param {MovieClip} instance The MovieClip to animate.
+	 * @param {String|Array} events Event or list of events to animate. See
+	 *                            springroll.Animator.play() docs for details.
+	 * @param {Object} options Additional options. See springroll.Animator.play() docs
+	 *                        for details.
+	 * @param {String} learningEvent Learning VO/animation event type
+	 *                             ("movie", "instruction", "incorrect", or "correct").
+	 * @return {springroll.AnimatorTimeline} AnimatorTimeline of animation.
 	 */
 	p.triggerMoviePlay = function(instance, events, onComplete, onCancel, learningEvent)
 	{
@@ -545,11 +545,11 @@
 
 
 	/**
-	 *  Get an alias or group of aliases as a string
-	 *  @method aliasToString
-	 *  @private
-	 *  @param {Array|String} alias The alias to convert
-	 *  @return {String} The alias as string
+	 * Get an alias or group of aliases as a string
+	 * @method aliasToString
+	 * @private
+	 * @param {Array|String} alias The alias to convert
+	 * @return {String} The alias as string
 	 */
 	var aliasToString = function(alias)
 	{
@@ -602,8 +602,8 @@
 	};
 
 	/**
-	 *  Destroy and don't use after this
-	 *  @method destroy
+	 * Destroy and don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

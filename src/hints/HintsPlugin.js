@@ -77,11 +77,11 @@
 	};
 
 	/**
-	* Handle the VO event
-	* @method onVOHint
-	* @private
-	* @param {object} data The VO data
-	*/
+	 * Handle the VO event
+	 * @method onVOHint
+	 * @private
+	 * @param {object} data The VO data
+	 */
 	var onVOHint = function(data)
 	{
 		if (!!this.media)
@@ -103,11 +103,11 @@
 	};
 
 	/**
-	* Handle the animator event
-	* @method onAnimatorHint
-	* @private
-	* @param {object} data The animator data
-	*/
+	 * Handle the animator event
+	 * @method onAnimatorHint
+	 * @private
+	 * @param {object} data The animator data
+	 */
 	var onAnimatorHint = function(data)
 	{
 		if (!!this.media)

@@ -39,9 +39,9 @@
 		this.options.add('captionsPath', null, true);
 		
 		/**
-		*  The global captions object
-		*  @property {springroll.Captions} captions
-		*/
+		 * The global captions object
+		 * @property {springroll.Captions} captions
+		 */
 		this.captions = new Captions();
 	};
 
@@ -60,9 +60,9 @@
 		var captionsPath = this.options.captionsPath;
 		if (captionsPath)
 		{
-			this.loader.load(captionsPath, function(result)
+			this.load(captionsPath, function(data)
 			{
-				this.captions.data = result.content;
+				this.captions.data = data;
 				done();
 			}
 			.bind(this));

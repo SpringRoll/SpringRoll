@@ -106,9 +106,9 @@
 		this.client = null;
 
 		/**
-		*  The current release data
-		*  @property {Object} release
-		*/
+		 * The current release data
+		 * @property {Object} release
+		 */
 		this.release = null;
 
 		/**
@@ -172,9 +172,9 @@
 		this._paused = false;
 
 		/**
-		 *  Should we send bellhop messages for the mute (etc) buttons?
-		 *  @property {Boolean} sendMutes
-		 *  @default true
+		 * Should we send bellhop messages for the mute (etc) buttons?
+		 * @property {Boolean} sendMutes
+		 * @default true
 		 */
 		this.sendMutes = true;
 
@@ -411,10 +411,10 @@
 	};
 
 	/**
-	 *  Set up communication layer between site and application.
-	 *  May be called from subclasses if they create/destroy Bellhop instances.
-	 *  @protected
-	 *  @method initClient
+	 * Set up communication layer between site and application.
+	 * May be called from subclasses if they create/destroy Bellhop instances.
+	 * @protected
+	 * @method initClient
 	 */
 	p.initClient = function()
 	{
@@ -439,9 +439,9 @@
 
 
 	/**
-	 *  Removes the Bellhop communication layer altogether.
-	 *  @protected
-	 *  @method destroyClient
+	 * Removes the Bellhop communication layer altogether.
+	 * @protected
+	 * @method destroyClient
 	 */
 	p.destroyClient = function()
 	{
@@ -890,7 +890,7 @@
 	 * Set the captions styles
 	 * @method setCaptionsStyles
 	 * @param {object|String} [styles] The style options or the name of the
-	 *	property (e.g., "color", "edge", "font", "background", "size")
+	 * property (e.g., "color", "edge", "font", "background", "size")
 	 * @param {string} [styles.color='white'] The text color, the default is white
 	 * @param {string} [styles.edge='none'] The edge style, default is none
 	 * @param {string} [styles.font='arial'] The font style, default is arial

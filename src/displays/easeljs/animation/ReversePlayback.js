@@ -13,11 +13,11 @@
 	 * system as the springroll.Animator system.
 	 * 	i.e. each animation must have a corresponding ending frame
 	 * 	marked with	a '_stop' and '_loop' suffixes,
-	 *	for instance: "walk" requires "walk_loop"
+	 * for instance: "walk" requires "walk_loop"
 	 * @class ReversePlayback
 	 * @static
 	 * @param {createjs.MovieClip} clip
-	 *	The MovieClip containing the timeline and animation
+	 * The MovieClip containing the timeline and animation
 	 */
 	var ReversePlayback = function(clip)
 	{

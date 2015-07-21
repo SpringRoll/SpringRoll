@@ -8,26 +8,27 @@
 	var EventError = include('springroll.EventError');
 
 	/**
-	 *  Error when validating value by Learning Dispatcher
-	 *  @class ValidationError
-	 *  @extends springroll.EventError
-	 *  @constructor
-	 *  @param {string} message The error message
-	 *  @param {string} property The name of the property
+	 * Error when validating value by Learning Dispatcher
+	 * @class ValidationError
+	 * @extends springroll.EventError
+	 * @private
+	 * @constructor
+	 * @param {string} message The error message
+	 * @param {string} property The name of the property
 	 */
 	var ValidationError = function(message, property, value)
 	{
 		EventError.call(this, message, null, null);
 
 		/**
-		 *  The name of the property erroring on
-		 *  @property {string} property
+		 * The name of the property erroring on
+		 * @property {string} property
 		 */
 		this.property = property;
 
 		/**
-		 *  The supplied value, if any
-		 *  @property {*} value
+		 * The supplied value, if any
+		 * @property {*} value
 		 */
 		this.value = value;
 	};
@@ -39,9 +40,9 @@
 	ValidationError.prototype.constructor = ValidationError;
 
 	/**
-	 *  To string override
-	 *  @method toString
-	 *  @return {string} The string representation of the error
+	 * To string override
+	 * @method toString
+	 * @return {string} The string representation of the error
 	 */
 	p.toString = function()
 	{

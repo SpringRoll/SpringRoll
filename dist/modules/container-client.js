@@ -1,8 +1,8 @@
-/*! SpringRoll 0.3.8 */
+/*! SpringRoll 0.4.0 */
 /**
-*  @module Container Client
-*  @namespace springroll
-*/
+ * @module Container Client
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	// Include classes

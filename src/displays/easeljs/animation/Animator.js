@@ -108,31 +108,31 @@
 	 *
 	 * @method play
 	 * @param {createjs.DisplayObject} instance The MovieClip or display object with the same API
-	 *                                         to animate.
+	 *                                       to animate.
 	 * @param {String|Object|Array} eventList One of or an array of the following
 	 * * objects in the format:
 	 *
-	 *        {
-	 *            anim:"myAnim",
-	 *            start:0,
-	 *            speed:1,
-	 *            audio:{alias:"MyAlias", start:300}
-	 *        }
+	 *      {
+	 *          anim:"myAnim",
+	 *          start:0,
+	 *          speed:1,
+	 *          audio:{alias:"MyAlias", start:300}
+	 *      }
 	 *
-	 *    * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
-	 *    * start is milliseconds into the animation to start (0 if omitted). A value of -1
-	 *        starts from a random time in the animation.
-	 *    * speed is a multiplier for the animation speed (1 if omitted).
-	 *    * audio is audio to sync the animation to using springroll.Sound. audio can be a String
-	 *        if you want the audio to start 0 milliseconds into the animation.
+	 *  * anim is the frame label of the animation to play, e.g. "onClose" to "onClose_stop".
+	 *  * start is milliseconds into the animation to start (0 if omitted). A value of -1
+	 *      starts from a random time in the animation.
+	 *  * speed is a multiplier for the animation speed (1 if omitted).
+	 *  * audio is audio to sync the animation to using springroll.Sound. audio can be a String
+	 *      if you want the audio to start 0 milliseconds into the animation.
 	 * * strings - frame labels, e.g. "onClose" to "onClose_stop".
 	 * * numbers - milliseconds to wait.
 	 * * functions - called upon reaching, followed immediately by the next item.
 	 * @param {Function} [onComplete] The callback function for when the animation is done.
 	 * @param {Function|Boolean} [onCancelled] A callback function for when an animation is
-	 *                                         stopped with Animator.stop() or to play another
-	 *                                         animation. A value of 'true' uses onComplete for
-	 *                                         onCancelled.
+	 *                                       stopped with Animator.stop() or to play another
+	 *                                       animation. A value of 'true' uses onComplete for
+	 *                                       onCancelled.
 	 * @return {springroll.easeljs.AnimatorTimeline} The Timeline object that represents this play() call.
 	 * @static
 	 */
@@ -351,7 +351,7 @@
 				}
 				if (Sound.instance.exists(alias))
 				{
-					Sound.instance.preloadSound(alias);
+					Sound.instance.preload(alias);
 					animData.alias = alias;
 					animData.audioStart = start;
 
@@ -504,7 +504,7 @@
 	 * @method stop
 	 * @param {createjs.MovieClip} instance The MovieClip to stop the action on
 	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                          on cancelled callback of this animation.
+	 *                                        on cancelled callback of this animation.
 	 * @static
 	 */
 	Animator.stop = function(instance, removeCallbacks)
@@ -529,9 +529,9 @@
 	 *
 	 * @method stopAll
 	 * @param {createjs.Container} [container] Specify a container to stop timelines
-	 *                                         contained within. This only checks one layer deep.
+	 *                                       contained within. This only checks one layer deep.
 	 * @param {Boolean} [removeCallbacks=false] Completely disregard the on complete or
-	 *                                          on cancelled callback of the current animations.
+	 *                                        on cancelled callback of the current animations.
 	 * @static
 	 */
 	Animator.stopAll = function(container, removeCallbacks)

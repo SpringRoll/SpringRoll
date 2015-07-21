@@ -1,4 +1,4 @@
-/*! SpringRoll 0.3.8 */
+/*! SpringRoll 0.4.0 */
 /**
  * @module Core
  * @namespace window
@@ -6,21 +6,21 @@
 (function(Object, support, undefined){
 
 	/**
-	*  Add methods to Object
-	*  @class Object
-	*/
+	 * Add methods to Object
+	 * @class Object
+	 */
 
 	/**
-	*  Merges two (or more) objects, giving the last one precedence
-	*  @method merge
-	*  @example
+	 * Merges two (or more) objects, giving the last one precedence
+	 * @method merge
+	 * @example
 		var obj1 = { id : 'foo', name : 'Hello!', value : 100 };
 		var obj2 = { id : 'bar', value : 200 };
 		Object.merge({}, obj1, obj2); // Returns: { id : 'bar', name : 'Hello!', value : 200 }
-	*  @static
-	*  @param {Object} target The target object
-	*  @param {Object} source* Additional objects to add
-	*/
+	 * @static
+	 * @param {Object} target The target object
+	 * @param {Object} source* Additional objects to add
+	 */
 	Object.merge = function(target, source)
 	{
 		if (!target || typeof target !== 'object')
@@ -51,12 +51,12 @@
 	};
 
 	/**
-	*  Check to see if an object is a plain object definition
-	*  @method isPlain
-	*  @static
-	*  @param {Object} target The target object
-	*  @return {Boolean} If the object is plain
-	*/
+	 * Check to see if an object is a plain object definition
+	 * @method isPlain
+	 * @static
+	 * @param {Object} target The target object
+	 * @return {Boolean} If the object is plain
+	 */
 	Object.isPlain = function(obj)
 	{
 		var key;
@@ -102,10 +102,10 @@
 	};
 	
 	/**
-	*  Creates a shallow copy of the object.
-	*  @method clone
-	*  @return {Object} The shallow copy.
-	*/
+	 * Creates a shallow copy of the object.
+	 * @method clone
+	 * @return {Object} The shallow copy.
+	 */
 	if(!Object.prototype.clone)
 	{
 		Object.defineProperty(Object.prototype, 'clone',
@@ -131,27 +131,27 @@
  * @namespace window
  */
 /**
-*  Use to do class inheritence
-*  @class extend
-*  @static
-*/
+ * Use to do class inheritence
+ * @class extend
+ * @static
+ */
 (function(window){
 	
 	// The extend function already exists
 	if ("extend" in window) return;
 
 	/**
-	*  Extend prototype
-	*
-	*  @example
+	 * Extend prototype
+	 *
+	 * @example
 		var p = extend(MyClass, ParentClass);
-	*
-	*  @constructor
-	*  @method extend
-	*  @param {function} subClass The reference to the class
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @return {object} Reference to the subClass's prototype
-	*/
+	 *
+	 * @constructor
+	 * @method extend
+	 * @param {function} subClass The reference to the class
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @return {object} Reference to the subClass's prototype
+	 */
 	window.extend = function(subClass, superClass)
 	{
 		if (typeof superClass == "string")
@@ -170,28 +170,28 @@
  * @namespace window
  */
 /**
-*  Used to include required classes by name
-*  @class include
-*  @static
-*/
+ * Used to include required classes by name
+ * @class include
+ * @static
+ */
 (function(window, undefined){
 	
 	// The include function already exists
 	if ("include" in window) return;
 	
 	/**
-	*  Import a class
-	*
-	*  @example
+	 * Import a class
+	 *
+	 * @example
 		var Application = include('springroll.Application');
-	*
-	*  @constructor
-	*  @method include
-	*  @param {string} namespaceString Name space, for instance 'springroll.Application'
-	*  @param {Boolean} [required=true] If the class we're trying to include is required.
-	* 		For classes that aren't found and are required, an error is thrown.
-	*  @return {object|function} The object attached at the given namespace
-	*/
+	 *
+	 * @constructor
+	 * @method include
+	 * @param {string} namespaceString Name space, for instance 'springroll.Application'
+	 * @param {Boolean} [required=true] If the class we're trying to include is required.
+	 * 		For classes that aren't found and are required, an error is thrown.
+	 * @return {object|function} The object attached at the given namespace
+	 */
 	var include = function(namespaceString, required)
 	{
 		var parts = namespaceString.split('.'),
@@ -242,18 +242,18 @@
 	if ("mixin" in window) return;
 
 	/**
-	*  Mixin functionality to an object
-	*
-	*  @example
+	 * Mixin functionality to an object
+	 *
+	 * @example
 		mixin(instance, MyClass);
-	*
-	*  @constructor
-	*  @method mixin
-	*  @param {*} target The instance object to add functionality to
-	*  @param {function|String} superClass The parent reference or full classname
-	*  @param {*} [args] Any additional arguments to pass to the constructor of the superClass
-	*  @return {*} Return reference to target
-	*/
+	 *
+	 * @constructor
+	 * @method mixin
+	 * @param {*} target The instance object to add functionality to
+	 * @param {function|String} superClass The parent reference or full classname
+	 * @param {*} [args] Any additional arguments to pass to the constructor of the superClass
+	 * @return {*} Return reference to target
+	 */
 	var mixin = function(target, superClass)
 	{
 		if (true && !superClass)
@@ -312,28 +312,28 @@
  * @namespace window
  */
 /**
-*  Static class for namespacing objects and adding
-*  classes to it.
-*  @class namespace
-*  @static
-*/
+ * Static class for namespacing objects and adding
+ * classes to it.
+ * @class namespace
+ * @static
+ */
 (function(window){
 	
 	// The namespace function already exists
 	if ("namespace" in window) return;
 	
 	/**
-	*  Create the namespace and assing to the window
-	*
-	*  @example
+	 * Create the namespace and assing to the window
+	 *
+	 * @example
 		var SpriteUtils = function(){};
 		namespace('springroll').SpriteUtils = SpriteUtils;
-	*
-	*  @constructor
-	*  @method namespace
-	*  @param {string} namespaceString Name space, for instance 'springroll.utils'
-	*  @return {object} The namespace object attached to the current window
-	*/
+	 *
+	 * @constructor
+	 * @method namespace
+	 * @param {string} namespaceString Name space, for instance 'springroll.utils'
+	 * @return {object} The namespace object attached to the current window
+	 */
 	var namespace = function(namespaceString) {
 		var parts = namespaceString.split('.'),
 			parent = window,
@@ -355,25 +355,25 @@
 
 
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
-	*  but is more robust in terms of inputs for the `on()` and `off()` methods.
-	*
-	*  @class EventDispatcher
-	*  @constructor
-	*/
+	 * The EventDispatcher mirrors the functionality of AS3 and EaselJS's EventDispatcher,
+	 * but is more robust in terms of inputs for the `on()` and `off()` methods.
+	 *
+	 * @class EventDispatcher
+	 * @constructor
+	 */
 	var EventDispatcher = function()
 	{
 		/**
-		* The collection of listeners
-		* @property {Array} _listeners
-		* @private
-		*/
+		 * The collection of listeners
+		 * @property {Array} _listeners
+		 * @private
+		 */
 		this._listeners = [];
 
 		/**
@@ -393,6 +393,7 @@
 	 */
 	Object.defineProperty(p, 'destroyed',
 	{
+		enumerable:true,
 		get: function()
 		{
 			return this._destroyed;
@@ -400,11 +401,11 @@
 	});
 
 	/**
-	*  Dispatch an event
-	*  @method trigger
-	*  @param {String} type The type of event to trigger
-	*  @param {*} arguments Additional parameters for the listener functions.
-	*/
+	 * Dispatch an event
+	 * @method trigger
+	 * @param {String} type The type of event to trigger
+	 * @param {*} arguments Additional parameters for the listener functions.
+	 */
 	p.trigger = function(type)
 	{
 		if (this._destroyed) return;
@@ -435,30 +436,30 @@
 	};
 
 	/**
-	*  Add an event listener but only handle it one time.
-	*
-	*  @method once
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener but only handle it one time.
+	 *
+	 * @method once
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.once = function(name, callback, priority)
 	{
 		return this.on(name, callback, priority, true);
 	};
 
 	/**
-	*  Add an event listener. The parameters for the listener functions depend on the event.
-	*
-	*  @method on
-	*  @param {String|object} name The type of event (can be multiple events separated by spaces),
-	*          or a map of events to handlers
-	*  @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
-	*  @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Add an event listener. The parameters for the listener functions depend on the event.
+	 *
+	 * @method on
+	 * @param {String|object} name The type of event (can be multiple events separated by spaces),
+	 *      or a map of events to handlers
+	 * @param {Function|Array*} callback The callback function when event is fired or an array of callbacks.
+	 * @param {int} [priority=0] The priority of the event listener. Higher numbers are handled first.
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.on = function(name, callback, priority, once)
 	{
 		if (this._destroyed) return;
@@ -518,13 +519,13 @@
 	}
 
 	/**
-	*  Remove the event listener
-	*
-	*  @method off
-	*  @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
-	*  @param {Function|Array*} callback The listener function or collection of callback functions
-	*  @return {EventDispatcher} Return this EventDispatcher for chaining calls.
-	*/
+	 * Remove the event listener
+	 *
+	 * @method off
+	 * @param {String*} name The type of event string separated by spaces, if no name is specifed remove all listeners.
+	 * @param {Function|Array*} callback The listener function or collection of callback functions
+	 * @return {EventDispatcher} Return this EventDispatcher for chaining calls.
+	 */
 	p.off = function(name, callback)
 	{
 		if (this._destroyed) return;
@@ -575,13 +576,13 @@
 	};
 
 	/**
-	*  Checks if the EventDispatcher has a specific listener or any listener for a given event.
-	*
-	*  @method has
-	*  @param {String} name The name of the single event type to check for
-	*  @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
-	*  @return {Boolean} If the EventDispatcher has the specified listener.
-	*/
+	 * Checks if the EventDispatcher has a specific listener or any listener for a given event.
+	 *
+	 * @method has
+	 * @param {String} name The name of the single event type to check for
+	 * @param {Function} [callback] The listener function to check for. If omitted, checks for any listener.
+	 * @return {Boolean} If the EventDispatcher has the specified listener.
+	 */
 	p.has = function(name, callback)
 	{
 		if(!name) return false;
@@ -594,9 +595,9 @@
 	};
 
 	/**
-	*  Destroy and don't use after this
-	*  @method destroy
-	*/
+	 * Destroy and don't use after this
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this._destroyed = true;
@@ -604,13 +605,13 @@
 	};
 
 	/**
-	*  Return type of the value.
-	*
-	*  @private
-	*  @method type
-	*  @param  {*} value
-	*  @return {String} The type
-	*/
+	 * Return type of the value.
+	 *
+	 * @private
+	 * @method type
+	 * @param  {*} value
+	 * @return {String} The type
+	 */
 	function type(value)
 	{
 		if (value === null)
@@ -625,30 +626,10 @@
 		return typeOfValue;
 	}
 
-	/**
-	*  Adds EventDispatcher methods and properties to an object or object prototype.
-	*  @method mixIn
-	*  @param {Object} object The object or prototype
-	*  @param {Boolean} [callConstructor=false] If the EventDispatcher constructor should be called as well.
-	*  @static
-	*  @public
-	*/
-	EventDispatcher.mixIn = function(object, callConstructor)
-	{
-		object.trigger = p.trigger;
-		object.on = p.on;
-		object.off = p.off;
-		object.has = p.has;
-		object.once = p.once;
-		if(callConstructor)
-			EventDispatcher.call(object);
-	};
-
 	// Assign to name space
 	namespace('springroll').EventDispatcher = EventDispatcher;
 
 }());
-
 /**
  * @module Core
  * @namespace springroll
@@ -656,46 +637,46 @@
 (function(global, doc, undefined){
 		
 	/**
-	*  Handle the page visiblity change, if supported. Application uses one of these to
-	*  monitor page visibility. It is suggested that you listen to "pause", "paused",
-	*  or "unpaused" events on the application instead of using one of these yourself.
-	*
-	*  @class PageVisibility
-	*  @constructor
-	*  @param {Function} onFocus Callback when the page becomes visible
-	*  @param {Function} onBlur Callback when the page loses visibility
-	*/
+	 * Handle the page visiblity change, if supported. Application uses one of these to
+	 * monitor page visibility. It is suggested that you listen to "pause", "paused",
+	 * or "unpaused" events on the application instead of using one of these yourself.
+	 *
+	 * @class PageVisibility
+	 * @constructor
+	 * @param {Function} onFocus Callback when the page becomes visible
+	 * @param {Function} onBlur Callback when the page loses visibility
+	 */
 	var PageVisibility = function(onFocus, onBlur)
 	{
 		/**
-		* Callback when the page becomes visible
-		* @property {Function} _onFocus
-		* @private
-		*/
+		 * Callback when the page becomes visible
+		 * @property {Function} _onFocus
+		 * @private
+		 */
 		this._onFocus = onFocus;
 		
 		/**
-		* Callback when the page loses visibility
-		* @property {Function} _onBlur
-		* @private
-		*/
+		 * Callback when the page loses visibility
+		 * @property {Function} _onBlur
+		 * @private
+		 */
 		this._onBlur = onBlur;
 		
 		/**
-		* If this object is enabled.
-		* @property {Function} _enabled
-		* @private
-		*/
+		 * If this object is enabled.
+		 * @property {Function} _enabled
+		 * @private
+		 */
 		this._enabled = false;
 
 		// If this browser doesn't support visibility
 		if (!_visibilityChange && doc.onfocusin === undefined) return;
 		
 		/**
-		* The visibility toggle listener function
-		* @property {Function} _onToggle
-		* @private
-		*/
+		 * The visibility toggle listener function
+		 * @property {Function} _onToggle
+		 * @private
+		 */
 		this._onToggle = function()
 		{
 			if (doc.hidden || doc.webkitHidden || doc.msHidden || doc.mozHidden)
@@ -711,11 +692,11 @@
 	p = PageVisibility.prototype,
 	
 	/**
-	* The name of the visibility change event for the browser
-	*
-	* @property {String} _visibilityChange
-	* @private
-	*/
+	 * The name of the visibility change event for the browser
+	 *
+	 * @property {String} _visibilityChange
+	 * @private
+	 */
 	_visibilityChange = null;
 	
 	// Select the visiblity change event name
@@ -739,10 +720,10 @@
 	var isIE9 = !_visibilityChange && doc.onfocusin !== undefined;
 	
 	/**
-	* If this object is enabled.
-	* @property {Function} enabled
-	* @private
-	*/
+	 * If this object is enabled.
+	 * @property {Function} enabled
+	 * @private
+	 */
 	Object.defineProperty(p, "enabled", {
 		get: function() { return this._enabled; },
 		set: function(value)
@@ -785,9 +766,9 @@
 	});
 	
 	/**
-	*  Disable the detection
-	*  @method destroy
-	*/
+	 * Disable the detection
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		// If this browser doesn't support visibility
@@ -804,16 +785,16 @@
 	
 }(window, document));
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
-	*
-	*  @class SavedData
-	*/
+	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	 *
+	 * @class SavedData
+	 */
 	var SavedData = {},
 
 	/** A constant to determine if we can use localStorage and sessionStorage */
@@ -837,11 +818,11 @@
 	}
 
 	/**
-	*  Remove a saved variable by name.
-	*  @method remove
-	*  @static
-	*  @param {String} name The name of the value to remove
-	*/
+	 * Remove a saved variable by name.
+	 * @method remove
+	 * @static
+	 * @param {String} name The name of the value to remove
+	 */
 	SavedData.remove = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -854,13 +835,13 @@
 	};
 
 	/**
-	*  Save a variable.
-	*  @method write
-	*  @static
-	*  @param {String} name The name of the value to save
-	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
-	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
-	*/
+	 * Save a variable.
+	 * @method write
+	 * @static
+	 * @param {String} name The name of the value to save
+	 * @param {mixed} value The value to save. This will be run through JSON.stringify().
+	 * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -888,12 +869,12 @@
 	};
 
 	/**
-	*  Read the value of a saved variable
-	*  @method read
-	*  @static
-	*  @param {String} name The name of the variable
-	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
-	*/
+	 * Read the value of a saved variable
+	 * @method read
+	 * @static
+	 * @param {String} name The name of the variable
+	 * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	 */
 	SavedData.read = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -1279,9 +1260,9 @@
 		this.client = null;
 
 		/**
-		*  The current release data
-		*  @property {Object} release
-		*/
+		 * The current release data
+		 * @property {Object} release
+		 */
 		this.release = null;
 
 		/**
@@ -1345,9 +1326,9 @@
 		this._paused = false;
 
 		/**
-		 *  Should we send bellhop messages for the mute (etc) buttons?
-		 *  @property {Boolean} sendMutes
-		 *  @default true
+		 * Should we send bellhop messages for the mute (etc) buttons?
+		 * @property {Boolean} sendMutes
+		 * @default true
 		 */
 		this.sendMutes = true;
 
@@ -1584,10 +1565,10 @@
 	};
 
 	/**
-	 *  Set up communication layer between site and application.
-	 *  May be called from subclasses if they create/destroy Bellhop instances.
-	 *  @protected
-	 *  @method initClient
+	 * Set up communication layer between site and application.
+	 * May be called from subclasses if they create/destroy Bellhop instances.
+	 * @protected
+	 * @method initClient
 	 */
 	p.initClient = function()
 	{
@@ -1612,9 +1593,9 @@
 
 
 	/**
-	 *  Removes the Bellhop communication layer altogether.
-	 *  @protected
-	 *  @method destroyClient
+	 * Removes the Bellhop communication layer altogether.
+	 * @protected
+	 * @method destroyClient
 	 */
 	p.destroyClient = function()
 	{
@@ -2063,7 +2044,7 @@
 	 * Set the captions styles
 	 * @method setCaptionsStyles
 	 * @param {object|String} [styles] The style options or the name of the
-	 *	property (e.g., "color", "edge", "font", "background", "size")
+	 * property (e.g., "color", "edge", "font", "background", "size")
 	 * @param {string} [styles.color='white'] The text color, the default is white
 	 * @param {string} [styles.edge='none'] The edge style, default is none
 	 * @param {string} [styles.font='arial'] The font style, default is arial

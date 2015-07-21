@@ -27,7 +27,6 @@
 		<script src="../dist/modules/debug.js"></script>
 		<script src="../dist/modules/captions.js"></script>
 		<script src="../dist/modules/sound.js"></script>
-		<script src="../dist/modules/tasks.js"></script>
 		<script src="../dist/modules/easeljs-display.js"></script>
 		<script src="../dist/modules/easeljs-ui.js"></script>
 
@@ -48,14 +47,14 @@ var Application = include('springroll.Application'),
 	Button = include('springroll.easeljs.Button'),
 	EaselJSDisplay = include('springroll.EaselJSDisplay');
 
-// Create the new application
 var app = new Application({
 	canvasId: "stage",
 	captionsPath: "assets/config/captions2.json",
 	display: EaselJSDisplay,
 	displayOptions: {
 		clearView: true
-	}
+	},
+	preload: ['assets/images/button.png']
 });
 
 // The list of sounds to load
@@ -82,64 +81,52 @@ var voContext = {
 	]
 };
 
-// Wait until the app is ready
-app.on('init', function(){
-
+app.once('init', function()
+{
 	// Add the config
-	app.sound.addContext(voContext);
-
-	// The image that get's loaded dynamically
-	var buttonImage;
+	this.sound.addContext(voContext);
 
 	// Reference to the VO Player
-	var voPlayer = app.voPlayer;
+	var voPlayer = this.voPlayer;
 
-	// Lets setup the interface for playing the captions
-	// but we need a button image to create buttons
-	app.loader.load('assets/images/button.png', function(result){
-
-		buttonImage = result.content;
-
-		// Add the buttons and handle the clicks
-		addButton('Volume', 200, 100, onPlayButton);
-		addButton('GoodJob', 340, 100, onPlayButton);
-
-		addButton('Both', 480, 100, function(){
-			voPlayer.play(['GoodJob', 'Volume']);
-		});
-
-		addButton('Stop', 340, 200, function(){
-			voPlayer.stop();
-		});
+	// Add the buttons and handle the clicks
+	this.addButton('Volume', 200, 100, function()
+	{
+		var vol = 'Volume';
+		voPlayer.play(vol);
 	});
-
-	// Generic method for adding a button to the stage
-	// add a label and some positioning information
-	var addButton = function(label, x, y, handler)
+	this.addButton('GoodJob', 340, 100, function()
 	{
-		// Create a play button
-		var button = new Button(buttonImage, {
-			text: label,
-			font: "16px Arial",
-			color: "#ffffff"
-		});
-		button.x = x;
-		button.y = y;
-
-		// Play the AUDIO
-		button.on('buttonPress', handler);
-
-		app.display.stage.addChild(button);
-		return button;
-	};
-
-	// Handler for the buttons, use the 
-	// label text as the alias to play
-	var onPlayButton = function(e)
+		voPlayer.play('GoodJob');
+	});
+	this.addButton('Both', 480, 100, function()
 	{
-		voPlayer.play(e.currentTarget.label.text);
-	};
+		voPlayer.play(['GoodJob', 'Volume']);
+	});
+	this.addButton('Stop', 340, 200, function()
+	{
+		voPlayer.stop();
+	});
 });
+
+// Generic method for adding a button to the stage
+// add a label and some positioning information
+app.addButton = function(label, x, y, handler)
+{
+	// Create a play button
+	var button = new Button(this.getCache('button'), {
+		text: label,
+		font: "16px Arial",
+		color: "#ffffff"
+	});
+	button.x = x;
+	button.y = y;
+
+	// Play the AUDIO
+	button.on('buttonPress', handler);
+	this.display.stage.addChild(button);
+	return button;
+};
 
 </script>
 		</div>

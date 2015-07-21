@@ -22,13 +22,13 @@
 	plugin.setup = function()
 	{		
 		/**
-		 *  An learning event is dispatched
-		 *  @event learningEvent
-		 *  @param {object} data The event data
-		 *  @param {string} data.game_id The unique game id
-		 *  @param {string} data.event_id The unique event id
-		 *  @param {object} data.event_data The data attached to event
-		 *  @param {int} data.event_data.event_code The code of the event
+		 * An learning event is dispatched
+		 * @event learningEvent
+		 * @param {object} data The event data
+		 * @param {string} data.game_id The unique game id
+		 * @param {string} data.event_id The unique event id
+		 * @param {object} data.event_data The data attached to event
+		 * @param {int} data.event_data.event_code The code of the event
 		 */
 
 		/**

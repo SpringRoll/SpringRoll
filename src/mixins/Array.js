@@ -5,15 +5,15 @@
 (function(Array, Math, Object)
 {
 	/**
-	*  Add methods to Array
-	*  See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
-	*  @class Array
-	*/
+	 * Add methods to Array
+	 * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+	 * @class Array
+	 */
 
 	/**
-	*  Shuffles the array
-	*  @method shuffle
-	*/
+	 * Shuffles the array
+	 * @method shuffle
+	 */
 	// In EcmaScript 5 specs and browsers that support it you can use the Object.defineProperty
 	// to make it not enumerable set the enumerable property to false
 	if(!Array.prototype.shuffle)
@@ -30,11 +30,11 @@
 	}
 
 	/**
-	*  Get a random item from an array
-	*  @method random
-	*  @param {Array} array The array
-	*  @return {*} The random item
-	*/
+	 * Get a random item from an array
+	 * @method random
+	 * @param {Array} array The array
+	 * @return {*} The random item
+	 */
 	if(!Array.prototype.random)
 	{
 		Object.defineProperty(Array.prototype, 'random',
@@ -48,11 +48,11 @@
 	}
 
 	/**
-	*  Get the last item in the array
-	*  @method last
-	*  @param {Array} array The array
-	*  @return {*} The last item
-	*/
+	 * Get the last item in the array
+	 * @method last
+	 * @param {Array} array The array
+	 * @return {*} The last item
+	 */
 	if(!Array.prototype.last)
 	{
 		Object.defineProperty(Array.prototype, 'last',

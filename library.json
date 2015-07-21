@@ -1,6 +1,6 @@
 {
 	"name": "SpringRoll",
-	"version": "0.3.8",
+	"version": "0.4.0",
 	"description": "An application framework for building HTML5 Canvas games and applications",
 	"url": "https://github.com/SpringRoll/SpringRoll",
 	"output": "core",
@@ -21,8 +21,23 @@
 		"src/core/StringFilters.js",
 		"src/core/StringFiltersPlugin.js",
 		"src/core/ResizePlugin.js",
-		"src/loaders/*.js",
-		"src/displays/*.js"
+		"src/loaders/CacheManager.js",
+		"src/loaders/tasks/Task.js",
+		"src/loaders/tasks/FunctionTask.js",
+		"src/loaders/tasks/ColorAlphaTask.js",
+		"src/loaders/tasks/ListTask.js",
+		"src/loaders/tasks/LoadTask.js",
+		"src/loaders/LoaderItem.js",
+		"src/loaders/LoaderResult.js",
+		"src/loaders/Loader.js",
+		"src/loaders/AssetCache.js",
+		"src/loaders/AssetSizes.js",
+		"src/loaders/AssetLoad.js",
+		"src/loaders/AssetManager.js",
+		"src/loaders/LoaderPlugin.js",
+		"src/loaders/ConfigPlugin.js",
+		"src/displays/*.js",
+		"src/deprecation/core.js"
 	],
 	"modules": {
 		"nativedisplay": {
@@ -36,6 +51,9 @@
 		"pixidisplay": {
 			"output": "pixi-display",
 			"main": [
+				"src/displays/pixi/display/PixiAssets.js",
+				"src/displays/pixi/display/PixiLoadTask.js",
+				"src/displays/pixi/display/PixiDisplayPlugin.js",
 				"src/displays/pixi/DisplayAdapter.js",
 				"src/displays/pixi/PixiDisplay.js"
 			]
@@ -46,7 +64,7 @@
 				"src/displays/pixi/animation/ParallelSpineData.js",
 				"src/displays/pixi/animation/AnimatorTimeline.js",
 				"src/displays/pixi/animation/Animator.js",
-				"src/displays/pixi/animation/AnimatorPlugin.js"
+				"src/displays/pixi/animation/AnimationPlugin.js"
 			]
 		},
 		"pixiui": {
@@ -54,14 +72,21 @@
 			"main": [
 				"src/displays/pixi/ui/Button.js",
 				"src/displays/pixi/ui/DragData.js",
-				"src/displays/pixi/ui/DragManager.js",
-				"src/displays/pixi/ui/AssetManager.js"
+				"src/displays/pixi/ui/DragManager.js"
 			]
 		},
 		"easeljsdisplay": {
 			"output": "easeljs-display",
 			"main": [
 				"src/displays/easeljs/mixins/*.js",
+				"src/displays/easeljs/utils/BitmapUtils.js",
+				"src/displays/easeljs/display/FlashArt.js",
+				"src/displays/easeljs/display/FlashArtTask.js",
+				"src/displays/easeljs/display/TextureAtlas.js",
+				"src/displays/easeljs/display/TextureAtlasTask.js",
+				"src/displays/easeljs/display/FlashArtAtlasTask.js",
+				"src/displays/easeljs/display/SpriteSheetTask.js",
+				"src/displays/easeljs/display/EaselJSDisplayPlugin.js",
 				"src/displays/easeljs/DisplayAdapter.js",
 				"src/displays/easeljs/EaselJSDisplay.js"
 			]
@@ -71,10 +96,10 @@
 			"main": [
 				"src/displays/easeljs/animation/AnimatorTimeline.js",
 				"src/displays/easeljs/animation/Animator.js",
-				"src/displays/easeljs/animation/AnimatorPlugin.js",
-				"src/displays/easeljs/animation/TextureAtlas.js",
+				"src/displays/easeljs/animation/AnimationPlugin.js",
 				"src/displays/easeljs/animation/BitmapMovieClip.js",
-				"src/displays/easeljs/animation/ReversePlayback.js"
+				"src/displays/easeljs/animation/ReversePlayback.js",
+				"src/displays/easeljs/animation/BitmapMovieClipTask.js"
 			]
 		},
 		"easeljsui": {
@@ -83,21 +108,15 @@
 				"src/displays/easeljs/ui/Button.js",
 				"src/displays/easeljs/ui/SoundButton.js",
 				"src/displays/easeljs/ui/DragData.js",
-				"src/displays/easeljs/ui/DragManager.js",
-				"src/displays/easeljs/ui/AssetManager.js",
-				"src/displays/easeljs/ui/AssetManagerPlugin.js"
-			]
-		},
-		"easeljsutils": {
-			"output": "easeljs-utils",
-			"main": [
-				"src/displays/easeljs/utils/BitmapUtils.js"
+				"src/displays/easeljs/ui/DragManager.js"
 			]
 		},
 		"easeljscutscene": {
 			"output": "easeljs-cutscene",
 			"main": [
-				"src/displays/easeljs/cutscene/Cutscene.js"
+				"src/displays/easeljs/cutscene/Cutscene.js",
+				"src/displays/easeljs/cutscene/CutsceneTask.js",
+				"src/displays/easeljs/cutscene/CutscenePlugin.js"
 			]
 		},
 		"easeljslearning": {
@@ -112,32 +131,25 @@
 			"main": [
 				"src/displays/easeljs/states/BasePanel.js",
 				"src/displays/easeljs/states/BaseState.js",
-				"src/displays/easeljs/states/ManifestsPlugin.js"
+				"src/displays/easeljs/states/ManifestsPlugin.js",
+				"src/deprecation/easeljs-states.js"
 			]
 		},
 		"states": [
 			"src/states/State.js",
 			"src/states/StateEvent.js",
 			"src/states/StateManager.js",
-			"src/states/StatesPlugin.js"
-		],
-		"tasks": [
-			"src/tasks/TaskEvent.js",
-			"src/tasks/Task.js",
-			"src/tasks/FunctionTask.js",
-			"src/tasks/LoadTask.js",
-			"src/tasks/TaskManager.js",
-			"src/tasks/ListTask.js",
-			"src/tasks/PixiTask.js",
-			"src/tasks/ConfigPlugin.js"
+			"src/states/StatesPlugin.js",
+			"src/deprecation/states.js"
 		],
 		"sound": [
 			"src/media/SoundContext.js",
 			"src/media/SoundInstance.js",
-			"src/media/SoundListTask.js",
+			"src/media/SoundTask.js",
 			"src/media/Sound.js",
 			"src/media/VOPlayer.js",
-			"src/media/SoundPlugin.js"
+			"src/media/SoundPlugin.js",
+			"src/deprecation/sound.js"
 		],
 		"ui": [
 			"src/ui/ScaleItem.js",

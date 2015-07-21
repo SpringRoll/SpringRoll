@@ -9,13 +9,14 @@
 	var AbstractHint = include('springroll.AbstractHint');
 
 	/**
-	 *  Generic function to act as a hint
-	 *  @class FunctionHint
-	 *  @extends springroll.AbstractHint
-	 *  @constructor
-	 *  @param {springroll.HintsPlayer} hints The instance of the hints
-	 *  @param {Function} done called on hint done
-	 *  @param {function} onStart Function to call
+	 * Generic function to act as a hint
+	 * @class FunctionHint
+	 * @extends springroll.AbstractHint
+	 * @constructor
+	 * @private
+	 * @param {springroll.HintsPlayer} hints The instance of the hints
+	 * @param {Function} done called on hint done
+	 * @param {function} onStart Function to call
 	 */
 	var FunctionHint = function(hints, done, onStart)
 	{
@@ -28,8 +29,8 @@
 	var p = extend(FunctionHint, AbstractHint);
 
 	/**
-	 *  Start function hint
-	 *  @method play
+	 * Start function hint
+	 * @method play
 	 */
 	p.play = function()
 	{
@@ -38,8 +39,8 @@
 	};
 
 	/**
-	 *  Clean-up the hint, don't use after this
-	 *  @method destroy
+	 * Clean-up the hint, don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

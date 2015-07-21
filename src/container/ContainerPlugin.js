@@ -1,7 +1,7 @@
 /**
-*  @module Container Client
-*  @namespace springroll
-*/
+ * @module Container Client
+ * @namespace springroll
+ */
 (function(undefined)
 {
 	// Include classes

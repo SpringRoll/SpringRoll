@@ -1,59 +1,59 @@
 /**
- *	@module Core
- *	@namespace springroll
+ * @module Core
+ * @namespace springroll
  */
 (function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin');
 	
 	/**
-	 *	Create an app plugin for resizing application, all properties and methods documented
-	 *	in this class are mixed-in to the main Application
-	 *	@class ResizePlugin
-	 *	@extends springroll.ApplicationPlugin
+	 * Create an app plugin for resizing application, all properties and methods documented
+	 * in this class are mixed-in to the main Application
+	 * @class ResizePlugin
+	 * @extends springroll.ApplicationPlugin
 	 */
 	var plugin = new ApplicationPlugin(100);
 
 	/**
-	*  Dom element (or the window) to attach resize listeners and read the size from
-	*  @property {DOMElement|Window|null} _resizeElement
-	*  @private
-	*  @default null
-	*/
+	 * Dom element (or the window) to attach resize listeners and read the size from
+	 * @property {DOMElement|Window|null} _resizeElement
+	 * @private
+	 * @default null
+	 */
 	var _resizeElement = null;
 
 	/**
-	*  The maximum width of the primary display, compared to the original height.
-	*  @property {Number} _maxWidth
-	*  @private
-	*/
+	 * The maximum width of the primary display, compared to the original height.
+	 * @property {Number} _maxWidth
+	 * @private
+	 */
 	var _maxWidth = 0;
 	
 	/**
-	*  The maximum height of the primary display, compared to the original width.
-	*  @property {Number} _maxHeight
-	*  @private
-	*/
+	 * The maximum height of the primary display, compared to the original width.
+	 * @property {Number} _maxHeight
+	 * @private
+	 */
 	var _maxHeight = 0;
 	
 	/**
-	*  The original width of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalWidth
-	*  @private
-	*/
+	 * The original width of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalWidth
+	 * @private
+	 */
 	var _originalWidth = 0;
 	
 	/**
-	*  The original height of the primary display, used to calculate the aspect ratio.
-	*  @property {int} _originalHeight
-	*  @private
-	*/
+	 * The original height of the primary display, used to calculate the aspect ratio.
+	 * @property {int} _originalHeight
+	 * @private
+	 */
 	var _originalHeight = 0;
 
 	/**
-	 *  A helper object to avoid object creation each resize event.
-	 *  @property {Object} _resizeHelper
-	 *  @private
+	 * A helper object to avoid object creation each resize event.
+	 * @property {Object} _resizeHelper
+	 * @private
 	 */
 	var _resizeHelper = {
 		width: 0,
@@ -64,10 +64,10 @@
 	plugin.setup = function()
 	{
 		/**
-		 *  Fired when a resize is called
-		 *  @event resize
-		 *  @param {int} width The width of the resize element
-		 *  @param {int} height The height of the resize element
+		 * Fired when a resize is called
+		 * @event resize
+		 * @param {int} width The width of the resize element
+		 * @param {int} height The height of the resize element
 		 */
 		
 		/**
@@ -125,8 +125,8 @@
 		});
 
 		/**
-		 *  Fire a resize event with the current width and height of the display
-		 *  @method triggerResize
+		 * Fire a resize event with the current width and height of the display
+		 * @method triggerResize
 		 */
 		this.triggerResize = function()
 		{
@@ -161,16 +161,16 @@
 		};
 
 		/**
-		 *  Calculates the resizing of displays. By default, this limits the new size
-		 *  to the initial aspect ratio of the primary display. Override this function
-		 *  if you need variable aspect ratios.
-		 *  @method calculateDisplaySize
-		 *  @protected
-		 *  @param {Object} size A size object containing the width and height of the resized container.
-		 *                       The size parameter is also the output of the function, so the size
-		 *                       properties are edited in place.
-		 *  @param {int} size.width The width of the resized container.
-		 *  @param {int} size.height The height of the resized container.
+		 * Calculates the resizing of displays. By default, this limits the new size
+		 * to the initial aspect ratio of the primary display. Override this function
+		 * if you need variable aspect ratios.
+		 * @method calculateDisplaySize
+		 * @protected
+		 * @param {Object} size A size object containing the width and height of the resized container.
+		 *                     The size parameter is also the output of the function, so the size
+		 *                     properties are edited in place.
+		 * @param {int} size.width The width of the resized container.
+		 * @param {int} size.height The height of the resized container.
 		 */
 		this.calculateDisplaySize = function(size)
 		{

@@ -1,14 +1,14 @@
 /**
-*  @module Core
-*  @namespace springroll
-*/
+ * @module Core
+ * @namespace springroll
+ */
 (function(undefined){
 
 	/**
-	*  The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
-	*
-	*  @class SavedData
-	*/
+	 * The SavedData functions use localStorage and sessionStorage, with a cookie fallback.
+	 *
+	 * @class SavedData
+	 */
 	var SavedData = {},
 
 	/** A constant to determine if we can use localStorage and sessionStorage */
@@ -32,11 +32,11 @@
 	}
 
 	/**
-	*  Remove a saved variable by name.
-	*  @method remove
-	*  @static
-	*  @param {String} name The name of the value to remove
-	*/
+	 * Remove a saved variable by name.
+	 * @method remove
+	 * @static
+	 * @param {String} name The name of the value to remove
+	 */
 	SavedData.remove = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -49,13 +49,13 @@
 	};
 
 	/**
-	*  Save a variable.
-	*  @method write
-	*  @static
-	*  @param {String} name The name of the value to save
-	*  @param {mixed} value The value to save. This will be run through JSON.stringify().
-	*  @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
-	*/
+	 * Save a variable.
+	 * @method write
+	 * @static
+	 * @param {String} name The name of the value to save
+	 * @param {mixed} value The value to save. This will be run through JSON.stringify().
+	 * @param {Boolean} [tempOnly=false] If the value should be saved only in the current browser session.
+	 */
 	SavedData.write = function(name, value, tempOnly)
 	{
 		if(WEB_STORAGE_SUPPORT)
@@ -83,12 +83,12 @@
 	};
 
 	/**
-	*  Read the value of a saved variable
-	*  @method read
-	*  @static
-	*  @param {String} name The name of the variable
-	*  @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
-	*/
+	 * Read the value of a saved variable
+	 * @method read
+	 * @static
+	 * @param {String} name The name of the variable
+	 * @return {mixed} The value (run through `JSON.parse()`) or null if it doesn't exist
+	 */
 	SavedData.read = function(name)
 	{
 		if(WEB_STORAGE_SUPPORT)

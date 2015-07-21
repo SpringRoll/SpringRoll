@@ -9,36 +9,36 @@
 		Sound;
 
 	/**
-	 *  A button with audio events for click and over mouse events
-	 *  @class SoundButton
-	 *  @extends springroll.easeljs.Button
-	 *  @constructor
-	 *  @param {DOMElement|object} imageSettings The loaded image element, see springroll.easeljs.Button constructor
-	 *  @param {Object} [label=null] See springroll.easeljs.Button constructor
-	 *  @param {Boolean} [enabled=true] If the button should be enabled by default
-	 *  @param {String} [clickAlias="ButtonClick"] The button click audio alias
-	 *  @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
+	 * A button with audio events for click and over mouse events
+	 * @class SoundButton
+	 * @extends springroll.easeljs.Button
+	 * @constructor
+	 * @param {DOMElement|object} imageSettings The loaded image element, see springroll.easeljs.Button constructor
+	 * @param {Object} [label=null] See springroll.easeljs.Button constructor
+	 * @param {Boolean} [enabled=true] If the button should be enabled by default
+	 * @param {String} [clickAlias="ButtonClick"] The button click audio alias
+	 * @param {String} [overAlias="ButtonRollover"] The button rollover audio alias
 	 */
 	var SoundButton = function(imageSettings, label, enabled, clickAlias, overAlias)
 	{
 		Sound = include('springroll.Sound');
 
 		/**
-		 *  The audio alias to use for click events
-		 *  @property {String} clickAlias
+		 * The audio alias to use for click events
+		 * @property {String} clickAlias
 		 */
 		this.clickAlias = clickAlias || "ButtonClick";
 
 		/**
-		 *  The audio alias to use for mouse over events
-		 *  @property {String} overAlias
+		 * The audio alias to use for mouse over events
+		 * @property {String} overAlias
 		 */
 		this.overAlias = overAlias || "ButtonRollover";
 
 		/**
-		 *  If the audio is enabled
-		 *  @property {Boolean} _audioEnabled
-		 *  @private
+		 * If the audio is enabled
+		 * @property {Boolean} _audioEnabled
+		 * @private
 		 */
 		this._audioEnabled = true;
 
@@ -56,9 +56,9 @@
 	var p = extend(SoundButton, Button);
 
 	/**
-	 *  Handler for the BUTTON_PRESS event
-	 *  @method _onButtonPress
-	 *  @private
+	 * Handler for the BUTTON_PRESS event
+	 * @method _onButtonPress
+	 * @private
 	 */
 	p._onButtonPress = function(e)
 	{
@@ -69,9 +69,9 @@
 	};
 
 	/**
-	 *  Handler for rollover event.
-	 *  @method _onRollover
-	 *  @private
+	 * Handler for rollover event.
+	 * @method _onRollover
+	 * @private
 	 */
 	p._onRollover = function(e)
 	{
@@ -82,8 +82,8 @@
 	};
 
 	/**
-	 *  If audio should be played for this button.
-	 *  @property {Boolean} audioEnabled
+	 * If audio should be played for this button.
+	 * @property {Boolean} audioEnabled
 	 */
 	Object.defineProperty(p, "audioEnabled",
 	{
@@ -115,8 +115,8 @@
 	});
 
 	/**
-	 *  Don't use after this
-	 *  @method destroy
+	 * Don't use after this
+	 * @method destroy
 	 */
 	p.destroy = function()
 	{

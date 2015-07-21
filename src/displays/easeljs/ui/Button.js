@@ -18,140 +18,140 @@
 		Bitmap = include('createjs.Bitmap');
 
 	/**
-	* A Multipurpose button class. It is designed to have one image, and an optional text label.
-	* The button can be a normal button or a selectable button.
-	* The button functions similarly with both EaselJS and PIXI, but slightly differently in
-	* initialization and callbacks. Add event listeners for click and mouseover to know about
-	* button clicks and mouse overs, respectively.
-	*
-	* @class Button
-	* @extends createjs.Container
-	* @constructor
-	* @param {Object|Image|HTMLCanvasElement} [imageSettings] Information about the art to be used
-	*                                                         for button states, as well as if the
-	*                                                         button is selectable or not. If this
-	*                                                         is an Image or Canvas element, then
-	*                                                         the button assumes that the image is
-	*                                                         full width and 3 images tall, in the
-	*                                                         order (top to bottom) up, over, down.
-	*                                                         If so, then the properties of
-	*                                                         imageSettings are ignored.
-	* @param {Image|HTMLCanvasElement} [imageSettings.image] The image to use for all of the button
-	*                                                        states.
-	* @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to
-	*                                              <code>&#91;"disabled", "down", "over",
-	*                                              "up"&#93;</code>. Previous versions of Button
-	*                                              used a hard coded order:
-	*                                              <code>&#91;"highlighted", "disabled", "down",
-	*                                              "over", "selected", "up"&#93;</code>.
-	* @param {Object} [imageSettings.up] The visual information about the up state.
-	* @param {createjs.Rectangle} [imageSettings.up.src] The sourceRect for the state within the
-	*                                                    image.
-	* @param {createjs.Rectangle} [imageSettings.up.trim=null] Trim data about the state, where x &
-	*                                                          y are how many pixels were trimmed
-	*                                                          off the left and right, and height &
-	*                                                          width are the untrimmed size of the
-	*                                                          button.
-	* @param {Object} [imageSettings.up.label=null] Label information specific to this state.
-	*                                               Properties on this parameter override data in
-	*                                               the label parameter for this button state only.
-	*                                               All values except "text" from the label
-	*                                               parameter may be overridden.
-	* @param {Object} [imageSettings.over=null] The visual information about the over state. If
-	*                                           omitted, uses the up state.
-	* @param {createjs.Rectangle} [imageSettings.over.src] The sourceRect for the state within the
-	*                                                      image.
-	* @param {createjs.Rectangle} [imageSettings.over.trim=null] Trim data about the state, where x
-	*                                                            & y are how many pixels were
-	*                                                            trimmed off the left and right, and
-	*                                                            height & width are the untrimmed
-	*                                                            size of the button.
-	* @param {Object} [imageSettings.over.label=null] Label information specific to this state.
-	*                                                 Properties on this parameter override data in
-	*                                                 the label parameter for this button state
-	*                                                 only. All values except "text" from the label
-	*                                                 parameter may be overridden.
-	* @param {Object} [imageSettings.down=null] The visual information about the down state. If
-	*                                           omitted, uses the up state.
-	* @param {createjs.Rectangle} [imageSettings.down.src] The sourceRect for the state within the
-	*                                                      image.
-	* @param {createjs.Rectangle} [imageSettings.down.trim=null] Trim data about the state, where x
-	*                                                            & y are how many pixels were
-	*                                                            trimmed off the left and right, and
-	*                                                            height & width are the untrimmed
-	*                                                            size of the button.
-	* @param {Object} [imageSettings.down.label=null] Label information specific to this state.
-	*                                                 Properties on this parameter override data in
-	*                                                 the label parameter for this button state
-	*                                                 only. All values except "text" from the label
-	*                                                 parameter may be overridden.
-	* @param {Object} [imageSettings.disabled=null] The visual information about the disabled state.
-	*                                               If omitted, uses the up state.
-	* @param {createjs.Rectangle} [imageSettings.disabled.src] The sourceRect for the state within
-	*                                                          the image.
-	* @param {createjs.Rectangle} [imageSettings.disabled.trim=null] Trim data about the state,
-	*                                                                where x & y are how many pixels
-	*                                                                were trimmed off the left and
-	*                                                                right, and height & width are
-	*                                                                the untrimmed size of the
-	*                                                                button.
-	* @param {Object} [imageSettings.disabled.label=null] Label information specific to this state.
-	*                                                     Properties on this parameter override data
-	*                                                     in the label parameter for this button
-	*                                                     state only. All values except "text" from
-	*                                                     the label parameter may be overridden.
-	* @param {Object} [imageSettings.<yourCustomState>=null] The visual information about a custom
-	*                                                        state found in imageSettings.priority.
-	*                                                        Any state added this way has a property
-	*                                                        of the same name added to the button.
-	*                                                        Examples of previous states that have
-	*                                                        been moved to this system are
-	*                                                        "selected" and "highlighted".
-	* @param {createjs.Rectangle} [imageSettings.<yourCustomState>.src] The sourceRect for the state
-	*                                                                   within the image.
-	* @param {createjs.Rectangle} [imageSettings.<yourCustomState>.trim=null] Trim data about the
-	*                                                                         state, where x & y are
-	*                                                                         how many pixels were
-	*                                                                         trimmed off the left
-	*                                                                         and right, and height
-	*                                                                         & width are the
-	*                                                                         untrimmed size of the
-	*                                                                         button.
-	* @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
-	*                                                              this state. Properties on this
-	*                                                              parameter override data in the
-	*                                                              label parameter for this button
-	*                                                              state only. All values except
-	*                                                              "text" from the label parameter
-	*                                                              may be overridden.
-	* @param {createjs.Point} [imageSettings.origin=null] An optional offset for all button
-	*                                                     graphics, in case you want button
-	*                                                     positioning to not include a highlight
-	*                                                     glow, or any other reason you would want
-	*                                                     to offset the button art and label.
-	* @param {Object} [label=null] Information about the text label on the button. Omitting this
-	*                              makes the button not use a label.
-	* @param {String} [label.text] The text to display on the label.
-	* @param {String} [label.font] The font name and size to use on the label, as createjs.Text
-	*                              expects.
-	* @param {String} [label.color] The color of the text to use on the label, as createjs.Text
-	*                               expects.
-	* @param {String} [label.textBaseline="middle"] The baseline for the label text, as
-	*                                               createjs.Text expects.
-	* @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as
-	*                                     createjs.Text (springroll fork only) expects.
-	* @param {createjs.Shadow} [label.shadow=null] A shadow object to apply to the label text.
-	* @param {String|Number} [label.x="center"] An x position to place the label text at relative to
-	*                                           the button. If omitted, "center" is used, which
-	*                                           attempts to horizontally center the label on the
-	*                                           button.
-	* @param {String|Number} [label.y="center"] A y position to place the label text at relative to
-	*                                           the button. If omitted, "center" is used, which
-	*                                           attempts to vertically center the label on the
-	*                                           button. This may be unreliable - see documentation
-	*                                           for createjs.Text.getMeasuredLineHeight().
-	* @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
-	*/
+	 * A Multipurpose button class. It is designed to have one image, and an optional text label.
+	 * The button can be a normal button or a selectable button.
+	 * The button functions similarly with both EaselJS and PIXI, but slightly differently in
+	 * initialization and callbacks. Add event listeners for click and mouseover to know about
+	 * button clicks and mouse overs, respectively.
+	 *
+	 * @class Button
+	 * @extends createjs.Container
+	 * @constructor
+	 * @param {Object|Image|HTMLCanvasElement} [imageSettings] Information about the art to be used
+	 *                                                     for button states, as well as if the
+	 *                                                     button is selectable or not. If this
+	 *                                                     is an Image or Canvas element, then
+	 *                                                     the button assumes that the image is
+	 *                                                     full width and 3 images tall, in the
+	 *                                                     order (top to bottom) up, over, down.
+	 *                                                     If so, then the properties of
+	 *                                                     imageSettings are ignored.
+	 * @param {Image|HTMLCanvasElement} [imageSettings.image] The image to use for all of the button
+	 *                                                    states.
+	 * @param {Array} [imageSettings.priority=null] The state priority order. If omitted, defaults to
+	 *                                          <code>&#91;"disabled", "down", "over",
+	 *                                          "up"&#93;</code>. Previous versions of Button
+	 *                                          used a hard coded order:
+	 *                                          <code>&#91;"highlighted", "disabled", "down",
+	 *                                          "over", "selected", "up"&#93;</code>.
+	 * @param {Object} [imageSettings.up] The visual information about the up state.
+	 * @param {createjs.Rectangle} [imageSettings.up.src] The sourceRect for the state within the
+	 *                                                image.
+	 * @param {createjs.Rectangle} [imageSettings.up.trim=null] Trim data about the state, where x &
+	 *                                                      y are how many pixels were trimmed
+	 *                                                      off the left and right, and height &
+	 *                                                      width are the untrimmed size of the
+	 *                                                      button.
+	 * @param {Object} [imageSettings.up.label=null] Label information specific to this state.
+	 *                                           Properties on this parameter override data in
+	 *                                           the label parameter for this button state only.
+	 *                                           All values except "text" from the label
+	 *                                           parameter may be overridden.
+	 * @param {Object} [imageSettings.over=null] The visual information about the over state. If
+	 *                                       omitted, uses the up state.
+	 * @param {createjs.Rectangle} [imageSettings.over.src] The sourceRect for the state within the
+	 *                                                  image.
+	 * @param {createjs.Rectangle} [imageSettings.over.trim=null] Trim data about the state, where x
+	 *                                                        & y are how many pixels were
+	 *                                                        trimmed off the left and right, and
+	 *                                                        height & width are the untrimmed
+	 *                                                        size of the button.
+	 * @param {Object} [imageSettings.over.label=null] Label information specific to this state.
+	 *                                             Properties on this parameter override data in
+	 *                                             the label parameter for this button state
+	 *                                             only. All values except "text" from the label
+	 *                                             parameter may be overridden.
+	 * @param {Object} [imageSettings.down=null] The visual information about the down state. If
+	 *                                       omitted, uses the up state.
+	 * @param {createjs.Rectangle} [imageSettings.down.src] The sourceRect for the state within the
+	 *                                                  image.
+	 * @param {createjs.Rectangle} [imageSettings.down.trim=null] Trim data about the state, where x
+	 *                                                        & y are how many pixels were
+	 *                                                        trimmed off the left and right, and
+	 *                                                        height & width are the untrimmed
+	 *                                                        size of the button.
+	 * @param {Object} [imageSettings.down.label=null] Label information specific to this state.
+	 *                                             Properties on this parameter override data in
+	 *                                             the label parameter for this button state
+	 *                                             only. All values except "text" from the label
+	 *                                             parameter may be overridden.
+	 * @param {Object} [imageSettings.disabled=null] The visual information about the disabled state.
+	 *                                           If omitted, uses the up state.
+	 * @param {createjs.Rectangle} [imageSettings.disabled.src] The sourceRect for the state within
+	 *                                                      the image.
+	 * @param {createjs.Rectangle} [imageSettings.disabled.trim=null] Trim data about the state,
+	 *                                                            where x & y are how many pixels
+	 *                                                            were trimmed off the left and
+	 *                                                            right, and height & width are
+	 *                                                            the untrimmed size of the
+	 *                                                            button.
+	 * @param {Object} [imageSettings.disabled.label=null] Label information specific to this state.
+	 *                                                 Properties on this parameter override data
+	 *                                                 in the label parameter for this button
+	 *                                                 state only. All values except "text" from
+	 *                                                 the label parameter may be overridden.
+	 * @param {Object} [imageSettings.<yourCustomState>=null] The visual information about a custom
+	 *                                                    state found in imageSettings.priority.
+	 *                                                    Any state added this way has a property
+	 *                                                    of the same name added to the button.
+	 *                                                    Examples of previous states that have
+	 *                                                    been moved to this system are
+	 *                                                    "selected" and "highlighted".
+	 * @param {createjs.Rectangle} [imageSettings.<yourCustomState>.src] The sourceRect for the state
+	 *                                                               within the image.
+	 * @param {createjs.Rectangle} [imageSettings.<yourCustomState>.trim=null] Trim data about the
+	 *                                                                     state, where x & y are
+	 *                                                                     how many pixels were
+	 *                                                                     trimmed off the left
+	 *                                                                     and right, and height
+	 *                                                                     & width are the
+	 *                                                                     untrimmed size of the
+	 *                                                                     button.
+	 * @param {Object} [imageSettings.<yourCustomState>.label=null] Label information specific to
+	 *                                                          this state. Properties on this
+	 *                                                          parameter override data in the
+	 *                                                          label parameter for this button
+	 *                                                          state only. All values except
+	 *                                                          "text" from the label parameter
+	 *                                                          may be overridden.
+	 * @param {createjs.Point} [imageSettings.origin=null] An optional offset for all button
+	 *                                                 graphics, in case you want button
+	 *                                                 positioning to not include a highlight
+	 *                                                 glow, or any other reason you would want
+	 *                                                 to offset the button art and label.
+	 * @param {Object} [label=null] Information about the text label on the button. Omitting this
+	 *                          makes the button not use a label.
+	 * @param {String} [label.text] The text to display on the label.
+	 * @param {String} [label.font] The font name and size to use on the label, as createjs.Text
+	 *                          expects.
+	 * @param {String} [label.color] The color of the text to use on the label, as createjs.Text
+	 *                           expects.
+	 * @param {String} [label.textBaseline="middle"] The baseline for the label text, as
+	 *                                           createjs.Text expects.
+	 * @param {Object} [label.stroke=null] The stroke to use for the label text, if desired, as
+	 *                                 createjs.Text (springroll fork only) expects.
+	 * @param {createjs.Shadow} [label.shadow=null] A shadow object to apply to the label text.
+	 * @param {String|Number} [label.x="center"] An x position to place the label text at relative to
+	 *                                       the button. If omitted, "center" is used, which
+	 *                                       attempts to horizontally center the label on the
+	 *                                       button.
+	 * @param {String|Number} [label.y="center"] A y position to place the label text at relative to
+	 *                                       the button. If omitted, "center" is used, which
+	 *                                       attempts to vertically center the label on the
+	 *                                       button. This may be unreliable - see documentation
+	 *                                       for createjs.Text.getMeasuredLineHeight().
+	 * @param {Boolean} [enabled=true] Whether or not the button is initially enabled.
+	 */
 	var Button = function(imageSettings, label, enabled)
 	{
 		Debug = include('springroll.Debug', false);
@@ -163,103 +163,103 @@
 		Container.call(this);
 
 		/**
-		* The sprite that is the body of the button.
-		* @public
-		* @property {createjs.Bitmap} back
-		* @readOnly
-		*/
+		 * The sprite that is the body of the button.
+		 * @public
+		 * @property {createjs.Bitmap} back
+		 * @readOnly
+		 */
 		this.back = null;
 
 		/**
-		* The text field of the button. The label is centered by both width and height on the
-		* button.
-		* @public
-		* @property {createjs.Text} label
-		* @readOnly
-		*/
+		 * The text field of the button. The label is centered by both width and height on the
+		 * button.
+		 * @public
+		 * @property {createjs.Text} label
+		 * @readOnly
+		 */
 		this.label = null;
 
 		//===callbacks for mouse/touch events
 		/**
-		* Callback for mouse over, bound to this button.
-		* @private
-		* @property {Function} _overCB
-		*/
+		 * Callback for mouse over, bound to this button.
+		 * @private
+		 * @property {Function} _overCB
+		 */
 		this._overCB = this._onMouseOver.bind(this);
 
 		/**
-		* Callback for mouse out, bound to this button.
-		* @private
-		* @property {Function} _outCB
-		*/
+		 * Callback for mouse out, bound to this button.
+		 * @private
+		 * @property {Function} _outCB
+		 */
 		this._outCB = this._onMouseOut.bind(this);
 
 		/**
-		* Callback for mouse down, bound to this button.
-		* @private
-		* @property {Function} _downCB
-		*/
+		 * Callback for mouse down, bound to this button.
+		 * @private
+		 * @property {Function} _downCB
+		 */
 		this._downCB = this._onMouseDown.bind(this);
 
 		/**
-		* Callback for press up, bound to this button.
-		* @private
-		* @property {Function} _upCB
-		*/
+		 * Callback for press up, bound to this button.
+		 * @private
+		 * @property {Function} _upCB
+		 */
 		this._upCB = this._onMouseUp.bind(this);
 
 		/**
-		* Callback for click, bound to this button.
-		* @private
-		* @property {Function} _clickCB
-		*/
+		 * Callback for click, bound to this button.
+		 * @private
+		 * @property {Function} _clickCB
+		 */
 		this._clickCB = this._onClick.bind(this);
 
 		/**
-		* A dictionary of state booleans, keyed by state name.
-		* @private
-		* @property {Object} _stateFlags
-		*/
+		 * A dictionary of state booleans, keyed by state name.
+		 * @private
+		 * @property {Object} _stateFlags
+		 */
 		this._stateFlags = {};
 
 		/**
-		* An array of state names (Strings), in their order of priority.
-		* The standard order previously was
-		* ["highlighted", "disabled", "down", "over", "selected", "up"].
-		* @private
-		* @property {Array} _statePriority
-		*/
+		 * An array of state names (Strings), in their order of priority.
+		 * The standard order previously was
+		 * ["highlighted", "disabled", "down", "over", "selected", "up"].
+		 * @private
+		 * @property {Array} _statePriority
+		 */
 		this._statePriority = null;
 
 		/**
-		* A dictionary of state graphic data, keyed by state name.
-		* Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
-		* Additionally, each object will contain a 'label' object if the button has a text label.
-		* @private
-		* @property {Object} _stateData
-		*/
+		 * A dictionary of state graphic data, keyed by state name.
+		 * Each object contains the sourceRect (src) and optionally 'trim', another Rectangle.
+		 * Additionally, each object will contain a 'label' object if the button has a text label.
+		 * @private
+		 * @property {Object} _stateData
+		 */
 		this._stateData = {};
 
 		/**
-		* The width of the button art, independent of the scaling of the button itself.
-		* @private
-		* @property {Number} _width
-		*/
+		 * The width of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _width
+		 */
 		this._width = 0;
 
 		/**
-		* The height of the button art, independent of the scaling of the button itself.
-		* @private
-		* @property {Number} _height
-		*/
+		 * The height of the button art, independent of the scaling of the button itself.
+		 * @private
+		 * @property {Number} _height
+		 */
 		this._height = 0;
 
 		/**
-		* An offset to button positioning, generally used to adjust for a highlight around the
-		* button.
-		* @private
-		* @property {createjs.Point} _offset
-		*/
+		 * An offset to button positioning, generally used to adjust for a highlight around the
+		 * button.
+		 * @private
+		 * @property {createjs.Point} _offset
+		 */
 		this._offset = new Point();
 		
 		//====
@@ -423,31 +423,31 @@
 	var s = Container.prototype; //super
 
 	/**
-	* An event for when the button is pressed (while enabled).
-	* @public
-	* @static
-	* @property {String} BUTTON_PRESS
-	*/
+	 * An event for when the button is pressed (while enabled).
+	 * @public
+	 * @static
+	 * @property {String} BUTTON_PRESS
+	 */
 	Button.BUTTON_PRESS = "buttonPress";
 
 	/*
-	* A list of state names that should not have properties autogenerated.
-	* @private
-	* @static
-	* @property {Array} RESERVED_STATES
-	*/
+	 * A list of state names that should not have properties autogenerated.
+	 * @private
+	 * @static
+	 * @property {Array} RESERVED_STATES
+	 */
 	var RESERVED_STATES = ["disabled", "enabled", "up", "over", "down"];
 	/*
-	* A state priority list to use as the default.
-	* @private
-	* @static
-	* @property {Array} DEFAULT_PRIORITY
-	*/
+	 * A state priority list to use as the default.
+	 * @private
+	 * @static
+	 * @property {Array} DEFAULT_PRIORITY
+	 */
 	var DEFAULT_PRIORITY = ["disabled", "down", "over", "up"];
 
 	/*
-	* A simple function for making a shallow copy of an object.
-	*/
+	 * A simple function for making a shallow copy of an object.
+	 */
 	function clone(obj)
 	{
 		if (!obj || "object" != typeof obj) return null;
@@ -465,9 +465,9 @@
 	}
 
 	/**
-	* The width of the button, based on the width of back. This value is affected by scale.
-	* @property {Number} width
-	*/
+	 * The width of the button, based on the width of back. This value is affected by scale.
+	 * @property {Number} width
+	 */
 	Object.defineProperty(p, "width",
 	{
 		get: function()
@@ -481,9 +481,9 @@
 	});
 
 	/**
-	* The height of the button, based on the height of back. This value is affected by scale.
-	* @property {Number} height
-	*/
+	 * The height of the button, based on the height of back. This value is affected by scale.
+	 * @property {Number} height
+	 */
 	Object.defineProperty(p, "height",
 	{
 		get: function()
@@ -497,11 +497,11 @@
 	});
 
 	/**
-	* Sets the text of the label. This does nothing if the button was not initialized with a label.
-	* @public
-	* @method setText
-	* @param {String} text The text to set the label to.
-	*/
+	 * Sets the text of the label. This does nothing if the button was not initialized with a label.
+	 * @public
+	 * @method setText
+	 * @param {String} text The text to set the label to.
+	 */
 	p.setText = function(text)
 	{
 		if (this.label)
@@ -531,10 +531,10 @@
 	};
 
 	/**
-	* Whether or not the button is enabled.
-	* @property {Boolean} enabled
-	* @default true
-	*/
+	 * Whether or not the button is enabled.
+	 * @property {Boolean} enabled
+	 * @default true
+	 */
 	Object.defineProperty(p, "enabled",
 	{
 		get: function()
@@ -569,12 +569,12 @@
 	});
 
 	/**
-	* Adds a property to the button. Setting the property sets the value in
-	* _stateFlags and calls _updateState().
-	* @private
-	* @method _addProperty
-	* @param {String} propertyName The property name to add to the button.
-	*/
+	 * Adds a property to the button. Setting the property sets the value in
+	 * _stateFlags and calls _updateState().
+	 * @private
+	 * @method _addProperty
+	 * @param {String} propertyName The property name to add to the button.
+	 */
 	p._addProperty = function(propertyName)
 	{
 		//check to make sure we don't add reserved names
@@ -595,10 +595,10 @@
 	};
 
 	/**
-	* Updates back based on the current button state.
-	* @private
-	* @method _updateState
-	*/
+	 * Updates back based on the current button state.
+	 * @private
+	 * @method _updateState
+	 */
 	p._updateState = function()
 	{
 		var back = this.back;
@@ -663,10 +663,10 @@
 	};
 
 	/**
-	* The callback for when the button receives a mouse down event.
-	* @private
-	* @method _onMouseDown
-	*/
+	 * The callback for when the button receives a mouse down event.
+	 * @private
+	 * @method _onMouseDown
+	 */
 	p._onMouseDown = function(e)
 	{
 		this.addEventListener('pressup', this._upCB);
@@ -676,11 +676,11 @@
 	};
 
 	/**
-	* The callback for when the button for when the mouse/touch is released on the button
-	* - only when the button was held down initially.
-	* @private
-	* @method _onMouseUp
-	*/
+	 * The callback for when the button for when the mouse/touch is released on the button
+	 * - only when the button was held down initially.
+	 * @private
+	 * @method _onMouseUp
+	 */
 	p._onMouseUp = function(e)
 	{
 		this.removeEventListener('pressup', this._upCB);
@@ -691,22 +691,22 @@
 	};
 
 	/**
-	* The callback for when the button the button is clicked or tapped on. This is
-	* the most reliable way of detecting mouse up/touch end events that are on this button
-	* while letting the pressup event handle the mouse up/touch ends on and outside the button.
-	* @private
-	* @method _onClick
-	*/
+	 * The callback for when the button the button is clicked or tapped on. This is
+	 * the most reliable way of detecting mouse up/touch end events that are on this button
+	 * while letting the pressup event handle the mouse up/touch ends on and outside the button.
+	 * @private
+	 * @method _onClick
+	 */
 	p._onClick = function(e)
 	{
 		this.dispatchEvent(new Event(Button.BUTTON_PRESS));
 	};
 
 	/**
-	* The callback for when the button is moused over.
-	* @private
-	* @method _onMouseOver
-	*/
+	 * The callback for when the button is moused over.
+	 * @private
+	 * @method _onMouseOver
+	 */
 	p._onMouseOver = function(e)
 	{
 		this._stateFlags.over = true;
@@ -714,10 +714,10 @@
 	};
 
 	/**
-	* The callback for when the mouse leaves the button area.
-	* @private
-	* @method _onMouseOut
-	*/
+	 * The callback for when the mouse leaves the button area.
+	 * @private
+	 * @method _onMouseOut
+	 */
 	p._onMouseOut = function(e)
 	{
 		this._stateFlags.over = false;
@@ -725,10 +725,10 @@
 	};
 
 	/**
-	* Destroys the button.
-	* @public
-	* @method destroy
-	*/
+	 * Destroys the button.
+	 * @public
+	 * @method destroy
+	 */
 	p.destroy = function()
 	{
 		this.removeAllChildren();
@@ -745,37 +745,37 @@
 	};
 
 	/**
-	* Generates a desaturated up state as a disabled state, and an update with a solid colored
-	* glow for a highlighted state.
-	* @method generateDefaultStates
-	* @static
-	* @param {Image|HTMLCanvasElement} image The image to use for all of the button states, in the
-	*                                        standard up/over/down format.
-	* @param {Object} [disabledSettings] The settings object for the disabled state. If omitted, no
-	*                                    disabled state is created.
-	* @param {Number} [disabledSettings.saturation] The saturation adjustment for the disabled
-	*                                               state. 100 is fully saturated, 0 is unchanged,
-	*                                               -100 is desaturated.
-	* @param {Number} [disabledSettings.brightness] The brightness adjustment for the disabled
-	*                                               state. 100 is fully bright, 0 is unchanged, -100
-	*                                               is completely dark.
-	* @param {Number} [disabledSettings.contrast] The contrast adjustment for the disabled state.
-	*                                             100 is full contrast, 0 is unchanged, -100 is no
-	*                                             contrast.
-	* @param {Object} [highlightSettings] The settings object for the highlight state. If omitted,
-	*                                     no state is created.
-	* @param {Number} [highlightSettings.size] How many pixels to make the glow, eg 8 for an 8 pixel
-	*                                          increase on each side.
-	* @param {Number} [highlightSettings.red] The red value for the glow, from 0 to 255.
-	* @param {Number} [highlightSettings.green] The green value for the glow, from 0 to 255.
-	* @param {Number} [highlightSettings.blue] The blue value for the glow, from 0 to 255.
-	* @param {Number} [highlightSettings.alpha=255] The alpha value for the glow, from 0 to 255,
-	*                                               with 0 being transparent and 255 fully opaque.
-	* @param {Array} [highlightSettings.rgba] An array of values to use for red, green, blue, and
-	*                                         optionally alpha that can be used instead of providing
-	*                                         separate properties on highlightSettings.
-	* @return {Object} An object for use as the 'imageSettings' parameter on a new Button.
-	*/
+	 * Generates a desaturated up state as a disabled state, and an update with a solid colored
+	 * glow for a highlighted state.
+	 * @method generateDefaultStates
+	 * @static
+	 * @param {Image|HTMLCanvasElement} image The image to use for all of the button states, in the
+	 *                                    standard up/over/down format.
+	 * @param {Object} [disabledSettings] The settings object for the disabled state. If omitted, no
+	 *                                disabled state is created.
+	 * @param {Number} [disabledSettings.saturation] The saturation adjustment for the disabled
+	 *                                           state. 100 is fully saturated, 0 is unchanged,
+	 *                                           -100 is desaturated.
+	 * @param {Number} [disabledSettings.brightness] The brightness adjustment for the disabled
+	 *                                           state. 100 is fully bright, 0 is unchanged, -100
+	 *                                           is completely dark.
+	 * @param {Number} [disabledSettings.contrast] The contrast adjustment for the disabled state.
+	 *                                         100 is full contrast, 0 is unchanged, -100 is no
+	 *                                         contrast.
+	 * @param {Object} [highlightSettings] The settings object for the highlight state. If omitted,
+	 *                                 no state is created.
+	 * @param {Number} [highlightSettings.size] How many pixels to make the glow, eg 8 for an 8 pixel
+	 *                                      increase on each side.
+	 * @param {Number} [highlightSettings.red] The red value for the glow, from 0 to 255.
+	 * @param {Number} [highlightSettings.green] The green value for the glow, from 0 to 255.
+	 * @param {Number} [highlightSettings.blue] The blue value for the glow, from 0 to 255.
+	 * @param {Number} [highlightSettings.alpha=255] The alpha value for the glow, from 0 to 255,
+	 *                                           with 0 being transparent and 255 fully opaque.
+	 * @param {Array} [highlightSettings.rgba] An array of values to use for red, green, blue, and
+	 *                                     optionally alpha that can be used instead of providing
+	 *                                     separate properties on highlightSettings.
+	 * @return {Object} An object for use as the 'imageSettings' parameter on a new Button.
+	 */
 	Button.generateDefaultStates = function(image, disabledSettings, highlightSettings)
 	{
 		//figure out the normal button size
@@ -931,11 +931,11 @@
 	 * of state priorities.
 	 * @method generateSettingsFromAtlas
 	 * @static
-	 * @param {TextureAtlas} atlas The TextureAtlas to pull all frames from.
+	 * @param {springroll.easeljs.TextureAtlas} atlas The TextureAtlas to pull all frames from.
 	 * @param {String} baseName The base name for all frames in the atlas.
 	 * @param {Array} statePriority The state order, as well as determining frame names in the
-	 *                              atlas. Each state frame name in the atlas should be
-	 *                              <code>baseName + "_" + statePriority[i]</code>.
+	 *                            atlas. Each state frame name in the atlas should be
+	 *                            <code>baseName + "_" + statePriority[i]</code>.
 	 */
 	Button.generateSettingsFromAtlas = function(atlas, baseName, statePriority)
 	{
