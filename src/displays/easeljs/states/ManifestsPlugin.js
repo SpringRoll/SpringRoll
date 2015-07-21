@@ -28,7 +28,7 @@
 		/**
 		 * Event when the manifest is finished loading
 		 * @event manifestLoaded
-		 * @param {springroll.TaskManager} manager The task manager
+		 * @param {Array} assets The object of additional assets to load
 		 */
 
 		/**
@@ -98,10 +98,10 @@
 	 * @private
 	 * @param {array} tasks The collection of preload tasks
 	 */
-	var onManifestsLoaded = function(manifests, task, manager)
+	var onManifestsLoaded = function(manifests, asset, assets)
 	{
 		Object.merge(this._manifests, manifests);
-		this.trigger('manifestLoaded', manager);
+		this.trigger('manifestLoaded', assets);
 	};
 
 	// clean up
