@@ -4276,7 +4276,7 @@
  * @module Core
  * @namespace springroll
  */
-(function()
+(function(undefined)
 {
 	var LoadQueue = include('createjs.LoadQueue'),
 		Debug,
@@ -4284,10 +4284,10 @@
 
 	/**
 	 * Represents a single item in the loader queue 
-	 * @class LoaderQueueItem
+	 * @class LoaderItem
 	 * @extends createjs.LoadQueue
 	 */
-	var LoaderQueueItem = function()
+	var LoaderItem = function()
 	{
 		LoadQueue.call(this, true); // preferXHR is always true!
 
@@ -4368,7 +4368,7 @@
 	};
 	
 	/** Reference to the prototype */
-	var p = extend(LoaderQueueItem, LoadQueue);
+	var p = extend(LoaderItem, LoadQueue);
 
 	/**
 	 * Represent this object as a string
@@ -4376,7 +4376,7 @@
 	 * @static
 	 * @default 3
 	 */
-	var MAX_RETRIES = LoaderQueueItem.MAX_RETRIES = 3;
+	LoaderItem.MAX_RETRIES = 3;
 
 	if (true)
 	{
@@ -4386,7 +4386,7 @@
 		 * @static
 		 * @default false
 		 */
-		LoaderQueueItem.verbose = false;
+		LoaderItem.verbose = false;
 	}
 	
 	/**
@@ -4397,7 +4397,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderQueueItem(url:'"+this.url+"')]";
+		return "[LoaderItem(url:'"+this.url+"')]";
 	};
 
 	/**
@@ -4452,7 +4452,7 @@
 	 */
 	p.start = function(maxCurrentLoads)
 	{
-		if (true && Debug && LoaderQueueItem.verbose)
+		if (true && Debug && LoaderItem.verbose)
 		{
 			Debug.log("Attempting to load file '" + this.url + "'");
 		}
@@ -4520,7 +4520,7 @@
 	p.retry = function()
 	{
 		this.retries++;
-		if (this.retries > MAX_RETRIES)
+		if (this.retries > LoaderItem.MAX_RETRIES)
 		{
 			this.onComplete(this, null);
 		}
@@ -4538,7 +4538,7 @@
 	 */
 	p._onCompleted = function(ev)
 	{
-		if (true && Debug && LoaderQueueItem.verbose)
+		if (true && Debug && LoaderItem.verbose)
 		{
 			Debug.log("File loaded successfully from " + this.url);
 		}
@@ -4546,7 +4546,7 @@
 	};
 	
 	// Assign to the name space
-	namespace('springroll').LoaderQueueItem = LoaderQueueItem;
+	namespace('springroll').LoaderItem = LoaderItem;
 	
 }());
 /**
@@ -4636,7 +4636,7 @@
 (function(undefined)
 {
 	// Classes to import
-	var LoaderQueueItem = include('springroll.LoaderQueueItem'),
+	var LoaderItem = include('springroll.LoaderItem'),
 		CacheManager = include('springroll.CacheManager'),
 		LoaderResult = include('springroll.LoaderResult');
 
@@ -4671,7 +4671,7 @@
 		this.cacheManager = new CacheManager(app);
 
 		/**
-		 * The collection of LoaderQueueItems by url
+		 * The collection of LoaderItems by url
 		 * @private
 		 * @property {Object} loads
 		 */
@@ -4699,7 +4699,7 @@
 		{
 			set: function(verbose)
 			{
-				LoaderQueueItem.verbose = verbose;
+				LoaderItem.verbose = verbose;
 			}
 		});
 	}
@@ -4812,19 +4812,19 @@
 	 * Get a Queue item from the pool or new
 	 * @method  _getLoad
 	 * @private
-	 * @return  {springroll.LoaderQueueItem} The Queue item to use
+	 * @return  {springroll.LoaderItem} The Queue item to use
 	 */
 	p._getLoad = function()
 	{
 		var loadPool = this.loadPool;
-		return loadPool.length ? loadPool.pop(): new LoaderQueueItem();
+		return loadPool.length ? loadPool.pop(): new LoaderItem();
 	};
 	
 	/**
 	 * Pool the loader queue item
 	 * @method  _putLoad
 	 * @private
-	 * @param  {springroll.LoaderQueueItem} load Queue item that's done
+	 * @param  {springroll.LoaderItem} load Queue item that's done
 	 */
 	p._putLoad = function(load)
 	{
@@ -5903,7 +5903,7 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined)
+(function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),

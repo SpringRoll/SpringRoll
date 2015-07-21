@@ -5,7 +5,7 @@
 (function(undefined)
 {
 	// Classes to import
-	var LoaderQueueItem = include('springroll.LoaderQueueItem'),
+	var LoaderItem = include('springroll.LoaderItem'),
 		CacheManager = include('springroll.CacheManager'),
 		LoaderResult = include('springroll.LoaderResult');
 
@@ -40,7 +40,7 @@
 		this.cacheManager = new CacheManager(app);
 
 		/**
-		 * The collection of LoaderQueueItems by url
+		 * The collection of LoaderItems by url
 		 * @private
 		 * @property {Object} loads
 		 */
@@ -68,7 +68,7 @@
 		{
 			set: function(verbose)
 			{
-				LoaderQueueItem.verbose = verbose;
+				LoaderItem.verbose = verbose;
 			}
 		});
 	}
@@ -181,19 +181,19 @@
 	 * Get a Queue item from the pool or new
 	 * @method  _getLoad
 	 * @private
-	 * @return  {springroll.LoaderQueueItem} The Queue item to use
+	 * @return  {springroll.LoaderItem} The Queue item to use
 	 */
 	p._getLoad = function()
 	{
 		var loadPool = this.loadPool;
-		return loadPool.length ? loadPool.pop(): new LoaderQueueItem();
+		return loadPool.length ? loadPool.pop(): new LoaderItem();
 	};
 	
 	/**
 	 * Pool the loader queue item
 	 * @method  _putLoad
 	 * @private
-	 * @param  {springroll.LoaderQueueItem} load Queue item that's done
+	 * @param  {springroll.LoaderItem} load Queue item that's done
 	 */
 	p._putLoad = function(load)
 	{

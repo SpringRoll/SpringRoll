@@ -27,7 +27,7 @@
 		"src/loaders/tasks/ColorAlphaTask.js",
 		"src/loaders/tasks/ListTask.js",
 		"src/loaders/tasks/LoadTask.js",
-		"src/loaders/LoaderQueueItem.js",
+		"src/loaders/LoaderItem.js",
 		"src/loaders/LoaderResult.js",
 		"src/loaders/Loader.js",
 		"src/loaders/AssetCache.js",

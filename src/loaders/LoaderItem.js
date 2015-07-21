@@ -2,7 +2,7 @@
  * @module Core
  * @namespace springroll
  */
-(function()
+(function(undefined)
 {
 	var LoadQueue = include('createjs.LoadQueue'),
 		Debug,
@@ -10,10 +10,10 @@
 
 	/**
 	 * Represents a single item in the loader queue 
-	 * @class LoaderQueueItem
+	 * @class LoaderItem
 	 * @extends createjs.LoadQueue
 	 */
-	var LoaderQueueItem = function()
+	var LoaderItem = function()
 	{
 		LoadQueue.call(this, true); // preferXHR is always true!
 
@@ -94,7 +94,7 @@
 	};
 	
 	/** Reference to the prototype */
-	var p = extend(LoaderQueueItem, LoadQueue);
+	var p = extend(LoaderItem, LoadQueue);
 
 	/**
 	 * Represent this object as a string
@@ -102,7 +102,7 @@
 	 * @static
 	 * @default 3
 	 */
-	var MAX_RETRIES = LoaderQueueItem.MAX_RETRIES = 3;
+	LoaderItem.MAX_RETRIES = 3;
 
 	if (DEBUG)
 	{
@@ -112,7 +112,7 @@
 		 * @static
 		 * @default false
 		 */
-		LoaderQueueItem.verbose = false;
+		LoaderItem.verbose = false;
 	}
 	
 	/**
@@ -123,7 +123,7 @@
 	 */
 	p.toString = function()
 	{
-		return "[LoaderQueueItem(url:'"+this.url+"')]";
+		return "[LoaderItem(url:'"+this.url+"')]";
 	};
 
 	/**
@@ -178,7 +178,7 @@
 	 */
 	p.start = function(maxCurrentLoads)
 	{
-		if (DEBUG && Debug && LoaderQueueItem.verbose)
+		if (DEBUG && Debug && LoaderItem.verbose)
 		{
 			Debug.log("Attempting to load file '" + this.url + "'");
 		}
@@ -246,7 +246,7 @@
 	p.retry = function()
 	{
 		this.retries++;
-		if (this.retries > MAX_RETRIES)
+		if (this.retries > LoaderItem.MAX_RETRIES)
 		{
 			this.onComplete(this, null);
 		}
@@ -264,7 +264,7 @@
 	 */
 	p._onCompleted = function(ev)
 	{
-		if (DEBUG && Debug && LoaderQueueItem.verbose)
+		if (DEBUG && Debug && LoaderItem.verbose)
 		{
 			Debug.log("File loaded successfully from " + this.url);
 		}
@@ -272,6 +272,6 @@
 	};
 	
 	// Assign to the name space
-	namespace('springroll').LoaderQueueItem = LoaderQueueItem;
+	namespace('springroll').LoaderItem = LoaderItem;
 	
 }());

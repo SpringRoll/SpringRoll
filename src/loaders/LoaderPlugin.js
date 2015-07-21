@@ -2,7 +2,7 @@
  * @module Core
  * @namespace springroll
  */
-(function(undefined)
+(function()
 {
 	var ApplicationPlugin = include('springroll.ApplicationPlugin'),
 		Loader = include('springroll.Loader'),
