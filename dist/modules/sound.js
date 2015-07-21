@@ -1839,6 +1839,7 @@
 		this._listCounter = -1;
 		if (typeof idOrList == "string")
 		{
+			this._listHelper.length = 0;
 			this._listHelper[0] = idOrList;
 			this.soundList = this._listHelper;
 		}
