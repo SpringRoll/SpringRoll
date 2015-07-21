@@ -42,16 +42,16 @@
 		/**
 		 * The collection of LoaderItems by url
 		 * @private
-		 * @property {Object} loads
+		 * @property {Object} items
 		 */
-		this.loads = {};
+		this.items = {};
 		
 		/**
-		 * The pool of queue items
+		 * The pool of LoaderItems
 		 * @private
-		 * @property {array} loadPool
+		 * @property {array} itemPool
 		 */
-		this.loadPool = [];
+		this.itemPool = [];
 	};
 	
 	/** The prototype */
@@ -80,20 +80,18 @@
 	 */
 	p.destroy = function()
 	{
-		var i, len, key;
-
-		this.loadPool.forEach(function(load)
+		this.itemPool.forEach(function(item)
 		{
-			load.clear();
+			item.clear();
 		});
-		this.loadPool = null;
+		this.itemPool = null;
 
 		if (this.cacheManager)
 		{
 			this.cacheManager.destroy();
 		}
 		this.cacheManager = null;
-		this.loads = null;
+		this.items = null;
 	};
 
 	/**
@@ -111,28 +109,28 @@
 		var options = this.app.options;
 
 		// Get a new loader object
-		var load = this._getLoad();
+		var item = this._getItem();
 
 		var basePath = options.basePath;
 		if (basePath !== undefined && 
 			/^http(s)?\:/.test(url) === false && 
 			url.search(basePath) == -1)
 		{
-			load.basePath = basePath;
+			item.basePath = basePath;
 		}
-		load.crossOrigin = options.crossOrigin;
-		load.url = url;
-		load.preparedUrl = this.cacheManager.prepare(url);
-		load.onComplete = this._onComplete.bind(this, complete);
-		load.onProgress = progress || null;
-		load.data = data || null;
-		load.setMaxConnections(this.maxCurrentLoads);
+		item.crossOrigin = options.crossOrigin;
+		item.url = url;
+		item.preparedUrl = this.cacheManager.prepare(url);
+		item.onComplete = this._onComplete.bind(this, complete);
+		item.onProgress = progress || null;
+		item.data = data || null;
+		item.setMaxConnections(this.maxCurrentLoads);
 
-		this.loads[url] = load;
+		this.items[url] = item;
 
-		load.start();
+		item.start();
 
-		return load;
+		return item;
 	};
 
 	/**
@@ -140,21 +138,21 @@
 	 * @method _onComplete
 	 * @private
 	 * @param  {function} complete Callback function when done
-	 * @param  {springroll.LoaderQueueResult} load The LoadQueue
+	 * @param  {springroll.LoaderItem} item The LoadQueue
 	 * @param  {null|*} result   [description]
 	 */
-	p._onComplete = function(complete, load, result)
+	p._onComplete = function(complete, item, result)
 	{
 		if (result)
 		{
 			result = new LoaderResult(
 				result,
-				load.url,
-				load.data
+				item.url,
+				item.data
 			);
 		}
 		complete(result);
-		this._putLoad(load);
+		this._putItem(item);
 	};
 	
 	/**
@@ -166,12 +164,12 @@
 	 */
 	p.cancel = function(url)
 	{
-		var load = this.loads[url];
+		var item = this.items[url];
 		
-		if (load)
+		if (item)
 		{
-			load.clear();
-			this._putLoad(load);
+			item.clear();
+			this._putItem(item);
 			return true;
 		}
 		return false;
@@ -179,27 +177,27 @@
 	
 	/**
 	 * Get a Queue item from the pool or new
-	 * @method  _getLoad
+	 * @method  _getItem
 	 * @private
 	 * @return  {springroll.LoaderItem} The Queue item to use
 	 */
-	p._getLoad = function()
+	p._getItem = function()
 	{
-		var loadPool = this.loadPool;
-		return loadPool.length ? loadPool.pop(): new LoaderItem();
+		var itemPool = this.itemPool;
+		return itemPool.length ? itemPool.pop(): new LoaderItem();
 	};
 	
 	/**
 	 * Pool the loader queue item
-	 * @method  _putLoad
+	 * @method  _putItem
 	 * @private
-	 * @param  {springroll.LoaderItem} load Queue item that's done
+	 * @param  {springroll.LoaderItem} item Loader item that's done
 	 */
-	p._putLoad = function(load)
+	p._putItem = function(item)
 	{
-		delete this.loads[load.url];
-		load.clear();
-		this.loadPool.push(load);
+		delete this.items[item.url];
+		item.clear();
+		this.itemPool.push(item);
 	};
 	
 	namespace('springroll').Loader = Loader;
