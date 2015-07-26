@@ -15,10 +15,7 @@
 	 *	@class TickerPlugin
 	 *	@extends springroll.ApplicationPlugin
 	 */
-	var TickerPlugin = function()
-	{
-		ApplicationPlugin.call(this);
-	};
+	var plugin = new ApplicationPlugin();
 
 	/**
 	*  Keep track of total time elapsed to feed to the Ticker
@@ -31,14 +28,11 @@
 	ticker.autoStart = false;
 	ticker.stop();
 
-	// Reference to the prototype
-	var p = extend(TickerPlugin, ApplicationPlugin);
-
-	p.setup = function()
+	plugin.setup = function()
 	{
 		//update early so that the InteractionManager updates in response to mouse movements
 		//and what the user saw the previous frame
-		this.on('update', updateTicker, -3);
+		this.on('update', updateTicker, 300);
 	};
 	
 	function updateTicker(elapsed)
